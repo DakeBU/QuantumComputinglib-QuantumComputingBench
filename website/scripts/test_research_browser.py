@@ -149,6 +149,24 @@ def check_curriculum_diagram(page, base: str, output: Path) -> None:
             figure.screenshot(path=str(output / f'curriculum-{width}-{theme}.png'))
 
 
+def check_licensing(page, base: str, output: Path) -> None:
+    page.goto(f"{base}/licensing/index.html", wait_until="networkidle", timeout=90000)
+    if 'default license is MIT' not in page.locator('main').inner_text():
+        raise AssertionError('License guide lost its project MIT boundary')
+    for name in ('MIT.txt', 'Apache-2.0.txt', 'NOTICE.md', 'Third-party-notices.md', 'MathJax-LICENSE.txt'):
+        if page.locator(f'main a[href="../licenses/{name}"]').count() != 1:
+            raise AssertionError('License guide lost a full-text download: ' + name)
+    if page.locator('footer a[data-license-link="1"]').count() != 1:
+        raise AssertionError('Native license footer entry is missing or duplicated')
+    for width in WIDTHS:
+        page.set_viewport_size({'width': width, 'height': 900})
+        for theme in THEMES:
+            page.evaluate('theme => document.documentElement.dataset.theme = theme', theme)
+            if page.evaluate('document.documentElement.scrollWidth > innerWidth + 2'):
+                raise AssertionError('License guide overflows at ' + str(width) + '/' + theme)
+            page.screenshot(path=str(output / f'licensing-{width}-{theme}.png'), full_page=True)
+
+
 def run(root: Path, output: Path, browser_channel: str | None = None,
         require_blueprint: bool = False) -> None:
     from playwright.sync_api import sync_playwright
@@ -168,6 +186,7 @@ def run(root: Path, output: Path, browser_channel: str | None = None,
             page.on("pageerror", lambda error: failures.append(str(error)))
             check_compact_sidebar(page, base)
             check_curriculum_diagram(page, base, output)
+            check_licensing(page, base, output)
             page.set_viewport_size({"width": 390, "height": 900})
             check_curriculum_explorer(page, base)
             for width in WIDTHS:

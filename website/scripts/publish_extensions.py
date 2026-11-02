@@ -357,9 +357,10 @@ def rebuild_search_and_metadata(
     payload["entries"].extend([
         {"type": "page", "kind": "paper", "title": "Papers", "summary": "Source-facing paper reproductions and their exact Lean scope", "url": "papers/index.html"},
         {"type": "page", "kind": "paperQueue", "title": "Paper reproduction queue", "summary": "Finite benchmarks, resource lemmas, reproduced papers, and remaining proof obligations", "url": "papers/index.html#reproduction-queue"},
+        {"type": "page", "kind": "licensing", "title": "Licenses and reuse", "summary": "Project MIT scope, third-party Apache 2.0 text, notices and attribution", "url": "licensing/index.html"},
     ])
     payload["entryCount"] = len(payload["entries"])
-    payload["pageEntryCount"] = int(payload["pageEntryCount"]) + 2
+    payload["pageEntryCount"] = int(payload["pageEntryCount"]) + 3
     search_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     for name in ("site-metadata.json", "build-report.json"):
         path = root / name
@@ -406,6 +407,8 @@ def publish(root: Path) -> None:
     )
     inject_state_preparation_case_map(root, combined)
     publish_papers(root, coverage, gate, context)
+    from website.scripts import publish_licensing
+    publish_licensing.publish(root, coverage, gate, context)
     rebuild_search_and_metadata(root, declarations_list, combined)
     rewrite_navigation(root)
     validate_published(root, extra_cases)

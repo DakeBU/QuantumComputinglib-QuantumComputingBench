@@ -20,6 +20,7 @@ PROJECT = (
     ("Contribute", "community/"),
     ("Contributors", "contributors/"),
     ("Organizers", "organizers/"),
+    ("Licenses and reuse", "licensing/"),
 )
 NAV = re.compile(r'<nav class="book-nav"(?:\s[^>]*)?>.*?</nav>', re.S)
 
@@ -83,4 +84,13 @@ def replace_navigation(text: str, prefix: str, current: str, papers: dict, cases
     """Replace, never append; missing/ambiguous navigation fails closed."""
     if len(NAV.findall(text)) != 1:
         raise ValueError(f"expected one common sidebar navigation: {current}")
-    return NAV.sub(lambda _: render_navigation(prefix, current, papers, cases), text, count=1)
+    text = NAV.sub(lambda _: render_navigation(prefix, current, papers, cases), text, count=1)
+    # Keep the frozen base renderer intact; the final navigation pass adds a
+    # native, no-JavaScript footer entry at the correct page-relative depth.
+    footer = re.compile(r'(<footer class="site-footer">.*?<nav aria-label="Footer">)(.*?)(</nav>)', re.S)
+    def add_license_link(match):
+        if 'data-license-link="1"' in match[2]:
+            return match[0]
+        link = f'<a data-license-link="1" href="{html.escape(prefix)}licensing/index.html">Licenses and reuse</a>'
+        return match[1] + match[2] + link + match[3]
+    return footer.sub(add_license_link, text)

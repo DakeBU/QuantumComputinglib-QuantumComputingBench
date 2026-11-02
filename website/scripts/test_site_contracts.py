@@ -21,6 +21,8 @@ SPEC.loader.exec_module(build_site)
 from website.content import CHAPTERS, IMPLEMENTATION_MAP, ROADMAP
 from website.case_assets import STAGE_CIRCUITS
 from website.scripts.check_site import check_case_teaching, require
+# Keep license/download regressions in the existing mandatory website test gate.
+from website.scripts.test_licensing import LicensingTests
 
 
 TEACHING_TRACKS = {str(chapter["track"]) for chapter in CHAPTERS}
