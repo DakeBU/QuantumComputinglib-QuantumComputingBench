@@ -126,6 +126,8 @@ class AuthoredReferenceVerifier:
 
     def _source(self, request, nonce):
         imports = "\n".join("import " + module for module in self.task["imports"])
+        universes = self.task.get("universe_parameters", [])
+        universe_line = "universe " + " ".join(universes) + "\n" if universes else ""
         nodes = []
         for key in request["dependency_order"]:
             node = request["dependencies"][key]
@@ -138,7 +140,7 @@ class AuthoredReferenceVerifier:
         declarations = "\n".join(nodes)
         return f'''import Lean
 {imports}
-open scoped BigOperators
+{universe_line}open scoped BigOperators
 {declarations}
 open Lean Elab Command in
 elab "qcbAuthoredReport" : command => do
@@ -155,6 +157,7 @@ qcbAuthoredReport
         if (request.get("task_hash") != self.task_hash or key not in self.nodes
                 or request.get("target") != self.nodes[key]["target"]
                 or request.get("imports") != self.task["imports"]
+                or request.get("universe_parameters") != self.task.get("universe_parameters", [])
                 or request.get("library_revision") != self.revision):
             raise ValueError("authored replay request differs from fixed task")
         if not isinstance(proof, str) or proof_sha(proof) not in self.allowlist[key]:

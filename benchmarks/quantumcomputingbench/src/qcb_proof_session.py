@@ -20,6 +20,7 @@ from qcb_core import digest
 from qcb_lean import APPROVED_AXIOMS, _trusted_target
 
 TASK_SCHEMA = "qcb.proof_obligation_task.v1"
+UNIVERSE_TASK_SCHEMA = "qcb.proof_obligation_task.v2"
 _ID = re.compile(r"[A-Za-z][A-Za-z0-9_]*\Z")
 _NAME = re.compile(r"[A-Za-z_][A-Za-z0-9_']*(?:\.[A-Za-z_][A-Za-z0-9_']*)*\Z")
 _FAILURES = {"compile_error": "IMPLEMENTATION_FAILED", "timeout": "ENV_BLOCKED",
@@ -55,8 +56,20 @@ def validate_task(task):
     required = {"schema_version", "core_id", "contract_hash", "family", "split", "snapshot_id",
                 "library_revision", "imports", "question", "assumptions", "conventions",
                 "root_id", "nodes", "interfaces", "alignment_status"}
-    if not isinstance(task, dict) or set(task) != required or task["schema_version"] != TASK_SCHEMA:
+    if not isinstance(task, dict):
+        raise TypeError("task must be an evaluator-owned object")
+    version = task.get("schema_version")
+    if version == UNIVERSE_TASK_SCHEMA:
+        required.add("universe_parameters")
+    if set(task) != required or version not in {TASK_SCHEMA, UNIVERSE_TASK_SCHEMA}:
         raise ValueError("unexpected task fields or schema; evaluator data must exclude gold")
+    if version == UNIVERSE_TASK_SCHEMA:
+        parameters = task["universe_parameters"]
+        reserved = {"by", "in", "where", "theorem", "def", "axiom", "import", "Type", "Prop", "Sort", "universe"}
+        if (not isinstance(parameters, list) or not 1 <= len(parameters) <= 8
+                or any(not isinstance(p, str) or len(p) > 32 or not _ID.fullmatch(p) or p in reserved for p in parameters)
+                or len(set(parameters)) != len(parameters)):
+            raise ValueError("universe parameters must be fixed unique bounded identifiers, not a source preamble")
     for key in ("core_id", "contract_hash", "family", "snapshot_id", "library_revision", "question", "alignment_status"):
         if not isinstance(task[key], str) or not task[key].strip():
             raise ValueError("missing task identity/context: " + key)
@@ -280,6 +293,7 @@ class ProofSession:
         request = {"schema_version": "qcb.obligation_check.v1", "task_hash": self.task_hash,
                    "request_id": str(self._checks), "node_id": node_id,
                    "imports": self._task["imports"], "target": self._nodes[node_id]["target"],
+                   "universe_parameters": self._task.get("universe_parameters", []),
                    "library_revision": self._task["library_revision"], "proof": proof,
                    "dependency_order": order,
                    "dependencies": {k: {"target": self._nodes[k]["target"],

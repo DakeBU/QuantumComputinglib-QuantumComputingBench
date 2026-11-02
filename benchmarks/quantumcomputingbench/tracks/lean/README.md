@@ -21,6 +21,13 @@ fixtures exercise the engineering protocol, with original one-call controls
 retained. They are not new admitted mathematical cores, blind tests, model
 scores, autonomous proof decomposition, or incremental Lean tactic states.
 
+The [sequential proof companions](SEQUENTIAL_PROOFS.md) add prospective SP007
+transfer-induction and SP008 real-probability views, with a source-blind decoder,
+distinct comparison and fixed references. They remain experimental proposals.
+[Capability diagnostics](CAPABILITY_SCORING.md) separately bind curated retrieval
+coverage, complete canonical explanation rubrics and evaluator-owned marks;
+they never turn a valid proof into an automatic NL or model score.
+
 Prioritize exact formal views of admitted source-supported NL targets. Record
 the literal imports, assumptions, target, readable correspondence, source hashes,
 fixed-reference proof, axiom audit and genuine execution class. A formal target

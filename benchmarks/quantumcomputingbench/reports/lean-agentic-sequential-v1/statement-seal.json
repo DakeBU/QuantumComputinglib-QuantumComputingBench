@@ -1,0 +1,187 @@
+{
+  "schema_version": "qcb.sequential_math_statement_seal.v1",
+  "status": "STATEMENT_SEALED_FOR_PROSPECTIVE_VIEW_NOT_ADMITTED",
+  "author": "/root/lean_agentic_pilot_math",
+  "proof_search_started": false,
+  "independent_semantic_review_claimed": false,
+  "catalog_hash": "5269b9f2521e3bf14db293fea34895f6e44a387c2479c164407b4d16dd9a2247",
+  "integration_commit": "e9f158ffe0d43bc7511c79530ec0a85c9720e06d",
+  "library_commit": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+  "lean_toolchain": "leanprover/lean4:v4.29.1",
+  "source_bindings": [
+    {
+      "path": "QuantumBlockEncoding/SequentialBondPreparation.lean",
+      "sha256_lf": "ad4542b108d44f196f2a02f78e59b58f43d45b1e890709cf4c22e1222805d5c5"
+    }
+  ],
+  "new_cores": 0,
+  "new_views_admitted": 0,
+  "cases": [
+    {
+      "anonymous_id": "S1",
+      "core_id": "qcb-core-sp-007",
+      "status": "prospective_formal_view_pending_semantic_admission",
+      "binding": {
+        "contract_hash": "22dfe5a670aeba9bec8bea6209789cb26784265fb68d49a47177c3a3c741f7f4",
+        "item_digest": "f47a739f7ea08d5acd553764322f8c24c2c6b1e7c40abe98923f3bceb2f8963a",
+        "item_id": "qcb-38379234beb95f4a335c",
+        "family": "sequential-transfer-composition",
+        "split": "test_public",
+        "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a"
+      },
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.SequentialBondPreparation"
+        ],
+        "preamble": "universe u\nopen scoped BigOperators",
+        "target": "∀ {B : Type u} [Fintype B] [DecidableEq B] (U : ℕ → QuantumBlockEncoding.SequentialBondPreparation.Stage B) (K : ℕ → QuantumBlockEncoding.SequentialBondPreparation.Core B), (∀ (t : ℕ) (bit : Fin 2) (b a : B), U t (bit, b) (0, a) = K t (bit, b) a) → ∀ (boundary : B → ℂ) (n : ℕ) (x : QuantumBlockEncoding.PrimitiveBasis n) (b : B), QuantumBlockEncoding.SequentialBondPreparation.run U boundary n (x, b) = (QuantumBlockEncoding.SequentialBondPreparation.transfer K n x).mulVec boundary b"
+      },
+      "binder_audit": [
+        {
+          "binder": "B : Type u; Fintype B; DecidableEq B",
+          "classification": "TYPING",
+          "meaning": "Arbitrary finite bond carrier with decidable equality."
+        },
+        {
+          "binder": "U : ℕ → Stage B; K : ℕ → Core B",
+          "classification": "SOURCE",
+          "meaning": "Arbitrary complex full local matrices and rectangular cores."
+        },
+        {
+          "binder": "∀ t bit b a, U t (bit,b) (0,a) = K t (bit,b) a",
+          "classification": "SOURCE",
+          "meaning": "Sole logical premise: local fresh-bit-zero columns match. No restriction on fresh-bit-one columns or full unitarity."
+        },
+        {
+          "binder": "boundary : B → ℂ",
+          "classification": "SOURCE",
+          "meaning": "Arbitrary explicit complex vector; zero and unnormalized boundaries allowed."
+        },
+        {
+          "binder": "n : ℕ; x : PrimitiveBasis n; b : B",
+          "classification": "TYPING",
+          "meaning": "Every length including zero and every output amplitude."
+        }
+      ],
+      "excess_binders": [],
+      "definition_kind": "literal",
+      "conventions": {
+        "scalar": "Complex matrices and amplitudes; S2 conclusion is in ℝ.",
+        "rows_columns": "Output rows/input columns. Stage labels (bit,bond); run labels (emitted word,bond).",
+        "register_order": "The next bit is appended at highest wire n. Previous wires keep their indices.",
+        "chronology": "Latest core slice multiplies on the left of the earlier transfer.",
+        "ancilla": "Fresh input bit zero at every step. Final bond is retained. No terminal cleanup premise or claim.",
+        "resource_boundary": "No primitive compiler, flattened wire-placement bridge, gate/query cost or finite-bit claim."
+      },
+      "source_node_ids": [
+        "declaration:QuantumBlockEncoding.SequentialBondPreparation.run_eq_transfer",
+        "declaration:QuantumBlockEncoding.SequentialBondPreparation.transfer",
+        "declaration:QuantumBlockEncoding.SequentialBondPreparation.step_apply"
+      ],
+      "source_supporting_node_ids": [
+        "declaration:QuantumBlockEncoding.SequentialBondPreparation.step"
+      ],
+      "source_anchors": [
+        [
+          29,
+          69
+        ],
+        [
+          81,
+          109
+        ]
+      ],
+      "semantic_boundaries": [
+        "Exact complex amplitude equality retains phases for arbitrary explicit boundary.",
+        "Only clean input columns matter; unitarity, normalization, support, completion existence and global run-action hypotheses are absent."
+      ],
+      "signature_sha256": "7167faf085ea5b026e90fe60e4e30723c64bb2bd3797a8eef0e71457fb2b106c"
+    },
+    {
+      "anonymous_id": "S2",
+      "core_id": "qcb-core-sp-008",
+      "status": "prospective_formal_view_pending_semantic_admission",
+      "binding": {
+        "contract_hash": "b292fd14d37907ff3e7aba598779c0fd83b21c819fa4be460397ff0fc38cfa02",
+        "item_digest": "d403cce404da75f2931579b020692a9cf08143dfd7b2a59eeec69fce4c59f771",
+        "item_id": "qcb-938d6925b4acd7eb28a9",
+        "family": "coherent-success-probability",
+        "split": "train",
+        "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a"
+      },
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.SequentialBondPreparation"
+        ],
+        "preamble": "universe u\nopen scoped BigOperators",
+        "target": "∀ {B : Type u} [Fintype B] [DecidableEq B] (U : ℕ → QuantumBlockEncoding.SequentialBondPreparation.Stage B) (initial : B), (∀ t : ℕ, U t ∈ _root_.Matrix.unitaryGroup (Fin 2 × B) ℂ) → ∀ n : ℕ, (∑ z : QuantumBlockEncoding.PrimitiveBasis n × B, Complex.normSq (QuantumBlockEncoding.SequentialBondPreparation.run U (QuantumBlockEncoding.SequentialBondPreparation.basisBoundary initial) n z)) = 1"
+      },
+      "binder_audit": [
+        {
+          "binder": "B : Type u; Fintype B; DecidableEq B",
+          "classification": "TYPING",
+          "meaning": "Arbitrary finite bond carrier. initial supplies inhabitance."
+        },
+        {
+          "binder": "U : ℕ → Stage B; initial : B",
+          "classification": "SOURCE",
+          "meaning": "Full local matrices and a literal computational-basis boundary."
+        },
+        {
+          "binder": "∀ t, U t ∈ Matrix.unitaryGroup (Fin 2 × B) ℂ",
+          "classification": "SOURCE",
+          "meaning": "Sole logical premise: each entire square stage is unitary. Expanded: its dagger product in either order is identity."
+        },
+        {
+          "binder": "n : ℕ",
+          "classification": "TYPING",
+          "meaning": "All lengths including zero. Sum covers every emitted-word/final-bond label."
+        }
+      ],
+      "excess_binders": [],
+      "definition_kind": "literal",
+      "conventions": {
+        "scalar": "Complex matrices and amplitudes; S2 conclusion is in ℝ.",
+        "rows_columns": "Output rows/input columns. Stage labels (bit,bond); run labels (emitted word,bond).",
+        "register_order": "The next bit is appended at highest wire n. Previous wires keep their indices.",
+        "chronology": "Latest core slice multiplies on the left of the earlier transfer.",
+        "ancilla": "Fresh input bit zero at every step. Final bond is retained. No terminal cleanup premise or claim.",
+        "resource_boundary": "No primitive compiler, flattened wire-placement bridge, gate/query cost or finite-bit claim."
+      },
+      "source_node_ids": [
+        "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_run_basisBoundary",
+        "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_step",
+        "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_run"
+      ],
+      "source_supporting_node_ids": [
+        "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_freshZero",
+        "declaration:QuantumBlockEncoding.SequentialBondPreparation.liftStage_unitary"
+      ],
+      "source_anchors": [
+        [
+          29,
+          77
+        ],
+        [
+          93,
+          97
+        ],
+        [
+          113,
+          113
+        ],
+        [
+          288,
+          340
+        ]
+      ],
+      "semantic_boundaries": [
+        "Actual real sum of Complex.normSq over the full joint word/bond basis equals 1.",
+        "No positivity, normalization, clean-column/core-alignment, cleanup, completion-existence or global-action premise.",
+        "Entire register retained: no projection, postselection or renormalization. No claim of a clean final bond or pure emitted-word state."
+      ],
+      "required_bridge": "Explicitly prove amplitudeMass(v).re = ∑ i, Complex.normSq(v i) for arbitrary finite complex v, then transport the existing complex-mass result to the real probability statement.",
+      "signature_sha256": "46ff0f91e86b09aa1b58e340833db37f3d655e6d222a74f4721edcfcdb91e28b"
+    }
+  ]
+}

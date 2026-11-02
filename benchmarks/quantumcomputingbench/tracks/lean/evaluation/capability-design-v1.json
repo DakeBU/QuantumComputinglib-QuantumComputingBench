@@ -1,0 +1,484 @@
+{
+  "schema_version": "qcb.capability_scoring_design_review.v1",
+  "author": "/root/lean_agentic_protocol_review",
+  "review_class": "bounded_source_aware_design_review",
+  "source_blind": false,
+  "mathematical_admission_claimed": false,
+  "model_calls": 0,
+  "lean_executed": false,
+  "production_files_changed": false,
+  "fixture_sha256_lf": "7ff1e46a5a2b7e6888aeff71dd8ac980356c36a1aaa30a28add8b137bdf2b099",
+  "catalog_hash": "5269b9f2521e3bf14db293fea34895f6e44a387c2479c164407b4d16dd9a2247",
+  "cases": [
+    {
+      "core_id": "qcb-core-sp-005",
+      "contract_hash": "0821f527326022b9972f0d4083b8a2a99c179263e36e5d27112f6cb5c1c98865",
+      "corpus_hash": "9b803043cbac6cc969672a7a9bccf7ecf358f9529a1e58541e9a7284a769fede",
+      "canonical_rubric": [
+        {
+          "criterion": "Establishes pairNorm(a,b)^2 = a^2 + b^2 (square of a square root of a nonnegative radicand), hence m(b)^2 = f(snoc b 0)^2 + f(snoc b 1)^2.",
+          "id": "r1",
+          "weight": 1
+        },
+        {
+          "criterion": "Uses the (prefix word, last bit) bijection w = snoc b v to reindex the full squared-norm sum.",
+          "id": "r2",
+          "weight": 1
+        },
+        {
+          "criterion": "Splits the last-bit sum into v=0 and v=1 to match the marginal sum, concluding normSq(marginal f) = normSq f.",
+          "id": "r3",
+          "weight": 1
+        },
+        {
+          "criterion": "Explains that exact squared-norm preservation per level is what carries the normalization invariant through the recursion.",
+          "id": "r4",
+          "weight": 1
+        }
+      ],
+      "canonical_rubric_hash": "62baa8be1a8b2cf38e265848d5d9bc77c83e62bbf8a5bfa9291c7273b575cd3d",
+      "canonical_assumptions": [
+        "f is an arbitrary real table on n+1 wires; no positivity or normalization is assumed",
+        "the marginal is defined by the sibling-pair Euclidean length as in the source"
+      ],
+      "canonical_conventions": [
+        "normSq g is the sum of squared entries; wires are little-endian with the last bit split off by snoc",
+        "pairNorm is the nonnegative Euclidean length of a pair"
+      ],
+      "assumption_context_hash": "45ecc1cd060a8728e73f16a4b12873f0b98b7dfccec7938387607790e8cc7407",
+      "pilot_rubric": [
+        {
+          "id": "square-root",
+          "criterion": "Derive pairNorm²=a²+b² from the nonnegative sum of two squares, with no positivity premise on amplitudes.",
+          "kind": "mathematical_mechanism"
+        },
+        {
+          "id": "partition",
+          "criterion": "Reindex all n+1 bit words by the prefix/highest-bit bijection; expand the two-bit carrier exactly once, preserving both siblings.",
+          "kind": "mathematical_mechanism"
+        },
+        {
+          "id": "compose",
+          "criterion": "Identify each marginal square with its sibling masses and conclude the unchanged total squared norm target.",
+          "kind": "root_composition"
+        },
+        {
+          "id": "scope",
+          "criterion": "Preserve arbitrary n (including n=0) and arbitrary real f, signed and zero amplitudes included.",
+          "kind": "assumption_audit"
+        }
+      ],
+      "pilot_rubric_hash": "5810c50aeab17f9de00cae8a6eed60a55f9291f7e2bab1e8efe17de64702d69d",
+      "local_curated_interface_groups": [
+        {
+          "obligation_id": "sp_pair_square",
+          "and_names": [
+            "Real.sq_sqrt",
+            "add_nonneg",
+            "sq_nonneg"
+          ],
+          "provider_obligations": [],
+          "empty_curated_group_is_not_a_route_hit": false
+        },
+        {
+          "obligation_id": "sp_last_bit_sum",
+          "and_names": [
+            "Equiv.sum_comp",
+            "Fintype.sum_prod_type",
+            "Fin.sum_univ_two",
+            "QuantumBlockEncoding.RealAmplitudePreparation.lastBasisEquiv_symm_apply"
+          ],
+          "provider_obligations": [],
+          "empty_curated_group_is_not_a_route_hit": false
+        },
+        {
+          "obligation_id": "sp_marginal_square",
+          "and_names": [],
+          "provider_obligations": [
+            "sp_pair_square"
+          ],
+          "empty_curated_group_is_not_a_route_hit": true
+        },
+        {
+          "obligation_id": "sp_root",
+          "and_names": [],
+          "provider_obligations": [
+            "sp_marginal_square",
+            "sp_last_bit_sum"
+          ],
+          "empty_curated_group_is_not_a_route_hit": true
+        }
+      ],
+      "root_routes": [
+        {
+          "route_id": "authored_primitive_mechanism",
+          "eligible_in_curated_corpus": true,
+          "and_names": [
+            "Equiv.sum_comp",
+            "Fin.sum_univ_two",
+            "Fintype.sum_prod_type",
+            "QuantumBlockEncoding.RealAmplitudePreparation.lastBasisEquiv_symm_apply",
+            "Real.sq_sqrt",
+            "add_nonneg",
+            "sq_nonneg"
+          ],
+          "reference_variants": [
+            "provided_dag",
+            "constructed_whole_root"
+          ],
+          "variant_relationship": "same curated primitive route; different packaging, not independent mathematical alternatives"
+        },
+        {
+          "route_id": "original_root_application",
+          "eligible_in_curated_corpus": false,
+          "and_names": [
+            "QuantumBlockEncoding.RealAmplitudePreparation.normSq_marginal"
+          ],
+          "reason": "Callable via imports, absent from current tool-visible corpus; report curated coverage/route hit as not applicable, never turn its empty corpus intersection into a vacuous hit."
+        }
+      ],
+      "engineered_explanation_fixture_pair": [
+        {
+          "id": "engineered-sp-positive",
+          "answer": "For every real a,b, a²+b²≥0, so sqrt(a²+b²)²=a²+b². Thus m(b)²=f(snoc b 0)²+f(snoc b 1)². Every (n+1)-wire word is uniquely snoc b v with v=0 or 1. Reindexing the full squared-norm sum by this bijection and expanding those two cases gives exactly the marginal squared-norm sum. This includes n=0, signed entries and zero entries, without a normalization premise. Consequently, if the full table has squared norm 1, each recursive marginal also has squared norm 1; this supplies the recursion’s normalization invariant. This identity alone does not certify the preparation circuit or its cost.",
+          "canonical_criteria": {
+            "r1": {
+              "verdict": "met",
+              "reason": "The nonnegative radicand justifies the square-root square and specializes it to each marginal entry."
+            },
+            "r2": {
+              "verdict": "met",
+              "reason": "It states the unique highest-bit snoc bijection."
+            },
+            "r3": {
+              "verdict": "met",
+              "reason": "It reindexes the sum and expands both v=0 and v=1 to identify the two squared norms."
+            },
+            "r4": {
+              "verdict": "met",
+              "reason": "It explicitly carries squared norm 1 through each marginal recursion level."
+            }
+          },
+          "assumption_audit": {
+            "contract_preserved": true,
+            "reasons": [
+              "Arbitrary n, signed and zero real entries are retained.",
+              "Normalization appears only in a conditional consequence, not as a premise of the identity.",
+              "Circuit and cost claims are excluded."
+            ]
+          },
+          "answer_hash": "5eca96c6f3132c40ddf294b6827c63b02d57e126f65fd883d88954c3160c43f8",
+          "adjudication_class": "engineered_expected_fixture_labels_by_same_source_aware_author",
+          "model_answer": false,
+          "source_blind": false
+        },
+        {
+          "id": "engineered-sp-negative",
+          "answer": "Since f is nonnegative and normalized, sqrt(f(snoc b 0)²+f(snoc b 1)²)=f(snoc b 0)+f(snoc b 1). Every word is uniquely snoc b v, v∈{0,1}, so both siblings are counted once. Hence the marginal stays normalized and this proves the full preparation circuit correct.",
+          "canonical_criteria": {
+            "r1": {
+              "verdict": "contradicted",
+              "reason": "The displayed square-root-to-sum identity is false: for the normalized sibling pair a=b=1/sqrt(2), its left side is 1 and right side is sqrt(2)."
+            },
+            "r2": {
+              "verdict": "met",
+              "reason": "The unique snoc decomposition with v in {0,1} is correctly stated."
+            },
+            "r3": {
+              "verdict": "not_met",
+              "reason": "Counting both siblings is asserted, but no correct squared-sum identification follows from the false local identity."
+            },
+            "r4": {
+              "verdict": "not_met",
+              "reason": "Normalization propagation is asserted without a valid per-level squared-norm preservation argument."
+            }
+          },
+          "assumption_audit": {
+            "contract_preserved": false,
+            "reasons": [
+              "It adds nonnegativity and normalization premises although the question permits every real table.",
+              "It claims full circuit correctness from a norm identity without the state-action bridge."
+            ]
+          },
+          "answer_hash": "125127512094db4137101a4be88f9c3e44a90cb138388ec63751af8584330c9c",
+          "adjudication_class": "engineered_expected_fixture_labels_by_same_source_aware_author",
+          "model_answer": false,
+          "source_blind": false
+        }
+      ]
+    },
+    {
+      "core_id": "qcb-core-la-102",
+      "contract_hash": "4be120801daf6e4de98794d14d4c0db5f93bcb6924b3c6aae20252167d662f93",
+      "corpus_hash": "6f942d78dd4a3bc7b7cd139607654f2af1401196f46d32994f48778cdb4b8739",
+      "canonical_rubric": [
+        {
+          "criterion": "Kill the repeated-row terms via equal-row determinant 0",
+          "id": "c1",
+          "weight": 1
+        },
+        {
+          "criterion": "Identify the swap term sign as -1 and assemble a*d - b*c",
+          "id": "c2",
+          "weight": 1
+        },
+        {
+          "criterion": "Specialize rotation coefficients to get factor cos^2+sin^2=1",
+          "id": "c3",
+          "weight": 1
+        }
+      ],
+      "canonical_rubric_hash": "8de637e43a83e87bba176d90bee32bbf55360f7948cb0e4af3c4ca0a133d4e75",
+      "canonical_assumptions": [
+        "Finite-dimensional real square matrix; two distinct selected rows",
+        "Determinant is multilinear and alternating in rows"
+      ],
+      "canonical_conventions": [
+        "RY half-angle convention for the rotation coefficients",
+        "A single row transposition contributes sign -1",
+        "Original derivation from inspected local source; no fresh Lean verification"
+      ],
+      "assumption_context_hash": "8758d71d0ae139375c2a7b2f7d5d91e0531960ea03fea308c8d5901cc4c22e31",
+      "pilot_rubric": [
+        {
+          "id": "alternating",
+          "criterion": "Show both repeated-original-row determinants vanish; i≠j is necessary.",
+          "kind": "mathematical_mechanism"
+        },
+        {
+          "id": "sign",
+          "criterion": "Identify the remaining exchanged-row matrix with a single row transposition and keep its negative determinant sign.",
+          "kind": "mathematical_mechanism"
+        },
+        {
+          "id": "multilinear",
+          "criterion": "Expand both updated rows into four terms; eliminate the repeated-row terms and collect (a*d-b*c)*det A.",
+          "kind": "mathematical_mechanism"
+        },
+        {
+          "id": "rotation",
+          "criterion": "Align rotateRows with simultaneous mixing of the original two rows, using cos(theta/2), -sin(theta/2), sin(theta/2), cos(theta/2).",
+          "kind": "definition_alignment"
+        },
+        {
+          "id": "unit-factor",
+          "criterion": "The determinant factor is cos²+sin²=1; conclude preservation for arbitrary A without orthogonality, adjacency, order i<j or determinant-one input assumptions.",
+          "kind": "assumption_audit"
+        }
+      ],
+      "pilot_rubric_hash": "cd0badaaf5964ea8feb03ce24e919f0b852572d546212fd6105740ca7c1e6ee1",
+      "local_curated_interface_groups": [
+        {
+          "obligation_id": "la_equal_rows",
+          "and_names": [
+            "Matrix.det_zero_of_row_eq"
+          ],
+          "provider_obligations": [],
+          "empty_curated_group_is_not_a_route_hit": false
+        },
+        {
+          "obligation_id": "la_swapped_rows",
+          "and_names": [
+            "Matrix.det_permute",
+            "Equiv.Perm.sign_swap",
+            "Matrix.updateRow_apply",
+            "Matrix.submatrix_apply",
+            "Equiv.swap_apply_def"
+          ],
+          "provider_obligations": [],
+          "empty_curated_group_is_not_a_route_hit": false
+        },
+        {
+          "obligation_id": "la_two_row_mix",
+          "and_names": [
+            "Matrix.det_updateRow_add",
+            "Matrix.det_updateRow_smul",
+            "Matrix.updateRow_comm"
+          ],
+          "provider_obligations": [
+            "la_equal_rows",
+            "la_swapped_rows"
+          ],
+          "empty_curated_group_is_not_a_route_hit": false
+        },
+        {
+          "obligation_id": "la_rotation_update",
+          "and_names": [
+            "Matrix.updateRow_apply"
+          ],
+          "provider_obligations": [],
+          "empty_curated_group_is_not_a_route_hit": false
+        },
+        {
+          "obligation_id": "la_unit_factor",
+          "and_names": [
+            "Real.sin_sq_add_cos_sq"
+          ],
+          "provider_obligations": [],
+          "empty_curated_group_is_not_a_route_hit": false
+        },
+        {
+          "obligation_id": "la_root",
+          "and_names": [],
+          "provider_obligations": [
+            "la_two_row_mix",
+            "la_rotation_update",
+            "la_unit_factor"
+          ],
+          "empty_curated_group_is_not_a_route_hit": true
+        }
+      ],
+      "root_routes": [
+        {
+          "route_id": "authored_primitive_mechanism",
+          "eligible_in_curated_corpus": true,
+          "and_names": [
+            "Equiv.Perm.sign_swap",
+            "Equiv.swap_apply_def",
+            "Matrix.det_permute",
+            "Matrix.det_updateRow_add",
+            "Matrix.det_updateRow_smul",
+            "Matrix.det_zero_of_row_eq",
+            "Matrix.submatrix_apply",
+            "Matrix.updateRow_apply",
+            "Matrix.updateRow_comm",
+            "Real.sin_sq_add_cos_sq"
+          ],
+          "reference_variants": [
+            "provided_dag",
+            "constructed_whole_root"
+          ],
+          "variant_relationship": "same curated primitive route; different packaging, not independent mathematical alternatives"
+        },
+        {
+          "route_id": "original_root_application",
+          "eligible_in_curated_corpus": false,
+          "and_names": [
+            "QuantumBlockEncoding.AdjacentGivens.rotateRows_det"
+          ],
+          "reason": "Callable via imports, absent from current tool-visible corpus; report curated coverage/route hit as not applicable, never turn its empty corpus intersection into a vacuous hit."
+        }
+      ],
+      "engineered_explanation_fixture_pair": [
+        {
+          "id": "engineered-la-positive",
+          "answer": "For distinct i,j, expanding both mixed rows gives ac times a repeated-i-row determinant, ad det A, bc times the row-swapped determinant, and bd times a repeated-j-row determinant. The repeated-row terms vanish, and one row transposition gives the negative determinant, yielding (ad−bc)det A. With a=d=cos(theta/2), b=−sin(theta/2), c=sin(theta/2), the factor is cos²(theta/2)+sin²(theta/2)=1. Thus the specified rotation preserves the determinant for every real square A. Distinctness is needed; adjacency, row ordering, invertibility, orthogonality and det A=1 are not assumptions. No circuit or arithmetic-cost conclusion follows.",
+          "canonical_criteria": {
+            "c1": {
+              "verdict": "met",
+              "reason": "Both repeated-row terms, with coefficients ac and bd, are explicitly eliminated."
+            },
+            "c2": {
+              "verdict": "met",
+              "reason": "The row transposition has negative determinant and yields the correct factor ad-bc."
+            },
+            "c3": {
+              "verdict": "met",
+              "reason": "The actual RY half-angle coefficients, including the negative sine in b, give the unit determinant factor."
+            }
+          },
+          "assumption_audit": {
+            "contract_preserved": true,
+            "reasons": [
+              "It retains distinct selected rows and arbitrary real square A.",
+              "It excludes unnecessary adjacency, row-order, invertibility, orthogonality and determinant-one premises.",
+              "It does not infer circuit or resource correctness."
+            ]
+          },
+          "answer_hash": "cf12a1c68db54bfbf03be2d3e364644e0cea8aca1cf837af7e835059d9874742",
+          "adjudication_class": "engineered_expected_fixture_labels_by_same_source_aware_author",
+          "model_answer": false,
+          "source_blind": false
+        },
+        {
+          "id": "engineered-la-negative",
+          "answer": "Expanding both mixed rows gives four terms. For distinct i,j, the ac and bd terms have equal rows and vanish. Swapping the two rows has sign +1, so the factor is ad+bc. Taking a=d=cos(theta), b=c=sin(theta) gives cos²(theta)+sin²(theta)=1, hence the specified RY rotation preserves the determinant even when i=j.",
+          "canonical_criteria": {
+            "c1": {
+              "verdict": "met",
+              "reason": "The ac and bd repeated-row terms are correctly identified and eliminated under distinctness."
+            },
+            "c2": {
+              "verdict": "contradicted",
+              "reason": "A single row transposition has sign -1, so the cross-term coefficient is ad-bc rather than ad+bc."
+            },
+            "c3": {
+              "verdict": "contradicted",
+              "reason": "It uses full angles and two positive sine coefficients instead of the specified half-angle signed rotation; the claimed specialization is not the source operation."
+            }
+          },
+          "assumption_audit": {
+            "contract_preserved": false,
+            "reasons": [
+              "It removes the necessary i!=j condition in its conclusion.",
+              "At i=j, the source first branch scales that row by cos(theta/2)-sin(theta/2); for the 1x1 identity and theta=pi the determinant becomes -1."
+            ]
+          },
+          "answer_hash": "bc879d289f3cfbaafb3f16a0e242eff9b624381153d0ccb53e415d06905dbfd1",
+          "adjudication_class": "engineered_expected_fixture_labels_by_same_source_aware_author",
+          "model_answer": false,
+          "source_blind": false
+        }
+      ]
+    }
+  ],
+  "metric_spec": {
+    "observation_set": "Deduplicated exact declaration names actually returned in recorded search responses after truncation; not intended backend hits, proof citations, latent memory or proof-term dependencies.",
+    "per_route": "For nonempty eligible R subset C and observed D subset C: curated_interface_coverage=|D intersect R|/|R|; precision=|D intersect R|/|D| when |D|>0, else null; complete_curated_route_hit=(R subset D).",
+    "or_routes": "Keep each alternative AND-set intact. OR hit is any complete eligible nonempty AND-set. Report every route coverage; do not stitch partial alternatives together or independently maximize unrelated precision and coverage.",
+    "aggregate": "Episode union deduplicates names across searches. Also retain per-query results, query count, repeated-return count and exposure. One search returns at most six entries, so the full SP seven-name/LA ten-name route cannot be hit in one call.",
+    "no_retrieval": "Under retrieval-enabled exposure, zero observed coverage means no observed tool access, not no knowledge. Precision is null. Closed-book condition should be not-applicable for tool-use metrics rather than penalized as a failed lookup.",
+    "formal_separation": "Formal root replay, obligation checks, retrieval metrics and explanation adjudication remain separate outputs; no blended success/recall score.",
+    "precision_limit": "Every current corpus declaration belongs to the authored whole-root route; whole-core precision is trivially one for any nonempty in-corpus return. Use obligation-specific relevance or explicitly acknowledge this lack of precision discrimination; do not invent distractor labels."
+  },
+  "rubric_design": {
+    "canonical_vs_pilot": "Score both only with separate IDs and hashes. SP canonical r4 is not explicitly covered by the pilot rubric. LA pilot expands canonical c1-c3 with definition and assumption details.",
+    "canonical_mapping": {
+      "sp-005": {
+        "r1": [
+          "square-root",
+          "compose"
+        ],
+        "r2": [
+          "partition"
+        ],
+        "r3": [
+          "partition",
+          "compose"
+        ],
+        "r4": []
+      },
+      "la-102": {
+        "c1": [
+          "alternating",
+          "multilinear"
+        ],
+        "c2": [
+          "sign",
+          "multilinear"
+        ],
+        "c3": [
+          "rotation",
+          "unit-factor"
+        ]
+      }
+    },
+    "judgement_record": "Bind exact task/report/corpus/route metadata/response/rubric hashes; criterion IDs, verdicts, evidence spans and source-aware reasons; adjudicator identity/method and explicit provenance. Model/candidate must not supply or approve its adjudication.",
+    "verdicts": [
+      "met",
+      "not_met",
+      "contradicted",
+      "ungradable"
+    ],
+    "assumption_fidelity": "Record added/removed premises, register/order/sign/angle changes and unsupported stronger conclusions separately. Mechanism points alone must not imply contract satisfaction. If ungradable, retain unknown semantic result rather than silently awarding zero or correctness.",
+    "trust_boundary": "Schema/hash acceptance establishes shape and exact-content binding, not semantic truth, evaluator authentication, independence or source fidelity. Engineered labels are test expectations, not independent evaluations."
+  },
+  "remaining_boundaries": [
+    "Imported original roots and intermediate shortcuts remain callable.",
+    "Provided obligation DAG does not measure autonomous planning or proof-term depth.",
+    "Curated interface sets are evaluator relevance contracts for inspected authored routes, not exhaustive/necessary premises or proof-term dependency extraction.",
+    "Valid unlisted routes can succeed formally without a curated route hit.",
+    "No model recall, model success, causal strategy benefit, hidden-test generalization or compute match is inferred.",
+    "No full circuit/state-action, resource or finite-bit claim follows from these two algebraic roots."
+  ]
+}

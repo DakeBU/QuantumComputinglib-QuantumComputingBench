@@ -167,7 +167,7 @@ roots use only the approved standard axioms. This admits no new core or formal
 view and measures no model.
 
 The matching production tree passes `lake build` and `lake build Tests`, with
-existing linter warnings. The current benchmark suite passes 203 tests and 226
+existing linter warnings. That earlier code checkpoint passes 203 tests and 226
 subtests. Exact identities, per-condition budgets/costs, the five reviewed fixes,
 and remaining boundaries are in the linked reports.
 
@@ -179,8 +179,36 @@ receipt is `obligation-smoke-300s.json`; the exported proof-free inputs are
 `obligation-agent-inputs-reviewed.json`. Historical sealed releases and the
 independent non-Lean contributor track are unchanged.
 
-Next frontier: complete semantic admission of new decompositions and graph-
-supported targets, connect the isolated verifier/model adapter, and measure
-retrieval, reasoning and repair with actual model/token identities. Inspect
-formalization before selecting compositions; neither graph distance nor a
-provided-node count substitutes for mathematical reasoning depth.
+## Sequential companions and capability assessment
+
+[Sequential State Preparation companions](SEQUENTIAL_PROOFS.md) now add SP007's
+arbitrary-boundary transfer induction and SP008's actual real total-probability
+root. A source-blind reconstruction and distinct source-aware comparison accept
+the exact conclusions with partial whole-question exposition coverage. Both
+remain explicit experimental proposals; canonical formal-view admission is
+unchanged. The original core contracts, splits and graph snapshot are preserved.
+
+The [actual replay](../../reports/lean-agentic-capabilities-v1/sequential-execution.json)
+checks all six new authored obligations, same-target library controls,
+independent constructions, two expected type failures and six fresh root
+replays: 16 verified Lean checks and two expected rejections. The full benchmark
+suite passes 218 tests and 226 subtests. Fresh production `lake build` and
+`lake build Tests` pass in the matching pinned cached checkout; existing linter
+warnings remain. No model-generated proof was executed.
+
+[Capability scoring](CAPABILITY_SCORING.md) binds the complete canonical rubric,
+including SP005's recursion-normalization explanation, rather than substituting
+the narrower authoring rubric. Root-route AND/OR coverage, local retrieval
+groups, supplied semantic marks and reported formal outcomes stay separate.
+The [software evidence](../../reports/lean-agentic-capabilities-v1/capability-execution.json)
+records four engineered examples, null unreviewed explanation scores in actual
+reference trajectories, and private judge templates. It claims no model score
+or new formal certificate. Schema validation is not semantic truth or reviewer
+authentication.
+
+Next frontier: reconcile the companion proposals through canonical view
+admission, connect the accepted isolated verifier/model adapter, and measure
+actual model knowledge, retrieval, reasoning and repair with model/token
+identities and reviewed private instances. Neither graph distance nor provided
+node count substitutes for mathematical reasoning depth. Broader stable-release
+and website publication gates remain outside this local checkpoint.

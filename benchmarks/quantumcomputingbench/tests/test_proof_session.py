@@ -7,7 +7,13 @@ from pathlib import Path
 
 B = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(B / "src"))
-from qcb_proof_session import TASK_SCHEMA, ProofSession, SessionLimits, bound_reply
+from qcb_proof_session import (
+    TASK_SCHEMA,
+    UNIVERSE_TASK_SCHEMA,
+    ProofSession,
+    SessionLimits,
+    bound_reply,
+)
 
 
 def task():
@@ -45,6 +51,24 @@ async def action(session, kind, **payload):
 class ProofSessionTests(unittest.TestCase):
     def run_async(self, code):
         return asyncio.run(code)
+
+    def test_universe_parameters_are_explicit_bound_data_never_arbitrary_preamble(self):
+        fixed = task()
+        fixed.update(schema_version=UNIVERSE_TASK_SCHEMA, universe_parameters=["u"])
+        backend = FixtureVerifier()
+        session = ProofSession(fixed, backend)
+        self.assertEqual(session.agent_input()["task"]["universe_parameters"], ["u"])
+        self.run_async(action(session, "submit", node_id="base", proof="by trivial"))
+        self.assertEqual(backend.requests[-1]["universe_parameters"], ["u"])
+        for invalid in ([], ["u", "u"], ["u\naxiom forged : False"], ["Type"], "u"):
+            changed = deepcopy(fixed)
+            changed["universe_parameters"] = invalid
+            with self.assertRaises(ValueError):
+                ProofSession(changed)
+        changed = deepcopy(fixed)
+        changed["schema_version"] = TASK_SCHEMA
+        with self.assertRaises(ValueError):
+            ProofSession(changed)
 
     def test_default_verifier_is_blocked_and_does_not_call_lean(self):
         session = ProofSession(task())
