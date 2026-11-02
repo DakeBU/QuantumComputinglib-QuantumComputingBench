@@ -64,7 +64,7 @@ No model judge is called or described as calibrated; no paid baseline is run.
 
 ## Reuse and privacy
 
-Original questions, explanations, rubrics and new code use repository MIT terms.
+Original questions, explanations, rubrics and new code use repository Apache License 2.0 terms, subject to LICENSE_SCOPE.md and retained earlier MIT permissions.
 This does not relicense external textbooks or grant their training-data reuse.
 Only original mathematical explanations are distributed, not PDFs or long source
 proof text. External-source copyright/license and quote permissions remain with

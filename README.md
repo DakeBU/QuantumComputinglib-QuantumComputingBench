@@ -12,7 +12,7 @@ QuantumComputinglib connects readable quantum mathematics to Lean evidence. **AS
 [![Mathlib](https://img.shields.io/badge/Mathlib-pinned-2f705c?style=flat-square)](https://github.com/leanprover-community/mathlib4)
 [![Qiskit](https://img.shields.io/badge/Qiskit-executable_exports-6929c4?style=flat-square)](https://www.ibm.com/quantum/qiskit)
 [![QuantumComputinglib](https://img.shields.io/badge/QuantumComputinglib-read_online-0f62fe?style=flat-square)](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-35657d?style=flat-square)](LICENSE)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-35657d?style=flat-square)](LICENSE)
 
 [**Read QuantumComputinglib**](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/) ·
 [**Example cases**](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/example-cases/) ·
@@ -51,6 +51,8 @@ The research agenda builds on those foundations: cross-pollination through the L
 See the [public-claims protocol](docs/math-2-0-positioning.md).
 
 ---
+
+[License and reuse scope](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/attribution/#license) · [Apache 2.0 text](LICENSE) · [Scope and exceptions](LICENSE_SCOPE.md)
 
 ## News 🔥
 
@@ -448,7 +450,7 @@ The README presentation is intentionally figure-first and concise, inspired by c
 
 External quantum Lean projects such as [quantum-computing-lean](https://github.com/duckki/quantum-computing-lean), [Lean-QuantumInfo](https://github.com/Timeroot/Lean-QuantumInfo), and [lean-quantum](https://github.com/Hayata-Yamasaki-Group/lean-quantum) are recorded in the reference atlas. A linked external theorem is not presented as a local proof unless an explicit compiled adapter imports or re-establishes the required boundary.
 
-[ATLAS v1](https://github.com/facebookresearch/atlas-lean/tree/e8b31c5cb0bec89b487ce33fe525a2c0b0f8b9c6/v1) is available as a pinned, license-aware external textbook memory. Its theorem bodies remain outside this MIT repository; agents can build a local all-lemma index and retrieve one reviewed result at a time:
+[ATLAS v1](https://github.com/facebookresearch/atlas-lean/tree/e8b31c5cb0bec89b487ce33fe525a2c0b0f8b9c6/v1) is available as a pinned, license-aware external textbook memory. Its theorem bodies remain outside the project-owned Apache-2.0 distribution; agents can build a local all-lemma index and retrieve one reviewed result at a time:
 
 ```bash
 python3 tools/qbe.py atlas-verify
@@ -480,4 +482,4 @@ See [`docs/attribution.md`](docs/attribution.md) and [`NOTICE.md`](NOTICE.md).
 
 ## License
 
-[MIT](LICENSE). External libraries and cited results retain their own licenses and attribution.
+[Apache License 2.0](LICENSE), subject to [scope and exceptions](LICENSE_SCOPE.md). Earlier MIT permissions and third-party notices remain intact.
