@@ -206,6 +206,14 @@ reference trajectories, and private judge templates. It claims no model score
 or new formal certificate. Schema validation is not semantic truth or reviewer
 authentication.
 
+The [registered evaluator](EVALUATOR.md) now brings the four experimental views
+under one frozen manifest with explicit reference lineage and fixed splits. It
+adds answer-free exports and bounded model-action scheduling. Synthetic protocol
+smokes do not call Lean or models; plans make zero provider calls. Real formal
+mode exits before adapter import until an accepted isolated verifier is present.
+Explicitly authorized NL-only adapters cannot expose Lean context or execute
+proofs, and their answers retain null semantic marks until independent review.
+
 Next frontier: reconcile the companion proposals through canonical view
 admission, connect the accepted isolated verifier/model adapter, and measure
 actual model knowledge, retrieval, reasoning and repair with model/token

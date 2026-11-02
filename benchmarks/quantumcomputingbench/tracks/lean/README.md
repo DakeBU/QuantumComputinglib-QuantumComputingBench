@@ -28,6 +28,15 @@ distinct comparison and fixed references. They remain experimental proposals.
 coverage, complete canonical explanation rubrics and evaluator-owned marks;
 they never turn a valid proof into an automatic NL or model score.
 
+The [registered evaluator](EVALUATOR.md) unifies four experimental task views,
+checks their recorded reference lineage and exports answer-free inputs. Its
+bounded provider-neutral loop has zero-call plans, synthetic protocol smokes
+and an explicitly authorized NL-only adapter boundary. Real model-generated
+formal proofs remain blocked before adapter initialization pending an accepted
+isolated verifier. Registration does not change canonical catalog admissions.
+Use the [local pilot handoff](LOCAL_PILOT_HANDOFF.md) to inspect delivered
+capabilities, actual reference evidence and the gates for a first model run.
+
 Prioritize exact formal views of admitted source-supported NL targets. Record
 the literal imports, assumptions, target, readable correspondence, source hashes,
 fixed-reference proof, axiom audit and genuine execution class. A formal target
