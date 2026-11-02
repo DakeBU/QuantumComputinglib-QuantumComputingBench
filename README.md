@@ -481,3 +481,9 @@ See [`docs/attribution.md`](docs/attribution.md) and [`NOTICE.md`](NOTICE.md).
 ## License
 
 [MIT](LICENSE). External libraries and cited results retain their own licenses and attribution.
+
+See [Licensing and reuse](LICENSES/REUSE.md) and the
+[website guide](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/licensing/index.html).
+The complete [Apache 2.0 text](LICENSES/Apache-2.0.txt) is included for third-party
+components that use it (including vendored MathJax); it does **not** replace
+the project's MIT license. Preserve component-specific licenses and notices.
