@@ -14,6 +14,13 @@ warmups, not evidence that these interactive capabilities are already evaluated.
 Run `scripts/lean_agentic.py audit` from the benchmark folder to inspect the
 resolved frontier without executing proofs or reading gold into agent prompts.
 
+The experimental [obligation protocol](OBLIGATION_PROTOCOL.md) adds scoped
+declaration retrieval, fixed-target proof submissions, diagnostic-driven repair
+and independent final replay over two existing cores. Its inspected authored
+fixtures exercise the engineering protocol, with original one-call controls
+retained. They are not new admitted mathematical cores, blind tests, model
+scores, autonomous proof decomposition, or incremental Lean tactic states.
+
 Prioritize exact formal views of admitted source-supported NL targets. Record
 the literal imports, assumptions, target, readable correspondence, source hashes,
 fixed-reference proof, axiom audit and genuine execution class. A formal target

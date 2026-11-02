@@ -24,11 +24,11 @@ MODES = {
     },
     "premise_retrieval": {
         "role": "retrieve admissible declarations without held-out solutions",
-        "status": "needs_task_scoped_interfaces_and_retrieval_metrics",
+        "status": "scoped_declaration_search_implemented_in_authored_obligation_pilot; model_metrics_unmeasured",
     },
     "multi_node_proof_construction": {
         "role": "compose reviewed mathematical dependencies into a fixed root",
-        "status": "needs_nontrivial_targets_and_a_broader_reviewed_proof_protocol",
+        "status": "provided_obligation_dag_protocol_implemented; new_semantic_admissions_and_model_evaluation_pending",
     },
     "incremental_lean_feedback": {
         "role": "submit parseable tactic blocks with scoped state and final replay",
@@ -36,7 +36,7 @@ MODES = {
     },
     "diagnostic_driven_repair": {
         "role": "repair failed attempts without changing the target or assumptions",
-        "status": "needs_version_bound_attempts_and_repair_evaluation",
+        "status": "version_bound_obligation_repair_implemented_in_authored_pilot; not_tactic_state_or_model_evidence",
     },
 }
 

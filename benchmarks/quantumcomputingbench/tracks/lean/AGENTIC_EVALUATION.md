@@ -71,7 +71,7 @@ cannot be promoted into locally kernel-verified test claims.
 
 ## Agent protocol and comparison requirements
 
-The next milestone must define evaluator-owned, versioned interactions for
+The obligation milestone defines evaluator-owned, versioned interactions for
 bounded declaration retrieval, fixed-target verification, and (where supported)
 tactic-state execution. Agent output may not change imports, hypotheses, target,
 split, reference corpus, axiom policy or budget. Persist exact actions,
@@ -138,8 +138,24 @@ audit, answer-free warmup inputs and native reference replay. Previously sealed
 receipts and frozen releases were not overwritten. This does not certify every
 NL answer, refresh an old receipt's recorded commit, or enable generated proofs.
 
-Next frontier: admit nontrivial graph-supported proof tasks through the shared
-contract/review process, define and test the bounded interaction protocol, then
-connect a genuinely accepted isolated verifier and an authorized model adapter.
-Inspect actual formalization before selecting compositions; do not fill missing
-capabilities with copies of these three API-application warmups.
+## Bounded obligation milestone
+
+The [experimental obligation protocol](OBLIGATION_PROTOCOL.md) now implements
+scoped search, fixed-node proof checks, version-bound repair and fresh root
+replay. It includes two existing roots with inspected nontrivial constructions,
+alongside the original direct library applications. Its supplied decomposition
+is not autonomous agent planning or a Lean tactic-state REPL. Intermediate
+obligations remain experimental, not new semantic/formal admissions.
+
+The [source-aware review](../../reports/lean-agentic-v1/protocol-review.json)
+records exact inspected file hashes, mathematical scope, five concrete fixes and
+the limits of that review. The fixed pilot has operator-only reference proofs
+and assumption/mechanism rubrics. Its exported agent inputs omit those bodies
+and answers. Actual model use remains blocked pending an accepted candidate
+verifier and an authorized model adapter; public references remain public.
+
+Next frontier: complete semantic admission of new decompositions and graph-
+supported targets, connect the isolated verifier/model adapter, and measure
+retrieval, reasoning and repair with actual model/token identities. Inspect
+formalization before selecting compositions; neither graph distance nor a
+provided-node count substitutes for mathematical reasoning depth.
