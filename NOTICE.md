@@ -1,3 +1,7 @@
+## Current distribution license
+
+Project-owned materials use Apache License 2.0, with the exact scope and exceptions in [LICENSE_SCOPE.md](LICENSE_SCOPE.md). The prior MIT text is retained in [LICENSE-MIT](LICENSE-MIT). The historical provenance entries below are preserved; their upstream license descriptions are not blanket permissions for this distribution.
+
 # Notices
 
 This project includes an automation workflow inspired by:

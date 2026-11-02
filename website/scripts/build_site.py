@@ -528,7 +528,7 @@ def page_template(
       <a href="{page_url(prefix, 'implementation-map/')}">Implementation map</a>
       <a href="{page_url(prefix, 'workflow/')}">ASPBE harness</a>
       <a href="{page_url(prefix, 'blueprint/')}">Verso Blueprint</a>
-      <a href="{page_url(prefix, 'attribution/')}">Attribution</a>
+      <a href="{page_url(prefix, 'attribution/')}">License, reuse and attribution</a>
     </nav>
   </footer>
   <script src="{prefix}static/site.js"></script>
@@ -2537,6 +2537,13 @@ def render_attribution(
     gate: dict[str, object],
     context: dict[str, object],
 ) -> str:
+    license_sections = []
+    for paragraph in (ROOT / "LICENSE_SCOPE.md").read_text(encoding="utf-8").strip().split("\n\n"):
+        if paragraph.startswith("# "):
+            continue
+        tag = "h3" if paragraph.startswith("## ") else "p"
+        license_sections.append(f"<{tag}>{html.escape(paragraph.removeprefix('## '))}</{tag}>")
+    license_body = '<section id="license"><h2>License and reuse</h2><p><a href="../LICENSE">Apache 2.0 full text</a> · <a href="../LICENSE_SCOPE.md">Reuse scope</a> · <a href="../NOTICE">NOTICE</a> · <a href="../LICENSE-MIT">Earlier MIT text</a></p>' + "".join(license_sections) + '</section>'
     body = """
 <section class="hero">
   <p class="eyebrow">Attribution</p>
@@ -2568,7 +2575,7 @@ def render_attribution(
   Munos, Charles Arnal, and Vivien Cabannes, is indexed locally as a pinned
   external theorem-retrieval surface. Its source and generated theorem text
   remain under its CC BY-NC 4.0 and no-training terms; they are not copied into
-  ASPBE MIT tree. Upstream compilation or evaluation does not replace an
+  project-owned Apache-2.0 distribution. Upstream compilation or evaluation does not replace an
   ASPBE adapter and Lean gate.</p>
   <h2>Interface inspiration</h2>
   <p><a href="https://statsmllib.github.io/">StatsMLlib</a> demonstrates a useful
@@ -2583,6 +2590,7 @@ def render_attribution(
   pinned Lean toolchain on temporary snippets. No bandit chapters, declarations,
   statuses, or theorem data are copied into QuantumComputinglib.</p>
 </section>"""
+    body += license_body
     return page_template(
         title="Attribution",
         route="attribution/",
@@ -3330,6 +3338,8 @@ def build(args: argparse.Namespace) -> None:
     output.mkdir(parents=True)
     shutil.copytree(WEBSITE_ROOT / "static", output / "static")
     shutil.copytree(WEBSITE_ROOT / "diagrams", output / "diagrams")
+    for license_file in ("LICENSE", "LICENSE-MIT", "LICENSE_SCOPE.md", "NOTICE", "NOTICE.md"):
+        shutil.copy2(ROOT / license_file, output / license_file)
     shutil.copy2(ROOT / "CONTRIBUTING.md", output / "CONTRIBUTING.md")
     sources = output / "sources"
     sources.mkdir(parents=True, exist_ok=True)

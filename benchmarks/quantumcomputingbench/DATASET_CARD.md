@@ -98,7 +98,7 @@ fidelity are separate outputs. No model judge is enabled or claimed calibrated.
 ## License and permitted reuse
 
 Original question/answer/rubric text and code are offered under the repository's
-MIT license, with source attribution. This does not relicense external papers,
+Apache License 2.0, subject to LICENSE_SCOPE.md, with source attribution and retained earlier MIT notices. This does not relicense external papers,
 textbooks or upstream libraries. No external long source proofs/textbook passages
 are redistributed. External citations are evidence pointers, not permission to
 copy their text or a guarantee of training reuse rights. Planned source evidence

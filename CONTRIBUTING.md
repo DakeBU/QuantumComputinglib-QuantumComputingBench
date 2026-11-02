@@ -88,7 +88,7 @@ Keep the pull request focused. Its description must state:
 Do not mix generated artifacts with unrelated refactors. Preserve upstream
 license notices and authorship. Add `Co-authored-by` trailers when appropriate.
 By submitting, you confirm that you have the right to provide the contribution
-under this repository's MIT license.
+under this repository's Apache License 2.0, subject to LICENSE_SCOPE.md.
 
 After integration, maintainers add the contributor and a precise summary of the
 accepted work to `website/community/contributors.json`. QuantumComputinglib
