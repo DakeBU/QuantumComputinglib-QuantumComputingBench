@@ -32,6 +32,8 @@ class LicensingTests(unittest.TestCase):
         self.assertIn(b"APPENDIX: How to apply the Apache License", raw)
         self.assertIn(b"Copyright [yyyy] [name of copyright owner]", raw)
         self.assertTrue((ROOT / "LICENSE").read_text().startswith("MIT License"))
+        self.assertIn('/LICENSES/Apache-2.0.txt text eol=lf',
+                      (ROOT / '.gitattributes').read_text(encoding='utf-8'))
 
     def test_scope_is_not_blanket_relicensing_or_new_MIT_conditions(self):
         body = (ROOT / "website/licensing.html").read_text(encoding="utf-8")
