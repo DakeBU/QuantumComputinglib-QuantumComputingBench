@@ -116,6 +116,13 @@ commit, matching production proof-input digest and a complete passing Lean gate.
 The CLI has no custom candidate file or custom allowlist option. Unknown proof
 hashes are rejected before a compiler or filesystem operation is reached.
 
+The authored smoke uses a separately labelled **300-second session ceiling**
+for every condition, leaving the default protocol's 180 seconds unchanged.
+On the inspected Windows installation, Lean startup/checks take about 25 seconds
+each; the first 180-second row-rotation DAG run checked all obligations but timed
+out during final replay. That failed run remains evidence, not a successful root
+certificate. Per-check and call/action ceilings remain unchanged.
+
 Each core runs three authored engineering conditions: original library
 application, a self-contained whole-root construction, and the provided DAG with
 one deliberately ill-typed attempt followed by the fixed repair. These test

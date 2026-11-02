@@ -16,7 +16,7 @@ from qcb_obligation_pilot import (
     load_pilot,
     pipeline_identity,
 )
-from qcb_proof_session import ProofSession
+from qcb_proof_session import ProofSession, SessionLimits
 
 
 async def _act(session, kind, **payload):
@@ -33,7 +33,9 @@ async def smoke(cases, identity, build_root):
         # Actual costs differ and are reported, not asserted to be compute-matched.
         for condition in ("library_application", "constructed_whole_root", "provided_dag_repair"):
             verifier = AuthoredReferenceVerifier(task, case["allowed_proofs"], build_root)
-            session = ProofSession(task, verifier, mode="proof_dag" if condition == "provided_dag_repair" else "root_only")
+            session = ProofSession(task, verifier,
+                                   mode="proof_dag" if condition == "provided_dag_repair" else "root_only",
+                                   limits=SessionLimits(wall_seconds=300))
             checks = []
             if condition == "provided_dag_repair":
                 query = "sqrt sum" if task["core_id"] == "qcb-core-sp-005" else "det updateRow"
