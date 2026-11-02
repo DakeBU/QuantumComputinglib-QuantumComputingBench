@@ -86,6 +86,10 @@ pipeline identities, execution IDs, proof/source hashes, actual compiler and
 checkout, axioms, elapsed time, calls and repair counts. Model token usage is
 null because this smoke uses no model. Equal declared ceilings do not establish
 equal realized compute; no feedback-timing causal effect is claimed.
+Session wall time starts after verifier initialization. Per-check Lean startup
+is included; verifier preflight/setup and complete CLI end-to-end time are not
+separately instrumented in this version. These timings must not be presented as
+a complete end-to-end efficiency comparison.
 
 ## Local commands
 

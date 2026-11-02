@@ -154,6 +154,31 @@ and assumption/mechanism rubrics. Its exported agent inputs omit those bodies
 and answers. Actual model use remains blocked pending an accepted candidate
 verifier and an authorized model adapter; public references remain public.
 
+### Actual authored execution checkpoint
+
+The [sanitized execution summary](../../reports/lean-agentic-v1/execution-summary.json)
+binds the tested code, fixture, pipeline sources, actual Lean runtime and cached
+library checkout. The final 300-second authored profile passes all six
+conditions over the same two existing cores: original lemma application,
+self-contained whole-root construction, and provided-DAG repair for each core.
+There are 22 actual Lean checks: 20 verified and two deliberately ill-typed
+attempts rejected, including six successful fresh final-root replays. Verified
+roots use only the approved standard axioms. This admits no new core or formal
+view and measures no model.
+
+The matching production tree passes `lake build` and `lake build Tests`, with
+existing linter warnings. The current benchmark suite passes 203 tests and 226
+subtests. Exact identities, per-condition budgets/costs, the five reviewed fixes,
+and remaining boundaries are in the linked reports.
+
+The earlier complete 180-second draft is preserved under
+`_out/lean-agentic-20261103/obligation-smoke-v1.json`: all obligations checked,
+but the row-rotation final replay timed out and the overall run failed. The
+successful run is a separate receipt, not an edited pass label. Its local raw
+receipt is `obligation-smoke-300s.json`; the exported proof-free inputs are
+`obligation-agent-inputs-reviewed.json`. Historical sealed releases and the
+independent non-Lean contributor track are unchanged.
+
 Next frontier: complete semantic admission of new decompositions and graph-
 supported targets, connect the isolated verifier/model adapter, and measure
 retrieval, reasoning and repair with actual model/token identities. Inspect
