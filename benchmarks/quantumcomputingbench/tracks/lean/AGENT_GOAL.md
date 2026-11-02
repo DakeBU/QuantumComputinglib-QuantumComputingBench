@@ -1,5 +1,11 @@
 # Goal: semantically aligned Lean views for QuantumComputingBench
 
+The 2026-11-03 local workstream prioritizes testing agentic proof AI, with
+quantum-computing knowledge and reasoning as prerequisites. Follow the
+[agentic evaluation contract](AGENTIC_EVALUATION.md) and executable frontier audit.
+Build evidence-qualified tasks and interactions, not a website-only milestone;
+do not rename the current library-application warmups as deep proof synthesis.
+
 Work from current main on a dedicated branch. Read AGENTS.md, HARNESS.md,
 the publication protocols and the shared contribution contract. Preserve frozen
 data, all historical contributions and other branches. Published content is English.

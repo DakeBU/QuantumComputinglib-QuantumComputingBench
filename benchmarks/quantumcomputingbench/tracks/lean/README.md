@@ -6,6 +6,14 @@ independent dataset with its own split allocation. Read
 [the executable agent goal](AGENT_GOAL.md) and
 [the proposal example](../../shared/proposal.example.json).
 
+The local workstream now prioritizes the
+[Lean-enabled agentic evaluation contract](AGENTIC_EVALUATION.md): knowledge and
+precise statement understanding support proof completion, premise retrieval,
+multi-node construction, incremental feedback and repair. The existing views are
+warmups, not evidence that these interactive capabilities are already evaluated.
+Run `scripts/lean_agentic.py audit` from the benchmark folder to inspect the
+resolved frontier without executing proofs or reading gold into agent prompts.
+
 Prioritize exact formal views of admitted source-supported NL targets. Record
 the literal imports, assumptions, target, readable correspondence, source hashes,
 fixed-reference proof, axiom audit and genuine execution class. A formal target
