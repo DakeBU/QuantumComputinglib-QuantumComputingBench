@@ -1,0 +1,163 @@
+{
+  "schema_version": "qcb.course_semantic_comparison.v1",
+  "reviewer": "/root/curriculum_semantic_comparator",
+  "source_blind": false,
+  "candidate_batch_digest": "8d830dd741d4ef24e77dc8e9a1de15f7133d874fa303ea98d93a0c48dd61580f",
+  "packet_digests": {
+    "be": "d70c444420d9230b58a30be66c7a0d7abf602eaff696228336d684f9b5226279",
+    "rank": "1c2a7e1a03f2ccc430e24a70f8e69e486334327e2eb0afa0c9d793dd81adbea9"
+  },
+  "decoder_digests": {
+    "be": "8be0bfe52f787631920cb508dd2c0785e26ce81980b0e26c85dad9cce3129f33",
+    "rank": "a35743841d60cb3fb3f0bab441f3acc1260fe65ea163acd25c12076c4731a54b"
+  },
+  "comparison_input_digest": "7cbc093dbadcb965f26ef5603beb91bf0775ca660118b9c87c9a659445ebc432",
+  "review_scope": {
+    "claim": "Source-aware alignment of each supplied formal mathematical root with its actual canonical question, on the explicit formal domains. An accept verdict concerns this alignment, not completion of every requested method or prose explanation.",
+    "evidence_read": "The bounded comparison-input.json, repository AGENTS/HARNESS/publication review discipline, and the qcb_core.digest implementation. Mathematical comparison uses the packet's questions, reference answers, exact formal contexts, supplied ambient definitions/interfaces, and source-blind reconstructions.",
+    "not_claimed": [
+      "No Lean compiler result was supplied or used; no proof execution or independent Lean replay was performed.",
+      "No whole-source-module audit, proof-body or proof-method audit, toolchain validation, empirical difficulty measurement, or model-performance evaluation was performed.",
+      "No author proof packet, prior comparison verdict, or author binder classification was consulted.",
+      "Supplied normalized ambient interfaces were interpreted as supplied, without claiming an independent audit of their library implementations."
+    ]
+  },
+  "views": [
+    {
+      "core_id": "qcb-core-be-105",
+      "task_hash": "10a80dfb44b565c402409a40aa0eb604f9b289aa32f9d0fb0678c86a7369f5bd",
+      "source_item_digest": "15381b174d3517cf5ade51fd5a8bfdf0eee977640793ea43e93c0627b2eaede1",
+      "formal_context_digest": "e4b65febfb7c283bbafef6aa684ecbaa9a2bf8935c59ebe5364e5a305168c0cc",
+      "verdict": "accept",
+      "reasoning": "The literal matrix is exactly [[c,-s],[s,c]], with c,s arbitrary real parameters cast into complex entries. The target is the requested iff, including necessity; it does not assume the desired normalization. Since conjugation fixes each entry, R-adjoint times R has the four entries c*c+s*s, c*(-s)+s*c, (-s)*c+c*s, and (-s)*(-s)+c*c. These simplify to c^2+s^2, 0, 0, and c^2+s^2. Thus the product equals I_2 exactly when the stated real equality c^2+s^2=1 holds. This independently checks the mathematical content read by the decoder. No positivity, sign restriction, angle parametrization, or separate cosine/sine identity has been added. The proposition itself does not require a solution to display this entrywise computation.",
+      "whole_question_coverage": {
+        "status": "partial",
+        "mathematical_root": "Full: exact unitarity iff the real normalization, for all real c and s, with precisely the requested matrix entries.",
+        "explicitly_encoded": [
+          "Both implications of the equivalence.",
+          "Real parameter domain and complex matrix codomain.",
+          "The exact signs and row/column placement through the supplied matrix definition."
+        ],
+        "not_required_by_root": [
+          "Displaying all four entries of R-adjoint times R as requested by the question.",
+          "Explaining in prose why conjugation fixes these entries and why no additional hypothesis is needed."
+        ]
+      },
+      "semantic_slots": {
+        "domains": "c and s range independently over all of R; indices are the fixed nonempty finite type Fin 2. There is no variable-size or empty-register qualification.",
+        "typing_assumptions": "The complex square matrix and the Fin 2 identity/multiplication instances supply the necessary typing. No substantive premise is added beyond the source's real scalar domain; normalization appears as the right-hand conclusion of the iff.",
+        "mathematical_root": "R is in the complex unitary group iff c^2+s^2=1 in R. Under the supplied membership and star interfaces this is R-adjoint R=I_2, not a test of the ordinary transpose of a general complex matrix.",
+        "register_and_normalization": "Top row (c,-s), bottom row (s,c), with no swapped sign, scaling, tensor factor, or register permutation. Conjugation is trivial because the parameters are real, not because complex conjugation is generally irrelevant.",
+        "exposition_and_resources": "The root captures the conclusion but does not certify the requested calculation/explanation as an answer format. It states no implementation, approximation, gate count, or synthesis cost."
+      },
+      "remaining_limitations": [
+        "Whole-question method and explanation remain only partially covered by a statement-only root.",
+        "This is a characterization of this real two-parameter matrix family, not all complex 2-by-2 matrices.",
+        "Acceptance is mathematical root alignment under the supplied ambient interfaces, not verification of any proof body or full imported module."
+      ]
+    },
+    {
+      "core_id": "qcb-core-be-107",
+      "task_hash": "5914658bc04d7a3d5be2b7b2590a182a8ada68994c44a3ca9be6d1f7ff9a8ab4",
+      "source_item_digest": "1b36266ef6c6f4eed5fc5fd43aada972b13c343a97ddce568581c553671be494",
+      "formal_context_digest": "e443a4172d4a3dc7c5d961e732f0a9f3c5a12c49e3c3cc52a0cbe76272e12524",
+      "verdict": "accept",
+      "reasoning": "The only substantive premise is exactly the canonical one: each complex block on the shared target carrier is unitary. The literal block-diagonal definition places the control in the second coordinate and vanishes when the two control labels differ, agreeing with the canonical reference's target x control order. For D((i,k),(j,k'))=delta(k,k') B_k(i,j), conjugate transpose preserves that block structure. Multiplying D-adjoint by D collapses the intermediate control label, leaving the (i,j) entry of B_k-adjoint B_k when k=k', and zero otherwise. The premise therefore gives delta(k,k') delta(i,j), the full product identity. There is no cross-block commutativity, orthogonality relation between distinct blocks, or conclusion-as-premise. The target is the requested forward implication; no iff is needed. The structural intermediate equalities requested as a proof method are not asserted separately by the root.",
+      "whole_question_coverage": {
+        "status": "partial",
+        "mathematical_root": "Full for finite target and control index types: every unitary block family gives a unitary block-diagonal operator.",
+        "explicitly_encoded": [
+          "Universal family of complex square blocks on a shared target space.",
+          "Per-block unitarity implies unitarity of the specified block-diagonal matrix."
+        ],
+        "not_required_by_root": [
+          "Showing conjugate transpose commutes with block-diagonal formation.",
+          "Showing multiplication is blockwise and explaining the collapse to the identity."
+        ]
+      },
+      "semantic_slots": {
+        "domains": "Target iota and control kappa have arbitrary finite cardinalities, with no positive-dimension or power-of-two condition. Finiteness is the standing finite-matrix interpretation of the canonical matrix question. Infinite-dimensional controlled operators are outside this root. Allowing an empty target or control is a harmless extension: the corresponding identity equations remain valid.",
+        "typing_assumptions": "Fintype on iota and kappa supplies finite matrix sums; DecidableEq supplies equality tests and identity entries. Decidable equality is representational, not an extra restriction on the numerical block entries. The family premise is exactly all k, B_k unitary.",
+        "mathematical_root": "(For all k, B_k-adjoint B_k=I_iota) implies D-adjoint D=I_(iota x kappa). Only sufficiency is claimed, matching the source.",
+        "register_and_normalization": "The carrier is literally iota x kappa: within-block target first, control second. Blocks are unweighted complex matrices; off-control-diagonal entries are zero. No control/target swap, numerical contiguous-layout convention, scalar normalizer, or selected block amplitude is introduced.",
+        "exposition_and_resources": "The result does not require the answer to exhibit the two structural identities used in the reference argument. It makes no SELECT circuit, oracle construction, gate complexity, or block-encoding accuracy claim."
+      },
+      "remaining_limitations": [
+        "The source does not spell out index finiteness; acceptance uses its ordinary finite matrix interpretation. An intended infinite-dimensional variant would require a separately specified operator model.",
+        "The requested blockwise proof method is outside this root's explicit conclusion; no proof body was audited for it.",
+        "The result is a unitary matrix construction, not a gate-level controlled-family implementation certificate."
+      ]
+    },
+    {
+      "core_id": "qcb-core-be-109",
+      "task_hash": "922623181f31edc95785acae90443cd7ff10d73ab37e6419ae857e712630823a",
+      "source_item_digest": "76cc51c2e49f3f7062d8732b280e44f07723d2cfe3a72ceb5bf003e71965a5ff",
+      "formal_context_digest": "84456a56b0cc633c2e9dd04e3838cd79e88460f68326796fc7d08b203493cbb1",
+      "verdict": "accept",
+      "reasoning": "Expanding selectorLift and LCUIndex gives exactly I_coefficient tensor (PREPARE tensor I_system), on coefficient x (selector x system), with the same right association as the source. Its entry is delta(a,a') times (P(b,b') times delta(t,t')), so the two spectator coordinates are carried unchanged and the selector receives P. The unitarity check factors as L-adjoint L = I_coefficient tensor ((P-adjoint P) tensor I_system) = I. This requires only the source premise that PREPARE is unitary, not a separately assumed unitarity fact about the lift. The six explicit typeclass arguments are passed in coefficient, selector, system order. No amplitude-preparation equation is needed for the preservation-of-unitarity conclusion, so quantifying over every selector unitary is valid. The conclusion is forward only; this is essential to avoid reading a false general converse when spectator carriers can be empty.",
+      "whole_question_coverage": {
+        "status": "partial",
+        "mathematical_root": "Full for finite registers: selector unitarity implies unitarity of exactly the requested identity tensor lift.",
+        "explicitly_encoded": [
+          "PREPARE is a complex unitary on the selector register alone.",
+          "The lifted matrix is defined by the exact tensor factors and compound register order.",
+          "The lift is unitary on the full compound register."
+        ],
+        "not_required_by_root": [
+          "The physical prose explanation that identity factors represent doing nothing on the untouched registers.",
+          "An explicit state-action equation or the two-step Kronecker unitarity derivation as part of the answer."
+        ]
+      },
+      "semantic_slots": {
+        "domains": "coefficient, selector, and system are independently quantified finite index types. Neither nonemptiness nor a qubit encoding is assumed. This covers ordinary finite registers and extends algebraically to zero-dimensional factors; it does not formalize arbitrary infinite-dimensional Hilbert spaces.",
+        "typing_assumptions": "Each register carries Fintype and DecidableEq; these support finite sums, equality, and identity matrices. PREPARE-unitary is exactly the substantive source premise. There is no added prepared-state column, coefficient-loading condition, clean ancilla promise, or normalization obligation.",
+        "mathematical_root": "P-adjoint P=I_selector implies L-adjoint L=I_(coefficient x (selector x system)). The canonical question asks an implication, so the absence of a converse is faithful. For example, an empty coefficient carrier makes L unitary even if P on a singleton selector is zero and nonunitary.",
+        "register_and_normalization": "The exact carrier is coefficient x (selector x system), and the tensor is I_coefficient tensor (P tensor I_system). There is no reassociation theorem or register permutation being silently used. The name coefficient denotes an index type here, not a scalar weight. No extra scalar factor appears.",
+        "exposition_and_resources": "The supplied definitions support the spectator-register interpretation, but the target does not demand a prose explanation. Naming the matrix PREPARE does not certify preparation of a particular state, nor does this result certify an LCU block, postselection success, amplification cost, or physical gate synthesis."
+      },
+      "remaining_limitations": [
+        "Physical interpretation and explicit derivation remain partially covered by the statement-only root.",
+        "Finiteness is the standing finite matrix/register setting, not a proof of an infinite-dimensional extension.",
+        "Zero-dimensional extensions are algebraically sound but should not be mistaken for a physically nonempty register promise or a uniform converse.",
+        "No resource, state-preparation, SELECT, or block-encoding correctness claim follows from this unitarity-preservation statement alone."
+      ]
+    },
+    {
+      "core_id": "qcb-core-sp-114",
+      "task_hash": "c5dd692db8ad0fcd48c069ecfbe621bb3117c894dbdc255a9c8ea9410af56b24",
+      "source_item_digest": "8692de94902e02e828e3bcd36f059d65ad388327e3f3824390ab974de1fa729b",
+      "formal_context_digest": "8e67759d51967a5f8705171bbff5576eb1bc66ed6cb237b7a8cc5957e9841764",
+      "verdict": "accept",
+      "reasoning": "The target contains all three requested mathematical components: the exact shifted-polynomial expansion, existence of F=A*B through Fin(d+1), and rank(F)<=d+1. The supplied Taylor definition is p(X+a), so its i-th coefficient c_i(a) yields p(a+b)=sum_(i=0)^d c_i(a)b^i. Thus the displayed identity gives the concrete witnesses A(x,i)=coeff_i(p(X+row(x))) and B(i,y)=col(y)^i. FactorsThrough expands to ordinary matrix-product existence with that same finite inner carrier, not an unrelated predicate. The supplied rank interface is the real dimension of the image of the finite-column matrix-vector map. Its image lies in the span of the d+1 functions x -> A(x,i), giving precisely the claimed upper bound even when the row type is infinite. The degree premise is only p.natDegree<=d, includes p=0 and d=0, and does not require full rank or distinct row/column values. Universal row/column functions and the fixed intermediate Fin(d+1) make the dimension-independence mathematically explicit. The column type is required finite for this rank interface; that is a stated scope boundary, not an intrinsic limitation of the polynomial separation identity.",
+      "whole_question_coverage": {
+        "status": "partial",
+        "mathematical_root": "Full on the explicit finite-column domain: exact polynomial identity, factorization with inner dimension d+1, and the rank upper bound. The identity and quantifiers also express why the factor count is degree-controlled.",
+        "explicitly_encoded": [
+          "The shifted-Taylor coefficient identity for every row and column.",
+          "Existence of real factors through Fin(d+1), hence exactly d+1 available intermediate coordinates.",
+          "The natural-number rank upper bound d+1.",
+          "Arbitrary real-valued row and column functions and a degree bound, independent of their values and of the finite number of columns."
+        ],
+        "not_required_by_root": [
+          "A prose explanation of the finite degree cutoff and its independence from matrix dimensions.",
+          "Naming the exhibited A and B as the witnesses inside the existential conjunct; their concrete entries are nevertheless recoverable directly from the separately asserted scalar identity."
+        ],
+        "domain_boundary": "The canonical question does not explicitly specify index finiteness. The target covers all ordinary finite matrices and also arbitrary row types with finite columns. If the question intended infinite column arrays and algebraic column-span rank, that extension is not expressed by this root."
+      },
+      "semantic_slots": {
+        "domains": "alpha is an arbitrary row type, beta an arbitrary finite column type. p is a real polynomial, d a natural number, and row/col arbitrary real-valued functions. No nonemptiness, injectivity, boundedness, sampling geometry, or distribution is assumed. Allowing infinite alpha is a genuine generalization of the ordinary finite-matrix reading.",
+        "typing_assumptions": "Fintype beta is explicit and supports the chosen full coordinate-vector matrix multiplication and Matrix.rank interface. It is an API/domain restriction for this rank expression, not a mathematical necessity for finite-inner-dimension factorization. Fin(d+1) supplies the finite intermediate sum. The premise p.natDegree<=d is exactly the requested degree bound; natDegree(0)=0 includes the zero polynomial. No nonzero polynomial or rank nondegeneracy condition is added.",
+        "mathematical_root": "A conjunction of the pointwise shifted identity, ordinary factorization through a carrier of size d+1, and an upper bound on the finite-dimensional image of M.mulVecLin. Finite beta ensures the rank is a genuine finite real dimension even if alpha is infinite. No equality rank=d+1, minimality, or sharpness is claimed.",
+        "register_and_normalization": "All polynomial coefficients, evaluations, functions, and matrices are real. Taylor means coefficients of p(X+a), so there is no missing factorial: if expressed using derivatives, the usual factorial division is already part of that coefficient. The expansion has indices 0 through d, no shift-sign error, and no amplitude normalizer. This is a row/column factorization, not an asserted tensor-register or quantum-state construction.",
+        "exposition_and_resources": "The identity, factorization, and bound capture the degree-controlled algebraic mechanism. Requested explanatory prose is not part of the proposition. The result supplies no algorithm for evaluating coefficients, conditioning guarantee, approximation tolerance, circuit preparation, MPS compilation, gate count, or preprocessing complexity."
+      },
+      "remaining_limitations": [
+        "Acceptance covers finite-column rank, not an unspecified infinite-column operator or algebraic-rank formulation. The finite-column boundary is explicit because the source itself leaves the index domains unstated.",
+        "The formal conclusion is stronger than a bare rank bound because it includes the exact separating identity and factorization, but it still does not require the full prose explanation as an answer artifact.",
+        "Inner dimension d+1 is an available upper bound, not a minimal dimension; a lower-degree or zero polynomial and degenerate function values can give smaller rank.",
+        "No resource or industrial quantum-algorithm guarantee follows solely from this algebraic rank certificate.",
+        "No independent proof replay, proof-body audit, or full HermiteCutRank module audit was performed."
+      ]
+    }
+  ]
+}

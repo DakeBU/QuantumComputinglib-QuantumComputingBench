@@ -1,0 +1,41 @@
+{
+  "ambiguities": [],
+  "anonymous_id": "view-03",
+  "decoder_identity": "/root/curriculum_blind_decoder",
+  "limitations": [
+    "This is an interpretation of the anonymous successor packet only. No Lean execution, proof checking, source-equivalence verdict, or comparison with an unseen question is claimed.",
+    "The two added ambient items are used as supplied normalized interfaces; they are not represented here as byte-literal complete declarations or independently checked library source.",
+    "The statement gives no rank lower bound, exact-rank formula, sharpness claim, full-rank factor guarantee, conditioning estimate, approximation error, algorithmic complexity bound, or training guarantee.",
+    "It assumes no distinctness, injectivity, boundedness, geometric structure, probability distribution, or normalization for row or col.",
+    "No unresolved ambiguity essential to this mathematical reading remains within the supplied interface model."
+  ],
+  "packet_digest": "1c2a7e1a03f2ccc430e24a70f8e69e486334327e2eb0afa0c9d793dd81adbea9",
+  "reconstructed_statement": "For every type α in universe u, every type β in universe v equipped with Fintype β, every real polynomial p, every natural number d satisfying p.natDegree ≤ d, and every row : α → ℝ and col : β → ℝ, set M(x,y)=p(row(x)+col(y)). Three assertions hold together. (1) For all x ∈ α and y ∈ β, M(x,y)=Σ_{i=0}^{d} ([X^i]p(X+row(x))) · col(y)^i. (2) There exist real matrices A indexed by α × Fin(d+1) and B indexed by Fin(d+1) × β such that M=AB, with (AB)(x,y)=Σ_{i∈Fin(d+1)} A(x,i)B(i,y). (3) The real dimension of the image of the linear map T_M : ℝ^β → ℝ^α given by (T_M v)(x)=Σ_{y∈β} M(x,y)v(y) is at most d+1. This is the supplied Matrix.rank M, namely Module.finrank ℝ (LinearMap.range M.mulVecLin).",
+  "schema_version": "qcb.curriculum_blind_decode.v1",
+  "semantic_slots": {
+    "degree_hypothesis_and_zero": "The condition is p.natDegree ≤ d, not equality and not a nonzero-polynomial assumption. The added normalized interface states natDegree(0)=0, so the zero polynomial satisfies the degree hypothesis for every natural d.",
+    "expansion_indices": "The sum is over exactly Fin(d+1), with each index coerced to its natural value i=0,...,d for both coefficient extraction and the exponent. d=0 is permitted.",
+    "factorization": "FactorsThrough α β (Fin(d+1)) means the existence of the two real matrices A and B with exact equality M=A*B. It does not assert a least possible factor dimension. The scalar expansion displays the candidate entries A(x,i)=[X^i]p(X+row(x)) and B(i,y)=col(y)^i, although the existential conjunct itself does not name witnesses.",
+    "logical_shape": "The conclusion is a conjunction of a universal scalar identity, an existential exact factorization, and a natural-number rank upper bound.",
+    "nonemptiness_and_finiteness": "Neither α nor β is required to be nonempty, and α need not be finite. If either is empty, the displayed matrix has zero-dimensional image. The intermediate index Fin(d+1) is finite and nonempty for every natural d.",
+    "quantifiers_and_universes": "α : Type u and β : Type v are independent arbitrary index types. p, d, the evidence hd of p.natDegree ≤ d, row, and col are universally quantified. Only β has a Fintype assumption; no separate DecidableEq or Nonempty assumption occurs in the target.",
+    "rank_map_and_dimension": "The new normalized interface explicitly gives M.mulVecLin on a coordinate vector v as x ↦ Σ_y M(x,y)v(y). Its image is the real span of the columns of M, viewed as functions α → ℝ. Since β is finite, this image is finite-dimensional even if α is infinite. Thus finrank here is an ordinary finite real vector-space dimension.",
+    "resolved_prior_ambiguities": [
+      {
+        "effect": "The rank can now be read explicitly as the dimension of the image of the stated finite-column matrix-vector map.",
+        "item": "Matrix.mulVecLin action",
+        "resolved_by": "The successor packet supplies the normalized ambient interface (M.mulVecLin v) i = Σ_j M i j * v j.",
+        "status": "resolved"
+      },
+      {
+        "effect": "The degree hypothesis includes the zero polynomial for every natural d without a remaining convention gap.",
+        "item": "Zero-polynomial natDegree convention",
+        "resolved_by": "The successor packet supplies normalized namespace-qualified Polynomial.natDegree_zero: natDegree(0 : Polynomial ℝ)=0.",
+        "status": "resolved"
+      }
+    ],
+    "scalar_domain": "Polynomial coefficients, matrix entries, and row and column values lie in ℝ. d and Matrix.rank M lie in ℕ.",
+    "taylor_and_normalization": "Polynomial.taylor a p is p.comp(X+C a), so its ith coefficient is the ordinary coefficient [X^i]p(X+a). The formula uses this coefficient directly. There is no additional factorial, weight, norm normalization, or derivative expression in the target."
+  },
+  "source_blind": true
+}

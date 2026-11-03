@@ -1,0 +1,134 @@
+{
+  "schema_version": "qcb.source_blind_formal_decoder_context.v1",
+  "views": [
+    {
+      "anonymous_id": "B1",
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.Robin.ComplexLCU"
+        ],
+        "preamble": "universe u v w\nopen scoped BigOperators Kronecker",
+        "target": "∀ (c s : ℝ), (QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation c s) ∈ Matrix.unitaryGroup (Fin 2) ℂ ↔ c ^ 2 + s ^ 2 = 1"
+      },
+      "interface_signatures": [
+        {
+          "name": "Matrix.mem_unitaryGroup_iff'",
+          "signature": "∀ {n : Type u} [DecidableEq n] [Fintype n] {A : Matrix n n ℂ}, A ∈ Matrix.unitaryGroup n ℂ ↔ star A * A = 1"
+        },
+        {
+          "name": "Matrix.star_eq_conjTranspose",
+          "signature": "∀ {n : Type u} [Fintype n] [DecidableEq n] (A : Matrix n n ℂ), star A = A.conjTranspose"
+        },
+        "Matrix.one_apply: (1 : Matrix n n α) i j = if i = j then 1 else 0 (with the ambient semiring and DecidableEq instances)."
+      ],
+      "literal_definitions": [
+        {
+          "ambient_parameters": "{m n α : Type*} [Star α]",
+          "literal_declaration": "def conjTranspose [Star α] (M : Matrix m n α) : Matrix n m α :=\n  M.transpose.map star",
+          "name": "Matrix.conjTranspose"
+        },
+        {
+          "ambient_parameters": "(n : Type u) [DecidableEq n] [Fintype n] (α : Type v) [CommRing α] [StarRing α]",
+          "literal_declaration": "abbrev unitaryGroup : Submonoid (Matrix n n α) :=\n  unitary (Matrix n n α)",
+          "name": "Matrix.unitaryGroup"
+        },
+        {
+          "ambient_parameters": "none",
+          "literal_declaration": "noncomputable def realOrthogonalRotation (cosine sine : Real) :\n    _root_.Matrix (Fin 2) (Fin 2) ℂ := fun row column =>\n  match row.val, column.val with\n  | 0, 0 => (cosine : ℂ)\n  | 0, _ => -(sine : ℂ)\n  | _, 0 => (sine : ℂ)\n  | _, _ => (cosine : ℂ)",
+          "name": "QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation"
+        }
+      ]
+    },
+    {
+      "anonymous_id": "B2",
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.Robin.ComplexLCU"
+        ],
+        "preamble": "universe u v w\nopen scoped BigOperators Kronecker",
+        "target": "∀ {ι : Type u} {κ : Type v} [Fintype ι] [DecidableEq ι] [Fintype κ] [DecidableEq κ] (blocks : κ → Matrix ι ι ℂ), (∀ k, blocks k ∈ Matrix.unitaryGroup ι ℂ) → Matrix.blockDiagonal blocks ∈ Matrix.unitaryGroup (ι × κ) ℂ"
+      },
+      "interface_signatures": [
+        {
+          "name": "Matrix.mem_unitaryGroup_iff'",
+          "signature": "∀ {n : Type u} [DecidableEq n] [Fintype n] {A : Matrix n n ℂ}, A ∈ Matrix.unitaryGroup n ℂ ↔ star A * A = 1"
+        },
+        {
+          "name": "Matrix.star_eq_conjTranspose",
+          "signature": "∀ {n : Type u} [Fintype n] [DecidableEq n] (A : Matrix n n ℂ), star A = A.conjTranspose"
+        },
+        "Matrix.one_apply: (1 : Matrix n n α) i j = if i = j then 1 else 0 (with the ambient semiring and DecidableEq instances)."
+      ],
+      "literal_definitions": [
+        {
+          "ambient_parameters": "{m n α : Type*} [Star α]",
+          "literal_declaration": "def conjTranspose [Star α] (M : Matrix m n α) : Matrix n m α :=\n  M.transpose.map star",
+          "name": "Matrix.conjTranspose"
+        },
+        {
+          "ambient_parameters": "(n : Type u) [DecidableEq n] [Fintype n] (α : Type v) [CommRing α] [StarRing α]",
+          "literal_declaration": "abbrev unitaryGroup : Submonoid (Matrix n n α) :=\n  unitary (Matrix n n α)",
+          "name": "Matrix.unitaryGroup"
+        },
+        {
+          "ambient_parameters": "{m n o α : Type*} [DecidableEq o] [Zero α]",
+          "literal_declaration": "def blockDiagonal (M : o → Matrix m n α) : Matrix (m × o) (n × o) α :=\n  of <| (fun ⟨i, k⟩ ⟨j, k'⟩ => if k = k' then M k i j else 0 : m × o → n × o → α)",
+          "name": "Matrix.blockDiagonal"
+        }
+      ]
+    },
+    {
+      "anonymous_id": "B3",
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.Robin.ComplexLCU"
+        ],
+        "preamble": "universe u v w\nopen scoped BigOperators Kronecker",
+        "target": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (prepare : Matrix selector selector ℂ), prepare ∈ Matrix.unitaryGroup selector ℂ → (@QuantumBlockEncoding.Robin.ComplexLCU.selectorLift coefficient selector system fc dc fs ds ft dt prepare) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ"
+      },
+      "interface_signatures": [
+        {
+          "name": "Matrix.mem_unitaryGroup_iff'",
+          "signature": "∀ {n : Type u} [DecidableEq n] [Fintype n] {A : Matrix n n ℂ}, A ∈ Matrix.unitaryGroup n ℂ ↔ star A * A = 1"
+        },
+        {
+          "name": "Matrix.star_eq_conjTranspose",
+          "signature": "∀ {n : Type u} [Fintype n] [DecidableEq n] (A : Matrix n n ℂ), star A = A.conjTranspose"
+        },
+        "Matrix.one_apply: (1 : Matrix n n α) i j = if i = j then 1 else 0 (with the ambient semiring and DecidableEq instances)."
+      ],
+      "literal_definitions": [
+        {
+          "ambient_parameters": "{m n α : Type*} [Star α]",
+          "literal_declaration": "def conjTranspose [Star α] (M : Matrix m n α) : Matrix n m α :=\n  M.transpose.map star",
+          "name": "Matrix.conjTranspose"
+        },
+        {
+          "ambient_parameters": "(n : Type u) [DecidableEq n] [Fintype n] (α : Type v) [CommRing α] [StarRing α]",
+          "literal_declaration": "abbrev unitaryGroup : Submonoid (Matrix n n α) :=\n  unitary (Matrix n n α)",
+          "name": "Matrix.unitaryGroup"
+        },
+        {
+          "ambient_parameters": "declaration has explicit binders",
+          "literal_declaration": "abbrev LCUIndex (coefficient selector system : Type*) :=\n  coefficient × (selector × system)",
+          "name": "QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex"
+        },
+        {
+          "ambient_parameters": "declaration has explicit binders",
+          "literal_declaration": "def selectorLift\n    {coefficient selector system : Type*}\n    [Fintype coefficient] [DecidableEq coefficient]\n    [Fintype selector] [DecidableEq selector]\n    [Fintype system] [DecidableEq system]\n    (prepare : _root_.Matrix selector selector ℂ) :\n    _root_.Matrix\n      (LCUIndex coefficient selector system)\n      (LCUIndex coefficient selector system) ℂ :=\n  (1 : _root_.Matrix coefficient coefficient ℂ) ⊗ₖ\n    (prepare ⊗ₖ (1 : _root_.Matrix system system ℂ))",
+          "name": "QuantumBlockEncoding.Robin.ComplexLCU.selectorLift"
+        },
+        {
+          "ambient_parameters": "{α β γ l m n p : Type*}",
+          "literal_declaration": "def kroneckerMap (f : α → β → γ) (A : Matrix l m α) (B : Matrix n p β) : Matrix (l × n) (m × p) γ :=\n  of fun (i : l × n) (j : m × p) => f (A i.1 j.1) (B i.2 j.2)",
+          "name": "Matrix.kroneckerMap"
+        },
+        {
+          "ambient_parameters": "{α β γ l m n p : Type*}",
+          "literal_declaration": "def kronecker [Mul α] : Matrix l m α → Matrix n p α → Matrix (l × n) (m × p) α :=\n  kroneckerMap (· * ·)",
+          "name": "Matrix.kronecker"
+        }
+      ]
+    }
+  ]
+}

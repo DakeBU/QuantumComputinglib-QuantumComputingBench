@@ -1,0 +1,86 @@
+{
+  "decoder_identity": "/root/curriculum_blind_decoder",
+  "packet_digest": "d70c444420d9230b58a30be66c7a0d7abf602eaff696228336d684f9b5226279",
+  "schema_version": "qcb.curriculum_blind_decode.v1",
+  "source_blind": true,
+  "views": [
+    {
+      "ambiguities": [],
+      "anonymous_id": "B1",
+      "limitations": [
+        "This interprets only the anonymous successor packet and its supplied literals and interfaces; no Lean execution, proof checking, source-equivalence verdict, or comparison with an unseen question is claimed.",
+        "Matrix.one_apply is used as a normalized interface giving diagonal entry 1 and off-diagonal entry 0. It is not treated as a byte-literal complete declaration or independently checked source.",
+        "This is only the specified two-real-parameter family in complex 2 by 2 matrices; it is not a characterization of every complex 2 by 2 matrix.",
+        "No angle construction, tensor register, block-encoding property, approximation guarantee, or resource estimate is stated."
+      ],
+      "reconstructed_statement": "For every c,s ∈ ℝ, let R(c,s) be the complex 2 by 2 matrix [[c,-s],[s,c]], where real entries are canonically embedded in ℂ. Then R(c,s) is unitary if and only if c²+s²=1 in ℝ. Using the supplied interfaces, unitarity means R(c,s)†R(c,s)=I₂, where † denotes conjugate transpose and I₂ has diagonal entries 1 and off-diagonal entries 0.",
+      "semantic_slots": {
+        "ambient_interface_update": "The successor packet supplies the normalized Matrix.one_apply interface, so identity entries are now explicit Kronecker deltas rather than an omitted ambient convention.",
+        "logical_strength": "This is an iff, asserting both necessity and sufficiency, rather than just a sufficient normalization condition.",
+        "matrix_entries_and_order": "R(0,0)=c, R(0,1)=-s, R(1,0)=s, and R(1,1)=c in ℂ, with the displayed row-column order.",
+        "nonemptiness_and_dimension": "Fin 2 is fixed, finite, and nonempty; there is no variable or zero-dimensional matrix carrier in this view.",
+        "prior_ambiguity_status": "The earlier B1 decoding had no listed ambiguity; the added identity interface makes the identity-entry convention explicit.",
+        "quantifiers_and_universes": "The only quantified mathematical parameters are c and s, each in ℝ. Matrix row and column indices are fixed to Fin 2. The declared universes u,v,w do not introduce variable index carriers in this target.",
+        "scalar_and_normalization": "The condition c²+s²=1 is an exact real equality. The parameters are unrestricted real numbers before this condition is imposed. There is no scalar prefactor or assumption that c and s were supplied as cosine and sine of an angle.",
+        "typeclass_domains": "No additional target hypotheses on index types are present. Fin 2 supplies the needed Fintype and DecidableEq instances.",
+        "unitarity": "The membership interface gives star R * R = 1; the star interface gives conjugate transpose; the normalized identity interface gives the usual 0/1 matrix identity."
+      }
+    },
+    {
+      "ambiguities": [],
+      "anonymous_id": "B2",
+      "limitations": [
+        "This interprets only the anonymous successor packet and its supplied literals and interfaces; no Lean execution, proof checking, source-equivalence verdict, or comparison with an unseen question is claimed.",
+        "Matrix.one_apply is used as a normalized interface giving diagonal entry 1 and off-diagonal entry 0. It is not treated as a byte-literal complete declaration or independently checked source.",
+        "No register swap, reordering to κ × ι, contiguous numeric block layout, converse theorem, spectral property, Hermitian property, or block-encoding accuracy is asserted."
+      ],
+      "reconstructed_statement": "For arbitrary types ι : Type u and κ : Type v, each with Fintype and DecidableEq, and every family U_k=blocks(k) of complex square matrices on ι indexed by k ∈ κ, if every U_k is unitary, then the matrix D on ι × κ is unitary, where D((i,k),(j,k′))=U_k(i,j) if k=k′, and 0 otherwise. The first product coordinate is the within-block index and the second is the block selector. The implication is (∀ k, U_k†U_k=I_ι) ⇒ D†D=I_{ι×κ}, with the supplied ordinary identity entries.",
+      "semantic_slots": {
+        "ambient_interface_update": "The successor packet supplies the normalized Matrix.one_apply interface, so identity entries are now explicit Kronecker deltas rather than an omitted ambient convention.",
+        "carrier_and_coordinate_order": "The literal row and column carrier is ι × κ. It is not κ × ι. Each coordinate pair is (within-block index, block selector); no permutation or chosen numeric enumeration is specified.",
+        "entry_semantics": "The definition checks equality of the second coordinates k and k′. When equal, it takes blocks k i j; otherwise it takes 0 in ℂ.",
+        "general_domain": "Both cardinalities are arbitrary finite cardinalities, including zero. No positive dimension, power-of-two dimension, preferred zero state, or qubit representation is required.",
+        "logical_strength": "The root states sufficiency as a one-way implication. It does not state the converse or an iff.",
+        "nonemptiness_and_zero_dimension": "Neither ι nor κ has a Nonempty assumption. If either is empty then ι × κ is empty and D is zero-dimensional. If κ is empty the all-blocks premise is vacuous; if ι is empty each block is zero-dimensional.",
+        "prior_ambiguity_status": "The earlier B2 decoding had no listed ambiguity; the added identity interface makes the identity-entry convention explicit.",
+        "quantifiers_and_universes": "ι : Type u and κ : Type v are independently universally quantified. The family blocks : κ → Matrix ι ι ℂ is also universal. The matrix product carrier lies in universe max(u,v).",
+        "scalar_and_normalization": "The construction directly uses the complex block entries. No weighting, scalar normalization, averaging, or approximation is involved.",
+        "typeclass_domains": "Both ι and κ have Fintype and DecidableEq assumptions. All blocks share the same square within-block carrier ι.",
+        "unitarity": "Membership means conjugate transpose times the matrix equals its identity matrix, with 0/1 entries made explicit by the new normalized interface."
+      }
+    },
+    {
+      "ambiguities": [],
+      "anonymous_id": "B3",
+      "limitations": [
+        "This interprets only the anonymous successor packet and its supplied literals and interfaces; no Lean execution, proof checking, source-equivalence verdict, or comparison with an unseen question is claimed.",
+        "Matrix.one_apply is used as a normalized interface giving diagonal entry 1 and off-diagonal entry 0. It is not treated as a byte-literal complete declaration or independently checked source.",
+        "A converse is not stated and does not hold uniformly with empty spectators: an empty coefficient type and singleton selector with zero prepare give an empty unitary lift while prepare is nonunitary.",
+        "No distinguished input state, state-preparation column condition, coefficient encoding, selected operation, postselection, or block-encoding correctness equation is part of this target.",
+        "No tensor-factor permutation, explicit reassociation equivalence, approximation guarantee, circuit construction, or resource bound is asserted.",
+        "No unresolved ambiguity essential to this mathematical reading remains within the supplied interface model."
+      ],
+      "reconstructed_statement": "For every coefficient : Type u, selector : Type v, and system : Type w, each equipped with Fintype and DecidableEq, and every complex square matrix P=prepare indexed by selector, if P is unitary then L=I_coefficient ⊗ (P ⊗ I_system) is unitary on coefficient × (selector × system). The product and tensor factors have exactly this order and right association. For row (a,(b,t)) and column (a′,(b′,t′)), the entry is δ_{a,a′} · (P(b,b′) · δ_{t,t′}), where each δ is complex 1 on equality and 0 otherwise. Equivalently the entry is P(b,b′) if a=a′ and t=t′, and 0 otherwise. The theorem is the one-way implication P†P=I_selector ⇒ L†L=I_{coefficient×(selector×system)}.",
+      "semantic_slots": {
+        "action_interpretation": "The matrix acts by prepare on the selector coordinate and leaves the coefficient and system coordinates as spectators through identity factors. The name coefficient denotes an index type, not a complex coefficient value.",
+        "carrier_and_register_order": "LCUIndex coefficient selector system is literally coefficient × (selector × system), with a point (coefficient-coordinate,(selector-coordinate,system-coordinate)). It is not written as (coefficient × selector) × system and no reassociation or reordering equivalence is asserted.",
+        "general_domain": "The index types have arbitrary finite cardinalities, not necessarily positive or powers of two. No preferred zero vector index, input state, or tensor-factor permutation is provided.",
+        "logical_strength": "The target asserts only prepare-unitary implies selectorLift-unitary. It does not assert an iff or necessity of the hypothesis over these general index domains.",
+        "nonemptiness_and_zero_dimension": "None of the three types is required to be nonempty. The total dimension is |coefficient|·|selector|·|system| and may be zero. If coefficient or system is empty, the full lift is an empty matrix for every prepare, so its unitarity does not determine prepare unitarity. If selector is empty, both prepare and its lift are zero-dimensional.",
+        "quantifiers_and_universes": "coefficient : Type u, selector : Type v, and system : Type w are independent arbitrary types, with prepare : Matrix selector selector ℂ universally quantified. The full carrier has universe max(u,max(v,w)).",
+        "resolved_prior_ambiguities": [
+          {
+            "effect": "The Kronecker-delta entry formula and the spectator action on coefficient and system are now explicit consequences of the supplied interface semantics; no identity-entry gap remains.",
+            "item": "Matrix identity entry formula",
+            "resolved_by": "The successor packet supplies normalized Matrix.one_apply: (1 : Matrix n n α) i j = if i=j then 1 else 0.",
+            "status": "resolved"
+          }
+        ],
+        "scalar_and_normalization": "All entries and products are complex. There is no scalar prefactor, amplitude weight, norm bound, normalization constant, or coefficient value in the construction.",
+        "tensor_and_entry_order": "selectorLift is I_coefficient ⊗ (prepare ⊗ I_system). The supplied Kronecker definition gives the entry I_coefficient(a,a′) * (prepare(b,b′) * I_system(t,t′)). The newly supplied identity-entry interface resolves this to δ_{a,a′} * (prepare(b,b′) * δ_{t,t′}).",
+        "typeclass_domains": "The named assumptions fc/dc, fs/ds, ft/dt are respectively Fintype/DecidableEq for coefficient, selector, and system. The explicit @ application passes these six instances in that order.",
+        "unitarity": "The membership and star interfaces make the hypothesis and conclusion exact conjugate-transpose identities on their respective finite carriers."
+      }
+    }
+  ]
+}
