@@ -6,9 +6,10 @@ contracts, families and splits. Knowledge, Lean syntax and mixed views of the
 same target remain one question. The non-Lean track and frozen releases remain
 independent of this sidecar's qualification.
 
-The cumulative plan is [course-v2.json](curriculum/course-v2.json): 13 distinct
-existing cores. The frozen [first plan](curriculum/course-v1.json) retains its
-nine-core scope and original evidence. New companions require content-bound
+The cumulative plan is [course-v3.json](curriculum/course-v3.json): 18 distinct
+existing cores. The preserved [first plan](curriculum/course-v1.json) and
+[second plan](curriculum/course-v2.json) retain their nine-core and 13-core
+scopes and original execution evidence. New companions require content-bound
 semantic review and actual authored reference receipts before the corresponding
 CLI audit or export succeeds. A candidate file, graph node or difficulty label
 alone cannot enable evaluation gold.
@@ -19,9 +20,9 @@ alone cannot enable evaluation gold.
 | --- | --- | --- |
 | D0 | Knowledge of assumptions, objects and conventions, assessed using the same core's canonical semantic rubric | Distinguish row Gram from column isometry, joint mass from a marginal, finite-width rank from a circuit bound |
 | D1 | Precise statement reading and a disclosed library application | SP009 real-to-complex isometry calibration |
-| D2 | Local symbolic construction and entry/sum reasoning | BE105 normalization iff, BE106 readout domain, BE107 block Gram, SP005 marginal norm |
+| D2 | Local symbolic construction and entry/sum reasoning | Normalization/readout domains, finite sums, permutation chronology, concrete clean/dirty work, shifted jets |
 | D3 | Joining mathematical interfaces and preserving every AND premise | BE109 tensor lift, BE112 LCU composition, SP113 anchored mass and counterexample, SP114 rank, LA102 determinant |
-| D4 | Parametric induction and global invariant/representation control | SP007 transfer induction, SP008 joint probability, SP120 binary-search invariant and cost ledger |
+| D4 | Parametric induction and global invariant/representation or degree control | SP007 transfer induction, SP008 joint probability, SP120 cutoff ledger, SP104 endpoint multiplicity and degree |
 
 D0 facets do not create extra questions. D1--D4 are provisional mathematical
 assessments of the inspected construction routes, not measured model difficulty.
@@ -32,6 +33,46 @@ outcomes. Tactic count, source lines, graph distance and node count do not defin
 these bands.
 
 ## Versioned scope
+
+Version 3 adds BE110, BE111, BE102, SP101 and SP104. The cumulative split is
+nine train, four dev and five public-test cores. Bands contain D1: one, D2: eight,
+D3: five and D4: four. All earlier 13 entry objects, core contracts and splits
+are retained.
+
+BE110 states the exact same-selector inverse and both composites before
+permutation unitarity. Different selector labels can happen to name the same
+permutation; using another label is not guaranteed to invert the selected map,
+rather than always failing. BE111 fixes the contracted row at the inverse image
+and proves the matrix and column-vector chronology explicitly.
+
+SP101 checks shifted coefficients, ordinary derivative realization and an upper
+degree bound for arbitrary finite jet data. SP104 concerns arbitrary polynomials
+`p,q`, not only the source interpolant. Its reusable general-point
+jet/divisibility equivalence feeds independent endpoint branches; coprimality
+joins them before the degree contradiction. This is an actual reconvergent
+pattern in the supplied obligation graph, not a claimed extraction of the
+elaborated Lean proof-term graph. The explicit references use the provider in
+both branches.
+
+BE102 checks the literal finite seven-wire map: clean-input arithmetic and
+zero work, all-input row and entering-work preservation, and two dirty-input
+witnesses. One dirty example still has the correct address; the other does not.
+Neither returns dirty work to zero. This is not an arbitrary-width adder, a cost
+theorem or an arbitrary-quantum-input no-entanglement claim. Kernel finite
+decision is a valid disclosed shortcut, so the construction band is D2, not
+proof-synthesis depth inferred from the enumerated cases.
+
+The named source clean-action theorem and some corollaries carry additional
+`native_decide` axioms outside this benchmark's fixed policy. They were excluded
+from approved retrieval. The authored root uses kernel decision/finite bit
+cases with the unchanged three-axiom whitelist. This does not refute the source
+theorem or establish a whole-module trust audit.
+
+Thirteen declaration-only interfaces were checked by actual signature
+ascriptions and admitted to scoped retrieval. `closed_book` disables retrieval,
+while full imports and known shortcuts remain callable; this is not an import
+firewall. Mathematical construction, library application and finite-decision
+bypasses must be reported separately.
 
 Version 2 adds BE106, BE112, SP113 and SP120 without replacing any earlier
 question, view, contract or split. It contains five train, four dev and four
@@ -120,16 +161,22 @@ Run from the repository root. Every audit/export revalidates the recorded
 reference qualification:
 
 ```sh
-python benchmarks/quantumcomputingbench/scripts/lean_course_v2.py audit
-python benchmarks/quantumcomputingbench/scripts/lean_course_v2.py export \
+python benchmarks/quantumcomputingbench/scripts/lean_course_v3.py audit
+python benchmarks/quantumcomputingbench/scripts/lean_course_v3.py export \
   --split train --output _out/lean-course-train.json
-python benchmarks/quantumcomputingbench/scripts/lean_course_v2.py export \
+python benchmarks/quantumcomputingbench/scripts/lean_course_v3.py export \
   --band D3 --output _out/lean-course-D3.json
-python benchmarks/quantumcomputingbench/scripts/lean_course_v2.py run-fixture \
-  --view qcb-course-sp-113-v1 --episode-dir ../qcb-eval-private/sp113-course-fixture-fresh
+python benchmarks/quantumcomputingbench/scripts/lean_course_v3.py run-fixture \
+  --view qcb-course-sp-104-v1 --episode-dir ../qcb-eval-private/sp104-course-fixture-fresh
 ```
 
-Use `lean_course.py` for the preserved nine-core version. The successor CLI
+Use `lean_course.py` and `lean_course_v2.py` for the preserved nine-core and
+13-core versions. Version 3 adds five companions; its reference command checks
+only that new cohort. It additionally requires the sanitized source-alignment
+supplement for the unchanged version-2 roots, without relabelling their old
+Lean receipts as new replays.
+
+Historical version-2 behavior: The successor CLI
 validates all historical qualifications as well as its new cohort; its
 `check-references` command replays only the four newly added companions.
 
@@ -160,7 +207,8 @@ blobs stay checked and `recorded_pipeline_matches_current_sources` is false for
 that complete recorded pipeline after the reader/CLI changes.
 
 The supplied graphs cover single roots, chains, AND joins and shared interfaces.
-A genuine incomparable-branch diamond is still a visible coverage gap. The
+A genuine incomparable-branch diamond was still a coverage gap at that first
+checkpoint; version 3 adds the endpoint-reuse example described above. The
 preserved nine-core slice anchors 20 snapshot declarations in six source files; this
 does not clear whole-module review debt or certify a capacity for thousands of
 questions. No measured model score, new mathematical core, canonical formal
@@ -190,7 +238,7 @@ publish a stable release or deploy the website.
 
 ## Next bounded batches
 
-[backlog-v2.json](curriculum/backlog-v2.json) retains ten not-yet-prepared
+[backlog-v3.json](curriculum/backlog-v3.json) retains five not-yet-prepared
 source-bound inspection targets in LCU/permutation composition, Hermite analytic prerequisites and
 reversible-oracle semantics. It preserves existing contracts and splits; its
 entries have no prepared reference proof, calibrated difficulty or current-gold
@@ -199,7 +247,7 @@ semantic roundtrip, then replay its authored references before extending the
 qualified course. Missing formal interfaces remain obstructions rather than
 convenient extra public hypotheses.
 
-## Successor reference profile
+## Version-2 reference profile
 
 The second cohort uses an explicit authored-only profile: 2,100 seconds for the
 batch, 450 seconds for a provided-DAG session, 120 seconds per compiler check
@@ -221,7 +269,7 @@ Qualification requires actual recorded results, not this expected count or the
 software mocks. The declared source map includes 28 local Python files and eight
 cohort inputs. Historical first-course receipts and raw failures are preserved.
 
-## Actual successor checkpoint
+## Actual version-2 checkpoint
 
 The [second-cohort receipt](../../reports/lean-course-v2/reference-checks.json)
 records all 39 actual checks with the expected outcomes: 19 positive obligations,
@@ -239,3 +287,65 @@ It still does not claim a genuine incomparable-branch diamond, whole-module
 semantic clearance, empirical difficulty, canonical formal admission or stable
 release. Existing source contracts and all nine earlier course entries remain
 unchanged.
+
+## Sanitized source review and third-cohort profile
+
+The source-aware input format v2 carries only the exact question, reference
+answer, assumptions and conventions. It excludes historical QA review verdicts
+and author metadata. The evaluator checks this projection against the actual
+canonical item and its full digest; labelled hashes alone cannot substitute a
+different question. Exact formal, ambient, decoder and retrieval payloads are
+also bound. Hashes and role labels do not authenticate operational independence
+or mathematical truth.
+
+An earlier third-cohort review encountered embedded historical QA review
+metadata and was retained only as a nonqualifying diagnostic. A different fresh
+reviewer received sanitized inputs for all five new roots and the four
+unchanged second-cohort roots. All nine root alignments were accepted with
+partial whole-question coverage. Formal-only decoder wrapper provenance was
+visible and explicitly disregarded as source-fidelity evidence. No old source
+comparison or Lean receipt was overwritten. The clean first-cohort input has
+also been preserved with its original comparison digest.
+
+The third authored-only profile is 2,700 seconds per batch, 600 per supplied-DAG
+session, 120 per compiler check and 180 per standalone control. These ceilings
+are independent of model-compute budgets and preserve all earlier profiles.
+The fixed five-core cohort requires 21 positive obligations, ten standalone
+controls, ten expected type/axiom negatives and five distinct final-root
+replays: 46 actual checks before qualification. Its declared source map has
+31 local Python files and 17 data inputs, including the sanitized supplement.
+
+```sh
+python benchmarks/quantumcomputingbench/scripts/lean_course_v3.py check-references \
+  --build-root PATH_TO_MATCHING_BUILT_CHECKOUT --trusted-local-reference \
+  --output _out/lean-course-v3-authored-fresh.json \
+  --raw-output ../qcb-eval-private/lean-course-v3-authored-raw-fresh.json
+```
+
+Read [the handoff](COURSE_HANDOFF.md) before continuing a proof-bearing batch or
+preparing model evaluation. A successful supplied obligation remains separate
+from useful search behavior, faithful NL reasoning or a calibrated process
+reward.
+
+The older receipts retain their original execution commits and source maps.
+Current readers may report a source mismatch after metadata-only hardening;
+that does not rerun or relabel the historical proof check. In particular, the
+sanitation and full-payload binding changes are new reader behavior.
+
+## Actual version-3 checkpoint
+
+The [third receipt](../../reports/lean-course-v3/reference-checks.json) records
+all 46 checks with expected outcomes at
+`14ccfa64129802ee6dfea959dd17cf165a74818f`: 21 positive obligations, ten
+standalone controls, five distinct fresh roots and ten expected rejections.
+Actual wrong-type diagnostics and `sorryAx` detections were inspected. Positive
+closures stay within the fixed three-axiom whitelist. The authored batch took
+1,643.922 seconds, not a model latency measurement.
+
+Fresh matching-tree `lake build` and `lake build Tests` passed afterward with
+existing warnings. Software passed 317 tests and 353 subtests; website contracts
+passed 23 tests. Twenty-eight filtered exports omit all 101 collected authored
+proof strings; 23 protocol episodes use only a synthetic verifier/provider.
+The qualified slice has 18 shared cores, 53 declaration anchors and ten source
+files. Source-wide debt, real-model/isolation gates, empirical difficulty,
+canonical formal admission and stable publication remain separate.
