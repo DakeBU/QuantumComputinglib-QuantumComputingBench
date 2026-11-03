@@ -46,6 +46,8 @@ exercise pages with assumptions first and hints, solutions, rubrics and evidence
 folded by default. It uses the existing QuantumComputinglib textbook shell.
 
 - [Mathematical reader (no Lean required)](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/non-lean/)
+- [Guided course: knowledge facets and D1–D4 construction levels](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/course/)
+- [How graph connections become reasoning questions](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/reasoning/)
 - [Lean companion and diagnostic warmups](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/lean/)
 - [Shared core and split contract](shared/CONTRACT.md)
 - [Non-Lean collaborator goal](tracks/non-lean/AGENT_GOAL.md)
@@ -66,6 +68,26 @@ python benchmarks/quantumcomputingbench/scripts/curriculum.py stable-check
 `stable-check` intentionally exits 2 while reviews/reconciliation remain pending.
 No broad whole-graph completeness, new isolated evaluator or model baseline is
 implied by the website presentation.
+
+The guided course is a separate projection of the qualified
+[course manifest](tracks/lean/curriculum/course-v3.json). It links each
+companion back to its existing canonical exercise page. The course and
+canonical native formal inventories overlap and must not be added together.
+D0 asks readers to inspect the same questions' objects, assumptions and
+conventions; it adds no items. D1–D4 describe provisional reference construction
+routes, not measured model difficulty or graph distance. Unannotated cores are
+not assigned a course band. Optional course panels retain every supplied
+obligation and input; the original hints, solutions and formal evidence remain
+folded. Subject navigation is shared foundations plus the library's four
+subject areas; planned formal frontiers remain labeled.
+
+The reasoning guide distinguishes a library anchor, suggested reading, an
+import, a conceptual Functor Hypergraph interface and a supplied proof
+obligation. Its examples cover an individual representation bridge, a
+finite-sum/composition chain, an AND join, and the Hermite shared-provider
+endpoint diamond with all side inputs. These examples explain the library's
+value for breadth, reuse and deeper composition without treating every graph
+combination as a valid question or every checked step as a process reward.
 
 The first [native Lean companion batch](tracks/lean/README.md#first-native-formal-view-batch)
 contains three aligned library-lemma applications over existing core IDs.

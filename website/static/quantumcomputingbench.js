@@ -2,8 +2,8 @@
 (() => {
   "use strict";
   function revealFormalCompanion() {
-    if (location.hash !== "#lean") return;
-    const panel = document.getElementById("lean");
+    if (!["#lean", "#course"].includes(location.hash)) return;
+    const panel = document.getElementById(location.hash.slice(1));
     if (panel instanceof HTMLDetailsElement) {
       panel.open = true;
       panel.scrollIntoView({ block: "start" });
