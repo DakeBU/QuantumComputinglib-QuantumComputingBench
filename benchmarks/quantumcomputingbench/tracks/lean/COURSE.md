@@ -78,7 +78,8 @@ planned nodes remain outside current gold.
 
 ## Commands
 
-Run from the repository root after the new reference receipt qualifies:
+Run from the repository root. Every audit/export revalidates the recorded
+reference qualification:
 
 ```sh
 python benchmarks/quantumcomputingbench/scripts/lean_course.py audit
@@ -95,6 +96,33 @@ omit reference proofs, controls, negative proofs, source comparison verdicts
 and grading answers. References remain public elsewhere; this is not a blind
 test. The fixture command uses a simulation verifier and measures no Lean or
 model performance.
+
+## Actual first-expansion checkpoint
+
+The [reference receipt](../../reports/lean-course-v1/reference-checks.json)
+records 37 actual Lean checks over the five added companions: 13 positive
+obligations, nine standalone controls, ten expected type/axiom rejections and
+five distinct final-root replays. All positive axioms are within the standard
+approved set. Four new mathematical roots have a distinct blind decode and
+source-aware comparison; the SP009 calibration reuses its unchanged canonical
+native alignment. Every whole-question explanation/method boundary remains
+visible rather than inferred from a successful proof.
+
+This replay ran at commit `d4660e0a9ff9a45cac7b35c89021f199ec600d31`, with
+Lean 4.29.1 in the matching pinned cached production tree. Fresh `lake build`
+and `lake build Tests` passed afterward, with existing linter warnings. Later
+reader-only hardening rejects contradictory receipt flags, malformed axiom
+lists, copied final-replay identities and incomplete pipeline maps. It does not
+relabel the earlier run as execution of the newer reader. The historical Git
+blobs stay checked and `recorded_pipeline_matches_current_sources` is false for
+that complete recorded pipeline after the reader/CLI changes.
+
+The supplied graphs cover single roots, chains, AND joins and shared interfaces.
+A genuine incomparable-branch diamond is still a visible coverage gap. The
+current nine cores anchor 20 snapshot declarations in six source files; this
+does not clear whole-module review debt or certify a capacity for thousands of
+questions. No measured model score, new mathematical core, canonical formal
+admission or stable publication is produced by this course checkpoint.
 
 The authored replay requires the reviewed pipeline to be committed, all semantic
 inputs bound, and the matching already-built Lean checkout:
@@ -117,3 +145,14 @@ and `lake build Tests` in the matching production tree.
 Real model-generated Lean remains blocked pending accepted isolation. The course
 does not contact administrators, start GPU training, merge the development PR,
 publish a stable release or deploy the website.
+
+## Next bounded batches
+
+[backlog-v1.json](curriculum/backlog-v1.json) reserves source-bound inspection
+targets in LCU/permutation composition, Hermite analytic prerequisites and
+reversible-oracle semantics. It preserves existing contracts and splits; its
+entries have no prepared reference proof, calibrated difficulty or current-gold
+status. Select a coherent group, seal its literal statements, perform the same
+semantic roundtrip, then replay its authored references before extending the
+qualified course. Missing formal interfaces remain obstructions rather than
+convenient extra public hypotheses.

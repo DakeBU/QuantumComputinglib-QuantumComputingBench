@@ -7,8 +7,8 @@ from qcb_core import digest, read_json
 from qcb_curriculum import load_catalog
 from qcb_evaluation_registry import _source_lineage
 from qcb_integrity import text_sha
-from qcb_lean import APPROVED_AXIOMS
-from qcb_proof_session import proof_sha, validate_task
+from qcb_proof_session import validate_task
+from qcb_reference_receipt import validate_course_receipt
 from qcb_textbook_policy import check_source_bindings
 
 B = Path(__file__).resolve().parents[1]
@@ -17,6 +17,15 @@ FIXTURE = B / "tracks/lean/fixtures/graph-course-v1.json"
 EVIDENCE = B / "reports/lean-course-v1"
 RECEIPT = EVIDENCE / "reference-checks.json"
 EXPECTED = {"qcb-core-be-105", "qcb-core-be-107", "qcb-core-be-109", "qcb-core-sp-114", "qcb-core-sp-009"}
+PREFIX = "benchmarks/quantumcomputingbench/"
+# Version-1 execution inputs, not the later qualification reader. These exact
+# paths retain their recorded Git revisions after reader-only hardening.
+REFERENCE_PIPELINE_PATHS = {PREFIX + name for name in (
+    "scripts/lean_course.py", "tracks/lean/fixtures/graph-course-v1.json", "tracks/lean/curriculum/course-v1.json",
+    *("src/" + n for n in ("qcb_graph_course_pilot.py", "qcb_lean_course.py", "qcb_proof_session.py", "qcb_authored_session.py",
+                            "qcb_core.py", "qcb_curriculum.py", "qcb_lean.py", "qcb_integrity.py")),
+    *("reports/lean-course-v1/" + n for n in ("comparison.json", "be-decoder-input.json", "rank-decoder-input.json",
+                                            "be-decoder.json", "rank-decoder.json", "context-extensions.json")))}
 sys.path.insert(0, str(R / "website/scripts"))
 from proof_inputs import proof_input_digest
 
@@ -121,38 +130,7 @@ def check_semantics(packet, cases, cores):
 def load_qualified():
     cases, identity, catalog, graph = load_candidates()
     report = read_json(RECEIPT)
-    payload = deepcopy(report)
-    claimed = payload.pop("receipt_digest", None)
-    if (report["schema_version"] != "qcb.graph_course_reference_replay.v1" or digest(payload) != claimed
-            or report["passed"] is not True or report["execution_class"] != "trusted_local_authored_reference"
-            or report["isolated"] is not False or report["model_calls"] != 0
-            or any(report[k] != v for k, v in identity.items())):
-        raise ValueError("course reference receipt is stale or not authored-reference evidence")
-    rows = {r["core_id"]: r for r in report["results"]}
-    if set(rows) != EXPECTED or len(report["results"]) != len(EXPECTED):
-        raise ValueError("all five new course roots require actual final replay")
-    for case in cases:
-        task = case["task"]; row = rows[task["core_id"]]
-        final = row["final_replay"]
-        if (row["task_hash"] != digest(task) or row["passed"] is not True
-                or {p["node_id"] for p in row["positive_obligations"]} != set(case["references"])
-                or len(row["positive_obligations"]) != len(case["references"])
-                or any(p["status"] != "verified" or p["kernel_checked"] is not True
-                       or set(p["axioms"]) - APPROVED_AXIOMS
-                       or p["proof_sha256"] != proof_sha(case["references"][p["node_id"]]) for p in row["positive_obligations"])
-                or set(row["controls"]) != set(case["controls"])
-                or any(p["status"] != "verified" or p["kernel_checked"] is not True
-                       or set(p["axioms"]) - APPROVED_AXIOMS
-                       or p["proof_sha256"] != proof_sha(case["controls"][key]) for key, p in row["controls"].items())
-                or final["status"] != "verified" or final["kernel_checked"] is not True
-                or final["proof_sha256"] != proof_sha(case["references"][task["root_id"]])
-                or set(final["axioms"]) - APPROVED_AXIOMS
-                or row["negative_controls"]["wrong_target"]["status"] != "compile_error"
-                or "sorryAx" not in row["negative_controls"]["sorry_axiom"]["axioms"]
-                or row["negative_controls"]["sorry_axiom"]["status"] != "compile_error"):
-            raise ValueError("incomplete reference/axiom-negative/fresh-root coverage")
-        if any(row["negative_controls"][key]["proof_sha256"] != proof_sha(proof) for key, proof in case["negative_controls"].items()):
-            raise ValueError("negative evidence belongs to another authored control")
+    validate_course_receipt(report, cases, identity, REFERENCE_PIPELINE_PATHS)
     lineage = _source_lineage(report["tested_code_commit"], report["pipeline_source_hashes_lf"])
     views = {}
     for case in cases:

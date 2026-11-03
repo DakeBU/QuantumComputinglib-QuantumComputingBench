@@ -137,6 +137,8 @@ def main():
         for path in (args.output, args.raw_output):
             if path and path.exists():
                 raise FileExistsError("choose fresh outputs; prior receipts are preserved")
+        if args.output and args.raw_output and args.output.resolve() == args.raw_output.resolve():
+            raise ValueError("summary and raw outputs must resolve to different paths")
         if args.raw_output and args.raw_output.resolve().is_relative_to(R.resolve()):
             raise ValueError("raw reference trajectories must remain outside the public repository")
         if args.command == "check-references":

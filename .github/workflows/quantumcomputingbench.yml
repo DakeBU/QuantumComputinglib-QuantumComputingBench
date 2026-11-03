@@ -54,6 +54,14 @@ jobs:
         run: python benchmarks/quantumcomputingbench/scripts/evaluate_agentic.py run-fixture --view qcb-agentic-sp-007-v1 --mode proof_dag --episode-dir "${{ runner.temp }}/qcb-agentic-fixture"
         env:
           PYTHONUTF8: '1'
+      - name: Validate the staged Lean course and recorded reference evidence
+        run: python benchmarks/quantumcomputingbench/scripts/lean_course.py audit
+        env:
+          PYTHONUTF8: '1'
+      - name: Exercise the course protocol with a synthetic verifier
+        run: python benchmarks/quantumcomputingbench/scripts/lean_course.py run-fixture --view qcb-course-be-105-v1 --episode-dir "${{ runner.temp }}/qcb-course-fixture"
+        env:
+          PYTHONUTF8: '1'
       - run: python -m unittest website.scripts.test_quantumcomputingbench -v
         env:
           PYTHONUTF8: '1'

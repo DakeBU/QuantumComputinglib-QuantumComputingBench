@@ -84,6 +84,12 @@ Offline profile templates and validation prepare bounded model configurations;
 model-generated formal proofs remain gated on accepted isolated execution.
 The canonical catalog and public-preview release status are unchanged.
 
+The [staged Lean course](tracks/lean/COURSE.md) extends that pilot to nine
+existing cores with explicit mathematical-construction bands, prerequisite and
+split checks, source-node coverage and answer-free exports. Its reference
+qualification is separate from canonical formal-view admission and empirical
+model-difficulty calibration.
+
 ## Audited mathematical corrections
 
 <details>

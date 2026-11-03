@@ -40,6 +40,13 @@ The subsequent [operator-profile and CI checkpoint](../../reports/lean-agentic-n
 records offline configuration validation and updated software checks; earlier
 execution/review records retain their original source identities and scope.
 
+The [staged Lean course](COURSE.md) now assembles nine existing cores across
+provisional construction bands D1--D4, with D0 knowledge facets attached to the
+same questions. It adds reviewed normalization-iff, block/tensor-unitary and
+Taylor-factorization/rank companions, while preserving all canonical splits and
+formal-admission boundaries. Its audit checks actual recorded authored proofs;
+its topology counts describe supplied obligations rather than proof-term depth.
+
 Prioritize exact formal views of admitted source-supported NL targets. Record
 the literal imports, assumptions, target, readable correspondence, source hashes,
 fixed-reference proof, axiom audit and genuine execution class. A formal target
