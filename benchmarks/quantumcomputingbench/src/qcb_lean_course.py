@@ -18,7 +18,8 @@ BANDS = {
 }
 SKILLS = {"statement_understanding", "premise_selection", "library_application", "finite_sum_algebra",
           "matrix_entry_algebra", "unitary_closure", "tensor_lift", "induction", "representation_bridge",
-          "rank_factorization", "diagnostic_repair", "counterexample_construction", "resource_semantics", "boundary_case_analysis"}
+          "rank_factorization", "diagnostic_repair", "counterexample_construction", "resource_semantics", "boundary_case_analysis",
+          "jet_interpolation", "degree_divisibility", "reversible_basis_action"}
 SPLIT_ORDER = {"train": 0, "dev": 1, "test_public": 2}
 
 

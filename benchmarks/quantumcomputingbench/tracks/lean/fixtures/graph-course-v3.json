@@ -1,0 +1,729 @@
+{
+  "author": "/root",
+  "cases": [
+    {
+      "assumptions_added": false,
+      "controls": {
+        "constructed_whole_root": "by\n  intro coefficient selector system fc dc fs ds ft dt permutation\n  constructor\n  · constructor\n    · intro index\n      constructor <;> rfl\n    · intro index\n      constructor <;> simp [QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv]\n  · unfold QuantumBlockEncoding.Robin.ComplexLCU.selectLift\n    rw [Matrix.mem_unitaryGroup_iff']\n    ext row column\n    by_cases equal : row = column\n    · subst column\n      simp [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix, Matrix.mul_apply]\n    · have reverse_ne : column ≠ row := Ne.symm equal\n      simp [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix, Matrix.mul_apply, equal, reverse_ne]",
+        "library_control": "by\n  intro coefficient selector system fc dc fs ds ft dt permutation\n  constructor\n  · constructor\n    · intro index\n      constructor <;> rfl\n    · intro index\n      constructor <;> simp [QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv]\n  · exact @QuantumBlockEncoding.Robin.ComplexLCU.selectLift_unitary coefficient selector system fc dc fs ds ft dt permutation"
+      },
+      "library_control_one_call": false,
+      "negative_controls": {
+        "sorry_axiom": "by\n  sorry",
+        "wrong_target": "by\n  exact True.intro"
+      },
+      "references": {
+        "be110_basis_unitary": "by\n  intro ι fi di equiv\n  rw [Matrix.mem_unitaryGroup_iff']\n  ext row column\n  by_cases equal : row = column\n  · subst column\n    simp [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix, Matrix.mul_apply]\n  · have reverse_ne : column ≠ row := Ne.symm equal\n    simp [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix, Matrix.mul_apply, equal, reverse_ne]",
+        "be110_root": "by\n  intro coefficient selector system fc dc fs ds ft dt permutation\n  constructor\n  · exact @qcb_step_be110_same_selector_inverse coefficient selector system permutation\n  · unfold QuantumBlockEncoding.Robin.ComplexLCU.selectLift\n    exact qcb_step_be110_basis_unitary _",
+        "be110_same_selector_inverse": "by\n  intro coefficient selector system permutation\n  constructor\n  · intro index\n    constructor <;> rfl\n  · intro index\n    constructor <;> simp [QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv]"
+      },
+      "retrieval_scope": {
+        "direct_route_interfaces": [
+          "QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv",
+          "QuantumBlockEncoding.Robin.ComplexLCU.selectLift_unitary",
+          "QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_unitary",
+          "Matrix.mem_unitaryGroup_iff"
+        ],
+        "note": "All declarations reachable through frozen imports remain callable. This is a disclosed role map, not a theorem exclusion firewall."
+      },
+      "semantic_coverage": "PARTIAL_WHOLE_QUESTION: actual forward formula; actual same-selector inverse formula; both explicit inverse composites; complex SELECT matrix unitarity. The mathematical explanation and simple mismatch example are author prose, not an additional compiled mismatch theorem or grading of all rubric language.",
+      "semantic_evidence": {
+        "anonymous_id": "P1",
+        "group": "permutation",
+        "kind": "new_roundtrip"
+      },
+      "shortcut_disclosure": "controlledSystemEquiv already contains the exact forward/inverse functions and both inverse proofs. selectLift_unitary is a one-call exact shortcut for the matrix-unitarity root conjunct, and equivPermutationMatrix_unitary exactly closes the basis-unitary provider. No one-call exact whole conjunction was identified; library_control combines those callable source interfaces with literal inverse formulas. The constructed control replays matrix-entry unitarity at the actual product carrier. These are public reference constructions, not new mathematical novelty.",
+      "source_binder_audit": [
+        {
+          "binder": "coefficient : Type u, selector : Type v, system : Type w",
+          "class": "TYPING",
+          "meaning": "Whole product register, no inhabited/nonempty restriction."
+        },
+        {
+          "binder": "Fintype and DecidableEq for the three root register carriers",
+          "class": "TYPING",
+          "meaning": "Finite complex matrix multiplication and indicator entries, not extra quantum assumptions."
+        },
+        {
+          "binder": "permutation : selector → system ≃ system",
+          "class": "SOURCE",
+          "meaning": "Exactly one stipulated permutation per selector, including its two inverse laws as part of the source notion of permutation."
+        },
+        {
+          "binder": "index : LCUIndex coefficient selector system",
+          "class": "SOURCE",
+          "meaning": "Forward/inverse identities range over every input label."
+        },
+        {
+          "binder": "ι : Type u, Fintype ι, DecidableEq ι, equiv : ι ≃ ι in basis-unitary provider",
+          "class": "SOURCE",
+          "meaning": "Reusable finite basis-permutation lemma; no additional public root premise is introduced."
+        }
+      ],
+      "source_bindings": [
+        {
+          "path": "QuantumBlockEncoding/Robin/ComplexLCU.lean",
+          "sha256_lf": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843"
+        }
+      ],
+      "source_item_digest": "0cc5f51f216a0d5dbe1cc2aa09034b4fe15c07d1d632632b930ae11ec0505a4d",
+      "source_node_ids": [
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv",
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.selectLift_unitary",
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.selectLift",
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_unitary"
+      ],
+      "task": {
+        "alignment_status": "author_sealed_candidate; independent_decode_and_source_comparison_pending; not_current_gold",
+        "assumptions": [
+          "Each selector value s names a permutation p_s of the system register",
+          "SELECT preserves the coefficient and selector registers"
+        ],
+        "contract_hash": "f58c46fe0545b797fbc05fe022a9413adb33d92606e70eb4f28cf219e27ab9cd",
+        "conventions": [
+          "The forward map carries the selector through unchanged",
+          "A basis permutation's matrix is a 0/1 permutation matrix"
+        ],
+        "core_id": "qcb-core-be-110",
+        "family": "be-controlled-select-bijection",
+        "imports": [
+          "QuantumBlockEncoding.Robin.ComplexLCU"
+        ],
+        "interfaces": [
+          {
+            "module": "QuantumBlockEncoding.Robin.ComplexLCU",
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv",
+            "source_node_id": "declaration:QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv",
+            "type": "∀ {coefficient : Type u} {selector : Type v} {system : Type w}, (selector → system ≃ system) → (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system ≃ QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system)"
+          },
+          {
+            "module": "QuantumBlockEncoding.Robin.ComplexLCU",
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_unitary",
+            "source_node_id": "declaration:QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_unitary",
+            "type": "∀ {ι : Type u} [fi : Fintype ι] [di : DecidableEq ι] (equiv : ι ≃ ι), (@QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix ι di equiv) ∈ Matrix.unitaryGroup ι ℂ"
+          },
+          {
+            "module": "QuantumBlockEncoding.Robin.ComplexLCU",
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.selectLift_unitary",
+            "source_node_id": "declaration:QuantumBlockEncoding.Robin.ComplexLCU.selectLift_unitary",
+            "type": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (permutation : selector → system ≃ system), (@QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dt permutation) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ"
+          }
+        ],
+        "library_revision": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+        "nodes": [
+          {
+            "depends_on": [],
+            "id": "be110_same_selector_inverse",
+            "target": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} (permutation : selector → system ≃ system), ((∀ index : QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system, (@QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv coefficient selector system permutation) index = (index.1, (index.2.1, permutation index.2.1 index.2.2)) ∧ (@QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv coefficient selector system permutation).symm index = (index.1, (index.2.1, (permutation index.2.1).symm index.2.2))) ∧ (∀ index : QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system, (@QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv coefficient selector system permutation) (index.1, (index.2.1, (permutation index.2.1).symm index.2.2)) = index ∧ (@QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv coefficient selector system permutation).symm (index.1, (index.2.1, permutation index.2.1 index.2.2)) = index))"
+          },
+          {
+            "depends_on": [],
+            "id": "be110_basis_unitary",
+            "target": "∀ {ι : Type u} [fi : Fintype ι] [di : DecidableEq ι] (equiv : ι ≃ ι), QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix equiv ∈ Matrix.unitaryGroup ι ℂ"
+          },
+          {
+            "depends_on": [
+              "be110_same_selector_inverse",
+              "be110_basis_unitary"
+            ],
+            "id": "be110_root",
+            "target": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (permutation : selector → system ≃ system), ((∀ index : QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system, (@QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv coefficient selector system permutation) index = (index.1, (index.2.1, permutation index.2.1 index.2.2)) ∧ (@QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv coefficient selector system permutation).symm index = (index.1, (index.2.1, (permutation index.2.1).symm index.2.2))) ∧ (∀ index : QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system, (@QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv coefficient selector system permutation) (index.1, (index.2.1, (permutation index.2.1).symm index.2.2)) = index ∧ (@QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv coefficient selector system permutation).symm (index.1, (index.2.1, permutation index.2.1 index.2.2)) = index)) ∧ (@QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dt permutation) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ"
+          }
+        ],
+        "question": "A coherently controlled SELECT applies, for each selector value s, a permutation p_s of the system register, while leaving the coefficient and selector registers fixed. Prove that the map sending (coeff, (s, x)) to (coeff, (s, p_s(x))) is a genuine bijection of the whole product register by exhibiting its two-sided inverse, and explain why its matrix is automatically unitary. Why is it essential that the inverse applies the inverse permutation (p_s)^{-1} indexed by the SAME selector value s that is read on input?",
+        "root_id": "be110_root",
+        "schema_version": "qcb.proof_obligation_task.v2",
+        "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "split": "train",
+        "universe_parameters": [
+          "u",
+          "v",
+          "w"
+        ]
+      },
+      "view_id": "qcb-course-be-110-v1"
+    },
+    {
+      "assumptions_added": false,
+      "controls": {
+        "constructed_whole_root": "by\n  intro ι fi di first second\n  have collapse : ∀ (operator : Matrix ι ι ℂ) (row column : ι),\n      (∑ k : ι, QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix second row k * operator k column) =\n        operator (second.symm row) column :=\n    by\n      intro operator row column\n      classical\n      rw [Finset.sum_eq_single (second.symm row)]\n      · simp [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix]\n      · intro candidate _ candidate_ne\n        have miss : row ≠ second candidate := by\n          intro hit\n          apply candidate_ne\n          apply second.injective\n          calc\n            second candidate = row := hit.symm\n            _ = second (second.symm row) := (second.apply_symm_apply row).symm\n        simp [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix, miss]\n      · simp\n  have composition : QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix second * QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix first =\n      QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (first.trans second) := by\n    ext row column\n    rw [Matrix.mul_apply, collapse]\n    simp only [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix, Equiv.trans_apply]\n    by_cases hit : second.symm row = first column\n    · have forward : row = second (first column) := by\n        rw [← hit]\n        exact (second.apply_symm_apply row).symm\n      simp [hit, forward]\n    · have miss : row ≠ second (first column) := by\n        intro forward\n        apply hit\n        rw [forward, second.symm_apply_apply]\n      simp [hit, miss]\n  refine ⟨collapse, composition, ?_⟩\n  intro state\n  rw [← composition]\n  exact (Matrix.mulVec_mulVec state (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix second)\n    (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix first)).symm",
+        "library_control": "by\n  intro ι fi di first second\n  have collapse : ∀ (operator : Matrix ι ι ℂ) (row column : ι),\n      (∑ k : ι, QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix second row k * operator k column) =\n        operator (second.symm row) column :=\n    by\n      intro operator row column\n      rw [← Matrix.mul_apply]\n      exact QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul_apply second operator row column\n  have composition : QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix second * QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix first =\n      QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (first.trans second) :=\n    QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul first second\n  refine ⟨collapse, composition, ?_⟩\n  intro state\n  rw [← composition]\n  exact (Matrix.mulVec_mulVec state (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix second)\n    (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix first)).symm"
+      },
+      "library_control_one_call": false,
+      "negative_controls": {
+        "sorry_axiom": "by\n  sorry",
+        "wrong_target": "by\n  exact True.intro"
+      },
+      "references": {
+        "be111_root": "by\n  intro ι fi di first second\n  have collapse : ∀ (operator : Matrix ι ι ℂ) (row column : ι),\n      (∑ k : ι, QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix second row k * operator k column) =\n        operator (second.symm row) column :=\n    fun operator row column => qcb_step_be111_surviving_index second operator row column\n  have composition : QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix second * QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix first =\n      QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (first.trans second) := by\n    ext row column\n    rw [Matrix.mul_apply, collapse]\n    simp only [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix, Equiv.trans_apply]\n    by_cases hit : second.symm row = first column\n    · have forward : row = second (first column) := by\n        rw [← hit]\n        exact (second.apply_symm_apply row).symm\n      simp [hit, forward]\n    · have miss : row ≠ second (first column) := by\n        intro forward\n        apply hit\n        rw [forward, second.symm_apply_apply]\n      simp [hit, miss]\n  refine ⟨collapse, composition, ?_⟩\n  intro state\n  rw [← composition]\n  exact (Matrix.mulVec_mulVec state (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix second)\n    (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix first)).symm",
+        "be111_surviving_index": "by\n  intro ι κ fi di equiv operator row column\n  classical\n  rw [Finset.sum_eq_single (equiv.symm row)]\n  · simp [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix]\n  · intro candidate _ candidate_ne\n    have miss : row ≠ equiv candidate := by\n      intro hit\n      apply candidate_ne\n      apply equiv.injective\n      calc\n        equiv candidate = row := hit.symm\n        _ = equiv (equiv.symm row) := (equiv.apply_symm_apply row).symm\n    simp [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix, miss]\n  · simp"
+      },
+      "retrieval_scope": {
+        "direct_route_interfaces": [
+          "QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul_apply",
+          "QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul",
+          "Matrix.mul_apply",
+          "Matrix.mulVec_mulVec"
+        ],
+        "note": "All declarations reachable through frozen imports remain callable. This is a disclosed role map, not a theorem exclusion firewall."
+      },
+      "semantic_coverage": "PARTIAL_WHOLE_QUESTION: universal surviving-index convolution; chronological permutation-matrix multiplication law; explicit column-vector first-then-second action. A kernel check cannot by itself grade natural-language explanation or prohibit an imported exact theorem. The canonical problem and rubric remain unchanged.",
+      "semantic_evidence": {
+        "anonymous_id": "P2",
+        "group": "permutation",
+        "kind": "new_roundtrip"
+      },
+      "shortcut_disclosure": "equivPermutationMatrix_mul is a one-call exact shortcut for the composition root conjunct. equivPermutationMatrix_mul_apply plus rewriting Matrix.mul_apply is an exact convolution-provider shortcut, and Matrix.mulVec_mulVec supplies action associativity. Together they close the full conjunction by short assembly. Full imports remain callable; graph node count does not establish inherent difficulty.",
+      "source_binder_audit": [
+        {
+          "binder": "ι : Type u; Fintype ι; DecidableEq ι",
+          "class": "TYPING",
+          "meaning": "Arbitrary finite basis carrier for complex matrices, including the empty carrier."
+        },
+        {
+          "binder": "first second : ι ≃ ι",
+          "class": "SOURCE",
+          "meaning": "The given two basis permutations, without commuting/involutive assumptions."
+        },
+        {
+          "binder": "operator : Matrix ι ι ℂ; row column : ι",
+          "class": "SOURCE",
+          "meaning": "Universal single-surviving-index formula used by the canonical derivation."
+        },
+        {
+          "binder": "state : ι → ℂ",
+          "class": "SOURCE",
+          "meaning": "Universal explicit column-vector action; no state-normalization premise is needed for linear identity."
+        },
+        {
+          "binder": "κ : Type v and rectangular operator : Matrix ι κ ℂ in convolution provider",
+          "class": "TYPING",
+          "meaning": "Source helper is rectangular; root specializes κ=ι. This is not an added root assumption."
+        }
+      ],
+      "source_bindings": [
+        {
+          "path": "QuantumBlockEncoding/Robin/ComplexLCU.lean",
+          "sha256_lf": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843"
+        }
+      ],
+      "source_item_digest": "9b7764d055cff46ba40805e22a51db043464ec809fb8b49c72ab4ffd7bed969a",
+      "source_node_ids": [
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul",
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul_apply",
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix"
+      ],
+      "task": {
+        "alignment_status": "author_sealed_candidate; independent_decode_and_source_comparison_pending; not_current_gold",
+        "assumptions": [
+          "Each permutation matrix has exactly one 1 per row and per column",
+          "Matrices act on column vectors by left multiplication"
+        ],
+        "contract_hash": "330eae3b85a045c8741e4a59046edb32f4f5c72a6ee7540a2a73dd635addbadf",
+        "conventions": [
+          "P(e)[r,c] = 1 iff r = e(c)",
+          "The composite 'first then second' sends c to second(first(c))"
+        ],
+        "core_id": "qcb-core-be-111",
+        "family": "be-permutation-composition-order",
+        "imports": [
+          "QuantumBlockEncoding.Robin.ComplexLCU"
+        ],
+        "interfaces": [
+          {
+            "module": "QuantumBlockEncoding.Robin.ComplexLCU",
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix",
+            "source_node_id": "declaration:QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix",
+            "type": "∀ {ι : Type u} [di : DecidableEq ι], (ι ≃ ι) → Matrix ι ι ℂ"
+          },
+          {
+            "module": "QuantumBlockEncoding.Robin.ComplexLCU",
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul_apply",
+            "source_node_id": "declaration:QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul_apply",
+            "type": "∀ {ι : Type u} {κ : Type v} [fi : Fintype ι] [di : DecidableEq ι] (equiv : ι ≃ ι) (operator : Matrix ι κ ℂ) (row : ι) (column : κ), ((@QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix ι di equiv) * operator) row column = operator (equiv.symm row) column"
+          },
+          {
+            "module": "QuantumBlockEncoding.Robin.ComplexLCU",
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul",
+            "source_node_id": "declaration:QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul",
+            "type": "∀ {ι : Type u} [fi : Fintype ι] [di : DecidableEq ι] (first second : ι ≃ ι), (@QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix ι di second) * (@QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix ι di first) = (@QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix ι di (first.trans second))"
+          }
+        ],
+        "library_revision": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+        "nodes": [
+          {
+            "depends_on": [],
+            "id": "be111_surviving_index",
+            "target": "∀ {ι : Type u} {κ : Type v} [fi : Fintype ι] [di : DecidableEq ι] (equiv : ι ≃ ι) (operator : Matrix ι κ ℂ) (row : ι) (column : κ), (∑ k : ι, QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix equiv row k * operator k column) = operator (equiv.symm row) column"
+          },
+          {
+            "depends_on": [
+              "be111_surviving_index"
+            ],
+            "id": "be111_root",
+            "target": "∀ {ι : Type u} [fi : Fintype ι] [di : DecidableEq ι] (first second : ι ≃ ι), (∀ (operator : Matrix ι ι ℂ) (row column : ι), (∑ k : ι, QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix second row k * operator k column) = operator (second.symm row) column) ∧ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix second * QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix first = QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (first.trans second)) ∧ (∀ state : ι → ℂ, Matrix.mulVec (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (first.trans second)) state = Matrix.mulVec (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix second) (Matrix.mulVec (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix first) state))"
+          }
+        ],
+        "question": "Finite basis permutations are represented by 0/1 matrices: for a bijection e of the index set, its matrix has a 1 at (row, column) exactly when row = e(column). Prove that composing two such permutation matrices multiplies them in reverse order: the matrix of the composite that does 'first then second' equals (matrix of second) times (matrix of first). Make explicit how matrix multiplication selects a single surviving term and why the order reversal is forced rather than a convention.",
+        "root_id": "be111_root",
+        "schema_version": "qcb.proof_obligation_task.v2",
+        "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "split": "test_public",
+        "universe_parameters": [
+          "u",
+          "v"
+        ]
+      },
+      "view_id": "qcb-course-be-111-v1"
+    },
+    {
+      "assumptions_added": false,
+      "controls": {
+        "constructed_whole_root": "by\n  have qcb_step_jet104_jet_iff : ∀ (p q : Polynomial ℝ) (a : ℝ) (k : ℕ), (∀ j ≤ k, (Polynomial.derivative^[j] p).eval a = (Polynomial.derivative^[j] q).eval a) ↔ (Polynomial.X - Polynomial.C a) ^ (k + 1) ∣ p - q :=\n    by\n      intro p q a k\n      constructor\n      · intro h\n        have ht : Polynomial.X ^ (k + 1) ∣ Polynomial.taylor a (p - q) := by\n          apply Polynomial.X_pow_dvd_iff.mpr\n          intro j hj\n          have he : (j.factorial : ℝ) * (Polynomial.taylor a (p - q)).coeff j = 0 := by\n            rw [← QuantumBlockEncoding.HermitePolynomial.eval_iterate_derivative]\n            simp only [Polynomial.iterate_derivative_sub, Polynomial.eval_sub,\n              h j (by omega), sub_self]\n          exact (mul_eq_zero.mp he).resolve_left (by exact_mod_cast Nat.factorial_ne_zero j)\n        have hm := map_dvd (Polynomial.taylorAlgHom (-a)) ht\n        simpa [Polynomial.taylor_taylor, ← sub_eq_add_neg] using hm\n      · intro h j hj\n        exact QuantumBlockEncoding.HermitePolynomial.jet_eq_of_pow_dvd_sub p q a k j hj h\n  have qcb_step_jet104_left : ∀ (k : ℕ) (p q : Polynomial ℝ), (∀ j ≤ k, (Polynomial.derivative^[j] p).eval (-1) = (Polynomial.derivative^[j] q).eval (-1)) → QuantumBlockEncoding.HermitePolynomial.leftModulus k ∣ p - q :=\n    by\n      intro k p q h\n      exact (qcb_step_jet104_jet_iff p q (-1) k).mp h\n  have qcb_step_jet104_right : ∀ (k : ℕ) (p q : Polynomial ℝ), (∀ j ≤ k, (Polynomial.derivative^[j] p).eval 0 = (Polynomial.derivative^[j] q).eval 0) → QuantumBlockEncoding.HermitePolynomial.rightModulus k ∣ p - q :=\n    by\n      intro k p q h\n      exact (qcb_step_jet104_jet_iff p q 0 k).mp h\n  have qcb_step_jet104_coprime : ∀ (k : ℕ), IsCoprime (QuantumBlockEncoding.HermitePolynomial.leftModulus k) (QuantumBlockEncoding.HermitePolynomial.rightModulus k) :=\n    by\n      intro k\n      unfold QuantumBlockEncoding.HermitePolynomial.leftModulus\n        QuantumBlockEncoding.HermitePolynomial.rightModulus\n      apply IsCoprime.pow\n      exact Polynomial.isCoprime_X_sub_C_of_isUnit_sub (by norm_num)\n  have qcb_step_jet104_product : ∀ (k : ℕ) (p q : Polynomial ℝ), (∀ j ≤ k, (Polynomial.derivative^[j] p).eval (-1) = (Polynomial.derivative^[j] q).eval (-1)) → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval 0 = (Polynomial.derivative^[j] q).eval 0) → (QuantumBlockEncoding.HermitePolynomial.leftModulus k) * (QuantumBlockEncoding.HermitePolynomial.rightModulus k) ∣ p - q :=\n    by\n      intro k p q hl hr\n      exact (qcb_step_jet104_coprime k).mul_dvd\n        (qcb_step_jet104_left k p q hl) (qcb_step_jet104_right k p q hr)\n  have qcb_step_jet104_degree : ∀ (k : ℕ), ((QuantumBlockEncoding.HermitePolynomial.leftModulus k) * (QuantumBlockEncoding.HermitePolynomial.rightModulus k)).natDegree = 2 * k + 2 :=\n    by\n      intro k\n      unfold QuantumBlockEncoding.HermitePolynomial.leftModulus\n        QuantumBlockEncoding.HermitePolynomial.rightModulus\n      rw [Polynomial.natDegree_mul (pow_ne_zero _ (Polynomial.X_sub_C_ne_zero _))\n        (pow_ne_zero _ (Polynomial.X_sub_C_ne_zero _))]\n      simp only [Polynomial.natDegree_pow, Polynomial.natDegree_X_sub_C, mul_one]\n      omega\n  have qcb_step_jet104_annihilate : ∀ (k : ℕ) (d : Polynomial ℝ), d.natDegree ≤ 2 * k + 1 → (QuantumBlockEncoding.HermitePolynomial.leftModulus k) * (QuantumBlockEncoding.HermitePolynomial.rightModulus k) ∣ d → d = 0 :=\n    by\n      intro k d hb hdiv\n      by_contra hne\n      have hd := Polynomial.natDegree_le_of_dvd hdiv hne\n      rw [qcb_step_jet104_degree k] at hd\n      omega\n  intro k p q hp hq hl hr\n  apply sub_eq_zero.mp\n  exact qcb_step_jet104_annihilate k (p - q)\n    ((Polynomial.natDegree_sub_le p q).trans (max_le hp hq))\n    (qcb_step_jet104_product k p q hl hr)",
+        "library_control": "by\n  have qcb_step_jet104_jet_iff : ∀ (p q : Polynomial ℝ) (a : ℝ) (k : ℕ), (∀ j ≤ k, (Polynomial.derivative^[j] p).eval a = (Polynomial.derivative^[j] q).eval a) ↔ (Polynomial.X - Polynomial.C a) ^ (k + 1) ∣ p - q :=\n    by\n      intro p q a k\n      constructor\n      · exact QuantumBlockEncoding.HermitePolynomial.pow_dvd_sub_of_jet_eq p q a k\n      · intro h j hj\n        exact QuantumBlockEncoding.HermitePolynomial.jet_eq_of_pow_dvd_sub p q a k j hj h\n  have qcb_step_jet104_left : ∀ (k : ℕ) (p q : Polynomial ℝ), (∀ j ≤ k, (Polynomial.derivative^[j] p).eval (-1) = (Polynomial.derivative^[j] q).eval (-1)) → QuantumBlockEncoding.HermitePolynomial.leftModulus k ∣ p - q :=\n    by\n      intro k p q h\n      exact (qcb_step_jet104_jet_iff p q (-1) k).mp h\n  have qcb_step_jet104_right : ∀ (k : ℕ) (p q : Polynomial ℝ), (∀ j ≤ k, (Polynomial.derivative^[j] p).eval 0 = (Polynomial.derivative^[j] q).eval 0) → QuantumBlockEncoding.HermitePolynomial.rightModulus k ∣ p - q :=\n    by\n      intro k p q h\n      exact (qcb_step_jet104_jet_iff p q 0 k).mp h\n  have qcb_step_jet104_coprime : ∀ (k : ℕ), IsCoprime (QuantumBlockEncoding.HermitePolynomial.leftModulus k) (QuantumBlockEncoding.HermitePolynomial.rightModulus k) :=\n    by\n      exact QuantumBlockEncoding.HermitePolynomial.endpointModuli_coprime\n  have qcb_step_jet104_product : ∀ (k : ℕ) (p q : Polynomial ℝ), (∀ j ≤ k, (Polynomial.derivative^[j] p).eval (-1) = (Polynomial.derivative^[j] q).eval (-1)) → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval 0 = (Polynomial.derivative^[j] q).eval 0) → (QuantumBlockEncoding.HermitePolynomial.leftModulus k) * (QuantumBlockEncoding.HermitePolynomial.rightModulus k) ∣ p - q :=\n    by\n      intro k p q hl hr\n      exact (qcb_step_jet104_coprime k).mul_dvd\n        (qcb_step_jet104_left k p q hl) (qcb_step_jet104_right k p q hr)\n  have qcb_step_jet104_degree : ∀ (k : ℕ), ((QuantumBlockEncoding.HermitePolynomial.leftModulus k) * (QuantumBlockEncoding.HermitePolynomial.rightModulus k)).natDegree = 2 * k + 2 :=\n    by\n      intro k\n      unfold QuantumBlockEncoding.HermitePolynomial.leftModulus\n        QuantumBlockEncoding.HermitePolynomial.rightModulus\n      rw [Polynomial.natDegree_mul (pow_ne_zero _ (Polynomial.X_sub_C_ne_zero _))\n        (pow_ne_zero _ (Polynomial.X_sub_C_ne_zero _))]\n      simp only [Polynomial.natDegree_pow, Polynomial.natDegree_X_sub_C, mul_one]\n      omega\n  have qcb_step_jet104_annihilate : ∀ (k : ℕ) (d : Polynomial ℝ), d.natDegree ≤ 2 * k + 1 → (QuantumBlockEncoding.HermitePolynomial.leftModulus k) * (QuantumBlockEncoding.HermitePolynomial.rightModulus k) ∣ d → d = 0 :=\n    by\n      intro k d hb hdiv\n      by_contra hne\n      have hd := Polynomial.natDegree_le_of_dvd hdiv hne\n      rw [qcb_step_jet104_degree k] at hd\n      omega\n  intro k p q hp hq hl hr\n  apply sub_eq_zero.mp\n  exact qcb_step_jet104_annihilate k (p - q)\n    ((Polynomial.natDegree_sub_le p q).trans (max_le hp hq))\n    (qcb_step_jet104_product k p q hl hr)"
+      },
+      "library_control_one_call": false,
+      "negative_controls": {
+        "sorry_axiom": "by\n  sorry",
+        "wrong_target": "by\n  exact True.intro"
+      },
+      "references": {
+        "jet104_annihilate": "by\n  intro k d hb hdiv\n  by_contra hne\n  have hd := Polynomial.natDegree_le_of_dvd hdiv hne\n  rw [qcb_step_jet104_degree k] at hd\n  omega",
+        "jet104_coprime": "by\n  intro k\n  unfold QuantumBlockEncoding.HermitePolynomial.leftModulus\n    QuantumBlockEncoding.HermitePolynomial.rightModulus\n  apply IsCoprime.pow\n  exact Polynomial.isCoprime_X_sub_C_of_isUnit_sub (by norm_num)",
+        "jet104_degree": "by\n  intro k\n  unfold QuantumBlockEncoding.HermitePolynomial.leftModulus\n    QuantumBlockEncoding.HermitePolynomial.rightModulus\n  rw [Polynomial.natDegree_mul (pow_ne_zero _ (Polynomial.X_sub_C_ne_zero _))\n    (pow_ne_zero _ (Polynomial.X_sub_C_ne_zero _))]\n  simp only [Polynomial.natDegree_pow, Polynomial.natDegree_X_sub_C, mul_one]\n  omega",
+        "jet104_jet_iff": "by\n  intro p q a k\n  constructor\n  · intro h\n    have ht : Polynomial.X ^ (k + 1) ∣ Polynomial.taylor a (p - q) := by\n      apply Polynomial.X_pow_dvd_iff.mpr\n      intro j hj\n      have he : (j.factorial : ℝ) * (Polynomial.taylor a (p - q)).coeff j = 0 := by\n        rw [← QuantumBlockEncoding.HermitePolynomial.eval_iterate_derivative]\n        simp only [Polynomial.iterate_derivative_sub, Polynomial.eval_sub,\n          h j (by omega), sub_self]\n      exact (mul_eq_zero.mp he).resolve_left (by exact_mod_cast Nat.factorial_ne_zero j)\n    have hm := map_dvd (Polynomial.taylorAlgHom (-a)) ht\n    simpa [Polynomial.taylor_taylor, ← sub_eq_add_neg] using hm\n  · intro h j hj\n    exact QuantumBlockEncoding.HermitePolynomial.jet_eq_of_pow_dvd_sub p q a k j hj h",
+        "jet104_left": "by\n  intro k p q h\n  exact (qcb_step_jet104_jet_iff p q (-1) k).mp h",
+        "jet104_product": "by\n  intro k p q hl hr\n  exact (qcb_step_jet104_coprime k).mul_dvd\n    (qcb_step_jet104_left k p q hl) (qcb_step_jet104_right k p q hr)",
+        "jet104_right": "by\n  intro k p q h\n  exact (qcb_step_jet104_jet_iff p q 0 k).mp h",
+        "jet104_root": "by\n  intro k p q hp hq hl hr\n  apply sub_eq_zero.mp\n  exact qcb_step_jet104_annihilate k (p - q)\n    ((Polynomial.natDegree_sub_le p q).trans (max_le hp hq))\n    (qcb_step_jet104_product k p q hl hr)"
+      },
+      "retrieval_scope": {
+        "direct_route_interfaces": [
+          "QuantumBlockEncoding.HermitePolynomial.eval_iterate_derivative",
+          "QuantumBlockEncoding.HermitePolynomial.jet_eq_of_pow_dvd_sub",
+          "QuantumBlockEncoding.HermitePolynomial.pow_dvd_sub_of_jet_eq",
+          "QuantumBlockEncoding.HermitePolynomial.endpointModuli_coprime",
+          "QuantumBlockEncoding.HermitePolynomial.sourceInterpolant_unique",
+          "Polynomial.natDegree_le_of_dvd",
+          "Polynomial.natDegree_sub_le",
+          "Polynomial.natDegree_mul"
+        ],
+        "note": "Disclosed role map only; complete imports remain callable and actual proof method is not imposed by a proposition."
+      },
+      "semantic_coverage": "Exact arbitrary real-polynomial p,q uniqueness with both degree bounds and all jets through k at -1 and 0. The supplied generic-point iff node formally includes both directions; independent endpoint instantiations join through the explicitly proved coprime product and degree 2k+2. Root quantifies arbitrary p,q, not a sourceInterpolant specialization. Formal equality certifies mathematical sufficiency, not explanatory language or whether a submitted proof follows the prescribed route. Sharpness identification uses the explicit 2k+2 product degree; no standalone counterexample at the relaxed degree bound is in the root.",
+      "semantic_evidence": {
+        "anonymous_id": "J1",
+        "group": "jet",
+        "kind": "new_roundtrip"
+      },
+      "shortcut_disclosure": "Complete HermitePolynomial imports and transitive Mathlib remain callable. pow_dvd_sub_of_jet_eq exactly closes the forward generic-point multiplicity leaf; jet_eq_of_pow_dvd_sub closes its converse; endpointModuli_coprime exactly closes the coprime leaf. sourceInterpolant_unique is a specialized whole uniqueness theorem with fixed exponential endpoint data and q=sourceInterpolant k, so it is not an exact one-call proof of this arbitrary-p,q root. The library_control uses the generic multiplicity and coprime shortcuts but still performs product/degree accounting. Constructed references expand the forward Taylor argument and coprimality; they retain source eval_iterate_derivative and backward jet_eq_of_pow_dvd_sub. No import firewall or exhaustive shortcut search is claimed.",
+      "source_binder_audit": [
+        {
+          "binder": "k : ℕ; p q : Polynomial ℝ",
+          "class": "TYPING",
+          "meaning": "Arbitrary real polynomials and derivative-order cutoff, not the specialized library interpolant."
+        },
+        {
+          "binder": "p.natDegree ≤ 2*k+1; q.natDegree ≤ 2*k+1",
+          "class": "SOURCE",
+          "meaning": "Both degree bounds in canonical question."
+        },
+        {
+          "binder": "∀ j≤k, jets at -1 agree; ∀ j≤k, jets at 0 agree",
+          "class": "SOURCE",
+          "meaning": "Exactly the two matching jet assumptions."
+        }
+      ],
+      "source_bindings": [
+        {
+          "path": "QuantumBlockEncoding/HermitePolynomial.lean",
+          "sha256_lf": "f8a3e1d5f29aed1228b6ede3577a9af1e76301559172ee67a266fcb0d56fee1e"
+        }
+      ],
+      "source_item_digest": "10130b96d45745bf1b25df4c137ef2168b7368cb7eef7fb384197c1df6db6fc7",
+      "source_node_ids": [
+        "declaration:QuantumBlockEncoding.HermitePolynomial.sourceInterpolant_unique",
+        "declaration:QuantumBlockEncoding.HermitePolynomial.pow_dvd_sub_of_jet_eq",
+        "declaration:QuantumBlockEncoding.HermitePolynomial.endpointModuli_coprime"
+      ],
+      "task": {
+        "alignment_status": "author_statement_sealed; independent_decode_and_source_comparison_pending; not_current_gold",
+        "assumptions": [],
+        "contract_hash": "7bbea63cce5e0f098f5b8294acda383c03cffca10fc69df2ddc12d1d2c8f4741",
+        "conventions": [],
+        "core_id": "qcb-core-sp-104",
+        "family": "hermite-interpolant-uniqueness",
+        "imports": [
+          "QuantumBlockEncoding.HermitePolynomial"
+        ],
+        "interfaces": [
+          {
+            "module": "QuantumBlockEncoding.HermitePolynomial",
+            "name": "QuantumBlockEncoding.HermitePolynomial.pow_dvd_sub_of_jet_eq",
+            "source_node_id": "declaration:QuantumBlockEncoding.HermitePolynomial.pow_dvd_sub_of_jet_eq",
+            "type": "∀ (p q : Polynomial ℝ) (a : ℝ) (k : ℕ), (∀ j ≤ k, Polynomial.eval a (Polynomial.derivative^[j] p) = Polynomial.eval a (Polynomial.derivative^[j] q)) → (Polynomial.X - Polynomial.C a) ^ (k + 1) ∣ p - q"
+          },
+          {
+            "module": "QuantumBlockEncoding.HermitePolynomial",
+            "name": "QuantumBlockEncoding.HermitePolynomial.endpointModuli_coprime",
+            "source_node_id": "declaration:QuantumBlockEncoding.HermitePolynomial.endpointModuli_coprime",
+            "type": "∀ (k : ℕ), IsCoprime (QuantumBlockEncoding.HermitePolynomial.leftModulus k) (QuantumBlockEncoding.HermitePolynomial.rightModulus k)"
+          },
+          {
+            "module": "QuantumBlockEncoding.HermitePolynomial",
+            "name": "QuantumBlockEncoding.HermitePolynomial.sourceInterpolant_unique",
+            "source_node_id": "declaration:QuantumBlockEncoding.HermitePolynomial.sourceInterpolant_unique",
+            "type": "∀ (k : ℕ) (p : Polynomial ℝ), p.natDegree ≤ 2 * k + 1 → (∀ j ≤ k, Polynomial.eval (-1) (Polynomial.derivative^[j] p) = Real.exp (-1)) → (∀ j ≤ k, Polynomial.eval 0 (Polynomial.derivative^[j] p) = (-1 : ℝ) ^ j) → p = QuantumBlockEncoding.HermitePolynomial.sourceInterpolant k"
+          }
+        ],
+        "library_revision": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+        "nodes": [
+          {
+            "depends_on": [],
+            "id": "jet104_jet_iff",
+            "target": "∀ (p q : Polynomial ℝ) (a : ℝ) (k : ℕ), (∀ j ≤ k, (Polynomial.derivative^[j] p).eval a = (Polynomial.derivative^[j] q).eval a) ↔ (Polynomial.X - Polynomial.C a) ^ (k + 1) ∣ p - q"
+          },
+          {
+            "depends_on": [
+              "jet104_jet_iff"
+            ],
+            "id": "jet104_left",
+            "target": "∀ (k : ℕ) (p q : Polynomial ℝ), (∀ j ≤ k, (Polynomial.derivative^[j] p).eval (-1) = (Polynomial.derivative^[j] q).eval (-1)) → QuantumBlockEncoding.HermitePolynomial.leftModulus k ∣ p - q"
+          },
+          {
+            "depends_on": [
+              "jet104_jet_iff"
+            ],
+            "id": "jet104_right",
+            "target": "∀ (k : ℕ) (p q : Polynomial ℝ), (∀ j ≤ k, (Polynomial.derivative^[j] p).eval 0 = (Polynomial.derivative^[j] q).eval 0) → QuantumBlockEncoding.HermitePolynomial.rightModulus k ∣ p - q"
+          },
+          {
+            "depends_on": [],
+            "id": "jet104_coprime",
+            "target": "∀ (k : ℕ), IsCoprime (QuantumBlockEncoding.HermitePolynomial.leftModulus k) (QuantumBlockEncoding.HermitePolynomial.rightModulus k)"
+          },
+          {
+            "depends_on": [
+              "jet104_left",
+              "jet104_right",
+              "jet104_coprime"
+            ],
+            "id": "jet104_product",
+            "target": "∀ (k : ℕ) (p q : Polynomial ℝ), (∀ j ≤ k, (Polynomial.derivative^[j] p).eval (-1) = (Polynomial.derivative^[j] q).eval (-1)) → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval 0 = (Polynomial.derivative^[j] q).eval 0) → (QuantumBlockEncoding.HermitePolynomial.leftModulus k) * (QuantumBlockEncoding.HermitePolynomial.rightModulus k) ∣ p - q"
+          },
+          {
+            "depends_on": [],
+            "id": "jet104_degree",
+            "target": "∀ (k : ℕ), ((QuantumBlockEncoding.HermitePolynomial.leftModulus k) * (QuantumBlockEncoding.HermitePolynomial.rightModulus k)).natDegree = 2 * k + 2"
+          },
+          {
+            "depends_on": [
+              "jet104_degree"
+            ],
+            "id": "jet104_annihilate",
+            "target": "∀ (k : ℕ) (d : Polynomial ℝ), d.natDegree ≤ 2 * k + 1 → (QuantumBlockEncoding.HermitePolynomial.leftModulus k) * (QuantumBlockEncoding.HermitePolynomial.rightModulus k) ∣ d → d = 0"
+          },
+          {
+            "depends_on": [
+              "jet104_product",
+              "jet104_annihilate"
+            ],
+            "id": "jet104_root",
+            "target": "∀ (k : ℕ) (p q : Polynomial ℝ), p.natDegree ≤ 2 * k + 1 → q.natDegree ≤ 2 * k + 1 → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval (-1) = (Polynomial.derivative^[j] q).eval (-1)) → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval 0 = (Polynomial.derivative^[j] q).eval 0) → p = q"
+          }
+        ],
+        "question": "Two real polynomials p and q both have degree at most 2k+1, and both satisfy the same two-point jet data: all derivatives through order k agree at the node -1, and all derivatives through order k agree at the node 0. Prove that p = q. Structure the argument around the two 'endpoint multiplicity' polynomials (x+1)^{k+1} and x^{k+1}, and explain where coprimality and the degree budget 2k+1 enter.",
+        "root_id": "jet104_root",
+        "schema_version": "qcb.proof_obligation_task.v1",
+        "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "split": "train"
+      },
+      "view_id": "qcb-course-sp-104-v1"
+    },
+    {
+      "assumptions_added": false,
+      "controls": {
+        "constructed_whole_root": "by\n  have qcb_step_jet101_coefficient : ∀ (a : ℝ) (k j : ℕ) (v : ℕ → ℝ), j ≤ k → (Polynomial.taylor a (QuantumBlockEncoding.HermitePolynomial.jetPolynomial a k v)).coeff j = v j / (j.factorial : ℝ) :=\n    by\n      intro a k j v hj\n      simp only [QuantumBlockEncoding.HermitePolynomial.jetPolynomial,\n        Polynomial.taylor_taylor, add_neg_cancel, Polynomial.taylor_zero]\n      rw [Polynomial.finset_sum_coeff]\n      simp only [Polynomial.coeff_monomial]\n      rw [Finset.sum_eq_single j]\n      · simp only [ite_true]\n      · intro b hb hbj\n        simp [hbj]\n      · simp [Finset.mem_range, Nat.lt_succ_of_le hj]\n  have qcb_step_jet101_degree : ∀ (a : ℝ) (k : ℕ) (v : ℕ → ℝ), (QuantumBlockEncoding.HermitePolynomial.jetPolynomial a k v).natDegree ≤ k :=\n    by\n      intro a k v\n      unfold QuantumBlockEncoding.HermitePolynomial.jetPolynomial\n      rw [Polynomial.natDegree_taylor]\n      apply Polynomial.natDegree_sum_le_of_forall_le\n      intro j hj\n      exact (Polynomial.natDegree_monomial_le _).trans\n        (Nat.le_of_lt_succ (Finset.mem_range.mp hj))\n  have qcb_step_jet101_realize : ∀ (a : ℝ) (k j : ℕ) (v : ℕ → ℝ), j ≤ k → (Polynomial.derivative^[j] (QuantumBlockEncoding.HermitePolynomial.jetPolynomial a k v)).eval a = v j :=\n    by\n      intro a k j v hj\n      rw [QuantumBlockEncoding.HermitePolynomial.eval_iterate_derivative,\n        qcb_step_jet101_coefficient a k j v hj]\n      field_simp\n  intro a k v\n  exact ⟨qcb_step_jet101_degree a k v,\n    fun j hj => qcb_step_jet101_realize a k j v hj⟩",
+        "library_control": "by\n  intro a k v\n  refine ⟨?_, ?_⟩\n  · unfold QuantumBlockEncoding.HermitePolynomial.jetPolynomial\n    rw [Polynomial.natDegree_taylor]\n    apply Polynomial.natDegree_sum_le_of_forall_le\n    intro j hj\n    exact (Polynomial.natDegree_monomial_le _).trans\n      (Nat.le_of_lt_succ (Finset.mem_range.mp hj))\n  · intro j hj\n    exact QuantumBlockEncoding.HermitePolynomial.jetPolynomial_jet a k j v hj"
+      },
+      "library_control_one_call": false,
+      "negative_controls": {
+        "sorry_axiom": "by\n  sorry",
+        "wrong_target": "by\n  exact True.intro"
+      },
+      "references": {
+        "jet101_coefficient": "by\n  intro a k j v hj\n  simp only [QuantumBlockEncoding.HermitePolynomial.jetPolynomial,\n    Polynomial.taylor_taylor, add_neg_cancel, Polynomial.taylor_zero]\n  rw [Polynomial.finset_sum_coeff]\n  simp only [Polynomial.coeff_monomial]\n  rw [Finset.sum_eq_single j]\n  · simp only [ite_true]\n  · intro b hb hbj\n    simp [hbj]\n  · simp [Finset.mem_range, Nat.lt_succ_of_le hj]",
+        "jet101_degree": "by\n  intro a k v\n  unfold QuantumBlockEncoding.HermitePolynomial.jetPolynomial\n  rw [Polynomial.natDegree_taylor]\n  apply Polynomial.natDegree_sum_le_of_forall_le\n  intro j hj\n  exact (Polynomial.natDegree_monomial_le _).trans\n    (Nat.le_of_lt_succ (Finset.mem_range.mp hj))",
+        "jet101_realize": "by\n  intro a k j v hj\n  rw [QuantumBlockEncoding.HermitePolynomial.eval_iterate_derivative,\n    qcb_step_jet101_coefficient a k j v hj]\n  field_simp",
+        "jet101_root": "by\n  intro a k v\n  exact ⟨qcb_step_jet101_degree a k v,\n    fun j hj => qcb_step_jet101_realize a k j v hj⟩"
+      },
+      "retrieval_scope": {
+        "direct_route_interfaces": [
+          "QuantumBlockEncoding.HermitePolynomial.eval_iterate_derivative",
+          "QuantumBlockEncoding.HermitePolynomial.jetPolynomial_jet",
+          "Polynomial.natDegree_taylor",
+          "Polynomial.natDegree_sum_le_of_forall_le",
+          "Polynomial.natDegree_monomial_le"
+        ],
+        "note": "Disclosed role map only; complete imports remain callable and actual proof method is not imposed by a proposition."
+      },
+      "semantic_coverage": "Exact literal shifted Taylor-truncation polynomial has natDegree≤k and realizes every prescribed ordinary algebraic derivative through k, including k=0 and zero data. Coefficient readout and nonzero factorial cancellation are present in authored references. The formal statement does not enforce explanatory language or chosen proof method; no minimal-degree or generic-necessity claim is made.",
+      "semantic_evidence": {
+        "anonymous_id": "J2",
+        "group": "jet",
+        "kind": "new_roundtrip"
+      },
+      "shortcut_disclosure": "jetPolynomial_jet is an exact one-call shortcut for derivative realization, used in the library control. eval_iterate_derivative is the permitted derivative/Taylor-coefficient bridge. The authored constructed route reads shifted coefficients and cancels the factorial. No exact named source theorem closing the combined degree-and-jet root was identified; the degree component is proved from natDegree_taylor, the finite sum degree bound and natDegree_monomial_le. Full imports remain callable; neither closed-book exposure nor this role map hides the exact jet shortcut.",
+      "source_binder_audit": [
+        {
+          "binder": "a : ℝ; k : ℕ; v : ℕ → ℝ",
+          "class": "SOURCE",
+          "meaning": "Fixed arbitrary center, cutoff and prescribed derivative sequence; only first k+1 entries used."
+        }
+      ],
+      "source_bindings": [
+        {
+          "path": "QuantumBlockEncoding/HermitePolynomial.lean",
+          "sha256_lf": "f8a3e1d5f29aed1228b6ede3577a9af1e76301559172ee67a266fcb0d56fee1e"
+        }
+      ],
+      "source_item_digest": "b8d06ee21a9000b00a45e7a559e8ec84e1a3821bc80cf948e134426bf5687741",
+      "source_node_ids": [
+        "declaration:QuantumBlockEncoding.HermitePolynomial.jetPolynomial",
+        "declaration:QuantumBlockEncoding.HermitePolynomial.jetPolynomial_jet",
+        "declaration:QuantumBlockEncoding.HermitePolynomial.eval_iterate_derivative"
+      ],
+      "task": {
+        "alignment_status": "author_statement_sealed; independent_decode_and_source_comparison_pending; not_current_gold",
+        "assumptions": [
+          "v is an arbitrary real sequence; only its first k+1 entries are constrained",
+          "derivatives are ordinary real polynomial derivatives"
+        ],
+        "contract_hash": "e889d7034e421885bad33bb7c60aac995da96953d1e137755e5846fb670f3664",
+        "conventions": [
+          "the center a is fixed and the polynomial is expressed in the shifted basis (x-a)"
+        ],
+        "core_id": "qcb-core-sp-101",
+        "family": "hermite-jet-interpolation",
+        "imports": [
+          "QuantumBlockEncoding.HermitePolynomial"
+        ],
+        "interfaces": [
+          {
+            "module": "QuantumBlockEncoding.HermitePolynomial",
+            "name": "QuantumBlockEncoding.HermitePolynomial.jetPolynomial",
+            "source_node_id": "declaration:QuantumBlockEncoding.HermitePolynomial.jetPolynomial",
+            "type": "ℝ → ℕ → (ℕ → ℝ) → Polynomial ℝ"
+          },
+          {
+            "module": "QuantumBlockEncoding.HermitePolynomial",
+            "name": "QuantumBlockEncoding.HermitePolynomial.jetPolynomial_jet",
+            "source_node_id": "declaration:QuantumBlockEncoding.HermitePolynomial.jetPolynomial_jet",
+            "type": "∀ (a : ℝ) (k j : ℕ) (v : ℕ → ℝ), j ≤ k → Polynomial.eval a (Polynomial.derivative^[j] (QuantumBlockEncoding.HermitePolynomial.jetPolynomial a k v)) = v j"
+          },
+          {
+            "module": "QuantumBlockEncoding.HermitePolynomial",
+            "name": "QuantumBlockEncoding.HermitePolynomial.eval_iterate_derivative",
+            "source_node_id": "declaration:QuantumBlockEncoding.HermitePolynomial.eval_iterate_derivative",
+            "type": "∀ (p : Polynomial ℝ) (a : ℝ) (j : ℕ), Polynomial.eval a (Polynomial.derivative^[j] p) = (j.factorial : ℝ) * (Polynomial.taylor a p).coeff j"
+          }
+        ],
+        "library_revision": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+        "nodes": [
+          {
+            "depends_on": [],
+            "id": "jet101_coefficient",
+            "target": "∀ (a : ℝ) (k j : ℕ) (v : ℕ → ℝ), j ≤ k → (Polynomial.taylor a (QuantumBlockEncoding.HermitePolynomial.jetPolynomial a k v)).coeff j = v j / (j.factorial : ℝ)"
+          },
+          {
+            "depends_on": [],
+            "id": "jet101_degree",
+            "target": "∀ (a : ℝ) (k : ℕ) (v : ℕ → ℝ), (QuantumBlockEncoding.HermitePolynomial.jetPolynomial a k v).natDegree ≤ k"
+          },
+          {
+            "depends_on": [
+              "jet101_coefficient"
+            ],
+            "id": "jet101_realize",
+            "target": "∀ (a : ℝ) (k j : ℕ) (v : ℕ → ℝ), j ≤ k → (Polynomial.derivative^[j] (QuantumBlockEncoding.HermitePolynomial.jetPolynomial a k v)).eval a = v j"
+          },
+          {
+            "depends_on": [
+              "jet101_degree",
+              "jet101_realize"
+            ],
+            "id": "jet101_root",
+            "target": "∀ (a : ℝ) (k : ℕ) (v : ℕ → ℝ), (QuantumBlockEncoding.HermitePolynomial.jetPolynomial a k v).natDegree ≤ k ∧ ∀ j ≤ k, (Polynomial.derivative^[j] (QuantumBlockEncoding.HermitePolynomial.jetPolynomial a k v)).eval a = v j"
+          }
+        ],
+        "question": "Fix a real point a and a natural number k, and prescribe target values v(0), v(1), ..., v(k). Define a degree-at-most-k real polynomial P by taking the local Taylor polynomial centred at a whose coefficient of (x-a)^j is v(j)/j!. Prove that for every j with 0 <= j <= k the ordinary j-th derivative of P evaluated at a equals exactly v(j). You may use the fact that the j-th derivative of a polynomial at a point equals j! times the degree-j Taylor coefficient of the polynomial about that point.",
+        "root_id": "jet101_root",
+        "schema_version": "qcb.proof_obligation_task.v1",
+        "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "split": "train"
+      },
+      "view_id": "qcb-course-sp-101-v1"
+    },
+    {
+      "assumptions_added": false,
+      "controls": {
+        "constructed_whole_root": "by\n  have qcb_step_be102_clean : ∀ (state : QuantumBlockEncoding.PrimitiveBasis 7), state 6 = 0 → QuantumBlockEncoding.BandedSparseAccess.primitiveWord3 (QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state) 0 1 2 = ⟨((QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 (QuantumBlockEncoding.BandedSparseAccess.primitiveWord3 state 0 1 2)).val + (QuantumBlockEncoding.BandedSparseAccess.primitiveWord3 state 3 4 5).val) % 8, Nat.mod_lt _ (by decide)⟩ ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveWord3 (QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state) 3 4 5 = QuantumBlockEncoding.BandedSparseAccess.primitiveWord3 state 3 4 5 ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state 6 = 0 :=\n    by\n      set_option maxRecDepth 10000 in\n        decide\n  have qcb_step_be102_preservation : ∀ (state : QuantumBlockEncoding.PrimitiveBasis 7), QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state 3 = state 3 ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state 4 = state 4 ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state 5 = state 5 ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state 6 = state 6 :=\n    by\n      intro state\n      have repr : state = ![state 0, state 1, state 2, state 3, state 4, state 5, state 6] := by\n        funext wire\n        fin_cases wire <;> simp\n      rw [repr]\n      generalize state 0 = b0\n      generalize state 1 = b1\n      generalize state 2 = b2\n      generalize state 3 = b3\n      generalize state 4 = b4\n      generalize state 5 = b5\n      generalize state 6 = b6\n      fin_cases b0 <;> fin_cases b1 <;> fin_cases b2 <;> fin_cases b3 <;> fin_cases b4 <;> fin_cases b5 <;> fin_cases b6 <;> decide\n  have qcb_step_be102_dirty : QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv ![1, 1, 0, 0, 0, 0, 1] = ![0, 0, 0, 0, 0, 0, 1] ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv ![1, 0, 0, 0, 0, 0, 1] = ![0, 1, 1, 0, 0, 0, 1] ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 3 = 0 ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 1 = 2 :=\n    by\n      decide\n  exact ⟨qcb_step_be102_clean, qcb_step_be102_preservation, qcb_step_be102_dirty⟩",
+        "library_control": "by\n  set_option maxRecDepth 10000 in\n    decide"
+      },
+      "library_control_one_call": false,
+      "negative_controls": {
+        "sorry_axiom": "by\n  sorry",
+        "wrong_target": "by\n  exact True.intro"
+      },
+      "references": {
+        "be102_clean": "by\n  set_option maxRecDepth 10000 in\n    decide",
+        "be102_dirty": "by\n  decide",
+        "be102_preservation": "by\n  intro state\n  have repr : state = ![state 0, state 1, state 2, state 3, state 4, state 5, state 6] := by\n    funext wire\n    fin_cases wire <;> simp\n  rw [repr]\n  generalize state 0 = b0\n  generalize state 1 = b1\n  generalize state 2 = b2\n  generalize state 3 = b3\n  generalize state 4 = b4\n  generalize state 5 = b5\n  generalize state 6 = b6\n  fin_cases b0 <;> fin_cases b1 <;> fin_cases b2 <;> fin_cases b3 <;> fin_cases b4 <;> fin_cases b5 <;> fin_cases b6 <;> decide",
+        "be102_root": "by\n  exact ⟨qcb_step_be102_clean, qcb_step_be102_preservation, qcb_step_be102_dirty⟩"
+      },
+      "retrieval_scope": {
+        "direct_route_interfaces": [
+          "QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv",
+          "QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3ReversibleProgram",
+          "QuantumBlockEncoding.modularAdd3ReversibleProgram",
+          "QuantumBlockEncoding.evalReversibleProgram",
+          "QuantumBlockEncoding.evalReversibleGate",
+          "QuantumBlockEncoding.xBasisAction",
+          "QuantumBlockEncoding.cxBasisAction",
+          "QuantumBlockEncoding.ccxBasisAction",
+          "QuantumBlockEncoding.BandedSparseAccess.primitiveWord3",
+          "QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3"
+        ],
+        "ineligible_named_shortcuts": [
+          "QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3_cleanAction",
+          "QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3_preserves_row",
+          "QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3_workspaceClean",
+          "QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3_table"
+        ],
+        "note": "Complete import remains callable; declaration-level transitive axiom audit rejects the listed native theorem shortcuts. This is a disclosed role map, not a theorem-exclusion firewall."
+      },
+      "semantic_coverage": "Exact seven-wire clean action, universal row/work preservation and both dirty witnesses are formalized. Root does not formalize a general quantum no-entanglement claim, arbitrary widths, resource complexity, or natural-language explanation grading. No claim that every dirty input fails arithmetic.",
+      "semantic_evidence": {
+        "anonymous_id": "O3",
+        "group": "oracle",
+        "kind": "new_roundtrip"
+      },
+      "shortcut_disclosure": "The named source cleanAction supplies an exact clean leaf shortcut syntactically but is INELIGIBLE under the fixed three-axiom policy: actual #print axioms reveals its own native_decide.ax_1_1. Its row/work corollaries inherit that extra axiom. primitiveOffset3_table has its own extra native axiom. Imports do not taint unused declarations. The disclosed library_control is therefore kernel decide over the actual literal program, NOT an admissible one-call source theorem. No eligible named whole-root shortcut was identified; direct kernel evaluation is a generic finite-decision bypass of all supplied intermediate obligations and is disclosed, not excluded.",
+      "source_binder_audit": [
+        {
+          "binder": "state : PrimitiveBasis 7 = Fin 7 → Fin 2",
+          "class": "SOURCE",
+          "meaning": "Every seven-wire computational basis input, ordered address bits0..2, row bits3..5, workbit6."
+        },
+        {
+          "binder": "state 6 = 0 (clean leaf only)",
+          "class": "SOURCE",
+          "meaning": "Exactly the clean input work condition; no dirty premise in preservation or witness leaf."
+        },
+        {
+          "binder": "Fin numeral proof bounds and Nat.mod_lt 8",
+          "class": "TYPING",
+          "meaning": "Finite bit/word range evidence; no added logical hypothesis."
+        }
+      ],
+      "source_bindings": [
+        {
+          "path": "QuantumBlockEncoding/BandedSparseAccessPrimitive.lean",
+          "sha256_lf": "e4f35bfdd690445de12d5a7e6692b9ab86d1a096b9ed3f4d1a41e07b99181ca7"
+        },
+        {
+          "path": "QuantumBlockEncoding/ModularAdder3.lean",
+          "sha256_lf": "3995a7d9068322d7116e6d3852111574c3c94acc09b9927231be931d33d17002"
+        },
+        {
+          "path": "QuantumBlockEncoding/ReversibleClassical.lean",
+          "sha256_lf": "01ea24f54500974985702a0f968e28d93b2bd04a1aefaf05da848c9b7fe64711"
+        },
+        {
+          "path": "QuantumBlockEncoding/PrimitiveSemantics.lean",
+          "sha256_lf": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62"
+        }
+      ],
+      "source_item_digest": "ae8623f2384d5350708cbe0dba53b4b300a965e6f3eb80d4bfde18e331df7839",
+      "source_node_ids": [
+        "declaration:QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3_cleanAction",
+        "declaration:QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3_preserves_row",
+        "declaration:QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3_workspaceClean",
+        "declaration:QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv"
+      ],
+      "task": {
+        "alignment_status": "author_sealed_candidate; independent_decode_and_source_comparison_pending; not_current_gold",
+        "assumptions": [
+          "The work wire is a reusable scratch wire borrowed by the modular adder",
+          "The clean-action contract is asserted only under the hypothesis work=0"
+        ],
+        "contract_hash": "17816324abe115e9fc8c77de7e26b26e39203b5466d8bf455c841cef553f71b9",
+        "conventions": [
+          "Wire order is address[0..2], row[0..2], work",
+          "The clean branch is the subspace where the work wire enters at 0"
+        ],
+        "core_id": "qcb-core-be-102",
+        "family": "be-clean-branch-work-hypothesis",
+        "imports": [
+          "QuantumBlockEncoding.BandedSparseAccessPrimitive"
+        ],
+        "interfaces": [
+          {
+            "module": "QuantumBlockEncoding.BandedSparseAccessPrimitive",
+            "name": "QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv",
+            "source_node_id": "declaration:QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv",
+            "type": "QuantumBlockEncoding.PrimitiveBasis 7 ≃ QuantumBlockEncoding.PrimitiveBasis 7"
+          }
+        ],
+        "library_revision": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+        "nodes": [
+          {
+            "depends_on": [],
+            "id": "be102_clean",
+            "target": "∀ (state : QuantumBlockEncoding.PrimitiveBasis 7), state 6 = 0 → QuantumBlockEncoding.BandedSparseAccess.primitiveWord3 (QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state) 0 1 2 = ⟨((QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 (QuantumBlockEncoding.BandedSparseAccess.primitiveWord3 state 0 1 2)).val + (QuantumBlockEncoding.BandedSparseAccess.primitiveWord3 state 3 4 5).val) % 8, Nat.mod_lt _ (by decide)⟩ ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveWord3 (QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state) 3 4 5 = QuantumBlockEncoding.BandedSparseAccess.primitiveWord3 state 3 4 5 ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state 6 = 0"
+          },
+          {
+            "depends_on": [],
+            "id": "be102_preservation",
+            "target": "∀ (state : QuantumBlockEncoding.PrimitiveBasis 7), QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state 3 = state 3 ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state 4 = state 4 ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state 5 = state 5 ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state 6 = state 6"
+          },
+          {
+            "depends_on": [],
+            "id": "be102_dirty",
+            "target": "QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv ![1, 1, 0, 0, 0, 0, 1] = ![0, 0, 0, 0, 0, 0, 1] ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv ![1, 0, 0, 0, 0, 0, 1] = ![0, 1, 1, 0, 0, 0, 1] ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 3 = 0 ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 1 = 2"
+          },
+          {
+            "depends_on": [
+              "be102_clean",
+              "be102_preservation",
+              "be102_dirty"
+            ],
+            "id": "be102_root",
+            "target": "(∀ (state : QuantumBlockEncoding.PrimitiveBasis 7), state 6 = 0 → QuantumBlockEncoding.BandedSparseAccess.primitiveWord3 (QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state) 0 1 2 = ⟨((QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 (QuantumBlockEncoding.BandedSparseAccess.primitiveWord3 state 0 1 2)).val + (QuantumBlockEncoding.BandedSparseAccess.primitiveWord3 state 3 4 5).val) % 8, Nat.mod_lt _ (by decide)⟩ ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveWord3 (QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state) 3 4 5 = QuantumBlockEncoding.BandedSparseAccess.primitiveWord3 state 3 4 5 ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state 6 = 0) ∧ (∀ (state : QuantumBlockEncoding.PrimitiveBasis 7), QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state 3 = state 3 ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state 4 = state 4 ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state 5 = state 5 ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state 6 = state 6) ∧ (QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv ![1, 1, 0, 0, 0, 0, 1] = ![0, 0, 0, 0, 0, 0, 1] ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv ![1, 0, 0, 0, 0, 0, 1] = ![0, 1, 1, 0, 0, 0, 1] ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 3 = 0 ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 1 = 2)"
+          }
+        ],
+        "question": "A fixed seven-wire reversible access circuit stores an address word on wires 0-2, a row word on wires 3-5, and one reusable work wire 6. On any input whose work wire is already 0, the circuit outputs the address word replaced by (loader(address)+row) mod 8, leaves the row word unchanged, and returns the work wire to 0. State precisely why the hypothesis 'work wire starts at 0' is required rather than cosmetic, what three separate guarantees the clean-branch contract bundles, and what can fail if the circuit is run on an input whose work wire starts at 1.",
+        "root_id": "be102_root",
+        "schema_version": "qcb.proof_obligation_task.v1",
+        "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "split": "train"
+      },
+      "view_id": "qcb-course-be-102-v1"
+    }
+  ],
+  "catalog_hash": "5269b9f2521e3bf14db293fea34895f6e44a387c2479c164407b4d16dd9a2247",
+  "isolated": false,
+  "lean_toolchain": "leanprover/lean4:v4.29.1",
+  "library_revision": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+  "model_predictions_executed": false,
+  "new_canonical_formal_admissions": 0,
+  "new_mathematical_cores": 0,
+  "policy": "Third experimental cohort; content-bound independent semantics and actual central authored replay required. No new cores/canonical admissions/model score.",
+  "proof_inputs_sha256": "1e65e7d2984e4542ca2747837d71c516847e4e987d3bbd6c48b8a803eb36806e",
+  "schema_version": "qcb.graph_course_candidates.v1",
+  "source_author_packet_digests": {
+    "jet": "99c581f4bfaa10c170a0ecbf6177a0189a931d8b0152e6b62f9c300698cdcb9c",
+    "oracle": "3a789a5aac116db5324aa7e319226117d2a4628d2f0febcfaa5e9b71a37dd40d",
+    "permutation": "f4a8064c64319d238ce65d2db8fa14fe97bfbbb4807ad399b0497592d708afca"
+  }
+}

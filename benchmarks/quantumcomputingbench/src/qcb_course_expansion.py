@@ -2,6 +2,7 @@
 from copy import deepcopy
 
 from qcb_core import digest, read_json
+from qcb_course_batch import bind_review_input
 from qcb_evaluation_registry import _source_lineage
 from qcb_graph_course_pilot import B, R, load_candidates
 from qcb_integrity import text_sha
@@ -41,7 +42,9 @@ def candidates():
             or inputs.get("candidate_batch_digest") != digest(read_json(FIXTURE))
             or any(inputs.get(k) != comparison.get(k) for k in ("candidate_batch_digest", "packet_digests", "decoder_digests"))):
         raise ValueError("second-cohort source-aware review must bind its actual bounded comparison input")
-    return load_candidates(fixture=FIXTURE, evidence_dir=EVIDENCE, expected_cores=EXPECTED, excluded_authors=AUTHORS)
+    loaded = load_candidates(fixture=FIXTURE, evidence_dir=EVIDENCE, expected_cores=EXPECTED, excluded_authors=AUTHORS)
+    bind_review_input(FIXTURE, EVIDENCE, loaded[0])
+    return loaded
 
 
 def qualified():

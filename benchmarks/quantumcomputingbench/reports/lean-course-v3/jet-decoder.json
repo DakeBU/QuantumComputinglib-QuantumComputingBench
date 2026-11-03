@@ -1,0 +1,194 @@
+{
+  "decoder_identity": "/root/course_third_blind_decode",
+  "packet_digest": "d3769f864bd9e35d3a34c805b2c6f6b0047d9d2560a17e92310bfbaae1b95b8b",
+  "schema_version": "qcb.curriculum_blind_decode.v1",
+  "source_blind": true,
+  "views": [
+    {
+      "ambiguities": [],
+      "anonymous_id": "J1",
+      "limitations": [
+        "Only formal types, definitions, interfaces, targets, and the supplied dependency list were read. No imported Lean implementation or proof was inspected and Lean was not executed.",
+        "The dependency edges describe the supplied statement graph; they do not establish that a proof follows that graph or compiles.",
+        "The root does not prescribe particular endpoint derivative values, construct an interpolant, assert source equivalence, or state optimality of its degree threshold.",
+        "No essential ambient mathematical definition needed to parse this root is missing from the supplied packet and standard polynomial notation."
+      ],
+      "reconstructed_statement": "For every natural number k and every pair of real-coefficient polynomials p,q, if natDegree(p) <= 2*k+1 and natDegree(q) <= 2*k+1, and for every natural j with 0 <= j <= k their j-fold ordinary polynomial derivatives agree at -1, and for every such j their derivatives agree at 0, then p=q as polynomials. The j=0 conditions are agreement of polynomial values. The statement is uniqueness within the indicated degree bound for two prescribed endpoint jets; it does not itself assert existence for arbitrary data, an exact degree for p or q, or degree minimality.",
+      "semantic_slots": {
+        "ambient_definitions": {
+          "coprimality": "IsCoprime(A_k,B_k) is polynomial coprimality, expressible by a Bezout combination equal to 1.",
+          "divisibility": "f divides g means polynomial divisibility in R[X], hence existence of a polynomial h with g=f*h.",
+          "left_modulus": "A_k=(X+1)^(k+1)=(X-C(-1))^(k+1).",
+          "product": "M_k=A_k*B_k, with natDegree(M_k)=2*k+2.",
+          "right_modulus": "B_k=X^(k+1)=(X-C(0))^(k+1)."
+        },
+        "conclusion": "p=q in R[X].",
+        "derivative_and_degree_conventions": [
+          "derivative^[j] is j-fold iteration of the ordinary algebraic polynomial derivative; derivative^[0] p=p. It is not a Hasse derivative or a Taylor coefficient.",
+          "Taylor(a,p)=p(X+a), so coefficient j of Taylor(a,p) is p^(j)(a)/j! over R. The supplied interface states p^(j)(a)=j!*coeff_j(Taylor(a,p)); the factorial is cast to R.",
+          "natDegree takes values in N and natDegree(0)=0. The root bounds natDegree, including the zero case; it does not use a nonzero-polynomial hypothesis.",
+          "For a nonzero polynomial, natDegree is its actual usual degree. A zero polynomial need not be assigned usual degree zero under a convention using degree(0)=-infinity; that separate convention does not change the supplied natDegree inequalities.",
+          "The upper bound is 2*k+1, not a statement that either input has exactly that degree or that this degree is minimal for any particular data."
+        ],
+        "domains_and_quantifiers": [
+          "k ranges over all natural numbers, including zero.",
+          "p and q range independently over all elements of R[X], including the zero polynomial.",
+          "Each endpoint hypothesis quantifies j over N and assumes j<=k; these are the orders 0,1,...,k inclusive.",
+          "There is no analytic-function domain, interval assumption, positivity assumption on p or q, or approximation parameter."
+        ],
+        "formal_context": {
+          "imports": [
+            "QuantumBlockEncoding.HermitePolynomial"
+          ],
+          "preamble": "open scoped BigOperators",
+          "target": "∀ (k : ℕ) (p q : Polynomial ℝ), p.natDegree ≤ 2 * k + 1 → q.natDegree ≤ 2 * k + 1 → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval (-1) = (Polynomial.derivative^[j] q).eval (-1)) → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval 0 = (Polynomial.derivative^[j] q).eval 0) → p = q",
+          "universe_parameters": []
+        },
+        "hypotheses": [
+          "natDegree(p)<=2*k+1.",
+          "natDegree(q)<=2*k+1.",
+          "For all j<=k, p^(j)(-1)=q^(j)(-1).",
+          "For all j<=k, p^(j)(0)=q^(j)(0)."
+        ],
+        "interface_roles": [
+          "eval_iterate_derivative relates ordinary derivatives to Taylor coefficients via j!.",
+          "jet_eq_of_pow_dvd_sub gives one direction from divisibility to equality at every j<=k.",
+          "pow_dvd_sub_of_jet_eq gives the reverse direction for a full order-0-through-k jet.",
+          "endpointModuli_coprime supplies coprimality of the two specified endpoint powers."
+        ],
+        "node_roles": [
+          {
+            "depends_on": [],
+            "id": "n01",
+            "reconstructed_role": "For every p,q in R[X], a in R, k in N, equality p^(j)(a)=q^(j)(a) for every natural j<=k is equivalent to (X-C(a))^(k+1) dividing p-q. No degree bound occurs in this node."
+          },
+          {
+            "depends_on": [
+              "n01"
+            ],
+            "id": "n02",
+            "reconstructed_role": "For all k,p,q, the order-0-through-k jet equalities at -1 imply A_k divides p-q; endpoint specialization of n01. No degree hypothesis occurs."
+          },
+          {
+            "depends_on": [
+              "n01"
+            ],
+            "id": "n03",
+            "reconstructed_role": "For all k,p,q, the order-0-through-k jet equalities at 0 imply B_k divides p-q; endpoint specialization of n01. No degree hypothesis occurs."
+          },
+          {
+            "depends_on": [],
+            "id": "n04",
+            "reconstructed_role": "For all k, A_k and B_k are coprime."
+          },
+          {
+            "depends_on": [
+              "n02",
+              "n03",
+              "n04"
+            ],
+            "id": "n05",
+            "reconstructed_role": "For all k,p,q satisfying both endpoint jet-equality hypotheses, M_k divides p-q. It combines the two endpoint divisibilities with coprimality and has no degree assumptions."
+          },
+          {
+            "depends_on": [],
+            "id": "n06",
+            "reconstructed_role": "For every k, natDegree(M_k)=2*k+2 exactly; this degree assertion concerns the modulus product, not the interpolating inputs."
+          },
+          {
+            "depends_on": [
+              "n06"
+            ],
+            "id": "n07",
+            "reconstructed_role": "For every k and every d in R[X], if natDegree(d)<=2*k+1 and M_k divides d, then d=0. This includes d=0 and is a low-degree divisibility vanishing statement."
+          },
+          {
+            "depends_on": [
+              "n05",
+              "n07"
+            ],
+            "id": "n08",
+            "reconstructed_role": "Root uniqueness statement: apply the product-divisibility and low-degree vanishing interfaces to the difference p-q under the two input degree bounds."
+          }
+        ],
+        "root_id": "n08",
+        "root_target_equals_named_node_target": true
+      }
+    },
+    {
+      "ambiguities": [],
+      "anonymous_id": "J2",
+      "limitations": [
+        "No imported implementation or proof was inspected and no Lean execution occurred.",
+        "No source theorem, source construction, proof quality, compilation status, or source equivalence is inferred.",
+        "The root is about the explicitly defined polynomial for finite-order jet data; it contains no infinite-series convergence, analytic extension, or approximation assertion.",
+        "No essential ambient mathematical definition needed to parse this root is missing from the supplied packet and standard polynomial notation."
+      ],
+      "reconstructed_statement": "For every real a, every natural k, and every function v:N->R, let P=jetPolynomial(a,k,v)=sum_{j=0}^k (v(j)/j!)*(X-a)^j. Then natDegree(P)<=k, and for every natural j<=k, the j-fold ordinary derivative of P evaluated at a equals v(j). There are no restrictions on the values of v. Only its first k+1 values enter the polynomial. This is a degree-bound and interpolation statement for the displayed polynomial; the root does not assert that its degree is exactly k or formulate a least-degree optimization or uniqueness conclusion.",
+      "semantic_slots": {
+        "conclusion_structure": "A conjunction: the degree bound and the full ordinary-derivative matching assertion through order k.",
+        "construction": {
+          "data_used": "Only v(0),...,v(k) occur in the finite sum; values v(j) for j>k do not affect P.",
+          "expanded_formula": "P(X)=sum_{j=0}^k (v(j)/(j! as a real number))*(X-a)^j.",
+          "factorial_convention": "j! is cast from N to R before division; it is nonzero for every j, including 0!=1.",
+          "literal_definition": "def jetPolynomial (a : ℝ) (k : ℕ) (v : ℕ → ℝ) : ℝ[X] := taylor (-a) (∑ j ∈ Finset.range (k + 1), monomial j (v j / (j.factorial : ℝ)))",
+          "shift_convention": "Taylor(b,Q)=Q(X+b). Thus Taylor(-a, sum_j monomial(j,v(j)/j!)) shifts the origin polynomial to powers (X-a)^j; Taylor(a,P) shifts back."
+        },
+        "derivative_and_degree_conventions": [
+          "derivative^[j] is the ordinary algebraic j-fold derivative, not divided derivatives. P^(0)(a)=P(a)=v(0). The coefficients in powers (X-a)^j are v(j)/j!, not v(j).",
+          "The conclusion is natDegree(P)<=k. natDegree(0)=0, so the all-zero prescribed prefix is included.",
+          "For nonzero P its actual degree can be lower than k. From the displayed formula, if some v(j) with j<=k is nonzero, the degree is the largest such index; in particular degree k requires v(k) nonzero. This is an interpretation of the formula, not an extra claim in the root.",
+          "If v(0),...,v(k) all vanish, P=0, natDegree(P)=0, and usual degree may instead use a separate zero-polynomial convention such as -infinity.",
+          "The root supplies neither a quantified comparison against other candidate polynomials nor an explicit minimality or uniqueness assertion. It also makes no equality assertion with v(j) for j>k."
+        ],
+        "domains_and_quantifiers": [
+          "a ranges over all R, without an endpoint restriction.",
+          "k ranges over all N, including zero.",
+          "v ranges over all functions N->R, without finite-support, regularity, nonzero, or compatibility assumptions.",
+          "j in the derivative conclusion ranges over all N subject to j<=k."
+        ],
+        "formal_context": {
+          "imports": [
+            "QuantumBlockEncoding.HermitePolynomial"
+          ],
+          "preamble": "open scoped BigOperators",
+          "target": "∀ (a : ℝ) (k : ℕ) (v : ℕ → ℝ), (QuantumBlockEncoding.HermitePolynomial.jetPolynomial a k v).natDegree ≤ k ∧ ∀ j ≤ k, (Polynomial.derivative^[j] (QuantumBlockEncoding.HermitePolynomial.jetPolynomial a k v)).eval a = v j",
+          "universe_parameters": []
+        },
+        "interface_roles": [
+          "eval_iterate_derivative multiplies a local Taylor coefficient by j! to recover the ordinary derivative value.",
+          "jetPolynomial_jet states the derivative matching property at an individual j<=k."
+        ],
+        "node_roles": [
+          {
+            "depends_on": [],
+            "id": "n01",
+            "reconstructed_role": "For every a in R, k,j in N, v:N->R, if j<=k then coeff_j(Taylor(a,jetPolynomial(a,k,v)))=v(j)/j!. This is the local Taylor coefficient statement."
+          },
+          {
+            "depends_on": [],
+            "id": "n02",
+            "reconstructed_role": "For every a,k,v, the constructed polynomial has natDegree<=k, without assumptions on v."
+          },
+          {
+            "depends_on": [
+              "n01"
+            ],
+            "id": "n03",
+            "reconstructed_role": "For every a,k,j,v with j<=k, the ordinary derivative of order j of the constructed polynomial at a is v(j). The supplied edge uses the coefficient statement n01."
+          },
+          {
+            "depends_on": [
+              "n02",
+              "n03"
+            ],
+            "id": "n04",
+            "reconstructed_role": "Root conjunction of the degree bound n02 and all derivative matching conclusions n03."
+          }
+        ],
+        "root_id": "n04",
+        "root_target_equals_named_node_target": true
+      }
+    }
+  ]
+}

@@ -198,10 +198,11 @@ class CourseExpansionTests(unittest.TestCase):
         comparison = {**deepcopy(self.documents["comparison.json"]), "comparison_input_digest": digest(inputs)}
         documents = {"comparison-input.json": inputs, "comparison.json": comparison,
                      expansion.FIXTURE.name: self.packet}
+        selected = (self.cases, self.identity, self.catalog, self.graph)
         # A valid software baseline must reach the selected loader.
         with patch.object(expansion, "read_json", side_effect=lambda p: deepcopy(documents[Path(p).name])), \
-                patch.object(expansion, "load_candidates", return_value="software-mock-only") as loader:
-            self.assertEqual(expansion.candidates(), "software-mock-only")
+                patch.object(expansion, "load_candidates", return_value=selected) as loader:
+            self.assertIs(expansion.candidates(), selected)
             self.assertEqual(loader.call_args.kwargs["expected_cores"], expansion.EXPECTED)
         for change in (lambda d: d["comparison.json"].update(comparison_input_digest="0" * 64),
                        lambda d: d["comparison-input.json"].update(candidate_batch_digest="0" * 64),

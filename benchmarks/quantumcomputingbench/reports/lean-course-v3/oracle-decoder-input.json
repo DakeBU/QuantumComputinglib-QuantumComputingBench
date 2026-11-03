@@ -1,0 +1,89 @@
+{
+  "schema_version": "qcb.curriculum_blind_input.v1",
+  "source_blind": true,
+  "views": [
+    {
+      "ambient": [
+        {
+          "equation": "An element is a function on indices 0,...,6 with values 0 or 1.",
+          "signature": "S = Fin 7 → Fin 2"
+        },
+        {
+          "equation": "F(b) = if b=0 then 1 else 0",
+          "signature": "F : Fin 2 → Fin 2"
+        },
+        {
+          "equation": "X(i,s)(j) = if j=i then F(s(i)) else s(j)",
+          "signature": "X : Fin 7 → S → S"
+        },
+        {
+          "equation": "Y(i,k,s) = if s(i)=0 then s else X(k,s)",
+          "signature": "Y : Fin 7 → Fin 7 → S → S"
+        },
+        {
+          "equation": "Z(i,j,k,s) = if s(i)=1 ∧ s(j)=1 then X(k,s) else s",
+          "signature": "Z : Fin 7 → Fin 7 → Fin 7 → S → S"
+        },
+        {
+          "equation": "C(s) = X(0); X(1); Z(3,0,6); Z(6,1,2); Z(3,0,6); Z(3,0,1); Y(3,0); Z(4,1,2); Y(4,1); Y(5,2), each applied chronologically to the preceding state starting at s. X/Y/Z denote the exact functions just given; each is invertible at the distinct indices shown.",
+          "signature": "C : S ≃ S"
+        },
+        {
+          "equation": "(W(s,i,j,k)).val = (s(i)).val + 2*(s(j)).val + 4*(s(k)).val",
+          "signature": "W : S → Fin 7 → Fin 7 → Fin 7 → Fin 8"
+        },
+        {
+          "equation": "(L(a)).val = (Nat.xor a.val 3) % 8",
+          "signature": "L : Fin 8 → Fin 8"
+        },
+        {
+          "equation": "The vector maps index i to ai; literal order is increasing index.",
+          "signature": "![a0,a1,a2,a3,a4,a5,a6] : S"
+        }
+      ],
+      "anonymous_id": "O3",
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.BandedSparseAccessPrimitive"
+        ],
+        "preamble": "open scoped BigOperators",
+        "target": "(∀ (state : QuantumBlockEncoding.PrimitiveBasis 7), state 6 = 0 → QuantumBlockEncoding.BandedSparseAccess.primitiveWord3 (QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state) 0 1 2 = ⟨((QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 (QuantumBlockEncoding.BandedSparseAccess.primitiveWord3 state 0 1 2)).val + (QuantumBlockEncoding.BandedSparseAccess.primitiveWord3 state 3 4 5).val) % 8, Nat.mod_lt _ (by decide)⟩ ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveWord3 (QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state) 3 4 5 = QuantumBlockEncoding.BandedSparseAccess.primitiveWord3 state 3 4 5 ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state 6 = 0) ∧ (∀ (state : QuantumBlockEncoding.PrimitiveBasis 7), QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state 3 = state 3 ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state 4 = state 4 ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state 5 = state 5 ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state 6 = state 6) ∧ (QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv ![1, 1, 0, 0, 0, 0, 1] = ![0, 0, 0, 0, 0, 0, 1] ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv ![1, 0, 0, 0, 0, 0, 1] = ![0, 1, 1, 0, 0, 0, 1] ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 3 = 0 ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 1 = 2)"
+      },
+      "formal_signatures": [
+        {
+          "depends_on": [],
+          "id": "N1",
+          "target": "∀ (state : S), state 6 = 0 → W (C state) 0 1 2 = ⟨((L (W state 0 1 2)).val + (W state 3 4 5).val) % 8, Nat.mod_lt _ (by decide)⟩ ∧ W (C state) 3 4 5 = W state 3 4 5 ∧ C state 6 = 0"
+        },
+        {
+          "depends_on": [],
+          "id": "N2",
+          "target": "∀ (state : S), C state 3 = state 3 ∧ C state 4 = state 4 ∧ C state 5 = state 5 ∧ C state 6 = state 6"
+        },
+        {
+          "depends_on": [],
+          "id": "N3",
+          "target": "C ![1, 1, 0, 0, 0, 0, 1] = ![0, 0, 0, 0, 0, 0, 1] ∧ C ![1, 0, 0, 0, 0, 0, 1] = ![0, 1, 1, 0, 0, 0, 1] ∧ L 3 = 0 ∧ L 1 = 2"
+        },
+        {
+          "depends_on": [
+            "N1",
+            "N2",
+            "N3"
+          ],
+          "id": "N4",
+          "target": "(∀ (state : S), state 6 = 0 → W (C state) 0 1 2 = ⟨((L (W state 0 1 2)).val + (W state 3 4 5).val) % 8, Nat.mod_lt _ (by decide)⟩ ∧ W (C state) 3 4 5 = W state 3 4 5 ∧ C state 6 = 0) ∧ (∀ (state : S), C state 3 = state 3 ∧ C state 4 = state 4 ∧ C state 5 = state 5 ∧ C state 6 = state 6) ∧ (C ![1, 1, 0, 0, 0, 0, 1] = ![0, 0, 0, 0, 0, 0, 1] ∧ C ![1, 0, 0, 0, 0, 0, 1] = ![0, 1, 1, 0, 0, 0, 1] ∧ L 3 = 0 ∧ L 1 = 2)"
+        }
+      ],
+      "literal_name_map": {
+        "QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv": "C",
+        "QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3": "L",
+        "QuantumBlockEncoding.BandedSparseAccess.primitiveWord3": "W",
+        "QuantumBlockEncoding.PrimitiveBasis 7": "S"
+      },
+      "provenance_boundary": "Formal types and defining equations only; no source QA, proof script, prior verdict, or author conclusion supplied.",
+      "request": "Reconstruct the complete mathematics represented by each formal signature from only these literal equations and types. State every quantified input and condition, carrier/register convention, conclusion, and boundary. Do not infer additional claims.",
+      "root_id": "N4"
+    }
+  ]
+}
