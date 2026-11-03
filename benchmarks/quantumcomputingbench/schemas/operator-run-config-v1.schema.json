@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "QuantumComputingBench operator run profile v1",
+  "description": "Offline structural validation only. Runtime cross-field validation, endpoint review, authorization and the isolated-verifier gate remain separate.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "provider_kind", "adapter", "model", "sampling", "condition", "limits", "session_limits"],
+  "properties": {
+    "schema_version": {"const": "qcb.agentic_run_config.v1"},
+    "provider_kind": {"const": "operator_adapter"},
+    "adapter": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "revision_sha256"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[A-Za-z_]\\w*(?:\\.[A-Za-z_]\\w*)*:[A-Za-z_]\\w*$"},
+        "revision_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "model": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "revision", "chat_template_sha256"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1, "not": {"pattern": "^fixture:"}},
+        "revision": {"type": "string", "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"},
+        "chat_template_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "sampling": {
+      "type": "object", "additionalProperties": false,
+      "required": ["seed", "temperature", "top_p", "thinking_mode"],
+      "properties": {
+        "seed": {"type": "integer", "minimum": 0, "maximum": 4294967295},
+        "temperature": {"type": "number", "minimum": 0, "maximum": 2},
+        "top_p": {"type": "number", "exclusiveMinimum": 0, "maximum": 1},
+        "thinking_mode": {"enum": ["enabled", "disabled", "unspecified"]}
+      }
+    },
+    "condition": {
+      "type": "object", "additionalProperties": false,
+      "required": ["purpose", "mode", "exposure"],
+      "properties": {
+        "purpose": {"enum": ["formal_proof", "explanation_only"]},
+        "mode": {"enum": ["root_only", "proof_dag"]},
+        "exposure": {"enum": ["closed_book", "approved_interface"]}
+      },
+      "allOf": [{"if": {"properties": {"purpose": {"const": "explanation_only"}}},
+                 "then": {"properties": {"exposure": {"const": "closed_book"}}}}]
+    },
+    "limits": {
+      "type": "object", "additionalProperties": false,
+      "required": ["max_calls", "max_call_input_tokens", "max_call_output_tokens", "max_total_input_tokens", "max_total_output_tokens", "max_request_bytes", "max_response_bytes", "max_call_seconds", "max_wall_seconds", "max_total_endpoint_cost_usd", "max_call_endpoint_cost_usd"],
+      "properties": {
+        "max_calls": {"type": "integer", "minimum": 1, "maximum": 32},
+        "max_call_input_tokens": {"$ref": "#/$defs/positiveInteger"},
+        "max_call_output_tokens": {"$ref": "#/$defs/positiveInteger"},
+        "max_total_input_tokens": {"$ref": "#/$defs/positiveInteger"},
+        "max_total_output_tokens": {"$ref": "#/$defs/positiveInteger"},
+        "max_request_bytes": {"type": "integer", "minimum": 1, "maximum": 2000000},
+        "max_response_bytes": {"type": "integer", "minimum": 1, "maximum": 1000000},
+        "max_call_seconds": {"$ref": "#/$defs/seconds"},
+        "max_wall_seconds": {"$ref": "#/$defs/seconds"},
+        "max_total_endpoint_cost_usd": {"type": "number", "minimum": 0},
+        "max_call_endpoint_cost_usd": {"type": "number", "minimum": 0}
+      }
+    },
+    "session_limits": {
+      "type": "object", "additionalProperties": false,
+      "required": ["max_actions", "max_verifier_calls", "max_searches", "max_proof_chars", "max_query_chars", "max_observation_chars", "wall_seconds", "check_seconds"],
+      "properties": {
+        "max_actions": {"$ref": "#/$defs/sessionInteger"},
+        "max_verifier_calls": {"$ref": "#/$defs/sessionInteger"},
+        "max_searches": {"$ref": "#/$defs/sessionInteger"},
+        "max_proof_chars": {"$ref": "#/$defs/sessionInteger"},
+        "max_query_chars": {"$ref": "#/$defs/sessionInteger"},
+        "max_observation_chars": {"type": "integer", "minimum": 8192, "maximum": 100000},
+        "wall_seconds": {"$ref": "#/$defs/seconds"},
+        "check_seconds": {"$ref": "#/$defs/seconds"}
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "positiveInteger": {"type": "integer", "minimum": 1},
+    "sessionInteger": {"type": "integer", "minimum": 1, "maximum": 100000},
+    "seconds": {"type": "number", "exclusiveMinimum": 0, "maximum": 600}
+  }
+}

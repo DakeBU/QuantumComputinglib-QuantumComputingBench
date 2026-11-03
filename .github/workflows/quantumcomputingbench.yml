@@ -42,6 +42,18 @@ jobs:
       - run: python benchmarks/quantumcomputingbench/scripts/curriculum.py validate
         env:
           PYTHONUTF8: '1'
+      - name: Validate registered agentic task evidence
+        run: python benchmarks/quantumcomputingbench/scripts/evaluate_agentic.py validate
+        env:
+          PYTHONUTF8: '1'
+      - name: Prepare an offline operator profile template
+        run: python benchmarks/quantumcomputingbench/scripts/evaluate_agentic.py profile-template --output "${{ runner.temp }}/qcb-operator-profile.json"
+        env:
+          PYTHONUTF8: '1'
+      - name: Exercise the synthetic agentic protocol without Lean or models
+        run: python benchmarks/quantumcomputingbench/scripts/evaluate_agentic.py run-fixture --view qcb-agentic-sp-007-v1 --mode proof_dag --episode-dir "${{ runner.temp }}/qcb-agentic-fixture"
+        env:
+          PYTHONUTF8: '1'
       - run: python -m unittest website.scripts.test_quantumcomputingbench -v
         env:
           PYTHONUTF8: '1'

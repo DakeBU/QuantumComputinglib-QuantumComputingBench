@@ -73,6 +73,17 @@ Source-blind decoding, independent comparison and actual reference/axiom checks
 are separate evidence records. They are not three new questions, deep proof
 synthesis results, or kernel certification of the entire NL explanation.
 
+## Lean-enabled agentic evaluation
+
+The [experimental evaluator](tracks/lean/EVALUATOR.md) exposes four
+reference-qualified proof-task views with fixed shared IDs, scoped premise
+retrieval, provided proof obligations and repair/final-replay protocols. Its
+[handoff](tracks/lean/LOCAL_PILOT_HANDOFF.md) separates actual authored Lean
+evidence from synthetic scheduling tests and unmeasured model performance.
+Offline profile templates and validation prepare bounded model configurations;
+model-generated formal proofs remain gated on accepted isolated execution.
+The canonical catalog and public-preview release status are unchanged.
+
 ## Audited mathematical corrections
 
 <details>

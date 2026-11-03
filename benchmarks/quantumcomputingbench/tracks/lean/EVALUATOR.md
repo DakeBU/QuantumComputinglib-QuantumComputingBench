@@ -45,7 +45,10 @@ The older obligation checkpoint and newer sequential checkpoint retain their
 different source revisions. `recorded_pipeline_matches_current_sources` is
 reported separately; historical success is never relabelled as a current replay.
 A shallow clone missing a required evidence commit fails qualification until
-that history is available.
+that history is available. Preserve the original reference commits when
+integrating this pilot: use a merge commit, not squash/rebase. The evidence
+checks require their exact Git blobs. Rewriting ancestry requires a separately
+reviewed evidence-distribution change, not edited historical receipt hashes.
 
 Agent exports omit references, answers, rubrics, controls and checkpoint bodies.
 Search exposes only the approved declaration-interface corpus, not an arbitrary
@@ -75,6 +78,34 @@ exposure. Directory reuse is rejected, preserving old trajectories.
 ## Operator adapter and frozen model profile
 
 There is deliberately no bundled endpoint client or automatic model discovery.
+Prepare and validate its profile without reading the task registry or loading
+any adapter:
+
+```sh
+python benchmarks/quantumcomputingbench/scripts/evaluate_agentic.py profile-template \
+  --output ../qcb-eval-private/model-profile.json
+python benchmarks/quantumcomputingbench/scripts/evaluate_agentic.py schema \
+  --output _out/operator-profile-schema.json
+# Fill the actual adapter and model metadata in model-profile.json first.
+python benchmarks/quantumcomputingbench/scripts/evaluate_agentic.py validate-config \
+  --config ../qcb-eval-private/model-profile.json
+```
+
+The [canonical template](../../configs/agentic-operator.template.json) contains
+null adapter/model identities and deliberately fails validation until filled.
+It invents no checkpoint or template hash. Its small default budget does not
+start an experiment or grant permission. Choose the profile's actual limits
+before a model call; it is not a GPU-memory estimator for a particular Qwen.
+Use `profile-template --purpose explanation_only` for a closed-book NL profile.
+Conflicting explicit exposure flags are rejected rather than silently changed.
+
+The [JSON Schema](../../schemas/operator-run-config-v1.schema.json) provides a
+closed machine-readable structure. `validate-config`, `plan` and `run` also
+apply the existing runtime cross-field, finite-number and strict-type checks.
+Schema validation alone does not establish endpoint identity or usable isolation.
+Profile inputs are limited to 64 KiB; credentials belong in the adapter's
+private environment, not additional profile fields or a public JSON artifact.
+
 An operator may provide a trusted Python `module:factory` adapter. The factory
 must not generate text during construction. Its object exposes:
 
@@ -111,15 +142,15 @@ Create an explicit JSON profile with schema `qcb.agentic_run_config.v1`:
 - `condition`: `purpose` (`formal_proof` or `explanation_only`), `mode`
   (`root_only` or `proof_dag`), and `exposure` (`closed_book` or
   `approved_interface`). Explanation-only requires closed-book exposure.
-- `limits`: all eleven fields listed in `qcb_model_loop._LIMITS`, with explicit
+- `limits`: all eleven fields supplied in the canonical template, with explicit
   per-call and total input/output tokens, calls, request/response bytes, time and
   endpoint cost. This bounded pilot allows at most 32 calls and 600 seconds.
 - `session_limits`: every field of `dataclasses.asdict(SessionLimits())`, with
   tool wall time no greater than the model-loop wall ceiling.
 
-`fixture_config()` illustrates the full field shape, but its identities and
-synthetic cost profile are not a real-model configuration. Replace them with
-reviewed actual values; do not invent hashes or usage to satisfy validation.
+`fixture_config()` is reserved for simulation and is not an operator profile.
+Use the canonical operator template and reviewed actual values; do not invent
+hashes or usage to satisfy validation.
 For a local endpoint, zero endpoint charge does not mean zero GPU/CPU cost.
 
 ```sh
@@ -133,6 +164,13 @@ python benchmarks/quantumcomputingbench/scripts/evaluate_agentic.py plan \
 creates no episode directory. An actual call requires `run` plus
 `--authorize-model`; neither the profile nor a previous plan grants permission.
 Without that flag, `run` is also a zero-call plan.
+Supplying `--authorize-model` to `plan` or a non-generation command is an error.
+Episode summaries include `failure_class`, `reason`, `provider_constructed` and
+`episode_directory_created` so an environment gate is visible without opening a
+raw trajectory. Episode commands return 0 for a completed simulation/NL answer
+or dry plan, 2 for a blocked/incomplete episode, and 1 for input/data errors;
+argument-parser usage errors follow Python's standard exit code 2. Inspect the
+typed status instead of interpreting an exit code as mathematical correctness.
 
 Real `formal_proof` runs currently return `ENV_BLOCKED` **before** adapter import
 or construction, even when explicitly authorized. No accepted isolated candidate

@@ -31,8 +31,10 @@ _LIMITS = {"max_calls", "max_call_input_tokens", "max_call_output_tokens", "max_
 
 def _harness_sources():
     base = Path(__file__).resolve().parent
-    names = ("qcb_model_loop.py", "qcb_evaluation_registry.py", "qcb_proof_session.py", "qcb_core.py")
-    return {str((base / name).relative_to(R)).replace("\\", "/"): text_sha(base / name) for name in names}
+    names = ("qcb_model_loop.py", "qcb_evaluation_registry.py", "qcb_proof_session.py", "qcb_core.py", "qcb_operator_profile.py")
+    paths = [base / name for name in names]
+    paths.extend((base.parent / "scripts/evaluate_agentic.py", base.parent / "schemas/operator-run-config-v1.schema.json"))
+    return {str(path.relative_to(R)).replace("\\", "/"): text_sha(path) for path in paths}
 
 
 def validate_config(config):

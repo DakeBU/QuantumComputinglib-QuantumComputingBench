@@ -73,7 +73,13 @@ python benchmarks/quantumcomputingbench/scripts/evaluate_agentic.py run-fixture 
 ```
 
 The first two commands validate recorded evidence without Lean. A fresh
-reference replay additionally needs the exact already-built library checkout,
+clone must include the original evidence history; integration must preserve
+the recorded commits using a merge commit rather than squash/rebase.
+The [offline profile commands](EVALUATOR.md#operator-adapter-and-frozen-model-profile)
+generate an intentionally unfilled operator template and validate the completed
+metadata/budgets without importing adapters or loading the task corpus.
+
+A fresh reference replay additionally needs the exact already-built library checkout,
 pinned compiler and explicit trusted-authored-reference flag. For example:
 
 ```sh

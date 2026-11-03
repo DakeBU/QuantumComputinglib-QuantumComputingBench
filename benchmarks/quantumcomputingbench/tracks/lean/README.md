@@ -36,6 +36,9 @@ formal proofs remain blocked before adapter initialization pending an accepted
 isolated verifier. Registration does not change canonical catalog admissions.
 Use the [local pilot handoff](LOCAL_PILOT_HANDOFF.md) to inspect delivered
 capabilities, actual reference evidence and the gates for a first model run.
+The subsequent [operator-profile and CI checkpoint](../../reports/lean-agentic-normalization-v1/execution-summary.json)
+records offline configuration validation and updated software checks; earlier
+execution/review records retain their original source identities and scope.
 
 Prioritize exact formal views of admitted source-supported NL targets. Record
 the literal imports, assumptions, target, readable correspondence, source hashes,
