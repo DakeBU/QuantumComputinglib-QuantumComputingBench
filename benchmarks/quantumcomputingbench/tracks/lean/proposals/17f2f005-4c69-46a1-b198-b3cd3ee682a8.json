@@ -1,0 +1,42 @@
+{
+  "admission": "candidate_not_counted",
+  "author": "/root/course_conditioning_next; integration /root",
+  "boundary": "Partial whole-question coverage: root formally checks actual grid anchor, actual unit sample, full squared mass≥1, positive sqrt normalizer, and a strictly positive Fin 2 counterexample with mass=1/2<1 and no unit entry. Explanation of little-endian bit decoding, role of positivity, n=0=one qubit, and why unnormalized mass alone implies no circuit/success probability remains separately graded. No zero-qubit claim is added. Difficulty is provisional; no model performance, whole-module source clearance or isolated candidate execution.",
+  "canonical_formal_admission": false,
+  "contract_hash": "84ba33c1266ca6bce4771fd68dc57cc64a084b96719cd7addab2896bcdd23973",
+  "core_id": "qcb-core-sp-113",
+  "dedup_review_required": true,
+  "evidence": {
+    "comparison": "reports/lean-course-v2/comparison.json",
+    "fixture": "tracks/lean/fixtures/graph-course-v2.json",
+    "source_blind_decoder": "reports/lean-course-v2/conditioning-decoder.json"
+  },
+  "family": "hermite-discrete-mass",
+  "formal_context": {
+    "imports": [
+      "QuantumBlockEncoding.HermiteIntervalMass"
+    ],
+    "preamble": "open scoped BigOperators",
+    "target": "∀ (k n : ℕ) (L : ℝ) (hL : 0 < L), (QuantumBlockEncoding.HermiteStatePreparation.gridPoint (n + 1) L (QuantumBlockEncoding.HermiteIntervalMass.centralIndex n) = 0) ∧ (QuantumBlockEncoding.HermiteStatePreparation.sampledAmplitude k (n + 1) L (QuantumBlockEncoding.HermiteIntervalMass.centralIndex n) = 1) ∧ (1 ≤ ∑ j : Fin (QuantumBlockEncoding.gridSize (n + 1)), (QuantumBlockEncoding.HermiteStatePreparation.sampledAmplitude k (n + 1) L j) ^ 2) ∧ (0 < QuantumBlockEncoding.HermiteStatePreparation.sampleNorm k (n + 1) L) ∧ (∃ a : Fin 2 → ℝ, (∀ j, 0 < a j) ∧ (∑ j : Fin 2, (a j) ^ 2) < 1 ∧ (∀ j, a j ≠ 1))",
+    "universe_parameters": []
+  },
+  "item_digest": "525b8f123a38d56fcc3b95a970d0d7c293dddad13575bc075c874c6c6d614748",
+  "item_id": "qcb-textbook-b146df7108b5f0af5ed1",
+  "logical_assumptions_added": [],
+  "new_mathematical_cores": 0,
+  "proposal_id": "17f2f005-4c69-46a1-b198-b3cd3ee682a8",
+  "reference_execution_receipt_digest": "c451495db3c55581b4aa8b87395e384c7199aad9309e87be4d90ba813a1604ef",
+  "reference_execution_report": "reports/lean-course-v2/reference-checks.json",
+  "reference_execution_status": "actual_authored_course_replay_checked; experimental_sidecar_not_canonical_admission",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "source_nodes": [
+    "declaration:QuantumBlockEncoding.HermiteIntervalMass.centralIndex",
+    "declaration:QuantumBlockEncoding.HermiteIntervalMass.gridPoint_central",
+    "declaration:QuantumBlockEncoding.HermiteIntervalMass.smoothInitial_zero",
+    "declaration:QuantumBlockEncoding.HermiteIntervalMass.sampled_mass_ge_one"
+  ],
+  "split": "dev",
+  "track": "lean",
+  "view_id": "qcb-course-sp-113-v1",
+  "view_kind": "agentic_proof_curriculum"
+}

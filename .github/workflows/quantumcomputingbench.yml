@@ -62,6 +62,14 @@ jobs:
         run: python benchmarks/quantumcomputingbench/scripts/lean_course.py run-fixture --view qcb-course-be-105-v1 --episode-dir "${{ runner.temp }}/qcb-course-fixture"
         env:
           PYTHONUTF8: '1'
+      - name: Validate the successor course and its frozen cohort evidence
+        run: python benchmarks/quantumcomputingbench/scripts/lean_course_v2.py audit
+        env:
+          PYTHONUTF8: '1'
+      - name: Exercise the successor course without Lean or model execution
+        run: python benchmarks/quantumcomputingbench/scripts/lean_course_v2.py run-fixture --view qcb-course-sp-113-v1 --episode-dir "${{ runner.temp }}/qcb-course-v2-fixture"
+        env:
+          PYTHONUTF8: '1'
       - run: python -m unittest website.scripts.test_quantumcomputingbench -v
         env:
           PYTHONUTF8: '1'

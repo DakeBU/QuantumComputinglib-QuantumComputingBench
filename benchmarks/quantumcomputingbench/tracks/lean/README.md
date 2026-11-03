@@ -40,10 +40,10 @@ The subsequent [operator-profile and CI checkpoint](../../reports/lean-agentic-n
 records offline configuration validation and updated software checks; earlier
 execution/review records retain their original source identities and scope.
 
-The [staged Lean course](COURSE.md) now assembles nine existing cores across
+The [staged Lean course](COURSE.md) now assembles 13 existing cores across
 provisional construction bands D1--D4, with D0 knowledge facets attached to the
-same questions. It adds reviewed normalization-iff, block/tensor-unitary and
-Taylor-factorization/rank companions, while preserving all canonical splits and
+same questions. It adds reviewed normalization/domain, block/tensor/LCU, anchored-mass
+counterexample, cutoff-ledger and Taylor/rank companions, while preserving all canonical splits and
 formal-admission boundaries. Its audit checks actual recorded authored proofs;
 its topology counts describe supplied obligations rather than proof-term depth.
 
