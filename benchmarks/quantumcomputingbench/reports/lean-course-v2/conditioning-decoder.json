@@ -1,0 +1,146 @@
+{
+  "decoder_identity": "/root/course_second_blind_decode",
+  "packet_digest": "6407fecde0c8071f98a913f4319f278a76644cdfe00fcc4b16be522fc0edca03",
+  "schema_version": "qcb.curriculum_blind_decode.v1",
+  "source_blind": true,
+  "views": [
+    {
+      "ambiguities": [],
+      "anonymous_id": "ambient-A",
+      "limitations": [
+        "The supplied evaluation equation for sourceInterpolant is used as ambient meaning; no polynomial proof, derivative proof, imported source, or author interpretation was inspected.",
+        "This is a reconstruction of the complete supplied root, not a proof or independent validity check. Provided theorem interfaces and dependency labels are not treated as evidence of source equivalence or successful Lean elaboration.",
+        "No unspecified positivity, upper bound, continuum estimate, or relation between the existential witness and the sampled family is added.",
+        "This v2 decode retains the v1 root reconstruction after exact wrapper reconciliation. Root target strings, imports, universe lists and all pre-existing parsed packet contents agree; only formal_context wrappers are newly added. This establishes no source equivalence, mathematical validity or Lean elaboration result."
+      ],
+      "reconstructed_statement": "For every k,n in N and every L in R, assuming 0<L, put M=2^(n+1), p_j=-pi*L+j*(2*pi*L/M) for j in {0,...,M-1}, j_c=2^n, b_j=smoothInitial(k,p_j), and Z=sqrt(sum_{j=0}^{M-1} b_j^2). The root asserts the conjunction of these five statements: (1) p_{j_c}=0; (2) b_{j_c}=1; (3) sum_{j=0}^{M-1} b_j^2 >= 1; (4) Z>0; and (5) there exists a function a:Fin 2 -> R such that each a_j is strictly positive, a_0^2+a_1^2<1, and each a_j differs from 1. The existential function a in the fifth conjunct is independent of the displayed sampled family in the sense that the formula imposes no relation between a and b. Its existential quantifier is inside the quantifiers over k,n,L and the positivity hypothesis.",
+      "semantic_slots": {
+        "ambient_amplitude_definition": [
+          "At a real coordinate p, smoothInitial(k,p) is exp(p) when p<-1; otherwise it is sourceInterpolant(k).eval(p) when p<=0; otherwise it is exp(-p). Consequently both p=-1 and p=0 use the middle polynomial branch.",
+          "Writing t=p+1, the supplied middle polynomial is exp(-1)*(1-t)^(k+1)*A_k(t)+t^(k+1)*A_k(1-t).",
+          "The supplied A_k(t) is sum_{r=0}^k [sum_{m=0}^r binom(k+r-m,k)/m!]*t^r. The two finite sums include both endpoints of their displayed natural ranges.",
+          "The root claims that the particular central sample at p=0 has value 1. It does not claim all samples have value 1.",
+          "sampleNorm(k,n+1,L) is defined as the nonnegative real square root of the same unweighted squared-sample sum appearing in the third conjunct."
+        ],
+        "claims_and_nonclaims": [
+          "The conjunction asserts an exact central position, an exact central amplitude, a squared-mass lower bound of 1, and a strictly positive normalizer for the specified sampled family.",
+          "The root does not assert the squared mass equals 1, the normalizer equals 1, or any nontrivial upper bound on either.",
+          "No normalized vector b/Z is constructed in the root, although the strict positivity statement makes division by this Z meaningful.",
+          "The root contains no estimate of continuous interval mass, quadrature error, preparation success probability, circuit cost, or numerical conditioning ratio.",
+          "There is no biconditional or converse in this root; its first four conjuncts concern the supplied special family, and its last conjunct concerns a separately quantified function."
+        ],
+        "domains_and_boundaries": [
+          "k and n range over all natural numbers including 0; the root has no k>=1 or n>=1 hypothesis.",
+          "L ranges over positive real numbers in the root. Statements outside this domain are not included in this root, even where individual supplied interfaces have a larger domain.",
+          "All sampled amplitudes, grid coordinates, sums, and square roots here are real. Squares are ordinary real squares, not complex amplitudes or complex absolute-value squares.",
+          "All sums over the sampled family are finite and unweighted: there is no grid-step factor, integral, average, or probability normalization in the mass expression."
+        ],
+        "existential_scope_and_separation": [
+          "The literal scope is forall k,n,L,hL, (... and exists a, ...). A witness is formally allowed to depend on these outer parameters, but no parameter, sampledAmplitude expression, grid coordinate, or normalizer occurs in its defining conditions.",
+          "The existential does not assert that the sampled family b has squared mass less than 1; the sampled family has the opposite lower-bound claim in the third conjunct.",
+          "It does not assert that a is obtained by sampling smoothInitial, or that a agrees with b on any indices.",
+          "It asserts both entries of a are positive and neither is 1; it does not require a_0!=a_1 and does not specify numeric witness values.",
+          "The existential supplies an example with the listed properties. It is not a universal assertion about all strictly positive vectors."
+        ],
+        "length_and_index_conventions": [
+          "The root passes N=n+1 to gridPoint, sampledAmplitude and sampleNorm. Thus the sample vector length is M=gridSize(n+1)=2^(n+1), not 2^n or n+1.",
+          "Its valid natural index values are 0,...,2^(n+1)-1. The finite index type is never empty and has at least two elements.",
+          "The supplied bit convention is j=sum_{i=0}^n bit_i*2^i. Thus bit_0 is least significant, and the central index 2^n has bit_n=1 and all lower bits zero.",
+          "For positive L, the uniform grid includes -pi*L at j=0 and excludes +pi*L at the upper end. Its spacing is 2*pi*L/2^(n+1).",
+          "centralIndex n is the valid Fin(2^(n+1)) index of natural value 2^n. The first conjunct says that coordinate is exactly 0.",
+          "At n=0 there are two sample positions, -pi*L and 0; the central index is 1. The existential a is still a separate Fin 2 function even in this equal-length case."
+        ],
+        "quantifier_order": [
+          "For every k:N, then every n:N, then every L:R, then every proof hL of 0<L.",
+          "Under this positive-L hypothesis, assert the five conjuncts about the central grid point, central sampled value, squared-sample sum, square-root normalizer, and the existence of a separate two-entry real function.",
+          "Within the final conjunct there exists one a:Fin 2 -> R satisfying all three of: forall j, 0<a_j; the sum of both squared entries is <1; forall j, a_j!=1.",
+          "The same existential witness must satisfy all three properties. It is not a separately chosen witness for each property or each j."
+        ],
+        "wrapper_reconciliation": {
+          "all_original_packet_content_equal_after_removing_only_added_wrappers": true,
+          "comparison_scope": "Only the successor formal packet, original formal packet and this decoder own prior output were read. This comparison is not a comparison to a source question or expected interpretation.",
+          "predecessor_packet_digest": "af90164ac860dfae23995a6134af3e616566431f9b768edc655a7ad8365aa443",
+          "semantic_effect": "No change to the reconstructed root meaning. The wrapper repeats the original root target, imports and empty universe list, and explicitly supplies the BigOperators notation scope used by the existing finite-sum expressions.",
+          "wrapper_imports_exact_original_imports": true,
+          "wrapper_preamble": "open scoped BigOperators",
+          "wrapper_target_exact_original_root": true,
+          "wrapper_universes_exact_original_universes": true
+        }
+      }
+    },
+    {
+      "ambiguities": [],
+      "anonymous_id": "ambient-B",
+      "limitations": [
+        "The root and supplied interfaces fix the mathematical cutoff and declared operation ledger. They do not provide an implementation or a computational model for finite representations of arbitrary real numbers.",
+        "The distinction between the root two-component ledger and the supplied general interface whole-vector formulas is retained; no missing cost component is invented as a root conjunct.",
+        "This is a source-blind semantic reconstruction only. No Lean run, proof body, source question, author packet, proof log, prior verdict or external mathematical source was consulted, and no source-equivalence or independent validity claim is made.",
+        "This v2 decode retains the v1 root reconstruction after exact wrapper reconciliation. Root target strings, imports, universe lists and all pre-existing parsed packet contents agree; only formal_context wrappers are newly added. This establishes no source equivalence, mathematical validity or Lean elaboration result."
+      ],
+      "reconstructed_statement": "For every n in N and L in R, assuming 0<L, let h=2*pi*L/2^(n+1), c=Nat.ceil((-1+pi*L)/h), where Nat.ceil takes values in N and clamps negative inputs to zero, let S=search(n,0,-pi*L,pi*L), and let R=compute(n,L). The root asserts these five conjuncts: (1) R.value=c; (2) S.cost(field)=2*n; (3) S.cost(compare)=n+1; (4) R.cost(field)=2*n+2; and (5) R.cost(compare)=n+1. The costs are exact counts in the supplied charged exact-real operation model. They are not bit-operation, wall-clock, hardware-gate, or physical memory-access counts.",
+      "semantic_slots": {
+        "cost_model_semantics": [
+          "Op consists of the distinct tags field, sqrt, angle, trig, compare, read, write, emit.",
+          "A Cost is a function from Op to N. tick(op) has value 1 at exactly op and 0 at the other tags.",
+          "charge(op,x) returns x and the corresponding one-operation cost. pure returns a value with all costs 0. bind adds componentwise the first cost and the cost of the subsequent computation selected by its value.",
+          "The field tag counts each declared real addition, subtraction, multiplication or division as one operation, without distinguishing their bit cost or implementing a finite-precision representation.",
+          "The compare tag counts calls to the exact real predicate below(x), which decides x<-1. It is not a count of all natural-number comparisons, proof obligations or physical branch instructions.",
+          "The appearances of the constant pi and of powers of two do not themselves cause trig, read, or other charges under the supplied definitions."
+        ],
+        "cutoff_and_length_conventions": [
+          "h=gridStep(n,L)=2*pi*L/gridSize(n+1), with gridSize(n+1)=2^(n+1). The denominator is a positive real embedding of a natural power of two.",
+          "gridPointNat(n,L,j)=-pi*L+h*j for an unrestricted natural index j. This affine definition itself has no Fin-type restriction or modular indexing.",
+          "cutIndex(n,L)=Nat.ceil((-1-(-pi*L))/h). It is a natural number, so inputs of the ceiling at or below zero yield 0.",
+          "The supplied cutoff interface identifies the strict predicate gridPointNat(n,L,j)<-1 with j<cutIndex(n,L) for every natural j. Thus the cutoff is the first nonnegative index whose coordinate is at least -1, and a grid point exactly at -1 is not below the cutoff threshold.",
+          "The supplied interval interface bounds the cutoff by 2^n. The initial search interval runs from index 0 to index 2^n, namely from coordinate -pi*L to coordinate 0, with 2^n cells.",
+          "The coordinate 0 endpoint is included as a possible cutoff index even though the half-interval being partitioned has only the preceding 2^n cells. The full-grid length represented by the denominator is 2^(n+1).",
+          "If pi*L<=1, the clamped cutoff is 0. Otherwise the threshold lies to the right of the left endpoint. No assumption pi*L>1 appears in the root."
+        ],
+        "empty_and_boundary_cases": [
+          "The relevant natural powers 2^n and 2^(n+1) are positive even at n=0; there is no empty-grid or zero-cell case in this root.",
+          "The positive-L hypothesis ensures h>0. The root does not cover L=0 or negative L.",
+          "The strict comparison is x<-1 throughout. Equality to -1 takes the false branch and belongs on the at-least--1 side of the cutoff.",
+          "cutIndex is natural rather than an arbitrary signed integer and may equal 0 or 2^n, so both search interval endpoints matter."
+        ],
+        "exact_claimed_cost_components": [
+          "S.cost(field)=2*n and S.cost(compare)=n+1 refer to the standalone search with initial lower=-pi*L and span=pi*L; they exclude the two arithmetic operations that construct those inputs inside compute.",
+          "R.cost(field)=2*n+2 and R.cost(compare)=n+1 include those two compute preprocessing operations and the subsequent search.",
+          "All four are equalities of natural counters, not asymptotic bounds, timings, numerical error estimates, or probabilities.",
+          "The root explicitly projects only field and compare; it contains no quantifier over arbitrary op and no explicit equality for any of the other six components.",
+          "Separately, the supplied general cost interfaces state whole-vector formulas involving only tick(field) and tick(compare); within that declared model they would give 0 for the other tags. This is ambient interface information, not an additional root conjunct and not a claim of zero physical reads, writes, or memory usage."
+        ],
+        "instrumented_search_definition": [
+          "At search depth r+1, a charged division computes half=span/2; a charged addition computes middle=lower+half; a charged exact comparison decides middle<-1.",
+          "If that comparison is true, the next state is search(r,start+2^r,middle,half); otherwise it is search(r,start,lower,half). Exactly one recursive branch is run.",
+          "At depth 0, a charged comparison decides lower<-1, and pure returns start+1 when true and start otherwise.",
+          "There are n recursive midpoint refinements in S and then one terminal comparison. Natural additions, index powers of two, branch control and counter bookkeeping are not charged in this model.",
+          "compute first computes width=pi*L with one charged field multiplication, then lower=0-width with one charged field subtraction, then runs search(n,0,lower,width)."
+        ],
+        "quantifier_order": [
+          "For every n:N, every L:R, and every proof hL of 0<L, assert the conjunction of the returned cutoff equality and four cost-component equalities.",
+          "No further input-validity, error-tolerance, bit-precision or resource-budget hypothesis appears.",
+          "The root includes n=0. At that depth the search has 0 charged field operations and 1 charged comparison, while compute has 2 charged field operations and 1 charged comparison.",
+          "The root is scoped to L>0; general cost interfaces in the packet quantify over a wider real domain, but that stronger quantifier is not part of this root."
+        ],
+        "value_claim_and_nonclaims": [
+          "The only explicit value equality in the root is compute(n,L).value=cutIndex(n,L). The remaining conjuncts concern costs.",
+          "The root does not explicitly state the value of S in its standalone search expression, although the supplied compute definition and other interfaces explain its role.",
+          "The root does not return a sampled quantum state, construct an amplitude vector, output a circuit, or state a probability of success.",
+          "The exact-real ledger does not assert an implementation of exact real comparisons, finite-bit complexity, floating-point stability, precision requirements, total runtime, circuit depth, memory requirements, or hardware performance.",
+          "No numerical resource cost for natural index arithmetic, exponentiation of two, proofs, or counter maintenance is included. The names read, write and emit alone do not account for actual machine I/O.",
+          "No converse, optimality assertion, or lower bound for other algorithms is stated."
+        ],
+        "wrapper_reconciliation": {
+          "all_original_packet_content_equal_after_removing_only_added_wrappers": true,
+          "comparison_scope": "Only the successor formal packet, original formal packet and this decoder own prior output were read. This comparison is not a comparison to a source question or expected interpretation.",
+          "predecessor_packet_digest": "af90164ac860dfae23995a6134af3e616566431f9b768edc655a7ad8365aa443",
+          "semantic_effect": "No change to the reconstructed root meaning. The wrapper repeats the original root target, imports and empty universe list, and explicitly supplies the BigOperators notation scope used by the existing finite-sum expressions.",
+          "wrapper_imports_exact_original_imports": true,
+          "wrapper_preamble": "open scoped BigOperators",
+          "wrapper_target_exact_original_root": true,
+          "wrapper_universes_exact_original_universes": true
+        }
+      }
+    }
+  ]
+}

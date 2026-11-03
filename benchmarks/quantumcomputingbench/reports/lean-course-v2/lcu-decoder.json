@@ -1,0 +1,116 @@
+{
+  "decoder_identity": "/root/course_second_blind_decode",
+  "packet_digest": "8892961840528f69443e9cfba019de86f313949f7405a8e5efcca7b28d1e063d",
+  "schema_version": "qcb.curriculum_blind_decode.v1",
+  "source_blind": true,
+  "views": [
+    {
+      "ambiguities": [],
+      "anonymous_id": "L1",
+      "limitations": [
+        "This output translates the complete supplied root using the supplied ambient definitions. It does not provide a proof, certify successful Lean elaboration, or establish source equivalence.",
+        "Only the successor formal input was read for this decode. No source QA, proof body, proof log, author packet or desired comparison verdict was inspected."
+      ],
+      "reconstructed_statement": "For every function a:R->R, suppose that for every t in R, -1<=t implies that t<=1 implies cos(a(t))=t. Then, for every x in R, let U_x=[[cos(a(x)),-sin(a(x))],[sin(a(x)),cos(a(x))]], regarded as a complex matrix with row and column indices Fin 2. The following three statements hold together: (1) U_x is unitary, meaning U_x^dagger U_x=I_2; (2) U_x(0,0) equals the complex embedding of x if and only if -1<=x and x<=1; (3) if 1<|x|, U_x(0,0) does not equal the complex embedding of x. The conclusion quantifies over every real x, including x outside [-1,1].",
+      "semantic_slots": {
+        "ambient_interface_alignment": [
+          "The supplied realRotation and realOrthogonalRotation equations determine this two-by-two complex matrix without any missing ambient context."
+        ],
+        "conditional_and_biconditional_scope": [
+          "H constrains a through its cosine only for arguments in the closed interval [-1,1].",
+          "The outer conclusion has no assumption that x lies in that interval. In particular, its unitarity assertion covers all real x.",
+          "The forward half of the biconditional states that readout equality implies both -1<=x and x<=1; the reverse half states that those two bounds imply readout equality.",
+          "The inequalities are weak in the biconditional, so both endpoints -1 and 1 are included.",
+          "The final implication separately states non-equality when |x|>1. Its antecedent is local to that conjunct and does not restrict the preceding conclusions or the outer quantifier."
+        ],
+        "domains_scalars_and_indices": [
+          "a, its argument and value, sine, cosine, order relations, and absolute value are real.",
+          "All matrix entries and the readout equality use complex scalars. The displayed real entries and x are embedded into the complex field.",
+          "Both matrix index sets are Fin 2. In order (0,1), the first row is (cos(a(x)),-sin(a(x))) and the second row is (sin(a(x)),cos(a(x))).",
+          "Dagger means complex conjugate transpose, I_2 is the identity matrix, and matrices act on column vectors from the left."
+        ],
+        "finite_and_empty_cases": [
+          "Fin 2 has exactly two elements and designated labels 0 and 1. There is no empty-index case in this root."
+        ],
+        "nonclaims": [
+          "The root assumes H and does not separately construct the function a.",
+          "It does not require a(x)=arccos(x), a particular angle branch, continuity, monotonicity or measurability.",
+          "The sine entry is not required to equal the nonnegative square root of 1-x^2; its sign is determined by the chosen real angle.",
+          "The root does not specify an extension rule for a outside [-1,1], and does not assert a real or complex coefficient readout beyond the stated cosine entry.",
+          "No implementation or circuit cost assertion occurs."
+        ],
+        "quantifier_order": [
+          "For every a:R->R.",
+          "Assume H: forall t:R, (-1<=t) -> ((t<=1) -> (cos(a(t))=t)).",
+          "For every x:R, assert the conjunction of unitarity, the readout biconditional, and the outside-interval conditional."
+        ]
+      }
+    },
+    {
+      "ambiguities": [],
+      "anonymous_id": "L2",
+      "limitations": [
+        "Resolution of the earlier context gap means the successor supplied interface now aligns with its displayed explicit applications. It is not a Lean elaboration result or proof-validity result.",
+        "The author report about unchanged target/node/import/universe bytes was not used as evidence for validity or source equivalence; no byte-for-byte comparison with another file was performed in this decode.",
+        "Only this successor formal packet was read. No proof body, imported source, source QA, expected interpretation, proof log or comparison verdict was inspected.",
+        "No Lean, model, GPU, network or administrator run was performed. Earlier decode outputs are preserved."
+      ],
+      "reconstructed_statement": "For all index types C:Type u, S:Type v and X:Type w, each with the displayed finite enumeration and decidable-equality instances, for every complex S-by-S matrix P, every family V assigning a complex C-by-C matrix to each pair (s,x) in S x X, and every family pi assigning a bijection pi_s:X->X to each s in S, assume P^dagger P=I_S and, for every s,x, V(s,x)^dagger V(s,x)=I_C. Use the ordered composite index J=C x (S x X), and define T(B)=I_C tensor (B tensor I_X); let A apply V(s,x) to C while keeping s and x fixed; let Q send the column basis vector (c,(s,x)) to (c,(s,pi_s(x))). Then all three conclusions hold: (1) T(P)^dagger*(Q*(A*T(P))) is unitary on J; (2) for every complex S-by-S matrix B, if B is unitary, T(B)*(Q*(A*T(P))) is unitary on J; (3) for every complex S-by-S matrix D, if D*P=I_S, then D=P^dagger. B in the second conclusion has no required relation to P. D in the third conclusion has no separate unitarity hypothesis. These two universal quantifiers are distinct bindings of the formal name other, and all three conclusions share both initial hypotheses.",
+      "semantic_slots": {
+        "ambient_interface_alignment": [
+          "The previously described selectLift explicit-argument context gap is resolved in this successor packet.",
+          "Its supplied signature has the three type parameters followed only by dc:DecidableEq C, ds:DecidableEq S, dt:DecidableEq X, then permutation. This matches @selectLift C S X dc ds dt permutation in the root and defining equation.",
+          "selectorLift, amplitudeLift and prepareAmplitudeSelectUnprepare retain the six displayed finite/equality instances fc,dc,fs,ds,ft,dt, matching their respective explicit applications.",
+          "The supplied entrywise amplitudeLift equation fixes its coefficient-first register interpretation. No further ambient semantic ambiguity remains for decoding the complete root."
+        ],
+        "finite_and_empty_cases": [
+          "C,S,X may each be empty. Decidable equality and Fintype instances do not assert nonemptiness or designate any ancilla labels.",
+          "If any one of C,S,X is empty, J is empty. Every J-by-J matrix then has no entries, and its unitarity equation is an equality of the unique empty matrix.",
+          "If S or X is empty, the condition forall s,x, V(s,x) is unitary is vacuous. If C is empty, each V(s,x) that exists is an empty matrix.",
+          "If S is empty, P and the matrices B and D also have no entries, so the final uniqueness conclusion is an equality of empty selector matrices.",
+          "If C or X is empty but S is nonempty, the lifted unitarity claims are still about empty matrices, but the assumption on P and the left-inverse uniqueness claim still concern S-by-S matrices that can have entries.",
+          "The explicit hypotheses remain in the root in every such case; emptiness does not syntactically remove them."
+        ],
+        "multiplication_and_time_order": [
+          "Matrices act on column vectors from the left. Thus the first composition applies T(P), then A, then Q, then T(P)^dagger.",
+          "A uses the selector and system labels present before Q performs its controlled system permutation.",
+          "The second composition has the same first three operations, then T(B). The final factor is B itself lifted to the selector register, not B^dagger and not an assumed inverse of P.",
+          "The selector adjoint in the first composition is the star of the entire lifted T(P), in exactly the displayed placement."
+        ],
+        "nested_implications_and_conjunctions": [
+          "The initial P-unitarity and all-block-unitarity assumptions scope over the entire three-part conjunction.",
+          "Part 2 reads: for every B, B unitary -> T(B)*Q*A*T(P) unitary. It has no B*P=I hypothesis.",
+          "Part 3 reads: for every D, D*P=I_S -> D=P^dagger. It does not assume D unitary.",
+          "D*P=I_S says D is a left inverse of P; D acts after P on a column vector.",
+          "The two formal occurrences of forall other are separate binders. Part 2 does not force every unitary B to equal P^dagger.",
+          "No converse is stated that full-composition unitarity implies either initial hypothesis. No optimal or minimal hypothesis claim is included."
+        ],
+        "nonclaims": [
+          "The root does not designate a coefficient or selector basis label, initial ancilla state, encoded target block, weighted-sum readout, normalized coefficient list, or success amplitude.",
+          "Part 2 guarantees a unitary total composition with any unitary final selector B; it does not assert that B unprepares P.",
+          "Part 3 explicitly formulates left-inverse uniqueness. A separate right-inverse statement is not written in the root.",
+          "There is no approximation tolerance, probability, gate decomposition, resource bound or circuit complexity claim."
+        ],
+        "quantifier_order": [
+          "Universally quantify the three index types C,S,X in arbitrary displayed universes, and their Fintype and DecidableEq instances.",
+          "Universally quantify P:Matrix S S complex, V:S->X->Matrix C C complex, and pi:S->(X equivalent to X).",
+          "Assume P belongs to the supplied unitary group; next assume forall s,x, V(s,x) belongs to the coefficient-index unitary group.",
+          "Assert one unitarity claim and two separate universally quantified conditional claims. The root contains no existential quantifier."
+        ],
+        "register_order_and_entries": [
+          "Every lifted row and column has the parenthesized order coefficient x (selector x system): (c,(s,x)).",
+          "T(B)((c,(s,x)),(d,(t,y)))=B(s,t) if c=d and x=y, and 0 otherwise.",
+          "A((c,(s,x)),(d,(t,y)))=V(s,x)(c,d) if (s,x)=(t,y), and 0 otherwise.",
+          "Q((c,(s,x)),(d,(t,y)))=1 if c=d, s=t and x=pi_t(y), and 0 otherwise.",
+          "The Q orientation follows the supplied convention that the row index equals the equivalence applied to the column index. It does not apply pi inverse to the input basis vector."
+        ],
+        "unitary_meaning_and_scalars": [
+          "The supplied membership convention is M unitary iff M^dagger*M=I on the stated finite index type.",
+          "The matrices, identities, zeros, and permutation entries all use complex scalars. C in this decode is the coefficient index type, not the scalar field.",
+          "P is an arbitrary unitary selector matrix, not necessarily a permutation. V(s,x) is an arbitrary unitary coefficient matrix for each controlling pair.",
+          "pi_s is an equivalence, hence a bijection with an inverse, rather than an arbitrary system map."
+        ]
+      }
+    }
+  ]
+}

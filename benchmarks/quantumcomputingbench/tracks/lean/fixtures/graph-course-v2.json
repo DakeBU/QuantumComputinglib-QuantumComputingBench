@@ -1,0 +1,638 @@
+{
+  "author": "/root",
+  "cases": [
+    {
+      "assumptions_added": false,
+      "controls": {
+        "constructed_whole_root": "by\n  have qcb_step_be106_angle_unitary : ∀ (angle : ℝ), QuantumBlockEncoding.Robin.ComplexLCU.realRotation angle ∈ Matrix.unitaryGroup (Fin 2) ℂ :=\n    by\n      intro angle\n      unfold QuantumBlockEncoding.Robin.ComplexLCU.realRotation\n      apply QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation_unitary\n      nlinarith [Real.sin_sq_add_cos_sq angle]\n  have qcb_step_be106_readout_range : ∀ (angle coefficient : ℝ), QuantumBlockEncoding.Robin.ComplexLCU.realRotation angle 0 0 = (coefficient : ℂ) → -1 ≤ coefficient ∧ coefficient ≤ 1 :=\n    by\n      intro angle coefficient entry\n      change (Real.cos angle : ℂ) = (coefficient : ℂ) at entry\n      have cosine_eq : Real.cos angle = coefficient := by exact_mod_cast entry\n      constructor\n      · rw [← cosine_eq]\n        exact Real.neg_one_le_cos angle\n      · rw [← cosine_eq]\n        exact Real.cos_le_one angle\n  intro angle onDomain x\n  have readout : QuantumBlockEncoding.Robin.ComplexLCU.realRotation (angle x) 0 0 = (x : ℂ) ↔ -1 ≤ x ∧ x ≤ 1 := by\n    constructor\n    · exact qcb_step_be106_readout_range (angle x) x\n    · intro bounds\n      change (Real.cos (angle x) : ℂ) = (x : ℂ)\n      exact_mod_cast onDomain x bounds.1 bounds.2\n  refine ⟨qcb_step_be106_angle_unitary (angle x), readout, ?_⟩\n  intro outside hit\n  have bounds := readout.mp hit\n  have absBound : |x| ≤ 1 := abs_le.mpr bounds\n  exact (not_le_of_gt outside) absBound",
+        "library_control": "by\n  have qcb_step_be106_angle_unitary : ∀ (angle : ℝ), QuantumBlockEncoding.Robin.ComplexLCU.realRotation angle ∈ Matrix.unitaryGroup (Fin 2) ℂ :=\n    by\n      exact QuantumBlockEncoding.Robin.ComplexLCU.realRotation_unitary\n  have qcb_step_be106_readout_range : ∀ (angle coefficient : ℝ), QuantumBlockEncoding.Robin.ComplexLCU.realRotation angle 0 0 = (coefficient : ℂ) → -1 ≤ coefficient ∧ coefficient ≤ 1 :=\n    by\n      intro angle coefficient entry\n      change (Real.cos angle : ℂ) = (coefficient : ℂ) at entry\n      have cosine_eq : Real.cos angle = coefficient := by exact_mod_cast entry\n      constructor\n      · rw [← cosine_eq]\n        exact Real.neg_one_le_cos angle\n      · rw [← cosine_eq]\n        exact Real.cos_le_one angle\n  intro angle onDomain x\n  have readout : QuantumBlockEncoding.Robin.ComplexLCU.realRotation (angle x) 0 0 = (x : ℂ) ↔ -1 ≤ x ∧ x ≤ 1 := by\n    constructor\n    · exact qcb_step_be106_readout_range (angle x) x\n    · intro bounds\n      change (Real.cos (angle x) : ℂ) = (x : ℂ)\n      exact_mod_cast onDomain x bounds.1 bounds.2\n  refine ⟨qcb_step_be106_angle_unitary (angle x), readout, ?_⟩\n  intro outside hit\n  have bounds := readout.mp hit\n  have absBound : |x| ≤ 1 := abs_le.mpr bounds\n  exact (not_le_of_gt outside) absBound"
+      },
+      "library_control_one_call": false,
+      "negative_controls": {
+        "sorry_axiom": "by\n  sorry",
+        "wrong_target": "by\n  exact True.intro"
+      },
+      "references": {
+        "be106_angle_unitary": "by\n  intro angle\n  unfold QuantumBlockEncoding.Robin.ComplexLCU.realRotation\n  apply QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation_unitary\n  nlinarith [Real.sin_sq_add_cos_sq angle]",
+        "be106_readout_range": "by\n  intro angle coefficient entry\n  change (Real.cos angle : ℂ) = (coefficient : ℂ) at entry\n  have cosine_eq : Real.cos angle = coefficient := by exact_mod_cast entry\n  constructor\n  · rw [← cosine_eq]\n    exact Real.neg_one_le_cos angle\n  · rw [← cosine_eq]\n    exact Real.cos_le_one angle",
+        "be106_root": "by\n  intro angle onDomain x\n  have readout : QuantumBlockEncoding.Robin.ComplexLCU.realRotation (angle x) 0 0 = (x : ℂ) ↔ -1 ≤ x ∧ x ≤ 1 := by\n    constructor\n    · exact qcb_step_be106_readout_range (angle x) x\n    · intro bounds\n      change (Real.cos (angle x) : ℂ) = (x : ℂ)\n      exact_mod_cast onDomain x bounds.1 bounds.2\n  refine ⟨qcb_step_be106_angle_unitary (angle x), readout, ?_⟩\n  intro outside hit\n  have bounds := readout.mp hit\n  have absBound : |x| ≤ 1 := abs_le.mpr bounds\n  exact (not_le_of_gt outside) absBound"
+      },
+      "retrieval_scope": {
+        "direct_route_interfaces": [
+          "QuantumBlockEncoding.Robin.ComplexLCU.realRotation_unitary",
+          "QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation_unitary",
+          "QuantumBlockEncoding.Robin.ComplexLCU.amplitudeRotation_unitary",
+          "QuantumBlockEncoding.Robin.ComplexLCU.amplitudeRotation_cleanEntry",
+          "Real.cos_arccos",
+          "Real.cos_le_one",
+          "Real.neg_one_le_cos"
+        ],
+        "note": "Complete imports remain callable; this list is a disclosed role map, not a theorem-exclusion firewall or exhaustive theorem-prover search."
+      },
+      "semantic_coverage": "Formal target covers the universal gate/domain claims, including arbitrary extension and the outside-domain impossibility. It does not assess the requested explanatory language or prescribed proof method. Those remain separately graded against the unchanged canonical rubric.",
+      "semantic_evidence": {
+        "anonymous_id": "L1",
+        "group": "lcu",
+        "kind": "new_roundtrip"
+      },
+      "shortcut_disclosure": "realRotation_unitary is an exact one-call shortcut for the unitarity leaf, and amplitudeRotation_unitary/cleanEntry cover the source specialization and sufficient domain direction. No exact generic-extension whole iff root was identified.",
+      "source_binder_audit": [
+        {
+          "binder": "angle : ℝ → ℝ",
+          "class": "SOURCE",
+          "meaning": "The unchanged canonical QA allows any fixed real angle extension; the operative source arccos is a specific instance."
+        },
+        {
+          "binder": "∀ x, -1 ≤ x → x ≤ 1 → Real.cos (angle x)=x",
+          "class": "SOURCE",
+          "meaning": "Exactly the canonical QA inverse-cosine-branch assumption on the valid interval; no premise about off-domain behavior."
+        },
+        {
+          "binder": "x : ℝ",
+          "class": "SOURCE",
+          "meaning": "All real parameters; no global domain restriction for unitarity."
+        },
+        {
+          "binder": "ℂ, Fin 2, real-to-complex embedding",
+          "class": "TYPING",
+          "meaning": "Complex two-dimensional planar gate with row0/column0 readout."
+        }
+      ],
+      "source_bindings": [
+        {
+          "path": "QuantumBlockEncoding/Robin/ComplexLCU.lean",
+          "sha256_lf": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843"
+        }
+      ],
+      "source_item_digest": "a01f8f5245eb84999d3a73584d8019263b296e87e308ca3a6b391d676bbcc2ea",
+      "source_node_ids": [
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.amplitudeRotation_unitary",
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.amplitudeRotation_cleanEntry",
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.amplitudeRotation",
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.realRotation_unitary"
+      ],
+      "task": {
+        "alignment_status": "author_sealed_candidate; independent_decode_and_source_comparison_pending; not_current_gold",
+        "assumptions": [
+          "The angle t(x) satisfies cos t(x) = x on -1 <= x <= 1 and is extended in some unspecified way elsewhere",
+          "The clean entry is read as the top-left matrix element"
+        ],
+        "contract_hash": "81cd5bb7165056bf4baa82f6c121c439472b40062074111aab6a7c9d703c307f",
+        "conventions": [
+          "The amplitude gate is the planar rotation through an inverse-cosine branch of x",
+          "The cosine of any real angle lies in the closed interval [-1, 1]"
+        ],
+        "core_id": "qcb-core-be-106",
+        "family": "be-amplitude-unitary-vs-readout",
+        "imports": [
+          "QuantumBlockEncoding.Robin.ComplexLCU"
+        ],
+        "interfaces": [],
+        "library_revision": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+        "nodes": [
+          {
+            "depends_on": [],
+            "id": "be106_angle_unitary",
+            "target": "∀ (angle : ℝ), QuantumBlockEncoding.Robin.ComplexLCU.realRotation angle ∈ Matrix.unitaryGroup (Fin 2) ℂ"
+          },
+          {
+            "depends_on": [],
+            "id": "be106_readout_range",
+            "target": "∀ (angle coefficient : ℝ), QuantumBlockEncoding.Robin.ComplexLCU.realRotation angle 0 0 = (coefficient : ℂ) → -1 ≤ coefficient ∧ coefficient ≤ 1"
+          },
+          {
+            "depends_on": [
+              "be106_angle_unitary",
+              "be106_readout_range"
+            ],
+            "id": "be106_root",
+            "target": "∀ (angle : ℝ → ℝ), (∀ x : ℝ, -1 ≤ x → x ≤ 1 → Real.cos (angle x) = x) → ∀ x : ℝ, QuantumBlockEncoding.Robin.ComplexLCU.realRotation (angle x) ∈ Matrix.unitaryGroup (Fin 2) ℂ ∧ (QuantumBlockEncoding.Robin.ComplexLCU.realRotation (angle x) 0 0 = (x : ℂ) ↔ -1 ≤ x ∧ x ≤ 1) ∧ (1 < |x| → QuantumBlockEncoding.Robin.ComplexLCU.realRotation (angle x) 0 0 ≠ (x : ℂ))"
+          }
+        ],
+        "question": "An amplitude-loading gate is built from a planar rotation through an angle t(x), where t is any fixed real-valued function of the real parameter x chosen so that on the interval -1 <= x <= 1 the cosine of t(x) equals x (an inverse-cosine branch), and extended in some unspecified way to the rest of the real line. Two claims are on the table: (A) the gate is unitary for every real x, with no restriction and independent of how t is extended; (B) the top-left entry of the gate equals x. Decide for which values of x each claim holds. Prove the unconditional claim, prove that claim (B) holds for -1 <= x <= 1, and prove that claim (B) FAILS whenever |x| > 1 without using any particular value of the extension. Explain the asymmetry: why unitarity is free but the clean-entry readout needs -1 <= x <= 1.",
+        "root_id": "be106_root",
+        "schema_version": "qcb.proof_obligation_task.v2",
+        "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "split": "train",
+        "universe_parameters": [
+          "u",
+          "v",
+          "w"
+        ]
+      },
+      "view_id": "qcb-course-be-106-v1"
+    },
+    {
+      "assumptions_added": false,
+      "controls": {
+        "constructed_whole_root": "by\n  have qcb_step_be112_selector : ∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (prepare : Matrix selector selector ℂ), prepare ∈ Matrix.unitaryGroup selector ℂ → (@QuantumBlockEncoding.Robin.ComplexLCU.selectorLift coefficient selector system fc dc fs ds ft dt prepare) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ :=\n    by\n      intro coefficient selector system fc dc fs ds ft dt prepare unitary\n      unfold QuantumBlockEncoding.Robin.ComplexLCU.selectorLift\n      apply Matrix.kronecker_mem_unitary\n      · exact (Matrix.unitaryGroup coefficient ℂ).one_mem\n      · apply Matrix.kronecker_mem_unitary\n        · exact unitary\n        · exact (Matrix.unitaryGroup system ℂ).one_mem\n  have qcb_step_be112_amplitude : ∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (rotation : selector → system → Matrix coefficient coefficient ℂ), (∀ s x, rotation s x ∈ Matrix.unitaryGroup coefficient ℂ) → (@QuantumBlockEncoding.Robin.ComplexLCU.amplitudeLift coefficient selector system fc dc fs ds ft dt rotation) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ :=\n    by\n      intro coefficient selector system fc dc fs ds ft dt rotation unitary\n      unfold QuantumBlockEncoding.Robin.ComplexLCU.amplitudeLift\n      apply QuantumBlockEncoding.Robin.ComplexLCU.blockDiagonal_unitary\n      intro context\n      exact unitary context.1 context.2\n  have qcb_step_be112_select : ∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (permutation : selector → system ≃ system), (@QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dt permutation) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ :=\n    by\n      intro coefficient selector system fc dc fs ds ft dt permutation\n      unfold QuantumBlockEncoding.Robin.ComplexLCU.selectLift\n      exact QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_unitary _\n  have qcb_step_be112_inverse_unique : ∀ {selector : Type v} [fs : Fintype selector] [ds : DecidableEq selector] (prepare : Matrix selector selector ℂ), prepare ∈ Matrix.unitaryGroup selector ℂ → ∀ (other : Matrix selector selector ℂ), other * prepare = 1 → other = star prepare :=\n    by\n      intro selector fs ds prepare unitary other inverse\n      have rightInverse : prepare * star prepare = 1 := Matrix.mem_unitaryGroup_iff.mp unitary\n      calc\n        other = other * 1 := (mul_one other).symm\n        _ = other * (prepare * star prepare) := by rw [rightInverse]\n        _ = (other * prepare) * star prepare := (mul_assoc _ _ _).symm\n        _ = star prepare := by rw [inverse, one_mul]\n  intro coefficient selector system fc dc fs ds ft dt prepare rotation permutation prepareUnitary rotationUnitary\n  have pU := @qcb_step_be112_selector coefficient selector system fc dc fs ds ft dt prepare prepareUnitary\n  have aU := @qcb_step_be112_amplitude coefficient selector system fc dc fs ds ft dt rotation rotationUnitary\n  have sU := @qcb_step_be112_select coefficient selector system fc dc fs ds ft dt permutation\n  have suffixU := (Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ).mul_mem sU\n    ((Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ).mul_mem aU pU)\n  constructor\n  · change star (@QuantumBlockEncoding.Robin.ComplexLCU.selectorLift coefficient selector system fc dc fs ds ft dt prepare) * _ ∈ _\n    exact (Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ).mul_mem\n      (Unitary.star_mem pU) suffixU\n  · constructor\n    · intro other otherUnitary\n      exact (Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ).mul_mem\n        (@qcb_step_be112_selector coefficient selector system fc dc fs ds ft dt other otherUnitary) suffixU\n    · exact qcb_step_be112_inverse_unique prepare prepareUnitary",
+        "library_control": "by\n  have qcb_step_be112_selector : ∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (prepare : Matrix selector selector ℂ), prepare ∈ Matrix.unitaryGroup selector ℂ → (@QuantumBlockEncoding.Robin.ComplexLCU.selectorLift coefficient selector system fc dc fs ds ft dt prepare) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ :=\n    by\n      exact @QuantumBlockEncoding.Robin.ComplexLCU.selectorLift_unitary\n  have qcb_step_be112_amplitude : ∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (rotation : selector → system → Matrix coefficient coefficient ℂ), (∀ s x, rotation s x ∈ Matrix.unitaryGroup coefficient ℂ) → (@QuantumBlockEncoding.Robin.ComplexLCU.amplitudeLift coefficient selector system fc dc fs ds ft dt rotation) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ :=\n    by\n      exact @QuantumBlockEncoding.Robin.ComplexLCU.amplitudeLift_unitary\n  have qcb_step_be112_select : ∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (permutation : selector → system ≃ system), (@QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dt permutation) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ :=\n    by\n      exact @QuantumBlockEncoding.Robin.ComplexLCU.selectLift_unitary\n  have qcb_step_be112_inverse_unique : ∀ {selector : Type v} [fs : Fintype selector] [ds : DecidableEq selector] (prepare : Matrix selector selector ℂ), prepare ∈ Matrix.unitaryGroup selector ℂ → ∀ (other : Matrix selector selector ℂ), other * prepare = 1 → other = star prepare :=\n    by\n      intro selector fs ds prepare unitary other inverse\n      have rightInverse : prepare * star prepare = 1 := Matrix.mem_unitaryGroup_iff.mp unitary\n      calc\n        other = other * 1 := (mul_one other).symm\n        _ = other * (prepare * star prepare) := by rw [rightInverse]\n        _ = (other * prepare) * star prepare := (mul_assoc _ _ _).symm\n        _ = star prepare := by rw [inverse, one_mul]\n  intro coefficient selector system fc dc fs ds ft dt prepare rotation permutation prepareUnitary rotationUnitary\n  have pU := @qcb_step_be112_selector coefficient selector system fc dc fs ds ft dt prepare prepareUnitary\n  have aU := @qcb_step_be112_amplitude coefficient selector system fc dc fs ds ft dt rotation rotationUnitary\n  have sU := @qcb_step_be112_select coefficient selector system fc dc fs ds ft dt permutation\n  have suffixU := (Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ).mul_mem sU\n    ((Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ).mul_mem aU pU)\n  constructor\n  · change star (@QuantumBlockEncoding.Robin.ComplexLCU.selectorLift coefficient selector system fc dc fs ds ft dt prepare) * _ ∈ _\n    exact @QuantumBlockEncoding.Robin.ComplexLCU.prepareAmplitudeSelectUnprepare_unitary coefficient selector system fc dc fs ds ft dt prepare rotation permutation prepareUnitary rotationUnitary\n  · constructor\n    · intro other otherUnitary\n      exact (Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ).mul_mem\n        (@qcb_step_be112_selector coefficient selector system fc dc fs ds ft dt other otherUnitary) suffixU\n    · exact qcb_step_be112_inverse_unique prepare prepareUnitary"
+      },
+      "library_control_one_call": false,
+      "negative_controls": {
+        "sorry_axiom": "by\n  sorry",
+        "wrong_target": "by\n  exact True.intro"
+      },
+      "references": {
+        "be112_amplitude": "by\n  intro coefficient selector system fc dc fs ds ft dt rotation unitary\n  unfold QuantumBlockEncoding.Robin.ComplexLCU.amplitudeLift\n  apply QuantumBlockEncoding.Robin.ComplexLCU.blockDiagonal_unitary\n  intro context\n  exact unitary context.1 context.2",
+        "be112_inverse_unique": "by\n  intro selector fs ds prepare unitary other inverse\n  have rightInverse : prepare * star prepare = 1 := Matrix.mem_unitaryGroup_iff.mp unitary\n  calc\n    other = other * 1 := (mul_one other).symm\n    _ = other * (prepare * star prepare) := by rw [rightInverse]\n    _ = (other * prepare) * star prepare := (mul_assoc _ _ _).symm\n    _ = star prepare := by rw [inverse, one_mul]",
+        "be112_root": "by\n  intro coefficient selector system fc dc fs ds ft dt prepare rotation permutation prepareUnitary rotationUnitary\n  have pU := @qcb_step_be112_selector coefficient selector system fc dc fs ds ft dt prepare prepareUnitary\n  have aU := @qcb_step_be112_amplitude coefficient selector system fc dc fs ds ft dt rotation rotationUnitary\n  have sU := @qcb_step_be112_select coefficient selector system fc dc fs ds ft dt permutation\n  have suffixU := (Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ).mul_mem sU\n    ((Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ).mul_mem aU pU)\n  constructor\n  · change star (@QuantumBlockEncoding.Robin.ComplexLCU.selectorLift coefficient selector system fc dc fs ds ft dt prepare) * _ ∈ _\n    exact (Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ).mul_mem\n      (Unitary.star_mem pU) suffixU\n  · constructor\n    · intro other otherUnitary\n      exact (Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ).mul_mem\n        (@qcb_step_be112_selector coefficient selector system fc dc fs ds ft dt other otherUnitary) suffixU\n    · exact qcb_step_be112_inverse_unique prepare prepareUnitary",
+        "be112_select": "by\n  intro coefficient selector system fc dc fs ds ft dt permutation\n  unfold QuantumBlockEncoding.Robin.ComplexLCU.selectLift\n  exact QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_unitary _",
+        "be112_selector": "by\n  intro coefficient selector system fc dc fs ds ft dt prepare unitary\n  unfold QuantumBlockEncoding.Robin.ComplexLCU.selectorLift\n  apply Matrix.kronecker_mem_unitary\n  · exact (Matrix.unitaryGroup coefficient ℂ).one_mem\n  · apply Matrix.kronecker_mem_unitary\n    · exact unitary\n    · exact (Matrix.unitaryGroup system ℂ).one_mem"
+      },
+      "retrieval_scope": {
+        "direct_route_interfaces": [
+          "QuantumBlockEncoding.Robin.ComplexLCU.selectorLift_unitary",
+          "QuantumBlockEncoding.Robin.ComplexLCU.amplitudeLift_unitary",
+          "QuantumBlockEncoding.Robin.ComplexLCU.selectLift_unitary",
+          "QuantumBlockEncoding.Robin.ComplexLCU.prepareAmplitudeSelectUnprepare_unitary",
+          "QuantumBlockEncoding.Robin.ComplexLCU.blockDiagonal_unitary",
+          "QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_unitary",
+          "Matrix.kronecker_mem_unitary",
+          "Matrix.mem_unitaryGroup_iff",
+          "Unitary.star_mem"
+        ],
+        "note": "Complete imports remain callable; this list is a disclosed role map, not a theorem-exclusion firewall or exhaustive theorem-prover search."
+      },
+      "semantic_coverage": "PARTIAL. The formal target proves global unitarity, arbitrary certified-unitary final replacement, and full inverse uniqueness. It does not prove chronological-order prose, uniqueness failure witnesses, equality of a designated projected clean block, or failure of deterministic auxiliary cleanup. Explicit mathematical witnesses are preserved below, but are not represented as newly kernel-checked declarations. No all-rubric formal-alignment claim follows.",
+      "semantic_evidence": {
+        "anonymous_id": "L2",
+        "group": "lcu",
+        "kind": "new_roundtrip"
+      },
+      "shortcut_disclosure": "prepareAmplitudeSelectUnprepare_unitary is an exact one-call shortcut for the first root conjunct. selectorLift_unitary/amplitudeLift_unitary/selectLift_unitary are exact component shortcuts. The library-control proof uses these openly; the full three-clause root additionally needs replacement closure and inverse uniqueness.",
+      "source_binder_audit": [
+        {
+          "binder": "coefficient : Type u, selector : Type v, system : Type w",
+          "class": "TYPING",
+          "meaning": "Independent finite product registers with fixed coefficient × (selector × system) order. No nonempty hypothesis."
+        },
+        {
+          "binder": "Fintype and DecidableEq instances for all three register types",
+          "class": "TYPING",
+          "meaning": "Finite matrix multiplication, identities, Kronecker products and 0/1 permutation entries; not physical preparation assumptions."
+        },
+        {
+          "binder": "prepare : Matrix selector selector ℂ",
+          "class": "SOURCE",
+          "meaning": "The supplied selector PREPARE operator."
+        },
+        {
+          "binder": "rotation : selector → system → Matrix coefficient coefficient ℂ",
+          "class": "SOURCE",
+          "meaning": "The stipulated selector/system-controlled coefficient blocks."
+        },
+        {
+          "binder": "permutation : selector → system ≃ system",
+          "class": "SOURCE",
+          "meaning": "SELECT is genuinely a basis-permutation family; Equiv includes an inverse and both inverse laws."
+        },
+        {
+          "binder": "prepare ∈ Matrix.unitaryGroup selector ℂ",
+          "class": "SOURCE",
+          "meaning": "Explicit local certificate stipulated in canonical QA and source global-unitarity theorem, not an added proof convenience."
+        },
+        {
+          "binder": "∀ s x, rotation s x ∈ Matrix.unitaryGroup coefficient ℂ",
+          "class": "SOURCE",
+          "meaning": "Explicit local amplitude certificates stipulated by the source and QA."
+        },
+        {
+          "binder": "other : Matrix selector selector ℂ; other ∈ Matrix.unitaryGroup selector ℂ",
+          "class": "SOURCE",
+          "meaning": "Universally conditional certified-unitary replacement clause requested by qv2; never an extra premise of the chosen-W theorem."
+        },
+        {
+          "binder": "other * prepare = 1",
+          "class": "SOURCE",
+          "meaning": "The separate complete-inverse condition requested by qv2; no such condition is assumed for the arbitrary replacement or for W."
+        }
+      ],
+      "source_bindings": [
+        {
+          "path": "QuantumBlockEncoding/Robin/ComplexLCU.lean",
+          "sha256_lf": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843"
+        }
+      ],
+      "source_item_digest": "b8e9794f7bb8d12f2bbfb63c310d9e29cd2fde308eab5dd83320a05a743f9736",
+      "source_node_ids": [
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.prepareAmplitudeSelectUnprepare_unitary",
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.prepareAmplitudeSelectUnprepare",
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.selectorLift_unitary",
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.amplitudeLift_unitary",
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.selectLift_unitary"
+      ],
+      "task": {
+        "alignment_status": "author_sealed_candidate; independent_decode_and_source_comparison_pending; not_current_gold",
+        "assumptions": [
+          "PREPARE is unitary on the selector register",
+          "Every amplitude block is unitary on the coefficient register",
+          "SELECT is a basis permutation"
+        ],
+        "contract_hash": "f0d61f87e50ec90e5811ab7333684aaae090d01347814e037b5ed6c241ae9e61",
+        "conventions": [
+          "The unprepare stage is the conjugate transpose of the prepare stage",
+          "Unitaries form a group closed under product and conjugate transpose"
+        ],
+        "core_id": "qcb-core-be-112",
+        "family": "be-lcu-composite-unitary",
+        "imports": [
+          "QuantumBlockEncoding.Robin.ComplexLCU"
+        ],
+        "interfaces": [],
+        "library_revision": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+        "nodes": [
+          {
+            "depends_on": [],
+            "id": "be112_selector",
+            "target": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (prepare : Matrix selector selector ℂ), prepare ∈ Matrix.unitaryGroup selector ℂ → (@QuantumBlockEncoding.Robin.ComplexLCU.selectorLift coefficient selector system fc dc fs ds ft dt prepare) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ"
+          },
+          {
+            "depends_on": [],
+            "id": "be112_amplitude",
+            "target": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (rotation : selector → system → Matrix coefficient coefficient ℂ), (∀ s x, rotation s x ∈ Matrix.unitaryGroup coefficient ℂ) → (@QuantumBlockEncoding.Robin.ComplexLCU.amplitudeLift coefficient selector system fc dc fs ds ft dt rotation) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ"
+          },
+          {
+            "depends_on": [],
+            "id": "be112_select",
+            "target": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (permutation : selector → system ≃ system), (@QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dt permutation) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ"
+          },
+          {
+            "depends_on": [],
+            "id": "be112_inverse_unique",
+            "target": "∀ {selector : Type v} [fs : Fintype selector] [ds : DecidableEq selector] (prepare : Matrix selector selector ℂ), prepare ∈ Matrix.unitaryGroup selector ℂ → ∀ (other : Matrix selector selector ℂ), other * prepare = 1 → other = star prepare"
+          },
+          {
+            "depends_on": [
+              "be112_selector",
+              "be112_amplitude",
+              "be112_select",
+              "be112_inverse_unique"
+            ],
+            "id": "be112_root",
+            "target": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (prepare : Matrix selector selector ℂ) (rotation : selector → system → Matrix coefficient coefficient ℂ) (permutation : selector → system ≃ system), prepare ∈ Matrix.unitaryGroup selector ℂ → (∀ s x, rotation s x ∈ Matrix.unitaryGroup coefficient ℂ) → (@QuantumBlockEncoding.Robin.ComplexLCU.prepareAmplitudeSelectUnprepare coefficient selector system fc dc fs ds ft dt prepare rotation permutation) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ ∧ (∀ (other : Matrix selector selector ℂ), other ∈ Matrix.unitaryGroup selector ℂ → ((@QuantumBlockEncoding.Robin.ComplexLCU.selectorLift coefficient selector system fc dc fs ds ft dt other) * ((@QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dt permutation) * ((@QuantumBlockEncoding.Robin.ComplexLCU.amplitudeLift coefficient selector system fc dc fs ds ft dt rotation) * (@QuantumBlockEncoding.Robin.ComplexLCU.selectorLift coefficient selector system fc dc fs ds ft dt prepare)))) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ) ∧ (∀ (other : Matrix selector selector ℂ), other * prepare = 1 → other = star prepare)"
+          }
+        ],
+        "question": "On finite complex registers coefficient × (selector × system), write P_lift=I_coefficient tensor(PREPARE tensor I_system), A_lift for the selector/system-controlled coefficient-block family, and S_lift for the controlled system-permutation SELECT. The CHOSEN logical architecture is W=P_lift† S_lift A_lift P_lift. First state its chronological order on column states, distinguishing it from written matrix-factor order. Prove W unitary from the three local certificates already stipulated: PREPARE unitary on selector, every amplitude coefficient block unitary, and SELECT a basis permutation. Explain the role of tensor, block-diagonal, permutation, adjoint and product closure. Then assess rather than assume a necessity claim: does global unitarity force the final selector gate to equal PREPARE†? Compare using a known unitary replacement (including the identity) with requiring a complete inverse of PREPARE on the whole selector register. For designated clean coefficient/selector labels, distinguish both of these from preserving only the projected clean block and from deterministic auxiliary cleanup after the intervening stages. Give explicit small counterexamples wherever a stronger implication fails. Keep the source's chosen P_lift† S_lift A_lift P_lift architecture unchanged; alternatives test necessity and are not a redefinition of W.",
+        "root_id": "be112_root",
+        "schema_version": "qcb.proof_obligation_task.v2",
+        "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "split": "dev",
+        "universe_parameters": [
+          "u",
+          "v",
+          "w"
+        ]
+      },
+      "view_id": "qcb-course-be-112-v1"
+    },
+    {
+      "assumptions_added": [],
+      "controls": {
+        "constructed_whole_root": "by\n  have qcb_step_grid_anchor : ∀ (n : ℕ) (L : ℝ), QuantumBlockEncoding.HermiteStatePreparation.gridPoint (n + 1) L (QuantumBlockEncoding.HermiteIntervalMass.centralIndex n) = 0 :=\n    by\n      intro n L\n      simp only [QuantumBlockEncoding.HermiteStatePreparation.gridPoint,\n        QuantumBlockEncoding.HermiteIntervalMass.centralIndex,\n        QuantumBlockEncoding.gridSize, Nat.cast_pow, Nat.cast_ofNat, pow_succ]\n      have hn : (2 : ℝ) ^ n ≠ 0 := pow_ne_zero n (by norm_num)\n      field_simp\n      push_cast\n      ring\n  have qcb_step_unit_sample : ∀ (k n : ℕ) (L : ℝ), QuantumBlockEncoding.HermiteStatePreparation.sampledAmplitude k (n + 1) L (QuantumBlockEncoding.HermiteIntervalMass.centralIndex n) = 1 :=\n    by\n      intro k n L\n      rw [QuantumBlockEncoding.HermiteStatePreparation.sampledAmplitude,\n        qcb_step_grid_anchor]\n      rw [QuantumBlockEncoding.HermitePolynomial.smoothInitial_middle k 0\n        (by constructor <;> norm_num)]\n      simpa using QuantumBlockEncoding.HermitePolynomial.sourceInterpolant_right_jet k 0 (Nat.zero_le k)\n  have qcb_step_mass : ∀ (k n : ℕ) (L : ℝ), 1 ≤ ∑ j : Fin (QuantumBlockEncoding.gridSize (n + 1)), (QuantumBlockEncoding.HermiteStatePreparation.sampledAmplitude k (n + 1) L j) ^ 2 :=\n    by\n      intro k n L\n      have hc := qcb_step_unit_sample k n L\n      have h : (QuantumBlockEncoding.HermiteStatePreparation.sampledAmplitude k (n + 1) L\n          (QuantumBlockEncoding.HermiteIntervalMass.centralIndex n)) ^ 2 ≤\n          ∑ j : Fin (QuantumBlockEncoding.gridSize (n + 1)),\n            (QuantumBlockEncoding.HermiteStatePreparation.sampledAmplitude k (n + 1) L j) ^ 2 :=\n        Finset.single_le_sum (fun j _ => sq_nonneg _)\n          (Finset.mem_univ (QuantumBlockEncoding.HermiteIntervalMass.centralIndex n))\n      simpa only [hc, one_pow] using h\n  have qcb_step_normalizer : ∀ (k n : ℕ) (L : ℝ), 0 < QuantumBlockEncoding.HermiteStatePreparation.sampleNorm k (n + 1) L :=\n    by\n      intro k n L\n      unfold QuantumBlockEncoding.HermiteStatePreparation.sampleNorm\n      apply Real.sqrt_pos.mpr\n      have h := qcb_step_mass k n L\n      linarith\n  have qcb_step_positive_counterexample : ∃ a : Fin 2 → ℝ, (∀ j, 0 < a j) ∧ (∑ j : Fin 2, (a j) ^ 2) < 1 ∧ (∀ j, a j ≠ 1) :=\n    by\n      refine ⟨(fun _ => (1 / 2 : ℝ)), ?_, ?_, ?_⟩\n      · intro j\n        norm_num\n      · norm_num [Fin.sum_univ_succ]\n      · intro j\n        norm_num\n  intro k n L hL\n  exact ⟨qcb_step_grid_anchor n L, qcb_step_unit_sample k n L,\n    qcb_step_mass k n L, qcb_step_normalizer k n L, qcb_step_positive_counterexample⟩",
+        "library_control": "by\n  intro k n L hL\n  refine ⟨QuantumBlockEncoding.HermiteIntervalMass.gridPoint_central n L, ?_,\n    QuantumBlockEncoding.HermiteIntervalMass.sampled_mass_ge_one k n L,\n    QuantumBlockEncoding.HermiteStatePreparation.sampleNorm_pos k (n + 1) L, ?_⟩\n  · rw [QuantumBlockEncoding.HermiteStatePreparation.sampledAmplitude,\n      QuantumBlockEncoding.HermiteIntervalMass.gridPoint_central,\n      QuantumBlockEncoding.HermiteIntervalMass.smoothInitial_zero]\n  · refine ⟨(fun _ => (1 / 2 : ℝ)), ?_, ?_, ?_⟩\n    · intro j; norm_num\n    · norm_num [Fin.sum_univ_succ]\n    · intro j; norm_num"
+      },
+      "library_control_one_call": false,
+      "negative_controls": {
+        "sorry_axiom": "by sorry",
+        "wrong_target": "by\n  intro k n L hL\n  exact QuantumBlockEncoding.HermiteIntervalMass.sampled_mass_ge_one k n L"
+      },
+      "references": {
+        "grid_anchor": "by\n  intro n L\n  simp only [QuantumBlockEncoding.HermiteStatePreparation.gridPoint,\n    QuantumBlockEncoding.HermiteIntervalMass.centralIndex,\n    QuantumBlockEncoding.gridSize, Nat.cast_pow, Nat.cast_ofNat, pow_succ]\n  have hn : (2 : ℝ) ^ n ≠ 0 := pow_ne_zero n (by norm_num)\n  field_simp\n  push_cast\n  ring",
+        "mass": "by\n  intro k n L\n  have hc := qcb_step_unit_sample k n L\n  have h : (QuantumBlockEncoding.HermiteStatePreparation.sampledAmplitude k (n + 1) L\n      (QuantumBlockEncoding.HermiteIntervalMass.centralIndex n)) ^ 2 ≤\n      ∑ j : Fin (QuantumBlockEncoding.gridSize (n + 1)),\n        (QuantumBlockEncoding.HermiteStatePreparation.sampledAmplitude k (n + 1) L j) ^ 2 :=\n    Finset.single_le_sum (fun j _ => sq_nonneg _)\n      (Finset.mem_univ (QuantumBlockEncoding.HermiteIntervalMass.centralIndex n))\n  simpa only [hc, one_pow] using h",
+        "normalizer": "by\n  intro k n L\n  unfold QuantumBlockEncoding.HermiteStatePreparation.sampleNorm\n  apply Real.sqrt_pos.mpr\n  have h := qcb_step_mass k n L\n  linarith",
+        "positive_counterexample": "by\n  refine ⟨(fun _ => (1 / 2 : ℝ)), ?_, ?_, ?_⟩\n  · intro j\n    norm_num\n  · norm_num [Fin.sum_univ_succ]\n  · intro j\n    norm_num",
+        "root": "by\n  intro k n L hL\n  exact ⟨qcb_step_grid_anchor n L, qcb_step_unit_sample k n L,\n    qcb_step_mass k n L, qcb_step_normalizer k n L, qcb_step_positive_counterexample⟩",
+        "unit_sample": "by\n  intro k n L\n  rw [QuantumBlockEncoding.HermiteStatePreparation.sampledAmplitude,\n    qcb_step_grid_anchor]\n  rw [QuantumBlockEncoding.HermitePolynomial.smoothInitial_middle k 0\n    (by constructor <;> norm_num)]\n  simpa using QuantumBlockEncoding.HermitePolynomial.sourceInterpolant_right_jet k 0 (Nat.zero_le k)"
+      },
+      "semantic_coverage": "Partial whole-question coverage: root formally checks actual grid anchor, actual unit sample, full squared mass≥1, positive sqrt normalizer, and a strictly positive Fin 2 counterexample with mass=1/2<1 and no unit entry. Explanation of little-endian bit decoding, role of positivity, n=0=one qubit, and why unnormalized mass alone implies no circuit/success probability remains separately graded. No zero-qubit claim is added.",
+      "semantic_evidence": {
+        "anonymous_id": "ambient-A",
+        "group": "conditioning",
+        "kind": "new_roundtrip"
+      },
+      "shortcut_disclosure": "gridPoint_central, smoothInitial_zero, sampled_mass_ge_one, sampleNorm_pos are all callable. Library control joins these with the explicit positive-table witness. The authored reference instead uses source endpoint jet, actual affine grid, single_le_sum and sqrt_pos; it never calls sampleNorm_pos or sampledAmplitude_pos. No exact one-call conjunction root was identified.",
+      "source_binder_audit": [
+        {
+          "binder": "k,n : ℕ; L : ℝ",
+          "classification": "SOURCE",
+          "meaning": "source smoothing order and n+1 qubit grid; n=0 is one qubit"
+        },
+        {
+          "binder": "hL : 0 < L",
+          "classification": "SOURCE",
+          "meaning": "actual question domain; not needed by the stronger algebraic central-sample proof"
+        },
+        {
+          "binder": "Fin (gridSize (n+1)) and its Fintype/DecidableEq instances",
+          "classification": "TYPING",
+          "meaning": "fixed full finite sample table; no extra public logical premise"
+        },
+        {
+          "binder": "positivity of samples / mass / nonzero normalizer",
+          "classification": "not_a_binder",
+          "meaning": "none assumed; unit sample and squared-term nonnegativity discharge mass and normalizer"
+        }
+      ],
+      "source_bindings": [
+        {
+          "path": "QuantumBlockEncoding/HermiteIntervalMass.lean",
+          "sha256_bytes": "ff87cc69d0527cb1a7001a7bae4b916cf0a2c2b8bd1e6ba017511c3be27bc69f",
+          "sha256_lf": "ff87cc69d0527cb1a7001a7bae4b916cf0a2c2b8bd1e6ba017511c3be27bc69f"
+        },
+        {
+          "path": "QuantumBlockEncoding/HermiteStatePreparation.lean",
+          "sha256_bytes": "dee753c9379124c29f3c2b08e2b597714b9f9dacca073ec315add33f7f169ec7",
+          "sha256_lf": "dee753c9379124c29f3c2b08e2b597714b9f9dacca073ec315add33f7f169ec7"
+        },
+        {
+          "path": "QuantumBlockEncoding/HermitePolynomial.lean",
+          "sha256_bytes": "f8a3e1d5f29aed1228b6ede3577a9af1e76301559172ee67a266fcb0d56fee1e",
+          "sha256_lf": "f8a3e1d5f29aed1228b6ede3577a9af1e76301559172ee67a266fcb0d56fee1e"
+        }
+      ],
+      "source_item_digest": "525b8f123a38d56fcc3b95a970d0d7c293dddad13575bc075c874c6c6d614748",
+      "source_node_ids": [
+        "declaration:QuantumBlockEncoding.HermiteIntervalMass.centralIndex",
+        "declaration:QuantumBlockEncoding.HermiteIntervalMass.gridPoint_central",
+        "declaration:QuantumBlockEncoding.HermiteIntervalMass.smoothInitial_zero",
+        "declaration:QuantumBlockEncoding.HermiteIntervalMass.sampled_mass_ge_one"
+      ],
+      "task": {
+        "alignment_status": "experimental_course_candidate; awaiting_distinct_semantic_review_and_parent_final_replay",
+        "assumptions": [],
+        "contract_hash": "84ba33c1266ca6bce4771fd68dc57cc64a084b96719cd7addab2896bcdd23973",
+        "conventions": [],
+        "core_id": "qcb-core-sp-113",
+        "family": "hermite-discrete-mass",
+        "imports": [
+          "QuantumBlockEncoding.HermiteIntervalMass"
+        ],
+        "interfaces": [
+          {
+            "module": "QuantumBlockEncoding.HermitePolynomial",
+            "name": "QuantumBlockEncoding.HermitePolynomial.smoothInitial_middle",
+            "source_node_id": "declaration:QuantumBlockEncoding.HermitePolynomial.smoothInitial_middle",
+            "type": "∀ (k : ℕ) (p : ℝ) (hp : p ∈ Set.Icc (-1) 0), smoothInitial k p = (sourceInterpolant k).eval p"
+          },
+          {
+            "module": "QuantumBlockEncoding.HermitePolynomial",
+            "name": "QuantumBlockEncoding.HermitePolynomial.sourceInterpolant_right_jet",
+            "source_node_id": "declaration:QuantumBlockEncoding.HermitePolynomial.sourceInterpolant_right_jet",
+            "type": "∀ (k j : ℕ) (hj : j ≤ k), (derivative^[j] (sourceInterpolant k)).eval 0 = (-1 : ℝ) ^ j"
+          },
+          {
+            "module": "QuantumBlockEncoding.HermiteIntervalMass",
+            "name": "QuantumBlockEncoding.HermiteIntervalMass.gridPoint_central",
+            "source_node_id": "declaration:QuantumBlockEncoding.HermiteIntervalMass.gridPoint_central",
+            "type": "∀ (n : ℕ) (L : ℝ), HermiteStatePreparation.gridPoint (n + 1) L (centralIndex n) = 0"
+          },
+          {
+            "module": "QuantumBlockEncoding.HermiteIntervalMass",
+            "name": "QuantumBlockEncoding.HermiteIntervalMass.sampled_mass_ge_one",
+            "source_node_id": "declaration:QuantumBlockEncoding.HermiteIntervalMass.sampled_mass_ge_one",
+            "type": "∀ (k n : ℕ) (L : ℝ), 1 ≤ ∑ j : Fin (gridSize (n + 1)), (HermiteStatePreparation.sampledAmplitude k (n + 1) L j) ^ 2"
+          },
+          {
+            "module": "QuantumBlockEncoding.HermiteStatePreparation",
+            "name": "QuantumBlockEncoding.HermiteStatePreparation.sampleNorm_pos",
+            "source_node_id": "declaration:QuantumBlockEncoding.HermiteStatePreparation.sampleNorm_pos",
+            "type": "∀ (k n : ℕ) (L : ℝ), 0 < sampleNorm k n L"
+          }
+        ],
+        "library_revision": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+        "nodes": [
+          {
+            "depends_on": [],
+            "id": "grid_anchor",
+            "target": "∀ (n : ℕ) (L : ℝ), QuantumBlockEncoding.HermiteStatePreparation.gridPoint (n + 1) L (QuantumBlockEncoding.HermiteIntervalMass.centralIndex n) = 0"
+          },
+          {
+            "depends_on": [
+              "grid_anchor"
+            ],
+            "id": "unit_sample",
+            "target": "∀ (k n : ℕ) (L : ℝ), QuantumBlockEncoding.HermiteStatePreparation.sampledAmplitude k (n + 1) L (QuantumBlockEncoding.HermiteIntervalMass.centralIndex n) = 1"
+          },
+          {
+            "depends_on": [
+              "unit_sample"
+            ],
+            "id": "mass",
+            "target": "∀ (k n : ℕ) (L : ℝ), 1 ≤ ∑ j : Fin (QuantumBlockEncoding.gridSize (n + 1)), (QuantumBlockEncoding.HermiteStatePreparation.sampledAmplitude k (n + 1) L j) ^ 2"
+          },
+          {
+            "depends_on": [
+              "mass"
+            ],
+            "id": "normalizer",
+            "target": "∀ (k n : ℕ) (L : ℝ), 0 < QuantumBlockEncoding.HermiteStatePreparation.sampleNorm k (n + 1) L"
+          },
+          {
+            "depends_on": [],
+            "id": "positive_counterexample",
+            "target": "∃ a : Fin 2 → ℝ, (∀ j, 0 < a j) ∧ (∑ j : Fin 2, (a j) ^ 2) < 1 ∧ (∀ j, a j ≠ 1)"
+          },
+          {
+            "depends_on": [
+              "grid_anchor",
+              "unit_sample",
+              "mass",
+              "normalizer",
+              "positive_counterexample"
+            ],
+            "id": "root",
+            "target": "∀ (k n : ℕ) (L : ℝ) (hL : 0 < L), (QuantumBlockEncoding.HermiteStatePreparation.gridPoint (n + 1) L (QuantumBlockEncoding.HermiteIntervalMass.centralIndex n) = 0) ∧ (QuantumBlockEncoding.HermiteStatePreparation.sampledAmplitude k (n + 1) L (QuantumBlockEncoding.HermiteIntervalMass.centralIndex n) = 1) ∧ (1 ≤ ∑ j : Fin (QuantumBlockEncoding.gridSize (n + 1)), (QuantumBlockEncoding.HermiteStatePreparation.sampledAmplitude k (n + 1) L j) ^ 2) ∧ (0 < QuantumBlockEncoding.HermiteStatePreparation.sampleNorm k (n + 1) L) ∧ (∃ a : Fin 2 → ℝ, (∀ j, 0 < a j) ∧ (∑ j : Fin 2, (a j) ^ 2) < 1 ∧ (∀ j, a j ≠ 1))"
+          }
+        ],
+        "question": "Let k,n be natural numbers and L>0. The actual real source target is f_k(p)=HermitePolynomial.smoothInitial(k,p): on the splice interval[-1,0] it equals the source Hermite bridge S_k, whose order-zero right endpoint identity is S_k(0)=(-1)^0=1. Thus f_k(0)=1. Its strict positivity at every real p is also known as a SEPARATE source fact.\n\nUse the actual left-inclusive grid on an(n+1)-qubit register: M=2^(n+1), j=0,...,M-1, p_j=-pi L+j*(2 pi L/M). The integer index j is represented in little-endian order, j=sum_{i=0}^n bit_i*2^i. Define raw amplitudes a_j=f_k(p_j) and the unnormalized squared sample mass N=sum_{j=0}^{M-1}a_j^2. Prove N>=1 uniformly in k,n,L, explicitly locating and checking the unit sample. Deduce sqrt(N)>0 without using strict positivity of all samples.\n\nAssess the predecessor's explanation that strict positivity is what makes this unit-grid anchor 'honest' or realizes it as an actual sample. Which exact facts actually realize the unit sample, and what role does strict positivity have in THIS inequality and its nonzero-normalizer consequence? Show by a strictly positive finite sample-table example that positivity alone need not give mass>=1 or a unit-valued sample. This example is a logical test of that proposed proof principle, not a claim about the actual source target. Discuss n=0 carefully: it means one qubit here, not a zero-qubit table. Do not infer preparation-circuit correctness or a success-probability bound from unnormalized mass alone.",
+        "root_id": "root",
+        "schema_version": "qcb.proof_obligation_task.v1",
+        "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "split": "dev"
+      },
+      "view_id": "qcb-course-sp-113-v1"
+    },
+    {
+      "assumptions_added": [],
+      "controls": {
+        "constructed_whole_root": "by\n  have qcb_step_interval_value : ∀ (n remaining start : ℕ) (L : ℝ) (hL : 0 < L) (hlo : start ≤ QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex n L) (hhi : QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex n L ≤ start + 2 ^ remaining), (QuantumBlockEncoding.HermiteBinaryCutoff.search remaining start (QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat n L start) (QuantumBlockEncoding.HermiteBoundaryInjection.gridStep n L * (2 : ℝ) ^ remaining)).value = QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex n L :=\n    by\n      intro n remaining start L hL hlo hhi\n      have half_span (step : ℝ) (r : ℕ) :\n          (step * (2 : ℝ) ^ (r + 1)) / 2 = step * (2 : ℝ) ^ r := by\n        rw [pow_succ]\n        ring\n      have middle_point (r s : ℕ) :\n          QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat n L s +\n              QuantumBlockEncoding.HermiteBoundaryInjection.gridStep n L * (2 : ℝ) ^ r =\n            QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat n L (s + 2 ^ r) := by\n        simp only [QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat,\n          QuantumBlockEncoding.HermiteBoundaryInjection.affinePoint,\n          Nat.cast_add, Nat.cast_pow, Nat.cast_ofNat]\n        ring\n      induction remaining generalizing start with\n      | zero =>\n          simp only [QuantumBlockEncoding.HermiteBinaryCutoff.search,\n            QuantumBlockEncoding.HermiteBinaryCutoff.below,\n            QuantumBlockEncoding.StoredGivens.charge, bind, pure,\n            QuantumBlockEncoding.StoredGivens.Run.bind, QuantumBlockEncoding.StoredGivens.Run.pure]\n          by_cases h : QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat n L start < -1\n          · have hc := (QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat_lt_neg_one_iff n L hL start).mp h\n            simp [h]\n            norm_num at hhi\n            omega\n          · have hc : ¬ start < QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex n L := by\n              intro hc\n              exact h ((QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat_lt_neg_one_iff n L hL start).mpr hc)\n            simp [h]\n            omega\n      | succ remaining ih =>\n          simp only [QuantumBlockEncoding.HermiteBinaryCutoff.search,\n            QuantumBlockEncoding.StoredGivens.div, QuantumBlockEncoding.StoredGivens.add,\n            QuantumBlockEncoding.HermiteBinaryCutoff.below, QuantumBlockEncoding.StoredGivens.charge,\n            bind, QuantumBlockEncoding.StoredGivens.Run.bind, half_span, middle_point]\n          by_cases h : QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat n L (start + 2 ^ remaining) < -1\n          · simp only [h, decide_true, if_true]\n            apply ih\n            · have := (QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat_lt_neg_one_iff n L hL _).mp h\n              omega\n            · rw [pow_succ] at hhi\n              omega\n          · simp only [h, decide_false, Bool.false_eq_true, if_false]\n            apply ih start hlo\n            have hc : ¬ start + 2 ^ remaining < QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex n L := by\n              intro hc\n              exact h ((QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat_lt_neg_one_iff n L hL _).mpr hc)\n            omega\n  have qcb_step_search_ledger : ∀ (remaining start : ℕ) (lower span : ℝ) (op : QuantumBlockEncoding.StoredGivens.Op), (QuantumBlockEncoding.HermiteBinaryCutoff.search remaining start lower span).cost op = 2 * remaining * QuantumBlockEncoding.StoredGivens.tick .field op + (remaining + 1) * QuantumBlockEncoding.StoredGivens.tick .compare op :=\n    by\n      intro remaining start lower span op\n      induction remaining generalizing start lower span with\n      | zero =>\n          simp [QuantumBlockEncoding.HermiteBinaryCutoff.search,\n            QuantumBlockEncoding.HermiteBinaryCutoff.below,\n            QuantumBlockEncoding.StoredGivens.charge, bind, pure,\n            QuantumBlockEncoding.StoredGivens.Run.bind, QuantumBlockEncoding.StoredGivens.Run.pure]\n      | succ remaining ih =>\n          simp only [QuantumBlockEncoding.HermiteBinaryCutoff.search,\n            QuantumBlockEncoding.StoredGivens.div, QuantumBlockEncoding.StoredGivens.add,\n            QuantumBlockEncoding.HermiteBinaryCutoff.below,\n            QuantumBlockEncoding.StoredGivens.charge, bind, QuantumBlockEncoding.StoredGivens.Run.bind]\n          split <;> simp [ih] <;> ring\n  have qcb_step_producer_value : ∀ (n : ℕ) (L : ℝ) (hL : 0 < L), (QuantumBlockEncoding.HermiteBinaryCutoff.compute n L).value = QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex n L :=\n    by\n      intro n L hL\n      have root_span : QuantumBlockEncoding.HermiteBoundaryInjection.gridStep n L * (2 : ℝ) ^ n = Real.pi * L := by\n        simp only [QuantumBlockEncoding.HermiteBoundaryInjection.gridStep,\n          QuantumBlockEncoding.gridSize, pow_succ]\n        have hp : (2 : ℝ) ^ n ≠ 0 := pow_ne_zero _ (by norm_num)\n        field_simp\n        push_cast\n        ring\n      have h := qcb_step_interval_value n n 0 L hL (Nat.zero_le _) (by\n        simpa using QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex_le_midpoint n L hL)\n      simpa [QuantumBlockEncoding.HermiteBinaryCutoff.compute,\n        QuantumBlockEncoding.StoredGivens.mul, QuantumBlockEncoding.StoredGivens.sub,\n        QuantumBlockEncoding.StoredGivens.charge, bind, QuantumBlockEncoding.StoredGivens.Run.bind,\n        QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat,\n        QuantumBlockEncoding.HermiteBoundaryInjection.affinePoint, root_span] using h\n  have qcb_step_producer_ledger : ∀ (n : ℕ) (L : ℝ) (op : QuantumBlockEncoding.StoredGivens.Op), (QuantumBlockEncoding.HermiteBinaryCutoff.compute n L).cost op = (2 * n + 2) * QuantumBlockEncoding.StoredGivens.tick .field op + (n + 1) * QuantumBlockEncoding.StoredGivens.tick .compare op :=\n    by\n      intro n L op\n      simp [QuantumBlockEncoding.HermiteBinaryCutoff.compute,\n        QuantumBlockEncoding.StoredGivens.mul, QuantumBlockEncoding.StoredGivens.sub,\n        QuantumBlockEncoding.StoredGivens.charge, bind, QuantumBlockEncoding.StoredGivens.Run.bind,\n        qcb_step_search_ledger]\n      ring\n  intro n L hL\n  refine ⟨qcb_step_producer_value n L hL, ?_, ?_, ?_, ?_⟩\n  · simp [qcb_step_search_ledger, QuantumBlockEncoding.StoredGivens.tick]\n  · simp [qcb_step_search_ledger, QuantumBlockEncoding.StoredGivens.tick]\n  · simp [qcb_step_producer_ledger, QuantumBlockEncoding.StoredGivens.tick]\n  · simp [qcb_step_producer_ledger, QuantumBlockEncoding.StoredGivens.tick]",
+        "library_control": "by\n  intro n L hL\n  refine ⟨QuantumBlockEncoding.HermiteBinaryCutoff.compute_value n L hL, ?_, ?_,\n    QuantumBlockEncoding.HermiteBinaryCutoff.compute_field_operations n L,\n    QuantumBlockEncoding.HermiteBinaryCutoff.compute_comparisons n L⟩\n  · simp [QuantumBlockEncoding.HermiteBinaryCutoff.search_cost,\n      QuantumBlockEncoding.StoredGivens.tick]\n  · simp [QuantumBlockEncoding.HermiteBinaryCutoff.search_cost,\n      QuantumBlockEncoding.StoredGivens.tick]"
+      },
+      "library_control_one_call": false,
+      "negative_controls": {
+        "sorry_axiom": "by sorry",
+        "wrong_target": "by\n  intro n L hL\n  exact QuantumBlockEncoding.HermiteBinaryCutoff.compute_cost n L .field"
+      },
+      "references": {
+        "interval_value": "by\n  intro n remaining start L hL hlo hhi\n  have half_span (step : ℝ) (r : ℕ) :\n      (step * (2 : ℝ) ^ (r + 1)) / 2 = step * (2 : ℝ) ^ r := by\n    rw [pow_succ]\n    ring\n  have middle_point (r s : ℕ) :\n      QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat n L s +\n          QuantumBlockEncoding.HermiteBoundaryInjection.gridStep n L * (2 : ℝ) ^ r =\n        QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat n L (s + 2 ^ r) := by\n    simp only [QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat,\n      QuantumBlockEncoding.HermiteBoundaryInjection.affinePoint,\n      Nat.cast_add, Nat.cast_pow, Nat.cast_ofNat]\n    ring\n  induction remaining generalizing start with\n  | zero =>\n      simp only [QuantumBlockEncoding.HermiteBinaryCutoff.search,\n        QuantumBlockEncoding.HermiteBinaryCutoff.below,\n        QuantumBlockEncoding.StoredGivens.charge, bind, pure,\n        QuantumBlockEncoding.StoredGivens.Run.bind, QuantumBlockEncoding.StoredGivens.Run.pure]\n      by_cases h : QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat n L start < -1\n      · have hc := (QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat_lt_neg_one_iff n L hL start).mp h\n        simp [h]\n        norm_num at hhi\n        omega\n      · have hc : ¬ start < QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex n L := by\n          intro hc\n          exact h ((QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat_lt_neg_one_iff n L hL start).mpr hc)\n        simp [h]\n        omega\n  | succ remaining ih =>\n      simp only [QuantumBlockEncoding.HermiteBinaryCutoff.search,\n        QuantumBlockEncoding.StoredGivens.div, QuantumBlockEncoding.StoredGivens.add,\n        QuantumBlockEncoding.HermiteBinaryCutoff.below, QuantumBlockEncoding.StoredGivens.charge,\n        bind, QuantumBlockEncoding.StoredGivens.Run.bind, half_span, middle_point]\n      by_cases h : QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat n L (start + 2 ^ remaining) < -1\n      · simp only [h, decide_true, if_true]\n        apply ih\n        · have := (QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat_lt_neg_one_iff n L hL _).mp h\n          omega\n        · rw [pow_succ] at hhi\n          omega\n      · simp only [h, decide_false, Bool.false_eq_true, if_false]\n        apply ih start hlo\n        have hc : ¬ start + 2 ^ remaining < QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex n L := by\n          intro hc\n          exact h ((QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat_lt_neg_one_iff n L hL _).mpr hc)\n        omega",
+        "producer_ledger": "by\n  intro n L op\n  simp [QuantumBlockEncoding.HermiteBinaryCutoff.compute,\n    QuantumBlockEncoding.StoredGivens.mul, QuantumBlockEncoding.StoredGivens.sub,\n    QuantumBlockEncoding.StoredGivens.charge, bind, QuantumBlockEncoding.StoredGivens.Run.bind,\n    qcb_step_search_ledger]\n  ring",
+        "producer_value": "by\n  intro n L hL\n  have root_span : QuantumBlockEncoding.HermiteBoundaryInjection.gridStep n L * (2 : ℝ) ^ n = Real.pi * L := by\n    simp only [QuantumBlockEncoding.HermiteBoundaryInjection.gridStep,\n      QuantumBlockEncoding.gridSize, pow_succ]\n    have hp : (2 : ℝ) ^ n ≠ 0 := pow_ne_zero _ (by norm_num)\n    field_simp\n    push_cast\n    ring\n  have h := qcb_step_interval_value n n 0 L hL (Nat.zero_le _) (by\n    simpa using QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex_le_midpoint n L hL)\n  simpa [QuantumBlockEncoding.HermiteBinaryCutoff.compute,\n    QuantumBlockEncoding.StoredGivens.mul, QuantumBlockEncoding.StoredGivens.sub,\n    QuantumBlockEncoding.StoredGivens.charge, bind, QuantumBlockEncoding.StoredGivens.Run.bind,\n    QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat,\n    QuantumBlockEncoding.HermiteBoundaryInjection.affinePoint, root_span] using h",
+        "root": "by\n  intro n L hL\n  refine ⟨qcb_step_producer_value n L hL, ?_, ?_, ?_, ?_⟩\n  · simp [qcb_step_search_ledger, QuantumBlockEncoding.StoredGivens.tick]\n  · simp [qcb_step_search_ledger, QuantumBlockEncoding.StoredGivens.tick]\n  · simp [qcb_step_producer_ledger, QuantumBlockEncoding.StoredGivens.tick]\n  · simp [qcb_step_producer_ledger, QuantumBlockEncoding.StoredGivens.tick]",
+        "search_ledger": "by\n  intro remaining start lower span op\n  induction remaining generalizing start lower span with\n  | zero =>\n      simp [QuantumBlockEncoding.HermiteBinaryCutoff.search,\n        QuantumBlockEncoding.HermiteBinaryCutoff.below,\n        QuantumBlockEncoding.StoredGivens.charge, bind, pure,\n        QuantumBlockEncoding.StoredGivens.Run.bind, QuantumBlockEncoding.StoredGivens.Run.pure]\n  | succ remaining ih =>\n      simp only [QuantumBlockEncoding.HermiteBinaryCutoff.search,\n        QuantumBlockEncoding.StoredGivens.div, QuantumBlockEncoding.StoredGivens.add,\n        QuantumBlockEncoding.HermiteBinaryCutoff.below,\n        QuantumBlockEncoding.StoredGivens.charge, bind, QuantumBlockEncoding.StoredGivens.Run.bind]\n      split <;> simp [ih] <;> ring"
+      },
+      "semantic_coverage": "Partial whole-question coverage: generic interval-value provider includes both endpoint possibilities and remaining=0; the final root checks actual compute cutoff and exact search/producer real-field/comparison counters for every n including zero. Root does not formally assert finite-bit computability/runtime or omitted natural-index costs. Source search deliberately extends the affine grid to its excluded endpoint so cutoff 2^n remains possible; exact equality with threshold uses the not-below branch.",
+      "semantic_evidence": {
+        "anonymous_id": "ambient-B",
+        "group": "conditioning",
+        "kind": "new_roundtrip"
+      },
+      "shortcut_disclosure": "search_value, search_cost, compute_value, compute_cost, compute_comparisons and compute_field_operations remain callable. Library control directly applies those leaves. The authored route reconstructs value and ledger recurrences separately, initializes the invariant, and joins them; no import restriction is claimed.",
+      "source_binder_audit": [
+        {
+          "binder": "n : ℕ; L : ℝ; hL : 0 < L",
+          "classification": "SOURCE",
+          "meaning": "nonnegative number of binary halvings and positive scale"
+        },
+        {
+          "binder": "StoredGivens.Op, Run ℕ, exact real comparisons",
+          "classification": "STANDING",
+          "meaning": "literal declared exact-real counter model; no finite-bit claim"
+        },
+        {
+          "binder": "remaining,start,hlo,hhi in interval_value",
+          "classification": "internal_invariant",
+          "meaning": "only interval provider: inequalities bracket the true cutoff; root supplies these through zero_le and cutIndex_le_midpoint"
+        },
+        {
+          "binder": "cutoff-value correctness / operation count",
+          "classification": "not_a_binder",
+          "meaning": "both conclusions are produced inside the root dependency graph"
+        }
+      ],
+      "source_bindings": [
+        {
+          "path": "QuantumBlockEncoding/HermiteBinaryCutoff.lean",
+          "sha256_bytes": "3e236d6572ceba6d0418cb75da49512152bf03586cebc03b4d9cd8132029d098",
+          "sha256_lf": "3e236d6572ceba6d0418cb75da49512152bf03586cebc03b4d9cd8132029d098"
+        },
+        {
+          "path": "QuantumBlockEncoding/HermiteBoundaryInjection.lean",
+          "sha256_bytes": "a78c5a9e71e669048e5274cb55e3e10ccec326bccf26739713dd695bd15b2ca0",
+          "sha256_lf": "a78c5a9e71e669048e5274cb55e3e10ccec326bccf26739713dd695bd15b2ca0"
+        },
+        {
+          "path": "QuantumBlockEncoding/StoredGivens.lean",
+          "sha256_bytes": "87a1f69d5b138f23c96a6f77a438aa81edef27427cb2581c4defe019079d2ee4",
+          "sha256_lf": "87a1f69d5b138f23c96a6f77a438aa81edef27427cb2581c4defe019079d2ee4"
+        }
+      ],
+      "source_item_digest": "345c21e4f78ee80ed2cbaa7372d069aacbfb19d8c3c2f046e5b8df13c107196a",
+      "source_node_ids": [
+        "declaration:QuantumBlockEncoding.HermiteBinaryCutoff.search",
+        "declaration:QuantumBlockEncoding.HermiteBinaryCutoff.search_value",
+        "declaration:QuantumBlockEncoding.HermiteBinaryCutoff.compute_value",
+        "declaration:QuantumBlockEncoding.HermiteBinaryCutoff.search_cost",
+        "declaration:QuantumBlockEncoding.HermiteBinaryCutoff.compute_cost"
+      ],
+      "task": {
+        "alignment_status": "experimental_course_candidate; awaiting_distinct_semantic_review_and_parent_final_replay",
+        "assumptions": [
+          "L > 0 so the grid step is positive and comparisons against -1 are well posed",
+          "the cost model counts only real field operations and exact real comparisons; natural-index and bit-level costs are out of scope"
+        ],
+        "contract_hash": "7169ee40ac139b5a42ff3dbfd1f4914c6cabd5f296812d2414de82854c81ed5b",
+        "conventions": [],
+        "core_id": "qcb-core-sp-120",
+        "family": "hermite-cutoff-search",
+        "imports": [
+          "QuantumBlockEncoding.HermiteBinaryCutoff"
+        ],
+        "interfaces": [
+          {
+            "module": "QuantumBlockEncoding.HermiteBoundaryInjection",
+            "name": "QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat_lt_neg_one_iff",
+            "source_node_id": "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat_lt_neg_one_iff",
+            "type": "∀ (n : ℕ) (L : ℝ) (hL : 0 < L) (j : ℕ), gridPointNat n L j < -1 ↔ j < cutIndex n L"
+          },
+          {
+            "module": "QuantumBlockEncoding.HermiteBoundaryInjection",
+            "name": "QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex_le_midpoint",
+            "source_node_id": "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex_le_midpoint",
+            "type": "∀ (n : ℕ) (L : ℝ) (hL : 0 < L), cutIndex n L ≤ 2 ^ n"
+          },
+          {
+            "module": "QuantumBlockEncoding.HermiteBinaryCutoff",
+            "name": "QuantumBlockEncoding.HermiteBinaryCutoff.search_value",
+            "source_node_id": "declaration:QuantumBlockEncoding.HermiteBinaryCutoff.search_value",
+            "type": "∀ (n remaining start : ℕ) (L : ℝ) (hL : 0 < L) (hlo : start ≤ cutIndex n L) (hhi : cutIndex n L ≤ start + 2 ^ remaining), (search remaining start (gridPointNat n L start) (gridStep n L * (2 : ℝ) ^ remaining)).value = cutIndex n L"
+          },
+          {
+            "module": "QuantumBlockEncoding.HermiteBinaryCutoff",
+            "name": "QuantumBlockEncoding.HermiteBinaryCutoff.search_cost",
+            "source_node_id": "declaration:QuantumBlockEncoding.HermiteBinaryCutoff.search_cost",
+            "type": "∀ (remaining start : ℕ) (lower span : ℝ) (op : Op), (search remaining start lower span).cost op = 2 * remaining * tick .field op + (remaining + 1) * tick .compare op"
+          },
+          {
+            "module": "QuantumBlockEncoding.HermiteBinaryCutoff",
+            "name": "QuantumBlockEncoding.HermiteBinaryCutoff.compute_value",
+            "source_node_id": "declaration:QuantumBlockEncoding.HermiteBinaryCutoff.compute_value",
+            "type": "∀ (n : ℕ) (L : ℝ) (hL : 0 < L), (compute n L).value = cutIndex n L"
+          },
+          {
+            "module": "QuantumBlockEncoding.HermiteBinaryCutoff",
+            "name": "QuantumBlockEncoding.HermiteBinaryCutoff.compute_cost",
+            "source_node_id": "declaration:QuantumBlockEncoding.HermiteBinaryCutoff.compute_cost",
+            "type": "∀ (n : ℕ) (L : ℝ) (op : Op), (compute n L).cost op = (2 * n + 2) * tick .field op + (n + 1) * tick .compare op"
+          }
+        ],
+        "library_revision": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+        "nodes": [
+          {
+            "depends_on": [],
+            "id": "interval_value",
+            "target": "∀ (n remaining start : ℕ) (L : ℝ) (hL : 0 < L) (hlo : start ≤ QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex n L) (hhi : QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex n L ≤ start + 2 ^ remaining), (QuantumBlockEncoding.HermiteBinaryCutoff.search remaining start (QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat n L start) (QuantumBlockEncoding.HermiteBoundaryInjection.gridStep n L * (2 : ℝ) ^ remaining)).value = QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex n L"
+          },
+          {
+            "depends_on": [],
+            "id": "search_ledger",
+            "target": "∀ (remaining start : ℕ) (lower span : ℝ) (op : QuantumBlockEncoding.StoredGivens.Op), (QuantumBlockEncoding.HermiteBinaryCutoff.search remaining start lower span).cost op = 2 * remaining * QuantumBlockEncoding.StoredGivens.tick .field op + (remaining + 1) * QuantumBlockEncoding.StoredGivens.tick .compare op"
+          },
+          {
+            "depends_on": [
+              "interval_value"
+            ],
+            "id": "producer_value",
+            "target": "∀ (n : ℕ) (L : ℝ) (hL : 0 < L), (QuantumBlockEncoding.HermiteBinaryCutoff.compute n L).value = QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex n L"
+          },
+          {
+            "depends_on": [
+              "search_ledger"
+            ],
+            "id": "producer_ledger",
+            "target": "∀ (n : ℕ) (L : ℝ) (op : QuantumBlockEncoding.StoredGivens.Op), (QuantumBlockEncoding.HermiteBinaryCutoff.compute n L).cost op = (2 * n + 2) * QuantumBlockEncoding.StoredGivens.tick .field op + (n + 1) * QuantumBlockEncoding.StoredGivens.tick .compare op"
+          },
+          {
+            "depends_on": [
+              "producer_value",
+              "search_ledger",
+              "producer_ledger"
+            ],
+            "id": "root",
+            "target": "∀ (n : ℕ) (L : ℝ) (hL : 0 < L), ((QuantumBlockEncoding.HermiteBinaryCutoff.compute n L).value = QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex n L) ∧ ((QuantumBlockEncoding.HermiteBinaryCutoff.search n 0 (-Real.pi * L) (Real.pi * L)).cost .field = 2 * n) ∧ ((QuantumBlockEncoding.HermiteBinaryCutoff.search n 0 (-Real.pi * L) (Real.pi * L)).cost .compare = n + 1) ∧ ((QuantumBlockEncoding.HermiteBinaryCutoff.compute n L).cost .field = 2 * n + 2) ∧ ((QuantumBlockEncoding.HermiteBinaryCutoff.compute n L).cost .compare = n + 1)"
+          }
+        ],
+        "question": "To locate where the left exponential tail meets the polynomial bridge on a grid of 2^n cells, one performs an exact-comparison binary search carrying real interval endpoints: starting from the real interval [lower, lower+span] with span equal to the full width, each of n steps halves the span, forms the midpoint, compares it against the threshold -1, and recurses into the half that still contains the crossing. The search returns an index 'cutIndex'. Prove that this search returns exactly the true cutoff index for every width n and scale L > 0, including the boundary cases where the crossing is at the very first grid point or at the very last, and the single-cell (n = 0) base case. State the exact number of real comparisons and real field operations the search performs.",
+        "root_id": "root",
+        "schema_version": "qcb.proof_obligation_task.v1",
+        "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "split": "test_public"
+      },
+      "view_id": "qcb-course-sp-120-v1"
+    }
+  ],
+  "catalog_hash": "5269b9f2521e3bf14db293fea34895f6e44a387c2479c164407b4d16dd9a2247",
+  "isolated": false,
+  "lean_toolchain": "leanprover/lean4:v4.29.1",
+  "library_revision": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+  "model_predictions_executed": false,
+  "new_canonical_formal_admissions": 0,
+  "new_mathematical_cores": 0,
+  "policy": "Experimental successor task views; exact independent semantic roundtrip and actual authored replay required. Public references, not model performance or canonical admission.",
+  "proof_inputs_sha256": "1e65e7d2984e4542ca2747837d71c516847e4e987d3bbd6c48b8a803eb36806e",
+  "schema_version": "qcb.graph_course_candidates.v1",
+  "source_author_packet_digests": {
+    "conditioning": "4a7d7ae048941ef2f7c511d9e844ed4b5f1cb17c74421b45d103bfb5aedc1cb3",
+    "lcu": "423d39cb34ae679017925f55ffeddb023307e75837c6cf8eb941f34134d4d146"
+  }
+}

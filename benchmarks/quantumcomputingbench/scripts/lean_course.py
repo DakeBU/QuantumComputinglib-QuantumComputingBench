@@ -56,16 +56,20 @@ async def act(session, kind, **kwargs):
     return result
 
 
-async def check_references(cases, identity, build_root, raw, tested_code_commit):
+async def check_references(cases, identity, build_root, raw, tested_code_commit, *, profile=None):
+    # Versioned authored-only replay ceilings. Defaults retain the original run.
+    profile = profile or {"batch_wall_seconds": 1800, "session_wall_seconds": 300,
+                          "check_seconds": 45, "control_wall_seconds": 180}
     started = time.monotonic()
     rows = []
     for case in cases:
         task = case["task"]
-        remaining = 1800 - (time.monotonic() - started)
+        remaining = profile["batch_wall_seconds"] - (time.monotonic() - started)
         if remaining <= 0:
             raise TimeoutError("authored curriculum batch wall ceiling exhausted; preserve partial raw records")
         verifier = AuthoredReferenceVerifier(task, case["allowed_proofs"], build_root)
-        session = ProofSession(task, verifier, limits=SessionLimits(wall_seconds=min(300, remaining)))
+        session = ProofSession(task, verifier, limits=SessionLimits(wall_seconds=min(profile["session_wall_seconds"], remaining),
+                                                                   check_seconds=profile["check_seconds"]))
         row = {"core_id": task["core_id"], "task_hash": digest(task), "positive_obligations": [], "negative_controls": {}, "controls": {}}
         pending = {n["id"]: n for n in task["nodes"]}
         done = set()
@@ -89,11 +93,12 @@ async def check_references(cases, identity, build_root, raw, tested_code_commit)
         raw.append({"core_id": task["core_id"], "condition": "provided_dag_repair", "session": session.report(), "replays": verifier.replays})
         row["metrics"] = session.report()["metrics"]
         for name, proof in case["controls"].items():
-            remaining = 1800 - (time.monotonic() - started)
+            remaining = profile["batch_wall_seconds"] - (time.monotonic() - started)
             if remaining <= 0:
                 raise TimeoutError("authored batch wall ceiling exhausted")
             control = AuthoredReferenceVerifier(task, case["allowed_proofs"], build_root)
-            root = ProofSession(task, control, mode="root_only", limits=SessionLimits(wall_seconds=min(180, remaining)))
+            root = ProofSession(task, control, mode="root_only", limits=SessionLimits(wall_seconds=min(profile["control_wall_seconds"], remaining),
+                                                                                    check_seconds=profile["check_seconds"]))
             reply = await act(root, "submit", node_id=task["root_id"], proof=proof)
             row["controls"][name] = compact(reply.get("evidence", reply))
             # Standalone controls are checked once in fresh processes. They are
@@ -111,12 +116,16 @@ async def check_references(cases, identity, build_root, raw, tested_code_commit)
     return {"schema_version": "qcb.graph_course_reference_replay.v1", **identity,
             "tested_code_commit": tested_code_commit,
             "results": rows, "passed": len(rows) == len(cases), "elapsed_seconds": time.monotonic()-started,
+            "authored_reference_profile": deepcopy(profile),
             "execution_class": "trusted_local_authored_reference", "isolated": False, "model_calls": 0,
             "model_performance_measured": False, "new_mathematical_cores": 0, "new_canonical_formal_admissions": 0,
             "blind_test": False, "standalone_controls_are_completed_protocol_sessions": False}
 
 
-def main():
+def main(*, course_loader=None, source_loader=None, pipeline_loader=None, reference_profile=None):
+    course_loader = load_course if course_loader is None else course_loader
+    source_loader = load_candidates if source_loader is None else source_loader
+    pipeline_loader = pipeline_identity if pipeline_loader is None else pipeline_loader
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("command", choices=("audit", "export", "check-references", "run-fixture"))
     parser.add_argument("--output", type=Path)
@@ -145,20 +154,20 @@ def main():
             if (not args.output or not args.build_root or not args.trusted_local_reference
                     or args.split or args.band or args.view or args.episode_dir):
                 raise ValueError("reference replay requires output, matching build root and explicit authored-reference flag; no subset")
-            sources = pipeline_identity()
+            sources = pipeline_loader()
             tested_code = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=R, text=True).strip()
             if not _source_lineage(tested_code, sources)["recorded_pipeline_matches_current_sources"]:
                 raise ValueError("freeze and commit the exact reviewed reference pipeline before replay")
-            cases, identity, _, _ = load_candidates()
-            result = asyncio.run(check_references(cases, identity, args.build_root, raw, tested_code))
-            if sources != pipeline_identity():
+            cases, identity, _, _ = source_loader()
+            result = asyncio.run(check_references(cases, identity, args.build_root, raw, tested_code, profile=reference_profile))
+            if sources != pipeline_loader():
                 raise ValueError("course pipeline changed during replay; do not promote this run")
             result["pipeline_source_hashes_lf"] = sources
             result["receipt_digest"] = digest(result)
         else:
             if args.build_root or args.trusted_local_reference or args.raw_output:
                 raise ValueError("compiler options apply only to check-references")
-            plan, views, catalog, graph, report = load_course()
+            plan, views, catalog, graph, report = course_loader()
             if args.command == "run-fixture":
                 if not args.view or not args.episode_dir or args.split or args.band or args.output:
                     raise ValueError("fixture requires one view and a fresh private episode directory")
