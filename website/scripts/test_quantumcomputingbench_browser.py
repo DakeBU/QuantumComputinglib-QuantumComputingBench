@@ -73,10 +73,14 @@ def run(root, output, channel=None):
                 page.set_viewport_size({"width": width, "height": 900})
                 for entry in plan["entries"]:
                     route = HUB + "cores/" + entry["core_id"] + "/index.html#course"
-                    page.goto(base + route, wait_until="domcontentloaded")
+                    page.goto(base + route, wait_until="networkidle")
                     panel = page.locator('#course')
                     if panel.get_attribute('open') is None:
                         failures.append('course deep-link did not open: ' + route)
+                    summary_box = panel.locator(':scope > summary').bounding_box()
+                    header_box = page.locator('.site-header').bounding_box()
+                    if header_box and header_box['height'] and summary_box['y'] < header_box['y'] + header_box['height']:
+                        failures.append('course heading hidden beneath sticky header: ' + route)
                     if page.locator('#solution[open], #hint[open], #lean[open]').count():
                         failures.append('course deep-link exposed another panel: ' + route)
                     expected = len(views[entry['view_id']]['task']['nodes'])
