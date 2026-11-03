@@ -78,7 +78,7 @@ def run(root, output, channel=None):
                     if panel.get_attribute('open') is None:
                         failures.append('course deep-link did not open: ' + route)
                     summary_box = panel.locator(':scope > summary').bounding_box()
-                    header_box = page.locator('.site-header').bounding_box()
+                    header_box = page.locator('.mobile-header').bounding_box()
                     if header_box and header_box['height'] and summary_box['y'] < header_box['y'] + header_box['height']:
                         failures.append('course heading hidden beneath sticky header: ' + route)
                     if page.locator('#solution[open], #hint[open], #lean[open]').count():
