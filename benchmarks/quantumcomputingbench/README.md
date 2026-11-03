@@ -46,6 +46,8 @@ exercise pages with assumptions first and hints, solutions, rubrics and evidence
 folded by default. It uses the existing QuantumComputinglib textbook shell.
 
 - [Mathematical reader (no Lean required)](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/non-lean/)
+- [Guided course: knowledge facets and D1–D4 construction levels](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/course/)
+- [How graph connections become reasoning questions](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/reasoning/)
 - [Lean companion and diagnostic warmups](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/lean/)
 - [Shared core and split contract](shared/CONTRACT.md)
 - [Non-Lean collaborator goal](tracks/non-lean/AGENT_GOAL.md)
@@ -67,11 +69,48 @@ python benchmarks/quantumcomputingbench/scripts/curriculum.py stable-check
 No broad whole-graph completeness, new isolated evaluator or model baseline is
 implied by the website presentation.
 
+The guided course is a separate projection of the qualified
+[course manifest](tracks/lean/curriculum/course-v3.json). It links each
+companion back to its existing canonical exercise page. The course and
+canonical native formal inventories overlap and must not be added together.
+D0 asks readers to inspect the same questions' objects, assumptions and
+conventions; it adds no items. D1–D4 describe provisional reference construction
+routes, not measured model difficulty or graph distance. Unannotated cores are
+not assigned a course band. Optional course panels retain every supplied
+obligation and input; the original hints, solutions and formal evidence remain
+folded. Subject navigation is shared foundations plus the library's four
+subject areas; planned formal frontiers remain labeled.
+
+The reasoning guide distinguishes a library anchor, suggested reading, an
+import, a conceptual Functor Hypergraph interface and a supplied proof
+obligation. Its examples cover an individual representation bridge, a
+finite-sum/composition chain, an AND join, and the Hermite shared-provider
+endpoint diamond with all side inputs. These examples explain the library's
+value for breadth, reuse and deeper composition without treating every graph
+combination as a valid question or every checked step as a process reward.
+
 The first [native Lean companion batch](tracks/lean/README.md#first-native-formal-view-batch)
 contains three aligned library-lemma applications over existing core IDs.
 Source-blind decoding, independent comparison and actual reference/axiom checks
 are separate evidence records. They are not three new questions, deep proof
 synthesis results, or kernel certification of the entire NL explanation.
+
+## Lean-enabled agentic evaluation
+
+The [experimental evaluator](tracks/lean/EVALUATOR.md) exposes four
+reference-qualified proof-task views with fixed shared IDs, scoped premise
+retrieval, provided proof obligations and repair/final-replay protocols. Its
+[handoff](tracks/lean/LOCAL_PILOT_HANDOFF.md) separates actual authored Lean
+evidence from synthetic scheduling tests and unmeasured model performance.
+Offline profile templates and validation prepare bounded model configurations;
+model-generated formal proofs remain gated on accepted isolated execution.
+The canonical catalog and public-preview release status are unchanged.
+
+The [staged Lean course](tracks/lean/COURSE.md) extends that pilot to 18
+existing cores with explicit mathematical-construction bands, prerequisite and
+split checks, source-node coverage and answer-free exports. Its reference
+qualification is separate from canonical formal-view admission and empirical
+model-difficulty calibration.
 
 ## Audited mathematical corrections
 

@@ -44,6 +44,42 @@ class CurriculumTests(unittest.TestCase):
         self.assertEqual(result["new_cores_admitted"], 0)
         self.assertFalse(result["distributed_lock_claimed"])
 
+    def test_course_is_a_separate_projection_with_complete_obligation_maps(self):
+        before = deepcopy(self.catalog)
+        plan, views, report = reader.course_reader()
+        course_ids = {e['core_id'] for e in plan['entries']}
+        self.assertEqual(set(reader.COURSE_LABELS), {c.removeprefix('qcb-core-') for c in course_ids})
+        self.assertEqual(report['new_mathematical_cores'], 0)
+        self.assertTrue({c['core_id'] for c in self.catalog['cores'] if 'lean' in c['views']} <= course_ids)
+        for entry in plan['entries']:
+            core = next(c for c in self.catalog['cores'] if c['core_id'] == entry['core_id'])
+            body = reader.course_panel(core, '../../../')
+            for node in views[entry['view_id']]['task']['nodes']:
+                self.assertIn(reader.esc(node['target']), body)
+            self.assertIn(reader.esc(entry['difficulty']['imported_shortcut']), body)
+            self.assertIn('not extracted Lean proof-term dependencies', body)
+        self.assertEqual(self.catalog, before)
+
+    def test_course_levels_link_existing_cores_and_keep_d0_a_facet(self):
+        plan, views, report = reader.course_reader()
+        pages = {}
+        def write(route, title, body, description):
+            pages[route] = body
+        def intro(title, description):
+            return '<div class="qcb-reader"><h1>' + reader.esc(title) + '</h1>'
+        reader.publish_course(write, intro, plan, views, report)
+        for band in reader.COURSE_BANDS:
+            page = pages[reader.HUB + 'course/' + band.lower() + '/']
+            expected = plan['entries'] if band == 'D0' else [e for e in plan['entries'] if e['difficulty']['construction_band'] == band]
+            parsed = NavigationParser(page)
+            linked = {a['href'].split('/cores/')[1].split('/')[0] for a in parsed.links if '/cores/' in a['href']}
+            self.assertEqual(linked, {e['core_id'] for e in expected})
+        guide = pages[reader.HUB + 'reasoning/']
+        for core in ('sp-009', 'be-111', 'be-106', 'sp-104'):
+            self.assertIn('/cores/qcb-core-' + core + '/index.html', guide)
+        for side_input in ('coprime', 'product degree', 'degree-to-vanishing'):
+            self.assertIn(side_input, guide)
+
     def test_public_agent_identity_projection_is_lossless_and_internal_registry_unchanged(self):
         original = {"catalog_hash": "internal-binding", "cores": [
             {"author_identity": "/root/qcb_native_comparison", "core_id": "fixture"},

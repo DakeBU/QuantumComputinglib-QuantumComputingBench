@@ -1,0 +1,470 @@
+{
+  "actual_lean_checks": 0,
+  "actual_model_calls": 0,
+  "catalog_gates": [
+    {
+      "exit_code": 0,
+      "gate": "release-v3",
+      "log_basename": "normalization-release-v3-validation-v1.log",
+      "log_sha256_lf": "e9a645804bef028306eff26c8e62c3eeb19a19054f909f35323271dc4de8e3ce"
+    },
+    {
+      "exit_code": 0,
+      "gate": "distribution",
+      "log_basename": "normalization-distribution-validation-v1.log",
+      "log_sha256_lf": "e6f56c9ef313dcf20fbe81ea54e769251216a281ce32b0e76a84335f7ed1c6ac"
+    },
+    {
+      "exit_code": 0,
+      "gate": "curriculum",
+      "log_basename": "normalization-curriculum-validation-v1.log",
+      "log_sha256_lf": "6b3f4750059d28ed192c6fc937ec729075df8f64ffec674926fa42db3592febb"
+    }
+  ],
+  "checkpoint_digest": "0819966e05170fd0cfebdf3593271f27e5466d68688996e9c0d54b5080b37528",
+  "ci_changes": {
+    "matrix": [
+      "ubuntu-latest",
+      "windows-latest"
+    ],
+    "new_steps": [
+      "registered reference evidence validation",
+      "offline operator profile preparation",
+      "synthetic action protocol smoke"
+    ],
+    "remote_result_at_this_checkpoint": "not_yet_run_on_new_commit"
+  },
+  "cli_checks": [
+    {
+      "command": "schema",
+      "exit_code": 0,
+      "expected_rejection": false,
+      "summary": {
+        "model_calls": 0,
+        "profile_ready_to_run": null
+      }
+    },
+    {
+      "command": "profile-template",
+      "exit_code": 0,
+      "expected_rejection": false,
+      "summary": {
+        "model_calls": 0,
+        "profile_ready_to_run": false
+      }
+    },
+    {
+      "command": "validate-config",
+      "exit_code": 1,
+      "expected_rejection": true,
+      "summary": null
+    },
+    {
+      "command": "validate-config",
+      "exit_code": 0,
+      "expected_rejection": false,
+      "summary": {
+        "adapter_imported": false,
+        "candidate_execution_enabled": false,
+        "condition": {
+          "exposure": "approved_interface",
+          "mode": "proof_dag",
+          "purpose": "formal_proof"
+        },
+        "config_digest": "f388396b8f6cc85496fa6e117f72b685d78b45c4817982e500d37fa5d1682897",
+        "model": {
+          "chat_template_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "id": "software-check/no-endpoint",
+          "revision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "model_calls": 0,
+        "schema_version": "qcb.operator_profile_validation.v1",
+        "valid": true,
+        "validation_scope": "configuration structure and budgets only; no endpoint identity attestation"
+      }
+    },
+    {
+      "command": "plan",
+      "exit_code": 0,
+      "expected_rejection": false,
+      "summary": {
+        "episode_directory_created": false,
+        "failure_class": null,
+        "formal_proof_success": false,
+        "model_calls_confirmed": 0,
+        "model_generation_observed": false,
+        "model_performance_measured": false,
+        "provider_calls": 0,
+        "provider_constructed": false,
+        "reason": null,
+        "status": "dry_run",
+        "view_id": "qcb-agentic-sp-007-v1"
+      }
+    },
+    {
+      "command": "run",
+      "exit_code": 2,
+      "expected_rejection": true,
+      "summary": {
+        "episode_directory_created": false,
+        "failure_class": "ENV_BLOCKED",
+        "formal_proof_success": false,
+        "model_calls_confirmed": 0,
+        "model_generation_observed": false,
+        "model_performance_measured": false,
+        "provider_calls": 0,
+        "provider_constructed": false,
+        "reason": "No accepted isolated candidate verifier is connected. Authored-reference execution is never a model fallback.",
+        "status": "ENV_BLOCKED",
+        "view_id": "qcb-agentic-sp-007-v1"
+      }
+    }
+  ],
+  "execution_class": "offline_configuration_and_synthetic_protocol_checks",
+  "fixture_episodes": [
+    {
+      "condition": {
+        "exposure": "approved_interface",
+        "mode": "root_only",
+        "purpose": "formal_proof"
+      },
+      "core_id": "qcb-core-la-102",
+      "formal_proof_success": false,
+      "harness_sources_sha256_lf": {
+        "benchmarks/quantumcomputingbench/schemas/operator-run-config-v1.schema.json": "cad14e7d24dff1ffb77c88b6bc267ae22ae340464f503a9bfe8bd32433fb73c1",
+        "benchmarks/quantumcomputingbench/scripts/evaluate_agentic.py": "c315df398e80956fc4b0873a5a9727c674e263b58d7816aa8a1a30786d891ef5",
+        "benchmarks/quantumcomputingbench/src/qcb_core.py": "c16da97e4e5ad2f29393e53a248ea1a65395070646b876bad957b507cbcd0ab0",
+        "benchmarks/quantumcomputingbench/src/qcb_evaluation_registry.py": "35b5e7f497148e14d514fe760c63c0ee207e48a6846130fb18725e6997c564d6",
+        "benchmarks/quantumcomputingbench/src/qcb_model_loop.py": "7f02b226afb8089c34441d721f94934a3cb3986aee1f94fa194aa91b30c246bc",
+        "benchmarks/quantumcomputingbench/src/qcb_operator_profile.py": "8e9a30bcd87c30fca3e288e57b50c7ead6261f6400cecc5551ab106bf389011a",
+        "benchmarks/quantumcomputingbench/src/qcb_proof_session.py": "919dd395426a742df4e4bb83c92880d80d8e916b45a2196d6752d501206af707"
+      },
+      "model_calls_confirmed": 0,
+      "provider_calls": 5,
+      "split": "test_public",
+      "status": "fixture_protocol_complete",
+      "totals": {
+        "endpoint_cost_usd": 0,
+        "input_tokens": 5,
+        "output_tokens": 5
+      },
+      "usage_kind": "synthetic_fixture_values",
+      "view_id": "qcb-agentic-la-102-v1"
+    },
+    {
+      "condition": {
+        "exposure": "approved_interface",
+        "mode": "proof_dag",
+        "purpose": "formal_proof"
+      },
+      "core_id": "qcb-core-la-102",
+      "formal_proof_success": false,
+      "harness_sources_sha256_lf": {
+        "benchmarks/quantumcomputingbench/schemas/operator-run-config-v1.schema.json": "cad14e7d24dff1ffb77c88b6bc267ae22ae340464f503a9bfe8bd32433fb73c1",
+        "benchmarks/quantumcomputingbench/scripts/evaluate_agentic.py": "c315df398e80956fc4b0873a5a9727c674e263b58d7816aa8a1a30786d891ef5",
+        "benchmarks/quantumcomputingbench/src/qcb_core.py": "c16da97e4e5ad2f29393e53a248ea1a65395070646b876bad957b507cbcd0ab0",
+        "benchmarks/quantumcomputingbench/src/qcb_evaluation_registry.py": "35b5e7f497148e14d514fe760c63c0ee207e48a6846130fb18725e6997c564d6",
+        "benchmarks/quantumcomputingbench/src/qcb_model_loop.py": "7f02b226afb8089c34441d721f94934a3cb3986aee1f94fa194aa91b30c246bc",
+        "benchmarks/quantumcomputingbench/src/qcb_operator_profile.py": "8e9a30bcd87c30fca3e288e57b50c7ead6261f6400cecc5551ab106bf389011a",
+        "benchmarks/quantumcomputingbench/src/qcb_proof_session.py": "919dd395426a742df4e4bb83c92880d80d8e916b45a2196d6752d501206af707"
+      },
+      "model_calls_confirmed": 0,
+      "provider_calls": 10,
+      "split": "test_public",
+      "status": "fixture_protocol_complete",
+      "totals": {
+        "endpoint_cost_usd": 0,
+        "input_tokens": 10,
+        "output_tokens": 10
+      },
+      "usage_kind": "synthetic_fixture_values",
+      "view_id": "qcb-agentic-la-102-v1"
+    },
+    {
+      "condition": {
+        "exposure": "approved_interface",
+        "mode": "root_only",
+        "purpose": "formal_proof"
+      },
+      "core_id": "qcb-core-sp-005",
+      "formal_proof_success": false,
+      "harness_sources_sha256_lf": {
+        "benchmarks/quantumcomputingbench/schemas/operator-run-config-v1.schema.json": "cad14e7d24dff1ffb77c88b6bc267ae22ae340464f503a9bfe8bd32433fb73c1",
+        "benchmarks/quantumcomputingbench/scripts/evaluate_agentic.py": "c315df398e80956fc4b0873a5a9727c674e263b58d7816aa8a1a30786d891ef5",
+        "benchmarks/quantumcomputingbench/src/qcb_core.py": "c16da97e4e5ad2f29393e53a248ea1a65395070646b876bad957b507cbcd0ab0",
+        "benchmarks/quantumcomputingbench/src/qcb_evaluation_registry.py": "35b5e7f497148e14d514fe760c63c0ee207e48a6846130fb18725e6997c564d6",
+        "benchmarks/quantumcomputingbench/src/qcb_model_loop.py": "7f02b226afb8089c34441d721f94934a3cb3986aee1f94fa194aa91b30c246bc",
+        "benchmarks/quantumcomputingbench/src/qcb_operator_profile.py": "8e9a30bcd87c30fca3e288e57b50c7ead6261f6400cecc5551ab106bf389011a",
+        "benchmarks/quantumcomputingbench/src/qcb_proof_session.py": "919dd395426a742df4e4bb83c92880d80d8e916b45a2196d6752d501206af707"
+      },
+      "model_calls_confirmed": 0,
+      "provider_calls": 5,
+      "split": "test_public",
+      "status": "fixture_protocol_complete",
+      "totals": {
+        "endpoint_cost_usd": 0,
+        "input_tokens": 5,
+        "output_tokens": 5
+      },
+      "usage_kind": "synthetic_fixture_values",
+      "view_id": "qcb-agentic-sp-005-v1"
+    },
+    {
+      "condition": {
+        "exposure": "approved_interface",
+        "mode": "proof_dag",
+        "purpose": "formal_proof"
+      },
+      "core_id": "qcb-core-sp-005",
+      "formal_proof_success": false,
+      "harness_sources_sha256_lf": {
+        "benchmarks/quantumcomputingbench/schemas/operator-run-config-v1.schema.json": "cad14e7d24dff1ffb77c88b6bc267ae22ae340464f503a9bfe8bd32433fb73c1",
+        "benchmarks/quantumcomputingbench/scripts/evaluate_agentic.py": "c315df398e80956fc4b0873a5a9727c674e263b58d7816aa8a1a30786d891ef5",
+        "benchmarks/quantumcomputingbench/src/qcb_core.py": "c16da97e4e5ad2f29393e53a248ea1a65395070646b876bad957b507cbcd0ab0",
+        "benchmarks/quantumcomputingbench/src/qcb_evaluation_registry.py": "35b5e7f497148e14d514fe760c63c0ee207e48a6846130fb18725e6997c564d6",
+        "benchmarks/quantumcomputingbench/src/qcb_model_loop.py": "7f02b226afb8089c34441d721f94934a3cb3986aee1f94fa194aa91b30c246bc",
+        "benchmarks/quantumcomputingbench/src/qcb_operator_profile.py": "8e9a30bcd87c30fca3e288e57b50c7ead6261f6400cecc5551ab106bf389011a",
+        "benchmarks/quantumcomputingbench/src/qcb_proof_session.py": "919dd395426a742df4e4bb83c92880d80d8e916b45a2196d6752d501206af707"
+      },
+      "model_calls_confirmed": 0,
+      "provider_calls": 8,
+      "split": "test_public",
+      "status": "fixture_protocol_complete",
+      "totals": {
+        "endpoint_cost_usd": 0,
+        "input_tokens": 8,
+        "output_tokens": 8
+      },
+      "usage_kind": "synthetic_fixture_values",
+      "view_id": "qcb-agentic-sp-005-v1"
+    },
+    {
+      "condition": {
+        "exposure": "approved_interface",
+        "mode": "root_only",
+        "purpose": "formal_proof"
+      },
+      "core_id": "qcb-core-sp-007",
+      "formal_proof_success": false,
+      "harness_sources_sha256_lf": {
+        "benchmarks/quantumcomputingbench/schemas/operator-run-config-v1.schema.json": "cad14e7d24dff1ffb77c88b6bc267ae22ae340464f503a9bfe8bd32433fb73c1",
+        "benchmarks/quantumcomputingbench/scripts/evaluate_agentic.py": "c315df398e80956fc4b0873a5a9727c674e263b58d7816aa8a1a30786d891ef5",
+        "benchmarks/quantumcomputingbench/src/qcb_core.py": "c16da97e4e5ad2f29393e53a248ea1a65395070646b876bad957b507cbcd0ab0",
+        "benchmarks/quantumcomputingbench/src/qcb_evaluation_registry.py": "35b5e7f497148e14d514fe760c63c0ee207e48a6846130fb18725e6997c564d6",
+        "benchmarks/quantumcomputingbench/src/qcb_model_loop.py": "7f02b226afb8089c34441d721f94934a3cb3986aee1f94fa194aa91b30c246bc",
+        "benchmarks/quantumcomputingbench/src/qcb_operator_profile.py": "8e9a30bcd87c30fca3e288e57b50c7ead6261f6400cecc5551ab106bf389011a",
+        "benchmarks/quantumcomputingbench/src/qcb_proof_session.py": "919dd395426a742df4e4bb83c92880d80d8e916b45a2196d6752d501206af707"
+      },
+      "model_calls_confirmed": 0,
+      "provider_calls": 5,
+      "split": "test_public",
+      "status": "fixture_protocol_complete",
+      "totals": {
+        "endpoint_cost_usd": 0,
+        "input_tokens": 5,
+        "output_tokens": 5
+      },
+      "usage_kind": "synthetic_fixture_values",
+      "view_id": "qcb-agentic-sp-007-v1"
+    },
+    {
+      "condition": {
+        "exposure": "approved_interface",
+        "mode": "proof_dag",
+        "purpose": "formal_proof"
+      },
+      "core_id": "qcb-core-sp-007",
+      "formal_proof_success": false,
+      "harness_sources_sha256_lf": {
+        "benchmarks/quantumcomputingbench/schemas/operator-run-config-v1.schema.json": "cad14e7d24dff1ffb77c88b6bc267ae22ae340464f503a9bfe8bd32433fb73c1",
+        "benchmarks/quantumcomputingbench/scripts/evaluate_agentic.py": "c315df398e80956fc4b0873a5a9727c674e263b58d7816aa8a1a30786d891ef5",
+        "benchmarks/quantumcomputingbench/src/qcb_core.py": "c16da97e4e5ad2f29393e53a248ea1a65395070646b876bad957b507cbcd0ab0",
+        "benchmarks/quantumcomputingbench/src/qcb_evaluation_registry.py": "35b5e7f497148e14d514fe760c63c0ee207e48a6846130fb18725e6997c564d6",
+        "benchmarks/quantumcomputingbench/src/qcb_model_loop.py": "7f02b226afb8089c34441d721f94934a3cb3986aee1f94fa194aa91b30c246bc",
+        "benchmarks/quantumcomputingbench/src/qcb_operator_profile.py": "8e9a30bcd87c30fca3e288e57b50c7ead6261f6400cecc5551ab106bf389011a",
+        "benchmarks/quantumcomputingbench/src/qcb_proof_session.py": "919dd395426a742df4e4bb83c92880d80d8e916b45a2196d6752d501206af707"
+      },
+      "model_calls_confirmed": 0,
+      "provider_calls": 6,
+      "split": "test_public",
+      "status": "fixture_protocol_complete",
+      "totals": {
+        "endpoint_cost_usd": 0,
+        "input_tokens": 6,
+        "output_tokens": 6
+      },
+      "usage_kind": "synthetic_fixture_values",
+      "view_id": "qcb-agentic-sp-007-v1"
+    },
+    {
+      "condition": {
+        "exposure": "approved_interface",
+        "mode": "root_only",
+        "purpose": "formal_proof"
+      },
+      "core_id": "qcb-core-sp-008",
+      "formal_proof_success": false,
+      "harness_sources_sha256_lf": {
+        "benchmarks/quantumcomputingbench/schemas/operator-run-config-v1.schema.json": "cad14e7d24dff1ffb77c88b6bc267ae22ae340464f503a9bfe8bd32433fb73c1",
+        "benchmarks/quantumcomputingbench/scripts/evaluate_agentic.py": "c315df398e80956fc4b0873a5a9727c674e263b58d7816aa8a1a30786d891ef5",
+        "benchmarks/quantumcomputingbench/src/qcb_core.py": "c16da97e4e5ad2f29393e53a248ea1a65395070646b876bad957b507cbcd0ab0",
+        "benchmarks/quantumcomputingbench/src/qcb_evaluation_registry.py": "35b5e7f497148e14d514fe760c63c0ee207e48a6846130fb18725e6997c564d6",
+        "benchmarks/quantumcomputingbench/src/qcb_model_loop.py": "7f02b226afb8089c34441d721f94934a3cb3986aee1f94fa194aa91b30c246bc",
+        "benchmarks/quantumcomputingbench/src/qcb_operator_profile.py": "8e9a30bcd87c30fca3e288e57b50c7ead6261f6400cecc5551ab106bf389011a",
+        "benchmarks/quantumcomputingbench/src/qcb_proof_session.py": "919dd395426a742df4e4bb83c92880d80d8e916b45a2196d6752d501206af707"
+      },
+      "model_calls_confirmed": 0,
+      "provider_calls": 5,
+      "split": "train",
+      "status": "fixture_protocol_complete",
+      "totals": {
+        "endpoint_cost_usd": 0,
+        "input_tokens": 5,
+        "output_tokens": 5
+      },
+      "usage_kind": "synthetic_fixture_values",
+      "view_id": "qcb-agentic-sp-008-v1"
+    },
+    {
+      "condition": {
+        "exposure": "approved_interface",
+        "mode": "proof_dag",
+        "purpose": "formal_proof"
+      },
+      "core_id": "qcb-core-sp-008",
+      "formal_proof_success": false,
+      "harness_sources_sha256_lf": {
+        "benchmarks/quantumcomputingbench/schemas/operator-run-config-v1.schema.json": "cad14e7d24dff1ffb77c88b6bc267ae22ae340464f503a9bfe8bd32433fb73c1",
+        "benchmarks/quantumcomputingbench/scripts/evaluate_agentic.py": "c315df398e80956fc4b0873a5a9727c674e263b58d7816aa8a1a30786d891ef5",
+        "benchmarks/quantumcomputingbench/src/qcb_core.py": "c16da97e4e5ad2f29393e53a248ea1a65395070646b876bad957b507cbcd0ab0",
+        "benchmarks/quantumcomputingbench/src/qcb_evaluation_registry.py": "35b5e7f497148e14d514fe760c63c0ee207e48a6846130fb18725e6997c564d6",
+        "benchmarks/quantumcomputingbench/src/qcb_model_loop.py": "7f02b226afb8089c34441d721f94934a3cb3986aee1f94fa194aa91b30c246bc",
+        "benchmarks/quantumcomputingbench/src/qcb_operator_profile.py": "8e9a30bcd87c30fca3e288e57b50c7ead6261f6400cecc5551ab106bf389011a",
+        "benchmarks/quantumcomputingbench/src/qcb_proof_session.py": "919dd395426a742df4e4bb83c92880d80d8e916b45a2196d6752d501206af707"
+      },
+      "model_calls_confirmed": 0,
+      "provider_calls": 8,
+      "split": "train",
+      "status": "fixture_protocol_complete",
+      "totals": {
+        "endpoint_cost_usd": 0,
+        "input_tokens": 8,
+        "output_tokens": 8
+      },
+      "usage_kind": "synthetic_fixture_values",
+      "view_id": "qcb-agentic-sp-008-v1"
+    },
+    {
+      "condition": {
+        "exposure": "closed_book",
+        "mode": "proof_dag",
+        "purpose": "explanation_only"
+      },
+      "core_id": "qcb-core-sp-007",
+      "formal_proof_success": false,
+      "harness_sources_sha256_lf": {
+        "benchmarks/quantumcomputingbench/schemas/operator-run-config-v1.schema.json": "cad14e7d24dff1ffb77c88b6bc267ae22ae340464f503a9bfe8bd32433fb73c1",
+        "benchmarks/quantumcomputingbench/scripts/evaluate_agentic.py": "c315df398e80956fc4b0873a5a9727c674e263b58d7816aa8a1a30786d891ef5",
+        "benchmarks/quantumcomputingbench/src/qcb_core.py": "c16da97e4e5ad2f29393e53a248ea1a65395070646b876bad957b507cbcd0ab0",
+        "benchmarks/quantumcomputingbench/src/qcb_evaluation_registry.py": "35b5e7f497148e14d514fe760c63c0ee207e48a6846130fb18725e6997c564d6",
+        "benchmarks/quantumcomputingbench/src/qcb_model_loop.py": "7f02b226afb8089c34441d721f94934a3cb3986aee1f94fa194aa91b30c246bc",
+        "benchmarks/quantumcomputingbench/src/qcb_operator_profile.py": "8e9a30bcd87c30fca3e288e57b50c7ead6261f6400cecc5551ab106bf389011a",
+        "benchmarks/quantumcomputingbench/src/qcb_proof_session.py": "919dd395426a742df4e4bb83c92880d80d8e916b45a2196d6752d501206af707"
+      },
+      "model_calls_confirmed": 0,
+      "provider_calls": 1,
+      "split": "test_public",
+      "status": "explanation_recorded",
+      "totals": {
+        "endpoint_cost_usd": 0,
+        "input_tokens": 1,
+        "output_tokens": 1
+      },
+      "usage_kind": "synthetic_fixture_values",
+      "view_id": "qcb-agentic-sp-007-v1"
+    }
+  ],
+  "integration_rule": "Preserve exact recorded source commits with a merge commit. Squash/rebase requires separately reviewed evidence distribution.",
+  "limitations": [
+    "No actual model call or candidate Lean execution in these checks.",
+    "Null-metadata template intentionally fails profile validation until real reviewed identities are supplied.",
+    "Schema/runtime validation does not attest endpoint identity or authorize generation.",
+    "Actual model-generated formal proofs remain ENV_BLOCKED before adapter loading.",
+    "Original public tasks/splits/catalog and formal-admission status remain unchanged."
+  ],
+  "model_training_performed": false,
+  "new_canonical_formal_admissions": 0,
+  "new_changes_uncommitted_at_execution": true,
+  "new_mathematical_cores": 0,
+  "passed": true,
+  "previous_checkpoint_pushed_unchanged": true,
+  "previous_remote_head": "c168a0e9bb17aa42acbfacb0b116c2670b968282",
+  "private_raw_records_preserved": true,
+  "production_lean_inputs_changed": false,
+  "profile_identities_are_software_test_placeholders_not_endpoint_claims": true,
+  "registry_qualification": {
+    "blind_test": false,
+    "catalog_hash": "5269b9f2521e3bf14db293fea34895f6e44a387c2479c164407b4d16dd9a2247",
+    "distinct_shared_core_ids": 4,
+    "isolated_model_evaluation": "ENV_BLOCKED",
+    "live_formal_certificates_issued": 0,
+    "model_performance_measured": false,
+    "new_canonical_formal_admissions": 0,
+    "new_mathematical_cores": 0,
+    "qualification_scope": "Recorded reference evidence and exact root alignment; not live model success or stable release",
+    "qualified_views": 4,
+    "registry_digest": "c6e0276b8f7cdaedc8ff05955edcc4d685ebe38eb68857f23a627cbbbc1f1708",
+    "schema_version": "qcb.agentic_registry_qualification.v1",
+    "source_lineages": {
+      "obligation-v1": {
+        "recorded_code_revision": "1e073e02bfdee4bb0412959277f112aff7417f2b",
+        "recorded_pipeline_matches_current_sources": false,
+        "reference_replayed_during_registry_validation": false
+      },
+      "sequential-v1": {
+        "recorded_code_revision": "c3a01b8a8becd49a9290f64f261a3be17021d791",
+        "recorded_pipeline_matches_current_sources": true,
+        "reference_replayed_during_registry_validation": false
+      }
+    },
+    "suite_id": "qcb-agentic-public-pilot-v1",
+    "validation_performed_lean_replay": false
+  },
+  "retained_historical_reports": [
+    "reports/lean-agentic-registry-v1/execution-summary.json",
+    "reports/lean-agentic-registry-v1/protocol-review.json"
+  ],
+  "review_class": "Author implementation/evidence review and actual local software gates; no independent mathematical or isolation admission",
+  "schema_version": "qcb.operator_normalization_checkpoint.v1",
+  "software_gate": {
+    "elapsed_seconds": 253.65,
+    "exit_code": 0,
+    "log_sha256_lf": "bdf16faea189e89525d75f4cff02bdf2f14c2f1f8147cdf1f60f253c46a0b7e3",
+    "passed_subtests": 226,
+    "passed_tests": 245,
+    "py_compile_passed": true,
+    "ruff_passed": true,
+    "whitespace_check_passed": true
+  },
+  "source_base_commit": "c168a0e9bb17aa42acbfacb0b116c2670b968282",
+  "source_hashes_sha256_lf": {
+    ".github/workflows/quantumcomputingbench.yml": "dbfed6c522e19a26b91b485c62748cdb7291851ef1c370740e6d2ec904c118e2",
+    "benchmarks/quantumcomputingbench/README.md": "1ca1de196e2f5931bf8a93cc51f5372d7f021a86b1c8e2cf22a5843bb5420176",
+    "benchmarks/quantumcomputingbench/configs/agentic-operator.template.json": "f63b49bcff3aa68a6e660dd657c3ae8e55c70f6b95b1cc8bef7fcdd9c0afb147",
+    "benchmarks/quantumcomputingbench/schemas/operator-run-config-v1.schema.json": "cad14e7d24dff1ffb77c88b6bc267ae22ae340464f503a9bfe8bd32433fb73c1",
+    "benchmarks/quantumcomputingbench/scripts/evaluate_agentic.py": "c315df398e80956fc4b0873a5a9727c674e263b58d7816aa8a1a30786d891ef5",
+    "benchmarks/quantumcomputingbench/src/qcb_model_loop.py": "7f02b226afb8089c34441d721f94934a3cb3986aee1f94fa194aa91b30c246bc",
+    "benchmarks/quantumcomputingbench/src/qcb_operator_profile.py": "8e9a30bcd87c30fca3e288e57b50c7ead6261f6400cecc5551ab106bf389011a",
+    "benchmarks/quantumcomputingbench/tests/test_operator_profile.py": "6ac7ab5fd677c4c5aaa3ec4635740436df5182178bd6f1e5c0f598dcd5dafa98",
+    "benchmarks/quantumcomputingbench/tracks/lean/EVALUATOR.md": "a6949bb684b53c2356420693966b228af7102bd897ed03a9b16ac3842290898e",
+    "benchmarks/quantumcomputingbench/tracks/lean/LOCAL_PILOT_HANDOFF.md": "8bc9146fd07bf4808dc57120656a22466479d6f8d9ab37549baef0cbdc392955"
+  },
+  "synthetic_provider_calls": 53,
+  "website_contract_tests": {
+    "deployment_performed": false,
+    "elapsed_seconds": 31.934,
+    "exit_code": 0,
+    "log_sha256_lf": "c0127ac402f871665a65f7b4842506a383a705272b605806165ea666e5214981",
+    "passed": 23
+  }
+}

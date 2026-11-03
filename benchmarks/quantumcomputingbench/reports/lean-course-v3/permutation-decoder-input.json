@@ -1,0 +1,151 @@
+{
+  "ambient_definitions": [
+    {
+      "literal_definition": "abbrev LCUIndex (coefficient selector system : Type*) := coefficient × (selector × system)",
+      "name": "QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex",
+      "normalized_equations": [
+        "QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system = coefficient × (selector × system)"
+      ],
+      "signature": "(coefficient : Type u) → (selector : Type v) → (system : Type w) → Type (max u v w)"
+    },
+    {
+      "literal_data_fields": {
+        "invFun": "fun index => (index.1, (index.2.1, (permutation index.2.1).symm index.2.2))",
+        "toFun": "fun index => (index.1, (index.2.1, permutation index.2.1 index.2.2))"
+      },
+      "name": "QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv",
+      "normalized_equations": [
+        "(@QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv coefficient selector system permutation) (c,(s,x)) = (c,(s,permutation s x))",
+        "(@QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv coefficient selector system permutation).symm (c,(s,x)) = (c,(s,(permutation s).symm x))"
+      ],
+      "signature": "∀ {coefficient : Type u} {selector : Type v} {system : Type w}, (selector → system ≃ system) → (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system ≃ QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system)"
+    },
+    {
+      "literal_definition": "def equivPermutationMatrix {ι : Type*} [DecidableEq ι] (equiv : ι ≃ ι) : Matrix ι ι ℂ := fun row column => if row = equiv column then 1 else 0",
+      "name": "QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix",
+      "normalized_equations": [
+        "QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix e row column = if row = e column then (1 : ℂ) else 0"
+      ],
+      "signature": "∀ {ι : Type u} [di : DecidableEq ι], (ι ≃ ι) → Matrix ι ι ℂ"
+    },
+    {
+      "literal_body": "equivPermutationMatrix (controlledSystemEquiv permutation)",
+      "name": "QuantumBlockEncoding.Robin.ComplexLCU.selectLift",
+      "normalized_equations": [
+        "(@QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dt permutation) = QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (@QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv coefficient selector system permutation)"
+      ],
+      "signature": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [dc : DecidableEq coefficient] [ds : DecidableEq selector] [dt : DecidableEq system], (selector → system ≃ system) → Matrix (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ"
+    },
+    {
+      "name": "Equiv",
+      "normalized_equations": [
+        "(first.trans second) x = second (first x)"
+      ],
+      "signature": "(α : Sort u) → (β : Sort v) → Sort (max (max 1 u) v)",
+      "structural_contract": [
+        "e : α ≃ β has functions e : α → β and e.symm : β → α with e.symm (e x) = x and e (e.symm y) = y."
+      ]
+    },
+    {
+      "name": "Matrix",
+      "normalized_equations": [
+        "Matrix m n α = m → n → α",
+        "(A * B) row column = ∑ k, A row k * B k column",
+        "(star A) row column = star (A column row)",
+        "For complex entries, star z is complex conjugation.",
+        "(1 : Matrix ι ι ℂ) row column = if row = column then 1 else 0"
+      ],
+      "signature": "(m : Type u) → (n : Type v) → (α : Type w) → Type (max u v w)"
+    },
+    {
+      "membership": "A ∈ Matrix.unitaryGroup ι ℂ ↔ star A * A = 1; for finite complex square matrices this is equivalent to A * star A = 1.",
+      "name": "Matrix.unitaryGroup",
+      "signature": "∀ (ι : Type u) [DecidableEq ι] [Fintype ι] (α : Type v) [CommRing α] [StarRing α], Submonoid (Matrix ι ι α)"
+    },
+    {
+      "name": "Matrix.mulVec",
+      "normalized_equations": [
+        "Matrix.mulVec A state row = ∑ column, A row column * state column"
+      ],
+      "signature": "∀ {m : Type u} {n : Type v} [Fintype n], Matrix m n ℂ → (n → ℂ) → (m → ℂ)"
+    }
+  ],
+  "conventions": [
+    "All matrices have entries in ℂ and act on column vectors from the left.",
+    "For LCUIndex the register order is coefficient × (selector × system).",
+    "Type variables range over arbitrary universes as declared in each formal context; Fintype does not impose Nonempty.",
+    "No normalized-state, approximation or circuit-cost assertion is implicit."
+  ],
+  "schema_version": "qcb.formal_decoder_input.v1",
+  "signature_observations": {
+    "foundation_log_sha256": "14420b3fee7924e8545cc15581a9fa7731ae0c8695341df2ac323ccae1ff9c5c",
+    "kind": "Actual Lean4.29.1 #check/@ and definition data-field inspection; normalized equations specialize the observed signatures.",
+    "log_sha256": "5469370d3e90d335ebfa26a9a38b4b5134202f71ff8a4711c1ceacc746b2e919"
+  },
+  "source_blind": true,
+  "views": [
+    {
+      "anonymous_id": "P1",
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.Robin.ComplexLCU"
+        ],
+        "preamble": "universe u v w\nopen scoped BigOperators",
+        "target": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (permutation : selector → system ≃ system), ((∀ index : QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system, (@QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv coefficient selector system permutation) index = (index.1, (index.2.1, permutation index.2.1 index.2.2)) ∧ (@QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv coefficient selector system permutation).symm index = (index.1, (index.2.1, (permutation index.2.1).symm index.2.2))) ∧ (∀ index : QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system, (@QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv coefficient selector system permutation) (index.1, (index.2.1, (permutation index.2.1).symm index.2.2)) = index ∧ (@QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv coefficient selector system permutation).symm (index.1, (index.2.1, permutation index.2.1 index.2.2)) = index)) ∧ (@QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dt permutation) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ",
+        "universe_parameters": [
+          "u",
+          "v",
+          "w"
+        ]
+      },
+      "nodes": [
+        {
+          "depends_on": [],
+          "id": "be110_same_selector_inverse",
+          "target": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} (permutation : selector → system ≃ system), ((∀ index : QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system, (@QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv coefficient selector system permutation) index = (index.1, (index.2.1, permutation index.2.1 index.2.2)) ∧ (@QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv coefficient selector system permutation).symm index = (index.1, (index.2.1, (permutation index.2.1).symm index.2.2))) ∧ (∀ index : QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system, (@QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv coefficient selector system permutation) (index.1, (index.2.1, (permutation index.2.1).symm index.2.2)) = index ∧ (@QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv coefficient selector system permutation).symm (index.1, (index.2.1, permutation index.2.1 index.2.2)) = index))"
+        },
+        {
+          "depends_on": [],
+          "id": "be110_basis_unitary",
+          "target": "∀ {ι : Type u} [fi : Fintype ι] [di : DecidableEq ι] (equiv : ι ≃ ι), QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix equiv ∈ Matrix.unitaryGroup ι ℂ"
+        },
+        {
+          "depends_on": [
+            "be110_same_selector_inverse",
+            "be110_basis_unitary"
+          ],
+          "id": "be110_root",
+          "target": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (permutation : selector → system ≃ system), ((∀ index : QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system, (@QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv coefficient selector system permutation) index = (index.1, (index.2.1, permutation index.2.1 index.2.2)) ∧ (@QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv coefficient selector system permutation).symm index = (index.1, (index.2.1, (permutation index.2.1).symm index.2.2))) ∧ (∀ index : QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system, (@QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv coefficient selector system permutation) (index.1, (index.2.1, (permutation index.2.1).symm index.2.2)) = index ∧ (@QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv coefficient selector system permutation).symm (index.1, (index.2.1, permutation index.2.1 index.2.2)) = index)) ∧ (@QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dt permutation) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ"
+        }
+      ]
+    },
+    {
+      "anonymous_id": "P2",
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.Robin.ComplexLCU"
+        ],
+        "preamble": "universe u v\nopen scoped BigOperators",
+        "target": "∀ {ι : Type u} [fi : Fintype ι] [di : DecidableEq ι] (first second : ι ≃ ι), (∀ (operator : Matrix ι ι ℂ) (row column : ι), (∑ k : ι, QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix second row k * operator k column) = operator (second.symm row) column) ∧ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix second * QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix first = QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (first.trans second)) ∧ (∀ state : ι → ℂ, Matrix.mulVec (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (first.trans second)) state = Matrix.mulVec (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix second) (Matrix.mulVec (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix first) state))",
+        "universe_parameters": [
+          "u",
+          "v"
+        ]
+      },
+      "nodes": [
+        {
+          "depends_on": [],
+          "id": "be111_surviving_index",
+          "target": "∀ {ι : Type u} {κ : Type v} [fi : Fintype ι] [di : DecidableEq ι] (equiv : ι ≃ ι) (operator : Matrix ι κ ℂ) (row : ι) (column : κ), (∑ k : ι, QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix equiv row k * operator k column) = operator (equiv.symm row) column"
+        },
+        {
+          "depends_on": [
+            "be111_surviving_index"
+          ],
+          "id": "be111_root",
+          "target": "∀ {ι : Type u} [fi : Fintype ι] [di : DecidableEq ι] (first second : ι ≃ ι), (∀ (operator : Matrix ι ι ℂ) (row column : ι), (∑ k : ι, QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix second row k * operator k column) = operator (second.symm row) column) ∧ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix second * QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix first = QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (first.trans second)) ∧ (∀ state : ι → ℂ, Matrix.mulVec (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (first.trans second)) state = Matrix.mulVec (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix second) (Matrix.mulVec (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix first) state))"
+        }
+      ]
+    }
+  ]
+}

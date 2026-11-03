@@ -1,0 +1,50 @@
+{
+  "ambient_definitions": [
+    {
+      "body": "Matrix α β ℝ = α → β → ℝ",
+      "name": "Matrix",
+      "type": "Type u → Type v → Type* → Type*"
+    },
+    {
+      "body": "∀ {α : Type u} {β : Type v} {ι : Type*} [Fintype ι] (F : Matrix α β ℝ), @QuantumBlockEncoding.HermiteCutRank.FactorsThrough α β ι inferInstance F = (∃ A : Matrix α ι ℝ, ∃ B : Matrix ι β ℝ, F = A * B)",
+      "name": "QuantumBlockEncoding.HermiteCutRank.FactorsThrough",
+      "type": "∀ {α : Type u} {β : Type v} {ι : Type*} [Fintype ι], Matrix α β ℝ → Prop"
+    },
+    {
+      "body": "∀ (a : ℝ) (p : Polynomial ℝ), Polynomial.taylor a p = p.comp (Polynomial.X + Polynomial.C a)",
+      "name": "Polynomial.taylor",
+      "type": "ℝ → Polynomial ℝ →ₗ[ℝ] Polynomial ℝ"
+    },
+    {
+      "name": "Matrix.mul_apply",
+      "type": "∀ {α β ι : Type*} [Fintype ι] (A : Matrix α ι ℝ) (B : Matrix ι β ℝ) x y, (A * B) x y = ∑ i, A x i * B i y"
+    },
+    {
+      "body": "∀ {α β : Type*} [Fintype β] (A : Matrix α β ℝ), A.rank = Module.finrank ℝ (LinearMap.range A.mulVecLin)",
+      "name": "Matrix.rank",
+      "type": "∀ {α β : Type*} [Fintype β], Matrix α β ℝ → ℕ"
+    },
+    {
+      "body": "For a matrix M : Matrix α β ℝ with [Fintype β], its linear map acts by (M.mulVecLin v) i = ∑ j, M i j * v j.",
+      "display_kind": "normalized ambient interface; root parameters instantiate the matrix/vector carriers",
+      "name": "Matrix.mulVecLin"
+    },
+    {
+      "body": "Polynomial.natDegree (0 : Polynomial ℝ) = 0",
+      "display_kind": "normalized namespace-qualified interface",
+      "name": "Polynomial.natDegree_zero"
+    }
+  ],
+  "anonymous_id": "view-03",
+  "formal_context": {
+    "imports": [
+      "QuantumBlockEncoding.HermiteCutRank"
+    ],
+    "preamble": "universe u v\nopen scoped BigOperators",
+    "target": "∀ {α : Type u} {β : Type v} [Fintype β] (p : Polynomial ℝ) (d : ℕ) (hd : p.natDegree ≤ d) (row : α → ℝ) (col : β → ℝ), (∀ x y, p.eval (row x + col y) = ∑ i : Fin (d + 1), (Polynomial.taylor (row x) p).coeff (i : ℕ) * col y ^ (i : ℕ)) ∧ @QuantumBlockEncoding.HermiteCutRank.FactorsThrough α β (Fin (d + 1)) inferInstance (fun x y => p.eval (row x + col y)) ∧ (Matrix.rank (fun x y => p.eval (row x + col y) : Matrix α β ℝ) ≤ d + 1)",
+    "universe_parameters": [
+      "u",
+      "v"
+    ]
+  }
+}

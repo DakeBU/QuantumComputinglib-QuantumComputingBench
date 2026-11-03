@@ -1,0 +1,362 @@
+{
+  "candidate_batch_digest": "8d830dd741d4ef24e77dc8e9a1de15f7133d874fa303ea98d93a0c48dd61580f",
+  "decoder_digests": {
+    "be": "8be0bfe52f787631920cb508dd2c0785e26ce81980b0e26c85dad9cce3129f33",
+    "rank": "a35743841d60cb3fb3f0bab441f3acc1260fe65ea163acd25c12076c4731a54b"
+  },
+  "packet_digests": {
+    "be": "d70c444420d9230b58a30be66c7a0d7abf602eaff696228336d684f9b5226279",
+    "rank": "1c2a7e1a03f2ccc430e24a70f8e69e486334327e2eb0afa0c9d793dd81adbea9"
+  },
+  "schema_version": "qcb.course_comparison_input.v1",
+  "views": [
+    {
+      "ambient_context": {
+        "interface_signatures": [
+          {
+            "name": "Matrix.mem_unitaryGroup_iff'",
+            "signature": "∀ {n : Type u} [DecidableEq n] [Fintype n] {A : Matrix n n ℂ}, A ∈ Matrix.unitaryGroup n ℂ ↔ star A * A = 1"
+          },
+          {
+            "name": "Matrix.star_eq_conjTranspose",
+            "signature": "∀ {n : Type u} [Fintype n] [DecidableEq n] (A : Matrix n n ℂ), star A = A.conjTranspose"
+          },
+          "Matrix.one_apply: (1 : Matrix n n α) i j = if i = j then 1 else 0 (with the ambient semiring and DecidableEq instances)."
+        ],
+        "literal_definitions": [
+          {
+            "ambient_parameters": "{m n α : Type*} [Star α]",
+            "literal_declaration": "def conjTranspose [Star α] (M : Matrix m n α) : Matrix n m α :=\n  M.transpose.map star",
+            "name": "Matrix.conjTranspose"
+          },
+          {
+            "ambient_parameters": "(n : Type u) [DecidableEq n] [Fintype n] (α : Type v) [CommRing α] [StarRing α]",
+            "literal_declaration": "abbrev unitaryGroup : Submonoid (Matrix n n α) :=\n  unitary (Matrix n n α)",
+            "name": "Matrix.unitaryGroup"
+          },
+          {
+            "ambient_parameters": "none",
+            "literal_declaration": "noncomputable def realOrthogonalRotation (cosine sine : Real) :\n    _root_.Matrix (Fin 2) (Fin 2) ℂ := fun row column =>\n  match row.val, column.val with\n  | 0, 0 => (cosine : ℂ)\n  | 0, _ => -(sine : ℂ)\n  | _, 0 => (sine : ℂ)\n  | _, _ => (cosine : ℂ)",
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation"
+          }
+        ]
+      },
+      "assumptions": [
+        "c and s are real scalars embedded in the complex field",
+        "Unitarity means the conjugate transpose times the matrix equals the identity"
+      ],
+      "conventions": [
+        "The matrix has top row (c,-s) and bottom row (s,c)",
+        "Conjugation is the identity on real entries"
+      ],
+      "core_id": "qcb-core-be-105",
+      "decoder": {
+        "ambiguities": [],
+        "anonymous_id": "B1",
+        "limitations": [
+          "This interprets only the anonymous successor packet and its supplied literals and interfaces; no Lean execution, proof checking, source-equivalence verdict, or comparison with an unseen question is claimed.",
+          "Matrix.one_apply is used as a normalized interface giving diagonal entry 1 and off-diagonal entry 0. It is not treated as a byte-literal complete declaration or independently checked source.",
+          "This is only the specified two-real-parameter family in complex 2 by 2 matrices; it is not a characterization of every complex 2 by 2 matrix.",
+          "No angle construction, tensor register, block-encoding property, approximation guarantee, or resource estimate is stated."
+        ],
+        "reconstructed_statement": "For every c,s ∈ ℝ, let R(c,s) be the complex 2 by 2 matrix [[c,-s],[s,c]], where real entries are canonically embedded in ℂ. Then R(c,s) is unitary if and only if c²+s²=1 in ℝ. Using the supplied interfaces, unitarity means R(c,s)†R(c,s)=I₂, where † denotes conjugate transpose and I₂ has diagonal entries 1 and off-diagonal entries 0.",
+        "semantic_slots": {
+          "ambient_interface_update": "The successor packet supplies the normalized Matrix.one_apply interface, so identity entries are now explicit Kronecker deltas rather than an omitted ambient convention.",
+          "logical_strength": "This is an iff, asserting both necessity and sufficiency, rather than just a sufficient normalization condition.",
+          "matrix_entries_and_order": "R(0,0)=c, R(0,1)=-s, R(1,0)=s, and R(1,1)=c in ℂ, with the displayed row-column order.",
+          "nonemptiness_and_dimension": "Fin 2 is fixed, finite, and nonempty; there is no variable or zero-dimensional matrix carrier in this view.",
+          "prior_ambiguity_status": "The earlier B1 decoding had no listed ambiguity; the added identity interface makes the identity-entry convention explicit.",
+          "quantifiers_and_universes": "The only quantified mathematical parameters are c and s, each in ℝ. Matrix row and column indices are fixed to Fin 2. The declared universes u,v,w do not introduce variable index carriers in this target.",
+          "scalar_and_normalization": "The condition c²+s²=1 is an exact real equality. The parameters are unrestricted real numbers before this condition is imposed. There is no scalar prefactor or assumption that c and s were supplied as cosine and sine of an angle.",
+          "typeclass_domains": "No additional target hypotheses on index types are present. Fin 2 supplies the needed Fintype and DecidableEq instances.",
+          "unitarity": "The membership interface gives star R * R = 1; the star interface gives conjugate transpose; the normalized identity interface gives the usual 0/1 matrix identity."
+        }
+      },
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.Robin.ComplexLCU"
+        ],
+        "preamble": "universe u v w\nopen scoped BigOperators Kronecker",
+        "target": "∀ (c s : ℝ), (QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation c s) ∈ Matrix.unitaryGroup (Fin 2) ℂ ↔ c ^ 2 + s ^ 2 = 1"
+      },
+      "question": "A real planar rotation embedded over the complex numbers is the 2x2 matrix with top row (c, -s) and bottom row (s, c) for real scalars c and s. Prove that this matrix is unitary exactly when c^2 + s^2 = 1, by computing all four entries of the product of its conjugate transpose with itself, and explain why no further hypothesis on c and s is needed and why complex conjugation plays no role here.",
+      "reference_answer": "Call the matrix M with M = [[c, -s], [s, c]], entries real but viewed in the complex field. Its conjugate transpose M* has entries that are complex conjugates of the transpose; since c and s are real, conjugation is the identity on them, so M* = [[c, s], [-s, c]] (the ordinary real transpose). Compute M* M entrywise using Fin-2 sums. (1,1) entry: c*c + s*s = c^2 + s^2. (1,2) entry: c*(-s) + s*c = -cs + cs = 0. (2,1) entry: (-s)*c + c*s = -sc + cs = 0. (2,2) entry: (-s)*(-s) + c*c = s^2 + c^2 = c^2 + s^2. So M* M = [[c^2+s^2, 0],[0, c^2+s^2]], which equals the 2x2 identity if and only if c^2 + s^2 = 1. Hence M is unitary precisely under the normalization c^2 + s^2 = 1. No further hypothesis is required: the off-diagonal entries cancel identically for every real c, s (they are structural cancellations -cs+cs), so the only constraint comes from the diagonal. Conjugation plays no role because the entries are real: for a genuinely complex rotation one would need |entries|^2, but here conjugation acts trivially and the unitarity condition collapses to the real Pythagorean identity c^2 + s^2 = 1. In particular, taking c = cos t and s = sin t makes the identity automatic, so every angle-parameterized real rotation is unitary.",
+      "source_item_digest": "15381b174d3517cf5ade51fd5a8bfdf0eee977640793ea43e93c0627b2eaede1",
+      "task_hash": "10a80dfb44b565c402409a40aa0eb604f9b289aa32f9d0fb0678c86a7369f5bd"
+    },
+    {
+      "ambient_context": {
+        "interface_signatures": [
+          {
+            "name": "Matrix.mem_unitaryGroup_iff'",
+            "signature": "∀ {n : Type u} [DecidableEq n] [Fintype n] {A : Matrix n n ℂ}, A ∈ Matrix.unitaryGroup n ℂ ↔ star A * A = 1"
+          },
+          {
+            "name": "Matrix.star_eq_conjTranspose",
+            "signature": "∀ {n : Type u} [Fintype n] [DecidableEq n] (A : Matrix n n ℂ), star A = A.conjTranspose"
+          },
+          "Matrix.one_apply: (1 : Matrix n n α) i j = if i = j then 1 else 0 (with the ambient semiring and DecidableEq instances)."
+        ],
+        "literal_definitions": [
+          {
+            "ambient_parameters": "{m n α : Type*} [Star α]",
+            "literal_declaration": "def conjTranspose [Star α] (M : Matrix m n α) : Matrix n m α :=\n  M.transpose.map star",
+            "name": "Matrix.conjTranspose"
+          },
+          {
+            "ambient_parameters": "(n : Type u) [DecidableEq n] [Fintype n] (α : Type v) [CommRing α] [StarRing α]",
+            "literal_declaration": "abbrev unitaryGroup : Submonoid (Matrix n n α) :=\n  unitary (Matrix n n α)",
+            "name": "Matrix.unitaryGroup"
+          },
+          {
+            "ambient_parameters": "{m n o α : Type*} [DecidableEq o] [Zero α]",
+            "literal_declaration": "def blockDiagonal (M : o → Matrix m n α) : Matrix (m × o) (n × o) α :=\n  of <| (fun ⟨i, k⟩ ⟨j, k'⟩ => if k = k' then M k i j else 0 : m × o → n × o → α)",
+            "name": "Matrix.blockDiagonal"
+          }
+        ]
+      },
+      "assumptions": [
+        "Each diagonal block B_k is unitary on the shared target space",
+        "The full operator is block-diagonal in the control index"
+      ],
+      "conventions": [
+        "Off-diagonal blocks of a block-diagonal matrix are zero",
+        "Unitarity means the conjugate transpose times the operator is the identity"
+      ],
+      "core_id": "qcb-core-be-107",
+      "decoder": {
+        "ambiguities": [],
+        "anonymous_id": "B2",
+        "limitations": [
+          "This interprets only the anonymous successor packet and its supplied literals and interfaces; no Lean execution, proof checking, source-equivalence verdict, or comparison with an unseen question is claimed.",
+          "Matrix.one_apply is used as a normalized interface giving diagonal entry 1 and off-diagonal entry 0. It is not treated as a byte-literal complete declaration or independently checked source.",
+          "No register swap, reordering to κ × ι, contiguous numeric block layout, converse theorem, spectral property, Hermitian property, or block-encoding accuracy is asserted."
+        ],
+        "reconstructed_statement": "For arbitrary types ι : Type u and κ : Type v, each with Fintype and DecidableEq, and every family U_k=blocks(k) of complex square matrices on ι indexed by k ∈ κ, if every U_k is unitary, then the matrix D on ι × κ is unitary, where D((i,k),(j,k′))=U_k(i,j) if k=k′, and 0 otherwise. The first product coordinate is the within-block index and the second is the block selector. The implication is (∀ k, U_k†U_k=I_ι) ⇒ D†D=I_{ι×κ}, with the supplied ordinary identity entries.",
+        "semantic_slots": {
+          "ambient_interface_update": "The successor packet supplies the normalized Matrix.one_apply interface, so identity entries are now explicit Kronecker deltas rather than an omitted ambient convention.",
+          "carrier_and_coordinate_order": "The literal row and column carrier is ι × κ. It is not κ × ι. Each coordinate pair is (within-block index, block selector); no permutation or chosen numeric enumeration is specified.",
+          "entry_semantics": "The definition checks equality of the second coordinates k and k′. When equal, it takes blocks k i j; otherwise it takes 0 in ℂ.",
+          "general_domain": "Both cardinalities are arbitrary finite cardinalities, including zero. No positive dimension, power-of-two dimension, preferred zero state, or qubit representation is required.",
+          "logical_strength": "The root states sufficiency as a one-way implication. It does not state the converse or an iff.",
+          "nonemptiness_and_zero_dimension": "Neither ι nor κ has a Nonempty assumption. If either is empty then ι × κ is empty and D is zero-dimensional. If κ is empty the all-blocks premise is vacuous; if ι is empty each block is zero-dimensional.",
+          "prior_ambiguity_status": "The earlier B2 decoding had no listed ambiguity; the added identity interface makes the identity-entry convention explicit.",
+          "quantifiers_and_universes": "ι : Type u and κ : Type v are independently universally quantified. The family blocks : κ → Matrix ι ι ℂ is also universal. The matrix product carrier lies in universe max(u,v).",
+          "scalar_and_normalization": "The construction directly uses the complex block entries. No weighting, scalar normalization, averaging, or approximation is involved.",
+          "typeclass_domains": "Both ι and κ have Fintype and DecidableEq assumptions. All blocks share the same square within-block carrier ι.",
+          "unitarity": "Membership means conjugate transpose times the matrix equals its identity matrix, with 0/1 entries made explicit by the new normalized interface."
+        }
+      },
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.Robin.ComplexLCU"
+        ],
+        "preamble": "universe u v w\nopen scoped BigOperators Kronecker",
+        "target": "∀ {ι : Type u} {κ : Type v} [Fintype ι] [DecidableEq ι] [Fintype κ] [DecidableEq κ] (blocks : κ → Matrix ι ι ℂ), (∀ k, blocks k ∈ Matrix.unitaryGroup ι ℂ) → Matrix.blockDiagonal blocks ∈ Matrix.unitaryGroup (ι × κ) ℂ"
+      },
+      "question": "A controlled family of operators is placed block-diagonally: for each control value k there is a block B_k acting on the same target space, and the full operator is the block-diagonal matrix whose k-th diagonal block is B_k. Prove that if every block B_k is unitary then the whole block-diagonal operator is unitary, by showing how the conjugate transpose interacts with the block-diagonal structure and that the product collapses block-by-block to the identity.",
+      "reference_answer": "Let D = blockDiagonal(B) be the operator on the product index (target x control) whose (k,k) block is B_k and whose off-diagonal blocks are 0. First, the conjugate transpose commutes with the block-diagonal construction: star(D) is the block-diagonal operator whose k-th block is star(B_k). This is checked entrywise: for two compound indices with control parts kR and kC, if kR != kC the entry is 0 on both sides (a block-diagonal matrix has zero off-diagonal blocks, and so does its conjugate transpose), and if kR = kC the entry is the conjugate-transpose entry of the single block B_k. Hence star(D) = blockDiagonal(k -> star(B_k)). Next, the product of two block-diagonal matrices is block-diagonal with the blocks multiplied pointwise: star(D) * D = blockDiagonal(k -> star(B_k) * B_k). Now use the hypothesis: each B_k is unitary, so star(B_k) * B_k = I for every k. Therefore the family k -> star(B_k) * B_k is the constant identity family, and blockDiagonal of the all-identity family is the identity matrix on the whole product space. Thus star(D) * D = I, which is exactly unitarity of D. The proof uses only (1) that conjugate transpose respects the block structure, (2) that block-diagonal multiplication is pointwise in the control index, and (3) the per-block unitarity hypothesis; no relation between different control values is needed because distinct blocks never interact.",
+      "source_item_digest": "1b36266ef6c6f4eed5fc5fd43aada972b13c343a97ddce568581c553671be494",
+      "task_hash": "5914658bc04d7a3d5be2b7b2590a182a8ada68994c44a3ca9be6d1f7ff9a8ab4"
+    },
+    {
+      "ambient_context": {
+        "interface_signatures": [
+          {
+            "name": "Matrix.mem_unitaryGroup_iff'",
+            "signature": "∀ {n : Type u} [DecidableEq n] [Fintype n] {A : Matrix n n ℂ}, A ∈ Matrix.unitaryGroup n ℂ ↔ star A * A = 1"
+          },
+          {
+            "name": "Matrix.star_eq_conjTranspose",
+            "signature": "∀ {n : Type u} [Fintype n] [DecidableEq n] (A : Matrix n n ℂ), star A = A.conjTranspose"
+          },
+          "Matrix.one_apply: (1 : Matrix n n α) i j = if i = j then 1 else 0 (with the ambient semiring and DecidableEq instances)."
+        ],
+        "literal_definitions": [
+          {
+            "ambient_parameters": "{m n α : Type*} [Star α]",
+            "literal_declaration": "def conjTranspose [Star α] (M : Matrix m n α) : Matrix n m α :=\n  M.transpose.map star",
+            "name": "Matrix.conjTranspose"
+          },
+          {
+            "ambient_parameters": "(n : Type u) [DecidableEq n] [Fintype n] (α : Type v) [CommRing α] [StarRing α]",
+            "literal_declaration": "abbrev unitaryGroup : Submonoid (Matrix n n α) :=\n  unitary (Matrix n n α)",
+            "name": "Matrix.unitaryGroup"
+          },
+          {
+            "ambient_parameters": "declaration has explicit binders",
+            "literal_declaration": "abbrev LCUIndex (coefficient selector system : Type*) :=\n  coefficient × (selector × system)",
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex"
+          },
+          {
+            "ambient_parameters": "declaration has explicit binders",
+            "literal_declaration": "def selectorLift\n    {coefficient selector system : Type*}\n    [Fintype coefficient] [DecidableEq coefficient]\n    [Fintype selector] [DecidableEq selector]\n    [Fintype system] [DecidableEq system]\n    (prepare : _root_.Matrix selector selector ℂ) :\n    _root_.Matrix\n      (LCUIndex coefficient selector system)\n      (LCUIndex coefficient selector system) ℂ :=\n  (1 : _root_.Matrix coefficient coefficient ℂ) ⊗ₖ\n    (prepare ⊗ₖ (1 : _root_.Matrix system system ℂ))",
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.selectorLift"
+          },
+          {
+            "ambient_parameters": "{α β γ l m n p : Type*}",
+            "literal_declaration": "def kroneckerMap (f : α → β → γ) (A : Matrix l m α) (B : Matrix n p β) : Matrix (l × n) (m × p) γ :=\n  of fun (i : l × n) (j : m × p) => f (A i.1 j.1) (B i.2 j.2)",
+            "name": "Matrix.kroneckerMap"
+          },
+          {
+            "ambient_parameters": "{α β γ l m n p : Type*}",
+            "literal_declaration": "def kronecker [Mul α] : Matrix l m α → Matrix n p α → Matrix (l × n) (m × p) α :=\n  kroneckerMap (· * ·)",
+            "name": "Matrix.kronecker"
+          }
+        ]
+      },
+      "assumptions": [
+        "PREPARE is unitary on the selector register alone",
+        "The lift tensors identities on the coefficient and system registers"
+      ],
+      "conventions": [
+        "The identity matrix is a unitary on any register",
+        "star of a Kronecker product is the Kronecker product of the stars"
+      ],
+      "core_id": "qcb-core-be-109",
+      "decoder": {
+        "ambiguities": [],
+        "anonymous_id": "B3",
+        "limitations": [
+          "This interprets only the anonymous successor packet and its supplied literals and interfaces; no Lean execution, proof checking, source-equivalence verdict, or comparison with an unseen question is claimed.",
+          "Matrix.one_apply is used as a normalized interface giving diagonal entry 1 and off-diagonal entry 0. It is not treated as a byte-literal complete declaration or independently checked source.",
+          "A converse is not stated and does not hold uniformly with empty spectators: an empty coefficient type and singleton selector with zero prepare give an empty unitary lift while prepare is nonunitary.",
+          "No distinguished input state, state-preparation column condition, coefficient encoding, selected operation, postselection, or block-encoding correctness equation is part of this target.",
+          "No tensor-factor permutation, explicit reassociation equivalence, approximation guarantee, circuit construction, or resource bound is asserted.",
+          "No unresolved ambiguity essential to this mathematical reading remains within the supplied interface model."
+        ],
+        "reconstructed_statement": "For every coefficient : Type u, selector : Type v, and system : Type w, each equipped with Fintype and DecidableEq, and every complex square matrix P=prepare indexed by selector, if P is unitary then L=I_coefficient ⊗ (P ⊗ I_system) is unitary on coefficient × (selector × system). The product and tensor factors have exactly this order and right association. For row (a,(b,t)) and column (a′,(b′,t′)), the entry is δ_{a,a′} · (P(b,b′) · δ_{t,t′}), where each δ is complex 1 on equality and 0 otherwise. Equivalently the entry is P(b,b′) if a=a′ and t=t′, and 0 otherwise. The theorem is the one-way implication P†P=I_selector ⇒ L†L=I_{coefficient×(selector×system)}.",
+        "semantic_slots": {
+          "action_interpretation": "The matrix acts by prepare on the selector coordinate and leaves the coefficient and system coordinates as spectators through identity factors. The name coefficient denotes an index type, not a complex coefficient value.",
+          "carrier_and_register_order": "LCUIndex coefficient selector system is literally coefficient × (selector × system), with a point (coefficient-coordinate,(selector-coordinate,system-coordinate)). It is not written as (coefficient × selector) × system and no reassociation or reordering equivalence is asserted.",
+          "general_domain": "The index types have arbitrary finite cardinalities, not necessarily positive or powers of two. No preferred zero vector index, input state, or tensor-factor permutation is provided.",
+          "logical_strength": "The target asserts only prepare-unitary implies selectorLift-unitary. It does not assert an iff or necessity of the hypothesis over these general index domains.",
+          "nonemptiness_and_zero_dimension": "None of the three types is required to be nonempty. The total dimension is |coefficient|·|selector|·|system| and may be zero. If coefficient or system is empty, the full lift is an empty matrix for every prepare, so its unitarity does not determine prepare unitarity. If selector is empty, both prepare and its lift are zero-dimensional.",
+          "quantifiers_and_universes": "coefficient : Type u, selector : Type v, and system : Type w are independent arbitrary types, with prepare : Matrix selector selector ℂ universally quantified. The full carrier has universe max(u,max(v,w)).",
+          "resolved_prior_ambiguities": [
+            {
+              "effect": "The Kronecker-delta entry formula and the spectator action on coefficient and system are now explicit consequences of the supplied interface semantics; no identity-entry gap remains.",
+              "item": "Matrix identity entry formula",
+              "resolved_by": "The successor packet supplies normalized Matrix.one_apply: (1 : Matrix n n α) i j = if i=j then 1 else 0.",
+              "status": "resolved"
+            }
+          ],
+          "scalar_and_normalization": "All entries and products are complex. There is no scalar prefactor, amplitude weight, norm bound, normalization constant, or coefficient value in the construction.",
+          "tensor_and_entry_order": "selectorLift is I_coefficient ⊗ (prepare ⊗ I_system). The supplied Kronecker definition gives the entry I_coefficient(a,a′) * (prepare(b,b′) * I_system(t,t′)). The newly supplied identity-entry interface resolves this to δ_{a,a′} * (prepare(b,b′) * δ_{t,t′}).",
+          "typeclass_domains": "The named assumptions fc/dc, fs/ds, ft/dt are respectively Fintype/DecidableEq for coefficient, selector, and system. The explicit @ application passes these six instances in that order.",
+          "unitarity": "The membership and star interfaces make the hypothesis and conclusion exact conjugate-transpose identities on their respective finite carriers."
+        }
+      },
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.Robin.ComplexLCU"
+        ],
+        "preamble": "universe u v w\nopen scoped BigOperators Kronecker",
+        "target": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (prepare : Matrix selector selector ℂ), prepare ∈ Matrix.unitaryGroup selector ℂ → (@QuantumBlockEncoding.Robin.ComplexLCU.selectorLift coefficient selector system fc dc fs ds ft dt prepare) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ"
+      },
+      "question": "A state-preparation unitary acts only on a selector register, but inside a composite machine it is applied on the full product register coefficient x (selector x system) as identity-on-coefficient tensor (PREPARE tensor identity-on-system). Prove that if PREPARE is unitary on the selector register alone then this tensor-lifted operator is unitary on the whole product register, and explain the physical reading: tensoring a gate with 'do nothing' on untouched registers never spoils unitarity.",
+      "reference_answer": "The lifted operator is L = I_c ⊗ (PREPARE ⊗ I_s), a Kronecker product acting on the compound index coefficient x (selector x system). The governing fact is that the Kronecker product of two unitaries is unitary: if M and N are unitary on their respective factors then M ⊗ N is unitary on the product, because star(M ⊗ N) = star(M) ⊗ star(N) and (star(M) ⊗ star(N))(M ⊗ N) = (star(M) M) ⊗ (star(N) N) = I ⊗ I = I. Apply this twice. Inner step: PREPARE is unitary by hypothesis and I_s (the identity on the system) is unitary (its conjugate transpose is itself and the product is the identity), so PREPARE ⊗ I_s is unitary on selector x system. Outer step: I_c (identity on coefficient) is unitary, and PREPARE ⊗ I_s is unitary from the inner step, so I_c ⊗ (PREPARE ⊗ I_s) is unitary on the whole register. The physical reading: 'do nothing' on a register is represented by the identity, which is a trivial unitary; tensoring any unitary with identities on registers it does not touch leaves it unitary because the Kronecker factorization of the unitarity check splits into independent per-factor identities. A unitary gate that physically touches only one subsystem therefore remains a legitimate reversible operation on the enlarged machine, with the untouched registers carried along inertly.",
+      "source_item_digest": "76cc51c2e49f3f7062d8732b280e44f07723d2cfe3a72ceb5bf003e71965a5ff",
+      "task_hash": "922623181f31edc95785acae90443cd7ff10d73ab37e6419ae857e712630823a"
+    },
+    {
+      "ambient_context": {
+        "ambient_definitions": [
+          {
+            "body": "Matrix α β ℝ = α → β → ℝ",
+            "name": "Matrix",
+            "type": "Type u → Type v → Type* → Type*"
+          },
+          {
+            "body": "∀ {α : Type u} {β : Type v} {ι : Type*} [Fintype ι] (F : Matrix α β ℝ), @QuantumBlockEncoding.HermiteCutRank.FactorsThrough α β ι inferInstance F = (∃ A : Matrix α ι ℝ, ∃ B : Matrix ι β ℝ, F = A * B)",
+            "name": "QuantumBlockEncoding.HermiteCutRank.FactorsThrough",
+            "type": "∀ {α : Type u} {β : Type v} {ι : Type*} [Fintype ι], Matrix α β ℝ → Prop"
+          },
+          {
+            "body": "∀ (a : ℝ) (p : Polynomial ℝ), Polynomial.taylor a p = p.comp (Polynomial.X + Polynomial.C a)",
+            "name": "Polynomial.taylor",
+            "type": "ℝ → Polynomial ℝ →ₗ[ℝ] Polynomial ℝ"
+          },
+          {
+            "name": "Matrix.mul_apply",
+            "type": "∀ {α β ι : Type*} [Fintype ι] (A : Matrix α ι ℝ) (B : Matrix ι β ℝ) x y, (A * B) x y = ∑ i, A x i * B i y"
+          },
+          {
+            "body": "∀ {α β : Type*} [Fintype β] (A : Matrix α β ℝ), A.rank = Module.finrank ℝ (LinearMap.range A.mulVecLin)",
+            "name": "Matrix.rank",
+            "type": "∀ {α β : Type*} [Fintype β], Matrix α β ℝ → ℕ"
+          },
+          {
+            "body": "For a matrix M : Matrix α β ℝ with [Fintype β], its linear map acts by (M.mulVecLin v) i = ∑ j, M i j * v j.",
+            "display_kind": "normalized ambient interface; root parameters instantiate the matrix/vector carriers",
+            "name": "Matrix.mulVecLin"
+          },
+          {
+            "body": "Polynomial.natDegree (0 : Polynomial ℝ) = 0",
+            "display_kind": "normalized namespace-qualified interface",
+            "name": "Polynomial.natDegree_zero"
+          }
+        ]
+      },
+      "assumptions": [],
+      "conventions": [],
+      "core_id": "qcb-core-sp-114",
+      "decoder": {
+        "ambiguities": [],
+        "anonymous_id": "view-03",
+        "decoder_identity": "/root/curriculum_blind_decoder",
+        "limitations": [
+          "This is an interpretation of the anonymous successor packet only. No Lean execution, proof checking, source-equivalence verdict, or comparison with an unseen question is claimed.",
+          "The two added ambient items are used as supplied normalized interfaces; they are not represented here as byte-literal complete declarations or independently checked library source.",
+          "The statement gives no rank lower bound, exact-rank formula, sharpness claim, full-rank factor guarantee, conditioning estimate, approximation error, algorithmic complexity bound, or training guarantee.",
+          "It assumes no distinctness, injectivity, boundedness, geometric structure, probability distribution, or normalization for row or col.",
+          "No unresolved ambiguity essential to this mathematical reading remains within the supplied interface model."
+        ],
+        "packet_digest": "1c2a7e1a03f2ccc430e24a70f8e69e486334327e2eb0afa0c9d793dd81adbea9",
+        "reconstructed_statement": "For every type α in universe u, every type β in universe v equipped with Fintype β, every real polynomial p, every natural number d satisfying p.natDegree ≤ d, and every row : α → ℝ and col : β → ℝ, set M(x,y)=p(row(x)+col(y)). Three assertions hold together. (1) For all x ∈ α and y ∈ β, M(x,y)=Σ_{i=0}^{d} ([X^i]p(X+row(x))) · col(y)^i. (2) There exist real matrices A indexed by α × Fin(d+1) and B indexed by Fin(d+1) × β such that M=AB, with (AB)(x,y)=Σ_{i∈Fin(d+1)} A(x,i)B(i,y). (3) The real dimension of the image of the linear map T_M : ℝ^β → ℝ^α given by (T_M v)(x)=Σ_{y∈β} M(x,y)v(y) is at most d+1. This is the supplied Matrix.rank M, namely Module.finrank ℝ (LinearMap.range M.mulVecLin).",
+        "schema_version": "qcb.curriculum_blind_decode.v1",
+        "semantic_slots": {
+          "degree_hypothesis_and_zero": "The condition is p.natDegree ≤ d, not equality and not a nonzero-polynomial assumption. The added normalized interface states natDegree(0)=0, so the zero polynomial satisfies the degree hypothesis for every natural d.",
+          "expansion_indices": "The sum is over exactly Fin(d+1), with each index coerced to its natural value i=0,...,d for both coefficient extraction and the exponent. d=0 is permitted.",
+          "factorization": "FactorsThrough α β (Fin(d+1)) means the existence of the two real matrices A and B with exact equality M=A*B. It does not assert a least possible factor dimension. The scalar expansion displays the candidate entries A(x,i)=[X^i]p(X+row(x)) and B(i,y)=col(y)^i, although the existential conjunct itself does not name witnesses.",
+          "logical_shape": "The conclusion is a conjunction of a universal scalar identity, an existential exact factorization, and a natural-number rank upper bound.",
+          "nonemptiness_and_finiteness": "Neither α nor β is required to be nonempty, and α need not be finite. If either is empty, the displayed matrix has zero-dimensional image. The intermediate index Fin(d+1) is finite and nonempty for every natural d.",
+          "quantifiers_and_universes": "α : Type u and β : Type v are independent arbitrary index types. p, d, the evidence hd of p.natDegree ≤ d, row, and col are universally quantified. Only β has a Fintype assumption; no separate DecidableEq or Nonempty assumption occurs in the target.",
+          "rank_map_and_dimension": "The new normalized interface explicitly gives M.mulVecLin on a coordinate vector v as x ↦ Σ_y M(x,y)v(y). Its image is the real span of the columns of M, viewed as functions α → ℝ. Since β is finite, this image is finite-dimensional even if α is infinite. Thus finrank here is an ordinary finite real vector-space dimension.",
+          "resolved_prior_ambiguities": [
+            {
+              "effect": "The rank can now be read explicitly as the dimension of the image of the stated finite-column matrix-vector map.",
+              "item": "Matrix.mulVecLin action",
+              "resolved_by": "The successor packet supplies the normalized ambient interface (M.mulVecLin v) i = Σ_j M i j * v j.",
+              "status": "resolved"
+            },
+            {
+              "effect": "The degree hypothesis includes the zero polynomial for every natural d without a remaining convention gap.",
+              "item": "Zero-polynomial natDegree convention",
+              "resolved_by": "The successor packet supplies normalized namespace-qualified Polynomial.natDegree_zero: natDegree(0 : Polynomial ℝ)=0.",
+              "status": "resolved"
+            }
+          ],
+          "scalar_domain": "Polynomial coefficients, matrix entries, and row and column values lie in ℝ. d and Matrix.rank M lie in ℕ.",
+          "taylor_and_normalization": "Polynomial.taylor a p is p.comp(X+C a), so its ith coefficient is the ordinary coefficient [X^i]p(X+a). The formula uses this coefficient directly. There is no additional factorial, weight, norm normalization, or derivative expression in the target."
+        },
+        "source_blind": true
+      },
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.HermiteCutRank"
+        ],
+        "preamble": "universe u v\nopen scoped BigOperators",
+        "target": "∀ {α : Type u} {β : Type v} [Fintype β] (p : Polynomial ℝ) (d : ℕ) (hd : p.natDegree ≤ d) (row : α → ℝ) (col : β → ℝ), (∀ x y, p.eval (row x + col y) = ∑ i : Fin (d + 1), (Polynomial.taylor (row x) p).coeff (i : ℕ) * col y ^ (i : ℕ)) ∧ @QuantumBlockEncoding.HermiteCutRank.FactorsThrough α β (Fin (d + 1)) inferInstance (fun x y => p.eval (row x + col y)) ∧ (Matrix.rank (fun x y => p.eval (row x + col y) : Matrix α β ℝ) ≤ d + 1)",
+        "universe_parameters": [
+          "u",
+          "v"
+        ]
+      },
+      "question": "Consider a bivariate real array F(x,y) = q(u(x) + v(y)), where q is a real polynomial of degree at most d and u, v are arbitrary real-valued functions of the row index x and column index y respectively. Prove that F factorizes as a matrix product A * B with inner dimension d+1, and conclude that the rank of F is at most d+1. Make explicit which polynomial identity provides the factorization and why only the degree of q — not the number of rows or columns — controls the inner dimension.",
+      "reference_answer": "Step 1 (shifted-Taylor expansion of an additive argument): fix a row x and let a = u(x). Expand q about a: for any real s, q(a + s) = sum_{i=0}^{d} c_i(a) s^i, where c_i(a) is the degree-i coefficient of the Taylor expansion of q about a (the sum stops at d because deg q <= d, so the shifted polynomial also has degree <= d). Step 2 (separate the variables): apply this with a = u(x) and s = v(y): F(x,y) = q(u(x) + v(y)) = sum_{i=0}^{d} c_i(u(x)) * v(y)^i. Each summand is a product of a function of x alone, A(x,i) := c_i(u(x)), and a function of y alone, B(i,y) := v(y)^i. Step 3 (read off the matrix product): define A as the (number of rows) by (d+1) matrix with entries A(x,i) and B as the (d+1) by (number of columns) matrix with entries B(i,y). Then (A B)(x,y) = sum_{i=0}^{d} A(x,i) B(i,y) = F(x,y), i.e. F = A * B exactly, with inner dimension d+1. Step 4 (rank bound): the rank of a product A*B is at most the number of columns of A, which is d+1; equivalently the inner dimension bounds the rank. Hence rank F <= d+1. Why the inner dimension is degree-controlled: the only data that produce the finite factorization are the d+1 Taylor coefficients of q; the number of distinct values of u and v (i.e. the matrix dimensions) is irrelevant. The additive structure u(x)+v(y) is essential — it is what lets the single-variable Taylor expansion separate the two indices into a sum of d+1 rank-one pieces. A generic bivariate function without this additive polynomial structure would have no such bound.",
+      "source_item_digest": "8692de94902e02e828e3bcd36f059d65ad388327e3f3824390ab974de1fa729b",
+      "task_hash": "c5dd692db8ad0fcd48c069ecfbe621bb3117c894dbdc255a9c8ea9410af56b24"
+    }
+  ]
+}

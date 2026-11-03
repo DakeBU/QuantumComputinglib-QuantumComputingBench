@@ -1,0 +1,1736 @@
+{
+  "candidate_batch_digest": "54bcaba21df2d2b2e993e65edf407bc9e4dc83a12cbbd7b8356a04ab95f4d018",
+  "decoder_digests": {
+    "conditioning": "bf03d3d06ae36d704818d046b0c0faf79d43a93bf4ca3086e36f530d5dfd5d92",
+    "lcu": "3d07ba1318554b2cd15b13d21b0ece34d3ab3c926f1989175735823fee07d6b6"
+  },
+  "packet_digests": {
+    "conditioning": "6407fecde0c8071f98a913f4319f278a76644cdfe00fcc4b16be522fc0edca03",
+    "lcu": "8892961840528f69443e9cfba019de86f313949f7405a8e5efcca7b28d1e063d"
+  },
+  "schema_version": "qcb.course_semantic_comparison_input.v1",
+  "views": [
+    {
+      "ambient_context": {
+        "ambient_definitions": [
+          {
+            "equations": [
+              "R 0 0 = (c : ℂ)",
+              "R 0 1 = -(s : ℂ)",
+              "R 1 0 = (s : ℂ)",
+              "R 1 1 = (c : ℂ)"
+            ],
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation",
+            "signature": "ℝ → ℝ → Matrix (Fin 2) (Fin 2) ℂ"
+          },
+          {
+            "equations": [
+              "QuantumBlockEncoding.Robin.ComplexLCU.realRotation a = QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation (Real.cos a) (Real.sin a)"
+            ],
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.realRotation",
+            "signature": "ℝ → Matrix (Fin 2) (Fin 2) ℂ"
+          },
+          {
+            "equations": [
+              "QuantumBlockEncoding.Robin.ComplexLCU.amplitudeRotation x = QuantumBlockEncoding.Robin.ComplexLCU.realRotation (Real.arccos x)"
+            ],
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.amplitudeRotation",
+            "signature": "ℝ → Matrix (Fin 2) (Fin 2) ℂ"
+          },
+          {
+            "membership": "M ∈ Matrix.unitaryGroup ι ℂ ↔ star M * M = 1; all ι are finite; star is conjugate transpose",
+            "name": "Matrix.unitaryGroup"
+          },
+          {
+            "equations": [
+              "QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system = coefficient × (selector × system)"
+            ],
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex",
+            "signature": "(coefficient : Type u) → (selector : Type v) → (system : Type w) → Type (max u v w)"
+          },
+          {
+            "equations": [
+              "selectorLift prepare = I_coefficient ⊗ₖ (prepare ⊗ₖ I_system)"
+            ],
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.selectorLift",
+            "signature": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (prepare : Matrix selector selector ℂ), Matrix (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ"
+          },
+          {
+            "equations": [
+              "amplitudeLift rotation = Matrix.blockDiagonal (fun context => rotation context.1 context.2)",
+              "entry at (c,(s,x)), (d,(t,y)) is rotation s x c d if (s,x)=(t,y), otherwise zero"
+            ],
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.amplitudeLift",
+            "signature": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (rotation : selector → system → Matrix coefficient coefficient ℂ), Matrix (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ"
+          },
+          {
+            "equations": [
+              "e (c,(s,x)) = (c,(s,permutation s x))",
+              "e.symm (c,(s,x)) = (c,(s,(permutation s).symm x))"
+            ],
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv",
+            "signature": "∀ {coefficient : Type u} {selector : Type v} {system : Type w}, (selector → system ≃ system) → (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system ≃ QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system)"
+          },
+          {
+            "equations": [
+              "equivPermutationMatrix e r c = if r = e c then 1 else 0"
+            ],
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix",
+            "signature": "∀ {ι : Type u} [DecidableEq ι], (ι ≃ ι) → Matrix ι ι ℂ"
+          },
+          {
+            "equations": [
+              "selectLift permutation = equivPermutationMatrix (controlledSystemEquiv permutation)"
+            ],
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.selectLift",
+            "signature": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [dc : DecidableEq coefficient] [ds : DecidableEq selector] [dt : DecidableEq system] (permutation : selector → system ≃ system), Matrix (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ"
+          },
+          {
+            "equations": [
+              "(@QuantumBlockEncoding.Robin.ComplexLCU.prepareAmplitudeSelectUnprepare coefficient selector system fc dc fs ds ft dt prepare rotation permutation) = star (@QuantumBlockEncoding.Robin.ComplexLCU.selectorLift coefficient selector system fc dc fs ds ft dt prepare) * ((@QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dt permutation) * ((@QuantumBlockEncoding.Robin.ComplexLCU.amplitudeLift coefficient selector system fc dc fs ds ft dt rotation) * (@QuantumBlockEncoding.Robin.ComplexLCU.selectorLift coefficient selector system fc dc fs ds ft dt prepare)))"
+            ],
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.prepareAmplitudeSelectUnprepare",
+            "signature": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (prepare : Matrix selector selector ℂ) (rotation : selector → system → Matrix coefficient coefficient ℂ) (permutation : selector → system ≃ system), Matrix (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ"
+          }
+        ],
+        "conventions": [
+          "Matrices act on column vectors from the left.",
+          "Rows and columns of all lifted operators use coefficient × (selector × system).",
+          "Finite types may be empty; no designated labels are assumed.",
+          "The formal targets do not assert circuit cost bounds."
+        ],
+        "schema_version": "qcb.formal_decoder_input.v1",
+        "source_blind": true
+      },
+      "core_id": "qcb-core-be-106",
+      "formal_context_digest": "4b8e6c712f7353fbc8f5f9a5fab70e0e3cdcf81d1fa9116bcc40ac5b63169f60",
+      "formal_view": {
+        "anonymous_id": "L1",
+        "formal_context": {
+          "imports": [
+            "QuantumBlockEncoding.Robin.ComplexLCU"
+          ],
+          "preamble": "universe u v w\nopen scoped BigOperators Kronecker",
+          "target": "∀ (angle : ℝ → ℝ), (∀ x : ℝ, -1 ≤ x → x ≤ 1 → Real.cos (angle x) = x) → ∀ x : ℝ, QuantumBlockEncoding.Robin.ComplexLCU.realRotation (angle x) ∈ Matrix.unitaryGroup (Fin 2) ℂ ∧ (QuantumBlockEncoding.Robin.ComplexLCU.realRotation (angle x) 0 0 = (x : ℂ) ↔ -1 ≤ x ∧ x ≤ 1) ∧ (1 < |x| → QuantumBlockEncoding.Robin.ComplexLCU.realRotation (angle x) 0 0 ≠ (x : ℂ))",
+          "universe_parameters": [
+            "u",
+            "v",
+            "w"
+          ]
+        },
+        "nodes": [
+          {
+            "depends_on": [],
+            "id": "be106_angle_unitary",
+            "target": "∀ (angle : ℝ), QuantumBlockEncoding.Robin.ComplexLCU.realRotation angle ∈ Matrix.unitaryGroup (Fin 2) ℂ"
+          },
+          {
+            "depends_on": [],
+            "id": "be106_readout_range",
+            "target": "∀ (angle coefficient : ℝ), QuantumBlockEncoding.Robin.ComplexLCU.realRotation angle 0 0 = (coefficient : ℂ) → -1 ≤ coefficient ∧ coefficient ≤ 1"
+          },
+          {
+            "depends_on": [
+              "be106_angle_unitary",
+              "be106_readout_range"
+            ],
+            "id": "be106_root",
+            "target": "∀ (angle : ℝ → ℝ), (∀ x : ℝ, -1 ≤ x → x ≤ 1 → Real.cos (angle x) = x) → ∀ x : ℝ, QuantumBlockEncoding.Robin.ComplexLCU.realRotation (angle x) ∈ Matrix.unitaryGroup (Fin 2) ℂ ∧ (QuantumBlockEncoding.Robin.ComplexLCU.realRotation (angle x) 0 0 = (x : ℂ) ↔ -1 ≤ x ∧ x ≤ 1) ∧ (1 < |x| → QuantumBlockEncoding.Robin.ComplexLCU.realRotation (angle x) 0 0 ≠ (x : ℂ))"
+          }
+        ]
+      },
+      "source_blind_decode": {
+        "ambiguities": [],
+        "anonymous_id": "L1",
+        "limitations": [
+          "This output translates the complete supplied root using the supplied ambient definitions. It does not provide a proof, certify successful Lean elaboration, or establish source equivalence.",
+          "Only the successor formal input was read for this decode. No source QA, proof body, proof log, author packet or desired comparison verdict was inspected."
+        ],
+        "reconstructed_statement": "For every function a:R->R, suppose that for every t in R, -1<=t implies that t<=1 implies cos(a(t))=t. Then, for every x in R, let U_x=[[cos(a(x)),-sin(a(x))],[sin(a(x)),cos(a(x))]], regarded as a complex matrix with row and column indices Fin 2. The following three statements hold together: (1) U_x is unitary, meaning U_x^dagger U_x=I_2; (2) U_x(0,0) equals the complex embedding of x if and only if -1<=x and x<=1; (3) if 1<|x|, U_x(0,0) does not equal the complex embedding of x. The conclusion quantifies over every real x, including x outside [-1,1].",
+        "semantic_slots": {
+          "ambient_interface_alignment": [
+            "The supplied realRotation and realOrthogonalRotation equations determine this two-by-two complex matrix without any missing ambient context."
+          ],
+          "conditional_and_biconditional_scope": [
+            "H constrains a through its cosine only for arguments in the closed interval [-1,1].",
+            "The outer conclusion has no assumption that x lies in that interval. In particular, its unitarity assertion covers all real x.",
+            "The forward half of the biconditional states that readout equality implies both -1<=x and x<=1; the reverse half states that those two bounds imply readout equality.",
+            "The inequalities are weak in the biconditional, so both endpoints -1 and 1 are included.",
+            "The final implication separately states non-equality when |x|>1. Its antecedent is local to that conjunct and does not restrict the preceding conclusions or the outer quantifier."
+          ],
+          "domains_scalars_and_indices": [
+            "a, its argument and value, sine, cosine, order relations, and absolute value are real.",
+            "All matrix entries and the readout equality use complex scalars. The displayed real entries and x are embedded into the complex field.",
+            "Both matrix index sets are Fin 2. In order (0,1), the first row is (cos(a(x)),-sin(a(x))) and the second row is (sin(a(x)),cos(a(x))).",
+            "Dagger means complex conjugate transpose, I_2 is the identity matrix, and matrices act on column vectors from the left."
+          ],
+          "finite_and_empty_cases": [
+            "Fin 2 has exactly two elements and designated labels 0 and 1. There is no empty-index case in this root."
+          ],
+          "nonclaims": [
+            "The root assumes H and does not separately construct the function a.",
+            "It does not require a(x)=arccos(x), a particular angle branch, continuity, monotonicity or measurability.",
+            "The sine entry is not required to equal the nonnegative square root of 1-x^2; its sign is determined by the chosen real angle.",
+            "The root does not specify an extension rule for a outside [-1,1], and does not assert a real or complex coefficient readout beyond the stated cosine entry.",
+            "No implementation or circuit cost assertion occurs."
+          ],
+          "quantifier_order": [
+            "For every a:R->R.",
+            "Assume H: forall t:R, (-1<=t) -> ((t<=1) -> (cos(a(t))=t)).",
+            "For every x:R, assert the conjunction of unitarity, the readout biconditional, and the outside-interval conditional."
+          ]
+        }
+      },
+      "source_item": {
+        "answer_format": "rubric",
+        "assumptions": [
+          "The angle t(x) satisfies cos t(x) = x on -1 <= x <= 1 and is extended in some unspecified way elsewhere",
+          "The clean entry is read as the top-left matrix element"
+        ],
+        "author": {
+          "identity": "oracle-composition-author-b2",
+          "independence": "self-authored; distinct reviewer required",
+          "method": "Native mathematical authoring from inspected complete sources"
+        },
+        "authored_hash": "d649c6f4df2030de254bf4e60432691366ce4c72d6a1f03130933b487a5a93c2",
+        "context_hash": "155da9f9b71a08a88720c258bf9adcd8db519b62f572f5cb88c113d0ccbc340e",
+        "conventions": [
+          "The amplitude gate is the planar rotation through an inverse-cosine branch of x",
+          "The cosine of any real angle lies in the closed interval [-1, 1]"
+        ],
+        "core_id": "qcb-core-be-106",
+        "cross_version_split_conflict": false,
+        "difficulty": {
+          "level": "intermediate",
+          "rationale": "Requires separating a structural unitarity guarantee from a domain-restricted semantic readout and proving failure for |x|>1 purely from the bounded range of cosine, with no appeal to a specific extension value."
+        },
+        "evidence_relation": "nl_bridge_from_inspected_source",
+        "evidence_status": "source_inspected",
+        "exposure": "closed_book",
+        "family": "be-amplitude-unitary-vs-readout",
+        "formal": null,
+        "formal_context": null,
+        "formal_evidence": {
+          "counterpart": "existing_source_not_freshly_verified",
+          "inherited_evidence": "See original provenance only; not rerun or upgraded",
+          "local_verification_performed": false
+        },
+        "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "id": "qcb-46f6d73e40d459e27ce4",
+        "key": "qcb-core-be-106",
+        "language": "en",
+        "legacy_split_constraints": [],
+        "lifecycle": "released",
+        "lineage": {
+          "cost_usd": null,
+          "family": "be-amplitude-unitary-vs-readout",
+          "model_version": null,
+          "parameters": {},
+          "provider": "session assistant",
+          "seed": 0,
+          "template": "qcb-core-be-106",
+          "tokens": null
+        },
+        "mathematical_core_id": "qcb-core-be-106",
+        "native_nl": {
+          "author_identity": "oracle-composition-author-b2",
+          "core_summary": "The inverse-cosine amplitude gate is unitary for every real parameter and for any extension of the angle, but its clean-entry readout equals the parameter only on [-1,1]; for |x|>1 the readout cannot equal x because cosine is bounded in [-1,1], proved without guessing the extension.",
+          "evidence_relation": "nl_bridge_from_inspected_source",
+          "existing_core_aliases": [],
+          "formal_counterpart": "existing_source_not_freshly_verified",
+          "new_problem_core": true
+        },
+        "primary_sources": [],
+        "question": "An amplitude-loading gate is built from a planar rotation through an angle t(x), where t is any fixed real-valued function of the real parameter x chosen so that on the interval -1 <= x <= 1 the cosine of t(x) equals x (an inverse-cosine branch), and extended in some unspecified way to the rest of the real line. Two claims are on the table: (A) the gate is unitary for every real x, with no restriction and independent of how t is extended; (B) the top-left entry of the gate equals x. Decide for which values of x each claim holds. Prove the unconditional claim, prove that claim (B) holds for -1 <= x <= 1, and prove that claim (B) FAILS whenever |x| > 1 without using any particular value of the extension. Explain the asymmetry: why unitarity is free but the clean-entry readout needs -1 <= x <= 1.",
+        "reference_answer": "The gate is the planar rotation with top row (cos t(x), -sin t(x)) and bottom row (sin t(x), cos t(x)). Claim (A) holds unconditionally. For every real angle, cos^2 + sin^2 = 1, so this matrix is a planar rotation and hence unitary (its two entries lie on the unit circle); this is true whatever real number t(x) happens to be, so unitarity holds for all real x and does not depend on how t is extended outside [-1,1]. Claim (B): the top-left entry equals cos t(x). On the interval -1 <= x <= 1 the angle was chosen so that cos t(x) = x, so the top-left entry equals x exactly and the amplitude is loaded correctly. For |x| > 1 the claim fails, and this can be proved without knowing the extension value: the cosine of any real angle lies in the closed interval [-1, 1], so cos t(x) lies in [-1, 1] for every possible choice of t(x); but |x| > 1 means x lies outside [-1, 1], so cos t(x) cannot equal x. Thus the readout is wrong for every |x| > 1 regardless of how t is extended, and no guess about the extension is needed. The asymmetry is the key point: unitarity is a structural property of the rotation shape (two unit-circle entries for any angle), so it survives even a meaningless input; but the clean-entry readout is a semantic promise that the stored amplitude is exactly x, and a cosine can only ever equal numbers in [-1, 1]. A construction can therefore be perfectly unitary yet load the wrong number: a unitarity certificate must not be mistaken for a certificate that the intended coefficient was loaded.",
+        "relation_types": [
+          "authored_mathematical_support"
+        ],
+        "release_policy": "public",
+        "reviewed_core_status": "new_distinct",
+        "reviewed_semantic_step_count": 5,
+        "reviews": [
+          {
+            "artifact": "benchmarks/quantumcomputingbench/reports/native-nl/batch2-oracle-final-review.json",
+            "artifact_sha256": "1029d2f3190d86403dec4d2c31ec83d57ef0e6ec7eb66ebb40f2d7b7a43152c6",
+            "authored_sha256": "d649c6f4df2030de254bf4e60432691366ce4c72d6a1f03130933b487a5a93c2",
+            "checked_sources": [
+              "QuantumBlockEncoding/Robin/ComplexLCU.lean#amplitudeRotation_unitary",
+              "QuantumBlockEncoding/Robin/ComplexLCU.lean#amplitudeRotation_cleanEntry"
+            ],
+            "content_hash": "f081363612c1007da0cf0f2c9aa89c3399e347b4c9cfd34380377c3b090a8dc2",
+            "core_aliases": [],
+            "core_verdict": "new_distinct",
+            "formal_status": "not_run_source_inspection_only",
+            "key": "qcb-core-be-106",
+            "method": "distinct-context-source-review",
+            "notes": "Re-bound to MAIN corrected be-106. Unitary-vs-cleanentry asymmetry core: amplitudeRotation_unitary unconditional L93-96; amplitudeRotation_cleanEntry needs BOTH -1<=x and x<=1 L99-102 (Real.cos_arccos). The MAIN reference_answer NO LONGER contains the false 'arccos pinned to 0 outside [-1,1]' clamp claim that caused my earlier reject; it now argues B fails for |x|>1 via 'cosine of any real angle lies in [-1,1]', valid for any extension t(x), no clamp asserted. formal=null (no leak). My prior reject was against a stale (now-overwritten) artifact -> ACCEPT. Distinct asymmetry core. NOTE: coordinator-quoted sha 9d3ad2f8... does NOT match the canonical sha of MAIN's current be-106 (d649c6f4...); both MAIN and author worktree copies hash to d649c6f4..., so authored_sha256 below is bound to actual file content.",
+            "reviewer": "oracle-composition-reviewer-b2",
+            "verdict": "accept"
+          }
+        ],
+        "rubric": [
+          {
+            "criterion": "Prove unitarity holds for all real x because every planar rotation satisfies cos^2+sin^2=1 regardless of the angle, independent of how t is extended",
+            "id": "c1",
+            "weight": 1
+          },
+          {
+            "criterion": "Prove the top-left entry cos t(x) equals x on -1 <= x <= 1 by the defining choice of the angle",
+            "id": "c2",
+            "weight": 1
+          },
+          {
+            "criterion": "Prove claim (B) fails for every |x|>1 because the cosine of any angle lies in [-1,1] while x does not, with no appeal to a particular extension value",
+            "id": "c3",
+            "weight": 1
+          },
+          {
+            "criterion": "Explain the asymmetry: unitarity is structural and free, but the clean-entry readout is a semantic promise a cosine can satisfy only for values in [-1,1]",
+            "id": "c4",
+            "weight": 1
+          }
+        ],
+        "schema_version": "qcb.item.v1",
+        "semantic_step_count": 5,
+        "semantic_steps": [
+          {
+            "claim": "The amplitude gate is a planar rotation through the angle t(x) with top row (cos t(x), -sin t(x)).",
+            "supporting_nodes": [
+              "declaration:QuantumBlockEncoding.Robin.ComplexLCU.amplitudeRotation"
+            ]
+          },
+          {
+            "claim": "Every planar rotation is unitary since cos^2+sin^2=1 for any angle, so the gate is unitary for all real x independent of the extension of t.",
+            "supporting_nodes": [
+              "declaration:QuantumBlockEncoding.Robin.ComplexLCU.amplitudeRotation_unitary"
+            ]
+          },
+          {
+            "claim": "On -1 <= x <= 1 the angle is chosen so cos t(x) = x, so the top-left entry equals x.",
+            "supporting_nodes": [
+              "declaration:QuantumBlockEncoding.Robin.ComplexLCU.amplitudeRotation_cleanEntry"
+            ]
+          },
+          {
+            "claim": "For |x|>1 the cosine of any angle lies in [-1,1] while x lies outside it, so cos t(x) cannot equal x for any extension value.",
+            "supporting_nodes": [
+              "declaration:QuantumBlockEncoding.Robin.ComplexLCU.amplitudeRotation_cleanEntry"
+            ]
+          },
+          {
+            "claim": "Unitarity is structural and hypothesis-free, but the clean-entry readout is a semantic promise valid only where x is a possible cosine, so unitarity does not certify the right amplitude.",
+            "supporting_nodes": [
+              "declaration:QuantumBlockEncoding.Robin.ComplexLCU.amplitudeRotation_unitary"
+            ]
+          }
+        ],
+        "skills": [
+          "reasoning"
+        ],
+        "source_refs": [
+          {
+            "anchor": "theorem amplitudeRotation_unitary (coefficient : Real) : amplitudeRotation coefficient ∈ _root_.Matrix.unitaryGroup (Fin 2) ℂ := realRotation_unitary _ (lines 93-96); theorem amplitudeRotation_cleanEntry (coefficient : Real) (lower : -1 ≤ coefficient) (upper : coefficient ≤ 1) : amplitudeRotation coefficient 0 0 = (coefficient : ℂ) := by simp [amplitudeRotation, Real.cos_arccos lower upper] (lines 99-102)",
+            "license": "MIT (repository LICENSE)",
+            "path": "QuantumBlockEncoding/Robin/ComplexLCU.lean",
+            "sha256": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843"
+          }
+        ],
+        "split": "train",
+        "split_group": "be-amplitude-unitary-vs-readout",
+        "structural_distance_definition": "unknown; imports are not theorem entailment",
+        "structural_graph_distance": null,
+        "support_count": 4,
+        "supporting_nodes": [
+          "declaration:QuantumBlockEncoding.Robin.ComplexLCU.amplitudeRotation",
+          "declaration:QuantumBlockEncoding.Robin.ComplexLCU.realRotation_unitary"
+        ],
+        "target_nodes": [
+          "declaration:QuantumBlockEncoding.Robin.ComplexLCU.amplitudeRotation_unitary",
+          "declaration:QuantumBlockEncoding.Robin.ComplexLCU.amplitudeRotation_cleanEntry"
+        ],
+        "task_hash": "c18c7f56cef06abc1e2f41f11e7b138a09af8723a451ce63248484dfda4667aa",
+        "task_kind": "boundary",
+        "topic": "oracle_composition",
+        "track": "reasoning",
+        "unresolved_issues": [],
+        "validation": {
+          "answer_quality": "reviewed",
+          "formal": "not_applicable",
+          "nl_alignment": "reviewed"
+        },
+        "verification_receipts": [],
+        "views": [
+          "natural_language"
+        ]
+      },
+      "source_item_digest": "a01f8f5245eb84999d3a73584d8019263b296e87e308ca3a6b391d676bbcc2ea",
+      "task_hash": "56e23870b15d814fe6d7baf028efd3d7be4b961e3c363bcf82894275c9b43e4f"
+    },
+    {
+      "ambient_context": {
+        "ambient_definitions": [
+          {
+            "equations": [
+              "R 0 0 = (c : ℂ)",
+              "R 0 1 = -(s : ℂ)",
+              "R 1 0 = (s : ℂ)",
+              "R 1 1 = (c : ℂ)"
+            ],
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation",
+            "signature": "ℝ → ℝ → Matrix (Fin 2) (Fin 2) ℂ"
+          },
+          {
+            "equations": [
+              "QuantumBlockEncoding.Robin.ComplexLCU.realRotation a = QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation (Real.cos a) (Real.sin a)"
+            ],
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.realRotation",
+            "signature": "ℝ → Matrix (Fin 2) (Fin 2) ℂ"
+          },
+          {
+            "equations": [
+              "QuantumBlockEncoding.Robin.ComplexLCU.amplitudeRotation x = QuantumBlockEncoding.Robin.ComplexLCU.realRotation (Real.arccos x)"
+            ],
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.amplitudeRotation",
+            "signature": "ℝ → Matrix (Fin 2) (Fin 2) ℂ"
+          },
+          {
+            "membership": "M ∈ Matrix.unitaryGroup ι ℂ ↔ star M * M = 1; all ι are finite; star is conjugate transpose",
+            "name": "Matrix.unitaryGroup"
+          },
+          {
+            "equations": [
+              "QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system = coefficient × (selector × system)"
+            ],
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex",
+            "signature": "(coefficient : Type u) → (selector : Type v) → (system : Type w) → Type (max u v w)"
+          },
+          {
+            "equations": [
+              "selectorLift prepare = I_coefficient ⊗ₖ (prepare ⊗ₖ I_system)"
+            ],
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.selectorLift",
+            "signature": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (prepare : Matrix selector selector ℂ), Matrix (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ"
+          },
+          {
+            "equations": [
+              "amplitudeLift rotation = Matrix.blockDiagonal (fun context => rotation context.1 context.2)",
+              "entry at (c,(s,x)), (d,(t,y)) is rotation s x c d if (s,x)=(t,y), otherwise zero"
+            ],
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.amplitudeLift",
+            "signature": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (rotation : selector → system → Matrix coefficient coefficient ℂ), Matrix (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ"
+          },
+          {
+            "equations": [
+              "e (c,(s,x)) = (c,(s,permutation s x))",
+              "e.symm (c,(s,x)) = (c,(s,(permutation s).symm x))"
+            ],
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv",
+            "signature": "∀ {coefficient : Type u} {selector : Type v} {system : Type w}, (selector → system ≃ system) → (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system ≃ QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system)"
+          },
+          {
+            "equations": [
+              "equivPermutationMatrix e r c = if r = e c then 1 else 0"
+            ],
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix",
+            "signature": "∀ {ι : Type u} [DecidableEq ι], (ι ≃ ι) → Matrix ι ι ℂ"
+          },
+          {
+            "equations": [
+              "selectLift permutation = equivPermutationMatrix (controlledSystemEquiv permutation)"
+            ],
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.selectLift",
+            "signature": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [dc : DecidableEq coefficient] [ds : DecidableEq selector] [dt : DecidableEq system] (permutation : selector → system ≃ system), Matrix (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ"
+          },
+          {
+            "equations": [
+              "(@QuantumBlockEncoding.Robin.ComplexLCU.prepareAmplitudeSelectUnprepare coefficient selector system fc dc fs ds ft dt prepare rotation permutation) = star (@QuantumBlockEncoding.Robin.ComplexLCU.selectorLift coefficient selector system fc dc fs ds ft dt prepare) * ((@QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dt permutation) * ((@QuantumBlockEncoding.Robin.ComplexLCU.amplitudeLift coefficient selector system fc dc fs ds ft dt rotation) * (@QuantumBlockEncoding.Robin.ComplexLCU.selectorLift coefficient selector system fc dc fs ds ft dt prepare)))"
+            ],
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.prepareAmplitudeSelectUnprepare",
+            "signature": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (prepare : Matrix selector selector ℂ) (rotation : selector → system → Matrix coefficient coefficient ℂ) (permutation : selector → system ≃ system), Matrix (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ"
+          }
+        ],
+        "conventions": [
+          "Matrices act on column vectors from the left.",
+          "Rows and columns of all lifted operators use coefficient × (selector × system).",
+          "Finite types may be empty; no designated labels are assumed.",
+          "The formal targets do not assert circuit cost bounds."
+        ],
+        "schema_version": "qcb.formal_decoder_input.v1",
+        "source_blind": true
+      },
+      "core_id": "qcb-core-be-112",
+      "formal_context_digest": "2797d0956b0cc6db85520823e8b91cbb585ad9ce2a736cc330792886ed69eb70",
+      "formal_view": {
+        "anonymous_id": "L2",
+        "formal_context": {
+          "imports": [
+            "QuantumBlockEncoding.Robin.ComplexLCU"
+          ],
+          "preamble": "universe u v w\nopen scoped BigOperators Kronecker",
+          "target": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (prepare : Matrix selector selector ℂ) (rotation : selector → system → Matrix coefficient coefficient ℂ) (permutation : selector → system ≃ system), prepare ∈ Matrix.unitaryGroup selector ℂ → (∀ s x, rotation s x ∈ Matrix.unitaryGroup coefficient ℂ) → (@QuantumBlockEncoding.Robin.ComplexLCU.prepareAmplitudeSelectUnprepare coefficient selector system fc dc fs ds ft dt prepare rotation permutation) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ ∧ (∀ (other : Matrix selector selector ℂ), other ∈ Matrix.unitaryGroup selector ℂ → ((@QuantumBlockEncoding.Robin.ComplexLCU.selectorLift coefficient selector system fc dc fs ds ft dt other) * ((@QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dt permutation) * ((@QuantumBlockEncoding.Robin.ComplexLCU.amplitudeLift coefficient selector system fc dc fs ds ft dt rotation) * (@QuantumBlockEncoding.Robin.ComplexLCU.selectorLift coefficient selector system fc dc fs ds ft dt prepare)))) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ) ∧ (∀ (other : Matrix selector selector ℂ), other * prepare = 1 → other = star prepare)",
+          "universe_parameters": [
+            "u",
+            "v",
+            "w"
+          ]
+        },
+        "nodes": [
+          {
+            "depends_on": [],
+            "id": "be112_selector",
+            "target": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (prepare : Matrix selector selector ℂ), prepare ∈ Matrix.unitaryGroup selector ℂ → (@QuantumBlockEncoding.Robin.ComplexLCU.selectorLift coefficient selector system fc dc fs ds ft dt prepare) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ"
+          },
+          {
+            "depends_on": [],
+            "id": "be112_amplitude",
+            "target": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (rotation : selector → system → Matrix coefficient coefficient ℂ), (∀ s x, rotation s x ∈ Matrix.unitaryGroup coefficient ℂ) → (@QuantumBlockEncoding.Robin.ComplexLCU.amplitudeLift coefficient selector system fc dc fs ds ft dt rotation) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ"
+          },
+          {
+            "depends_on": [],
+            "id": "be112_select",
+            "target": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (permutation : selector → system ≃ system), (@QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dt permutation) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ"
+          },
+          {
+            "depends_on": [],
+            "id": "be112_inverse_unique",
+            "target": "∀ {selector : Type v} [fs : Fintype selector] [ds : DecidableEq selector] (prepare : Matrix selector selector ℂ), prepare ∈ Matrix.unitaryGroup selector ℂ → ∀ (other : Matrix selector selector ℂ), other * prepare = 1 → other = star prepare"
+          },
+          {
+            "depends_on": [
+              "be112_selector",
+              "be112_amplitude",
+              "be112_select",
+              "be112_inverse_unique"
+            ],
+            "id": "be112_root",
+            "target": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (prepare : Matrix selector selector ℂ) (rotation : selector → system → Matrix coefficient coefficient ℂ) (permutation : selector → system ≃ system), prepare ∈ Matrix.unitaryGroup selector ℂ → (∀ s x, rotation s x ∈ Matrix.unitaryGroup coefficient ℂ) → (@QuantumBlockEncoding.Robin.ComplexLCU.prepareAmplitudeSelectUnprepare coefficient selector system fc dc fs ds ft dt prepare rotation permutation) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ ∧ (∀ (other : Matrix selector selector ℂ), other ∈ Matrix.unitaryGroup selector ℂ → ((@QuantumBlockEncoding.Robin.ComplexLCU.selectorLift coefficient selector system fc dc fs ds ft dt other) * ((@QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dt permutation) * ((@QuantumBlockEncoding.Robin.ComplexLCU.amplitudeLift coefficient selector system fc dc fs ds ft dt rotation) * (@QuantumBlockEncoding.Robin.ComplexLCU.selectorLift coefficient selector system fc dc fs ds ft dt prepare)))) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ) ∧ (∀ (other : Matrix selector selector ℂ), other * prepare = 1 → other = star prepare)"
+          }
+        ]
+      },
+      "source_blind_decode": {
+        "ambiguities": [],
+        "anonymous_id": "L2",
+        "limitations": [
+          "Resolution of the earlier context gap means the successor supplied interface now aligns with its displayed explicit applications. It is not a Lean elaboration result or proof-validity result.",
+          "The author report about unchanged target/node/import/universe bytes was not used as evidence for validity or source equivalence; no byte-for-byte comparison with another file was performed in this decode.",
+          "Only this successor formal packet was read. No proof body, imported source, source QA, expected interpretation, proof log or comparison verdict was inspected.",
+          "No Lean, model, GPU, network or administrator run was performed. Earlier decode outputs are preserved."
+        ],
+        "reconstructed_statement": "For all index types C:Type u, S:Type v and X:Type w, each with the displayed finite enumeration and decidable-equality instances, for every complex S-by-S matrix P, every family V assigning a complex C-by-C matrix to each pair (s,x) in S x X, and every family pi assigning a bijection pi_s:X->X to each s in S, assume P^dagger P=I_S and, for every s,x, V(s,x)^dagger V(s,x)=I_C. Use the ordered composite index J=C x (S x X), and define T(B)=I_C tensor (B tensor I_X); let A apply V(s,x) to C while keeping s and x fixed; let Q send the column basis vector (c,(s,x)) to (c,(s,pi_s(x))). Then all three conclusions hold: (1) T(P)^dagger*(Q*(A*T(P))) is unitary on J; (2) for every complex S-by-S matrix B, if B is unitary, T(B)*(Q*(A*T(P))) is unitary on J; (3) for every complex S-by-S matrix D, if D*P=I_S, then D=P^dagger. B in the second conclusion has no required relation to P. D in the third conclusion has no separate unitarity hypothesis. These two universal quantifiers are distinct bindings of the formal name other, and all three conclusions share both initial hypotheses.",
+        "semantic_slots": {
+          "ambient_interface_alignment": [
+            "The previously described selectLift explicit-argument context gap is resolved in this successor packet.",
+            "Its supplied signature has the three type parameters followed only by dc:DecidableEq C, ds:DecidableEq S, dt:DecidableEq X, then permutation. This matches @selectLift C S X dc ds dt permutation in the root and defining equation.",
+            "selectorLift, amplitudeLift and prepareAmplitudeSelectUnprepare retain the six displayed finite/equality instances fc,dc,fs,ds,ft,dt, matching their respective explicit applications.",
+            "The supplied entrywise amplitudeLift equation fixes its coefficient-first register interpretation. No further ambient semantic ambiguity remains for decoding the complete root."
+          ],
+          "finite_and_empty_cases": [
+            "C,S,X may each be empty. Decidable equality and Fintype instances do not assert nonemptiness or designate any ancilla labels.",
+            "If any one of C,S,X is empty, J is empty. Every J-by-J matrix then has no entries, and its unitarity equation is an equality of the unique empty matrix.",
+            "If S or X is empty, the condition forall s,x, V(s,x) is unitary is vacuous. If C is empty, each V(s,x) that exists is an empty matrix.",
+            "If S is empty, P and the matrices B and D also have no entries, so the final uniqueness conclusion is an equality of empty selector matrices.",
+            "If C or X is empty but S is nonempty, the lifted unitarity claims are still about empty matrices, but the assumption on P and the left-inverse uniqueness claim still concern S-by-S matrices that can have entries.",
+            "The explicit hypotheses remain in the root in every such case; emptiness does not syntactically remove them."
+          ],
+          "multiplication_and_time_order": [
+            "Matrices act on column vectors from the left. Thus the first composition applies T(P), then A, then Q, then T(P)^dagger.",
+            "A uses the selector and system labels present before Q performs its controlled system permutation.",
+            "The second composition has the same first three operations, then T(B). The final factor is B itself lifted to the selector register, not B^dagger and not an assumed inverse of P.",
+            "The selector adjoint in the first composition is the star of the entire lifted T(P), in exactly the displayed placement."
+          ],
+          "nested_implications_and_conjunctions": [
+            "The initial P-unitarity and all-block-unitarity assumptions scope over the entire three-part conjunction.",
+            "Part 2 reads: for every B, B unitary -> T(B)*Q*A*T(P) unitary. It has no B*P=I hypothesis.",
+            "Part 3 reads: for every D, D*P=I_S -> D=P^dagger. It does not assume D unitary.",
+            "D*P=I_S says D is a left inverse of P; D acts after P on a column vector.",
+            "The two formal occurrences of forall other are separate binders. Part 2 does not force every unitary B to equal P^dagger.",
+            "No converse is stated that full-composition unitarity implies either initial hypothesis. No optimal or minimal hypothesis claim is included."
+          ],
+          "nonclaims": [
+            "The root does not designate a coefficient or selector basis label, initial ancilla state, encoded target block, weighted-sum readout, normalized coefficient list, or success amplitude.",
+            "Part 2 guarantees a unitary total composition with any unitary final selector B; it does not assert that B unprepares P.",
+            "Part 3 explicitly formulates left-inverse uniqueness. A separate right-inverse statement is not written in the root.",
+            "There is no approximation tolerance, probability, gate decomposition, resource bound or circuit complexity claim."
+          ],
+          "quantifier_order": [
+            "Universally quantify the three index types C,S,X in arbitrary displayed universes, and their Fintype and DecidableEq instances.",
+            "Universally quantify P:Matrix S S complex, V:S->X->Matrix C C complex, and pi:S->(X equivalent to X).",
+            "Assume P belongs to the supplied unitary group; next assume forall s,x, V(s,x) belongs to the coefficient-index unitary group.",
+            "Assert one unitarity claim and two separate universally quantified conditional claims. The root contains no existential quantifier."
+          ],
+          "register_order_and_entries": [
+            "Every lifted row and column has the parenthesized order coefficient x (selector x system): (c,(s,x)).",
+            "T(B)((c,(s,x)),(d,(t,y)))=B(s,t) if c=d and x=y, and 0 otherwise.",
+            "A((c,(s,x)),(d,(t,y)))=V(s,x)(c,d) if (s,x)=(t,y), and 0 otherwise.",
+            "Q((c,(s,x)),(d,(t,y)))=1 if c=d, s=t and x=pi_t(y), and 0 otherwise.",
+            "The Q orientation follows the supplied convention that the row index equals the equivalence applied to the column index. It does not apply pi inverse to the input basis vector."
+          ],
+          "unitary_meaning_and_scalars": [
+            "The supplied membership convention is M unitary iff M^dagger*M=I on the stated finite index type.",
+            "The matrices, identities, zeros, and permutation entries all use complex scalars. C in this decode is the coefficient index type, not the scalar field.",
+            "P is an arbitrary unitary selector matrix, not necessarily a permutation. V(s,x) is an arbitrary unitary coefficient matrix for each controlling pair.",
+            "pi_s is an equivalence, hence a bijection with an inverse, rather than an arbitrary system map."
+          ]
+        }
+      },
+      "source_item": {
+        "answer_format": "rubric",
+        "assumptions": [
+          "PREPARE is unitary on the selector register",
+          "Every amplitude block is unitary on the coefficient register",
+          "SELECT is a basis permutation"
+        ],
+        "author": {
+          "identity": "/root/qcb_native_comparison",
+          "method": "explicit versioned question-contract correction"
+        },
+        "conventions": [
+          "The unprepare stage is the conjugate transpose of the prepare stage",
+          "Unitaries form a group closed under product and conjugate transpose"
+        ],
+        "core_id": "qcb-core-be-112",
+        "cross_version_split_conflict": false,
+        "difficulty": {
+          "level": "intermediate",
+          "rationale": "Requires assembling four independent local unitarity certificates through group closure and justifying the adjoint-unprepare structure semantically."
+        },
+        "evidence_relation": "local_source_supported",
+        "evidence_status": "source_inspected",
+        "exposure": "closed_book",
+        "family": "be-lcu-composite-unitary",
+        "formal": null,
+        "formal_context": null,
+        "formal_evidence": {
+          "counterpart": "existing_source_not_freshly_verified",
+          "inherited_evidence": "See original provenance only; not rerun or upgraded",
+          "local_verification_performed": false
+        },
+        "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "id": "qcb-textbook-4668ea24f9f98698b327",
+        "inherited_predecessor_hashes": {
+          "authored_hash": "9ead8e89e7f7196bce2055e46fade74b3e8d95ef583dc14010f24e80aefa996f",
+          "context_hash": "7eb865c85ab618a9af9bf69e0ffc9e3b4b133f274e695f4709d68046459f59f6",
+          "task_hash": "07abf9895dcba8afa277e06d446b6ce542764e0ebb2f6f988ed4b8e16a8a6960"
+        },
+        "inherited_predecessor_reviews": [
+          {
+            "artifact": "benchmarks/quantumcomputingbench/reports/native-nl/batch2-oracle-final-review.json",
+            "artifact_sha256": "1029d2f3190d86403dec4d2c31ec83d57ef0e6ec7eb66ebb40f2d7b7a43152c6",
+            "authored_sha256": "9ead8e89e7f7196bce2055e46fade74b3e8d95ef583dc14010f24e80aefa996f",
+            "checked_sources": [
+              "QuantumBlockEncoding/Robin/ComplexLCU.lean#prepareAmplitudeSelectUnprepare",
+              "QuantumBlockEncoding/Robin/ComplexLCU.lean#prepareAmplitudeSelectUnprepare_unitary"
+            ],
+            "content_hash": "4ff65969f6b272bc65f2a551edaaafc63ddc5ba25890990eed19d97684ae2496",
+            "core_aliases": [],
+            "core_verdict": "new_distinct",
+            "formal_status": "not_run_source_inspection_only",
+            "key": "qcb-core-be-112",
+            "method": "distinct-context-source-review",
+            "notes": "Full LCU-composition unitarity core: PREPARE-dag*SELECT*AMP*PREPARE unitary from 3 local certificates via unitaryGroup.mul_mem + Unitary.star_mem. Verified prepareAmplitudeSelectUnprepare L352-367 and _unitary L370-399. Composition OBJECT appears in block_encoding be-004 (concept) / be-006 (clean-entry projection) but neither proves whole-composite unitarity-group membership. new_distinct.",
+            "reviewer": "oracle-composition-reviewer-b2",
+            "verdict": "accept"
+          }
+        ],
+        "key": "qcb-core-be-112-textbook-question-v2-unitarity-versus-adjoint-necessity",
+        "language": "en",
+        "legacy_split_constraints": [],
+        "lifecycle": "released",
+        "lineage": {
+          "cost_usd": null,
+          "family": "be-lcu-composite-unitary",
+          "model_version": null,
+          "parameters": {},
+          "provider": "session assistant",
+          "seed": 0,
+          "template": "qcb-core-be-112",
+          "tokens": null
+        },
+        "mathematical_core_id": "qcb-core-be-112",
+        "native_nl": {
+          "author_identity": "/root/qcb_native_comparison",
+          "core_summary": "The chosen PREPARE† SELECT AMPLITUDE PREPARE matrix is unitary by tensor/block/permutation, adjoint and product closure. Neither global unitarity nor a fixed clean projected block forces a unique final adjoint or deterministic auxiliary cleanup; full inverse uniqueness is a separate stronger requirement.",
+          "evidence_relation": "local_source_supported",
+          "existing_core_aliases": [],
+          "formal_counterpart": "existing_source_not_freshly_verified",
+          "new_problem_core": false
+        },
+        "primary_sources": [],
+        "question": "On finite complex registers coefficient × (selector × system), write P_lift=I_coefficient tensor(PREPARE tensor I_system), A_lift for the selector/system-controlled coefficient-block family, and S_lift for the controlled system-permutation SELECT. The CHOSEN logical architecture is W=P_lift† S_lift A_lift P_lift. First state its chronological order on column states, distinguishing it from written matrix-factor order. Prove W unitary from the three local certificates already stipulated: PREPARE unitary on selector, every amplitude coefficient block unitary, and SELECT a basis permutation. Explain the role of tensor, block-diagonal, permutation, adjoint and product closure. Then assess rather than assume a necessity claim: does global unitarity force the final selector gate to equal PREPARE†? Compare using a known unitary replacement (including the identity) with requiring a complete inverse of PREPARE on the whole selector register. For designated clean coefficient/selector labels, distinguish both of these from preserving only the projected clean block and from deterministic auxiliary cleanup after the intervening stages. Give explicit small counterexamples wherever a stronger implication fails. Keep the source's chosen P_lift† S_lift A_lift P_lift architecture unchanged; alternatives test necessity and are not a redefinition of W.",
+        "question_successor": {
+          "additional_core_count": 0,
+          "changed_contract_fields": [
+            "question"
+          ],
+          "current_contract_hash": "f0d61f87e50ec90e5811ab7333684aaae090d01347814e037b5ed6c241ae9e61",
+          "equivalence_to_predecessor_claimed": false,
+          "predecessor_contract_hash": "f64837f9c986dd70c8674308b444a2520ddf8f79805e5f7866e5b114aefb2b7d",
+          "predecessor_item_digest": "c9008a445032f5ece7e8068ed7a580c1a74eda9188a36cdaac48888b6da4cc19",
+          "predecessor_key": "qcb-core-be-112",
+          "question_version": 2,
+          "repair_record": "shared/repairs/be-112-unitarity-versus-adjoint-question-successor.json",
+          "repair_record_digest": "f351324a881cf91ba38563bd9f1040457e2ec256284146c040c43bcbda21c0ab",
+          "review_digest": "a074a89cff4dd2cd56d3cf57cc78fceb917640fe006d14b299ad8790d082bd49",
+          "review_record": "reports/textbook-v1/repairs/be-112-unitarity-versus-adjoint-question-successor-review.json"
+        },
+        "question_version": 2,
+        "reference_answer": "Use column-vector operator convention. The written product W=P_lift† S_lift A_lift P_lift acts chronologically as PREPARE, AMPLITUDE, SELECT, then PREPARE†. It does not apply the leftmost dagger first. All factors act on the same C×(S×H) register, so the products are typed; no clean input or postselection premise is needed for the GLOBAL unitarity proof.\n\n(1) P_lift=I_C tensor(P tensor I_H) is unitary because tensor products of unitary matrices are unitary, and the two identities and selector P are unitary. (2) P_lift† is unitary by adjoint closure of the unitary group. (3) A_lift is block diagonal over contexts (s,x), with coefficient block R_{s,x}; its adjoint product is block diagonal with blocks R_{s,x}†R_{s,x}=I_C, so it is unitary. S_lift is a basis-permutation matrix: each basis column is sent bijectively to |c,s,p_s(x)>, so its columns are orthonormal and it is unitary. (4) Closure under multiplication on the fixed total register now makes W a product of four unitaries. Explicitly,\nW†W=P_lift† A_lift† S_lift† P_lift P_lift† S_lift A_lift P_lift\n=P_lift† A_lift† A_lift P_lift=I;\nthe intervening cancellations use P_lift P_lift†=I, S_lift†S_lift=I and A_lift†A_lift=I. The reverse product is I as well. This argument is valid also for empty finite index sets; auxiliary clean labels are used only where they actually exist for a projected block or the examples below.\n\n(5) P† is the defined, sufficient adjoint/inverse choice, but global unitarity does NOT force that choice. Replacing the final selector factor by ANY unitary Q gives Q_lift S_lift A_lift P_lift, again unitary by the same product rule. In particular Q=I uses the known unitary identity and no additional unknown certificate; Q=P inherits unitarity from the existing PREPARE certificate. Thus the old claim that a different final gate cannot be guaranteed unitary from those facts is false. Its clean projected block generally changes: take singleton coefficient/system registers, P=H on a qubit selector, and A=S=I. The chosen W=H†H=I has clean scalar1; the unitary replacement Q=I gives W_Q=H with clean scalar1/sqrt(2). This is a precise distinction between global unitarity and intended LCU clean-entry correctness.\n\nA complete inverse requirement is stronger and does single out the adjoint: if QP=I on the ENTIRE selector space and P is unitary, multiply on the right by P† to get Q=P†. With nontrivial amplitude/SELECT in between, however, the final P† is not adjacent to the original P. Inverting P alone does not invert S_lift A_lift, and global product unitarity says nothing about deterministic auxiliary cleanup.\n\nPreserving only the clean projected block is weaker still. Let clean selector be0, D=diag(1,-1) on a qubit selector, and Q=D P†. Then Q is a distinct unitary with <0|Q=<0|P†. For clean injection J|x>=|c0,0,x>, the full replacement W_Q=D_lift W satisfies J†W_QJ=J†WJ, independently of the particular intervening A,S. This is a shared clean-row LCU subproof with the linked BE004 repair, not a separate new mathematical core. Requiring a particular projected entry/row does not uniquely specify all unitary columns or a full inverse. With singleton coefficient/system and P=I,A=S=I, W=I and W_Q=D already give an explicit distinct pair with the same clean scalar1.\n\nFor a direct failure of deterministic cleanup within the CHOSEN architecture itself, take singleton coefficient, selector/system qubits, P=H, amplitude I, and p_0=I,p_1=X for SELECT. On |0,0>, PREPARE then SELECT gives (|0,0>+|1,1>)/sqrt(2). The final P†=H gives (|0,0>+|1,0>+|0,1>-|1,1>)/2 in selector/system notation. Selector1 has probability1/2, despite all three local certificates. The clean projected block is (I+X)/2, not a deterministic normalized system action. In general coefficient leakage can occur too, since its amplitude gates need not fix the chosen clean coefficient label. A deterministic cleanup theorem would require the additional condition (I-JJ†)WJ=0; global unitarity alone does not imply it. This H/controlled-X witness is the same elementary boundary subproof used in the linked BE004 repair; the present core's main task remains assembling global unitarity rather than assigning stage roles.\n\nThe source therefore proves a sufficient product-unitarity theorem for its explicit adjoint architecture. It does not prove unique-final-gate necessity or a full-output cleanup property. No gate compilation, state-preparation success guarantee, query count or finite-bit resource theorem follows merely from this logical group-closure calculation.",
+        "relation_types": [
+          "authored_mathematical_support"
+        ],
+        "release_policy": "public",
+        "reviewed_core_status": "new_distinct",
+        "reviewed_semantic_step_count": 5,
+        "reviews": [
+          {
+            "answer_rubric_and_exposition_assessment": {
+              "entire_exact_candidate": "Accept this exact explicit qv2 candidate mathematically, not its author's prior verdict or automatic formal/reader admission.",
+              "exposition": "All5 revised steps have exact inherited ordered node lists and correct main claims. Final step treats P† as the convention/unique full inverse, not necessary for global unitarity or guaranteed cleanup after A/S.",
+              "reference_answer": "Accept in full. Correct dagger order/cancellations, local lifting proofs, identity and clean-row-preserving alternative gates, full-inverse uniqueness and both projected-versus-cleanup counterexamples. No hidden clean input needed for the global theorem.",
+              "rubric": "c1–c4 faithfully grade local certificates/product closure and the revised logical boundaries. Alternative known gates refute the old necessity, projected equality is distinguished from changed projection, and cleanup is not credited without its own theorem."
+            },
+            "binding_definition": {
+              "actual_checks": "Exact candidate schema/key set, predecessor core/key/whole-item digest, pending marker, nonempty reference/rubric with unique IDs/positive finite weights, candidate source LF and reviewer distinction checked. Explicit version2 grammar/old contract pin/new contract recomputed; question differs and no other8 contract-field overrides. Exposition has exactly5 steps and EACH original ordered supporting-node list is literally retained.",
+              "contract_fields": [
+                "question",
+                "assumptions",
+                "conventions",
+                "family",
+                "split",
+                "graph_version",
+                "target_nodes",
+                "supporting_nodes",
+                "source_refs"
+              ],
+              "hash_definition": "Old hash=digest(original nine fields); new hash=digest(the same nine fields with ONLY candidate.question substituted).",
+              "original_item_digest": "qcb_core.digest(entire actual historical prepared original via release.checked()[2]), not a current-reader or authored-subset replacement.",
+              "repair_record_digest": "qcb_core.digest(entire exact private candidate, including all reference/rubric/exposition/source/execution metadata); separate whole-file LF pin also verified.",
+              "retained_values": "family=be-lcu-composite-unitary; split=dev; graph_version=qcb-snapshot-ffa644f0da3031a1ce754b9a; assumptions/conventions, target/support nodes and source_refs inherited exactly except explicitly versioned question where applicable."
+            },
+            "bounded_semantic_relations": {
+              "assessment": "BE004 and BE112 have an EXACT shared subtarget: clean-row-preserving Q=D P† nonuniqueness and the H/controlled-X failure of deterministic selector cleanup. Their counterexample solution fragments coincide mathematically, not just by source-node names. BE004 additionally requires stage-specific basis actions and the clean weighted-permutation entry; BE112 requires lifting local unitary certificates and proving the four-factor global group-membership theorem. Neither whole requested/grading target is equivalent to the other: a stage/projection answer alone does not discharge the global unitary proof, and a product-closure answer alone does not derive the arbitrary clean coefficient-entry formula. Thus this bounded review identifies shared mechanisms/partial overlap, not a full alias declaration.",
+              "compared_exact_candidates": [
+                {
+                  "candidate_digest": "f6754efc28a9919eb73ccebc5187deec5f58648be6080113e9887eaf583ccda2",
+                  "core_id": "qcb-core-be-004",
+                  "family": "be-lcu-stage-roles",
+                  "original_item_digest": "69ef913513b5551fc106df171152b284d3ab8de62ca563ee680e1e751cfaa977",
+                  "split": "train",
+                  "successor_contract_hash": "112521b12612f1c530e7fffe4738eab90f97fd054cc6f06e90a5a93ecbb57666"
+                },
+                {
+                  "candidate_digest": "f351324a881cf91ba38563bd9f1040457e2ec256284146c040c43bcbda21c0ab",
+                  "core_id": "qcb-core-be-112",
+                  "family": "be-lcu-composite-unitary",
+                  "original_item_digest": "c9008a445032f5ece7e8068ed7a580c1a74eda9188a36cdaac48888b6da4cc19",
+                  "split": "dev",
+                  "successor_contract_hash": "f0d61f87e50ec90e5811ab7333684aaae090d01347814e037b5ed6c241ae9e61"
+                }
+              ],
+              "split_boundary": "BE004 is train and BE112 dev under retained contracts. Common assessed subproofs create genuine answer-fragment exposure across those splits. Non-equivalence of whole tasks does NOT certify cross-split pooling of these fragments or clear all split-conflict/dedup obligations; root must reconcile intended reuse/pooling separately. No dataset/split/policy change or global semantic-distinctness claim is made."
+            },
+            "contract_change_assessment": {
+              "changed_requested_reasoning": "Version2 preserves the stipulated three local certificates and chosen W=P† S A P, clarifies right-to-left chronology and asks to assess necessity, full inverse, same clean projection and deterministic cleanup separately. These are transparent changed demands rather than answer-only refusal to prove a false 'must'. Alternatives test necessity; they do not override the retained convention that W itself uses P†.",
+              "non_equivalence_and_overlap": "Old/new contracts differ and are not asserted equivalent. This correction shares subproofs with004 and makes no additional-core claim; whole-target and split boundaries are separately disclosed below. No old-hash companion is automatically current.",
+              "original_false_demand": "The original explicitly says unprepare 'must' be the conjugate transpose and its answer/r3 claim any other factor is not guaranteed unitary, plus deterministic selector reset despite intervening operations. Global unitarity alone cannot force this: I is already a known unitary, and replacing the final gate by I remains a product of certified unitaries.",
+              "retained_scope_minimality": "Same coefficient×(selector×system), be-lcu-composite-unitary family/dev split, frozen graph/source scope and5 exact ordered source-node lists. No additional clean-input, numerical-weight, positivity, cleanup or efficient-oracle premise is needed for product unitarity. Counterexamples are small valid source instances, not weakened local hypotheses."
+            },
+            "core_id": "qcb-core-be-112",
+            "independence": {
+              "actual_identity": "Actual task /root/qcb_boundary_repair_review, distinct from candidate and prior-finding author /root/qcb_native_comparison and historical original author oracle-composition-author-b2.",
+              "exposure": "Not blind: prior related source/task exposure and parent review focus disclosed. I authored a separate frozen BE003/008/009/012/104/119 candidate batch, NOT these three candidates. I read each complete actual historical prepared original, exact reserved withdrawal/full finding and entire exact private candidate including execution metadata. Both complete operative ComplexLCU and ComplexLCUProjection modules/proof bodies were independently read; prior author/parent verdicts are context, not mathematical evidence."
+            },
+            "method": "independent-question-successor-review",
+            "original_contract_hash": "f64837f9c986dd70c8674308b444a2520ddf8f79805e5f7866e5b114aefb2b7d",
+            "original_item_digest": "c9008a445032f5ece7e8068ed7a580c1a74eda9188a36cdaac48888b6da4cc19",
+            "provenance": {
+              "expert_or_model_evaluation_claimed": false,
+              "extra_agents": false,
+              "human_approval_claimed": false,
+              "instructions_and_skill": "Mandatory AGENTS/HARNESS/theorem-publication/proof-digestion/evidence-routed-memory/shared CONTRACT/ACCEPTANCE fully read in this continuous context and checked unchanged at this head. Substantive-worker SKILL.md reread completely; its exact-contract/definition-expansion/source-proof/boundary rules applied.",
+              "locator_boundary": "repair_record is an intended canonical repository-relative future locator. Entire exact candidate actually inspected at private_reviewed_at, not claimed transported or admitted.",
+              "mechanical_context_not_math_source": "release.checked(), qcb_core.digest, qcb_integrity.text_sha and qcb_textbook_policy schema/contract/exposition/source-binding helpers/current-policy withdrawal data were inspected or used read-only as mechanical binding context. No qcb policy/curriculum executable file is bound as a mathematical source dependency or used as proof of the claims. Only actual operative Lean modules appear in source_checks.",
+              "mutation_scope": "Only new parent _review_tmp/be-112-unitarity-versus-adjoint-question-successor-review.json authored. All three candidates, my six frozen candidates/handoff, earlier artifacts, canonical/source/policy/history/currentPR107 untouched; no build/kernel/agent/commit/push.",
+              "new_kernel_execution": false,
+              "observed_head": "0e42c19ec6def3722dc9cc130f86f8453869c5c1",
+              "own_execution": "Only read-only historical loading, exact whole-JSON/contract/LF hashing and structural checks executed. Displayed mathematical examples reconstructed algebraically, not a new Lean, simulator, compiler or proof execution.",
+              "private_reviewed_at": "_review_tmp/be-112-unitarity-versus-adjoint-question-successor.json",
+              "remaining_boundary": "Mathematical exact-content review only; not admission/publication, human approval, source-blindness, new-core/novelty/global dedup or cross-split pooling certification.",
+              "source_blind_review": false,
+              "source_limits": "Local operative source/proofs are actual inspected primary evidence for this bounded gate. No external paper/PDF was freshly retrieved, byte/visual verified or sealed; no all-transitive-Mathlib proof audit or new exact formal companion claimed."
+            },
+            "question_version": 2,
+            "repair_record": "benchmarks/quantumcomputingbench/shared/repairs/be-112-unitarity-versus-adjoint-question-successor.json",
+            "repair_record_digest": "f351324a881cf91ba38563bd9f1040457e2ec256284146c040c43bcbda21c0ab",
+            "repair_record_sha256_lf": "d91cb857aed02b05bdc5329c296c68fd3412d5efe5dc75a1dfd29ebda0e758dd",
+            "reviewer": "/root/qcb_boundary_repair_review",
+            "schema_version": "qcb.textbook_question_successor_review.v1",
+            "source_checks": [
+              {
+                "anchor": "COMPLETE actual module independently read: real rotation/unit-circle versus clean-entry domain; full reindex_unitary105–119, blockDiagonal_unitary, permutation/unitarity/multiplication/reindex proofs; selectorLift/amplitudeLift/controlledSystemEquiv/selectLift and complete local proofs253–349; chosen composition351–367 and full unitary-group-closure proof370–399. Actual definitions/proof text, not theorem-name or new kernel verification.",
+                "path": "QuantumBlockEncoding/Robin/ComplexLCU.lean",
+                "sha256_lf": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843"
+              },
+              {
+                "anchor": "COMPLETE actual module independently read: amplitude/SELECT entries, selector clean column/adjoint row, full amplitude/SELECT propagation, arbitrary right-factor clean-bra projection and complete final weighted-entry proof through220. These are clean-entry identities, not full-output cleanup or uniqueness theorems.",
+                "path": "QuantumBlockEncoding/Robin/ComplexLCUProjection.lean",
+                "sha256_lf": "fa0b84ce5c819184f190b81b4d259e12f725e6196cd37147984fab76fe4ec340"
+              }
+            ],
+            "substantive_reconstruction": {
+              "alternative_unitary_counterexample": "Any known unitary selectorQ yields Q_lift S A L unitary. I needs no unknown certificate; P itself is certified. To separate global unitary from correct projection, use singleton coefficient/system,P=H,A=S=I,s0=0. Chosen W=I has clean scalar1; finalQ=I givesH with clean scalar1/sqrt2 while staying unitary. Thus replacing P† need not break unitarity, but can change the desired block.",
+              "cleanup_counterexample": "For singleton coefficient, qubit selector/system,P=H,A=I,SELECT controlled(I,X), input00 gives(|00>+|11>)/sqrt2 before finalH and(|00>+|10>+|01>-|11>)/2 afterwards. Dirty selector probability=1/2 despite all three local certificates. K=(I+X)/2, not a deterministic normalized unitary action. Coefficient leakage is also allowed by its amplitude blocks; amplitudeX with singleton selector/system explicitly moves clean coefficient0 to1. Deterministic cleanup requires(I-JJ†)WJ=0, not merely W†W=I.",
+              "full_inverse_vs_clean_row": "QP=I on the ENTIRE selector uniquely forcesQ=P†. Clean projection is weaker: with D=diag(1,-1) fixing<0| and Q=DP†, W_Q=D_lift W,J†D_lift=J†,so K_Q=K. Q differs fromP†, including explicit P=A=S=I givingI versusD with the same clean scalar. This establishes nonuniqueness at the level actually read by a clean block, not just equality up to global phase.",
+              "product_and_chronology": "W=L† S A L acts chronologically L,A,S,L†. W†W=L† A† S† L L† S A L=L† A† A L=I using LL†=I,S†S=I,A†A=I,L†L=I; reverse product likewise. The complete source proof uses exactly tensor/block/permutation, star and product closure, not a clean-branch or state-normalization assumption. Empty total index carriers make the unitary identities vacuous; designated clean labels only enter later projection examples.",
+              "scope_boundary": "Full inverse adjacency P†P cancels only if no intervening dynamics changes the prepared context; P† is not an inverse of S A P on the whole register. The source proves global product unitarity and separately a clean-entry formula, neither the false necessity nor full-output cleanup. No controlled-global-phase quotient, gate count, finite-bit cost, oracle implementation or success guarantee is certified by group membership.",
+              "typed_local_lifts": "Let L=P_lift=I_C⊗(P⊗I_H). Kronecker-unitary closure givesL unitary; adjoint closure givesL† unitary. A is block diagonal over(s,x), with each R_(s,x) unitary, so A†A and AA† have identity blocks. S is a basis equivalence(c,s,x)↦(c,s,p_s(x)), with explicit inverse using p_s^-1, hence unitary. All are endomorphisms of the SAME finite total register."
+            },
+            "successor_contract_hash": "f0d61f87e50ec90e5811ab7333684aaae090d01347814e037b5ed6c241ae9e61",
+            "verdict": "accept",
+            "verdict_scope": "Accept the whole exact candidate's mathematical question/answer/rubric/exposition content as a pending first explicit question-version2 correction. This is not policy/current-reader admission, transported canonical bytes, exact NL-to-formal alignment, kernel execution or a global alias/split verdict.",
+            "withdrawal_binding": {
+              "interpretation": "Exact whole prior report, full item-finding and current withdrawal row verified against actual predecessor. These bind historical rejection, not successor proof/approval. The immutable review's LF is content provenance, not a mathematical theorem. Mutable policy whole-file hashes are intentionally not evergreen dependencies.",
+              "prior_finding_digest": "f19345e48c0c9646bc0181d7b8556e55c1901c2935d455fdc91715669016262e",
+              "prior_review": "benchmarks/quantumcomputingbench/reports/textbook-v1/reader-reviews/oracle-composition-101-120-review.json",
+              "prior_review_digest": "045da846e93abe988eee9a7879e0c22bec7fbe98e17a3a3bea2241b824851e4b",
+              "prior_review_sha256_lf": "8e6844f1b5c2efc2508ff121eaa28906474330d25b3da6e25e80c501ab90e5d4",
+              "prior_verdict": "reject",
+              "row_digest": "af42acb69a95192fe6bc4e2a9fa823f73785754283d6934e1735edf821ee6e77"
+            }
+          }
+        ],
+        "rubric": [
+          {
+            "criterion": "Identifies the four written matrix factors and correct chronological action; derives lifted PREPARE, amplitude-family and SELECT unitarity from tensor, block-diagonal and permutation facts respectively.",
+            "id": "c1",
+            "weight": 1
+          },
+          {
+            "criterion": "Uses adjoint closure and multiplication closure (or equivalent explicit dagger-product cancellations) to prove the entire chosen product unitary without inserting a clean-input or cleanup hypothesis.",
+            "id": "c2",
+            "weight": 1
+          },
+          {
+            "criterion": "Distinguishes architectural P†/unique full inverse from a necessary condition for global unitarity: gives a certified alternative final gate such as I, shows its projected block can change, and also gives a distinct Q=D P† with the same clean row/block.",
+            "id": "c3",
+            "weight": 1
+          },
+          {
+            "criterion": "Refutes deterministic auxiliary cleanup after intervening operations using the fully evaluated H/controlled-X example; keeps projected unnormalized action, accepted labels and extra full-output cleanup condition separate. Does not turn group membership into a success/resource or uniqueness theorem.",
+            "id": "c4",
+            "weight": 1
+          }
+        ],
+        "schema_version": "qcb.item.v1",
+        "semantic_step_count": 5,
+        "semantic_steps": [
+          {
+            "claim": "P_lift is unitary as the tensor lift of the stipulated selector PREPARE; its role is chronologically first despite being the rightmost written factor.",
+            "supporting_nodes": [
+              "declaration:QuantumBlockEncoding.Robin.ComplexLCU.selectorLift_unitary"
+            ]
+          },
+          {
+            "claim": "P_lift† is unitary by adjoint closure of the unitary group, giving one certified final factor for the chosen architecture.",
+            "supporting_nodes": [
+              "declaration:QuantumBlockEncoding.Robin.ComplexLCU.prepareAmplitudeSelectUnprepare_unitary"
+            ]
+          },
+          {
+            "claim": "A_lift is unitary as a block-diagonal family of coefficient unitaries, and S_lift is unitary as the controlled basis permutation.",
+            "supporting_nodes": [
+              "declaration:QuantumBlockEncoding.Robin.ComplexLCU.amplitudeLift_unitary",
+              "declaration:QuantumBlockEncoding.Robin.ComplexLCU.selectLift_unitary"
+            ]
+          },
+          {
+            "claim": "All four fixed-register factors are unitary, so their product is unitary by group closure (equivalently the explicit adjoint-product cancellations). No deterministic cleanup follows from that conclusion.",
+            "supporting_nodes": [
+              "declaration:QuantumBlockEncoding.Robin.ComplexLCU.prepareAmplitudeSelectUnprepare_unitary"
+            ]
+          },
+          {
+            "claim": "The architecture chooses P† and full inverse QP=I uniquely requires it, but global unitarity admits other certified final gates; a clean-row-fixing D also preserves the projected block, while the H/controlled-X example refutes automatic selector cleanup after intervening stages.",
+            "supporting_nodes": [
+              "declaration:QuantumBlockEncoding.Robin.ComplexLCU.prepareAmplitudeSelectUnprepare"
+            ]
+          }
+        ],
+        "skills": [
+          "quantum_semantics"
+        ],
+        "source_refs": [
+          {
+            "anchor": "noncomputable def prepareAmplitudeSelectUnprepare (prepare ...) (rotation ...) (permutation ...) := star (selectorLift ... prepare) * (selectLift ... permutation * (amplitudeLift rotation * selectorLift ... prepare)) (lines 352-367); theorem prepareAmplitudeSelectUnprepare_unitary ... (lines 370-399)",
+            "license": "MIT (repository LICENSE)",
+            "path": "QuantumBlockEncoding/Robin/ComplexLCU.lean",
+            "sha256": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843"
+          }
+        ],
+        "split": "dev",
+        "split_group": "be-lcu-composite-unitary",
+        "structural_distance_definition": "unknown; imports are not theorem entailment",
+        "structural_graph_distance": null,
+        "support_count": 5,
+        "supporting_nodes": [
+          "declaration:QuantumBlockEncoding.Robin.ComplexLCU.prepareAmplitudeSelectUnprepare",
+          "declaration:QuantumBlockEncoding.Robin.ComplexLCU.selectorLift_unitary",
+          "declaration:QuantumBlockEncoding.Robin.ComplexLCU.amplitudeLift_unitary",
+          "declaration:QuantumBlockEncoding.Robin.ComplexLCU.selectLift_unitary"
+        ],
+        "target_nodes": [
+          "declaration:QuantumBlockEncoding.Robin.ComplexLCU.prepareAmplitudeSelectUnprepare_unitary"
+        ],
+        "task_kind": "proof",
+        "topic": "oracle_composition",
+        "track": "quantum_semantics",
+        "unresolved_issues": [],
+        "validation": {
+          "answer_quality": "reviewed",
+          "formal": "not_applicable",
+          "nl_alignment": "reviewed"
+        },
+        "verification_receipts": [],
+        "views": [
+          "natural_language"
+        ]
+      },
+      "source_item_digest": "b8e9794f7bb8d12f2bbfb63c310d9e29cd2fde308eab5dd83320a05a743f9736",
+      "task_hash": "4c56ff3bd3f4196f7e647bfc853892d1ab1b4108141e26f3bb84bc8ac4b68b53"
+    },
+    {
+      "ambient_context": {
+        "schema_version": "qcb.curriculum_blind_input.v1"
+      },
+      "core_id": "qcb-core-sp-113",
+      "formal_context_digest": "db03bfd3dc5a7d788fefa320b54c5d7f540fd6f316f66ca9d2b64e6580f7745f",
+      "formal_view": {
+        "ambient_definitions": {
+          "centralIndex": "centralIndex n : Fin (gridSize(n+1)) is the natural index 2^n, valid because 2^n < 2^(n+1)",
+          "coefficientPolynomial": "A_k = PowerSeries.trunc (k+1) (coefficientSeries k); equivalently A_k(t)=sum_(r=0)^k [sum_(m=0)^r binom(k+r-m,k)/m!]t^r",
+          "coefficientSeries": "PowerSeries.exp ℝ * (PowerSeries.invOneSubPow ℝ (k+1)).val",
+          "endpointFactor": "endpointFactor k = (1-X)^(k+1) * coefficientPolynomial k",
+          "finite_index_convention": "j=sum_(i=0)^n bit_i*2^i; grid includes its left endpoint and excludes its right endpoint",
+          "gridPoint": "-Real.pi*L + (j.val:ℝ)*(2*Real.pi*L/(gridSize N:ℝ))",
+          "gridSize": "gridSize N = 2^N : ℕ",
+          "sampleNorm": "Real.sqrt (sum j : Fin (gridSize N), (sampledAmplitude k N L j)^2)",
+          "sampledAmplitude": "smoothInitial k (gridPoint N L j)",
+          "smoothInitial": "smoothInitial k p = if p < -1 then Real.exp p else if p ≤ 0 then (sourceInterpolant k).eval p else Real.exp (-p)",
+          "sourceInterpolant": "taylor 1 (C(exp(-1))*endpointFactor k + (endpointFactor k).comp (1-X)); eval at p equals exp(-1)(1-t)^(k+1)A_k(t)+t^(k+1)A_k(1-t) with t=p+1"
+        },
+        "anonymous_id": "ambient-A",
+        "formal_context": {
+          "imports": [
+            "QuantumBlockEncoding.HermiteIntervalMass"
+          ],
+          "preamble": "open scoped BigOperators",
+          "target": "∀ (k n : ℕ) (L : ℝ) (hL : 0 < L), (QuantumBlockEncoding.HermiteStatePreparation.gridPoint (n + 1) L (QuantumBlockEncoding.HermiteIntervalMass.centralIndex n) = 0) ∧ (QuantumBlockEncoding.HermiteStatePreparation.sampledAmplitude k (n + 1) L (QuantumBlockEncoding.HermiteIntervalMass.centralIndex n) = 1) ∧ (1 ≤ ∑ j : Fin (QuantumBlockEncoding.gridSize (n + 1)), (QuantumBlockEncoding.HermiteStatePreparation.sampledAmplitude k (n + 1) L j) ^ 2) ∧ (0 < QuantumBlockEncoding.HermiteStatePreparation.sampleNorm k (n + 1) L) ∧ (∃ a : Fin 2 → ℝ, (∀ j, 0 < a j) ∧ (∑ j : Fin 2, (a j) ^ 2) < 1 ∧ (∀ j, a j ≠ 1))",
+          "universe_parameters": []
+        },
+        "imports": [
+          "QuantumBlockEncoding.HermiteIntervalMass"
+        ],
+        "interfaces": [
+          {
+            "name": "QuantumBlockEncoding.HermitePolynomial.smoothInitial_middle",
+            "signature": "theorem smoothInitial_middle (k : ℕ) (p : ℝ) (hp : p ∈ Set.Icc (-1) 0) :\n    smoothInitial k p = (sourceInterpolant k).eval p"
+          },
+          {
+            "name": "QuantumBlockEncoding.HermitePolynomial.sourceInterpolant_right_jet",
+            "signature": "theorem sourceInterpolant_right_jet (k j : ℕ) (hj : j ≤ k) :\n    (derivative^[j] (sourceInterpolant k)).eval 0 = (-1 : ℝ) ^ j"
+          },
+          {
+            "name": "QuantumBlockEncoding.HermiteIntervalMass.gridPoint_central",
+            "signature": "theorem gridPoint_central (n : ℕ) (L : ℝ) :\n    HermiteStatePreparation.gridPoint (n + 1) L (centralIndex n) = 0"
+          },
+          {
+            "name": "QuantumBlockEncoding.HermiteIntervalMass.sampled_mass_ge_one",
+            "signature": "theorem sampled_mass_ge_one (k n : ℕ) (L : ℝ) :\n    1 ≤ ∑ j : Fin (gridSize (n + 1)),\n      (HermiteStatePreparation.sampledAmplitude k (n + 1) L j) ^ 2"
+          },
+          {
+            "name": "QuantumBlockEncoding.HermiteStatePreparation.sampleNorm_pos",
+            "signature": "theorem sampleNorm_pos (k n : ℕ) (L : ℝ) : 0 < sampleNorm k n L"
+          }
+        ],
+        "nodes": [
+          {
+            "depends_on": [],
+            "id": "grid_anchor",
+            "target": "∀ (n : ℕ) (L : ℝ), QuantumBlockEncoding.HermiteStatePreparation.gridPoint (n + 1) L (QuantumBlockEncoding.HermiteIntervalMass.centralIndex n) = 0"
+          },
+          {
+            "depends_on": [
+              "grid_anchor"
+            ],
+            "id": "unit_sample",
+            "target": "∀ (k n : ℕ) (L : ℝ), QuantumBlockEncoding.HermiteStatePreparation.sampledAmplitude k (n + 1) L (QuantumBlockEncoding.HermiteIntervalMass.centralIndex n) = 1"
+          },
+          {
+            "depends_on": [
+              "unit_sample"
+            ],
+            "id": "mass",
+            "target": "∀ (k n : ℕ) (L : ℝ), 1 ≤ ∑ j : Fin (QuantumBlockEncoding.gridSize (n + 1)), (QuantumBlockEncoding.HermiteStatePreparation.sampledAmplitude k (n + 1) L j) ^ 2"
+          },
+          {
+            "depends_on": [
+              "mass"
+            ],
+            "id": "normalizer",
+            "target": "∀ (k n : ℕ) (L : ℝ), 0 < QuantumBlockEncoding.HermiteStatePreparation.sampleNorm k (n + 1) L"
+          },
+          {
+            "depends_on": [],
+            "id": "positive_counterexample",
+            "target": "∃ a : Fin 2 → ℝ, (∀ j, 0 < a j) ∧ (∑ j : Fin 2, (a j) ^ 2) < 1 ∧ (∀ j, a j ≠ 1)"
+          },
+          {
+            "depends_on": [
+              "grid_anchor",
+              "unit_sample",
+              "mass",
+              "normalizer",
+              "positive_counterexample"
+            ],
+            "id": "root",
+            "target": "∀ (k n : ℕ) (L : ℝ) (hL : 0 < L), (QuantumBlockEncoding.HermiteStatePreparation.gridPoint (n + 1) L (QuantumBlockEncoding.HermiteIntervalMass.centralIndex n) = 0) ∧ (QuantumBlockEncoding.HermiteStatePreparation.sampledAmplitude k (n + 1) L (QuantumBlockEncoding.HermiteIntervalMass.centralIndex n) = 1) ∧ (1 ≤ ∑ j : Fin (QuantumBlockEncoding.gridSize (n + 1)), (QuantumBlockEncoding.HermiteStatePreparation.sampledAmplitude k (n + 1) L j) ^ 2) ∧ (0 < QuantumBlockEncoding.HermiteStatePreparation.sampleNorm k (n + 1) L) ∧ (∃ a : Fin 2 → ℝ, (∀ j, 0 < a j) ∧ (∑ j : Fin 2, (a j) ^ 2) < 1 ∧ (∀ j, a j ≠ 1))"
+          }
+        ],
+        "payload_policy": "Proof bodies, source question/title/core ID, author binder classifications and desired verdict are excluded. Imported identifiers are necessary ambient constants, not source labels.",
+        "root_id": "root",
+        "universe_parameters": []
+      },
+      "source_blind_decode": {
+        "ambiguities": [],
+        "anonymous_id": "ambient-A",
+        "limitations": [
+          "The supplied evaluation equation for sourceInterpolant is used as ambient meaning; no polynomial proof, derivative proof, imported source, or author interpretation was inspected.",
+          "This is a reconstruction of the complete supplied root, not a proof or independent validity check. Provided theorem interfaces and dependency labels are not treated as evidence of source equivalence or successful Lean elaboration.",
+          "No unspecified positivity, upper bound, continuum estimate, or relation between the existential witness and the sampled family is added.",
+          "This v2 decode retains the v1 root reconstruction after exact wrapper reconciliation. Root target strings, imports, universe lists and all pre-existing parsed packet contents agree; only formal_context wrappers are newly added. This establishes no source equivalence, mathematical validity or Lean elaboration result."
+        ],
+        "reconstructed_statement": "For every k,n in N and every L in R, assuming 0<L, put M=2^(n+1), p_j=-pi*L+j*(2*pi*L/M) for j in {0,...,M-1}, j_c=2^n, b_j=smoothInitial(k,p_j), and Z=sqrt(sum_{j=0}^{M-1} b_j^2). The root asserts the conjunction of these five statements: (1) p_{j_c}=0; (2) b_{j_c}=1; (3) sum_{j=0}^{M-1} b_j^2 >= 1; (4) Z>0; and (5) there exists a function a:Fin 2 -> R such that each a_j is strictly positive, a_0^2+a_1^2<1, and each a_j differs from 1. The existential function a in the fifth conjunct is independent of the displayed sampled family in the sense that the formula imposes no relation between a and b. Its existential quantifier is inside the quantifiers over k,n,L and the positivity hypothesis.",
+        "semantic_slots": {
+          "ambient_amplitude_definition": [
+            "At a real coordinate p, smoothInitial(k,p) is exp(p) when p<-1; otherwise it is sourceInterpolant(k).eval(p) when p<=0; otherwise it is exp(-p). Consequently both p=-1 and p=0 use the middle polynomial branch.",
+            "Writing t=p+1, the supplied middle polynomial is exp(-1)*(1-t)^(k+1)*A_k(t)+t^(k+1)*A_k(1-t).",
+            "The supplied A_k(t) is sum_{r=0}^k [sum_{m=0}^r binom(k+r-m,k)/m!]*t^r. The two finite sums include both endpoints of their displayed natural ranges.",
+            "The root claims that the particular central sample at p=0 has value 1. It does not claim all samples have value 1.",
+            "sampleNorm(k,n+1,L) is defined as the nonnegative real square root of the same unweighted squared-sample sum appearing in the third conjunct."
+          ],
+          "claims_and_nonclaims": [
+            "The conjunction asserts an exact central position, an exact central amplitude, a squared-mass lower bound of 1, and a strictly positive normalizer for the specified sampled family.",
+            "The root does not assert the squared mass equals 1, the normalizer equals 1, or any nontrivial upper bound on either.",
+            "No normalized vector b/Z is constructed in the root, although the strict positivity statement makes division by this Z meaningful.",
+            "The root contains no estimate of continuous interval mass, quadrature error, preparation success probability, circuit cost, or numerical conditioning ratio.",
+            "There is no biconditional or converse in this root; its first four conjuncts concern the supplied special family, and its last conjunct concerns a separately quantified function."
+          ],
+          "domains_and_boundaries": [
+            "k and n range over all natural numbers including 0; the root has no k>=1 or n>=1 hypothesis.",
+            "L ranges over positive real numbers in the root. Statements outside this domain are not included in this root, even where individual supplied interfaces have a larger domain.",
+            "All sampled amplitudes, grid coordinates, sums, and square roots here are real. Squares are ordinary real squares, not complex amplitudes or complex absolute-value squares.",
+            "All sums over the sampled family are finite and unweighted: there is no grid-step factor, integral, average, or probability normalization in the mass expression."
+          ],
+          "existential_scope_and_separation": [
+            "The literal scope is forall k,n,L,hL, (... and exists a, ...). A witness is formally allowed to depend on these outer parameters, but no parameter, sampledAmplitude expression, grid coordinate, or normalizer occurs in its defining conditions.",
+            "The existential does not assert that the sampled family b has squared mass less than 1; the sampled family has the opposite lower-bound claim in the third conjunct.",
+            "It does not assert that a is obtained by sampling smoothInitial, or that a agrees with b on any indices.",
+            "It asserts both entries of a are positive and neither is 1; it does not require a_0!=a_1 and does not specify numeric witness values.",
+            "The existential supplies an example with the listed properties. It is not a universal assertion about all strictly positive vectors."
+          ],
+          "length_and_index_conventions": [
+            "The root passes N=n+1 to gridPoint, sampledAmplitude and sampleNorm. Thus the sample vector length is M=gridSize(n+1)=2^(n+1), not 2^n or n+1.",
+            "Its valid natural index values are 0,...,2^(n+1)-1. The finite index type is never empty and has at least two elements.",
+            "The supplied bit convention is j=sum_{i=0}^n bit_i*2^i. Thus bit_0 is least significant, and the central index 2^n has bit_n=1 and all lower bits zero.",
+            "For positive L, the uniform grid includes -pi*L at j=0 and excludes +pi*L at the upper end. Its spacing is 2*pi*L/2^(n+1).",
+            "centralIndex n is the valid Fin(2^(n+1)) index of natural value 2^n. The first conjunct says that coordinate is exactly 0.",
+            "At n=0 there are two sample positions, -pi*L and 0; the central index is 1. The existential a is still a separate Fin 2 function even in this equal-length case."
+          ],
+          "quantifier_order": [
+            "For every k:N, then every n:N, then every L:R, then every proof hL of 0<L.",
+            "Under this positive-L hypothesis, assert the five conjuncts about the central grid point, central sampled value, squared-sample sum, square-root normalizer, and the existence of a separate two-entry real function.",
+            "Within the final conjunct there exists one a:Fin 2 -> R satisfying all three of: forall j, 0<a_j; the sum of both squared entries is <1; forall j, a_j!=1.",
+            "The same existential witness must satisfy all three properties. It is not a separately chosen witness for each property or each j."
+          ],
+          "wrapper_reconciliation": {
+            "all_original_packet_content_equal_after_removing_only_added_wrappers": true,
+            "comparison_scope": "Only the successor formal packet, original formal packet and this decoder own prior output were read. This comparison is not a comparison to a source question or expected interpretation.",
+            "predecessor_packet_digest": "af90164ac860dfae23995a6134af3e616566431f9b768edc655a7ad8365aa443",
+            "semantic_effect": "No change to the reconstructed root meaning. The wrapper repeats the original root target, imports and empty universe list, and explicitly supplies the BigOperators notation scope used by the existing finite-sum expressions.",
+            "wrapper_imports_exact_original_imports": true,
+            "wrapper_preamble": "open scoped BigOperators",
+            "wrapper_target_exact_original_root": true,
+            "wrapper_universes_exact_original_universes": true
+          }
+        }
+      },
+      "source_item": {
+        "answer_format": "rubric",
+        "assumptions": [],
+        "author": {
+          "identity": "/root/qcb_formal_view_audit",
+          "method": "explicit versioned question-contract correction"
+        },
+        "conventions": [],
+        "core_id": "qcb-core-sp-113",
+        "cross_version_split_conflict": false,
+        "difficulty": {
+          "level": "intermediate",
+          "rationale": "Requires locating an exact unit sample via the grid-point identity at the splice and using a single-term lower bound, plus articulating what positivity does and does not contribute."
+        },
+        "evidence_relation": "local_source_supported",
+        "evidence_status": "source_inspected",
+        "exposure": "closed_book",
+        "family": "hermite-discrete-mass",
+        "formal": null,
+        "formal_context": null,
+        "formal_evidence": {
+          "counterpart": "existing_source_not_freshly_verified",
+          "inherited_evidence": "See original provenance only; not rerun or upgraded",
+          "local_verification_performed": false
+        },
+        "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "id": "qcb-textbook-b146df7108b5f0af5ed1",
+        "inherited_predecessor_hashes": {
+          "authored_hash": "a6731338d6c6f392be7bb5546106b2c88e28bd64ac1575d3462ac8b9252fdb14",
+          "context_hash": "8823ce7b9870c6b79352e468fd789ff96ceb9d125fd3a32a9438fbac2ec41501",
+          "task_hash": "d7898e4ad349942490f2051cfc17f66e37d71fdc5142245ed986ce2546a7787d"
+        },
+        "inherited_predecessor_reviews": [
+          {
+            "artifact": "benchmarks/quantumcomputingbench/reports/native-nl/batch2-structured-final-review.json",
+            "artifact_sha256": "257a4cfa6690a5e3e423faee79c3af0547b67a38c14597d0e3f1988aa984b4ed",
+            "authored_sha256": "a6731338d6c6f392be7bb5546106b2c88e28bd64ac1575d3462ac8b9252fdb14",
+            "checked_sources": [
+              "QuantumBlockEncoding/HermiteIntervalMass.lean#L168-182 centralIndex/gridPoint_central (2^n -> 0 all L)",
+              "QuantumBlockEncoding/HermiteIntervalMass.lean#L163-165 smoothInitial_zero (=1)",
+              "QuantumBlockEncoding/HermiteIntervalMass.lean#L186-195 sampled_mass_ge_one (single_le_sum, sq_nonneg)"
+            ],
+            "content_hash": "6e7028572931414c8b2e9fbaf4cc4f21e5986ba26536fe5bcc08a081977fcbfd",
+            "core_aliases": [],
+            "core_verdict": "new_distinct",
+            "formal_status": "not_run_source_inspection_only",
+            "key": "qcb-core-sp-113",
+            "method": "distinct-context-source-review",
+            "notes": "Width-uniform norm>=1 lower bound. Matches gridPoint_central (L175-182, central index 2^n -> p=0 for all L, verified algebra), smoothInitial_zero (L163-165, =1 via sourceInterpolant_right_jet k 0), sampled_mass_ge_one (L186-195, Finset.single_le_sum at centralIndex, sq_nonneg others). The claim 'positivity used only to keep bound honest not to prove it' is accurate: the proof needs only a_c^2=1 and nonneg squares. Uniformity in k,n,L correct (central point stays at 0). Nonzero-normalizer tie-in (strict positivity => nonzero norm) correctly separated. 3 substantive steps. Distinct core within family.",
+            "reviewer": "structured-prep-reviewer-b2",
+            "verdict": "accept"
+          }
+        ],
+        "key": "qcb-core-sp-113-textbook-question-v2-unit-anchor-without-positivity",
+        "language": "en",
+        "legacy_split_constraints": [],
+        "lifecycle": "released",
+        "lineage": {
+          "cost_usd": null,
+          "family": "hermite-discrete-mass",
+          "model_version": null,
+          "parameters": {},
+          "provider": "session assistant",
+          "seed": 0,
+          "template": "qcb-core-sp-113",
+          "tokens": null
+        },
+        "mathematical_core_id": "qcb-core-sp-113",
+        "native_nl": {
+          "author_identity": "/root/qcb_formal_view_audit",
+          "core_summary": "The unit conditioning anchor comes from the actual central grid index and the exact endpoint value, not from strict positivity. One squared unit term proves mass>=1 and a nonzero normalizer; positivity is a separate structural theorem.",
+          "evidence_relation": "local_source_supported",
+          "existing_core_aliases": [],
+          "formal_counterpart": "existing_source_not_freshly_verified",
+          "new_problem_core": false
+        },
+        "primary_sources": [],
+        "question": "Let k,n be natural numbers and L>0. The actual real source target is f_k(p)=HermitePolynomial.smoothInitial(k,p): on the splice interval[-1,0] it equals the source Hermite bridge S_k, whose order-zero right endpoint identity is S_k(0)=(-1)^0=1. Thus f_k(0)=1. Its strict positivity at every real p is also known as a SEPARATE source fact.\n\nUse the actual left-inclusive grid on an(n+1)-qubit register: M=2^(n+1), j=0,...,M-1, p_j=-pi L+j*(2 pi L/M). The integer index j is represented in little-endian order, j=sum_{i=0}^n bit_i*2^i. Define raw amplitudes a_j=f_k(p_j) and the unnormalized squared sample mass N=sum_{j=0}^{M-1}a_j^2. Prove N>=1 uniformly in k,n,L, explicitly locating and checking the unit sample. Deduce sqrt(N)>0 without using strict positivity of all samples.\n\nAssess the predecessor's explanation that strict positivity is what makes this unit-grid anchor 'honest' or realizes it as an actual sample. Which exact facts actually realize the unit sample, and what role does strict positivity have in THIS inequality and its nonzero-normalizer consequence? Show by a strictly positive finite sample-table example that positivity alone need not give mass>=1 or a unit-valued sample. This example is a logical test of that proposed proof principle, not a claim about the actual source target. Discuss n=0 carefully: it means one qubit here, not a zero-qubit table. Do not infer preparation-circuit correctness or a success-probability bound from unnormalized mass alone.",
+        "question_successor": {
+          "additional_core_count": 0,
+          "changed_contract_fields": [
+            "question"
+          ],
+          "current_contract_hash": "84ba33c1266ca6bce4771fd68dc57cc64a084b96719cd7addab2896bcdd23973",
+          "equivalence_to_predecessor_claimed": false,
+          "predecessor_contract_hash": "3a69ad92920832681d43e5f54f6afcee5b54fa90202e271e585a405a0571ed06",
+          "predecessor_item_digest": "a7ff8025b9d3472242c418b45c7937ff94ad3774a512035a0a2895e785d55564",
+          "predecessor_key": "qcb-core-sp-113",
+          "question_version": 2,
+          "repair_record": "shared/repairs/sp-113-unit-grid-anchor-state-successor.json",
+          "repair_record_digest": "f5854401b05a07ca94c2aa833e7741057875f07f63a792481d4a17e041f23d72",
+          "review_digest": "386f3429f9933063bbde17c5af33b5feb17577258efe17f38f14622f964f1a1b",
+          "review_record": "reports/textbook-v1/repairs/sp-113-unit-grid-anchor-state-successor-review.json"
+        },
+        "question_version": 2,
+        "reference_answer": "Let c=2^n. Since c>0 and M=2^(n+1)=2c, we have0<=c<M, so c is a genuine index in the specified register. In little-endian bits its only nonzero bit is bit_n; the proof then uses its actual natural integer value c. Substituting into the stated grid gives p_c=-pi L+2^n*(2 pi L/2^(n+1))=-pi L+pi L=0. This identity is independent of the function's signs and of k. For n=0 the register has M=2 points and c=1, so the same calculation holds on one qubit; this is not a claim about a zero-qubit single-point grid.\n\nAt that physical point the source middle branch applies. Its zeroth right endpoint jet is S_k(0)=(-1)^0=1, hence f_k(0)=1 and a_c=1. This endpoint identity and the explicit grid-index identity are the TWO facts that realize an actual unit sample. The source lemma smoothInitial_zero derives that value from sourceInterpolant_right_jet at order0; it is not deduced from positivity.\n\nEvery real square is nonnegative, regardless of the amplitude's sign. Therefore N=a_c^2+sum_{j!=c}a_j^2=1+sum_{j!=c}a_j^2>=1. In particular N>0 and sqrt(N)>=1>0, so this normalizer is well defined and nonzero. The inference uses only one unit sample and nonnegative squares; it never calls strict positivity of the other amplitudes. Width/order/scale uniformity comes from the same central point and endpoint value persisting for all stipulated k,n,L.\n\nThe old positivity-as-anchor explanation is incorrect. Positivity alone cannot locate a sample equal to1. For any fixed nonempty table size M, take every entry equal to eta=1/(2 sqrt(M)). All entries are strictly positive, yet the squared mass is M eta^2=1/4<1, and no entry equals1. This is a counterexample to the proposed implication from positivity alone, not to the actual Hermite sample table with its known unit term. Conversely a real table with a_c=1 and every other entry0 still has mass1, showing why strict positivity is unnecessary for this lower-bound argument. The actual target's positivity is a separate, stronger structural fact. It CAN independently prove a finite nonempty table's norm is positive, and the separate general sampleNorm_pos proof uses it; however it is neither what realizes the unit grid anchor nor needed once N>=1 has already proved the nonzero-normalizer consequence.\n\nThe existing sampled_mass_ge_one proof follows exactly the actual-grid/unit-value/single-square chain. It does not use sampledAmplitude_pos. Its Lean statement even permits every real L, but this candidate retains the original requested L>0 domain rather than adding a new generalization. Reading that theorem and its proof is static evidence, not a new compilation or a blanket state-preparation certificate. No phase, ancillary-space, circuit-resource or postselection-success conclusion is extracted from the unnormalized mass inequality itself.",
+        "relation_types": [
+          "authored_mathematical_support"
+        ],
+        "release_policy": "public",
+        "reviewed_core_status": "new_distinct",
+        "reviewed_semantic_step_count": 3,
+        "reviews": [
+          {
+            "answer_rubric_and_exposition_assessment": {
+              "exposition": "Summary and all3 steps preserve exactly the predecessor's gridPoint_central, smoothInitial_zero and sampled_mass_ge_one node lists. The unchanged target set also retains centralIndex. Expanded explanations do not add a formal companion or change the frozen graph.",
+              "necessity_minimality_verdict": "Accept the whole exact explicit question-version2 candidate. The original main inequality remains correct; rejection concerned its explanatory demand/rubric, which this candidate now assesses openly. No automatic transfer of old formal/source acceptance or new current-reader admission is claimed.",
+              "question": "Accept: correctly acknowledges the original unit-value/grid premises and changes only their demanded explanation. The actual grid, target branch, n+1 convention, L>0 domain and requested nonzero consequence are explicit.",
+              "reference_answer": "Accept in full. In-range dyadic index, LE representation, grid substitution, right jet at order0, nonnegative-square bound, sqrt consequence and positive-table counterexample all match the source. Its positivity discussion distinguishes separate generic norm positivity from the unit-anchor proof.",
+              "rubric": "All c1-c4 are supported: actual LE index/n0; source endpoint value independent of positivity; central term plus nonnegative squares and sqrt; precise refutation of positivity-as-anchor with no circuit/success promotion. No new premise is disguised as a correction."
+            },
+            "binding_definition": {
+              "actual_checks": "Exact allowed candidate keys/schema, predecessor key/whole-item/contract bindings, pending marker, version2 key grammar and changed question verified. The other8 contract fields are literally inherited, not overridden. Exposition count is3 and each supporting-node list equals its original per-step list exactly. Source LF bindings checked. Old/new contract hashes differ.",
+              "contract_fields": [
+                "question",
+                "assumptions",
+                "conventions",
+                "family",
+                "split",
+                "graph_version",
+                "target_nodes",
+                "supporting_nodes",
+                "source_refs"
+              ],
+              "original_contract_hash": "qcb_core.digest({k:original[k] for k in qcb_textbook_policy.CONTRACT_FIELDS}).",
+              "original_item_digest": "qcb_core.digest(entire actual historical prepared original via release.checked()[2]), not a current-reader substitute.",
+              "repair_record_digest": "qcb_core.digest(entire exact candidate JSON, including answer/rubric/exposition/source/execution metadata).",
+              "retained_values": "family=hermite-discrete-mass; split=dev; graph_version=qcb-snapshot-ffa644f0da3031a1ce754b9a; assumptions=[]; conventions=[]; targets=[\"declaration:QuantumBlockEncoding.HermiteIntervalMass.centralIndex\",\"declaration:QuantumBlockEncoding.HermiteIntervalMass.gridPoint_central\",\"declaration:QuantumBlockEncoding.HermiteIntervalMass.smoothInitial_zero\",\"declaration:QuantumBlockEncoding.HermiteIntervalMass.sampled_mass_ge_one\"]; supporting_nodes=[]; source_refs retained exactly.",
+              "successor_contract_hash": "qcb_core.digest of the exact original nine-field contract with ONLY question replaced by candidate.question."
+            },
+            "contract_change_assessment": {
+              "admission_boundary": "No canonical source/policy/data, graph, prior report/candidate, companion view or publication gate is changed. A local theorem can support mathematics but does not prove an exact revised NL formal equivalence; any future formal view requires its own exact alignment and kernel gate.",
+              "changed_requested_reasoning": "Version2 retains the existing unit-grid/squared-mass problem and L>0 domain, explicitly asks to assess/refute positivity-as-anchor reasoning, derives the same mass and nonzero-normalizer consequence without it, and supplies a positive-table logical counterexample. This changes the demanded explanation transparently rather than silently adding an f(0)=1 promise or merely regrading the old answer.",
+              "classification": "First explicit question-contract successor, not an unchanged-question answer repair.",
+              "predecessor_and_withdrawal": "The original ALREADY states f_k(0)=1 and that the actual central index2^n maps to p0 on n+1 qubits. Its mass inequality and single-term proof are true. The bound withdrawal rejects the question/reference/r4 explanation attributing realization of that unit anchor to strict positivity. The candidate accurately says this is a dependency/explanation defect, not a missing endpoint/grid premise or a false mass theorem.",
+              "retained_scope_and_minimality": "Same hermite-discrete-mass family, dev split, frozen graph/source refs and3 semantic steps are inherited. Assumptions/conventions stay empty. The actual smoothInitial and grid definitions clarify the original target/indexing; they do not alter the physical table, add an oracle, strengthen positivity, impose extra width/rank or extend the requested L domain. A definitionally named noncomputable source is not a new efficient producer theorem."
+            },
+            "core_id": "qcb-core-sp-113",
+            "independence": {
+              "actual_identity": "Actual task /root/qcb_boundary_repair_review, distinct from candidate/prior-finding author /root/qcb_formal_view_audit and original structured-preparation-author-b2.",
+              "exposure": "Not blind: prior Hermite/cohort/source exposure in this task, current parent focus and exact bound withdrawal findings are disclosed. Full actual prepared original, entire private candidate, full operative source/proof bodies and complete local notes were read. The prior author's finding/recommendation is not mathematical evidence for successor acceptance; reconstruction below independently checks the exact contract.",
+              "original_author": "structured-preparation-author-b2",
+              "repair_author": "/root/qcb_formal_view_audit"
+            },
+            "method": "independent-question-successor-review",
+            "original_contract_hash": "3a69ad92920832681d43e5f54f6afcee5b54fa90202e271e585a405a0571ed06",
+            "original_item_digest": "a7ff8025b9d3472242c418b45c7937ff94ad3774a512035a0a2895e785d55564",
+            "provenance": {
+              "expert_or_model_evaluation_claimed": false,
+              "external_primary_limit": "This bounded local-Lean/source gate does not freshly retrieve/audit arXiv2403.19123v3. Local notes identify that source, but no external-paper-byte, full-paper fidelity or public source seal is claimed. Exact local definition/proof mathematics is independently reconstructed.",
+              "extra_agents": false,
+              "formal_status": "No Lean/kernel/native formal execution was necessary or performed. Existing noncomputable definitions and theorem bodies are inspected static evidence; neither their presence nor this NL review certifies an exact revised formal companion, arbitrary compilation cost or source-publication seal.",
+              "human_approval_claimed": false,
+              "instructions_and_skills": "Mandatory AGENTS/HARNESS/theorem-publication/proof-digestion/evidence-routed-memory/shared contract/acceptance and substantive-worker skill read completely in this continuous context; head unchanged from preceding gate. Exact-contract/definition-expansion/source-proof/typed-boundary rules applied.",
+              "locator_correction": "Only repair_record was retargeted to the intended repository-relative canonical locator, with this truthful private inspection location retained. No candidate transport or policy admission is claimed; mathematical findings and exact candidate binding are unchanged.",
+              "mutation_scope": "Only parent _review_tmp/sp-113-unit-grid-anchor-state-successor-review.json written. Candidates, canonical files/policy/source, prior reports, history/current publication gate are untouched; no commit/push.",
+              "new_kernel_execution": false,
+              "observed_head": "0b229454bcac07658738e184e255d3ae44e65957",
+              "private_reviewed_at": "_review_tmp/sp-113-unit-grid-anchor-state-successor.json",
+              "remaining_limits": "Acceptance is mathematical/source review of this exact question successor only. No global dedup, new core count, cross-split reconciliation, external collaborator/human approval, novelty or automatic formal transfer.",
+              "retrieval": "Full actual historical original from release.checked()[2] and entire exact private candidate read. The current reader's withholding does not prevent inspecting the actual predecessor.",
+              "source_blind_review": false,
+              "source_hash_method": "qcb_integrity.text_sha over whole actual tracked local files; qcb_core.digest for exact whole candidate/original/contracts and withdrawal records. LF bindings are actual source content, not kernel execution.",
+              "source_inspection_scope": "Full HermitePolynomial, HermiteIntervalMass, HermiteStatePreparation, PrimitiveBasisLE and local Hermite notes were read where relevant; Core grid vocabulary and RealAmplitudePreparation operative norm/reindex proofs were additionally inspected for113. Static full proof text, not theorem-name matching or compile receipt inheritance."
+            },
+            "question_version": 2,
+            "repair_record": "benchmarks/quantumcomputingbench/shared/repairs/sp-113-unit-grid-anchor-state-successor.json",
+            "repair_record_digest": "f5854401b05a07ca94c2aa833e7741057875f07f63a792481d4a17e041f23d72",
+            "reviewer": "/root/qcb_boundary_repair_review",
+            "schema_version": "qcb.textbook_question_successor_review.v1",
+            "source_checks": [
+              {
+                "anchor": "Complete module read. Full smoothInitial_zero163–165, actual centralIndex168–173, gridPoint_central175–182 and sampled_mass_ge_one186–195 proofs inspected. Exact central finite index, endpoint equality and single_le_sum/sq_nonneg chain contain no positivity call; wider interval-mass formulas are separate.",
+                "path": "QuantumBlockEncoding/HermiteIntervalMass.lean",
+                "sha256_lf": "ff87cc69d0527cb1a7001a7bae4b916cf0a2c2b8bd1e6ba017511c3be27bc69f"
+              },
+              {
+                "anchor": "Complete module read. Actual grid/sample definitions23–28, separate sampledAmplitude_pos30–31 and sampleNorm34–35/full sampleNorm_pos37–42 distinguish the actual physical amplitude and generic positivity proof. Later circuit/action/count/root bodies were read but are not replayed or promoted by this scalar review.",
+                "path": "QuantumBlockEncoding/HermiteStatePreparation.lean",
+                "sha256_lf": "dee753c9379124c29f3c2b08e2b597714b9f9dacca073ec315add33f7f169ec7"
+              },
+              {
+                "anchor": "Complete module read. Source right endpoint jet proof246–252, smoothInitial branch definition357–359 and middle/global positivity proofs364–377; coefficient/truncation and exact evaluation regions establish the canonical source target. Order-zero anchor and strict positivity are distinct conclusions.",
+                "path": "QuantumBlockEncoding/HermitePolynomial.lean",
+                "sha256_lf": "f8a3e1d5f29aed1228b6ede3577a9af1e76301559172ee67a266fcb0d56fee1e"
+              },
+              {
+                "anchor": "Complete module read. primitiveBasisLEEquiv definition15–25 and full succ_value recursion32–37 fix wire0 as least significant; high-bit index2^n follows. Fixed finite native_decide proofs elsewhere were read as source text only, not executed.",
+                "path": "QuantumBlockEncoding/PrimitiveBasisLE.lean",
+                "sha256_lf": "469c176f1f47732661d526b72de1f9906a3c335061f6a4c82766877ce5979fad"
+              },
+              {
+                "anchor": "Actual gridSize definition44 and zero-width convention read in full context: gridSize(q)=2^q, including gridSize0=1. This disambiguates original n+1 qubits from q0 and guarantees the table is nonempty.",
+                "path": "QuantumBlockEncoding/Core.lean",
+                "sha256_lf": "c7e76d91c7fcfd844177f99c0399a3465a7d8360d3a522acb5d4c4e2f8277894"
+              },
+              {
+                "anchor": "Complete operative normSq definition/nonneg proof211–215, normSq_pos_of_positive319–323 and normSq_reindex389–391 read, with their actual bodies. The positivity-based generic norm proof and reindex equivalence are distinct from the unit-anchor proof; no arbitrary broader compiler proof is claimed reviewed in full.",
+                "path": "QuantumBlockEncoding/RealAmplitudePreparation.lean",
+                "sha256_lf": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa"
+              },
+              {
+                "anchor": "Complete local source-to-Lean notes read. The precise source formula/endpoint explanation and stated verification boundaries are local mathematical exposition, not fresh external-paper inspection or a new successful build.",
+                "path": "docs/hermite-polynomial-proof.md",
+                "sha256_lf": "ba2d1f1583d222c34c5edcee142d7b5e64905198720969eb9bb58260fe81caf7"
+              },
+              {
+                "anchor": "Complete exact qcb-core-sp-113 withdrawal finding read and digest-bound above. Prior finding provenance only, not mathematical support or successor approval.",
+                "path": "benchmarks/quantumcomputingbench/reports/textbook-v1/reader-reviews/state-preparation-111-120-review.json",
+                "sha256_lf": "dfb5230153faecc09bbd4f8c3e88b16878358919670934e597c1a4ff7e0a2c9c"
+              }
+            ],
+            "substantive_reconstruction": {
+              "actual_target_and_endpoint": "HermitePolynomial.smoothInitial uses exp(p) if p<-1, sourceInterpolant on the remaining p<=0 branch, and exp(-p) for p>0. Thus p=0 uses the MIDDLE branch. The complete sourceInterpolant_right_jet proof evaluated at j=0 gives S_k(0)=(-1)^0=1 for every natural k, and smoothInitial_zero transfers it. The strict-positivity theorem is separate and is not a premise of this value equality.",
+              "formal_and_resource_boundary": "The reviewed candidate concerns unnormalized mass and a well-defined positive scalar normalizer only. The later hermiteCircuit/stateAction/root/resource declarations in the read module have additional dependencies and semantic content; they do not transfer automatically to this question successor. No ancilla, phase, gate cost, success-probability, efficient arithmetic, source-paper seal or new kernel/native formal assertion is extracted from N>=1.",
+              "grid_and_le_index": "gridSize(q)=2^q and gridPoint(q,L,j)=-pi L+j.val*(2pi L/2^q). With q=n+1 and c=2^n, c>0 and c<2c=M=2^(n+1), so it is an actual finite index, not an existential point outside the register. PrimitiveBasisLEEquiv has recursion index(bits)=bit0+2*index(tail), which gives j=sum_(i=0..n)bit_i2^i; c is exactly the bit string with only wire n set. Substitution gives p_c=-pi L+2^n*(2pi L/2^(n+1))=0. The nonzero denominator is2^(n+1), not L; no positivity of samples or division by a potentially zero scale is used.",
+              "positivity_counterexample_and_denominator": "For any nonempty finite table with integer M>=1, sqrt(M)>0. Set every entry eta=1/(2sqrt(M)); eta>0, eta<=1/2 and no entry is1. Its total squared mass is M/(4M)=1/4<1, so positivity alone supplies neither the unit sample nor the bound1. The denominator check uses M>0 explicitly; the actual Hermite table has M>=2. Conversely a table with one unit entry and all others0 already has N=1. Both examples test proof dependencies, not alternate values of the actual positive Hermite target.",
+              "two_distinct_norm_proofs": "The full sampled_mass_ge_one proof constructs its central hc equality via gridPoint_central and smoothInitial_zero, then uses Finset.single_le_sum with sq_nonneg. It calls no sampledAmplitude_pos. Separately sampleNorm_pos in HermiteStatePreparation uses normSq_pos_of_positive and normSq_reindex to prove generic positivity on any finite nonempty sample domain. That independent valid positivity proof does not imply positivity produced a unit term; once N>=1 is known it is unnecessary for this particular normalizer conclusion. Source presence is not logical dependence.",
+              "unit_term_and_mass": "For a_j=f_k(p_j), the actual central sample is a_c=f_k(0)=1. Every real square is nonnegative even if some entries have arbitrary signs or zeros. Hence N=sum_j a_j^2=a_c^2+sum_(j!=c)a_j^2=1+sum_(j!=c)a_j^2>=1, uniformly in the requested k,n,L. Therefore N>0 and sqrt(N)>=1>0. The grid identity plus endpoint value realize the anchor; the already established lower bound proves its own nonzero-normalizer consequence.",
+              "zero_width_and_scale_boundary": "n=0 here means q=1 and M=2, with c=1 and grid points -pi L,0; it is not a zero-qubit singleton table. The source sampled_mass_ge_one theorem indeed has L:real without an L>0 premise, and at L=0 all samples equal1, but this candidate retains the original L>0 requested domain. Its uniformity does not require any continuum integral, asymptotic quadrature or growing-width approximation. A zero-qubit table is genuinely a different case: with q=0,L=1 its single grid point is -pi<-1, so mass=exp(-2pi)<1. The original n+1 width avoids that case; this is not a new restriction supplied by the successor."
+            },
+            "successor_contract_hash": "84ba33c1266ca6bce4771fd68dc57cc64a084b96719cd7addab2896bcdd23973",
+            "verdict": "accept",
+            "verdict_scope": "Entire exact candidate question/reference/rubric/exposition accepted as mathematically correct explicit first question-version2 correction. Not predecessor-equivalence, policy admission, source-blind approval, fresh kernel evidence or automatic native formal transfer.",
+            "withdrawal_binding": {
+              "assessment": "Full finding and exact row loaded; predecessor item, whole prior review and whole item-finding digests verified. These bind what was previously withheld, not proof that this successor is correct. Current-policy whole-file hash is intentionally not made an evergreen source dependency because later integration must mutate policy.",
+              "finding_digest": "b81bd650d3b6b65a3997bdd8b1ed2f9eaa69ebb5ba2c3716c32dc76e5506548e",
+              "prior_verdict": "reject",
+              "review_digest": "ffd653585db1a4dec073a2f1c4efcd7015c458230e4316aabd183819eb6aaec8",
+              "review_path": "benchmarks/quantumcomputingbench/reports/textbook-v1/reader-reviews/state-preparation-111-120-review.json",
+              "withdrawal_row_digest": "aa778d6bdeb5ba61ef0cbbb9c67646d59d3d3466840d3d716e1ada09f893f1d2"
+            }
+          }
+        ],
+        "rubric": [
+          {
+            "criterion": "Proves c=2^n is an in-range actual LE integer index and substitutes it into the explicit grid to get p_c=0, independent of k,L; handles n=0 as one qubit.",
+            "id": "c1",
+            "weight": 1
+          },
+          {
+            "criterion": "Uses the source zeroth right-endpoint value to obtain f_k(0)=1 and hence a_c=1, distinguishing that identity from amplitude positivity.",
+            "id": "c2",
+            "weight": 1
+          },
+          {
+            "criterion": "Bounds the sum of nonnegative real squares by its unit central term, proves N>=1 uniformly and deduces sqrt(N)>0 without strict positivity.",
+            "id": "c3",
+            "weight": 1
+          },
+          {
+            "criterion": "Refutes positivity-as-unit-anchor necessity with a strictly positive table of mass<1, identifies the actual grid/value dependencies and distinguishes positivity's separate norm-positivity role. Makes no circuit/success or new Lean-execution claim.",
+            "id": "c4",
+            "weight": 1
+          }
+        ],
+        "schema_version": "qcb.item.v1",
+        "semantic_step_count": 3,
+        "semantic_steps": [
+          {
+            "claim": "The actual index2^n lies in the(n+1)-qubit grid and its physical point is0 by direct substitution; n=0 is a one-qubit case.",
+            "supporting_nodes": [
+              "declaration:QuantumBlockEncoding.HermiteIntervalMass.gridPoint_central"
+            ]
+          },
+          {
+            "claim": "The zeroth right endpoint identity gives f_k(0)=1 and therefore the actual central sample is1; positivity does not produce this equality.",
+            "supporting_nodes": [
+              "declaration:QuantumBlockEncoding.HermiteIntervalMass.smoothInitial_zero"
+            ]
+          },
+          {
+            "claim": "Nonnegative squares give N>=1 from the central unit term and hence a nonzero normalizer, without strict positivity. A separate positive-table counterexample shows positivity alone supplies no unit lower bound.",
+            "supporting_nodes": [
+              "declaration:QuantumBlockEncoding.HermiteIntervalMass.sampled_mass_ge_one"
+            ]
+          }
+        ],
+        "skills": [
+          "reasoning"
+        ],
+        "source_refs": [
+          {
+            "anchor": "lines 162-195: smoothInitial_zero : smoothInitial k 0 = 1 (from sourceInterpolant_right_jet k 0); centralIndex n = <2^n, _> : Fin (gridSize (n+1)); gridPoint_central : gridPoint (n+1) L (centralIndex n) = 0; sampled_mass_ge_one : 1 <= sum_j (sampledAmplitude k (n+1) L j)^2 via Finset.single_le_sum at centralIndex",
+            "license": "MIT (repository LICENSE)",
+            "path": "QuantumBlockEncoding/HermiteIntervalMass.lean",
+            "sha256": "ff87cc69d0527cb1a7001a7bae4b916cf0a2c2b8bd1e6ba017511c3be27bc69f"
+          }
+        ],
+        "split": "dev",
+        "split_group": "hermite-discrete-mass",
+        "structural_distance_definition": "unknown; imports are not theorem entailment",
+        "structural_graph_distance": null,
+        "support_count": 4,
+        "supporting_nodes": [],
+        "target_nodes": [
+          "declaration:QuantumBlockEncoding.HermiteIntervalMass.centralIndex",
+          "declaration:QuantumBlockEncoding.HermiteIntervalMass.gridPoint_central",
+          "declaration:QuantumBlockEncoding.HermiteIntervalMass.smoothInitial_zero",
+          "declaration:QuantumBlockEncoding.HermiteIntervalMass.sampled_mass_ge_one"
+        ],
+        "task_kind": "proof",
+        "topic": "structured_preparation",
+        "track": "reasoning",
+        "unresolved_issues": [],
+        "validation": {
+          "answer_quality": "reviewed",
+          "formal": "not_applicable",
+          "nl_alignment": "reviewed"
+        },
+        "verification_receipts": [],
+        "views": [
+          "natural_language"
+        ]
+      },
+      "source_item_digest": "525b8f123a38d56fcc3b95a970d0d7c293dddad13575bc075c874c6c6d614748",
+      "task_hash": "034612e7e277e1efa2da760352c937a3ffcf582ca8b35e6863effd64e8158807"
+    },
+    {
+      "ambient_context": {
+        "schema_version": "qcb.curriculum_blind_input.v1"
+      },
+      "core_id": "qcb-core-sp-120",
+      "formal_context_digest": "a5b0f55f070b725db4a5885a881fe0c2379889906d9d35183d1ef48c4d27a6e5",
+      "formal_view": {
+        "ambient_definitions": {
+          "Cost": "Op → ℕ; tick op q = if q=op then 1 else 0",
+          "Op": "field | sqrt | angle | trig | compare | read | write | emit, all distinct",
+          "Run": "Run α has value : α and cost : Cost; pure x = (x,0); bind x f computes y=f x.value and returns (y.value,x.cost+y.cost)",
+          "affinePoint": "affinePoint origin step j = origin + step*(j:ℝ)",
+          "arithmetic": "StoredGivens.add/sub/mul/div x y = charge field (x+y / x-y / x*y / x/y), respectively",
+          "below": "below x = charge compare (decide (x < -1)), using exact ℝ comparison",
+          "charge": "charge op x returns value x and cost tick op",
+          "compute": "compute n L: width←mul Real.pi L; lower←sub 0 width; search n 0 lower width",
+          "cost_scope": "only the declared exact-real operations; natural index arithmetic, powers of two, proofs and counter bookkeeping are outside this model. No finite-bit complexity claim.",
+          "cutIndex": "Nat.ceil ((-1-(-Real.pi*L))/gridStep n L); natural ceil clamps below at zero. Search interval has 2^n cells from -pi*L to 0, including the excluded endpoint for cutoff purposes.",
+          "gridPointNat": "gridPointNat n L j = affinePoint (-Real.pi*L) (gridStep n L) j",
+          "gridSize": "gridSize N = 2^N : ℕ",
+          "gridStep": "gridStep n L = 2*Real.pi*L/(gridSize(n+1):ℝ)",
+          "search_succ": "search (r+1) start lower span: half←div span 2; middle←add lower half; yes←below middle; if yes then search r (start+2^r) middle half else search r start lower half",
+          "search_zero": "search 0 start lower span: yes←below lower; pure (if yes then start+1 else start)"
+        },
+        "anonymous_id": "ambient-B",
+        "formal_context": {
+          "imports": [
+            "QuantumBlockEncoding.HermiteBinaryCutoff"
+          ],
+          "preamble": "open scoped BigOperators",
+          "target": "∀ (n : ℕ) (L : ℝ) (hL : 0 < L), ((QuantumBlockEncoding.HermiteBinaryCutoff.compute n L).value = QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex n L) ∧ ((QuantumBlockEncoding.HermiteBinaryCutoff.search n 0 (-Real.pi * L) (Real.pi * L)).cost .field = 2 * n) ∧ ((QuantumBlockEncoding.HermiteBinaryCutoff.search n 0 (-Real.pi * L) (Real.pi * L)).cost .compare = n + 1) ∧ ((QuantumBlockEncoding.HermiteBinaryCutoff.compute n L).cost .field = 2 * n + 2) ∧ ((QuantumBlockEncoding.HermiteBinaryCutoff.compute n L).cost .compare = n + 1)",
+          "universe_parameters": []
+        },
+        "imports": [
+          "QuantumBlockEncoding.HermiteBinaryCutoff"
+        ],
+        "interfaces": [
+          {
+            "name": "QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat_lt_neg_one_iff",
+            "signature": "theorem gridPointNat_lt_neg_one_iff (n : ℕ) (L : ℝ) (hL : 0 < L) (j : ℕ) :\n    gridPointNat n L j < -1 ↔ j < cutIndex n L"
+          },
+          {
+            "name": "QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex_le_midpoint",
+            "signature": "theorem cutIndex_le_midpoint (n : ℕ) (L : ℝ) (hL : 0 < L) :\n    cutIndex n L ≤ 2 ^ n"
+          },
+          {
+            "name": "QuantumBlockEncoding.HermiteBinaryCutoff.search_value",
+            "signature": "theorem search_value (n remaining start : ℕ) (L : ℝ) (hL : 0 < L)\n    (hlo : start ≤ cutIndex n L) (hhi : cutIndex n L ≤ start + 2 ^ remaining) :\n    (search remaining start (gridPointNat n L start)\n      (gridStep n L * (2 : ℝ) ^ remaining)).value = cutIndex n L"
+          },
+          {
+            "name": "QuantumBlockEncoding.HermiteBinaryCutoff.search_cost",
+            "signature": "theorem search_cost (remaining start : ℕ) (lower span : ℝ) (op : Op) :\n    (search remaining start lower span).cost op =\n      2 * remaining * tick .field op + (remaining + 1) * tick .compare op"
+          },
+          {
+            "name": "QuantumBlockEncoding.HermiteBinaryCutoff.compute_value",
+            "signature": "theorem compute_value (n : ℕ) (L : ℝ) (hL : 0 < L) :\n    (compute n L).value = cutIndex n L"
+          },
+          {
+            "name": "QuantumBlockEncoding.HermiteBinaryCutoff.compute_cost",
+            "signature": "theorem compute_cost (n : ℕ) (L : ℝ) (op : Op) :\n    (compute n L).cost op =\n      (2 * n + 2) * tick .field op + (n + 1) * tick .compare op"
+          }
+        ],
+        "nodes": [
+          {
+            "depends_on": [],
+            "id": "interval_value",
+            "target": "∀ (n remaining start : ℕ) (L : ℝ) (hL : 0 < L) (hlo : start ≤ QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex n L) (hhi : QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex n L ≤ start + 2 ^ remaining), (QuantumBlockEncoding.HermiteBinaryCutoff.search remaining start (QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat n L start) (QuantumBlockEncoding.HermiteBoundaryInjection.gridStep n L * (2 : ℝ) ^ remaining)).value = QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex n L"
+          },
+          {
+            "depends_on": [],
+            "id": "search_ledger",
+            "target": "∀ (remaining start : ℕ) (lower span : ℝ) (op : QuantumBlockEncoding.StoredGivens.Op), (QuantumBlockEncoding.HermiteBinaryCutoff.search remaining start lower span).cost op = 2 * remaining * QuantumBlockEncoding.StoredGivens.tick .field op + (remaining + 1) * QuantumBlockEncoding.StoredGivens.tick .compare op"
+          },
+          {
+            "depends_on": [
+              "interval_value"
+            ],
+            "id": "producer_value",
+            "target": "∀ (n : ℕ) (L : ℝ) (hL : 0 < L), (QuantumBlockEncoding.HermiteBinaryCutoff.compute n L).value = QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex n L"
+          },
+          {
+            "depends_on": [
+              "search_ledger"
+            ],
+            "id": "producer_ledger",
+            "target": "∀ (n : ℕ) (L : ℝ) (op : QuantumBlockEncoding.StoredGivens.Op), (QuantumBlockEncoding.HermiteBinaryCutoff.compute n L).cost op = (2 * n + 2) * QuantumBlockEncoding.StoredGivens.tick .field op + (n + 1) * QuantumBlockEncoding.StoredGivens.tick .compare op"
+          },
+          {
+            "depends_on": [
+              "producer_value",
+              "search_ledger",
+              "producer_ledger"
+            ],
+            "id": "root",
+            "target": "∀ (n : ℕ) (L : ℝ) (hL : 0 < L), ((QuantumBlockEncoding.HermiteBinaryCutoff.compute n L).value = QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex n L) ∧ ((QuantumBlockEncoding.HermiteBinaryCutoff.search n 0 (-Real.pi * L) (Real.pi * L)).cost .field = 2 * n) ∧ ((QuantumBlockEncoding.HermiteBinaryCutoff.search n 0 (-Real.pi * L) (Real.pi * L)).cost .compare = n + 1) ∧ ((QuantumBlockEncoding.HermiteBinaryCutoff.compute n L).cost .field = 2 * n + 2) ∧ ((QuantumBlockEncoding.HermiteBinaryCutoff.compute n L).cost .compare = n + 1)"
+          }
+        ],
+        "payload_policy": "Proof bodies, source question/title/core ID, author binder classifications and desired verdict are excluded. Imported identifiers are necessary ambient constants, not source labels.",
+        "root_id": "root",
+        "universe_parameters": []
+      },
+      "source_blind_decode": {
+        "ambiguities": [],
+        "anonymous_id": "ambient-B",
+        "limitations": [
+          "The root and supplied interfaces fix the mathematical cutoff and declared operation ledger. They do not provide an implementation or a computational model for finite representations of arbitrary real numbers.",
+          "The distinction between the root two-component ledger and the supplied general interface whole-vector formulas is retained; no missing cost component is invented as a root conjunct.",
+          "This is a source-blind semantic reconstruction only. No Lean run, proof body, source question, author packet, proof log, prior verdict or external mathematical source was consulted, and no source-equivalence or independent validity claim is made.",
+          "This v2 decode retains the v1 root reconstruction after exact wrapper reconciliation. Root target strings, imports, universe lists and all pre-existing parsed packet contents agree; only formal_context wrappers are newly added. This establishes no source equivalence, mathematical validity or Lean elaboration result."
+        ],
+        "reconstructed_statement": "For every n in N and L in R, assuming 0<L, let h=2*pi*L/2^(n+1), c=Nat.ceil((-1+pi*L)/h), where Nat.ceil takes values in N and clamps negative inputs to zero, let S=search(n,0,-pi*L,pi*L), and let R=compute(n,L). The root asserts these five conjuncts: (1) R.value=c; (2) S.cost(field)=2*n; (3) S.cost(compare)=n+1; (4) R.cost(field)=2*n+2; and (5) R.cost(compare)=n+1. The costs are exact counts in the supplied charged exact-real operation model. They are not bit-operation, wall-clock, hardware-gate, or physical memory-access counts.",
+        "semantic_slots": {
+          "cost_model_semantics": [
+            "Op consists of the distinct tags field, sqrt, angle, trig, compare, read, write, emit.",
+            "A Cost is a function from Op to N. tick(op) has value 1 at exactly op and 0 at the other tags.",
+            "charge(op,x) returns x and the corresponding one-operation cost. pure returns a value with all costs 0. bind adds componentwise the first cost and the cost of the subsequent computation selected by its value.",
+            "The field tag counts each declared real addition, subtraction, multiplication or division as one operation, without distinguishing their bit cost or implementing a finite-precision representation.",
+            "The compare tag counts calls to the exact real predicate below(x), which decides x<-1. It is not a count of all natural-number comparisons, proof obligations or physical branch instructions.",
+            "The appearances of the constant pi and of powers of two do not themselves cause trig, read, or other charges under the supplied definitions."
+          ],
+          "cutoff_and_length_conventions": [
+            "h=gridStep(n,L)=2*pi*L/gridSize(n+1), with gridSize(n+1)=2^(n+1). The denominator is a positive real embedding of a natural power of two.",
+            "gridPointNat(n,L,j)=-pi*L+h*j for an unrestricted natural index j. This affine definition itself has no Fin-type restriction or modular indexing.",
+            "cutIndex(n,L)=Nat.ceil((-1-(-pi*L))/h). It is a natural number, so inputs of the ceiling at or below zero yield 0.",
+            "The supplied cutoff interface identifies the strict predicate gridPointNat(n,L,j)<-1 with j<cutIndex(n,L) for every natural j. Thus the cutoff is the first nonnegative index whose coordinate is at least -1, and a grid point exactly at -1 is not below the cutoff threshold.",
+            "The supplied interval interface bounds the cutoff by 2^n. The initial search interval runs from index 0 to index 2^n, namely from coordinate -pi*L to coordinate 0, with 2^n cells.",
+            "The coordinate 0 endpoint is included as a possible cutoff index even though the half-interval being partitioned has only the preceding 2^n cells. The full-grid length represented by the denominator is 2^(n+1).",
+            "If pi*L<=1, the clamped cutoff is 0. Otherwise the threshold lies to the right of the left endpoint. No assumption pi*L>1 appears in the root."
+          ],
+          "empty_and_boundary_cases": [
+            "The relevant natural powers 2^n and 2^(n+1) are positive even at n=0; there is no empty-grid or zero-cell case in this root.",
+            "The positive-L hypothesis ensures h>0. The root does not cover L=0 or negative L.",
+            "The strict comparison is x<-1 throughout. Equality to -1 takes the false branch and belongs on the at-least--1 side of the cutoff.",
+            "cutIndex is natural rather than an arbitrary signed integer and may equal 0 or 2^n, so both search interval endpoints matter."
+          ],
+          "exact_claimed_cost_components": [
+            "S.cost(field)=2*n and S.cost(compare)=n+1 refer to the standalone search with initial lower=-pi*L and span=pi*L; they exclude the two arithmetic operations that construct those inputs inside compute.",
+            "R.cost(field)=2*n+2 and R.cost(compare)=n+1 include those two compute preprocessing operations and the subsequent search.",
+            "All four are equalities of natural counters, not asymptotic bounds, timings, numerical error estimates, or probabilities.",
+            "The root explicitly projects only field and compare; it contains no quantifier over arbitrary op and no explicit equality for any of the other six components.",
+            "Separately, the supplied general cost interfaces state whole-vector formulas involving only tick(field) and tick(compare); within that declared model they would give 0 for the other tags. This is ambient interface information, not an additional root conjunct and not a claim of zero physical reads, writes, or memory usage."
+          ],
+          "instrumented_search_definition": [
+            "At search depth r+1, a charged division computes half=span/2; a charged addition computes middle=lower+half; a charged exact comparison decides middle<-1.",
+            "If that comparison is true, the next state is search(r,start+2^r,middle,half); otherwise it is search(r,start,lower,half). Exactly one recursive branch is run.",
+            "At depth 0, a charged comparison decides lower<-1, and pure returns start+1 when true and start otherwise.",
+            "There are n recursive midpoint refinements in S and then one terminal comparison. Natural additions, index powers of two, branch control and counter bookkeeping are not charged in this model.",
+            "compute first computes width=pi*L with one charged field multiplication, then lower=0-width with one charged field subtraction, then runs search(n,0,lower,width)."
+          ],
+          "quantifier_order": [
+            "For every n:N, every L:R, and every proof hL of 0<L, assert the conjunction of the returned cutoff equality and four cost-component equalities.",
+            "No further input-validity, error-tolerance, bit-precision or resource-budget hypothesis appears.",
+            "The root includes n=0. At that depth the search has 0 charged field operations and 1 charged comparison, while compute has 2 charged field operations and 1 charged comparison.",
+            "The root is scoped to L>0; general cost interfaces in the packet quantify over a wider real domain, but that stronger quantifier is not part of this root."
+          ],
+          "value_claim_and_nonclaims": [
+            "The only explicit value equality in the root is compute(n,L).value=cutIndex(n,L). The remaining conjuncts concern costs.",
+            "The root does not explicitly state the value of S in its standalone search expression, although the supplied compute definition and other interfaces explain its role.",
+            "The root does not return a sampled quantum state, construct an amplitude vector, output a circuit, or state a probability of success.",
+            "The exact-real ledger does not assert an implementation of exact real comparisons, finite-bit complexity, floating-point stability, precision requirements, total runtime, circuit depth, memory requirements, or hardware performance.",
+            "No numerical resource cost for natural index arithmetic, exponentiation of two, proofs, or counter maintenance is included. The names read, write and emit alone do not account for actual machine I/O.",
+            "No converse, optimality assertion, or lower bound for other algorithms is stated."
+          ],
+          "wrapper_reconciliation": {
+            "all_original_packet_content_equal_after_removing_only_added_wrappers": true,
+            "comparison_scope": "Only the successor formal packet, original formal packet and this decoder own prior output were read. This comparison is not a comparison to a source question or expected interpretation.",
+            "predecessor_packet_digest": "af90164ac860dfae23995a6134af3e616566431f9b768edc655a7ad8365aa443",
+            "semantic_effect": "No change to the reconstructed root meaning. The wrapper repeats the original root target, imports and empty universe list, and explicitly supplies the BigOperators notation scope used by the existing finite-sum expressions.",
+            "wrapper_imports_exact_original_imports": true,
+            "wrapper_preamble": "open scoped BigOperators",
+            "wrapper_target_exact_original_root": true,
+            "wrapper_universes_exact_original_universes": true
+          }
+        }
+      },
+      "source_item": {
+        "answer_format": "rubric",
+        "assumptions": [
+          "L > 0 so the grid step is positive and comparisons against -1 are well posed",
+          "the cost model counts only real field operations and exact real comparisons; natural-index and bit-level costs are out of scope"
+        ],
+        "author": {
+          "identity": "structured-preparation-author-b2",
+          "independence": "self-authored; distinct reviewer required",
+          "method": "Native mathematical authoring from inspected complete sources"
+        },
+        "authored_hash": "2d2baa17b11a1b392b28704a0fb04e7603ce1796bbe305454f44be88cf6a8424",
+        "context_hash": "8e2c93cc7cca0006597ac42e4cf34e002a27c7af317fefdf67a12e3210d67cc8",
+        "conventions": [],
+        "core_id": "qcb-core-sp-120",
+        "cross_version_split_conflict": false,
+        "difficulty": {
+          "level": "advanced",
+          "rationale": "An invariant-based correctness proof of a recursive real-interval binary search with explicit boundary cases, plus an exact operation count under a stated restricted cost model."
+        },
+        "evidence_relation": "local_source_supported",
+        "evidence_status": "source_inspected",
+        "exposure": "closed_book",
+        "family": "hermite-cutoff-search",
+        "formal": null,
+        "formal_context": null,
+        "formal_evidence": {
+          "counterpart": "existing_source_not_freshly_verified",
+          "inherited_evidence": "See original provenance only; not rerun or upgraded",
+          "local_verification_performed": false
+        },
+        "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "id": "qcb-67b95b72c0c86c5f45f5",
+        "key": "qcb-core-sp-120",
+        "language": "en",
+        "legacy_split_constraints": [],
+        "lifecycle": "released",
+        "lineage": {
+          "cost_usd": null,
+          "family": "hermite-cutoff-search",
+          "model_version": null,
+          "parameters": {},
+          "provider": "session assistant",
+          "seed": 0,
+          "template": "qcb-core-sp-120",
+          "tokens": null
+        },
+        "mathematical_core_id": "qcb-core-sp-120",
+        "native_nl": {
+          "author_identity": "structured-preparation-author-b2",
+          "core_summary": "An exact-real-interval binary search returns the true tail/bridge cutoff index for every width and scale, with endpoint and single-cell boundary cases, using 2n field operations and n+1 comparisons.",
+          "evidence_relation": "local_source_supported",
+          "existing_core_aliases": [],
+          "formal_counterpart": "existing_source_not_freshly_verified",
+          "new_problem_core": true
+        },
+        "primary_sources": [],
+        "question": "To locate where the left exponential tail meets the polynomial bridge on a grid of 2^n cells, one performs an exact-comparison binary search carrying real interval endpoints: starting from the real interval [lower, lower+span] with span equal to the full width, each of n steps halves the span, forms the midpoint, compares it against the threshold -1, and recurses into the half that still contains the crossing. The search returns an index 'cutIndex'. Prove that this search returns exactly the true cutoff index for every width n and scale L > 0, including the boundary cases where the crossing is at the very first grid point or at the very last, and the single-cell (n = 0) base case. State the exact number of real comparisons and real field operations the search performs.",
+        "reference_answer": "Model the search by an interval invariant: at a node with 'remaining' halvings left, 'start' already-decided low-order index, and current interval first point gridPoint(start) and width span = step * 2^remaining, assume the true cutoff c = cutIndex satisfies start <= c <= start + 2^remaining (it lies in the current interval). We prove the returned value equals c by induction on 'remaining'. Base case (remaining = 0, one cell): the interval has a single cell starting at 'start'. The search compares the grid point at 'start' against -1. If gridPoint(start) < -1, then 'start' is still below the threshold, so the crossing is at start+1 and the hypotheses force c = start+1; the search returns start+1. Otherwise 'start' is at or past the threshold, so c = start and the search returns start. In both branches the returned value equals c; this also covers the endpoint boundary cases (crossing at the first or last point) because the invariant pins c to one of the two interval ends when the cell is minimal. Inductive step (remaining+1): the search forms the midpoint, which equals gridPoint(start + 2^remaining) (the first point of the upper half), and compares it to -1. If it is below -1, the crossing lies in the upper half, so recurse with start' = start + 2^remaining and the same remaining; the lower bound updates to start' <= c (since the midpoint is still below threshold, c >= start + 2^remaining) and the width halves, preserving the invariant, so by induction the recursion returns c. If it is at or past -1, the crossing lies in the lower half; recurse with the same start and halved width, and the invariant's upper bound tightens to c <= start + 2^remaining, again returning c. The key geometric identities are span/2 = step * 2^remaining and gridPoint(start) + step*2^remaining = gridPoint(start+2^remaining), which make the carried real endpoints exact — no ceiling evaluation or grid enumeration occurs. Starting the top-level search with the full interval [-pi L, 0] and remaining = n satisfies the initial invariant (the cutoff lies between index 0 and the midpoint index 2^n), so the top-level call returns cutIndex exactly. Cost: each of the n internal halvings performs 2 real field operations (one division to halve the span, one addition to form the midpoint) and 1 real comparison; the base level performs 1 comparison. The top-level producer additionally does one multiplication (pi*L) and one subtraction (0 - width) to initialise the interval. Hence the search proper uses exactly 2n field operations and n+1 comparisons; including initialisation the producer uses 2n+2 field operations and n+1 comparisons. Natural-index arithmetic, powers of two, and counter bookkeeping are outside this real-arithmetic cost model; finite-bit comparison of arbitrary real inputs is not claimed.",
+        "relation_types": [
+          "authored_mathematical_support"
+        ],
+        "release_policy": "public",
+        "reviewed_core_status": "new_distinct",
+        "reviewed_semantic_step_count": 3,
+        "reviews": [
+          {
+            "artifact": "benchmarks/quantumcomputingbench/reports/native-nl/batch2-structured-final-review.json",
+            "artifact_sha256": "257a4cfa6690a5e3e423faee79c3af0547b67a38c14597d0e3f1988aa984b4ed",
+            "authored_sha256": "2d2baa17b11a1b392b28704a0fb04e7603ce1796bbe305454f44be88cf6a8424",
+            "checked_sources": [
+              "QuantumBlockEncoding/HermiteBinaryCutoff.lean#L24-91 search/search_value/half_span/middle_point (interval invariant, endpoint+n=0 cases)",
+              "QuantumBlockEncoding/HermiteBinaryCutoff.lean#L95-113 compute/compute_value (cutIndex_le_midpoint, root_span)",
+              "QuantumBlockEncoding/HermiteBinaryCutoff.lean#L35-44,115-128 search_cost/compute_cost/_comparisons(n+1)/_field_operations(2n+2)"
+            ],
+            "content_hash": "006c665376674bfa6c5a071e3d0760b5b83c656207716567c50f65c2e7a61612",
+            "core_aliases": [],
+            "core_verdict": "new_distinct",
+            "formal_status": "not_run_source_inspection_only",
+            "key": "qcb-core-sp-120",
+            "method": "distinct-context-source-review",
+            "notes": "Boundary: exact-comparison binary search correctness + cost. Source HermiteBinaryCutoff.lean sha 3e236d65 verified; read in full. Matches search_value (L59-91, interval invariant start<=cutIndex<=start+2^remaining, induction; base case returns start or start+1 covering endpoint boundary cases; succ compares exact midpoint gridPointNat(start+2^remaining) via middle_point L51-55 and half_span L46-50, recurses into correct half) and compute_value (L108-113, top-level invariant via cutIndex_le_midpoint). COST exact: search_cost (L35-44) = 2*remaining field + (remaining+1) compare; compute_field_operations=2n+2 (L126-128), compute_comparisons=n+1 (L122-124) -- item's '2n field ops + n+1 comparisons for search proper; 2n+2 incl pi*L mul and 0-width sub initialisation' matches exactly. Honest scope caveat (natural arithmetic/powers-of-two/bit-complexity outside the real-arithmetic cost model) matches module docstring L8-13. n=0 base case explicitly handled. 3 substantive steps. NEW family hermite-cutoff-search.",
+            "reviewer": "structured-prep-reviewer-b2",
+            "verdict": "accept"
+          }
+        ],
+        "rubric": [
+          {
+            "criterion": "Formulates the interval invariant start <= cutIndex <= start + 2^remaining and proves the base case returns start or start+1 by the single comparison, covering endpoint boundary cases.",
+            "id": "r1",
+            "weight": 1
+          },
+          {
+            "criterion": "Proves the inductive step: the midpoint equals gridPoint(start+2^remaining), and each comparison recurses into the correct half while preserving the invariant.",
+            "id": "r2",
+            "weight": 1
+          },
+          {
+            "criterion": "Uses the exact real identities span/2 = step*2^remaining and gridPoint(start)+step*2^remaining = gridPoint(start+2^remaining) so endpoints stay exact (no ceiling/enumeration).",
+            "id": "r3",
+            "weight": 1
+          },
+          {
+            "criterion": "States the exact cost: 2n field operations and n+1 comparisons for the search (2n+2 field ops with the pi*L and subtraction initialisation), noting the real-arithmetic cost model's scope.",
+            "id": "r4",
+            "weight": 1
+          }
+        ],
+        "schema_version": "qcb.item.v1",
+        "semantic_step_count": 3,
+        "semantic_steps": [
+          {
+            "claim": "The interval invariant start <= cutIndex <= start+2^remaining with the base-case single comparison returns start or start+1, covering endpoint cases.",
+            "supporting_nodes": [
+              "declaration:QuantumBlockEncoding.HermiteBinaryCutoff.search_value"
+            ]
+          },
+          {
+            "claim": "The inductive step compares the exact midpoint gridPoint(start+2^remaining) and recurses into the correct half, preserving the invariant, so compute returns cutIndex.",
+            "supporting_nodes": [
+              "declaration:QuantumBlockEncoding.HermiteBinaryCutoff.search",
+              "declaration:QuantumBlockEncoding.HermiteBinaryCutoff.compute_value"
+            ]
+          },
+          {
+            "claim": "The search costs 2n field operations and n+1 comparisons (2n+2 field ops including the pi*L / subtraction initialisation).",
+            "supporting_nodes": [
+              "declaration:QuantumBlockEncoding.HermiteBinaryCutoff.search_cost",
+              "declaration:QuantumBlockEncoding.HermiteBinaryCutoff.compute_cost"
+            ]
+          }
+        ],
+        "skills": [
+          "reasoning"
+        ],
+        "source_refs": [
+          {
+            "anchor": "lines 22-128: search (remaining start lower span) recursion; search_value (hlo : start <= cutIndex) (hhi : cutIndex <= start + 2^remaining) : (search ...).value = cutIndex via half_span and middle_point; compute n L = do width<-mul pi L; lower<-sub 0 width; search n 0 lower width; compute_value : = cutIndex; search_cost : cost op = 2*remaining*tick field op + (remaining+1)*tick compare op; compute_comparisons = n+1; compute_field_operations = 2n+2",
+            "license": "MIT (repository LICENSE)",
+            "path": "QuantumBlockEncoding/HermiteBinaryCutoff.lean",
+            "sha256": "3e236d6572ceba6d0418cb75da49512152bf03586cebc03b4d9cd8132029d098"
+          }
+        ],
+        "split": "test_public",
+        "split_group": "hermite-cutoff-search",
+        "structural_distance_definition": "unknown; imports are not theorem entailment",
+        "structural_graph_distance": null,
+        "support_count": 5,
+        "supporting_nodes": [],
+        "target_nodes": [
+          "declaration:QuantumBlockEncoding.HermiteBinaryCutoff.search",
+          "declaration:QuantumBlockEncoding.HermiteBinaryCutoff.search_value",
+          "declaration:QuantumBlockEncoding.HermiteBinaryCutoff.compute_value",
+          "declaration:QuantumBlockEncoding.HermiteBinaryCutoff.search_cost",
+          "declaration:QuantumBlockEncoding.HermiteBinaryCutoff.compute_cost"
+        ],
+        "task_hash": "0ae661d5bcfbd3f3f7820db0d44697a504cf2bf644caf423a2f841b95c06cb01",
+        "task_kind": "boundary",
+        "topic": "structured_preparation",
+        "track": "reasoning",
+        "unresolved_issues": [],
+        "validation": {
+          "answer_quality": "reviewed",
+          "formal": "not_applicable",
+          "nl_alignment": "reviewed"
+        },
+        "verification_receipts": [],
+        "views": [
+          "natural_language"
+        ]
+      },
+      "source_item_digest": "345c21e4f78ee80ed2cbaa7372d069aacbfb19d8c3c2f046e5b8df13c107196a",
+      "task_hash": "a5cbd0ed286c2d9d348243b96ab3b6c2b904bc287588b142ed8b059d1b68a05d"
+    }
+  ]
+}

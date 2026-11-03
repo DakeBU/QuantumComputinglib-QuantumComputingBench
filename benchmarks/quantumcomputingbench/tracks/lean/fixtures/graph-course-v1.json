@@ -1,0 +1,607 @@
+{
+  "author": "/root",
+  "cases": [
+    {
+      "assumptions_added": false,
+      "controls": {
+        "constructed_whole_root": "by\n  have gram : ∀ (c s : ℝ), star (QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation c s) * (QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation c s) = (fun row column : Fin 2 => if row = column then ((c * c + s * s : ℝ) : ℂ) else 0) :=\n  by\n    intro c s\n    ext row column\n    fin_cases row <;> fin_cases column <;>\n      simp [QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation,\n        Matrix.mul_apply, Fin.sum_univ_two] <;> ring\n\n  intro c s\n  constructor\n  · intro unitary\n    have gram_eq := Matrix.mem_unitaryGroup_iff'.mp unitary\n    rw [gram c s] at gram_eq\n    have entry := congrArg (fun (M : Matrix (Fin 2) (Fin 2) ℂ) => M 0 0) gram_eq\n    simp at entry\n    have real_entry : c * c + s * s = 1 := by exact_mod_cast entry\n    nlinarith [real_entry]\n  · intro normalization\n    apply QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation_unitary\n    nlinarith [normalization]",
+        "library_control": "by\n  have gram : ∀ (c s : ℝ), star (QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation c s) * (QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation c s) = (fun row column : Fin 2 => if row = column then ((c * c + s * s : ℝ) : ℂ) else 0) :=\n  by\n    intro c s\n    ext row column\n    fin_cases row <;> fin_cases column <;>\n      simp [QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation,\n        Matrix.mul_apply, Fin.sum_univ_two] <;> ring\n\n  intro c s\n  constructor\n  · intro unitary\n    have gram_eq := Matrix.mem_unitaryGroup_iff'.mp unitary\n    rw [gram c s] at gram_eq\n    have entry := congrArg (fun (M : Matrix (Fin 2) (Fin 2) ℂ) => M 0 0) gram_eq\n    simp at entry\n    have real_entry : c * c + s * s = 1 := by exact_mod_cast entry\n    nlinarith [real_entry]\n  · intro normalization\n    apply QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation_unitary\n    nlinarith [normalization]"
+      },
+      "library_control_one_call": false,
+      "negative_controls": {
+        "sorry_axiom": "by sorry",
+        "wrong_target": "by\n  intro\n  rfl"
+      },
+      "references": {
+        "be105_gram": "by\n  intro c s\n  ext row column\n  fin_cases row <;> fin_cases column <;>\n    simp [QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation,\n      Matrix.mul_apply, Fin.sum_univ_two] <;> ring",
+        "be105_root": "by\n  intro c s\n  constructor\n  · intro unitary\n    have gram_eq := Matrix.mem_unitaryGroup_iff'.mp unitary\n    rw [qcb_step_be105_gram c s] at gram_eq\n    have entry := congrArg (fun (M : Matrix (Fin 2) (Fin 2) ℂ) => M 0 0) gram_eq\n    simp at entry\n    have real_entry : c * c + s * s = 1 := by exact_mod_cast entry\n    nlinarith [real_entry]\n  · intro normalization\n    apply QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation_unitary\n    nlinarith [normalization]"
+      },
+      "retrieval_scope": {
+        "direct_root_relevant_interfaces": [
+          "QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation_unitary"
+        ],
+        "label_scope": "Author-curated direct-route roles, not an exclusion of all possible alternate proofs.",
+        "other_imported_controlled_interfaces": [
+          "QuantumBlockEncoding.Robin.ComplexLCU.blockDiagonal_unitary",
+          "QuantumBlockEncoding.Robin.ComplexLCU.selectorLift_unitary"
+        ]
+      },
+      "semantic_coverage": "Exact formal conclusion; prose explanation/physical interpretation and prescribed proof method need separate grading.",
+      "semantic_evidence": {
+        "anonymous_id": "B1",
+        "group": "be",
+        "kind": "new_roundtrip"
+      },
+      "shortcut_disclosure": "No exact-root one-call shortcut identified; the root is an iff and the library entry only proves sufficiency.",
+      "source_binder_audit": [
+        {
+          "binder": "c,s : ℝ",
+          "class": "SOURCE",
+          "meaning": "Arbitrary real entries, cast literally to complex; no nonzero or trigonometric parametrization assumption."
+        }
+      ],
+      "source_bindings": [
+        {
+          "path": "QuantumBlockEncoding/Robin/ComplexLCU.lean",
+          "sha256_lf": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843"
+        }
+      ],
+      "source_item_digest": "15381b174d3517cf5ade51fd5a8bfdf0eee977640793ea43e93c0627b2eaede1",
+      "source_node_ids": [
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation_unitary"
+      ],
+      "task": {
+        "alignment_status": "experimental_course_candidate; evaluator_owned_semantic_and_reference_qualification; NL_prose_separately_graded",
+        "assumptions": [
+          "c and s are real scalars embedded in the complex field",
+          "Unitarity means the conjugate transpose times the matrix equals the identity"
+        ],
+        "contract_hash": "c70f8090a882fbf82b245b4db5bd2438d1224df0b02fb79d23233af66c0d03cc",
+        "conventions": [
+          "The matrix has top row (c,-s) and bottom row (s,c)",
+          "Conjugation is the identity on real entries"
+        ],
+        "core_id": "qcb-core-be-105",
+        "family": "be-real-rotation-unitary-iff",
+        "imports": [
+          "QuantumBlockEncoding.Robin.ComplexLCU"
+        ],
+        "interfaces": [
+          {
+            "module": "QuantumBlockEncoding.Robin.ComplexLCU",
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation_unitary",
+            "source_node_id": "declaration:QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation_unitary",
+            "type": "∀ (cosine sine : ℝ), cosine * cosine + sine * sine = 1 → QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation cosine sine ∈ Matrix.unitaryGroup (Fin 2) ℂ"
+          },
+          {
+            "module": "QuantumBlockEncoding.Robin.ComplexLCU",
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.blockDiagonal_unitary",
+            "source_node_id": "declaration:QuantumBlockEncoding.Robin.ComplexLCU.blockDiagonal_unitary",
+            "type": "∀ {ι : Type u} {κ : Type v} [Fintype ι] [DecidableEq ι] [Fintype κ] [DecidableEq κ] (blocks : κ → Matrix ι ι ℂ), (∀ k, blocks k ∈ Matrix.unitaryGroup ι ℂ) → Matrix.blockDiagonal blocks ∈ Matrix.unitaryGroup (ι × κ) ℂ"
+          },
+          {
+            "module": "QuantumBlockEncoding.Robin.ComplexLCU",
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.selectorLift_unitary",
+            "source_node_id": "declaration:QuantumBlockEncoding.Robin.ComplexLCU.selectorLift_unitary",
+            "type": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (prepare : Matrix selector selector ℂ), prepare ∈ Matrix.unitaryGroup selector ℂ → (@QuantumBlockEncoding.Robin.ComplexLCU.selectorLift coefficient selector system fc dc fs ds ft dt prepare) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ"
+          }
+        ],
+        "library_revision": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+        "nodes": [
+          {
+            "depends_on": [],
+            "id": "be105_gram",
+            "target": "∀ (c s : ℝ), star (QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation c s) * (QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation c s) = (fun row column : Fin 2 => if row = column then ((c * c + s * s : ℝ) : ℂ) else 0)"
+          },
+          {
+            "depends_on": [
+              "be105_gram"
+            ],
+            "id": "be105_root",
+            "target": "∀ (c s : ℝ), (QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation c s) ∈ Matrix.unitaryGroup (Fin 2) ℂ ↔ c ^ 2 + s ^ 2 = 1"
+          }
+        ],
+        "question": "A real planar rotation embedded over the complex numbers is the 2x2 matrix with top row (c, -s) and bottom row (s, c) for real scalars c and s. Prove that this matrix is unitary exactly when c^2 + s^2 = 1, by computing all four entries of the product of its conjugate transpose with itself, and explain why no further hypothesis on c and s is needed and why complex conjugation plays no role here.",
+        "root_id": "be105_root",
+        "schema_version": "qcb.proof_obligation_task.v2",
+        "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "split": "train",
+        "universe_parameters": [
+          "u",
+          "v",
+          "w"
+        ]
+      },
+      "view_id": "qcb-course-be-105-v1"
+    },
+    {
+      "assumptions_added": false,
+      "controls": {
+        "constructed_whole_root": "by\n  have star_diagonal : ∀ {ι : Type u} {κ : Type v} [Fintype ι] [DecidableEq ι] [Fintype κ] [DecidableEq κ] (blocks : κ → Matrix ι ι ℂ), star (Matrix.blockDiagonal blocks) = Matrix.blockDiagonal (fun k => star (blocks k)) :=\n  by\n    intro ι κ _ _ _ _ blocks\n    ext ⟨row, blockRow⟩ ⟨column, blockColumn⟩\n    by_cases h : blockRow = blockColumn\n    · subst blockColumn\n      simp [Matrix.blockDiagonal_apply]\n    · have h' : blockColumn ≠ blockRow := Ne.symm h\n      simp [Matrix.blockDiagonal_apply, h, h']\n  have gram : ∀ {ι : Type u} {κ : Type v} [Fintype ι] [DecidableEq ι] [Fintype κ] [DecidableEq κ] (blocks : κ → Matrix ι ι ℂ), star (Matrix.blockDiagonal blocks) * Matrix.blockDiagonal blocks = Matrix.blockDiagonal (fun k => star (blocks k) * blocks k) := by\n    intro ι κ _ _ _ _ blocks\n    rw [star_diagonal blocks, ← Matrix.blockDiagonal_mul]\n\n  intro ι κ _ _ _ _ blocks unitary\n  rw [Matrix.mem_unitaryGroup_iff', gram blocks]\n  have pointwise : (fun k => star (blocks k) * blocks k) = (1 : κ → Matrix ι ι ℂ) := by\n    funext k\n    exact Matrix.mem_unitaryGroup_iff'.mp (unitary k)\n  rw [pointwise, Matrix.blockDiagonal_one]",
+        "library_control": "by\n  intro ι κ _ _ _ _ blocks unitary\n  exact QuantumBlockEncoding.Robin.ComplexLCU.blockDiagonal_unitary blocks unitary"
+      },
+      "library_control_one_call": true,
+      "negative_controls": {
+        "sorry_axiom": "by sorry",
+        "wrong_target": "by\n  intro\n  rfl"
+      },
+      "references": {
+        "be107_gram": "by\n  intro ι κ _ _ _ _ blocks\n  rw [qcb_step_be107_star blocks, ← Matrix.blockDiagonal_mul]",
+        "be107_root": "by\n  intro ι κ _ _ _ _ blocks unitary\n  rw [Matrix.mem_unitaryGroup_iff', qcb_step_be107_gram blocks]\n  have pointwise : (fun k => star (blocks k) * blocks k) = (1 : κ → Matrix ι ι ℂ) := by\n    funext k\n    exact Matrix.mem_unitaryGroup_iff'.mp (unitary k)\n  rw [pointwise, Matrix.blockDiagonal_one]",
+        "be107_star": "by\n  intro ι κ _ _ _ _ blocks\n  ext ⟨row, blockRow⟩ ⟨column, blockColumn⟩\n  by_cases h : blockRow = blockColumn\n  · subst blockColumn\n    simp [Matrix.blockDiagonal_apply]\n  · have h' : blockColumn ≠ blockRow := Ne.symm h\n    simp [Matrix.blockDiagonal_apply, h, h']"
+      },
+      "retrieval_scope": {
+        "direct_root_relevant_interfaces": [
+          "QuantumBlockEncoding.Robin.ComplexLCU.blockDiagonal_unitary"
+        ],
+        "label_scope": "Author-curated direct-route roles, not an exclusion of all possible alternate proofs.",
+        "other_imported_controlled_interfaces": [
+          "QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation_unitary",
+          "QuantumBlockEncoding.Robin.ComplexLCU.selectorLift_unitary"
+        ]
+      },
+      "semantic_coverage": "Exact formal conclusion; prose explanation/physical interpretation and prescribed proof method need separate grading.",
+      "semantic_evidence": {
+        "anonymous_id": "B2",
+        "group": "be",
+        "kind": "new_roundtrip"
+      },
+      "shortcut_disclosure": "Imported exact-root shortcut",
+      "source_binder_audit": [
+        {
+          "binder": "ι,κ and finite/decidable structure",
+          "class": "TYPING",
+          "meaning": "Finite target and control spaces; empty finite types allowed."
+        },
+        {
+          "binder": "blocks",
+          "class": "SOURCE",
+          "meaning": "Arbitrary control-indexed complex matrices on a common target space."
+        },
+        {
+          "binder": "∀ k, blocks k unitary",
+          "class": "SOURCE",
+          "meaning": "The question explicitly assumes each block unitary. This is not an inserted downstream result."
+        }
+      ],
+      "source_bindings": [
+        {
+          "path": "QuantumBlockEncoding/Robin/ComplexLCU.lean",
+          "sha256_lf": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843"
+        }
+      ],
+      "source_item_digest": "1b36266ef6c6f4eed5fc5fd43aada972b13c343a97ddce568581c553671be494",
+      "source_node_ids": [
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.blockDiagonal_unitary"
+      ],
+      "task": {
+        "alignment_status": "experimental_course_candidate; evaluator_owned_semantic_and_reference_qualification; NL_prose_separately_graded",
+        "assumptions": [
+          "Each diagonal block B_k is unitary on the shared target space",
+          "The full operator is block-diagonal in the control index"
+        ],
+        "contract_hash": "c9d2d5f292003faafbed817adf2ef01df15a6ee701fbd771d1a0a100fa0934a4",
+        "conventions": [
+          "Off-diagonal blocks of a block-diagonal matrix are zero",
+          "Unitarity means the conjugate transpose times the operator is the identity"
+        ],
+        "core_id": "qcb-core-be-107",
+        "family": "be-blockdiagonal-unitary",
+        "imports": [
+          "QuantumBlockEncoding.Robin.ComplexLCU"
+        ],
+        "interfaces": [
+          {
+            "module": "QuantumBlockEncoding.Robin.ComplexLCU",
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation_unitary",
+            "source_node_id": "declaration:QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation_unitary",
+            "type": "∀ (cosine sine : ℝ), cosine * cosine + sine * sine = 1 → QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation cosine sine ∈ Matrix.unitaryGroup (Fin 2) ℂ"
+          },
+          {
+            "module": "QuantumBlockEncoding.Robin.ComplexLCU",
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.blockDiagonal_unitary",
+            "source_node_id": "declaration:QuantumBlockEncoding.Robin.ComplexLCU.blockDiagonal_unitary",
+            "type": "∀ {ι : Type u} {κ : Type v} [Fintype ι] [DecidableEq ι] [Fintype κ] [DecidableEq κ] (blocks : κ → Matrix ι ι ℂ), (∀ k, blocks k ∈ Matrix.unitaryGroup ι ℂ) → Matrix.blockDiagonal blocks ∈ Matrix.unitaryGroup (ι × κ) ℂ"
+          },
+          {
+            "module": "QuantumBlockEncoding.Robin.ComplexLCU",
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.selectorLift_unitary",
+            "source_node_id": "declaration:QuantumBlockEncoding.Robin.ComplexLCU.selectorLift_unitary",
+            "type": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (prepare : Matrix selector selector ℂ), prepare ∈ Matrix.unitaryGroup selector ℂ → (@QuantumBlockEncoding.Robin.ComplexLCU.selectorLift coefficient selector system fc dc fs ds ft dt prepare) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ"
+          }
+        ],
+        "library_revision": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+        "nodes": [
+          {
+            "depends_on": [],
+            "id": "be107_star",
+            "target": "∀ {ι : Type u} {κ : Type v} [Fintype ι] [DecidableEq ι] [Fintype κ] [DecidableEq κ] (blocks : κ → Matrix ι ι ℂ), star (Matrix.blockDiagonal blocks) = Matrix.blockDiagonal (fun k => star (blocks k))"
+          },
+          {
+            "depends_on": [
+              "be107_star"
+            ],
+            "id": "be107_gram",
+            "target": "∀ {ι : Type u} {κ : Type v} [Fintype ι] [DecidableEq ι] [Fintype κ] [DecidableEq κ] (blocks : κ → Matrix ι ι ℂ), star (Matrix.blockDiagonal blocks) * Matrix.blockDiagonal blocks = Matrix.blockDiagonal (fun k => star (blocks k) * blocks k)"
+          },
+          {
+            "depends_on": [
+              "be107_gram"
+            ],
+            "id": "be107_root",
+            "target": "∀ {ι : Type u} {κ : Type v} [Fintype ι] [DecidableEq ι] [Fintype κ] [DecidableEq κ] (blocks : κ → Matrix ι ι ℂ), (∀ k, blocks k ∈ Matrix.unitaryGroup ι ℂ) → Matrix.blockDiagonal blocks ∈ Matrix.unitaryGroup (ι × κ) ℂ"
+          }
+        ],
+        "question": "A controlled family of operators is placed block-diagonally: for each control value k there is a block B_k acting on the same target space, and the full operator is the block-diagonal matrix whose k-th diagonal block is B_k. Prove that if every block B_k is unitary then the whole block-diagonal operator is unitary, by showing how the conjugate transpose interacts with the block-diagonal structure and that the product collapses block-by-block to the identity.",
+        "root_id": "be107_root",
+        "schema_version": "qcb.proof_obligation_task.v2",
+        "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "split": "train",
+        "universe_parameters": [
+          "u",
+          "v",
+          "w"
+        ]
+      },
+      "view_id": "qcb-course-be-107-v1"
+    },
+    {
+      "assumptions_added": false,
+      "controls": {
+        "constructed_whole_root": "by\n  intro coefficient selector system _ _ _ _ _ _ prepare unitary\n  apply Matrix.kronecker_mem_unitary\n  · exact (Matrix.unitaryGroup coefficient ℂ).one_mem\n  · apply Matrix.kronecker_mem_unitary\n    · exact unitary\n    · exact (Matrix.unitaryGroup system ℂ).one_mem",
+        "library_control": "by\n  intro coefficient selector system _ _ _ _ _ _ prepare unitary\n  exact QuantumBlockEncoding.Robin.ComplexLCU.selectorLift_unitary prepare unitary"
+      },
+      "library_control_one_call": true,
+      "negative_controls": {
+        "sorry_axiom": "by sorry",
+        "wrong_target": "by\n  intro\n  rfl"
+      },
+      "references": {
+        "be109_inner": "by\n  intro selector system _ _ _ _ prepare unitary\n  exact qcb_step_be109_tensor prepare (1 : Matrix system system ℂ)\n    unitary (Matrix.unitaryGroup system ℂ).one_mem",
+        "be109_root": "by\n  intro coefficient selector system _ _ _ _ _ _ prepare unitary\n  exact qcb_step_be109_tensor (1 : Matrix coefficient coefficient ℂ)\n    (Matrix.kronecker prepare (1 : Matrix system system ℂ))\n    (Matrix.unitaryGroup coefficient ℂ).one_mem\n    (qcb_step_be109_inner prepare unitary)",
+        "be109_tensor": "by\n  intro ι κ _ _ _ _ left right hleft hright\n  exact Matrix.kronecker_mem_unitary hleft hright"
+      },
+      "retrieval_scope": {
+        "direct_root_relevant_interfaces": [
+          "QuantumBlockEncoding.Robin.ComplexLCU.selectorLift_unitary"
+        ],
+        "label_scope": "Author-curated direct-route roles, not an exclusion of all possible alternate proofs.",
+        "other_imported_controlled_interfaces": [
+          "QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation_unitary",
+          "QuantumBlockEncoding.Robin.ComplexLCU.blockDiagonal_unitary"
+        ]
+      },
+      "semantic_coverage": "Exact formal conclusion; prose explanation/physical interpretation and prescribed proof method need separate grading.",
+      "semantic_evidence": {
+        "anonymous_id": "B3",
+        "group": "be",
+        "kind": "new_roundtrip"
+      },
+      "shortcut_disclosure": "Imported exact-root shortcut",
+      "source_binder_audit": [
+        {
+          "binder": "coefficient,selector,system and finite/decidable structure",
+          "class": "TYPING",
+          "meaning": "Three arbitrary finite register index spaces with the exact coefficient × (selector × system) order; no implicit reindexing."
+        },
+        {
+          "binder": "prepare",
+          "class": "SOURCE",
+          "meaning": "A square complex operator on selector only."
+        },
+        {
+          "binder": "prepare unitary",
+          "class": "SOURCE",
+          "meaning": "Explicit original question premise; identity-register unitarity is proved internally rather than added as a binder."
+        }
+      ],
+      "source_bindings": [
+        {
+          "path": "QuantumBlockEncoding/Robin/ComplexLCU.lean",
+          "sha256_lf": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843"
+        }
+      ],
+      "source_item_digest": "76cc51c2e49f3f7062d8732b280e44f07723d2cfe3a72ceb5bf003e71965a5ff",
+      "source_node_ids": [
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.selectorLift_unitary"
+      ],
+      "task": {
+        "alignment_status": "experimental_course_candidate; evaluator_owned_semantic_and_reference_qualification; NL_prose_separately_graded",
+        "assumptions": [
+          "PREPARE is unitary on the selector register alone",
+          "The lift tensors identities on the coefficient and system registers"
+        ],
+        "contract_hash": "9cb3520780bf5e7915ba05e2048371cb7c177068ffbe824cbb0370bbc9a4bc48",
+        "conventions": [
+          "The identity matrix is a unitary on any register",
+          "star of a Kronecker product is the Kronecker product of the stars"
+        ],
+        "core_id": "qcb-core-be-109",
+        "family": "be-tensor-lift-unitary",
+        "imports": [
+          "QuantumBlockEncoding.Robin.ComplexLCU"
+        ],
+        "interfaces": [
+          {
+            "module": "QuantumBlockEncoding.Robin.ComplexLCU",
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation_unitary",
+            "source_node_id": "declaration:QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation_unitary",
+            "type": "∀ (cosine sine : ℝ), cosine * cosine + sine * sine = 1 → QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation cosine sine ∈ Matrix.unitaryGroup (Fin 2) ℂ"
+          },
+          {
+            "module": "QuantumBlockEncoding.Robin.ComplexLCU",
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.blockDiagonal_unitary",
+            "source_node_id": "declaration:QuantumBlockEncoding.Robin.ComplexLCU.blockDiagonal_unitary",
+            "type": "∀ {ι : Type u} {κ : Type v} [Fintype ι] [DecidableEq ι] [Fintype κ] [DecidableEq κ] (blocks : κ → Matrix ι ι ℂ), (∀ k, blocks k ∈ Matrix.unitaryGroup ι ℂ) → Matrix.blockDiagonal blocks ∈ Matrix.unitaryGroup (ι × κ) ℂ"
+          },
+          {
+            "module": "QuantumBlockEncoding.Robin.ComplexLCU",
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.selectorLift_unitary",
+            "source_node_id": "declaration:QuantumBlockEncoding.Robin.ComplexLCU.selectorLift_unitary",
+            "type": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (prepare : Matrix selector selector ℂ), prepare ∈ Matrix.unitaryGroup selector ℂ → (@QuantumBlockEncoding.Robin.ComplexLCU.selectorLift coefficient selector system fc dc fs ds ft dt prepare) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ"
+          }
+        ],
+        "library_revision": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+        "nodes": [
+          {
+            "depends_on": [],
+            "id": "be109_tensor",
+            "target": "∀ {ι : Type u} {κ : Type v} [Fintype ι] [DecidableEq ι] [Fintype κ] [DecidableEq κ] (left : Matrix ι ι ℂ) (right : Matrix κ κ ℂ), left ∈ Matrix.unitaryGroup ι ℂ → right ∈ Matrix.unitaryGroup κ ℂ → Matrix.kronecker left right ∈ Matrix.unitaryGroup (ι × κ) ℂ"
+          },
+          {
+            "depends_on": [
+              "be109_tensor"
+            ],
+            "id": "be109_inner",
+            "target": "∀ {selector : Type v} {system : Type w} [Fintype selector] [DecidableEq selector] [Fintype system] [DecidableEq system] (prepare : Matrix selector selector ℂ), prepare ∈ Matrix.unitaryGroup selector ℂ → Matrix.kronecker prepare (1 : Matrix system system ℂ) ∈ Matrix.unitaryGroup (selector × system) ℂ"
+          },
+          {
+            "depends_on": [
+              "be109_tensor",
+              "be109_inner"
+            ],
+            "id": "be109_root",
+            "target": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (prepare : Matrix selector selector ℂ), prepare ∈ Matrix.unitaryGroup selector ℂ → (@QuantumBlockEncoding.Robin.ComplexLCU.selectorLift coefficient selector system fc dc fs ds ft dt prepare) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ"
+          }
+        ],
+        "question": "A state-preparation unitary acts only on a selector register, but inside a composite machine it is applied on the full product register coefficient x (selector x system) as identity-on-coefficient tensor (PREPARE tensor identity-on-system). Prove that if PREPARE is unitary on the selector register alone then this tensor-lifted operator is unitary on the whole product register, and explain the physical reading: tensoring a gate with 'do nothing' on untouched registers never spoils unitarity.",
+        "root_id": "be109_root",
+        "schema_version": "qcb.proof_obligation_task.v2",
+        "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "split": "dev",
+        "universe_parameters": [
+          "u",
+          "v",
+          "w"
+        ]
+      },
+      "view_id": "qcb-course-be-109-v1"
+    },
+    {
+      "assumptions_added": [],
+      "controls": {
+        "constructed_whole_root": "by\n  intro α β inst p d hd row col\n  have he : ∀ x y, p.eval (row x + col y) =\n      ∑ i : Fin (d + 1), (Polynomial.taylor (row x) p).coeff (i : ℕ) * col y ^ (i : ℕ) := by\n    intro x y\n    have hdegree : (Polynomial.taylor (row x) p).natDegree < d + 1 := by\n      rw [Polynomial.natDegree_taylor]\n      omega\n    have hexpand := Polynomial.eval_eq_sum_range' hdegree (col y)\n    rw [Polynomial.taylor_eval, ← Fin.sum_univ_eq_sum_range] at hexpand\n    simpa only [add_comm] using hexpand\n  let A : Matrix α (Fin (d + 1)) ℝ := fun x i => (Polynomial.taylor (row x) p).coeff (i : ℕ)\n  let B : Matrix (Fin (d + 1)) β ℝ := fun i y => col y ^ (i : ℕ)\n  have hF : (fun x y => p.eval (row x + col y) : Matrix α β ℝ) = A * B := by\n    ext x y\n    simpa only [Matrix.mul_apply, A, B] using (he x y)\n  refine ⟨he, ⟨A, B, hF⟩, ?_⟩\n  rw [hF]\n  simpa using (Matrix.rank_mul_le_left A B).trans (Matrix.rank_le_card_width A)",
+        "library_control": "by\n  intro α β inst p d hd row col\n  refine ⟨?_, QuantumBlockEncoding.HermiteCutRank.polynomial_add_factorization p d hd row col,\n    QuantumBlockEncoding.HermiteCutRank.polynomial_add_rank_le p d hd row col⟩\n  intro x y\n  have hdegree : (Polynomial.taylor (row x) p).natDegree < d + 1 := by\n    rw [Polynomial.natDegree_taylor]\n    omega\n  have he := Polynomial.eval_eq_sum_range' hdegree (col y)\n  rw [Polynomial.taylor_eval, ← Fin.sum_univ_eq_sum_range] at he\n  simpa only [add_comm] using he"
+      },
+      "library_control_one_call": false,
+      "negative_controls": {
+        "sorry_axiom": "by sorry",
+        "wrong_target": "by\n  intro α β inst p d hd row col\n  exact QuantumBlockEncoding.HermiteCutRank.polynomial_add_rank_le p d hd row col"
+      },
+      "references": {
+        "expansion": "by\n  intro α β p d hd row col x y\n  have hdegree : (Polynomial.taylor (row x) p).natDegree < d + 1 := by\n    rw [Polynomial.natDegree_taylor]\n    omega\n  have he := Polynomial.eval_eq_sum_range' hdegree (col y)\n  rw [Polynomial.taylor_eval, ← Fin.sum_univ_eq_sum_range] at he\n  simpa only [add_comm] using he",
+        "factorization": "by\n  intro α β p d hd row col\n  refine ⟨(fun x i => (Polynomial.taylor (row x) p).coeff (i : ℕ)),\n    (fun i y => col y ^ (i : ℕ)), ?_⟩\n  ext x y\n  simpa only [Matrix.mul_apply] using (qcb_step_expansion p d hd row col x y)",
+        "rank_bridge": "by\n  intro α β inst d F h\n  obtain ⟨A, B, rfl⟩ := h\n  simpa using (Matrix.rank_mul_le_left A B).trans (Matrix.rank_le_card_width A)",
+        "root": "by\n  intro α β inst p d hd row col\n  refine ⟨qcb_step_expansion p d hd row col,\n    qcb_step_factorization p d hd row col, ?_⟩\n  exact qcb_step_rank_bridge d (qcb_step_factorization p d hd row col)"
+      },
+      "semantic_coverage": "Partial: exact algebraic conclusions and Taylor identity checked. Requested prose explaining why degree rather than dimensions controls width is separately graded.",
+      "semantic_evidence": {
+        "anonymous_id": "view-03",
+        "group": "rank",
+        "kind": "new_roundtrip"
+      },
+      "shortcut_disclosure": "Uses the imported polynomial_add_factorization and polynomial_add_rank_le; the explicit Taylor identity is derived with Mathlib. All imported shortcuts stay callable.",
+      "source_binder_audit": [
+        {
+          "binder": "α, β",
+          "classification": "TYPING",
+          "meaning": "row and column index types; row index arbitrary, column index finite for the rank interface"
+        },
+        {
+          "binder": "[Fintype β]",
+          "classification": "TYPING",
+          "meaning": "finite column index; ordinary finite-array case included"
+        },
+        {
+          "binder": "p, d, hd",
+          "classification": "SOURCE",
+          "meaning": "real polynomial of degree at most d"
+        },
+        {
+          "binder": "row, col",
+          "classification": "SOURCE",
+          "meaning": "arbitrary real-valued row/column functions"
+        }
+      ],
+      "source_bindings": [
+        {
+          "path": "QuantumBlockEncoding/HermiteCutRank.lean",
+          "sha256_lf": "c0f038bd889c77163967c71df5f5987082f4b79ab7db2b7822efcdda7234aaf2"
+        }
+      ],
+      "source_item_digest": "8692de94902e02e828e3bcd36f059d65ad388327e3f3824390ab974de1fa729b",
+      "source_node_ids": [
+        "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough",
+        "declaration:QuantumBlockEncoding.HermiteCutRank.polynomial_add_factorization",
+        "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough.rank_le",
+        "declaration:QuantumBlockEncoding.HermiteCutRank.polynomial_add_rank_le"
+      ],
+      "task": {
+        "alignment_status": "experimental_course_candidate; evaluator_owned_semantic_and_reference_qualification; NL_prose_separately_graded",
+        "assumptions": [],
+        "contract_hash": "6e2d748a68eaa027d7f2a2b760f7eea213c3a9f48c6b1eda1d5c108347afef37",
+        "conventions": [],
+        "core_id": "qcb-core-sp-114",
+        "family": "hermite-cut-rank",
+        "imports": [
+          "QuantumBlockEncoding.HermiteCutRank"
+        ],
+        "interfaces": [
+          {
+            "module": "QuantumBlockEncoding.HermiteCutRank",
+            "name": "QuantumBlockEncoding.HermiteCutRank.FactorsThrough",
+            "source_node_id": "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough",
+            "type": "∀ {α : Type u} {β : Type v} {ι : Type*} [Fintype ι], Matrix α β ℝ → Prop"
+          },
+          {
+            "module": "QuantumBlockEncoding.HermiteCutRank",
+            "name": "QuantumBlockEncoding.HermiteCutRank.polynomial_add_factorization",
+            "source_node_id": "declaration:QuantumBlockEncoding.HermiteCutRank.polynomial_add_factorization",
+            "type": "∀ {α : Type u} {β : Type v} (p : Polynomial ℝ) (d : ℕ) (hd : p.natDegree ≤ d) (row : α → ℝ) (col : β → ℝ), @QuantumBlockEncoding.HermiteCutRank.FactorsThrough α β (Fin (d + 1)) inferInstance (fun x y => p.eval (row x + col y))"
+          },
+          {
+            "module": "QuantumBlockEncoding.HermiteCutRank",
+            "name": "QuantumBlockEncoding.HermiteCutRank.FactorsThrough.rank_le",
+            "source_node_id": "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough.rank_le",
+            "type": "∀ {α : Type u} {β : Type v} {ι : Type*} [Fintype β] [Fintype ι] {F : Matrix α β ℝ}, @QuantumBlockEncoding.HermiteCutRank.FactorsThrough α β ι inferInstance F → F.rank ≤ Fintype.card ι"
+          },
+          {
+            "module": "QuantumBlockEncoding.HermiteCutRank",
+            "name": "QuantumBlockEncoding.HermiteCutRank.polynomial_add_rank_le",
+            "source_node_id": "declaration:QuantumBlockEncoding.HermiteCutRank.polynomial_add_rank_le",
+            "type": "∀ {α : Type u} {β : Type v} [Fintype β] (p : Polynomial ℝ) (d : ℕ) (hd : p.natDegree ≤ d) (row : α → ℝ) (col : β → ℝ), Matrix.rank (fun x y => p.eval (row x + col y) : Matrix α β ℝ) ≤ d + 1"
+          }
+        ],
+        "library_revision": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+        "nodes": [
+          {
+            "depends_on": [],
+            "id": "expansion",
+            "target": "∀ {α : Type u} {β : Type v} (p : Polynomial ℝ) (d : ℕ) (hd : p.natDegree ≤ d) (row : α → ℝ) (col : β → ℝ), ∀ x y, p.eval (row x + col y) = ∑ i : Fin (d + 1), (Polynomial.taylor (row x) p).coeff (i : ℕ) * col y ^ (i : ℕ)"
+          },
+          {
+            "depends_on": [
+              "expansion"
+            ],
+            "id": "factorization",
+            "target": "∀ {α : Type u} {β : Type v} (p : Polynomial ℝ) (d : ℕ) (hd : p.natDegree ≤ d) (row : α → ℝ) (col : β → ℝ), @QuantumBlockEncoding.HermiteCutRank.FactorsThrough α β (Fin (d + 1)) inferInstance (fun x y => p.eval (row x + col y))"
+          },
+          {
+            "depends_on": [],
+            "id": "rank_bridge",
+            "target": "∀ {α : Type u} {β : Type v} [Fintype β] (d : ℕ) {F : Matrix α β ℝ}, @QuantumBlockEncoding.HermiteCutRank.FactorsThrough α β (Fin (d + 1)) inferInstance F → F.rank ≤ d + 1"
+          },
+          {
+            "depends_on": [
+              "expansion",
+              "factorization",
+              "rank_bridge"
+            ],
+            "id": "root",
+            "target": "∀ {α : Type u} {β : Type v} [Fintype β] (p : Polynomial ℝ) (d : ℕ) (hd : p.natDegree ≤ d) (row : α → ℝ) (col : β → ℝ), (∀ x y, p.eval (row x + col y) = ∑ i : Fin (d + 1), (Polynomial.taylor (row x) p).coeff (i : ℕ) * col y ^ (i : ℕ)) ∧ @QuantumBlockEncoding.HermiteCutRank.FactorsThrough α β (Fin (d + 1)) inferInstance (fun x y => p.eval (row x + col y)) ∧ (Matrix.rank (fun x y => p.eval (row x + col y) : Matrix α β ℝ) ≤ d + 1)"
+          }
+        ],
+        "question": "Consider a bivariate real array F(x,y) = q(u(x) + v(y)), where q is a real polynomial of degree at most d and u, v are arbitrary real-valued functions of the row index x and column index y respectively. Prove that F factorizes as a matrix product A * B with inner dimension d+1, and conclude that the rank of F is at most d+1. Make explicit which polynomial identity provides the factorization and why only the degree of q — not the number of rows or columns — controls the inner dimension.",
+        "root_id": "root",
+        "schema_version": "qcb.proof_obligation_task.v2",
+        "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "split": "dev",
+        "universe_parameters": [
+          "u",
+          "v"
+        ]
+      },
+      "view_id": "qcb-course-sp-114-v1"
+    },
+    {
+      "assumptions_added": [],
+      "controls": {
+        "library_control": "by exact QuantumBlockEncoding.TensorTrainCanonical.complexCore_isometry"
+      },
+      "library_control_one_call": true,
+      "negative_controls": {
+        "sorry_axiom": "by sorry",
+        "wrong_target": "by exact True.intro"
+      },
+      "references": {
+        "sp009_isometry": "by exact QuantumBlockEncoding.TensorTrainCanonical.complexCore_isometry"
+      },
+      "semantic_coverage": "exact_symbolic_conclusion_with_separately_reviewed_nl_explanation",
+      "semantic_evidence": {
+        "batch_digest": "5bda7b47ec2dae841f07814ce8c7a4151436a297bf038c65a6ade9290ebfe110",
+        "comparison_digest": "95496a7efcd97c6b82ee74aa3d852bba7a89a16191cfe92fa2786d8e433d05ad",
+        "decoder_digest": "941e664778923dbaebc3388d6ce77d75eeb9de739aff8d43d0e986d079279559",
+        "formal_context_digest": "c882ae7a342ce3dbd6ecdf4f3798a1ddb28b8359d31adccac77a31370ad4812a",
+        "kind": "reuse_canonical_native",
+        "view_id": "native-formal-complex-core-isometry-v1"
+      },
+      "shortcut_disclosure": "Imported exact-root complexCore_isometry, an API-application calibration.",
+      "source_binder_audit": {
+        "scope": "Exact unchanged canonical native formal context; real Core carrier, row Gram source premise; no new hypotheses."
+      },
+      "source_bindings": [
+        {
+          "path": "QuantumBlockEncoding/TensorTrainCanonical.lean",
+          "sha256_lf": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f"
+        }
+      ],
+      "source_item_digest": "3f133557d4caeab060a7631ee2641d0019434fd496c4f8fa413895aaf318e981",
+      "source_node_ids": [
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.complexCore_isometry"
+      ],
+      "task": {
+        "alignment_status": "same_root_as_canonical_native_formal_view; course_protocol_replay_separate; NL_prose_separately_graded",
+        "assumptions": [
+          "A is a real core with orthonormal rows A * A^T = 1",
+          "the complex embedding uses (bit, new bond) as output rows and old bond as input columns"
+        ],
+        "contract_hash": "108977edccc1cb916d3614d5b4d2927d1a82e337f901ff73421320ef956448b0",
+        "conventions": [
+          "conjTranspose is the complex conjugate transpose; realness means entrywise conjugation is the identity",
+          "the isometry condition is (complexCore A)^dagger (complexCore A) = 1 on the input-bond index"
+        ],
+        "core_id": "qcb-core-sp-009",
+        "family": "core-circuit-isometry",
+        "imports": [
+          "QuantumBlockEncoding.TensorTrainCanonical"
+        ],
+        "interfaces": [
+          {
+            "module": "QuantumBlockEncoding.TensorTrainCanonical",
+            "name": "QuantumBlockEncoding.TensorTrainCanonical.complexCore_isometry",
+            "source_node_id": "declaration:QuantumBlockEncoding.TensorTrainCanonical.complexCore_isometry",
+            "type": "∀ {l r : ℕ} (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r), A * A.transpose = 1 → (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose * QuantumBlockEncoding.TensorTrainCanonical.complexCore A = 1"
+          }
+        ],
+        "library_revision": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+        "nodes": [
+          {
+            "depends_on": [],
+            "id": "sp009_isometry",
+            "target": "∀ {l r : ℕ} (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r), A * A.transpose = 1 → (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose * QuantumBlockEncoding.TensorTrainCanonical.complexCore A = 1"
+          }
+        ],
+        "question": "A real tensor-train core carries orthonormal rows (its row-canonical condition). Show that embedding such a core into a complex matrix with the physical bit and new bond as output rows and the old bond as input columns yields a genuine circuit isometry: the conjugate-transpose times the matrix is the identity on the input-bond index. Explain why real orthonormal rows translate exactly to orthonormal complex input columns under this orientation.",
+        "root_id": "sp009_isometry",
+        "schema_version": "qcb.proof_obligation_task.v1",
+        "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "split": "train"
+      },
+      "view_id": "qcb-course-sp-009-v1"
+    }
+  ],
+  "catalog_hash": "5269b9f2521e3bf14db293fea34895f6e44a387c2479c164407b4d16dd9a2247",
+  "isolated": false,
+  "lean_toolchain": "leanprover/lean4:v4.29.1",
+  "library_revision": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+  "model_predictions_executed": false,
+  "new_canonical_formal_admissions": 0,
+  "new_mathematical_cores": 0,
+  "policy": "Experimental task views; semantic roundtrip and exact authored replay required before course qualification. Public references; no model score.",
+  "proof_inputs_sha256": "1e65e7d2984e4542ca2747837d71c516847e4e987d3bbd6c48b8a803eb36806e",
+  "schema_version": "qcb.graph_course_candidates.v1",
+  "source_author_packet_digests": {
+    "be": "ab9f769d9bfc8db58fb8f49738c97b5bb6a2cd355c0ee85ddcfc7cc9a7a00449",
+    "rank": "048074d64de1d2b7304385e2972d7f41567bde38e8b9059f15a59f0080cc8d08"
+  }
+}

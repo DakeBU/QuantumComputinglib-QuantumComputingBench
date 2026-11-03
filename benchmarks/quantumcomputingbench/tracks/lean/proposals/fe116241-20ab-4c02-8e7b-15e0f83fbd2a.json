@@ -1,0 +1,41 @@
+{
+  "proposal_id": "fe116241-20ab-4c02-8e7b-15e0f83fbd2a",
+  "track": "lean",
+  "author": "AI proof author /root/lean_agentic_pilot_math; integration /root",
+  "core_id": "qcb-core-sp-008",
+  "contract_hash": "b292fd14d37907ff3e7aba598779c0fd83b21c819fa4be460397ff0fc38cfa02",
+  "item_digest": "d403cce404da75f2931579b020692a9cf08143dfd7b2a59eeec69fce4c59f771",
+  "item_id": "qcb-938d6925b4acd7eb28a9",
+  "family": "coherent-success-probability",
+  "split": "train",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "admission": "candidate_not_counted",
+  "dedup_review_required": true,
+  "source_nodes": [
+    "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_run_basisBoundary",
+    "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_step",
+    "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_run",
+    "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_freshZero",
+    "declaration:QuantumBlockEncoding.SequentialBondPreparation.liftStage_unitary"
+  ],
+  "view_kind": "agentic_proof_construction",
+  "formal_context": {
+    "imports": [
+      "QuantumBlockEncoding.SequentialBondPreparation"
+    ],
+    "preamble": "universe u\nopen scoped BigOperators",
+    "target": "∀ {B : Type u} [Fintype B] [DecidableEq B] (U : ℕ → QuantumBlockEncoding.SequentialBondPreparation.Stage B) (initial : B), (∀ t : ℕ, U t ∈ _root_.Matrix.unitaryGroup (Fin 2 × B) ℂ) → ∀ n : ℕ, (∑ z : QuantumBlockEncoding.PrimitiveBasis n × B, Complex.normSq (QuantumBlockEncoding.SequentialBondPreparation.run U (QuantumBlockEncoding.SequentialBondPreparation.basisBoundary initial) n z)) = 1"
+  },
+  "logical_assumptions_added": [],
+  "reference_execution_status": "fixed_authored_session_replay_checked; experimental_sidecar_not_canonical_admission",
+  "reference_execution_receipt_digest": "7a85ba99f644b950807b803a54fcfdf32fd9e2254ad0240497af0fd25efceff5",
+  "reference_execution_report": "reports/lean-agentic-capabilities-v1/sequential-execution.json",
+  "canonical_formal_admission": false,
+  "new_mathematical_cores": 0,
+  "evidence": {
+    "fixture": "tracks/lean/fixtures/sequential-pilot-v1.json",
+    "source_blind_decoder": "reports/lean-agentic-sequential-v1/decoder.json",
+    "comparison": "reports/lean-agentic-sequential-v1/comparison.json"
+  },
+  "boundary": "Exact symbolic root alignment reviewed; full requested proof/explanation grading remains partial. No model result, autonomous decomposition, cleanup, flattened circuit or resource claim."
+}

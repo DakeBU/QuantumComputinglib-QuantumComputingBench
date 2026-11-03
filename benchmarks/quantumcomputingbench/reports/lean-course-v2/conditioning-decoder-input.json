@@ -1,0 +1,196 @@
+{
+  "schema_version": "qcb.curriculum_blind_input.v1",
+  "views": [
+    {
+      "ambient_definitions": {
+        "centralIndex": "centralIndex n : Fin (gridSize(n+1)) is the natural index 2^n, valid because 2^n < 2^(n+1)",
+        "coefficientPolynomial": "A_k = PowerSeries.trunc (k+1) (coefficientSeries k); equivalently A_k(t)=sum_(r=0)^k [sum_(m=0)^r binom(k+r-m,k)/m!]t^r",
+        "coefficientSeries": "PowerSeries.exp ℝ * (PowerSeries.invOneSubPow ℝ (k+1)).val",
+        "endpointFactor": "endpointFactor k = (1-X)^(k+1) * coefficientPolynomial k",
+        "finite_index_convention": "j=sum_(i=0)^n bit_i*2^i; grid includes its left endpoint and excludes its right endpoint",
+        "gridPoint": "-Real.pi*L + (j.val:ℝ)*(2*Real.pi*L/(gridSize N:ℝ))",
+        "gridSize": "gridSize N = 2^N : ℕ",
+        "sampleNorm": "Real.sqrt (sum j : Fin (gridSize N), (sampledAmplitude k N L j)^2)",
+        "sampledAmplitude": "smoothInitial k (gridPoint N L j)",
+        "smoothInitial": "smoothInitial k p = if p < -1 then Real.exp p else if p ≤ 0 then (sourceInterpolant k).eval p else Real.exp (-p)",
+        "sourceInterpolant": "taylor 1 (C(exp(-1))*endpointFactor k + (endpointFactor k).comp (1-X)); eval at p equals exp(-1)(1-t)^(k+1)A_k(t)+t^(k+1)A_k(1-t) with t=p+1"
+      },
+      "anonymous_id": "ambient-A",
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.HermiteIntervalMass"
+        ],
+        "preamble": "open scoped BigOperators",
+        "target": "∀ (k n : ℕ) (L : ℝ) (hL : 0 < L), (QuantumBlockEncoding.HermiteStatePreparation.gridPoint (n + 1) L (QuantumBlockEncoding.HermiteIntervalMass.centralIndex n) = 0) ∧ (QuantumBlockEncoding.HermiteStatePreparation.sampledAmplitude k (n + 1) L (QuantumBlockEncoding.HermiteIntervalMass.centralIndex n) = 1) ∧ (1 ≤ ∑ j : Fin (QuantumBlockEncoding.gridSize (n + 1)), (QuantumBlockEncoding.HermiteStatePreparation.sampledAmplitude k (n + 1) L j) ^ 2) ∧ (0 < QuantumBlockEncoding.HermiteStatePreparation.sampleNorm k (n + 1) L) ∧ (∃ a : Fin 2 → ℝ, (∀ j, 0 < a j) ∧ (∑ j : Fin 2, (a j) ^ 2) < 1 ∧ (∀ j, a j ≠ 1))",
+        "universe_parameters": []
+      },
+      "imports": [
+        "QuantumBlockEncoding.HermiteIntervalMass"
+      ],
+      "interfaces": [
+        {
+          "name": "QuantumBlockEncoding.HermitePolynomial.smoothInitial_middle",
+          "signature": "theorem smoothInitial_middle (k : ℕ) (p : ℝ) (hp : p ∈ Set.Icc (-1) 0) :\n    smoothInitial k p = (sourceInterpolant k).eval p"
+        },
+        {
+          "name": "QuantumBlockEncoding.HermitePolynomial.sourceInterpolant_right_jet",
+          "signature": "theorem sourceInterpolant_right_jet (k j : ℕ) (hj : j ≤ k) :\n    (derivative^[j] (sourceInterpolant k)).eval 0 = (-1 : ℝ) ^ j"
+        },
+        {
+          "name": "QuantumBlockEncoding.HermiteIntervalMass.gridPoint_central",
+          "signature": "theorem gridPoint_central (n : ℕ) (L : ℝ) :\n    HermiteStatePreparation.gridPoint (n + 1) L (centralIndex n) = 0"
+        },
+        {
+          "name": "QuantumBlockEncoding.HermiteIntervalMass.sampled_mass_ge_one",
+          "signature": "theorem sampled_mass_ge_one (k n : ℕ) (L : ℝ) :\n    1 ≤ ∑ j : Fin (gridSize (n + 1)),\n      (HermiteStatePreparation.sampledAmplitude k (n + 1) L j) ^ 2"
+        },
+        {
+          "name": "QuantumBlockEncoding.HermiteStatePreparation.sampleNorm_pos",
+          "signature": "theorem sampleNorm_pos (k n : ℕ) (L : ℝ) : 0 < sampleNorm k n L"
+        }
+      ],
+      "nodes": [
+        {
+          "depends_on": [],
+          "id": "grid_anchor",
+          "target": "∀ (n : ℕ) (L : ℝ), QuantumBlockEncoding.HermiteStatePreparation.gridPoint (n + 1) L (QuantumBlockEncoding.HermiteIntervalMass.centralIndex n) = 0"
+        },
+        {
+          "depends_on": [
+            "grid_anchor"
+          ],
+          "id": "unit_sample",
+          "target": "∀ (k n : ℕ) (L : ℝ), QuantumBlockEncoding.HermiteStatePreparation.sampledAmplitude k (n + 1) L (QuantumBlockEncoding.HermiteIntervalMass.centralIndex n) = 1"
+        },
+        {
+          "depends_on": [
+            "unit_sample"
+          ],
+          "id": "mass",
+          "target": "∀ (k n : ℕ) (L : ℝ), 1 ≤ ∑ j : Fin (QuantumBlockEncoding.gridSize (n + 1)), (QuantumBlockEncoding.HermiteStatePreparation.sampledAmplitude k (n + 1) L j) ^ 2"
+        },
+        {
+          "depends_on": [
+            "mass"
+          ],
+          "id": "normalizer",
+          "target": "∀ (k n : ℕ) (L : ℝ), 0 < QuantumBlockEncoding.HermiteStatePreparation.sampleNorm k (n + 1) L"
+        },
+        {
+          "depends_on": [],
+          "id": "positive_counterexample",
+          "target": "∃ a : Fin 2 → ℝ, (∀ j, 0 < a j) ∧ (∑ j : Fin 2, (a j) ^ 2) < 1 ∧ (∀ j, a j ≠ 1)"
+        },
+        {
+          "depends_on": [
+            "grid_anchor",
+            "unit_sample",
+            "mass",
+            "normalizer",
+            "positive_counterexample"
+          ],
+          "id": "root",
+          "target": "∀ (k n : ℕ) (L : ℝ) (hL : 0 < L), (QuantumBlockEncoding.HermiteStatePreparation.gridPoint (n + 1) L (QuantumBlockEncoding.HermiteIntervalMass.centralIndex n) = 0) ∧ (QuantumBlockEncoding.HermiteStatePreparation.sampledAmplitude k (n + 1) L (QuantumBlockEncoding.HermiteIntervalMass.centralIndex n) = 1) ∧ (1 ≤ ∑ j : Fin (QuantumBlockEncoding.gridSize (n + 1)), (QuantumBlockEncoding.HermiteStatePreparation.sampledAmplitude k (n + 1) L j) ^ 2) ∧ (0 < QuantumBlockEncoding.HermiteStatePreparation.sampleNorm k (n + 1) L) ∧ (∃ a : Fin 2 → ℝ, (∀ j, 0 < a j) ∧ (∑ j : Fin 2, (a j) ^ 2) < 1 ∧ (∀ j, a j ≠ 1))"
+        }
+      ],
+      "payload_policy": "Proof bodies, source question/title/core ID, author binder classifications and desired verdict are excluded. Imported identifiers are necessary ambient constants, not source labels.",
+      "root_id": "root",
+      "universe_parameters": []
+    },
+    {
+      "ambient_definitions": {
+        "Cost": "Op → ℕ; tick op q = if q=op then 1 else 0",
+        "Op": "field | sqrt | angle | trig | compare | read | write | emit, all distinct",
+        "Run": "Run α has value : α and cost : Cost; pure x = (x,0); bind x f computes y=f x.value and returns (y.value,x.cost+y.cost)",
+        "affinePoint": "affinePoint origin step j = origin + step*(j:ℝ)",
+        "arithmetic": "StoredGivens.add/sub/mul/div x y = charge field (x+y / x-y / x*y / x/y), respectively",
+        "below": "below x = charge compare (decide (x < -1)), using exact ℝ comparison",
+        "charge": "charge op x returns value x and cost tick op",
+        "compute": "compute n L: width←mul Real.pi L; lower←sub 0 width; search n 0 lower width",
+        "cost_scope": "only the declared exact-real operations; natural index arithmetic, powers of two, proofs and counter bookkeeping are outside this model. No finite-bit complexity claim.",
+        "cutIndex": "Nat.ceil ((-1-(-Real.pi*L))/gridStep n L); natural ceil clamps below at zero. Search interval has 2^n cells from -pi*L to 0, including the excluded endpoint for cutoff purposes.",
+        "gridPointNat": "gridPointNat n L j = affinePoint (-Real.pi*L) (gridStep n L) j",
+        "gridSize": "gridSize N = 2^N : ℕ",
+        "gridStep": "gridStep n L = 2*Real.pi*L/(gridSize(n+1):ℝ)",
+        "search_succ": "search (r+1) start lower span: half←div span 2; middle←add lower half; yes←below middle; if yes then search r (start+2^r) middle half else search r start lower half",
+        "search_zero": "search 0 start lower span: yes←below lower; pure (if yes then start+1 else start)"
+      },
+      "anonymous_id": "ambient-B",
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.HermiteBinaryCutoff"
+        ],
+        "preamble": "open scoped BigOperators",
+        "target": "∀ (n : ℕ) (L : ℝ) (hL : 0 < L), ((QuantumBlockEncoding.HermiteBinaryCutoff.compute n L).value = QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex n L) ∧ ((QuantumBlockEncoding.HermiteBinaryCutoff.search n 0 (-Real.pi * L) (Real.pi * L)).cost .field = 2 * n) ∧ ((QuantumBlockEncoding.HermiteBinaryCutoff.search n 0 (-Real.pi * L) (Real.pi * L)).cost .compare = n + 1) ∧ ((QuantumBlockEncoding.HermiteBinaryCutoff.compute n L).cost .field = 2 * n + 2) ∧ ((QuantumBlockEncoding.HermiteBinaryCutoff.compute n L).cost .compare = n + 1)",
+        "universe_parameters": []
+      },
+      "imports": [
+        "QuantumBlockEncoding.HermiteBinaryCutoff"
+      ],
+      "interfaces": [
+        {
+          "name": "QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat_lt_neg_one_iff",
+          "signature": "theorem gridPointNat_lt_neg_one_iff (n : ℕ) (L : ℝ) (hL : 0 < L) (j : ℕ) :\n    gridPointNat n L j < -1 ↔ j < cutIndex n L"
+        },
+        {
+          "name": "QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex_le_midpoint",
+          "signature": "theorem cutIndex_le_midpoint (n : ℕ) (L : ℝ) (hL : 0 < L) :\n    cutIndex n L ≤ 2 ^ n"
+        },
+        {
+          "name": "QuantumBlockEncoding.HermiteBinaryCutoff.search_value",
+          "signature": "theorem search_value (n remaining start : ℕ) (L : ℝ) (hL : 0 < L)\n    (hlo : start ≤ cutIndex n L) (hhi : cutIndex n L ≤ start + 2 ^ remaining) :\n    (search remaining start (gridPointNat n L start)\n      (gridStep n L * (2 : ℝ) ^ remaining)).value = cutIndex n L"
+        },
+        {
+          "name": "QuantumBlockEncoding.HermiteBinaryCutoff.search_cost",
+          "signature": "theorem search_cost (remaining start : ℕ) (lower span : ℝ) (op : Op) :\n    (search remaining start lower span).cost op =\n      2 * remaining * tick .field op + (remaining + 1) * tick .compare op"
+        },
+        {
+          "name": "QuantumBlockEncoding.HermiteBinaryCutoff.compute_value",
+          "signature": "theorem compute_value (n : ℕ) (L : ℝ) (hL : 0 < L) :\n    (compute n L).value = cutIndex n L"
+        },
+        {
+          "name": "QuantumBlockEncoding.HermiteBinaryCutoff.compute_cost",
+          "signature": "theorem compute_cost (n : ℕ) (L : ℝ) (op : Op) :\n    (compute n L).cost op =\n      (2 * n + 2) * tick .field op + (n + 1) * tick .compare op"
+        }
+      ],
+      "nodes": [
+        {
+          "depends_on": [],
+          "id": "interval_value",
+          "target": "∀ (n remaining start : ℕ) (L : ℝ) (hL : 0 < L) (hlo : start ≤ QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex n L) (hhi : QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex n L ≤ start + 2 ^ remaining), (QuantumBlockEncoding.HermiteBinaryCutoff.search remaining start (QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat n L start) (QuantumBlockEncoding.HermiteBoundaryInjection.gridStep n L * (2 : ℝ) ^ remaining)).value = QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex n L"
+        },
+        {
+          "depends_on": [],
+          "id": "search_ledger",
+          "target": "∀ (remaining start : ℕ) (lower span : ℝ) (op : QuantumBlockEncoding.StoredGivens.Op), (QuantumBlockEncoding.HermiteBinaryCutoff.search remaining start lower span).cost op = 2 * remaining * QuantumBlockEncoding.StoredGivens.tick .field op + (remaining + 1) * QuantumBlockEncoding.StoredGivens.tick .compare op"
+        },
+        {
+          "depends_on": [
+            "interval_value"
+          ],
+          "id": "producer_value",
+          "target": "∀ (n : ℕ) (L : ℝ) (hL : 0 < L), (QuantumBlockEncoding.HermiteBinaryCutoff.compute n L).value = QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex n L"
+        },
+        {
+          "depends_on": [
+            "search_ledger"
+          ],
+          "id": "producer_ledger",
+          "target": "∀ (n : ℕ) (L : ℝ) (op : QuantumBlockEncoding.StoredGivens.Op), (QuantumBlockEncoding.HermiteBinaryCutoff.compute n L).cost op = (2 * n + 2) * QuantumBlockEncoding.StoredGivens.tick .field op + (n + 1) * QuantumBlockEncoding.StoredGivens.tick .compare op"
+        },
+        {
+          "depends_on": [
+            "producer_value",
+            "search_ledger",
+            "producer_ledger"
+          ],
+          "id": "root",
+          "target": "∀ (n : ℕ) (L : ℝ) (hL : 0 < L), ((QuantumBlockEncoding.HermiteBinaryCutoff.compute n L).value = QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex n L) ∧ ((QuantumBlockEncoding.HermiteBinaryCutoff.search n 0 (-Real.pi * L) (Real.pi * L)).cost .field = 2 * n) ∧ ((QuantumBlockEncoding.HermiteBinaryCutoff.search n 0 (-Real.pi * L) (Real.pi * L)).cost .compare = n + 1) ∧ ((QuantumBlockEncoding.HermiteBinaryCutoff.compute n L).cost .field = 2 * n + 2) ∧ ((QuantumBlockEncoding.HermiteBinaryCutoff.compute n L).cost .compare = n + 1)"
+        }
+      ],
+      "payload_policy": "Proof bodies, source question/title/core ID, author binder classifications and desired verdict are excluded. Imported identifiers are necessary ambient constants, not source labels.",
+      "root_id": "root",
+      "universe_parameters": []
+    }
+  ]
+}

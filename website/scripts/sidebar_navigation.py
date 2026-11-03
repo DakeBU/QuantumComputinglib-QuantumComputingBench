@@ -60,6 +60,8 @@ def render_navigation(prefix: str, current: str, papers: dict, cases: list[dict]
     bench = links_section("quantumcomputingbench", "QuantumComputingBench", (
         ("Exercise book", "quantumcomputingbench/"),
         ("Mathematical exercises", "quantumcomputingbench/non-lean/"),
+        ("Guided course · D0–D4", "quantumcomputingbench/course/"),
+        ("How reasoning graphs work", "quantumcomputingbench/reasoning/"),
         ("Lean companion", "quantumcomputingbench/lean/"),
         ("Contribution contract", "quantumcomputingbench/contribute/"),
         ("Evidence and release gates", "quantumcomputingbench/evidence/"),

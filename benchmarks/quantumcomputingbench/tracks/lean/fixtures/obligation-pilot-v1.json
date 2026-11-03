@@ -1,0 +1,704 @@
+{
+  "schema_version": "qcb.evaluator_owned_proof_dag_pilot.v1",
+  "status": "experimental_authored_obligation_fixture_not_new_formal_admission",
+  "catalog_hash": "5269b9f2521e3bf14db293fea34895f6e44a387c2479c164407b4d16dd9a2247",
+  "execution_class": "trusted_local_reference",
+  "isolated": false,
+  "model_performance_measured": false,
+  "blind_test": false,
+  "new_cores": 0,
+  "new_formal_views_admitted": 0,
+  "source_commit": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+  "integration_base": "c7ae0a26d50f2429f0d258ea0366bdf8b39aead8",
+  "lean_toolchain": "leanprover/lean4:v4.29.1",
+  "proof_inputs_sha256": "1e65e7d2984e4542ca2747837d71c516847e4e987d3bbd6c48b8a803eb36806e",
+  "preamble": "open scoped BigOperators",
+  "interpretation": "Named nodes and AND dependencies are authored evaluator obligations reproducing unchanged existing mathematical cores. They are not tactic REPL states, autonomous planning traces, elaborated proof-term dependencies, measured difficulty or new benchmark core identities.",
+  "protocol_boundaries": [
+    "No independent blind semantic review or source topology reviewer was fabricated. All added obligations remain candidate fixtures.",
+    "One-call original-root controls are explicit and available. Since root declarations are present in imports, this pilot cannot establish shortcut-free capability from success alone.",
+    "All reference bodies are fixed evaluator-authored proofs; no untrusted or model-prediction Lean was executed.",
+    "Scalar/typeclass and ordinary simp/proof automation are standing library mechanisms, not extra mathematical hypotheses."
+  ],
+  "cases": [
+    {
+      "core_id": "qcb-core-sp-005",
+      "root_id": "sp_root",
+      "imports": [
+        "QuantumBlockEncoding.RealAmplitudePreparation"
+      ],
+      "preamble": "open scoped BigOperators",
+      "nodes": [
+        {
+          "id": "sp_pair_square",
+          "target": "∀ (a b : ℝ), QuantumBlockEncoding.RealAmplitudePreparation.pairNorm a b ^ 2 = a ^ 2 + b ^ 2",
+          "depends_on": [],
+          "helper_name": "QuantumComputingBench.PilotMath.spPairSquare",
+          "source_node_ids": [
+            "declaration:QuantumBlockEncoding.RealAmplitudePreparation.pairNorm_sq"
+          ],
+          "mechanism": "square_root_nonnegative_radicand",
+          "admission": "candidate_evaluator_obligation_pending_semantic_admission",
+          "counted_as_new_core": false
+        },
+        {
+          "id": "sp_last_bit_sum",
+          "target": "∀ {n : ℕ} (g : QuantumBlockEncoding.PrimitiveBasis (n + 1) → ℝ), (∑ w, g w) = ∑ b : QuantumBlockEncoding.PrimitiveBasis n, (g (Fin.snoc b 0) + g (Fin.snoc b 1))",
+          "depends_on": [],
+          "helper_name": "QuantumComputingBench.PilotMath.spLastBitSum",
+          "source_node_ids": [
+            "declaration:QuantumBlockEncoding.RealAmplitudePreparation.lastBasisEquiv",
+            "declaration:QuantumBlockEncoding.RealAmplitudePreparation.lastBasisEquiv_symm_apply",
+            "declaration:QuantumBlockEncoding.RealAmplitudePreparation.normSq_marginal"
+          ],
+          "mechanism": "finite_basis_partition",
+          "admission": "candidate_evaluator_obligation_pending_semantic_admission",
+          "counted_as_new_core": false
+        },
+        {
+          "id": "sp_marginal_square",
+          "target": "∀ {n : ℕ} (f : QuantumBlockEncoding.PrimitiveBasis (n + 1) → ℝ) (b : QuantumBlockEncoding.PrimitiveBasis n), QuantumBlockEncoding.RealAmplitudePreparation.marginal f b ^ 2 = f (Fin.snoc b 0) ^ 2 + f (Fin.snoc b 1) ^ 2",
+          "depends_on": [
+            "sp_pair_square"
+          ],
+          "helper_name": "QuantumComputingBench.PilotMath.spMarginalSquare",
+          "source_node_ids": [
+            "declaration:QuantumBlockEncoding.RealAmplitudePreparation.marginal",
+            "declaration:QuantumBlockEncoding.RealAmplitudePreparation.pairNorm_sq"
+          ],
+          "mechanism": "definitional_specialization_bookkeeping",
+          "admission": "candidate_evaluator_obligation_pending_semantic_admission",
+          "counted_as_new_core": false
+        },
+        {
+          "id": "sp_root",
+          "target": "∀ {n : ℕ} (f : QuantumBlockEncoding.PrimitiveBasis (n + 1) → ℝ), QuantumBlockEncoding.RealAmplitudePreparation.normSq (QuantumBlockEncoding.RealAmplitudePreparation.marginal f) = QuantumBlockEncoding.RealAmplitudePreparation.normSq f",
+          "depends_on": [
+            "sp_marginal_square",
+            "sp_last_bit_sum"
+          ],
+          "helper_name": "QuantumComputingBench.PilotMath.spRoot",
+          "source_node_ids": [
+            "declaration:QuantumBlockEncoding.RealAmplitudePreparation.normSq_marginal"
+          ],
+          "mechanism": "root_norm_conservation",
+          "admission": "existing_core_target_unchanged",
+          "counted_as_new_core": false
+        }
+      ],
+      "references": {
+        "sp_pair_square": "by\n  intro a b\n  unfold QuantumBlockEncoding.RealAmplitudePreparation.pairNorm\n  exact Real.sq_sqrt (add_nonneg (sq_nonneg a) (sq_nonneg b))",
+        "sp_last_bit_sum": "by\n  intro n g\n  rw [← (QuantumBlockEncoding.RealAmplitudePreparation.lastBasisEquiv n).symm.sum_comp]\n  simp only [Fintype.sum_prod_type, QuantumBlockEncoding.RealAmplitudePreparation.lastBasisEquiv_symm_apply, Fin.sum_univ_two]",
+        "sp_marginal_square": "by\n  intro n f b\n  exact QuantumComputingBench.PilotMath.spPairSquare _ _",
+        "sp_root": "by\n  intro n f\n  unfold QuantumBlockEncoding.RealAmplitudePreparation.normSq\n  simp_rw [QuantumComputingBench.PilotMath.spMarginalSquare]\n  exact (QuantumComputingBench.PilotMath.spLastBitSum (fun w => f w ^ 2)).symm"
+      },
+      "independent_root_reference": "by\n  intro n f\n  have pairSquare : ∀ (a b : ℝ), QuantumBlockEncoding.RealAmplitudePreparation.pairNorm a b ^ 2 = a ^ 2 + b ^ 2 := by\n    intro a b\n    unfold QuantumBlockEncoding.RealAmplitudePreparation.pairNorm\n    exact Real.sq_sqrt (add_nonneg (sq_nonneg a) (sq_nonneg b))\n  have lastBitSum : ∀ (g : QuantumBlockEncoding.PrimitiveBasis (n + 1) → ℝ),\n      (∑ w, g w) = ∑ b : QuantumBlockEncoding.PrimitiveBasis n, (g (Fin.snoc b 0) + g (Fin.snoc b 1)) := by\n    intro g\n    rw [← (QuantumBlockEncoding.RealAmplitudePreparation.lastBasisEquiv n).symm.sum_comp]\n    simp only [Fintype.sum_prod_type, QuantumBlockEncoding.RealAmplitudePreparation.lastBasisEquiv_symm_apply, Fin.sum_univ_two]\n  unfold QuantumBlockEncoding.RealAmplitudePreparation.normSq\n  simp only [QuantumBlockEncoding.RealAmplitudePreparation.marginal, pairSquare]\n  exact (lastBitSum (fun w => f w ^ 2)).symm",
+      "baseline_control": {
+        "proof": "by exact QuantumBlockEncoding.RealAmplitudePreparation.normSq_marginal",
+        "available": true,
+        "task_kind": "library_lemma_application",
+        "same_target": true
+      },
+      "wrong_reference": {
+        "node_id": "sp_pair_square",
+        "proof": "by\n  intro a b\n  exact Real.sq_sqrt (sq_nonneg a)",
+        "probe": "NegativeSp.lean",
+        "actual_diagnostic": "Application type mismatch: sq_nonneg a has type 0 ≤ a ^ 2 but is expected to have type 0 ≤ a ^ 2 + b ^ 2 in Real.sq_sqrt (sq_nonneg a)",
+        "repair_explanation": "The sqrt input is a²+b². Supply add_nonneg (sq_nonneg a) (sq_nonneg b); do not assume either amplitude nonnegative.",
+        "classification": "IMPLEMENTATION_FAILED",
+        "expected_exit_code": 1,
+        "repair_proof": "by\n  intro a b\n  unfold QuantumBlockEncoding.RealAmplitudePreparation.pairNorm\n  exact Real.sq_sqrt (add_nonneg (sq_nonneg a) (sq_nonneg b))",
+        "probe_directory": "_out/lean-agentic-20261103/pilot-math"
+      },
+      "interfaces": [
+        {
+          "name": "Real.sq_sqrt",
+          "type": "∀ {x : ℝ}, 0 ≤ x → Real.sqrt x ^ 2 = x",
+          "module": "Mathlib.Data.Real.Sqrt",
+          "source_node_id": "mathlib:Real.sq_sqrt"
+        },
+        {
+          "name": "add_nonneg",
+          "type": "∀ {α : Type u_1} [AddZeroClass α] [Preorder α] [AddLeftMono α] {a b : α}, 0 ≤ a → 0 ≤ b → 0 ≤ a + b",
+          "module": "Mathlib.Algebra.Order.Monoid.Unbundled.Basic",
+          "source_node_id": "mathlib:add_nonneg"
+        },
+        {
+          "name": "sq_nonneg",
+          "type": "∀ {R : Type u_1} [Semiring R] [LinearOrder R] [ExistsAddOfLE R] [PosMulMono R] [AddLeftMono R] (a : R), 0 ≤ a ^ 2",
+          "module": "Mathlib.Algebra.Order.Ring.Unbundled.Basic",
+          "source_node_id": "mathlib:sq_nonneg"
+        },
+        {
+          "name": "Equiv.sum_comp",
+          "type": "∀ {ι : Type u_1} {κ : Type u_2} {M : Type u_3} [Fintype ι] [Fintype κ] [AddCommMonoid M] (e : ι ≃ κ) (g : κ → M), (∑ i, g (e i)) = ∑ i, g i",
+          "module": "Mathlib.Algebra.BigOperators.Group.Finset.Defs",
+          "source_node_id": "mathlib:Equiv.sum_comp"
+        },
+        {
+          "name": "Fintype.sum_prod_type",
+          "type": "∀ {γ : Type u_1} {α₁ : Type u_2} {α₂ : Type u_3} [Fintype α₁] [Fintype α₂] [AddCommMonoid γ] (f : α₁ × α₂ → γ), (∑ x, f x) = ∑ x, ∑ y, f (x, y)",
+          "module": "Mathlib.Data.Fintype.BigOperators",
+          "source_node_id": "mathlib:Fintype.sum_prod_type"
+        },
+        {
+          "name": "Fin.sum_univ_two",
+          "type": "∀ {M : Type u_1} [AddCommMonoid M] (f : Fin 2 → M), (∑ i, f i) = f 0 + f 1",
+          "module": "Mathlib.Algebra.BigOperators.Fin",
+          "source_node_id": "mathlib:Fin.sum_univ_two"
+        },
+        {
+          "name": "QuantumBlockEncoding.RealAmplitudePreparation.lastBasisEquiv_symm_apply",
+          "type": "∀ {n : ℕ} (b : QuantumBlockEncoding.PrimitiveBasis n) (v : Fin 2), (QuantumBlockEncoding.RealAmplitudePreparation.lastBasisEquiv n).symm (b, v) = Fin.snoc b v",
+          "module": "QuantumBlockEncoding.RealAmplitudePreparation",
+          "source_node_id": "declaration:QuantumBlockEncoding.RealAmplitudePreparation.lastBasisEquiv_symm_apply"
+        }
+      ],
+      "binding": {
+        "contract_hash": "0821f527326022b9972f0d4083b8a2a99c179263e36e5d27112f6cb5c1c98865",
+        "item_digest": "4748bf7c81283496b115e778c1f365bd503d4384829e85ceb0959f348a5a97d4",
+        "family": "marginal-norm-pythagorean",
+        "split": "test_public",
+        "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a"
+      },
+      "native_formal_view_id": "native-formal-marginal-norm-v1",
+      "source_bindings": [
+        {
+          "path": "QuantumBlockEncoding/RealAmplitudePreparation.lean",
+          "sha256_lf": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+          "lines": [
+            [
+              19,
+              27
+            ],
+            [
+              142,
+              148
+            ],
+            [
+              203,
+              221
+            ]
+          ]
+        },
+        {
+          "path": "QuantumBlockEncoding/PrimitiveSemantics.lean",
+          "sha256_lf": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+          "lines": [
+            [
+              116,
+              116
+            ]
+          ]
+        }
+      ],
+      "knowledge_assumption_rubric": [
+        {
+          "id": "square-root",
+          "criterion": "Derive pairNorm²=a²+b² from the nonnegative sum of two squares, with no positivity premise on amplitudes.",
+          "kind": "mathematical_mechanism"
+        },
+        {
+          "id": "partition",
+          "criterion": "Reindex all n+1 bit words by the prefix/highest-bit bijection; expand the two-bit carrier exactly once, preserving both siblings.",
+          "kind": "mathematical_mechanism"
+        },
+        {
+          "id": "compose",
+          "criterion": "Identify each marginal square with its sibling masses and conclude the unchanged total squared norm target.",
+          "kind": "root_composition"
+        },
+        {
+          "id": "scope",
+          "criterion": "Preserve arbitrary n (including n=0) and arbitrary real f, signed and zero amplitudes included.",
+          "kind": "assumption_audit"
+        }
+      ],
+      "binder_audit": [
+        {
+          "binder": "n : ℕ",
+          "classification": "TYPING"
+        },
+        {
+          "binder": "f : PrimitiveBasis (n+1) → ℝ",
+          "classification": "SOURCE",
+          "meaning": "Arbitrary real amplitude table; no normalization or positivity premise."
+        }
+      ],
+      "definition_kind": "literal",
+      "boundaries": [
+        "Exact squared Euclidean norm only; this does not load the signed state, certify RY synthesis, quantify success probability or prove resource/finite-bit bounds.",
+        "Fin.snoc adjoins the highest wire. All existing lower-wire numbers are preserved.",
+        "Nonnegative sqrt marginal discards sibling signs at this level; signed information is handled elsewhere by splitAngle.",
+        "The generic summation lemma is a candidate evaluator obligation under this unchanged core, not an admitted new benchmark core."
+      ],
+      "retrieval_policy": {
+        "minimal_frontier_interfaces": [
+          "Real.sq_sqrt",
+          "add_nonneg",
+          "sq_nonneg",
+          "Equiv.sum_comp",
+          "Fintype.sum_prod_type",
+          "Fin.sum_univ_two",
+          "QuantumBlockEncoding.RealAmplitudePreparation.lastBasisEquiv_symm_apply"
+        ],
+        "literal_definitions_allowed": true,
+        "foundation_simp_and_algebra_tactics_allowed": true,
+        "direct_original_root_control": "by exact QuantumBlockEncoding.RealAmplitudePreparation.normSq_marginal",
+        "source_shortcuts_visible_in_imports": true,
+        "source_shortcuts_used_by_authored_references": false,
+        "enforcement": "This is an evaluator-provided obligation frontier. Minimal retrieval is an exposure protocol, not an import-level isolation guarantee or an automatic proof-term dependency audit."
+      },
+      "interface_universes": [
+        "u_1",
+        "u_2",
+        "u_3",
+        "u_4",
+        "u_5"
+      ],
+      "interface_source_bindings": [
+        {
+          "name": "Real.sq_sqrt",
+          "source_path": ".lake/packages/mathlib/Mathlib/Data/Real/Sqrt.lean",
+          "lines": [
+            175,
+            175
+          ]
+        },
+        {
+          "name": "add_nonneg",
+          "source_path": ".lake/packages/mathlib/Mathlib/Algebra/Order/Monoid/Unbundled/Basic.lean",
+          "lines": [
+            982,
+            982
+          ]
+        },
+        {
+          "name": "sq_nonneg",
+          "source_path": ".lake/packages/mathlib/Mathlib/Algebra/Order/Ring/Unbundled/Basic.lean",
+          "lines": [
+            689,
+            694
+          ]
+        },
+        {
+          "name": "Equiv.sum_comp",
+          "source_path": ".lake/packages/mathlib/Mathlib/Algebra/BigOperators/Group/Finset/Defs.lean",
+          "lines": [
+            723,
+            725
+          ]
+        },
+        {
+          "name": "Fintype.sum_prod_type",
+          "source_path": ".lake/packages/mathlib/Mathlib/Data/Fintype/BigOperators.lean",
+          "lines": [
+            271,
+            277
+          ]
+        },
+        {
+          "name": "Fin.sum_univ_two",
+          "source_path": ".lake/packages/mathlib/Mathlib/Algebra/BigOperators/Fin.lean",
+          "lines": [
+            110,
+            113
+          ]
+        },
+        {
+          "name": "QuantumBlockEncoding.RealAmplitudePreparation.lastBasisEquiv_symm_apply",
+          "source_path": "QuantumBlockEncoding/RealAmplitudePreparation.lean",
+          "lines": [
+            26,
+            27
+          ]
+        }
+      ]
+    },
+    {
+      "core_id": "qcb-core-la-102",
+      "root_id": "la_root",
+      "imports": [
+        "QuantumBlockEncoding.AdjacentGivens"
+      ],
+      "preamble": "open scoped BigOperators",
+      "nodes": [
+        {
+          "id": "la_equal_rows",
+          "target": "∀ {N : ℕ} (A : _root_.Matrix (Fin N) (Fin N) ℝ) (i j : Fin N), i ≠ j → ((A.updateRow j (A i)).updateRow i (A i)).det = 0 ∧ ((A.updateRow j (A j)).updateRow i (A j)).det = 0",
+          "depends_on": [],
+          "helper_name": "QuantumComputingBench.PilotMath.laEqualRows",
+          "source_node_ids": [
+            "declaration:QuantumBlockEncoding.AdjacentGivens.det_two_row_mix"
+          ],
+          "mechanism": "alternating_determinant",
+          "admission": "candidate_evaluator_obligation_pending_semantic_admission",
+          "counted_as_new_core": false
+        },
+        {
+          "id": "la_swapped_rows",
+          "target": "∀ {N : ℕ} (A : _root_.Matrix (Fin N) (Fin N) ℝ) (i j : Fin N), i ≠ j → ((A.updateRow j (A i)).updateRow i (A j)).det = -A.det",
+          "depends_on": [],
+          "helper_name": "QuantumComputingBench.PilotMath.laSwappedRows",
+          "source_node_ids": [
+            "declaration:QuantumBlockEncoding.AdjacentGivens.det_two_row_mix"
+          ],
+          "mechanism": "row_transposition_sign",
+          "admission": "candidate_evaluator_obligation_pending_semantic_admission",
+          "counted_as_new_core": false
+        },
+        {
+          "id": "la_two_row_mix",
+          "target": "∀ {N : ℕ} (A : _root_.Matrix (Fin N) (Fin N) ℝ) (i j : Fin N), i ≠ j → ∀ (a b c d : ℝ), ((A.updateRow i (a • A i + b • A j)).updateRow j (c • A i + d • A j)).det = (a * d - b * c) * A.det",
+          "depends_on": [
+            "la_equal_rows",
+            "la_swapped_rows"
+          ],
+          "helper_name": "QuantumComputingBench.PilotMath.laTwoRowMix",
+          "source_node_ids": [
+            "declaration:QuantumBlockEncoding.AdjacentGivens.det_two_row_mix"
+          ],
+          "mechanism": "two_row_multilinearity",
+          "admission": "candidate_evaluator_obligation_pending_semantic_admission",
+          "counted_as_new_core": false
+        },
+        {
+          "id": "la_rotation_update",
+          "target": "∀ {N : ℕ} (A : _root_.Matrix (Fin N) (Fin N) ℝ) (i j : Fin N), i ≠ j → ∀ theta : ℝ, QuantumBlockEncoding.AdjacentGivens.rotateRows A i j theta = (A.updateRow i (Real.cos (theta / 2) • A i + (-Real.sin (theta / 2)) • A j)).updateRow j (Real.sin (theta / 2) • A i + Real.cos (theta / 2) • A j)",
+          "depends_on": [],
+          "helper_name": "QuantumComputingBench.PilotMath.laRotationUpdate",
+          "source_node_ids": [
+            "declaration:QuantumBlockEncoding.AdjacentGivens.rotateRows",
+            "declaration:QuantumBlockEncoding.AdjacentGivens.rotateRows_det"
+          ],
+          "mechanism": "definition_alignment_bookkeeping",
+          "admission": "candidate_evaluator_obligation_pending_semantic_admission",
+          "counted_as_new_core": false
+        },
+        {
+          "id": "la_unit_factor",
+          "target": "∀ theta : ℝ, Real.cos (theta / 2) * Real.cos (theta / 2) - (-Real.sin (theta / 2)) * Real.sin (theta / 2) = 1",
+          "depends_on": [],
+          "helper_name": "QuantumComputingBench.PilotMath.laUnitFactor",
+          "source_node_ids": [
+            "declaration:QuantumBlockEncoding.AdjacentGivens.rotateRows_det"
+          ],
+          "mechanism": "trigonometric_specialization_bookkeeping",
+          "admission": "candidate_evaluator_obligation_pending_semantic_admission",
+          "counted_as_new_core": false
+        },
+        {
+          "id": "la_root",
+          "target": "∀ {N : ℕ} (A : _root_.Matrix (Fin N) (Fin N) ℝ) (i j : Fin N), i ≠ j → ∀ theta : ℝ, (QuantumBlockEncoding.AdjacentGivens.rotateRows A i j theta).det = A.det",
+          "depends_on": [
+            "la_two_row_mix",
+            "la_rotation_update",
+            "la_unit_factor"
+          ],
+          "helper_name": "QuantumComputingBench.PilotMath.laRoot",
+          "source_node_ids": [
+            "declaration:QuantumBlockEncoding.AdjacentGivens.rotateRows_det"
+          ],
+          "mechanism": "root_determinant_conservation",
+          "admission": "existing_core_target_unchanged",
+          "counted_as_new_core": false
+        }
+      ],
+      "references": {
+        "la_equal_rows": "by\n  intro N A i j distinct\n  constructor\n  · apply _root_.Matrix.det_zero_of_row_eq distinct\n    simp [distinct.symm]\n  · apply _root_.Matrix.det_zero_of_row_eq distinct\n    simp [distinct.symm]",
+        "la_swapped_rows": "by\n  intro N A i j distinct\n  have swapEq : (A.updateRow j (A i)).updateRow i (A j) =\n      A.submatrix (Equiv.swap i j) id := by\n    ext row col\n    by_cases hi : row = i <;> by_cases hj : row = j <;>\n      simp_all [_root_.Matrix.updateRow_apply, _root_.Matrix.submatrix_apply,\n        Equiv.swap_apply_def]\n  rw [swapEq, _root_.Matrix.det_permute, Equiv.Perm.sign_swap distinct]\n  simp",
+        "la_two_row_mix": "by\n  intro N A i j distinct a b c d\n  obtain ⟨sameI, sameJ⟩ := QuantumComputingBench.PilotMath.laEqualRows A i j distinct\n  have original : (A.updateRow j (A j)).updateRow i (A i) = A := by simp\n  have swapDet := QuantumComputingBench.PilotMath.laSwappedRows A i j distinct\n  simp only [_root_.Matrix.det_updateRow_add, _root_.Matrix.det_updateRow_smul]\n  rw [_root_.Matrix.updateRow_comm A distinct, _root_.Matrix.updateRow_comm A distinct]\n  simp only [_root_.Matrix.det_updateRow_add, _root_.Matrix.det_updateRow_smul,\n    sameI, sameJ, original, swapDet]\n  ring",
+        "la_rotation_update": "by\n  intro N A i j distinct theta\n  ext row col\n  by_cases hi : row = i <;> by_cases hj : row = j <;>\n    simp_all [QuantumBlockEncoding.AdjacentGivens.rotateRows, _root_.Matrix.updateRow_apply, sub_eq_add_neg]",
+        "la_unit_factor": "by\n  intro theta\n  nlinarith [Real.sin_sq_add_cos_sq (theta / 2)]",
+        "la_root": "by\n  intro N A i j distinct theta\n  rw [QuantumComputingBench.PilotMath.laRotationUpdate A i j distinct theta, QuantumComputingBench.PilotMath.laTwoRowMix A i j distinct,\n    QuantumComputingBench.PilotMath.laUnitFactor theta, one_mul]"
+      },
+      "independent_root_reference": "by\n  intro N A i j distinct theta\n  have sameI : ((A.updateRow j (A i)).updateRow i (A i)).det = 0 := by\n    apply _root_.Matrix.det_zero_of_row_eq distinct\n    simp [distinct.symm]\n  have sameJ : ((A.updateRow j (A j)).updateRow i (A j)).det = 0 := by\n    apply _root_.Matrix.det_zero_of_row_eq distinct\n    simp [distinct.symm]\n  have original : (A.updateRow j (A j)).updateRow i (A i) = A := by simp\n  have swapEq : (A.updateRow j (A i)).updateRow i (A j) =\n      A.submatrix (Equiv.swap i j) id := by\n    ext row col\n    by_cases hi : row = i <;> by_cases hj : row = j <;>\n      simp_all [_root_.Matrix.updateRow_apply, _root_.Matrix.submatrix_apply,\n        Equiv.swap_apply_def]\n  have swapDet : ((A.updateRow j (A i)).updateRow i (A j)).det = -A.det := by\n    rw [swapEq, _root_.Matrix.det_permute, Equiv.Perm.sign_swap distinct]\n    simp\n  have mix : ∀ (a b c d : ℝ),\n      ((A.updateRow i (a • A i + b • A j)).updateRow j (c • A i + d • A j)).det =\n        (a * d - b * c) * A.det := by\n    intro a b c d\n    simp only [_root_.Matrix.det_updateRow_add, _root_.Matrix.det_updateRow_smul]\n    rw [_root_.Matrix.updateRow_comm A distinct, _root_.Matrix.updateRow_comm A distinct]\n    simp only [_root_.Matrix.det_updateRow_add, _root_.Matrix.det_updateRow_smul,\n      sameI, sameJ, original, swapDet]\n    ring\n  have eqRows : QuantumBlockEncoding.AdjacentGivens.rotateRows A i j theta =\n      (A.updateRow i (Real.cos (theta / 2) • A i + (-Real.sin (theta / 2)) • A j)).updateRow j\n        (Real.sin (theta / 2) • A i + Real.cos (theta / 2) • A j) := by\n    ext row col\n    by_cases hi : row = i <;> by_cases hj : row = j <;>\n      simp_all [QuantumBlockEncoding.AdjacentGivens.rotateRows, _root_.Matrix.updateRow_apply, sub_eq_add_neg]\n  have unitFactor : Real.cos (theta / 2) * Real.cos (theta / 2) -\n      (-Real.sin (theta / 2)) * Real.sin (theta / 2) = 1 := by\n    nlinarith [Real.sin_sq_add_cos_sq (theta / 2)]\n  rw [eqRows, mix, unitFactor, one_mul]",
+      "baseline_control": {
+        "proof": "by exact QuantumBlockEncoding.AdjacentGivens.rotateRows_det",
+        "available": true,
+        "task_kind": "library_lemma_application",
+        "same_target": true
+      },
+      "wrong_reference": {
+        "node_id": "la_swapped_rows",
+        "proof": "by\n  intro N A i j distinct\n  have swapEq : (A.updateRow j (A i)).updateRow i (A j) =\n      A.submatrix (Equiv.swap i j) id := by\n    ext row col\n    by_cases hi : row = i <;> by_cases hj : row = j <;>\n      simp_all [_root_.Matrix.updateRow_apply, _root_.Matrix.submatrix_apply,\n        Equiv.swap_apply_def]\n  rw [swapEq]\n  exact _root_.Matrix.det_permute (Equiv.swap i j) A",
+        "probe": "NegativeLa.lean",
+        "actual_diagnostic": "Type mismatch: Matrix.det_permute (Equiv.swap i j) A has type (A.submatrix (⇑(Equiv.swap i j)) id).det = ↑↑(Equiv.Perm.sign (Equiv.swap i j)) * A.det but is expected to have type (A.submatrix (⇑(Equiv.swap i j)) id).det = -A.det",
+        "repair_explanation": "Use sign_swap distinct to reduce the permutation sign to -1 and simplify its coercion/product. The distinctness binder is required.",
+        "classification": "IMPLEMENTATION_FAILED",
+        "expected_exit_code": 1,
+        "repair_proof": "by\n  intro N A i j distinct\n  have swapEq : (A.updateRow j (A i)).updateRow i (A j) =\n      A.submatrix (Equiv.swap i j) id := by\n    ext row col\n    by_cases hi : row = i <;> by_cases hj : row = j <;>\n      simp_all [_root_.Matrix.updateRow_apply, _root_.Matrix.submatrix_apply,\n        Equiv.swap_apply_def]\n  rw [swapEq, _root_.Matrix.det_permute, Equiv.Perm.sign_swap distinct]\n  simp",
+        "probe_directory": "_out/lean-agentic-20261103/pilot-math"
+      },
+      "interfaces": [
+        {
+          "name": "Matrix.det_zero_of_row_eq",
+          "type": "∀ {n : Type u_2} [DecidableEq n] [Fintype n] {R : Type u_1} [CommRing R] {M : Matrix n n R} {i j : n}, i ≠ j → M i = M j → M.det = 0",
+          "module": "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+          "source_node_id": "mathlib:Matrix.det_zero_of_row_eq"
+        },
+        {
+          "name": "Matrix.det_updateRow_add",
+          "type": "∀ {n : Type u_2} [DecidableEq n] [Fintype n] {R : Type u_1} [CommRing R] (M : Matrix n n R) (j : n) (u v : n → R), (M.updateRow j (u + v)).det = (M.updateRow j u).det + (M.updateRow j v).det",
+          "module": "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+          "source_node_id": "mathlib:Matrix.det_updateRow_add"
+        },
+        {
+          "name": "Matrix.det_updateRow_smul",
+          "type": "∀ {n : Type u_2} [DecidableEq n] [Fintype n] {R : Type u_1} [CommRing R] (M : Matrix n n R) (j : n) (s : R) (u : n → R), (M.updateRow j (s • u)).det = s * (M.updateRow j u).det",
+          "module": "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+          "source_node_id": "mathlib:Matrix.det_updateRow_smul"
+        },
+        {
+          "name": "Matrix.updateRow_comm",
+          "type": "∀ {m : Type u_2} {n : Type u_3} {α : Type u_1} [DecidableEq m] (A : Matrix m n α) {i i' : m}, i ≠ i' → ∀ (x y : n → α), (A.updateRow i x).updateRow i' y = (A.updateRow i' y).updateRow i x",
+          "module": "Mathlib.LinearAlgebra.Matrix.RowCol",
+          "source_node_id": "mathlib:Matrix.updateRow_comm"
+        },
+        {
+          "name": "Matrix.det_permute",
+          "type": "∀ {n : Type u_2} [DecidableEq n] [Fintype n] {R : Type u_1} [CommRing R] (σ : Equiv.Perm n) (M : Matrix n n R), (M.submatrix (⇑σ) id).det = ↑↑(Equiv.Perm.sign σ) * M.det",
+          "module": "Mathlib.LinearAlgebra.Matrix.Determinant.Basic",
+          "source_node_id": "mathlib:Matrix.det_permute"
+        },
+        {
+          "name": "Equiv.Perm.sign_swap",
+          "type": "∀ {α : Type u_1} [DecidableEq α] [Fintype α] {x y : α}, x ≠ y → Equiv.Perm.sign (Equiv.swap x y) = -1",
+          "module": "Mathlib.GroupTheory.Perm.Sign",
+          "source_node_id": "mathlib:Equiv.Perm.sign_swap"
+        },
+        {
+          "name": "Real.sin_sq_add_cos_sq",
+          "type": "∀ (x : ℝ), Real.sin x ^ 2 + Real.cos x ^ 2 = 1",
+          "module": "Mathlib.Analysis.Complex.Trigonometric",
+          "source_node_id": "mathlib:Real.sin_sq_add_cos_sq"
+        },
+        {
+          "name": "Matrix.updateRow_apply",
+          "type": "∀ {m : Type u_2} {n : Type u_3} {α : Type u_1} {M : Matrix m n α} {i : m} {j : n} {b : n → α} [DecidableEq m] {i' : m}, M.updateRow i b i' j = if i' = i then b j else M i' j",
+          "module": "Mathlib.LinearAlgebra.Matrix.RowCol",
+          "source_node_id": "mathlib:Matrix.updateRow_apply"
+        },
+        {
+          "name": "Matrix.submatrix_apply",
+          "type": "∀ {l : Type u_2} {m : Type u_3} {n : Type u_4} {o : Type u_5} {α : Type u_1} (A : Matrix m n α) (r : l → m) (c : o → n) (i : l) (j : o), A.submatrix r c i j = A (r i) (c j)",
+          "module": "Mathlib.LinearAlgebra.Matrix.Defs",
+          "source_node_id": "mathlib:Matrix.submatrix_apply"
+        },
+        {
+          "name": "Equiv.swap_apply_def",
+          "type": "∀ {α : Sort u_1} [DecidableEq α] (a b x : α), (Equiv.swap a b) x = if x = a then b else if x = b then a else x",
+          "module": "Mathlib.Logic.Equiv.Basic",
+          "source_node_id": "mathlib:Equiv.swap_apply_def"
+        }
+      ],
+      "binding": {
+        "contract_hash": "4be120801daf6e4de98794d14d4c0db5f93bcb6924b3c6aae20252167d662f93",
+        "item_digest": "470ce4707a5d7cebab5a056b624cf70eb6448b2fdee43c594b57cf19d273943f",
+        "family": "matrix-constructions-givens-determinant",
+        "split": "test_public",
+        "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a"
+      },
+      "native_formal_view_id": "native-formal-row-rotation-det-v1",
+      "source_bindings": [
+        {
+          "path": "QuantumBlockEncoding/AdjacentGivens.lean",
+          "sha256_lf": "a43c3b4f543738cb317be01fa664fd466bfa28e21c33d10c7a90e74037a58d9c",
+          "lines": [
+            [
+              20,
+              28
+            ],
+            [
+              341,
+              383
+            ]
+          ]
+        }
+      ],
+      "knowledge_assumption_rubric": [
+        {
+          "id": "alternating",
+          "criterion": "Show both repeated-original-row determinants vanish; i≠j is necessary.",
+          "kind": "mathematical_mechanism"
+        },
+        {
+          "id": "sign",
+          "criterion": "Identify the remaining exchanged-row matrix with a single row transposition and keep its negative determinant sign.",
+          "kind": "mathematical_mechanism"
+        },
+        {
+          "id": "multilinear",
+          "criterion": "Expand both updated rows into four terms; eliminate the repeated-row terms and collect (a*d-b*c)*det A.",
+          "kind": "mathematical_mechanism"
+        },
+        {
+          "id": "rotation",
+          "criterion": "Align rotateRows with simultaneous mixing of the original two rows, using cos(theta/2), -sin(theta/2), sin(theta/2), cos(theta/2).",
+          "kind": "definition_alignment"
+        },
+        {
+          "id": "unit-factor",
+          "criterion": "The determinant factor is cos²+sin²=1; conclude preservation for arbitrary A without orthogonality, adjacency, order i<j or determinant-one input assumptions.",
+          "kind": "assumption_audit"
+        }
+      ],
+      "binder_audit": [
+        {
+          "binder": "N : ℕ; i j : Fin N",
+          "classification": "TYPING"
+        },
+        {
+          "binder": "A : Matrix (Fin N) (Fin N) ℝ",
+          "classification": "SOURCE",
+          "meaning": "Arbitrary real square matrix."
+        },
+        {
+          "binder": "i ≠ j",
+          "classification": "SOURCE",
+          "meaning": "Necessary distinct selected rows."
+        },
+        {
+          "binder": "theta : ℝ",
+          "classification": "SOURCE",
+          "meaning": "Unrestricted RY parameter; the actual plane angle is theta/2."
+        }
+      ],
+      "definition_kind": "literal",
+      "boundaries": [
+        "Exact determinant identity on arbitrary real square matrices. No adjacency, i<j, orthogonality, invertibility or det(A)=1 hypothesis.",
+        "N=0 and N=1 have no distinct i,j; the implication is vacuous, not a constructed two-row rotation there.",
+        "For i=j the first definition branch wins and the theorem generally fails; do not remove distinctness.",
+        "No full SO synthesis, reflection decomposition, Gray-code circuit, ancilla cleanup, query/gate complexity or finite-bit certificate follows.",
+        "Definition-alignment and trig bookkeeping nodes are not counted as independent mathematical depth."
+      ],
+      "retrieval_policy": {
+        "minimal_frontier_interfaces": [
+          "Matrix.det_zero_of_row_eq",
+          "Matrix.det_updateRow_add",
+          "Matrix.det_updateRow_smul",
+          "Matrix.updateRow_comm",
+          "Matrix.det_permute",
+          "Equiv.Perm.sign_swap",
+          "Real.sin_sq_add_cos_sq",
+          "Matrix.updateRow_apply",
+          "Matrix.submatrix_apply",
+          "Equiv.swap_apply_def"
+        ],
+        "literal_definitions_allowed": true,
+        "foundation_simp_and_algebra_tactics_allowed": true,
+        "direct_original_root_control": "by exact QuantumBlockEncoding.AdjacentGivens.rotateRows_det",
+        "source_shortcuts_visible_in_imports": true,
+        "source_shortcuts_used_by_authored_references": false,
+        "enforcement": "This is an evaluator-provided obligation frontier. Minimal retrieval is an exposure protocol, not an import-level isolation guarantee or an automatic proof-term dependency audit."
+      },
+      "interface_universes": [
+        "u_1",
+        "u_2",
+        "u_3",
+        "u_4",
+        "u_5"
+      ],
+      "interface_source_bindings": [
+        {
+          "name": "Matrix.det_zero_of_row_eq",
+          "source_path": ".lake/packages/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean",
+          "lines": [
+            369,
+            371
+          ]
+        },
+        {
+          "name": "Matrix.det_updateRow_add",
+          "source_path": ".lake/packages/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean",
+          "lines": [
+            387,
+            393
+          ]
+        },
+        {
+          "name": "Matrix.det_updateRow_smul",
+          "source_path": ".lake/packages/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean",
+          "lines": [
+            396,
+            401
+          ]
+        },
+        {
+          "name": "Matrix.updateRow_comm",
+          "source_path": ".lake/packages/mathlib/Mathlib/LinearAlgebra/Matrix/RowCol.lean",
+          "lines": [
+            325,
+            328
+          ]
+        },
+        {
+          "name": "Matrix.det_permute",
+          "source_path": ".lake/packages/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean",
+          "lines": [
+            212,
+            215
+          ]
+        },
+        {
+          "name": "Equiv.Perm.sign_swap",
+          "source_path": ".lake/packages/mathlib/Mathlib/GroupTheory/Perm/Sign.lean",
+          "lines": [
+            389,
+            390
+          ]
+        },
+        {
+          "name": "Real.sin_sq_add_cos_sq",
+          "source_path": ".lake/packages/mathlib/Mathlib/Analysis/Complex/Trigonometric.lean",
+          "lines": [
+            669,
+            671
+          ]
+        },
+        {
+          "name": "Matrix.updateRow_apply",
+          "source_path": ".lake/packages/mathlib/Mathlib/LinearAlgebra/Matrix/RowCol.lean",
+          "lines": [
+            227,
+            228
+          ]
+        },
+        {
+          "name": "Matrix.submatrix_apply",
+          "source_path": ".lake/packages/mathlib/Mathlib/LinearAlgebra/Matrix/Defs.lean",
+          "lines": [
+            403,
+            404
+          ]
+        },
+        {
+          "name": "Equiv.swap_apply_def",
+          "source_path": ".lake/packages/mathlib/Mathlib/Logic/Equiv/Basic.lean",
+          "lines": [
+            646,
+            647
+          ]
+        }
+      ]
+    }
+  ],
+  "inspected_not_selected": {
+    "core_id": "qcb-core-sp-009",
+    "source": "QuantumBlockEncoding/TensorTrainCanonical.lean:209-226",
+    "source_node_ids": [
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.Core",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.complexCore",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.complexCore_isometry"
+    ],
+    "binding": {
+      "contract_hash": "108977edccc1cb916d3614d5b4d2927d1a82e337f901ff73421320ef956448b0",
+      "item_digest": "3f133557d4caeab060a7631ee2641d0019434fd496c4f8fa413895aaf318e981",
+      "family": "core-circuit-isometry",
+      "split": "train",
+      "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a"
+    },
+    "reason": "Bounded pilot selected the amplitude-marginal and determinant mechanisms. Inspected real row-canonical to complex input-column Gram orientation; no third proof-DAG or additional core is claimed."
+  },
+  "provenance": "Inspected authored protocol fixture; source-aware review is separate from formal-view admission."
+}

@@ -1,0 +1,54 @@
+{
+  "schema_version": "qcb.source_blind_decode_packet.v1",
+  "views": [
+    {
+      "anonymous_id": "S1",
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.SequentialBondPreparation"
+        ],
+        "preamble": "universe u\nopen scoped BigOperators",
+        "target": "∀ {B : Type u} [Fintype B] [DecidableEq B] (U : ℕ → QuantumBlockEncoding.SequentialBondPreparation.Stage B) (K : ℕ → QuantumBlockEncoding.SequentialBondPreparation.Core B), (∀ (t : ℕ) (bit : Fin 2) (b a : B), U t (bit, b) (0, a) = K t (bit, b) a) → ∀ (boundary : B → ℂ) (n : ℕ) (x : QuantumBlockEncoding.PrimitiveBasis n) (b : B), QuantumBlockEncoding.SequentialBondPreparation.run U boundary n (x, b) = (QuantumBlockEncoding.SequentialBondPreparation.transfer K n x).mulVec boundary b"
+      },
+      "ambient_definitions": [
+        "namespace QuantumBlockEncoding\nabbrev PrimitiveBasis (qubits : Nat) := Fin qubits → Fin 2\nend QuantumBlockEncoding",
+        "namespace QuantumBlockEncoding.SequentialBondPreparation\nopen scoped Kronecker\nopen QuantumBlockEncoding.RealAmplitudePreparation\nvariable {B : Type u} [Fintype B] [DecidableEq B]\nabbrev Core (B : Type u) := _root_.Matrix (Fin 2 × B) B ℂ\nabbrev Stage (B : Type u) := _root_.Matrix (Fin 2 × B) (Fin 2 × B) ℂ\nabbrev BondState (n : Nat) (B : Type u) := QuantumBlockEncoding.PrimitiveBasis n × B → ℂ",
+        "def freshZero {n : Nat} (v : BondState n B) : QuantumBlockEncoding.PrimitiveBasis n × (Fin 2 × B) → ℂ := fun x => if x.2.1 = 0 then v (x.1, x.2.2) else 0",
+        "noncomputable def liftStage (n : Nat) (U : Stage B) : _root_.Matrix (QuantumBlockEncoding.PrimitiveBasis n × (Fin 2 × B)) (QuantumBlockEncoding.PrimitiveBasis n × (Fin 2 × B)) ℂ := (1 : _root_.Matrix (QuantumBlockEncoding.PrimitiveBasis n) (QuantumBlockEncoding.PrimitiveBasis n) ℂ) ⊗ₖ U",
+        "noncomputable def step {n : Nat} (U : Stage B) (v : BondState n B) : BondState (n + 1) B := fun x => ((liftStage n U).mulVec (freshZero v)) (Fin.init x.1, (x.1 (Fin.last n), x.2))",
+        "noncomputable def run (U : Nat → Stage B) (boundary : B → ℂ) : (n : Nat) → BondState n B | 0 => fun x => boundary x.2 | n + 1 => step (U n) (run U boundary n)",
+        "def coreSlice (K : Core B) (bit : Fin 2) : _root_.Matrix B B ℂ := fun b a => K (bit, b) a",
+        "noncomputable def transfer (K : Nat → Core B) : (n : Nat) → QuantumBlockEncoding.PrimitiveBasis n → _root_.Matrix B B ℂ | 0, _ => 1 | n + 1, x => coreSlice (K n) (x (Fin.last n)) * transfer K n (Fin.init x)",
+        "end QuantumBlockEncoding.SequentialBondPreparation"
+      ],
+      "standard_library_interfaces": []
+    },
+    {
+      "anonymous_id": "S2",
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.SequentialBondPreparation"
+        ],
+        "preamble": "universe u\nopen scoped BigOperators",
+        "target": "∀ {B : Type u} [Fintype B] [DecidableEq B] (U : ℕ → QuantumBlockEncoding.SequentialBondPreparation.Stage B) (initial : B), (∀ t : ℕ, U t ∈ _root_.Matrix.unitaryGroup (Fin 2 × B) ℂ) → ∀ n : ℕ, (∑ z : QuantumBlockEncoding.PrimitiveBasis n × B, Complex.normSq (QuantumBlockEncoding.SequentialBondPreparation.run U (QuantumBlockEncoding.SequentialBondPreparation.basisBoundary initial) n z)) = 1"
+      },
+      "ambient_definitions": [
+        "namespace QuantumBlockEncoding\nabbrev PrimitiveBasis (qubits : Nat) := Fin qubits → Fin 2\nend QuantumBlockEncoding",
+        "namespace QuantumBlockEncoding.SequentialBondPreparation\nopen scoped Kronecker\nopen QuantumBlockEncoding.RealAmplitudePreparation\nvariable {B : Type u} [Fintype B] [DecidableEq B]\nabbrev Core (B : Type u) := _root_.Matrix (Fin 2 × B) B ℂ\nabbrev Stage (B : Type u) := _root_.Matrix (Fin 2 × B) (Fin 2 × B) ℂ\nabbrev BondState (n : Nat) (B : Type u) := QuantumBlockEncoding.PrimitiveBasis n × B → ℂ",
+        "def freshZero {n : Nat} (v : BondState n B) : QuantumBlockEncoding.PrimitiveBasis n × (Fin 2 × B) → ℂ := fun x => if x.2.1 = 0 then v (x.1, x.2.2) else 0",
+        "noncomputable def liftStage (n : Nat) (U : Stage B) : _root_.Matrix (QuantumBlockEncoding.PrimitiveBasis n × (Fin 2 × B)) (QuantumBlockEncoding.PrimitiveBasis n × (Fin 2 × B)) ℂ := (1 : _root_.Matrix (QuantumBlockEncoding.PrimitiveBasis n) (QuantumBlockEncoding.PrimitiveBasis n) ℂ) ⊗ₖ U",
+        "noncomputable def step {n : Nat} (U : Stage B) (v : BondState n B) : BondState (n + 1) B := fun x => ((liftStage n U).mulVec (freshZero v)) (Fin.init x.1, (x.1 (Fin.last n), x.2))",
+        "noncomputable def run (U : Nat → Stage B) (boundary : B → ℂ) : (n : Nat) → BondState n B | 0 => fun x => boundary x.2 | n + 1 => step (U n) (run U boundary n)",
+        "def basisBoundary (initial : B) : B → ℂ := fun b => if b = initial then 1 else 0",
+        "noncomputable def amplitudeMass {I : Type v} [Fintype I] (v : I → ℂ) : ℂ := ∑ i, star (v i) * v i",
+        "end QuantumBlockEncoding.SequentialBondPreparation"
+      ],
+      "standard_library_interfaces": [
+        {
+          "name": "Complex.normSq_apply",
+          "type": "∀ z : ℂ, Complex.normSq z = z.re * z.re + z.im * z.im"
+        }
+      ]
+    }
+  ]
+}

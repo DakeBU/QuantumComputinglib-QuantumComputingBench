@@ -1,0 +1,129 @@
+{
+  "schema_version": "qcb.source_blind_decoder.v1",
+  "source_blind": true,
+  "decoder_identity": "/root/qcb_sequential_decoder",
+  "input_packet": "_out/lean-agentic-20261103/sequential-math/decoder-context.json",
+  "packet_digest": "1ed6002ee1eae6ca88caf3f38ef5c594813593b4076ca8c1fc6eb309af82fe75",
+  "digest_algorithm": "qcb_core.digest-equivalent: SHA256(json.dumps(parsed_packet, sort_keys=True, ensure_ascii=False, separators=(',', ':')).encode('utf-8'))",
+  "review_scope": {
+    "mathematical_input": "Only the named decoder-context.json packet: its two anonymous target types, literal ambient definitions, and supplied standard-library interface.",
+    "operational_material_read": [
+      "AGENTS.md",
+      "HARNESS.md",
+      "docs/theorem-publication-protocol.md",
+      "docs/proof-digestion-protocol.md",
+      "docs/evidence-routed-memory-protocol.md",
+      ".agents/skills/qbe-frontier-master/SKILL.md",
+      ".agents/skills/qbe-substantive-worker/SKILL.md",
+      "Only the digest function body in benchmarks/quantumcomputingbench/src/qcb_core.py"
+    ],
+    "excluded_material": "No neighboring mathematical packets, seals, proofs, original questions/answers, production Lean source, source-facing natural language, or author interpretation was consulted.",
+    "method": "Decode literal Lean types and ambient definitions using standard finite complex-matrix semantics. File reading, writing, and JSON digest validation only; no Lean execution, proof search, online source, or alignment/admission comparison."
+  },
+  "shared_notation_and_literal_semantics": {
+    "scalars_and_indices": "Scalars are complex numbers C. Let B be a finite type, with decidable equality, and let d = |B|. Fin 2 is the two-element type {0,1}. X_n := (Fin n -> Fin 2) is the set of length-n bit strings, with coordinates indexed 0 through n-1 and cardinality 2^n. X_0 has one element, the empty string. A bond state is a coordinate function X_n x B -> C, of dimension 2^n d.",
+    "stage_and_core": "A stage U_t is a complex square matrix with both rows and columns indexed by Fin 2 x B, dimension 2d by 2d. A core K_t is a complex rectangular matrix with rows indexed by Fin 2 x B and columns by B, dimension 2d by d. Matrix rows are output coordinates and columns are input coordinates. mulVec uses column-vector action, so (M v)_b = sum_{a in B} M_{b,a} v_a.",
+    "fresh_zero": "Given v on X_n x B, freshZero(v)(p,(q,a)) equals v(p,a) if q=0, and equals 0 if q=1. Thus the coordinate order after insertion is (old physical string, fresh physical bit, bond). The old bond is retained, and the fresh bit is initialized to zero.",
+    "lift_and_step": "liftStage(n,U) is I_{X_n} tensor U, indexed on X_n x (Fin 2 x B). Its entry from (p',(q',a)) to (p,(q,b)) is delta_{p,p'} U_{(q,b),(q',a)}. step(U,v) relabels the result as a state on X_{n+1} x B, where p is the first n bits and q is the last bit. Equivalently, step(U,v)(x,b) = sum_{a in B} U_{(x_n,b),(0,a)} v(prefix_n(x),a).",
+    "run": "For any boundary vector beta : B -> C, v_0(empty,b)=beta(b), and v_{t+1}=step(U_t,v_t). The expression run(U,beta,n) means v_n. Exactly U_0 through U_{n-1} are used at length n. The stage acts on the newly appended last physical bit and the bond; all previously emitted physical coordinates are spectators.",
+    "basis_and_order": "The coordinate order is physical bits in chronological emission order, followed by the bond, with local stage order (fresh bit,bond). Fin.init removes the last coordinate; Fin.last n selects coordinate n of a length-(n+1) string. No mapping of bit strings to integer basis labels, numeric endian convention, or decomposition of B into qubits is supplied."
+  },
+  "views": [
+    {
+      "anonymous_id": "S1",
+      "reconstructed_statement": "For every finite type B in the indicated universe, with decidable equality, every sequence U : N -> Mat_{Fin 2 x B}(C) of square stage matrices, and every sequence K : N -> Mat_{(Fin 2 x B),B}(C) of rectangular core matrices, assume that for every t in N, q in {0,1}, and b,a in B, U_t[(q,b),(0,a)] = K_t[(q,b),a]. Then for every complex boundary vector beta : B -> C, every n in N including 0, every x in X_n = (Fin n -> Fin 2), and every b in B, run(U,beta,n)(x,b) = (T_n(x) beta)_b, where A_t(q) is the B-by-B matrix with A_t(q)_{b,a}=K_t[(q,b),a], T_0(empty)=I_B, and T_{n+1}(x)=A_n(x_n) T_n(prefix_n(x)). Thus for n>=1, T_n(x)=A_{n-1}(x_{n-1}) ... A_1(x_1) A_0(x_0), with the earliest stage applied first on the right. This is exact equality of complex amplitudes at every physical-string/final-bond coordinate.",
+      "assumptions": [
+        "B is a finite type and has decidable equality. No inhabited or nonempty hypothesis is present.",
+        "U_t is a square complex matrix indexed by (bit,bond) on both input and output, for every natural t.",
+        "K_t is a complex matrix with output index (bit,bond) and input index bond, for every natural t.",
+        "For all natural t, both output bits q, and all output and input bonds b,a, the input-bit-zero columns of U_t equal K_t: U_t[(q,b),(0,a)] = K_t[(q,b),a]. This is the only mathematical relationship imposed on U and K.",
+        "The boundary vector beta is arbitrary and complex, with no normalization, reality, support, or nonzero condition. n, x, and final bond b are universally quantified after the matching hypothesis."
+      ],
+      "conclusion": {
+        "fixed_formula": "For all beta,n,x,b: run(U,beta,n)(x,b) = sum_{a in B} T_n(x)_{b,a} beta(a), where T_0=I_B and T_{n+1}(x)=A_n(x_n) T_n(prefix_n(x)).",
+        "equality_type": "Equality in C, coordinate by coordinate; no approximation, probability threshold, or equality only up to global phase.",
+        "transfer_order": "For n>=1, the leftmost transfer factor comes from time n-1 and the rightmost factor from time 0. The last coordinate of x selects the newest, leftmost matrix slice.",
+        "base_case": "At n=0, x is the unique empty string, transfer is the identity matrix on B, and both sides equal beta(b). No stage is applied.",
+        "empty_bond_case": "B may be empty. Then there is no final b, so the final coordinatewise assertion has no instances. The statement does not require or construct a nonzero state on an empty space."
+      },
+      "convention_audit": {
+        "dimensions": "The state at time n has physical dimension 2^n and bond dimension d. Each U_t is 2d by 2d; each K_t is 2d by d; each A_t(q) and T_n(x) is d by d.",
+        "register_semantics": "At each step insert a fresh zero bit between the old physical string and the existing bond, apply I_old tensor U_t, and append the output bit to the physical string. The output bond b remains an explicit coordinate of the result.",
+        "input_output_orientation": "U_t[(q,b),(0,a)] has output bit q and output bond b, and input fresh bit 0 and input bond a. The row b/column a orientation of A_t(q) matches left multiplication on a bond column vector.",
+        "complex_vs_real_probability": "This statement is about complex amplitudes. It contains neither squared moduli nor a probability normalization. Since U and beta need not be normalized or unitary, a probability interpretation is not guaranteed.",
+        "zero_one_columns": "Only input-bit-zero columns of U_t enter run. No equality or behavior is imposed on input-bit-one columns.",
+        "quantifier_scope": "The column-matching premise holds at all natural times, even though a length-n run uses only the first n stages. There is no positive-length restriction, fixed n, special boundary, or existential choice of stages."
+      },
+      "limitations": [
+        "No unitarity of U, isometry of K, norm preservation, normalized state, or probability law is asserted.",
+        "No existence of a unitary extension of a given core is established; the relation is a premise about the supplied U and K.",
+        "The final bond is neither projected onto a specified terminal vector nor summed as an amplitude, traced out, reset, or shown to be separable. The conclusion retains its coordinate b.",
+        "No external desired state or family of amplitudes is mentioned, and no claim of matching an intended source theorem can be made from this packet.",
+        "The stages are abstract exact complex matrices. No gate decomposition, oracle construction, gate count, depth, connectivity, finite-bit precision, executable algorithm, or complexity claim appears.",
+        "No general action on an arbitrary input physical bit is claimed; the inserted input bit is always zero."
+      ],
+      "ambiguities_or_missing_context": [
+        "The coordinatewise matrix statement is determined by the supplied definitions and standard matrix conventions. The packet supplies no integer encoding of physical bit strings or physical encoding of B, so numeric endian and hardware-wire interpretations cannot be inferred.",
+        "The imported implementations of Matrix.mulVec, matrix multiplication, and Kronecker product are not expanded in the packet; the decoding uses their standard Lean/Mathlib meanings (column-vector action and product-index tensor order), without inspecting implementation files.",
+        "Any relation to a source-facing natural-language target, source assumptions, or benchmark answer is outside this source-blind reconstruction."
+      ]
+    },
+    {
+      "anonymous_id": "S2",
+      "reconstructed_statement": "For every finite type B in the indicated universe, with decidable equality, every sequence U : N -> Mat_{Fin 2 x B}(C), and every initial bond label a0 in B, assume that U_t is unitary for every natural t. Initialize the bond boundary vector beta_{a0}(b)=1 if b=a0 and 0 otherwise, using complex amplitudes, and define v_n=run(U,beta_{a0},n) by the supplied fresh-zero insertion and stage recursion. Then for every natural n including 0, the real number sum_{x in (Fin n -> Fin 2), b in B} |v_n(x,b)|^2 equals 1. Here |z|^2 is Complex.normSq(z)=Re(z)^2+Im(z)^2. Thus the joint computational-basis weights of all n emitted physical bits and the retained bond have total mass one.",
+      "assumptions": [
+        "B is finite and has decidable equality.",
+        "U_t is a square complex matrix on the product index Fin 2 x B for every natural t.",
+        "An initial label a0 : B is supplied. This witness makes B nonempty in every instantiated case.",
+        "For every natural t, U_t belongs to Matrix.unitaryGroup(Fin 2 x B,C): it is unitary in the standard conjugate-transpose sense. Equivalently for these square complex matrices, U_t* U_t = I and U_t U_t* = I, where * denotes conjugate transpose.",
+        "The initial amplitude function is the specific basisBoundary(a0), equal to complex one at a0 and complex zero elsewhere. No arbitrary boundary vector is quantified in this conclusion.",
+        "n is an arbitrary natural number, including zero. No K sequence or zero-column matching hypothesis is present."
+      ],
+      "conclusion": {
+        "fixed_formula": "For every n in N: sum_{z in X_n x B} Complex.normSq(run(U,basisBoundary(a0),n)(z)) = 1.",
+        "scalar_type": "The equality is in R because Complex.normSq takes values in R. Each summand is Re(v_n(z))^2 + Im(v_n(z))^2. It is not a sum of amplitudes and not a complex-valued probability.",
+        "normalization_meaning": "The pure-state amplitude vector on the full joint physical-plus-bond index has squared Euclidean norm one. Each joint basis label has the nonnegative Born weight |v_n(x,b)|^2, and the full finite sum is one.",
+        "base_case": "At n=0 there is one empty physical string. v_0(empty,b) is 1 exactly at b=a0 and 0 at all other bond labels, so the mass is one. No U_t is applied in this case.",
+        "empty_bond_case": "There is no instantiation with B empty and an actual initial label. If one views the outer quantification over initial labels for empty B, it is vacuous. This is not a normalization claim for an empty-dimensional state."
+      },
+      "convention_audit": {
+        "dimensions": "Let d=|B|. A supplied initial label implies d>=1. At time n, v_n has 2^n d complex coordinates; every local U_t acts on a 2d-dimensional fresh-bit-plus-bond space.",
+        "register_order": "The lifted index is (old physical string,(fresh bit,bond)); after the step it is (extended physical string,bond). A fresh zero bit is appended at the last physical coordinate, while the existing bond is used as the other input to U_t.",
+        "stage_order": "Time 0 produces physical coordinate 0, time 1 produces coordinate 1, and so on. A run of length n uses U_0,...,U_{n-1}; all older physical coordinates are preserved as spectator labels by the identity factor.",
+        "summation_domain": "The sum is over every physical string and every final bond label jointly. It does not restrict a success branch or postselect a particular bond value.",
+        "phase_convention": "The recursion determines complex amplitudes in the fixed coordinate basis, but the asserted normalization depends only on squared moduli. No real-amplitude restriction or phase recovery conclusion is present.",
+        "complex_mass_definition": "The ambient amplitudeMass(v) is a separately defined C-valued sum of conjugate(v_i)*v_i. It is not the expression in this target. The target instead uses the explicitly real-valued Complex.normSq sum; these must not be conflated at the level of the literal type.",
+        "quantifier_scope": "Unitarity is assumed for all natural stages, including stages unused by a particular n. The target is normalization for every n from this specified basis initial state, rather than a theorem explicitly quantified over all initial vectors."
+      },
+      "limitations": [
+        "Normalization alone does not identify the state with an independently specified target vector or provide a nontrivial formula for a requested outcome distribution beyond the given run recursion.",
+        "The target does not explicitly assert norm preservation for arbitrary boundary vectors; its boundary is restricted to basisBoundary(initial).",
+        "No K/core, transfer-product identity, core isometry, or unitary-completion existence theorem appears in this statement.",
+        "No final bond cleanup, reset, separability, specified terminal bond, or physical-bit-only purity claim is established. The normalized state includes the retained bond, which may be entangled with the emitted bits.",
+        "No postselection probability, accepted-branch lower bound, amplification guarantee, approximation tolerance, robustness estimate, or fidelity to a target is asserted.",
+        "Unitaries are supplied as exact complex matrices. Their physical synthesis, operation counts, circuit depth, finite-bit approximation, coherent oracle access, and implementation cost are unspecified."
+      ],
+      "ambiguities_or_missing_context": [
+        "The packet gives the real normSq formula and all project-owned definitions needed for the recursion. Matrix.unitaryGroup is not expanded, so its standard complex-matrix unitarity semantics is used; no additional circuit interpretation is inferred.",
+        "Physical bit strings have indexed coordinates and a fixed appending order, but no integer-label endian convention is supplied. B has only an abstract finite basis label set, with no specified qubit encoding or hardware register layout.",
+        "No intended natural-language benchmark/source target is present. This reconstruction makes no source alignment, proof validity, publication, or admission judgment."
+      ]
+    }
+  ],
+  "handoff": {
+    "objective": "Independent reconstruction of anonymous targets S1 and S2 from the supplied literal formal context.",
+    "mathematical_delta": "Made all quantifiers, zero-column hypothesis, chronological transfer order, appended-bit/bond index order, real normalization type, and boundary cases explicit without importing a desired source conclusion.",
+    "files_changed": [
+      "_out/lean-agentic-20261103/sequential-decode/decoder.json"
+    ],
+    "failure_class": "NONE",
+    "proof_or_build_claim": "None. This is a source-blind semantic reconstruction, not a Lean verification or source-equivalence verdict.",
+    "process_memory_ids_consulted": [],
+    "direction_fingerprint": "source-blind-literal-quantifier-and-convention-decode",
+    "expected_information_gain": "An independent reading of what the formal statements actually assert, for a later distinct comparison reviewer.",
+    "parallel_and_common_blind_spot_review": "No subagents or alternate proof routes were created by this decoder. Subsequent independent source comparison is outside this task.",
+    "salvage_and_route_selection": "Not applicable: no proof/construction route attempted or rejected.",
+    "purification_and_exposition_seal": "Not claimed; no production or reader-facing artifact was changed.",
+    "residual_boundary": "Standard matrix-library meanings are used without source inspection. The independent comparison reviewer must determine any relationship to the intended source target."
+  }
+}

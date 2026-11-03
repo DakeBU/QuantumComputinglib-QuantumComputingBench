@@ -1,0 +1,536 @@
+{
+  "schema_version": "qcb.sequential_prospective_formal_views.v1",
+  "status": "candidate_not_counted_pending_semantic_admission",
+  "author": "/root/lean_agentic_pilot_math",
+  "execution_class": "trusted_local_reference",
+  "isolated": false,
+  "model_predictions_executed": false,
+  "source_blind_review_claimed": false,
+  "new_cores": 0,
+  "new_formal_views_admitted": 0,
+  "catalog_hash": "5269b9f2521e3bf14db293fea34895f6e44a387c2479c164407b4d16dd9a2247",
+  "integration_commit": "e9f158ffe0d43bc7511c79530ec0a85c9720e06d",
+  "library_commit": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+  "lean_toolchain": "leanprover/lean4:v4.29.1",
+  "proof_inputs_sha256": "1e65e7d2984e4542ca2747837d71c516847e4e987d3bbd6c48b8a803eb36806e",
+  "statement_seal": "statement-seal.json",
+  "decoder_context": "decoder-context.json",
+  "source_context_audit": "source-context-audit.json",
+  "cases": [
+    {
+      "core_id": "qcb-core-sp-007",
+      "root_id": "sp007_transfer_root",
+      "view_status": "prospective_formal_view_pending_semantic_admission",
+      "task_kind": "prospective_proof_synthesis_view",
+      "imports": [
+        "QuantumBlockEncoding.SequentialBondPreparation"
+      ],
+      "preamble": "universe u\nopen scoped BigOperators",
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.SequentialBondPreparation"
+        ],
+        "preamble": "universe u\nopen scoped BigOperators",
+        "target": "∀ {B : Type u} [Fintype B] [DecidableEq B] (U : ℕ → QuantumBlockEncoding.SequentialBondPreparation.Stage B) (K : ℕ → QuantumBlockEncoding.SequentialBondPreparation.Core B), (∀ (t : ℕ) (bit : Fin 2) (b a : B), U t (bit, b) (0, a) = K t (bit, b) a) → ∀ (boundary : B → ℂ) (n : ℕ) (x : QuantumBlockEncoding.PrimitiveBasis n) (b : B), QuantumBlockEncoding.SequentialBondPreparation.run U boundary n (x, b) = (QuantumBlockEncoding.SequentialBondPreparation.transfer K n x).mulVec boundary b"
+      },
+      "signature_sha256": "7167faf085ea5b026e90fe60e4e30723c64bb2bd3797a8eef0e71457fb2b106c",
+      "binding": {
+        "contract_hash": "22dfe5a670aeba9bec8bea6209789cb26784265fb68d49a47177c3a3c741f7f4",
+        "item_digest": "f47a739f7ea08d5acd553764322f8c24c2c6b1e7c40abe98923f3bceb2f8963a",
+        "item_id": "qcb-38379234beb95f4a335c",
+        "family": "sequential-transfer-composition",
+        "split": "test_public",
+        "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a"
+      },
+      "source_node_ids": [
+        "declaration:QuantumBlockEncoding.SequentialBondPreparation.run_eq_transfer",
+        "declaration:QuantumBlockEncoding.SequentialBondPreparation.transfer",
+        "declaration:QuantumBlockEncoding.SequentialBondPreparation.step_apply"
+      ],
+      "source_supporting_node_ids": [
+        "declaration:QuantumBlockEncoding.SequentialBondPreparation.step"
+      ],
+      "nodes": [
+        {
+          "id": "sp007_step_collapse",
+          "target": "∀ {B : Type u} [Fintype B] {n : ℕ} (U : QuantumBlockEncoding.SequentialBondPreparation.Stage B) (v : QuantumBlockEncoding.SequentialBondPreparation.BondState n B) (x : QuantumBlockEncoding.PrimitiveBasis (n + 1)) (b : B), QuantumBlockEncoding.SequentialBondPreparation.step U v (x, b) = ∑ a : B, U (x (Fin.last n), b) (0, a) * v (Fin.init x, a)",
+          "depends_on": [],
+          "helper_name": "QuantumComputingBench.SequentialMath.stepCollapse",
+          "source_node_ids": [
+            "declaration:QuantumBlockEncoding.SequentialBondPreparation.step_apply",
+            "declaration:QuantumBlockEncoding.SequentialBondPreparation.step"
+          ],
+          "mechanism": "finite_sum_fresh_zero_and_passive_prefix_collapse",
+          "admission": "candidate_evaluator_obligation_pending_semantic_admission",
+          "new_core_count": 0
+        },
+        {
+          "id": "sp007_transfer_root",
+          "target": "∀ {B : Type u} [Fintype B] [DecidableEq B] (U : ℕ → QuantumBlockEncoding.SequentialBondPreparation.Stage B) (K : ℕ → QuantumBlockEncoding.SequentialBondPreparation.Core B), (∀ (t : ℕ) (bit : Fin 2) (b a : B), U t (bit, b) (0, a) = K t (bit, b) a) → ∀ (boundary : B → ℂ) (n : ℕ) (x : QuantumBlockEncoding.PrimitiveBasis n) (b : B), QuantumBlockEncoding.SequentialBondPreparation.run U boundary n (x, b) = (QuantumBlockEncoding.SequentialBondPreparation.transfer K n x).mulVec boundary b",
+          "depends_on": [
+            "sp007_step_collapse"
+          ],
+          "helper_name": "QuantumComputingBench.SequentialMath.transferRoot",
+          "source_node_ids": [
+            "declaration:QuantumBlockEncoding.SequentialBondPreparation.run_eq_transfer",
+            "declaration:QuantumBlockEncoding.SequentialBondPreparation.transfer"
+          ],
+          "mechanism": "all_length_chronological_transfer_induction",
+          "admission": "candidate_evaluator_obligation_pending_semantic_admission",
+          "new_core_count": 0
+        }
+      ],
+      "references": {
+        "sp007_step_collapse": "by\n  intro B _ n U v x b\n  simp [QuantumBlockEncoding.SequentialBondPreparation.step, _root_.Matrix.mulVec, dotProduct,\n    Fintype.sum_prod_type, QuantumBlockEncoding.SequentialBondPreparation.freshZero]",
+        "sp007_transfer_root": "by\n  intro B _ _ U K cleanColumns boundary n x b\n  induction n generalizing b with\n  | zero => simp [QuantumBlockEncoding.SequentialBondPreparation.run, QuantumBlockEncoding.SequentialBondPreparation.transfer]\n  | succ n ih =>\n    rw [QuantumBlockEncoding.SequentialBondPreparation.run, QuantumComputingBench.SequentialMath.stepCollapse]\n    simp_rw [cleanColumns, ih]\n    rw [QuantumBlockEncoding.SequentialBondPreparation.transfer, ← _root_.Matrix.mulVec_mulVec]\n    rfl"
+      },
+      "independent_root_reference": "by\n  have collapse : ∀ {B : Type u} [Fintype B] {n : ℕ} (U : QuantumBlockEncoding.SequentialBondPreparation.Stage B) (v : QuantumBlockEncoding.SequentialBondPreparation.BondState n B) (x : QuantumBlockEncoding.PrimitiveBasis (n + 1)) (b : B), QuantumBlockEncoding.SequentialBondPreparation.step U v (x, b) = ∑ a : B, U (x (Fin.last n), b) (0, a) * v (Fin.init x, a) := by\n    intro B _ n U v x b\n    simp [QuantumBlockEncoding.SequentialBondPreparation.step, _root_.Matrix.mulVec, dotProduct,\n      Fintype.sum_prod_type, QuantumBlockEncoding.SequentialBondPreparation.freshZero]\n  intro B _ _ U K cleanColumns boundary n x b\n  induction n generalizing b with\n  | zero => simp [QuantumBlockEncoding.SequentialBondPreparation.run, QuantumBlockEncoding.SequentialBondPreparation.transfer]\n  | succ n ih =>\n    rw [QuantumBlockEncoding.SequentialBondPreparation.run, collapse]\n    simp_rw [cleanColumns, ih]\n    rw [QuantumBlockEncoding.SequentialBondPreparation.transfer, ← _root_.Matrix.mulVec_mulVec]\n    rfl",
+      "interfaces": [
+        {
+          "name": "QuantumBlockEncoding.SequentialBondPreparation.step_apply",
+          "type": "∀ {B : Type u_1} [inst : Fintype B] {n : ℕ} (U : QuantumBlockEncoding.SequentialBondPreparation.Stage B) (v : QuantumBlockEncoding.SequentialBondPreparation.BondState n B) (x : QuantumBlockEncoding.PrimitiveBasis (n + 1)) (b : B), QuantumBlockEncoding.SequentialBondPreparation.step U v (x, b) = ∑ a, U (x (Fin.last n), b) (0, a) * v (Fin.init x, a)",
+          "module": "QuantumBlockEncoding.SequentialBondPreparation",
+          "source_node_id": "declaration:QuantumBlockEncoding.SequentialBondPreparation.step_apply"
+        },
+        {
+          "name": "QuantumBlockEncoding.SequentialBondPreparation.run_eq_transfer",
+          "type": "∀ {B : Type u_1} [inst : Fintype B] [inst_1 : DecidableEq B] (U : ℕ → QuantumBlockEncoding.SequentialBondPreparation.Stage B) (K : ℕ → QuantumBlockEncoding.SequentialBondPreparation.Core B), (∀ (t : ℕ) (bit : Fin 2) (b a : B), U t (bit, b) (0, a) = K t (bit, b) a) → ∀ (boundary : B → ℂ) (n : ℕ) (x : QuantumBlockEncoding.PrimitiveBasis n) (b : B), QuantumBlockEncoding.SequentialBondPreparation.run U boundary n (x, b) = (QuantumBlockEncoding.SequentialBondPreparation.transfer K n x).mulVec boundary b",
+          "module": "QuantumBlockEncoding.SequentialBondPreparation",
+          "source_node_id": "declaration:QuantumBlockEncoding.SequentialBondPreparation.run_eq_transfer"
+        },
+        {
+          "name": "QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_mulVec",
+          "type": "∀ {I : Type u_1} [inst : Fintype I] [inst_1 : DecidableEq I] (M : Matrix I I ℂ) (v : I → ℂ), M ∈ Matrix.unitaryGroup I ℂ → QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass (M.mulVec v) = QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass v",
+          "module": "QuantumBlockEncoding.SequentialBondPreparation",
+          "source_node_id": "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_mulVec"
+        },
+        {
+          "name": "QuantumBlockEncoding.SequentialBondPreparation.liftStage_unitary",
+          "type": "∀ {B : Type u_1} [inst : Fintype B] [inst_1 : DecidableEq B] (n : ℕ), ∀ U ∈ Matrix.unitaryGroup (Fin 2 × B) ℂ, QuantumBlockEncoding.SequentialBondPreparation.liftStage n U ∈ Matrix.unitaryGroup (QuantumBlockEncoding.PrimitiveBasis n × Fin 2 × B) ℂ",
+          "module": "QuantumBlockEncoding.SequentialBondPreparation",
+          "source_node_id": "declaration:QuantumBlockEncoding.SequentialBondPreparation.liftStage_unitary"
+        },
+        {
+          "name": "QuantumBlockEncoding.SequentialBondPreparation.stepBasisEquiv",
+          "type": "(n : ℕ) → (B : Type u_1) → QuantumBlockEncoding.PrimitiveBasis (n + 1) × B ≃ QuantumBlockEncoding.PrimitiveBasis n × Fin 2 × B",
+          "module": "QuantumBlockEncoding.SequentialBondPreparation",
+          "source_node_id": "declaration:QuantumBlockEncoding.SequentialBondPreparation.stepBasisEquiv"
+        },
+        {
+          "name": "QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_run_basisBoundary",
+          "type": "∀ {B : Type u_1} [inst : Fintype B] [inst_1 : DecidableEq B] (U : ℕ → QuantumBlockEncoding.SequentialBondPreparation.Stage B) (initial : B), (∀ (t : ℕ), U t ∈ Matrix.unitaryGroup (Fin 2 × B) ℂ) → ∀ (n : ℕ), QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass (QuantumBlockEncoding.SequentialBondPreparation.run U (QuantumBlockEncoding.SequentialBondPreparation.basisBoundary initial) n) = 1",
+          "module": "QuantumBlockEncoding.SequentialBondPreparation",
+          "source_node_id": "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_run_basisBoundary"
+        },
+        {
+          "name": "Matrix.mulVec_mulVec",
+          "type": "∀ {m : Type u_2} {n : Type u_3} {o : Type u_4} {α : Type u_1} [inst : NonUnitalSemiring α] [inst_1 : Fintype n] [inst_2 : Fintype o] (v : o → α) (M : Matrix m n α) (N : Matrix n o α), M.mulVec (N.mulVec v) = (M * N).mulVec v",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "source_node_id": "mathlib:Matrix.mulVec_mulVec"
+        },
+        {
+          "name": "Equiv.sum_comp",
+          "type": "∀ {ι : Type u_1} {κ : Type u_2} {M : Type u_3} [inst : Fintype ι] [inst_1 : Fintype κ] [inst_2 : AddCommMonoid M] (e : ι ≃ κ) (g : κ → M), ∑ i, g (e i) = ∑ i, g i",
+          "module": "Mathlib.Algebra.BigOperators.Group.Finset.Defs",
+          "source_node_id": "mathlib:Equiv.sum_comp"
+        },
+        {
+          "name": "Complex.normSq_apply",
+          "type": "∀ (z : ℂ), Complex.normSq z = z.re * z.re + z.im * z.im",
+          "module": "Mathlib.Data.Complex.Basic",
+          "source_node_id": "mathlib:Complex.normSq_apply"
+        },
+        {
+          "name": "Complex.mul_re",
+          "type": "∀ (z w : ℂ), (z * w).re = z.re * w.re - z.im * w.im",
+          "module": "Mathlib.Data.Complex.Basic",
+          "source_node_id": "mathlib:Complex.mul_re"
+        }
+      ],
+      "interface_universes": [
+        "u_1",
+        "u_2",
+        "u_3",
+        "u_4"
+      ],
+      "binder_audit": [
+        {
+          "binder": "B : Type u; Fintype B; DecidableEq B",
+          "classification": "TYPING",
+          "meaning": "Arbitrary finite bond carrier with decidable equality."
+        },
+        {
+          "binder": "U : ℕ → Stage B; K : ℕ → Core B",
+          "classification": "SOURCE",
+          "meaning": "Arbitrary complex full local matrices and rectangular cores."
+        },
+        {
+          "binder": "∀ t bit b a, U t (bit,b) (0,a) = K t (bit,b) a",
+          "classification": "SOURCE",
+          "meaning": "Sole logical premise: local fresh-bit-zero columns match. No restriction on fresh-bit-one columns or full unitarity."
+        },
+        {
+          "binder": "boundary : B → ℂ",
+          "classification": "SOURCE",
+          "meaning": "Arbitrary explicit complex vector; zero and unnormalized boundaries allowed."
+        },
+        {
+          "binder": "n : ℕ; x : PrimitiveBasis n; b : B",
+          "classification": "TYPING",
+          "meaning": "Every length including zero and every output amplitude."
+        }
+      ],
+      "definition_kind": "literal_mathematical_definitions_with_normalized_nonliteral_context_display",
+      "source_context_audit": "source-context-audit.json",
+      "semantic_boundaries": [
+        "Exact complex amplitude equality retains phases for arbitrary explicit boundary.",
+        "Only clean input columns matter; unitarity, normalization, support, completion existence and global run-action hypotheses are absent."
+      ],
+      "source_binding": {
+        "path": "QuantumBlockEncoding/SequentialBondPreparation.lean",
+        "sha256_lf": "ad4542b108d44f196f2a02f78e59b58f43d45b1e890709cf4c22e1222805d5c5"
+      },
+      "source_anchors": [
+        [
+          29,
+          69
+        ],
+        [
+          81,
+          109
+        ]
+      ],
+      "assumptions_added": false,
+      "new_core_count": 0,
+      "baseline_control": {
+        "proof": "by exact QuantumBlockEncoding.SequentialBondPreparation.run_eq_transfer",
+        "same_target": true,
+        "one_call": true,
+        "kind": "existing_library_root_application"
+      },
+      "wrong_reference": {
+        "node_id": "sp007_transfer_root",
+        "proof": "by exact QuantumBlockEncoding.SequentialBondPreparation.run_basisBoundary",
+        "probe": "NegativeTransfer.lean",
+        "expected_exit_code": 1,
+        "classification": "IMPLEMENTATION_FAILED",
+        "reason": "A basis-boundary specialization cannot inhabit the arbitrary-complex-boundary target.",
+        "repair_proof": "by\n  have collapse : ∀ {B : Type u} [Fintype B] {n : ℕ} (U : QuantumBlockEncoding.SequentialBondPreparation.Stage B) (v : QuantumBlockEncoding.SequentialBondPreparation.BondState n B) (x : QuantumBlockEncoding.PrimitiveBasis (n + 1)) (b : B), QuantumBlockEncoding.SequentialBondPreparation.step U v (x, b) = ∑ a : B, U (x (Fin.last n), b) (0, a) * v (Fin.init x, a) := by\n    intro B _ n U v x b\n    simp [QuantumBlockEncoding.SequentialBondPreparation.step, _root_.Matrix.mulVec, dotProduct,\n      Fintype.sum_prod_type, QuantumBlockEncoding.SequentialBondPreparation.freshZero]\n  intro B _ _ U K cleanColumns boundary n x b\n  induction n generalizing b with\n  | zero => simp [QuantumBlockEncoding.SequentialBondPreparation.run, QuantumBlockEncoding.SequentialBondPreparation.transfer]\n  | succ n ih =>\n    rw [QuantumBlockEncoding.SequentialBondPreparation.run, collapse]\n    simp_rw [cleanColumns, ih]\n    rw [QuantumBlockEncoding.SequentialBondPreparation.transfer, ← _root_.Matrix.mulVec_mulVec]\n    rfl",
+        "repair_probe": "TransferIndependent.lean"
+      },
+      "operator_only_knowledge_assumption_rubric": [
+        {
+          "id": "arbitrary_boundary",
+          "criterion": "Retain arbitrary explicit complex boundary; do not specialize it to a basis label, normalization condition or a real/positive vector."
+        },
+        {
+          "id": "local_premise",
+          "criterion": "Use only fresh-bit-input-zero column equality. Full unitarity and global run-action premises are absent."
+        },
+        {
+          "id": "collapse",
+          "criterion": "Derive the one-step sum by fresh-zero selection and passive-prefix identity; fresh-bit-input-one columns never appear."
+        },
+        {
+          "id": "chronology",
+          "criterion": "Compose latest coreSlice on the left and preserve complex phase; base transfer is identity and all lengths follow by induction."
+        },
+        {
+          "id": "boundary",
+          "criterion": "No support, terminal cleanup, completion existence, primitive synthesis or resource claim."
+        }
+      ],
+      "definition_and_premise_bookkeeping": [
+        "Stage and Core are literal complex matrix carriers, not completion-existence certificates.",
+        "Clean-column equality is the source local premise and remains a binder.",
+        "Fresh-zero support and passive-register identity are derived from definitions, not assumed global-action hypotheses."
+      ],
+      "rubric_visibility": "operator_only",
+      "dependency_scope": "The AND edges record authored obligation/helper use. Explicit source/library calls and definition bookkeeping are listed separately; no elaborated proof-term dependency graph or difficulty depth is claimed."
+    },
+    {
+      "core_id": "qcb-core-sp-008",
+      "root_id": "sp008_probability_root",
+      "view_status": "prospective_formal_view_pending_semantic_admission",
+      "task_kind": "prospective_proof_synthesis_view",
+      "imports": [
+        "QuantumBlockEncoding.SequentialBondPreparation"
+      ],
+      "preamble": "universe u\nopen scoped BigOperators",
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.SequentialBondPreparation"
+        ],
+        "preamble": "universe u\nopen scoped BigOperators",
+        "target": "∀ {B : Type u} [Fintype B] [DecidableEq B] (U : ℕ → QuantumBlockEncoding.SequentialBondPreparation.Stage B) (initial : B), (∀ t : ℕ, U t ∈ _root_.Matrix.unitaryGroup (Fin 2 × B) ℂ) → ∀ n : ℕ, (∑ z : QuantumBlockEncoding.PrimitiveBasis n × B, Complex.normSq (QuantumBlockEncoding.SequentialBondPreparation.run U (QuantumBlockEncoding.SequentialBondPreparation.basisBoundary initial) n z)) = 1"
+      },
+      "signature_sha256": "46ff0f91e86b09aa1b58e340833db37f3d655e6d222a74f4721edcfcdb91e28b",
+      "binding": {
+        "contract_hash": "b292fd14d37907ff3e7aba598779c0fd83b21c819fa4be460397ff0fc38cfa02",
+        "item_digest": "d403cce404da75f2931579b020692a9cf08143dfd7b2a59eeec69fce4c59f771",
+        "item_id": "qcb-938d6925b4acd7eb28a9",
+        "family": "coherent-success-probability",
+        "split": "train",
+        "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a"
+      },
+      "source_node_ids": [
+        "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_run_basisBoundary",
+        "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_step",
+        "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_run"
+      ],
+      "source_supporting_node_ids": [
+        "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_freshZero",
+        "declaration:QuantumBlockEncoding.SequentialBondPreparation.liftStage_unitary"
+      ],
+      "nodes": [
+        {
+          "id": "sp008_probability_bridge",
+          "target": "∀ {I : Type u} [Fintype I] (v : I → ℂ), (QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass v).re = ∑ i : I, Complex.normSq (v i)",
+          "depends_on": [],
+          "helper_name": "QuantumComputingBench.SequentialMath.probabilityBridge",
+          "source_node_ids": [
+            "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass"
+          ],
+          "mechanism": "complex_mass_real_probability_bridge",
+          "admission": "candidate_evaluator_obligation_pending_semantic_admission",
+          "new_core_count": 0
+        },
+        {
+          "id": "sp008_step_mass",
+          "target": "∀ {B : Type u} [Fintype B] [DecidableEq B] {n : ℕ} (U : QuantumBlockEncoding.SequentialBondPreparation.Stage B) (v : QuantumBlockEncoding.SequentialBondPreparation.BondState n B), U ∈ _root_.Matrix.unitaryGroup (Fin 2 × B) ℂ → QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass (QuantumBlockEncoding.SequentialBondPreparation.step U v) = QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass v",
+          "depends_on": [],
+          "helper_name": "QuantumComputingBench.SequentialMath.stepMass",
+          "source_node_ids": [
+            "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_step",
+            "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_freshZero",
+            "declaration:QuantumBlockEncoding.SequentialBondPreparation.liftStage_unitary"
+          ],
+          "mechanism": "padding_lifted_unitary_action_and_bijective_regrouping",
+          "admission": "candidate_evaluator_obligation_pending_semantic_admission",
+          "new_core_count": 0
+        },
+        {
+          "id": "sp008_run_mass",
+          "target": "∀ {B : Type u} [Fintype B] [DecidableEq B] (U : ℕ → QuantumBlockEncoding.SequentialBondPreparation.Stage B) (boundary : B → ℂ), (∀ t : ℕ, U t ∈ _root_.Matrix.unitaryGroup (Fin 2 × B) ℂ) → ∀ n : ℕ, QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass (QuantumBlockEncoding.SequentialBondPreparation.run U boundary n) = QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass boundary",
+          "depends_on": [
+            "sp008_step_mass"
+          ],
+          "helper_name": "QuantumComputingBench.SequentialMath.runMass",
+          "source_node_ids": [
+            "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_run"
+          ],
+          "mechanism": "all_length_mass_induction",
+          "admission": "candidate_evaluator_obligation_pending_semantic_admission",
+          "new_core_count": 0
+        },
+        {
+          "id": "sp008_probability_root",
+          "target": "∀ {B : Type u} [Fintype B] [DecidableEq B] (U : ℕ → QuantumBlockEncoding.SequentialBondPreparation.Stage B) (initial : B), (∀ t : ℕ, U t ∈ _root_.Matrix.unitaryGroup (Fin 2 × B) ℂ) → ∀ n : ℕ, (∑ z : QuantumBlockEncoding.PrimitiveBasis n × B, Complex.normSq (QuantumBlockEncoding.SequentialBondPreparation.run U (QuantumBlockEncoding.SequentialBondPreparation.basisBoundary initial) n z)) = 1",
+          "depends_on": [
+            "sp008_probability_bridge",
+            "sp008_run_mass"
+          ],
+          "helper_name": "QuantumComputingBench.SequentialMath.probabilityRoot",
+          "source_node_ids": [
+            "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_run_basisBoundary"
+          ],
+          "mechanism": "basis_boundary_evaluation_and_real_probability_conclusion",
+          "admission": "candidate_evaluator_obligation_pending_semantic_admission",
+          "new_core_count": 0
+        }
+      ],
+      "references": {
+        "sp008_probability_bridge": "by\n  intro I _ v\n  simp [QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass, Complex.normSq_apply,\n    Complex.mul_re]",
+        "sp008_step_mass": "by\n  intro B _ _ n U v hU\n  have regroup : QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass (QuantumBlockEncoding.SequentialBondPreparation.step U v) =\n      QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass ((QuantumBlockEncoding.SequentialBondPreparation.liftStage n U).mulVec (QuantumBlockEncoding.SequentialBondPreparation.freshZero v)) := by\n    exact (QuantumBlockEncoding.SequentialBondPreparation.stepBasisEquiv n B).sum_comp\n      (fun z => star (((QuantumBlockEncoding.SequentialBondPreparation.liftStage n U).mulVec (QuantumBlockEncoding.SequentialBondPreparation.freshZero v)) z) *\n        ((QuantumBlockEncoding.SequentialBondPreparation.liftStage n U).mulVec (QuantumBlockEncoding.SequentialBondPreparation.freshZero v)) z)\n  have padding : QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass (QuantumBlockEncoding.SequentialBondPreparation.freshZero v) = QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass v := by\n    simp [QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass, QuantumBlockEncoding.SequentialBondPreparation.freshZero, Fintype.sum_prod_type]\n  rw [regroup, QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_mulVec _ _ (QuantumBlockEncoding.SequentialBondPreparation.liftStage_unitary n U hU), padding]",
+        "sp008_run_mass": "by\n  intro B _ _ U boundary unitary n\n  induction n with\n  | zero => simp [QuantumBlockEncoding.SequentialBondPreparation.run, QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass, Fintype.sum_prod_type]\n  | succ n ih => rw [QuantumBlockEncoding.SequentialBondPreparation.run, QuantumComputingBench.SequentialMath.stepMass _ _ (unitary n), ih]",
+        "sp008_probability_root": "by\n  intro B _ _ U initial unitary n\n  rw [← QuantumComputingBench.SequentialMath.probabilityBridge, QuantumComputingBench.SequentialMath.runMass U _ unitary]\n  simp [QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass, QuantumBlockEncoding.SequentialBondPreparation.basisBoundary]"
+      },
+      "independent_root_reference": "by\n  have bridge : ∀ {I : Type u} [Fintype I] (v : I → ℂ), (QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass v).re = ∑ i : I, Complex.normSq (v i) := by\n    intro I _ v\n    simp [QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass, Complex.normSq_apply,\n      Complex.mul_re]\n  have massStep : ∀ {B : Type u} [Fintype B] [DecidableEq B] {n : ℕ} (U : QuantumBlockEncoding.SequentialBondPreparation.Stage B) (v : QuantumBlockEncoding.SequentialBondPreparation.BondState n B), U ∈ _root_.Matrix.unitaryGroup (Fin 2 × B) ℂ → QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass (QuantumBlockEncoding.SequentialBondPreparation.step U v) = QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass v := by\n    intro B _ _ n U v hU\n    have regroup : QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass (QuantumBlockEncoding.SequentialBondPreparation.step U v) =\n        QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass ((QuantumBlockEncoding.SequentialBondPreparation.liftStage n U).mulVec (QuantumBlockEncoding.SequentialBondPreparation.freshZero v)) := by\n      exact (QuantumBlockEncoding.SequentialBondPreparation.stepBasisEquiv n B).sum_comp\n        (fun z => star (((QuantumBlockEncoding.SequentialBondPreparation.liftStage n U).mulVec (QuantumBlockEncoding.SequentialBondPreparation.freshZero v)) z) *\n          ((QuantumBlockEncoding.SequentialBondPreparation.liftStage n U).mulVec (QuantumBlockEncoding.SequentialBondPreparation.freshZero v)) z)\n    have padding : QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass (QuantumBlockEncoding.SequentialBondPreparation.freshZero v) = QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass v := by\n      simp [QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass, QuantumBlockEncoding.SequentialBondPreparation.freshZero, Fintype.sum_prod_type]\n    rw [regroup, QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_mulVec _ _ (QuantumBlockEncoding.SequentialBondPreparation.liftStage_unitary n U hU), padding]\n  have massRun : ∀ {B : Type u} [Fintype B] [DecidableEq B] (U : ℕ → QuantumBlockEncoding.SequentialBondPreparation.Stage B) (boundary : B → ℂ), (∀ t : ℕ, U t ∈ _root_.Matrix.unitaryGroup (Fin 2 × B) ℂ) → ∀ n : ℕ, QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass (QuantumBlockEncoding.SequentialBondPreparation.run U boundary n) = QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass boundary := by\n    intro B _ _ U boundary unitary n\n    induction n with\n    | zero => simp [QuantumBlockEncoding.SequentialBondPreparation.run, QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass, Fintype.sum_prod_type]\n    | succ n ih => rw [QuantumBlockEncoding.SequentialBondPreparation.run, massStep _ _ (unitary n), ih]\n  intro B _ _ U initial unitary n\n  rw [← bridge, massRun U _ unitary]\n  simp [QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass, QuantumBlockEncoding.SequentialBondPreparation.basisBoundary]",
+      "interfaces": [
+        {
+          "name": "QuantumBlockEncoding.SequentialBondPreparation.step_apply",
+          "type": "∀ {B : Type u_1} [inst : Fintype B] {n : ℕ} (U : QuantumBlockEncoding.SequentialBondPreparation.Stage B) (v : QuantumBlockEncoding.SequentialBondPreparation.BondState n B) (x : QuantumBlockEncoding.PrimitiveBasis (n + 1)) (b : B), QuantumBlockEncoding.SequentialBondPreparation.step U v (x, b) = ∑ a, U (x (Fin.last n), b) (0, a) * v (Fin.init x, a)",
+          "module": "QuantumBlockEncoding.SequentialBondPreparation",
+          "source_node_id": "declaration:QuantumBlockEncoding.SequentialBondPreparation.step_apply"
+        },
+        {
+          "name": "QuantumBlockEncoding.SequentialBondPreparation.run_eq_transfer",
+          "type": "∀ {B : Type u_1} [inst : Fintype B] [inst_1 : DecidableEq B] (U : ℕ → QuantumBlockEncoding.SequentialBondPreparation.Stage B) (K : ℕ → QuantumBlockEncoding.SequentialBondPreparation.Core B), (∀ (t : ℕ) (bit : Fin 2) (b a : B), U t (bit, b) (0, a) = K t (bit, b) a) → ∀ (boundary : B → ℂ) (n : ℕ) (x : QuantumBlockEncoding.PrimitiveBasis n) (b : B), QuantumBlockEncoding.SequentialBondPreparation.run U boundary n (x, b) = (QuantumBlockEncoding.SequentialBondPreparation.transfer K n x).mulVec boundary b",
+          "module": "QuantumBlockEncoding.SequentialBondPreparation",
+          "source_node_id": "declaration:QuantumBlockEncoding.SequentialBondPreparation.run_eq_transfer"
+        },
+        {
+          "name": "QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_mulVec",
+          "type": "∀ {I : Type u_1} [inst : Fintype I] [inst_1 : DecidableEq I] (M : Matrix I I ℂ) (v : I → ℂ), M ∈ Matrix.unitaryGroup I ℂ → QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass (M.mulVec v) = QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass v",
+          "module": "QuantumBlockEncoding.SequentialBondPreparation",
+          "source_node_id": "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_mulVec"
+        },
+        {
+          "name": "QuantumBlockEncoding.SequentialBondPreparation.liftStage_unitary",
+          "type": "∀ {B : Type u_1} [inst : Fintype B] [inst_1 : DecidableEq B] (n : ℕ), ∀ U ∈ Matrix.unitaryGroup (Fin 2 × B) ℂ, QuantumBlockEncoding.SequentialBondPreparation.liftStage n U ∈ Matrix.unitaryGroup (QuantumBlockEncoding.PrimitiveBasis n × Fin 2 × B) ℂ",
+          "module": "QuantumBlockEncoding.SequentialBondPreparation",
+          "source_node_id": "declaration:QuantumBlockEncoding.SequentialBondPreparation.liftStage_unitary"
+        },
+        {
+          "name": "QuantumBlockEncoding.SequentialBondPreparation.stepBasisEquiv",
+          "type": "(n : ℕ) → (B : Type u_1) → QuantumBlockEncoding.PrimitiveBasis (n + 1) × B ≃ QuantumBlockEncoding.PrimitiveBasis n × Fin 2 × B",
+          "module": "QuantumBlockEncoding.SequentialBondPreparation",
+          "source_node_id": "declaration:QuantumBlockEncoding.SequentialBondPreparation.stepBasisEquiv"
+        },
+        {
+          "name": "QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_run_basisBoundary",
+          "type": "∀ {B : Type u_1} [inst : Fintype B] [inst_1 : DecidableEq B] (U : ℕ → QuantumBlockEncoding.SequentialBondPreparation.Stage B) (initial : B), (∀ (t : ℕ), U t ∈ Matrix.unitaryGroup (Fin 2 × B) ℂ) → ∀ (n : ℕ), QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass (QuantumBlockEncoding.SequentialBondPreparation.run U (QuantumBlockEncoding.SequentialBondPreparation.basisBoundary initial) n) = 1",
+          "module": "QuantumBlockEncoding.SequentialBondPreparation",
+          "source_node_id": "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_run_basisBoundary"
+        },
+        {
+          "name": "Matrix.mulVec_mulVec",
+          "type": "∀ {m : Type u_2} {n : Type u_3} {o : Type u_4} {α : Type u_1} [inst : NonUnitalSemiring α] [inst_1 : Fintype n] [inst_2 : Fintype o] (v : o → α) (M : Matrix m n α) (N : Matrix n o α), M.mulVec (N.mulVec v) = (M * N).mulVec v",
+          "module": "Mathlib.Data.Matrix.Mul",
+          "source_node_id": "mathlib:Matrix.mulVec_mulVec"
+        },
+        {
+          "name": "Equiv.sum_comp",
+          "type": "∀ {ι : Type u_1} {κ : Type u_2} {M : Type u_3} [inst : Fintype ι] [inst_1 : Fintype κ] [inst_2 : AddCommMonoid M] (e : ι ≃ κ) (g : κ → M), ∑ i, g (e i) = ∑ i, g i",
+          "module": "Mathlib.Algebra.BigOperators.Group.Finset.Defs",
+          "source_node_id": "mathlib:Equiv.sum_comp"
+        },
+        {
+          "name": "Complex.normSq_apply",
+          "type": "∀ (z : ℂ), Complex.normSq z = z.re * z.re + z.im * z.im",
+          "module": "Mathlib.Data.Complex.Basic",
+          "source_node_id": "mathlib:Complex.normSq_apply"
+        },
+        {
+          "name": "Complex.mul_re",
+          "type": "∀ (z w : ℂ), (z * w).re = z.re * w.re - z.im * w.im",
+          "module": "Mathlib.Data.Complex.Basic",
+          "source_node_id": "mathlib:Complex.mul_re"
+        }
+      ],
+      "interface_universes": [
+        "u_1",
+        "u_2",
+        "u_3",
+        "u_4"
+      ],
+      "binder_audit": [
+        {
+          "binder": "B : Type u; Fintype B; DecidableEq B",
+          "classification": "TYPING",
+          "meaning": "Arbitrary finite bond carrier. initial supplies inhabitance."
+        },
+        {
+          "binder": "U : ℕ → Stage B; initial : B",
+          "classification": "SOURCE",
+          "meaning": "Full local matrices and a literal computational-basis boundary."
+        },
+        {
+          "binder": "∀ t, U t ∈ Matrix.unitaryGroup (Fin 2 × B) ℂ",
+          "classification": "SOURCE",
+          "meaning": "Sole logical premise: each entire square stage is unitary. Expanded: its dagger product in either order is identity."
+        },
+        {
+          "binder": "n : ℕ",
+          "classification": "TYPING",
+          "meaning": "All lengths including zero. Sum covers every emitted-word/final-bond label."
+        }
+      ],
+      "definition_kind": "literal_mathematical_definitions_with_normalized_nonliteral_context_display",
+      "source_context_audit": "source-context-audit.json",
+      "semantic_boundaries": [
+        "Actual real sum of Complex.normSq over the full joint word/bond basis equals 1.",
+        "No positivity, normalization, clean-column/core-alignment, cleanup, completion-existence or global-action premise.",
+        "Entire register retained: no projection, postselection or renormalization. No claim of a clean final bond or pure emitted-word state."
+      ],
+      "source_binding": {
+        "path": "QuantumBlockEncoding/SequentialBondPreparation.lean",
+        "sha256_lf": "ad4542b108d44f196f2a02f78e59b58f43d45b1e890709cf4c22e1222805d5c5"
+      },
+      "source_anchors": [
+        [
+          29,
+          77
+        ],
+        [
+          93,
+          97
+        ],
+        [
+          113,
+          113
+        ],
+        [
+          288,
+          340
+        ]
+      ],
+      "assumptions_added": false,
+      "new_core_count": 0,
+      "baseline_control": {
+        "proof": "by\n  intro B _ _ U initial unitary n\n  have massOne := QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_run_basisBoundary U initial unitary n\n  have bridge : (QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass (QuantumBlockEncoding.SequentialBondPreparation.run U (QuantumBlockEncoding.SequentialBondPreparation.basisBoundary initial) n)).re =\n      ∑ z : QuantumBlockEncoding.PrimitiveBasis n × B,\n        Complex.normSq (QuantumBlockEncoding.SequentialBondPreparation.run U (QuantumBlockEncoding.SequentialBondPreparation.basisBoundary initial) n z) := by\n    simp [QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass, Complex.normSq_apply, Complex.mul_re]\n  rw [← bridge]\n  simpa using congrArg Complex.re massOne",
+        "same_target": true,
+        "one_call": false,
+        "kind": "existing_complex_mass_root_plus_explicit_real_bridge",
+        "probe": "ProbabilityControl.lean"
+      },
+      "library_complex_control": {
+        "target": "∀ {B : Type u} [Fintype B] [DecidableEq B] (U : ℕ → QuantumBlockEncoding.SequentialBondPreparation.Stage B) (initial : B), (∀ t : ℕ, U t ∈ _root_.Matrix.unitaryGroup (Fin 2 × B) ℂ) → ∀ n : ℕ, QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass (QuantumBlockEncoding.SequentialBondPreparation.run U (QuantumBlockEncoding.SequentialBondPreparation.basisBoundary initial) n) = 1",
+        "proof": "by exact QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_run_basisBoundary",
+        "same_target": false,
+        "one_call": true,
+        "boundary": "This complex scalar equality is not mislabeled as the real-probability target. The explicit bridge is necessary."
+      },
+      "wrong_reference": {
+        "node_id": "sp008_probability_root",
+        "proof": "by exact QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_run_basisBoundary",
+        "probe": "NegativeProbability.lean",
+        "expected_exit_code": 1,
+        "classification": "IMPLEMENTATION_FAILED",
+        "reason": "The complex scalar amplitudeMass equality alone has the wrong type for a real sum of Complex.normSq.",
+        "repair_proof": "by\n  intro B _ _ U initial unitary n\n  have massOne := QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_run_basisBoundary U initial unitary n\n  have bridge : (QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass (QuantumBlockEncoding.SequentialBondPreparation.run U (QuantumBlockEncoding.SequentialBondPreparation.basisBoundary initial) n)).re =\n      ∑ z : QuantumBlockEncoding.PrimitiveBasis n × B,\n        Complex.normSq (QuantumBlockEncoding.SequentialBondPreparation.run U (QuantumBlockEncoding.SequentialBondPreparation.basisBoundary initial) n z) := by\n    simp [QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass, Complex.normSq_apply, Complex.mul_re]\n  rw [← bridge]\n  simpa using congrArg Complex.re massOne",
+        "repair_probe": "ProbabilityControl.lean"
+      },
+      "operator_only_knowledge_assumption_rubric": [
+        {
+          "id": "real_probability",
+          "criterion": "Conclude an actual equality in ℝ of ∑ over every (emitted word,final bond) of Complex.normSq, not a complex scalar equality described as probability by metadata."
+        },
+        {
+          "id": "bridge",
+          "criterion": "Prove amplitudeMass(v).re = ∑ normSq(v_i) for arbitrary finite complex v by real-part/star-product algebra."
+        },
+        {
+          "id": "unitary_action",
+          "criterion": "Use the source full-stage-unitarity premise; lifted identity⊗U is unitary and preserves amplitude mass."
+        },
+        {
+          "id": "padding_regrouping",
+          "criterion": "Fresh-zero padding adds zero components and the stepBasisEquiv is a bijective regrouping; neither discards a branch."
+        },
+        {
+          "id": "induction_basis",
+          "criterion": "Induct for arbitrary boundary mass, then derive basis-boundary mass one. No positivity or normalization premise is added."
+        },
+        {
+          "id": "joint_register",
+          "criterion": "Retain final bond in the probability sum. No clean-bond factorization, postselection, renormalization, target fidelity, compiler or cost claim follows."
+        }
+      ],
+      "definition_and_premise_bookkeeping": [
+        "Full stage-unitary membership is the only logical source premise; both dagger identities are its expansion.",
+        "basisBoundary is the literal one-coordinate boundary; its normalization is a derived finite sum.",
+        "The complex amplitudeMass definition and the real probability functional are distinct types linked by a checked reusable bridge.",
+        "No new public probability definition or competing foundational API is introduced."
+      ],
+      "rubric_visibility": "operator_only",
+      "dependency_scope": "The AND edges record authored obligation/helper use. Explicit source/library calls and definition bookkeeping are listed separately; no elaborated proof-term dependency graph or difficulty depth is claimed."
+    }
+  ],
+  "boundaries": [
+    "All roots preserve existing canonical mathematical cores and current family/split/snapshot/item/contract bindings.",
+    "No independent decoder/reviewer result is authored by this worker. Decoder context normalization is audited separately and does not inherit fidelity from compilation alone.",
+    "Imported source root declarations remain available; this is not a shortcut-isolated or leakage-free evaluation.",
+    "Only inspected fixed evaluator-authored fixtures were compiled. No model-prediction Lean, unsafe, IO or native_decide."
+  ]
+}

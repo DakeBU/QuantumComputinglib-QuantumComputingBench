@@ -1,0 +1,194 @@
+{
+  "schema_version": "qcb.curriculum_blind_input.v1",
+  "views": [
+    {
+      "ambient_definitions": {
+        "Polynomial.derivative_iterate": {
+          "kind": "ambient",
+          "literal": "Polynomial.derivative^[j] p",
+          "normalized": "j-fold iteration of the ordinary algebraic polynomial derivative; iteration order zero is p"
+        },
+        "Polynomial.natDegree": {
+          "kind": "ambient",
+          "literal": "p.natDegree : ℕ",
+          "normalized": "natural polynomial degree; natDegree 0 = 0"
+        },
+        "Polynomial.taylor": {
+          "kind": "ambient",
+          "literal": "Polynomial.taylor a p",
+          "normalized": "the polynomial p(X+a), whose degree-j coefficient is the local Taylor coefficient about a"
+        },
+        "QuantumBlockEncoding.HermitePolynomial.leftModulus": {
+          "kind": "literal",
+          "literal": "def leftModulus (k : ℕ) : ℝ[X] := (X - C (-1)) ^ (k + 1)",
+          "normalized": "leftModulus k = (X + 1)^(k+1) : Polynomial ℝ"
+        },
+        "QuantumBlockEncoding.HermitePolynomial.rightModulus": {
+          "kind": "literal",
+          "literal": "def rightModulus (k : ℕ) : ℝ[X] := (X - C 0) ^ (k + 1)",
+          "normalized": "rightModulus k = X^(k+1) : Polynomial ℝ"
+        }
+      },
+      "anonymous_id": "J1",
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.HermitePolynomial"
+        ],
+        "preamble": "open scoped BigOperators",
+        "target": "∀ (k : ℕ) (p q : Polynomial ℝ), p.natDegree ≤ 2 * k + 1 → q.natDegree ≤ 2 * k + 1 → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval (-1) = (Polynomial.derivative^[j] q).eval (-1)) → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval 0 = (Polynomial.derivative^[j] q).eval 0) → p = q",
+        "universe_parameters": []
+      },
+      "imports": [
+        "QuantumBlockEncoding.HermitePolynomial"
+      ],
+      "interfaces": [
+        {
+          "name": "QuantumBlockEncoding.HermitePolynomial.eval_iterate_derivative",
+          "signature": "theorem eval_iterate_derivative (p : ℝ[X]) (a : ℝ) (j : ℕ) :\n    (derivative^[j] p).eval a = (j.factorial : ℝ) * (taylor a p).coeff j"
+        },
+        {
+          "name": "QuantumBlockEncoding.HermitePolynomial.jet_eq_of_pow_dvd_sub",
+          "signature": "theorem jet_eq_of_pow_dvd_sub (p q : ℝ[X]) (a : ℝ) (k j : ℕ)\n    (hj : j ≤ k) (h : (X - C a) ^ (k + 1) ∣ p - q) :\n    (derivative^[j] p).eval a = (derivative^[j] q).eval a"
+        },
+        {
+          "name": "QuantumBlockEncoding.HermitePolynomial.pow_dvd_sub_of_jet_eq",
+          "signature": "theorem pow_dvd_sub_of_jet_eq (p q : ℝ[X]) (a : ℝ) (k : ℕ)\n    (h : ∀ j ≤ k, (derivative^[j] p).eval a = (derivative^[j] q).eval a) :\n    (X - C a) ^ (k + 1) ∣ p - q"
+        },
+        {
+          "name": "QuantumBlockEncoding.HermitePolynomial.endpointModuli_coprime",
+          "signature": "theorem endpointModuli_coprime (k : ℕ) : IsCoprime (leftModulus k) (rightModulus k)"
+        }
+      ],
+      "nodes": [
+        {
+          "depends_on": [],
+          "id": "n01",
+          "target": "∀ (p q : Polynomial ℝ) (a : ℝ) (k : ℕ), (∀ j ≤ k, (Polynomial.derivative^[j] p).eval a = (Polynomial.derivative^[j] q).eval a) ↔ (Polynomial.X - Polynomial.C a) ^ (k + 1) ∣ p - q"
+        },
+        {
+          "depends_on": [
+            "n01"
+          ],
+          "id": "n02",
+          "target": "∀ (k : ℕ) (p q : Polynomial ℝ), (∀ j ≤ k, (Polynomial.derivative^[j] p).eval (-1) = (Polynomial.derivative^[j] q).eval (-1)) → QuantumBlockEncoding.HermitePolynomial.leftModulus k ∣ p - q"
+        },
+        {
+          "depends_on": [
+            "n01"
+          ],
+          "id": "n03",
+          "target": "∀ (k : ℕ) (p q : Polynomial ℝ), (∀ j ≤ k, (Polynomial.derivative^[j] p).eval 0 = (Polynomial.derivative^[j] q).eval 0) → QuantumBlockEncoding.HermitePolynomial.rightModulus k ∣ p - q"
+        },
+        {
+          "depends_on": [],
+          "id": "n04",
+          "target": "∀ (k : ℕ), IsCoprime (QuantumBlockEncoding.HermitePolynomial.leftModulus k) (QuantumBlockEncoding.HermitePolynomial.rightModulus k)"
+        },
+        {
+          "depends_on": [
+            "n02",
+            "n03",
+            "n04"
+          ],
+          "id": "n05",
+          "target": "∀ (k : ℕ) (p q : Polynomial ℝ), (∀ j ≤ k, (Polynomial.derivative^[j] p).eval (-1) = (Polynomial.derivative^[j] q).eval (-1)) → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval 0 = (Polynomial.derivative^[j] q).eval 0) → (QuantumBlockEncoding.HermitePolynomial.leftModulus k) * (QuantumBlockEncoding.HermitePolynomial.rightModulus k) ∣ p - q"
+        },
+        {
+          "depends_on": [],
+          "id": "n06",
+          "target": "∀ (k : ℕ), ((QuantumBlockEncoding.HermitePolynomial.leftModulus k) * (QuantumBlockEncoding.HermitePolynomial.rightModulus k)).natDegree = 2 * k + 2"
+        },
+        {
+          "depends_on": [
+            "n06"
+          ],
+          "id": "n07",
+          "target": "∀ (k : ℕ) (d : Polynomial ℝ), d.natDegree ≤ 2 * k + 1 → (QuantumBlockEncoding.HermitePolynomial.leftModulus k) * (QuantumBlockEncoding.HermitePolynomial.rightModulus k) ∣ d → d = 0"
+        },
+        {
+          "depends_on": [
+            "n05",
+            "n07"
+          ],
+          "id": "n08",
+          "target": "∀ (k : ℕ) (p q : Polynomial ℝ), p.natDegree ≤ 2 * k + 1 → q.natDegree ≤ 2 * k + 1 → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval (-1) = (Polynomial.derivative^[j] q).eval (-1)) → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval 0 = (Polynomial.derivative^[j] q).eval 0) → p = q"
+        }
+      ],
+      "root_id": "n08"
+    },
+    {
+      "ambient_definitions": {
+        "Polynomial.derivative_iterate": {
+          "kind": "ambient",
+          "literal": "Polynomial.derivative^[j] p",
+          "normalized": "j-fold iteration of the ordinary algebraic polynomial derivative; iteration order zero is p"
+        },
+        "Polynomial.natDegree": {
+          "kind": "ambient",
+          "literal": "p.natDegree : ℕ",
+          "normalized": "natural polynomial degree; natDegree 0 = 0"
+        },
+        "Polynomial.taylor": {
+          "kind": "ambient",
+          "literal": "Polynomial.taylor a p",
+          "normalized": "the polynomial p(X+a), whose degree-j coefficient is the local Taylor coefficient about a"
+        },
+        "QuantumBlockEncoding.HermitePolynomial.jetPolynomial": {
+          "kind": "literal",
+          "literal": "def jetPolynomial (a : ℝ) (k : ℕ) (v : ℕ → ℝ) : ℝ[X] := taylor (-a) (∑ j ∈ Finset.range (k + 1), monomial j (v j / (j.factorial : ℝ)))",
+          "normalized": "jetPolynomial a k v = ∑ j ∈ Finset.range (k+1), Polynomial.C (v j / (j.factorial : ℝ)) * (Polynomial.X - Polynomial.C a)^j"
+        }
+      },
+      "anonymous_id": "J2",
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.HermitePolynomial"
+        ],
+        "preamble": "open scoped BigOperators",
+        "target": "∀ (a : ℝ) (k : ℕ) (v : ℕ → ℝ), (QuantumBlockEncoding.HermitePolynomial.jetPolynomial a k v).natDegree ≤ k ∧ ∀ j ≤ k, (Polynomial.derivative^[j] (QuantumBlockEncoding.HermitePolynomial.jetPolynomial a k v)).eval a = v j",
+        "universe_parameters": []
+      },
+      "imports": [
+        "QuantumBlockEncoding.HermitePolynomial"
+      ],
+      "interfaces": [
+        {
+          "name": "QuantumBlockEncoding.HermitePolynomial.eval_iterate_derivative",
+          "signature": "theorem eval_iterate_derivative (p : ℝ[X]) (a : ℝ) (j : ℕ) :\n    (derivative^[j] p).eval a = (j.factorial : ℝ) * (taylor a p).coeff j"
+        },
+        {
+          "name": "QuantumBlockEncoding.HermitePolynomial.jetPolynomial_jet",
+          "signature": "theorem jetPolynomial_jet (a : ℝ) (k j : ℕ) (v : ℕ → ℝ) (hj : j ≤ k) :\n    (derivative^[j] (jetPolynomial a k v)).eval a = v j"
+        }
+      ],
+      "nodes": [
+        {
+          "depends_on": [],
+          "id": "n01",
+          "target": "∀ (a : ℝ) (k j : ℕ) (v : ℕ → ℝ), j ≤ k → (Polynomial.taylor a (QuantumBlockEncoding.HermitePolynomial.jetPolynomial a k v)).coeff j = v j / (j.factorial : ℝ)"
+        },
+        {
+          "depends_on": [],
+          "id": "n02",
+          "target": "∀ (a : ℝ) (k : ℕ) (v : ℕ → ℝ), (QuantumBlockEncoding.HermitePolynomial.jetPolynomial a k v).natDegree ≤ k"
+        },
+        {
+          "depends_on": [
+            "n01"
+          ],
+          "id": "n03",
+          "target": "∀ (a : ℝ) (k j : ℕ) (v : ℕ → ℝ), j ≤ k → (Polynomial.derivative^[j] (QuantumBlockEncoding.HermitePolynomial.jetPolynomial a k v)).eval a = v j"
+        },
+        {
+          "depends_on": [
+            "n02",
+            "n03"
+          ],
+          "id": "n04",
+          "target": "∀ (a : ℝ) (k : ℕ) (v : ℕ → ℝ), (QuantumBlockEncoding.HermitePolynomial.jetPolynomial a k v).natDegree ≤ k ∧ ∀ j ≤ k, (Polynomial.derivative^[j] (QuantumBlockEncoding.HermitePolynomial.jetPolynomial a k v)).eval a = v j"
+        }
+      ],
+      "root_id": "n04"
+    }
+  ]
+}

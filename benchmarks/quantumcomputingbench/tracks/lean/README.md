@@ -6,6 +6,47 @@ independent dataset with its own split allocation. Read
 [the executable agent goal](AGENT_GOAL.md) and
 [the proposal example](../../shared/proposal.example.json).
 
+The local workstream now prioritizes the
+[Lean-enabled agentic evaluation contract](AGENTIC_EVALUATION.md): knowledge and
+precise statement understanding support proof completion, premise retrieval,
+multi-node construction, incremental feedback and repair. The existing views are
+warmups, not evidence that these interactive capabilities are already evaluated.
+Run `scripts/lean_agentic.py audit` from the benchmark folder to inspect the
+resolved frontier without executing proofs or reading gold into agent prompts.
+
+The experimental [obligation protocol](OBLIGATION_PROTOCOL.md) adds scoped
+declaration retrieval, fixed-target proof submissions, diagnostic-driven repair
+and independent final replay over two existing cores. Its inspected authored
+fixtures exercise the engineering protocol, with original one-call controls
+retained. They are not new admitted mathematical cores, blind tests, model
+scores, autonomous proof decomposition, or incremental Lean tactic states.
+
+The [sequential proof companions](SEQUENTIAL_PROOFS.md) add prospective SP007
+transfer-induction and SP008 real-probability views, with a source-blind decoder,
+distinct comparison and fixed references. They remain experimental proposals.
+[Capability diagnostics](CAPABILITY_SCORING.md) separately bind curated retrieval
+coverage, complete canonical explanation rubrics and evaluator-owned marks;
+they never turn a valid proof into an automatic NL or model score.
+
+The [registered evaluator](EVALUATOR.md) unifies four experimental task views,
+checks their recorded reference lineage and exports answer-free inputs. Its
+bounded provider-neutral loop has zero-call plans, synthetic protocol smokes
+and an explicitly authorized NL-only adapter boundary. Real model-generated
+formal proofs remain blocked before adapter initialization pending an accepted
+isolated verifier. Registration does not change canonical catalog admissions.
+Use the [local pilot handoff](LOCAL_PILOT_HANDOFF.md) to inspect delivered
+capabilities, actual reference evidence and the gates for a first model run.
+The subsequent [operator-profile and CI checkpoint](../../reports/lean-agentic-normalization-v1/execution-summary.json)
+records offline configuration validation and updated software checks; earlier
+execution/review records retain their original source identities and scope.
+
+The [staged Lean course](COURSE.md) now assembles 18 existing cores across
+provisional construction bands D1--D4, with D0 knowledge facets attached to the
+same questions. It adds reviewed normalization/domain, block/tensor/LCU, anchored-mass
+counterexample, cutoff-ledger and Taylor/rank companions, while preserving all canonical splits and
+formal-admission boundaries. Its audit checks actual recorded authored proofs;
+its topology counts describe supplied obligations rather than proof-term depth.
+
 Prioritize exact formal views of admitted source-supported NL targets. Record
 the literal imports, assumptions, target, readable correspondence, source hashes,
 fixed-reference proof, axiom audit and genuine execution class. A formal target

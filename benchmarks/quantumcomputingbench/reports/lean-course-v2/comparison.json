@@ -1,0 +1,184 @@
+{
+  "schema_version": "qcb.course_semantic_comparison.v1",
+  "reviewer": "/root/course_second_semantic_compare",
+  "source_blind": false,
+  "candidate_batch_digest": "54bcaba21df2d2b2e993e65edf407bc9e4dc83a12cbbd7b8356a04ab95f4d018",
+  "packet_digests": {
+    "conditioning": "6407fecde0c8071f98a913f4319f278a76644cdfe00fcc4b16be522fc0edca03",
+    "lcu": "8892961840528f69443e9cfba019de86f313949f7405a8e5efcca7b28d1e063d"
+  },
+  "decoder_digests": {
+    "conditioning": "bf03d3d06ae36d704818d046b0c0faf79d43a93bf4ca3086e36f530d5dfd5d92",
+    "lcu": "3d07ba1318554b2cd15b13d21b0ece34d3ab3c926f1989175735823fee07d6b6"
+  },
+  "comparison_input_digest": "76fdbe4a1c539c6af10a24bbb3b054731f2316f9ec46e94a6b1c9a5ad69fd339",
+  "review_scope": {
+    "kind": "Independent source-aware comparison of the four exact formal root statements against their canonical natural-language questions, reference answers, and rubrics.",
+    "sole_mathematical_input": "benchmarks/quantumcomputingbench/reports/lean-course-v2/comparison-input.json",
+    "method": "Independently expand the supplied ambient definitions, reconstruct quantifier and implication scopes, check boundary cases and small logical counterexamples, then compare with the supplied source-blind reconstructions. The current canonical QA packet is authoritative for this review; no alternative source wording is substituted.",
+    "process_inputs": [
+      "AGENTS.md",
+      "HARNESS.md",
+      "docs/theorem-publication-protocol.md",
+      "docs/proof-digestion-protocol.md",
+      "docs/evidence-routed-memory-protocol.md",
+      "The qcb_core.digest helper definition, solely for content binding."
+    ],
+    "excluded": [
+      "No author packet, proof body, binder classification, desired verdict, or prior verdict outside the canonical comparison input was read.",
+      "Historical review metadata embedded in source items was not used as evidence for the verdicts.",
+      "No imported Lean implementation, external mathematical source, Lean elaboration, build, proof execution, commit, push, or deployment was used."
+    ],
+    "acceptance_meaning": "Accept means semantic alignment of the displayed root with an identified part of the current source task. It does not certify proof validity, a mandated proof method, complete rubric coverage, or publication readiness.",
+    "common_blind_spot_audit": [
+      "A conjunction of correct conclusions does not certify how they were proved. In particular, SP113 does not by itself certify a positivity-free dependency path, and SP120 does not by itself certify the requested invariant induction or exact-endpoint derivation.",
+      "Global unitarity is separate from coefficient readout, projected-block correctness, and deterministic cleanup. BE106 isolates readout validity; BE112 contains only global group and complete-inverse conclusions, with no designated clean labels.",
+      "Unnormalized squared mass is neither a normalized-state correctness certificate nor a preparation-success lower bound. The SP113 arbitrary positive vector must remain separate from the Hermite samples, even when n=0 makes both tables have two entries.",
+      "SP113 uses 2^(n+1) sample points, while SP120 searches 2^n cells over the left half of that full grid and permits the right endpoint as a cutoff. Both include n=0 without an empty domain.",
+      "The SP120 exact-real counters charge only declared real arithmetic and exact comparisons. They provide no finite-bit, runtime, quantum-gate, memory, or physical I/O cost theorem.",
+      "The supplied decoders preserve these distinctions. No shared source/formal mismatch or unresolved explicit-argument typing ambiguity was identified in the current packet. Decoder agreement was checked against the definitions rather than treated as an acceptance certificate."
+    ]
+  },
+  "views": [
+    {
+      "core_id": "qcb-core-be-106",
+      "task_hash": "56e23870b15d814fe6d7baf028efd3d7be4b961e3c363bcf82894275c9b43e4f",
+      "source_item_digest": "a01f8f5245eb84999d3a73584d8019263b296e87e308ca3a6b391d676bbcc2ea",
+      "formal_context_digest": "4b8e6c712f7353fbc8f5f9a5fab70e0e3cdcf81d1fa9116bcc40ac5b63169f60",
+      "verdict": "accept",
+      "reasoning": "The actual canonical question explicitly chooses any fixed real function t with cos(t(x))=x on [-1,1] and leaves its extension unspecified. Thus the root's universal angle function and its interval cosine premise reproduce a SOURCE assumption, not a convenience replacement of a specifically prescribed arccos gate. Expanding realRotation gives the complex matrix [[cos(angle x),-sin(angle x)],[sin(angle x),cos(angle x)]]. Its adjoint product is the identity for every real angle by cos^2+sin^2=1; the separate be106_angle_unitary node states that unconditional angle fact without the interval premise. The clean entry is cos(angle x). The premise proves equality on the closed interval, and the real cosine range proves that equality implies -1<=x<=1, hence also rules out every |x|>1 independently of extension values. The root's biconditional and final implication therefore match claims A and B, including endpoints. The decoder reconstructs precisely these scopes. No branch choice, sine-sign constraint, continuity condition, or extra validity premise is introduced.",
+      "whole_question_coverage": {
+        "status": "partial_whole_question_coverage_with_aligned_root",
+        "covered": [
+          "The mathematical decision claims of c1-c3: unitarity for every real input, exact readout on [-1,1], and extension-independent failure for |x|>1.",
+          "The root separates the structural unitarity property from the conditional coefficient-readout property, which is the mathematical content behind c4."
+        ],
+        "not_certified": [
+          "The requested human proof and explanation of the asymmetry are not supplied by a theorem type or a semantic reconstruction.",
+          "No proof body was inspected to establish the exact proof route, and no new Lean-validity claim is made."
+        ]
+      },
+      "semantic_slots": {
+        "target_and_normalization": "An exact 2-by-2 complex rotation matrix with top-left readout equal to the real x embedded in C; no state-normalization or success claim.",
+        "domains_and_quantifiers": "For every angle:R->R satisfying the source interval cosine property, for every real x. The universal x is outside all interval conditions; |x|>1 is local to the final conjunct.",
+        "register_order_and_phase": "Fin 2 rows and columns in order 0,1; signs are (cos,-sin;sin,cos). Different inverse-cosine branches may change the sine sign; the root does not identify them or discard relative signs.",
+        "assumptions": "The only logical input beyond the real function is exactly its source-stated cosine property on [-1,1]. No particular extension or arccos evaluation is needed.",
+        "boundary_cases": "Weak interval inequalities include x=-1 and x=1. Outside failure is strict |x|>1. Fin 2 is nonempty and fixed.",
+        "resource_tier": "No oracle, compiled circuit, approximation, probability, or cost assertion.",
+        "decoder_comparison": "Agrees with L1 on the complete root, the free extension, complex embedding, and nonclaims."
+      },
+      "remaining_limitations": [
+        "This acceptance applies to the current arbitrary-extension question; it is not a comparison with any predecessor or a different arccos-specific source.",
+        "The root assumes the interval property rather than constructing an angle function, as the canonical source already stipulates such a choice.",
+        "Reader-facing proof/explanation and successful Lean elaboration remain outside this review."
+      ]
+    },
+    {
+      "core_id": "qcb-core-be-112",
+      "task_hash": "4c56ff3bd3f4196f7e647bfc853892d1ab1b4108141e26f3bb84bc8ac4b68b53",
+      "source_item_digest": "b8e9794f7bb8d12f2bbfb63c310d9e29cd2fde308eab5dd83320a05a743f9736",
+      "formal_context_digest": "2797d0956b0cc6db85520823e8b91cbb585ad9ce2a736cc330792886ed69eb70",
+      "verdict": "accept",
+      "reasoning": "The source explicitly stipulates the local unitary certificates, so placing PREPARE unitarity and pointwise block unitarity in the root's hypotheses is faithful; SELECT is supplied as a family of equivalences, which already supplies its bijectivity. On C x (S x X), set T(P)=I_C tensor(P tensor I_X), A=amplitudeLift, and V=selectLift. The root first asserts unitarity of T(P)^dagger V A T(P), exactly the chosen architecture, whose chronological order is T(P), A, V, T(P)^dagger on column states. It then asserts unitarity of T(B) V A T(P) for every unitary B with no inverse relation to P. The last conjunct separately says D P=I implies D=P^dagger, with no independent unitarity premise on D; for finite square unitary P this follows by multiplying on the right by P^dagger. These are distinct implications, not a false uniqueness conclusion from global unitarity. For example, with singleton C,X, selector qubit, P=H and A=V=I, B=I gives the unitary H instead of the chosen I, and changes the clean scalar from 1 to 1/sqrt(2). Thus the source's non-necessity assessment is compatible with the root. The supplied explicit applications also match their interfaces: selectLift takes dc,ds,dt, while the other displayed lifts take fc,dc,fs,ds,ft,dt. No residual type ambiguity is visible in the packet.",
+      "whole_question_coverage": {
+        "status": "partial_whole_question_coverage_with_aligned_root",
+        "covered": [
+          "The sufficient product-unitarity conclusion for the unchanged adjoint architecture, without a clean-input premise.",
+          "The universal-unitary-replacement conclusion and the distinct full-selector left-inverse uniqueness conclusion, covering part of c3.",
+          "The supplied lift definitions identify the tensor, block-diagonal, permutation and adjoint structure relevant to c1-c2."
+        ],
+        "not_certified": [
+          "The root does not contain the requested explicit projection-changing example, shared-clean-row example, or H/controlled-X cleanup counterexample.",
+          "No designated clean injection J, projected block J^dagger W J, accepted-label condition, or deterministic-cleanup condition appears in the root.",
+          "The chronological and group-closure explanations are reconstructable from the context but are not a certified written proof of every rubric item; c3 and c4 are not fully covered."
+        ]
+      },
+      "semantic_slots": {
+        "target_and_scalars": "Exact complex matrices on a common finite index C x (S x X), with unitary membership interpreted as M^dagger M=I.",
+        "register_order_and_time": "Coefficient is the outer register; selector precedes system within the pair. The amplitude family is controlled by the pre-SELECT (s,x); the permutation sends x to pi_s(x), not its inverse. Written matrix factors act from right to left.",
+        "assumptions_and_types": "P unitary and every coefficient block unitary are source-stipulated inputs. Equivalences type SELECT as a permutation. Fintype and DecidableEq are carrier data. No extra inverse, clean-label, or cleanup hypothesis enters the root.",
+        "inverse_vs_global_unitarity": "The two occurrences of forall other bind different matrices. Arbitrary unitary B ensures global product unitarity; D P=I on all of S ensures D=P^dagger. The latter premise is not imposed on B.",
+        "projection_vs_cleanup": "Same clean block is weaker than full inverse: P=I, A=V=I, clean selector 0 and D=diag(1,-1) give distinct unitary total operators I and D with the same clean scalar 1. Chosen adjoint architecture does not ensure cleanup: P=H and controlled-X SELECT send |0,0> to (|0,0>+|0,1>+|1,0>-|1,1>)/2 after the final H, leaving selector 1 with probability 1/2. These independent checks explain missing coverage; they are not root conjuncts.",
+        "empty_cases": "Any finite carrier may be empty. The global theorem remains well formed, including empty lifted spaces. Clean-label questions require designated labels and cannot be inferred from this root; the inverse conclusion remains a selector-level statement even if C or X is empty.",
+        "resource_tier": "Logical group membership only, without a target encoded block, normalized output, success probability, gate decomposition, query cost or finite-bit cost.",
+        "decoder_comparison": "Agrees with L2 on product order, replacement scope, left-inverse uniqueness, empty cases, exact instance argument order and absence of clean-sector claims."
+      },
+      "remaining_limitations": [
+        "Acceptance must not be used as complete coverage of the projection and cleanup portions of the canonical question.",
+        "The independent examples in this comparison are mathematical discriminators, not newly compiled Lean theorems.",
+        "No gate-level implementation, proof body, or compilation was reviewed."
+      ]
+    },
+    {
+      "core_id": "qcb-core-sp-113",
+      "task_hash": "034612e7e277e1efa2da760352c937a3ffcf582ca8b35e6863effd64e8158807",
+      "source_item_digest": "525b8f123a38d56fcc3b95a970d0d7c293dddad13575bc075c874c6c6d614748",
+      "formal_context_digest": "db03bfd3dc5a7d788fefa320b54c5d7f540fd6f316f66ca9d2b64e6580f7745f",
+      "verdict": "accept",
+      "reasoning": "The root uses N=n+1 in every Hermite grid/sample/norm expression, so it concerns M=2^(n+1) real samples, as the source requires. Its central Fin index has natural value c=2^n, which is strictly below 2^(n+1). Substituting gives p_c=-pi L+2^n*(2 pi L/2^(n+1))=0. At p=0 the supplied piecewise definition uses the middle branch; the supplied zeroth endpoint jet gives its value 1. Equivalently, in the ambient interpolation formula t=1, the first term is zero and the second is A_k(0)=1. Consequently one squared term is 1 and all other real squares are nonnegative, giving mass>=1 and sqrt(mass)>0 without positivity of all samples. The root states exactly these four facts and does not add positivity as a hypothesis. Its final existential is a logically independent Fin 2 vector; for example both entries 1/4 give positive entries, mass 1/8<1, and neither entry equals 1. This faithfully refutes positivity alone as a unit-anchor principle and does not contradict the actual Hermite mass bound. At n=0, M=2 and c=1, so the source's one-qubit boundary case is preserved. The decoder correctly separates the existential from the samples, even in this equal-length case.",
+      "whole_question_coverage": {
+        "status": "partial_whole_question_coverage_with_aligned_root",
+        "covered": [
+          "The exact central coordinate, unit sampled value, uniform unnormalized mass lower bound and strictly positive square-root normalizer.",
+          "The mathematical existence of a strictly positive finite table with mass below 1 and no unit entry.",
+          "The root includes all k,n in N with L>0, including n=0 as a two-point register."
+        ],
+        "not_certified": [
+          "A conjunction of the mass bound and norm positivity does not certify that the actual proof of the norm conjunct avoids the separately supplied sampleNorm_pos positivity route.",
+          "The root does not certify the requested explanation of which facts realize the actual sample, the little-endian bit interpretation, or strict positivity's separate role.",
+          "The existential does not specify an explicit numerical witness in its statement. Thus the full explanatory and proof-method requirements of c1-c4 are not all certified."
+        ]
+      },
+      "semantic_slots": {
+        "target_and_normalization": "The source smoothInitial family sampled on its exact real grid; raw mass is the unweighted sum of real squares, with no grid-step factor. sampleNorm is the square root of that same sum, not a normalized vector.",
+        "dimension_and_order": "M=2^(n+1), j in Fin M, little-endian j=sum bit_i*2^i. The central integer 2^n is bit_n=1 with lower bits zero. The left endpoint is included and the right endpoint excluded.",
+        "boundary_cases": "k=0 and n=0 are included. At n=0 the actual positions are -pi L and 0, with unit sample at j=1. The source domain remains L>0 despite wider-domain ambient interfaces.",
+        "assumptions_and_proof_dependency": "Only the source L>0 premise appears. Grid membership, the coordinate identity and f_k(0)=1 realize the unit sample. Nonnegative squares suffice for the inequality; universal strict positivity is neither a premise nor a logical necessity for that chain. The actual Lean dependency path is unreviewed.",
+        "counterexample_scope": "There exists one independent real a:Fin 2->R satisfying all three conditions simultaneously. It is not sampledAmplitude, is not universally every positive vector, and need not depend on k,n,L even though its binder is nested inside them.",
+        "phases_and_success": "No complex phase, coherent preparation, clean ancilla, circuit action, normalized-state theorem or postselection-success estimate is asserted.",
+        "decoder_comparison": "Agrees with ambient-A on all five conjuncts, n+1 rather than n, the two-point n=0 case, real unweighted mass and independent existential scope."
+      },
+      "remaining_limitations": [
+        "The positivity-free argument reconstructed here is a mathematical justification of alignment, not evidence that a particular supplied proof follows that route.",
+        "The general sampleNorm_pos interface may use separate positivity facts; its presence must not be cited as certification of the requested method.",
+        "No preparation-circuit or success-probability conclusion follows from mass>=1, and no new Lean verification was performed."
+      ]
+    },
+    {
+      "core_id": "qcb-core-sp-120",
+      "task_hash": "a5cbd0ed286c2d9d348243b96ab3b6c2b904bc287588b142ed8b059d1b68a05d",
+      "source_item_digest": "345c21e4f78ee80ed2cbaa7372d069aacbfb19d8c3c2f046e5b8df13c107196a",
+      "formal_context_digest": "a5b0f55f070b725db4a5885a881fe0c2379889906d9d35183d1ef48c4d27a6e5",
+      "verdict": "accept",
+      "reasoning": "With h=2 pi L/2^(n+1)=pi L/2^n>0, the source's left-half search interval is [-pi L,0] with 2^n cells and allowed cutoff indices 0 through 2^n inclusive. The ambient natural ceiling defines c=ceil_N((-1+pi L)/h), clamped to 0; the supplied strict predicate equivalence says precisely gridPointNat(j)<-1 iff j<c. Thus equality to -1 belongs to the false branch, and pi L<=1 correctly gives c=0 without an added interior-crossing assumption. The interval_value interface records start<=c<=start+2^remaining and the exact lower/span form; halving the span and adding it to the lower endpoint gives the advertised midpoint index. At remaining=0, c is one of start,start+1, and the strict comparison selects the correct one. At n=0 specifically, h=pi L and c is 0 when pi L<=1 and 1 otherwise; the base comparison returns exactly that result. The root asserts the top-level compute value equals c and the exact four cost projections required by the source: search field=2n and compare=n+1, producer field=2n+2 and compare=n+1. Each recursive refinement charges one real division, one real addition and one strict comparison; the leaf charges one comparison, and compute adds one multiplication and one subtraction. These are declared exact-real counters, with no hidden finite-bit or quantum-cost reading. The decoder preserves this distinction and does not promote the ambient all-op cost formula into an extra root conjunct.",
+      "whole_question_coverage": {
+        "status": "partial_whole_question_coverage_with_aligned_root",
+        "covered": [
+          "The exact top-level returned cutoff for every n in N and L>0, including both endpoint cutoff indices and n=0.",
+          "All four stated real-arithmetic cost equalities, including the difference between search proper and producer initialization.",
+          "The supplied interval_value node/interface gives the relevant invariant-form statement, while the ambient recursion fixes the strict branch convention."
+        ],
+        "not_certified": [
+          "The root itself is a top-level equality and cost conjunction; it does not contain the requested induction proof, midpoint identity proof, or endpoint-case exposition.",
+          "The root does not explicitly state the value of the standalone search expression used in its cost conjuncts, although compute's supplied definition identifies its value with that call.",
+          "The source proof rubric r1-r3 requires method and explanation beyond an aligned root; the root and ambient interfaces do not certify those proof bodies."
+        ]
+      },
+      "semantic_slots": {
+        "target_and_interval": "A natural cutoff index for the first nonnegative grid index at or above -1, with gridPointNat(j)=-pi L+h*j. The full grid denominator is 2^(n+1); the searched left interval has 2^n cells. Its right endpoint is included as a possible cutoff, without requiring c<2^n.",
+        "threshold_and_boundaries": "Comparison is exactly x<-1. Equality takes the false branch. c=0 is possible when the threshold is left of or at the initial grid point; c=2^n is also allowed. All positive scales are retained; no pi L>1 or interior-crossing premise is added.",
+        "zero_depth": "At n=0 there is one cell, zero midpoint refinements, zero search field charges and one comparison. Producer initialization adds two field charges. There is no empty-grid case.",
+        "quantifier_and_invariant_scope": "The root quantifies every natural n and positive real L. The general interval theorem separately quantifies remaining and start with lower/upper cutoff bounds; these are recursive invariant premises, not extra top-level source assumptions.",
+        "cost_ledger": "Cost is Op->N, charge contributes one tick, pure zero, and bind adds selected-branch costs. The root projects only field and compare. General ambient formulas describe other tags only within this ledger and do not count physical reads, writes or memory use.",
+        "excluded_costs": "Natural index additions, powers of two, branch control, proof work and counter bookkeeping are uncharged. Exact real arithmetic and comparisons are idealized operations. No finite representation, precision analysis, floating-point stability, total runtime, quantum gate count or depth claim is present.",
+        "decoder_comparison": "Agrees with ambient-B on the clamped natural ceiling, inclusive cutoff endpoints, strict predicate, n=0, producer versus search costs and the root's two-component scope."
+      },
+      "remaining_limitations": [
+        "This acceptance does not certify the full invariant-based proof requested by the rubric or an implementation of exact real comparison.",
+        "The source answer's phrase 'already-decided low-order index' should be read as the current natural starting offset: the recursion adds 2^remaining while descending through decreasing powers. No low-bit commitment theorem is asserted by the root.",
+        "The top-level source and root domain is L>0; broader cost interfaces are not silently promoted to a stronger source result.",
+        "No Lean execution, runtime benchmark, finite-bit theorem or quantum-circuit certification was performed."
+      ]
+    }
+  ]
+}

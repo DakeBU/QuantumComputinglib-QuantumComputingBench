@@ -1,5 +1,5 @@
 /* Use the textbook's own typography, palette, themes and layout shell. */
-.qcb-reader, .qcb-home { min-width: 0; max-width: 100%; }
+.qcb-reader, .qcb-home { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
 .qcb-reader h1 { font-size: clamp(1.65rem, 3vw, 2.6rem); line-height: 1.2; text-wrap: balance; overflow-wrap: anywhere; }
 .qcb-reader h2, .qcb-reader h3 { overflow-wrap: anywhere; }
 .qcb-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 1.1rem; margin: 1.5rem 0; }
@@ -7,12 +7,12 @@
 .qcb-card h3 { font-size: 1.05rem; line-height: 1.5; margin: .4rem 0; }
 .qcb-card p, .qcb-meta, .qcb-breadcrumb { font: .8rem/1.7 var(--ui-font); color: var(--muted); }
 .qcb-card[hidden] { display: none; }
-.qcb-section { margin: 2.5rem 0; }
+.qcb-section { margin: 2.5rem 0; scroll-margin-top: 128px; }
 .qcb-part { padding: 1.2rem 0; border-top: 1px solid var(--line); }
 .qcb-part h3 { margin: .2rem 0; }
 .qcb-boundary { border-left: 3px solid var(--warm); background: var(--surface-subtle); padding: .85rem 1rem; font: .85rem/1.7 var(--ui-font); }
 .qcb-prose { white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.9; }
-.qcb-disclosure { margin: 1.1rem 0; padding: .9rem 1rem; border: 1px solid var(--line); border-radius: 6px; }
+.qcb-disclosure { margin: 1.1rem 0; padding: .9rem 1rem; border: 1px solid var(--line); border-radius: 6px; scroll-margin-top: 128px; }
 .qcb-disclosure summary { font: 600 .92rem/1.7 var(--ui-font); cursor: pointer; }
 .qcb-disclosure[open] summary { margin-bottom: 1rem; }
 .qcb-reader pre { max-width: 100%; overflow-x: auto; padding: 1rem; color: var(--code-ink); background: var(--code-bg); font-size: .8rem; }
@@ -26,3 +26,29 @@
 .qcb-home { margin: 1.5rem 0 3rem; border: 1px solid var(--line-strong); border-left: 5px solid var(--block); border-radius: 6px; padding: clamp(1rem, 3vw, 2rem); background: var(--surface); }
 .qcb-home h2 { font-size: clamp(1.5rem, 2.7vw, 2.2rem); line-height: 1.3; }
 @media (max-width: 600px) { .qcb-card, .qcb-disclosure { padding: .85rem; } .qcb-reader ul, .qcb-reader ol { padding-left: 1.35rem; } }
+.qcb-reader .qcb-deck { font-size: 1.15rem; line-height: 1.65; color: var(--muted); }
+.qcb-jump { display: flex; flex-wrap: wrap; gap: .55rem 1.2rem; margin: 1.6rem 0; font: .82rem/1.6 var(--ui-font); }
+.qcb-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-block: 1px solid var(--line); margin: 2rem 0 1rem; }
+.qcb-stats > div { padding: 1.2rem .8rem; }
+.qcb-stats strong { display: block; color: var(--ink); font: 500 clamp(1.8rem, 4vw, 2.5rem)/1.2 var(--ui-font); }
+.qcb-stats span { display: block; margin-top: .45rem; font: .76rem/1.6 var(--ui-font); color: var(--muted); }
+.qcb-ladder { list-style: none; padding: 0 !important; counter-reset: none; }
+.qcb-ladder > li { padding: 1rem 0; border-bottom: 1px solid var(--line); }
+.qcb-ladder a { display: flex; align-items: center; gap: .8rem; }
+.qcb-ladder p { margin: .5rem 0 .2rem; color: var(--muted); font-size: .9rem; line-height: 1.75; }
+.qcb-level { flex: 0 0 auto; min-width: 2.5rem; padding: .3rem .5rem; border: 1px solid var(--line-strong); border-radius: 5px; font: 600 .8rem/1.5 var(--ui-font); text-align: center; background: var(--surface-subtle); }
+.qcb-legend dt { margin-top: 1rem; font-weight: 600; }
+.qcb-legend dd { margin: .4rem 0 1rem; color: var(--muted); }
+.qcb-flow { margin: 1.5rem 0; padding: clamp(.85rem, 3vw, 1.4rem); border: 1px solid var(--line); border-radius: 7px; background: var(--surface-subtle); }
+.qcb-flow-row { display: flex; gap: .65rem; margin: .6rem 0; }
+.qcb-flow-step { flex: 1; min-width: 0; padding: .8rem; border: 1px solid var(--line-strong); border-radius: 5px; background: var(--surface); font: .82rem/1.65 var(--ui-font); overflow-wrap: anywhere; }
+.qcb-flow-arrow { padding: .45rem; text-align: center; color: var(--muted); font: .78rem/1.6 var(--ui-font); }
+.qcb-flow figcaption { margin-top: 1rem; font: .76rem/1.65 var(--ui-font); color: var(--muted); }
+.qcb-obligations > li { margin-block: 1.2rem; }
+@media (max-width: 600px) {
+  .qcb-stats { grid-template-columns: 1fr; }
+  .qcb-stats > div { display: flex; gap: 1rem; align-items: center; padding: .75rem .25rem; }
+  .qcb-stats strong { min-width: 3rem; font-size: 1.8rem; }
+  .qcb-stats span { margin: 0; }
+  .qcb-flow-row { flex-direction: column; }
+}

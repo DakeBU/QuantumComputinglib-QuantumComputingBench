@@ -1,0 +1,165 @@
+{
+  "decoder_identity": "/root/course_third_blind_decode",
+  "packet_digest": "0847e2c3a0b9be221f56819f564f8b285474a6681b4145481fda084e74653fa0",
+  "schema_version": "qcb.curriculum_blind_decode.v1",
+  "source_blind": true,
+  "views": [
+    {
+      "ambiguities": [],
+      "anonymous_id": "P1",
+      "limitations": [
+        "The supplied defining equations and literal data fields determine the controlled map, inverse, matrix orientation, and scalar convention used in this reconstruction; no essential missing ambient definition was identified.",
+        "No statement of state preparation, coefficient encoding, block encoding, normalized input states, success probability, approximation error, gate decomposition, ancilla cleanup, or circuit cost occurs in the root.",
+        "The signature-observation logs were not opened. No Lean execution, proof inspection, imported implementation reading beyond the supplied data, source comparison, or proof-quality assessment was performed.",
+        "The listed dependencies are the packet graph, not an independently verified proof topology or compilation claim."
+      ],
+      "reconstructed_statement": "For all types coefficient:Type u, selector:Type v, system:Type w equipped with Fintype and DecidableEq instances, and every family permutation:selector->(system equiv system), let I=coefficient x (selector x system), and let T(c,(s,x))=(c,(s,permutation(s)(x))). The root conjoins two packages. First, for every i=(c,(s,x)) in I, T(i) has that displayed value and T inverse(i)=(c,(s,permutation(s) inverse(x))); moreover, T(c,(s,permutation(s) inverse(x)))=i and T inverse(c,(s,permutation(s)(x)))=i. Both cancellations use exactly the original selector s. Second, selectLift(permutation), the complex permutation matrix of T, belongs to Matrix.unitaryGroup I C. The finite types are allowed to be empty, and the coefficient register is an index type rather than a complex scalar amplitude.",
+      "semantic_slots": {
+        "conclusions": [
+          "Both the displayed forward/inverse action formulas and both inverse cancellations on I.",
+          "U_T belongs to the complex unitary matrix submonoid: its conjugate transpose times itself is the identity, and equivalently in this finite square setting the product in the opposite order is the identity."
+        ],
+        "domains_and_quantifiers": [
+          "The root universally quantifies the types coefficient:Type u, selector:Type v, system:Type w in their declared universes.",
+          "Each of the three types has both a Fintype instance and a DecidableEq instance in the root. These hypotheses provide finite carriers and decidable equality; they do not require a nonempty carrier or a cardinality that is a power of two.",
+          "For each selector s, permutation(s) is an arbitrary equivalence system equiv system; the data already include its inverse and both inverse laws.",
+          "Every equation in the first package is universally quantified over index:I. There is no distinguished coefficient, selector, or system basis input.",
+          "The generic permutation-matrix unitarity node quantifies an independent finite type i:Type u with decidable equality and every equivalence e:i equiv i.",
+          "The same-selector inverse node itself requires no Fintype or DecidableEq hypotheses on its three types; those extra instances enter the root and the finite matrix statements."
+        ],
+        "empty_carriers": "No Nonempty hypothesis is present. If any product carrier is empty, equations universally quantified over its indices are vacuous and matrices over that empty product are still defined as functions; finite summation and identity use their ordinary empty-index conventions.",
+        "formal_context": {
+          "imports": [
+            "QuantumBlockEncoding.Robin.ComplexLCU"
+          ],
+          "preamble": "universe u v w\nopen scoped BigOperators",
+          "target": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (permutation : selector → system ≃ system), ((∀ index : QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system, (@QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv coefficient selector system permutation) index = (index.1, (index.2.1, permutation index.2.1 index.2.2)) ∧ (@QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv coefficient selector system permutation).symm index = (index.1, (index.2.1, (permutation index.2.1).symm index.2.2))) ∧ (∀ index : QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system, (@QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv coefficient selector system permutation) (index.1, (index.2.1, (permutation index.2.1).symm index.2.2)) = index ∧ (@QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv coefficient selector system permutation).symm (index.1, (index.2.1, permutation index.2.1 index.2.2)) = index)) ∧ (@QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dt permutation) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ",
+          "universe_parameters": [
+            "u",
+            "v",
+            "w"
+          ]
+        },
+        "matrix_definitions": {
+          "adjoint": "star(A)(row,column)=conjugate(A(column,row)); this is conjugate transpose, not entrywise conjugation alone.",
+          "equivalence": "An equivalence e has e inverse with e inverse(e(x))=x and e(e inverse(y))=y.",
+          "identity": "I(row,column)=1 if row=column and 0 otherwise.",
+          "matrix_entries": "A matrix of shape m-by-n is a function m -> n -> C.",
+          "mulVec": "mulVec(A,v)(row)=sum_column A(row,column)*v(column).",
+          "multiplication": "(A*B)(row,column)=sum_k A(row,k)*B(k,column). Matrices act on column vectors from the left, so B acts before A in A*B.",
+          "permutation_matrix": "For e:i equiv i, U_e(row,column)=1 if row=e(column), and 0 otherwise. Thus a basis column at x is sent to the basis column at e(x), whereas output amplitudes are reindexed by e inverse.",
+          "scalars": "All displayed matrices and vectors have entries in the complex field C. Matrix scalar 0 and 1 are complex numbers.",
+          "trans_chronology": "(first.trans second)(x)=second(first(x)).",
+          "unitary_membership": "The supplied complex finite-square-matrix convention identifies membership in Matrix.unitaryGroup with star(A)*A=I; it is equivalent here to A*star(A)=I."
+        },
+        "node_roles": [
+          {
+            "depends_on": [],
+            "id": "be110_same_selector_inverse",
+            "reconstructed_role": "For arbitrary types coefficient,selector,system and a selector-indexed family of system equivalences, package the forward and inverse action formulas on every index and both same-selector cancellations. No finiteness or equality-decider premise appears in this node."
+          },
+          {
+            "depends_on": [],
+            "id": "be110_basis_unitary",
+            "reconstructed_role": "For every finite type i with decidable equality and every e:i equiv i, the matrix U_e belongs to Matrix.unitaryGroup i C. This is the generic finite permutation-matrix unitarity interface."
+          },
+          {
+            "depends_on": [
+              "be110_same_selector_inverse",
+              "be110_basis_unitary"
+            ],
+            "id": "be110_root",
+            "reconstructed_role": "Root conjunction: retain the exact forward/inverse and cancellation package, now under the three finite decidable carrier hypotheses, and assert unitarity of selectLift(permutation)=U_T."
+          }
+        ],
+        "register_order_and_maps": {
+          "coefficient_meaning": "coefficient is an arbitrary index carrier in the product. No real/complex coefficient function, magnitude, probability, preparation state, or normalization is part of this root.",
+          "first_cancellation": "T(c,(s,permutation(s) inverse(x)))=(c,(s,x)).",
+          "forward": "T(c,(s,x))=(c,(s,permutation(s)(x))).",
+          "index_projections": "For i=(c,(s,x)), i.1=c, i.2.1=s, i.2.2=x.",
+          "index_type": "LCUIndex(coefficient,selector,system)=coefficient x (selector x system). The product nesting and projection order are exact.",
+          "inverse": "T inverse(c,(s,x))=(c,(s,permutation(s) inverse(x))).",
+          "same_selector": "Forward and inverse retain c and s; neither changes or inverts the selector. Each system permutation and its inverse are chosen by the same unchanged s.",
+          "second_cancellation": "T inverse(c,(s,permutation(s)(x)))=(c,(s,x))."
+        },
+        "root_node_id": "be110_root",
+        "root_target_equals_named_node_target": true,
+        "select_lift": "selectLift(permutation)=U_T. Its row (c2,(s2,y)) and column (c1,(s1,x)) entry is complex 1 precisely when the row equals (c1,(s1,permutation(s1)(x))), and otherwise is 0."
+      }
+    },
+    {
+      "ambiguities": [],
+      "anonymous_id": "P2",
+      "limitations": [
+        "The supplied ambient definitions fix trans, permutation-matrix row/column orientation, multiplication, conjugate transpose, complex scalars, and mulVec. No essential ambient definition or signature ambiguity for this reconstruction was identified.",
+        "The root is an exact algebraic composition statement; it includes no circuit implementation, gate sequence, resource estimate, approximation parameter, or normalized-state claim.",
+        "The root does not itself assert unitaryGroup membership, although the packet contains a separate generic unitarity node in P1.",
+        "No Lean execution, signature-log inspection, proof inspection, source comparison, source equivalence, or proof-quality assessment was performed. The dependency list is taken only as supplied."
+      ],
+      "reconstructed_statement": "For every type i:Type u with Fintype and DecidableEq, and all equivalences first,second:i equiv i, define U_e(row,column)=1 when row=e(column) and 0 otherwise, as a complex matrix. The root conjoins: (1) for every complex square matrix O and every row r and column c, sum_{k:i} U_second(r,k)*O(k,c)=O(second inverse(r),c); (2) U_second*U_first=U_(first.trans second); and (3) for every complex column-vector function v:i->C, mulVec(U_(first.trans second),v)=mulVec(U_second,mulVec(U_first,v)). Since first.trans second maps x to second(first(x)), both the matrix product and nested mulVec apply first first and second second in chronological order. No nonemptiness or normalized-state hypothesis is imposed.",
+      "semantic_slots": {
+        "composition_and_chronology": {
+          "basis_column_trace": "An input basis column at x goes to the basis column at first(x), then to the basis column at second(first(x)).",
+          "coordinate_reading": "At output row r, either side of the vector identity has value state(first inverse(second inverse(r))). The inverse pullback order is the reverse of the forward basis-index action.",
+          "equality_kind": "The composition is equality of complete matrices; the mulVec conclusion is equality of complete functions i->C, not merely one entry or a normalized-state subspace.",
+          "equivalence_composition": "h=first.trans second has h(x)=second(first(x)).",
+          "matrix_identity": "U_second*U_first=U_h.",
+          "nested_vector_identity": "For every state, mulVec(U_h,state)=mulVec(U_second,mulVec(U_first,state)). The innermost application executes first."
+        },
+        "conclusion_grouping": "A conjunction of the universally quantified left-multiplication entry formula, exact matrix composition equality, and universally quantified vector-action composition equality.",
+        "domains_and_quantifiers": [
+          "The root universally quantifies a type i:Type u, a Fintype instance, a DecidableEq instance, and first and second each of type i equiv i.",
+          "The first root conjunct universally quantifies O:Matrix i i C and row,column:i. O need not be unitary or a permutation matrix.",
+          "The third root conjunct universally quantifies all state:i->C. State denotes an arbitrary vector function and has no norm, nonzero, real-valued, positivity, or probability premise.",
+          "The surviving-index node is more general than the root: for all i:Type u and kappa:Type v, only i must be finite and have decidable equality. It takes e:i equiv i, O:Matrix i kappa C, row:i, column:kappa. No Fintype, DecidableEq, or Nonempty assumption is imposed on kappa.",
+          "The v universe declared in the context is used by the rectangular-node carrier kappa; the square root only uses i:Type u."
+        ],
+        "empty_carriers": "Fintype does not imply Nonempty. For i empty, row/column entry claims are vacuous and the matrix/function equalities use the unique empty-domain functions and empty sums. For the rectangular node kappa can independently be empty, finite, or infinite; only quantification of its column is used.",
+        "formal_context": {
+          "imports": [
+            "QuantumBlockEncoding.Robin.ComplexLCU"
+          ],
+          "preamble": "universe u v\nopen scoped BigOperators",
+          "target": "∀ {ι : Type u} [fi : Fintype ι] [di : DecidableEq ι] (first second : ι ≃ ι), (∀ (operator : Matrix ι ι ℂ) (row column : ι), (∑ k : ι, QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix second row k * operator k column) = operator (second.symm row) column) ∧ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix second * QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix first = QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (first.trans second)) ∧ (∀ state : ι → ℂ, Matrix.mulVec (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (first.trans second)) state = Matrix.mulVec (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix second) (Matrix.mulVec (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix first) state))",
+          "universe_parameters": [
+            "u",
+            "v"
+          ]
+        },
+        "matrix_definitions": {
+          "adjoint": "star(A)(row,column)=conjugate(A(column,row)); this is conjugate transpose, not entrywise conjugation alone.",
+          "equivalence": "An equivalence e has e inverse with e inverse(e(x))=x and e(e inverse(y))=y.",
+          "identity": "I(row,column)=1 if row=column and 0 otherwise.",
+          "matrix_entries": "A matrix of shape m-by-n is a function m -> n -> C.",
+          "mulVec": "mulVec(A,v)(row)=sum_column A(row,column)*v(column).",
+          "multiplication": "(A*B)(row,column)=sum_k A(row,k)*B(k,column). Matrices act on column vectors from the left, so B acts before A in A*B.",
+          "permutation_matrix": "For e:i equiv i, U_e(row,column)=1 if row=e(column), and 0 otherwise. Thus a basis column at x is sent to the basis column at e(x), whereas output amplitudes are reindexed by e inverse.",
+          "scalars": "All displayed matrices and vectors have entries in the complex field C. Matrix scalar 0 and 1 are complex numbers.",
+          "trans_chronology": "(first.trans second)(x)=second(first(x)).",
+          "unitary_membership": "The supplied complex finite-square-matrix convention identifies membership in Matrix.unitaryGroup with star(A)*A=I; it is equivalent here to A*star(A)=I."
+        },
+        "node_roles": [
+          {
+            "depends_on": [],
+            "id": "be111_surviving_index",
+            "reconstructed_role": "The general rectangular surviving-index formula for U_e times an arbitrary complex operator with row carrier i and column carrier kappa. It explicitly selects e inverse(row); it needs finite summation only over i."
+          },
+          {
+            "depends_on": [
+              "be111_surviving_index"
+            ],
+            "id": "be111_root",
+            "reconstructed_role": "Root conjunction for two equivalences on one finite decidable carrier: square-operator surviving-index formula for second, product U_second*U_first=U_(first.trans second), and equal nested mulVec actions for every complex state function."
+          }
+        ],
+        "root_node_id": "be111_root",
+        "root_target_equals_named_node_target": true,
+        "surviving_index": {
+          "general_rectangular_identity": "For every allowed e,O,row,column, sum_{k:i} U_e(row,k)*O(k,column)=O(e inverse(row),column).",
+          "root_specialization": "Take kappa=i and e=second in the general rectangular identity. This yields the first conjunct about left multiplication by U_second.",
+          "selected_index": "The nonzero permutation-matrix entry condition row=e(k) is equivalent to k=e inverse(row), so the selected summation index is e inverse(row), not e(row)."
+        }
+      }
+    }
+  ]
+}

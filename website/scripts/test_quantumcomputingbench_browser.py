@@ -28,12 +28,14 @@ def run(root, output, channel=None):
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
     base = f"http://127.0.0.1:{server.server_port}/"
-    rows, formal_rows, withdrawal_rows, revision_rows, failures = [], [], [], [], []
+    rows, formal_rows, withdrawal_rows, revision_rows, course_rows, failures = [], [], [], [], [], []
     checks = {k: False for k in ("mobile_no_overflow", "desktop_no_overflow", "themes", "solution_disclosure", "graph_links", "search_excludes_answers", "native_formal_panels", "quarantined_content_excluded", "question_revision_lineage", "convention_revision_lineage", "assumption_revision_lineage")}
     core_route = HUB + "cores/" + catalog["cores"][0]["core_id"] + "/index.html"
     routes = [HUB + "index.html", HUB + "non-lean/index.html", HUB + "lean/index.html",
               HUB + "non-lean/state-preparation/structured_preparation/index.html",
-              HUB + "lean/warmups/index.html", core_route]
+              HUB + "lean/warmups/index.html", core_route, HUB + "course/index.html",
+              HUB + "course/d0/index.html", HUB + "course/d2/index.html",
+              HUB + "course/d4/index.html", HUB + "reasoning/index.html"]
     try:
         with sync_playwright() as p:
             browser = p.chromium.launch(channel=channel)
@@ -64,6 +66,29 @@ def run(root, output, channel=None):
                         page.screenshot(path=str(output / f"reader-{n}-{width}-{theme}.png"), full_page=False)
                         rows.append({"route": route, "width": width, "theme": theme})
             # Every core, not merely one flattering sample: folded defaults and layout.
+            # Optional course deep-links open only the selected panel, with all inputs.
+            from website.scripts.quantumcomputingbench import course_reader
+            plan, views, _ = course_reader()
+            for width in (390, 1280):
+                page.set_viewport_size({"width": width, "height": 900})
+                for entry in plan["entries"]:
+                    route = HUB + "cores/" + entry["core_id"] + "/index.html#course"
+                    page.goto(base + route, wait_until="networkidle")
+                    panel = page.locator('#course')
+                    if panel.get_attribute('open') is None:
+                        failures.append('course deep-link did not open: ' + route)
+                    summary_box = panel.locator(':scope > summary').bounding_box()
+                    header_box = page.locator('.mobile-header').bounding_box()
+                    if header_box and header_box['height'] and summary_box['y'] < header_box['y'] + header_box['height']:
+                        failures.append('course heading hidden beneath sticky header: ' + route)
+                    if page.locator('#solution[open], #hint[open], #lean[open]').count():
+                        failures.append('course deep-link exposed another panel: ' + route)
+                    expected = len(views[entry['view_id']]['task']['nodes'])
+                    if panel.locator('.qcb-obligations > li').count() != expected:
+                        failures.append('course graph dropped obligations: ' + route)
+                    if page.evaluate("document.documentElement.scrollWidth > innerWidth + 2"):
+                        failures.append('expanded course overflow: ' + route)
+                    course_rows.append({'core_id': entry['core_id'], 'width': width, 'obligations': expected})
             page.set_viewport_size({"width": 390, "height": 900})
             for core in catalog["cores"]:
                 route = HUB + "cores/" + core["core_id"] + "/index.html"
@@ -204,6 +229,7 @@ def run(root, output, channel=None):
               "native_formal_panel_checks": formal_rows,
               "withdrawal_notice_checks": withdrawal_rows,
               "question_revision_checks": revision_rows,
+              "experimental_course_panel_checks": course_rows,
               "failures": failures, "manual_visual_review": "not asserted by this script",
               "question_only_search": "Exact question summaries checked by check_site; reference answers are not indexed."}
     (output / "browser-report.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")

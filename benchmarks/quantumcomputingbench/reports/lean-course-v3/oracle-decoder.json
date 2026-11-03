@@ -1,0 +1,220 @@
+{
+  "decoder_identity": "/root/course_third_blind_decode",
+  "packet_digest": "47624384959effa0b7f60ffb5f2835372f0630d4812499b85ecaa03614794c8c",
+  "schema_version": "qcb.curriculum_blind_decode.v1",
+  "source_blind": true,
+  "views": [
+    {
+      "ambiguities": [],
+      "anonymous_id": "O3",
+      "limitations": [
+        "This reconstructs a fixed seven-bit classical basis-state map and its declared equivalence. There is no stated arbitrary-width family, arbitrary-sized work register, complex vector action, phase convention, normalized-state condition, approximation guarantee, or resource bound.",
+        "Preserving or restoring an arbitrary initial work bit is a different conclusion from computing the same low-word arithmetic on arbitrary initial work. Only the former is asserted without a work-zero hypothesis.",
+        "No Lean execution, imported implementation reading, proof inspection, source comparison, or proof-quality assessment was performed.",
+        "The name map and ambient defining equations are supplied formal inputs. Exact name substitution checks root-text agreement; it is not an independent validation of imported implementation bodies or a Lean compilation result.",
+        "No essential missing mathematical definition or root-signature mismatch was identified in the v2 supplied context. This statement is bounded to the displayed context and equations."
+      ],
+      "reconstructed_statement": "On the seven-bit carrier S=Fin(7)->Fin(2), C is the equivalence defined by the supplied chronological ten-gate sequence. Write A=state(0)+2*state(1)+4*state(2), B=state(3)+2*state(4)+4*state(5), and w=state(6), using the natural values of the bits. The root is the conjunction of: (1) for every state with w=0, C replaces A by (L(A)+B) mod 8, preserves B, and returns work bit 6 to zero, where L(a)=(a xor 3) mod 8; (2) for every state, with no work-bit hypothesis, C preserves each of bits 3,4,5,6; and (3) the exact equalities C[1,1,0,0,0,0,1]=[0,0,0,0,0,0,1], C[1,0,0,0,0,0,1]=[0,1,1,0,0,0,1], L(3)=0, and L(1)=2. The examples both have work bit initially one. The arithmetic equation in (1) is only quantified over work-zero states.",
+      "semantic_slots": {
+        "carrier_and_register_order": {
+          "first_word": "A=W(state,0,1,2), whose natural value is state(0).val+2*state(1).val+4*state(2).val. Bit 0 is its least significant bit and bit 2 its most significant bit.",
+          "literal_vector_convention": "![a0,a1,a2,a3,a4,a5,a6] maps index i to ai. The leftmost printed entry is index 0.",
+          "overwrite_convention": "The output low word occupies the original indices 0,1,2. The second word stays at 3,4,5. There is no additional output register in the carrier.",
+          "second_word": "B=W(state,3,4,5), whose natural value is state(3).val+2*state(4).val+4*state(5).val. Bit 3 is its least significant bit and bit 5 its most significant bit.",
+          "state_type": "S=Fin 7 -> Fin 2, a function on increasing indices 0,...,6 with values 0 or 1; exactly seven fixed bits.",
+          "word_domain": "W returns Fin 8; values are unsigned natural numbers 0,...,7. The general W signature allows any three indices, but the root uses the two displayed distinct triples.",
+          "work_bit": "w=state(6). This is the final literal vector entry, after both three-bit words."
+        },
+        "chronology_interpretation": "Every gate reads the state left by the preceding gate, not the original input. In steps 3 and 5, target 6 is flipped under the same bits 3 and 0, which do not change between those steps; step 4 can read the intervening work value. The input work bit is restored even when initially one. Bits 3,4,5 are only controls throughout.",
+        "exact_examples": [
+          {
+            "input_vector": [
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "input_words_and_work": {
+              "A": 3,
+              "B": 0,
+              "w": 1
+            },
+            "offset_evaluation": "L(3)=0",
+            "output_vector": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "output_words_and_work": {
+              "A": 0,
+              "B": 0,
+              "w": 1
+            },
+            "scope": "A work-one input. Its output low word happens to equal (L(3)+0)%8; this isolated equality does not extend the clean-input universal law."
+          },
+          {
+            "input_vector": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "input_words_and_work": {
+              "A": 1,
+              "B": 0,
+              "w": 1
+            },
+            "offset_evaluation": "L(1)=2",
+            "output_vector": [
+              0,
+              1,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            "output_words_and_work": {
+              "A": 6,
+              "B": 0,
+              "w": 1
+            },
+            "scope": "A work-one input. The asserted output word is 6, whereas (L(1)+0)%8 is 2. The root therefore cannot be read as asserting the clean-input arithmetic law for arbitrary initial work."
+          }
+        ],
+        "exact_gate_definitions": {
+          "F": "F(0)=1 and F(1)=0.",
+          "X": "X(i,state) flips bit i and preserves every other bit.",
+          "Y": "Y(i,k,state) is state when bit i is 0, and otherwise flips target bit k. On Fin 2, otherwise means control bit i is 1.",
+          "Z": "Z(i,j,k,state) flips target k exactly when both control bits i and j are 1.",
+          "equivalence": "C:S equiv S is a bijection. Each displayed gate has distinct control/target indices and is invertible at those indices; the chronological composition is read from first listed gate to last."
+        },
+        "fin_constructor": "The right side in N1 is a Fin 8 constructor. Nat.mod_lt supplies a proof that the natural value is less than 8; this proof field does not add an input hypothesis or alter the represented residue.",
+        "formal_context": {
+          "imports": [
+            "QuantumBlockEncoding.BandedSparseAccessPrimitive"
+          ],
+          "preamble": "open scoped BigOperators",
+          "target": "(∀ (state : QuantumBlockEncoding.PrimitiveBasis 7), state 6 = 0 → QuantumBlockEncoding.BandedSparseAccess.primitiveWord3 (QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state) 0 1 2 = ⟨((QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 (QuantumBlockEncoding.BandedSparseAccess.primitiveWord3 state 0 1 2)).val + (QuantumBlockEncoding.BandedSparseAccess.primitiveWord3 state 3 4 5).val) % 8, Nat.mod_lt _ (by decide)⟩ ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveWord3 (QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state) 3 4 5 = QuantumBlockEncoding.BandedSparseAccess.primitiveWord3 state 3 4 5 ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state 6 = 0) ∧ (∀ (state : QuantumBlockEncoding.PrimitiveBasis 7), QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state 3 = state 3 ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state 4 = state 4 ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state 5 = state 5 ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv state 6 = state 6) ∧ (QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv ![1, 1, 0, 0, 0, 0, 1] = ![0, 0, 0, 0, 0, 0, 1] ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv ![1, 0, 0, 0, 0, 0, 1] = ![0, 1, 1, 0, 0, 0, 1] ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 3 = 0 ∧ QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 1 = 2)"
+        },
+        "gate_chronology": [
+          {
+            "gate": "X(0)",
+            "step": 1
+          },
+          {
+            "gate": "X(1)",
+            "step": 2
+          },
+          {
+            "gate": "Z(3,0,6)",
+            "step": 3
+          },
+          {
+            "gate": "Z(6,1,2)",
+            "step": 4
+          },
+          {
+            "gate": "Z(3,0,6)",
+            "step": 5
+          },
+          {
+            "gate": "Z(3,0,1)",
+            "step": 6
+          },
+          {
+            "gate": "Y(3,0)",
+            "step": 7
+          },
+          {
+            "gate": "Z(4,1,2)",
+            "step": 8
+          },
+          {
+            "gate": "Y(4,1)",
+            "step": 9
+          },
+          {
+            "gate": "Y(5,2)",
+            "step": 10
+          }
+        ],
+        "literal_reconciliation": {
+          "literal_name_map": {
+            "QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv": "C",
+            "QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3": "L",
+            "QuantumBlockEncoding.BandedSparseAccess.primitiveWord3": "W",
+            "QuantumBlockEncoding.PrimitiveBasis 7": "S"
+          },
+          "root_after_exact_supplied_name_substitution_equals_normalized_N4": true,
+          "scope": "These are exact comparisons of supplied formal strings/data using the stated map. The normalized and literal root have the same work-zero implication, all-state quantifier, vector examples, and conjunction grouping under that substitution.",
+          "v2_ambient_equations_equal_v1_ambient_equations": true,
+          "v2_formal_signatures_equal_v1_formal_signatures": true
+        },
+        "node_roles": [
+          {
+            "depends_on": [],
+            "id": "N1",
+            "reconstructed_role": "For every state with bit 6 zero, the low word becomes the modular sum of the offset of its old low word and the old second word; the second word is preserved and bit 6 is zero at the end."
+          },
+          {
+            "depends_on": [],
+            "id": "N2",
+            "reconstructed_role": "For every state, including work-one states, preserve the four individual bits 3,4,5,6. This is a preservation statement, with no general low-word arithmetic law for work-one inputs."
+          },
+          {
+            "depends_on": [],
+            "id": "N3",
+            "reconstructed_role": "The two literal seven-bit vector actions with work bit one, together with L(3)=0 and L(1)=2."
+          },
+          {
+            "depends_on": [
+              "N1",
+              "N2",
+              "N3"
+            ],
+            "id": "N4",
+            "reconstructed_role": "The exact conjunction of the clean-input arithmetic theorem, all-state individual-bit preservation, and the four closed equalities."
+          }
+        ],
+        "offset_definition": {
+          "formula": "L:Fin 8 -> Fin 8, L(a).val=(Nat.xor(a.val,3))%8.",
+          "meaning": "XOR with binary 011 flips the two low bits and leaves the high bit unchanged. This formula is not a signed interpretation of the word.",
+          "value_table_for_inputs_0_through_7": [
+            3,
+            2,
+            1,
+            0,
+            7,
+            6,
+            5,
+            4
+          ]
+        },
+        "quantifiers_and_hypotheses": [
+          "N1: for every state:S, assume state(6)=0. No restrictions are imposed on either three-bit word.",
+          "N2: for every state:S, without the work-zero hypothesis; in particular state(6)=1 is included.",
+          "N3: four closed equalities about two particular states and two particular values of L; no universal input quantifier.",
+          "N4: a conjunction of N1, N2, N3. The state quantifiers in the first and second conjuncts are separate; the first hypothesis is not shared with or imposed on the second."
+        ],
+        "root_conclusions": [
+          "When w=0, W(C(state),0,1,2) is the Fin 8 element with value (L(W(state,0,1,2)).val+W(state,3,4,5).val)%8.",
+          "When w=0, W(C(state),3,4,5)=W(state,3,4,5) and C(state)(6)=0.",
+          "For every state, C(state)(i)=state(i) separately for i=3,4,5,6.",
+          "Both exact seven-entry vector equalities and both exact offset evaluations below hold as the closed statements in N3."
+        ],
+        "root_id": "N4"
+      }
+    }
+  ]
+}

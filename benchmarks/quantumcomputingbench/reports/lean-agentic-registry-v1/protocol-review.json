@@ -1,0 +1,100 @@
+{
+  "schema_version": "qcb.source_aware_registry_loop_review.v1",
+  "reviewer": "/root/lean_agentic_protocol_review",
+  "reviewer_kind": "ai",
+  "review_class": "independent bounded source-aware implementation review",
+  "source_blind": false,
+  "verdict": "No remaining actionable finding within the inspected source and documented trust boundary after two confirmed loop fixes.",
+  "scope": [
+    "Evaluator-owned four-view public pilot registry and immutable reference-checkpoint lineage.",
+    "Bounded fixture/explanation action loop, cost reservations, cancellation, prompt projection and lazy operator adapter CLI.",
+    "Targeted registry/loop tests and EVALUATOR.md; no implementation changes by reviewer."
+  ],
+  "files_sha256_lf_relative_to_benchmark": {
+    "src/qcb_evaluation_registry.py": "35b5e7f497148e14d514fe760c63c0ee207e48a6846130fb18725e6997c564d6",
+    "src/qcb_model_loop.py": "93c474d9054c7119248c2d42c4d0929172e72f61c413605e6428c69fe095a050",
+    "scripts/evaluate_agentic.py": "dc63e4f9491cdef1a4c1535fd1ef01f37edb10d3532bff8b83c6da5fb6335a0c",
+    "tracks/lean/evaluation/agentic-registry-v1.json": "7dc638d3a56ef407fef413c3f2a1516c3b5b0270970b08ff2bb0ee29a6022e8c",
+    "tests/test_evaluation_registry.py": "f432b4325c3f7ca98764167eaed2f0af7732882d48a4b82bcf9d5fc8f3706446",
+    "tests/test_model_loop.py": "9695912230b157fd5fb2296920c54e8c55685accf33ea585d2c43504d2a0580f",
+    "tracks/lean/EVALUATOR.md": "8f308942a0812e8daf9404de764ae676ddadd1beefc117177b1838d90a779fdc"
+  },
+  "confirmed_findings_corrected": [
+    {
+      "id": "LOOP-FALSY-USAGE",
+      "severity": "P2",
+      "file": "src/qcb_model_loop.py",
+      "location": "response_envelope",
+      "problem": "An empty real usage object was replaced by invented one-input/one-output token and zero-cost endpoint telemetry through truthiness defaulting.",
+      "independent_repro_before_fix": "usage={} with fixture=False produced fabricated endpoint_reported counts and passed response validation.",
+      "correction_reviewed": "Only an explicit None fixture usage receives synthetic defaults. Supplied empty/falsy real usage is preserved and rejected, leaving usage unreconciled.",
+      "independent_post_fix_checks": [
+        "{} rejected",
+        "[] rejected",
+        "False rejected",
+        "0 rejected"
+      ]
+    },
+    {
+      "id": "LOOP-TOOL-BUDGET",
+      "severity": "P2",
+      "file": "src/qcb_model_loop.py",
+      "location": "run_episode provider-loop budget guards",
+      "problem": "Further provider calls continued after the irreversible tool-session action budget was exhausted.",
+      "independent_repro_before_fix": "With max_actions=1 and max_calls=4, four synthetic provider calls occurred: recorded, blocked, blocked, blocked.",
+      "correction_reviewed": "Pre-call guards cover tool action, verifier and wall ceilings; attempted action routing is counted; BUDGET_EXHAUSTED tool feedback terminates the loop.",
+      "independent_post_fix_check": "The same max_actions=1 scenario stops after one synthetic provider call and one attempted tool action."
+    }
+  ],
+  "test_maintenance_note": "The initially misplaced provider_calls==1 assertion after a provider_calls==3 assertion was corrected before the final inspected test hash.",
+  "independently_executed_tests": {
+    "test_count": 2,
+    "passed": 2,
+    "elapsed_seconds": 13.392,
+    "names": [
+      "test_model_loop.ModelLoopTests.test_falsy_real_telemetry_is_never_replaced_with_invented_counts",
+      "test_model_loop.ModelLoopTests.test_exhausted_tool_budget_prevents_more_provider_calls"
+    ],
+    "full_suite_rerun": false,
+    "execution_class": "Local software mocks/synthetic provider and fixture verifier; no real endpoint, model load or Lean execution."
+  },
+  "additional_independent_repros": [
+    "Confirmed the two original loop defects using pure/local synthetic inputs, then rechecked their fixes.",
+    "Observed an on-disk in-flight worst-case reservation before a synthetic provider respond() continued.",
+    "Cancelled that synthetic call and observed persisted status=cancelled, usage unreconciled, one provider call and formal_proof_success=false."
+  ],
+  "reviewed_boundaries": [
+    "The registry preserves exactly four existing shared-core task views and both exact two-core/three-condition checkpoint sets; it creates no mathematical core, canonical formal admission, stable release or live certificate.",
+    "Recorded historical Git blobs are read as data, never executed. The old obligation source revision remains distinct from the sequential/current-source match field; genuine recorded kernel evidence is not invalidated by later typed-universe code.",
+    "Current task, contract, family, split, snapshot, library, fixture, root-proof, checkpoint and axiom identities are checked through evaluator-owned loaders and pinned records.",
+    "Answer-free agent exports exclude reference bodies, controls, rubrics and checkpoint bodies. Public references and callable imported shortcuts remain a declared scientific boundary.",
+    "Real formal mode is ENV_BLOCKED before lazy adapter import, construction or generation; it never falls back to the authored-reference host compiler.",
+    "Fixture protocol completion uses a simulation verifier and synthetic usage, with formal_proof_success and model_performance_measured false.",
+    "Authorized explanation-only mode receives canonical NL question context without Lean targets/imports/nodes; proof/search actions cannot reach a verifier, and feedback omits Lean observations.",
+    "Complete canonical rubric grading, semantic truth and mathematical explanation quality remain separate from registry qualification, action scheduling and supplied JSON telemetry.",
+    "Unknown usage retains the pre-call reservation and stops without automatic retry/resume. Actual reported overuse is retained; history is not silently truncated.",
+    "Raw episodes are rejected inside the public repository. The CLI adapter import is lazy and must match the configured adapter ID."
+  ],
+  "limitations": [
+    "This is source-aware AI code/evidence review, not a source-blind decode, independent Lean replay, mathematical admission or authenticated reviewer/endpoint attestation.",
+    "Only the two named regression tests and stated synthetic repros were independently run here. Parent-run full suites, fixture batches and earlier Lean outcomes are not re-labelled as reviewer execution.",
+    "Tests with MockEndpoint-like objects exercise operator-adapter branches; they are software mocks, not real model performance evidence.",
+    "Adapter identity, template/model echoes and endpoint telemetry are trusted operator reports, not independent proof of endpoint behavior.",
+    "Async cancellation is cooperative. The driver does not kill remote jobs or independently guarantee endpoint billing/token ceilings; reviewed adapters must enforce endpoint limits.",
+    "Provided DAGs do not measure autonomous decomposition or proof-term depth. Public tasks are not blind or contamination-free tests; nominally equal ceilings do not establish matched realized compute.",
+    "No admin action, real provider call, model load, Lean run, Git mutation, implementation edit or commit was performed by this reviewer. Local immutable Git blobs were read by the targeted registry test setup."
+  ],
+  "live_formal_certificates_issued": 0,
+  "new_mathematical_cores": 0,
+  "new_canonical_formal_admissions": 0,
+  "model_performance_measured": false,
+  "lean_executed_by_reviewer": false,
+  "real_provider_calls_by_reviewer": 0,
+  "implementation_edited_by_reviewer": false,
+  "handoff": {
+    "failure_class": "NONE after corrected software defects",
+    "salvage_audit": "Retain corrected usage/budget regressions and conservative unknown-usage ledger behavior; no mathematical route retired.",
+    "purification_or_exposition_seal": "Not claimed.",
+    "recommended_next_step": "Parent-run full software suite and synthetic fixture matrix under this exact source freeze; keep real formal execution blocked until accepted isolated verification and reviewed adapters exist."
+  }
+}

@@ -1,0 +1,175 @@
+{
+  "ambient_definitions": [
+    {
+      "equations": [
+        "R 0 0 = (c : ℂ)",
+        "R 0 1 = -(s : ℂ)",
+        "R 1 0 = (s : ℂ)",
+        "R 1 1 = (c : ℂ)"
+      ],
+      "name": "QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation",
+      "signature": "ℝ → ℝ → Matrix (Fin 2) (Fin 2) ℂ"
+    },
+    {
+      "equations": [
+        "QuantumBlockEncoding.Robin.ComplexLCU.realRotation a = QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation (Real.cos a) (Real.sin a)"
+      ],
+      "name": "QuantumBlockEncoding.Robin.ComplexLCU.realRotation",
+      "signature": "ℝ → Matrix (Fin 2) (Fin 2) ℂ"
+    },
+    {
+      "equations": [
+        "QuantumBlockEncoding.Robin.ComplexLCU.amplitudeRotation x = QuantumBlockEncoding.Robin.ComplexLCU.realRotation (Real.arccos x)"
+      ],
+      "name": "QuantumBlockEncoding.Robin.ComplexLCU.amplitudeRotation",
+      "signature": "ℝ → Matrix (Fin 2) (Fin 2) ℂ"
+    },
+    {
+      "membership": "M ∈ Matrix.unitaryGroup ι ℂ ↔ star M * M = 1; all ι are finite; star is conjugate transpose",
+      "name": "Matrix.unitaryGroup"
+    },
+    {
+      "equations": [
+        "QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system = coefficient × (selector × system)"
+      ],
+      "name": "QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex",
+      "signature": "(coefficient : Type u) → (selector : Type v) → (system : Type w) → Type (max u v w)"
+    },
+    {
+      "equations": [
+        "selectorLift prepare = I_coefficient ⊗ₖ (prepare ⊗ₖ I_system)"
+      ],
+      "name": "QuantumBlockEncoding.Robin.ComplexLCU.selectorLift",
+      "signature": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (prepare : Matrix selector selector ℂ), Matrix (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ"
+    },
+    {
+      "equations": [
+        "amplitudeLift rotation = Matrix.blockDiagonal (fun context => rotation context.1 context.2)",
+        "entry at (c,(s,x)), (d,(t,y)) is rotation s x c d if (s,x)=(t,y), otherwise zero"
+      ],
+      "name": "QuantumBlockEncoding.Robin.ComplexLCU.amplitudeLift",
+      "signature": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (rotation : selector → system → Matrix coefficient coefficient ℂ), Matrix (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ"
+    },
+    {
+      "equations": [
+        "e (c,(s,x)) = (c,(s,permutation s x))",
+        "e.symm (c,(s,x)) = (c,(s,(permutation s).symm x))"
+      ],
+      "name": "QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv",
+      "signature": "∀ {coefficient : Type u} {selector : Type v} {system : Type w}, (selector → system ≃ system) → (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system ≃ QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system)"
+    },
+    {
+      "equations": [
+        "equivPermutationMatrix e r c = if r = e c then 1 else 0"
+      ],
+      "name": "QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix",
+      "signature": "∀ {ι : Type u} [DecidableEq ι], (ι ≃ ι) → Matrix ι ι ℂ"
+    },
+    {
+      "equations": [
+        "selectLift permutation = equivPermutationMatrix (controlledSystemEquiv permutation)"
+      ],
+      "name": "QuantumBlockEncoding.Robin.ComplexLCU.selectLift",
+      "signature": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [dc : DecidableEq coefficient] [ds : DecidableEq selector] [dt : DecidableEq system] (permutation : selector → system ≃ system), Matrix (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ"
+    },
+    {
+      "equations": [
+        "(@QuantumBlockEncoding.Robin.ComplexLCU.prepareAmplitudeSelectUnprepare coefficient selector system fc dc fs ds ft dt prepare rotation permutation) = star (@QuantumBlockEncoding.Robin.ComplexLCU.selectorLift coefficient selector system fc dc fs ds ft dt prepare) * ((@QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dt permutation) * ((@QuantumBlockEncoding.Robin.ComplexLCU.amplitudeLift coefficient selector system fc dc fs ds ft dt rotation) * (@QuantumBlockEncoding.Robin.ComplexLCU.selectorLift coefficient selector system fc dc fs ds ft dt prepare)))"
+      ],
+      "name": "QuantumBlockEncoding.Robin.ComplexLCU.prepareAmplitudeSelectUnprepare",
+      "signature": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (prepare : Matrix selector selector ℂ) (rotation : selector → system → Matrix coefficient coefficient ℂ) (permutation : selector → system ≃ system), Matrix (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ"
+    }
+  ],
+  "conventions": [
+    "Matrices act on column vectors from the left.",
+    "Rows and columns of all lifted operators use coefficient × (selector × system).",
+    "Finite types may be empty; no designated labels are assumed.",
+    "The formal targets do not assert circuit cost bounds."
+  ],
+  "schema_version": "qcb.formal_decoder_input.v1",
+  "source_blind": true,
+  "views": [
+    {
+      "anonymous_id": "L1",
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.Robin.ComplexLCU"
+        ],
+        "preamble": "universe u v w\nopen scoped BigOperators Kronecker",
+        "target": "∀ (angle : ℝ → ℝ), (∀ x : ℝ, -1 ≤ x → x ≤ 1 → Real.cos (angle x) = x) → ∀ x : ℝ, QuantumBlockEncoding.Robin.ComplexLCU.realRotation (angle x) ∈ Matrix.unitaryGroup (Fin 2) ℂ ∧ (QuantumBlockEncoding.Robin.ComplexLCU.realRotation (angle x) 0 0 = (x : ℂ) ↔ -1 ≤ x ∧ x ≤ 1) ∧ (1 < |x| → QuantumBlockEncoding.Robin.ComplexLCU.realRotation (angle x) 0 0 ≠ (x : ℂ))",
+        "universe_parameters": [
+          "u",
+          "v",
+          "w"
+        ]
+      },
+      "nodes": [
+        {
+          "depends_on": [],
+          "id": "be106_angle_unitary",
+          "target": "∀ (angle : ℝ), QuantumBlockEncoding.Robin.ComplexLCU.realRotation angle ∈ Matrix.unitaryGroup (Fin 2) ℂ"
+        },
+        {
+          "depends_on": [],
+          "id": "be106_readout_range",
+          "target": "∀ (angle coefficient : ℝ), QuantumBlockEncoding.Robin.ComplexLCU.realRotation angle 0 0 = (coefficient : ℂ) → -1 ≤ coefficient ∧ coefficient ≤ 1"
+        },
+        {
+          "depends_on": [
+            "be106_angle_unitary",
+            "be106_readout_range"
+          ],
+          "id": "be106_root",
+          "target": "∀ (angle : ℝ → ℝ), (∀ x : ℝ, -1 ≤ x → x ≤ 1 → Real.cos (angle x) = x) → ∀ x : ℝ, QuantumBlockEncoding.Robin.ComplexLCU.realRotation (angle x) ∈ Matrix.unitaryGroup (Fin 2) ℂ ∧ (QuantumBlockEncoding.Robin.ComplexLCU.realRotation (angle x) 0 0 = (x : ℂ) ↔ -1 ≤ x ∧ x ≤ 1) ∧ (1 < |x| → QuantumBlockEncoding.Robin.ComplexLCU.realRotation (angle x) 0 0 ≠ (x : ℂ))"
+        }
+      ]
+    },
+    {
+      "anonymous_id": "L2",
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.Robin.ComplexLCU"
+        ],
+        "preamble": "universe u v w\nopen scoped BigOperators Kronecker",
+        "target": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (prepare : Matrix selector selector ℂ) (rotation : selector → system → Matrix coefficient coefficient ℂ) (permutation : selector → system ≃ system), prepare ∈ Matrix.unitaryGroup selector ℂ → (∀ s x, rotation s x ∈ Matrix.unitaryGroup coefficient ℂ) → (@QuantumBlockEncoding.Robin.ComplexLCU.prepareAmplitudeSelectUnprepare coefficient selector system fc dc fs ds ft dt prepare rotation permutation) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ ∧ (∀ (other : Matrix selector selector ℂ), other ∈ Matrix.unitaryGroup selector ℂ → ((@QuantumBlockEncoding.Robin.ComplexLCU.selectorLift coefficient selector system fc dc fs ds ft dt other) * ((@QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dt permutation) * ((@QuantumBlockEncoding.Robin.ComplexLCU.amplitudeLift coefficient selector system fc dc fs ds ft dt rotation) * (@QuantumBlockEncoding.Robin.ComplexLCU.selectorLift coefficient selector system fc dc fs ds ft dt prepare)))) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ) ∧ (∀ (other : Matrix selector selector ℂ), other * prepare = 1 → other = star prepare)",
+        "universe_parameters": [
+          "u",
+          "v",
+          "w"
+        ]
+      },
+      "nodes": [
+        {
+          "depends_on": [],
+          "id": "be112_selector",
+          "target": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (prepare : Matrix selector selector ℂ), prepare ∈ Matrix.unitaryGroup selector ℂ → (@QuantumBlockEncoding.Robin.ComplexLCU.selectorLift coefficient selector system fc dc fs ds ft dt prepare) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ"
+        },
+        {
+          "depends_on": [],
+          "id": "be112_amplitude",
+          "target": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (rotation : selector → system → Matrix coefficient coefficient ℂ), (∀ s x, rotation s x ∈ Matrix.unitaryGroup coefficient ℂ) → (@QuantumBlockEncoding.Robin.ComplexLCU.amplitudeLift coefficient selector system fc dc fs ds ft dt rotation) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ"
+        },
+        {
+          "depends_on": [],
+          "id": "be112_select",
+          "target": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (permutation : selector → system ≃ system), (@QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dt permutation) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ"
+        },
+        {
+          "depends_on": [],
+          "id": "be112_inverse_unique",
+          "target": "∀ {selector : Type v} [fs : Fintype selector] [ds : DecidableEq selector] (prepare : Matrix selector selector ℂ), prepare ∈ Matrix.unitaryGroup selector ℂ → ∀ (other : Matrix selector selector ℂ), other * prepare = 1 → other = star prepare"
+        },
+        {
+          "depends_on": [
+            "be112_selector",
+            "be112_amplitude",
+            "be112_select",
+            "be112_inverse_unique"
+          ],
+          "id": "be112_root",
+          "target": "∀ {coefficient : Type u} {selector : Type v} {system : Type w} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [ft : Fintype system] [dt : DecidableEq system] (prepare : Matrix selector selector ℂ) (rotation : selector → system → Matrix coefficient coefficient ℂ) (permutation : selector → system ≃ system), prepare ∈ Matrix.unitaryGroup selector ℂ → (∀ s x, rotation s x ∈ Matrix.unitaryGroup coefficient ℂ) → (@QuantumBlockEncoding.Robin.ComplexLCU.prepareAmplitudeSelectUnprepare coefficient selector system fc dc fs ds ft dt prepare rotation permutation) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ ∧ (∀ (other : Matrix selector selector ℂ), other ∈ Matrix.unitaryGroup selector ℂ → ((@QuantumBlockEncoding.Robin.ComplexLCU.selectorLift coefficient selector system fc dc fs ds ft dt other) * ((@QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dt permutation) * ((@QuantumBlockEncoding.Robin.ComplexLCU.amplitudeLift coefficient selector system fc dc fs ds ft dt rotation) * (@QuantumBlockEncoding.Robin.ComplexLCU.selectorLift coefficient selector system fc dc fs ds ft dt prepare)))) ∈ Matrix.unitaryGroup (QuantumBlockEncoding.Robin.ComplexLCU.LCUIndex coefficient selector system) ℂ) ∧ (∀ (other : Matrix selector selector ℂ), other * prepare = 1 → other = star prepare)"
+        }
+      ]
+    }
+  ]
+}
