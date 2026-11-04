@@ -1,0 +1,508 @@
+{
+  "schema_version": "qcb.independent_derivation.v1",
+  "method": "question-first-source-grounded-independent-derivation",
+  "reviewer": "/root/review_coherence",
+  "recorded_at_utc": "2026-11-03T12:11:10.564154+00:00",
+  "phase": 1,
+  "status": "complete_before_proposed_answer_exposure",
+  "scope": {
+    "group": "B",
+    "slots": [
+      "B1",
+      "B2",
+      "B3",
+      "B4"
+    ],
+    "package": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a",
+    "checkout_head_observed": "7fa6525c13d1a5c348f4b743d17073c5deabb3f4",
+    "frozen_packet_base_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+    "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a"
+  },
+  "provenance": {
+    "actual_identity": "/root/review_coherence",
+    "prior_exposure": "No prior authoring, coverage-planning, proposed-answer, rubric, authored reasoning-map, author-handoff, or other-review content was inherited for group B. The assigned blind packets include source theorem statements and exact target names; these were visible and are disclosed. This is question-first/source-grounded, not source-blind to the named theorem. Mandatory process documents include broad checkpoint descriptions of unrelated/current benchmark targets. The first 150 README lines were read as required process context and contain high-level correction summaries, not the B payload answers. Path-only rg/git-status listings exposed filenames such as qa/, handoffs and review directories without their contents.",
+    "files_read_before_derivation": [
+      "/workspace/scratch/f6570265c32b/reviewer-guide.md",
+      "AGENTS.md",
+      "HARNESS.md",
+      "benchmarks/quantumcomputingbench/AGENT_GOAL.md",
+      "benchmarks/quantumcomputingbench/tracks/non-lean/AGENT_GOAL.md",
+      "benchmarks/quantumcomputingbench/shared/CONTRACT.md",
+      "benchmarks/quantumcomputingbench/shared/ACCEPTANCE.md",
+      "docs/theorem-publication-protocol.md",
+      "docs/proof-digestion-protocol.md",
+      "docs/evidence-routed-memory-protocol.md",
+      ".agents/skills/qbe-substantive-worker/SKILL.md",
+      ".agents/skills/qbe-frontier-master/SKILL.md",
+      "benchmarks/quantumcomputingbench/README.md (lines 1-150)",
+      "benchmarks/quantumcomputingbench/src/qcb_core.py (lines 1-100, including digest implementation)"
+    ],
+    "prohibited_content_read": false,
+    "lean_run": false,
+    "human_approval": false,
+    "paid_apis_or_inference_or_training_or_containers": false,
+    "finite_diagnostics_run": "None; the listed arithmetic examples are direct mathematical witnesses. Python was used only for digest/source-file verification and report serialization.",
+    "source_seal_limit": "Reading named Lean sources and matching hashes is not new kernel verification or a complete source-paper/publication seal.",
+    "comparison_status": "Phase 2 has not begun; awaiting explicit root comparison permission."
+  },
+  "hash_explanation": {
+    "blind_packet_digest": "qcb_core.digest over the entire parsed blind packet: SHA256 of sorted-key compact ensure_ascii=False UTF-8 JSON.",
+    "blind_packet_raw_sha256": "SHA256 of exact packet file bytes, formatting included.",
+    "payload_hashes": "Copied only as identifiers from blind packets; no qa payload was opened in phase 1. They will be independently recomputed during phase 2.",
+    "source_hashes": "SHA256 of whole source bytes after CRLF/CR to LF normalization, plus separate raw-byte SHA256; all matched each packet source reference."
+  },
+  "items": [
+    {
+      "slot": "B1",
+      "core_id": "qcb-core-sp-007",
+      "blind_packet_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/blind/B1.json",
+      "blind_packet_digest": "338dbdacf24988c60c7482962dd74f0caeef4434d54e231e3624fffb8ac13278",
+      "blind_packet_raw_sha256": "aae7cc8d9b661380a94f7abdbc1f4e8bc3df1a7e853e40c0074f8826b3082bcc",
+      "frozen_payload_item_digest_claimed_by_packet": "b6bc7728e713f6203fa8421b254b9f359cd9265416d09164f2ac8c17a7a1c38c",
+      "frozen_payload_raw_sha256_claimed_by_packet": "bd6d42c84c3938eb84446d21e95e4d67cddaf6eff7538c9cf92ccffbb23c1738",
+      "frozen_payload_binding_status": "not independently read or verified in phase 1",
+      "independent_derivation": [
+        "Let B be the finite bond carrier, beta:B->C the supplied boundary, and K_t^(s)[b,a]=K_t((s,b),a). The full stage has rows/columns indexed by {0,1} x B. Already emitted bits are spectators; a new highest wire is initialized to zero.",
+        "For a prefix p of length n and last bit s, expand the genuine matrix-vector action. The spectator identity eliminates every input prefix other than p, and the fresh-zero vector eliminates input bit 1. Thus R_(n+1)(p::s,b)=sum_a U_n((s,b),(0,a)) R_n(p,a). No global state-action equation has been assumed.",
+        "Define T_0(empty)=I_B and T_(n+1)(p::s)=K_n^(s) T_n(p). Hence T_n(x)=K_(n-1)^(x_(n-1)) ... K_0^(x_0), with later emission on the left. At n=0, R_0(empty,b)=beta_b=(I_B beta)_b.",
+        "Induct for every prefix and every intermediate bond label a, with beta fixed but arbitrary. Substituting clean-column equality and the induction hypothesis yields R_(n+1)(p::s,b)=sum_a K_n^(s)[b,a](T_n(p) beta)_a=(K_n^(s) T_n(p) beta)_b=(T_(n+1)(p::s) beta)_b. This proves all full-output amplitudes for every length.",
+        "At each used stage every input column (1,a) is irrelevant, for all a in B and all output rows. All input columns (0,a) remain covered by the premise; no blanket claim about unused clean bond columns follows without an additional support invariant. For a fixed length n, stages t>=n are not used at all. A different completion with identical clean columns gives the same run, even if its dirty-input columns differ."
+      ],
+      "expected_rubric_checks": [
+        "Explicitly reconstruct the fresh-zero/spectator finite-sum recurrence rather than assuming the desired global action.",
+        "State identity transfer and boundary base case at n=0.",
+        "Apply the induction hypothesis for every intermediate bond index and use the clean equality at stage n.",
+        "Identify the sum as K_n^(last bit) T_n(prefix) beta with the latest matrix on the left.",
+        "Conclude equality for the complete bit-and-bond output and precisely identify fresh-bit=1 input columns as irrelevant.",
+        "Do not infer terminal cleanup, normalization, unitarity, circuit synthesis, or cost from this sole hypothesis."
+      ],
+      "source_checks": [
+        {
+          "path": "QuantumBlockEncoding/SequentialBondPreparation.lean",
+          "sha256_lf": "ad4542b108d44f196f2a02f78e59b58f43d45b1e890709cf4c22e1222805d5c5",
+          "raw_sha256": "ad4542b108d44f196f2a02f78e59b58f43d45b1e890709cf4c22e1222805d5c5",
+          "hash_policy": "sha256-lf-text-v1",
+          "lines_read": [
+            [
+              1,
+              342
+            ]
+          ],
+          "declarations_actually_read": [
+            "Core",
+            "Stage",
+            "BondState",
+            "freshZero",
+            "liftStage",
+            "liftStage_apply",
+            "step",
+            "step_apply",
+            "coreSlice",
+            "transfer",
+            "run",
+            "run_eq_transfer"
+          ],
+          "checked_at_utc": "2026-11-03T12:11:10.564154+00:00",
+          "finding": "Read the entire named module, including later support/terminal/unitarity results, but use only lines 26-110 for the assessed theorem. The clean-column theorem requires no unitary-stage premise. Finite B can be empty; the conclusion over b is then vacuous. Fresh-zero input and identity action on passive prefixes collapse the step sum. Later support and cleanup theorems have extra hypotheses and are not consequences of clean-column equality alone."
+        }
+      ],
+      "boundary_and_contract_checks": [
+        "No normalized boundary is required; zero beta gives zero throughout. Complex entries are permitted. Empty B creates no output bond index and a vacuous coordinate theorem.",
+        "This is an exact finite-dimensional identity with no tolerance, probability, postselection, discarded registers, or gate-count conclusion.",
+        "The packet explicitly names an existing core, so any acceptable improvement remains a view of qcb-core-sp-007, not a new counted target."
+      ]
+    },
+    {
+      "slot": "B2",
+      "core_id": "candidate:06369e40-07df-4a8c-9105-ac09ebc9b41c",
+      "blind_packet_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/blind/B2.json",
+      "blind_packet_digest": "09e6a670d05015fc7319f742fa57bae89f5d751234bdddac98572d6c605ece77",
+      "blind_packet_raw_sha256": "221e552f68158cc9d5bb9f47bd7316fe8ca30cb596eebeffe9af392a9d7a4837",
+      "frozen_payload_item_digest_claimed_by_packet": "a126d3054eceb536d62ccdaf03f31011ff7a49806f5c503194f5d193fc20b179",
+      "frozen_payload_raw_sha256_claimed_by_packet": "0c3e3435e6796f1727b1f561b7200d46bb4db2f60830bbe93c0e36cdfdac81c2",
+      "frozen_payload_binding_status": "not independently read or verified in phase 1",
+      "independent_derivation": [
+        "Put p_lambda=|c_lambda|^2 and S={lambda:c_lambda != 0}. Normalization ensures S is nonempty. Linearity of the retained-label controlled unitary gives Psi_tilde=sum_lambda c_lambda exp(i phi_lambda)|lambda> tensor psi_lambda. Both intended and actual vectors are unit vectors: cross-label inner products vanish even if the psi_lambda overlap.",
+        "For every real chi, orthonormality of label states and unit norms of branch outputs give ||Psi_tilde-exp(i chi)Psi||^2=sum_lambda p_lambda |exp(i phi_lambda)-exp(i chi)|^2=2-2 sum_lambda p_lambda cos(phi_lambda-chi)=4 sum_lambda p_lambda sin^2((phi_lambda-chi)/2). This is the requested exact full-output norm, with no phase quotient built into it.",
+        "A sum of nonnegative terms is zero exactly when every populated term vanishes. Exact equality Psi_tilde=Psi therefore holds iff exp(i phi_lambda)=1 for every lambda in S. Equality up to one common phase holds iff there is z of modulus one such that exp(i phi_lambda)=z for every lambda in S, equivalently phi_lambda-phi_mu is an integer multiple of 2 pi for all populated pairs. Phases of zero-coefficient labels are irrelevant.",
+        "Every isolated branch exp(i phi_lambda) psi_lambda has the same probabilities as psi_lambda for every measurement; this cannot detect phase differences between labels. For an explicit example use Lambda={0,1}, H=C^2, clean |0>, psi_0=psi_1=|0>, c_0=c_1=1/sqrt(2), V_0=I_2, V_1=-I_2, phi_0=0, phi_1=pi. These are unitary implementations and individually physically identical to the desired branch state. Intended Psi=|+> tensor |0>, actual Psi_tilde=|-> tensor |0>; their inner product is zero. Measuring the retained label in the {|+>,|->} basis gives opposite deterministic outcomes. Measuring in the original label basis would not distinguish them.",
+        "The mathematical correction is D=sum_lambda exp(-i phi_lambda)|lambda><lambda|. D is unitary and (D tensor I_H)Psi_tilde=Psi exactly. Arbitrary unit-modulus choices are allowed on unpopulated labels. The negative sign is required by the specified +i branch phase.",
+        "A single populated label is always correct up to a global phase, but exact equality still requires its phase factor to be 1. A common populated phase z gives Psi_tilde=z Psi and exact equality only if z=1. Known exact phase values suffice to specify D mathematically; a supplier, finite representation/precision analysis, gate synthesis, and resource charge for implementing D are separate obligations. Metadata alone does not apply D, and no work reset or cleanup is supplied beyond what is already present in each psi_lambda."
+      ],
+      "expected_rubric_checks": [
+        "Use retained-label orthogonality, never assumed orthogonality of branch outputs, to derive actual output and norm formula for arbitrary chi.",
+        "Give both necessary and sufficient populated-support conditions, with exact-vector equality separated from global-phase equality.",
+        "Explain phase-blind isolated measurements and construct an actual two-label unitary orthogonal-output example.",
+        "Specify a label interference measurement, not an indistinguishing computational-label measurement.",
+        "Prove diagonal negative-phase correction is unitary and restores the entire output vector.",
+        "Handle zero coefficients, one populated label, common phase, complete work register, and effective phase/compiler limitations."
+      ],
+      "source_checks": [
+        {
+          "path": "QuantumBlockEncoding/PrimitiveSemantics.lean",
+          "sha256_lf": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+          "raw_sha256": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+          "hash_policy": "sha256-lf-text-v1",
+          "lines_read": [
+            [
+              412,
+              478
+            ]
+          ],
+          "declarations_actually_read": [
+            "evalGlobalPhase",
+            "evalGlobalPhase_unitary",
+            "evalGlobalPhase_neg",
+            "evalPrimitiveProgram",
+            "evalPrimitiveProgram_identity",
+            "evalPrimitiveProgram_seq",
+            "evalPrimitiveProgram_unitary",
+            "evalPrimitiveProgram_dagger"
+          ],
+          "checked_at_utc": "2026-11-03T12:11:10.564154+00:00",
+          "finding": "The exact stored phase acts as exp(+i phi), negation gives its conjugate/inverse, and program sequencing multiplies later operations on the left. These declarations support the phase convention; they do not themselves state the retained-label coherent theorem derived here."
+        },
+        {
+          "path": "QuantumBlockEncoding/PrimitiveCircuit.lean",
+          "sha256_lf": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c",
+          "raw_sha256": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c",
+          "hash_policy": "sha256-lf-text-v1",
+          "lines_read": [
+            [
+              1,
+              115
+            ]
+          ],
+          "declarations_actually_read": [
+            "ExactAngle",
+            "ExactAngle.eval",
+            "ExactAngle.eval_add",
+            "ExactAngle.eval_neg",
+            "ExactAngle.eval_scale",
+            "PrimitiveGate",
+            "PrimitiveCircuit",
+            "PrimitiveProgram"
+          ],
+          "checked_at_utc": "2026-11-03T12:11:10.564154+00:00",
+          "finding": "ExactAngle.real permits arbitrary exact real values and explicitly does not promise numerical export. PrimitiveProgram stores a circuit plus exact globalPhase; storing the field is not construction of a physical label-controlled phase gate."
+        }
+      ],
+      "boundary_and_contract_checks": [
+        "H nonzero and finite, Lambda finite nonempty, and unit branch vectors ensure the norm reasoning is valid. No output orthogonality, partial trace, measurement, or postselection is used in deriving the coherent error.",
+        "The local source supplies exact phase semantics only. The coherent controlled-label composition and measurement example are independently derived NL mathematics, not claimed literal source declarations or new Lean closure.",
+        "Whether this candidate is a globally distinct core versus an existing coherent-phase/coherent-record target remains a later dedup review question."
+      ]
+    },
+    {
+      "slot": "B3",
+      "core_id": "candidate:cfa3fb2e-9733-4c13-8309-11f7d0541747",
+      "blind_packet_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/blind/B3.json",
+      "blind_packet_digest": "44053eb0d1eb3fffffad831bf78b2177b9b9e168ced2d93647d651e740a061b5",
+      "blind_packet_raw_sha256": "1cfb6f6b6b61f000bcb49ffdc162fc7244d05b8e69758553ae1990d4ceb36161",
+      "frozen_payload_item_digest_claimed_by_packet": "285491a96ea3df25e6e56fbd3d8a025a4ab3c2e9567be42c0408ef90b9245e9e",
+      "frozen_payload_raw_sha256_claimed_by_packet": "cfe9cf7d3563342eb5cd12b5f40276523ce4f1af467ceabe2b9528c41496def3",
+      "frozen_payload_binding_status": "not independently read or verified in phase 1",
+      "independent_derivation": [
+        "Write B=2 eta, so 0<B<1, and C=sum_j c_j>0. The feasible domain has 0<delta_j<=1 and sum_j m_j delta_j<=B. Every feasible delta_j<=B/m_j<1, so every upper cap is redundant, not just inactive at the optimizer.",
+        "Define delta_j^*=B c_j/(C m_j). It is positive, strictly less than 1, and sum_j m_j delta_j^*=B. Its objective is T^*=sum_j c_j log_2(C m_j/(B c_j)). This establishes an explicit feasible candidate, including r=1.",
+        "For any feasible delta set t_j=delta_j/delta_j^*>0. Since m_j delta_j=(B/C)c_j t_j, sum_j c_j t_j<=C. Therefore (ln 2)(T(delta)-T^*)=-sum_j c_j ln t_j >= sum_j c_j(1-t_j)>=0 by ln t<=t-1. Equality in the first inequality, given every c_j>0, forces all t_j=1. Hence delta^* is the global unique minimizer; this is a sufficiency and uniqueness proof, not just stationary equations.",
+        "Let b_j^*=log_2(1/delta_j^*)>0 and choose b_j=ceil(b_j^*), a nonnegative integer. Then 2^(-b_j)<=delta_j^*, so the supplied multiplicity-weighted certificate yields ||V-U||<=(1/2)sum_j m_j 2^(-b_j)<=eta. Reuse is counted m_j times in error but once as c_j b_j in the assumed precision cost.",
+        "The rounded tolerance vector is feasible for the continuous problem and its objective equals sum_j c_j b_j, so T^*<=sum_j c_j b_j. Also b_j<b_j^*+1 for every j; finite positive weights give sum_j c_j b_j<T^*+C. No exact integer optimality follows. For example eta=1/8, m=(3,1), c=(2,1) gives delta^*=(1/18,1/12), rounded b=(5,4) with cost 14, whereas b=(4,4) has cost 12 and sum_j m_j2^(-b_j)=1/4=2 eta. This is a concrete reason not to label the rounded allocation optimal.",
+        "For unit x,y,psi, write Vy-psi=V(y-x)+(V-U)x+(Ux-psi). Unitarity and the operator bound imply ||Vy-psi||<=rho+eta+kappa (and the trivial unit-vector cap 2 can be added if desired). All output/work registers remain included.",
+        "For r=0 the empty precision sum/cost is zero, the empty allocation is the unique empty choice, and U=V because all gates are unchanged; no division by C is used. This includes the empty gate list. For eta=0 and r>0, the domain delta_j>0 has no feasible point, and no finite bit vector can satisfy this sufficient positive-error budget. Exact access or exact circuit cancellations might still produce zero actual error; infeasibility of this certificate is not impossibility of exact implementation.",
+        "A q=0 circuit cannot contain a physical one-qubit rotation, so the nonempty-occurrence case implicitly has q>=1; q=0 is included through the empty parameter case. Supplied interfaces require identical order/types/physical targets. No independence or cancellation assumption is made, no noncommuting gates are reordered, and no spectator dimension factor is introduced.",
+        "The optimum is for an explicitly assumed logarithmic supplier cost under a sufficient worst-case certificate. ExactAngle.real and real arithmetic do not furnish effective approximations to arbitrary real inputs. Existence/cost of a certified angle supplier, finite-gate-set compilation, other arithmetic/implementation costs and resource scaling are all separate. This answer proves neither polynomial-time finite-bit synthesis nor optimal physical circuit error."
+      ],
+      "expected_rubric_checks": [
+        "Compute delta_j^*=2 eta c_j/(C m_j) and T^*=sum c_j log_2(C m_j/(2 eta c_j)), retaining multiplicities and weights.",
+        "Prove feasible positivity and all upper caps inactive; r>=1, c_j>0 and eta<1/2 are used.",
+        "Provide global inequality/convexity justification and an equality argument establishing uniqueness, not Lagrange stationarity alone.",
+        "Round up log precision, prove the resulting certificate, lower cost bound and strict upper additive-C bound.",
+        "Do not call rounded allocation the exact integer optimum or omit multiplicity from error when precision is reused.",
+        "Compose full-output state error as rho+eta+kappa using unitarity and unit input norm.",
+        "Separate r=0 and eta=0, and preserve supplier/compiler/model limitations and chronological physical alignment.",
+        "The supplied telescoping interface may be invoked without reproving it; assessed allocation proof must carry the substantive weight."
+      ],
+      "source_checks": [
+        {
+          "path": "QuantumBlockEncoding/PrimitiveCircuitPerturbation.lean",
+          "sha256_lf": "624109564cd82b0584fad717283e7b9116b36f1ef10d60b43a063c0ef2a1fbae",
+          "raw_sha256": "624109564cd82b0584fad717283e7b9116b36f1ef10d60b43a063c0ef2a1fbae",
+          "hash_policy": "sha256-lf-text-v1",
+          "lines_read": [
+            [
+              1,
+              132
+            ]
+          ],
+          "declarations_actually_read": [
+            "GateAligned",
+            "Aligned",
+            "GateAligned.distance_le",
+            "aligned_eval_distance_le",
+            "aligned_eval_clm_distance_le",
+            "hermiteAngleBudget",
+            "prepare_conditional_distance_le",
+            "prepare_conditional_clm_distance_le"
+          ],
+          "checked_at_utc": "2026-11-03T12:11:10.564154+00:00",
+          "finding": "Actual source theorem gives uniform positional N delta/2; unchanged gates also fit that bound. Multiplicity-weighted nonuniform telescoping is supplied by this question and is a natural elementary extension, not the literal conclusion of this declaration. No optimal allocation or finite-bit supplier theorem occurs here."
+        },
+        {
+          "path": "QuantumBlockEncoding/PrimitiveRyPerturbation.lean",
+          "sha256_lf": "57ad888af7a81ac5067f6655160fecf1f197a91b0414bc5e510786b9eed27e32",
+          "raw_sha256": "57ad888af7a81ac5067f6655160fecf1f197a91b0414bc5e510786b9eed27e32",
+          "hash_policy": "sha256-lf-text-v1",
+          "lines_read": [
+            [
+              1,
+              99
+            ]
+          ],
+          "declarations_actually_read": [
+            "standardRy_centered_difference",
+            "standardRy_difference_factor",
+            "lift_sub",
+            "lift_smul",
+            "liftedRy_difference_factor",
+            "liftedRy_distance",
+            "liftedRy_distance_le",
+            "eval_ry_distance",
+            "eval_ry_distance_le",
+            "eval_ry_clm_distance_le"
+          ],
+          "checked_at_utc": "2026-11-03T12:11:10.564154+00:00",
+          "finding": "The exact difference factor is 2 sin((a-b)/4) times a lifted unitary. Its L2 operator norm is dimension independent and its sign is retained before taking norms. The absolute-angle Lipschitz bound is |a-b|/2."
+        },
+        {
+          "path": "QuantumBlockEncoding/PrimitiveSemantics.lean",
+          "sha256_lf": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+          "raw_sha256": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+          "hash_policy": "sha256-lf-text-v1",
+          "lines_read": [
+            [
+              18,
+              40
+            ],
+            [
+              194,
+              233
+            ],
+            [
+              323,
+              344
+            ],
+            [
+              374,
+              402
+            ]
+          ],
+          "declarations_actually_read": [
+            "standardRyMatrix",
+            "standardRyMatrix_add",
+            "liftPrimitiveOneQubit",
+            "liftPrimitiveOneQubit_apply",
+            "liftPrimitiveOneQubit_unitary",
+            "evalPrimitiveGate",
+            "evalPrimitiveGate_unitary",
+            "evalPrimitiveCircuit",
+            "evalPrimitiveCircuit_unitary",
+            "evalPrimitiveCircuit_append"
+          ],
+          "checked_at_utc": "2026-11-03T12:11:10.564154+00:00",
+          "finding": "Complete relevant definitions, unitarity theorem bodies and append theorem were inspected, extending packet end-lines where needed. Gate lifting preserves physical targets and spectators. The evaluator uses I for the empty list and eval(rest) eval(head), so order may not be commuted. Incidental opening lines of following declarations were visible but not used."
+        },
+        {
+          "path": "QuantumBlockEncoding/PrimitiveCircuit.lean",
+          "sha256_lf": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c",
+          "raw_sha256": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c",
+          "hash_policy": "sha256-lf-text-v1",
+          "lines_read": [
+            [
+              1,
+              115
+            ]
+          ],
+          "declarations_actually_read": [
+            "ExactAngle",
+            "ExactAngle.eval",
+            "ExactAngle.eval_add",
+            "ExactAngle.eval_neg",
+            "ExactAngle.eval_scale",
+            "PrimitiveGate",
+            "PrimitiveCircuit",
+            "PrimitiveProgram"
+          ],
+          "checked_at_utc": "2026-11-03T12:11:10.564154+00:00",
+          "finding": "ExactAngle.real permits arbitrary exact real values and explicitly does not promise numerical export. PrimitiveProgram stores a circuit plus exact globalPhase; storing the field is not construction of a physical label-controlled phase gate."
+        }
+      ],
+      "boundary_and_contract_checks": [
+        "The strict tolerance caps follow already from each positive budget term and 2 eta<1. Positive costs rule out flat directions; finite r guarantees all sums and rounding bounds are finite.",
+        "The source declaration is a uniform circuit perturbation result. Nonuniform reuse, optimization, integer rounding and input/output error composition are NL argument layers, not newly compiled theorems.",
+        "The no-feasible-tolerance statement at eta=0 concerns the stated relaxation/certificate, not the actual circuit or possibility of exact real/symbolic data."
+      ]
+    },
+    {
+      "slot": "B4",
+      "core_id": "candidate:c3875629-0a16-497e-b613-ab3272780702",
+      "blind_packet_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/blind/B4.json",
+      "blind_packet_digest": "724e174d1442ad02e3cc212f74fad6d7c15904124bdb8aeea9b0fefdde2cc51a",
+      "blind_packet_raw_sha256": "97da4ccdecb613ea7825c9c677c9765dcb537377022c892c1902b9167bdf90c2",
+      "frozen_payload_item_digest_claimed_by_packet": "da0e4f9473327ee4fde28dbdf459af50a8be98195389eda449d8642af39d3bd8",
+      "frozen_payload_raw_sha256_claimed_by_packet": "a977c25b404f3b3e148cdcedd961e1e8652ad52ed1434fc27b1c3d04553e9555",
+      "frozen_payload_binding_status": "not independently read or verified in phase 1",
+      "independent_derivation": [
+        "Words of length n and coordinate functions x:{0,...,n-1}->{0,1} are in bijection by x(w)_i=w_i; the inverse reads coordinates in increasing wire order. Reversal rho_n is an involution, including n=0.",
+        "For a length-n coordinate list z and high appended bit b, L_(n+1)(snoc(z,b))=L_n(z)+2^n b. Reversing x(b::u) yields snoc(rho_n x(u),b). Thus S_(n+1)(b::u)=S_n(u)+2^n b, with S_0(empty)=0. This is precisely M(b::u)=b2^n+M(u), proving S_n=M by induction for all n.",
+        "The map L_n is bijective onto {0,...,2^n-1}: at n=0 there is one label/index; recursively L_(n+1)(b::u)=b+2L_n(u), and every integer k<2^(n+1) has unique low bit b=k mod 2 and tail index floor(k/2)<2^n. Composing the word/basis bijection, reversal and L_n proves S_n and hence M are bijective as well. In particular S_n(wordOf(rho_n x))=L_n(rho_n rho_n x)=L_n(x).",
+        "For a fixed physical label x, the unique contributing word is wordOf(x). Its amplitude is v_x=F(wordOf(x))=f(M(wordOf(x)))=f(L_n(rho_n x)). The intended coefficient is t_x=f(L_n(x)). Since P|x>=|rho_n x> and rho is its own inverse, (Pv)_x=v_(rho_n x)=f(L_n(x))=t_x.",
+        "Without applying P, v=t iff f(L_n(rho_n x))=f(L_n(x)) for every x. Equivalently, define rev_n(k)=L_n(rho_n(L_n^(-1)(k))); the table must satisfy f(rev_n(k))=f(k) at every index, i.e. be constant on reversal orbits. The condition concerns table invariance, not individual word palindromicity.",
+        "Because all maps are bijections and coefficients are real, ||v||^2=sum_w F(w)^2=sum_x f(L_n(rho_n x))^2=sum_(k=0)^(2^n-1) f(k)^2=||t||^2=:Q. P is unitary as a basis permutation. If Q>0, normalized vectors v/sqrt(Q) and t/sqrt(Q) obey the same relation P(v/sqrt(Q))=t/sqrt(Q). If Q=0 the table and both vectors are zero and normalization is undefined.",
+        "Explicit three-bit discriminator: use the head-first word w=(1,0,0), which is non-palindromic. Its physical low-wire-first label x=(1,0,0) has L_3(x)=1, while M(w)=S_3(w)=4 and L_3(rho_3 x)=4. Take f(k)=1 if k=4 and 0 otherwise. Then v=|physical index 1>, t=|physical index 4>, so the uncorrected vectors are distinct and orthogonal. It satisfies the contraction premise with d_0=d_1=d_2=d_3=1, ell=r=1, A_0(b)=b, A_1(b)=A_2(b)=1-b.",
+        "At n=0 there is one empty word, identity contraction, scalar F(empty)=ell r=f(0), and rho=P=identity. At n=1 reversal is also identity, so v=t for every table. Any reversal-invariant table gives v=t for arbitrary n; the zero table gives v=t=0 but no normalized state.",
+        "Reversing physical labels changes which bit each already ordered core consumes. It does not replace ell A_0(w_0)...A_(n-1)(w_(n-1))r by the reverse matrix product. The reverse product may even be dimensionally undefined, and when defined generally changes a noncommutative contraction. A mathematical basis relabeling or formula for P does not execute a wire permutation. A real circuit must implement routing/permutation and account for its costs; no SWAP synthesis, free routing, bond cleanup, postselection, or tensor-train preparation algorithm follows from these identities."
+      ],
+      "expected_rubric_checks": [
+        "Give the all-length cons-to-snoc reversal argument and high-bit recurrence, with n=0 base.",
+        "Prove the word/basis/index bijections and the public S(wordOf(rho x))=L(x) identity, not merely a three-bit example.",
+        "Derive v_x=f(L(rho x)) and transform coefficients with the inverse permutation correctly to get Pv=t.",
+        "State necessary and sufficient reversal-invariance of the sample table for uncorrected equality.",
+        "Prove squared-mass equality by reindexing and treat positive versus zero normalization.",
+        "Supply a non-palindromic three-bit witness with both integer labels and a table yielding different vectors.",
+        "Keep core order, matrix dimensions, physical-wire reversal and possible routing/implementation cost distinct.",
+        "Include n=0, n=1, invariant table and zero table."
+      ],
+      "source_checks": [
+        {
+          "path": "QuantumBlockEncoding/TensorTrainWord.lean",
+          "sha256_lf": "65406c2bfa5359d6b6c1559a5a5a3f686ad4417cac436a8a1aab696b7becbdf8",
+          "raw_sha256": "65406c2bfa5359d6b6c1559a5a5a3f686ad4417cac436a8a1aab696b7becbdf8",
+          "hash_policy": "sha256-lf-text-v1",
+          "lines_read": [
+            [
+              1,
+              102
+            ]
+          ],
+          "declarations_actually_read": [
+            "toBasis",
+            "toBasis_wordOfBasis",
+            "wordOfBasis_toBasis",
+            "basisEquiv",
+            "reverseBasis",
+            "sampleEquiv",
+            "toBits",
+            "toBits_length",
+            "primitive_snoc_value",
+            "sampleEquiv_value",
+            "wordSampleIndex_eq",
+            "sampleEquiv_public"
+          ],
+          "checked_at_utc": "2026-11-03T12:11:10.564154+00:00",
+          "finding": "sampleEquiv is explicitly word-to-basis, then reversal, then little-endian indexing. The all-length induction uses reversal of cons as snoc and the appended-high-bit recurrence. This supports index transport, not a preparation/routing algorithm."
+        },
+        {
+          "path": "QuantumBlockEncoding/TensorTrainCanonical.lean",
+          "sha256_lf": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+          "raw_sha256": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+          "hash_policy": "sha256-lf-text-v1",
+          "lines_read": [
+            [
+              1,
+              53
+            ]
+          ],
+          "declarations_actually_read": [
+            "Core",
+            "slice",
+            "Chain",
+            "Word",
+            "wordFintype",
+            "contract",
+            "RightCanonical"
+          ],
+          "checked_at_utc": "2026-11-03T12:11:10.564154+00:00",
+          "finding": "Core slices have incoming row and outgoing column. contract(cons A C, head::tail)=slice(A,head) contract(C,tail), matching the ordered row-vector contraction in the question. No canonicalization theorem is used; the opening of RankReduced was incidentally visible."
+        },
+        {
+          "path": "QuantumBlockEncoding/TensorTrainSchedule.lean",
+          "sha256_lf": "2cd10d741a8655132286cbba741293b6ab2a89c713d8553beebd2820b0aab8e3",
+          "raw_sha256": "2cd10d741a8655132286cbba741293b6ab2a89c713d8553beebd2820b0aab8e3",
+          "hash_policy": "sha256-lf-text-v1",
+          "lines_read": [
+            [
+              1,
+              113
+            ]
+          ],
+          "declarations_actually_read": [
+            "wordOfBasis",
+            "rankAt",
+            "paddedAt",
+            "transfer_shift",
+            "paddedSlice_mulVec",
+            "transfer_padded"
+          ],
+          "checked_at_utc": "2026-11-03T12:11:10.564154+00:00",
+          "finding": "wordOfBasis reads wire zero then tail. transfer_shift and paddedSlice_mulVec reconcile chronological column-vector transfer with row-oriented chain contraction, without commuting core matrices. The bounded-run declaration header was incidentally visible, not used."
+        },
+        {
+          "path": "QuantumBlockEncoding/PrimitiveBasisLE.lean",
+          "sha256_lf": "469c176f1f47732661d526b72de1f9906a3c335061f6a4c82766877ce5979fad",
+          "raw_sha256": "469c176f1f47732661d526b72de1f9906a3c335061f6a4c82766877ce5979fad",
+          "hash_policy": "sha256-lf-text-v1",
+          "lines_read": [
+            [
+              1,
+              212
+            ]
+          ],
+          "declarations_actually_read": [
+            "primitiveBasisLEEquiv",
+            "primitiveBasisLEEquiv_zero_apply",
+            "primitiveBasisLEEquiv_succ_value",
+            "primitiveBits2LE",
+            "primitiveBits3LE"
+          ],
+          "checked_at_utc": "2026-11-03T12:11:10.564154+00:00",
+          "finding": "Read the entire named source; substantive use is lines 15-38, which provide the equivalence and low-bit recurrence. Fixed two/three/six-wire checks elsewhere in the file are not used as the all-length proof and were not run."
+        },
+        {
+          "path": "QuantumBlockEncoding/HermiteBoundaryInjection.lean",
+          "sha256_lf": "a78c5a9e71e669048e5274cb55e3e10ccec326bccf26739713dd695bd15b2ca0",
+          "raw_sha256": "a78c5a9e71e669048e5274cb55e3e10ccec326bccf26739713dd695bd15b2ca0",
+          "hash_policy": "sha256-lf-text-v1",
+          "lines_read": [
+            [
+              1,
+              49
+            ],
+            [
+              778,
+              797
+            ]
+          ],
+          "declarations_actually_read": [
+            "wordValue",
+            "wordValue_lt",
+            "pathCoordinate_eq_wordValue",
+            "wordSampleIndex"
+          ],
+          "checked_at_utc": "2026-11-03T12:11:10.564154+00:00",
+          "finding": "wordValue has MSB-first cons recursion and a strict 2^length range bound; wordSampleIndex supplies the width-qualified public-grid type. Nearby source-readout text was incidentally visible but is not used as an assumption or result for this review."
+        }
+      ],
+      "boundary_and_contract_checks": [
+        "The contraction is supplied; positivity of bond dimensions makes the typed row/column products valid but does not impose normalized cores. No preparation or clean-work premise is added.",
+        "The sample-index identities in the named source are exact; the vector transport and mass proof are elementary independently derived NL consequences. The Hermite public adapter uses length n+1, while the generic word theorem covers length zero too.",
+        "Column-vector chronological transfer and row-vector tensor contraction use different index orientations; the inspected paddedSlice bridge reconciles them and never licenses commutation."
+      ]
+    }
+  ],
+  "remaining_uncertainty": [
+    "No B proposed answer/rubric/reasoning map has yet been assessed.",
+    "No global/native/legacy dedup or split-admission conclusion is made in phase 1.",
+    "Mathematical acceptability does not automatically admit a candidate or increment core counts."
+  ]
+}

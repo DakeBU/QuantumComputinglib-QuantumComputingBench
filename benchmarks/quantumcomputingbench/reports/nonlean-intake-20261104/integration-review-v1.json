@@ -1,0 +1,178 @@
+{
+  "schema_version": "qcb.nl_intake_integration_review.v1",
+  "reviewer": "/root/nonlean_audit_coherence",
+  "created_at_utc": "2026-11-04T09:25:55.303242+00:00",
+  "verdict": "accept_engineering_with_pending_publication_evidence",
+  "scope": "Bounded independent engineering review of supplemental workbook loader/publisher and navigation/benchmark-center glue. Does not replace root mathematical, browser, CI, merge or deployment gates.",
+  "baseline_head": "e31696ea27811d5679154b8d6a4f78fd7cbbb3a7",
+  "reviewed_source_file_lf_sha256": {
+    "benchmarks/quantumcomputingbench/src/qcb_nonlean_workbook.py": "361b828c9f0fb37d024c53b92cfdd3cc0ed039dea53eb65f87dda94ed1e86591",
+    "website/scripts/qcb_nonlean_workbook.py": "d24803e682bdd73a7b7065386f607144d58d5c0959ba2c6a6059582a9f10989a",
+    "website/scripts/quantumcomputingbench.py": "11f996ed572223135484f030f228a9ff438b2a0b8566510cc8b49b7bccf63080",
+    "website/scripts/sidebar_navigation.py": "b9ce164d68e59ec8243d45c8358c3ba0a0114ad2a6d1f909ae86fc4ffab3f366",
+    "website/scripts/qcb_benchmark_center.py": "d3b0990c33c3f648062080e54043de33dc873da0f192ea6c7fa0379b7057c98b",
+    ".gitattributes": "97632d7f675255c5cc143d9cb939b253a19dbc7ee771667c19b924002e7bb6e8"
+  },
+  "hash_policy": "SHA-256 of file bytes after CRLF to LF canonicalization for source-code bindings. Mathematical review/phase receipts retain exact raw-byte seals.",
+  "binding_staleness": "Implementation evolved during audit. Initial loader LF SHA256 was 4d2f5bf9d7b44488023fda02742d5842949600b4105152b8a0b001068e50370c; current reviewed loader is 361b828c9f0fb37d024c53b92cfdd3cc0ed039dea53eb65f87dda94ed1e86591. Initial negative checks exposed omitted-review-binding acceptance; the final bound regression rejects it. Any later change to a listed source-file LF hash invalidates this engineering approval for that successor until separately reviewed. Full browser/CI source bindings remain root-owned. The renderer later changed from e2387f8a… to d24803e6… to add sibling reading links and a graph wrapper. That successor was reread and the final static check reran both graph-link branches with exact before/after source hashes, unchanged throughout.",
+  "actual_reading": [
+    "Read both new loader/publisher files, focused glue diffs in quantumcomputingbench.py/sidebar_navigation.py/qcb_benchmark_center.py, new reader-comparison/clarification metadata and existing graph-focus implementation.",
+    "Reviewed subsequent loader changes adding exact mandatory annotation/clarification hash keys and production Git provenance existence/equality.",
+    "Inspected .gitattributes broad benchmark LF rule, then the added narrow raw-byte receipt exception and effective attributes."
+  ],
+  "checks": [
+    {
+      "name": "Current workbook load",
+      "result": "passed",
+      "details": "12 distinct packets; 4 exact-existing-core expositions, 8 unassigned candidates; D2=3,D3=5,D4=4; all raw contributed manifest file hashes/lengths, current contracts, report/question/phase bindings and graph membership checked by the loader. Workbook digest at these runs: 0b46853db596d2c7ec37d4497fe22d37572afaf81f04ef9d76f0fbcae9a57285."
+    },
+    {
+      "name": "Annotation-binding omission regressions",
+      "result": "passed_after_root_fix",
+      "evidence": "integration-binding-regression-checks.json",
+      "details": "In-memory read_json return mutation only. Removing all reader-comparison bindings, or removing B-notation binding while injecting arbitrary TeX under a valid question excerpt, now raises ValueError. The tested loader source hash was unchanged throughout the final regression."
+    },
+    {
+      "name": "Production Git provenance guard",
+      "result": "correctly_rejects_current_uncommitted_preview",
+      "evidence": "integration-binding-regression-checks.json",
+      "details": "check_publication_sources rejects the audited preintegration HEAD because new review/payload artifacts are absent there. Main publish invokes this guard. A final committed candidate must pass it; no public dirty-head source URLs are approved."
+    },
+    {
+      "name": "In-memory HTML routes and disclosure structure",
+      "result": "passed_bounded_static_check",
+      "evidence": "integration-final-render-checks.json",
+      "details": "On the final listed source hashes: 20 pages, 53 anchors, 283 local links in the artificial all-current case and 230 in the all-frozen-only case, no route/fragment/core-ID/graph-ID/duplicate-ID/initial-disclosure/answer-first-line errors. New sibling reading links correctly preserve supplied-result and non-independence boundaries. HTMLParser evidence only; no browser/MathJax/layout execution."
+    },
+    {
+      "name": "Frozen-only graph fallback",
+      "result": "passed_bounded_static_check",
+      "evidence": "integration-final-render-checks.json",
+      "details": "Both graph-link branches pass on the final renderer source hash. The separate earlier fallback check counted 65 frozen-only fragment links. Actual live graph focus and interaction remain root browser responsibilities."
+    },
+    {
+      "name": "Question/reference separation",
+      "result": "passed",
+      "details": "questions.jsonl rows have exactly schema_version/view_id/question_sha256/input; input has exactly question/assumptions/conventions. References and rubrics are emitted in a separate download. Source/index metadata is separate. No reference_answer, rubric or reasoning_map is added to question inputs. These public files are explicitly outside canonical training/evaluation pools."
+    },
+    {
+      "name": "No admissions/split or empirical promotion",
+      "result": "passed_source_and_metadata_inspection",
+      "details": "Existing views compare the immutable current nine-field contract and retain split. Candidates must remain candidate_not_counted and unassigned_pending_reconciliation. Projection adds zero canonical cores, zero Lean admissions and zero scored training/evaluation rows. D bands remain provisional. No human approval/model-performance claim was found in the new flow."
+    },
+    {
+      "name": "Receipt newline preservation",
+      "result": "passed_effective_filter_and_actual_index_byte_checks",
+      "evidence": "integration-staged-byte-checks.json",
+      "details": "Effective report-only -text -eol exception preserves raw seals. Read-only Git clean-filter identity passed for 29 artifacts, then actual git show :path equality passed for all 147 staged report/contributed-manifest inventory paths checked. The exception preserves CRLF receipts without changing normal benchmark source LF policy. Root must stage this final report and any audit artifacts created afterward; final committed candidate/CI checkout remains outside this audit."
+    }
+  ],
+  "findings": [
+    {
+      "id": "INTEGRATION-REVIEW-BINDING-COVERAGE",
+      "severity": "blocking_in_initial_version",
+      "status": "resolved_in_reviewed_code",
+      "finding": "The first loader only checked hash entries present in reader-comparison. Missing bindings could silently remove review protection and allow arbitrary TeX to be displayed under a legitimate source excerpt.",
+      "resolution": "Root now requires the exact mandatory seven-path binding set, plus correct comparison schema, before hash validation. Both omission/injection regressions reject on source LF hash 361b828c9f0fb37d024c53b92cfdd3cc0ed039dea53eb65f87dda94ed1e86591.",
+      "evidence": "integration-binding-negative-checks.json (historical failing cases); integration-binding-regression-checks.json (bound fixed cases). The initial failing artifact lacks an exact contemporaneous source hash and must not be misrepresented as a final-code result."
+    },
+    {
+      "id": "INTEGRATION-COMMITTED-PROVENANCE",
+      "severity": "production_publication_requirement",
+      "status": "guard_added_actual_candidate_check_pending",
+      "finding": "New GitHub Original contribution and Intake mathematical review links cannot resolve at the preintegration HEAD because those files are uncommitted. Frozen Lean source links use the correct frozen source commit.",
+      "resolution": "Root is authorized to commit/push/merge/deploy and will publish a committed candidate containing all cited paths. The new check_publication_sources rejects absent or byte-different publication blobs and is wired into main publish. No replacement with unpinned URLs is recommended."
+    },
+    {
+      "id": "INTEGRATION-RAW-RECEIPT-NEWLINES",
+      "severity": "production_content_binding_requirement",
+      "status": "resolved_in_effective_attributes_and_checked_index",
+      "finding": "New phase/review/notation receipts include CRLF and carry exact raw hashes; the previous broad Git LF rule would invalidate seals on commit/checkout.",
+      "resolution": "Narrow report-only -text -eol exception verified after broad benchmark rule. All 147 staged audit-receipt/contributed-manifest-inventory byte comparisons equal their worktree originals; no normalization or resealing. cr-at-eol whitespace handling permits preserved CRLF. One exact original failed-run transcript has an exact-file -whitespace exemption; it does not alter bytes or broaden validation claims. Final commit/CI checkout is root-owned."
+    }
+  ],
+  "artifacts": {
+    "integration-audit-state.json": {
+      "path": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/integration-audit-state.json",
+      "raw_sha256": "bfde852065d3a520d15b4d1f0827e1300494e36b0fc4336cd562415ddb0f83b7"
+    },
+    "integration-binding-negative-checks.json": {
+      "path": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/integration-binding-negative-checks.json",
+      "raw_sha256": "25795e6507f17e9de6b116a7658e2698f572db77100a8d806231c417e6f1d112"
+    },
+    "integration-binding-regression-checks.json": {
+      "path": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/integration-binding-regression-checks.json",
+      "raw_sha256": "3f94ea8a1fabc8b6010be717aa168fbd791f5f95cd9ca57f8cad712fdb46ba2d"
+    },
+    "integration-static-render-checks.json": {
+      "path": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/integration-static-render-checks.json",
+      "raw_sha256": "7347bb2275e421f36a15dbe3eccb5a8bdfe4a4ca5bee4e2443accf3381095a0b"
+    },
+    "integration-fallback-graph-checks.json": {
+      "path": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/integration-fallback-graph-checks.json",
+      "raw_sha256": "466ce385e9fced77c1389252806ee764dfc2d122ecac6fdb37c537871293b3ae"
+    },
+    "integration-byte-preservation-checks.json": {
+      "path": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/integration-byte-preservation-checks.json",
+      "raw_sha256": "2ce45c815a91f2d57cc047c68c3649d66d3a5e7e686d41d3de1fc6f8e593c65c"
+    },
+    "integration-final-render-checks.json": {
+      "path": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/integration-final-render-checks.json",
+      "raw_sha256": "25ea025d29903d51e19cd1a4392aaf62eb741d54576ebd0159a10093d5159491"
+    },
+    "integration-staged-byte-checks.json": {
+      "path": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/integration-staged-byte-checks.json",
+      "raw_sha256": "ed934ba6504401e4da3b57590a8858c7b4d771556e45aab23d47fc154066732f"
+    }
+  },
+  "pending_before_actual_publication": [
+    "Root must stage this finalized integration-review.json and the final-render/staged-byte audit artifacts created after the bulk staging; preserve all existing sealed receipts and contributed files.",
+    "Run check_publication_sources on the actual frozen committed candidate, then use that exact commit for GitHub source/review links. Current preintegration HEAD is correctly rejected.",
+    "Root owns final tests, full build, browser geometry/MathJax/disclosures/search/link interaction, CI, merge and deployment verification. These are not executed or approved by this audit."
+  ],
+  "worker_actions": {
+    "implementation_files_edited": false,
+    "raw_contribution_files_edited": false,
+    "existing_sealed_receipts_rewritten": false,
+    "git_stage_commit_push": false,
+    "lean_or_model_execution": false,
+    "browser_or_final_CI_run": false
+  },
+  "limitations": [
+    "Static HTML checks validate paths, initial markup and selected answer-string confinement, not screen-reader behavior, visual disclosure state, responsive layout, interaction timing, search indexing of the final full-site artifact or MathJax success.",
+    "Manual code review plus omission regressions do not prove reviewer independence in the world or semantic equivalence of arbitrary notation. Exact comparison records and actual mathematical reviews remain separate evidence.",
+    "Main loader and publisher have current-file bindings only as recorded above; any later edits require revalidation."
+  ],
+  "staged_source_lf_bindings": {
+    "benchmarks/quantumcomputingbench/src/qcb_nonlean_workbook.py": {
+      "git_index_lf_sha256": "361b828c9f0fb37d024c53b92cfdd3cc0ed039dea53eb65f87dda94ed1e86591",
+      "matches_reviewed_worktree_source_lf_sha256": true
+    },
+    "website/scripts/qcb_nonlean_workbook.py": {
+      "git_index_lf_sha256": "d24803e682bdd73a7b7065386f607144d58d5c0959ba2c6a6059582a9f10989a",
+      "matches_reviewed_worktree_source_lf_sha256": true
+    },
+    "website/scripts/quantumcomputingbench.py": {
+      "git_index_lf_sha256": "11f996ed572223135484f030f228a9ff438b2a0b8566510cc8b49b7bccf63080",
+      "matches_reviewed_worktree_source_lf_sha256": true
+    },
+    "website/scripts/sidebar_navigation.py": {
+      "git_index_lf_sha256": "b9ce164d68e59ec8243d45c8358c3ba0a0114ad2a6d1f909ae86fc4ffab3f366",
+      "matches_reviewed_worktree_source_lf_sha256": true
+    },
+    "website/scripts/qcb_benchmark_center.py": {
+      "git_index_lf_sha256": "d3b0990c33c3f648062080e54043de33dc873da0f192ea6c7fa0379b7057c98b",
+      "matches_reviewed_worktree_source_lf_sha256": true
+    },
+    ".gitattributes": {
+      "git_index_lf_sha256": "97632d7f675255c5cc143d9cb939b253a19dbc7ee771667c19b924002e7bb6e8",
+      "matches_reviewed_worktree_source_lf_sha256": true
+    }
+  },
+  "final_static_checks_code_bound": true,
+  "staged_receipt_and_contribution_checks": {
+    "checked_paths": 147,
+    "all_equal": true,
+    "evidence": "integration-staged-byte-checks.json"
+  }
+}

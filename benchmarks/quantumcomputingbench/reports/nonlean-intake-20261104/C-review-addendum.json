@@ -1,0 +1,70 @@
+{
+  "schema_version": "qcb.nl_intake_review_addendum.v1",
+  "author": "/root/nonlean_audit_tensor",
+  "status": "proposed_for_root_review_not_independently_approved",
+  "raw_payloads_unchanged": true,
+  "mathematical_answer_repair_required": false,
+  "items": [
+    {
+      "slot": "C1",
+      "payload_sha256": "6d1d47bda77a13c7781b076ffacf966d79ecce55e674209e77558d306af132b9",
+      "question_sha256": "5bf5f1b1c1c9fef2745ed19d82afb769865f4c9ba83230f9beee76dc6e62dc18",
+      "issues": [
+        {
+          "id": "C1-RUBRIC-BOUNDARY-SCOPE",
+          "severity": "low",
+          "blocking": false,
+          "location": "rubric C1-r4, final 1 of 10 points",
+          "finding": "The short question asks degree/outer-size control but does not explicitly request a named degenerate-case example. Requiring an extra example can undercredit a complete proof valid on all stated cases.",
+          "proposed_correction": "Use the separate grading clarification: a general argument valid for zero/constant/empty cases earns this credit even if the solver does not name a boundary example."
+        }
+      ]
+    },
+    {
+      "slot": "C2",
+      "payload_sha256": "dbe542a555a13baf4ca958f270b0e2257bf87cd656e2af47606d5c6765b263d1",
+      "question_sha256": "267dd3396f5543531d781e4b6611d46d5c4348947b9f8e8ddd1baffd71b7cb2e",
+      "issues": [
+        {
+          "id": "C2-MAP-BOUNDARY-SCOPE",
+          "severity": "low",
+          "blocking": false,
+          "location": "reasoning_map C2-S7.required_inputs",
+          "finding": "Optional original-canonicality input C2-I4 is in the combined node for unconditional n=0/n=1/zero-bond invariance and conditional canonicality impossibility. Its AND scope should not be inherited by the unconditional coverage.",
+          "proposed_correction": "Split into an unconditional invariance boundary node without I4 and a separate canonicality-impossibility node; keep the original immutable."
+        }
+      ]
+    },
+    {
+      "slot": "C3",
+      "payload_sha256": "c635422213fb601413c8a270169aabc91837961ac555213588c8404fdae82f9d",
+      "question_sha256": "776439a16abc8b20a757a0dc1e0a238a6defc29cf18d1dfb51cecf158a12720b",
+      "issues": [
+        {
+          "id": "C3-MAP-BOUNDARY-SCOPE",
+          "severity": "low",
+          "blocking": false,
+          "location": "reasoning_map C3-S7.required_inputs",
+          "finding": "Same-train premise C3-I4 and S4/S5 are included in a combined boundary node, although n=0 and zero-bond cross identities hold for distinct trains as well.",
+          "proposed_correction": "Split unconditional cross boundary coverage from same-train Gram/kernel consequences in a separately labelled map addendum."
+        }
+      ]
+    },
+    {
+      "slot": "C4",
+      "payload_sha256": "169c92c69d5319c413c9ae91ad8207e70f7728859ae1b32ec51495b39da34f54",
+      "question_sha256": "ff9187905d07cd57e1adad33ff98abc17ff7c7c037ec8d7254ea176aa4d0a51e",
+      "issues": [
+        {
+          "id": "C4-MAP-PRECISION-SCOPE",
+          "severity": "low",
+          "blocking": false,
+          "location": "reasoning_map C4-S7.required_inputs and C4-I3",
+          "finding": "The map retains I3 containing the strict small-error assumption when explaining that the epsilon precision condition itself guarantees that inequality and nonzero y. The reference proof does independently derive it correctly.",
+          "proposed_correction": "In a supplementary precision branch, use positive mass plus epsilon precision to produce strictness, then invoke the S5/S6 interfaces; separate the positive-mass and strict-error components of I3."
+        }
+      ]
+    }
+  ],
+  "scope": "Only grading/map-quantifier presentation clarifications. The original answers remain mathematically accepted with the limits recorded in C-review.json. This artifact does not overwrite any original payload or old review."
+}

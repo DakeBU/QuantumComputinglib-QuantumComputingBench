@@ -369,7 +369,8 @@ class CurriculumTests(unittest.TestCase):
             write_json(root / "data/example-cases.json", {"cases": []})
             write_json(root / "data/papers.json", read_json(reader.ROOT / "website/papers.json"))
             (root / "index.html").write_text(build_site.site_header("./", "") + '<main id="main-content"></main>', encoding="utf-8")
-            with patch.object(build_site, "git_context", return_value={"commit": "UNIT-TEST-FIXTURE-NOT-EXECUTION", "shortCommit": "fixture"}):
+            with patch.object(build_site, "git_context", return_value={"commit": "UNIT-TEST-FIXTURE-NOT-EXECUTION", "shortCommit": "fixture"}), \
+                    patch('qcb_nonlean_workbook.check_publication_sources'):
                 first = reader.publish(root)
                 before = (root / "search-index.json").read_bytes()
                 reader.publish(root)

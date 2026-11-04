@@ -1,0 +1,61 @@
+{
+  "schema_version": "qcb.cohort_question_first_packet.v1",
+  "slot": "A3",
+  "base_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "frozen_payload_item_digest": "7a55e0414ad9bdfe8eb0adb3f95f1e9b951005731b5873fb3d5f09fb3ada97b4",
+  "frozen_payload_sha256": "9d527f2e9659653f37d4aaaf7d0dee9d46c66fea12616abb93d012eb7f09c88f",
+  "core_id": "candidate:bf862ffc-6597-4fd0-8b37-bf09f4eed230",
+  "question": "Let n,m be nonnegative integers, H=C^(2^n) the system space and K=C^(2^m) the ancilla space, in the fixed tensor order K tensor H. All workspace of the procedure is included in K and initialized to the computational basis state |0^m>. Define the isometry J:H→K tensor H by Jv=|0^m> tensor v, the projector P=JJ†, and the clean block B=J†UJ of a unitary U on K tensor H. Let A:H→H be a linear operator, let alpha>0 and epsilon>=0, and assume the induced Euclidean operator-norm bound ||A-alpha B||<=epsilon. A system input psi has ||psi||=1. Put s=||A psi|| and assume s>epsilon.\n\nYou may use the following supplied result, with all of its premises: for nonzero x,y in a finite-dimensional real or complex Euclidean space, ||x/||x||-y/||y||||<=2||x-y||/||x||; if ||x-y||<=delta<||x|| then y is nonzero.\n\nDerive the full decomposition of UJpsi into its P and I-P branches. For the measurement with outcomes P and I-P, compute the success probability p and the normalized system vector conditional on P, proving every required nonzero statement. Prove\n((s-epsilon)/alpha)^2 <= p <= min(1,((s+epsilon)/alpha)^2),\n||Bpsi/||Bpsi|| - Apsi/s|| <= min(2,2epsilon/s),\nand |p-s^2/alpha^2| <= epsilon(2s+epsilon)/alpha^2.\nExplain why s^2/alpha^2 is only a nominal squared amplitude, not necessarily a probability under an approximate block promise, and why clean projection does not imply the whole output has clean ancillas.\n\nIf each independent fresh trial performs one preparation of psi with clean ancillas, one application of U and one test of P, derive the expected numbers of each operation until the first success and a bound in terms of s,epsilon,alpha. No inverse, reflection, controlled oracle or finite-bit implementation is granted. Discuss epsilon=0, s=0, the threshold s=epsilon>0, no ancilla qubits m=0, and zero system qubits n=0. Include an explicit admissible unitary witness showing why the strict margin cannot simply be removed. Do not infer universal postselection necessity for every possible procedure producing the same normalized target.",
+  "assumptions": [
+    "n,m are nonnegative integers; system and ancilla dimensions are 2^n and 2^m, hence nonzero. All procedure workspace is included in the clean ancilla register.",
+    "U is unitary on K tensor H; Jv=|0^m> tensor v and B=J†UJ.",
+    "alpha>0, epsilon>=0, ||A-alpha B||<=epsilon in induced Euclidean operator norm, ||psi||=1, and s=||Apsi||>epsilon.",
+    "For the repetition statement, trials use independent fresh preparations and the same ideal success measurement; input preparation, U and the success test are available operations with separately charged uses.",
+    "The stated normalization-stability inequality is supplied; its nonzero and error-margin premises must be checked before application."
+  ],
+  "conventions": [
+    "Registers are ordered ancilla then system; matrix products act on column vectors from the rightmost factor first.",
+    "Success is the projection P=JJ† onto all ancilla and workspace qubits being zero. The rejected branch is not erased or assumed clean.",
+    "alpha is positive and the error convention is ||A-alpha B||<=epsilon; it is not ||A/alpha-B||<=epsilon.",
+    "All vector distances compare exact representatives, with no phase minimization. The success probability follows the Born rule for the specified projector.",
+    "One repetition attempt counts one input preparation, one U call and one success test; no amplitude-amplification, gate, precision or readout-cost theorem is supplied."
+  ],
+  "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "target_nodes": [
+    "declaration:QuantumBlockEncoding.ConcreteSemantics.productRegisterBlockProjection",
+    "transport:be-to-sp"
+  ],
+  "supporting_nodes": [
+    "declaration:QuantumBlockEncoding.ConcreteSemantics.cleanBasisActionAmplitude_eq_signalSystemBlockProjection",
+    "declaration:QuantumBlockEncoding.ConcreteSemantics.applyVec",
+    "declaration:QuantumBlockEncoding.ApproximateOperatorBlockEncodingCandidate",
+    "declaration:QuantumBlockEncoding.RealAmplitudePreparation.normalized_sum_sq"
+  ],
+  "source_refs": [
+    {
+      "path": "QuantumBlockEncoding/ConcreteSemantics.lean",
+      "anchor": "applyVec:55-58; productRegisterBlockProjection:201-204; clean branch bridge:249-294",
+      "sha256": "454c0c5e215ca197c5883bedf74882f392d259c7afeadc63912230437698ebe5",
+      "license": "MIT (repository LICENSE)"
+    },
+    {
+      "path": "QuantumBlockEncoding/BlockEncoding.lean",
+      "anchor": "intended scaled norm contract in comments:136-146; approximate candidate and certificate:148-163",
+      "sha256": "fe06f75a29822e28ccdbfedfb0b0e87f90872620fae7aed359085fad8fae64b4",
+      "license": "MIT (repository LICENSE)"
+    },
+    {
+      "path": "QuantumBlockEncoding/RealAmplitudePreparation.lean",
+      "anchor": "normalized_sum_sq:311-317, exact real normalization substrate only",
+      "sha256": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+      "license": "MIT (repository LICENSE)"
+    },
+    {
+      "path": "benchmarks/quantumcomputingbench/manifests/release-v3/snapshot.json",
+      "anchor": "nodes[id=transport:be-to-sp] and hyperedges[id=transport:be-to-sp], conceptual transport only",
+      "sha256": "71a08777e01af1b6e5bd3dd88ba6443efe9aea41240c09303d4bcc0a7cd8058b",
+      "license": "MIT (repository LICENSE)"
+    }
+  ]
+}

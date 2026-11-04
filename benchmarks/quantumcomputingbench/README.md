@@ -1,5 +1,12 @@
 # QuantumComputingBench
 
+The [supplementary NL workbook](docs/nonlean-workbook.md) integrates one
+collaborator cohort delivered in two overlapping ZIPs: twelve source-grounded
+expositions/candidate problems, subject chapters, D2–D4 routes, separate
+question/reference downloads and node-to-exercise inspection. Four expositions
+reuse existing cores; eight targets remain unassigned candidates. Canonical
+counts and train/evaluation pools are unchanged.
+
 Graph-grounded quantum-computing QA for training and evaluating specialized
 mathematical models, backed by QuantumComputinglib's sources and graph.
 

@@ -3,5 +3,10 @@ executable-exports/SP-HERMITE-001/** text eol=lf
 *.sh text eol=lf
 # Benchmark text hashes are LF-canonical on all supported platforms.
 benchmarks/quantumcomputingbench/** text eol=lf
+# Preserve the exact bytes sealed by these intake reviewers, including their
+# original line endings; raw SHA-256 receipts are not silently re-sealed.
+benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/** -text -eol whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# An original failed-run transcript intentionally retains its recorded bytes.
+benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/evidence/benchmark-unittests-initial.log -whitespace
 # Keep the standard third-party license download byte-identical on Windows.
 /LICENSES/Apache-2.0.txt text eol=lf

@@ -1,0 +1,121 @@
+{
+  "schema_version": "qcb.cohort_question_first_packet.v1",
+  "slot": "B3",
+  "base_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "frozen_payload_item_digest": "285491a96ea3df25e6e56fbd3d8a025a4ab3c2e9567be42c0408ef90b9245e9e",
+  "frozen_payload_sha256": "cfe9cf7d3563342eb5cd12b5f40276523ce4f1af467ceabe2b9528c41496def3",
+  "core_id": "candidate:cfa3fb2e-9733-4c13-8309-11f7d0541747",
+  "question": "Consider two positionally aligned finite unitary circuits on q≥0 qubits. Gates are chronological: if their matrices are U_0,...,U_{N-1}, the circuit matrix is U=U_{N-1}...U_0, with the empty product I; similarly define V. All gate types and physical targets agree position by position, and only real Y-rotation angles may differ. Let r≥1 distinct supplied angle parameters a_j, indexed by j=1,...,r, be rounded to ã_j, with parameter j occurring m_j≥1 times in the list; the same certified approximation is reused at those occurrences. All other gates are unchanged. The rotation convention is R(a)=[[cos(a/2),-sin(a/2)],[sin(a/2),cos(a/2)]].\n\nYou may use these supplied interfaces, without re-proving them: for the same physical target and any number of untouched spectators, ||R(a)-R(b)||=2|sin((a-b)/4)|≤|a-b|/2 in the induced Euclidean operator norm; and, for |ã_j-a_j|≤δ_j, chronological telescoping gives ||V-U||≤(1/2)Σ_j m_jδ_j. No statistical independence is assumed. The latter is a sufficient worst-case error certificate, not an exact expression for the circuit error.\n\nFix 0<η<1/2 and positive real precision weights c_j. Put C=Σ_j c_j. In an explicitly ASSUMED precision-cost model, a tolerance δ_j∈(0,1] has continuous cost c_j log₂(1/δ_j), paid once per distinct parameter; reuse has no additional precision-supplier charge in this model. Other computation and implementation costs are unspecified. Minimize T(δ)=Σ_j c_j log₂(1/δ_j) subject to Σ_j m_jδ_j≤2η. Prove a global and unique minimizer, compute its minimum value, and show why the upper caps δ_j≤1 do not become active. A valid proof may use the natural-logarithm inequality ln t≤t-1 for t>0, with equality only at t=1, or a fully justified convexity argument.\n\nFor integer precision b_j≥0, a certified supplier—IF available—returns |ã_j-a_j|≤2^{-b_j} at ideal model cost c_j b_j. Construct integer b_j by rounding the continuous solution; prove the resulting circuit error is at most η and its total weighted bit cost is at least the continuous optimum and less than that optimum plus C. Do not claim this rounded allocation is the exact integer optimum.\n\nFor unit inputs x,y and a unit target ψ with ||y-x||≤ρ and ||Ux-ψ||≤κ, derive the full-output state error of Vy. Finally handle an empty parameter set and η=0 separately, and explain why neither the error certificate nor this optimization proves a polynomial-time finite-bit angle supplier or finite-gate-set compiler for arbitrary real data. Preserve multiplicities and positional alignment; the primary assessed target is the allocation/rounding argument, not the supplied telescoping lemma.",
+  "assumptions": [
+    "The exact and approximate circuits are finite unitary circuits with identical order, gate types and physical targets; only the stated Y-rotation parameters change.",
+    "For the optimization, r≥1, m_j are positive integers, c_j>0, and 0<η<1/2; C=Σ_j c_j.",
+    "Each parameter j has one approximation reused at all m_j occurrences, with certified absolute angle error δ_j; no stochastic independence is assumed.",
+    "The exact single-rotation norm identity and the multiplicity-weighted circuit bound are supplied interfaces in the question.",
+    "The weighted logarithmic continuous cost and weighted linear integer-bit cost are explicit model assumptions, not physical complexity theorems; reuse is charged once only in that model.",
+    "For the state-error composition, x,y,ψ have norm one, ρ,κ≥0, ||y-x||≤ρ and ||Ux-ψ||≤κ.",
+    "Effective access to arbitrary exact angles and a certified finite-gate compiler are not assumed."
+  ],
+  "conventions": [
+    "Angles are real radians in the half-angle Y-rotation convention; raw absolute angle error is used, not untracked reduction modulo 2π.",
+    "Matrix norms are induced Euclidean operator norms; state norms are Euclidean vector norms, with all work included.",
+    "Later chronological gates multiply on the left and no gate commuting is allowed.",
+    "T is a deterministic precision-supplier cost relaxation; the target is optimality under its sufficient error budget, not optimality for the actual physical circuit error.",
+    "For r=0, empty sums have value zero; formulas dividing by C are not used."
+  ],
+  "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "target_nodes": [
+    "declaration:QuantumBlockEncoding.PrimitiveCircuitPerturbation.aligned_eval_distance_le"
+  ],
+  "supporting_nodes": [
+    "declaration:QuantumBlockEncoding.PrimitiveCircuitPerturbation.GateAligned.distance_le",
+    "declaration:QuantumBlockEncoding.PrimitiveRyPerturbation.eval_ry_distance",
+    "declaration:QuantumBlockEncoding.evalPrimitiveCircuit",
+    "declaration:QuantumBlockEncoding.ExactAngle.eval"
+  ],
+  "source_refs": [
+    {
+      "path": "QuantumBlockEncoding/PrimitiveCircuitPerturbation.lean",
+      "anchor": "Complete module lines 1-132 inspected: GateAligned/Aligned 16-23, local distance 39-46, chronological telescoping 49-76, uniform Hermite budget and consumer 88-119.",
+      "declarations": [
+        "GateAligned",
+        "Aligned",
+        "GateAligned.distance_le",
+        "aligned_eval_distance_le",
+        "hermiteAngleBudget",
+        "prepare_conditional_distance_le"
+      ],
+      "sha256": "624109564cd82b0584fad717283e7b9116b36f1ef10d60b43a063c0ef2a1fbae",
+      "hash_policy": "sha256-lf-text-v1",
+      "raw_sha256": "624109564cd82b0584fad717283e7b9116b36f1ef10d60b43a063c0ef2a1fbae",
+      "raw_equals_lf": true,
+      "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+      "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "matches_frozen_snapshot_input_hash": true,
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+    },
+    {
+      "path": "QuantumBlockEncoding/PrimitiveRyPerturbation.lean",
+      "anchor": "Complete module lines 1-99 inspected: scalar-unitary difference 17-36, physical spectator lift 39-69, Lipschitz and actual primitive interfaces 72-97.",
+      "declarations": [
+        "standardRy_difference_factor",
+        "liftedRy_distance",
+        "liftedRy_distance_le",
+        "eval_ry_distance",
+        "eval_ry_distance_le"
+      ],
+      "sha256": "57ad888af7a81ac5067f6655160fecf1f197a91b0414bc5e510786b9eed27e32",
+      "hash_policy": "sha256-lf-text-v1",
+      "raw_sha256": "57ad888af7a81ac5067f6655160fecf1f197a91b0414bc5e510786b9eed27e32",
+      "raw_equals_lf": true,
+      "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+      "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "matches_frozen_snapshot_input_hash": true,
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+    },
+    {
+      "path": "QuantumBlockEncoding/PrimitiveSemantics.lean",
+      "anchor": "Lines 18-35 half-angle rotation/composition; 194-227 physical one-qubit lift; 323-339 gate denotation/unitarity; 374-396 chronological circuit denotation/unitarity/append.",
+      "declarations": [
+        "standardRyMatrix",
+        "liftPrimitiveOneQubit",
+        "evalPrimitiveGate",
+        "evalPrimitiveGate_unitary",
+        "evalPrimitiveCircuit",
+        "evalPrimitiveCircuit_unitary",
+        "evalPrimitiveCircuit_append"
+      ],
+      "sha256": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+      "hash_policy": "sha256-lf-text-v1",
+      "raw_sha256": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+      "raw_equals_lf": true,
+      "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+      "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "matches_frozen_snapshot_input_hash": true,
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+    },
+    {
+      "path": "QuantumBlockEncoding/PrimitiveCircuit.lean",
+      "anchor": "Lines 17-55 exact angle data/evaluation and arbitrary exact-real warning; 94-106 primitive gates, lists and phase-aware programs.",
+      "declarations": [
+        "ExactAngle",
+        "ExactAngle.eval",
+        "PrimitiveGate",
+        "PrimitiveCircuit",
+        "PrimitiveProgram"
+      ],
+      "sha256": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c",
+      "hash_policy": "sha256-lf-text-v1",
+      "raw_sha256": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c",
+      "raw_equals_lf": true,
+      "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+      "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "matches_frozen_snapshot_input_hash": true,
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "schema_version": "qcb.cohort_question_first_packet.v1",
+  "slot": "A1",
+  "base_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "frozen_payload_item_digest": "f2b9ac531b5f0beed6de2217147b95c95f04970db0589ca28cf53f2d0f262443",
+  "frozen_payload_sha256": "4d269c9dce20c9a48dbdd84d4baa68d4f16f174c43350e7849be1bbeba2f53d3",
+  "core_id": "qcb-core-sp-006",
+  "question": "Let f be a finite real amplitude table whose total squared Euclidean norm S = sum_b f(b)^2 is strictly positive. Prove that dividing every entry by sqrt(S) yields an exactly normalized state, i.e. sum_b (f(b)/sqrt(S))^2 = 1, and identify exactly where strict positivity of S is used.",
+  "assumptions": [
+    "the total squared norm S is strictly positive",
+    "entries are real; normalization is by division by sqrt(S)"
+  ],
+  "conventions": [
+    "normSq is the sum of squared entries; sqrt is the real nonnegative square root"
+  ],
+  "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "target_nodes": [
+    "declaration:QuantumBlockEncoding.RealAmplitudePreparation.normalized_sum_sq",
+    "declaration:QuantumBlockEncoding.RealAmplitudePreparation.normSq"
+  ],
+  "supporting_nodes": [
+    "declaration:QuantumBlockEncoding.RealAmplitudePreparation.prepareCircuit_firstColumn"
+  ],
+  "source_refs": [
+    {
+      "anchor": "lines 310-317: theorem normalized_sum_sq (f : PrimitiveBasis n -> R) (positive : 0 < normSq f) : (sum b, (f b / Real.sqrt (normSq f)) ^ 2) = 1, proved by simp_rw [div_pow]; rw [Finset.sum_div]; Real.sq_sqrt (normSq_nonneg f); div_self (ne_of_gt positive)",
+      "license": "MIT (repository LICENSE)",
+      "path": "QuantumBlockEncoding/RealAmplitudePreparation.lean",
+      "sha256": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa"
+    }
+  ]
+}

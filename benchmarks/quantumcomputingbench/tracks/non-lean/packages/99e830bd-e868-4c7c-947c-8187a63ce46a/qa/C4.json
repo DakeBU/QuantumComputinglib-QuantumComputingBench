@@ -1,0 +1,558 @@
+{
+  "schema_version": "qcb.nonlean_cohort_payload.v1",
+  "slot": "C4",
+  "title": "Bernstein coefficient perturbations to normalized sampled-state error",
+  "author": "/root/author_tensor_polynomial",
+  "contribution_type": "new_candidate",
+  "mathematical_target": "Compose Bernstein coefficient control, finite sample norm error, a positive sample-mass lower bound and the explicitly supplied normalization-stability interface, including endpoint and small-mass boundaries.",
+  "question": "Let d and M be nonnegative integers. For r=0,...,d define the real Bernstein basis B_{d,r}(t)=binom(d,r)t^r(1-t)^{d-r}, with polynomial evaluation convention t^0=1 even at t=0. Let c_0,...,c_d and ctilde_0,...,ctilde_d be arbitrary signed real coefficients satisfying |ctilde_r-c_r|<=eta for every r, where eta>=0. Put p(t)=sum_{r=0}^d c_r B_{d,r}(t) and ptilde(t)=sum_{r=0}^d ctilde_r B_{d,r}(t). Choose M sample points t_1,...,t_M in [0,1], allowing repeated points and both endpoints, and define raw sample vectors x=(p(t_j)) and y=(ptilde(t_j)) in R^M. Assume a known lower bound ||x||_2^2>=m>0 and eta*sqrt(M)<sqrt(m).\n\nYou may use the following supplied result: For nonzero x,y in a finite-dimensional real or complex Euclidean space, ||x/||x||-y/||y|||| <= 2||x-y||/||x||; if ||x-y||<=delta<||x|| then y is nonzero.\n\nStarting from the displayed basis formula, justify its nonnegativity on [0,1] and its partition of unity. Derive a uniform polynomial-value error bound, then a sample-vector Euclidean error bound. Prove an explicit positive lower bound for ||y||_2, check every premise needed to invoke the supplied result, and bound ||x/||x||_2-y/||y||_2||_2 in terms of eta, M and m. For a desired error 0<epsilon<2, give a sufficient coefficient-precision condition and justify that it also makes y nonzero.\n\nExplain how a sampled endpoint with |c_0|>=a>0 or |c_d|>=a>0 provides a valid value of m, including d=0. Discuss signed values, eta=0, zero sampled mass, and M=0: do not treat contradictory positive-mass premises as a realizable empty-sample example or divide by sqrt(M) there. Finally give an explicit family with eta tending to zero but a fixed nonzero normalized-state error when the positive lower-mass bound is allowed to shrink. This should show why coefficient accuracy alone cannot give a uniform normalized-state guarantee independent of sample mass. This question concerns mathematical error propagation, not the gate cost or numerical evaluation error of a preparation algorithm.",
+  "assumptions": [
+    "d,M are finite natural numbers and every sample t_j lies in [0,1].",
+    "All coefficients are real and can have either sign; |ctilde_r-c_r|<=eta for all 0<=r<=d, with eta>=0.",
+    "The raw sample mass satisfies ||x||_2^2>=m with m>0, and eta*sqrt(M)<sqrt(m).",
+    "For the requested accuracy statement epsilon is a real number with 0<epsilon<2. For the endpoint alternative the stated endpoint is actually among the samples and the corresponding original coefficient has magnitude at least a>0."
+  ],
+  "conventions": [
+    "Sample labels j are retained in the same order in x and y; repeated locations still give separate coordinates.",
+    "Samples themselves are signed amplitudes. Normalization divides by the positive Euclidean norm and does not replace an amplitude by its absolute value or square root.",
+    "The comparison is Euclidean distance between the specified normalized real vectors, with their signs retained; no quotient by a global sign is taken.",
+    "For M=0 the unique vector has squared mass zero. Degree zero has one basis element B_{0,0}=1 at both endpoints."
+  ],
+  "family": "bernstein-coefficient-normalized-state-stability",
+  "split": "unassigned_pending_reconciliation",
+  "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "admission": "candidate_not_counted",
+  "dedup_review_required": true,
+  "target_nodes": [
+    "declaration:QuantumBlockEncoding.HermiteBernstein.basis_nonneg",
+    "declaration:QuantumBlockEncoding.HermiteBernstein.basis_sum"
+  ],
+  "supporting_nodes": [
+    "declaration:QuantumBlockEncoding.HermiteBernstein.basis",
+    "declaration:QuantumBlockEncoding.HermiteBernstein.basis_eq",
+    "declaration:QuantumBlockEncoding.HermiteBernstein.bernstein_eval_zero",
+    "declaration:QuantumBlockEncoding.RealAmplitudePreparation.normSq",
+    "declaration:QuantumBlockEncoding.RealAmplitudePreparation.normalized_sum_sq"
+  ],
+  "source_refs": [
+    {
+      "path": "QuantumBlockEncoding/HermiteBernstein.lean",
+      "anchor": "Lines 21-32: exact Bernstein basis and interval nonnegativity; lines 327-346: partition of unity and coefficient bounds; lines 457-459: endpoint-zero evaluation; entire 479-line module read.",
+      "declarations": [
+        "declaration:QuantumBlockEncoding.HermiteBernstein.basis",
+        "declaration:QuantumBlockEncoding.HermiteBernstein.basis_eq",
+        "declaration:QuantumBlockEncoding.HermiteBernstein.basis_nonneg",
+        "declaration:QuantumBlockEncoding.HermiteBernstein.basis_sum",
+        "declaration:QuantumBlockEncoding.HermiteBernstein.bernstein_sum_bounds",
+        "declaration:QuantumBlockEncoding.HermiteBernstein.bernstein_eval_zero"
+      ],
+      "sha256": "661618d9c10826491ee293c7c411ac2d55056426739f4bbfd3e7c410c05e4bff",
+      "sha256_lf": "661618d9c10826491ee293c7c411ac2d55056426739f4bbfd3e7c410c05e4bff",
+      "sha256_raw": "661618d9c10826491ee293c7c411ac2d55056426739f4bbfd3e7c410c05e4bff",
+      "hash_policy": "sha256-lf-text-v1",
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+      "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "source_matches_frozen_snapshot": true,
+      "read_status": "Complete module, ambient definitions, theorem statements and proof bodies read as local text."
+    },
+    {
+      "path": "QuantumBlockEncoding/RealAmplitudePreparation.lean",
+      "anchor": "Lines 1-14: imports, namespace and convention header; lines 203-222: marginal and full squared norm; lines 310-324: normalized_sum_sq and positive-mass boundary.",
+      "declarations": [
+        "declaration:QuantumBlockEncoding.RealAmplitudePreparation.normSq",
+        "declaration:QuantumBlockEncoding.RealAmplitudePreparation.normSq_nonneg",
+        "declaration:QuantumBlockEncoding.RealAmplitudePreparation.normalized_sum_sq"
+      ],
+      "sha256": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+      "sha256_lf": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+      "sha256_raw": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+      "hash_policy": "sha256-lf-text-v1",
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+      "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "source_matches_frozen_snapshot": true,
+      "read_status": "Read header/imports and complete normSq, normSq_nonneg and normalized_sum_sq declarations/proof bodies with adjacent relevant definitions; did not read the entire module."
+    }
+  ],
+  "proposal_id": "3197f9f9-ed41-4610-9d9d-966014b9468c",
+  "core_id": "candidate:3197f9f9-ed41-4610-9d9d-966014b9468c",
+  "reference_answer": "For 0<=t<=1, both t and 1-t are nonnegative, so every B_{d,r}(t) is nonnegative. The binomial theorem gives sum_{r=0}^d B_{d,r}(t)=(t+(1-t))^d=1, including d=0. These are the two facts used below; nonnegative coefficients are not required.\n\nLet e_r=ctilde_r-c_r. For every t in [0,1],\n|ptilde(t)-p(t)|=|sum_r e_r B_{d,r}(t)|\n <=sum_r |e_r|B_{d,r}(t)<=eta sum_r B_{d,r}(t)=eta.\nThus each sampled coordinate obeys |y_j-x_j|<=eta. Squaring these nonnegative inequalities and summing gives ||x-y||_2^2<=M eta^2, hence ||x-y||_2<=delta:=eta sqrt(M). Repeated points are still counted M times, so no distinctness or sampling-grid assumption is hidden in this estimate.\n\nThe original mass bound gives ||x||_2>=sqrt(m)>0, hence x is nonzero. The reverse triangle inequality then gives\n||y||_2>=||x||_2-||x-y||_2>=sqrt(m)-eta sqrt(M)>0.\nIn particular y is nonzero. Alternatively the supplied nonzero criterion applies because ||x-y||<=delta and delta<sqrt(m)<=||x||. With both vectors nonzero in the same finite-dimensional real Euclidean space, the supplied normalized-distance inequality is now legal, and yields\n||x/||x||_2-y/||y||_2||_2<=2||x-y||_2/||x||_2\n <=2 eta sqrt(M)/sqrt(m)=2 eta sqrt(M/m).\nEvery normalized vector in this calculation is well-defined; no zero vector has been normalized. The norm lower bound was proved from the sample-mass promise, not from coefficient positivity.\n\nThe assumptions already force M>=1: when M=0 the only raw vector has mass zero, contradicting m>0. Therefore in the feasible setting one may divide by sqrt(M). For 0<epsilon<2 it is sufficient to require\neta<=epsilon sqrt(m)/(2 sqrt(M)).\nThen delta<=epsilon sqrt(m)/2<sqrt(m), so y is nonzero, and the displayed normalized-distance bound is at most epsilon. This is an absolute coefficient-error condition relative to a certified lower mass; it does not itself evaluate the norm or charge any computation used to obtain that certificate.\n\nAt t=0 all basis elements except r=0 vanish, and B_{d,0}(0)=1, so p(0)=c_0 and ptilde(0)=ctilde_0. At t=1 only r=d remains, so p(1)=c_d and ptilde(1)=ctilde_d. The formulas also hold at d=0, when c_0=c_d and the one basis element is 1. If the sample list includes 0 and |c_0|>=a>0, its single squared coordinate contributes at least a^2 to ||x||^2. Thus m=a^2 is valid; the same reasoning applies to a sampled 1 with |c_d|>=a. An endpoint coefficient does not supply this particular sample anchor when its endpoint is absent from the sample list. Other sample points and all signs remain unrestricted. A zero coefficient, or positivity without a quantitative lower bound, cannot by itself supply a positive numerical m. A polynomial can be nonzero as a function while all its chosen samples vanish.\n\nIf eta=0, the coefficient rows, polynomial values and sample vectors agree, and positive sample mass gives normalized error zero. If the raw sampled mass is zero, the question's m>0 premise is not satisfied and x/||x|| is undefined. For M=0 there are no feasible inputs under the positive-mass premise; the raw coordinate and error inequalities still read 0<=0, but the positive-mass normalized-state conclusion is not an active example. Nonnegative Bernstein weights control signed coefficient errors by the triangle inequality; negative sample values are valid amplitudes and must not be discarded.\n\nTo exhibit the small-mass obstruction, take d=1, M=2 and samples t_1=0,t_2=1. For any a>0 set c=(a,0), ctilde=(a,a/2), and eta=a/2. Then x=(a,0), y=(a,a/2), ||x||^2=a^2, and m=a^2 is a valid lower bound. Even the small-error premise holds: eta sqrt(M)=a/sqrt(2)<a=sqrt(m). As a tends to zero, eta tends to zero, but\nx/||x||=(1,0),   y/||y||=(2/sqrt(5),1/sqrt(5)),\nso their distance is sqrt(2-4/sqrt(5))>0, independent of a. The inputs satisfy the stated perturbation regime while their lower mass shrinks. Thus there is no normalized-state error guarantee tending to zero as a function of eta alone uniformly over such inputs; the dependence on relative error and sample mass is essential. The two normalized vectors are not proportional, so this is not merely a removable global-sign example.",
+  "rubric": [
+    {
+      "id": "C4-r1",
+      "weight": 2,
+      "criterion": "Proves basis nonnegativity on the actual interval and partition of unity (1 point), then obtains |ptilde(t)-p(t)|<=eta using coefficient errors and nonnegative weights (1 point). Nonnegative coefficients must not be assumed."
+    },
+    {
+      "id": "C4-r2",
+      "weight": 2,
+      "criterion": "Derives ||x-y||<=eta sqrt(M) by summing squared coordinate errors (1 point), and derives ||x||>=sqrt(m)>0 plus ||y||>=sqrt(m)-eta sqrt(M)>0 with the strict small-error premise (1 point)."
+    },
+    {
+      "id": "C4-r3",
+      "weight": 2,
+      "criterion": "Checks that both vectors are nonzero in the same finite Euclidean space and correctly composes the supplied result to get normalized distance<=2 eta sqrt(M/m) (1 point); gives the sufficient precision eta<=epsilon sqrt(m)/(2 sqrt(M)) for 0<epsilon<2 and verifies nonzeroness, after establishing M>0 (1 point)."
+    },
+    {
+      "id": "C4-r4",
+      "weight": 2,
+      "criterion": "Shows sampled endpoints equal the corresponding coefficients and yield m=a^2 without positivity, including d=0 (1 point); correctly handles signed values, eta=0, zero sampled mass and the impossibility of M=0 under m>0 (1 point)."
+    },
+    {
+      "id": "C4-r5",
+      "weight": 2,
+      "criterion": "Supplies a legal explicit shrinking-mass family with eta->0 and computes a fixed positive normalized error (1 point), then explains why it refutes any mass-independent error guarantee vanishing with eta rather than contradicting the relative-error theorem (1 point)."
+    }
+  ],
+  "common_errors": [
+    "Using a bound (d+1)eta and missing that partition of unity removes the degree factor in the sharp coefficient-to-value estimate.",
+    "Replacing the Euclidean sample bound by eta rather than eta sqrt(M), or incorrectly using M eta as the intended square-root scaling.",
+    "Invoking normalization stability before verifying nonzero original and perturbed vectors.",
+    "Assuming signed coefficients or sample amplitudes must be nonnegative because the Bernstein weights are nonnegative.",
+    "Claiming an endpoint coefficient anchors sample mass even when that endpoint is not sampled.",
+    "Dividing by sqrt(M) at M=0 or presenting empty samples as compatible with positive mass.",
+    "Inferring an absolute normalized-state accuracy guarantee from eta alone while the target mass can approach zero."
+  ],
+  "boundary_cases": [
+    {
+      "case": "d=0",
+      "resolution": "The sole basis function is 1; both endpoint formulas refer to c_0, with no exceptional division or negative exponent."
+    },
+    {
+      "case": "M=0",
+      "resolution": "Positive mass is infeasible. Raw bounds have a zero-vector interpretation; normalized states and the precision formula with 1/sqrt(M) are not instantiated."
+    },
+    {
+      "case": "eta=0",
+      "resolution": "Equal coefficients give equal raw and, under positive mass, normalized vectors."
+    },
+    {
+      "case": "Signed values or zero coefficients",
+      "resolution": "The perturbation argument uses absolute errors and nonnegative weights, not positivity of coefficients or all samples."
+    },
+    {
+      "case": "Mass tends to zero",
+      "resolution": "The explicit endpoint-sampled degree-one family has eta->0 and fixed positive normalized error; no uniform mass-free continuity guarantee follows."
+    },
+    {
+      "case": "Endpoint sample with nonzero coefficient",
+      "resolution": "A single actual sampled endpoint of magnitude at least a gives squared mass at least a^2, even if other samples vanish or have negative sign."
+    }
+  ],
+  "difficulty": {
+    "D0": {
+      "facet": "Separate coefficient accuracy, raw sample-vector error and normalized-state error; normalization needs a quantitative positive mass, not sign restrictions.",
+      "adds_core": false
+    },
+    "construction_band": "D3",
+    "status": "provisional_mathematical_route_annotation_not_measured_difficulty",
+    "rationale": "The route joins interval basis weights, finite-dimensional error accumulation, an independent positive-mass certificate and an explicitly supplied normalization-stability result. Each interface retains its interval, norm, nonzero and strict-error premises; the endpoint and shrinking-mass tests audit that composition.",
+    "taxonomy_source": "benchmarks/quantumcomputingbench/tracks/lean/COURSE.md:19-30",
+    "D1_D4_context": {
+      "D1": "Precise statement reading and a disclosed library application.",
+      "D2": "Local symbolic construction and entry/sum reasoning.",
+      "D3": "Joining mathematical interfaces with every AND premise preserved.",
+      "D4": "Parametric induction and global invariant/representation or degree control."
+    },
+    "shortcut_disclosure": "Supplying the full target theorem could reduce this to a library application; the question instead requests the stated derivation. Graph distance, source length and node count do not measure this band.",
+    "model_calibration": "unmeasured"
+  },
+  "reasoning_map": {
+    "kind": "author_supplied_natural_language",
+    "not_extracted_lean_dependencies": true,
+    "inputs": [
+      {
+        "id": "C4-I1",
+        "statement": "d,M are finite natural numbers, basis B_{d,r} has the displayed polynomial formula, and every sample lies in [0,1].",
+        "kind": "assumption"
+      },
+      {
+        "id": "C4-I2",
+        "statement": "Coefficient errors obey |ctilde_r-c_r|<=eta with eta>=0; raw vectors x,y are the evaluations at the same sample list.",
+        "kind": "assumption"
+      },
+      {
+        "id": "C4-I3",
+        "statement": "||x||^2>=m>0 and eta sqrt(M)<sqrt(m).",
+        "kind": "assumption"
+      },
+      {
+        "id": "C4-I4",
+        "statement": "Euclidean norms and signed amplitudes are retained; empty samples give mass zero and zeroth powers evaluate to one.",
+        "kind": "convention"
+      },
+      {
+        "id": "C4-I5",
+        "statement": "For nonzero x,y in a finite-dimensional real or complex Euclidean space, ||x/||x||-y/||y|||| <= 2||x-y||/||x||; if ||x-y||<=delta<||x|| then y is nonzero.",
+        "kind": "supplied_obligation"
+      },
+      {
+        "id": "C4-I6",
+        "statement": "For the precision branch 0<epsilon<2 and eta<=epsilon sqrt(m)/(2 sqrt(M)) after M>0 is established.",
+        "kind": "assumption"
+      },
+      {
+        "id": "C4-I7",
+        "statement": "For the endpoint branch an endpoint is actually sampled and its corresponding original coefficient has magnitude at least a>0.",
+        "kind": "assumption"
+      }
+    ],
+    "steps": [
+      {
+        "id": "C4-S1",
+        "claim": "Establish the two basis facts.",
+        "assumptions": [
+          "Real samples in [0,1]; degree d>=0."
+        ],
+        "required_inputs": [
+          "C4-I1",
+          "C4-I4"
+        ],
+        "conclusion": "B_{d,r}(t)>=0 and sum_{r=0}^d B_{d,r}(t)=1.",
+        "justification": "Nonnegative powers and binomial theorem; d=0 uses the constant polynomial convention."
+      },
+      {
+        "id": "C4-S2",
+        "claim": "Bound each evaluated error.",
+        "assumptions": [
+          "All coefficient errors are bounded by eta."
+        ],
+        "required_inputs": [
+          "C4-S1",
+          "C4-I1",
+          "C4-I2"
+        ],
+        "conclusion": "|ptilde(t)-p(t)|<=eta for t in [0,1].",
+        "justification": "Triangle inequality and the nonnegative unit-sum weights."
+      },
+      {
+        "id": "C4-S3",
+        "claim": "Accumulate errors over the full sample list.",
+        "assumptions": [
+          "There are M coordinates, including repetitions."
+        ],
+        "required_inputs": [
+          "C4-S2",
+          "C4-I1",
+          "C4-I2",
+          "C4-I4"
+        ],
+        "conclusion": "||x-y||<=delta=eta sqrt(M).",
+        "justification": "Square the coordinate bounds, sum M terms and take nonnegative square roots."
+      },
+      {
+        "id": "C4-S4",
+        "claim": "Produce the original nonzero and feasible-dimension facts.",
+        "assumptions": [
+          "Positive lower sample mass."
+        ],
+        "required_inputs": [
+          "C4-I1",
+          "C4-I3",
+          "C4-I4"
+        ],
+        "conclusion": "||x||>=sqrt(m)>0 and M>=1.",
+        "justification": "Monotonicity of the square root; M=0 would give mass zero, contradicting m>0."
+      },
+      {
+        "id": "C4-S5",
+        "claim": "Produce a positive perturbed norm.",
+        "assumptions": [
+          "Strict error-to-mass inequality."
+        ],
+        "required_inputs": [
+          "C4-S3",
+          "C4-S4",
+          "C4-I3"
+        ],
+        "conclusion": "||y||>=sqrt(m)-eta sqrt(M)>0.",
+        "justification": "Reverse triangle inequality; in particular delta<||x||, so the supplied nonzero criterion also applies."
+      },
+      {
+        "id": "C4-S6",
+        "claim": "Compose the supplied normalization interface.",
+        "assumptions": [
+          "Both vectors nonzero, same finite Euclidean space, and the verified raw error and original norm bounds."
+        ],
+        "required_inputs": [
+          "C4-I1",
+          "C4-I4",
+          "C4-I5",
+          "C4-S3",
+          "C4-S4",
+          "C4-S5"
+        ],
+        "conclusion": "||x/||x||-y/||y||||<=2 eta sqrt(M/m).",
+        "justification": "Apply the supplied 2delta inequality, then substitute the proved numerator upper bound and positive denominator lower bound."
+      },
+      {
+        "id": "C4-S7",
+        "claim": "Translate target accuracy into coefficient precision.",
+        "assumptions": [
+          "0<epsilon<2 and M>0."
+        ],
+        "required_inputs": [
+          "C4-I3",
+          "C4-I6",
+          "C4-S4",
+          "C4-S5",
+          "C4-S6"
+        ],
+        "conclusion": "The precision condition implies nonzero y and normalized error<=epsilon.",
+        "justification": "Multiplication by sqrt(M) yields delta<=epsilon sqrt(m)/2<sqrt(m), followed by the normalized bound."
+      },
+      {
+        "id": "C4-S8",
+        "claim": "Supply a concrete mass certificate from a sampled endpoint.",
+        "assumptions": [
+          "An endpoint is sampled and its original coefficient magnitude is at least a."
+        ],
+        "required_inputs": [
+          "C4-I1",
+          "C4-I4",
+          "C4-I7"
+        ],
+        "conclusion": "p(0)=c_0, p(1)=c_d and m=a^2 is a valid positive lower mass.",
+        "justification": "Evaluate the basis at the endpoints; one squared coordinate supplies the bound, including d=0."
+      },
+      {
+        "id": "C4-S9",
+        "claim": "Demonstrate the shrinking-mass obstruction and remaining boundaries.",
+        "assumptions": [
+          "d=1,M=2,samples 0 and 1,c=(a,0),ctilde=(a,a/2),a>0."
+        ],
+        "required_inputs": [
+          "C4-I1",
+          "C4-I2",
+          "C4-I4",
+          "C4-S3",
+          "C4-S4",
+          "C4-S6",
+          "C4-S8"
+        ],
+        "conclusion": "eta=a/2 tends to zero while normalized distance=sqrt(2-4/sqrt(5))>0; m=a^2 shrinks and the strict premise still holds.",
+        "justification": "Compute endpoint vectors and their norms directly; eta sqrt(2)=a/sqrt(2)<a. Separately eta=0 gives equality and zero mass/M=0 are infeasible under the positive-mass premise."
+      }
+    ],
+    "reused_results": [
+      {
+        "id": "normalization-stability-2delta",
+        "producer_slot": "A2",
+        "supplied_input": "C4-I5",
+        "consumer_steps": [
+          "C4-S6"
+        ],
+        "status": "The exact interface is explicitly supplied in this question; no hidden access to A2 answer or assumption of a different split is required."
+      },
+      {
+        "id": "Bernstein-nonnegative-unit-weights",
+        "producer": "C4-S1",
+        "consumer_steps": [
+          "C4-S2"
+        ],
+        "status": "Derived from formula; grounded in inspected basis_nonneg and basis_sum."
+      },
+      {
+        "id": "endpoint-evaluation",
+        "producer": "C4-S8",
+        "consumer_steps": [
+          "C4-S9"
+        ],
+        "status": "The same coefficient-to-endpoint map supplies the positive-mass anchor and the explicit small-mass family."
+      }
+    ],
+    "reconvergent_branches": [
+      {
+        "branches": [
+          "C4-S1 -> C4-S2 -> C4-S3",
+          "C4-S4"
+        ],
+        "join": "C4-S5",
+        "why": "The independently derived raw error bound and positive original mass must both be present to conclude y nonzero."
+      },
+      {
+        "branches": [
+          "C4-S3",
+          "C4-S4",
+          "C4-S5",
+          "C4-I5"
+        ],
+        "join": "C4-S6",
+        "why": "Supplied normalization stability requires both nonzero vectors and combines a numerator error upper bound with a denominator norm lower bound."
+      }
+    ],
+    "AND_join_policy": "Each required_inputs list is conjunctive and lists all input/result interfaces used at that step."
+  },
+  "overlap": {
+    "relationship": "New coefficient-to-normalized-state composition target pending semantic reconciliation; not merely another coefficient convex-hull question.",
+    "related_cores": [
+      {
+        "core_id": "qcb-core-sp-110",
+        "relationship": "Shares nonnegative partition-of-unity weights. Existing target bounds restricted coefficients; this target propagates coefficient error through a sample norm and normalization, with lower-mass dependence.",
+        "known_split": "train"
+      },
+      {
+        "core_id": "qcb-core-sp-006",
+        "relationship": "Shares positive-mass normalization vocabulary; existing target is exact normalization, not perturbation stability.",
+        "known_split": "test_public"
+      },
+      {
+        "core_id": "qcb-core-sp-113",
+        "relationship": "Shares the principle that an actual nonzero sample anchors mass, but uses generic endpoint coefficients rather than the Hermite central unit sample.",
+        "known_split": "dev"
+      }
+    ],
+    "cohort_relationships": [
+      {
+        "slot": "A2",
+        "relationship": "Producer of normalization-stability-2delta; its exact result is supplied in C4 and only premise checking/composition is assessed here."
+      },
+      {
+        "slot": "A3",
+        "relationship": "Uses the same supplied normalization interface in a different block-projection setting. Shared subproof exposure must be recorded."
+      }
+    ],
+    "split_handling": "Unassigned pending reconciliation; supplied lemma does not make train/test solutions disjoint or authorize pooling. No hidden-answer dependency or independent-held-out claim.",
+    "educational_delta": "Tests the whole error and nonzeroness chain, an actionable epsilon coefficient condition, actual endpoint anchors and an explicit relative-error obstruction."
+  },
+  "unverified": [
+    "At authoring freeze, the complete coefficient-to-normalized-state composition and shrinking-mass example await distinct content-bound review.",
+    "The shared normalization theorem is supplied explicitly as an interface from planned slot A2; this consumer does not claim a new Lean proof of that theorem.",
+    "The source basis and finite-table normalization lemmas do not by themselves certify this complete new question, gate complexity, floating-point implementation or any model result.",
+    "At authoring freeze, a2/C4 and A3/C4 shared result exposure and the existing cross-split normalization fragments require semantic split reconciliation before admission."
+  ],
+  "provenance": {
+    "author_identity": "/root/author_tensor_polynomial",
+    "authored_at": "2026-11-03",
+    "baseline_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+    "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+    "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+    "catalog_hash": "5269b9f2521e3bf14db293fea34895f6e44a387c2479c164407b4d16dd9a2247",
+    "coverage_plan_sha256": "c8e04a67b136ff80fa98c1563e61184e2a7c16c1042df6a00ec16387938d8c3d",
+    "inspection_method": "Static local source inspection and original natural-language mathematical derivation; no Lean execution.",
+    "licensing": {
+      "license": "MIT",
+      "path": "LICENSE",
+      "sha256_raw": "dff0cc0f36b869fa146c79c0de10d15a04259351e011e63c42c2ececb57fb1e3",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+      "external_sources": "None used; no paper-fidelity claim is inferred from a module header."
+    },
+    "graph_evidence_boundary": "Frozen graph records module imports and declaration ownership. This packet supplies natural-language mathematical dependencies; it does not extract proof-term dependencies.",
+    "review_status": "authored_pending_independent_content_bound_review_at_authoring_freeze",
+    "independent_review_performed": false,
+    "formal_execution": "not_run",
+    "baseline_access_evidence": {
+      "path": "evidence/access-baseline.json",
+      "status": "Read root-produced evidence of exact baseline checkout and no open contribution PR results; author did not independently query the remote."
+    },
+    "original_derivation_status": "Original NL error-composition and boundary derivation grounded in inspected basis/normalization definitions. No exact new formal root, theorem admission or proof-term dependency evidence.",
+    "inspected_sources": [
+      {
+        "path": "QuantumBlockEncoding/HermiteBernstein.lean",
+        "anchor": "Lines 21-32: exact Bernstein basis and interval nonnegativity; lines 327-346: partition of unity and coefficient bounds; lines 457-459: endpoint-zero evaluation; entire 479-line module read.",
+        "declarations": [
+          "declaration:QuantumBlockEncoding.HermiteBernstein.basis",
+          "declaration:QuantumBlockEncoding.HermiteBernstein.basis_eq",
+          "declaration:QuantumBlockEncoding.HermiteBernstein.basis_nonneg",
+          "declaration:QuantumBlockEncoding.HermiteBernstein.basis_sum",
+          "declaration:QuantumBlockEncoding.HermiteBernstein.bernstein_sum_bounds",
+          "declaration:QuantumBlockEncoding.HermiteBernstein.bernstein_eval_zero"
+        ],
+        "sha256": "661618d9c10826491ee293c7c411ac2d55056426739f4bbfd3e7c410c05e4bff",
+        "sha256_lf": "661618d9c10826491ee293c7c411ac2d55056426739f4bbfd3e7c410c05e4bff",
+        "sha256_raw": "661618d9c10826491ee293c7c411ac2d55056426739f4bbfd3e7c410c05e4bff",
+        "hash_policy": "sha256-lf-text-v1",
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+        "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "source_matches_frozen_snapshot": true,
+        "read_status": "Complete module, ambient definitions, theorem statements and proof bodies read as local text."
+      },
+      {
+        "path": "QuantumBlockEncoding/RealAmplitudePreparation.lean",
+        "anchor": "Lines 1-14: imports, namespace and convention header; lines 203-222: marginal and full squared norm; lines 310-324: normalized_sum_sq and positive-mass boundary.",
+        "declarations": [
+          "declaration:QuantumBlockEncoding.RealAmplitudePreparation.normSq",
+          "declaration:QuantumBlockEncoding.RealAmplitudePreparation.normSq_nonneg",
+          "declaration:QuantumBlockEncoding.RealAmplitudePreparation.normalized_sum_sq"
+        ],
+        "sha256": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+        "sha256_lf": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+        "sha256_raw": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+        "hash_policy": "sha256-lf-text-v1",
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+        "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "source_matches_frozen_snapshot": true,
+        "read_status": "Read header/imports and complete normSq, normSq_nonneg and normalized_sum_sq declarations/proof bodies with adjacent relevant definitions; did not read the entire module."
+      }
+    ],
+    "justified_mathematical_dependencies": [
+      {
+        "producer": "HermiteBernstein.basis_nonneg and basis_sum",
+        "use": "Exact nonnegative unit-sum weights yield the coefficient-to-value bound."
+      },
+      {
+        "producer": "Original finite Euclidean calculation",
+        "use": "Coordinate error sums to eta sqrt(M), reverse triangle gives the perturbed positive norm, and endpoints supply lower mass."
+      },
+      {
+        "producer": "normalization-stability-2delta, supplied in the question",
+        "use": "Only applied after checking x,y nonzero and delta<||x||; the producer proof is not retrieved or hidden."
+      },
+      {
+        "producer": "RealAmplitudePreparation.normSq and normalized_sum_sq",
+        "use": "Ground positive squared-mass normalization semantics; source indices are qubit words, while arbitrary finite M is independently handled as real Euclidean space."
+      }
+    ],
+    "imports_and_declaration_availability": [
+      {
+        "module": "QuantumBlockEncoding.HermiteBernstein",
+        "direct_imports": [
+          "QuantumBlockEncoding.HermitePolynomial",
+          "Mathlib.RingTheory.Polynomial.Bernstein"
+        ],
+        "availability": "basis, basis_nonneg, basis_sum and bernstein_eval_zero present in the frozen graph."
+      },
+      {
+        "module": "QuantumBlockEncoding.RealAmplitudePreparation",
+        "direct_imports": [
+          "QuantumBlockEncoding.UniformlyControlledRy",
+          "QuantumBlockEncoding.PrimitiveBasisLE",
+          "QuantumBlockEncoding.StatePreparation"
+        ],
+        "availability": "normSq and normalized_sum_sq present in frozen graph. This does not establish transitive proof-term dependencies for the NL bridge."
+      }
+    ],
+    "suggested_reading": [
+      "HermiteBernstein.lean:21-32 and :327-346 for the basis facts.",
+      "RealAmplitudePreparation.lean:210-214 and :310-317 for positive-mass normalization semantics."
+    ],
+    "conceptual_graph_relationships": [
+      {
+        "relation": "Bernstein representation stability can feed normalized sampled-state preparation only together with a finite sample error estimate and a positive-mass certificate.",
+        "proof_arrow": false,
+        "AND_inputs": [
+          "coefficient error and interval basis properties",
+          "finite common sample list",
+          "positive original mass",
+          "verified nonzero perturbed sample vector",
+          "normalization stability interface"
+        ]
+      }
+    ],
+    "baseline_related_item_read_status": "Read current SP110, SP006 and SP113 question/answer context and target identities; SP113 checkpoint explicitly distinguishes actual sample anchors from positivity.",
+    "shared_result_interfaces": [
+      {
+        "id": "normalization-stability-2delta",
+        "producer_slot": "A2",
+        "exact_supplied_statement": "For nonzero x,y in a finite-dimensional real or complex Euclidean space, ||x/||x||-y/||y|||| <= 2||x-y||/||x||; if ||x-y||<=delta<||x|| then y is nonzero.",
+        "consumed_at": "C4-S6",
+        "proof_exposure": "Producer answer not read; theorem is supplied directly in the question."
+      }
+    ],
+    "review_status_scope": "Authoring-freeze state only; later independent content-bound review and reconciliation decisions belong to the package manifest/proposal records."
+  }
+}

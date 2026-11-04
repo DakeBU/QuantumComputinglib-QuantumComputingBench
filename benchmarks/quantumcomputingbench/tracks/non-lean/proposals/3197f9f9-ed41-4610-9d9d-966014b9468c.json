@@ -1,0 +1,114 @@
+{
+  "proposal_id": "3197f9f9-ed41-4610-9d9d-966014b9468c",
+  "track": "non-lean",
+  "author": "/root/author_tensor_polynomial",
+  "core_id": "candidate:3197f9f9-ed41-4610-9d9d-966014b9468c",
+  "admission": "candidate_not_counted",
+  "dedup_review_required": true,
+  "source_nodes": [
+    "declaration:QuantumBlockEncoding.HermiteBernstein.basis_nonneg",
+    "declaration:QuantumBlockEncoding.HermiteBernstein.basis_sum",
+    "declaration:QuantumBlockEncoding.HermiteBernstein.basis",
+    "declaration:QuantumBlockEncoding.HermiteBernstein.basis_eq",
+    "declaration:QuantumBlockEncoding.HermiteBernstein.bernstein_eval_zero",
+    "declaration:QuantumBlockEncoding.RealAmplitudePreparation.normSq",
+    "declaration:QuantumBlockEncoding.RealAmplitudePreparation.normalized_sum_sq"
+  ],
+  "view_kind": "derivation",
+  "family": "bernstein-coefficient-normalized-state-stability",
+  "split": "unassigned_pending_reconciliation",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "contract_hash": "5870c8f481b51e73b1dd7de08e958fee42aa74f6ece2e23f470342bded3141dc",
+  "base_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+  "package_id": "99e830bd-e868-4c7c-947c-8187a63ce46a",
+  "slot": "C4",
+  "payload_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/qa/C4.json",
+  "payload_sha256": "169c92c69d5319c413c9ae91ad8207e70f7728859ae1b32ec51495b39da34f54",
+  "item_digest": "965119311657ce6a04051aee95ab9cad92d50b8435213dea8349d8902114c1bc",
+  "title": "Bernstein coefficient perturbations to normalized sampled-state error",
+  "mathematical_target": "Compose Bernstein coefficient control, finite sample norm error, a positive sample-mass lower bound and the explicitly supplied normalization-stability interface, including endpoint and small-mass boundaries.",
+  "review_records": [
+    {
+      "report_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/reviews/C-review.json",
+      "report_sha256": "338258333591e348a121b50ffdbeb11cda1cec682bddbc0952d65a56f2fa0a05",
+      "reviewer": "/root/coverage_audit",
+      "item_digest": "965119311657ce6a04051aee95ab9cad92d50b8435213dea8349d8902114c1bc",
+      "verdict": "accept_with_limitations",
+      "semantic_core_verdict": "Proposed Bernstein-to-normalized-state composition is materially different from inspected coefficient-range and exact normalization/anchor targets. It explicitly supplies the A2 normalization lemma and cannot be treated as independent held-out evidence for that shared lemma."
+    }
+  ],
+  "status": "authored_with_content_bound_review_pending_maintainer_decision",
+  "count_effect": "zero_until_explicit_admission",
+  "usage": "public_diagnostic_only; no training or independent held-out clearance",
+  "note": "Complete question, assumptions, answer, rubric, boundaries, reasoning map and provenance are in the digest-bound payload. Compatibility validation and AI mathematical review do not install this view or admit a new core.",
+  "proposed_contract": {
+    "question": "Let d and M be nonnegative integers. For r=0,...,d define the real Bernstein basis B_{d,r}(t)=binom(d,r)t^r(1-t)^{d-r}, with polynomial evaluation convention t^0=1 even at t=0. Let c_0,...,c_d and ctilde_0,...,ctilde_d be arbitrary signed real coefficients satisfying |ctilde_r-c_r|<=eta for every r, where eta>=0. Put p(t)=sum_{r=0}^d c_r B_{d,r}(t) and ptilde(t)=sum_{r=0}^d ctilde_r B_{d,r}(t). Choose M sample points t_1,...,t_M in [0,1], allowing repeated points and both endpoints, and define raw sample vectors x=(p(t_j)) and y=(ptilde(t_j)) in R^M. Assume a known lower bound ||x||_2^2>=m>0 and eta*sqrt(M)<sqrt(m).\n\nYou may use the following supplied result: For nonzero x,y in a finite-dimensional real or complex Euclidean space, ||x/||x||-y/||y|||| <= 2||x-y||/||x||; if ||x-y||<=delta<||x|| then y is nonzero.\n\nStarting from the displayed basis formula, justify its nonnegativity on [0,1] and its partition of unity. Derive a uniform polynomial-value error bound, then a sample-vector Euclidean error bound. Prove an explicit positive lower bound for ||y||_2, check every premise needed to invoke the supplied result, and bound ||x/||x||_2-y/||y||_2||_2 in terms of eta, M and m. For a desired error 0<epsilon<2, give a sufficient coefficient-precision condition and justify that it also makes y nonzero.\n\nExplain how a sampled endpoint with |c_0|>=a>0 or |c_d|>=a>0 provides a valid value of m, including d=0. Discuss signed values, eta=0, zero sampled mass, and M=0: do not treat contradictory positive-mass premises as a realizable empty-sample example or divide by sqrt(M) there. Finally give an explicit family with eta tending to zero but a fixed nonzero normalized-state error when the positive lower-mass bound is allowed to shrink. This should show why coefficient accuracy alone cannot give a uniform normalized-state guarantee independent of sample mass. This question concerns mathematical error propagation, not the gate cost or numerical evaluation error of a preparation algorithm.",
+    "assumptions": [
+      "d,M are finite natural numbers and every sample t_j lies in [0,1].",
+      "All coefficients are real and can have either sign; |ctilde_r-c_r|<=eta for all 0<=r<=d, with eta>=0.",
+      "The raw sample mass satisfies ||x||_2^2>=m with m>0, and eta*sqrt(M)<sqrt(m).",
+      "For the requested accuracy statement epsilon is a real number with 0<epsilon<2. For the endpoint alternative the stated endpoint is actually among the samples and the corresponding original coefficient has magnitude at least a>0."
+    ],
+    "conventions": [
+      "Sample labels j are retained in the same order in x and y; repeated locations still give separate coordinates.",
+      "Samples themselves are signed amplitudes. Normalization divides by the positive Euclidean norm and does not replace an amplitude by its absolute value or square root.",
+      "The comparison is Euclidean distance between the specified normalized real vectors, with their signs retained; no quotient by a global sign is taken.",
+      "For M=0 the unique vector has squared mass zero. Degree zero has one basis element B_{0,0}=1 at both endpoints."
+    ],
+    "family": "bernstein-coefficient-normalized-state-stability",
+    "split": "unassigned_pending_reconciliation",
+    "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+    "target_nodes": [
+      "declaration:QuantumBlockEncoding.HermiteBernstein.basis_nonneg",
+      "declaration:QuantumBlockEncoding.HermiteBernstein.basis_sum"
+    ],
+    "supporting_nodes": [
+      "declaration:QuantumBlockEncoding.HermiteBernstein.basis",
+      "declaration:QuantumBlockEncoding.HermiteBernstein.basis_eq",
+      "declaration:QuantumBlockEncoding.HermiteBernstein.bernstein_eval_zero",
+      "declaration:QuantumBlockEncoding.RealAmplitudePreparation.normSq",
+      "declaration:QuantumBlockEncoding.RealAmplitudePreparation.normalized_sum_sq"
+    ],
+    "source_refs": [
+      {
+        "path": "QuantumBlockEncoding/HermiteBernstein.lean",
+        "anchor": "Lines 21-32: exact Bernstein basis and interval nonnegativity; lines 327-346: partition of unity and coefficient bounds; lines 457-459: endpoint-zero evaluation; entire 479-line module read.",
+        "declarations": [
+          "declaration:QuantumBlockEncoding.HermiteBernstein.basis",
+          "declaration:QuantumBlockEncoding.HermiteBernstein.basis_eq",
+          "declaration:QuantumBlockEncoding.HermiteBernstein.basis_nonneg",
+          "declaration:QuantumBlockEncoding.HermiteBernstein.basis_sum",
+          "declaration:QuantumBlockEncoding.HermiteBernstein.bernstein_sum_bounds",
+          "declaration:QuantumBlockEncoding.HermiteBernstein.bernstein_eval_zero"
+        ],
+        "sha256": "661618d9c10826491ee293c7c411ac2d55056426739f4bbfd3e7c410c05e4bff",
+        "sha256_lf": "661618d9c10826491ee293c7c411ac2d55056426739f4bbfd3e7c410c05e4bff",
+        "sha256_raw": "661618d9c10826491ee293c7c411ac2d55056426739f4bbfd3e7c410c05e4bff",
+        "hash_policy": "sha256-lf-text-v1",
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+        "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "source_matches_frozen_snapshot": true,
+        "read_status": "Complete module, ambient definitions, theorem statements and proof bodies read as local text."
+      },
+      {
+        "path": "QuantumBlockEncoding/RealAmplitudePreparation.lean",
+        "anchor": "Lines 1-14: imports, namespace and convention header; lines 203-222: marginal and full squared norm; lines 310-324: normalized_sum_sq and positive-mass boundary.",
+        "declarations": [
+          "declaration:QuantumBlockEncoding.RealAmplitudePreparation.normSq",
+          "declaration:QuantumBlockEncoding.RealAmplitudePreparation.normSq_nonneg",
+          "declaration:QuantumBlockEncoding.RealAmplitudePreparation.normalized_sum_sq"
+        ],
+        "sha256": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+        "sha256_lf": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+        "sha256_raw": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+        "hash_policy": "sha256-lf-text-v1",
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+        "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "source_matches_frozen_snapshot": true,
+        "read_status": "Read header/imports and complete normSq, normSq_nonneg and normalized_sum_sq declarations/proof bodies with adjacent relevant definitions; did not read the entire module."
+      }
+    ]
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "schema_version": "qcb.nl_reader_addendum.v1",
+  "author": "/root/nonlean_audit_normalization",
+  "status": "proposed_requires_root_review",
+  "independent_approval_claimed": false,
+  "items": [
+    {
+      "slot": "A2",
+      "payload_sha256": "28012f09057d3e975db6cf0d129d63f171b6b00dfb649dd054aa96471c9e3c8f",
+      "question_sha256": "302df9398c040c8660298e718c9cdde0db8fef2aa37fc962ed4796556837c20f",
+      "step_notes": {
+        "s8": "Boundary analysis uses separate parameter regimes, rather than all the active strict-margin premises simultaneously. For delta=0 retain x!=0 and ||x-y||<=delta; then y=x. For the equality-threshold witness, REPLACE delta<||x|| by delta=||x|| and take y=0, so N(y) is undefined. For x=0, REPLACE the active x!=0 premise; for dimension zero, REPLACE d>=1 by d=0. These last regimes lie outside the normalization theorem domain. The i2/s3 links provide context for what changes; they are not strict-margin implications proving the excluded cases."
+      },
+      "grading_notes": [],
+      "changes": [
+        {
+          "kind": "reasoning_map_scope",
+          "location": "reasoning_map.steps[id=s8]",
+          "effect": "Display as a diagnostic node with explicit premise replacements, not as an ordinary all-premises theorem consequence. The raw required-input list and question remain unchanged."
+        }
+      ]
+    },
+    {
+      "slot": "A3",
+      "payload_sha256": "7ce00fca0b1faf45cc85c752a76603cd8b64a3f0f9271108a0bef351a1c03fd3",
+      "question_sha256": "9d2e40ad456fd8a6c36088a30caacf66258a59392695826329424d2ee4ee0e89",
+      "step_notes": {
+        "s12": "Separate valid specializations from excluded-domain diagnostics. For epsilon=0 retain s>0: the exact nonzero branch has p=s^2/alpha^2. For s=0, REPLACE s>epsilon from i4 by s=0 while retaining alpha>0, epsilon>=0, the operator-error promise, unitarity and ||psi||=1. Do not import the positive-success conclusion of s6 into this branch: Apsi/s is undefined; epsilon=0 gives p=0, and epsilon>0 gives only p<=min(1,(epsilon/alpha)^2). For m=0 or n=0, retain the original valid margin premises: m=0 gives P=I and p=1; n=0 gives a one-dimensional complex system, not the zero vector space. The i4/s6 references in the raw endpoint node are contextual, not simultaneous assumptions for the s=0 diagnostic."
+      },
+      "grading_notes": [
+        "For rubric r2 and r3, accept either equivalent positive-alpha scaling. The reference route takes x=Apsi/alpha, y=Bpsi and delta=epsilon/alpha. A fully correct alternative takes x=Apsi, y=alpha Bpsi and delta=epsilon. The latter proves ||x-y||<=epsilon<s=||x||, hence x!=0 and alpha Bpsi!=0; alpha>0 then gives Bpsi!=0 and N(alpha Bpsi)=Bpsi/||Bpsi|| exactly. Applying the supplied lemma gives the same 2epsilon/s bound. Full credit does not require writing epsilon/alpha when the alternative route correctly preserves the stated norm convention and all nonzero premises.",
+        "Equivalent scaling earns the same r2/r3 credit only when the answer also derives the requested cap 2 and squared success interval with a nonnegative lower endpoint. Merely changing variable names does not replace these proof obligations."
+      ],
+      "changes": [
+        {
+          "kind": "reasoning_map_scope",
+          "location": "reasoning_map.steps[id=s12]",
+          "effect": "Display the vanishing-target branch with its replaced margin assumption and without a positive-success dependency; keep exact and zero-qubit specializations separately labelled."
+        },
+        {
+          "kind": "grading_equivalence",
+          "location": "rubric r2 and r3",
+          "effect": "Accept both mathematically equivalent positive-alpha scalings with all original proof obligations retained. No question or raw rubric text is modified."
+        }
+      ]
+    }
+  ]
+}

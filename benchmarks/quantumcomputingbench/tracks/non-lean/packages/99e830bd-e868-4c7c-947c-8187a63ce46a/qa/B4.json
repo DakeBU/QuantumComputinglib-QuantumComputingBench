@@ -1,0 +1,566 @@
+{
+  "schema_version": "qcb.nonlean_cohort_payload.v1",
+  "slot": "B4",
+  "title": "Transport tensor-word amplitudes through physical bit reversal",
+  "author": "/root/author_coherence",
+  "contribution_type": "new_candidate",
+  "mathematical_target": "Prove the all-length head-first word/public-index map, transport the full amplitude vector by wire reversal, and characterize when the uncorrected vector already agrees.",
+  "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "proposal_id": "c3875629-0a16-497e-b613-ab3272780702",
+  "core_id": "candidate:c3875629-0a16-497e-b613-ab3272780702",
+  "admission": "candidate_not_counted",
+  "dedup_review_required": true,
+  "split": "unassigned_pending_reconciliation",
+  "family": "candidate-tensor-word-physical-sample-reversal",
+  "target_nodes": [
+    "declaration:QuantumBlockEncoding.TensorTrainWord.sampleEquiv_value",
+    "declaration:QuantumBlockEncoding.TensorTrainWord.sampleEquiv_public"
+  ],
+  "supporting_nodes": [
+    "declaration:QuantumBlockEncoding.TensorTrainWord.sampleEquiv",
+    "declaration:QuantumBlockEncoding.TensorTrainWord.reverseBasis",
+    "declaration:QuantumBlockEncoding.TensorTrainWord.primitive_snoc_value",
+    "declaration:QuantumBlockEncoding.TensorTrainSchedule.wordOfBasis",
+    "declaration:QuantumBlockEncoding.TensorTrainCanonical.contract",
+    "declaration:QuantumBlockEncoding.primitiveBasisLEEquiv_succ_value"
+  ],
+  "question": "Fix n≥0 and compatible positive finite bond dimensions d_0,...,d_n. For each i<n and bit b∈{0,1}, let A_i(b) be a real d_i-by-d_{i+1} matrix, with a row boundary ℓ and column boundary r. A head-first word w=(w_0,...,w_{n-1}) has scalar amplitude F(w)=ℓ A_0(w_0)...A_{n-1}(w_{n-1})r; for n=0 the empty product is the identity. The physical basis label x(w) puts w_i on wire i, where wire 0 is least significant. Define L_n(x)=Σ_{i=0}^{n-1}x_i2^i, reversal (ρ_n x)_i=x_{n-1-i}, and S_n(w)=L_n(ρ_n x(w)). Define the head-first integer recursively by M(empty)=0 and M(b::u)=b·2^{length(u)}+M(u).\n\nProve for every n that S_n(w)=M(w), that these word/index maps are bijective onto {0,...,2^n-1}, and that S_n applied to the word read from ρ_n x equals L_n(x). Give an all-length argument using the head/tail versus appended-high-bit recurrence, not just an example.\n\nNow suppose a real sample table f:{0,...,2^n-1}→R satisfies F(w)=f(M(w)). Define v=Σ_w F(w)|x(w)⟩ and the intended little-endian vector t=Σ_x f(L_n(x))|x⟩. Derive the physical amplitude v_x. For the basis permutation P|x⟩=|ρ_n x⟩, prove Pv=t and determine exactly when v=t without applying P. Prove their squared masses agree and explain normalization when that mass is positive. Give an explicit non-palindromic three-bit word and sample table for which the uncorrected vectors differ, with both integer labels written out.\n\nExplain why reversing physical wire labels is different from reversing the order of the generally noncommuting core matrices. Separate a mathematical basis relabeling from actually executing a wire-permutation circuit; no free routing, SWAP synthesis or tensor-train preparation algorithm is assumed. Include n=0, n=1, a reversal-invariant table and the zero table.",
+  "assumptions": [
+    "n is a natural number, all bond dimensions are finite positive integers, and A_i(b), ℓ and r have the stated compatible real dimensions.",
+    "The scalar contraction is supplied to equal f(M(w)) for every word; no synthesis or efficient core-construction claim is assumed.",
+    "Physical labels enumerate bits in increasing wire order, and the flat public index is little-endian.",
+    "The raw table may be zero; a normalized state is requested only if its squared mass is positive."
+  ],
+  "conventions": [
+    "The first core consumes the first word bit. Row-oriented tensor contraction is ℓ A_0 A_1 ... A_{n-1} r.",
+    "ρ_n reverses coordinates and is its own inverse; the n=0 word/basis label is unique and its integer index is 0.",
+    "P is the linear basis permutation |x⟩↦|ρ_n x⟩; vector coefficients therefore transform as (Pv)_x=v_{ρ_n x}.",
+    "The data vector alone is defined here. No bond cleanup, postselection or circuit implementation is inferred from an index identity."
+  ],
+  "reference_answer": "The coordinate map w↦x(w) is a bijection: its inverse reads wires 0,1,...,n−1 as a head-first word. Reversal is an involution, since n−1−(n−1−i)=i for every valid wire. For n=0 there are no coordinates and the unique empty label is fixed.\n\nThe little-endian map is bijective by induction. At width n+1, write a low-wire-first bit list as (b,u); then L_{n+1}(b,u)=b+2L_n(u). Every j in {0,...,2^{n+1}−1} has a unique decomposition j=b+2q with b=j mod 2 and q=floor(j/2) in the width-n range. This gives existence and uniqueness of the inverse. In particular S_n, a composition of the word-to-basis bijection, reversal and L_n, is a bijection.\n\nTo connect it to the head-first integer, first note the high-bit append identity L_{n+1}(y followed by b)=L_n(y)+2^n b. Reversing the basis list of a head-first word b::u produces the reversed basis list of u followed by b at the highest wire. Consequently\n  S_{n+1}(b::u)=S_n(u)+2^n b.\nThe empty case gives S_0(empty)=0. Induction using the same recurrence for M yields S_n(w)=M(w) at every length, including leading zeros. Equivalently M(w)=Σ_i w_i2^{n−1−i}. The range 0≤M(w)<2^n follows as well, without treating a leading zero as deletion of a wire. If one reads a word from ρ_n x, its basis list is ρ_n x; applying S_n then gives L_n(ρ_nρ_n x)=L_n(x). This is the required public-index bridge.\n\nThe raw emitted vector assigns coefficient F(w) to x(w), so\n  v_x=F(word read from x)=f(M(word read from x))=f(L_n(ρ_n x)).\nThus reading a head-first sample integer directly as a low-wire physical integer generally reverses the sample table. It does not change the number of wires or any scalar amplitude value; it puts amplitudes at different physical labels.\n\nBecause ρ_n is its own inverse, P†=P and P²=I. For each output x, the coefficient of Pv is the unique source coefficient v_{ρ_n x}=f(L_n(ρ_nρ_n x))=f(L_n(x))=t_x. Hence Pv=t as complete vectors. Let rev_n(j)=L_n(ρ_n L_n^{-1}(j)), the integer permutation that reverses exactly n bits, retaining leading zeros. Then v=t if and only if f(rev_n(j))=f(j) for every j in the index range: necessity compares the two coefficients at x=L_n^{-1}(j), and sufficiency reverses that argument. It is a condition on the table, not a generic identity of all tables.\n\nReindexing the finite sum gives\n  Σ_x |v_x|²=Σ_j f(j)²=Σ_x |t_x|²=:Z².\nAlternatively, the unitary basis permutation P preserves the Euclidean norm. If Z>0 then P(v/Z)=t/Z and both are unit states; this is exact transport with no lost success probability. If Z=0, every real f(j)=0, v=t=0 and the unnormalized identities still hold, but division by Z does not define a state.\n\nFor a discriminator take n=3 and w=(1,0,0), explicitly written in increasing wire order. Its physical index is L_3(1,0,0)=1, whereas its head-first integer is M(1,0,0)=4. Choose f(j)=1 for j=4 and 0 otherwise. This table can satisfy the contraction premise with all bond dimensions one, ℓ=r=1, and scalar factors A_0(b)=1_{b=1}, A_1(b)=A_2(b)=1_{b=0}. Then v=|(1,0,0)⟩ has flat index 1, while t=|(0,0,1)⟩ has flat index 4. They are distinct normalized basis vectors. P exchanges the labels and corrects the vector. This is not a palindrome example that accidentally hides reversal.\n\nAt n=0 both indexing sets are singletons, the product is ℓr, P=I and the only table entry is f(0); positive mass gives its normalized signed scalar. At n=1 reversal is also the identity, so every table agrees. At larger widths reversal-invariant tables, including constants and the zero table, still give v=t.\n\nThe ordered product A_0(w_0)...A_{n−1}(w_{n−1}) is unchanged in all these equations. We changed which word is assigned to a physical label; we never commuted core matrices. Reversing their product may even be ill-typed for unequal bond dimensions, and generally changes the value when dimensions match. A passive change of basis convention is bookkeeping. If the physical output wires are fixed, realizing P is an additional wire permutation whose gate implementation, connectivity and cost need a separate argument. None of these index identities constructs the tensor-train emitter or proves its workspace cleanup.",
+  "rubric": [
+    {
+      "id": "r1",
+      "weight": 2,
+      "criterion": "Proves word-to-basis, reversal and little-endian bijectivity with correct all-length base and unique binary inverse; partial credit for correct maps without the bijection argument."
+    },
+    {
+      "id": "r2",
+      "weight": 2,
+      "criterion": "Derives the head-to-high-bit recurrence and S_n=M by induction, then the double-reversal public-index identity; a numerical example alone earns no more than partial credit."
+    },
+    {
+      "id": "r3",
+      "weight": 2,
+      "criterion": "Derives v_x=f(L_n(ρ_nx)) and proves Pv=t by tracking coefficients under the inverse permutation; partial credit for identifying bit reversal without its amplitude action."
+    },
+    {
+      "id": "r4",
+      "weight": 1,
+      "criterion": "Proves the necessary-and-sufficient table-invariance criterion for v=t, not merely a sufficient symmetry example."
+    },
+    {
+      "id": "r5",
+      "weight": 1,
+      "criterion": "Proves equal squared masses by bijective reindexing or unitarity and handles positive versus zero normalization."
+    },
+    {
+      "id": "r6",
+      "weight": 1,
+      "criterion": "Gives a genuine non-palindromic three-bit discriminator, including the two unequal integers and a sample table satisfying the contraction premise."
+    },
+    {
+      "id": "r7",
+      "weight": 1,
+      "criterion": "Keeps matrix-product order, wire permutation and implementation cost distinct; correctly handles n=0 and n=1 rather than treating zero qubits as an empty sample table."
+    }
+  ],
+  "common_errors": [
+    "Confusing the first tensor-word bit with the least significant sample digit.",
+    "Testing only palindromic words such as (1,0,1), which cannot distinguish reversal.",
+    "Claiming (Pv)_x=v_x after relabeling instead of tracking the inverse permutation.",
+    "Reversing noncommuting core order to repair a wire-index mismatch.",
+    "Dropping leading zero wires from rev_n.",
+    "Normalizing the zero sample table or claiming a basis relabeling is a free physical circuit."
+  ],
+  "boundary_cases": [
+    {
+      "case": "n=0",
+      "consequence": "One empty word, one physical label and one sample index 0; the empty matrix product is identity and reversal is identity."
+    },
+    {
+      "case": "n=1",
+      "consequence": "Reversal is identity for both bits; no table mismatch is possible."
+    },
+    {
+      "case": "Reversal-invariant f",
+      "consequence": "The uncorrected vector already agrees exactly, even when n>1."
+    },
+    {
+      "case": "Zero f",
+      "consequence": "All raw identities hold with zero mass; no normalized output state is defined."
+    },
+    {
+      "case": "Unequal bond dimensions",
+      "consequence": "The forward contraction is well typed; reversing core multiplication is generally not."
+    }
+  ],
+  "difficulty": {
+    "D0_facet": "Head-first word order, low-wire physical order, little-endian numeric order and normalization are separate conventions. No extra D0 core.",
+    "provisional_route_band": "D4",
+    "rationale": "An all-length inductive coordinate representation is joined to a full-vector permutation and exact equality criterion. The small example is a discriminator, not the general proof.",
+    "shortcut_disclosure": "Supplying both all-width sample-map identities would shorten the first half to a D1 application; the current question asks their reconstruction.",
+    "measured_model_difficulty": false
+  },
+  "reasoning_map": {
+    "kind": "author_supplied_natural_language",
+    "not_extracted_lean_dependencies": true,
+    "inputs": [
+      {
+        "id": "I1",
+        "statement": "Finite binary words, x(w)_i=w_i, L_n(x)=Σx_i2^i, ρ_n reverses exactly n coordinates, S_n=L_n∘ρ_n∘x.",
+        "kind": "convention"
+      },
+      {
+        "id": "I2",
+        "statement": "M(empty)=0 and M(b::u)=b2^{length(u)}+M(u).",
+        "kind": "convention"
+      },
+      {
+        "id": "I3",
+        "statement": "Compatible row-oriented real core product F(w)=ℓA_0(w_0)...A_{n−1}(w_{n−1})r and F(w)=f(M(w)) for every word.",
+        "kind": "assumption"
+      },
+      {
+        "id": "I4",
+        "statement": "v=Σ_w F(w)|x(w)⟩, t=Σ_x f(L_n(x))|x⟩, and P|x⟩=|ρ_nx⟩.",
+        "kind": "convention"
+      },
+      {
+        "id": "I5",
+        "statement": "Normalization may be formed only when Z²=Σ_j f(j)²>0; physical synthesis is not supplied.",
+        "kind": "convention"
+      }
+    ],
+    "steps": [
+      {
+        "id": "S1",
+        "claim": "All three coordinate maps are bijections.",
+        "assumptions": [],
+        "required_inputs": [
+          "I1"
+        ],
+        "conclusion": "w↦x(w), ρ_n, L_n and S_n are bijective; ρ_n²=id.",
+        "justification": "Read coordinates, reverse twice, and induct on unique j=b+2q decomposition."
+      },
+      {
+        "id": "S2",
+        "claim": "The sample index and head-first integer agree at every width.",
+        "assumptions": [],
+        "required_inputs": [
+          "I1",
+          "I2"
+        ],
+        "conclusion": "S_n(w)=M(w).",
+        "justification": "The empty case and head-first reversal becoming high-bit append give S_{n+1}(b::u)=S_n(u)+2^n b, matching M."
+      },
+      {
+        "id": "S3",
+        "claim": "The reversed physical word maps to the original public integer.",
+        "assumptions": [],
+        "required_inputs": [
+          "I1",
+          "S1",
+          "S2"
+        ],
+        "conclusion": "S_n(word from ρ_nx)=L_n(x).",
+        "justification": "Double reversal cancels; the proved identity identifies the head-first numeric value."
+      },
+      {
+        "id": "S4",
+        "claim": "The uncorrected emitter vector contains a reversed sample table.",
+        "assumptions": [],
+        "required_inputs": [
+          "I3",
+          "I4",
+          "S1",
+          "S2"
+        ],
+        "conclusion": "v_x=f(L_n(ρ_nx)).",
+        "justification": "Each physical x receives exactly one word coefficient, then apply the contraction premise and S_n=M."
+      },
+      {
+        "id": "S5",
+        "claim": "Physical reversal transports the entire vector and characterizes accidental agreement.",
+        "assumptions": [],
+        "required_inputs": [
+          "I1",
+          "I4",
+          "S1",
+          "S4"
+        ],
+        "conclusion": "Pv=t; v=t iff f(rev_n(j))=f(j) for every j.",
+        "justification": "Coefficient transport uses the inverse permutation, equal to ρ_n; bijective L_n gives both directions of the iff."
+      },
+      {
+        "id": "S6",
+        "claim": "Mass and normalization survive the coordinate transport.",
+        "assumptions": [],
+        "required_inputs": [
+          "I3",
+          "I4",
+          "I5",
+          "S1",
+          "S4",
+          "S5"
+        ],
+        "conclusion": "||v||²=||t||²=Z², and P(v/Z)=t/Z when Z>0.",
+        "justification": "Reindex the finite sum; zero mass forces the raw vector to vanish and does not allow division."
+      },
+      {
+        "id": "S7",
+        "claim": "An exact three-bit witness detects the wrong convention.",
+        "assumptions": [],
+        "required_inputs": [
+          "I1",
+          "I2",
+          "I3",
+          "I4",
+          "S4",
+          "S5"
+        ],
+        "conclusion": "For f=1_{j=4}, v has flat label 1 and t has flat label 4.",
+        "justification": "Compute LE(100)=1 and MSB(100)=4; rank-one scalar cores realize the table so the witness meets the premise."
+      },
+      {
+        "id": "S8",
+        "claim": "The index bridge preserves the original contraction order but does not supply physical routing.",
+        "assumptions": [],
+        "required_inputs": [
+          "I3",
+          "I4",
+          "I5",
+          "S5"
+        ],
+        "conclusion": "No core commutation, TT compiler or free SWAP theorem is inferred.",
+        "justification": "All products remain in head-first order; P is only a specified mathematical basis permutation."
+      }
+    ],
+    "reused_results": [
+      {
+        "result": "Head-first word, word-to-basis and sample-index definitions in TensorTrainCanonical/Schedule/Word",
+        "consumers": [
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "status": "Inspected frozen definitions and proofs; all-length argument reconstructed here."
+      },
+      {
+        "result": "Little-endian head and high-bit-append recurrences",
+        "consumers": [
+          "S1",
+          "S2"
+        ],
+        "status": "Source interfaces primitiveBasisLEEquiv_succ_value and primitive_snoc_value; no new Lean execution."
+      },
+      {
+        "result": "Finite permutation coefficient transport and norm preservation",
+        "consumers": [
+          "S5",
+          "S6"
+        ],
+        "status": "Original NL composition proved explicitly; not claimed as an extracted theorem dependency."
+      }
+    ],
+    "reconvergent_branches": [
+      {
+        "branches": [
+          "S1",
+          "S2"
+        ],
+        "join": "S4",
+        "meaning": "Unique physical word and correct word/public-index value are both needed for the amplitude table."
+      }
+    ]
+  },
+  "overlap": {
+    "global_semantic_reconciliation": "pending",
+    "assessed_delta": "All-width word/public-index reversal, vector coefficient transport, iff table-invariance criterion and legal non-palindromic discriminator.",
+    "related_targets": [
+      {
+        "id": "qcb-authored-0005",
+        "split": "train (legacy release-v3)",
+        "relation": "Core/chain/word vocabulary and contraction are prerequisites; this candidate is not another declaration-description quiz."
+      },
+      {
+        "id": "breadth-bell-chronological-wires",
+        "split": "dev (legacy release-v3)",
+        "relation": "Shares little-endian convention; its two-qubit Bell example does not assess the all-length reversal bridge."
+      },
+      {
+        "id": "qcb-core-la-013",
+        "split": "train",
+        "relation": "Wire-induced basis permutation is a shared mechanism; no arbitrary basis permutation or free routing conclusion is imported."
+      },
+      {
+        "id": "qcb-core-sp-007",
+        "split": "test_public",
+        "relation": "Increasing-wire emission and chronological semantics are shared context; this candidate does not re-prove the clean-column induction."
+      }
+    ],
+    "split_action": "Unassigned pending reconciliation; no claim of independent held-out evidence across existing prerequisite splits.",
+    "dedup_review_required": true
+  },
+  "unverified": [
+    "No Lean execution, kernel replay, axiom audit or production-source modification was performed for this packet.",
+    "At authoring/freeze time, independent blind reconstruction and exact-content comparison were pending; later review status belongs in the package review manifest, not this author claim.",
+    "Source inspection supports the stated interfaces and conventions; it does not formally verify the complete natural-language derivation.",
+    "Frozen graph edges expose imports/ownership, not extracted theorem proof dependencies. Source-semantic legacy debt is not cleared.",
+    "Model difficulty, model performance, global semantic deduplication and release admission remain unmeasured or unresolved.",
+    "The amplitude transport/equality-criterion composition and resource distinction are original NL arguments; the source sample-map theorems do not formally certify those whole conclusions.",
+    "No implementation of P, source tensor construction, local isometry synthesis or full flattened circuit was checked."
+  ],
+  "source_refs": [
+    {
+      "path": "QuantumBlockEncoding/TensorTrainWord.lean",
+      "anchor": "Complete module lines 1-102 inspected: word/basis inverses lines 10-30, reversal and sampleEquiv lines 32-39, high-bit append lines 50-71, sampleEquiv_value lines 73-88, public bridge lines 90-100.",
+      "declarations": [
+        "toBasis",
+        "basisEquiv",
+        "reverseBasis",
+        "sampleEquiv",
+        "primitive_snoc_value",
+        "sampleEquiv_value",
+        "wordSampleIndex_eq",
+        "sampleEquiv_public"
+      ],
+      "sha256": "65406c2bfa5359d6b6c1559a5a5a3f686ad4417cac436a8a1aab696b7becbdf8",
+      "hash_policy": "sha256-lf-text-v1",
+      "raw_sha256": "65406c2bfa5359d6b6c1559a5a5a3f686ad4417cac436a8a1aab696b7becbdf8",
+      "raw_equals_lf": true,
+      "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+      "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "matches_frozen_snapshot_input_hash": true,
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+    },
+    {
+      "path": "QuantumBlockEncoding/TensorTrainCanonical.lean",
+      "anchor": "Lines 18-43: real incoming-row/outgoing-column core slice, dependent Chain, head-first Word and ordered contract.",
+      "declarations": [
+        "Core",
+        "slice",
+        "Chain",
+        "Word",
+        "contract"
+      ],
+      "sha256": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+      "hash_policy": "sha256-lf-text-v1",
+      "raw_sha256": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+      "raw_equals_lf": true,
+      "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+      "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "matches_frozen_snapshot_input_hash": true,
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+    },
+    {
+      "path": "QuantumBlockEncoding/TensorTrainSchedule.lean",
+      "anchor": "Lines 17-20: wordOfBasis reads wire zero then tail; lines 68-110: transfer_shift and padded row/column contraction bridge inspected for convention reconciliation.",
+      "declarations": [
+        "wordOfBasis",
+        "transfer_shift",
+        "paddedSlice_mulVec",
+        "transfer_padded"
+      ],
+      "sha256": "2cd10d741a8655132286cbba741293b6ab2a89c713d8553beebd2820b0aab8e3",
+      "hash_policy": "sha256-lf-text-v1",
+      "raw_sha256": "2cd10d741a8655132286cbba741293b6ab2a89c713d8553beebd2820b0aab8e3",
+      "raw_equals_lf": true,
+      "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+      "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "matches_frozen_snapshot_input_hash": true,
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+    },
+    {
+      "path": "QuantumBlockEncoding/PrimitiveBasisLE.lean",
+      "anchor": "Lines 15-38: complete little-endian equivalence and successor-value theorem.",
+      "declarations": [
+        "primitiveBasisLEEquiv",
+        "primitiveBasisLEEquiv_zero_apply",
+        "primitiveBasisLEEquiv_succ_value"
+      ],
+      "sha256": "469c176f1f47732661d526b72de1f9906a3c335061f6a4c82766877ce5979fad",
+      "hash_policy": "sha256-lf-text-v1",
+      "raw_sha256": "469c176f1f47732661d526b72de1f9906a3c335061f6a4c82766877ce5979fad",
+      "raw_equals_lf": true,
+      "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+      "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "matches_frozen_snapshot_input_hash": true,
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+    },
+    {
+      "path": "QuantumBlockEncoding/HermiteBoundaryInjection.lean",
+      "anchor": "Lines 22-41: MSB-first wordValue and coordinate identity; lines 785-788: length-qualified public-grid index.",
+      "declarations": [
+        "wordValue",
+        "wordValue_lt",
+        "pathCoordinate_eq_wordValue",
+        "wordSampleIndex"
+      ],
+      "sha256": "a78c5a9e71e669048e5274cb55e3e10ccec326bccf26739713dd695bd15b2ca0",
+      "hash_policy": "sha256-lf-text-v1",
+      "raw_sha256": "a78c5a9e71e669048e5274cb55e3e10ccec326bccf26739713dd695bd15b2ca0",
+      "raw_equals_lf": true,
+      "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+      "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "matches_frozen_snapshot_input_hash": true,
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+    }
+  ],
+  "provenance": {
+    "author_identity": "/root/author_coherence",
+    "baseline_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+    "frozen_graph_snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+    "frozen_graph_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+    "evidence_class": "original_nl_composition_of_inspected_word_and_index_interfaces",
+    "source_inspection": [
+      {
+        "path": "QuantumBlockEncoding/TensorTrainWord.lean",
+        "anchor": "Complete module lines 1-102 inspected: word/basis inverses lines 10-30, reversal and sampleEquiv lines 32-39, high-bit append lines 50-71, sampleEquiv_value lines 73-88, public bridge lines 90-100.",
+        "declarations": [
+          "toBasis",
+          "basisEquiv",
+          "reverseBasis",
+          "sampleEquiv",
+          "primitive_snoc_value",
+          "sampleEquiv_value",
+          "wordSampleIndex_eq",
+          "sampleEquiv_public"
+        ],
+        "sha256": "65406c2bfa5359d6b6c1559a5a5a3f686ad4417cac436a8a1aab696b7becbdf8",
+        "hash_policy": "sha256-lf-text-v1",
+        "raw_sha256": "65406c2bfa5359d6b6c1559a5a5a3f686ad4417cac436a8a1aab696b7becbdf8",
+        "raw_equals_lf": true,
+        "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+        "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "matches_frozen_snapshot_input_hash": true,
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+      },
+      {
+        "path": "QuantumBlockEncoding/TensorTrainCanonical.lean",
+        "anchor": "Lines 18-43: real incoming-row/outgoing-column core slice, dependent Chain, head-first Word and ordered contract.",
+        "declarations": [
+          "Core",
+          "slice",
+          "Chain",
+          "Word",
+          "contract"
+        ],
+        "sha256": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+        "hash_policy": "sha256-lf-text-v1",
+        "raw_sha256": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+        "raw_equals_lf": true,
+        "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+        "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "matches_frozen_snapshot_input_hash": true,
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+      },
+      {
+        "path": "QuantumBlockEncoding/TensorTrainSchedule.lean",
+        "anchor": "Lines 17-20: wordOfBasis reads wire zero then tail; lines 68-110: transfer_shift and padded row/column contraction bridge inspected for convention reconciliation.",
+        "declarations": [
+          "wordOfBasis",
+          "transfer_shift",
+          "paddedSlice_mulVec",
+          "transfer_padded"
+        ],
+        "sha256": "2cd10d741a8655132286cbba741293b6ab2a89c713d8553beebd2820b0aab8e3",
+        "hash_policy": "sha256-lf-text-v1",
+        "raw_sha256": "2cd10d741a8655132286cbba741293b6ab2a89c713d8553beebd2820b0aab8e3",
+        "raw_equals_lf": true,
+        "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+        "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "matches_frozen_snapshot_input_hash": true,
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+      },
+      {
+        "path": "QuantumBlockEncoding/PrimitiveBasisLE.lean",
+        "anchor": "Lines 15-38: complete little-endian equivalence and successor-value theorem.",
+        "declarations": [
+          "primitiveBasisLEEquiv",
+          "primitiveBasisLEEquiv_zero_apply",
+          "primitiveBasisLEEquiv_succ_value"
+        ],
+        "sha256": "469c176f1f47732661d526b72de1f9906a3c335061f6a4c82766877ce5979fad",
+        "hash_policy": "sha256-lf-text-v1",
+        "raw_sha256": "469c176f1f47732661d526b72de1f9906a3c335061f6a4c82766877ce5979fad",
+        "raw_equals_lf": true,
+        "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+        "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "matches_frozen_snapshot_input_hash": true,
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+      },
+      {
+        "path": "QuantumBlockEncoding/HermiteBoundaryInjection.lean",
+        "anchor": "Lines 22-41: MSB-first wordValue and coordinate identity; lines 785-788: length-qualified public-grid index.",
+        "declarations": [
+          "wordValue",
+          "wordValue_lt",
+          "pathCoordinate_eq_wordValue",
+          "wordSampleIndex"
+        ],
+        "sha256": "a78c5a9e71e669048e5274cb55e3e10ccec326bccf26739713dd695bd15b2ca0",
+        "hash_policy": "sha256-lf-text-v1",
+        "raw_sha256": "a78c5a9e71e669048e5274cb55e3e10ccec326bccf26739713dd695bd15b2ca0",
+        "raw_equals_lf": true,
+        "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+        "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "matches_frozen_snapshot_input_hash": true,
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+      }
+    ],
+    "suggested_reading": [
+      "TensorTrainWord.lean complete; TensorTrainCanonical.lean lines 18-43; PrimitiveBasisLE.lean lines 15-38."
+    ],
+    "imports_and_declaration_availability": {
+      "source_imports": "TensorTrainWord imports TensorTrainSchedule and HermiteBoundaryInjection; TensorTrainSchedule imports TensorTrainCanonical.",
+      "availability": "All target/support declarations are in the frozen snapshot; current LF source hashes match the snapshot. These import facts are not proof dependency claims."
+    },
+    "conceptual_graph_relationships": [
+      {
+        "from": "Head-first tensor word",
+        "to": "Little-endian public sample index",
+        "relation": "Conceptual convention adapter with explicit reversal."
+      },
+      {
+        "from": "Coordinate bijection",
+        "to": "Physical wire permutation",
+        "relation": "Mathematical mechanism only; resource implementation is not an implication."
+      }
+    ],
+    "justified_mathematical_dependencies": [
+      "Head-first recursion AND high-bit-append numeric recurrence prove S_n=M.",
+      "Table contraction identity AND unique word-to-physical assignment AND reversal involution prove Pv=t.",
+      "Bijective reindexing AND positive mass permit normalized transport."
+    ],
+    "educational_delta": "Replaces a word/type description with an arbitrary-width convention proof and complete vector transport; distinguishes cases where an uncorrected table happens to be invariant from a general compiler/order error.",
+    "review_state": "authored_unreviewed_at_author_freeze; subsequent_review_recorded_separately",
+    "external_sources": {
+      "inspected": [],
+      "paper_fidelity_claim": false
+    },
+    "license_attribution": "Original English question/solution prose grounded in MIT repository sources; Copyright (c) 2026 Quantum Block Encoding contributors. Repository LICENSE inspected.",
+    "generation": "Manually authored from inspected local sources; no model endpoint batch, inference evaluation or training was run."
+  }
+}

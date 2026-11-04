@@ -1,0 +1,136 @@
+{
+  "schema_version": "qcb.cohort_question_first_packet.v1",
+  "slot": "B4",
+  "base_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "frozen_payload_item_digest": "da0e4f9473327ee4fde28dbdf459af50a8be98195389eda449d8642af39d3bd8",
+  "frozen_payload_sha256": "a977c25b404f3b3e148cdcedd961e1e8652ad52ed1434fc27b1c3d04553e9555",
+  "core_id": "candidate:c3875629-0a16-497e-b613-ab3272780702",
+  "question": "Fix n≥0 and compatible positive finite bond dimensions d_0,...,d_n. For each i<n and bit b∈{0,1}, let A_i(b) be a real d_i-by-d_{i+1} matrix, with a row boundary ℓ and column boundary r. A head-first word w=(w_0,...,w_{n-1}) has scalar amplitude F(w)=ℓ A_0(w_0)...A_{n-1}(w_{n-1})r; for n=0 the empty product is the identity. The physical basis label x(w) puts w_i on wire i, where wire 0 is least significant. Define L_n(x)=Σ_{i=0}^{n-1}x_i2^i, reversal (ρ_n x)_i=x_{n-1-i}, and S_n(w)=L_n(ρ_n x(w)). Define the head-first integer recursively by M(empty)=0 and M(b::u)=b·2^{length(u)}+M(u).\n\nProve for every n that S_n(w)=M(w), that these word/index maps are bijective onto {0,...,2^n-1}, and that S_n applied to the word read from ρ_n x equals L_n(x). Give an all-length argument using the head/tail versus appended-high-bit recurrence, not just an example.\n\nNow suppose a real sample table f:{0,...,2^n-1}→R satisfies F(w)=f(M(w)). Define v=Σ_w F(w)|x(w)⟩ and the intended little-endian vector t=Σ_x f(L_n(x))|x⟩. Derive the physical amplitude v_x. For the basis permutation P|x⟩=|ρ_n x⟩, prove Pv=t and determine exactly when v=t without applying P. Prove their squared masses agree and explain normalization when that mass is positive. Give an explicit non-palindromic three-bit word and sample table for which the uncorrected vectors differ, with both integer labels written out.\n\nExplain why reversing physical wire labels is different from reversing the order of the generally noncommuting core matrices. Separate a mathematical basis relabeling from actually executing a wire-permutation circuit; no free routing, SWAP synthesis or tensor-train preparation algorithm is assumed. Include n=0, n=1, a reversal-invariant table and the zero table.",
+  "assumptions": [
+    "n is a natural number, all bond dimensions are finite positive integers, and A_i(b), ℓ and r have the stated compatible real dimensions.",
+    "The scalar contraction is supplied to equal f(M(w)) for every word; no synthesis or efficient core-construction claim is assumed.",
+    "Physical labels enumerate bits in increasing wire order, and the flat public index is little-endian.",
+    "The raw table may be zero; a normalized state is requested only if its squared mass is positive."
+  ],
+  "conventions": [
+    "The first core consumes the first word bit. Row-oriented tensor contraction is ℓ A_0 A_1 ... A_{n-1} r.",
+    "ρ_n reverses coordinates and is its own inverse; the n=0 word/basis label is unique and its integer index is 0.",
+    "P is the linear basis permutation |x⟩↦|ρ_n x⟩; vector coefficients therefore transform as (Pv)_x=v_{ρ_n x}.",
+    "The data vector alone is defined here. No bond cleanup, postselection or circuit implementation is inferred from an index identity."
+  ],
+  "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "target_nodes": [
+    "declaration:QuantumBlockEncoding.TensorTrainWord.sampleEquiv_value",
+    "declaration:QuantumBlockEncoding.TensorTrainWord.sampleEquiv_public"
+  ],
+  "supporting_nodes": [
+    "declaration:QuantumBlockEncoding.TensorTrainWord.sampleEquiv",
+    "declaration:QuantumBlockEncoding.TensorTrainWord.reverseBasis",
+    "declaration:QuantumBlockEncoding.TensorTrainWord.primitive_snoc_value",
+    "declaration:QuantumBlockEncoding.TensorTrainSchedule.wordOfBasis",
+    "declaration:QuantumBlockEncoding.TensorTrainCanonical.contract",
+    "declaration:QuantumBlockEncoding.primitiveBasisLEEquiv_succ_value"
+  ],
+  "source_refs": [
+    {
+      "path": "QuantumBlockEncoding/TensorTrainWord.lean",
+      "anchor": "Complete module lines 1-102 inspected: word/basis inverses lines 10-30, reversal and sampleEquiv lines 32-39, high-bit append lines 50-71, sampleEquiv_value lines 73-88, public bridge lines 90-100.",
+      "declarations": [
+        "toBasis",
+        "basisEquiv",
+        "reverseBasis",
+        "sampleEquiv",
+        "primitive_snoc_value",
+        "sampleEquiv_value",
+        "wordSampleIndex_eq",
+        "sampleEquiv_public"
+      ],
+      "sha256": "65406c2bfa5359d6b6c1559a5a5a3f686ad4417cac436a8a1aab696b7becbdf8",
+      "hash_policy": "sha256-lf-text-v1",
+      "raw_sha256": "65406c2bfa5359d6b6c1559a5a5a3f686ad4417cac436a8a1aab696b7becbdf8",
+      "raw_equals_lf": true,
+      "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+      "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "matches_frozen_snapshot_input_hash": true,
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+    },
+    {
+      "path": "QuantumBlockEncoding/TensorTrainCanonical.lean",
+      "anchor": "Lines 18-43: real incoming-row/outgoing-column core slice, dependent Chain, head-first Word and ordered contract.",
+      "declarations": [
+        "Core",
+        "slice",
+        "Chain",
+        "Word",
+        "contract"
+      ],
+      "sha256": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+      "hash_policy": "sha256-lf-text-v1",
+      "raw_sha256": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+      "raw_equals_lf": true,
+      "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+      "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "matches_frozen_snapshot_input_hash": true,
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+    },
+    {
+      "path": "QuantumBlockEncoding/TensorTrainSchedule.lean",
+      "anchor": "Lines 17-20: wordOfBasis reads wire zero then tail; lines 68-110: transfer_shift and padded row/column contraction bridge inspected for convention reconciliation.",
+      "declarations": [
+        "wordOfBasis",
+        "transfer_shift",
+        "paddedSlice_mulVec",
+        "transfer_padded"
+      ],
+      "sha256": "2cd10d741a8655132286cbba741293b6ab2a89c713d8553beebd2820b0aab8e3",
+      "hash_policy": "sha256-lf-text-v1",
+      "raw_sha256": "2cd10d741a8655132286cbba741293b6ab2a89c713d8553beebd2820b0aab8e3",
+      "raw_equals_lf": true,
+      "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+      "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "matches_frozen_snapshot_input_hash": true,
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+    },
+    {
+      "path": "QuantumBlockEncoding/PrimitiveBasisLE.lean",
+      "anchor": "Lines 15-38: complete little-endian equivalence and successor-value theorem.",
+      "declarations": [
+        "primitiveBasisLEEquiv",
+        "primitiveBasisLEEquiv_zero_apply",
+        "primitiveBasisLEEquiv_succ_value"
+      ],
+      "sha256": "469c176f1f47732661d526b72de1f9906a3c335061f6a4c82766877ce5979fad",
+      "hash_policy": "sha256-lf-text-v1",
+      "raw_sha256": "469c176f1f47732661d526b72de1f9906a3c335061f6a4c82766877ce5979fad",
+      "raw_equals_lf": true,
+      "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+      "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "matches_frozen_snapshot_input_hash": true,
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+    },
+    {
+      "path": "QuantumBlockEncoding/HermiteBoundaryInjection.lean",
+      "anchor": "Lines 22-41: MSB-first wordValue and coordinate identity; lines 785-788: length-qualified public-grid index.",
+      "declarations": [
+        "wordValue",
+        "wordValue_lt",
+        "pathCoordinate_eq_wordValue",
+        "wordSampleIndex"
+      ],
+      "sha256": "a78c5a9e71e669048e5274cb55e3e10ccec326bccf26739713dd695bd15b2ca0",
+      "hash_policy": "sha256-lf-text-v1",
+      "raw_sha256": "a78c5a9e71e669048e5274cb55e3e10ccec326bccf26739713dd695bd15b2ca0",
+      "raw_equals_lf": true,
+      "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+      "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "matches_frozen_snapshot_input_hash": true,
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+    }
+  ]
+}

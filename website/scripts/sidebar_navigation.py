@@ -62,6 +62,7 @@ def render_navigation(prefix: str, current: str, papers: dict, cases: list[dict]
         ("Train and evaluate", "quantumcomputingbench/run/"),
         ("Expert graph atlas", "quantumcomputingbench/expert/"),
         ("Mathematical exercises", "quantumcomputingbench/non-lean/"),
+        ("Supplementary NL workbook", "quantumcomputingbench/non-lean/workbook/"),
         ("Guided course · D0–D4", "quantumcomputingbench/course/"),
         ("How reasoning graphs work", "quantumcomputingbench/reasoning/"),
         ("Lean companion", "quantumcomputingbench/lean/"),

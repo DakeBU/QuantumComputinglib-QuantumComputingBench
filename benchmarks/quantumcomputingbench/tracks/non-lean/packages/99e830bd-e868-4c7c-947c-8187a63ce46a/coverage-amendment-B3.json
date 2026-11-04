@@ -1,0 +1,21 @@
+{
+  "schema_version": "qcb.cohort_plan_amendment.v1",
+  "timestamp": "2026-11-03T11:43:56.143492+00:00",
+  "slot": "B3",
+  "stage": "before B3 question freeze",
+  "supersedes": "coverage-plan.json B3 generic telescoping target",
+  "reason": "Coverage audit identified substantive legacy overlap with breadth-hermite-angle-budget in data/public/release-v3/release.json (dev). Generic telescoping and Hermite angle-budget specialization must not be counted again.",
+  "target": "Optimal continuous precision allocation for reused rotation parameters, followed by integer-bit rounding under an explicit charged cost model.",
+  "mathematical_contract_plan": {
+    "parameters": "r>=1; m_j>=1 positive integers; c_j>0; C=sum c_j; 0<eta<1/2",
+    "supplied_interface": "Operator error <= (1/2) sum_j m_j delta_j, for aligned rotation approximations with |angle error_j|<=delta_j.",
+    "objective": "minimize sum_j c_j log2(1/delta_j) subject 0<delta_j<=1 and sum_j m_j delta_j<=2eta",
+    "expected_construction": "delta_j=2eta*c_j/(m_j*C); b_j=ceil(log2(m_j*C/(2eta*c_j))); prove rounded feasibility and additive weighted-cost overhead < C",
+    "boundaries": [
+      "empty gate/parameter list",
+      "eta=0 no finite-bit guarantee",
+      "ideal precision model is supplied; no charged physical compiler or quantum synthesis certified"
+    ]
+  },
+  "novelty_scope": "New assessed optimization and rounding argument; prior error lemma is explicitly supplied/reused, no automatic distinct-core admission."
+}

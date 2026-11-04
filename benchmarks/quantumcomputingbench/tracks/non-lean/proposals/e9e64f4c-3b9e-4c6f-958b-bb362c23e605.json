@@ -1,0 +1,85 @@
+{
+  "proposal_id": "e9e64f4c-3b9e-4c6f-958b-bb362c23e605",
+  "track": "non-lean",
+  "author": "/root/author_normalization",
+  "core_id": "candidate:e9e64f4c-3b9e-4c6f-958b-bb362c23e605",
+  "admission": "candidate_not_counted",
+  "dedup_review_required": true,
+  "source_nodes": [
+    "declaration:QuantumBlockEncoding.RealAmplitudePreparation.normalized_sum_sq",
+    "declaration:QuantumBlockEncoding.RealAmplitudePreparation.normSq",
+    "declaration:QuantumBlockEncoding.ConcreteSemantics.StateVector",
+    "declaration:QuantumBlockEncoding.ApproximateStatePreparationCandidate"
+  ],
+  "view_kind": "derivation",
+  "family": "normalization-stability-relative-error",
+  "split": "unassigned_pending_reconciliation",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "contract_hash": "37dc2e9ad3cc1e8d1c1d812f4e05ca60f7b49acdba56084d96d9c4e4f96bc179",
+  "base_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+  "package_id": "99e830bd-e868-4c7c-947c-8187a63ce46a",
+  "slot": "A2",
+  "payload_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/qa/A2.json",
+  "payload_sha256": "28012f09057d3e975db6cf0d129d63f171b6b00dfb649dd054aa96471c9e3c8f",
+  "item_digest": "7b6810c44dbd5bf7aa9a26c3ab0d6429f65c0b9c0db16e880a2685c032f5c207",
+  "title": "Normalization stability and failure at vanishing mass",
+  "mathematical_target": "Derive a relative perturbation bound for normalized finite vectors and exhibit why small absolute error alone cannot control normalized direction near zero.",
+  "review_records": [
+    {
+      "report_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/reviews/A-review.json",
+      "report_sha256": "9a3e89cf0b7c007978af1a3b2beb3bfbe18526ca887a1c346736c09105b6b266",
+      "reviewer": "/root/review_normalization",
+      "item_digest": "7b6810c44dbd5bf7aa9a26c3ab0d6429f65c0b9c0db16e880a2685c032f5c207",
+      "verdict": "accept_with_limitations",
+      "semantic_core_verdict": "candidate_distinct_from_checked_normalization_identity_pending_semantic_dedup"
+    }
+  ],
+  "status": "authored_with_content_bound_review_pending_maintainer_decision",
+  "count_effect": "zero_until_explicit_admission",
+  "usage": "public_diagnostic_only; no training or independent held-out clearance",
+  "note": "Complete question, assumptions, answer, rubric, boundaries, reasoning map and provenance are in the digest-bound payload. Compatibility validation and AI mathematical review do not install this view or admit a new core.",
+  "proposed_contract": {
+    "question": "Let H=F^d with F equal to R or C and finite d>=1, with Euclidean norm ||z||=(sum_j |z_j|^2)^(1/2). For nonzero z write N(z)=z/||z||; all distances compare these exact representatives, without minimizing over a global phase.\n\nFirst prove the reusable statement: for arbitrary nonzero x,y in H,\n||N(x)-N(y)|| <= 2||x-y||/||x||.\nThen suppose x!=0, y is initially arbitrary, and a real delta satisfies 0<=delta and ||x-y||<=delta<||x||. Prove y!=0 before normalizing it, and deduce\n||N(x)-N(y)|| <= min(2, 2 delta/||x||).\nGive the uniform consequence on the domain ||x||>=m>0 when 0<=delta<m.\n\nShow that no bound depending only on the absolute error delta and tending to zero with delta can hold uniformly when the reference norm may tend to zero: give an explicit family of real two-dimensional nonzero vectors with ||x_t-y_t||→0 but normalized distance bounded away from zero. Your family must even satisfy ||x_t-y_t||<||x_t|| for every t>0. Explain the boundaries delta=0, delta=||x||, x=0, and dimension zero. State what this result does and does not establish about a quantum state-preparation circuit or finite-bit computation.",
+    "assumptions": [
+      "H is a finite-dimensional Euclidean space over R or C with d>=1; x is nonzero.",
+      "The first assertion quantifies over arbitrary nonzero y; the perturbation corollary instead starts with arbitrary y and derives its nonvanishing from 0<=delta and ||x-y||<=delta<||x||.",
+      "For the uniform-domain corollary a known m>0 satisfies ||x||>=m and delta<m."
+    ],
+    "conventions": [
+      "N(z)=z/||z|| is defined only for nonzero z; the denominator is the nonnegative Euclidean norm.",
+      "Distances use exact vector representatives, including their phases; no phase optimization or density-matrix metric is implicit.",
+      "The two-dimensional family is a mathematical boundary example; no oracle, circuit, arithmetic precision or efficiency promise is supplied."
+    ],
+    "family": "normalization-stability-relative-error",
+    "split": "unassigned_pending_reconciliation",
+    "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+    "target_nodes": [
+      "declaration:QuantumBlockEncoding.RealAmplitudePreparation.normalized_sum_sq"
+    ],
+    "supporting_nodes": [
+      "declaration:QuantumBlockEncoding.RealAmplitudePreparation.normSq",
+      "declaration:QuantumBlockEncoding.ConcreteSemantics.StateVector",
+      "declaration:QuantumBlockEncoding.ApproximateStatePreparationCandidate"
+    ],
+    "source_refs": [
+      {
+        "path": "QuantumBlockEncoding/RealAmplitudePreparation.lean",
+        "anchor": "normSq:211-214; normalized_sum_sq:311-317",
+        "sha256": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+        "license": "MIT (repository LICENSE)"
+      },
+      {
+        "path": "QuantumBlockEncoding/ConcreteSemantics.lean",
+        "anchor": "StateVector:29-30",
+        "sha256": "454c0c5e215ca197c5883bedf74882f392d259c7afeadc63912230437698ebe5",
+        "license": "MIT (repository LICENSE)"
+      },
+      {
+        "path": "QuantumBlockEncoding/StatePreparation.lean",
+        "anchor": "StatePreparationTarget:19-22; ApproximateStatePreparationCandidate:65-69",
+        "sha256": "2585a3b5ef2a58a0f7fb33664552e9166373cec2815eddf2542c9db66cb5f52f",
+        "license": "MIT (repository LICENSE)"
+      }
+    ]
+  }
+}

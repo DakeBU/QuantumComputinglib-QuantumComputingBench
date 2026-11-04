@@ -1,0 +1,427 @@
+{
+  "schema_version": "qcb.nonlean_cohort_payload.v1",
+  "slot": "B2",
+  "title": "A phase for each prepared branch becomes a relative phase",
+  "author": "/root/author_coherence",
+  "contribution_type": "new_candidate",
+  "mathematical_target": "Derive the exact retained-label norm formula, supportwise global-phase criterion and coherent diagonal correction for a finite family of branch preparations.",
+  "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "proposal_id": "06369e40-07df-4a8c-9105-ac09ebc9b41c",
+  "core_id": "candidate:06369e40-07df-4a8c-9105-ac09ebc9b41c",
+  "admission": "candidate_not_counted",
+  "dedup_review_required": true,
+  "split": "unassigned_pending_reconciliation",
+  "family": "candidate-coherent-family-relative-phase-correction",
+  "target_nodes": [
+    "declaration:QuantumBlockEncoding.evalPrimitiveProgram"
+  ],
+  "supporting_nodes": [
+    "declaration:QuantumBlockEncoding.evalGlobalPhase",
+    "declaration:QuantumBlockEncoding.evalGlobalPhase_unitary"
+  ],
+  "question": "Let Λ be a nonempty finite label set with orthonormal basis {|λ⟩}, and let H be a nonzero finite-dimensional complex Hilbert space. H contains the complete data-and-work output; no register is measured or discarded. Fix a unit clean input |0⟩∈H, unit vectors ψ_λ∈H, and unitary branch implementations V_λ satisfying V_λ|0⟩=exp(iφ_λ)ψ_λ for given real φ_λ. The ψ_λ need not be orthogonal. The label is retained by the controlled operation W=Σ_λ |λ⟩⟨λ|⊗V_λ. For complex coefficients c_λ with Σ_λ|c_λ|²=1, the intended output is Ψ=Σ_λ c_λ|λ⟩⊗ψ_λ.\n\nCompute the actual output Ψ̃ and derive an exact formula for ||Ψ̃-exp(iχ)Ψ||² for every real common phase χ. Use it to give necessary and sufficient conditions, on the populated labels, for (a) exact vector equality and (b) equality up to one global phase. Explain why agreement of all isolated-branch output probabilities is insufficient for either coherent claim. Give an explicit two-label unitary example in which both isolated branches are physically correct but the intended and actual coherent outputs are orthogonal, and specify a label measurement that distinguishes them.\n\nConstruct a diagonal unitary acting only on the retained label that restores the intended vector exactly when the phases are known. Explain which phase access and implementation obligations remain: recording phases as classical metadata is not itself a gate. Include zero c_λ, a single populated label and common-phase cases. Do not assume output-state orthogonality, silently quotient the requested norm by phase, or infer cleanup of work not promised by the branch vectors.",
+  "assumptions": [
+    "Λ is finite nonempty; H is finite-dimensional and nonzero; |0⟩ and each ψ_λ have norm one.",
+    "The label basis is orthonormal and retained; W acts coherently and preserves its basis label.",
+    "Each V_λ is unitary with exact complete-output action V_λ|0⟩=exp(iφ_λ)ψ_λ; all phases are real.",
+    "The complex coefficients satisfy Σ_λ|c_λ|²=1.",
+    "Exact phase values may be used to specify a mathematical correction, but an effective phase supplier or correction compiler is not assumed."
+  ],
+  "conventions": [
+    "Register order is label tensor complete data-and-work output.",
+    "Norms are Euclidean vector norms; exact-vector error and minimization over a common global phase are different questions.",
+    "The actual branch convention is exp(+iφ_λ) multiplying the desired branch, so the correcting label phase has the negative sign.",
+    "No postselection, partial trace or work reset is performed."
+  ],
+  "reference_answer": "Linearity with the retained label gives\n  Ψ̃=W(Σ_λ c_λ|λ⟩⊗|0⟩)=Σ_λ c_λ exp(iφ_λ)|λ⟩⊗ψ_λ.\nBoth Ψ and Ψ̃ have norm one. Indeed, the vectors |λ⟩⊗ψ_λ are orthonormal across distinct λ because their inner products contain ⟨λ|μ⟩=0; no orthogonality between ψ_λ and ψ_μ is needed. Their individual squared norms equal one.\n\nFor any real χ, subtract the specified representative exp(iχ)Ψ before taking the norm. Orthogonality of the retained labels kills every cross term, giving\n  ||Ψ̃-exp(iχ)Ψ||²\n    =Σ_λ |c_λ|² |exp(iφ_λ)-exp(iχ)|²\n    =4 Σ_λ |c_λ|² sin²((φ_λ-χ)/2).\nThe last identity follows from |e^{ia}-e^{ib}|²=2-2cos(a-b). In particular, the exact-vector error corresponds to χ=0. It is not generally the error after choosing a favorable χ.\n\nAll summands are nonnegative. Exact equality Ψ̃=Ψ therefore holds if and only if exp(iφ_λ)=1 for every populated label c_λ≠0, equivalently φ_λ is an integer multiple of 2π on that support. Equality up to one common global phase holds if and only if all exp(iφ_λ) on that support are the same scalar exp(iχ). Necessity follows from the vanishing sum, and sufficiency follows by factoring the common scalar from Ψ̃. Empty coefficients impose no condition. The support cannot be empty because the coefficients are normalized. With one populated label the global-phase condition is automatic, while exact equality still requires its phase to be 1. A common nontrivial phase likewise gives global-phase equivalence but a nonzero exact-vector distance 2|sin(χ/2)|.\n\nAn isolated branch state e^{iφ_λ}ψ_λ gives the same probabilities as ψ_λ for every measurement on H. That statement compares one branch at a time and cannot remove different phases from a coherent superposition. For a concrete example take Λ={0,1}, H=C², |0⟩ the first computational basis vector, ψ_0=ψ_1=|0⟩, V_0=I and V_1=-I. Both implementations are unitary, with φ_0=0 and φ_1=π. For c_0=c_1=1/√2 the intended state is |+⟩⊗|0⟩ and the actual state is |−⟩⊗|0⟩. Their inner product is zero and their Euclidean distance is √2. Measuring the label in the {|+⟩,|−⟩} basis yields opposite deterministic outcomes. This example uses equal branch states, so orthogonality of branch outputs is manifestly unnecessary. The reduced data state happens to be the same; the distinction lies in retained-label coherence.\n\nDefine D=Σ_λ exp(-iφ_λ)|λ⟩⟨λ|. Its diagonal entries have modulus one, hence D†D=I. Direct substitution gives (D⊗I_H)Ψ̃=Ψ for every coefficient vector c, including zero coefficients. One could instead cancel relative phases to a chosen common reference if only global-phase equivalence were requested, but D as written restores the exact vector.\n\nThis is an existence and exact-action statement. The premise that controlled branch access exists is explicit; individual black-box availability does not make control free. Implementing D requires a physical realization of the label-dependent diagonal action, for example by compiling a finite known phase list from classical constants or by coherently evaluating a phase representation. Computation, precision and synthesis costs must be separately specified and charged. Arbitrary exact real phases need not have a supplied finite-string evaluation procedure. Classical metadata alone does not act on a register. If corrections are approximate, the same norm formula applies to their residual phases, but no accuracy or cost is certified here. H includes all work: the proof preserves the complete branch output ψ_λ and does not create cleanup that it lacked.",
+  "rubric": [
+    {
+      "id": "r1",
+      "weight": 1,
+      "criterion": "Obtains the actual controlled output by linearity and explains why normalization follows from retained orthogonal labels and unit branch norms."
+    },
+    {
+      "id": "r2",
+      "weight": 2.5,
+      "criterion": "Derives the exact weighted squared-norm formula for arbitrary χ, including absence of cross terms without assuming ψ_λ orthogonal, and the sine expression; partial credit for the correct complex-exponential formula alone."
+    },
+    {
+      "id": "r3",
+      "weight": 2,
+      "criterion": "Proves BOTH directions of the supportwise exact-vector and common-global-phase conditions; partial credit for sufficient conditions only or for one of the two equivalences."
+    },
+    {
+      "id": "r4",
+      "weight": 2,
+      "criterion": "Provides a legal two-label unitary witness, computes orthogonality/error and supplies a distinguishing label interference measurement; partial credit for a correct sign example without the measurement."
+    },
+    {
+      "id": "r5",
+      "weight": 1.5,
+      "criterion": "Constructs the negative-sign diagonal correction, verifies unitarity and cancellation for every input coefficient vector; a phase-list description without an operator/action earns partial credit only."
+    },
+    {
+      "id": "r6",
+      "weight": 1,
+      "criterion": "Separates metadata, effective phase access and implementation costs; handles zero coefficients and one/common populated phase without claiming absent work cleanup."
+    }
+  ],
+  "common_errors": [
+    "Dropping label-dependent phases because each isolated branch has the right probabilities.",
+    "Replacing the weighted sum by a sum involving overlaps of ψ_λ even though labels remain orthogonal.",
+    "Reporting exact-vector error after silently optimizing over χ.",
+    "Demanding equal phases on labels with zero coefficient.",
+    "Using +φ_λ in the correction instead of -φ_λ.",
+    "Treating stored arbitrary real phases or controlled black-box access as a free effective compiler."
+  ],
+  "boundary_cases": [
+    {
+      "case": "One populated label",
+      "consequence": "Global-phase equivalence is automatic; exact equality still depends on that branch phase."
+    },
+    {
+      "case": "Zero coefficients",
+      "consequence": "Their phases do not affect this input; a correction valid for every c must still specify all labels."
+    },
+    {
+      "case": "Common nonzero phase",
+      "consequence": "All relative phases agree, but exact-vector distance is generally nonzero."
+    },
+    {
+      "case": "Equal or nonorthogonal branch states",
+      "consequence": "The formula remains valid because the label supplies orthogonality."
+    },
+    {
+      "case": "No populated label or H dimension zero",
+      "consequence": "These are incompatible with the stated normalization premises, not active quantum examples."
+    }
+  ],
+  "difficulty": {
+    "D0_facet": "Global versus relative phase, exact vector versus physical state, retained labels and correction access. No extra D0 core.",
+    "provisional_route_band": "D3",
+    "rationale": "Joins complete branch-action interfaces, controlled linearity and label orthogonality to obtain an exact norm identity, an iff criterion and a coherent correction. The local algebra itself is D2.",
+    "shortcut_disclosure": "Supplying the full orthogonal-direct-sum norm result would shorten the main derivation; it is proved here.",
+    "measured_model_difficulty": false
+  },
+  "reasoning_map": {
+    "kind": "author_supplied_natural_language",
+    "not_extracted_lean_dependencies": true,
+    "inputs": [
+      {
+        "id": "I1",
+        "statement": "Finite orthonormal retained label basis; common finite H and unit ψ_λ.",
+        "kind": "assumption"
+      },
+      {
+        "id": "I2",
+        "statement": "V_λ|0⟩=e^{iφ_λ}ψ_λ and W=Σ|λ⟩⟨λ|⊗V_λ.",
+        "kind": "assumption"
+      },
+      {
+        "id": "I3",
+        "statement": "Σ|c_λ|²=1 and Ψ=Σc_λ|λ⟩⊗ψ_λ.",
+        "kind": "assumption"
+      },
+      {
+        "id": "I4",
+        "statement": "φ_λ and χ are real, exact-vector norm is used, and register order is label⊗H.",
+        "kind": "convention"
+      },
+      {
+        "id": "I5",
+        "statement": "The proposed mathematical correction may depend on known φ_λ; effective access and synthesis costs are not supplied.",
+        "kind": "convention"
+      }
+    ],
+    "steps": [
+      {
+        "id": "S1",
+        "claim": "The label-decorated target vectors are orthonormal, and Ψ is normalized.",
+        "assumptions": [],
+        "required_inputs": [
+          "I1",
+          "I3"
+        ],
+        "conclusion": "⟨λ⊗ψ_λ,μ⊗ψ_μ⟩=δ_{λμ}; ||Ψ||=1.",
+        "justification": "Factor tensor inner products; branch unit norms handle λ=μ."
+      },
+      {
+        "id": "S2",
+        "claim": "Controlled linearity fixes actual amplitudes and their phase-referenced difference.",
+        "assumptions": [],
+        "required_inputs": [
+          "I1",
+          "I2",
+          "I3",
+          "I4"
+        ],
+        "conclusion": "Ψ̃-e^{iχ}Ψ=Σ c_λ(e^{iφ_λ}-e^{iχ})|λ⟩⊗ψ_λ.",
+        "justification": "Apply each controlled block to the same clean input."
+      },
+      {
+        "id": "S3",
+        "claim": "The error is a diagonal weighted squared sum.",
+        "assumptions": [],
+        "required_inputs": [
+          "I4",
+          "S1",
+          "S2"
+        ],
+        "conclusion": "||Ψ̃-e^{iχ}Ψ||²=4Σ|c_λ|²sin²((φ_λ-χ)/2).",
+        "justification": "Orthonormality AND the explicit difference eliminate cross terms; use the elementary exponential-modulus identity."
+      },
+      {
+        "id": "S4",
+        "claim": "Exact equality and common-phase equivalence have supportwise iff criteria.",
+        "assumptions": [],
+        "required_inputs": [
+          "I3",
+          "I4",
+          "S3"
+        ],
+        "conclusion": "The phase must equal 1 for exact equality, or a common scalar for global-phase equality, on every c_λ≠0.",
+        "justification": "A finite sum of nonnegative terms vanishes iff every positively weighted term vanishes; prove converse by substitution."
+      },
+      {
+        "id": "S5",
+        "claim": "Isolated-branch correctness does not certify coherent-family correctness.",
+        "assumptions": [],
+        "required_inputs": [
+          "I1",
+          "I2",
+          "I3",
+          "S2",
+          "S3"
+        ],
+        "conclusion": "I and -I on identical branch states give |+⟩ versus |−⟩ with distance √2 and distinguishable label outcomes.",
+        "justification": "Explicit normalized two-label witness computes both states and their inner product."
+      },
+      {
+        "id": "S6",
+        "claim": "A negative-phase diagonal unitary restores the exact target.",
+        "assumptions": [],
+        "required_inputs": [
+          "I1",
+          "I2",
+          "I4",
+          "I5",
+          "S2"
+        ],
+        "conclusion": "D†D=I and (D⊗I)Ψ̃=Ψ for all c.",
+        "justification": "Unit modulus proves unitarity; coefficients cancel individually."
+      },
+      {
+        "id": "S7",
+        "claim": "The correction has a separate realization and resource boundary.",
+        "assumptions": [],
+        "required_inputs": [
+          "I2",
+          "I5",
+          "S6"
+        ],
+        "conclusion": "No free coherent controls, finite-bit phase supplier, diagonal compiler or new work cleanup follows.",
+        "justification": "The proof specifies an operator; it contains no implementation algorithm or cost bound."
+      }
+    ],
+    "reused_results": [
+      {
+        "result": "Exact program phase convention e^{+iφ}C from evalPrimitiveProgram/evalGlobalPhase",
+        "consumers": [
+          "S2",
+          "S6"
+        ],
+        "status": "Inspected definition; the family norm and correction theorem are original NL derivations, not existing compiled declarations."
+      },
+      {
+        "result": "Finite orthogonal direct-sum Pythagoras",
+        "consumers": [
+          "S1",
+          "S3"
+        ],
+        "status": "Derived from tensor inner products, not inferred from graph proximity."
+      }
+    ],
+    "reconvergent_branches": [
+      {
+        "branches": [
+          "S1",
+          "S2"
+        ],
+        "join": "S3",
+        "meaning": "Normalization/orthogonality and actual controlled action are independent requirements for the exact norm formula."
+      }
+    ]
+  },
+  "overlap": {
+    "global_semantic_reconciliation": "pending",
+    "assessed_delta": "General weighted retained-label norm identity, supportwise iff criteria and exact family correction.",
+    "related_targets": [
+      {
+        "id": "qcb-core-la-016",
+        "split": "test_public",
+        "relation": "Its 2π rotation sign example is a special phase-boundary subargument; B2 does not claim the general global/relative distinction as wholly new."
+      },
+      {
+        "id": "qs-global-phase-program-semantics",
+        "split": "train (legacy release-v3)",
+        "relation": "Shared exact phase semantics and composition vocabulary; the current candidate supplies a general coherent-family error identity and correction."
+      },
+      {
+        "id": "qcb-core-be-104",
+        "split": "train",
+        "relation": "Stored phase versus bare compiler matrix is shared conceptual context, not the same full target."
+      },
+      {
+        "id": "qcb-core-plan-207",
+        "split": "test_public",
+        "relation": "Retained-label coherence is shared context; discarded-record dephasing and arithmetic cleanup are not re-proved here."
+      }
+    ],
+    "split_action": "Unassigned pending reconciliation. Existing train/public-test overlap forbids an independence or new-train clearance claim.",
+    "dedup_review_required": true
+  },
+  "unverified": [
+    "No Lean execution, kernel replay, axiom audit or production-source modification was performed for this packet.",
+    "At authoring/freeze time, independent blind reconstruction and exact-content comparison were pending; later review status belongs in the package review manifest, not this author claim.",
+    "Source inspection supports the stated interfaces and conventions; it does not formally verify the complete natural-language derivation.",
+    "Frozen graph edges expose imports/ownership, not extracted theorem proof dependencies. Source-semantic legacy debt is not cleared.",
+    "Model difficulty, model performance, global semantic deduplication and release admission remain unmeasured or unresolved.",
+    "No compiled declaration is claimed for the weighted coherent-family norm formula, the supportwise iff criterion or the diagonal-correction theorem."
+  ],
+  "source_refs": [
+    {
+      "path": "QuantumBlockEncoding/PrimitiveSemantics.lean",
+      "anchor": "Lines 412-442: evalGlobalPhase, its full unit-modulus proof, evalGlobalPhase_neg and evalPrimitiveProgram; lines 449-478 inspect sequencing, unitarity and adjoint phase conventions.",
+      "declarations": [
+        "evalGlobalPhase",
+        "evalGlobalPhase_unitary",
+        "evalGlobalPhase_neg",
+        "evalPrimitiveProgram",
+        "evalPrimitiveProgram_seq",
+        "evalPrimitiveProgram_unitary",
+        "evalPrimitiveProgram_dagger"
+      ],
+      "sha256": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+      "hash_policy": "sha256-lf-text-v1",
+      "raw_sha256": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+      "raw_equals_lf": true,
+      "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+      "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "matches_frozen_snapshot_input_hash": true,
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+    },
+    {
+      "path": "QuantumBlockEncoding/PrimitiveCircuit.lean",
+      "anchor": "Lines 17-55: exact-angle data and evaluation, including arbitrary exact real warning; lines 103-106: primitive list plus stored global phase.",
+      "declarations": [
+        "ExactAngle",
+        "ExactAngle.eval",
+        "PrimitiveProgram"
+      ],
+      "sha256": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c",
+      "hash_policy": "sha256-lf-text-v1",
+      "raw_sha256": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c",
+      "raw_equals_lf": true,
+      "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+      "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "matches_frozen_snapshot_input_hash": true,
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+    }
+  ],
+  "provenance": {
+    "author_identity": "/root/author_coherence",
+    "baseline_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+    "frozen_graph_snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+    "frozen_graph_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+    "evidence_class": "original_nl_derivation_grounded_in_named_definitions",
+    "source_inspection": [
+      {
+        "path": "QuantumBlockEncoding/PrimitiveSemantics.lean",
+        "anchor": "Lines 412-442: evalGlobalPhase, its full unit-modulus proof, evalGlobalPhase_neg and evalPrimitiveProgram; lines 449-478 inspect sequencing, unitarity and adjoint phase conventions.",
+        "declarations": [
+          "evalGlobalPhase",
+          "evalGlobalPhase_unitary",
+          "evalGlobalPhase_neg",
+          "evalPrimitiveProgram",
+          "evalPrimitiveProgram_seq",
+          "evalPrimitiveProgram_unitary",
+          "evalPrimitiveProgram_dagger"
+        ],
+        "sha256": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+        "hash_policy": "sha256-lf-text-v1",
+        "raw_sha256": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+        "raw_equals_lf": true,
+        "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+        "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "matches_frozen_snapshot_input_hash": true,
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+      },
+      {
+        "path": "QuantumBlockEncoding/PrimitiveCircuit.lean",
+        "anchor": "Lines 17-55: exact-angle data and evaluation, including arbitrary exact real warning; lines 103-106: primitive list plus stored global phase.",
+        "declarations": [
+          "ExactAngle",
+          "ExactAngle.eval",
+          "PrimitiveProgram"
+        ],
+        "sha256": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c",
+        "hash_policy": "sha256-lf-text-v1",
+        "raw_sha256": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c",
+        "raw_equals_lf": true,
+        "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+        "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "matches_frozen_snapshot_input_hash": true,
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+      }
+    ],
+    "suggested_reading": [
+      "PrimitiveSemantics.lean lines 412-478; SequentialBondPreparation.lean lines 327-340 for the separate normalized full-run interface."
+    ],
+    "imports_and_declaration_availability": {
+      "source_imports": "PrimitiveSemantics imports PrimitiveCircuit and Robin.Hadamard8Verified.",
+      "availability": "Phase definitions/theorems are frozen-snapshot nodes. None was imported or executed in this authoring run."
+    },
+    "conceptual_graph_relationships": [
+      {
+        "from": "Exact phase-aware branch semantics",
+        "to": "Coherent retained-label preparation",
+        "relation": "Conceptual transport; no graph edge is promoted to a proof dependency."
+      }
+    ],
+    "justified_mathematical_dependencies": [
+      "Controlled linearity AND retained label orthogonality AND normalized complete branch vectors yield the norm identity.",
+      "Real phase values give unit-modulus diagonals; cancellation uses the sign convention of the actual branch output."
+    ],
+    "educational_delta": "Moves from an isolated phase warning to an exact, input-weighted family error formula, necessary-and-sufficient equality conditions and a correction operator with explicit access costs.",
+    "review_state": "authored_unreviewed_at_author_freeze; subsequent_review_recorded_separately",
+    "external_sources": {
+      "inspected": [],
+      "paper_fidelity_claim": false
+    },
+    "license_attribution": "Original English question/solution prose grounded in MIT repository sources; Copyright (c) 2026 Quantum Block Encoding contributors. Repository LICENSE inspected.",
+    "generation": "Manually authored from inspected local sources; no model endpoint batch, inference evaluation or training was run.",
+    "additional_inspected_source": {
+      "path": "QuantumBlockEncoding/SequentialBondPreparation.lean",
+      "anchor": "Lines 288-340: amplitudeMass, unitary/fresh-zero mass preservation and normalized basis-boundary run; these motivate complete-output normalization, which is explicit in this question.",
+      "declarations": [
+        "amplitudeMass",
+        "amplitudeMass_run_basisBoundary"
+      ],
+      "sha256": "ad4542b108d44f196f2a02f78e59b58f43d45b1e890709cf4c22e1222805d5c5",
+      "hash_policy": "sha256-lf-text-v1",
+      "raw_sha256": "ad4542b108d44f196f2a02f78e59b58f43d45b1e890709cf4c22e1222805d5c5",
+      "raw_equals_lf": true,
+      "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+      "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "matches_frozen_snapshot_input_hash": true,
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+    },
+    "graph_anchor_relation": "Frozen source anchors supply phase semantics; they do not purport to be compiled roots of this new NL family theorem."
+  }
+}

@@ -1,0 +1,551 @@
+{
+  "schema_version": "qcb.nonlean_cohort_payload.v1",
+  "slot": "B3",
+  "title": "Allocate precision across reused rotation parameters",
+  "author": "/root/author_coherence",
+  "contribution_type": "new_candidate",
+  "proposal_id": "cfa3fb2e-9733-4c13-8309-11f7d0541747",
+  "core_id": "candidate:cfa3fb2e-9733-4c13-8309-11f7d0541747",
+  "admission": "candidate_not_counted",
+  "dedup_review_required": true,
+  "split": "unassigned_pending_reconciliation",
+  "family": "candidate-reused-rotation-precision-allocation",
+  "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "mathematical_target": "Find and prove the unique optimum of a weighted continuous precision cost under a multiplicity-weighted rotation-error budget; round to integer bits with a strict additive cost bound and compose the resulting circuit error with input/target errors.",
+  "target_nodes": [
+    "declaration:QuantumBlockEncoding.PrimitiveCircuitPerturbation.aligned_eval_distance_le"
+  ],
+  "supporting_nodes": [
+    "declaration:QuantumBlockEncoding.PrimitiveCircuitPerturbation.GateAligned.distance_le",
+    "declaration:QuantumBlockEncoding.PrimitiveRyPerturbation.eval_ry_distance",
+    "declaration:QuantumBlockEncoding.evalPrimitiveCircuit",
+    "declaration:QuantumBlockEncoding.ExactAngle.eval"
+  ],
+  "question": "Consider two positionally aligned finite unitary circuits on q≥0 qubits. Gates are chronological: if their matrices are U_0,...,U_{N-1}, the circuit matrix is U=U_{N-1}...U_0, with the empty product I; similarly define V. All gate types and physical targets agree position by position, and only real Y-rotation angles may differ. Let r≥1 distinct supplied angle parameters a_j, indexed by j=1,...,r, be rounded to ã_j, with parameter j occurring m_j≥1 times in the list; the same certified approximation is reused at those occurrences. All other gates are unchanged. The rotation convention is R(a)=[[cos(a/2),-sin(a/2)],[sin(a/2),cos(a/2)]].\n\nYou may use these supplied interfaces, without re-proving them: for the same physical target and any number of untouched spectators, ||R(a)-R(b)||=2|sin((a-b)/4)|≤|a-b|/2 in the induced Euclidean operator norm; and, for |ã_j-a_j|≤δ_j, chronological telescoping gives ||V-U||≤(1/2)Σ_j m_jδ_j. No statistical independence is assumed. The latter is a sufficient worst-case error certificate, not an exact expression for the circuit error.\n\nFix 0<η<1/2 and positive real precision weights c_j. Put C=Σ_j c_j. In an explicitly ASSUMED precision-cost model, a tolerance δ_j∈(0,1] has continuous cost c_j log₂(1/δ_j), paid once per distinct parameter; reuse has no additional precision-supplier charge in this model. Other computation and implementation costs are unspecified. Minimize T(δ)=Σ_j c_j log₂(1/δ_j) subject to Σ_j m_jδ_j≤2η. Prove a global and unique minimizer, compute its minimum value, and show why the upper caps δ_j≤1 do not become active. A valid proof may use the natural-logarithm inequality ln t≤t-1 for t>0, with equality only at t=1, or a fully justified convexity argument.\n\nFor integer precision b_j≥0, a certified supplier—IF available—returns |ã_j-a_j|≤2^{-b_j} at ideal model cost c_j b_j. Construct integer b_j by rounding the continuous solution; prove the resulting circuit error is at most η and its total weighted bit cost is at least the continuous optimum and less than that optimum plus C. Do not claim this rounded allocation is the exact integer optimum.\n\nFor unit inputs x,y and a unit target ψ with ||y-x||≤ρ and ||Ux-ψ||≤κ, derive the full-output state error of Vy. Finally handle an empty parameter set and η=0 separately, and explain why neither the error certificate nor this optimization proves a polynomial-time finite-bit angle supplier or finite-gate-set compiler for arbitrary real data. Preserve multiplicities and positional alignment; the primary assessed target is the allocation/rounding argument, not the supplied telescoping lemma.",
+  "assumptions": [
+    "The exact and approximate circuits are finite unitary circuits with identical order, gate types and physical targets; only the stated Y-rotation parameters change.",
+    "For the optimization, r≥1, m_j are positive integers, c_j>0, and 0<η<1/2; C=Σ_j c_j.",
+    "Each parameter j has one approximation reused at all m_j occurrences, with certified absolute angle error δ_j; no stochastic independence is assumed.",
+    "The exact single-rotation norm identity and the multiplicity-weighted circuit bound are supplied interfaces in the question.",
+    "The weighted logarithmic continuous cost and weighted linear integer-bit cost are explicit model assumptions, not physical complexity theorems; reuse is charged once only in that model.",
+    "For the state-error composition, x,y,ψ have norm one, ρ,κ≥0, ||y-x||≤ρ and ||Ux-ψ||≤κ.",
+    "Effective access to arbitrary exact angles and a certified finite-gate compiler are not assumed."
+  ],
+  "conventions": [
+    "Angles are real radians in the half-angle Y-rotation convention; raw absolute angle error is used, not untracked reduction modulo 2π.",
+    "Matrix norms are induced Euclidean operator norms; state norms are Euclidean vector norms, with all work included.",
+    "Later chronological gates multiply on the left and no gate commuting is allowed.",
+    "T is a deterministic precision-supplier cost relaxation; the target is optimality under its sufficient error budget, not optimality for the actual physical circuit error.",
+    "For r=0, empty sums have value zero; formulas dividing by C are not used."
+  ],
+  "reference_answer": "Write δ_j*=2ηc_j/(m_jC). Since r≥1 and c_j>0, C>0. Each δ_j*>0, and c_j/C≤1 together with m_j≥1 and 2η<1 gives δ_j*≤2η<1. Thus the individual upper caps are strictly inactive at this candidate. Its budget is exactly saturated:\n  Σ_j m_jδ_j*=Σ_j 2ηc_j/C=2η.\nThe candidate is feasible, and its proposed cost is\n  T*=Σ_j c_j log₂(m_jC/(2ηc_j)).\nEquivalently, with w_j=c_j/C, T*=C log₂(1/(2η))+Σ_j c_j log₂ m_j−CΣ_j w_j log₂ w_j. This last form is optional; the summed logarithm already computes the minimum.\n\nHere is a global proof. Let any feasible δ have positive coordinates and set t_j=δ_j/δ_j*. Then\n  T(δ)-T* = -(1/ln 2)Σ_j c_j ln t_j\n            ≥ (1/ln 2)Σ_j c_j(1-t_j)\n            = (C/ln 2)(1-Σ_j m_jδ_j/(2η))\n            ≥ 0.\nThe first inequality is -ln t≥1-t for t>0. Its equality condition is t=1, and every c_j is strictly positive. If T(δ)=T*, both nonnegative gaps must vanish, so every t_j=1. Conversely δ=δ* has equality throughout. Hence δ* is the unique global minimizer. Feasibility and this comparison prove existence directly; no compactness of a domain open at δ=0 is assumed. A parameter used more often gets tighter tolerance, other quantities equal. A larger cost weight permits looser tolerance because tightening that parameter is more expensive in this model.\n\nLet b_j*=log₂(m_jC/(2ηc_j))=log₂(1/δ_j*)>0 and choose b_j=ceil(b_j*). These integers are at least one. Put δ'_j=2^{-b_j}. Since b_j≥b_j*, δ'_j≤δ_j*, so\n  (1/2)Σ_j m_jδ'_j≤(1/2)Σ_j m_jδ_j*=η.\nIf the supplier certifies those actual angle errors and every reused occurrence preserves positional alignment, the supplied circuit interface yields ||V-U||≤η. Correlation between repeated copies is harmless: this is a worst-case triangle-inequality bound, not a variance calculation.\n\nSince 0≤b_j-b_j*<1,\n  T*≤Σ_j c_jb_j<T*+C.\nThe lower bound also follows because δ' is continuously feasible and T(δ')=Σ_j c_jb_j. If b_j* is integral, its increment is zero; the strict upper bound remains true. This is an additive guarantee for this rounding construction, not proof that independent ceilings give the exact integer optimum. Nor does δ* minimize actual circuit error at fixed physical gate cost: cancellations may make the sufficient budget loose.\n\nFor full-output state error, split\n  Vy-ψ=V(y-x)+(V-U)x+(Ux-ψ).\nUnitarity of V bounds the first term by ρ; ||x||=1 and the operator estimate bound the second by η; the target premise bounds the third by κ. Thus ||Vy-ψ||≤ρ+η+κ, reducing to η for an exact input and exact ideal target. All work remains included. Normalizing a postselected branch would require extra success/nonzero-branch information.\n\nIf r=0 there is no changed parameter, so alignment gives V=U, supplier cost and gate perturbation zero, and state error at most ρ+κ. Do not divide by C=0. A zero-qubit circuit cannot contain the rotations required by r≥1. If r≥1 and η=0, no positive δ satisfies the budget, and no finite b makes 2^{-b}=0. Exact representability or cancellations may still make particular physical implementations exact; the positive-tolerance model does not rule those out.\n\nThe model charges one precision result per distinct parameter and assumes its reuse. It supplies no implementation. Effective angle descriptions, certified approximation algorithms with dependence on input size/magnitude and b_j, data handling, and synthesis into a chosen finite gate set require separate contracts. If actual supplier time is T_j(b_j,input_j), charge Σ_j T_j(b_j,input_j); replacing it by Σ_j c_jb_j needs independent justification. Gate synthesis errors require a further operator-error budget with gate/ancilla costs counted. Arbitrary exact-real semantics and a tolerance allocation provide none of these missing algorithms.",
+  "rubric": [
+    {
+      "id": "r1",
+      "weight": 1,
+      "criterion": "Uses the supplied multiplicity-weighted bound with positional alignment and distinguishes its sufficient worst-case certificate from exact circuit error; does not assume independent errors."
+    },
+    {
+      "id": "r2",
+      "weight": 2,
+      "criterion": "Constructs δ_j*=2ηc_j/(m_jC), proves positivity and δ_j*<1, and computes budget saturation and the minimum-cost formula; partial credit for the proportional form with an omitted multiplicity or normalization factor."
+    },
+    {
+      "id": "r3",
+      "weight": 2.5,
+      "criterion": "Proves global optimality and uniqueness using a complete log-inequality or equivalent convex argument with positivity, feasibility and equality conditions; a stationary point alone earns partial credit."
+    },
+    {
+      "id": "r4",
+      "weight": 1.5,
+      "criterion": "Chooses integer b_j by ceilings and proves the rounded tolerance is no larger than δ_j*, yielding circuit error≤η; partial credit for a correct bit formula without error verification."
+    },
+    {
+      "id": "r5",
+      "weight": 1,
+      "criterion": "Proves T*≤Σ c_jb_j<T*+C by bounding every rounding increment and avoids claiming exact integer optimality."
+    },
+    {
+      "id": "r6",
+      "weight": 1,
+      "criterion": "Derives the state bound ρ+η+κ using the correct unitary/operator-norm triangle decomposition, rather than multiplying unrelated errors."
+    },
+    {
+      "id": "r7",
+      "weight": 1,
+      "criterion": "Handles r=0 and η=0 without illegal division/logarithms and states the effective-supplier/finite-gate synthesis boundary of the assumed cost model."
+    }
+  ],
+  "common_errors": [
+    "Dropping m_j because each parameter is computed once; reuse saves the stipulated supplier charge but not repeated operator-error contribution.",
+    "Treating telescoping as exact circuit distance or using statistical cancellation without a model.",
+    "Using δ_j proportional to 1/c_j rather than c_j/m_j.",
+    "Giving only stationary equations without proving global optimality and uniqueness.",
+    "Rounding b_j down and violating the error budget.",
+    "Claiming independent ceilings are the exact discrete optimum.",
+    "Calling ideal weighted bit cost a runtime theorem for arbitrary real angles.",
+    "Applying the r≥1 formula at r=0 or finite-bit formula at η=0."
+  ],
+  "boundary_cases": [
+    {
+      "case": "r=1",
+      "consequence": "δ_1*=2η/m_1 and T*=c_1 log₂(m_1/(2η)); repeated uses remain charged in error."
+    },
+    {
+      "case": "Equal weights and multiplicities",
+      "consequence": "All parameters get the same tolerance; this is a specialization, not another core."
+    },
+    {
+      "case": "r=0, including an empty circuit",
+      "consequence": "V=U and supplier cost is zero; C=0 is not a denominator."
+    },
+    {
+      "case": "η=0 with r≥1",
+      "consequence": "The positive-tolerance feasible set is empty; exact representability or cancellations are separate possibilities."
+    },
+    {
+      "case": "q=0",
+      "consequence": "No target wire exists; only the r=0 branch is compatible."
+    },
+    {
+      "case": "Integer real-valued optimum precision",
+      "consequence": "That coordinate incurs zero rounding overhead; total overhead is still strictly below C."
+    },
+    {
+      "case": "Zero c_j or m_j",
+      "consequence": "Outside the active optimization assumptions; positivity is used for uniqueness and the formula."
+    }
+  ],
+  "difficulty": {
+    "D0_facet": "Absolute precision, reuse, supplier cost, operator error and full-state error are distinct. No extra D0 core.",
+    "provisional_route_band": "D3",
+    "rationale": "Joins a supplied error interface with constrained weighted optimization, integer rounding and input/target-error composition. The log comparison is D2 locally; the parametric telescoping proof is supplied rather than counted as new D4 work.",
+    "shortcut_disclosure": "A4 exact RY distance and the weighted chronological error interface are explicitly supplied; the legacy uniform Hermite budget is not new coverage.",
+    "measured_model_difficulty": false
+  },
+  "reasoning_map": {
+    "kind": "author_supplied_natural_language",
+    "not_extracted_lean_dependencies": true,
+    "inputs": [
+      {
+        "id": "I1",
+        "statement": "r≥1, m_j≥1 integers, c_j>0, 0<η<1/2, C=Σc_j.",
+        "kind": "assumption"
+      },
+      {
+        "id": "I2",
+        "statement": "Aligned unitary circuits with m_j occurrences and |ã_j-a_j|≤δ_j satisfy ||V-U||≤(1/2)Σm_jδ_j. The exact spectator-independent rotation norm is 2|sin((a-b)/4)|≤|a-b|/2.",
+        "kind": "supplied_obligation"
+      },
+      {
+        "id": "I3",
+        "statement": "T(δ)=Σc_jlog₂(1/δ_j), 0<δ_j≤1, Σm_jδ_j≤2η. Certified errors≤2^{-b_j} have ideal cost Σc_jb_j, once per parameter.",
+        "kind": "convention"
+      },
+      {
+        "id": "I4",
+        "statement": "For t>0, ln t≤t-1, with equality iff t=1.",
+        "kind": "supplied_obligation"
+      },
+      {
+        "id": "I5",
+        "statement": "x,y,ψ are unit, ||y-x||≤ρ, ||Ux-ψ||≤κ, and ρ,κ≥0.",
+        "kind": "assumption"
+      },
+      {
+        "id": "I6",
+        "statement": "Empty sums are zero; actual angle access, supplier runtime and finite-gate synthesis are unsupplied.",
+        "kind": "convention"
+      }
+    ],
+    "steps": [
+      {
+        "id": "S1",
+        "claim": "The proportional allocation is feasible and strictly within the caps.",
+        "assumptions": [],
+        "required_inputs": [
+          "I1",
+          "I3"
+        ],
+        "conclusion": "δ_j*=2ηc_j/(m_jC)∈(0,1), Σm_jδ_j*=2η.",
+        "justification": "Use C>0, c_j/C≤1, m_j≥1 and 2η<1 together."
+      },
+      {
+        "id": "S2",
+        "claim": "The log comparison proves the global minimum and its value.",
+        "assumptions": [],
+        "required_inputs": [
+          "I1",
+          "I3",
+          "I4",
+          "S1"
+        ],
+        "conclusion": "T(δ)≥T*=Σc_jlog₂(m_jC/(2ηc_j)) for every feasible δ.",
+        "justification": "Set t_j=δ_j/δ_j*, apply -ln t≥1-t with weights c_j, and use feasibility."
+      },
+      {
+        "id": "S3",
+        "claim": "The minimizer is unique.",
+        "assumptions": [],
+        "required_inputs": [
+          "I1",
+          "I4",
+          "S1",
+          "S2"
+        ],
+        "conclusion": "T(δ)=T* iff δ=δ*.",
+        "justification": "Strictly positive weights and equality of all log-inequality gaps force t_j=1."
+      },
+      {
+        "id": "S4",
+        "claim": "Ceilings give feasible integer tolerances.",
+        "assumptions": [],
+        "required_inputs": [
+          "I1",
+          "I3",
+          "S1"
+        ],
+        "conclusion": "b_j=ceil(log₂(m_jC/(2ηc_j)))≥1 and Σm_j2^{-b_j}≤2η.",
+        "justification": "Increasing precision decreases each tolerance."
+      },
+      {
+        "id": "S5",
+        "claim": "Rounded cost lies in a strict additive interval.",
+        "assumptions": [],
+        "required_inputs": [
+          "I1",
+          "I3",
+          "S2",
+          "S4"
+        ],
+        "conclusion": "T*≤Σc_jb_j<T*+C.",
+        "justification": "Each increment is in [0,1), and the rounded tolerance vector is feasible."
+      },
+      {
+        "id": "S6",
+        "claim": "The conditional physical circuit error meets the budget.",
+        "assumptions": [],
+        "required_inputs": [
+          "I2",
+          "I3",
+          "S4"
+        ],
+        "conclusion": "Certified suppliers and preserved alignment imply ||V-U||≤η.",
+        "justification": "Count every occurrence in the supplied interface; no independence is needed."
+      },
+      {
+        "id": "S7",
+        "claim": "Input and target errors compose with the circuit bound.",
+        "assumptions": [],
+        "required_inputs": [
+          "I2",
+          "I5",
+          "S6"
+        ],
+        "conclusion": "||Vy-ψ||≤ρ+η+κ.",
+        "justification": "Triangle decomposition uses unitarity of V AND unit x AND both state-error premises."
+      },
+      {
+        "id": "S8",
+        "claim": "Empty and zero-budget cases and real implementation costs stay separate.",
+        "assumptions": [],
+        "required_inputs": [
+          "I1",
+          "I2",
+          "I3",
+          "I6",
+          "S1",
+          "S4",
+          "S5",
+          "S6"
+        ],
+        "conclusion": "r=0 has zero supplier/error cost; η=0 with r≥1 has no positive-tolerance solution; no compiler follows.",
+        "justification": "Keep division/log domains and the explicit cost-model limitation intact."
+      }
+    ],
+    "reused_results": [
+      {
+        "result": "dimension-free-ry-distance (A4)",
+        "consumers": [
+          "S6"
+        ],
+        "status": "Exact interface stated in the question; source support for the supplied circuit certificate, not hidden cross-split retrieval."
+      },
+      {
+        "result": "Chronological aligned-circuit telescoping with nonuniform multiplicity-weighted tolerances",
+        "consumers": [
+          "S6",
+          "S7"
+        ],
+        "status": "Explicitly supplied. Uniform source theorem inspected; the weighted extension is elementary NL interface reasoning, not a new compiled root."
+      },
+      {
+        "result": "Log tangent inequality and equality condition",
+        "consumers": [
+          "S2",
+          "S3"
+        ],
+        "status": "Elementary supplied fact; optimization and rounding are original NL derivations."
+      }
+    ],
+    "reconvergent_branches": [
+      {
+        "branches": [
+          "S2",
+          "S4"
+        ],
+        "join": "S5",
+        "meaning": "Continuous lower bound AND rounded feasibility give the cost interval."
+      }
+    ]
+  },
+  "overlap": {
+    "global_semantic_reconciliation": "pending",
+    "assessed_delta": "Multiplicity-aware weighted precision optimum, uniqueness and integer rounding cost guarantee; operator/state composition is a disclosed consumer.",
+    "related_targets": [
+      {
+        "id": "breadth-hermite-angle-budget",
+        "split": "dev (legacy release-v3)",
+        "relation": "Generic telescoping and uniform Hermite tolerance are already assessed here. They are supplied/reused, not counted as B3 novelty."
+      },
+      {
+        "id": "qcb-core-la-015 / package A4",
+        "split": "test_public",
+        "relation": "Exact RY distance is a shared supplied interface, not re-derived as a new target."
+      },
+      {
+        "id": "qcb-core-sp-117",
+        "split": "dev",
+        "relation": "Shares exact-real/effective-resource boundary; no hardness or universal missing-compiler claim is imported."
+      }
+    ],
+    "coverage_amendment": "coverage-amendment-B3.json, inspected before B3 question authoring; the original generic plan remains historical.",
+    "split_action": "Unassigned pending reconciliation; no independent-split or training clearance.",
+    "dedup_review_required": true
+  },
+  "unverified": [
+    "Optimization, uniqueness and rounded-cost claims are original NL derivations, not source compiled declarations.",
+    "The weighted interface is supplied and follows per-occurrence telescoping; the inspected source root directly states a uniform length-times-delta bound.",
+    "No numerical angle supplier, actual runtime model or finite-gate compiler is constructed.",
+    "No Lean execution, kernel replay, axiom audit or production-source modification was performed.",
+    "At authoring/freeze time, blind reconstruction and distinct exact-content comparison were pending; later review status belongs in the package review manifest. The author does not self-approve.",
+    "No model difficulty/performance measurement, release admission or global deduplication is claimed."
+  ],
+  "source_refs": [
+    {
+      "path": "QuantumBlockEncoding/PrimitiveCircuitPerturbation.lean",
+      "anchor": "Complete module lines 1-132 inspected: GateAligned/Aligned 16-23, local distance 39-46, chronological telescoping 49-76, uniform Hermite budget and consumer 88-119.",
+      "declarations": [
+        "GateAligned",
+        "Aligned",
+        "GateAligned.distance_le",
+        "aligned_eval_distance_le",
+        "hermiteAngleBudget",
+        "prepare_conditional_distance_le"
+      ],
+      "sha256": "624109564cd82b0584fad717283e7b9116b36f1ef10d60b43a063c0ef2a1fbae",
+      "hash_policy": "sha256-lf-text-v1",
+      "raw_sha256": "624109564cd82b0584fad717283e7b9116b36f1ef10d60b43a063c0ef2a1fbae",
+      "raw_equals_lf": true,
+      "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+      "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "matches_frozen_snapshot_input_hash": true,
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+    },
+    {
+      "path": "QuantumBlockEncoding/PrimitiveRyPerturbation.lean",
+      "anchor": "Complete module lines 1-99 inspected: scalar-unitary difference 17-36, physical spectator lift 39-69, Lipschitz and actual primitive interfaces 72-97.",
+      "declarations": [
+        "standardRy_difference_factor",
+        "liftedRy_distance",
+        "liftedRy_distance_le",
+        "eval_ry_distance",
+        "eval_ry_distance_le"
+      ],
+      "sha256": "57ad888af7a81ac5067f6655160fecf1f197a91b0414bc5e510786b9eed27e32",
+      "hash_policy": "sha256-lf-text-v1",
+      "raw_sha256": "57ad888af7a81ac5067f6655160fecf1f197a91b0414bc5e510786b9eed27e32",
+      "raw_equals_lf": true,
+      "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+      "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "matches_frozen_snapshot_input_hash": true,
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+    },
+    {
+      "path": "QuantumBlockEncoding/PrimitiveSemantics.lean",
+      "anchor": "Lines 18-35 half-angle rotation/composition; 194-227 physical one-qubit lift; 323-339 gate denotation/unitarity; 374-396 chronological circuit denotation/unitarity/append.",
+      "declarations": [
+        "standardRyMatrix",
+        "liftPrimitiveOneQubit",
+        "evalPrimitiveGate",
+        "evalPrimitiveGate_unitary",
+        "evalPrimitiveCircuit",
+        "evalPrimitiveCircuit_unitary",
+        "evalPrimitiveCircuit_append"
+      ],
+      "sha256": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+      "hash_policy": "sha256-lf-text-v1",
+      "raw_sha256": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+      "raw_equals_lf": true,
+      "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+      "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "matches_frozen_snapshot_input_hash": true,
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+    },
+    {
+      "path": "QuantumBlockEncoding/PrimitiveCircuit.lean",
+      "anchor": "Lines 17-55 exact angle data/evaluation and arbitrary exact-real warning; 94-106 primitive gates, lists and phase-aware programs.",
+      "declarations": [
+        "ExactAngle",
+        "ExactAngle.eval",
+        "PrimitiveGate",
+        "PrimitiveCircuit",
+        "PrimitiveProgram"
+      ],
+      "sha256": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c",
+      "hash_policy": "sha256-lf-text-v1",
+      "raw_sha256": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c",
+      "raw_equals_lf": true,
+      "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+      "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "matches_frozen_snapshot_input_hash": true,
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+    }
+  ],
+  "provenance": {
+    "author_identity": "/root/author_coherence",
+    "baseline_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+    "frozen_graph_snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+    "frozen_graph_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+    "evidence_class": "original_nl_precision_optimization_using_explicitly_supplied_circuit_interface",
+    "source_inspection": [
+      {
+        "path": "QuantumBlockEncoding/PrimitiveCircuitPerturbation.lean",
+        "anchor": "Complete module lines 1-132 inspected: GateAligned/Aligned 16-23, local distance 39-46, chronological telescoping 49-76, uniform Hermite budget and consumer 88-119.",
+        "declarations": [
+          "GateAligned",
+          "Aligned",
+          "GateAligned.distance_le",
+          "aligned_eval_distance_le",
+          "hermiteAngleBudget",
+          "prepare_conditional_distance_le"
+        ],
+        "sha256": "624109564cd82b0584fad717283e7b9116b36f1ef10d60b43a063c0ef2a1fbae",
+        "hash_policy": "sha256-lf-text-v1",
+        "raw_sha256": "624109564cd82b0584fad717283e7b9116b36f1ef10d60b43a063c0ef2a1fbae",
+        "raw_equals_lf": true,
+        "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+        "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "matches_frozen_snapshot_input_hash": true,
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+      },
+      {
+        "path": "QuantumBlockEncoding/PrimitiveRyPerturbation.lean",
+        "anchor": "Complete module lines 1-99 inspected: scalar-unitary difference 17-36, physical spectator lift 39-69, Lipschitz and actual primitive interfaces 72-97.",
+        "declarations": [
+          "standardRy_difference_factor",
+          "liftedRy_distance",
+          "liftedRy_distance_le",
+          "eval_ry_distance",
+          "eval_ry_distance_le"
+        ],
+        "sha256": "57ad888af7a81ac5067f6655160fecf1f197a91b0414bc5e510786b9eed27e32",
+        "hash_policy": "sha256-lf-text-v1",
+        "raw_sha256": "57ad888af7a81ac5067f6655160fecf1f197a91b0414bc5e510786b9eed27e32",
+        "raw_equals_lf": true,
+        "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+        "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "matches_frozen_snapshot_input_hash": true,
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+      },
+      {
+        "path": "QuantumBlockEncoding/PrimitiveSemantics.lean",
+        "anchor": "Lines 18-35 half-angle rotation/composition; 194-227 physical one-qubit lift; 323-339 gate denotation/unitarity; 374-396 chronological circuit denotation/unitarity/append.",
+        "declarations": [
+          "standardRyMatrix",
+          "liftPrimitiveOneQubit",
+          "evalPrimitiveGate",
+          "evalPrimitiveGate_unitary",
+          "evalPrimitiveCircuit",
+          "evalPrimitiveCircuit_unitary",
+          "evalPrimitiveCircuit_append"
+        ],
+        "sha256": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+        "hash_policy": "sha256-lf-text-v1",
+        "raw_sha256": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+        "raw_equals_lf": true,
+        "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+        "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "matches_frozen_snapshot_input_hash": true,
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+      },
+      {
+        "path": "QuantumBlockEncoding/PrimitiveCircuit.lean",
+        "anchor": "Lines 17-55 exact angle data/evaluation and arbitrary exact-real warning; 94-106 primitive gates, lists and phase-aware programs.",
+        "declarations": [
+          "ExactAngle",
+          "ExactAngle.eval",
+          "PrimitiveGate",
+          "PrimitiveCircuit",
+          "PrimitiveProgram"
+        ],
+        "sha256": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c",
+        "hash_policy": "sha256-lf-text-v1",
+        "raw_sha256": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c",
+        "raw_equals_lf": true,
+        "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+        "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "matches_frozen_snapshot_input_hash": true,
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+      }
+    ],
+    "coverage_plan_amendment": {
+      "path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/coverage-amendment-B3.json",
+      "sha256": "8846306cbb4db08618c99c383890de18f50636a7b0c41a9d14e80de094c09a18",
+      "timing": "Read before writing B3.json."
+    },
+    "suggested_reading": [
+      "PrimitiveCircuitPerturbation.lean lines 16-76 for alignment/error interface.",
+      "PrimitiveCircuit.lean lines 17-55 for exact-real access limits."
+    ],
+    "imports_and_declaration_availability": {
+      "source_imports": "PrimitiveCircuitPerturbation imports PrimitiveRyPerturbation and ConstructiveHermitePreparation; the former imports PrimitiveSemantics.",
+      "availability": "Named nodes exist in the frozen graph and source hashes match. No import or theorem was executed."
+    },
+    "conceptual_graph_relationships": [
+      {
+        "from": "Rotation and aligned circuit error",
+        "to": "Precision resource allocation",
+        "relation": "Conditional consumer transport; graph edges are not optimization proof arrows."
+      }
+    ],
+    "justified_mathematical_dependencies": [
+      "Positive weights AND multiplicities AND positive error budget AND logarithmic cost law specify the optimizer.",
+      "Log inequality AND feasibility imply optimum/uniqueness.",
+      "Ceiling precision AND certified supplier errors AND aligned-circuit interface imply the rounded error bound.",
+      "Unitarity AND unit x AND input/target error assumptions compose to the full-state bound."
+    ],
+    "graph_anchor_relation": "The source error node anchors a reused interface. No new graph node or compiled optimization root is invented.",
+    "educational_delta": "Legacy overlap prompted an amendment before authoring: the target now optimizes precision for reused parameters, distinguishes one supplier charge from repeated error contribution, proves uniqueness and bounds rounding overhead.",
+    "review_state": "authored_unreviewed_at_author_freeze; subsequent_review_recorded_separately",
+    "external_sources": {
+      "inspected": [],
+      "paper_fidelity_claim": false
+    },
+    "license_attribution": "Original English derivation grounded in MIT repository sources; Copyright (c) 2026 Quantum Block Encoding contributors. LICENSE inspected.",
+    "generation": "No paid API, inference/model evaluation, training or system installation was run.",
+    "supplied_interface_justification": {
+      "status": "Original natural-language verification of the supplied heterogeneous interface; not an assessed new target or a compiled theorem claim.",
+      "argument": "For each circuit position t let e_t be δ_j for its parameter j, and zero for unchanged positions. The exact chronological identity is V−U=Σ_t V_{N−1}...V_{t+1}(V_t−U_t)U_{t−1}...U_0, with empty products I. It follows by cancellation of successive hybrid products. Surrounding factors are unitary, so each summand has norm at most e_t/2 using the supplied RY interface on the same target (and zero for unchanged gates). Triangle inequality gives ||V−U||≤(1/2)Σ_t e_t=(1/2)Σ_j m_jδ_j. This keeps all repeated occurrences and requires no independence. The inspected source theorem implements the uniform special case with the same chronological telescope."
+    }
+  }
+}

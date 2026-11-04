@@ -1,0 +1,490 @@
+{
+  "schema_version": "qcb.nl_intake_review.v1",
+  "reviewer": "/root/nonlean_audit_coherence",
+  "created_at_utc": "2026-11-04T08:57:03.764606+00:00",
+  "phase1_path": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/B-question-first.md",
+  "phase1_sha256": "01bb2110f898e418869e83d0bb9b583be76375ca9c9eadde99e86fd5ea7c00f2",
+  "phase1_binding_path": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/B-question-first-bindings.json",
+  "phase1_binding_sha256": "c6b9fb373159b51633f674c5cdffee7505a2fa82e9687c533565dc870a0f4708",
+  "frozen_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+  "review_scope": "B1-B4 source/math/graph-map audit for supplementary intake; not release admission",
+  "actual_reading_order": [
+    {
+      "phase": 1,
+      "exposure": [
+        "Parent task and notation request",
+        "Repository AGENTS/HARNESS/substantive-worker skill and publication/digestion/memory protocols",
+        "Only B1-B4 question-only packets and relevant frozen-commit Lean source text"
+      ],
+      "saved_before_answer_exposure": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/B-question-first.md",
+      "caveat": "The question-only B1 source anchor itself includes the source theorem statement and proof ingredients. Source theorem text was intentionally permitted; this is answer/rubric-blind, not source-proof-blind."
+    },
+    {
+      "phase": 2,
+      "exposure": [
+        "Exact raw qa/B1.json and qa/B2.json, then bounded B2 fields omitted by output truncation",
+        "Exact raw qa/B3.json answer/rubric/boundary/map/overlap/unverified fields",
+        "Exact raw qa/B4.json answer/rubric/boundary/map/overlap/unverified fields",
+        "B2_DECISION.md",
+        "Catalog location search; an initially unbounded read of nl-v12 release.json was truncated and incidentally displayed embedded historical review text after phase1",
+        "Checked current catalog via load_catalog: 198 inventory; selected phase/coherence question and rubric comparison",
+        "All 16 current diagnostic questions and rubrics",
+        "Raw B3/B4 provenance, source metadata, packet equality and legacy phase question/rubric",
+        "B2 advisory related-contract excerpt, current policy excerpt; graph/contract mechanical checks"
+      ],
+      "prior_review_reliance": "No original package reviews were opened; embedded historical catalog review text and B2 advisory were treated as prior claims, not independent mathematical evidence."
+    }
+  ],
+  "execution": {
+    "lean_run": false,
+    "models_run": false,
+    "human_review_claimed": false,
+    "source_files_modified": false,
+    "raw_contributed_files_modified": false,
+    "method": "Manual independent derivation plus read-only hashes, exact equality, graph membership and reasoning-map ID checks."
+  },
+  "items": [
+    {
+      "slot": "B1",
+      "payload_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/qa/B1.json",
+      "payload_sha256": "bd6d42c84c3938eb84446d21e95e4d67cddaf6eff7538c9cf92ccffbb23c1738",
+      "question_sha256": "ef7e35a29743bd555be97bfd936867ee46d18d62d61d60546fd2d3e6aed1ab37",
+      "question_only_sha256": "ad9110d58e84aa2a86cc0d1aea80525a9b982bed4372f08427f4fb1f9f5ad104",
+      "question_only_matches_raw": true,
+      "verdict": "accept_with_limitations",
+      "reasoning": "The reference answer agrees with the independently saved induction, including the two finite-sum collapses and quantification over every intermediate bond label. Its nine-field contract and baseline item digest exactly match current qcb-core-sp-007. This is an expanded explanatory view of the same target, with no new core.",
+      "source_checks": {
+        "bindings": [
+          {
+            "path": "QuantumBlockEncoding/SequentialBondPreparation.lean",
+            "frozen_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+            "expected_sha256": "ad4542b108d44f196f2a02f78e59b58f43d45b1e890709cf4c22e1222805d5c5",
+            "actual_git_blob_sha256": "ad4542b108d44f196f2a02f78e59b58f43d45b1e890709cf4c22e1222805d5c5",
+            "match": true,
+            "inspected_anchor": "lines 86-110: noncomputable def transfer K | 0,_ => 1 | n+1,x => coreSlice (K n) (x (Fin.last n)) * transfer K n (Fin.init x); theorem run_eq_transfer (U K) (cleanColumns : for all t bit b a, U t (bit,b) (0,a) = K t (bit,b) a) (boundary) (n x b) : run U boundary n (x,b) = (transfer K n x).mulVec boundary b, proved by induction with step_apply, cleanColumns, ih, mulVec_mulVec"
+          }
+        ],
+        "all_target_and_support_nodes_present_in_frozen_snapshot": true,
+        "semantic_scope": "step_apply derives the zero-input-column sum; transfer multiplies the newest slice on the left; run_eq_transfer has exactly the cleanColumns premise and arbitrary boundary. No unitarity is required. The supported theorem is separate and was not substituted."
+      },
+      "limitations": [
+        "The question relies on its named source for precise fresh-zero/lifted-stage definitions; it is a graph-grounded open-source exercise, not a wholly self-contained source-free test.",
+        "Only bit-input-1 columns and unused later stages are uniformly irrelevant. Removing bit-input-0 bond columns requires separately established support. Completion freedom does not guarantee unitary feasibility.",
+        "Natural-language mathematical/source review only; no fresh Lean compilation, kernel replay, axiom audit, generated Lean, model evaluation, training, installs, commits or pushes.",
+        "Graph declarations were located in the frozen source and snapshot. Ownership/import/context links are not extracted theorem-proof dependencies.",
+        "Difficulty labels are provisional construction-route descriptions, not empirical model difficulty measurements.",
+        "Acceptance here is for an uncounted supplementary workbook; it does not assign train/dev/test, admit a new core, resolve global semantic deduplication or create human approval."
+      ],
+      "issues": [],
+      "independent_derivation": [
+        "v_0(empty,b)=beta_b=(I beta)_b.",
+        "v_(n+1)(x,b)=sum_a U_n((x_n,b),(0,a))v_n(prefix(x),a). Clean columns and the all-a induction hypothesis turn this into [K_n(x_n)T_n(prefix(x)) beta]_b.",
+        "The result is a full-vector identity for arbitrary normalized, unnormalized or zero boundary; empty bond carrier gives a vacuous pointwise claim. No terminal cleanup or synthesis follows."
+      ],
+      "rubric_audit": {
+        "total_weight": 10,
+        "assessment": "Criteria cover the requested derivation and column boundary without adding a stronger promise. Partial credit for index slips must not reward a reversed chronological product."
+      },
+      "reasoning_map_audit": {
+        "complete_and_inputs_preserved": true,
+        "joins": [
+          {
+            "head": "S3",
+            "all_tails": [
+              "I1",
+              "I3",
+              "I4",
+              "IH",
+              "S2"
+            ],
+            "assessment": "Local clean columns and the quantified induction hypothesis are conjoined, neither individually sufficient."
+          },
+          {
+            "head": "S5",
+            "all_tails": [
+              "S1",
+              "S4"
+            ],
+            "assessment": "Base AND successor implication required; IH is explicitly discharged by induction."
+          }
+        ],
+        "forward_or_unknown_input_ids": [],
+        "not_lean_dependency_extraction": true
+      }
+    },
+    {
+      "slot": "B2",
+      "payload_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/qa/B2.json",
+      "payload_sha256": "ca574f8df055f45d7c5efd939405394326ab634c2a3ca13559c0e375cc09ac8e",
+      "question_sha256": "74661287957a3aebfdb76e251de9bd74003ce9066014e95267f9eba00b431d8d",
+      "question_only_sha256": "f4e945ff050975dcdc09e9571eeaa27256e488c24ef75025a52c05b542ce36e5",
+      "question_only_matches_raw": true,
+      "verdict": "accept_with_limitations",
+      "reasoning": "The exact weighted norm identity, both supportwise iff criteria, negative-sign diagonal correction and I/-I interference witness agree with the independently derived result. Equal branch output states are permitted because retained orthogonal labels eliminate cross terms. Appropriate as an uncounted contextual extension; no existing source root proves the whole new family theorem.",
+      "source_checks": {
+        "bindings": [
+          {
+            "path": "QuantumBlockEncoding/PrimitiveSemantics.lean",
+            "frozen_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+            "expected_sha256": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+            "actual_git_blob_sha256": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+            "match": true,
+            "inspected_anchor": "Lines 412-442: evalGlobalPhase, its full unit-modulus proof, evalGlobalPhase_neg and evalPrimitiveProgram; lines 449-478 inspect sequencing, unitarity and adjoint phase conventions."
+          },
+          {
+            "path": "QuantumBlockEncoding/PrimitiveCircuit.lean",
+            "frozen_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+            "expected_sha256": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c",
+            "actual_git_blob_sha256": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c",
+            "match": true,
+            "inspected_anchor": "Lines 17-55: exact-angle data and evaluation, including arbitrary exact real warning; lines 103-106: primitive list plus stored global phase."
+          }
+        ],
+        "all_target_and_support_nodes_present_in_frozen_snapshot": true,
+        "semantic_scope": "evalPrimitiveProgram is exp(+i phase) times the circuit, evalGlobalPhase is unit modulus and negation gives conjugation. These anchor the phase convention only. They do not implement or prove arbitrary controlled-family phase correction."
+      },
+      "limitations": [
+        "B2 has a broader requested theorem than LA016 or BE104 and cannot become an ordinary same-core view by replacing its core_id.",
+        "Keep candidate UUID 06369e40-07df-4a8c-9105-ac09ebc9b41c, candidate_not_counted admission and unassigned status. Current sixteen semantic diagnostics do not provide a ready formal companion for it.",
+        "A mathematical diagonal with known exact phases is not a phase supplier, controlled black-box compiler or cost certificate. Complete H output may retain work; no cleanup is inferred.",
+        "Natural-language mathematical/source review only; no fresh Lean compilation, kernel replay, axiom audit, generated Lean, model evaluation, training, installs, commits or pushes.",
+        "Graph declarations were located in the frozen source and snapshot. Ownership/import/context links are not extracted theorem-proof dependencies.",
+        "Difficulty labels are provisional construction-route descriptions, not empirical model difficulty measurements.",
+        "Acceptance here is for an uncounted supplementary workbook; it does not assign train/dev/test, admit a new core, resolve global semantic deduplication or create human approval."
+      ],
+      "issues": [
+        {
+          "id": "B2-RUBRIC-EQUIVALENT-FORMS",
+          "severity": "nonblocking_for_supplementary_display",
+          "location": "rubric r2",
+          "finding": "The question asks for an exact formula without demanding sine normal form. r2 says the sine expression is needed and gives only partial credit for the complex-exponential formula alone. A fully derived weighted exponential or cosine formula is equally complete and must not lose credit solely for its normal form.",
+          "proposed_resolution": "Apply the separately proposed B-proposed-addendum.json interpretation after distinct review; do not rewrite raw rubric or claim this is already an admitted scoring policy."
+        }
+      ],
+      "independent_derivation": [
+        "Actual output=sum c_lambda exp(i phi_lambda)|lambda> tensor psi_lambda.",
+        "For every chi, squared error=sum |c_lambda|^2|exp(i phi_lambda)-exp(i chi)|^2=4 sum |c_lambda|^2 sin^2((phi_lambda-chi)/2).",
+        "Exact equality iff exp(i phi_lambda)=1 on support; equality up to one global phase iff exp(i phi_lambda) is constant on support. Zero coefficients impose no condition; singleton support always agrees up to phase.",
+        "V0=I,V1=-I, identical psi=|0>, c0=c1=1/sqrt(2) gives intended |+0>, actual |-0>, zero inner product and distance sqrt(2). X-basis label measurement distinguishes them.",
+        "D=sum exp(-i phi_lambda)|lambda><lambda| is unitary and exactly cancels phases. Metadata does not implement D."
+      ],
+      "rubric_audit": {
+        "total_weight": 10,
+        "assessment": "Mathematical criteria are sound, with the equivalent-normal-form caveat in issue B2-RUBRIC-EQUIVALENT-FORMS. No answer formula or reference simplification should become an extra premise."
+      },
+      "reasoning_map_audit": {
+        "complete_and_inputs_preserved": true,
+        "joins": [
+          {
+            "head": "S3",
+            "all_tails": [
+              "I4",
+              "S1",
+              "S2"
+            ],
+            "assessment": "The norm identity uses both label-decorated orthonormality and explicit phased controlled action."
+          },
+          {
+            "head": "S6",
+            "all_tails": [
+              "I1",
+              "I2",
+              "I4",
+              "I5",
+              "S2"
+            ],
+            "assessment": "Correction uses real phase convention, phase access as mathematical specification and complete branch action together."
+          }
+        ],
+        "forward_or_unknown_input_ids": [],
+        "not_lean_dependency_extraction": true
+      }
+    },
+    {
+      "slot": "B3",
+      "payload_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/qa/B3.json",
+      "payload_sha256": "1bba561e05fb7566c4f30f375fa8222cce90658350ef7f3a87efb89e9025f17b",
+      "question_sha256": "aca742e0e218eba2a536fd412c46e879473851f2164b337b4d2c6d18c067fe18",
+      "question_only_sha256": "6f776d25fbee829abdd44b6899d4ae6e547b36401f4899f0d14fd525b887be2c",
+      "question_only_matches_raw": true,
+      "verdict": "accept_with_limitations",
+      "reasoning": "The unique optimizer, direct global log comparison and equality condition, ceiling allocation, strict weighted rounding overhead and full-output triangle bound all match independent derivation. The active target is optimization under a supplied sufficient interface and assumed cost law, not a rebranding of the uniform source telescoping theorem.",
+      "source_checks": {
+        "bindings": [
+          {
+            "path": "QuantumBlockEncoding/PrimitiveCircuitPerturbation.lean",
+            "frozen_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+            "expected_sha256": "624109564cd82b0584fad717283e7b9116b36f1ef10d60b43a063c0ef2a1fbae",
+            "actual_git_blob_sha256": "624109564cd82b0584fad717283e7b9116b36f1ef10d60b43a063c0ef2a1fbae",
+            "match": true,
+            "inspected_anchor": "Complete module lines 1-132 inspected: GateAligned/Aligned 16-23, local distance 39-46, chronological telescoping 49-76, uniform Hermite budget and consumer 88-119."
+          },
+          {
+            "path": "QuantumBlockEncoding/PrimitiveRyPerturbation.lean",
+            "frozen_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+            "expected_sha256": "57ad888af7a81ac5067f6655160fecf1f197a91b0414bc5e510786b9eed27e32",
+            "actual_git_blob_sha256": "57ad888af7a81ac5067f6655160fecf1f197a91b0414bc5e510786b9eed27e32",
+            "match": true,
+            "inspected_anchor": "Complete module lines 1-99 inspected: scalar-unitary difference 17-36, physical spectator lift 39-69, Lipschitz and actual primitive interfaces 72-97."
+          },
+          {
+            "path": "QuantumBlockEncoding/PrimitiveSemantics.lean",
+            "frozen_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+            "expected_sha256": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+            "actual_git_blob_sha256": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+            "match": true,
+            "inspected_anchor": "Lines 18-35 half-angle rotation/composition; 194-227 physical one-qubit lift; 323-339 gate denotation/unitarity; 374-396 chronological circuit denotation/unitarity/append."
+          },
+          {
+            "path": "QuantumBlockEncoding/PrimitiveCircuit.lean",
+            "frozen_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+            "expected_sha256": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c",
+            "actual_git_blob_sha256": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c",
+            "match": true,
+            "inspected_anchor": "Lines 17-55 exact angle data/evaluation and arbitrary exact-real warning; 94-106 primitive gates, lists and phase-aware programs."
+          }
+        ],
+        "all_target_and_support_nodes_present_in_frozen_snapshot": true,
+        "semantic_scope": "PrimitiveCircuitPerturbation gives positional Forall2 alignment and uniform length*delta/2. PrimitiveRyPerturbation gives the exact spectator-independent norm and Lipschitz inequality. The heterogeneous multiplicity interface is supplied in the question and its per-position hybrid-product derivation in provenance is mathematically correct; source compilation is not claimed for the optimization."
+      },
+      "limitations": [
+        "c_j>0, m_j>=1, r>=1 and 0<eta<1/2 are essential to this specific uncapped formula/unique optimum. r=0 and eta=0 are separate regimes.",
+        "Supplier cost is paid once per distinct parameter by assumption, while the error bound counts all m_j occurrences. No exact integer optimum, actual-circuit-error optimum, statistical improvement or physical runtime follows.",
+        "For q=0 no rotation target exists; only the empty parameter regime is compatible.",
+        "Natural-language mathematical/source review only; no fresh Lean compilation, kernel replay, axiom audit, generated Lean, model evaluation, training, installs, commits or pushes.",
+        "Graph declarations were located in the frozen source and snapshot. Ownership/import/context links are not extracted theorem-proof dependencies.",
+        "Difficulty labels are provisional construction-route descriptions, not empirical model difficulty measurements.",
+        "Acceptance here is for an uncounted supplementary workbook; it does not assign train/dev/test, admit a new core, resolve global semantic deduplication or create human approval."
+      ],
+      "issues": [],
+      "independent_derivation": [
+        "delta_j*=2 eta c_j/(C m_j); T*=sum c_j log_2(C m_j/(2 eta c_j)). Budget saturates and delta_j*<1. Indeed every feasible coordinate is below 1.",
+        "Set t_j=delta_j/delta_j*. Then ln(2)(T-T*)>=C-(C/(2 eta))sum m_j delta_j>=0. Positive weights and equality iff t_j=1 give unique global minimality.",
+        "b_j=ceil(log_2(1/delta_j*)) implies 2^(-b_j)<=delta_j*, operator error<=eta and T*<=sum c_j b_j<T*+C.",
+        "Split Vy-psi=V(y-x)+(V-U)x+(Ux-psi), obtaining rho+eta+kappa. Empty parameters give U=V,cost 0,state bound rho+kappa. eta=0 with r>0 has no positive-tolerance or finite-dyadic feasible certificate; exact physical cancellation is a distinct possibility."
+      ],
+      "rubric_audit": {
+        "total_weight": 10,
+        "assessment": "Proves global uniqueness rather than mere stationarity and grades rounding as an additive guarantee, with supplied telescoping distinguished from assessed work."
+      },
+      "reasoning_map_audit": {
+        "complete_and_inputs_preserved": true,
+        "joins": [
+          {
+            "head": "S5",
+            "all_tails": [
+              "I1",
+              "I3",
+              "S2",
+              "S4"
+            ],
+            "assessment": "Continuous lower bound and rounded feasibility are both retained."
+          },
+          {
+            "head": "S6",
+            "all_tails": [
+              "I2",
+              "I3",
+              "S4"
+            ],
+            "assessment": "The physical implication remains conditional on the certified supplier and preserved alignment."
+          },
+          {
+            "head": "S7",
+            "all_tails": [
+              "I2",
+              "I5",
+              "S6"
+            ],
+            "assessment": "Unitary action, unit x and both state premises are used."
+          }
+        ],
+        "case_scope_audit": "I7 replaces r>=1 for S8; I8 replaces positive eta for S9. The map explicitly excludes using main-route conclusions in either boundary case; no contradictory AND premise joins were found.",
+        "forward_or_unknown_input_ids": [],
+        "not_lean_dependency_extraction": true
+      }
+    },
+    {
+      "slot": "B4",
+      "payload_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/qa/B4.json",
+      "payload_sha256": "a977c25b404f3b3e148cdcedd961e1e8652ad52ed1434fc27b1c3d04553e9555",
+      "question_sha256": "1d91c915bfd8ed5f0384792865496f29534d1b39d66cb5f4787e92d0a173f544",
+      "question_only_sha256": "488f44c9ffb99c5230347da923cecf189ce49b853041e71f4992b56daab94f21",
+      "question_only_matches_raw": true,
+      "verdict": "accept_with_limitations",
+      "reasoning": "The all-length recurrence, bijections, coefficient inverse-permutation action, iff table invariance and equal-mass normalization match the independent proof. The non-palindromic width-three witness includes legal scalar cores, so it actually satisfies the contraction premise. Wire reversal and noncommuting matrix order remain distinct.",
+      "source_checks": {
+        "bindings": [
+          {
+            "path": "QuantumBlockEncoding/TensorTrainWord.lean",
+            "frozen_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+            "expected_sha256": "65406c2bfa5359d6b6c1559a5a5a3f686ad4417cac436a8a1aab696b7becbdf8",
+            "actual_git_blob_sha256": "65406c2bfa5359d6b6c1559a5a5a3f686ad4417cac436a8a1aab696b7becbdf8",
+            "match": true,
+            "inspected_anchor": "Complete module lines 1-102 inspected: word/basis inverses lines 10-30, reversal and sampleEquiv lines 32-39, high-bit append lines 50-71, sampleEquiv_value lines 73-88, public bridge lines 90-100."
+          },
+          {
+            "path": "QuantumBlockEncoding/TensorTrainCanonical.lean",
+            "frozen_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+            "expected_sha256": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+            "actual_git_blob_sha256": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+            "match": true,
+            "inspected_anchor": "Lines 18-43: real incoming-row/outgoing-column core slice, dependent Chain, head-first Word and ordered contract."
+          },
+          {
+            "path": "QuantumBlockEncoding/TensorTrainSchedule.lean",
+            "frozen_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+            "expected_sha256": "2cd10d741a8655132286cbba741293b6ab2a89c713d8553beebd2820b0aab8e3",
+            "actual_git_blob_sha256": "2cd10d741a8655132286cbba741293b6ab2a89c713d8553beebd2820b0aab8e3",
+            "match": true,
+            "inspected_anchor": "Lines 17-20: wordOfBasis reads wire zero then tail; lines 68-110: transfer_shift and padded row/column contraction bridge inspected for convention reconciliation."
+          },
+          {
+            "path": "QuantumBlockEncoding/PrimitiveBasisLE.lean",
+            "frozen_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+            "expected_sha256": "469c176f1f47732661d526b72de1f9906a3c335061f6a4c82766877ce5979fad",
+            "actual_git_blob_sha256": "469c176f1f47732661d526b72de1f9906a3c335061f6a4c82766877ce5979fad",
+            "match": true,
+            "inspected_anchor": "Lines 15-38: complete little-endian equivalence and successor-value theorem."
+          },
+          {
+            "path": "QuantumBlockEncoding/HermiteBoundaryInjection.lean",
+            "frozen_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+            "expected_sha256": "a78c5a9e71e669048e5274cb55e3e10ccec326bccf26739713dd695bd15b2ca0",
+            "actual_git_blob_sha256": "a78c5a9e71e669048e5274cb55e3e10ccec326bccf26739713dd695bd15b2ca0",
+            "match": true,
+            "inspected_anchor": "Lines 22-41: MSB-first wordValue and coordinate identity; lines 785-788: length-qualified public-grid index."
+          }
+        ],
+        "all_target_and_support_nodes_present_in_frozen_snapshot": true,
+        "semantic_scope": "TensorTrainWord proves basis inverses, reversal, sampleEquiv_value and sampleEquiv_public; PrimitiveBasisLE supplies low-bit recursion. TensorTrainCanonical uses incoming-row/outgoing-column real cores and head-first contraction; Schedule reconciles that row convention with chronological column action. The full coefficient transport and invariance criterion are NL composition, not newly compiled roots."
+      },
+      "limitations": [
+        "For zero mass the raw vector is zero and cannot be normalized. n=0 still has one table entry and identity reversal, rather than an empty sample table.",
+        "The core contraction is assumed equal to f(M(w)); the question does not construct those cores. A mathematical P is not a free physical routing circuit, TT preparation algorithm or cleanup theorem.",
+        "Natural-language mathematical/source review only; no fresh Lean compilation, kernel replay, axiom audit, generated Lean, model evaluation, training, installs, commits or pushes.",
+        "Graph declarations were located in the frozen source and snapshot. Ownership/import/context links are not extracted theorem-proof dependencies.",
+        "Difficulty labels are provisional construction-route descriptions, not empirical model difficulty measurements.",
+        "Acceptance here is for an uncounted supplementary workbook; it does not assign train/dev/test, admit a new core, resolve global semantic deduplication or create human approval."
+      ],
+      "issues": [],
+      "independent_derivation": [
+        "Reverse(cons(b,u))=snoc(reverse(u),b); high-bit append gives S_(n+1)(b::u)=S_n(u)+2^n b. With the empty base this proves S_n=M for all widths.",
+        "Word coordinates and reversal are bijections; LE inverse reconstructs the low bit by parity and tail by quotient. Therefore M and S are bijections to the fixed-width range.",
+        "v_x=f(L(rho x)); (Pv)_x=v_(rho x)=f(Lx)=t_x. Thus v=t iff the fixed-width sample table is reversal invariant.",
+        "Both squared masses are sum_k f(k)^2. Positive mass permits division by its square root; zero table gives no normalized state. For n=0,1 all tables are reversal invariant.",
+        "At width3 word(1,0,0) has LE index1 and MSB index4. Scalar delta cores realize f=indicator_(k=4); v occupies index1 and t index4. Reversing generally noncommuting/dimension-dependent core factors is not this coordinate adapter."
+      ],
+      "rubric_audit": {
+        "total_weight": 10,
+        "assessment": "Grades all-length proof, coefficient transport, iff symmetry and a legal witness. Tiny examples alone do not replace the width-parametric argument."
+      },
+      "reasoning_map_audit": {
+        "complete_and_inputs_preserved": true,
+        "joins": [
+          {
+            "head": "S4",
+            "all_tails": [
+              "I3",
+              "I4",
+              "S1",
+              "S2"
+            ],
+            "assessment": "The amplitude law uses contraction equality, unique word assignment and index identity together."
+          },
+          {
+            "head": "S6",
+            "all_tails": [
+              "I3",
+              "I4",
+              "I5",
+              "S1",
+              "S4",
+              "S5"
+            ],
+            "assessment": "Finite reindexing establishes equal mass; positive mass is conditional for normalization and zero mass is separately retained."
+          }
+        ],
+        "forward_or_unknown_input_ids": [],
+        "not_lean_dependency_extraction": true
+      }
+    }
+  ],
+  "b2_overlap_recommendation": {
+    "recommended_disposition": "uncounted_unassigned_supplementary_contextual_extension",
+    "new_core_admission_recommended_now": false,
+    "ordinary_existing_core_view": false,
+    "catalog_hash": "5269b9f2521e3bf14db293fea34895f6e44a387c2479c164407b4d16dd9a2247",
+    "current_core_count": 198,
+    "catalog_comparison_path": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/B-current-catalog-comparison.json",
+    "catalog_comparison_sha256": "284598b5e89482c2f9e367eae87bb8cacf48bee8e4753da5383fbb66a4c936ed",
+    "catalog_scope": "Checked the full 198-core inventory, selected candidate-overlap question/rubric records by semantic terms, and closely compared phase/coherence records. This is a bounded overlap audit, not a proof of global novelty.",
+    "semantic_diagnostics": {
+      "path": "benchmarks/quantumcomputingbench/tracks/lean/learning-validity/v1/cohort.json",
+      "raw_sha256": "d49eac5bcc4e146a740801de7da016851d0ca57340aa9ebf1b22f29d6d4a129a",
+      "count": 16,
+      "clusters": [
+        "controlled_permutation_semantics",
+        "hermite_endpoint_multiplicity",
+        "state_core_isometry_and_mass",
+        "state_marginal_norm_and_linearity"
+      ],
+      "assessment": "The sixteen questions/rubrics test row-core isometry/mass/orientation, marginal nonlinearity, controlled-permutation register/order/inverse errors and Hermite degree/jet multiplicity. None requests the arbitrary-family weighted phase norm, both supportwise iff criteria and diagonal phase cancellation."
+    },
+    "actual_target_comparison": [
+      {
+        "target": "qcb-core-la-016",
+        "shared": "The I/-I branch sign witness and exact versus probability/phase-quotient distinction.",
+        "difference": "LA016 asks a 2pi RY operator-distance discriminator; it does not assess arbitrary weighted family error, support iff conditions or diagonal correction."
+      },
+      {
+        "target": "qcb-core-be-104",
+        "shared": "Tracked phase under exact denotation and its control/resource significance.",
+        "difference": "BE104 requires seven-wire gate/list refinement and a five-CCX phase ledger. B2 assumes branch action and cannot answer those obligations; the compiler target does not ask the general family theorem."
+      },
+      {
+        "target": "qcb-core-be-107",
+        "shared": "Block-diagonal unitary structure.",
+        "difference": "BE107 proves blockwise unitarity; it does not assess phase-decorated output norm and supportwise equality."
+      },
+      {
+        "target": "qcb-core-plan-207",
+        "shared": "Retained-label coherence and a sign/interference discriminator.",
+        "difference": "Plan207 concerns finite stored angles, coherent arithmetic uncompute, work trace/dephasing and clean selected blocks. B2 discards no register and studies a different unitary phase-error mechanism."
+      },
+      {
+        "target": "qs-global-phase-program-semantics (legacy train)",
+        "shared": "Global phase becomes observable under control and exact semantics tracks phases.",
+        "difference": "Legacy question asks observability/refinement/phase addition, not arbitrary family weighted identity or a support criterion. Legacy pooling remains uncleared."
+      },
+      {
+        "target": "PR114/Plan208 branch-only successor in B2_DECISION.md",
+        "shared": "Signed/complex loading and controlled phase correction.",
+        "difference": "Only the advisory packet was inspected here; live PR/head/full successor not independently fetched. No clearance relative to that reserved successor is claimed."
+      }
+    ],
+    "decision_packet_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/ba29cd0a-3472-4598-a541-9294da63f30e/B2_DECISION.md",
+    "decision_packet_sha256": "21401c755f889c38a591819f4d399eaf3278ced9814bdac7be48b17374400fe0",
+    "comparison_to_decision": "Its recommendation to remain uncounted/unassigned is supported by actual inspected targets. Its own labels are not used as a novelty or admission proof.",
+    "why_not_new_core_now": "There is a real added quantitative NL target beyond the inspected phase warning, but that fact alone does not resolve candidate admission or global reconciliation. Shared phase foundations already span train/public-test. A supplementary extension preserves useful mathematics without adding count or held-out independence.",
+    "why_not_ordinary_same_core_view": "B2 question/assumptions/conventions/source target differ from immutable LA016/BE104 contracts; relabeling core_id would misrepresent equality of contracts.",
+    "format_boundary": "The existing sixteen semantic diagnostics carry decision-polarity formal companions. B2 must use the separate supplementary workbook format unless that protocol is explicitly extended and independently qualified; no placeholder polarity certificate is supplied."
+  },
+  "proposed_addendum_path": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/B-proposed-addendum.json",
+  "handoff": {
+    "failure_class": "NONE",
+    "salvage": "No false mathematical route found; all four NL derivations retained with evidence-layer boundaries.",
+    "process_memory_ids_consulted": [],
+    "direction_fingerprint": "B-family-question-first-closed-form-norm-and-index-audit",
+    "expected_information_gain": "Detect phase/order/support/cost drift independently of contributed gold and compare actual assessment targets before counting cores.",
+    "parallel_admission": "Parent assigned a disjoint B-family math audit; no child agents spawned.",
+    "common_blind_spot_review": "Root integration/notation review remains separate; this agent does not self-approve its authored notation or addendum.",
+    "purification": "Supplementary evidence only; no production theorem or Exposition Seal claimed.",
+    "residual_risk": "Catalog overlap audit is bounded, source code was inspected but not compiled; empirical difficulty and formal closure remain unmeasured."
+  },
+  "proposed_rubric_addendum_path": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/B-rubric-addendum.json",
+  "proposed_rubric_addendum_sha256": "3c820fb40a2c8270d4f420e6752bff15863726fbf66a8f7e94813ca28df05f24",
+  "notation_path": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/B-notation.json",
+  "notation_sha256": "a9ef1c04a022e3932036029ac654e541c4cb18ddd863a9e086b8ac46f7ca7ac8",
+  "notation_independent_review": "Pending root; author does not self-approve."
+}

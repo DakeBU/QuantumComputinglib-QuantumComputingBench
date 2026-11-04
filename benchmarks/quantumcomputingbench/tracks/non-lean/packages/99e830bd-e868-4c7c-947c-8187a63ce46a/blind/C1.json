@@ -1,0 +1,28 @@
+{
+  "schema_version": "qcb.cohort_question_first_packet.v1",
+  "slot": "C1",
+  "base_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "frozen_payload_item_digest": "d487e380e1f744467dc957a2c073e258d2b8d4b24d682690ae3720193ba554d1",
+  "frozen_payload_sha256": "6d1d47bda77a13c7781b076ffacf966d79ecce55e674209e77558d306af132b9",
+  "core_id": "qcb-core-sp-114",
+  "question": "Consider a bivariate real array F(x,y) = q(u(x) + v(y)), where q is a real polynomial of degree at most d and u, v are arbitrary real-valued functions of the row index x and column index y respectively. Prove that F factorizes as a matrix product A * B with inner dimension d+1, and conclude that the rank of F is at most d+1. Make explicit which polynomial identity provides the factorization and why only the degree of q — not the number of rows or columns — controls the inner dimension.",
+  "assumptions": [],
+  "conventions": [],
+  "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "target_nodes": [
+    "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough",
+    "declaration:QuantumBlockEncoding.HermiteCutRank.polynomial_add_factorization",
+    "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough.rank_le",
+    "declaration:QuantumBlockEncoding.HermiteCutRank.polynomial_add_rank_le"
+  ],
+  "supporting_nodes": [],
+  "source_refs": [
+    {
+      "anchor": "lines 23-50: FactorsThrough F := exists A : Matrix a i R, B : Matrix i b R, F = A*B; FactorsThrough.rank_le : F.rank <= Fintype.card i; polynomial_add_factorization (p) (d) (hd: p.natDegree <= d) (u v) : FactorsThrough (i := Fin (d+1)) (fun x y => p.eval (u x + v y)) via A x i = (taylor (u x) p).coeff i, B i y = v y^i; polynomial_add_rank_le : rank <= d+1",
+      "license": "MIT (repository LICENSE)",
+      "path": "QuantumBlockEncoding/HermiteCutRank.lean",
+      "sha256": "c0f038bd889c77163967c71df5f5987082f4b79ab7db2b7822efcdda7234aaf2"
+    }
+  ]
+}

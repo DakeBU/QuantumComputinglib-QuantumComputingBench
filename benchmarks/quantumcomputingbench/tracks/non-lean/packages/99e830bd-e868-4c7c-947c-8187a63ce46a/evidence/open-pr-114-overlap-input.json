@@ -1,0 +1,48 @@
+{
+  "pr": 114,
+  "head_sha": "ff361a6ee91352f9692b3716c03b677ead9918be",
+  "path": "benchmarks/quantumcomputingbench/shared/repairs/plan-208-phase-aware-domain-assumption-successor-precision-clarified.json",
+  "blob_sha": "a790dd3a2a1e5bf67ae5862bb8a717daf746adaf",
+  "status": "branch_only_not_current_reader",
+  "read_scope": "Full checkpoint document and selected plan208 question, assumptions, conventions and rubric; metadata and policy patch. No claim of independent review of its complete answer.",
+  "selected_contract": {
+    "core_id": "qcb-core-plan-208",
+    "question": "For a finite real or complex matrix A with finite row and column index sets (including possible empty sets), consider the target entry action O_A|0>|i>|j>=(A_ij|0>+sqrt(1-|A_ij|^2)|1>)|i>|j>, with the retained convention that the square root is real and nonnegative. Assess the predecessor's claim that a real Ry(2 arccos|A_ij|) alone produces this full signed/complex target; it is now a proposed magnitude stage, not an assumed correct oracle. Do not restrict entries to nonnegative reals or silently exclude zero entries.\n\nFor each existing entry z=A_ij, prove the sharp normalized-state domain and give an explicit two-by-two unitary completion when it is valid. Separate z=0,0<|z|<1,|z|=1 and |z|>1, with exact angles, signed/complex counterexamples and a phase-aware correction. Distinguish correctness on input |0> from equality of full unitary extensions and inverse actions; retain phases across coherent index superpositions. Explain what the strict max-norm inequality does and does not guarantee.\n\nAssess empty rows or columns separately: with the unchanged ordinary-maximum convention, do not assign max(empty)=0. Distinguish vacuous entry-wise conditions and zero-space unitary equations from existence of a normalized label input. For a nonempty matrix derive preprocessing by a known M>0 dominating its entry max norm, including the all-zero case and loose upper bounds.\n\nOnly under a supplied nonempty square matching/permutation plus clean entry-access interface, with integer slot budget s>=1 and an exact decomposition of A, derive the projected block and its positive scale. Specify register order, PREP, SELECT and unprepare. Explain why an entry bound alone does not supply that interface, why duplicated nonzero pieces are invalid, why rectangular embedding/padding is additional work, and when postselected normalization is undefined.\n\nSeparate ideal existence from stored finite-precision parameters, reversible arithmetic/inverses/scratch and elementary gate synthesis. Give a quantitative endpoint-error witness at z=1,w=1-delta; state which column or whole-unitary error it controls. Account for phase/control/preparation costs and clean uncomputation rather than treating them as free or asserting a generic efficient compiler.",
+    "assumptions": [
+      "For |A_ij|<=1, the proposed magnitude-loading stage is the real controlled Y-rotation Ry(2 arccos(|A_ij|)); whether this stage alone realizes the signed/complex target, and what phase correction is needed, are questions to assess rather than assumed correctness.",
+      "Finite-precision arithmetic may round A~_ij slightly off A_ij"
+    ]
+  },
+  "rubric": [
+    {
+      "id": "r1",
+      "weight": 1,
+      "criterion": "Proves the sharp closed-disk target domain, orthonormal-column U_z completion and controlled-label existence; excludes exterior magnitude even with an imaginary square-root continuation, without claiming a unique or efficient full oracle."
+    },
+    {
+      "id": "r2",
+      "weight": 1,
+      "criterion": "Handles zero/interior/unit-modulus magnitudes and exact angles; refutes the old magnitude-only assertion with signed/complex strict-interior witnesses and coherent endpoint phases. Derives phase-aware loading, distinguishes C_z from U_z/its inverse and treats signed-angle endpoint encoding without dropping label-dependent phases."
+    },
+    {
+      "id": "r3",
+      "weight": 1,
+      "criterion": "Explicitly assesses empty rows/columns: ordinary maximum undefined, no normalized label vector, but zero-space unitary equations can hold vacuously. Does not totalize max(empty), silently exclude emptiness or assume free qubit/carrier identification."
+    },
+    {
+      "id": "r4",
+      "weight": 1,
+      "criterion": "Uses known M>0 and s>=1 appropriately, including zero/loose-bound cases. Derives the exact conditional square-matching projected block at scale sM with full register/PREP/SELECT/unprepare transcript, checks exact decomposition/duplicate pieces and entry-versus-operator norm, charges rectangular adapters, and leaves zero-probability conditional states undefined."
+    },
+    {
+      "id": "r5",
+      "weight": 1,
+      "criterion": "Derives the endpoint sqrt(2delta) error and a quantitative bounded-disk column estimate; distinguishes the chosen U_z whole-unitary bound from arbitrary-completion behavior. Treats rounding/range guards/clipping as explicit error-producing computations rather than exact loading or an unproved uniform O(delta) guarantee."
+    },
+    {
+      "id": "r6",
+      "weight": 1,
+      "criterion": "Separates ideal existence, stored finite words, reversible arithmetic/inverses/scratch, entry queries and compiled gates. Cleans data before the index permutation; any forward/inverse query ledger is conditional on an actual producer, with phases/controls/PREP/SELECT/readout/amplification not free and no generic efficiency/minimality/formal claim."
+    }
+  ]
+}
