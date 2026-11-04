@@ -482,7 +482,7 @@ def core_body(core, item, catalog, graph, live_ids, prefix, publication_commit=N
         if "conventions" in lineage["changed_contract_fields"]:
             for title, key in (("Historical conventions (audit only)", "original_conventions"),
                                ("Current conventions", "current_conventions")):
-                revision_body += '<h3>' + title + '</h3><ul>' + ''.join(
+                revision_body += '<h3>' + title + '</h3><ul data-qcb-' + key + '>' + ''.join(
                     '<li>' + prose(s) + '</li>' for s in lineage[key]) + '</ul>'
         if "assumptions" in lineage["changed_contract_fields"]:
             for title, key in (("Historical assumptions (audit only)", "original_assumptions"),

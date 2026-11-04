@@ -201,6 +201,8 @@ class CurriculumTests(unittest.TestCase):
             self.assertIn('data-qcb-convention-revision="2"', body)
             self.assertIn('Historical conventions (audit only)', body)
             self.assertIn('Current conventions', body)
+            self.assertEqual(body.count('<ul data-qcb-original_conventions>'), 1)
+            self.assertEqual(body.count('<ul data-qcb-current_conventions>'), 1)
             for text in lineage['current_conventions']:
                 self.assertEqual(recover_prose_source(active, text), text)
             for text in lineage['original_conventions']:
