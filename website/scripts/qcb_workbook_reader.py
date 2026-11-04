@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import hashlib
 import html
+import re
 from collections import defaultdict
 from pathlib import PurePosixPath
 from urllib.parse import quote
@@ -45,6 +46,10 @@ def route(entry):
 
 def node_anchor(node):
     return 'node-' + hashlib.sha256(node.encode()).hexdigest()[:16]
+
+
+def readable_node_label(label):
+    return re.sub(r'(?<=[a-z0-9])(?=[A-Z])', ' ', label).replace('_', ' ')
 
 
 def graph_location(packet, graph, live_ids, prefix):
@@ -171,7 +176,7 @@ def publish_workbook(write, intro, workbook, graph, live_ids, publication_commit
     body += '<p><a href="../index.html">Workbook contents</a> · <a href="../../../expert/index.html">Canonical expert atlas</a></p><p>Target/support citations and author-supplied reasoning routes are distinct from extracted Lean proof dependencies. Current exact-ID presence is a navigation fact.</p>'
     for node, rows in sorted(reverse.items()):
         href = '../../../../lean-graph/index.html?focus=' + quote(node, safe='')
-        title = graph[node].get('label', node)
+        title = readable_node_label(graph[node].get('label', node))
         content = '<p>' + ('<a href="' + esc(href) + '">Open current graph node</a>' if node in live_ids else 'Frozen graph identity; no current exact-ID match.') + '</p><ul>'
         for row in rows:
             e = next(e for e in entries if e['slot'] == row['slot'])
