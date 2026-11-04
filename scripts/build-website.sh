@@ -57,6 +57,10 @@ python3 -m unittest \
   website.scripts.test_site_contracts \
   website.scripts.test_sidebar_navigation \
   website.scripts.test_quantumcomputingbench \
+  website.scripts.test_qcb_diagnostics \
+  website.scripts.test_qcb_math \
+  website.scripts.test_qcb_expert \
+  website.scripts.test_qcb_publication_contract \
   website.scripts.test_teaching_enrichment \
   website.scripts.test_casebook_enrichment \
   website.scripts.test_casebook_polish

@@ -135,7 +135,8 @@ class DiagnosticReaderTests(unittest.TestCase):
             self.assertIn("provisional", visible)
             for probe in (p for p in self.packet["probes"] if p["cluster_id"] == key):
                 self.assertIn(reader.prose(probe["question"]), page)
-                self.assertIn(probe["question"], visible)
+                from website.scripts.qcb_render_test_support import recover_prose_source
+                self.assertEqual(recover_prose_source(page, probe["question"]), probe["question"])
                 self.assertNotIn(probe["gold"]["answer"], visible)
                 self.assertNotIn(probe["gold"]["reference_proof"], visible)
                 self.assertIn(reader.prose(probe["gold"]["answer"]), page)
@@ -194,6 +195,10 @@ class DiagnosticReaderTests(unittest.TestCase):
         probe["gold"]["answer"] += '<svg onload="bad"></svg>'
         probe["gold"]["rubric"][0]["criterion"] += '<iframe src="bad"></iframe>'
         probe["gold"]["reference_proof"] += '\n-- <script>bad</script>'
+        with self.assertRaisesRegex(ValueError, "notation is stale"):
+            self.render(packet)
+        # A fresh unannotated software fixture still exercises HTML escaping.
+        probe["probe_id"] = 'ffffffff-ffff-4fff-8fff-ffffffffffff'
         pages, _ = self.render(packet)
         page = pages[reader.HUB + "diagnostics/" + probe["cluster_id"] + "/index.html"]["body"]
         for tag in ("script", "img", "svg", "iframe"):

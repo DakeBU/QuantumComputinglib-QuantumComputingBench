@@ -201,6 +201,11 @@ jobs:
           print('Inherited identical proof tree from', verified_commit)
           PY
 
+      - name: Verify the CPU student workspace and separate grader
+        run: |
+          python3 benchmarks/quantumcomputingbench/scripts/bench.py bundle --track semantic --split test_public --output "$RUNNER_TEMP/qcb-portable"
+          python3 benchmarks/quantumcomputingbench/scripts/container_smoke.py --bundle "$RUNNER_TEMP/qcb-portable" --output _out/qcb-container-smoke
+
       - name: Build and verify the unified site
         run: bash scripts/build-website.sh
 
@@ -235,6 +240,7 @@ jobs:
           path: |
             _out/research-browser
             _out/qcb-browser
+            _out/qcb-container-smoke
             _out/lean-gate.json
             _out/published-proof-restore.json
             _site/build-report.json

@@ -206,7 +206,7 @@ class AssumptionSuccessorTests(unittest.TestCase):
             self.execute(row, old, candidate, review)
 
     def test_actual_publisher_download_and_search_use_resolved_premises(self):
-        """Exercise publish(), with only surrounding site-shell gates stubbed in this unit fixture."""
+        """Exercise the question publisher; independent site/ecosystem projections are stubbed."""
         from website.scripts import build_site, research_atlas
         row, old, candidate, review = self.fixture()
         current, _ = self.execute(row, old, candidate, review)
@@ -228,6 +228,9 @@ class AssumptionSuccessorTests(unittest.TestCase):
             write_json(root / 'site-metadata.json', {})
             write_json(root / 'search-index.json', {'entries': []})
             with patch.object(reader, 'load_catalog', return_value=(catalog, {current['core_id']: current}, self.graph)), \
+                    patch.object(reader, 'math_notation_contract', return_value={'unit_fixture': True}), \
+                    patch('website.scripts.qcb_expert.build_expert_index', return_value=None), \
+                    patch('website.scripts.qcb_expert.publish_expert', return_value={'unit_fixture': True, 'routes': []}), \
                     patch.object(reader, 'stable_readiness', return_value={'stable': False, 'fixture_only': True}), \
                     patch.object(reader, 'formal_warmups', return_value=[]), \
                     patch.object(build_site, 'git_context', return_value={'commit': commit}), \

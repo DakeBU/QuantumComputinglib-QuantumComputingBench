@@ -3,6 +3,33 @@
 Graph-grounded quantum-computing QA for training and evaluating specialized
 mathematical models, backed by QuantumComputinglib's sources and graph.
 
+[**Read and solve**](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/) ·
+[**Train and evaluate**](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/run/) ·
+[**Expert graph atlas**](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/expert/)
+
+## Use the benchmark
+
+```sh
+python -m pip install -r benchmarks/quantumcomputingbench/requirements.txt
+python benchmarks/quantumcomputingbench/scripts/bench.py doctor
+python benchmarks/quantumcomputingbench/scripts/bench.py validate
+python benchmarks/quantumcomputingbench/scripts/bench.py list
+```
+
+The [runtime manual](docs/runtime.md) covers train-only exports, answer-free
+evaluation inputs, prepared runs, task-bound responses, independent grading and
+portable environments. The [benchmark card](BENCHMARK_CARD.md) defines the
+measurement scope, split/exposure rules and result dimensions. The expert atlas
+connects each core and view to its exact graph anchors, source version and
+available proof evidence.
+
+Question authoring, reference validation and workflow smoke tests can run
+without a model endpoint. Actual model responses can be collected later under
+the same run and scoring contracts.
+
+<details>
+<summary>Distribution status and retained editorial checkpoints</summary>
+
 Current distribution: **v0.1.0-preview.1**. This is a working public preview,
 not complete whole-graph coverage or a newly certified mathematical teacher.
 See the [integration/release notes](docs/integration-release-2026-10-22.md).
@@ -36,6 +63,8 @@ compatible continuation. The earlier
 records source/answer repairs and their remaining obligations. The
 [polynomial/converse checkpoint](docs/textbook-polynomial-and-converse-checkpoint-2026-10-23.md)
 remains available as historical evidence.
+
+</details>
 
 ## Hierarchical exercise book
 

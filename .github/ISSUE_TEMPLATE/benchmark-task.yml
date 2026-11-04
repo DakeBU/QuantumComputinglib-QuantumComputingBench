@@ -1,0 +1,43 @@
+name: Benchmark task or mathematical correction
+description: Propose a task or report a mathematical, graph, rendering or verifier problem.
+title: "[QCB task] "
+labels: []
+body:
+  - type: input
+    id: identity
+    attributes:
+      label: Task/core ID and source revision
+      description: Use the ID and commit shown by the task index or expert atlas. Write new proposal for a new candidate.
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Contribution type
+      options:
+        - Mathematical answer or missing premise
+        - Graph/source mapping
+        - Formula rendering or readability
+        - Scoring or verifier loophole
+        - New task proposal
+    validations:
+      required: true
+  - type: textarea
+    id: statement
+    attributes:
+      label: Exact statement, assumptions and source
+      description: Identify the relevant source equation or Lean declaration, dimensions and conventions.
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Expected result and current result
+      description: Include a proof, counterexample or minimal reproducible command when available.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence and proposed correction
+      description: Link the graph location, reference, rubric or execution receipt and state its verified scope.

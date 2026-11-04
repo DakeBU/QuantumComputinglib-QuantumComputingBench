@@ -9,6 +9,7 @@ import json
 import re
 import shutil
 import sys
+import tempfile
 from collections import Counter
 from copy import deepcopy
 from functools import lru_cache
@@ -35,9 +36,9 @@ def esc(value):
 
 
 def prose(value):
-    """Preserve reviewed wording/notation; never execute embedded HTML or Markdown."""
-    return "".join('<p class="qcb-prose">' + esc(p) + '</p>'
-                   for p in str(value).split("\n\n") if p.strip())
+    """Render source-bound mathematics without changing the underlying QA record."""
+    from website.scripts.qcb_math import render_prose
+    return render_prose(value)
 
 
 def title_of(topic):
@@ -49,11 +50,60 @@ def section(title, content, anchor):
 
 
 def disclosure(title, content, anchor):
-    return f'<details class="qcb-disclosure" id="{esc(anchor)}"><summary>{esc(title)}</summary>{content}</details>'
+    return (f'<details class="qcb-disclosure" id="{esc(anchor)}"><summary>{esc(title)}</summary>'
+            '<div class="qcb-details-content tex2jax_ignore" data-qcb-math-deferred>' + content + '</div></details>')
 
 
 def reader_sources():
     return reader_source_digest()
+
+
+def presentation_contract():
+    paths = ("website/scripts/qcb_math.py", "website/static/qcb-math.css",
+             "website/scripts/qcb_expert.py", "website/static/qcb-expert.css", "website/static/qcb-expert.js",
+             "website/scripts/qcb_benchmark_center.py", "benchmarks/quantumcomputingbench/src/qcb_bench_runtime.py",
+             "website/scripts/qcb_ecosystem_browser.py",
+             "benchmarks/quantumcomputingbench/scripts/bench.py",
+             "benchmarks/quantumcomputingbench/reports/ecosystem-v1/math-notation-review.json")
+    sources = {p: text_sha(ROOT / p) for p in paths}
+    return {"schema_version": "qcb.reader_presentation.v1", "sources_lf": sources, "digest": digest(sources)}
+
+
+def math_notation_contract(catalog_hash):
+    from website.scripts.qcb_math import _QUESTION_COMPANIONS, notation_source_bindings
+    review = read_json(B / "reports/ecosystem-v1/math-notation-review.json")
+    bindings = notation_source_bindings()
+    rows = review.get("per_item_review", [])
+    if (review.get("schema_version") != "qcb.math_notation_semantic_review.v1"
+            or review.get("catalog_hash") != catalog_hash
+            or review.get("notation_source_bindings") != bindings
+            or review.get("notation_source_bindings_digest") != digest(bindings)
+            or review.get("notation_annotations_digest") != digest(_QUESTION_COMPANIONS)
+            or len(rows) != len(bindings) or {r["record_id"] for r in rows} != set(bindings)
+            or any(r["verdict"] != "accepted_notation_excerpt"
+                   or r["extra_assumptions_introduced"] is not False
+                   or r["source_claim_replaced"] is not False
+                   or r["gold_verdict_counterexample_or_repair_inserted"] is not False for r in rows)):
+        raise ValueError("question notation changed without its bound mathematical review")
+    return {"review_digest": digest(review), "annotations_digest": digest(_QUESTION_COMPANIONS),
+            "reviewed_notation_excerpts": len(rows), "human_expert_approval": review["human_expert_approval"]}
+
+
+def environment_record(registry):
+    source = ROOT / "_out/qcb-container-smoke/public-summary.json"
+    if not source.exists():
+        return {"schema_version": "qcb.portable_environment_smoke.v1", "execution_status": "not_run", "passed": None,
+                "registry_hash": registry["registry_hash"], "source_commit": registry["source_commit"],
+                "model_performance_measured": False}
+    record = read_json(source)
+    if (record.get("schema_version") != "qcb.portable_environment_smoke.v1" or record.get("passed") is not True
+            or record.get("execution_status") != "passed" or record.get("registry_hash") != registry["registry_hash"]
+            or record.get("source_commit") != registry["source_commit"]
+            or record.get("student_workspace_verified") is not True or record.get("oracle_decision_accuracy") != 1
+            or record.get("wrong_decision_accuracy") != 0 or record.get("not_run_decision_accuracy") != 0
+            or record.get("tampered_task_rejected") is not True or record.get("model_performance_measured") is not False):
+        raise ValueError("portable environment evidence does not match the actual registry or controls")
+    return record
 
 
 COURSE_LABELS = {
@@ -178,8 +228,10 @@ def diagnostic_evidence(packet, qualification, publication_commit):
     return disclosure("Sources, independent review and actual reference evidence", body, "diagnostic-evidence")
 
 
-def diagnostic_probe_body(probe, number, packet):
+def diagnostic_probe_body(probe, number, packet, expert_index=None):
     from qcb_learning_validity import challenge_task
+
+    from website.scripts.qcb_math import question_equations
     anchor = 'probe-' + probe["probe_id"]
     body = '<article class="qcb-part" id="' + esc(anchor) + '" data-qcb-diagnostic="' + esc(probe["probe_id"]) + '"><h3>Question ' + str(number) + '</h3>'
     body += '<p class="qcb-meta">Candidate diagnostic · provisional ' + esc(probe["difficulty"]["band"]) + ' · ' + esc(probe["reasoning_kind"].replace('_', ' ')) + ' · inherited split: ' + esc(probe["split"]) + '</p>'
@@ -188,6 +240,7 @@ def diagnostic_probe_body(probe, number, packet):
         if not probe[field]:
             body += '<p class="qcb-meta">None listed separately; all premises stated in the question still apply.</p>'
     body += '<div data-qcb-diagnostic-question>' + prose(probe["question"]) + '</div>'
+    body += question_equations(probe["probe_id"], probe["question"])
     body += disclosure("Reference decision and mathematical explanation", '<p><strong>Reference decision: ' + esc(probe["gold"]["decision"]) + '</strong></p>' + prose(probe["gold"]["answer"]), 'answer-' + probe["probe_id"])
     rubric = '<ol>' + ''.join('<li>' + esc(row["criterion"]) + ' <small>(weight ' + esc(row["weight"]) + ')</small></li>' for row in probe["gold"]["rubric"]) + '</ol>'
     body += disclosure("Assessment rubric", rubric, 'rubric-' + probe["probe_id"])
@@ -203,16 +256,19 @@ def diagnostic_probe_body(probe, number, packet):
     provenance += '</ul><p>Exact source declaration anchors:</p><ul>' + ''.join('<li><code>' + esc(node) + '</code></li>' for node in probe["source_nodes"]) + '</ul>'
     provenance += '<p>Provisional construction-band rationale: ' + esc(probe["difficulty"]["rationale"]) + ' This is not measured model difficulty.</p>'
     body += disclosure("Parent contracts and source anchors", provenance, 'parents-' + probe["probe_id"])
+    if expert_index is not None:
+        from website.scripts.qcb_expert import diagnostic_panel
+        body += diagnostic_panel(probe["probe_id"], expert_index)
     return body + '</article>'
 
 
-def diagnostic_cluster_body(packet, cluster):
+def diagnostic_cluster_body(packet, cluster, expert_index=None):
     rows = [p for p in packet["probes"] if p["cluster_id"] == cluster]
     pair_ids = list(dict.fromkeys(p["pair_id"] for p in rows))
     labels = DIAGNOSTIC_CLUSTERS[cluster][3]
     if len(pair_ids) != len(labels):
         raise ValueError("diagnostic contrast hierarchy needs an explicit editorial update")
-    body = '<p class="qcb-boundary">Public semantic reference pilot · candidate contracts. Construction bands are provisional. These public questions do not measure model understanding, hidden-test performance or learning transfer.</p>'
+    body = '<p class="qcb-status-line">Public diagnostic questions · provisional construction levels · answers and formal companions folded.</p>'
     body += section("Reading the notation", prose(DIAGNOSTIC_CLUSTERS[cluster][2]), "notation")
     number = 0
     for pair, label in zip(pair_ids, labels):
@@ -220,16 +276,16 @@ def diagnostic_cluster_body(packet, cluster):
         for probe in rows:
             if probe["pair_id"] == pair:
                 number += 1
-                content += diagnostic_probe_body(probe, number, packet)
+                content += diagnostic_probe_body(probe, number, packet, expert_index)
         body += section(label, content, 'contrast-' + pair)
     return body
 
 
-def publish_diagnostics(write, intro, packet, qualification, publication_commit):
+def publish_diagnostics(write, intro, packet, qualification, publication_commit, expert_index=None):
     manifest = diagnostic_manifest(packet, qualification, publication_commit)
     body = intro("Reason about quantum contracts", "Read each proposition, decide whether it follows from exactly the supplied assumptions, then explain your reasoning or give a precise counterexample. The mathematics is readable without Lean.")
     body += '<p><a href="../index.html">Exercise book</a> / Semantic diagnostics · <a href="../non-lean/index.html">Mathematical path</a> · <a href="../lean/index.html">Lean path</a></p>'
-    body += '<p class="qcb-boundary">Public semantic reference pilot: ' + str(manifest["diagnostic_candidates"]) + ' candidate propositions in ' + str(manifest["contrast_pairs"]) + ' contrasts. They add no canonical mathematical cores, admitted native Lean views or experimental course companions. This is not a hidden evaluation set, a model-understanding result or a transfer claim.</p>'
+    body += '<p class="qcb-status-line">' + str(manifest["diagnostic_candidates"]) + ' public candidate propositions · ' + str(manifest["contrast_pairs"]) + ' contrasts · reference mathematics and optional Lean evidence.</p>'
     body += section("Attempt the question before inspecting evidence", '<ol><li>Read every assumption and convention, including dimensions and empty cases.</li><li>Decide whether the exact proposition holds. An invalid statement needs a precise witness; distinguish any repaired claim from the original.</li><li>Open the folded mathematical reference and rubric to compare the argument.</li><li>Inspect the optional Lean target to see exactly which polarity is certified.</li></ol><p>D1–D4 describe provisional construction routes, not measured model difficulty. Existing train/dev/public-test source splits stay visible. Contrasted statements are not interchangeable fresh pre/post forms.</p>', "reading")
     cards = '<div class="qcb-grid">'
     for key, (title, description, _, _) in DIAGNOSTIC_CLUSTERS.items():
@@ -240,12 +296,12 @@ def publish_diagnostics(write, intro, packet, qualification, publication_commit)
     for key, (title, description, _, _) in DIAGNOSTIC_CLUSTERS.items():
         body = intro(title, description)
         body += '<p><a href="../index.html">All diagnostic themes</a> · <a href="../../non-lean/index.html">Mathematical path</a> · <a href="../../lean/index.html">Lean path</a></p>'
-        body += diagnostic_cluster_body(packet, key) + diagnostic_evidence(packet, qualification, publication_commit)
+        body += diagnostic_cluster_body(packet, key, expert_index) + diagnostic_evidence(packet, qualification, publication_commit)
         write(HUB + "diagnostics/" + key + "/", title + " · public diagnostics", body + '</div>', description + " Public candidate questions; reference answers and exact polarity certificates are folded.")
     return manifest
 
 
-def check_diagnostic_pages(root, packet, qualification, manifest):
+def check_diagnostic_pages(root, packet, qualification, manifest, expert_index=None):
     if manifest.get("public_semantic_diagnostics") != diagnostic_manifest(packet, qualification, manifest["source_commit"]):
         raise ValueError("diagnostic projection has stale cohort, receipt, source or counting bindings")
     index = (root / HUB / "diagnostics/index.html").read_text(encoding="utf-8")
@@ -254,7 +310,7 @@ def check_diagnostic_pages(root, packet, qualification, manifest):
         raise ValueError("diagnostic index lost its evidence binding or theme hierarchy")
     for key in DIAGNOSTIC_CLUSTERS:
         page = (root / HUB / "diagnostics" / key / "index.html").read_text(encoding="utf-8")
-        if diagnostic_cluster_body(packet, key) not in page:
+        if diagnostic_cluster_body(packet, key, expert_index) not in page:
             raise ValueError("diagnostic question, premises, closed answer or exact formal projection changed")
         if diagnostic_evidence(packet, qualification, manifest["source_commit"]) not in page:
             raise ValueError("diagnostic source/evidence projection changed")
@@ -368,7 +424,8 @@ def source_list(item):
     return '<ul class="qcb-sources">' + "".join(rows) + '</ul>'
 
 
-def core_body(core, item, catalog, graph, live_ids, prefix, publication_commit=None):
+def core_body(core, item, catalog, graph, live_ids, prefix, publication_commit=None, expert_index=None):
+    from website.scripts.qcb_math import question_equations
     part = next(p for p in catalog["parts"] if p["id"] == core["part"])
     parent = prefix + HUB + "non-lean/" + part["id"] + "/" + core["topic"] + "/index.html"
     body = '<article class="qcb-reader"><p class="qcb-breadcrumb"><a href="' + esc(parent) + '">' + esc(part["title"]) + ' / ' + esc(title_of(core["topic"])) + '</a></p>'
@@ -391,14 +448,19 @@ def core_body(core, item, catalog, graph, live_ids, prefix, publication_commit=N
             body += '<p class="qcb-boundary" data-qcb-convention-revision="2">The conventions above are the current premises. The superseded convention list is retained in the revision audit below, not as active assumptions. A question may quote a historical claim to assess or refute it.</p>'
         if "assumptions" in core["question_successor"]["changed_contract_fields"]:
             body += '<p class="qcb-boundary" data-qcb-assumption-revision="2">The assumptions above are the current premises. The superseded assumptions are retained in the folded historical audit, not as current premises. This is an explicit correction, not an equivalent restatement.</p>'
-    body += section("Question", prose(item["question"]), "question")
+    body += section("Question", prose(item["question"]) + question_equations(core["core_id"], item["question"]), "question")
     roadmap = '<ol>' + "".join('<li>' + esc(s["claim"]) + '</li>' for s in item["semantic_steps"]) + '</ol>'
     body += disclosure("Hint: mathematical route", prose(core["title"]) + roadmap, "hint")
     body += disclosure("Reference solution", prose(item["reference_answer"]), "solution")
     rubric = '<ol>' + "".join('<li>' + esc(r["criterion"]) + ' <small>(' + esc(r["weight"]) + ' weight)</small></li>' for r in item["rubric"]) + '</ol>'
     body += disclosure("Assessment rubric", rubric, "rubric")
     body += course_panel(core, prefix, publication_commit)
-    body += section("Graph-grounded prerequisites", '<p>These are support/source anchors, not an automatically extracted theorem-dependency proof.</p><ul>' + "".join('<li>' + graph_link(n, prefix, graph, live_ids) + '</li>' for n in dict.fromkeys(core["target_nodes"] + core["supporting_nodes"])) + '</ul><p><a href="' + prefix + 'data/quantumcomputingbench/cores.json">Download the shared core registry</a></p>', "graph")
+    if expert_index is not None:
+        from website.scripts.qcb_expert import expert_panel, graph_summary
+        body += section("Location in the Lean graph", graph_summary(core["core_id"], expert_index, prefix), "graph")
+        body += expert_panel(core["core_id"], expert_index, prefix)
+    else:
+        body += section("Graph-grounded prerequisites", '<p>Support/source anchors:</p><ul>' + "".join('<li>' + graph_link(n, prefix, graph, live_ids) + '</li>' for n in dict.fromkeys(core["target_nodes"] + core["supporting_nodes"])) + '</ul>', "graph")
     formal = core["views"].get("lean")
     if formal:
         formal_body = '<p class="qcb-boundary">Exact formal conclusion: independently decoded and compared with this question, then checked with the fixed reference in Lean. This is a library-lemma application, not a deep proof-search result. The kernel does not certify every sentence of the natural-language explanation.</p>'
@@ -494,7 +556,11 @@ def publish_course(write, intro, plan, views, report):
 
 
 def publish(root):
+    from qcb_bench_runtime import build_registry, write_downloads
+
     from website.scripts import build_site as site
+    from website.scripts.qcb_benchmark_center import publish_center
+    from website.scripts.qcb_expert import build_expert_index, publish_expert
     from website.scripts.research_atlas import patch_navigation
     root = root.resolve()
     catalog, items, graph = load_catalog()
@@ -503,6 +569,7 @@ def publish(root):
     # Fail before any output mutation if the actual new reference receipt is
     # absent or stale. Historical course evidence cannot qualify these probes.
     diagnostic_packet, diagnostic_qualification = diagnostic_reader()
+    notation_contract = math_notation_contract(catalog["catalog_hash"])
     report = read_json(root / "build-report.json")
     context = site.git_context()
     if not report["leanGate"].get("passed") or report["leanGate"].get("commit") != context["commit"]:
@@ -511,10 +578,29 @@ def publish(root):
     graph_hash = hashlib.sha256(graph_path.read_bytes()).hexdigest()
     live_ids = {n["id"] for n in read_json(graph_path)["nodes"]}
     data_dir = root / "data/quantumcomputingbench"
+    registry = build_registry()
+    runtime_environment = environment_record(registry)
+    write_json(data_dir / "environment-smoke.json", runtime_environment)
+    publication_commit = context["commit"] if re.fullmatch(r'[0-9a-f]{40}', context["commit"]) else None
+    expert_index = build_expert_index(catalog, items, graph, live_ids, publication_commit,
+        snapshot=read_json(B / "manifests/release-v3/snapshot.json"),
+        course_plan=course_plan, course_views=course_views, diagnostics=diagnostic_packet)
+    write_json(data_dir / "expert-index.json", expert_index)
+    # The export command preserves user artifacts; the site publisher materializes
+    # its deterministic outputs through a fresh staging directory for idempotence.
+    with tempfile.TemporaryDirectory(prefix="qcb-reader-downloads-") as staging:
+        staged_downloads = Path(staging) / "downloads"
+        write_downloads(staged_downloads, registry=registry)
+        runtime_dir = data_dir / "runtime"
+        runtime_dir.mkdir(parents=True, exist_ok=True)
+        for exported in staged_downloads.iterdir():
+            if not exported.is_file():
+                raise ValueError("unexpected runtime download directory")
+            shutil.copyfile(exported, runtime_dir / exported.name)
     write_json(data_dir / "cores.json", public_catalog(catalog))
     write_json(data_dir / "reader-items.json", {"schema_version": "qcb.current_reader_export.v1", "stable": False,
         "catalog_hash": catalog["catalog_hash"], "use": "Open reader views; not a stable training/scoring release.", "items": [public_reader_item(i) for i in items.values()]})
-    for name in ("quantumcomputingbench.css", "quantumcomputingbench.js"):
+    for name in ("quantumcomputingbench.css", "quantumcomputingbench.js", "qcb-math.css", "qcb-expert.css", "qcb-expert.js"):
         shutil.copyfile(ROOT / "website/static" / name, root / "static" / name)
     entries, routes = [], []
 
@@ -522,8 +608,8 @@ def publish(root):
         site.write_page(root, route, site.page_template(
             title=title, route=route, current=route, body=body,
             coverage=report["coverage"], gate=report["leanGate"], context=context,
-            description=description, extra_styles=("static/quantumcomputingbench.css",),
-            extra_scripts=("static/quantumcomputingbench.js",)))
+            description=description, extra_styles=("static/quantumcomputingbench.css", "static/qcb-math.css", "static/qcb-expert.css"),
+            extra_scripts=("static/quantumcomputingbench.js", "static/qcb-expert.js")))
         routes.append(route + "index.html")
         if searchable:
             entries.append({"type": "page", "kind": "quantumcomputingbench", "title": title,
@@ -532,7 +618,8 @@ def publish(root):
     def intro(title, subtitle):
         return '<div class="qcb-reader"><p class="eyebrow">QuantumComputingBench · graph-grounded exercise book</p><h1>' + esc(title) + '</h1>' + prose(subtitle)
 
-    body = intro("Quantum mathematics, one connected step at a time.", "An open exercise book for understanding quantum-computing knowledge and mathematical reasoning. Begin with ordinary mathematics; inspect the optional Lean companion when you want the exact statement a proof checker accepts.")
+    body = intro("QuantumComputingBench", "Study quantum mathematics, prepare training and evaluation tasks, and inspect the Lean graph behind every question.")
+    body += '<div class="qcb-grid qcb-role-paths"><article class="qcb-card"><p class="eyebrow">For readers</p><h2><a href="non-lean/index.html">Read and solve</a></h2><p>Follow the subject hierarchy or difficulty course. Read compiled mathematics and open solutions when ready.</p></article><article class="qcb-card"><p class="eyebrow">For model builders</p><h2><a href="run/index.html">Train and evaluate</a></h2><p>Get task-bound inputs, train-only supervision, portable environments and scoring tools.</p></article><article class="qcb-card"><p class="eyebrow">For domain experts</p><h2><a href="expert/index.html">Review the graph</a></h2><p>Locate targets and prerequisites, inspect source versions, and review question and proof evidence.</p></article></div>'
     body += '<nav class="qcb-jump" aria-label="Exercise book contents"><a href="#start">Start reading</a><a href="#library">Why a library graph?</a><a href="#progression">Choose a level</a><a href="#parts">Browse subjects</a></nav>'
     body += '<div class="qcb-stats" aria-label="Distinct inventories"><div><strong>' + str(len(catalog["cores"])) + '</strong><span>shared mathematical core IDs</span></div><div><strong>' + str(native_lean_count) + '</strong><span>canonical native Lean views</span></div><div><strong>' + str(course_report["distinct_shared_cores"]) + '</strong><span>experimental course companions</span></div></div>'
     body += '<p class="qcb-meta">The course reuses existing cores, including the canonical formal cores. Natural-language and Lean versions are views of the same question, not extra questions.</p>'
@@ -545,7 +632,9 @@ def publish(root):
     body += section("Read, solve, then inspect", '<ol><li>Choose a part and topic. Check dimensions, normalization, phase and resource conventions first.</li><li>Attempt the question before opening the hint or solution.</li><li>Follow exact graph/source anchors. Source-backed and planned material are visibly different evidence classes.</li><li>Use the Lean path to contribute a matching formal view, not another copy of the same question.</li></ol><p><a href="contribute/index.html">Contributor tracks and compatibility contract</a> · <a href="evidence/index.html">Release boundaries and current acceptance gates</a></p>', "reading")
     write(HUB, "QuantumComputingBench exercise book", body + '</div>', "Five-part graph-grounded quantum-computing exercise book with non-Lean and Lean companion paths.")
     publish_course(write, intro, course_plan, course_views, course_report)
-    diagnostic_report = publish_diagnostics(write, intro, diagnostic_packet, diagnostic_qualification, context["commit"])
+    diagnostic_report = publish_diagnostics(write, intro, diagnostic_packet, diagnostic_qualification, context["commit"], expert_index)
+    expert_report = publish_expert(write, intro, expert_index)
+    benchmark_center = publish_center(write, intro, catalog, registry, context["commit"], runtime_environment)
     for track in TRACKS:
         prefix = "../../"
         is_lean = track == "lean"
@@ -576,7 +665,7 @@ def publish(root):
                 write(HUB + track + "/" + part["id"] + "/" + topic + "/", title_of(topic) + " · " + track, body + '</div>', "Graph-grounded " + title_of(topic) + " questions; shared targets for both reader paths.")
     for core in catalog["cores"]:
         title = title_of(core["topic"]) + " · Exercise " + core["core_id"].removeprefix("qcb-core-").upper()
-        write(HUB + "cores/" + core["core_id"] + "/", title, core_body(core, items[core["core_id"]], catalog, graph, live_ids, "../../../", context["commit"]), items[core["core_id"]]["question"])
+        write(HUB + "cores/" + core["core_id"] + "/", title, core_body(core, items[core["core_id"]], catalog, graph, live_ids, "../../../", context["commit"], expert_index), items[core["core_id"]]["question"])
     withheld_routes = []
     decisions = {d["core_id"]: d for d in catalog["reader_decisions"]}
     for core in catalog.get("withheld_cores", []):
@@ -627,6 +716,12 @@ def publish(root):
                 "native_core_ids": len(catalog["cores"]), "admitted_native_lean_views": native_lean_count,
                 "experimental_course": {"course_id": course_plan["course_id"], "course_digest": course_report["course_digest"], "distinct_shared_cores": course_report["distinct_shared_cores"], "new_mathematical_cores": 0, "canonical_admissions_changed": False, "by_construction_band": course_report["by_construction_band"]},
                 "public_semantic_diagnostics": diagnostic_report,
+                "expert_atlas": expert_report,
+                "benchmark_center": benchmark_center,
+                "runtime_registry_hash": registry["registry_hash"],
+                "presentation": presentation_contract(),
+                "math_notation": notation_contract,
+                "benchmark_environment": runtime_environment,
                 "withheld_routes": withheld_routes, "historical_native_core_count": catalog["historical_native_core_count"],
                 "legacy_reference_warmups": 3, "stable": False,
                 "leanGraphSha256": graph_hash, "source_commit": context["commit"]}
@@ -643,10 +738,33 @@ def publish(root):
 
 def check_site(root):
     manifest = read_json(root / "data/quantumcomputingbench/reader.json")
-    catalog, items, _ = load_catalog()
+    catalog, items, graph = load_catalog()
     plan, views, course_report = course_reader()
     diagnostic_packet, diagnostic_qualification = diagnostic_reader()
-    check_diagnostic_pages(root, diagnostic_packet, diagnostic_qualification, manifest)
+    if manifest.get("presentation") != presentation_contract():
+        raise ValueError("math, expert atlas or runtime presentation sources changed")
+    if manifest.get("math_notation") != math_notation_contract(catalog["catalog_hash"]):
+        raise ValueError("notation review does not match the displayed mathematical source")
+    from qcb_bench_runtime import build_registry, verify_downloads
+
+    from website.scripts.qcb_expert import build_expert_index
+    registry = build_registry()
+    if manifest.get("runtime_registry_hash") != registry["registry_hash"]:
+        raise ValueError("runtime registry is stale")
+    verify_downloads(root / "data/quantumcomputingbench/runtime", registry)
+    if (manifest.get("benchmark_environment") != environment_record(registry)
+            or read_json(root / "data/quantumcomputingbench/environment-smoke.json") != environment_record(registry)):
+        raise ValueError("published environment report lost its execution/source binding")
+    expert_index = read_json(root / "data/quantumcomputingbench/expert-index.json")
+    live_ids = {n["id"] for n in read_json(root / "data/lean-graph.json")["nodes"]}
+    source_commit = manifest["source_commit"]
+    publication_commit = source_commit if re.fullmatch(r'[0-9a-f]{40}', source_commit) else None
+    expected_expert = build_expert_index(catalog, items, graph, live_ids, publication_commit,
+        snapshot=read_json(B / "manifests/release-v3/snapshot.json"), course_plan=plan,
+        course_views=views, diagnostics=diagnostic_packet)
+    if expert_index != expected_expert:
+        raise ValueError("expert graph/source projection differs from the exact current registry")
+    check_diagnostic_pages(root, diagnostic_packet, diagnostic_qualification, manifest, expert_index)
     if (manifest.get("experimental_course", {}).get("course_digest") != course_report["course_digest"]
             or manifest["experimental_course"]["distinct_shared_cores"] != course_report["distinct_shared_cores"]
             or manifest["experimental_course"]["new_mathematical_cores"] != 0
