@@ -55,8 +55,13 @@ def check_ecosystem(page, base, root, manifest, output):
                 and v.get('live_identity') == 'present_by_exact_id' and k in linked)
     page.goto(base + 'quantumcomputingbench/expert/node/index.html?node=' + quote(node, safe=''), wait_until='networkidle')
     page.wait_for_selector('[data-qcb-expert-result] svg', timeout=15000)
-    if not page.locator('[data-qcb-expert-result] a').count():
+    if not page.locator('[data-qcb-expert-result] a[href*="cores/qcb-core-"], [data-qcb-expert-result] a[href*="diagnostics/"]').count():
         raise AssertionError('The focused graph has no actionable question or source links.')
+    page.locator('[data-qcb-expert-select] input').fill('__proto__')
+    page.locator('[data-qcb-expert-select] button').click()
+    page.wait_for_function("document.querySelector('[data-qcb-expert-status]').textContent.includes('No exact node identity')")
+    if page.locator('[data-qcb-expert-result] svg').count():
+        raise AssertionError('An inherited JavaScript object property was accepted as a graph node.')
     page.goto(base + 'quantumcomputingbench/expert/nodes/index.html', wait_until='networkidle')
     search = page.locator('[data-qcb-expert-filter] input')
     search.fill('NO_SUCH_EXACT_GRAPH_NODE_20261104')

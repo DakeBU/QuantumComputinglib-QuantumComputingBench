@@ -44,6 +44,14 @@ _UNSAFE_TEX = re.compile(
     r'\\(?:href|url|class|cssId|style|html\w*|require|includegraphics|input|include|'
     r'openout|write|read|def|gdef|edef|xdef|let|newcommand|renewcommand|csname|'
     r'catcode|color|colorbox|fcolorbox|bbox)\b', re.IGNORECASE)
+# A single given block-encoding formula needs bra/ket typography that the
+# arithmetic grammar deliberately does not infer. Match these exact tokens
+# (with whitespace variations) rather than converting arbitrary ket prose.
+_GIVEN_BLOCK_COMPRESSION = re.compile(
+    r'(?<![\w^])(?P<lhs>B\s*=\s*)?'
+    r'\(\s*<\s*0\s*\^\s*a\s*\|\s*tensor\s+I\s*\)\s*'
+    r'U\s*\(\s*\|\s*0\s*\^\s*a\s*>\s*tensor\s+I\s*\)'
+    r'(?!\w)')
 
 
 @dataclass(frozen=True)
@@ -242,6 +250,14 @@ def algebra_spans(value):
         blocked = next((end for start, end in protected if start <= i < end), None)
         if blocked is not None:
             i = blocked
+            continue
+        fixed = _GIVEN_BLOCK_COMPRESSION.match(value, i)
+        if fixed and not any(start < fixed.end() and stop > i for start, stop in protected):
+            tex = (('B=' if fixed['lhs'] else '')
+                   + r'\left(\langle 0^{a}|\otimes I\right)U'
+                   + r'\left(|0^{a}\rangle\otimes I\right)')
+            spans.append(AlgebraSpan(i, fixed.end(), fixed.group(), tex))
+            i = fixed.end()
             continue
         after_range = i >= 2 and value[i - 2:i] == '..'
         if ((i and (value[i - 1].isalnum() or value[i - 1] in '_^./:\\') and not after_range)

@@ -60,6 +60,28 @@ class MathPresentationTests(unittest.TestCase):
             with self.subTest(text=text):
                 self.assertEqual(math.algebra_spans(text), [])
 
+    def test_given_block_compression_has_bra_ket_typography_without_added_claims(self):
+        from website.scripts.qcb_render_test_support import recover_prose_source
+        body = r'\left(\langle 0^{a}|\otimes I\right)U\left(|0^{a}\rangle\otimes I\right)'
+        cases = {
+            'B=(<0^a| tensor I)U(|0^a> tensor I)': 'B=' + body,
+            '(<0^a| tensor I) U (|0^a> tensor I)': body,
+            'B = ( < 0 ^ a | tensor I ) U ( | 0 ^ a > tensor I )': 'B=' + body,
+        }
+        for source, tex in cases.items():
+            with self.subTest(source=source):
+                spans = math.algebra_spans(source)
+                self.assertEqual([(s.source, s.tex) for s in spans], [(source, tex)])
+                rendered = math.render_prose(source)
+                self.assertEqual(recover_prose_source(rendered, source), source)
+                self.assertEqual(Parsed(rendered).math[0]['data-qcb-math-tex'], tex)
+        for source in ('(<0^b| tensor I)U(|0^b> tensor I)',
+                       '(<0^a| tensor J)U(|0^a> tensor I)',
+                       '(<0^a| tensor I)V(|0^a> tensor I)'):
+            self.assertFalse(any(r'\langle' in s.tex for s in math.algebra_spans(source)))
+        self.assertNotIn('alpha', body)
+        self.assertNotIn('epsilon', body)
+
     def test_prose_labels_and_rank_properties_are_not_subtraction(self):
         for source in ('b-with-last-bit-0', 'b-with-last-bit-1', 'rank-1', 'bit-0',
                        'old-bond', 'new-bond', 'out-of-domain', 'The rank-1 table'):

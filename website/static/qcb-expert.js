@@ -45,7 +45,7 @@
   }
   function show(id) {
     result.replaceChildren();
-    const node = index.nodes[id];
+    const node = Object.hasOwn(index.nodes, id) ? index.nodes[id] : null;
     if (!node) { status.textContent = 'No exact node identity matched. Select an entry from the list.'; return; }
     input.value = id;
     const url = new URL(location.href); url.searchParams.set('node', id); history.replaceState(null, '', url);
