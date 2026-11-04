@@ -13,6 +13,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 from website.scripts.qcb_ecosystem_browser import check_ecosystem, settle_math
+from website.scripts.qcb_nonlean_browser import check_workbook
 from website.scripts.qcb_render_test_support import recover_prose_source
 from website.scripts.quantumcomputingbench import HUB, check_site
 from website.scripts.research_browser_contract import THEMES
@@ -38,10 +39,11 @@ def run(root, output, channel=None):
     thread.start()
     base = f"http://127.0.0.1:{server.server_port}/"
     rows, formal_rows, withdrawal_rows, revision_rows, course_rows, diagnostic_rows, failures = [], [], [], [], [], [], []
-    ecosystem_checks = {}
+    ecosystem_checks, workbook_checks = {}, {}
     checks = {k: False for k in ("mobile_no_overflow", "desktop_no_overflow", "themes", "solution_disclosure", "graph_links", "search_excludes_answers", "native_formal_panels", "quarantined_content_excluded", "question_revision_lineage", "convention_revision_lineage", "assumption_revision_lineage")}
     checks.update(semantic_diagnostics_closed=False, semantic_diagnostic_panels=False)
     checks.update(actual_corpus_math_compilation=False, expert_graph_workflow=False, benchmark_entry_points=False)
+    checks.update(supplementary_workbook=False)
     core_route = HUB + "cores/" + catalog["cores"][0]["core_id"] + "/index.html"
     routes = [HUB + "index.html", HUB + "non-lean/index.html", HUB + "lean/index.html",
               HUB + "non-lean/state-preparation/structured_preparation/index.html",
@@ -50,6 +52,8 @@ def run(root, output, channel=None):
               HUB + "course/d4/index.html", HUB + "reasoning/index.html"]
     routes += manifest["public_semantic_diagnostics"]["routes"]
     routes += manifest["benchmark_center"]["routes"] + manifest["expert_atlas"]["routes"]
+    routes += [HUB + 'non-lean/workbook/index.html', HUB + 'non-lean/workbook/normalization/index.html',
+               HUB + 'non-lean/workbook/levels/d3/index.html', HUB + 'non-lean/workbook/graph/index.html']
     try:
         with sync_playwright() as p:
             browser = p.chromium.launch(channel=channel)
@@ -261,6 +265,7 @@ def run(root, output, channel=None):
                 page.wait_for_load_state("networkidle")
                 page.wait_for_function("document.body.textContent.includes('Focused exact shared identity:')")
             ecosystem_checks = check_ecosystem(page, base, root, manifest, output)
+            workbook_checks = check_workbook(page, base, root, manifest, output)
             browser.close()
         if not failures:
             checks = {key: True for key in checks}
@@ -279,6 +284,7 @@ def run(root, output, channel=None):
               "experimental_course_panel_checks": course_rows,
               "semantic_diagnostic_panel_checks": diagnostic_rows,
               "ecosystem": ecosystem_checks,
+              "supplementary_workbook": workbook_checks,
               "presentation_digest": manifest["presentation"]["digest"],
               "runtime_registry_hash": manifest["runtime_registry_hash"],
               "failures": failures, "manual_visual_review": "not asserted by this script",

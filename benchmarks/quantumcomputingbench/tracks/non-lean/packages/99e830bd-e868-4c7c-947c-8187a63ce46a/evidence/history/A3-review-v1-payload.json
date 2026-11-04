@@ -1,0 +1,701 @@
+{
+  "schema_version": "qcb.nonlean_cohort_payload.v1",
+  "slot": "A3",
+  "title": "From an approximate clean block to a normalized accepted state",
+  "author": "/root/author_normalization",
+  "contribution_type": "new_candidate",
+  "mathematical_target": "Compose operator-norm block error, clean-branch geometry and normalization stability into output-state and success bounds, retaining the overlap margin and the cost of repetition.",
+  "provenance": {
+    "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+    "frozen_graph_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+    "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+    "coverage_plan_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/coverage-plan.json",
+    "coverage_plan_sha256_raw": "c8e04a67b136ff80fa98c1563e61184e2a7c16c1042df6a00ec16387938d8c3d",
+    "evidence_class": "local_source_text_inspection_and_original_natural_language_derivation",
+    "formal_verification_this_run": false,
+    "license": {
+      "path": "LICENSE",
+      "sha256_raw": "dff0cc0f36b869fa146c79c0de10d15a04259351e011e63c42c2ececb57fb1e3",
+      "attribution": "MIT; Copyright (c) 2026 Quantum Block Encoding contributors; source license retained in the unchanged repository."
+    },
+    "review_status": "authored_pending_distinct_exact_content_review",
+    "suggested_reading": [
+      "QuantumBlockEncoding/ConcreteSemantics.lean:182-217,243-294",
+      "QuantumBlockEncoding/BlockEncoding.lean:136-163",
+      "benchmarks/quantumcomputingbench/manifests/release-v3/snapshot.json:hyperedge transport:be-to-sp"
+    ],
+    "imports_and_declaration_availability": [
+      {
+        "module": "QuantumBlockEncoding.ConcreteSemantics",
+        "declarations": [
+          "QuantumBlockEncoding.ConcreteSemantics.productRegisterBlockProjection",
+          "QuantumBlockEncoding.ConcreteSemantics.cleanBasisActionAmplitude_eq_signalSystemBlockProjection",
+          "QuantumBlockEncoding.ConcreteSemantics.applyVec"
+        ],
+        "status": "named concrete coordinate/block substrate inspected; not a kernel receipt for analytic state-error composition"
+      },
+      {
+        "module": "QuantumBlockEncoding.BlockEncoding",
+        "declarations": [
+          "QuantumBlockEncoding.ApproximateOperatorBlockEncodingCandidate"
+        ],
+        "status": "intended scaled-error comment inspected; approximationBound is a generic proposition"
+      }
+    ],
+    "conceptual_graph_relationships": [
+      {
+        "node": "transport:be-to-sp",
+        "frozen_status": "proposal_not_lean_implication",
+        "relation": "Conceptual transport: block encoding AND available input AND nonzero accepted branch give a normalized state branch. The frozen hyperedge has independent review pending and no Lean refs; it is not a proof arrow.",
+        "frozen_AND_tails": [
+          "concept:block-encoding",
+          "family:spectral-filter",
+          "family:state-action"
+        ],
+        "specific_question_AND_premises": [
+          "unitary U on the whole named workspace",
+          "clean isometry/projector",
+          "positive alpha and scaled operator norm error",
+          "normalized available psi",
+          "strict s>epsilon",
+          "supplied normalization lemma",
+          "independent fresh attempts only for the repetition claim"
+        ],
+        "hyperedge_record_sha256_canonical_json": "76f76c8126597c62b0c0490b12714f51db07d5a8ea78dbfc2349a2e9655e1405",
+        "hash_encoding": "UTF-8 json.dumps(sort_keys=True,separators=(comma,colon),ensure_ascii=False) without terminal newline"
+      }
+    ],
+    "justified_mathematical_dependencies": [
+      "Clean isometry and orthogonal projection identities; unitary norm preservation and induced operator norm action.",
+      "The explicitly supplied normalization-stability-2delta result, after its strict margin is verified.",
+      "Born rule for the fixed P measurement and the independent geometric repetition model.",
+      "No amplitude-amplification theorem or hidden oracle inverse is used."
+    ],
+    "source_inspection": [
+      {
+        "path": "QuantumBlockEncoding/ConcreteSemantics.lean",
+        "sha256": "454c0c5e215ca197c5883bedf74882f392d259c7afeadc63912230437698ebe5",
+        "sha256_lf": "454c0c5e215ca197c5883bedf74882f392d259c7afeadc63912230437698ebe5",
+        "sha256_raw": "454c0c5e215ca197c5883bedf74882f392d259c7afeadc63912230437698ebe5",
+        "frozen_snapshot_sha256": "454c0c5e215ca197c5883bedf74882f392d259c7afeadc63912230437698ebe5",
+        "matches_frozen_source_bytes": true,
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+        "inspection_scope": "Read named finite-vector, matrix-action and clean-product projection definitions and the full clean-basis bridge, together with header and register-order comments. No execution.",
+        "declarations": [
+          {
+            "name": "QuantumBlockEncoding.ConcreteSemantics.StateVector",
+            "line_start": 29,
+            "line_end": 30,
+            "sha256_lf": "fc2c995f6cffc3a60cee510df416abffb550697302746dae2f6e8aa5059922c0",
+            "hash_span": "complete declaration including body, stated inclusive source lines"
+          },
+          {
+            "name": "QuantumBlockEncoding.ConcreteSemantics.applyVec",
+            "line_start": 55,
+            "line_end": 58,
+            "sha256_lf": "a0f0123c3db2bf5f3c5f2961d41e7cfd940ce78033abf239cd5e4a7c9f0e440e",
+            "hash_span": "complete declaration including body, stated inclusive source lines"
+          },
+          {
+            "name": "QuantumBlockEncoding.ConcreteSemantics.productRegisterBlockProjection",
+            "line_start": 201,
+            "line_end": 204,
+            "sha256_lf": "005f59f4f6fcab08524a3aa0ef221148d520f47fdfd3c861a4a5e7c15813c1e8",
+            "hash_span": "complete declaration including body, stated inclusive source lines"
+          },
+          {
+            "name": "QuantumBlockEncoding.ConcreteSemantics.cleanBasisActionAmplitude",
+            "line_start": 249,
+            "line_end": 256,
+            "sha256_lf": "064b4fc06578d9a647c9facc47d1d2795298feaf8659fe763fae061d80c59ec4",
+            "hash_span": "complete declaration including body, stated inclusive source lines"
+          },
+          {
+            "name": "QuantumBlockEncoding.ConcreteSemantics.cleanBasisActionAmplitude_eq_signalSystemBlockProjection",
+            "line_start": 259,
+            "line_end": 269,
+            "sha256_lf": "fa4a4ffad5b37a929182818163daf99069e001f70ee6ec8e5707a5e3e834342a",
+            "hash_span": "complete declaration including body, stated inclusive source lines"
+          },
+          {
+            "name": "QuantumBlockEncoding.ConcreteSemantics.pointwiseProjection_iff_cleanBasisAction",
+            "line_start": 277,
+            "line_end": 294,
+            "sha256_lf": "9e2b19b2a65bb17deb738350d05de3fe27953c0c3f0dc97b928b3781984b738d",
+            "hash_span": "complete declaration including body, stated inclusive source lines"
+          }
+        ]
+      },
+      {
+        "path": "QuantumBlockEncoding/BlockEncoding.lean",
+        "sha256": "fe06f75a29822e28ccdbfedfb0b0e87f90872620fae7aed359085fad8fae64b4",
+        "sha256_lf": "fe06f75a29822e28ccdbfedfb0b0e87f90872620fae7aed359085fad8fae64b4",
+        "sha256_raw": "fe06f75a29822e28ccdbfedfb0b0e87f90872620fae7aed359085fad8fae64b4",
+        "frozen_snapshot_sha256": "fe06f75a29822e28ccdbfedfb0b0e87f90872620fae7aed359085fad8fae64b4",
+        "matches_frozen_source_bytes": true,
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+        "inspection_scope": "Read the complete approximate-certificate declarations and preceding lines 136-157 specifying the intended ||A-alpha*clean block|| convention; approximationBound remains an abstract Prop.",
+        "declarations": [
+          {
+            "name": "QuantumBlockEncoding.ApproximateOperatorBlockEncodingCandidate",
+            "line_start": 148,
+            "line_end": 152,
+            "sha256_lf": "9f7596115bd89a10883b7132751b3adf0527e6bf5a8823642a9047c6afd7013b",
+            "hash_span": "complete declaration including body, stated inclusive source lines"
+          },
+          {
+            "name": "QuantumBlockEncoding.VerifiedApproximateOperatorBlockEncoding",
+            "line_start": 159,
+            "line_end": 163,
+            "sha256_lf": "4c06985dd75b8d986050ade146ffc74907b32d6b76662eb8d2a2b68d0ae616f5",
+            "hash_span": "complete declaration including body, stated inclusive source lines"
+          }
+        ]
+      },
+      {
+        "path": "QuantumBlockEncoding/RealAmplitudePreparation.lean",
+        "sha256": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+        "sha256_lf": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+        "sha256_raw": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+        "frozen_snapshot_sha256": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+        "matches_frozen_source_bytes": true,
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+        "inspection_scope": "Read the full named definitions/theorems, their bodies and adjacent domain/zero-qubit comments; file hash covers the complete file. No execution.",
+        "declarations": [
+          {
+            "name": "QuantumBlockEncoding.RealAmplitudePreparation.normSq",
+            "line_start": 211,
+            "line_end": 211,
+            "sha256_lf": "34bce4d5d60bc2b2796e347b811953d852f269f67995df663937bedcb74aa557",
+            "hash_span": "complete declaration including body, stated inclusive source lines"
+          },
+          {
+            "name": "QuantumBlockEncoding.RealAmplitudePreparation.normSq_nonneg",
+            "line_start": 213,
+            "line_end": 214,
+            "sha256_lf": "e83c91920407e0960aa2948e13e856c17dccc061b7ee395cfd2ef70050e1865c",
+            "hash_span": "complete declaration including body, stated inclusive source lines"
+          },
+          {
+            "name": "QuantumBlockEncoding.RealAmplitudePreparation.prepareCircuit",
+            "line_start": 224,
+            "line_end": 229,
+            "sha256_lf": "182207c6310806e51a5ae8ce82ee761020c983d9e957fbbbb91f23e8992a8874",
+            "hash_span": "complete declaration including body, stated inclusive source lines"
+          },
+          {
+            "name": "QuantumBlockEncoding.RealAmplitudePreparation.prepareCircuit_firstColumn",
+            "line_start": 275,
+            "line_end": 308,
+            "sha256_lf": "8b2e5b17dca8fc1b7909d66aa86ad98e9a548ac7992ebdd7beb7fde7d0da6d40",
+            "hash_span": "complete declaration including body, stated inclusive source lines"
+          },
+          {
+            "name": "QuantumBlockEncoding.RealAmplitudePreparation.normalized_sum_sq",
+            "line_start": 311,
+            "line_end": 317,
+            "sha256_lf": "205330ebbc04f969e624f3c01798783fedc34cd03909c3e4c78ec678b5f1a3d3",
+            "hash_span": "complete declaration including body, stated inclusive source lines"
+          }
+        ]
+      }
+    ],
+    "original_derivation_scope": "The whole approximate clean-block→normalized-output/success/cost bridge is an original NL derivation. The source formally states coordinate projection and abstract certificate interfaces, not this complete analytic theorem. Source support is not fresh formal verification or proof-term dependency evidence.",
+    "frozen_graph_binding": {
+      "path": "benchmarks/quantumcomputingbench/manifests/release-v3/snapshot.json",
+      "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+      "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "sha256_raw": "71a08777e01af1b6e5bd3dd88ba6443efe9aea41240c09303d4bcc0a7cd8058b",
+      "sha256_lf": "71a08777e01af1b6e5bd3dd88ba6443efe9aea41240c09303d4bcc0a7cd8058b",
+      "compiled_this_run": false,
+      "binding_meaning": "Graph identity/source scope only; no theorem-dependency extraction or new formal execution."
+    }
+  },
+  "unverified": [
+    "No Lean, kernel, test-module or complete repository build was run by this author. Source existence and source hashes do not verify this natural-language answer.",
+    "At the authoring freeze, independent exact-content mathematical review, semantic deduplication/split reconciliation and admission remain for distinct reviewers and maintainers. Later bound review/admission status belongs to the proposal and integration manifest, not this immutable author record.",
+    "No model difficulty, model performance, source-paper fidelity or benchmark stability is claimed."
+  ],
+  "proposal_id": "bf862ffc-6597-4fd0-8b37-bf09f4eed230",
+  "core_id": "candidate:bf862ffc-6597-4fd0-8b37-bf09f4eed230",
+  "admission": "candidate_not_counted",
+  "dedup_review_required": true,
+  "split": "unassigned_pending_reconciliation",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "question": "Let n,m be nonnegative integers, H=C^(2^n) the system space and K=C^(2^m) the ancilla space, in the fixed tensor order K tensor H. All workspace of the procedure is included in K and initialized to the computational basis state |0^m>. Define the isometry J:H→K tensor H by Jv=|0^m> tensor v, the projector P=JJ†, and the clean block B=J†UJ of a unitary U on K tensor H. Let A:H→H be a linear operator, let alpha>0 and epsilon>=0, and assume the induced Euclidean operator-norm bound ||A-alpha B||<=epsilon. A system input psi has ||psi||=1. Put s=||A psi|| and assume s>epsilon.\n\nYou may use the following supplied result, with all of its premises: for nonzero x,y in a finite-dimensional real or complex Euclidean space, ||x/||x||-y/||y||||<=2||x-y||/||x||; if ||x-y||<=delta<||x|| then y is nonzero.\n\nDerive the full decomposition of UJpsi into its P and I-P branches. For the measurement with outcomes P and I-P, compute the success probability p and the normalized system vector conditional on P, proving every required nonzero statement. Prove\n((s-epsilon)/alpha)^2 <= p <= min(1,((s+epsilon)/alpha)^2),\n||Bpsi/||Bpsi|| - Apsi/s|| <= min(2,2epsilon/s),\nand |p-s^2/alpha^2| <= epsilon(2s+epsilon)/alpha^2.\nExplain why s^2/alpha^2 is only a nominal squared amplitude, not necessarily a probability under an approximate block promise, and why clean projection does not imply the whole output has clean ancillas.\n\nIf each independent fresh trial performs one preparation of psi with clean ancillas, one application of U and one test of P, derive the expected numbers of each operation until the first success and a bound in terms of s,epsilon,alpha. No inverse, reflection, controlled oracle or finite-bit implementation is granted. Discuss epsilon=0, s=0, the threshold s=epsilon>0, no ancilla qubits m=0, and zero system qubits n=0. Include an explicit admissible unitary witness showing why the strict margin cannot simply be removed. Do not infer universal postselection necessity for every possible procedure producing the same normalized target.",
+  "assumptions": [
+    "n,m are nonnegative integers; system and ancilla dimensions are 2^n and 2^m, hence nonzero. All procedure workspace is included in the clean ancilla register.",
+    "U is unitary on K tensor H; Jv=|0^m> tensor v and B=J†UJ.",
+    "alpha>0, epsilon>=0, ||A-alpha B||<=epsilon in induced Euclidean operator norm, ||psi||=1, and s=||Apsi||>epsilon.",
+    "For the repetition statement, trials use independent fresh preparations and the same ideal success measurement; input preparation, U and the success test are available operations with separately charged uses.",
+    "The stated normalization-stability inequality is supplied; its nonzero and error-margin premises must be checked before application."
+  ],
+  "conventions": [
+    "Registers are ordered ancilla then system; matrix products act on column vectors from the rightmost factor first.",
+    "Success is the projection P=JJ† onto all ancilla and workspace qubits being zero. The rejected branch is not erased or assumed clean.",
+    "alpha is positive and the error convention is ||A-alpha B||<=epsilon; it is not ||A/alpha-B||<=epsilon.",
+    "All vector distances compare exact representatives, with no phase minimization. The success probability follows the Born rule for the specified projector.",
+    "One repetition attempt counts one input preparation, one U call and one success test; no amplitude-amplification, gate, precision or readout-cost theorem is supplied."
+  ],
+  "family": "approximate-clean-block-normalized-output",
+  "target_nodes": [
+    "declaration:QuantumBlockEncoding.ConcreteSemantics.productRegisterBlockProjection",
+    "transport:be-to-sp"
+  ],
+  "supporting_nodes": [
+    "declaration:QuantumBlockEncoding.ConcreteSemantics.cleanBasisActionAmplitude_eq_signalSystemBlockProjection",
+    "declaration:QuantumBlockEncoding.ConcreteSemantics.applyVec",
+    "declaration:QuantumBlockEncoding.ApproximateOperatorBlockEncodingCandidate",
+    "declaration:QuantumBlockEncoding.RealAmplitudePreparation.normalized_sum_sq"
+  ],
+  "source_refs": [
+    {
+      "path": "QuantumBlockEncoding/ConcreteSemantics.lean",
+      "anchor": "applyVec:55-58; productRegisterBlockProjection:201-204; clean branch bridge:249-294",
+      "sha256": "454c0c5e215ca197c5883bedf74882f392d259c7afeadc63912230437698ebe5",
+      "license": "MIT (repository LICENSE)"
+    },
+    {
+      "path": "QuantumBlockEncoding/BlockEncoding.lean",
+      "anchor": "intended scaled norm contract in comments:136-146; approximate candidate and certificate:148-163",
+      "sha256": "fe06f75a29822e28ccdbfedfb0b0e87f90872620fae7aed359085fad8fae64b4",
+      "license": "MIT (repository LICENSE)"
+    },
+    {
+      "path": "QuantumBlockEncoding/RealAmplitudePreparation.lean",
+      "anchor": "normalized_sum_sq:311-317, exact real normalization substrate only",
+      "sha256": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+      "license": "MIT (repository LICENSE)"
+    },
+    {
+      "path": "benchmarks/quantumcomputingbench/manifests/release-v3/snapshot.json",
+      "anchor": "nodes[id=transport:be-to-sp] and hyperedges[id=transport:be-to-sp], conceptual transport only",
+      "sha256": "71a08777e01af1b6e5bd3dd88ba6443efe9aea41240c09303d4bcc0a7cd8058b",
+      "license": "MIT (repository LICENSE)"
+    }
+  ],
+  "reference_answer": "Because the clean ancilla vector has norm one, J†J=I. Thus P=JJ† is an orthogonal projector, J preserves norms, and J† is a contraction. Unitarity of U implies ||UJpsi||=1 and ||Bv||=||J†UJv||<=||v||. In particular B is a contraction, even though A/alpha need only be close to one.\n\nSet y=Bpsi and ell=(I-P)UJpsi. Then\nUJpsi=P UJpsi+(I-P)UJpsi=J Bpsi+ell=Jy+ell,\nwith J†ell=0 and Jy perpendicular to ell. Hence ||y||^2+||ell||^2=1. The P measurement has success probability p=||PUJpsi||^2=||y||^2. When p>0 the accepted joint vector is J(y/||y||), whose ancillas are exactly clean and whose system vector is y/||y||. The rejected branch ell remains in the full premeasurement output; no deterministic cleanup has been proved.\n\nTo justify that p>0, put x=Apsi/alpha and delta=epsilon/alpha. The operator-norm promise and ||psi||=1 give\n||x-y|| = ||(A-alpha B)psi||/alpha <= epsilon/alpha=delta.\nAlso ||x||=s/alpha>epsilon/alpha=delta, since alpha>0 and s>epsilon. Thus x!=0 and the supplied normalization lemma's strict-margin premise holds; equivalently, reverse triangle gives ||y||>=(s-epsilon)/alpha>0. All normalization denominators are now positive.\n\nTriangle and reverse triangle give\n(s-epsilon)/alpha <= ||y|| <= (s+epsilon)/alpha.\nAll terms on the left are nonnegative. Squaring these bounds and combining them with ||y||<=1 proves\n((s-epsilon)/alpha)^2 <= p <= min(1,((s+epsilon)/alpha)^2).\nThe supplied result, applied to x and y, gives normalized distance at most 2(epsilon/alpha)/(s/alpha)=2epsilon/s. Since alpha>0, x/||x||=Apsi/s exactly, without an added phase. Both target and accepted system vectors have norm one, so their distance is independently at most 2. This gives the claimed minimum.\n\nFor the probability comparison put r=s/alpha and q=||y||. Reverse triangle gives |q-r|<=epsilon/alpha, and q<=r+epsilon/alpha. Therefore\n|p-s^2/alpha^2|=|q^2-r^2|=|q-r|(q+r)\n<= (epsilon/alpha)(2s/alpha+epsilon/alpha)\n=epsilon(2s+epsilon)/alpha^2.\nThe reference value s^2/alpha^2 is not automatically at most one. For example, with no ancilla, U=I, alpha=1 and A=(1+epsilon)I for any epsilon>0, the norm error equals epsilon and s=1+epsilon, but the actual probability is one while s^2/alpha^2=(1+epsilon)^2>1. The bound compares real nonnegative quantities; it does not assert a nonexistent exact-block experiment with that nominal probability.\n\nWith independent fresh trials, the probability that the first success occurs on trial k is (1-p)^(k-1)p for k>=1. Since p>0, the geometric waiting time T has E[T]=sum_(k>=0) Pr(T>k)=sum_(k>=0)(1-p)^k=1/p. Each specified operation occurs once per trial, so the expected counts of input preparations, U calls and success tests are each 1/p, and each is at most alpha^2/(s-epsilon)^2. This includes the preparation and test costs; if fixed per-call costs are supplied, their sum is multiplied by 1/p. It does not supply amplitude amplification from forward U alone: that needs additional inverse/reflection or other algorithm-specific access and an analyzed stopping rule. It also supplies no finite-bit implementation or gate-cost bound.\n\nFor epsilon=0 with s>0, Bpsi=Apsi/alpha exactly, so p=s^2/alpha^2 and the conditional system vector is exactly Apsi/s. Zero error does not force p=1. If s=0, the intended normalized target is undefined; with exact encoding the success probability is zero, while under an approximate promise p can be as large as (epsilon/alpha)^2 but such a successful vector has no defined Apsi/s target. The hypotheses s>epsilon>=0 exclude s=0 from the active theorem.\n\nThe threshold s=epsilon>0 fails to guarantee success. For any t>0, take one ancilla qubit, U=X tensor I, alpha=1, A=tI, epsilon=t and any unit psi. Then B=0, ||A-alpha B||=t, s=t and p=0. This is an admissible unitary example for the weakened threshold, with a well-defined target Apsi/s=psi but no accepted branch. It does not contradict the strict theorem. For m=0 the ancilla space is one-dimensional, J is the canonical identity, P=I, B=U and p=1; the same estimates hold and ell=0. For n=0 the system is one-dimensional, not empty; all formulas remain valid for scalars and any m. There is no normalized input on a genuinely zero-dimensional system. Finally these success and repetition costs concern the displayed U-and-project procedure. For A=cI with c>0, the normalized target is simply psi and a different procedure may prepare it directly; nothing above proves universal postselection necessity.",
+  "rubric": [
+    {
+      "id": "r1",
+      "weight": 2,
+      "criterion": "Derives J†J=I, B contraction, the orthogonal full-output decomposition UJpsi=J Bpsi+ell, and p=||Bpsi||^2; distinguishes full output from the accepted clean branch."
+    },
+    {
+      "id": "r2",
+      "weight": 2,
+      "criterion": "Translates the scaled operator promise to ||Apsi/alpha-Bpsi||<=epsilon/alpha and uses s>epsilon and alpha>0 to prove both required nonzero vectors. Partial credit for a correct raw bound without the nonzero-premise check."
+    },
+    {
+      "id": "r3",
+      "weight": 2,
+      "criterion": "Applies the supplied normalization result with the correct x,y,delta to obtain 2epsilon/s and the unit-vector cap; derives the squared success interval with nonnegative lower endpoint and p<=1."
+    },
+    {
+      "id": "r4",
+      "weight": 1,
+      "criterion": "Derives the probability comparison by factoring q^2-r^2 and explains with a valid example or equivalent argument why s^2/alpha^2 need not be a probability."
+    },
+    {
+      "id": "r5",
+      "weight": 1,
+      "criterion": "Derives the geometric mean 1/p and the alpha^2/(s-epsilon)^2 upper bound for all three charged operations; makes no unsupported amplification or finite-bit claim."
+    },
+    {
+      "id": "r6",
+      "weight": 2,
+      "criterion": "Provides an admissible unitary zero-success witness at s=epsilon>0, treats exact/kernel and zero-qubit cases consistently, and keeps procedure-specific postselection distinct from universal necessity. Partial credit for correct endpoint analysis with an incomplete witness."
+    }
+  ],
+  "common_errors": [
+    "Using epsilon rather than epsilon/alpha for the clean-branch vector error under the stated scaled convention.",
+    "Dropping s>epsilon, dividing by ||Bpsi|| without proof, or replacing it by merely s>0 for approximate inputs.",
+    "Identifying Bpsi or Apsi/alpha with the normalized conditional state or identifying their squared norm with an amplitude.",
+    "Claiming UJpsi has no rejected branch because its projected clean block is controlled.",
+    "Squaring a potentially negative s-epsilon lower bound outside the theorem domain.",
+    "Calling s^2/alpha^2 a probability for every approximate block, or inferring free amplitude amplification from forward U access.",
+    "Treating the conceptual BE-to-SP hyperedge or generic certificate Prop as formal verification of this analytic bridge."
+  ],
+  "boundary_cases": [
+    {
+      "case": "epsilon=0 and s>0",
+      "resolution": "Exact conditional target, p=s^2/alpha^2; success can still be small."
+    },
+    {
+      "case": "s=epsilon>0",
+      "resolution": "U=X tensor I, A=epsilon I, alpha=1 yields B=0 and p=0 under the weakened premise."
+    },
+    {
+      "case": "s=0",
+      "resolution": "Target Apsi/s undefined; exact success zero, approximate success at most (epsilon/alpha)^2, with no target-normalization guarantee."
+    },
+    {
+      "case": "m=0",
+      "resolution": "There is one ancilla basis label, J=I canonically, p=1 and no leakage."
+    },
+    {
+      "case": "n=0",
+      "resolution": "One-dimensional scalar system; a unit vector exists and formulas remain valid."
+    },
+    {
+      "case": "Nominal squared amplitude exceeds one",
+      "resolution": "A=(1+epsilon)I, U=I, alpha=1 is valid for epsilon>0; only p is a probability."
+    }
+  ],
+  "shared_results_consumed": [
+    {
+      "id": "normalization-stability-2delta",
+      "producer_slot": "A2",
+      "supplied_in_question": true,
+      "statement": "For nonzero x,y in a finite-dimensional real or complex Euclidean space, ||x/||x||-y/||y|||| <= 2||x-y||/||x||; if ||x-y||<=delta<||x|| then y is nonzero.",
+      "instantiation": "x=Apsi/alpha; y=Bpsi; delta=epsilon/alpha",
+      "premises_assessed": [
+        "alpha>0",
+        "||psi||=1",
+        "||A-alpha B||<=epsilon",
+        "s=||Apsi||>epsilon"
+      ],
+      "consumer_steps": [
+        "s5",
+        "s7"
+      ]
+    }
+  ],
+  "difficulty": {
+    "D0": {
+      "facet": "Clean projection versus full output; scaled operator error versus normalized-vector error; probability versus amplitude; strict overlap margin.",
+      "adds_core": false
+    },
+    "D1_D4": {
+      "provisional_route_band": "D3",
+      "rationale": "Joins unitary/projection geometry, operator action, a supplied normalization lemma and a geometric repetition model. Every AND premise is retained; supplying the shared lemma is disclosed rather than counted as independently re-proved depth.",
+      "measured": false,
+      "taxonomy_source": "benchmarks/quantumcomputingbench/tracks/lean/COURSE.md:19-30",
+      "not_graph_distance": true
+    }
+  },
+  "reasoning_map": {
+    "kind": "author_supplied_natural_language",
+    "not_extracted_lean_dependencies": true,
+    "inputs": [
+      {
+        "id": "i1",
+        "statement": "H=C^(2^n), K=C^(2^m), n,m>=0; all workspace is in K; Jv=|0^m> tensor v and P=JJ†.",
+        "kind": "assumption"
+      },
+      {
+        "id": "i2",
+        "statement": "U is unitary on K tensor H and B=J†UJ.",
+        "kind": "assumption"
+      },
+      {
+        "id": "i3",
+        "statement": "alpha>0, epsilon>=0 and ||A-alpha B||<=epsilon in induced Euclidean operator norm.",
+        "kind": "assumption"
+      },
+      {
+        "id": "i4",
+        "statement": "||psi||=1 and s=||Apsi||>epsilon.",
+        "kind": "assumption"
+      },
+      {
+        "id": "l1",
+        "statement": "For nonzero x,y, ||x/||x||-y/||y||||<=2||x-y||/||x||; a bound ||x-y||<=delta<||x|| implies y!=0.",
+        "kind": "supplied_obligation"
+      },
+      {
+        "id": "i5",
+        "statement": "Independent fresh trials each charge one input preparation, one U call and one P test.",
+        "kind": "assumption"
+      },
+      {
+        "id": "c1",
+        "statement": "Fixed ancilla-system order, exact vector phases, Born probability for the P outcome.",
+        "kind": "convention"
+      }
+    ],
+    "steps": [
+      {
+        "id": "s1",
+        "claim": "Derive the clean isometry and projector identities.",
+        "assumptions": [
+          "The clean ancilla ket is unit."
+        ],
+        "required_inputs": [
+          "i1",
+          "c1"
+        ],
+        "conclusion": "J†J=I, P=P†=P^2, J preserves norms and J† contracts norms.",
+        "justification": "Tensor with a fixed unit vector preserves the inner product; its range projector is JJ†."
+      },
+      {
+        "id": "s2",
+        "claim": "Establish contraction of the clean block.",
+        "assumptions": [
+          "U unitary."
+        ],
+        "required_inputs": [
+          "i2",
+          "s1"
+        ],
+        "conclusion": "||Bv||<=||v|| for all v.",
+        "justification": "Compose the isometry J, norm-preserving U and contraction J†."
+      },
+      {
+        "id": "s3",
+        "claim": "Split the entire output into orthogonal branches.",
+        "assumptions": [
+          "Input psi is normalized."
+        ],
+        "required_inputs": [
+          "i1",
+          "i2",
+          "i4",
+          "s1"
+        ],
+        "conclusion": "UJpsi=J Bpsi+ell, ell=(I-P)UJpsi, J†ell=0, ||Bpsi||^2+||ell||^2=1.",
+        "justification": "Use P and I-P, orthogonality and unitarity; no leakage term is discarded."
+      },
+      {
+        "id": "s4",
+        "claim": "Convert operator error to an unnormalized vector error.",
+        "assumptions": [
+          "alpha>0 and ||psi||=1."
+        ],
+        "required_inputs": [
+          "i3",
+          "i4"
+        ],
+        "conclusion": "For x=Apsi/alpha, y=Bpsi and delta=epsilon/alpha, ||x-y||<=delta and ||x||=s/alpha>delta.",
+        "justification": "Apply the induced operator norm to psi and divide by the positive normalizer."
+      },
+      {
+        "id": "s5",
+        "claim": "Check the supplied lemma premises and nonzero accepted branch.",
+        "assumptions": [
+          "Finite complex Euclidean carrier."
+        ],
+        "required_inputs": [
+          "i1",
+          "i3",
+          "i4",
+          "l1",
+          "s4"
+        ],
+        "conclusion": "x!=0, y!=0 and ||y||>=(s-epsilon)/alpha>0.",
+        "justification": "The strict margin in s4 supplies l1; reverse triangle also gives the quantitative positive lower bound."
+      },
+      {
+        "id": "s6",
+        "claim": "Identify the success probability and conditioned state.",
+        "assumptions": [
+          "Born rule and p>0."
+        ],
+        "required_inputs": [
+          "c1",
+          "s1",
+          "s3",
+          "s5"
+        ],
+        "conclusion": "p=||Bpsi||^2>0 and accepted joint state J(Bpsi/||Bpsi||).",
+        "justification": "Normalize the P branch only after s5; J is isometric."
+      },
+      {
+        "id": "s7",
+        "claim": "Bound normalized output error.",
+        "assumptions": [
+          "Both nonzero vectors and alpha>0."
+        ],
+        "required_inputs": [
+          "i3",
+          "l1",
+          "s4",
+          "s5"
+        ],
+        "conclusion": "||Bpsi/||Bpsi||-Apsi/s||<=min(2,2epsilon/s).",
+        "justification": "Apply l1 with s4; alpha cancels without phase because it is positive; unit-vector triangle supplies 2."
+      },
+      {
+        "id": "s8",
+        "claim": "Bound success from both sides.",
+        "assumptions": [
+          "All endpoints in the lower bound are nonnegative."
+        ],
+        "required_inputs": [
+          "i3",
+          "i4",
+          "s2",
+          "s4",
+          "s5",
+          "s6"
+        ],
+        "conclusion": "((s-epsilon)/alpha)^2<=p<=min(1,((s+epsilon)/alpha)^2).",
+        "justification": "Triangle/reverse triangle bound ||y||; square and combine with clean-block contraction."
+      },
+      {
+        "id": "s9",
+        "claim": "Compare actual probability with the nominal squared target.",
+        "assumptions": [
+          "q=||y||>=0 and r=s/alpha>0."
+        ],
+        "required_inputs": [
+          "i3",
+          "i4",
+          "s4",
+          "s6"
+        ],
+        "conclusion": "|p-s^2/alpha^2|<=epsilon(2s+epsilon)/alpha^2.",
+        "justification": "Reverse triangle bounds |q-r|; q+r<=2r+epsilon/alpha and |q^2-r^2|=|q-r|(q+r)."
+      },
+      {
+        "id": "s10",
+        "claim": "Account for independent repetitions.",
+        "assumptions": [
+          "The specified charged operations are available once per independent fresh attempt."
+        ],
+        "required_inputs": [
+          "i5",
+          "s6",
+          "s8"
+        ],
+        "conclusion": "Expected count of each operation is 1/p<=alpha^2/(s-epsilon)^2.",
+        "justification": "Sum geometric tail probabilities; use the strictly positive success lower bound."
+      },
+      {
+        "id": "s11",
+        "claim": "Diagnose the strict-margin and nominal-probability boundaries.",
+        "assumptions": [
+          "Each witness uses its explicitly weakened or alternative parameter regime, not the theorem premise s>epsilon when it fails."
+        ],
+        "required_inputs": [
+          "i1",
+          "i2",
+          "i3",
+          "c1"
+        ],
+        "conclusion": "At s=epsilon>0 a unitary X ancilla gives B=0; approximate A=(1+epsilon)I can have s^2/alpha^2>1.",
+        "justification": "Evaluate both finite-dimensional witnesses directly; neither requires extrapolating a graph edge."
+      },
+      {
+        "id": "s12",
+        "claim": "Separate exact, kernel and zero-qubit interpretations.",
+        "assumptions": [
+          "Endpoint reasoning remains conditional on the stated domains."
+        ],
+        "required_inputs": [
+          "i1",
+          "i2",
+          "i3",
+          "i4",
+          "s3",
+          "s4",
+          "s6"
+        ],
+        "conclusion": "Exact nonzero branch has p=s^2/alpha^2; s=0 lacks a target; m=0 gives p=1; n=0 is a one-dimensional system.",
+        "justification": "Substitute into the definitions without inventing a normalized zero vector or an empty Hilbert-space input."
+      }
+    ],
+    "reused_results": [
+      {
+        "id": "normalization-stability-2delta",
+        "producer_slot": "A2",
+        "supplied_in_question": true,
+        "consumer_steps": [
+          "s5",
+          "s7"
+        ]
+      },
+      {
+        "id": "unitary_clean_compression_is_contractive",
+        "producer_step": "s2",
+        "consumer_steps": [
+          "s8"
+        ]
+      },
+      {
+        "id": "positive_success_margin",
+        "producer_step": "s5",
+        "consumer_steps": [
+          "s6",
+          "s7",
+          "s8",
+          "s10"
+        ]
+      }
+    ],
+    "reconvergent_branches": [
+      {
+        "join_step": "s6",
+        "branches": [
+          "s3",
+          "s5"
+        ],
+        "AND_semantics": "A geometrically identified clean branch and its proved nonzero amplitude are both necessary to form the conditioned state."
+      },
+      {
+        "join_step": "s7",
+        "branches": [
+          "s4",
+          "s5",
+          "l1"
+        ],
+        "AND_semantics": "Correct raw error, checked nonzero premises and the supplied stability result all enter."
+      },
+      {
+        "join_step": "s8",
+        "branches": [
+          "s2",
+          "s4",
+          "s5",
+          "s6"
+        ],
+        "AND_semantics": "Contraction supplies p<=1; vector error and positive margin supply the squared interval; the probability interpretation supplies p=||y||^2."
+      },
+      {
+        "join_step": "s10",
+        "branches": [
+          "i5",
+          "s6",
+          "s8"
+        ],
+        "AND_semantics": "Independent available trials, positive success and the lower bound are all needed for the claimed operation counts."
+      }
+    ]
+  },
+  "overlap": {
+    "relation": "candidate_composition_not_adjudicated_new_core",
+    "existing_core_comparisons": [
+      {
+        "core_id": "qcb-core-plan-011",
+        "relation": "Shares exact clean-branch conditioning and the warning against universal postselection necessity; the present target adds scaled approximation, a strict stability margin and quantitative error/success composition.",
+        "full_equivalence_claimed": false
+      },
+      {
+        "core_id": "qcb-core-plan-202",
+        "relation": "Shares conditional normalization/Born probability, but has no POVM outcome register or mixed-state update target.",
+        "full_equivalence_claimed": false
+      },
+      {
+        "core_id": "qcb-core-sp-006",
+        "relation": "Uses the normalization domain as a prerequisite, not the same assessed sum-of-squares identity.",
+        "full_equivalence_claimed": false
+      }
+    ],
+    "shared_subproofs": [
+      {
+        "result_id": "normalization-stability-2delta",
+        "with": [
+          "A2",
+          "C4"
+        ],
+        "scope": "The entire lemma is supplied explicitly; this candidate assesses instantiation and downstream success/cost composition."
+      }
+    ],
+    "semantic_deduplication": "Distinct target is proposed only; full cross-cohort reconciliation is pending.",
+    "split_policy": "Unassigned; shared public normalization and exact conditioning fragments are not claimed independently held out."
+  }
+}

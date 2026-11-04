@@ -1,0 +1,144 @@
+{
+  "method": "root_bounded_target_and_rubric_comparison_not_independent_review",
+  "catalog_hash": "5269b9f2521e3bf14db293fea34895f6e44a387c2479c164407b4d16dd9a2247",
+  "b2_payload_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/qa/B2.json",
+  "b2_item_digest": "92e41fb979ca1f3a738280c9160865fd11e640731ad6a56ce7dd9f9b8301efa1",
+  "current_related_targets": [
+    {
+      "core_id": "qcb-core-la-016",
+      "item_digest": "9c8a04ca1889fb0a56d3f452b52f5640741fb20e9f1d4e4962b89aef5642bc12",
+      "contract_hash": "fdd526493c11aaf1f3803de3c7e00ae7ecf3828571081cf35deca3d6295bbf1d",
+      "question": "For the real rotation R(theta)=[[cos(theta/2),-sin(theta/2)],[sin(theta/2),cos(theta/2)]], compare R(theta+2pi) and R(theta). A colleague claims the two full operators have distance0 because every output probability agrees. Refute or prove that claim, and distinguish bare-system global-phase equivalence from coherent branch use.",
+      "assumptions": [
+        "Finite-dimensional complex Hilbert spaces unless real amplitudes are explicitly specified",
+        "All basis/register permutations are fixed and applied to both input and output"
+      ],
+      "conventions": [
+        "Column-vector action; Euclidean induced operator norm for norm claims",
+        "Source inspection only; no fresh formal verification"
+      ],
+      "family": "native-expansion-mechanism-016",
+      "split": "test_public",
+      "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+      "target_nodes": [
+        "declaration:QuantumBlockEncoding.PrimitiveRyPerturbation.liftedRy_distance"
+      ],
+      "supporting_nodes": [
+        "declaration:QuantumBlockEncoding.PrimitiveRyPerturbation.standardRy_difference_factor"
+      ],
+      "source_refs": [
+        {
+          "anchor": "exact difference factor and exact operator distance28-68",
+          "license": "MIT (repository LICENSE)",
+          "path": "QuantumBlockEncoding/PrimitiveRyPerturbation.lean",
+          "sha256": "57ad888af7a81ac5067f6655160fecf1f197a91b0414bc5e510786b9eed27e32"
+        }
+      ],
+      "rubric": [
+        {
+          "criterion": "Distance2 not0",
+          "id": "c1",
+          "weight": 1
+        },
+        {
+          "criterion": "Explain probability agreement without operator equality",
+          "id": "c2",
+          "weight": 1
+        },
+        {
+          "criterion": "State exact-vs-phase-quotiented metric distinction",
+          "id": "c3",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "core_id": "qcb-core-be-104",
+      "item_digest": "518f0b0d1146a394be4521469ab17c605fa7c91f8fd2e898e927552dd039d065",
+      "contract_hash": "789bf7e634c8ba45459366388155594cf11cf3822154020f0970064ebf0f43e8",
+      "question": "Keep seven wires, a reversible program inducing a computational-basis bijection E, and the inherited definition C as the chronological ordered product of emitted primitive-gate matrices (later gates multiply on the LEFT). The historical request is exact C=P(E), hence a0/1 matrix. Assess and refute that request for the actual source compiler if it omits the program's stored phase; do not redefine the inherited bare C or silently quotient by physical global phase. A PrimitiveProgram consists of its primitive list and an exact globalPhase phi, with full denotation D=exp(i phi) C. Prove the correct compiler refinement for D using gate cases and list composition, and state the precise resulting formula for C. For the concrete primitiveAccess3ReversibleProgram (two initial X gates followed by modularAdd3ReversibleProgram, wire order address[0..2],row[0..2],work), derive the exact stored phase ledger from H,T,Tdagger and the five CCX macros, and decide whether its bare C is a0/1 permutation. Explain refinement versus definition and which full-space/basis-action, physical-global-phase and cost/cleanup conclusions follow or remain separate.",
+      "assumptions": [
+        "The reversible program induces a bijection of basis strings",
+        "The compiled matrix is the ordered product of emitted primitive-gate matrices"
+      ],
+      "conventions": [
+        "The permutation matrix sends column c to the single row E(c)",
+        "Compilation is a separate pipeline from the combinatorial bijection"
+      ],
+      "family": "be-compile-eval-refinement",
+      "split": "train",
+      "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+      "target_nodes": [
+        "declaration:QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program_eval"
+      ],
+      "supporting_nodes": [
+        "declaration:QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv",
+        "declaration:QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program",
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix"
+      ],
+      "source_refs": [
+        {
+          "anchor": "theorem primitiveAccess3Program_eval : evalPrimitiveProgram primitiveAccess3Program = Robin.ComplexLCU.equivPermutationMatrix primitiveAccess3BasisEquiv := by exact compileReversibleProgram_eval primitiveAccess3ReversibleProgram (lines 77-80)",
+          "license": "MIT (repository LICENSE)",
+          "path": "QuantumBlockEncoding/BandedSparseAccessPrimitive.lean",
+          "sha256": "e4f35bfdd690445de12d5a7e6692b9ab86d1a096b9ed3f4d1a41e07b99181ca7"
+        },
+        {
+          "anchor": "def equivPermutationMatrix {ι : Type*} [DecidableEq ι] (equiv : ι ≃ ι) : _root_.Matrix ι ι ℂ := fun row column => if row = equiv column then 1 else 0 (lines 148-151)",
+          "license": "MIT (repository LICENSE)",
+          "path": "QuantumBlockEncoding/Robin/ComplexLCU.lean",
+          "sha256": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843"
+        }
+      ],
+      "rubric": [
+        {
+          "id": "r1",
+          "weight": 1,
+          "criterion": "Keeps C as the bare chronological product and distinguishes full D=exp(i phi)C; states/refutes the old exact C=P demand and gives the correct phase-aware refinement."
+        },
+        {
+          "id": "r2",
+          "weight": 1,
+          "criterion": "Reconstructs exact gate-case CCX/H/phase mechanism and head/rest induction with second-times-first multiplication, explaining refinement rather than definition and full-space versus clean-work arithmetic scope."
+        },
+        {
+          "id": "r3",
+          "weight": 1,
+          "criterion": "Computes H/T/Tdagger phases, CCX9pi/8 and the actual seven-wire five-CCX45pi/8 ledger; derives bare C=exp(i3pi/8)P(E), not a0/1 matrix."
+        },
+        {
+          "id": "r4",
+          "weight": 1,
+          "criterion": "Separates full exact permutation from bare monomial/global-phase-equivalent action, with no free controlled-phase, cleanup, arbitrary-width or resource promotion."
+        }
+      ]
+    }
+  ],
+  "legacy": {
+    "id": "qcb-c90c7afcd009e812ae4f",
+    "key": "qs-global-phase-program-semantics",
+    "item_digest": "f776695156399b7ac814db3f00c8159d3a90ab252f7dac597222f38af64355e4",
+    "question": "A `PrimitiveProgram` carries both a circuit and an `ExactAngle` global phase, and `evalPrimitiveProgram` is `evalGlobalPhase program.globalPhase • evalPrimitiveCircuit program.circuit`, with `evalGlobalPhase angle = Complex.exp(i·angle)`. Explain the physical and mathematical status of this global phase: is it observable; why does `PrimitiveRefinement` demand exact equality `evalPrimitiveCircuit circuit = target` rather than equality up to phase; and how do global phases compose under `seq`?",
+    "rubric": [
+      {
+        "criterion": "States global phase is a unit scalar, unobservable on a closed state but relevant when controlled, hence tracked as data",
+        "id": "observable",
+        "weight": 1
+      },
+      {
+        "criterion": "Explains PrimitiveRefinement demands exact (not up-to-phase) equality and why this matters for auditability/control",
+        "id": "exact",
+        "weight": 1
+      },
+      {
+        "criterion": "States phases add under seq (exp(i(a+b))) while circuits concatenate and eval(seq)=eval right * eval left",
+        "id": "compose",
+        "weight": 1
+      }
+    ],
+    "split": "train"
+  },
+  "pr114_selected_input": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/evidence/open-pr-114-overlap-input.json",
+  "pr114_live_head_unchanged": "ff361a6ee91352f9692b3716c03b677ead9918be",
+  "decision_status": "advisory_pending_maintainer_adjudication"
+}

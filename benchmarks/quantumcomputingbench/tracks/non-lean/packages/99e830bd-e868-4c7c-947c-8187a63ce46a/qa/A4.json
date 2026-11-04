@@ -1,0 +1,534 @@
+{
+  "schema_version": "qcb.nonlean_cohort_payload.v1",
+  "slot": "A4",
+  "title": "Exact half-angle rotation distance on any physical wire",
+  "author": "/root/author_normalization",
+  "contribution_type": "existing_core_view",
+  "mathematical_target": "Prove the signed scalar-times-unitary difference formula for the stated RY convention and preserve its induced operator norm under identity spectators and fixed wire reindexing.",
+  "provenance": {
+    "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+    "frozen_graph_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+    "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+    "coverage_plan_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/coverage-plan.json",
+    "coverage_plan_sha256_raw": "c8e04a67b136ff80fa98c1563e61184e2a7c16c1042df6a00ec16387938d8c3d",
+    "evidence_class": "local_source_text_inspection_and_original_natural_language_derivation",
+    "formal_verification_this_run": false,
+    "license": {
+      "path": "LICENSE",
+      "sha256_raw": "dff0cc0f36b869fa146c79c0de10d15a04259351e011e63c42c2ececb57fb1e3",
+      "attribution": "MIT; Copyright (c) 2026 Quantum Block Encoding contributors; source license retained in the unchanged repository."
+    },
+    "review_status": "authored_pending_distinct_exact_content_review",
+    "suggested_reading": [
+      "QuantumBlockEncoding/PrimitiveRyPerturbation.lean:1-99",
+      "QuantumBlockEncoding/PrimitiveSemantics.lean:17-20,166-229",
+      "QuantumBlockEncoding/Robin/ComplexLCU.lean:22-85"
+    ],
+    "imports_and_declaration_availability": [
+      {
+        "module": "QuantumBlockEncoding.PrimitiveRyPerturbation",
+        "imports": [
+          "QuantumBlockEncoding.PrimitiveSemantics",
+          "Mathlib.Analysis.CStarAlgebra.Matrix",
+          "Mathlib.Analysis.CStarAlgebra.Basic",
+          "Mathlib.Analysis.SpecialFunctions.Trigonometric.Bounds"
+        ],
+        "declarations": [
+          "QuantumBlockEncoding.PrimitiveRyPerturbation.standardRy_centered_difference",
+          "QuantumBlockEncoding.PrimitiveRyPerturbation.standardRy_difference_factor",
+          "QuantumBlockEncoding.PrimitiveRyPerturbation.liftedRy_difference_factor",
+          "QuantumBlockEncoding.PrimitiveRyPerturbation.liftedRy_distance",
+          "QuantumBlockEncoding.PrimitiveRyPerturbation.liftedRy_distance_le"
+        ],
+        "status": "source availability inspected, not a fresh kernel check"
+      },
+      {
+        "module": "QuantumBlockEncoding.PrimitiveSemantics",
+        "declarations": [
+          "QuantumBlockEncoding.standardRyMatrix",
+          "QuantumBlockEncoding.standardRyMatrix_unitary",
+          "QuantumBlockEncoding.splitPrimitiveWire",
+          "QuantumBlockEncoding.liftPrimitiveOneQubit",
+          "QuantumBlockEncoding.liftPrimitiveOneQubit_unitary"
+        ],
+        "status": "literal gate and spectator-lift definitions inspected"
+      }
+    ],
+    "conceptual_graph_relationships": [
+      {
+        "nodes": [
+          "declaration:QuantumBlockEncoding.PrimitiveRyPerturbation.liftedRy_distance",
+          "declaration:QuantumBlockEncoding.PrimitiveRyPerturbation.standardRy_difference_factor",
+          "declaration:QuantumBlockEncoding.PrimitiveRyPerturbation.liftedRy_distance_le"
+        ],
+        "relation": "Exact source-supported primitive-angle mechanism; source declaration ownership/imports do not automatically supply proof-term dependency edges."
+      }
+    ],
+    "justified_mathematical_dependencies": [
+      "Trigonometric sum-difference identities and cos^2+sin^2=1.",
+      "Induced operator norm homogeneity, norm one of a unitary on a nonzero space and preservation under fixed unitary permutation.",
+      "The scalar-times-unitary structure survives tensoring with untouched identity spectators."
+    ],
+    "source_inspection": [
+      {
+        "path": "QuantumBlockEncoding/PrimitiveRyPerturbation.lean",
+        "sha256": "57ad888af7a81ac5067f6655160fecf1f197a91b0414bc5e510786b9eed27e32",
+        "sha256_lf": "57ad888af7a81ac5067f6655160fecf1f197a91b0414bc5e510786b9eed27e32",
+        "sha256_raw": "57ad888af7a81ac5067f6655160fecf1f197a91b0414bc5e510786b9eed27e32",
+        "frozen_snapshot_sha256": "57ad888af7a81ac5067f6655160fecf1f197a91b0414bc5e510786b9eed27e32",
+        "matches_frozen_source_bytes": true,
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+        "inspection_scope": "Read the complete module, including induced-L2 norm scope, exact signed factorization, wire lift and explicit nonclaims about numerical/finite-bit analysis.",
+        "declarations": [
+          {
+            "name": "QuantumBlockEncoding.PrimitiveRyPerturbation.standardRy_centered_difference",
+            "line_start": 17,
+            "line_end": 26,
+            "sha256_lf": "5206004eac99fb95773d4dc784b637476e38aeab9569502602e1d41bc6440f93",
+            "hash_span": "complete declaration including body, stated inclusive source lines"
+          },
+          {
+            "name": "QuantumBlockEncoding.PrimitiveRyPerturbation.standardRy_difference_factor",
+            "line_start": 29,
+            "line_end": 37,
+            "sha256_lf": "08972166631a8655d2741a352d6883b13bffe72b14b1f701ca860ba0486eb585",
+            "hash_span": "complete declaration including body, stated inclusive source lines"
+          },
+          {
+            "name": "QuantumBlockEncoding.PrimitiveRyPerturbation.liftedRy_difference_factor",
+            "line_start": 54,
+            "line_end": 59,
+            "sha256_lf": "ba50f06696aa2493bb038bdcb6f85a3ea06c5f2ce75e33741e974f0a16c4a6ef",
+            "hash_span": "complete declaration including body, stated inclusive source lines"
+          },
+          {
+            "name": "QuantumBlockEncoding.PrimitiveRyPerturbation.liftedRy_distance",
+            "line_start": 62,
+            "line_end": 70,
+            "sha256_lf": "80171861a5bdc89842b943cf113079f7376072feeb3208e461e54718126d2ee4",
+            "hash_span": "complete declaration including body, stated inclusive source lines"
+          },
+          {
+            "name": "QuantumBlockEncoding.PrimitiveRyPerturbation.liftedRy_distance_le",
+            "line_start": 72,
+            "line_end": 79,
+            "sha256_lf": "d9198bd375f2b87b4cbc1038e6f4eb75f3942ae5323f9872b179062c615de277",
+            "hash_span": "complete declaration including body, stated inclusive source lines"
+          }
+        ]
+      },
+      {
+        "path": "QuantumBlockEncoding/PrimitiveSemantics.lean",
+        "sha256": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+        "sha256_lf": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+        "sha256_raw": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+        "frozen_snapshot_sha256": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+        "matches_frozen_source_bytes": true,
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+        "inspection_scope": "Read the named full definitions/proofs plus the half-angle and fixed-spectator comments; inspect tensor/reindex semantics directly.",
+        "declarations": [
+          {
+            "name": "QuantumBlockEncoding.standardRyMatrix",
+            "line_start": 18,
+            "line_end": 20,
+            "sha256_lf": "ced7a7a69fa17816c3ab7fe31ef12062e68ff05b25f4648475e66b20a9600852",
+            "hash_span": "complete declaration including body, stated inclusive source lines"
+          },
+          {
+            "name": "QuantumBlockEncoding.standardRyMatrix_unitary",
+            "line_start": 91,
+            "line_end": 93,
+            "sha256_lf": "c7f8edb7059338c8e82ce57b30cd87c2d8ff7e0fb102ce5dfc44c179c74ffde8",
+            "hash_span": "complete declaration including body, stated inclusive source lines"
+          },
+          {
+            "name": "QuantumBlockEncoding.splitPrimitiveWire",
+            "line_start": 169,
+            "line_end": 186,
+            "sha256_lf": "54933be5b8562f45f17bc1405262bfeab9c12bc75de016b36e1715ef16ba805f",
+            "hash_span": "complete declaration including body, stated inclusive source lines"
+          },
+          {
+            "name": "QuantumBlockEncoding.liftPrimitiveOneQubit",
+            "line_start": 194,
+            "line_end": 200,
+            "sha256_lf": "9b5dbc4bcbdfe7542140ac7a99ee03289e19df14ffc3816a89a6aad9cded7cc2",
+            "hash_span": "complete declaration including body, stated inclusive source lines"
+          },
+          {
+            "name": "QuantumBlockEncoding.liftPrimitiveOneQubit_unitary",
+            "line_start": 220,
+            "line_end": 229,
+            "sha256_lf": "9e196361a8f59d1666d7de125afdd46ace37bf4746bf5823747f2dcfcd3f1a1b",
+            "hash_span": "complete declaration including body, stated inclusive source lines"
+          }
+        ]
+      },
+      {
+        "path": "QuantumBlockEncoding/Robin/ComplexLCU.lean",
+        "sha256": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843",
+        "sha256_lf": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843",
+        "sha256_raw": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843",
+        "frozen_snapshot_sha256": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843",
+        "matches_frozen_source_bytes": true,
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+        "inspection_scope": "Read complete rotation definitions and unitarity proofs; this supplies the literal signs hidden beneath standardRyMatrix.",
+        "declarations": [
+          {
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation",
+            "line_start": 23,
+            "line_end": 29,
+            "sha256_lf": "291069bc13bab506c154a7207a4cff17e97d602e7ea4606921155d97b6f815c6",
+            "hash_span": "complete declaration including body, stated inclusive source lines"
+          },
+          {
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.realOrthogonalRotation_unitary",
+            "line_start": 32,
+            "line_end": 57,
+            "sha256_lf": "9c128ea68eefbc3689ef7699663f160328e1329efd852b0c8cc0bb0575fae84d",
+            "hash_span": "complete declaration including body, stated inclusive source lines"
+          },
+          {
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.realRotation",
+            "line_start": 60,
+            "line_end": 62,
+            "sha256_lf": "e1bfec660350458ca577e224ff61952ad603f3da8b56ab6296b3e5e6adf7ced9",
+            "hash_span": "complete declaration including body, stated inclusive source lines"
+          },
+          {
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.realRotation_unitary",
+            "line_start": 81,
+            "line_end": 85,
+            "sha256_lf": "eabc65c0e889789e710b93426d8a5f834ac8856e50591cb0e47be4a1bdcf9911",
+            "hash_span": "complete declaration including body, stated inclusive source lines"
+          }
+        ]
+      }
+    ],
+    "immutable_contract_fields": [
+      "question",
+      "assumptions",
+      "conventions",
+      "family",
+      "split",
+      "graph_version",
+      "target_nodes",
+      "supporting_nodes",
+      "source_refs"
+    ],
+    "baseline_reader_key": "qcb-core-la-015",
+    "original_derivation_scope": "Expanded prose reconstruction of the exact local distance mechanism and endpoint examples; source-supported subclaims are distinguished from the new exposition and no fresh formal verification is asserted.",
+    "frozen_graph_binding": {
+      "path": "benchmarks/quantumcomputingbench/manifests/release-v3/snapshot.json",
+      "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+      "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "sha256_raw": "71a08777e01af1b6e5bd3dd88ba6443efe9aea41240c09303d4bcc0a7cd8058b",
+      "sha256_lf": "71a08777e01af1b6e5bd3dd88ba6443efe9aea41240c09303d4bcc0a7cd8058b",
+      "compiled_this_run": false,
+      "binding_meaning": "Graph identity/source scope only; no theorem-dependency extraction or new formal execution."
+    }
+  },
+  "unverified": [
+    "No Lean, kernel, test-module or complete repository build was run by this author. Source existence and source hashes do not verify this natural-language answer.",
+    "At the authoring freeze, independent exact-content mathematical review, semantic deduplication/split reconciliation and admission remain for distinct reviewers and maintainers. Later bound review/admission status belongs to the proposal and integration manifest, not this immutable author record.",
+    "No model difficulty, model performance, source-paper fidelity or benchmark stability is claimed."
+  ],
+  "question": "Define R(theta)=[[cos(theta/2),-sin(theta/2)],[sin(theta/2),cos(theta/2)]]. Derive the exact operator distance between R(a) and R(b), and prove it is at most |a-b|/2. Why does adding any number of untouched spectator qubits not multiply the distance by a dimension factor?",
+  "assumptions": [
+    "Finite-dimensional complex Hilbert spaces unless real amplitudes are explicitly specified",
+    "All basis/register permutations are fixed and applied to both input and output"
+  ],
+  "conventions": [
+    "Column-vector action; Euclidean induced operator norm for norm claims",
+    "Source inspection only; no fresh formal verification"
+  ],
+  "family": "native-expansion-mechanism-015",
+  "split": "test_public",
+  "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "target_nodes": [
+    "declaration:QuantumBlockEncoding.PrimitiveRyPerturbation.liftedRy_distance"
+  ],
+  "supporting_nodes": [
+    "declaration:QuantumBlockEncoding.PrimitiveRyPerturbation.standardRy_difference_factor",
+    "declaration:QuantumBlockEncoding.PrimitiveRyPerturbation.liftedRy_distance_le"
+  ],
+  "source_refs": [
+    {
+      "anchor": "difference_factor28-37; liftedRy factor54-59; distance61-79",
+      "license": "MIT (repository LICENSE)",
+      "path": "QuantumBlockEncoding/PrimitiveRyPerturbation.lean",
+      "sha256": "57ad888af7a81ac5067f6655160fecf1f197a91b0414bc5e510786b9eed27e32"
+    }
+  ],
+  "core_id": "qcb-core-la-015",
+  "contract_hash": "bc4e15074deae045466bc02c4ce3414069aec77ee27c77e71a0bee2be453b5df",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "baseline_item_digest": "4ac0d74781d50ead023fd5830a7e8e5cda93b4580d32f2f4ef85299e32890567",
+  "admission": "additive_view_proposed_not_admitted",
+  "reference_answer": "All norms below are the Euclidean induced operator norm: ||M||=sup_(||v||=1)||Mv||, on the real plane or its complexification. Direct multiplication using cos^2(theta/2)+sin^2(theta/2)=1 shows R(theta)†R(theta)=I. Hence R(theta) is unitary (real orthogonal) and has operator norm one.\n\nPut c=(a+b)/4 and h=(a-b)/4. The sum-difference identities give\ncos(a/2)-cos(b/2)=-2 sin(c) sin(h),\nsin(a/2)-sin(b/2)=2 cos(c) sin(h).\nKeeping the minus sign of the upper-right entry, this gives\nR(a)-R(b)=2 sin(h) [[-sin(c),-cos(c)],[cos(c),-sin(c)]]\n=2 sin((a-b)/4) R((a+b)/2+pi).\nThis is exact matrix equality, including the sign of the real scalar; no phase has been discarded.\n\nNorm homogeneity and the unitary norm-one identity therefore give\n||R(a)-R(b)||=2|sin((a-b)/4)|.\nUsing |sin t|<=|t| proves ||R(a)-R(b)||<=|a-b|/2. The exact distance is always at most 2. In particular, equal angles give zero, a-b=4pi k gives zero for any integer k, and a-b=2pi(2k+1) gives distance 2. The last case differs by a minus sign as an exact matrix, which is not removed in this operator-distance convention.\n\nFor r>=0 untouched spectator qubits, the spectator space has dimension d=2^r>=1. In a tensor order with the target first, the difference is\n(R(a)-R(b)) tensor I_d = 2 sin((a-b)/4) [R((a+b)/2+pi) tensor I_d].\nThe bracket is unitary, since its adjoint times itself is I_2 tensor I_d. Its induced operator norm is one on the nonzero tensor-product space; this argument applies to every input, including entangled target-spectator states. Thus the exact same distance holds after the lift. For a different fixed target-wire placement, both lifted gates are conjugated by the same basis-permutation unitary Q. Their difference is Q[(R(a)-R(b)) tensor I_d]Q†, and unitary conjugation preserves the induced norm, again giving the same value. There is no dimension multiplier because a unitary preserves vector length, whatever the dimension. One must not replace the induced norm by a sum of entry magnitudes or a Frobenius norm, which have different dimension behavior.\n\nZero spectators means d=1 and simply recovers the one-qubit result. A total register with zero qubits has no target wire on which this gate can act; it is not an additional distance-zero case. The result bounds exact matrix perturbation caused by changing a real angle; it does not compute rounded angles, synthesize gates over a discrete gate set, or certify finite-bit resource cost.",
+  "rubric": [
+    {
+      "id": "r1",
+      "weight": 3,
+      "criterion": "Derives the quarter-angle matrix identity needed for the sharp norm: either the signed factorization R(a)-R(b)=2 sin((a-b)/4) R((a+b)/2+pi), or D†D=4 sin²((a-b)/4) I for D=R(a)-R(b), or an equivalent complete spectral/induced-norm calculation. Partial credit for correct trigonometric differences or matrix products not fully assembled; do not require a particular proof route."
+    },
+    {
+      "id": "r2",
+      "weight": 2,
+      "criterion": "Uses the established matrix identity to obtain the exact distance 2|sin((a-b)/4)|, justifying equality rather than only an upper estimate. Accept orthogonality/unitarity and norm homogeneity, the Gram-matrix calculation, or a correct equivalent spectral/induced-norm argument."
+    },
+    {
+      "id": "r3",
+      "weight": 2,
+      "criterion": "Applies |sin t|<=|t| with the correct scaling to obtain |a-b|/2, retaining exact-vector/matrix phase conventions."
+    },
+    {
+      "id": "r4",
+      "weight": 3,
+      "criterion": "Proves spectator independence by a complete tensor-norm argument (including tensor unitarity, a Gram-matrix identity, or an equivalent induced-norm proof) and a common fixed unitary permutation/reindexing for wire placement. The argument covers all, including entangled, inputs; partial credit for a correct tensor proof without the fixed-placement explanation."
+    }
+  ],
+  "common_errors": [
+    "Using 2|sin((a-b)/2)| and thereby losing the physical half-angle convention.",
+    "Dropping the sign of the scalar inside the exact factorization; absolute value belongs after taking the norm.",
+    "Using a Frobenius/entrywise dimension bound for the induced operator norm.",
+    "Checking only separable input vectors without a valid operator-norm argument for all joint states.",
+    "Treating a 2pi angle change as identical under an exact matrix metric, or reindexing the two compared gates differently.",
+    "Confusing zero spectators with zero total qubits and a nonexistent target wire."
+  ],
+  "boundary_cases": [
+    {
+      "case": "a=b or a-b=4pi k",
+      "resolution": "Exact distance zero."
+    },
+    {
+      "case": "a-b=2pi(2k+1)",
+      "resolution": "Exact distance two; the sign difference is retained."
+    },
+    {
+      "case": "Zero spectators",
+      "resolution": "Spectator space dimension one, so the one-qubit calculation is unchanged."
+    },
+    {
+      "case": "Zero total qubits",
+      "resolution": "There is no target wire; not an active gate instance."
+    },
+    {
+      "case": "Entangled spectator input",
+      "resolution": "Covered because the scalar factor multiplies a unitary on the entire tensor space."
+    }
+  ],
+  "shared_results_produced": [
+    {
+      "id": "dimension-free-ry-distance",
+      "statement": "For R(theta)=[[cos(theta/2),-sin(theta/2)],[sin(theta/2),cos(theta/2)]], ||R(a)-R(b)||=2|sin((a-b)/4)|<=|a-b|/2 in induced Euclidean operator norm. Tensoring both gates with any identity spectator space of positive finite dimension and applying the same fixed unitary basis permutation preserves this exact distance.",
+      "consumer_slots": [
+        "B3"
+      ],
+      "interface_conditions": [
+        "real a,b",
+        "same physical target and fixed basis permutation for both gates",
+        "untouched spectators",
+        "induced Euclidean operator norm",
+        "exact matrices, not quotient by global phase"
+      ],
+      "formal_status": "source-supported exact local declarations inspected; no new Lean run and no new core"
+    }
+  ],
+  "difficulty": {
+    "D0": {
+      "facet": "Physical half angle, exact sign/phase, induced operator norm and fixed spectator/wire placement.",
+      "adds_core": false
+    },
+    "D1_D4": {
+      "provisional_route_band": "D2",
+      "rationale": "Local trigonometric matrix algebra, unitary norm evaluation and tensor/reindex reasoning. The inherited contract remains unchanged; an exact theorem supplied as an oracle would be a different D1 application route.",
+      "measured": false,
+      "taxonomy_source": "benchmarks/quantumcomputingbench/tracks/lean/COURSE.md:19-30",
+      "not_graph_distance": true
+    }
+  },
+  "reasoning_map": {
+    "kind": "author_supplied_natural_language",
+    "not_extracted_lean_dependencies": true,
+    "inputs": [
+      {
+        "id": "i1",
+        "statement": "a,b are real and R(theta) is the displayed half-angle matrix.",
+        "kind": "assumption"
+      },
+      {
+        "id": "c1",
+        "statement": "Norm means the Euclidean induced operator norm and exact matrices are compared.",
+        "kind": "convention"
+      },
+      {
+        "id": "i2",
+        "statement": "There are r>=0 untouched spectator qubits, and the same fixed basis/wire placement is used for both gates.",
+        "kind": "assumption"
+      },
+      {
+        "id": "c2",
+        "statement": "Column-vector action; any fixed wire placement is represented by one common unitary permutation Q.",
+        "kind": "convention"
+      }
+    ],
+    "steps": [
+      {
+        "id": "s1",
+        "claim": "Check rotation unitarity.",
+        "assumptions": [
+          "Real angles."
+        ],
+        "required_inputs": [
+          "i1"
+        ],
+        "conclusion": "R(theta)†R(theta)=I for every real theta.",
+        "justification": "Multiply the two-by-two matrices; use cos^2+sin^2=1 and cancellation of mixed terms."
+      },
+      {
+        "id": "s2",
+        "claim": "Derive the exact signed difference.",
+        "assumptions": [
+          "Same R convention for a and b."
+        ],
+        "required_inputs": [
+          "i1"
+        ],
+        "conclusion": "R(a)-R(b)=2 sin((a-b)/4) R((a+b)/2+pi).",
+        "justification": "Sum-difference identities produce entries [-sin c,-cos c;cos c,-sin c] with c=(a+b)/4."
+      },
+      {
+        "id": "s3",
+        "claim": "Evaluate the exact induced norm.",
+        "assumptions": [
+          "The rotation carrier has positive dimension."
+        ],
+        "required_inputs": [
+          "c1",
+          "s1",
+          "s2"
+        ],
+        "conclusion": "||R(a)-R(b)||=2|sin((a-b)/4)|.",
+        "justification": "A unitary preserves every vector norm and has induced norm one; scale by the absolute value of the signed scalar."
+      },
+      {
+        "id": "s4",
+        "claim": "Obtain the angle-error bound.",
+        "assumptions": [
+          "Real sine argument."
+        ],
+        "required_inputs": [
+          "i1",
+          "s3"
+        ],
+        "conclusion": "||R(a)-R(b)||<=|a-b|/2.",
+        "justification": "Use |sin h|<=|h| at h=(a-b)/4."
+      },
+      {
+        "id": "s5",
+        "claim": "Lift the signed factorization to all spectators.",
+        "assumptions": [
+          "d=2^r>=1 and spectators carry identity."
+        ],
+        "required_inputs": [
+          "i2",
+          "s1",
+          "s2"
+        ],
+        "conclusion": "(R(a)-R(b)) tensor I_d is the same scalar times a joint unitary.",
+        "justification": "Tensor distribution preserves the difference and scalar, and (R tensor I_d)†(R tensor I_d)=I."
+      },
+      {
+        "id": "s6",
+        "claim": "Place the gate on an arbitrary fixed physical wire.",
+        "assumptions": [
+          "A common permutation Q is used for both compared gates."
+        ],
+        "required_inputs": [
+          "c1",
+          "c2",
+          "i2",
+          "s3",
+          "s5"
+        ],
+        "conclusion": "The lifted physical distance equals 2|sin((a-b)/4)|, independent of d.",
+        "justification": "Conjugating the joint unitary by Q preserves unitarity; induced norm one applies to all joint vectors, not merely product inputs."
+      },
+      {
+        "id": "s7",
+        "claim": "Transfer the same linear bound and diagnose endpoints.",
+        "assumptions": [
+          "Exact phase convention and a valid target wire."
+        ],
+        "required_inputs": [
+          "i1",
+          "i2",
+          "c1",
+          "s3",
+          "s4",
+          "s6"
+        ],
+        "conclusion": "Spectator distance<=|a-b|/2; 4pi differences vanish, odd 2pi differences have distance 2; r=0 is allowed.",
+        "justification": "Substitute the sine values and note d=1 for zero spectators; a zero-total-qubit carrier has no gate target."
+      }
+    ],
+    "reused_results": [
+      {
+        "id": "dimension-free-ry-distance",
+        "producer_steps": [
+          "s3",
+          "s6",
+          "s7"
+        ],
+        "external_consumers": [
+          "B3"
+        ],
+        "not_hidden_cross_split_answer": true
+      },
+      {
+        "id": "scalar_times_unitary_norm",
+        "producer": "elementary induced norm identity",
+        "consumer_steps": [
+          "s3",
+          "s6"
+        ]
+      }
+    ],
+    "reconvergent_branches": [
+      {
+        "join_step": "s3",
+        "branches": [
+          "s1",
+          "s2"
+        ],
+        "AND_semantics": "Exact factorization and unitary norm one both enter the exact distance."
+      },
+      {
+        "join_step": "s6",
+        "branches": [
+          "s5",
+          "c2"
+        ],
+        "AND_semantics": "An untouched-spectator unitary lift and the same fixed wire permutation are both required for this dimension-free placement argument."
+      }
+    ]
+  },
+  "overlap": {
+    "relation": "same_mathematical_core_additive_view",
+    "core_id": "qcb-core-la-015",
+    "educational_delta": "Makes the signed trigonometric factorization explicit, proves joint-space norm one for entangled inputs, and distinguishes zero spectators, nonexistent target wires and exact 2pi phase differences; replaces completion ticks with weighted partial credit.",
+    "shared_subproofs": [
+      {
+        "result_id": "dimension-free-ry-distance",
+        "consumer": "B3",
+        "scope": "The complete primitive interface can be supplied in B3; B3 assesses multi-gate composition and charged precision instead.",
+        "full_equivalence_claimed": false
+      }
+    ],
+    "split_policy": "Retains test_public; supplying this result elsewhere is disclosed and does not create independent-held-out evidence."
+  }
+}

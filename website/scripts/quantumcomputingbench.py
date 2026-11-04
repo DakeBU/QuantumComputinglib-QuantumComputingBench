@@ -62,6 +62,8 @@ def presentation_contract():
     paths = ("website/scripts/qcb_math.py", "website/static/qcb-math.css",
              "website/scripts/qcb_expert.py", "website/static/qcb-expert.css", "website/static/qcb-expert.js",
              "website/scripts/qcb_benchmark_center.py", "benchmarks/quantumcomputingbench/src/qcb_bench_runtime.py",
+             "website/scripts/qcb_workbook_reader.py", "benchmarks/quantumcomputingbench/src/qcb_nonlean_workbook.py",
+             "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/reader-comparison.json",
              "website/scripts/qcb_ecosystem_browser.py",
              "benchmarks/quantumcomputingbench/scripts/bench.py",
              "benchmarks/quantumcomputingbench/reports/ecosystem-v1/math-notation-review.json")
@@ -557,10 +559,13 @@ def publish_course(write, intro, plan, views, report):
 
 def publish(root):
     from qcb_bench_runtime import build_registry, write_downloads
+    from qcb_nonlean_workbook import check_publication_sources, load_workbook
+    from qcb_nonlean_workbook import write_downloads as write_workbook_downloads
 
     from website.scripts import build_site as site
     from website.scripts.qcb_benchmark_center import publish_center
     from website.scripts.qcb_expert import build_expert_index, publish_expert
+    from website.scripts.qcb_workbook_reader import publish_workbook
     from website.scripts.research_atlas import patch_navigation
     root = root.resolve()
     catalog, items, graph = load_catalog()
@@ -579,6 +584,9 @@ def publish(root):
     live_ids = {n["id"] for n in read_json(graph_path)["nodes"]}
     data_dir = root / "data/quantumcomputingbench"
     registry = build_registry()
+    workbook = load_workbook()
+    check_publication_sources(workbook, context['commit'])
+    write_workbook_downloads(data_dir / 'nonlean-workbook', workbook)
     runtime_environment = environment_record(registry)
     write_json(data_dir / "environment-smoke.json", runtime_environment)
     publication_commit = context["commit"] if re.fullmatch(r'[0-9a-f]{40}', context["commit"]) else None
@@ -625,6 +633,7 @@ def publish(root):
     body += '<p class="qcb-meta">The course reuses existing cores, including the canonical formal cores. Natural-language and Lean versions are views of the same question, not extra questions.</p>'
     body += section("Choose your reading path", '<div class="qcb-grid"><article class="qcb-card"><p class="eyebrow">No Lean needed</p><h3><a href="non-lean/index.html">Explore the mathematics</a></h3><p>Read definitions, attempt a question, then open its hint, solution and rubric. Browse by subject and follow the source anchors.</p></article><article class="qcb-card"><p class="eyebrow">A guided progression</p><h3><a href="course/index.html">Build your reasoning skills</a></h3><p>Move from assumptions and local calculations to interface composition, induction and global arguments.</p></article><article class="qcb-card"><p class="eyebrow">Optional formal companion</p><h3><a href="lean/index.html">Inspect precise proof tasks</a></h3><p>Compare exact formal conclusions and supplied subgoals. Read the mathematics first; no installation is needed to inspect a task.</p></article></div>', "start")
     body += section("Test the exact assumptions", '<p><a href="diagnostics/index.html">Explore ' + str(len(diagnostic_packet["probes"])) + ' public semantic candidate diagnostics</a> organized by mass and isometry, marginal amplitudes, controlled permutations and endpoint derivatives. Read the ordinary mathematics first; reference answers, rubrics and optional Lean certificates are folded. This separate public reference pilot adds no canonical core, native Lean admission or course companion.</p>', "diagnostics")
+    body += section('Connect the mathematical ingredients', '<p><a href="non-lean/workbook/index.html">Open the supplementary mathematics workbook</a>: twelve reviewed expositions and candidate problems about normalization, coherent implementations, tensor structure and polynomial sampling, organized by subject and D2–D4 routes. Existing-core expositions and unassigned targets remain distinct from canonical counts and scored splits.</p>', 'workbook')
     body += section("A library makes the questions connect", '<p>QuantumComputinglib supplies shared definitions, reusable lemmas and explicit mathematical interfaces. A state-preparation question and a block-encoding question can therefore use the same conventions for norms, registers, matrices and composition. We can ask about an individual fact, a derivation between facts, or a construction combining several ingredients.</p><div class="qcb-grid"><article class="qcb-card"><h3>Breadth: what do you know?</h3><p>Objects and definitions, assumptions, boundary cases, representations and the meaning of a quantum construction.</p></article><article class="qcb-card"><h3>Depth: what can you connect?</h3><p>Local algebra, dependencies between lemmas, reuse of a common result, and conclusions requiring several premises together.</p></article><article class="qcb-card"><h3>Precision: what is actually checked?</h3><p>Linked sources expose the contract. A qualified Lean root checks one exact proposition; explanatory prose and resource claims still need their own review.</p></article></div><p><a href="reasoning/index.html">See how a graph connection becomes a reasoning question →</a></p><p class="qcb-meta">A graph is a coverage map, not a guarantee of exhaustive questions. Planned nodes are a roadmap; source-backed material and compiled declarations carry different evidence.</p>', "library")
     body += section("From understanding to construction", '<p>Choose a provisional construction level. These levels describe the guided course route, not measured model performance or the number of graph nodes.</p><ol class="qcb-ladder">' + ''.join('<li><a href="course/' + band.lower() + '/index.html"><span class="qcb-level">' + band + '</span><strong>' + esc(label) + '</strong></a><p>' + esc(description) + '</p></li>' for band, (label, description) in COURSE_BANDS.items()) + '</ol>', "progression")
     body += section("Shared foundations and four subject areas", "".join('<article class="qcb-part"><p class="eyebrow">' + ('Shared foundations' if p['id'] == 'foundations' else 'Subject area') + '</p><h3><a href="non-lean/' + p["id"] + '/index.html">' + esc(p["title"]) + '</a></h3>' + prose(p["summary"]) + '<p>' + str(sum(c["part"] == p["id"] for c in catalog["cores"])) + ' shared cores · ' + str(len(p["topics"])) + ' topics' + (' · source-backed / planned formal frontier' if p['id'] in ('quantum-information', 'scientific-computing') else '') + '</p></article>' for p in catalog["parts"]), "parts")
@@ -635,6 +644,9 @@ def publish(root):
     diagnostic_report = publish_diagnostics(write, intro, diagnostic_packet, diagnostic_qualification, context["commit"], expert_index)
     expert_report = publish_expert(write, intro, expert_index)
     benchmark_center = publish_center(write, intro, catalog, registry, context["commit"], runtime_environment)
+    workbook_start = len(routes)
+    workbook_report = publish_workbook(write, intro, workbook, graph, live_ids, context['commit'])
+    workbook_report['routes'] = routes[workbook_start:]
     for track in TRACKS:
         prefix = "../../"
         is_lean = track == "lean"
@@ -646,6 +658,8 @@ def publish(root):
             if admitted:
                 body += section("Aligned native formal views", exercise_cards(admitted, prefix, items, track), "native-views")
         body += '<p><a href="../course/index.html">Choose a difficulty level</a> · <a href="../reasoning/index.html">Read the reasoning-graph guide</a></p>'
+        if not is_lean:
+            body += '<p><a href="workbook/index.html">Supplementary mathematics workbook</a> · normalization, coherence, tensor structure and polynomial samples; twelve additional expositions/candidates with separate counting and split boundaries.</p>'
         body += '<p><a href="../diagnostics/index.html">Try the public semantic reference pilot</a>: ' + str(len(diagnostic_packet["probes"])) + ' candidate propositions with folded answers and polarity-only Lean evidence; separate from canonical admissions and course views.</p>'
         body += '<div class="qcb-grid">' + "".join('<article class="qcb-card"><h2><a href="' + p["id"] + '/index.html">' + esc(p["title"]) + '</a></h2>' + prose(p["summary"]) + '</article>' for p in catalog["parts"]) + '</div>'
         write(HUB + track + "/", "Lean companion" if is_lean else "Non-Lean exercise book", body + '</div>', "Shared curriculum and exact evidence boundaries for the " + track + " track.")
@@ -665,7 +679,12 @@ def publish(root):
                 write(HUB + track + "/" + part["id"] + "/" + topic + "/", title_of(topic) + " · " + track, body + '</div>', "Graph-grounded " + title_of(topic) + " questions; shared targets for both reader paths.")
     for core in catalog["cores"]:
         title = title_of(core["topic"]) + " · Exercise " + core["core_id"].removeprefix("qcb-core-").upper()
-        write(HUB + "cores/" + core["core_id"] + "/", title, core_body(core, items[core["core_id"]], catalog, graph, live_ids, "../../../", context["commit"], expert_index), items[core["core_id"]]["question"])
+        content = core_body(core, items[core["core_id"]], catalog, graph, live_ids, "../../../", context["commit"], expert_index)
+        extras = [e for e in workbook['entries'] if e['packet']['contribution_type'] == 'existing_core_view' and e['packet']['core_id'] == core['core_id']]
+        if extras:
+            more = section('Additional mathematical exposition', '<ul>' + ''.join('<li><a href="../../non-lean/workbook/' + e['slot'].lower() + '/index.html">' + esc(e['packet']['title']) + '</a> · same core and split</li>' for e in extras) + '</ul>', 'supplementary')
+            content = content.removesuffix('</article>') + more + '</article>'
+        write(HUB + "cores/" + core["core_id"] + "/", title, content, items[core["core_id"]]["question"])
     withheld_routes = []
     decisions = {d["core_id"]: d for d in catalog["reader_decisions"]}
     for core in catalog.get("withheld_cores", []):
@@ -718,6 +737,7 @@ def publish(root):
                 "public_semantic_diagnostics": diagnostic_report,
                 "expert_atlas": expert_report,
                 "benchmark_center": benchmark_center,
+                "supplementary_workbook": workbook_report,
                 "runtime_registry_hash": registry["registry_hash"],
                 "presentation": presentation_contract(),
                 "math_notation": notation_contract,
@@ -737,8 +757,14 @@ def publish(root):
 
 
 def check_site(root):
+    from qcb_nonlean_workbook import load_workbook
+    from qcb_nonlean_workbook import verify_downloads as verify_workbook_downloads
     manifest = read_json(root / "data/quantumcomputingbench/reader.json")
     catalog, items, graph = load_catalog()
+    workbook = load_workbook()
+    verify_workbook_downloads(root / 'data/quantumcomputingbench/nonlean-workbook', workbook)
+    if manifest.get('supplementary_workbook', {}).get('workbook_digest') != workbook['workbook_digest']:
+        raise ValueError('supplementary workbook projection is stale')
     plan, views, course_report = course_reader()
     diagnostic_packet, diagnostic_qualification = diagnostic_reader()
     if manifest.get("presentation") != presentation_contract():

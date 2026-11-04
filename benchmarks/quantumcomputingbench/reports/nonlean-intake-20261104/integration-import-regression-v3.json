@@ -1,0 +1,117 @@
+{
+  "schema_version": "qcb.nl_intake_import_regression.v1",
+  "created_at_utc": "2026-11-04T09:30:25.406722+00:00",
+  "method": "Fresh Python subprocess imports with PYTHONPATH removed, followed by pure Python in-memory route/disclosure/export checks; no model, Lean, actual browser, site publication or CI execution.",
+  "source_file_lf_sha256_before": {
+    "benchmarks/quantumcomputingbench/src/qcb_nonlean_workbook.py": "93d52924b8e077e7c9052e69fe1589ebeafc05937a07b5a03426b5adc20c5510",
+    "website/scripts/qcb_workbook_reader.py": "ca2ed737e33a83848b95c88279630715d1357b1db999611b02c2c798bba24c13",
+    "website/scripts/quantumcomputingbench.py": "d74d7d788fe98d901ee759720e7d7e4a1bcb59f16681253167678f74b5d092dd",
+    "website/scripts/sidebar_navigation.py": "b9ce164d68e59ec8243d45c8358c3ba0a0114ad2a6d1f909ae86fc4ffab3f366",
+    "website/scripts/qcb_benchmark_center.py": "d3b0990c33c3f648062080e54043de33dc873da0f192ea6c7fa0379b7057c98b",
+    "website/scripts/qcb_nonlean_browser.py": "a03608c546d61ac9035dbfab0ec214cb186f55a4151309cb273d3a31c600cdf8",
+    "website/scripts/test_quantumcomputingbench_browser.py": "f4e8b8853e943eb7501ef78ffba391b85e23c045b0dc4343c8c1b317beb604e0",
+    ".gitattributes": "97632d7f675255c5cc143d9cb939b253a19dbc7ee771667c19b924002e7bb6e8"
+  },
+  "source_file_lf_sha256_after": {
+    "benchmarks/quantumcomputingbench/src/qcb_nonlean_workbook.py": "93d52924b8e077e7c9052e69fe1589ebeafc05937a07b5a03426b5adc20c5510",
+    "website/scripts/qcb_workbook_reader.py": "ca2ed737e33a83848b95c88279630715d1357b1db999611b02c2c798bba24c13",
+    "website/scripts/quantumcomputingbench.py": "d74d7d788fe98d901ee759720e7d7e4a1bcb59f16681253167678f74b5d092dd",
+    "website/scripts/sidebar_navigation.py": "b9ce164d68e59ec8243d45c8358c3ba0a0114ad2a6d1f909ae86fc4ffab3f366",
+    "website/scripts/qcb_benchmark_center.py": "d3b0990c33c3f648062080e54043de33dc873da0f192ea6c7fa0379b7057c98b",
+    "website/scripts/qcb_nonlean_browser.py": "a03608c546d61ac9035dbfab0ec214cb186f55a4151309cb273d3a31c600cdf8",
+    "website/scripts/test_quantumcomputingbench_browser.py": "f4e8b8853e943eb7501ef78ffba391b85e23c045b0dc4343c8c1b317beb604e0",
+    ".gitattributes": "97632d7f675255c5cc143d9cb939b253a19dbc7ee771667c19b924002e7bb6e8"
+  },
+  "sources_unchanged_during_checks": true,
+  "fresh_process_imports": [
+    {
+      "case": "plain_reader_then_publish_dependencies",
+      "command": [
+        "C:\\Users\\84771\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+        "-c",
+        "from website.scripts import quantumcomputingbench as reader; from qcb_nonlean_workbook import load_workbook,check_publication_sources; from website.scripts.qcb_workbook_reader import publish_workbook; import qcb_nonlean_workbook as backend; assert 'benchmarks' in backend.__file__; print(backend.__file__); print(publish_workbook.__module__)"
+      ],
+      "exit_code": 0,
+      "stdout": "C:\\Users\\84771\\.codex\\.chatgpt-projects\\g-p-68baab74f4848191804468004da66cbf\\qcb-nl-integration-20261104\\benchmarks\\quantumcomputingbench\\src\\qcb_nonlean_workbook.py\nwebsite.scripts.qcb_workbook_reader\n",
+      "stderr": ""
+    },
+    {
+      "case": "browser_script_help",
+      "command": [
+        "C:\\Users\\84771\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+        "website/scripts/test_quantumcomputingbench_browser.py",
+        "--help"
+      ],
+      "exit_code": 0,
+      "stdout": "usage: test_quantumcomputingbench_browser.py [-h] --root ROOT\n                                             [--output OUTPUT]\n                                             [--browser-channel {chrome,msedge}]\n\nReal-browser reader acceptance; screenshots are not mathematical\ncertification.\n\noptions:\n  -h, --help            show this help message and exit\n  --root ROOT\n  --output OUTPUT\n  --browser-channel {chrome,msedge}\n",
+      "stderr": ""
+    },
+    {
+      "case": "backend_then_publisher_with_website_path_first",
+      "command": [
+        "C:\\Users\\84771\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+        "-c",
+        "import sys,pathlib; root=pathlib.Path('.').resolve(); sys.path[:0]=[str(root/'website/scripts'),str(root/'benchmarks/quantumcomputingbench/src')]; import qcb_nonlean_workbook as backend; from website.scripts import qcb_workbook_reader as publisher; assert hasattr(backend,'load_workbook') and hasattr(publisher,'publish_workbook'); assert backend.__file__ != publisher.__file__; print(backend.__file__); print(publisher.__file__)"
+      ],
+      "exit_code": 0,
+      "stdout": "C:\\Users\\84771\\.codex\\.chatgpt-projects\\g-p-68baab74f4848191804468004da66cbf\\qcb-nl-integration-20261104\\benchmarks\\quantumcomputingbench\\src\\qcb_nonlean_workbook.py\nC:\\Users\\84771\\.codex\\.chatgpt-projects\\g-p-68baab74f4848191804468004da66cbf\\qcb-nl-integration-20261104\\website\\scripts\\qcb_workbook_reader.py\n",
+      "stderr": ""
+    },
+    {
+      "case": "publisher_then_backend_with_website_path_first",
+      "command": [
+        "C:\\Users\\84771\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+        "-c",
+        "import sys,pathlib; root=pathlib.Path('.').resolve(); sys.path[:0]=[str(root/'website/scripts'),str(root/'benchmarks/quantumcomputingbench/src')]; from website.scripts import qcb_workbook_reader as publisher; import qcb_nonlean_workbook as backend; assert hasattr(backend,'load_workbook') and hasattr(publisher,'publish_workbook'); assert backend.__file__ != publisher.__file__; print(backend.__file__); print(publisher.__file__)"
+      ],
+      "exit_code": 0,
+      "stdout": "C:\\Users\\84771\\.codex\\.chatgpt-projects\\g-p-68baab74f4848191804468004da66cbf\\qcb-nl-integration-20261104\\benchmarks\\quantumcomputingbench\\src\\qcb_nonlean_workbook.py\nC:\\Users\\84771\\.codex\\.chatgpt-projects\\g-p-68baab74f4848191804468004da66cbf\\qcb-nl-integration-20261104\\website\\scripts\\qcb_workbook_reader.py\n",
+      "stderr": ""
+    },
+    {
+      "case": "pure_publisher_import_no_backend_setup",
+      "command": [
+        "C:\\Users\\84771\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+        "-c",
+        "import sys; from website.scripts import qcb_workbook_reader as publisher; assert 'qcb_nonlean_workbook' not in sys.modules; assert hasattr(publisher,'publish_workbook'); print(publisher.__file__)"
+      ],
+      "exit_code": 0,
+      "stdout": "C:\\Users\\84771\\.codex\\.chatgpt-projects\\g-p-68baab74f4848191804468004da66cbf\\qcb-nl-integration-20261104\\website\\scripts\\qcb_workbook_reader.py\n",
+      "stderr": ""
+    }
+  ],
+  "workbook_digest": "2d1c012384e04d780c51786e9b39494bbe53765a60c9716f5cf1cfe679b713e1",
+  "groups_carried_in_validated_workbook": {
+    "A": [
+      "normalization",
+      "Normalization and accepted states"
+    ],
+    "B": [
+      "coherence",
+      "Coherent constructions and precision"
+    ],
+    "C": [
+      "tensor-polynomial",
+      "Tensor structure and polynomial samples"
+    ]
+  },
+  "static_renders": [
+    {
+      "mode": "all_current_test_input",
+      "pages": 20,
+      "local_links_checked": 283,
+      "distinct_graph_anchors": 53,
+      "errors": []
+    },
+    {
+      "mode": "all_frozen_only_test_input",
+      "pages": 20,
+      "local_links_checked": 230,
+      "distinct_graph_anchors": 53,
+      "errors": []
+    }
+  ],
+  "question_only_exact_shape": true,
+  "question_only_rows": 12,
+  "limits": "--help establishes CLI/module startup only. It does not execute Playwright, a production publisher, actual graph interactions or CI. Artificial live-ID inputs exercise both graph-link branches, not the generated live graph."
+}

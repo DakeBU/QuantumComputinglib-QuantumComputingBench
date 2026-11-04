@@ -1,0 +1,35 @@
+{
+  "schema_version": "qcb.cohort_question_first_packet.v1",
+  "slot": "B1",
+  "base_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "frozen_payload_item_digest": "b6bc7728e713f6203fa8421b254b9f359cd9265416d09164f2ac8c17a7a1c38c",
+  "frozen_payload_sha256": "bd6d42c84c3938eb84446d21e95e4d67cddaf6eff7538c9cf92ccffbb23c1738",
+  "core_id": "qcb-core-sp-007",
+  "question": "In the sequential bond construction, a complete state after n emitted bits is produced by applying stage matrices in order, starting from an explicit bond boundary vector. Assume for each stage index t and each clean input column (fresh bit input = 0, bond input a) the stage entry equals the corresponding tensor core entry K t. Prove by induction on n that the full run amplitude at bit word x and final bond label b equals the matrix-vector product of the chronological transfer contraction of the cores with the boundary, (transfer K n x) applied to the boundary, read at b. State precisely which columns of the stages are therefore irrelevant.",
+  "assumptions": [
+    "the only hypothesis is clean-column equality of each stage with the corresponding tensor core; no global state action is assumed",
+    "the boundary is an explicit bond vector supplied to the run"
+  ],
+  "conventions": [
+    "the last emitted core multiplies on the left (same order as circuit evaluation)",
+    "transfer at length 0 is the identity matrix"
+  ],
+  "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "target_nodes": [
+    "declaration:QuantumBlockEncoding.SequentialBondPreparation.run_eq_transfer",
+    "declaration:QuantumBlockEncoding.SequentialBondPreparation.transfer",
+    "declaration:QuantumBlockEncoding.SequentialBondPreparation.step_apply"
+  ],
+  "supporting_nodes": [
+    "declaration:QuantumBlockEncoding.SequentialBondPreparation.step"
+  ],
+  "source_refs": [
+    {
+      "anchor": "lines 86-110: noncomputable def transfer K | 0,_ => 1 | n+1,x => coreSlice (K n) (x (Fin.last n)) * transfer K n (Fin.init x); theorem run_eq_transfer (U K) (cleanColumns : for all t bit b a, U t (bit,b) (0,a) = K t (bit,b) a) (boundary) (n x b) : run U boundary n (x,b) = (transfer K n x).mulVec boundary b, proved by induction with step_apply, cleanColumns, ih, mulVec_mulVec",
+      "license": "MIT (repository LICENSE)",
+      "path": "QuantumBlockEncoding/SequentialBondPreparation.lean",
+      "sha256": "ad4542b108d44f196f2a02f78e59b58f43d45b1e890709cf4c22e1222805d5c5"
+    }
+  ]
+}

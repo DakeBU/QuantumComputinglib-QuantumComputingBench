@@ -1,0 +1,274 @@
+{
+  "schema_version": "qcb.question_first_independent_derivation.v1",
+  "method": "independent-question-first-source-grounded-mathematical-derivation",
+  "reviewer": "/root/review_normalization",
+  "scope": [
+    "A1",
+    "A2",
+    "A3",
+    "A4"
+  ],
+  "phase": 1,
+  "completed_at_utc": "2026-11-03T11:58:08.125678+00:00",
+  "base_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "provenance": {
+    "prior_exposure": "Started from the reviewer assignment and reviewer-guide.md. Read repository AGENTS, HARNESS, shared CONTRACT, non-Lean AGENT_GOAL, publication/proof-digestion/evidence-routing protocols and bounded worker/master instructions. Those process files include historical checkpoint cautions, but no proposed A1-A4 answers, rubrics, reasoning maps, author handoffs, other reviews or COHORT were read. Then read the complete assigned blind/A1.json through A4.json and the exact primary local source sections recorded below. Source theorem statements and proofs were intentionally visible; this is question-first, not source-blind.",
+    "proposed_payloads_opened": false,
+    "forbidden_review_materials_opened": false,
+    "source_inspection_only": true,
+    "fresh_lean_execution": false,
+    "human_approval_claimed": false,
+    "admission_or_novelty_claimed": false,
+    "hash_semantics": "blind_packet_digest is qcb_core.digest on the entire parsed blind JSON: SHA256 of sorted compact ensure_ascii=False UTF-8 JSON. blind_packet_sha256 is SHA256 of the exact raw file bytes. Frozen payload identities are copied from the blind packets and not independently read or recomputed until Phase 2. Source sha256_lf hashes normalize CRLF/CR to LF."
+  },
+  "items": [
+    {
+      "slot": "A1",
+      "core_id": "qcb-core-sp-006",
+      "blind_packet_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/blind/A1.json",
+      "blind_packet_digest": "55554377b90e2ec34276873d3d7684f8fd752b23e63af417463e54bf6a22ec16",
+      "blind_packet_sha256": "d265da1fc073570f413713612d4d9f01b3cc5c2ec7190a4d0c875bb7c4244bdf",
+      "frozen_payload_item_digest_as_supplied": "f2b9ac531b5f0beed6de2217147b95c95f04970db0589ca28cf53f2d0f262443",
+      "frozen_payload_sha256_as_supplied": "4d269c9dce20c9a48dbdd84d4baa68d4f16f174c43350e7849be1bbeba2f53d3",
+      "independent_derivation": [
+        "Write S=sum_b f(b)^2. Each real square is nonnegative, so S>=0 without using strict positivity. The real nonnegative square root therefore satisfies (sqrt S)^2=S.",
+        "The stronger premise S>0 implies sqrt S>0, so the mathematical quotient is defined. Extract its constant squared denominator from the finite sum: sum_b (f(b)/sqrt S)^2=(sum_b f(b)^2)/(sqrt S)^2=S/S=1.",
+        "Strict positivity is used to exclude zero denominators and justify S/S=1. The square-root identity itself requires only S>=0, already obtained from the sum of squares. Individual entries may be zero or negative."
+      ],
+      "expected_rubric_checks": [
+        "Expands squared quotients and moves the common denominator outside the finite sum.",
+        "Uses (sqrt S)^2=S under S>=0 and identifies nonvanishing for cancellation.",
+        "Does not replace positive total squared norm by pointwise positive amplitudes or require a circuit as a premise."
+      ],
+      "edge_case_and_contract_checks": [
+        "If S=0, every entry is zero. Ordinary normalization is undefined; Lean totalized division would return all zeros and squared sum 0, not 1.",
+        "An empty index set has S=0 and cannot meet the premise. A zero-qubit PrimitiveBasis has one element, not zero elements; its nonzero signed scalar normalizes to +1 or -1.",
+        "No ancilla, success, circuit efficiency or finite-bit claim follows from this algebraic identity. The separate preparation theorem has an additional nonnegative-amplitude premise."
+      ],
+      "source_checks": [
+        {
+          "path": "QuantumBlockEncoding/RealAmplitudePreparation.lean",
+          "sha256_lf": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+          "matches_packet_source_sha256": true,
+          "lines_read": "203-234, 273-323",
+          "declarations_or_objects": [
+            "normSq",
+            "normSq_nonneg",
+            "prepareCircuit_firstColumn",
+            "normalized_sum_sq",
+            "normSq_pos_of_positive"
+          ],
+          "assessment": "The exact normSq definition at 211 and nonnegativity at 213-214 support the finite algebra. normalized_sum_sq at 311-317 performs div_pow, finite sum division, sq_sqrt and nonzero cancellation exactly. prepareCircuit_firstColumn at 275-278 assumes all amplitudes nonnegative in addition to positive normSq; that extra premise is not part of the normalization theorem and is not imported."
+        }
+      ],
+      "remaining_uncertainty": "No mathematical gap found in the frozen question. Source inspection has not rerun Lean, and the arbitrary finite-table wording is the elementary finite-sum generalization of the qubit-indexed source.",
+      "phase1_mathematical_assessment": "The requested claim follows under the frozen premises by the derivation recorded here; this is not an assessment of the unseen proposed answer/rubric/map."
+    },
+    {
+      "slot": "A2",
+      "core_id": "candidate:e9e64f4c-3b9e-4c6f-958b-bb362c23e605",
+      "blind_packet_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/blind/A2.json",
+      "blind_packet_digest": "8c8f619c23d238452f2b056c3b91365ba41fb8fcf9b5ab1df1d4b504cc9f827c",
+      "blind_packet_sha256": "1978084334eb8a6b06934948f0a0ed70f7ae03c43df32ed0c19654e5ed9ca218",
+      "frozen_payload_item_digest_as_supplied": "7b6810c44dbd5bf7aa9a26c3ab0d6429f65c0b9c0db16e880a2685c032f5c207",
+      "frozen_payload_sha256_as_supplied": "28012f09057d3e975db6cf0d129d63f171b6b00dfb649dd054aa96471c9e3c8f",
+      "independent_derivation": [
+        "For arbitrary nonzero x,y put r=||x||>0, q=||y||>0, e=||x-y||. Algebra gives N(x)-N(y)=(x-y)/r+y(1/r-1/q). Taking norms and using positive r,q gives ||N(x)-N(y)|| <= e/r+q|1/r-1/q|=(e+|q-r|)/r <=2e/r, by the reverse triangle inequality. This computation is valid over R and C because the denominators are positive reals.",
+        "In the perturbation statement y is initially arbitrary. Before writing N(y), use ||y|| >= ||x||-||x-y|| >= r-delta>0. Thus y!=0. The reusable inequality gives distance <=2delta/r. Both normalized vectors have norm one, so their distance is also <=2. Combining gives min(2,2delta/r).",
+        "If r>=m>0 and 0<=delta<m, then y!=0 and the distance is <=min(2,2delta/m)=2delta/m<2. This is a uniform absolute-error modulus when a positive reference-norm lower bound m is available; y need not itself have norm at least m.",
+        "For every t>0 take real two-dimensional x_t=(t,0) and y_t=(t/2,t/2). They are nonzero, ||x_t-y_t||=t/sqrt(2)<t=||x_t||, and the absolute error tends to zero as t tends to zero. Their normalized vectors are (1,0) and (1/sqrt(2),1/sqrt(2)), with constant distance sqrt(2-sqrt(2))>0. Therefore any proposed uniform upper bound g(delta) that depends only on absolute error and tends to zero as delta tends to zero fails on delta_t=t/sqrt(2)."
+      ],
+      "expected_rubric_checks": [
+        "Proves the first inequality for every nonzero y, without inserting an unstated small-perturbation premise.",
+        "Derives y nonzero before normalizing in the second statement and retains the reference norm in the denominator.",
+        "Obtains the diameter-2 cap and the uniform m-domain consequence.",
+        "Gives a family satisfying strict relative margin for every t>0 and computes a nonzero constant normalized distance.",
+        "Covers delta=0, delta=r, x=0, dimension zero, exact phase representatives and circuit/finite-bit limits."
+      ],
+      "edge_case_and_contract_checks": [
+        "At delta=0, x=y!=0 and the distance is zero. At delta=r, y=0 is permitted, so the corollary cannot normalize every admitted y. If y is separately known nonzero, the reusable inequality still holds; no false antipodal example under error<=r is needed.",
+        "At x=0, N(x) is undefined. In dimension zero the space contains only zero, so the nonzero domain is empty and there is no normalized vector; the stated d>=1 avoids this vacuity.",
+        "Distances are between exact representatives. A phase change can contribute to the distance; no minimization over phases, density-matrix distance or fidelity conversion is being invoked.",
+        "This is an analytic stability statement. It supplies neither a state-preparation circuit nor access to entries, a precision algorithm, gate count, numerical square-root/division certificate or finite-bit complexity bound."
+      ],
+      "source_checks": [
+        {
+          "path": "QuantumBlockEncoding/RealAmplitudePreparation.lean",
+          "sha256_lf": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+          "matches_packet_source_sha256": true,
+          "lines_read": "211-214, 311-317",
+          "declarations_or_objects": [
+            "normSq",
+            "normSq_nonneg",
+            "normalized_sum_sq"
+          ],
+          "assessment": "Supplies exact real normalization only. It does not state the complex perturbation inequality; that inequality is independently derived above."
+        },
+        {
+          "path": "QuantumBlockEncoding/ConcreteSemantics.lean",
+          "sha256_lf": "454c0c5e215ca197c5883bedf74882f392d259c7afeadc63912230437698ebe5",
+          "matches_packet_source_sha256": true,
+          "lines_read": "24-58",
+          "declarations_or_objects": [
+            "StateVector",
+            "applyVec"
+          ],
+          "assessment": "StateVector at 29-30 is Fin dimension -> scalar, a representation definition and not a norm or stability theorem."
+        },
+        {
+          "path": "QuantumBlockEncoding/StatePreparation.lean",
+          "sha256_lf": "2585a3b5ef2a58a0f7fb33664552e9166373cec2815eddf2542c9db66cb5f52f",
+          "matches_packet_source_sha256": true,
+          "lines_read": "18-78",
+          "declarations_or_objects": [
+            "StatePreparationTarget",
+            "ApproximateStatePreparationCandidate",
+            "VerifiedApproximateStatePreparation"
+          ],
+          "assessment": "StatePreparationTarget.normalization and ApproximateStatePreparationCandidate.approximationBound are proposition fields. Their existence does not instantiate a Euclidean metric, prove stability or supply a finite-bit implementation."
+        }
+      ],
+      "remaining_uncertainty": "The mathematics is complete from elementary norm facts. The named sources are exact-normalization and representation substrates, not a local formalization of this new stability statement; semantic deduplication remains for Phase 2/maintainers.",
+      "phase1_mathematical_assessment": "The requested claim follows under the frozen premises by the derivation recorded here; this is not an assessment of the unseen proposed answer/rubric/map."
+    },
+    {
+      "slot": "A3",
+      "core_id": "candidate:bf862ffc-6597-4fd0-8b37-bf09f4eed230",
+      "blind_packet_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/blind/A3.json",
+      "blind_packet_digest": "da7a0537dbf4d04af56d1799965b86f62eea1d604cbd7437a6bf80977f73286c",
+      "blind_packet_sha256": "ed80fc4b0c5cc96f4e8e44b21321fce8dbf2892297d27b2d96ba29a94144a2ac",
+      "frozen_payload_item_digest_as_supplied": "7a55e0414ad9bdfe8eb0adb3f95f1e9b951005731b5873fb3d5f09fb3ada97b4",
+      "frozen_payload_sha256_as_supplied": "9d527f2e9659653f37d4aaaf7d0dee9d46c66fea12616abb93d012eb7f09c88f",
+      "independent_derivation": [
+        "J is an isometry, J†J=I, and P=JJ† is the orthogonal projection onto |0^m> tensor H. Put b=Bpsi and eta=(I-P)UJpsi. Since PUJpsi=JJ†UJpsi=JBpsi, the full output is UJpsi=Jb+eta, with J†eta=0 and Peta=0. The two branches are orthogonal. Unitarity and ||psi||=1 give ||Jb||^2+||eta||^2=1, hence ||b||<=1 and ||eta||^2=1-||b||^2.",
+        "The operator promise and normalized input give ||alpha b-Apsi||<=epsilon. Reverse triangle implies |alpha||b||-s|<=epsilon, where positivity of alpha is used to take it outside the norm without a sign/phase change. Thus (s-epsilon)/alpha <=||b||<=(s+epsilon)/alpha. Because s>epsilon>=0, Apsi!=0 and b!=0.",
+        "Born probability for the specified clean projector is p=||PUJpsi||^2=||b||^2 in (0,1]. Conditioned on success, the joint state is J(b/||b||)=|0^m> tensor (b/||b||), and the normalized system vector is b/||b||. If p<1, the normalized rejected vector is eta/sqrt(1-p), so UJpsi=sqrt(p)J(b/||b||)+sqrt(1-p) eta/sqrt(1-p). If p=1, eta=0 and no normalized rejected state is defined.",
+        "Squaring the nonnegative norm inequalities yields ((s-epsilon)/alpha)^2<=p<=((s+epsilon)/alpha)^2; combine the upper bound with p<=1 to obtain the requested minimum. In particular the hypotheses also imply s<=alpha+epsilon, so the positive lower bound is compatible with p<=1.",
+        "Apply the supplied normalization result to x=Apsi, y=alpha b and delta=epsilon. Its strict-margin and nonzero premises have now been verified. Positivity of alpha gives N(alpha b)=b/||b|| exactly. Consequently ||b/||b||-Apsi/s||<=2epsilon/s and also <=2 because both vectors are unit. Hence the requested min(2,2epsilon/s) bound.",
+        "Let t=alpha||b||. Then |t-s|<=epsilon and t+s<=2s+epsilon. Therefore |p-s^2/alpha^2|=|t^2-s^2|/alpha^2=|t-s|(t+s)/alpha^2<=epsilon(2s+epsilon)/alpha^2. This uses the scaled error ||A-alpha B||<=epsilon; a convention ||A/alpha-B||<=epsilon would have different alpha factors.",
+        "The number s^2/alpha^2 is nominal. For example U=I, B=I and A=(alpha+epsilon)I with epsilon>0 satisfy the operator promise with equality and s=alpha+epsilon>epsilon. The actual p is 1 while s^2/alpha^2>1. Approximate containment therefore does not make the nominal quantity a probability.",
+        "Clean projection identifies only the P branch. The eta branch generally contains nonzero ancilla/workspace values and remains in the unmeasured output. It cannot be deleted in an unconditioned equality, and cleaning all workspace follows on the successful branch only because the entire workspace is included in K and tested by P.",
+        "For independent fresh attempts, T, the attempt of first success, has Pr(T=k)=(1-p)^(k-1)p and Pr(T>k)=(1-p)^k. Summing the geometric tail gives E[T]=1/p. Each attempt uses exactly one input preparation with clean ancillas, one U application and one P test, so each expected operation count is 1/p<=alpha^2/(s-epsilon)^2. Success is almost sure. For p<1 no finite deterministic cap on attempts follows. These are three separately charged operation counts, not gate complexity and not an amplitude-amplification bound."
+      ],
+      "expected_rubric_checks": [
+        "Shows the full orthogonal decomposition, including the rejected component and its norm.",
+        "Derives b nonzero from the induced-operator bound and strict margin; defines conditional states only for positive probabilities.",
+        "Computes true p and both probability bounds, respecting alpha/error units.",
+        "Checks the supplied normalization lemma premises and positive-alpha cancellation, plus the diameter cap.",
+        "Derives the probability deviation by the difference of squares and explains nominal probability with a valid >1 example.",
+        "Charges preparation, U and success test separately in the geometric expectation.",
+        "Handles all requested endpoints with an explicit unitary threshold witness and avoids universal postselection necessity."
+      ],
+      "edge_case_and_contract_checks": [
+        "When epsilon=0 and s>0, Bpsi=Apsi/alpha, p=s^2/alpha^2, the conditional vector equals Apsi/s exactly, and each expected count is alpha^2/s^2. Unitarity ensures s<=alpha.",
+        "The case s=0 is excluded by the strict margin and has no normalized target Apsi/s. If epsilon=0 it forces Bpsi=0 and p=0. For epsilon>0, p can be positive or zero but is bounded by min(1,(epsilon/alpha)^2); this does not create a target vector.",
+        "At the excluded threshold s=epsilon>0 choose m=1, n=0, H=C, psi=1, U=X on K=C^2, Jz=(z,0), B=0 and A=epsilon I_H. For every alpha>0, ||A-alpha B||=epsilon and s=epsilon, yet p=0 and UJpsi=(0,1). The target Apsi/s exists but the selected branch is absent. This fully unitary witness shows that the strict margin cannot be dropped from the general guarantee.",
+        "For m=0, K=C and P=I under the canonical tensor identification, so B=U is unitary, p=1 and eta=0. There is one attempt and the norm promise gives |s-alpha|<=epsilon. The general margin is sufficient but not necessary in this special regime.",
+        "For n=0, H=C is one-dimensional, not the zero vector space. A and B are scalars, psi has modulus one, and all formulas retain their exact phase content. The threshold witness already works here.",
+        "The assumed operations include input preparation and the P test; none is free. No U inverse, reflection, control, oracle synthesis, finite-bit arithmetic or universal advantage theorem is inferred. Other procedures might prepare the same normalized target without this postselection."
+      ],
+      "source_checks": [
+        {
+          "path": "QuantumBlockEncoding/ConcreteSemantics.lean",
+          "sha256_lf": "454c0c5e215ca197c5883bedf74882f392d259c7afeadc63912230437698ebe5",
+          "matches_packet_source_sha256": true,
+          "lines_read": "24-58, 182-217, 243-294",
+          "declarations_or_objects": [
+            "applyVec",
+            "ProductRegisterMatrix",
+            "flatToProductRegister",
+            "productRegisterBlockProjection",
+            "cleanBasisActionAmplitude",
+            "cleanBasisActionAmplitude_eq_signalSystemBlockProjection",
+            "pointwiseProjection_iff_cleanBasisAction"
+          ],
+          "assessment": "The product register is signal/ancilla first and system second. The block definition takes equal clean input/output signal indices. The basis-action bridge at 259-294 identifies clean amplitudes and explicitly says a normalized failure branch is additional unitarity evidence. The probability, perturbation and repetition conclusions are derived here, not claimed as those declarations."
+        },
+        {
+          "path": "QuantumBlockEncoding/BlockEncoding.lean",
+          "sha256_lf": "fe06f75a29822e28ccdbfedfb0b0e87f90872620fae7aed359085fad8fae64b4",
+          "matches_packet_source_sha256": true,
+          "lines_read": "130-163",
+          "declarations_or_objects": [
+            "ApproximateOperatorBlockEncodingCandidate",
+            "VerifiedApproximateOperatorBlockEncoding"
+          ],
+          "assessment": "The comment at 139-146 uses exactly ||A-alpha ((<0| tensor I)U(|0> tensor I))||<=epsilon. The structure at 148-152 still stores approximationBound: Prop, so the source does not itself certify a concrete Euclidean norm theorem."
+        },
+        {
+          "path": "QuantumBlockEncoding/RealAmplitudePreparation.lean",
+          "sha256_lf": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+          "matches_packet_source_sha256": true,
+          "lines_read": "311-317",
+          "declarations_or_objects": [
+            "normalized_sum_sq"
+          ],
+          "assessment": "Exact real finite-table normalization is a substrate only; it does not supply the complex perturbation lemma, Born rule or geometric repetition analysis."
+        },
+        {
+          "path": "benchmarks/quantumcomputingbench/manifests/release-v3/snapshot.json",
+          "sha256_lf": "71a08777e01af1b6e5bd3dd88ba6443efe9aea41240c09303d4bcc0a7cd8058b",
+          "matches_packet_source_sha256": true,
+          "lines_read": "31505-31529, 101987-101993",
+          "declarations_or_objects": [
+            "hyperedges[id=transport:be-to-sp]",
+            "nodes[id=transport:be-to-sp]"
+          ],
+          "assessment": "The node is proposal_not_lean_implication and the hyperedge is proposal, with empty lean_refs and independent review pending. Its full tails are concept:block-encoding, family:spectral-filter and family:state-action. The exact block projection formula and small-overlap failure boundary motivate a conditional transport; no graph edge proves the approximate formulas. The hypothesis map mentions declared inverses/controls, but no such operations are assumed or used by this question's independent fresh-trial argument."
+        }
+      ],
+      "remaining_uncertainty": "No mathematical gap found in the frozen question. Born-rule and norm arguments are elementary NL derivations under explicitly granted hypotheses, not new formal closure. The conceptual transport is broader and has its own unresolved review status; no source-paper seal, amplitude-amplification theorem or global novelty claim is made.",
+      "phase1_mathematical_assessment": "The requested claim follows under the frozen premises by the derivation recorded here; this is not an assessment of the unseen proposed answer/rubric/map."
+    },
+    {
+      "slot": "A4",
+      "core_id": "qcb-core-la-015",
+      "blind_packet_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/blind/A4.json",
+      "blind_packet_digest": "2173f2514b7a29fcfeda7d635feb0aed5c9ec01561a32d483383a4e05459965e",
+      "blind_packet_sha256": "a80d08f32f37f9f109804a4797203838ea61717434d09b1f303fd41f8b73112b",
+      "frozen_payload_item_digest_as_supplied": "72b507f649e1f966894495b58f605fe1cd4890358b58d63a7ff627931119288d",
+      "frozen_payload_sha256_as_supplied": "b208d4f68893aa82d156526dcbcc326c4d6659044b85e04cd2392a2c55971ebf",
+      "independent_derivation": [
+        "Let D=R(a)-R(b). Since R(theta) is real orthogonal and hence unitary over C, R(a)†R(b)=R(b-a). Thus D†D=2I-R(b-a)-R(a-b)=2(1-cos((a-b)/2))I=4 sin^2((a-b)/4) I. For every vector v, ||Dv||=2|sin((a-b)/4)| ||v||, so the induced Euclidean operator norm is exactly 2|sin((a-b)/4)|.",
+        "Equivalently, angle-sum identities give the exact signed factorization R(a)-R(b)=2 sin((a-b)/4) R((a+b)/2+pi). The second factor is unitary with norm one. The scalar sign must be retained in the matrix identity even though the norm uses its absolute value.",
+        "Using |sin t|<=|t| for every real t yields ||R(a)-R(b)||=2|sin((a-b)/4)|<=|a-b|/2.",
+        "For q untouched spectators, their space has dimension k=2^q>=1. In a fixed wire ordering the lifted difference is unitarily equivalent by a common basis permutation to D tensor I_k (or I_k tensor D). Its adjoint product is 4 sin^2((a-b)/4) I_(2k), hence its norm is the same scalar. Alternatively tensor the signed factorization with I_k: the second factor remains unitary. The argument applies to all inputs, including inputs entangled with spectators, and no dimension factor appears because ||I_k||_op=1."
+      ],
+      "expected_rubric_checks": [
+        "Derives the exact sine formula with the quarter-angle, rather than only an entrywise upper bound.",
+        "Uses the induced Euclidean operator norm and the unitarity of the factor or scalar D†D.",
+        "Obtains the half-angle Lipschitz constant using |sin t|<=|t|.",
+        "Explains tensor/spectator norm invariance and fixed simultaneous input/output register permutations."
+      ],
+      "edge_case_and_contract_checks": [
+        "If a=b the norm is 0. More generally a-b=4pi k gives zero, while a-b=(4k+2)pi gives norm 2: a global sign remains visible under the stipulated exact-operator comparison.",
+        "With no spectators the spectator factor is one-dimensional and the same proof applies. A system with no target qubit cannot instantiate target:Fin qubits; it is not an additional zero-dimensional norm case.",
+        "A Frobenius norm would acquire a spectator-dimension factor, but it is not the stipulated norm. Norm one of the nonempty identity/unitary avoids that mistake.",
+        "This is exact-real angle sensitivity. It does not prove an algorithm for computing angles or finite-bit compilation costs."
+      ],
+      "source_checks": [
+        {
+          "path": "QuantumBlockEncoding/PrimitiveRyPerturbation.lean",
+          "sha256_lf": "57ad888af7a81ac5067f6655160fecf1f197a91b0414bc5e510786b9eed27e32",
+          "matches_packet_source_sha256": true,
+          "lines_read": "1-99",
+          "declarations_or_objects": [
+            "standardRy_centered_difference",
+            "standardRy_difference_factor",
+            "lift_sub",
+            "lift_smul",
+            "liftedRy_difference_factor",
+            "liftedRy_distance",
+            "liftedRy_distance_le",
+            "eval_ry_distance",
+            "eval_ry_clm_distance_le"
+          ],
+          "assessment": "The file explicitly selects Matrix.Norms.L2Operator and disclaims finite-bit claims. Lines 29-37 give the signed exact factorization, 39-59 preserve it under the physical lift, 62-70 derive the exact norm using the lifted unitary, and 72-79 establish the half-difference bound. This agrees with the independent D†D derivation."
+        }
+      ],
+      "remaining_uncertainty": "No mathematical gap found for finite nonempty spectator registers. This reads the existing source proof but does not rerun Lean or inspect every imported primitive definition; the frozen question independently gives the explicit 2x2 matrix needed for the derivation.",
+      "phase1_mathematical_assessment": "The requested claim follows under the frozen premises by the derivation recorded here; this is not an assessment of the unseen proposed answer/rubric/map."
+    }
+  ]
+}

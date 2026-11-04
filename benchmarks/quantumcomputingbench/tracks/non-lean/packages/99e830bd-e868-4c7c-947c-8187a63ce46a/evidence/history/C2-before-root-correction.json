@@ -1,0 +1,481 @@
+{
+  "schema_version": "qcb.nonlean_cohort_payload.v1",
+  "slot": "C2",
+  "title": "Internal tensor-train gauges preserve amplitudes but need not preserve canonical rows",
+  "author": "/root/author_tensor_polynomial",
+  "contribution_type": "new_candidate",
+  "mathematical_target": "Derive all-length internal gauge telescoping, exact scalar-amplitude and norm invariance, and the precise distinction from local right-canonicality.",
+  "question": "Let n be a nonnegative integer and let r_0,...,r_n be finite bond dimensions with r_0=r_n=1. Internal dimensions may be zero. A real tensor train consists of two matrices A_j^0,A_j^1 of size r_{j-1} by r_j for each j=1,...,n. For a bit word s=(s_1,...,s_n), in first-core-first order, define the scalar amplitude f(s) as the sole entry of P_A(s)=A_1^{s_1}...A_n^{s_n}; the empty product for n=0 is the 1-by-1 identity. Its squared mass is S=sum_{s in {0,1}^n} f(s)^2 and its Euclidean norm is sqrt(S).\n\nChoose any invertible real r_j-by-r_j matrix G_j for each internal bond j=1,...,n-1, and set G_0=G_n=I_1. Define transformed slices B_j^s=G_{j-1}^{-1} A_j^s G_j. Derive a telescoping identity for every prefix product and use it to prove that every scalar amplitude, the full squared mass and the Euclidean norm are unchanged for all n. State exactly what endpoint fixing contributes.\n\nCall the train right-canonical if sum_{s=0}^1 A_j^s(A_j^s)^T=I_{r_{j-1}} at every j. Does an arbitrary invertible internal gauge preserve this condition? Derive the transformed local row-Gram matrix, give an explicit two-core counterexample if the universal claim fails, and prove that orthogonal internal gauges do preserve right-canonicality. Distinguish this sufficient condition from a claim that every nonorthogonal gauge necessarily fails on every train. Cover n=0, n=1 and zero-dimensional internal bonds without adding nonzero-state or full-rank premises. All statements are exact real algebra, with no circuit or finite-precision cost claim.",
+  "assumptions": [
+    "n is a nonnegative integer; all bond dimensions are finite natural numbers, and both external bonds have dimension one.",
+    "Each core slice A_j^s has the stated real matrix dimensions.",
+    "Every internal G_j is invertible; the two external gauges are the identity. Right-canonicality is an additional premise only for the conditional preservation assertion."
+  ],
+  "conventions": [
+    "The first matrix emits the first bit; physical bit labels are never permuted by a gauge.",
+    "Products are written in core order A_1...A_n. A real transpose is used, with no complex conjugation issue.",
+    "A zero-dimensional matrix is interpreted as the unique linear endomorphism of the zero vector space; its identity is invertible. The empty word set for n=0 has one element.",
+    "Equality of amplitudes is exact, not equality up to global phase. Squared mass is the sum of squares over all words."
+  ],
+  "family": "tensor-train-internal-gauge-invariance",
+  "split": "unassigned_pending_reconciliation",
+  "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "admission": "candidate_not_counted",
+  "dedup_review_required": true,
+  "target_nodes": [
+    "declaration:QuantumBlockEncoding.TensorTrainCanonical.contract",
+    "declaration:QuantumBlockEncoding.TensorTrainCanonical.RightCanonical"
+  ],
+  "supporting_nodes": [
+    "declaration:QuantumBlockEncoding.TensorTrainCanonical.Core",
+    "declaration:QuantumBlockEncoding.TensorTrainCanonical.slice",
+    "declaration:QuantumBlockEncoding.TensorTrainCanonical.Chain",
+    "declaration:QuantumBlockEncoding.TensorTrainCanonical.Word",
+    "declaration:QuantumBlockEncoding.TensorTrainCanonical.absorb_slice",
+    "declaration:QuantumBlockEncoding.TensorTrainCanonical.chainMass",
+    "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.norm_sq"
+  ],
+  "source_refs": [
+    {
+      "path": "QuantumBlockEncoding/TensorTrainCanonical.lean",
+      "anchor": "Lines 18-47: real core/slice, ordered chain/word contraction and right-canonical row condition; lines 57-64: slice absorption; lines 119-168: boundary mass and canonical chain mass; entire 317-line module read.",
+      "declarations": [
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.Core",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.slice",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.Chain",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.Word",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.contract",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.RightCanonical",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.absorb_slice",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.chainMass",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.chainMass_eq",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.residual_mass"
+      ],
+      "sha256": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+      "sha256_lf": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+      "sha256_raw": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+      "hash_policy": "sha256-lf-text-v1",
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+      "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "source_matches_frozen_snapshot": true,
+      "read_status": "Complete module, ambient definitions, theorem statements and proof bodies read as local text."
+    },
+    {
+      "path": "QuantumBlockEncoding/TensorTrainNormEnvironment.lean",
+      "anchor": "Lines 17-37: full matrix Gram recursion and sum-over-word semantics including terminal labels; lines 39-75: scalar norm and target reindex adapter; entire 140-line module read.",
+      "declarations": [
+        "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.gram",
+        "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.gram_eq_sum",
+        "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.gram_scalar",
+        "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.norm_eq",
+        "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.norm_sq",
+        "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.norm_eq_of_contract"
+      ],
+      "sha256": "e684550c248817ac77e03a23e0af86d3b2c7f3d8b09bcdb2385702624f5ebe6c",
+      "sha256_lf": "e684550c248817ac77e03a23e0af86d3b2c7f3d8b09bcdb2385702624f5ebe6c",
+      "sha256_raw": "e684550c248817ac77e03a23e0af86d3b2c7f3d8b09bcdb2385702624f5ebe6c",
+      "hash_policy": "sha256-lf-text-v1",
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+      "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "source_matches_frozen_snapshot": true,
+      "read_status": "Complete module, ambient definitions, theorem statements and proof bodies read as local text."
+    }
+  ],
+  "proposal_id": "0983ca7d-38f9-46d0-8920-b798e5c0cd7b",
+  "core_id": "candidate:0983ca7d-38f9-46d0-8920-b798e5c0cd7b",
+  "reference_answer": "Fix a word and let P_{A,k}=A_1^{s_1}...A_k^{s_k}, with P_{A,0}=I_1, and define P_{B,k} similarly. The dimensions are r_0 by r_k. The invariant is P_{B,k}=G_0^{-1}P_{A,k}G_k. At k=0 it is I_1=G_0^{-1}G_0. If it holds at k-1, associativity and the inverse identity give\nP_{B,k}=G_0^{-1}P_{A,k-1}G_{k-1}G_{k-1}^{-1}A_k^{s_k}G_k\n       =G_0^{-1}P_{A,k}G_k.\nNo matrices have been commuted. This proves the invariant for every prefix and every n. At k=n both endpoint gauges are I_1, so P_B(s)=P_A(s), and hence the scalar f(s) is unchanged. Summing its unchanged square over all 2^n words gives S_B=S_A; taking the nonnegative square root gives equal Euclidean norms. If that mass is positive, normalized amplitudes also agree, but normalization is neither needed nor defined for a zero train. If endpoint gauges were allowed to vary, the product would be G_0^{-1}P_A(s)G_n; in the scalar-boundary case this can rescale the amplitudes. Thus fixed endpoints remove that residual boundary action, although other correlated endpoint choices can also preserve a particular amplitude.\n\nFor the canonicality question put L=G_{j-1} and R=G_j at one core, and use L^{-T}=(L^{-1})^T. Transposition reverses the factors, so\nsum_s B_j^s(B_j^s)^T\n =L^{-1}[sum_s A_j^s R R^T (A_j^s)^T]L^{-T}.\nInvertibility only supplies R R^{-1}=I, not R R^T=I; the inner row-Gram expression is therefore not generally the original one. Exact cancellation between adjacent cores is a different property from preservation of each core's row inner products.\n\nFor a counterexample choose n=2 and r_0=r_1=r_2=1. Let A_1^0=A_2^0=[1] and A_1^1=A_2^1=[0]. Both local row-Grams are [1], and the only nonzero amplitude is f(0,0)=1, so S=1. With G_1=[2] the transformed zero slices are B_1^0=[2] and B_2^0=[1/2], while the one slices stay zero. Their row-Grams are [4] and [1/4], so neither core is right-canonical. Nevertheless their 00 product is [1] and all other amplitudes are zero, exactly as predicted.\n\nIf every internal G_j is orthogonal, the endpoint identities are orthogonal too. In the displayed transformed Gram formula, R R^T=I and, for an originally right-canonical core, the bracket equals I. Since L^{-1}=L^T, the result is L^T L=I. This holds at every core, so the entire transformed train remains right-canonical. It is a sufficient condition uniform over canonical inputs; the example only refutes preservation by arbitrary invertible gauges. It does not prove an if-and-only-if criterion for one fixed train. For instance, if the preceding core never reaches a bond direction, a gauge may act nonorthogonally on that unused direction; the appropriate fixed-train test remains the displayed local Gram equations, not invertibility alone.\n\nFor n=0 there is one empty word and its amplitude is 1, so S=1; there are no core conditions or internal gauges. For n=1 there are no internal gauges and the sole core is unchanged. If an internal bond has dimension zero, any complete product crossing it is zero, so every scalar amplitude and the mass are zero. The same inverse/associativity argument holds on the zero space and uses no positive-state premise. Such a train cannot have every core right-canonical with the external left dimension one: at the first zero bond the incoming positive-dimensional row space would have zero output width and a zero row-Gram, which cannot be its identity. This does not undermine gauge invariance, whose hypotheses never assumed canonicality or nonzero mass. Gauge transformations preserve the typed bond dimensions; no claim of minimal rank or numerical conditioning follows.",
+  "rubric": [
+    {
+      "id": "C2-r1",
+      "weight": 3,
+      "criterion": "Proves the correctly oriented prefix invariant P_B,k=G_0^{-1}P_A,k G_k by a valid base case and inductive adjacent cancellation. Award 1 for the invariant, 1 for the base/dimensions, 1 for the inductive step; reversing gauges or commuting noncommuting matrices loses the affected credit."
+    },
+    {
+      "id": "C2-r2",
+      "weight": 2,
+      "criterion": "Uses both endpoint identities to obtain exact scalar-amplitude equality, then mass and norm equality. Award 1 for endpoint/amplitude reasoning and 1 for summing squares and the square root, without normalizing a zero state."
+    },
+    {
+      "id": "C2-r3",
+      "weight": 2,
+      "criterion": "Derives the transformed local row-Gram L^{-1}[sum_s A_s RR^T A_s^T]L^{-T} and explains why invertibility alone is insufficient. Award 1 for the formula and 1 for identifying the transpose-versus-inverse issue."
+    },
+    {
+      "id": "C2-r4",
+      "weight": 2,
+      "criterion": "Gives a complete legal two-core canonical input with an invertible nonorthogonal gauge, computes failed local canonicality and unchanged amplitudes, and proves preservation under orthogonal gauges. Award 1 for the actual counterexample calculations and 1 for the conditional proof."
+    },
+    {
+      "id": "C2-r5",
+      "weight": 1,
+      "criterion": "Treats at least the empty/single-core cases and the zero-bond/zero-state boundary consistently, and does not promote orthogonality to a necessary condition for every fixed train."
+    }
+  ],
+  "common_errors": [
+    "Writing B_j=G_{j-1}A_jG_j^{-1} but attempting to prove the opposite convention without changing the invariant.",
+    "Replacing G_j G_j^T by identity merely from invertibility.",
+    "Inferring local canonicality from equality of the whole scalar amplitude vector.",
+    "Assuming the first-core-first word order changes under internal gauges.",
+    "Dividing a zero train by its norm or rejecting all zero-dimensional linear algebra as undefined."
+  ],
+  "boundary_cases": [
+    {
+      "case": "n=0",
+      "resolution": "One empty word, identity scalar amplitude 1, mass 1, no internal transformations."
+    },
+    {
+      "case": "n=1",
+      "resolution": "No internal gauges; every core slice is unchanged."
+    },
+    {
+      "case": "An internal dimension is zero",
+      "resolution": "Complete scalar contractions vanish. Gauge invariance still holds; a fully canonical scalar-left train with such a bond is infeasible."
+    },
+    {
+      "case": "Nonorthogonal gauge",
+      "resolution": "May break canonicality, as the explicit two-scalar-core example shows. It does not universally have to break a given train."
+    },
+    {
+      "case": "Unfixed external gauges",
+      "resolution": "Only the conjugated/rescaled boundary action is guaranteed; exact unchanged amplitude no longer follows from internal cancellation alone."
+    }
+  ],
+  "difficulty": {
+    "D0": {
+      "facet": "An internal basis change cancels in complete contractions, while orthonormality is a metric property of each local core.",
+      "adds_core": false
+    },
+    "construction_band": "D4",
+    "status": "provisional_mathematical_route_annotation_not_measured_difficulty",
+    "rationale": "The central target is a prefix invariant proved for arbitrary chain length and all emitted words; the proof then contrasts global amplitude preservation with local Gram conditions. The all-length invariant, not node count, motivates D4.",
+    "taxonomy_source": "benchmarks/quantumcomputingbench/tracks/lean/COURSE.md:19-30",
+    "D1_D4_context": {
+      "D1": "Precise statement reading and a disclosed library application.",
+      "D2": "Local symbolic construction and entry/sum reasoning.",
+      "D3": "Joining mathematical interfaces with every AND premise preserved.",
+      "D4": "Parametric induction and global invariant/representation or degree control."
+    },
+    "shortcut_disclosure": "Supplying the full target theorem could reduce this to a library application; the question instead requests the stated derivation. Graph distance, source length and node count do not measure this band.",
+    "model_calibration": "unmeasured"
+  },
+  "reasoning_map": {
+    "kind": "author_supplied_natural_language",
+    "not_extracted_lean_dependencies": true,
+    "inputs": [
+      {
+        "id": "C2-I1",
+        "statement": "Finite real core slices, dimensions r_j and first-core-first products with scalar external bonds.",
+        "kind": "assumption"
+      },
+      {
+        "id": "C2-I2",
+        "statement": "Internal G_j are invertible and G_0=G_n=I_1; B_j^s=G_{j-1}^{-1}A_j^sG_j.",
+        "kind": "assumption"
+      },
+      {
+        "id": "C2-I3",
+        "statement": "S is the full finite word sum of squared scalar amplitudes and norm=sqrt(S).",
+        "kind": "convention"
+      },
+      {
+        "id": "C2-I4",
+        "statement": "For the conditional canonicality claim, sum_s A_j^s(A_j^s)^T=I at each core.",
+        "kind": "assumption"
+      },
+      {
+        "id": "C2-I5",
+        "statement": "For the sufficient-condition branch, every internal G_j is orthogonal.",
+        "kind": "assumption"
+      }
+    ],
+    "steps": [
+      {
+        "id": "C2-S1",
+        "claim": "Prove the prefix gauge invariant.",
+        "assumptions": [
+          "Correct dimensions and adjacent inverses."
+        ],
+        "required_inputs": [
+          "C2-I1",
+          "C2-I2"
+        ],
+        "conclusion": "P_B,k=G_0^{-1}P_A,k G_k for 0<=k<=n.",
+        "justification": "Induct on k; base is the identity and the step cancels G_{k-1}G_{k-1}^{-1} by associativity."
+      },
+      {
+        "id": "C2-S2",
+        "claim": "Recover exact full scalar amplitudes.",
+        "assumptions": [
+          "Both external gauges are identity."
+        ],
+        "required_inputs": [
+          "C2-S1",
+          "C2-I1",
+          "C2-I2"
+        ],
+        "conclusion": "For every word, f_B(s)=f_A(s).",
+        "justification": "Take k=n in the prefix invariant and apply the two endpoint identities."
+      },
+      {
+        "id": "C2-S3",
+        "claim": "Recover mass and norm.",
+        "assumptions": [
+          "No nonzero assumption is needed for sums of squares or the nonnegative square root."
+        ],
+        "required_inputs": [
+          "C2-S2",
+          "C2-I3"
+        ],
+        "conclusion": "S_B=S_A and sqrt(S_B)=sqrt(S_A).",
+        "justification": "Substitute amplitude equality into each finite summand and take the same square root."
+      },
+      {
+        "id": "C2-S4",
+        "claim": "Compute the transformed local row-Gram.",
+        "assumptions": [
+          "Real transpose reverses factor order."
+        ],
+        "required_inputs": [
+          "C2-I1",
+          "C2-I2"
+        ],
+        "conclusion": "Gram(B_j)=G_{j-1}^{-1}[sum_s A_j^s G_jG_j^T(A_j^s)^T]G_{j-1}^{-T}.",
+        "justification": "Expand each B_j^s(B_j^s)^T and pull out the factors independent of s."
+      },
+      {
+        "id": "C2-S5",
+        "claim": "Prove the orthogonal-gauge sufficient condition.",
+        "assumptions": [
+          "Original train is right-canonical; gauges including endpoints are orthogonal."
+        ],
+        "required_inputs": [
+          "C2-S4",
+          "C2-I2",
+          "C2-I4",
+          "C2-I5"
+        ],
+        "conclusion": "Every transformed local Gram is identity.",
+        "justification": "Use G_jG_j^T=I, then original canonicality, then G_{j-1}^{-1}G_{j-1}^{-T}=I."
+      },
+      {
+        "id": "C2-S6",
+        "claim": "Refute unrestricted canonicality preservation while confirming global invariance.",
+        "assumptions": [
+          "n=2, all bonds one, A_j^0=1, A_j^1=0 and G_1=2 are legal inputs."
+        ],
+        "required_inputs": [
+          "C2-I1",
+          "C2-I2",
+          "C2-I3",
+          "C2-S2",
+          "C2-S4"
+        ],
+        "conclusion": "Input Grams are 1; output Grams are 4 and 1/4; the only nonzero scalar amplitude remains 1.",
+        "justification": "Direct substitution supplies an exact witness and uses both the amplitude and local-Gram branches."
+      },
+      {
+        "id": "C2-S7",
+        "claim": "Check empty and zero-dimensional cases.",
+        "assumptions": [
+          "Empty products/sums and zero vector spaces retain their specified linear-algebra meaning."
+        ],
+        "required_inputs": [
+          "C2-I1",
+          "C2-I2",
+          "C2-I3",
+          "C2-I4",
+          "C2-S1",
+          "C2-S3"
+        ],
+        "conclusion": "n=0 and n=1 have no internal change; a zero internal bond gives zero amplitudes and prevents full canonicality from scalar left boundary.",
+        "justification": "The unique empty word has identity contraction; a product through zero space is zero; the first zero bond cannot carry an isometry from its preceding positive-dimensional bond."
+      }
+    ],
+    "reused_results": [
+      {
+        "id": "prefix-gauge-invariant",
+        "producer": "C2-S1",
+        "consumer_steps": [
+          "C2-S2",
+          "C2-S7"
+        ],
+        "status": "Original all-length NL derivation using the source contraction definition."
+      },
+      {
+        "id": "local-transformed-Gram",
+        "producer": "C2-S4",
+        "consumer_steps": [
+          "C2-S5",
+          "C2-S6"
+        ],
+        "status": "Original NL matrix calculation; no dedicated frozen gauge theorem is asserted."
+      }
+    ],
+    "reconvergent_branches": [
+      {
+        "branches": [
+          "C2-S1 -> C2-S2",
+          "C2-S4"
+        ],
+        "join": "C2-S6",
+        "why": "The concrete witness is checked against both exact global amplitude invariance and failed local metric invariance."
+      }
+    ],
+    "AND_join_policy": "Each required_inputs list is conjunctive and lists all input/result interfaces used at that step."
+  },
+  "overlap": {
+    "relationship": "Candidate distinct target pending semantic deduplication, not an allocated core.",
+    "related_cores": [
+      {
+        "core_id": "qcb-core-la-002",
+        "relationship": "Shares per-slice residual multiplication but asks a two-sided invertible all-chain gauge identity and canonicality counterexample, not one absorption identity.",
+        "known_split": "train"
+      },
+      {
+        "core_id": "qcb-core-sp-003",
+        "relationship": "Shares canonicalization context; does not reprove canonicalization existence or the normalized residual output promise.",
+        "known_split": "train"
+      },
+      {
+        "core_id": "qcb-core-sp-004",
+        "relationship": "Shares distinction between local canonicality and full mass; no canonicalization residual theorem is assumed here.",
+        "known_split": "train"
+      },
+      {
+        "core_id": "qcb-core-sp-009",
+        "relationship": "Shares local row-Gram interpretation, but no circuit isometry adapter is being assessed.",
+        "known_split": "train"
+      }
+    ],
+    "split_handling": "Unassigned pending whole-target and shared-subproof reconciliation; no train assignment or independent-test claim.",
+    "cohort_relationships": [
+      {
+        "slot": "C3",
+        "relationship": "Both use tensor contractions and row-Gram matrices. C2 gauges representations; C3 derives inner products and PSD. Shared notation is not whole-target equivalence."
+      }
+    ]
+  },
+  "unverified": [
+    "Original gauge theorem, counterexample and conditional orthogonal-preservation argument await distinct mathematical review.",
+    "The frozen source supplies contraction, canonicality and mass definitions, not a dedicated theorem for this full gauge question.",
+    "No kernel run, circuit synthesis, finite-bit stability, admission or measured model difficulty is claimed."
+  ],
+  "provenance": {
+    "author_identity": "/root/author_tensor_polynomial",
+    "authored_at": "2026-11-03",
+    "baseline_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+    "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+    "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+    "catalog_hash": "5269b9f2521e3bf14db293fea34895f6e44a387c2479c164407b4d16dd9a2247",
+    "coverage_plan_sha256": "c8e04a67b136ff80fa98c1563e61184e2a7c16c1042df6a00ec16387938d8c3d",
+    "inspection_method": "Static local source inspection and original natural-language mathematical derivation; no Lean execution.",
+    "inspected_sources": [
+      {
+        "path": "QuantumBlockEncoding/TensorTrainCanonical.lean",
+        "anchor": "Lines 18-47: real core/slice, ordered chain/word contraction and right-canonical row condition; lines 57-64: slice absorption; lines 119-168: boundary mass and canonical chain mass; entire 317-line module read.",
+        "declarations": [
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.Core",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.slice",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.Chain",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.Word",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.contract",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.RightCanonical",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.absorb_slice",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.chainMass",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.chainMass_eq",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.residual_mass"
+        ],
+        "sha256": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+        "sha256_lf": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+        "sha256_raw": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+        "hash_policy": "sha256-lf-text-v1",
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+        "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "source_matches_frozen_snapshot": true,
+        "read_status": "Complete module, ambient definitions, theorem statements and proof bodies read as local text."
+      },
+      {
+        "path": "QuantumBlockEncoding/TensorTrainNormEnvironment.lean",
+        "anchor": "Lines 17-37: full matrix Gram recursion and sum-over-word semantics including terminal labels; lines 39-75: scalar norm and target reindex adapter; entire 140-line module read.",
+        "declarations": [
+          "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.gram",
+          "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.gram_eq_sum",
+          "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.gram_scalar",
+          "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.norm_eq",
+          "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.norm_sq",
+          "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.norm_eq_of_contract"
+        ],
+        "sha256": "e684550c248817ac77e03a23e0af86d3b2c7f3d8b09bcdb2385702624f5ebe6c",
+        "sha256_lf": "e684550c248817ac77e03a23e0af86d3b2c7f3d8b09bcdb2385702624f5ebe6c",
+        "sha256_raw": "e684550c248817ac77e03a23e0af86d3b2c7f3d8b09bcdb2385702624f5ebe6c",
+        "hash_policy": "sha256-lf-text-v1",
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+        "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "source_matches_frozen_snapshot": true,
+        "read_status": "Complete module, ambient definitions, theorem statements and proof bodies read as local text."
+      }
+    ],
+    "suggested_reading": [
+      "TensorTrainCanonical.lean:18-47 for exact core orientation; :57-64 for right-bond multiplication."
+    ],
+    "imports_and_declaration_availability": [
+      {
+        "module": "QuantumBlockEncoding.TensorTrainCanonical",
+        "direct_imports": [
+          "QuantumBlockEncoding.ThinLQ",
+          "QuantumBlockEncoding.SequentialBondPreparation"
+        ],
+        "availability": "Core, slice, contract and RightCanonical are frozen nodes. Their imports are not claimed proof dependencies of the new gauge derivation."
+      },
+      {
+        "module": "QuantumBlockEncoding.TensorTrainNormEnvironment",
+        "direct_imports": [
+          "QuantumBlockEncoding.TensorTrainCanonical"
+        ],
+        "availability": "Scalar norm definition and sum-of-squares identity are present in the frozen snapshot."
+      }
+    ],
+    "conceptual_graph_relationships": [
+      {
+        "relation": "Gauge freedom and canonicalization are conceptually related representation operations; existence of a canonicalization theorem does not imply arbitrary gauges are canonical.",
+        "proof_arrow": false
+      }
+    ],
+    "justified_mathematical_dependencies": [
+      {
+        "producer": "TensorTrainCanonical.contract and slice",
+        "use": "The word contraction is exactly the ordered product used in the prefix induction."
+      },
+      {
+        "producer": "TensorTrainCanonical.RightCanonical",
+        "use": "Its A A^T identity is exactly the bit-summed row-Gram condition in the question."
+      },
+      {
+        "producer": "TensorTrainNormEnvironment.norm_sq",
+        "use": "Supports the scalar squared-mass interpretation; gauge invariance is independently derived pointwise."
+      }
+    ],
+    "licensing": {
+      "license": "MIT",
+      "path": "LICENSE",
+      "sha256_raw": "dff0cc0f36b869fa146c79c0de10d15a04259351e011e63c42c2ececb57fb1e3",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+      "external_sources": "None used; no paper-fidelity claim is inferred from a module header."
+    },
+    "graph_evidence_boundary": "Frozen graph records module imports and declaration ownership. This packet supplies natural-language mathematical dependencies; it does not extract proof-term dependencies.",
+    "review_status": "authored_pending_independent_content_bound_review",
+    "independent_review_performed": false,
+    "formal_execution": "not_run",
+    "baseline_access_evidence": {
+      "path": "evidence/access-baseline.json",
+      "status": "Read root-produced evidence of exact baseline checkout and no open contribution PR results; author did not independently query the remote."
+    },
+    "original_derivation_status": "Original NL derivation grounded in inspected definitions; no new formal theorem or proof-term dependency extraction.",
+    "baseline_related_item_read_status": "Read current LA002, SP003, SP004 and SP009 questions/answers and their target/support identities."
+  }
+}

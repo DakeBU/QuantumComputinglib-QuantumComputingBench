@@ -1,0 +1,641 @@
+{
+  "schema_version": "qcb.nl_intake_review.v1",
+  "reviewer": "/root/nonlean_audit_tensor",
+  "created_at_utc": "2026-11-04T08:55:34.769416+00:00",
+  "phase1_path": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/C-question-first.md",
+  "phase1_sha256": "cd17d3b37c0007cc06ab97c4fe25b8e5ddda1870faf143e79be33c7dcf7623b9",
+  "phase1_sealed_at_utc": "2026-11-04T08:50:23.933756+00:00",
+  "package_id": "99e830bd-e868-4c7c-947c-8187a63ce46a",
+  "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+  "actual_exposure_order": [
+    {
+      "phase": 1,
+      "read": "Repository instructions/protocols, C1-C4 question-only payloads, then the stated frozen source modules. Question-only metadata included author-supplied source_refs and node lists.",
+      "not_read": "No original answers, rubrics, reasoning maps, author self-reviews or previous intake reviews."
+    },
+    {
+      "phase": 2,
+      "write": "C-question-first.md and C-phase1-bindings.json were written and SHA256 sealed before opening originals."
+    },
+    {
+      "phase": 3,
+      "read": "Original qa/C1.json and C2.json; then a focused C2 answer/rubric read to recover tool truncation; then original C3 and C4 answer/rubric/map and metadata; then remaining C2-C4 provenance/difficulty fields. Frozen LICENSE was independently hashed and read.",
+      "not_read": "No original package self-reviews, prior review verdicts or other cohort answers were opened."
+    },
+    {
+      "phase": 4,
+      "write": "This comparison review and separate proposed clarification/notation artifacts."
+    }
+  ],
+  "independence_scope": "Question-first with frozen source access, not source-blind decoding. Reviewer did not author the supplied payloads. Package metadata saying reviews were pending was treated only as authoring-time metadata, not as evidence of correctness.",
+  "execution_limits": [
+    "Static source text and exact finite real mathematics only.",
+    "No Lean/compiler/generated Lean, models, installs, commits, pushes or website mutation performed.",
+    "No claim of exhaustive semantic deduplication, split admission, empirical difficulty, current build success, new formal closure or circuit/resource certification."
+  ],
+  "license_check": {
+    "source_path": "LICENSE",
+    "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+    "raw_sha256": "dff0cc0f36b869fa146c79c0de10d15a04259351e011e63c42c2ececb57fb1e3",
+    "all_payload_declared_license_hashes_match": true,
+    "license": "MIT",
+    "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+  },
+  "raw_payload_policy": "No raw package file was written, renamed, moved or deleted. Only new report/notation/addendum files were created outside the immutable package.",
+  "items": [
+    {
+      "slot": "C1",
+      "payload_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/qa/C1.json",
+      "payload_sha256": "6d1d47bda77a13c7781b076ffacf966d79ecce55e674209e77558d306af132b9",
+      "question_sha256": "5bf5f1b1c1c9fef2745ed19d82afb769865f4c9ba83230f9beee76dc6e62dc18",
+      "question_only_payload_sha256": "51ebd95c8875a3e72ded0a3edbc9e1b1bdc4a5f0a72a52f873c71a9a84ec41f4",
+      "question_matches_phase1": true,
+      "verdict": "accept_with_limitations",
+      "reasoning": "The exact binomial/Taylor coefficient formula agrees with my sealed independent expansion. Finite-inner factors exist for arbitrary outer sets; each column lies in the span of d+1 explicit functions. Zero/constant polynomials and empty/infinite outer sets are handled correctly. The answer explicitly discloses that the frozen Lean rank lemmas require finite columns, while the unrestricted column-span claim is an independently justified NL extension.",
+      "independent_derivation": {
+        "path": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/C-question-first.md",
+        "section": "C1",
+        "relationship": "Compared after phase-one file was sealed; no reference answer was available to the derivation phase."
+      },
+      "source_checks": [
+        {
+          "path": "QuantumBlockEncoding/HermiteCutRank.lean",
+          "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+          "raw_sha256": "c0f038bd889c77163967c71df5f5987082f4b79ab7db2b7822efcdda7234aaf2",
+          "lf_sha256": "c0f038bd889c77163967c71df5f5987082f4b79ab7db2b7822efcdda7234aaf2",
+          "all_declared_hashes_match": true,
+          "declared_source_scope_checked": true
+        }
+      ],
+      "reasoning_map_audit": [
+        {
+          "step": "C1-S1",
+          "required_inputs": [
+            "C1-I1"
+          ],
+          "AND_tail_checked_as_conjunctive": true,
+          "status": "pass",
+          "assessment": "Finite coefficient collection follows from the binomial theorem with degree padding; division by i! is correct in the optional derivative interpretation."
+        },
+        {
+          "step": "C1-S2",
+          "required_inputs": [
+            "C1-S1",
+            "C1-I2"
+          ],
+          "AND_tail_checked_as_conjunctive": true,
+          "status": "pass",
+          "assessment": "Both the shifted identity and the particular separated u,v are needed; substitution retains their row/column roles."
+        },
+        {
+          "step": "C1-S3",
+          "required_inputs": [
+            "C1-S2",
+            "C1-I3"
+          ],
+          "AND_tail_checked_as_conjunctive": true,
+          "status": "pass",
+          "assessment": "The entrywise separation and finite-inner-product convention jointly produce A:X x I, B:I x Y. No infinite sum is introduced."
+        },
+        {
+          "step": "C1-S4",
+          "required_inputs": [
+            "C1-S3",
+            "C1-I3"
+          ],
+          "AND_tail_checked_as_conjunctive": true,
+          "status": "pass",
+          "assessment": "Finite width and the explicit algebraic-column-span convention jointly bound rank. A finite-matrix rank lemma alone would not cover arbitrary Y; the answer supplies the needed span proof."
+        },
+        {
+          "step": "C1-S5",
+          "required_inputs": [
+            "C1-I1",
+            "C1-I2",
+            "C1-I3",
+            "C1-S3",
+            "C1-S4"
+          ],
+          "AND_tail_checked_as_conjunctive": true,
+          "status": "pass",
+          "assessment": "The factors/rank bound with the degree convention support the size explanation and degeneracies. All listed inputs are sufficient; no exact-rank conclusion is inferred."
+        }
+      ],
+      "rubric_audit": {
+        "ids": [
+          "C1-r1",
+          "C1-r2",
+          "C1-r3",
+          "C1-r4"
+        ],
+        "weight_sum": 10,
+        "assessment": "Coefficient, factor and span credit match the requested proof. The general algebraic span route is accepted without imposing finite rows/columns. The explicit-boundary point has a minor fairness clarification in the addendum; no mathematical target repair is needed."
+      },
+      "limitations": [
+        "The frozen formal rank corollaries require finite columns; infinite-array column rank is justified here as NL algebra, not a changed Lean signature.",
+        "One rubric point explicitly asks for a boundary/degeneracy statement beyond the short question wording. Credit a general proof that covers these cases even without a separately named example."
+      ],
+      "issues": [
+        {
+          "id": "C1-RUBRIC-BOUNDARY-SCOPE",
+          "severity": "low",
+          "blocking": false,
+          "location": "rubric C1-r4, final 1 of 10 points",
+          "finding": "The short question asks degree/outer-size control but does not explicitly request a named degenerate-case example. Requiring an extra example can undercredit a complete proof valid on all stated cases.",
+          "proposed_correction": "Use the separate grading clarification: a general argument valid for zero/constant/empty cases earns this credit even if the solver does not name a boundary example."
+        }
+      ],
+      "substantive_mathematical_blocker": false,
+      "mathematical_answer_correction_required": false
+    },
+    {
+      "slot": "C2",
+      "payload_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/qa/C2.json",
+      "payload_sha256": "dbe542a555a13baf4ca958f270b0e2257bf87cd656e2af47606d5c6765b263d1",
+      "question_sha256": "267dd3396f5543531d781e4b6611d46d5c4348947b9f8e8ddd1baffd71b7cb2e",
+      "question_only_payload_sha256": "4fb2e6eedb946fc6a3c5d2908c6cc3fa2439804326d3a9901098cfbdfd3ba054",
+      "question_matches_phase1": true,
+      "verdict": "accept_with_limitations",
+      "reasoning": "My independent prefix induction, local-Gram computation and two-core witness coincide with the reference mathematics. Backwards canonical-row equations prove the orthogonal-gauge converse even with deficient or zero-dimensional bonds; no full-rank or nonzero premise is inserted. Exact endpoints remove residual boundary action; n=0, n=1 and infeasibility of fully canonical scalar-left zero-bond trains are stated correctly.",
+      "independent_derivation": {
+        "path": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/C-question-first.md",
+        "section": "C2",
+        "relationship": "Compared after phase-one file was sealed; no reference answer was available to the derivation phase."
+      },
+      "source_checks": [
+        {
+          "path": "QuantumBlockEncoding/TensorTrainCanonical.lean",
+          "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+          "raw_sha256": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+          "lf_sha256": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+          "all_declared_hashes_match": true,
+          "declared_source_scope_checked": true
+        },
+        {
+          "path": "QuantumBlockEncoding/TensorTrainNormEnvironment.lean",
+          "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+          "raw_sha256": "e684550c248817ac77e03a23e0af86d3b2c7f3d8b09bcdb2385702624f5ebe6c",
+          "lf_sha256": "e684550c248817ac77e03a23e0af86d3b2c7f3d8b09bcdb2385702624f5ebe6c",
+          "all_declared_hashes_match": true,
+          "declared_source_scope_checked": true
+        }
+      ],
+      "reasoning_map_audit": [
+        {
+          "step": "C2-S1",
+          "required_inputs": [
+            "C2-I1",
+            "C2-I2"
+          ],
+          "AND_tail_checked_as_conjunctive": true,
+          "status": "pass",
+          "assessment": "Dimensions and the chosen two-sided gauge convention jointly give the prefix invariant by adjacent inverse cancellation. The k=0 base is correct."
+        },
+        {
+          "step": "C2-S2",
+          "required_inputs": [
+            "C2-S1",
+            "C2-I1",
+            "C2-I2"
+          ],
+          "AND_tail_checked_as_conjunctive": true,
+          "status": "pass",
+          "assessment": "Full contraction equality uses the prefix invariant AND both fixed endpoint identities. A prefix alone or one endpoint alone would not suffice."
+        },
+        {
+          "step": "C2-S3",
+          "required_inputs": [
+            "C2-S2",
+            "C2-I3"
+          ],
+          "AND_tail_checked_as_conjunctive": true,
+          "status": "pass",
+          "assessment": "Exact amplitude equality AND the finite squared-mass definition give identical sums and square roots, including zero mass."
+        },
+        {
+          "step": "C2-S4",
+          "required_inputs": [
+            "C2-I1",
+            "C2-I2"
+          ],
+          "AND_tail_checked_as_conjunctive": true,
+          "status": "pass",
+          "assessment": "Transposition reverses factors and yields R R^T inside, not R R^{-1}; matrix sizes agree at both bonds."
+        },
+        {
+          "step": "C2-S5",
+          "required_inputs": [
+            "C2-S4",
+            "C2-I2",
+            "C2-I4",
+            "C2-I5"
+          ],
+          "AND_tail_checked_as_conjunctive": true,
+          "status": "pass",
+          "assessment": "The transformed Gram formula, original canonicality AND orthogonality including fixed endpoints jointly imply B canonical. Invertibility is not substituted for orthogonality."
+        },
+        {
+          "step": "C2-S5b",
+          "required_inputs": [
+            "C2-S4",
+            "C2-I2",
+            "C2-I4",
+            "C2-I6"
+          ],
+          "AND_tail_checked_as_conjunctive": true,
+          "status": "pass",
+          "assessment": "Both original and transformed full canonicality AND terminal fixing are present. Backwards induction forces G_{j-1}G_{j-1}^T=I without cancelling a core or adding a rank premise."
+        },
+        {
+          "step": "C2-S6",
+          "required_inputs": [
+            "C2-I1",
+            "C2-I2",
+            "C2-I3",
+            "C2-S2",
+            "C2-S4"
+          ],
+          "AND_tail_checked_as_conjunctive": true,
+          "status": "pass",
+          "assessment": "The specified legal witness is computed using both the global-amplitude and local-Gram branches: original Grams 1, transformed Grams 4 and 1/4, amplitude 00 unchanged at 1. Its explicit witness assumptions instantiate the general inputs."
+        },
+        {
+          "step": "C2-S7",
+          "required_inputs": [
+            "C2-I1",
+            "C2-I2",
+            "C2-I3",
+            "C2-I4",
+            "C2-S1",
+            "C2-S3"
+          ],
+          "AND_tail_checked_as_conjunctive": true,
+          "status": "pass_with_scope_note",
+          "assessment": "The written boundary arguments are correct. The combined node includes optional original-canonicality input I4 even though unconditional zero-bond amplitude/mass invariance needs no I4. Split the node in a presentation addendum if using the graph to explain unconditional coverage; a full canonical scalar-left zero-bond train cannot exist."
+        }
+      ],
+      "rubric_audit": {
+        "ids": [
+          "C2-r1",
+          "C2-r2",
+          "C2-r3",
+          "C2-r4",
+          "C2-r5"
+        ],
+        "weight_sum": 10,
+        "assessment": "All requested tasks are covered: all-length invariant, endpoints/mass/norm, transformed Gram, legal counterexample, both directions of the orthogonal characterization and exact boundary cases. Nonzero or full-rank premises are rightly disallowed."
+      },
+      "limitations": [
+        "No named frozen Lean gauge-invariance or orthogonality-necessity theorem is claimed or compiled by this review.",
+        "The boundary-map node bundles optional canonicality into unconditional invariance coverage; see the separate proposed presentation addendum."
+      ],
+      "issues": [
+        {
+          "id": "C2-MAP-BOUNDARY-SCOPE",
+          "severity": "low",
+          "blocking": false,
+          "location": "reasoning_map C2-S7.required_inputs",
+          "finding": "Optional original-canonicality input C2-I4 is in the combined node for unconditional n=0/n=1/zero-bond invariance and conditional canonicality impossibility. Its AND scope should not be inherited by the unconditional coverage.",
+          "proposed_correction": "Split into an unconditional invariance boundary node without I4 and a separate canonicality-impossibility node; keep the original immutable."
+        }
+      ],
+      "substantive_mathematical_blocker": false,
+      "mathematical_answer_correction_required": false
+    },
+    {
+      "slot": "C3",
+      "payload_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/qa/C3.json",
+      "payload_sha256": "c635422213fb601413c8a270169aabc91837961ac555213588c8404fdae82f9d",
+      "question_sha256": "776439a16abc8b20a757a0dc1e0a238a6defc29cf18d1dfb51cecf158a12720b",
+      "question_only_payload_sha256": "9fbeae49b9aa561eca3952bc53e9f2a6489e7b76a644437ffe8dfeb56e19276e",
+      "question_matches_phase1": true,
+      "verdict": "accept_with_limitations",
+      "reasoning": "The backwards suffix invariant, terminal-index sum and flattened H=U_A U_B^T representation match the independent derivation. The arbitrary-boundary bilinear form specializes to a symmetric PSD same-train Gram matrix with exactly the emitted-map kernel. The negative scalar cross example is valid, and every empty/zero-dimensional case is consistent. No canonicality or positive-mass assumption enters.",
+      "independent_derivation": {
+        "path": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/C-question-first.md",
+        "section": "C3",
+        "relationship": "Compared after phase-one file was sealed; no reference answer was available to the derivation phase."
+      },
+      "source_checks": [
+        {
+          "path": "QuantumBlockEncoding/TensorTrainNormEnvironment.lean",
+          "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+          "raw_sha256": "e684550c248817ac77e03a23e0af86d3b2c7f3d8b09bcdb2385702624f5ebe6c",
+          "lf_sha256": "e684550c248817ac77e03a23e0af86d3b2c7f3d8b09bcdb2385702624f5ebe6c",
+          "all_declared_hashes_match": true,
+          "declared_source_scope_checked": true
+        },
+        {
+          "path": "QuantumBlockEncoding/TensorTrainCanonical.lean",
+          "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+          "raw_sha256": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+          "lf_sha256": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+          "all_declared_hashes_match": true,
+          "declared_source_scope_checked": true
+        }
+      ],
+      "reasoning_map_audit": [
+        {
+          "step": "C3-S1",
+          "required_inputs": [
+            "C3-I1",
+            "C3-I2",
+            "C3-I5"
+          ],
+          "AND_tail_checked_as_conjunctive": true,
+          "status": "pass",
+          "assessment": "Matched physical/terminal labels, the rectangular update AND one empty-word base are all retained. The step uses A times H times B^T, preserving distinct internal dimensions."
+        },
+        {
+          "step": "C3-S2",
+          "required_inputs": [
+            "C3-S1",
+            "C3-I1",
+            "C3-I5"
+          ],
+          "AND_tail_checked_as_conjunctive": true,
+          "status": "pass",
+          "assessment": "The suffix invariant AND product-entry convention produce a sum over every terminal b; the flattening uses shared coordinates (word,b)."
+        },
+        {
+          "step": "C3-S3",
+          "required_inputs": [
+            "C3-S2",
+            "C3-I3"
+          ],
+          "AND_tail_checked_as_conjunctive": true,
+          "status": "pass",
+          "assessment": "The full cross representation AND arbitrary boundary contractions yield v^T H_0 w by finite rearrangement, without normalization or sign restrictions."
+        },
+        {
+          "step": "C3-S4",
+          "required_inputs": [
+            "C3-S2",
+            "C3-S3",
+            "C3-I3",
+            "C3-I4"
+          ],
+          "AND_tail_checked_as_conjunctive": true,
+          "status": "pass",
+          "assessment": "Identical trains AND the boundary pairing are needed to turn the bilinear form into a sum of squares. Symmetry follows from U U^T; the argument does not transfer PSD to distinct trains."
+        },
+        {
+          "step": "C3-S5",
+          "required_inputs": [
+            "C3-S2",
+            "C3-S4",
+            "C3-I3",
+            "C3-I4"
+          ],
+          "AND_tail_checked_as_conjunctive": true,
+          "status": "pass",
+          "assessment": "The representation, identical-train specialization AND quadratic identity prove both kernel directions. Zero quadratic form is justified through a finite sum of nonnegative squares, not an unsupported implication for an arbitrary matrix."
+        },
+        {
+          "step": "C3-S6",
+          "required_inputs": [
+            "C3-I1",
+            "C3-I2",
+            "C3-S2"
+          ],
+          "AND_tail_checked_as_conjunctive": true,
+          "status": "pass",
+          "assessment": "The distinct-train witness deliberately lacks I4: scalar cross environment -1 has negative quadratic form at 1, so it refutes square cross-PSD legally."
+        },
+        {
+          "step": "C3-S7",
+          "required_inputs": [
+            "C3-I1",
+            "C3-I2",
+            "C3-I3",
+            "C3-I4",
+            "C3-I5",
+            "C3-S1",
+            "C3-S3",
+            "C3-S4",
+            "C3-S5"
+          ],
+          "AND_tail_checked_as_conjunctive": true,
+          "status": "pass_with_scope_note",
+          "assessment": "Every reference-answer empty/zero case is correct. I4 and same-train S4/S5 are unnecessary for the cross-environment empty/zero identities but appear in this bundled AND-tail. A separate unconditional cross node and same-train kernel node would preserve the intended quantifier scope more clearly."
+        }
+      ],
+      "rubric_audit": {
+        "ids": [
+          "C3-r1",
+          "C3-r2",
+          "C3-r3",
+          "C3-r4",
+          "C3-r5"
+        ],
+        "weight_sum": 10,
+        "assessment": "Covers both word and terminal sums, arbitrary boundaries, symmetry/PSD, both kernel directions, distinct-train counterexample and empty/zero cases. No storage/runtime or circuit deliverable is required."
+      },
+      "limitations": [
+        "The rectangular two-train extension, PSD/kernel conclusions and arbitrary-boundary pairing are independently reviewed NL mathematics, not newly compiled Lean declarations.",
+        "The bundled boundary-map AND-tail is stronger than needed for its unconditional cross statements; see the separate proposed addendum."
+      ],
+      "issues": [
+        {
+          "id": "C3-MAP-BOUNDARY-SCOPE",
+          "severity": "low",
+          "blocking": false,
+          "location": "reasoning_map C3-S7.required_inputs",
+          "finding": "Same-train premise C3-I4 and S4/S5 are included in a combined boundary node, although n=0 and zero-bond cross identities hold for distinct trains as well.",
+          "proposed_correction": "Split unconditional cross boundary coverage from same-train Gram/kernel consequences in a separately labelled map addendum."
+        }
+      ],
+      "substantive_mathematical_blocker": false,
+      "mathematical_answer_correction_required": false
+    },
+    {
+      "slot": "C4",
+      "payload_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/qa/C4.json",
+      "payload_sha256": "169c92c69d5319c413c9ae91ad8207e70f7728859ae1b32ec51495b39da34f54",
+      "question_sha256": "ff9187905d07cd57e1adad33ff98abc17ff7c7c037ec8d7254ea176aa4d0a51e",
+      "question_only_payload_sha256": "d8055f623b417d5e5b05add0401332a9c43511b5b0f1668df32789995911a526",
+      "question_matches_phase1": true,
+      "verdict": "accept_with_limitations",
+      "reasoning": "The independent unit-weight, sample-norm and reverse-triangle chain agrees with the answer. Every normalization premise is checked before invocation. The epsilon condition also supplies strict nonzeroness because epsilon<2, sampled endpoints certify a^2, and the explicit small-mass family satisfies even the strict perturbation premise while maintaining a fixed positive normalized error. Signs, d=0, eta=0, zero sampled mass and contradictory M=0 mass assumptions are treated correctly.",
+      "independent_derivation": {
+        "path": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/C-question-first.md",
+        "section": "C4",
+        "relationship": "Compared after phase-one file was sealed; no reference answer was available to the derivation phase."
+      },
+      "source_checks": [
+        {
+          "path": "QuantumBlockEncoding/HermiteBernstein.lean",
+          "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+          "raw_sha256": "661618d9c10826491ee293c7c411ac2d55056426739f4bbfd3e7c410c05e4bff",
+          "lf_sha256": "661618d9c10826491ee293c7c411ac2d55056426739f4bbfd3e7c410c05e4bff",
+          "all_declared_hashes_match": true,
+          "declared_source_scope_checked": true
+        },
+        {
+          "path": "QuantumBlockEncoding/RealAmplitudePreparation.lean",
+          "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+          "raw_sha256": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+          "lf_sha256": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+          "all_declared_hashes_match": true,
+          "declared_source_scope_checked": true
+        }
+      ],
+      "reasoning_map_audit": [
+        {
+          "step": "C4-S1",
+          "required_inputs": [
+            "C4-I1",
+            "C4-I4"
+          ],
+          "AND_tail_checked_as_conjunctive": true,
+          "status": "pass",
+          "assessment": "Nonnegative powers on [0,1] and the binomial theorem jointly establish nonnegative unit weights, including endpoints and d=0 with 0^0=1."
+        },
+        {
+          "step": "C4-S2",
+          "required_inputs": [
+            "C4-S1",
+            "C4-I1",
+            "C4-I2"
+          ],
+          "AND_tail_checked_as_conjunctive": true,
+          "status": "pass",
+          "assessment": "The basis properties AND each coefficient error bound yield eta, without a spurious degree factor or a coefficient-positivity premise."
+        },
+        {
+          "step": "C4-S3",
+          "required_inputs": [
+            "C4-S2",
+            "C4-I1",
+            "C4-I2",
+            "C4-I4"
+          ],
+          "AND_tail_checked_as_conjunctive": true,
+          "status": "pass",
+          "assessment": "Finite common sample labels AND coordinate bounds yield M eta^2 and eta sqrt(M), counting repeated samples."
+        },
+        {
+          "step": "C4-S4",
+          "required_inputs": [
+            "C4-I1",
+            "C4-I3",
+            "C4-I4"
+          ],
+          "AND_tail_checked_as_conjunctive": true,
+          "status": "pass",
+          "assessment": "Positive sampled mass and the empty-sample convention imply both nonzero x and M>=1. No endpoint promise or coefficient sign is needed."
+        },
+        {
+          "step": "C4-S5",
+          "required_inputs": [
+            "C4-S3",
+            "C4-S4",
+            "C4-I3"
+          ],
+          "AND_tail_checked_as_conjunctive": true,
+          "status": "pass",
+          "assessment": "The error bound, positive original norm AND strict comparison give a strictly positive lower bound for y by reverse triangle inequality."
+        },
+        {
+          "step": "C4-S6",
+          "required_inputs": [
+            "C4-I1",
+            "C4-I4",
+            "C4-I5",
+            "C4-S3",
+            "C4-S4",
+            "C4-S5"
+          ],
+          "AND_tail_checked_as_conjunctive": true,
+          "status": "pass",
+          "assessment": "The conjunctive tail contains the supplied normalization theorem, common finite Euclidean space, raw-error bound, original norm bound AND nonzero y. No missing nonzero or denominator premise remains."
+        },
+        {
+          "step": "C4-S7",
+          "required_inputs": [
+            "C4-I3",
+            "C4-I6",
+            "C4-S4",
+            "C4-S5",
+            "C4-S6"
+          ],
+          "AND_tail_checked_as_conjunctive": true,
+          "status": "pass_with_scope_note",
+          "assessment": "The actual proof derives delta<=epsilon sqrt(m)/2<sqrt(m), so the sufficient precision condition independently gives nonzero y. The map additionally lists I3, whose bundled strict-small-error premise is redundant for this branch; display positive mass separately from that strict premise if the graph is intended to show that precision itself supplies strictness."
+        },
+        {
+          "step": "C4-S8",
+          "required_inputs": [
+            "C4-I1",
+            "C4-I4",
+            "C4-I7"
+          ],
+          "AND_tail_checked_as_conjunctive": true,
+          "status": "pass",
+          "assessment": "Actual endpoint inclusion AND a quantitative magnitude a>0 are both present. Endpoints identify c_0 or c_d and one squared sample yields a^2, including degree zero."
+        },
+        {
+          "step": "C4-S9",
+          "required_inputs": [
+            "C4-I1",
+            "C4-I2",
+            "C4-I4",
+            "C4-S3",
+            "C4-S4",
+            "C4-S6",
+            "C4-S8"
+          ],
+          "AND_tail_checked_as_conjunctive": true,
+          "status": "pass",
+          "assessment": "The explicit family instantiates eta=a/2, m=a^2 and satisfies the strict premise a/sqrt(2)<a. Normalized distance sqrt(2-4/sqrt(5)) is fixed and positive. Its use of the main bound is comparison/reuse, not a hidden producer-answer dependency."
+        }
+      ],
+      "rubric_audit": {
+        "ids": [
+          "C4-r1",
+          "C4-r2",
+          "C4-r3",
+          "C4-r4",
+          "C4-r5"
+        ],
+        "weight_sum": 10,
+        "assessment": "Tracks the explicit requested error chain, every normalization premise, actionable epsilon precision, endpoint certificate, signed/empty cases and a genuine mass-dependent obstruction. It does not demand a proof of the explicitly supplied normalization lemma or a preparation cost claim."
+      },
+      "limitations": [
+        "The normalization-stability interface is explicitly supplied in this question; reviewing its use does not certify its producer slot or create an independent held-out claim.",
+        "RealAmplitudePreparation has qubit-indexed normalization semantics; arbitrary finite sample count and perturbation stability are NL arguments here.",
+        "The precision map can separate positive mass from the redundant bundled strict-error assumption to show sufficiency directly."
+      ],
+      "issues": [
+        {
+          "id": "C4-MAP-PRECISION-SCOPE",
+          "severity": "low",
+          "blocking": false,
+          "location": "reasoning_map C4-S7.required_inputs and C4-I3",
+          "finding": "The map retains I3 containing the strict small-error assumption when explaining that the epsilon precision condition itself guarantees that inequality and nonzero y. The reference proof does independently derive it correctly.",
+          "proposed_correction": "In a supplementary precision branch, use positive mass plus epsilon precision to produce strictness, then invoke the S5/S6 interfaces; separate the positive-mass and strict-error components of I3."
+        }
+      ],
+      "substantive_mathematical_blocker": false,
+      "mathematical_answer_correction_required": false
+    }
+  ],
+  "overall_verdict": "accept_with_limitations",
+  "substantive_blockers": [],
+  "proposed_addendum_path": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/C-review-addendum.json",
+  "handoff": {
+    "objective": "Independent C1-C4 mathematical/source audit with real question-first derivations and exact bindings.",
+    "mathematical_delta": "Verified unrestricted polynomial column-span rank, gauge orthogonality necessity, rectangular cross-Gram/kernel formulas and mass-sensitive Bernstein stability, while retaining their precise source/formal boundaries.",
+    "effect_on_root_frontier": "Supports supplemental-workbook exposition acceptance; does not allocate candidates, change splits or certify Lean roots.",
+    "failure_class": "NONE",
+    "salvage_audit": "No mathematical route retired. Minor scope clarifications proposed separately.",
+    "process_memory_ids_consulted": [],
+    "direction_fingerprint": "C1-C4-question-first-source-static-algebra-v1",
+    "expected_information_gain": "Independent falsification of gauge/cross-Gram/error-composition and edge-case claims, separate from package self-reviews.",
+    "parallel_admission": "Distinct C1-C4 task assigned by root; no further agents spawned.",
+    "common_blind_spot_review": "No competing proof routes were certified here; independent root integration review remains separate.",
+    "default_verified_route": "Question-first derivations in the sealed phase-one file. No claim of compiled formal verification.",
+    "purification_exposition_seal": "Pending root reader integration; no self-issued independent Exposition Seal.",
+    "residual_risk": "Static NL audit cannot certify toolchain/build success, held-out independence or complete source proof-term dependency extraction."
+  }
+}

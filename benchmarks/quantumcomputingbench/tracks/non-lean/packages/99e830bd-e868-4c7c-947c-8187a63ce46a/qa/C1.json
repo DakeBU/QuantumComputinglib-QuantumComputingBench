@@ -1,0 +1,311 @@
+{
+  "schema_version": "qcb.nonlean_cohort_payload.v1",
+  "slot": "C1",
+  "title": "Explicit shifted-polynomial factors and the degree-controlled rank bound",
+  "author": "/root/author_tensor_polynomial",
+  "contribution_type": "existing_core_view",
+  "core_id": "qcb-core-sp-114",
+  "contract_hash": "6e2d748a68eaa027d7f2a2b760f7eea213c3a9f48c6b1eda1d5c108347afef37",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "baseline_item_digest": "8692de94902e02e828e3bcd36f059d65ad388327e3f3824390ab974de1fa729b",
+  "mathematical_target": "Construct finite-width factors for q(u(x)+v(y)) and derive the algebraic rank bound without imposing finite row or column sets.",
+  "question": "Consider a bivariate real array F(x,y) = q(u(x) + v(y)), where q is a real polynomial of degree at most d and u, v are arbitrary real-valued functions of the row index x and column index y respectively. Prove that F factorizes as a matrix product A * B with inner dimension d+1, and conclude that the rank of F is at most d+1. Make explicit which polynomial identity provides the factorization and why only the degree of q — not the number of rows or columns — controls the inner dimension.",
+  "assumptions": [],
+  "conventions": [],
+  "family": "hermite-cut-rank",
+  "split": "dev",
+  "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "target_nodes": [
+    "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough",
+    "declaration:QuantumBlockEncoding.HermiteCutRank.polynomial_add_factorization",
+    "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough.rank_le",
+    "declaration:QuantumBlockEncoding.HermiteCutRank.polynomial_add_rank_le"
+  ],
+  "supporting_nodes": [],
+  "source_refs": [
+    {
+      "anchor": "lines 23-50: FactorsThrough F := exists A : Matrix a i R, B : Matrix i b R, F = A*B; FactorsThrough.rank_le : F.rank <= Fintype.card i; polynomial_add_factorization (p) (d) (hd: p.natDegree <= d) (u v) : FactorsThrough (i := Fin (d+1)) (fun x y => p.eval (u x + v y)) via A x i = (taylor (u x) p).coeff i, B i y = v y^i; polynomial_add_rank_le : rank <= d+1",
+      "license": "MIT (repository LICENSE)",
+      "path": "QuantumBlockEncoding/HermiteCutRank.lean",
+      "sha256": "c0f038bd889c77163967c71df5f5987082f4b79ab7db2b7822efcdda7234aaf2"
+    }
+  ],
+  "reference_answer": "Write q(z)=sum_{k=0}^d a_k z^k, padding with zero coefficients if its degree is smaller than d. Here d is a nonnegative integer, as required by the requested inner dimension. The zero polynomial is included by taking every a_k=0; no exact-degree or nonzero assumption is needed. For any real a and s the binomial theorem gives\nq(a+s)=sum_{k=0}^d a_k sum_{i=0}^k binom(k,i) a^{k-i}s^i\n       =sum_{i=0}^d [sum_{k=i}^d a_k binom(k,i)a^{k-i}]s^i.\nDefine c_i(a)=sum_{k=i}^d a_k binom(k,i)a^{k-i}. Equivalently c_i(a)=q^{(i)}(a)/i!: this is the exact shifted-polynomial Taylor identity, with no infinite series or remainder. It remains valid at a=0, since zeroth powers are 1, and all rearrangements are of finite sums.\n\nLet X and Y be the original row and column index sets, without adding finiteness assumptions. Take the inner index set I={0,...,d} and define A(x,i)=c_i(u(x)) and B(i,y)=v(y)^i. Matrix multiplication here sums only over I, so it is defined even when X or Y is infinite. For each x in X and y in Y,\n(AB)(x,y)=sum_{i=0}^d c_i(u(x))v(y)^i=q(u(x)+v(y))=F(x,y).\nThis supplies actual factors of the stated inner dimension, rather than merely asserting low rank.\n\nFor finite matrices, each column F(:,y) is a linear combination of the d+1 columns A(:,i), with coefficients B(i,y). Hence the column space of F is contained in their span, and rank F<=d+1. The same argument gives the algebraic column-rank interpretation for arbitrary index sets: regard columns as functions in the real vector space R^X, and take the dimension of the span of {F(:,y):y in Y}. It is a subspace of the span of d+1 explicitly exhibited functions. Equivalently every finite submatrix has rank at most d+1. The assertion does not require an infinite-dimensional Hilbert-space operator, convergence of an infinite sum, or an arbitrary infinite vector of column weights. Thus the unrestricted array question can be answered without silently imposing finite X and Y.\n\nOnly the d+1 possible powers of the shifted variable produce inner coordinates. Adding rows or columns changes where these factors are evaluated but does not create further shifted powers. Additivity separates u(x), which enters c_i, from v(y), which enters the monomial. The bound is an upper bound, not a universal equality or a minimum-width certificate: zero coefficients, repeated sample values or constant u or v can reduce the rank. For d=0, A(x,0)=a_0 and B(0,y)=1 give width one; the rank is zero if the array vanishes and at most one otherwise. Empty row or column sets have rank zero and the entrywise factorization is vacuous. No normalization, circuit construction or numerical evaluation cost follows from this algebraic factorization alone.",
+  "rubric": [
+    {
+      "id": "C1-r1",
+      "weight": 3,
+      "criterion": "Derives the exact finite shifted-polynomial identity, either by the binomial sum c_i(a)=sum_{k=i}^d a_k binom(k,i)a^(k-i) or by a justified finite Taylor formula. Award 1 for recognizing a polynomial in the shift of degree at most d, and the other 2 for correct coefficients and exactness without a remainder."
+    },
+    {
+      "id": "C1-r2",
+      "weight": 3,
+      "criterion": "Defines both factors with the correct index orientation A(x,i)=c_i(u(x)), B(i,y)=v(y)^i and verifies their product entry by entry. Award 1 for each correct factor and 1 for substitution proving equality."
+    },
+    {
+      "id": "C1-r3",
+      "weight": 2,
+      "criterion": "Derives rank<=d+1 from containment of the column span in the span of d+1 explicit functions (or a valid finite-matrix product rank theorem with the unrestricted case accounted for). Award 1 for the spanning mechanism and 1 for the dimension bound. Do not require an unstated finite-row assumption."
+    },
+    {
+      "id": "C1-r4",
+      "weight": 2,
+      "criterion": "Explains that polynomial degree controls width independently of row/column count, and that width is only an upper bound. Award 1 for the degree/size explanation and 1 for a correct zero, constant, empty-index or degeneracy boundary without changing the problem."
+    }
+  ],
+  "common_errors": [
+    "Using Taylor coefficients q^(i)(a) without dividing by i!.",
+    "Expanding about u(x) but evaluating coefficients at v(y), destroying the specified separation.",
+    "Treating a degree upper bound as exact rank, or claiming width d rather than d+1.",
+    "Adding finite row and column sets as new premises instead of using the finite inner sum and algebraic span argument.",
+    "Interpreting the factors as a circuit compiler or finite-bit complexity bound."
+  ],
+  "boundary_cases": [
+    {
+      "case": "q=0",
+      "resolution": "All factors A entries are zero; rank is zero. The requested d+1 width is still a valid witness."
+    },
+    {
+      "case": "d=0 or constant q",
+      "resolution": "The only inner index is 0 and v(y)^0=1, including v(y)=0."
+    },
+    {
+      "case": "Empty or infinite outer index sets",
+      "resolution": "The product still has only d+1 inner summands. Empty cases have rank zero; arbitrary outer sets use algebraic column span."
+    },
+    {
+      "case": "Repeated sample values or smaller actual degree",
+      "resolution": "Rank can be strictly smaller than the witness width."
+    }
+  ],
+  "difficulty": {
+    "D0": {
+      "facet": "Distinguish finite inner width from outer array size, and an algebraic rank upper bound from an equality or circuit-resource statement.",
+      "adds_core": false
+    },
+    "construction_band": "D3",
+    "status": "provisional_mathematical_route_annotation_not_measured_difficulty",
+    "rationale": "The route joins an exact shifted-polynomial representation, an entrywise factorization and the column-span rank interface. Degree control, finite inner indexing and variable separation must all survive that join; this is the existing course SP114 construction band.",
+    "taxonomy_source": "benchmarks/quantumcomputingbench/tracks/lean/COURSE.md:19-30",
+    "D1_D4_context": {
+      "D1": "Precise statement reading and a disclosed library application.",
+      "D2": "Local symbolic construction and entry/sum reasoning.",
+      "D3": "Joining mathematical interfaces with every AND premise preserved.",
+      "D4": "Parametric induction and global invariant/representation or degree control."
+    },
+    "shortcut_disclosure": "Supplying the full target theorem could reduce this to a library application; the question instead requests the stated derivation. Graph distance, source length and node count do not measure this band.",
+    "model_calibration": "unmeasured"
+  },
+  "reasoning_map": {
+    "kind": "author_supplied_natural_language",
+    "not_extracted_lean_dependencies": true,
+    "inputs": [
+      {
+        "id": "C1-I1",
+        "statement": "q is a real polynomial of degree at most the nonnegative integer d.",
+        "kind": "assumption"
+      },
+      {
+        "id": "C1-I2",
+        "statement": "u:X->R and v:Y->R are arbitrary functions; F(x,y)=q(u(x)+v(y)).",
+        "kind": "assumption"
+      },
+      {
+        "id": "C1-I3",
+        "statement": "Matrix multiplication over inner set {0,...,d} is a finite sum; for arbitrary outer sets algebraic rank is dimension of the column-function span.",
+        "kind": "convention"
+      }
+    ],
+    "steps": [
+      {
+        "id": "C1-S1",
+        "claim": "Produce the exact shifted coefficients.",
+        "assumptions": [
+          "Real polynomial, degree bound d."
+        ],
+        "required_inputs": [
+          "C1-I1"
+        ],
+        "conclusion": "For all real a,s, q(a+s)=sum_{i=0}^d c_i(a)s^i.",
+        "justification": "Finite binomial expansion and collection of equal powers; c_i(a)=sum_{k=i}^d a_k binom(k,i)a^(k-i)."
+      },
+      {
+        "id": "C1-S2",
+        "claim": "Separate the row and column variables.",
+        "assumptions": [
+          "The same q,u,v as in the question."
+        ],
+        "required_inputs": [
+          "C1-S1",
+          "C1-I2"
+        ],
+        "conclusion": "F(x,y)=sum_i c_i(u(x))v(y)^i.",
+        "justification": "Substitute a=u(x), s=v(y)."
+      },
+      {
+        "id": "C1-S3",
+        "claim": "Assemble actual factors and verify equality.",
+        "assumptions": [
+          "Finite inner sum, with no finiteness requirement on outer sets."
+        ],
+        "required_inputs": [
+          "C1-S2",
+          "C1-I3"
+        ],
+        "conclusion": "A(x,i)=c_i(u(x)), B(i,y)=v(y)^i satisfy F=AB with width d+1.",
+        "justification": "Unfold finite matrix multiplication entrywise."
+      },
+      {
+        "id": "C1-S4",
+        "claim": "Pass from the finite-width representation to rank.",
+        "assumptions": [
+          "Columns are real functions on X."
+        ],
+        "required_inputs": [
+          "C1-S3",
+          "C1-I3"
+        ],
+        "conclusion": "rank F<=d+1.",
+        "justification": "Every column of F lies in the span of the d+1 columns of A."
+      },
+      {
+        "id": "C1-S5",
+        "claim": "Explain degree control and degenerate boundaries.",
+        "assumptions": [
+          "d is only an upper degree bound; outer sets may be empty."
+        ],
+        "required_inputs": [
+          "C1-I1",
+          "C1-I2",
+          "C1-I3",
+          "C1-S3",
+          "C1-S4"
+        ],
+        "conclusion": "Width depends on d, while zero/constant/empty/repeated-value arrays may have smaller rank.",
+        "justification": "The finite powers determine I; no step uses an outer size, nonzero coefficient, distinct value or nonempty row/column premise."
+      }
+    ],
+    "reused_results": [
+      {
+        "id": "shifted-polynomial-identity",
+        "producer": "C1-S1",
+        "consumer_steps": [
+          "C1-S2"
+        ],
+        "status": "Derived explicitly in this answer; source polynomial_add_factorization uses the corresponding shifted-polynomial coefficient identity."
+      },
+      {
+        "id": "finite-width-column-span",
+        "producer": "C1-S3",
+        "consumer_steps": [
+          "C1-S4",
+          "C1-S5"
+        ],
+        "status": "Factorization witness reused for rank and boundary explanation."
+      }
+    ],
+    "reconvergent_branches": "none: the substantive proof is a sequential representation-to-rank route; final boundary discussion reuses established facts but is not an independent proof diamond.",
+    "AND_join_policy": "Each required_inputs list is conjunctive and lists all input/result interfaces used at that step."
+  },
+  "overlap": {
+    "relationship": "Exact same mathematical core as qcb-core-sp-114; this is an additive proposed view only.",
+    "educational_delta": "Makes the shifted coefficients explicit, proves the identity by finite binomial expansion, handles arbitrary outer index sets without strengthening premises, and distinguishes witness width from exact rank.",
+    "related_cores": [
+      {
+        "core_id": "qcb-core-sp-115",
+        "relationship": "Shares finite-width factorization vocabulary but assesses closure/threshold construction rather than this additive-polynomial factorization."
+      },
+      {
+        "core_id": "qcb-core-sp-117",
+        "relationship": "Consumes rank structure in a broader resource question; the current packet makes no compiler claim."
+      }
+    ],
+    "split_handling": "Inherits dev literally; no new core and no train exposure assignment.",
+    "semantic_reconciliation": "Broader family overlap remains subject to root reconciliation; no independent-held-out or novelty claim."
+  },
+  "unverified": [
+    "At authoring freeze, the proposed answer/rubric has not yet received distinct content-bound mathematical review.",
+    "No Lean execution, new formal view, stable-release admission or model calibration occurred.",
+    "The source rank theorem explicitly assumes a finite column type; the broader algebraic column-span explanation is an original NL justification of the existing unrestricted question, not a claim that the source theorem has a different signature."
+  ],
+  "provenance": {
+    "author_identity": "/root/author_tensor_polynomial",
+    "authored_at": "2026-11-03",
+    "baseline_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+    "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+    "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+    "catalog_hash": "5269b9f2521e3bf14db293fea34895f6e44a387c2479c164407b4d16dd9a2247",
+    "coverage_plan_sha256": "c8e04a67b136ff80fa98c1563e61184e2a7c16c1042df6a00ec16387938d8c3d",
+    "inspection_method": "Static local source inspection and original natural-language mathematical derivation; no Lean execution.",
+    "inspected_sources": [
+      {
+        "path": "QuantumBlockEncoding/HermiteCutRank.lean",
+        "anchor": "Lines 21-50: arbitrary row/column types, finite inner index, FactorsThrough and its rank theorem, Taylor factorization and rank corollary; entire 259-line module read.",
+        "declarations": [
+          "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough",
+          "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough.rank_le",
+          "declaration:QuantumBlockEncoding.HermiteCutRank.polynomial_add_factorization",
+          "declaration:QuantumBlockEncoding.HermiteCutRank.polynomial_add_rank_le"
+        ],
+        "sha256": "c0f038bd889c77163967c71df5f5987082f4b79ab7db2b7822efcdda7234aaf2",
+        "sha256_lf": "c0f038bd889c77163967c71df5f5987082f4b79ab7db2b7822efcdda7234aaf2",
+        "sha256_raw": "c0f038bd889c77163967c71df5f5987082f4b79ab7db2b7822efcdda7234aaf2",
+        "hash_policy": "sha256-lf-text-v1",
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+        "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "source_matches_frozen_snapshot": true,
+        "read_status": "Complete module, ambient definitions, theorem statements and proof bodies read as local text."
+      }
+    ],
+    "suggested_reading": [
+      "HermiteCutRank.lean:23-50 for the complete additive-polynomial interface."
+    ],
+    "imports_and_declaration_availability": [
+      {
+        "module": "QuantumBlockEncoding.HermiteCutRank",
+        "direct_imports": [
+          "QuantumBlockEncoding.HermitePolynomial",
+          "Mathlib.LinearAlgebra.Matrix.Rank",
+          "Mathlib.Algebra.Order.Floor.Semiring"
+        ],
+        "availability": "Named declarations present in the frozen snapshot; no imported theorem-body dependency claim."
+      }
+    ],
+    "conceptual_graph_relationships": [
+      {
+        "relation": "Finite-width polynomial separation is a conceptual prerequisite for structured state preparation.",
+        "proof_arrow": false
+      }
+    ],
+    "justified_mathematical_dependencies": [
+      {
+        "producer": "HermiteCutRank.polynomial_add_factorization",
+        "use": "Supports the finite inner-width Taylor witness; source has arbitrary outer index types."
+      },
+      {
+        "producer": "HermiteCutRank.FactorsThrough.rank_le and polynomial_add_rank_le",
+        "use": "Source rank corollaries have a finite column type; the answer independently supplies the algebraic span proof for arbitrary outer sets."
+      }
+    ],
+    "licensing": {
+      "license": "MIT",
+      "path": "LICENSE",
+      "sha256_raw": "dff0cc0f36b869fa146c79c0de10d15a04259351e011e63c42c2ececb57fb1e3",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+      "external_sources": "None used; no paper-fidelity claim is inferred from a module header."
+    },
+    "graph_evidence_boundary": "Frozen graph records module imports and declaration ownership. This packet supplies natural-language mathematical dependencies; it does not extract proof-term dependencies.",
+    "review_status": "authored_pending_independent_content_bound_review_at_authoring_freeze",
+    "independent_review_performed": false,
+    "formal_execution": "not_run",
+    "baseline_access_evidence": {
+      "path": "evidence/access-baseline.json",
+      "status": "Read root-produced evidence of exact baseline checkout and no open contribution PR results; author did not independently query the remote."
+    },
+    "immutable_contract_audit": "All nine fields copied programmatically from current-reader.json; core ID, contract hash, snapshot and baseline item digest copied from current-registry.json.",
+    "source_scope_note": "Immutable source_refs retained literally. Additional inspection detail is recorded here without changing their anchor or hash.",
+    "baseline_item_read_status": "Read the complete current SP114 question, answer, rubric, semantic steps and registry binding.",
+    "review_status_scope": "Authoring-freeze state only; later independent content-bound review and reconciliation decisions belong to the package manifest/proposal records."
+  }
+}

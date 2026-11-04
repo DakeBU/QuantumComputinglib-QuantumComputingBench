@@ -1,0 +1,486 @@
+{
+  "schema_version": "qcb.nonlean_cohort_payload.v1",
+  "slot": "C3",
+  "title": "Tensor-train cross environments, Gram positivity and arbitrary initial boundaries",
+  "author": "/root/author_tensor_polynomial",
+  "contribution_type": "new_candidate",
+  "mathematical_target": "Prove a two-train rectangular cross-environment identity for arbitrary length, specialize to the full positive-semidefinite Gram matrix, and derive cross-inner-products and initial-boundary mass without scalar-boundary or canonicality assumptions.",
+  "question": "Work over the real numbers. Let n>=0, let p_0,...,p_n and q_0,...,q_n be finite natural-number bond dimensions with p_n=q_n=r, and let A_j^0,A_j^1 have size p_{j-1} by p_j while B_j^0,B_j^1 have size q_{j-1} by q_j, for j=1,...,n. Zero dimensions are allowed. The two trains use the same ordered bit word s=(s_1,...,s_n) and the same terminal label b=1,...,r. Set P_A(s)=A_1^{s_1}...A_n^{s_n} and P_B(s)=B_1^{s_1}...B_n^{s_n}. For n=0 these are I_r and the set of words contains one empty word.\n\nDefine a rectangular cross environment backwards by H_n=I_r and H_{j-1}=sum_{t=0}^1 A_j^t H_j (B_j^t)^T. Derive, for all n, the full entry identity H_0(a,c)=sum_s sum_{b=1}^r P_A(s)_{ab} P_B(s)_{cb}. In particular, explain why the terminal index must be summed, and why off-diagonal entries contain cross-inner-products rather than squared amplitudes.\n\nFor arbitrary column vectors v in R^{p_0} and w in R^{q_0}, define emitted vectors on pairs (s,b) by Phi_A(v)_{s,b}=sum_a v_a P_A(s)_{ab} and Phi_B(w)_{s,b}=sum_c w_c P_B(s)_{cb}. Prove <Phi_A(v),Phi_B(w)>=v^T H_0 w.\n\nSpecialize to identical trains A=B and write E_0=H_0. Prove that E_0 is symmetric positive semidefinite, that ||Phi_A(v)||_2^2=v^T E_0 v for every initial vector v, and that v lies in the kernel of E_0 exactly when every emitted amplitude Phi_A(v)_{s,b} vanishes. Explain why no right-canonicality or normalized-boundary hypothesis is needed. Is a cross environment for two different trains necessarily positive semidefinite when it happens to be square? Give a counterexample if not. Check n=0, empty bond dimensions and zero trains. These are exact mathematical identities; no storage cost, finite-bit runtime or state-preparation circuit is part of the conclusion.",
+  "assumptions": [
+    "The two real trains have the same finite length, ordered two-valued physical indices and common terminal dimension r; their internal and initial dimensions may differ.",
+    "All matrix sizes are finite natural numbers and match as specified.",
+    "Initial vectors v and w are arbitrary real vectors, not assumed normalized or nonzero. The positive-semidefinite and kernel conclusions specialize to identical trains."
+  ],
+  "conventions": [
+    "A transpose is the ordinary real transpose; the inner product is sum of entrywise products.",
+    "The first core emits s_1. Both trains use exactly the same word and terminal-label order, without any implicit reversal.",
+    "An emitted vector retains the terminal label: its coordinates are all (s,b), so its dimension is 2^n*r.",
+    "The empty word set has one element and an empty product is the identity. Finite sums over empty bond labels are zero."
+  ],
+  "family": "tensor-train-cross-gram-boundary",
+  "split": "unassigned_pending_reconciliation",
+  "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "admission": "candidate_not_counted",
+  "dedup_review_required": true,
+  "target_nodes": [
+    "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.gram",
+    "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.gram_eq_sum"
+  ],
+  "supporting_nodes": [
+    "declaration:QuantumBlockEncoding.TensorTrainCanonical.Core",
+    "declaration:QuantumBlockEncoding.TensorTrainCanonical.slice",
+    "declaration:QuantumBlockEncoding.TensorTrainCanonical.Chain",
+    "declaration:QuantumBlockEncoding.TensorTrainCanonical.Word",
+    "declaration:QuantumBlockEncoding.TensorTrainCanonical.contract",
+    "declaration:QuantumBlockEncoding.TensorTrainCanonical.chainMass",
+    "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.gram_scalar"
+  ],
+  "source_refs": [
+    {
+      "path": "QuantumBlockEncoding/TensorTrainNormEnvironment.lean",
+      "anchor": "Lines 17-37: full matrix Gram recursion and sum-over-word semantics including terminal labels; lines 39-75: scalar norm and target reindex adapter; entire 140-line module read.",
+      "declarations": [
+        "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.gram",
+        "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.gram_eq_sum",
+        "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.gram_scalar",
+        "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.norm_eq",
+        "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.norm_sq",
+        "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.norm_eq_of_contract"
+      ],
+      "sha256": "e684550c248817ac77e03a23e0af86d3b2c7f3d8b09bcdb2385702624f5ebe6c",
+      "sha256_lf": "e684550c248817ac77e03a23e0af86d3b2c7f3d8b09bcdb2385702624f5ebe6c",
+      "sha256_raw": "e684550c248817ac77e03a23e0af86d3b2c7f3d8b09bcdb2385702624f5ebe6c",
+      "hash_policy": "sha256-lf-text-v1",
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+      "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "source_matches_frozen_snapshot": true,
+      "read_status": "Complete module, ambient definitions, theorem statements and proof bodies read as local text."
+    },
+    {
+      "path": "QuantumBlockEncoding/TensorTrainCanonical.lean",
+      "anchor": "Lines 18-47: real core/slice, ordered chain/word contraction and right-canonical row condition; lines 57-64: slice absorption; lines 119-168: boundary mass and canonical chain mass; entire 317-line module read.",
+      "declarations": [
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.Core",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.slice",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.Chain",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.Word",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.contract",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.RightCanonical",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.absorb_slice",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.chainMass",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.chainMass_eq",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.residual_mass"
+      ],
+      "sha256": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+      "sha256_lf": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+      "sha256_raw": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+      "hash_policy": "sha256-lf-text-v1",
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+      "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "source_matches_frozen_snapshot": true,
+      "read_status": "Complete module, ambient definitions, theorem statements and proof bodies read as local text."
+    }
+  ],
+  "proposal_id": "95850d89-ebfd-48a9-89bf-0221df041ac6",
+  "core_id": "candidate:95850d89-ebfd-48a9-89bf-0221df041ac6",
+  "reference_answer": "At stage j let P_{A,>j}(s_{j+1},...,s_n)=A_{j+1}^{s_{j+1}}...A_n^{s_n}, a p_j-by-r matrix, and define P_{B,>j} similarly. The invariant of the backwards recursion is\nH_j=sum_{s_{j+1},...,s_n} P_{A,>j}(s_{>j}) P_{B,>j}(s_{>j})^T.\nFor j=n the sum has one empty-word term I_r I_r^T=I_r, agreeing with H_n. Suppose it holds at j. Substitute into the update, distribute the finite sums and use (B_j^t P_{B,>j})^T=P_{B,>j}^T(B_j^t)^T. Then\nH_{j-1}=sum_{t,s_{>j}} (A_j^t P_{A,>j})(B_j^t P_{B,>j})^T,\nwhich is exactly the invariant for the suffix beginning at j. Backward induction establishes it at every stage, in particular H_0=sum_s P_A(s)P_B(s)^T. No canonicality relation was used.\n\nThe (a,c) entry of a product P_A(s)P_B(s)^T is sum_{b=1}^r P_A(s)_{ab}P_B(s)_{cb}. Therefore\nH_0(a,c)=sum_s sum_b P_A(s)_{ab}P_B(s)_{cb}.\nThe terminal sum cannot be discarded unless r=1, because the emitted vector includes every terminal output label. Define U_A with rows a and columns (s,b) by U_A[a,(s,b)]=P_A(s)_{ab}, and define U_B similarly. The identity is H_0=U_A U_B^T. Each entry is the real inner product between the output vectors obtained from the two respective basis initial boundaries. Even for a single train, an off-diagonal entry compares two different initial-bond rows; it is not a sum of the squares of one row.\n\nFor arbitrary v,w, Phi_A(v)=U_A^T v and Phi_B(w)=U_B^T w. Hence\n<Phi_A(v),Phi_B(w)>=v^T U_A U_B^T w=v^T H_0 w.\nEntrywise, this is just the rearrangement of the finite sum over a,c,s,b, which is valid for arbitrary signed initial vectors. No positivity or normalization of those vectors is assumed.\n\nFor A=B we have E_0=U_A U_A^T, so E_0^T=E_0. The preceding boundary identity with w=v gives\nv^T E_0 v=sum_{s,b}(sum_a v_a P_A(s)_{ab})^2=||Phi_A(v)||_2^2>=0.\nThis proves positive semidefiniteness and the complete arbitrary-boundary mass formula. In particular, the familiar scalar norm is only the p_0=r=1 specialization with initial scalar 1. Semidefiniteness is weaker than positive definiteness: E_0 can be singular, even zero. It is also weaker than entrywise nonnegativity. For example, with one core of left dimension two and terminal dimension one, A_1^0=(1,-1)^T and A_1^1=(0,0)^T give E_0=[[1,-1],[-1,1]], which is positive semidefinite despite negative off-diagonal entries.\n\nIf E_0 v=0, its quadratic form is zero. A finite sum of nonnegative real squares is zero only when each square is zero, so Phi_A(v) vanishes in every coordinate. Conversely, if every coordinate of Phi_A(v)=U_A^T v is zero, then E_0 v=U_A(U_A^T v)=0. Thus ker(E_0)=ker(U_A^T), exactly the invisible initial-boundary directions. This also explains why positivity does not require right-canonicality: a Gram matrix is positive semidefinite for any finite real matrix U_A, whereas canonicality is a stronger local isometry condition.\n\nFor distinct trains, H_0 may be rectangular, in which case positive semidefiniteness is not a property of that matrix at all. Even if it is square it need not be symmetric or positive semidefinite. For a concrete negative square example take n=1, all dimensions one, A_1^0=[1], A_1^1=[0], B_1^0=[-1], B_1^1=[0]. Then H_0=[-1], and the quadratic form at 1 is -1. These are ordinary cross-inner-products of two different output vectors, so the negative result is consistent with all identities.\n\nWhen n=0, p_0=q_0=r, H_0=I_r, and the one empty-word output Phi_A(v) is precisely v on terminal labels. The boundary formula is <v,w>=v^T I_r w; the same-train quadratic form is ||v||^2. If r=0, every emitted vector has zero coordinates, H_n is the empty identity and all earlier cross environments vanish by their finite products; the same-train E_0 is zero. If an internal bond of A has dimension zero, every complete P_A is zero and H_0 is zero regardless of B; the analogous statement holds for B. If p_0=0 or q_0=0, the appropriate boundary vector is uniquely empty and the identities hold with their empty matrix dimensions. A zero train, including a train whose nonzero local data cancel to zero contractions, gives E_0=0; every initial boundary is then in the kernel. None of these zero cases requires division by a norm or construction of a normalized state.",
+  "rubric": [
+    {
+      "id": "C3-r1",
+      "weight": 3,
+      "criterion": "States and proves the suffix-product invariant for the rectangular cross environment. Award 1 for the correct same-word product and dimensions, 1 for the one-empty-word identity base, and 1 for the backward step with correctly reversed transpose order."
+    },
+    {
+      "id": "C3-r2",
+      "weight": 2,
+      "criterion": "Derives the full entry formula with both word and terminal sums (1 point), and then the cross-inner-product identity for arbitrary v,w by a valid finite-sum or U_A U_B^T argument (1 point). A scalar-only formula omitting terminal labels is insufficient."
+    },
+    {
+      "id": "C3-r3",
+      "weight": 3,
+      "criterion": "For identical trains proves symmetry and nonnegative quadratic forms without canonicality (1 point), obtains the full arbitrary-boundary norm formula (1 point), and proves both directions of the kernel/vanishing-amplitudes equivalence (1 point)."
+    },
+    {
+      "id": "C3-r4",
+      "weight": 1,
+      "criterion": "Provides an actual pair of legal distinct trains with square cross environment that is not positive semidefinite, computing the offending value; also distinguishes rectangular cross environments from square Gram matrices."
+    },
+    {
+      "id": "C3-r5",
+      "weight": 1,
+      "criterion": "Handles the one empty word at n=0 and zero-dimensional/zero-train cases consistently, without claiming positive definiteness, entrywise positivity or meaningful normalization of a zero emitted vector."
+    }
+  ],
+  "common_errors": [
+    "Keeping only scalar diagonal norms and thereby losing cross-inner-products between initial-bond labels.",
+    "Dropping the terminal sum for r>1 or treating the terminal boundary as dimension one without a premise.",
+    "Using the same-train Gram induction for two different trains without retaining the order A H B^T.",
+    "Claiming every cross environment is positive semidefinite, or that positive semidefinite means every entry is nonnegative.",
+    "Using zero quadratic form to assert a zero vector without the finite sum-of-squares or Gram factorization argument.",
+    "Treating n=0 as no emitted coordinates even though the terminal labels remain."
+  ],
+  "boundary_cases": [
+    {
+      "case": "n=0",
+      "resolution": "One empty word and terminal coordinates remain; H_0=I_r and Phi_A(v)=v."
+    },
+    {
+      "case": "r=0 or a zero internal dimension",
+      "resolution": "Complete contractions have zero emitted amplitudes. Cross and same-train quadratic identities remain valid; the latter can be identically zero."
+    },
+    {
+      "case": "Singular or zero Gram matrix",
+      "resolution": "Allowed. Its kernel is exactly the boundary vectors with all emitted amplitudes zero; no positive-definite conclusion is warranted."
+    },
+    {
+      "case": "Two distinct trains",
+      "resolution": "The cross environment is generally rectangular and can be negative even when 1-by-1."
+    },
+    {
+      "case": "Negative off-diagonal entries",
+      "resolution": "Compatible with same-train positive semidefiniteness, as the explicit two-row witness demonstrates."
+    }
+  ],
+  "difficulty": {
+    "D0": {
+      "facet": "A Gram matrix stores all pairwise initial-row inner products; its quadratic form is output mass for an arbitrary initial boundary, and PSD is not entrywise positivity.",
+      "adds_core": false
+    },
+    "construction_band": "D4",
+    "status": "provisional_mathematical_route_annotation_not_measured_difficulty",
+    "rationale": "The cross-environment identity requires a suffix invariant for arbitrary chain length and preserves distinct internal dimensions and terminal labels. The subsequent Gram/PSD/kernel interfaces use that globally established representation; the classification is not based on graph size.",
+    "taxonomy_source": "benchmarks/quantumcomputingbench/tracks/lean/COURSE.md:19-30",
+    "D1_D4_context": {
+      "D1": "Precise statement reading and a disclosed library application.",
+      "D2": "Local symbolic construction and entry/sum reasoning.",
+      "D3": "Joining mathematical interfaces with every AND premise preserved.",
+      "D4": "Parametric induction and global invariant/representation or degree control."
+    },
+    "shortcut_disclosure": "Supplying the full target theorem could reduce this to a library application; the question instead requests the stated derivation. Graph distance, source length and node count do not measure this band.",
+    "model_calibration": "unmeasured"
+  },
+  "reasoning_map": {
+    "kind": "author_supplied_natural_language",
+    "not_extracted_lean_dependencies": true,
+    "inputs": [
+      {
+        "id": "C3-I1",
+        "statement": "Two finite real trains with common word order, common terminal dimension r, and possibly different intermediate bond dimensions.",
+        "kind": "assumption"
+      },
+      {
+        "id": "C3-I2",
+        "statement": "H_n=I_r and H_{j-1}=sum_t A_j^t H_j(B_j^t)^T.",
+        "kind": "assumption"
+      },
+      {
+        "id": "C3-I3",
+        "statement": "v,w are arbitrary initial column vectors; Phi values are the stated contractions, including all terminal labels.",
+        "kind": "convention"
+      },
+      {
+        "id": "C3-I4",
+        "statement": "For the Gram/PSD/kernel branch, A=B with matching bond dimensions.",
+        "kind": "assumption"
+      },
+      {
+        "id": "C3-I5",
+        "statement": "There is one empty word, empty product I, and finite sums over empty bond labels are zero.",
+        "kind": "convention"
+      }
+    ],
+    "steps": [
+      {
+        "id": "C3-S1",
+        "claim": "Prove the suffix cross-environment invariant.",
+        "assumptions": [
+          "Matching physical and terminal indices; transpose reverses the product."
+        ],
+        "required_inputs": [
+          "C3-I1",
+          "C3-I2",
+          "C3-I5"
+        ],
+        "conclusion": "H_j=sum_{suffix words} P_A,>j P_B,>j^T for every j.",
+        "justification": "Backward induction: empty suffix gives I_r; distributing the update produces the sum over the current bit and tail word."
+      },
+      {
+        "id": "C3-S2",
+        "claim": "Read every cross entry and a flattened matrix representation.",
+        "assumptions": [
+          "All terminal labels must be retained."
+        ],
+        "required_inputs": [
+          "C3-S1",
+          "C3-I1",
+          "C3-I5"
+        ],
+        "conclusion": "H_0(a,c)=sum_{s,b}P_A(s)_{ab}P_B(s)_{cb}, or H_0=U_A U_B^T.",
+        "justification": "Use the matrix-product entry formula and define U_A,U_B by columns (s,b)."
+      },
+      {
+        "id": "C3-S3",
+        "claim": "Evaluate arbitrary initial-boundary cross-inner-products.",
+        "assumptions": [
+          "No normalization or sign restriction on boundaries."
+        ],
+        "required_inputs": [
+          "C3-S2",
+          "C3-I3"
+        ],
+        "conclusion": "Phi_A(v)=U_A^T v and <Phi_A(v),Phi_B(w)>=v^T H_0 w.",
+        "justification": "Distribute finite sums, or multiply the displayed matrices with their exact dimensions."
+      },
+      {
+        "id": "C3-S4",
+        "claim": "Specialize to a symmetric positive-semidefinite Gram matrix.",
+        "assumptions": [
+          "Identical trains."
+        ],
+        "required_inputs": [
+          "C3-S2",
+          "C3-S3",
+          "C3-I3",
+          "C3-I4"
+        ],
+        "conclusion": "E_0=U_A U_A^T is symmetric and v^T E_0 v=||Phi_A(v)||^2>=0.",
+        "justification": "Transpose the product and sum the squares of real output amplitudes."
+      },
+      {
+        "id": "C3-S5",
+        "claim": "Identify the entire kernel.",
+        "assumptions": [
+          "Identical trains; no positive-definiteness assumption."
+        ],
+        "required_inputs": [
+          "C3-S2",
+          "C3-S4",
+          "C3-I3",
+          "C3-I4"
+        ],
+        "conclusion": "E_0 v=0 iff Phi_A(v)=0 coordinatewise.",
+        "justification": "Forward: zero quadratic form forces every squared coordinate zero. Reverse: U_A^T v=0 implies U_A U_A^T v=0."
+      },
+      {
+        "id": "C3-S6",
+        "claim": "Refute positivity for different trains.",
+        "assumptions": [
+          "n=1 and all bond dimensions one; A^0=1,B^0=-1,A^1=B^1=0."
+        ],
+        "required_inputs": [
+          "C3-I1",
+          "C3-I2",
+          "C3-S2"
+        ],
+        "conclusion": "H_0=-1, a legal square cross environment with negative quadratic form.",
+        "justification": "Substitute the scalar slices; same-train premise is deliberately absent."
+      },
+      {
+        "id": "C3-S7",
+        "claim": "Check empty and zero-dimensional outputs.",
+        "assumptions": [
+          "Conventions cover zero dimensions and a single empty word."
+        ],
+        "required_inputs": [
+          "C3-I1",
+          "C3-I2",
+          "C3-I3",
+          "C3-I4",
+          "C3-I5",
+          "C3-S1",
+          "C3-S3",
+          "C3-S4",
+          "C3-S5"
+        ],
+        "conclusion": "n=0 recovers I_r and the original boundary vector; zero output maps give zero Gram and full kernel.",
+        "justification": "Apply empty-product identities or products through the zero vector space; no normalization is introduced."
+      }
+    ],
+    "reused_results": [
+      {
+        "id": "cross-environment-suffix-invariant",
+        "producer": "C3-S1",
+        "consumer_steps": [
+          "C3-S2",
+          "C3-S7"
+        ],
+        "status": "Original NL two-train extension of the inspected same-train source Gram semantics."
+      },
+      {
+        "id": "full-cross-Gram-representation",
+        "producer": "C3-S2",
+        "consumer_steps": [
+          "C3-S3",
+          "C3-S4",
+          "C3-S5",
+          "C3-S6"
+        ],
+        "status": "Actually reused for boundary bilinear form, positivity/kernel specialization and the distinct-train boundary."
+      }
+    ],
+    "reconvergent_branches": [
+      {
+        "branches": [
+          "C3-S2 -> C3-S3",
+          "C3-I4"
+        ],
+        "join": "C3-S4",
+        "why": "The arbitrary-boundary bilinear form becomes a norm only when both train inputs and both boundaries coincide."
+      }
+    ],
+    "AND_join_policy": "Each required_inputs list is conjunctive and lists all input/result interfaces used at that step."
+  },
+  "overlap": {
+    "relationship": "New full cross-inner-product/PSD/boundary target pending deduplication, rather than a new name for scalar norm cost.",
+    "related_cores": [
+      {
+        "core_id": "qcb-core-la-209",
+        "relationship": "Shares the Gram recursion, but existing target is stored computation cost; no cost derivation is assessed here.",
+        "known_split": "train"
+      },
+      {
+        "core_id": "qcb-core-la-210",
+        "relationship": "Shares scalar norm interpretation as a proper specialization; new target is arbitrary initial/terminal dimensions, off-diagonal cross products, PSD and kernel.",
+        "known_split": "train"
+      },
+      {
+        "core_id": "qcb-core-sp-004",
+        "relationship": "Canonical residual mass is a related special setting. This packet assumes no canonicality and retains all cross-boundary entries.",
+        "known_split": "train"
+      }
+    ],
+    "cohort_relationships": [
+      {
+        "slot": "C2",
+        "relationship": "Shares contraction and real Gram notation; gauge invariance/canonicality and two-train cross environments are different requested conclusions."
+      }
+    ],
+    "split_handling": "Unassigned pending semantic and shared-subproof reconciliation; no claim of independent held-out evaluation.",
+    "source_scan_limit": "Related current reader questions/answers inspected; no claim of exhaustive external-literature novelty."
+  },
+  "unverified": [
+    "The two-train rectangular extension and full arbitrary-boundary/PSD/kernel explanation are original NL derivations, not claimed existing Lean theorem signatures.",
+    "At authoring freeze, independent mathematical review and split/dedup reconciliation remain pending.",
+    "No Lean run, computational complexity certification, new graph node or measured model performance is claimed."
+  ],
+  "provenance": {
+    "author_identity": "/root/author_tensor_polynomial",
+    "authored_at": "2026-11-03",
+    "baseline_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+    "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+    "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+    "catalog_hash": "5269b9f2521e3bf14db293fea34895f6e44a387c2479c164407b4d16dd9a2247",
+    "coverage_plan_sha256": "c8e04a67b136ff80fa98c1563e61184e2a7c16c1042df6a00ec16387938d8c3d",
+    "inspection_method": "Static local source inspection and original natural-language mathematical derivation; no Lean execution.",
+    "licensing": {
+      "license": "MIT",
+      "path": "LICENSE",
+      "sha256_raw": "dff0cc0f36b869fa146c79c0de10d15a04259351e011e63c42c2ececb57fb1e3",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+      "external_sources": "None used; no paper-fidelity claim is inferred from a module header."
+    },
+    "graph_evidence_boundary": "Frozen graph records module imports and declaration ownership. This packet supplies natural-language mathematical dependencies; it does not extract proof-term dependencies.",
+    "review_status": "authored_pending_independent_content_bound_review_at_authoring_freeze",
+    "independent_review_performed": false,
+    "formal_execution": "not_run",
+    "baseline_access_evidence": {
+      "path": "evidence/access-baseline.json",
+      "status": "Read root-produced evidence of exact baseline checkout and no open contribution PR results; author did not independently query the remote."
+    },
+    "original_derivation_status": "Original NL two-train extension, PSD/kernel derivation and counterexamples grounded in the frozen definitions; no formal verification claim.",
+    "inspected_sources": [
+      {
+        "path": "QuantumBlockEncoding/TensorTrainNormEnvironment.lean",
+        "anchor": "Lines 17-37: full matrix Gram recursion and sum-over-word semantics including terminal labels; lines 39-75: scalar norm and target reindex adapter; entire 140-line module read.",
+        "declarations": [
+          "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.gram",
+          "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.gram_eq_sum",
+          "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.gram_scalar",
+          "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.norm_eq",
+          "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.norm_sq",
+          "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.norm_eq_of_contract"
+        ],
+        "sha256": "e684550c248817ac77e03a23e0af86d3b2c7f3d8b09bcdb2385702624f5ebe6c",
+        "sha256_lf": "e684550c248817ac77e03a23e0af86d3b2c7f3d8b09bcdb2385702624f5ebe6c",
+        "sha256_raw": "e684550c248817ac77e03a23e0af86d3b2c7f3d8b09bcdb2385702624f5ebe6c",
+        "hash_policy": "sha256-lf-text-v1",
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+        "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "source_matches_frozen_snapshot": true,
+        "read_status": "Complete module, ambient definitions, theorem statements and proof bodies read as local text."
+      },
+      {
+        "path": "QuantumBlockEncoding/TensorTrainCanonical.lean",
+        "anchor": "Lines 18-47: real core/slice, ordered chain/word contraction and right-canonical row condition; lines 57-64: slice absorption; lines 119-168: boundary mass and canonical chain mass; entire 317-line module read.",
+        "declarations": [
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.Core",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.slice",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.Chain",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.Word",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.contract",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.RightCanonical",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.absorb_slice",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.chainMass",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.chainMass_eq",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.residual_mass"
+        ],
+        "sha256": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+        "sha256_lf": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+        "sha256_raw": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+        "hash_policy": "sha256-lf-text-v1",
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+        "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "source_matches_frozen_snapshot": true,
+        "read_status": "Complete module, ambient definitions, theorem statements and proof bodies read as local text."
+      }
+    ],
+    "justified_mathematical_dependencies": [
+      {
+        "producer": "TensorTrainNormEnvironment.gram_eq_sum",
+        "use": "Source supplies the identical-train full matrix sum over words, including the terminal bond; the rectangular two-train recurrence is derived separately."
+      },
+      {
+        "producer": "TensorTrainCanonical.contract and chainMass",
+        "use": "Fix ordered contraction and total emitted squared mass with arbitrary initial and terminal bonds."
+      },
+      {
+        "producer": "Original finite real matrix argument",
+        "use": "H_0=U_A U_B^T yields cross-inner-products; A=B yields PSD, arbitrary-boundary mass and the kernel equivalence."
+      }
+    ],
+    "imports_and_declaration_availability": [
+      {
+        "module": "QuantumBlockEncoding.TensorTrainNormEnvironment",
+        "direct_imports": [
+          "QuantumBlockEncoding.TensorTrainCanonical"
+        ],
+        "availability": "gram, gram_eq_sum and gram_scalar present in frozen graph; no new cross-environment declaration asserted."
+      },
+      {
+        "module": "QuantumBlockEncoding.TensorTrainCanonical",
+        "direct_imports": [
+          "QuantumBlockEncoding.ThinLQ",
+          "QuantumBlockEncoding.SequentialBondPreparation"
+        ],
+        "availability": "Core/word/contraction/mass definitions available; actual proof-term uses not extracted."
+      }
+    ],
+    "suggested_reading": [
+      "TensorTrainNormEnvironment.lean:17-43 for full matrix semantics and scalar specialization.",
+      "TensorTrainCanonical.lean:119-139 for arbitrary initial-boundary mass."
+    ],
+    "conceptual_graph_relationships": [
+      {
+        "relation": "Gram environments connect tensor representations to norm and inner-product evaluation; storage-cost results are separate consumers of the recurrence.",
+        "proof_arrow": false
+      }
+    ],
+    "baseline_related_item_read_status": "Read current LA209, LA210 and SP004 complete question/answer records and target/support identities.",
+    "review_status_scope": "Authoring-freeze state only; later independent content-bound review and reconciliation decisions belong to the package manifest/proposal records."
+  }
+}

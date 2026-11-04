@@ -1,0 +1,327 @@
+{
+  "schema_version": "qcb.nonlean_cohort_payload.v1",
+  "slot": "B1",
+  "title": "Local clean columns determine the full chronological run",
+  "author": "/root/author_coherence",
+  "contribution_type": "existing_core_view",
+  "mathematical_target": "Prove the unchanged all-length clean-column transfer identity by induction and identify precisely which local columns it does not use.",
+  "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "question": "In the sequential bond construction, a complete state after n emitted bits is produced by applying stage matrices in order, starting from an explicit bond boundary vector. Assume for each stage index t and each clean input column (fresh bit input = 0, bond input a) the stage entry equals the corresponding tensor core entry K t. Prove by induction on n that the full run amplitude at bit word x and final bond label b equals the matrix-vector product of the chronological transfer contraction of the cores with the boundary, (transfer K n x) applied to the boundary, read at b. State precisely which columns of the stages are therefore irrelevant.",
+  "assumptions": [
+    "the only hypothesis is clean-column equality of each stage with the corresponding tensor core; no global state action is assumed",
+    "the boundary is an explicit bond vector supplied to the run"
+  ],
+  "conventions": [
+    "the last emitted core multiplies on the left (same order as circuit evaluation)",
+    "transfer at length 0 is the identity matrix"
+  ],
+  "family": "sequential-transfer-composition",
+  "split": "test_public",
+  "target_nodes": [
+    "declaration:QuantumBlockEncoding.SequentialBondPreparation.run_eq_transfer",
+    "declaration:QuantumBlockEncoding.SequentialBondPreparation.transfer",
+    "declaration:QuantumBlockEncoding.SequentialBondPreparation.step_apply"
+  ],
+  "supporting_nodes": [
+    "declaration:QuantumBlockEncoding.SequentialBondPreparation.step"
+  ],
+  "source_refs": [
+    {
+      "anchor": "lines 86-110: noncomputable def transfer K | 0,_ => 1 | n+1,x => coreSlice (K n) (x (Fin.last n)) * transfer K n (Fin.init x); theorem run_eq_transfer (U K) (cleanColumns : for all t bit b a, U t (bit,b) (0,a) = K t (bit,b) a) (boundary) (n x b) : run U boundary n (x,b) = (transfer K n x).mulVec boundary b, proved by induction with step_apply, cleanColumns, ih, mulVec_mulVec",
+      "license": "MIT (repository LICENSE)",
+      "path": "QuantumBlockEncoding/SequentialBondPreparation.lean",
+      "sha256": "ad4542b108d44f196f2a02f78e59b58f43d45b1e890709cf4c22e1222805d5c5"
+    }
+  ],
+  "core_id": "qcb-core-sp-007",
+  "contract_hash": "22dfe5a670aeba9bec8bea6209789cb26784265fb68d49a47177c3a3c741f7f4",
+  "baseline_item_digest": "f47a739f7ea08d5acd553764322f8c24c2c6b1e7c40abe98923f3bceb2f8963a",
+  "admission": "additive_proposed_view_not_current_reader_policy_change",
+  "reference_answer": "Let B be the finite set of bond labels, and write a physical bit word of length n as x=(x_0,...,x_{n-1}), in increasing wire order. Matrix rows are outputs and columns are inputs. Write β:B→C for the supplied boundary, U_t[(s,b),(r,a)] for a local stage, and K_t[(s,b),a] for its clean column. Define the slice A_t(s) by A_t(s)[b,a]=K_t[(s,b),a]. The transfer is T_0(empty)=I and T_{n+1}(x)=A_n(x_n)T_n(x_0,...,x_{n-1}). Thus the last emitted core multiplies on the left.\n\nThe one-step collapse is worth deriving rather than assuming a full-run action. Before stage n the fresh-bit-and-bond amplitude at (p,(r,a)) is 1_{r=0}v_n(p,a). The lifted stage has entry 1_{p'=p}U_n[(s,b),(r,a)], because previously emitted bits are passive. At output (x,b), with prefix x^-=(x_0,...,x_{n-1}) and new highest-wire bit x_n, its matrix-vector action is\n  Σ_{p,r,a} 1_{p=x^-} U_n[(x_n,b),(r,a)] 1_{r=0} v_n(p,a)\n  = Σ_a U_n[(x_n,b),(0,a)] v_n(x^-,a).\nBoth delta factors matter: one fixes the old prefix; the other selects the zero-input columns. No measurement is involved.\n\nNow prove P(n): for every x of length n and every b∈B, v_n(x,b)=[T_n(x)β]_b. For n=0 there is one empty word, v_0(empty,b)=β_b, and [Iβ]_b=β_b, including an arbitrary unnormalized or zero boundary.\n\nAssume P(n) for every prefix and every bond label. The one-step formula and the clean-column hypothesis give\n  v_{n+1}(x,b)=Σ_a K_n[(x_n,b),a]v_n(x^-,a)\n                =Σ_a A_n(x_n)[b,a][T_n(x^-)β]_a\n                =[A_n(x_n)(T_n(x^-)β)]_b\n                =[(A_n(x_n)T_n(x^-))β]_b\n                =[T_{n+1}(x)β]_b.\nThe second equality uses the induction hypothesis for every summed bond label a. Associativity of finite matrix-vector multiplication justifies the fourth equality: both sides expand as Σ_a Σ_c A_n[b,a]T_n[a,c]β_c. The transfer recurrence then closes the induction. This is a chronological product; commuting or reversing its noncommuting factors would change the claimed amplitude.\n\nFor any fixed run length, the fresh-bit-input-1 columns of each stage actually used in the run never appear, at any output row. Holding all fresh-bit-input-0 columns fixed while changing the other columns therefore leaves the complete emitted-bit-and-bond vector unchanged. Stages after that length are also unused. The statement does not justify discarding any additional zero-input bond column without a separate support invariant. A particular boundary may cause accidental zeros, but this theorem provides a uniform conclusion for arbitrary boundaries. If stages are required elsewhere to be unitary completions, their remaining columns must still satisfy the unitary constraints; 'irrelevant to this run' does not mean arbitrary independent entries preserve unitarity.\n\nThe identity itself requires neither unitarity nor normalized β. It gives full amplitudes, not merely a projection or probabilities, and proves no terminal cleanup, local completion existence, flattened circuit placement, gate count or finite-bit compiler. Those are separate interfaces.",
+  "rubric": [
+    {
+      "id": "r1",
+      "weight": 1.5,
+      "criterion": "Establishes the quantified induction invariant and the length-zero case using the explicit boundary and identity transfer; partial credit for a correct base case without the all-bond quantifier."
+    },
+    {
+      "id": "r2",
+      "weight": 2.5,
+      "criterion": "Derives the one-step finite sum by separately collapsing the passive-prefix identity and fresh-zero input, with correct output/input indices; partial credit for the correct single sum without explaining both collapses."
+    },
+    {
+      "id": "r3",
+      "weight": 2,
+      "criterion": "Applies clean-column equality and the induction hypothesis at every summed bond label, preserving the actual prefix and last emitted bit; partial credit for identifying these two substitutions with an indexing slip that does not alter the strategy."
+    },
+    {
+      "id": "r4",
+      "weight": 2,
+      "criterion": "Recognizes the slice times transfer-applied-to-boundary, justifies matrix-vector associativity, and folds the recurrence with the newest slice on the LEFT; no full credit for a reversed noncommuting product."
+    },
+    {
+      "id": "r5",
+      "weight": 2,
+      "criterion": "Identifies fresh-bit-input-1 columns as uniformly unused and distinguishes this from unsupported freedom in zero-input bond columns or unitarity of arbitrary completions; partial credit for correctly naming the unused bit sector alone."
+    }
+  ],
+  "common_errors": [
+    "Assuming the desired full-run action instead of deriving it from local columns.",
+    "Using an induction hypothesis only at the final b rather than at every intermediate a.",
+    "Multiplying T_n A_n instead of A_n T_n.",
+    "Calling fresh-zero insertion postselection.",
+    "Treating all unused completion entries as independently free while still asserting unitarity.",
+    "Assuming unit norm or terminal-bond cleanup from an algebraic transfer identity."
+  ],
+  "boundary_cases": [
+    {
+      "case": "n=0",
+      "consequence": "The empty-word run is β and the empty transfer is I; there is no stage or fresh-bit column to inspect."
+    },
+    {
+      "case": "Zero or unnormalized boundary",
+      "consequence": "The identity is linear and remains valid; normalization is not an active assumption."
+    },
+    {
+      "case": "Empty bond carrier",
+      "consequence": "There are no output bond labels, so the pointwise claim is vacuous; no normalized quantum state is inferred."
+    },
+    {
+      "case": "Inactive padded bond labels",
+      "consequence": "Ignoring their zero-input columns needs the separate support hypotheses; this unchanged core does not add them."
+    }
+  ],
+  "difficulty": {
+    "D0_facet": "Distinguish output rows from input columns, clean input from measurement, chronological order and completion freedom. This is a facet of the same core, not another question.",
+    "provisional_route_band": "D4",
+    "rationale": "An all-length parametric induction uses the one-step amplitude collapse and a universal bond-label invariant. The label follows the inspected construction route, not source size or graph distance.",
+    "shortcut_disclosure": "Supplying the exact all-length result would reduce the task to a D1 application; this question asks for its induction.",
+    "measured_model_difficulty": false
+  },
+  "reasoning_map": {
+    "kind": "author_supplied_natural_language",
+    "not_extracted_lean_dependencies": true,
+    "inputs": [
+      {
+        "id": "I1",
+        "statement": "B is finite, amplitudes are complex, matrices use output rows/input columns; all sums are finite.",
+        "kind": "convention"
+      },
+      {
+        "id": "I2",
+        "statement": "v_0(empty,b)=β_b; each later step inserts a zero bit, applies identity on old bits tensor U_n, then regroups the new bit as the highest wire.",
+        "kind": "convention"
+      },
+      {
+        "id": "I3",
+        "statement": "For every t,s,b,a, U_t[(s,b),(0,a)]=K_t[(s,b),a].",
+        "kind": "assumption"
+      },
+      {
+        "id": "I4",
+        "statement": "A_t(s)[b,a]=K_t[(s,b),a], T_0=I, and T_{n+1}(x)=A_n(x_n)T_n(x^-).",
+        "kind": "convention"
+      },
+      {
+        "id": "IH",
+        "statement": "Within the successor induction obligation only, assume P(n): v_n(p,a)=[T_n(p)β]_a for every p,a; this is discharged by induction, not a new public hypothesis.",
+        "kind": "supplied_obligation"
+      }
+    ],
+    "steps": [
+      {
+        "id": "S1",
+        "claim": "The zero-length identity holds.",
+        "assumptions": [],
+        "required_inputs": [
+          "I1",
+          "I2",
+          "I4"
+        ],
+        "conclusion": "P(0).",
+        "justification": "v_0=β and Iβ=β."
+      },
+      {
+        "id": "S2",
+        "claim": "Only one prefix and the fresh-zero input survive the one-step matrix sum.",
+        "assumptions": [],
+        "required_inputs": [
+          "I1",
+          "I2"
+        ],
+        "conclusion": "v_{n+1}(x,b)=Σ_a U_n[(x_n,b),(0,a)]v_n(x^-,a).",
+        "justification": "Expand tensor identity and freshZero, then collapse both finite delta sums."
+      },
+      {
+        "id": "S3",
+        "claim": "The successor amplitude is slice applied to the prior transfer vector.",
+        "assumptions": [],
+        "required_inputs": [
+          "I1",
+          "I3",
+          "I4",
+          "IH",
+          "S2"
+        ],
+        "conclusion": "v_{n+1}(x,b)=[A_n(x_n)(T_n(x^-)β)]_b.",
+        "justification": "Use clean columns AND the induction hypothesis for all a."
+      },
+      {
+        "id": "S4",
+        "claim": "The successor induction implication closes in the correct order.",
+        "assumptions": [],
+        "required_inputs": [
+          "I1",
+          "I4",
+          "S3"
+        ],
+        "conclusion": "P(n) implies P(n+1).",
+        "justification": "Finite-sum associativity gives (A_n T_n)β, then use the transfer recurrence."
+      },
+      {
+        "id": "S5",
+        "claim": "The full transfer identity holds at every length.",
+        "assumptions": [],
+        "required_inputs": [
+          "S1",
+          "S4"
+        ],
+        "conclusion": "For all n,x,b, v_n(x,b)=[T_n(x)β]_b.",
+        "justification": "Natural-number induction discharges IH."
+      },
+      {
+        "id": "S6",
+        "claim": "Unused-column freedom has the precise clean-input scope.",
+        "assumptions": [],
+        "required_inputs": [
+          "I2",
+          "I3",
+          "S2",
+          "S5"
+        ],
+        "conclusion": "Changing fresh-bit-input-1 columns of used stages cannot change any complete run amplitude.",
+        "justification": "No such column appears in S2; no support or unitarity theorem is silently added."
+      }
+    ],
+    "reused_results": [
+      {
+        "result": "Finite matrix-vector associativity",
+        "consumers": [
+          "S4"
+        ],
+        "status": "Elementary finite-sum identity explained explicitly."
+      },
+      {
+        "result": "SequentialBondPreparation.step_apply and transfer/run definitions",
+        "consumers": [
+          "S1",
+          "S2",
+          "S4"
+        ],
+        "status": "Inspected source interfaces reconstructed in prose; no new kernel replay."
+      }
+    ],
+    "reconvergent_branches": [
+      {
+        "branches": [
+          "S1",
+          "S4"
+        ],
+        "join": "S5",
+        "meaning": "Base case AND successor implication are both required for the global induction."
+      }
+    ]
+  },
+  "overlap": {
+    "existing_core": "qcb-core-sp-007",
+    "no_new_core": true,
+    "relation": "Unchanged contract with a fuller pedagogical proof and 10-point partial-credit rubric.",
+    "related_targets": [
+      {
+        "id": "qcb-core-sp-002",
+        "split": "test_public",
+        "relation": "Fresh-zero clean-column collapse is a shared subargument, not a separate new B1 core."
+      },
+      {
+        "id": "qcb-core-sp-012",
+        "split": "train",
+        "relation": "Supported-column variant is a neighboring stronger interface and is expressly not assumed here."
+      },
+      {
+        "id": "qcb-core-sp-008",
+        "split": "train",
+        "relation": "Unitary mass preservation is distinct and is not inferred from this identity."
+      }
+    ],
+    "split_action": "Keep test_public exactly; no global deduplication or cross-split independence clearance."
+  },
+  "unverified": [
+    "No Lean execution, kernel replay, axiom audit or production-source modification was performed for this packet.",
+    "At authoring/freeze time, independent blind reconstruction and exact-content comparison were pending; later review status belongs in the package review manifest, not this author claim.",
+    "Source inspection supports the stated interfaces and conventions; it does not formally verify the complete natural-language derivation.",
+    "Frozen graph edges expose imports/ownership, not extracted theorem proof dependencies. Source-semantic legacy debt is not cleared.",
+    "Model difficulty, model performance, global semantic deduplication and release admission remain unmeasured or unresolved."
+  ],
+  "provenance": {
+    "author_identity": "/root/author_coherence",
+    "baseline_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+    "frozen_graph_snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+    "frozen_graph_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+    "evidence_class": "existing_source_grounded_nl_proof_refinement",
+    "source_inspection": [
+      {
+        "path": "QuantumBlockEncoding/SequentialBondPreparation.lean",
+        "anchor": "Lines 29-110: Core/Stage/BondState, freshZero, liftStage, step, step_apply, coreSlice, transfer, run and complete run_eq_transfer proof; lines 125-174 inspect supported-column boundary.",
+        "declarations": [
+          "Core",
+          "Stage",
+          "BondState",
+          "freshZero",
+          "liftStage",
+          "step",
+          "step_apply",
+          "coreSlice",
+          "transfer",
+          "run",
+          "run_eq_transfer",
+          "run_eq_transfer_of_supported"
+        ],
+        "sha256": "ad4542b108d44f196f2a02f78e59b58f43d45b1e890709cf4c22e1222805d5c5",
+        "hash_policy": "sha256-lf-text-v1",
+        "raw_sha256": "ad4542b108d44f196f2a02f78e59b58f43d45b1e890709cf4c22e1222805d5c5",
+        "raw_equals_lf": true,
+        "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+        "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "matches_frozen_snapshot_input_hash": true,
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+      }
+    ],
+    "suggested_reading": [
+      "SequentialBondPreparation.lean, lines 29-110; support comparison lines 125-174."
+    ],
+    "imports_and_declaration_availability": {
+      "source_import": "SequentialBondPreparation imports RealAmplitudePreparation.",
+      "availability": "All immutable graph nodes are present in the frozen snapshot; source hash matches. No import was executed."
+    },
+    "conceptual_graph_relationships": [
+      {
+        "from": "Local clean-column semantics",
+        "to": "Chronological transfer amplitudes",
+        "relation": "Conceptual bridge; exact mathematical dependency is separately recorded below."
+      }
+    ],
+    "justified_mathematical_dependencies": [
+      "Finite-dimensional fresh-zero action AND local clean-column equality AND the quantified induction hypothesis imply the next transfer amplitude; neither imports nor ownership edges prove this composition."
+    ],
+    "educational_delta": "The previous answer used the clean-column collapse without its full double selection and gave four equal rubric ticks. This proposed view derives both delta collapses, makes the all-intermediate-bond induction quantifier explicit, preserves chronological noncommutativity, and separates algebraic completion freedom from unitary feasibility.",
+    "review_state": "authored_unreviewed_at_author_freeze; subsequent_review_recorded_separately",
+    "external_sources": {
+      "inspected": [],
+      "paper_fidelity_claim": false
+    },
+    "license_attribution": "Original English question/solution prose grounded in MIT repository sources; Copyright (c) 2026 Quantum Block Encoding contributors. Repository LICENSE inspected.",
+    "generation": "Manually authored from inspected local sources; no model endpoint batch, inference evaluation or training was run."
+  }
+}

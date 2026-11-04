@@ -1,0 +1,73 @@
+{
+  "schema_version": "qcb.cohort_question_first_packet.v1",
+  "slot": "B2",
+  "base_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "frozen_payload_item_digest": "a126d3054eceb536d62ccdaf03f31011ff7a49806f5c503194f5d193fc20b179",
+  "frozen_payload_sha256": "0c3e3435e6796f1727b1f561b7200d46bb4db2f60830bbe93c0e36cdfdac81c2",
+  "core_id": "candidate:06369e40-07df-4a8c-9105-ac09ebc9b41c",
+  "question": "Let Λ be a nonempty finite label set with orthonormal basis {|λ⟩}, and let H be a nonzero finite-dimensional complex Hilbert space. H contains the complete data-and-work output; no register is measured or discarded. Fix a unit clean input |0⟩∈H, unit vectors ψ_λ∈H, and unitary branch implementations V_λ satisfying V_λ|0⟩=exp(iφ_λ)ψ_λ for given real φ_λ. The ψ_λ need not be orthogonal. The label is retained by the controlled operation W=Σ_λ |λ⟩⟨λ|⊗V_λ. For complex coefficients c_λ with Σ_λ|c_λ|²=1, the intended output is Ψ=Σ_λ c_λ|λ⟩⊗ψ_λ.\n\nCompute the actual output Ψ̃ and derive an exact formula for ||Ψ̃-exp(iχ)Ψ||² for every real common phase χ. Use it to give necessary and sufficient conditions, on the populated labels, for (a) exact vector equality and (b) equality up to one global phase. Explain why agreement of all isolated-branch output probabilities is insufficient for either coherent claim. Give an explicit two-label unitary example in which both isolated branches are physically correct but the intended and actual coherent outputs are orthogonal, and specify a label measurement that distinguishes them.\n\nConstruct a diagonal unitary acting only on the retained label that restores the intended vector exactly when the phases are known. Explain which phase access and implementation obligations remain: recording phases as classical metadata is not itself a gate. Include zero c_λ, a single populated label and common-phase cases. Do not assume output-state orthogonality, silently quotient the requested norm by phase, or infer cleanup of work not promised by the branch vectors.",
+  "assumptions": [
+    "Λ is finite nonempty; H is finite-dimensional and nonzero; |0⟩ and each ψ_λ have norm one.",
+    "The label basis is orthonormal and retained; W acts coherently and preserves its basis label.",
+    "Each V_λ is unitary with exact complete-output action V_λ|0⟩=exp(iφ_λ)ψ_λ; all phases are real.",
+    "The complex coefficients satisfy Σ_λ|c_λ|²=1.",
+    "Exact phase values may be used to specify a mathematical correction, but an effective phase supplier or correction compiler is not assumed."
+  ],
+  "conventions": [
+    "Register order is label tensor complete data-and-work output.",
+    "Norms are Euclidean vector norms; exact-vector error and minimization over a common global phase are different questions.",
+    "The actual branch convention is exp(+iφ_λ) multiplying the desired branch, so the correcting label phase has the negative sign.",
+    "No postselection, partial trace or work reset is performed."
+  ],
+  "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "target_nodes": [
+    "declaration:QuantumBlockEncoding.evalPrimitiveProgram"
+  ],
+  "supporting_nodes": [
+    "declaration:QuantumBlockEncoding.evalGlobalPhase",
+    "declaration:QuantumBlockEncoding.evalGlobalPhase_unitary"
+  ],
+  "source_refs": [
+    {
+      "path": "QuantumBlockEncoding/PrimitiveSemantics.lean",
+      "anchor": "Lines 412-442: evalGlobalPhase, its full unit-modulus proof, evalGlobalPhase_neg and evalPrimitiveProgram; lines 449-478 inspect sequencing, unitarity and adjoint phase conventions.",
+      "declarations": [
+        "evalGlobalPhase",
+        "evalGlobalPhase_unitary",
+        "evalGlobalPhase_neg",
+        "evalPrimitiveProgram",
+        "evalPrimitiveProgram_seq",
+        "evalPrimitiveProgram_unitary",
+        "evalPrimitiveProgram_dagger"
+      ],
+      "sha256": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+      "hash_policy": "sha256-lf-text-v1",
+      "raw_sha256": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+      "raw_equals_lf": true,
+      "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+      "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "matches_frozen_snapshot_input_hash": true,
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+    },
+    {
+      "path": "QuantumBlockEncoding/PrimitiveCircuit.lean",
+      "anchor": "Lines 17-55: exact-angle data and evaluation, including arbitrary exact real warning; lines 103-106: primitive list plus stored global phase.",
+      "declarations": [
+        "ExactAngle",
+        "ExactAngle.eval",
+        "PrimitiveProgram"
+      ],
+      "sha256": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c",
+      "hash_policy": "sha256-lf-text-v1",
+      "raw_sha256": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c",
+      "raw_equals_lf": true,
+      "source_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+      "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "matches_frozen_snapshot_input_hash": true,
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "schema_version": "qcb.nl_intake_integration_review.v1",
+  "review_version": 2,
+  "reviewer": "/root/nonlean_audit_coherence",
+  "created_at_utc": "2026-11-04T09:31:51.589336+00:00",
+  "verdict": "accept_engineering_with_pending_publication_evidence",
+  "scope": "Bounded source/math-evidence integration audit plus independent fresh-process import regression after publisher rename. Not a production browser/build/CI approval.",
+  "supersedes": {
+    "path": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/integration-review-v1.json",
+    "raw_sha256": "5339825d460c30de45cfc1f393cde7e2ba5385ab8503a977bf5368bb4d625212",
+    "reason": "Root publication fixtures found a duplicate module-basename import collision missed by the first audit. Root renamed the website publisher and refined its import boundary. Previous static/import coverage must not be treated as acceptance of the old collision-prone entry points. Exact prior audit bytes remain historical."
+  },
+  "reviewed_source_file_lf_sha256": {
+    "benchmarks/quantumcomputingbench/src/qcb_nonlean_workbook.py": "93d52924b8e077e7c9052e69fe1589ebeafc05937a07b5a03426b5adc20c5510",
+    "website/scripts/qcb_workbook_reader.py": "ca2ed737e33a83848b95c88279630715d1357b1db999611b02c2c798bba24c13",
+    "website/scripts/quantumcomputingbench.py": "d74d7d788fe98d901ee759720e7d7e4a1bcb59f16681253167678f74b5d092dd",
+    "website/scripts/sidebar_navigation.py": "b9ce164d68e59ec8243d45c8358c3ba0a0114ad2a6d1f909ae86fc4ffab3f366",
+    "website/scripts/qcb_benchmark_center.py": "d3b0990c33c3f648062080e54043de33dc873da0f192ea6c7fa0379b7057c98b",
+    "website/scripts/qcb_nonlean_browser.py": "a03608c546d61ac9035dbfab0ec214cb186f55a4151309cb273d3a31c600cdf8",
+    "website/scripts/test_quantumcomputingbench_browser.py": "f4e8b8853e943eb7501ef78ffba391b85e23c045b0dc4343c8c1b317beb604e0",
+    ".gitattributes": "97632d7f675255c5cc143d9cb939b253a19dbc7ee771667c19b924002e7bb6e8"
+  },
+  "hash_policy": "Source-code bindings use SHA-256 after CRLF-to-LF conversion; sealed mathematical phase/review receipts preserve exact original raw bytes.",
+  "binding_staleness": "These listed successor source hashes were identical before and after the five fresh-process checks and final in-memory rendering. Any later source change invalidates this successor acceptance until reviewed. Prior source hashes, staged-source assertions and workbook digest remain historical in integration-review-v1.json; they are not inherited as current-code evidence.",
+  "module_identity": {
+    "backend": "benchmarks/quantumcomputingbench/src/qcb_nonlean_workbook.py",
+    "publisher": "website/scripts/qcb_workbook_reader.py",
+    "removed_website_basename": "website/scripts/qcb_nonlean_workbook.py",
+    "architecture_review": "The website publisher no longer imports backend GROUPS or load_workbook at module import. The validated workbook now carries groups. Browser helper imports backend load_workbook only inside check_workbook; its top-level route import points to the pure renamed publisher. Main reader imports backend functions and renamed publisher explicitly. Presentation source bindings use the renamed path. Root must stage deletion of the old website file and addition of the renamed publisher before the final commit."
+  },
+  "actual_checks": [
+    {
+      "name": "Fresh-process plain main-reader import followed by publish dependencies",
+      "result": "passed",
+      "details": "No preloaded test modules and inherited PYTHONPATH removed. Import main reader, backend load_workbook/check_publication_sources and renamed publisher publish_workbook; backend resolves to the benchmark src module."
+    },
+    {
+      "name": "Browser acceptance CLI startup",
+      "result": "passed_help_only",
+      "details": "A fresh python website/scripts/test_quantumcomputingbench_browser.py --help exits zero without PYTHONPATH. This exercises module imports and argparse startup, not Playwright or browser acceptance."
+    },
+    {
+      "name": "Both backend/publisher import orders",
+      "result": "passed",
+      "details": "Separate fresh processes put website/scripts before benchmark src on sys.path. backend->publisher and publisher->backend both resolve distinct correct files and expose the expected functions."
+    },
+    {
+      "name": "Pure publisher without backend setup",
+      "result": "passed",
+      "details": "Fresh import website.scripts.qcb_workbook_reader with no backend path setup succeeds; qcb_nonlean_workbook is absent from sys.modules afterward. This directly checks that publisher import has no hidden backend dependency."
+    },
+    {
+      "name": "Final current workbook content binding",
+      "result": "passed",
+      "details": "load_workbook succeeds on the successor backend. It carries groups and produces workbook digest 2d1c012384e04d780c51786e9b39494bbe53765a60c9716f5cf1cfe679b713e1. Existing four-core/eight-candidate admission boundaries remain unchanged. Original file/hash/phase/notation validation still runs; the only backend successor delta inspected since the prior fixed loader adds groups to the validated result."
+    },
+    {
+      "name": "Final renamed-publisher route/disclosure check",
+      "result": "passed_bounded_static_check",
+      "details": "On stable exact successor hashes, both artificial live-ID extremes produce 20 pages and 53 graph anchors. All-current case checks 283 local links; frozen-only case checks 230. No workbook route/fragment/core-ID/graph-ID/duplicate-ID/initial-disclosure/answer-first-line errors. Static HTMLParser only, not actual responsive/MathJax/browser behavior."
+    },
+    {
+      "name": "Question-only export separation",
+      "result": "passed",
+      "details": "All twelve rows have exactly schema_version/view_id/question_sha256/input; input has exactly question/assumptions/conventions. References and metadata remain separate."
+    },
+    {
+      "name": "Sealed raw receipt/contribution byte preservation",
+      "result": "passed_predecessor_index_snapshot",
+      "details": "Prior audit compared 147 staged receipt/contributed-manifest inventory paths with their worktree raw bytes and all matched. Existing sealed receipts were not rewritten by this worker. The report-only -text -eol attribute exception remains narrow, after the broad source LF rule. New history/regression reports and this revised report require root staging; final committed checkout equality remains pending."
+    }
+  ],
+  "findings": [
+    {
+      "id": "INTEGRATION-DUPLICATE-MODULE-BASENAME",
+      "status": "resolved_by_rename_and_pure_publisher_import",
+      "severity": "blocking_in_previous_implementation",
+      "finding": "The website publisher and benchmark loader previously shared qcb_nonlean_workbook basename. sys.path/sys.modules state could resolve the wrong module; the previous audit did not exercise fresh CLI/import startup. Root fixture evidence exposed the defect.",
+      "resolution": "Website publisher is now qcb_workbook_reader.py with no backend import at module load. Five independent fresh-process regressions pass, including both import orders and CLI --help."
+    },
+    {
+      "id": "INTEGRATION-REVIEW-BINDING-COVERAGE",
+      "status": "previous_fix_retained",
+      "severity": "blocking_in_initial_version",
+      "finding": "Initial omitted reader-comparison hash keys could remove annotation protection.",
+      "resolution": "Exact seven-path binding-set check remains in the successor loader. Historical source-bound missing-all/missing-B-notation injection regressions reject on the preceding loader; inspected successor backend delta only adds groups to result. No new evidence-key omission is introduced."
+    },
+    {
+      "id": "INTEGRATION-COMMITTED-PROVENANCE",
+      "status": "guard_retained_actual_candidate_check_pending",
+      "severity": "production_publication_requirement",
+      "finding": "New payload/review GitHub links must exist byte-identically at the actual publication commit.",
+      "resolution": "The existing check_publication_sources guard is retained and wired into main publish. Preintegration HEAD rejection is historical expected behavior. Actual committed candidate and production links require root gates."
+    },
+    {
+      "id": "INTEGRATION-RAW-RECEIPT-NEWLINES",
+      "status": "narrow_exact_byte_attribute_fix_retained",
+      "severity": "production_content_binding_requirement",
+      "finding": "Raw phase/review/notation seals include mixed original line endings and must survive Git checkout without synthetic resealing.",
+      "resolution": "Prior effective-attribute, clean-filter and 147-index-blob equality checks support the report-only -text -eol rule. Normal benchmark source LF policy remains. No raw receipt was normalized or resealed by this worker."
+    }
+  ],
+  "evidence": {
+    "current_import_and_static_regression": {
+      "path": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/integration-import-regression-v3.json",
+      "raw_sha256": "3f3515e990de24dbce6bdea60c947a39167fd9d29359aa19f99fd9e910595aa8"
+    },
+    "earlier_requested_import_checks": {
+      "path": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/integration-import-checks-v2.json",
+      "raw_sha256": "95e6c727013e0f65ce56677440810fa2a50342fea9e6934c7ef45cadcfc858d5",
+      "scope": "Earlier pass before final freeze; current v3 with before/after hashes is authoritative."
+    },
+    "historical_binding_regression": {
+      "path": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/integration-binding-regression-checks.json",
+      "raw_sha256": "3f94ea8a1fabc8b6010be717aa168fbd791f5f95cd9ca57f8cad712fdb46ba2d"
+    },
+    "historical_staged_byte_checks": {
+      "path": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/integration-staged-byte-checks.json",
+      "raw_sha256": "ed934ba6504401e4da3b57590a8858c7b4d771556e45aab23d47fc154066732f"
+    }
+  },
+  "current_workbook_digest": "2d1c012384e04d780c51786e9b39494bbe53765a60c9716f5cf1cfe679b713e1",
+  "source_files_unchanged_during_final_checks": true,
+  "pending_before_actual_publication": [
+    "Stage the publisher rename/deletion, successor imports, new integration-review-v1.json, integration-import-regression-v3.json, integration-import-checks-v2.json and this final integration-review.json as appropriate. Previously recorded staged-source hashes do not bind these new successor files.",
+    "Run production check_publication_sources against the actual committed candidate containing raw packages and reports; verify candidate/CI checkout byte preservation.",
+    "Root owns full publication fixtures, actual browser geometry/MathJax/disclosures/search/graph behavior, full build, CI, merge and deployment. This report claims none of those gates passed."
+  ],
+  "worker_actions": {
+    "implementation_files_edited": false,
+    "raw_contribution_files_edited": false,
+    "sealed_mathematical_receipts_rewritten": false,
+    "git_stage_commit_push": false,
+    "lean_or_model_execution": false,
+    "actual_browser_or_CI_execution": false
+  },
+  "limitations": [
+    "Fresh import success does not prove full runtime/publication behavior. CLI --help is startup evidence only.",
+    "HTMLParser checks inspect static output and selected literal leakage, not rendered accessibility, layout, MathJax or live graph interaction.",
+    "Reviewer identity/hash presence does not establish external human approval or natural-language equivalence by itself; mathematical and notation reviews remain separate evidence."
+  ]
+}

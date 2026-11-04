@@ -1,0 +1,83 @@
+{
+  "schema_version": "qcb.cohort_question_first_packet.v1",
+  "slot": "C3",
+  "base_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "frozen_payload_item_digest": "375d190fde72c700a5ba60283a2a81e50fe061580c57cd606399a83a2a56ee3a",
+  "frozen_payload_sha256": "c635422213fb601413c8a270169aabc91837961ac555213588c8404fdae82f9d",
+  "core_id": "candidate:95850d89-ebfd-48a9-89bf-0221df041ac6",
+  "question": "Work over the real numbers. Let n>=0, let p_0,...,p_n and q_0,...,q_n be finite natural-number bond dimensions with p_n=q_n=r, and let A_j^0,A_j^1 have size p_{j-1} by p_j while B_j^0,B_j^1 have size q_{j-1} by q_j, for j=1,...,n. Zero dimensions are allowed. The two trains use the same ordered bit word s=(s_1,...,s_n) and the same terminal label b=1,...,r. Set P_A(s)=A_1^{s_1}...A_n^{s_n} and P_B(s)=B_1^{s_1}...B_n^{s_n}. For n=0 these are I_r and the set of words contains one empty word.\n\nDefine a rectangular cross environment backwards by H_n=I_r and H_{j-1}=sum_{t=0}^1 A_j^t H_j (B_j^t)^T. Derive, for all n, the full entry identity H_0(a,c)=sum_s sum_{b=1}^r P_A(s)_{ab} P_B(s)_{cb}. In particular, explain why the terminal index must be summed, and why off-diagonal entries contain cross-inner-products rather than squared amplitudes.\n\nFor arbitrary column vectors v in R^{p_0} and w in R^{q_0}, define emitted vectors on pairs (s,b) by Phi_A(v)_{s,b}=sum_a v_a P_A(s)_{ab} and Phi_B(w)_{s,b}=sum_c w_c P_B(s)_{cb}. Prove <Phi_A(v),Phi_B(w)>=v^T H_0 w.\n\nSpecialize to identical trains A=B and write E_0=H_0. Prove that E_0 is symmetric positive semidefinite, that ||Phi_A(v)||_2^2=v^T E_0 v for every initial vector v, and that v lies in the kernel of E_0 exactly when every emitted amplitude Phi_A(v)_{s,b} vanishes. Explain why no right-canonicality or normalized-boundary hypothesis is needed. Is a cross environment for two different trains necessarily positive semidefinite when it happens to be square? Give a counterexample if not. Check n=0, empty bond dimensions and zero trains. These are exact mathematical identities; no storage cost, finite-bit runtime or state-preparation circuit is part of the conclusion.",
+  "assumptions": [
+    "The two real trains have the same finite length, ordered two-valued physical indices and common terminal dimension r; their internal and initial dimensions may differ.",
+    "All matrix sizes are finite natural numbers and match as specified.",
+    "Initial vectors v and w are arbitrary real vectors, not assumed normalized or nonzero. The positive-semidefinite and kernel conclusions specialize to identical trains."
+  ],
+  "conventions": [
+    "A transpose is the ordinary real transpose; the inner product is sum of entrywise products.",
+    "The first core emits s_1. Both trains use exactly the same word and terminal-label order, without any implicit reversal.",
+    "An emitted vector retains the terminal label: its coordinates are all (s,b), so its dimension is 2^n*r.",
+    "The empty word set has one element and an empty product is the identity. Finite sums over empty bond labels are zero."
+  ],
+  "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "target_nodes": [
+    "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.gram",
+    "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.gram_eq_sum"
+  ],
+  "supporting_nodes": [
+    "declaration:QuantumBlockEncoding.TensorTrainCanonical.Core",
+    "declaration:QuantumBlockEncoding.TensorTrainCanonical.slice",
+    "declaration:QuantumBlockEncoding.TensorTrainCanonical.Chain",
+    "declaration:QuantumBlockEncoding.TensorTrainCanonical.Word",
+    "declaration:QuantumBlockEncoding.TensorTrainCanonical.contract",
+    "declaration:QuantumBlockEncoding.TensorTrainCanonical.chainMass",
+    "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.gram_scalar"
+  ],
+  "source_refs": [
+    {
+      "path": "QuantumBlockEncoding/TensorTrainNormEnvironment.lean",
+      "anchor": "Lines 17-37: full matrix Gram recursion and sum-over-word semantics including terminal labels; lines 39-75: scalar norm and target reindex adapter; entire 140-line module read.",
+      "declarations": [
+        "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.gram",
+        "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.gram_eq_sum",
+        "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.gram_scalar",
+        "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.norm_eq",
+        "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.norm_sq",
+        "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.norm_eq_of_contract"
+      ],
+      "sha256": "e684550c248817ac77e03a23e0af86d3b2c7f3d8b09bcdb2385702624f5ebe6c",
+      "sha256_lf": "e684550c248817ac77e03a23e0af86d3b2c7f3d8b09bcdb2385702624f5ebe6c",
+      "sha256_raw": "e684550c248817ac77e03a23e0af86d3b2c7f3d8b09bcdb2385702624f5ebe6c",
+      "hash_policy": "sha256-lf-text-v1",
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+      "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "source_matches_frozen_snapshot": true,
+      "read_status": "Complete module, ambient definitions, theorem statements and proof bodies read as local text."
+    },
+    {
+      "path": "QuantumBlockEncoding/TensorTrainCanonical.lean",
+      "anchor": "Lines 18-47: real core/slice, ordered chain/word contraction and right-canonical row condition; lines 57-64: slice absorption; lines 119-168: boundary mass and canonical chain mass; entire 317-line module read.",
+      "declarations": [
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.Core",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.slice",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.Chain",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.Word",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.contract",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.RightCanonical",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.absorb_slice",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.chainMass",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.chainMass_eq",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.residual_mass"
+      ],
+      "sha256": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+      "sha256_lf": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+      "sha256_raw": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+      "hash_policy": "sha256-lf-text-v1",
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+      "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "source_matches_frozen_snapshot": true,
+      "read_status": "Complete module, ambient definitions, theorem statements and proof bodies read as local text."
+    }
+  ]
+}

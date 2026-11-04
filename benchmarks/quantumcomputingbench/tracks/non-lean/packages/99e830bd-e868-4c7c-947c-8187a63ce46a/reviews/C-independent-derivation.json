@@ -1,0 +1,407 @@
+{
+  "schema_version": "qcb.independent_question_first_derivation.v1",
+  "reviewer": "/root/coverage_audit",
+  "author_identity_to_compare_later": "/root/author_tensor_polynomial",
+  "group": "C",
+  "phase": 1,
+  "phase_status": "independent_derivation_saved_before_proposed_answer_exposure",
+  "recorded_at": "2026-11-03T12:01:13.914616+00:00",
+  "timestamp_note": "This timestamp records binding computation and save time; no unrecorded first-read timestamp is invented.",
+  "digest_policy": "Raw file SHA256 binds bytes. Canonical digest uses sorted compact UTF-8 JSON with ensure_ascii=false, matching the reviewer-guide qcb_core.digest convention.",
+  "scope": "Only C1-C4 frozen question packets and their named primary local sources during this Phase1.",
+  "provenance": {
+    "prior_exposure": "I performed coverage planning for this cohort: inspected current/native/legacy question inventories, nearest source definitions, graph anchors and overlap risks. I suggested group-C topic scopes and read the root coverage plan. This is therefore not blind to target selection, source material or related existing questions. I did not author the proposed C payloads.",
+    "proposed_answer_exposure_before_save": false,
+    "proposed_rubric_exposure_before_save": false,
+    "proposed_reasoning_map_exposure_before_save": false,
+    "author_handoff_exposure_before_save": false,
+    "other_review_exposure_before_save": false,
+    "historical_prefreeze_C2_draft_or_finding_exposure": false,
+    "source_blind": false,
+    "question_first_source_grounded": true,
+    "no_lean_execution": true,
+    "no_external_models_or_paid_calls": true,
+    "no_human_approval_claim": true,
+    "independence_scope": "Distinct task identity from author, independent derivation before proposed-answer exposure; planning/source exposure disclosed."
+  },
+  "items": [
+    {
+      "slot": "C1",
+      "core_id": "qcb-core-sp-114",
+      "blind_packet_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/blind/C1.json",
+      "blind_packet_sha256_raw": "1e2cb595681ca9d239ce973eb285b0bd49a2d325eeaa097a2577e85b4f272e48",
+      "blind_packet_canonical_digest": "10ceb40f4c89f5b89ac0625e13e69e56bcc056668a18db4b94e1f1ead61f319f",
+      "blind_packet_binding_observed_at": "2026-11-03T12:01:13.914616+00:00",
+      "frozen_payload_item_digest_as_disclosed_in_packet": "d487e380e1f744467dc957a2c073e258d2b8d4b24d682690ae3720193ba554d1",
+      "frozen_payload_sha256_as_disclosed_in_packet": "6d1d47bda77a13c7781b076ffacf966d79ecce55e674209e77558d306af132b9",
+      "payload_digest_status": "Copied only from answer-excluding packet; payload not opened or independently hashed in Phase1",
+      "question_canonical_digest": "3f7e6a6dfe09d300e6a9a6329a750275e80db4f4f97931fafcd20b0e860f1a02",
+      "derivation_basis": "Frozen question, named local source text, independent elementary derivation; no proposed answer/rubric/reasoning-map inspection",
+      "independent_derivation": [
+        {
+          "step": "Taylor separation identity",
+          "argument": "For each row x, define the shifted polynomial Q_x(z)=q(u(x)+z). Translation preserves the degree upper bound, so Q_x(z)=sum_{i=0}^d a_i(x) z^i exactly, with a_i(x) the coefficient of z^i in Q_x. Over R one may equivalently write a_i(x)=q^(i)(u(x))/i!, including i=0. This is an exact polynomial identity, not a truncated analytic approximation."
+        },
+        {
+          "step": "Typed factor construction and multiplication",
+          "argument": "Use the inner index I={0,...,d}. Define A(x,i)=a_i(x) and B(i,y)=v(y)^i. Thus A has row index X and d+1 columns; B has d+1 rows and column index Y. The finite product has (AB)(x,y)=sum_{i=0}^d a_i(x)v(y)^i=Q_x(v(y))=q(u(x)+v(y))=F(x,y). No division by u(x) or v(y) occurs; the i=0 factor is one even when v(y)=0."
+        },
+        {
+          "step": "Rank conclusion and exact scope",
+          "argument": "Each column F(.,y) is a linear combination of the d+1 columns A(.,i). Therefore its column span has dimension at most d+1. For a finite matrix this is the usual rank inequality rank(AB)<=rank(A)<=d+1; empty row or column sets give rank zero. The factorization itself holds for arbitrary row and column index sets because only the finite inner index is summed. If arbitrary infinite arrays are intended, the same column-span argument proves algebraic rank at most d+1. The named Lean rank theorem assumes a finite column type; do not claim that its signature itself states the infinite-column extension."
+        },
+        {
+          "step": "Boundary and non-conclusions",
+          "argument": "If q is zero all coefficients and F vanish. For constant q, only the zeroth separated term may be nonzero, so the rank is at most one and may be zero. A loose degree bound or coincident values of u/v can also reduce the rank; d+1 is an upper bound, not necessarily a minimum width. The width does not depend on |X| or |Y|, but the amount of storage/evaluation needed for concrete factors can. No compatibility with a sequence of other cut factorizations, normalization algorithm, gate compiler or finite-bit cost is proved."
+        }
+      ],
+      "expected_rubric_checks": [
+        "Exact shifted-polynomial/Taylor identity with degree upper bound, not merely invoking low degree.",
+        "Explicit A(x,i) and B(i,y) with matching d+1 inner dimension and an entrywise multiplication check.",
+        "Column-span/rank argument with width distinguished from exact rank.",
+        "Zero/constant and empty-domain safety; no resource conclusion from algebraic width."
+      ],
+      "contract_observations": [
+        "Current unchanged-core question has no explicit finite-index premise. The finite-width identity is valid without one, and the algebraic column-span interpretation handles arbitrary index sets. Describe the source finite-column signature honestly rather than silently representing it as stronger."
+      ],
+      "source_checks": [
+        {
+          "path": "QuantumBlockEncoding/HermiteCutRank.lean",
+          "sha256_raw": "c0f038bd889c77163967c71df5f5987082f4b79ab7db2b7822efcdda7234aaf2",
+          "sha256_lf": "c0f038bd889c77163967c71df5f5987082f4b79ab7db2b7822efcdda7234aaf2",
+          "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+          "source_equals_frozen_bytes": true,
+          "lines_actually_read_this_phase": "1-51",
+          "declarations_actually_inspected": [
+            "FactorsThrough",
+            "FactorsThrough.rank_le",
+            "polynomial_add_factorization",
+            "polynomial_add_rank_le"
+          ],
+          "inspection": "The separation definition requires finite inner index only; source rank theorems require finite column type, not finite row type. Shifted Taylor coefficients and evaluation identity are explicit in the proof.",
+          "license": "MIT (repository LICENSE)",
+          "kernel_execution": false,
+          "checked_at": "2026-11-03T12:01:13.914616+00:00"
+        }
+      ],
+      "comparison_verdict": "not_assigned_before_phase2",
+      "remaining_uncertainty": "Exact candidate answer/rubric/reasoning map has not yet been inspected; semantic novelty/admission is separate from the mathematical derivation."
+    },
+    {
+      "slot": "C2",
+      "core_id": "candidate:0983ca7d-38f9-46d0-8920-b798e5c0cd7b",
+      "blind_packet_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/blind/C2.json",
+      "blind_packet_sha256_raw": "bfe0329cd8ab5176c95ec395e39ee032b0615f6a435bcea3fc1506db3e9b9d8d",
+      "blind_packet_canonical_digest": "76cae7959b80fa73d96e2716f8956bd320f53b61d5b45a7b531ea0662eac188d",
+      "blind_packet_binding_observed_at": "2026-11-03T12:01:13.914616+00:00",
+      "frozen_payload_item_digest_as_disclosed_in_packet": "5259c4b863c192e22d65b92eba87f7cb8296ddd3a59c4a0e5870a980f2a908a2",
+      "frozen_payload_sha256_as_disclosed_in_packet": "dbe542a555a13baf4ca958f270b0e2257bf87cd656e2af47606d5c6765b263d1",
+      "payload_digest_status": "Copied only from answer-excluding packet; payload not opened or independently hashed in Phase1",
+      "question_canonical_digest": "31208c5a45ef5c1c0656965882ddd586395e75f7272c2d371e5f1d73efa07f51",
+      "derivation_basis": "Frozen question, named local source text, independent elementary derivation; no proposed answer/rubric/reasoning-map inspection",
+      "independent_derivation": [
+        {
+          "step": "Prefix telescope with all dimensions",
+          "argument": "For 0<=k<=n set P_A^(k)=A_1^(s_1)...A_k^(s_k), shape r_0 by r_k, and similarly P_B^(k). The identity is P_B^(k)=G_0^(-1)P_A^(k)G_k. At k=0 the right side is G_0^(-1)I_(r_0)G_0=I_(r_0). If it holds at k, multiplying by B_(k+1)=G_k^(-1)A_(k+1)G_(k+1) cancels the adjacent G_k G_k^(-1), giving the k+1 identity. Associativity and square inverse identities suffice; individual cores need not be full rank."
+        },
+        {
+          "step": "Endpoint, amplitudes and norm",
+          "argument": "At k=n, G_0=G_n=I_1 removes both exterior factors, so P_B(s)=P_A(s) for every word. Thus f_B(s)=f_A(s), and the finite sum of squared amplitudes and its nonnegative square root agree exactly, including mass zero. Without fixed endpoints the displayed telescope instead leaves G_0^(-1)P_A(s)G_n; for scalar external gauges this multiplies all amplitudes by g_n/g_0. Setting both endpoints to identity is sufficient to remove that scalar; equality of endpoint scalars would also remove it, while absolute value one alone would not guarantee exact signed amplitude equality."
+        },
+        {
+          "step": "Transformed local row Gram",
+          "argument": "Write M_j=G_j G_j^T and G^(-T)=(G^(-1))^T. Direct multiplication gives sum_s B_j^s(B_j^s)^T=G_(j-1)^(-1)[sum_s A_j^s M_j (A_j^s)^T]G_(j-1)^(-T). This is a congruence with the modified right-bond metric M_j. Mere invertibility does not replace M_j by I."
+        },
+        {
+          "step": "Concrete failure of arbitrary invertible gauge",
+          "argument": "Take n=2 and r_0=r_1=r_2=1. Let A_1^0=A_2^0=[1] and A_1^1=A_2^1=[0]. Both row-Gram sums are [1], so the original train is right-canonical. Choose G_1=[2], with endpoints [1]. Then B_1^0=[2], B_2^0=[1/2], and the other slices are zero. Their row-Gram sums are [4] and [1/4], so neither is canonical. Nevertheless the only nonzero word amplitude is the 00 amplitude 2*(1/2)=1, so all amplitudes and mass are unchanged."
+        },
+        {
+          "step": "Orthogonal preservation",
+          "argument": "If all internal gauges are orthogonal, then every M_j=I, including both endpoints. For a canonical A, the bracket in the Gram identity is I_(r_(j-1)); its exterior congruence is G_(j-1)^(-1)G_(j-1)^(-T)=I. Hence every B core is right-canonical."
+        },
+        {
+          "step": "Orthogonality is also necessary under both canonicalities",
+          "argument": "Assume every A and B local row-Gram sum is identity and G_n=I. Multiplying the B row-Gram identity on the left by G_(j-1) and on the right by G_(j-1)^T yields M_(j-1)=sum_s A_j^s M_j(A_j^s)^T. Starting from M_n=I, descend in j. If M_j=I, A right-canonicality makes the sum exactly I, so M_(j-1)=I. Thus every internal G_j satisfies G_jG_j^T=I, equivalently G_j^TG_j=I because it is square and invertible. No injectivity of a single slice, nonzero-state assumption or separate full-rank premise is needed. A counterexample to this necessity claim would contradict the descending local equations."
+        },
+        {
+          "step": "All-length and zero-dimensional boundaries",
+          "argument": "For n=0 there is one empty word and the sole amplitude is 1, so mass and norm are 1; there are no internal gauges or canonicality conditions. For n=1 there are no internal gauges and B=A. In dimension zero, the unique 0-by-0 endomorphism is its own identity and inverse, and every matrix/cancellation identity above remains valid. If any internal dimension is zero with positive scalar external bonds, every full product factors through the zero space and every word amplitude is zero. The amplitude/norm claims remain true. Such a train cannot be right-canonical at every core: at the first positive-to-zero bond transition the row-Gram sum is zero on a positive-dimensional left space, not identity. The conditional canonicality theorem is then vacuous, while its algebraic equations themselves remain dimension-safe."
+        }
+      ],
+      "expected_rubric_checks": [
+        "Prefix identity with correct inverse orientation, shape and base case.",
+        "Exact endpoint cancellation and consequent amplitude/mass/norm invariance, including zero norm.",
+        "Correct transformed Gram with G_jG_j^T inside and inverse-transpose outside.",
+        "Actual two-core canonical counterexample with invertible nonorthogonal gauge and verified local Grams.",
+        "Orthogonal sufficiency and descending-induction NECESSITY when both trains are canonical and terminal gauge identity.",
+        "n=0/n=1/zero-bond cases without dividing by a state norm or assuming core full rank."
+      ],
+      "contract_observations": [
+        "The necessity clause is true as stated. The terminal identity anchors a backward induction; pointwise local reasoning at only one core would miss it.",
+        "These are active-coordinate gauges and differ from inactive padded completion freedom. No circuit implementation follows from equivalent tensor representations."
+      ],
+      "source_checks": [
+        {
+          "path": "QuantumBlockEncoding/TensorTrainCanonical.lean",
+          "sha256_raw": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+          "sha256_lf": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+          "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+          "source_equals_frozen_bytes": true,
+          "lines_actually_read_this_phase": "1-185",
+          "declarations_actually_inspected": [
+            "Core",
+            "slice",
+            "Chain",
+            "Word",
+            "contract",
+            "RightCanonical",
+            "absorb_slice",
+            "mass",
+            "chainMass",
+            "chainMass_eq",
+            "residual_mass"
+          ],
+          "inspection": "Read exact dimensions/orientation, identity empty contraction, core order, row-canonical equation, and all terminal-label mass definition. No active-gauge theorem is asserted to be present.",
+          "license": "MIT (repository LICENSE)",
+          "kernel_execution": false,
+          "checked_at": "2026-11-03T12:01:13.914616+00:00"
+        },
+        {
+          "path": "QuantumBlockEncoding/TensorTrainNormEnvironment.lean",
+          "sha256_raw": "e684550c248817ac77e03a23e0af86d3b2c7f3d8b09bcdb2385702624f5ebe6c",
+          "sha256_lf": "e684550c248817ac77e03a23e0af86d3b2c7f3d8b09bcdb2385702624f5ebe6c",
+          "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+          "source_equals_frozen_bytes": true,
+          "lines_actually_read_this_phase": "1-75",
+          "declarations_actually_inspected": [
+            "gram",
+            "gram_eq_sum",
+            "gram_scalar",
+            "norm",
+            "norm_eq",
+            "norm_sq",
+            "norm_pos_of_nonzero",
+            "norm_eq_of_contract"
+          ],
+          "inspection": "Read full recursion and complete proof of gram_eq_sum and scalar norm results. Cross-train rectangular environment and kernel characterization are derived independently, not falsely attributed to source theorem.",
+          "license": "MIT (repository LICENSE)",
+          "kernel_execution": false,
+          "checked_at": "2026-11-03T12:01:13.914616+00:00"
+        }
+      ],
+      "comparison_verdict": "not_assigned_before_phase2",
+      "remaining_uncertainty": "Exact candidate answer/rubric/reasoning map has not yet been inspected; semantic novelty/admission is separate from the mathematical derivation."
+    },
+    {
+      "slot": "C3",
+      "core_id": "candidate:95850d89-ebfd-48a9-89bf-0221df041ac6",
+      "blind_packet_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/blind/C3.json",
+      "blind_packet_sha256_raw": "5a674caf9cf72639c7d925b6acbc857206f30c1867eb659281b16278369f9fd8",
+      "blind_packet_canonical_digest": "60570eab80c54f6e2c413a2235b889f49749c695c6ef9df6c88cfee1481acb77",
+      "blind_packet_binding_observed_at": "2026-11-03T12:01:13.914616+00:00",
+      "frozen_payload_item_digest_as_disclosed_in_packet": "375d190fde72c700a5ba60283a2a81e50fe061580c57cd606399a83a2a56ee3a",
+      "frozen_payload_sha256_as_disclosed_in_packet": "c635422213fb601413c8a270169aabc91837961ac555213588c8404fdae82f9d",
+      "payload_digest_status": "Copied only from answer-excluding packet; payload not opened or independently hashed in Phase1",
+      "question_canonical_digest": "ef116ed48b41a1a3f15de7b45d4e72b72e9114fee729dd3a7649c99d7e60acef",
+      "derivation_basis": "Frozen question, named local source text, independent elementary derivation; no proposed answer/rubric/reasoning-map inspection",
+      "independent_derivation": [
+        {
+          "step": "Tail identity with rectangular shapes",
+          "argument": "For each 0<=j<=n define tail products P_A^(j)(s_(j+1),...,s_n) of shape p_j by r and P_B^(j) of shape q_j by r. Claim H_j=sum_tail P_A^(j) (P_B^(j))^T, shape p_j by q_j. At j=n there is one empty tail and the sum is I_r I_r^T=I_r. Substituting the identity at j into H_(j-1)=sum_t A_j^t H_j(B_j^t)^T, distributing the finite sums and using (B_j^t P_B^(j))^T=(P_B^(j))^T(B_j^t)^T gives the claim at j-1."
+        },
+        {
+          "step": "Full entry expansion",
+          "argument": "At j=0, H_0=sum_s P_A(s)P_B(s)^T. Its (a,c) entry is sum_s sum_(b=1)^r P_A(s)_(a,b)P_B(s)_(c,b). The b sum is required by matrix multiplication and includes every terminal component of the emitted vector. Keeping only one b computes a different terminal projection. Off-diagonal a,c terms are inner products between distinct boundary responses; they are not squares. For A != B even diagonal terms are cross products, not necessarily nonnegative."
+        },
+        {
+          "step": "Bilinear initial-boundary formula",
+          "argument": "Expand the emitted inner product as sum_(s,b) (sum_a v_a P_A(s)_(a,b))(sum_c w_c P_B(s)_(c,b)). Finite distributivity permits rearrangement to sum_(a,c) v_a [sum_(s,b) P_A(s)_(a,b)P_B(s)_(c,b)] w_c=v^T H_0 w. The dimensions are v in R^(p_0), H_0 in R^(p_0 by q_0), w in R^(q_0); both emitted vectors have 2^n r coordinates in the same order."
+        },
+        {
+          "step": "Equal-train Gram and positivity",
+          "argument": "For A=B, E_0=sum_s P_A(s)P_A(s)^T. Each summand is symmetric, so E_0 is symmetric. For arbitrary v, v^T E_0 v=sum_(s,b)(sum_a v_a P_A(s)_(a,b))^2=||Phi_A(v)||_2^2>=0. Thus E_0 is PSD with no right-canonical or normalized-input premise."
+        },
+        {
+          "step": "Kernel equivalence without spectral assumptions",
+          "argument": "If E_0 v=0, its quadratic form is zero; the preceding finite sum consists of nonnegative real squares, so every emitted amplitude is zero. Conversely if every emitted amplitude is zero, then P_A(s)^T v=0 for every word s. Therefore E_0 v=sum_s P_A(s)(P_A(s)^T v)=0. This proves equality of kernels directly; neither direction relies on normalizing v."
+        },
+        {
+          "step": "A square cross environment need not be PSD",
+          "argument": "Let n=1, p_0=q_0=r=1, A_1^0=[1], A_1^1=[0], B_1^0=[-1], B_1^1=[0]. Then H_0=[-1], which is square and symmetric but has v^T H_0 v=-1 at v=1. Thus even symmetry in a square cross case does not imply PSD. Rectangular cross environments have no ordinary PSD classification at all."
+        },
+        {
+          "step": "Boundary cases",
+          "argument": "For n=0, p_0=q_0=r, H_0=I_r and Phi_A(v)=v=Phi_B(v) under the empty-word/terminal-coordinate identification; the formula reduces to <v,w>=v^Tw. For r=0 all emitted vectors are empty and the sums are zero; at n=0 this is the identity on the zero space, consistently the unique 0-by-0 matrix. An empty initial dimension gives the unique zero boundary and a compatible empty row or column in H. Any zero internal bond makes that train's full products zero; then its emitted map and its cross environment with any other train vanish. If A has all word products zero, E_0=0 and its kernel is the whole initial space. Zero train here means a zero emitted map; n=0 with r>0 is the identity emitted map and is not an arbitrary zero train."
+        }
+      ],
+      "expected_rubric_checks": [
+        "Backward induction for rectangular cross environments with common terminal r and explicit base case.",
+        "Correct terminal-label sum and cross-inner-product interpretation.",
+        "Dimensionally valid arbitrary-boundary bilinear identity.",
+        "Symmetry, PSD and squared-norm identity only in the equal-train specialization.",
+        "Both directions of the kernel equivalence through a finite sum of squares.",
+        "Explicit negative square cross-environment witness and n=0/empty/zero-map cases."
+      ],
+      "contract_observations": [
+        "The frozen source supplies the equal-train matrix identity. The rectangular cross version and boundary/kernel consequences are elementary independent derivations, not newly kernel-checked source theorems.",
+        "No assumption about canonicality, rank, nonzero emitted norm or normalized initial boundary is required."
+      ],
+      "source_checks": [
+        {
+          "path": "QuantumBlockEncoding/TensorTrainNormEnvironment.lean",
+          "sha256_raw": "e684550c248817ac77e03a23e0af86d3b2c7f3d8b09bcdb2385702624f5ebe6c",
+          "sha256_lf": "e684550c248817ac77e03a23e0af86d3b2c7f3d8b09bcdb2385702624f5ebe6c",
+          "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+          "source_equals_frozen_bytes": true,
+          "lines_actually_read_this_phase": "1-75",
+          "declarations_actually_inspected": [
+            "gram",
+            "gram_eq_sum",
+            "gram_scalar",
+            "norm",
+            "norm_eq",
+            "norm_sq",
+            "norm_pos_of_nonzero",
+            "norm_eq_of_contract"
+          ],
+          "inspection": "Read full recursion and complete proof of gram_eq_sum and scalar norm results. Cross-train rectangular environment and kernel characterization are derived independently, not falsely attributed to source theorem.",
+          "license": "MIT (repository LICENSE)",
+          "kernel_execution": false,
+          "checked_at": "2026-11-03T12:01:13.914616+00:00"
+        },
+        {
+          "path": "QuantumBlockEncoding/TensorTrainCanonical.lean",
+          "sha256_raw": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+          "sha256_lf": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+          "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+          "source_equals_frozen_bytes": true,
+          "lines_actually_read_this_phase": "1-185",
+          "declarations_actually_inspected": [
+            "Core",
+            "slice",
+            "Chain",
+            "Word",
+            "contract",
+            "RightCanonical",
+            "absorb_slice",
+            "mass",
+            "chainMass",
+            "chainMass_eq",
+            "residual_mass"
+          ],
+          "inspection": "Read exact dimensions/orientation, identity empty contraction, core order, row-canonical equation, and all terminal-label mass definition. No active-gauge theorem is asserted to be present.",
+          "license": "MIT (repository LICENSE)",
+          "kernel_execution": false,
+          "checked_at": "2026-11-03T12:01:13.914616+00:00"
+        }
+      ],
+      "comparison_verdict": "not_assigned_before_phase2",
+      "remaining_uncertainty": "Exact candidate answer/rubric/reasoning map has not yet been inspected; semantic novelty/admission is separate from the mathematical derivation."
+    },
+    {
+      "slot": "C4",
+      "core_id": "candidate:3197f9f9-ed41-4610-9d9d-966014b9468c",
+      "blind_packet_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/blind/C4.json",
+      "blind_packet_sha256_raw": "1de3ea482f81c3ca8a59c63cd31676f46b3f4f4086d1970e3971e09c18e9ad5e",
+      "blind_packet_canonical_digest": "d0c68ec1c640fb0250a4cbd8eab6c2f392e776631d1219f9e41b9feba8f20718",
+      "blind_packet_binding_observed_at": "2026-11-03T12:01:13.914616+00:00",
+      "frozen_payload_item_digest_as_disclosed_in_packet": "965119311657ce6a04051aee95ab9cad92d50b8435213dea8349d8902114c1bc",
+      "frozen_payload_sha256_as_disclosed_in_packet": "169c92c69d5319c413c9ae91ad8207e70f7728859ae1b32ec51495b39da34f54",
+      "payload_digest_status": "Copied only from answer-excluding packet; payload not opened or independently hashed in Phase1",
+      "question_canonical_digest": "71d28de96f4bbd8b228763dc552c356c41c442febca7172b27f269862e3c7b0e",
+      "derivation_basis": "Frozen question, named local source text, independent elementary derivation; no proposed answer/rubric/reasoning-map inspection",
+      "independent_derivation": [
+        {
+          "step": "Basis positivity and unity",
+          "argument": "For t in [0,1], binom(d,r)>=0, t^r>=0 and (1-t)^(d-r)>=0, so every B_(d,r)(t)>=0. The binomial theorem gives sum_(r=0)^d binom(d,r)t^r(1-t)^(d-r)=(t+(1-t))^d=1, including d=0 and endpoints under the stipulated zeroth-power convention."
+        },
+        {
+          "step": "Coefficient error to sampled-vector error",
+          "argument": "Write e_r=ctilde_r-c_r. Then |ptilde(t)-p(t)|=|sum_r e_r B_(d,r)(t)|<=sum_r |e_r|B_(d,r)(t)<=eta sum_r B_(d,r)(t)=eta. Consequently ||y-x||_2^2=sum_(j=1)^M |ptilde(t_j)-p(t_j)|^2<=M eta^2 and ||y-x||_2<=delta:=eta sqrt(M). Repeated points remain separately counted coordinates. Coefficient signs do not enter because only the basis weights are required nonnegative."
+        },
+        {
+          "step": "All normalization premises",
+          "argument": "The positive mass assumption implies ||x||_2>=sqrt(m)>0. Reverse triangle gives ||y||_2>=||x||_2-||y-x||_2>=sqrt(m)-eta sqrt(M)>0. Hence both x and y are nonzero, delta<sqrt(m)<=||x||, and every premise of the supplied normalized-vector result holds. It gives ||x/||x||_2-y/||y||_2||_2<=2||x-y||_2/||x||_2<=2eta sqrt(M)/sqrt(m). This is distance of specified signed vectors, not a quotient by global phase."
+        },
+        {
+          "step": "Sufficient target accuracy",
+          "argument": "In every realizable positive-mass instance M>=1. For 0<epsilon<2, it is sufficient to impose 0<=eta<=epsilon sqrt(m)/(2sqrt(M)). Then delta<=epsilon sqrt(m)/2<sqrt(m), so y is nonzero and the bound is at most epsilon. The strict nonzero margin follows even when the precision inequality is an equality because epsilon<2. This is sufficient, not necessary or optimal."
+        },
+        {
+          "step": "Endpoint mass anchor",
+          "argument": "For d>0, the basis values at zero select r=0 and at one select r=d, so p(0)=c_0 and p(1)=c_d. For d=0 the one basis function is identically one and both endpoint identities read p=c_0. If a sampled endpoint has the corresponding original coefficient of magnitude at least a>0, one summand of the raw mass is at least a^2, and m=a^2 is valid. An endpoint outside the sample list gives no such mass guarantee. Repeated occurrences could strengthen the bound but are not needed."
+        },
+        {
+          "step": "Degenerate and signed cases",
+          "argument": "For eta=0 the coefficient vectors, polynomials and sample vectors agree, so positive-mass normalized error is zero. Zero raw mass means x=0 and contradicts m>0; outside this premise the normalized target is undefined. For M=0 the unique sample vector has mass zero, so no positive-mass instance exists and no division by sqrt(M) is allowed. Signed coefficients/amplitudes need no positivity assumption and normalization must retain their signs. Degree zero is included by B_(0,0)=1."
+        },
+        {
+          "step": "Shrinking-mass obstruction satisfying the strict margin",
+          "argument": "For each h>0 take d=1, M=2, samples t_1=0,t_2=1, coefficients c=(h,0) and ctilde=(h,h/2). Then eta=h/2 tends to zero as h tends to zero, x=(h,0), y=(h,h/2), and m=h^2 is a valid positive lower bound tending to zero. The strict margin holds: eta sqrt(M)=h/sqrt(2)<h=sqrt(m). Yet x/||x||=(1,0) and y/||y||=(2/sqrt(5),1/sqrt(5)), so the normalized distance is sqrt(2-4/sqrt(5)), a fixed positive number. This shows absolute coefficient precision alone gives no mass-independent uniform normalized-state accuracy even within the strict-margin class."
+        },
+        {
+          "step": "Scope of the supplied lemma and source",
+          "argument": "The question explicitly supplies normalized-vector stability. As an independent check, if a=||x||>0 and b=||y||>0, decompose x/a-y/b=(x-y)/a+y(1/a-1/b), obtaining norm at most ||x-y||/a+|b-a|/a<=2||x-y||/a. The local source confirms Bernstein convex weights and exact positive-mass normalization; it does not claim the new combined perturbation theorem, numerical polynomial evaluation accuracy, or gate cost."
+        }
+      ],
+      "expected_rubric_checks": [
+        "Formula-based nonnegative Bernstein weights and binomial partition including d=0/endpoints.",
+        "Uniform eta value bound, then sqrt(M) factor in Euclidean sample error.",
+        "Reverse-triangle lower bound sqrt(m)-eta sqrt(M)>0 and explicit check of both nonzero vectors before normalization.",
+        "Correct sufficient coefficient condition for epsilon<2, including strictness at equality.",
+        "Actual sampled endpoint yields m=a^2; no dependence on coefficient positivity.",
+        "M=0 and zero-mass premise contradictions handled without division; eta=0 and signed vectors included.",
+        "Explicit shrinking-mass example with eta->0, fixed positive normalized error and preferably the strict-margin premise verified."
+      ],
+      "contract_observations": [
+        "The positive-mass assumption makes M=0 unrealizable; it is not a counterexample to the theorem.",
+        "The source normSq uses a power-of-two table, but the finite-sum normalization argument and the supplied stability lemma apply to the arbitrary finite M specified here. This is an NL consequence, not a claimed exact Lean signature."
+      ],
+      "source_checks": [
+        {
+          "path": "QuantumBlockEncoding/HermiteBernstein.lean",
+          "sha256_raw": "661618d9c10826491ee293c7c411ac2d55056426739f4bbfd3e7c410c05e4bff",
+          "sha256_lf": "661618d9c10826491ee293c7c411ac2d55056426739f4bbfd3e7c410c05e4bff",
+          "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+          "source_equals_frozen_bytes": true,
+          "lines_actually_read_this_phase": "1-37; 327-347; 450-465",
+          "declarations_actually_inspected": [
+            "basis",
+            "basis_eq",
+            "basis_nonneg",
+            "basis_sum",
+            "bernstein_sum_bounds",
+            "bernstein_eval_zero"
+          ],
+          "inspection": "Read exact formula, interval nonnegativity, partition of unity, complete coefficient-bound proof and endpoint-zero evaluation. Endpoint-one identity is independently derived from displayed formula.",
+          "license": "MIT (repository LICENSE)",
+          "kernel_execution": false,
+          "checked_at": "2026-11-03T12:01:13.914616+00:00"
+        },
+        {
+          "path": "QuantumBlockEncoding/RealAmplitudePreparation.lean",
+          "sha256_raw": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+          "sha256_lf": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+          "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+          "source_equals_frozen_bytes": true,
+          "lines_actually_read_this_phase": "1-16; 203-222; 310-325",
+          "declarations_actually_inspected": [
+            "normSq",
+            "normSq_nonneg",
+            "normSq_marginal",
+            "normalized_sum_sq",
+            "normSq_pos_of_positive"
+          ],
+          "inspection": "Read header/conventions and complete relevant norm and normalization definitions/proofs. Arbitrary finite M in C4 is elementary NL extension; no quantum loader theorem is inferred.",
+          "license": "MIT (repository LICENSE)",
+          "kernel_execution": false,
+          "checked_at": "2026-11-03T12:01:13.914616+00:00"
+        }
+      ],
+      "comparison_verdict": "not_assigned_before_phase2",
+      "remaining_uncertainty": "Exact candidate answer/rubric/reasoning map has not yet been inspected; semantic novelty/admission is separate from the mathematical derivation."
+    }
+  ],
+  "next_step": "Wait for root Phase2 permission before opening qa/, author handoffs, other reviews or COHORT."
+}

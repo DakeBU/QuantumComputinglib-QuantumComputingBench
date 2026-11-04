@@ -1,0 +1,977 @@
+{
+  "schema_version": "qcb.nl_reader_clarifications.v1",
+  "reviewer": "/root",
+  "status": "accepted_with_limitations",
+  "raw_payloads_unchanged": true,
+  "items": {
+    "A2": {
+      "slot": "A2",
+      "payload_sha256": "28012f09057d3e975db6cf0d129d63f171b6b00dfb649dd054aa96471c9e3c8f",
+      "question_sha256": "302df9398c040c8660298e718c9cdde0db8fef2aa37fc962ed4796556837c20f",
+      "step_notes": {
+        "s8": "Boundary analysis uses separate parameter regimes, rather than all the active strict-margin premises simultaneously. For delta=0 retain x!=0 and ||x-y||<=delta; then y=x. For the equality-threshold witness, REPLACE delta<||x|| by delta=||x|| and take y=0, so N(y) is undefined. For x=0, REPLACE the active x!=0 premise; for dimension zero, REPLACE d>=1 by d=0. These last regimes lie outside the normalization theorem domain. The i2/s3 links provide context for what changes; they are not strict-margin implications proving the excluded cases."
+      },
+      "grading_notes": [],
+      "changes": [
+        "reasoning_map.steps[id=s8]: Display as a diagnostic node with explicit premise replacements, not as an ordinary all-premises theorem consequence. The raw required-input list and question remain unchanged."
+      ],
+      "source_addendum": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/A-reader-addendum.json"
+    },
+    "A3": {
+      "slot": "A3",
+      "payload_sha256": "7ce00fca0b1faf45cc85c752a76603cd8b64a3f0f9271108a0bef351a1c03fd3",
+      "question_sha256": "9d2e40ad456fd8a6c36088a30caacf66258a59392695826329424d2ee4ee0e89",
+      "step_notes": {
+        "s12": "Separate valid specializations from excluded-domain diagnostics. For epsilon=0 retain s>0: the exact nonzero branch has p=s^2/alpha^2. For s=0, REPLACE s>epsilon from i4 by s=0 while retaining alpha>0, epsilon>=0, the operator-error promise, unitarity and ||psi||=1. Do not import the positive-success conclusion of s6 into this branch: Apsi/s is undefined; epsilon=0 gives p=0, and epsilon>0 gives only p<=min(1,(epsilon/alpha)^2). For m=0 or n=0, retain the original valid margin premises: m=0 gives P=I and p=1; n=0 gives a one-dimensional complex system, not the zero vector space. The i4/s6 references in the raw endpoint node are contextual, not simultaneous assumptions for the s=0 diagnostic."
+      },
+      "grading_notes": [
+        "For rubric r2 and r3, accept either equivalent positive-alpha scaling. The reference route takes x=Apsi/alpha, y=Bpsi and delta=epsilon/alpha. A fully correct alternative takes x=Apsi, y=alpha Bpsi and delta=epsilon. The latter proves ||x-y||<=epsilon<s=||x||, hence x!=0 and alpha Bpsi!=0; alpha>0 then gives Bpsi!=0 and N(alpha Bpsi)=Bpsi/||Bpsi|| exactly. Applying the supplied lemma gives the same 2epsilon/s bound. Full credit does not require writing epsilon/alpha when the alternative route correctly preserves the stated norm convention and all nonzero premises.",
+        "Equivalent scaling earns the same r2/r3 credit only when the answer also derives the requested cap 2 and squared success interval with a nonnegative lower endpoint. Merely changing variable names does not replace these proof obligations."
+      ],
+      "changes": [
+        "reasoning_map.steps[id=s12]: Display the vanishing-target branch with its replaced margin assumption and without a positive-success dependency; keep exact and zero-qubit specializations separately labelled.",
+        "rubric r2 and r3: Accept both mathematically equivalent positive-alpha scalings with all original proof obligations retained. No question or raw rubric text is modified."
+      ],
+      "source_addendum": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/A-reader-addendum.json"
+    },
+    "C1": {
+      "slot": "C1",
+      "payload_sha256": "6d1d47bda77a13c7781b076ffacf966d79ecce55e674209e77558d306af132b9",
+      "question_sha256": "5bf5f1b1c1c9fef2745ed19d82afb769865f4c9ba83230f9beee76dc6e62dc18",
+      "display_reasoning_map": {
+        "kind": "author_supplied_natural_language",
+        "not_extracted_lean_dependencies": true,
+        "inputs": [
+          {
+            "id": "C1-I1",
+            "statement": "q is a real polynomial of degree at most the nonnegative integer d.",
+            "kind": "assumption"
+          },
+          {
+            "id": "C1-I2",
+            "statement": "u:X->R and v:Y->R are arbitrary functions; F(x,y)=q(u(x)+v(y)).",
+            "kind": "assumption"
+          },
+          {
+            "id": "C1-I3",
+            "statement": "Matrix multiplication over inner set {0,...,d} is a finite sum; for arbitrary outer sets algebraic rank is dimension of the column-function span.",
+            "kind": "convention"
+          }
+        ],
+        "steps": [
+          {
+            "id": "C1-S1",
+            "claim": "Produce the exact shifted coefficients.",
+            "assumptions": [
+              "Real polynomial, degree bound d."
+            ],
+            "required_inputs": [
+              "C1-I1"
+            ],
+            "conclusion": "For all real a,s, q(a+s)=sum_{i=0}^d c_i(a)s^i.",
+            "justification": "Finite binomial expansion and collection of equal powers; c_i(a)=sum_{k=i}^d a_k binom(k,i)a^(k-i)."
+          },
+          {
+            "id": "C1-S2",
+            "claim": "Separate the row and column variables.",
+            "assumptions": [
+              "The same q,u,v as in the question."
+            ],
+            "required_inputs": [
+              "C1-S1",
+              "C1-I2"
+            ],
+            "conclusion": "F(x,y)=sum_i c_i(u(x))v(y)^i.",
+            "justification": "Substitute a=u(x), s=v(y)."
+          },
+          {
+            "id": "C1-S3",
+            "claim": "Assemble actual factors and verify equality.",
+            "assumptions": [
+              "Finite inner sum, with no finiteness requirement on outer sets."
+            ],
+            "required_inputs": [
+              "C1-S2",
+              "C1-I3"
+            ],
+            "conclusion": "A(x,i)=c_i(u(x)), B(i,y)=v(y)^i satisfy F=AB with width d+1.",
+            "justification": "Unfold finite matrix multiplication entrywise."
+          },
+          {
+            "id": "C1-S4",
+            "claim": "Pass from the finite-width representation to rank.",
+            "assumptions": [
+              "Columns are real functions on X."
+            ],
+            "required_inputs": [
+              "C1-S3",
+              "C1-I3"
+            ],
+            "conclusion": "rank F<=d+1.",
+            "justification": "Every column of F lies in the span of the d+1 columns of A."
+          },
+          {
+            "id": "C1-S5",
+            "claim": "Explain degree control and degenerate boundaries.",
+            "assumptions": [
+              "d is only an upper degree bound; outer sets may be empty."
+            ],
+            "required_inputs": [
+              "C1-I1",
+              "C1-I2",
+              "C1-I3",
+              "C1-S3",
+              "C1-S4"
+            ],
+            "conclusion": "Width depends on d, while zero/constant/empty/repeated-value arrays may have smaller rank.",
+            "justification": "The finite powers determine I; no step uses an outer size, nonzero coefficient, distinct value or nonempty row/column premise."
+          }
+        ],
+        "reused_results": [
+          {
+            "id": "shifted-polynomial-identity",
+            "producer": "C1-S1",
+            "consumer_steps": [
+              "C1-S2"
+            ],
+            "status": "Derived explicitly in this answer; source polynomial_add_factorization uses the corresponding shifted-polynomial coefficient identity."
+          },
+          {
+            "id": "finite-width-column-span",
+            "producer": "C1-S3",
+            "consumer_steps": [
+              "C1-S4",
+              "C1-S5"
+            ],
+            "status": "Factorization witness reused for rank and boundary explanation."
+          }
+        ],
+        "reconvergent_branches": "none: the substantive proof is a sequential representation-to-rank route; final boundary discussion reuses established facts but is not an independent proof diamond.",
+        "AND_join_policy": "Each required_inputs list is conjunctive and lists all input/result interfaces used at that step."
+      },
+      "changes": [
+        "No map change: display_reasoning_map is a complete exact deep copy of the original C1 map. Only the grading interpretation is clarified."
+      ],
+      "grading_notes": [
+        "For rubric C1-r4, award the boundary/degeneracy point when the solver gives a general factorization and span argument valid for zero/constant polynomials and empty index sets, even without a separately named boundary example. Do not require new finite-outer-set, nonzero, exact-degree or distinct-sample premises."
+      ],
+      "source_addendum": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/C-reader-addendum.json"
+    },
+    "C2": {
+      "slot": "C2",
+      "payload_sha256": "dbe542a555a13baf4ca958f270b0e2257bf87cd656e2af47606d5c6765b263d1",
+      "question_sha256": "267dd3396f5543531d781e4b6611d46d5c4348947b9f8e8ddd1baffd71b7cb2e",
+      "display_reasoning_map": {
+        "kind": "reader_scope_clarification_natural_language",
+        "not_extracted_lean_dependencies": true,
+        "inputs": [
+          {
+            "id": "C2-I1",
+            "statement": "Finite real core slices, dimensions r_j and first-core-first products with scalar external bonds.",
+            "kind": "assumption"
+          },
+          {
+            "id": "C2-I2",
+            "statement": "Internal G_j are invertible and G_0=G_n=I_1; B_j^s=G_{j-1}^{-1}A_j^sG_j.",
+            "kind": "assumption"
+          },
+          {
+            "id": "C2-I3",
+            "statement": "S is the full finite word sum of squared scalar amplitudes and norm=sqrt(S).",
+            "kind": "convention"
+          },
+          {
+            "id": "C2-I4",
+            "statement": "For the conditional canonicality claim, sum_s A_j^s(A_j^s)^T=I at each core.",
+            "kind": "assumption"
+          },
+          {
+            "id": "C2-I5",
+            "statement": "For the sufficient-condition branch, every internal G_j is orthogonal.",
+            "kind": "assumption"
+          },
+          {
+            "id": "C2-I6",
+            "statement": "For the converse branch only, every transformed core is right-canonical.",
+            "kind": "assumption"
+          }
+        ],
+        "steps": [
+          {
+            "id": "C2-S1",
+            "claim": "Prove the prefix gauge invariant.",
+            "assumptions": [
+              "Correct dimensions and adjacent inverses."
+            ],
+            "required_inputs": [
+              "C2-I1",
+              "C2-I2"
+            ],
+            "conclusion": "P_B,k=G_0^{-1}P_A,k G_k for 0<=k<=n.",
+            "justification": "Induct on k; base is the identity and the step cancels G_{k-1}G_{k-1}^{-1} by associativity."
+          },
+          {
+            "id": "C2-S2",
+            "claim": "Recover exact full scalar amplitudes.",
+            "assumptions": [
+              "Both external gauges are identity."
+            ],
+            "required_inputs": [
+              "C2-S1",
+              "C2-I1",
+              "C2-I2"
+            ],
+            "conclusion": "For every word, f_B(s)=f_A(s).",
+            "justification": "Take k=n in the prefix invariant and apply the two endpoint identities."
+          },
+          {
+            "id": "C2-S3",
+            "claim": "Recover mass and norm.",
+            "assumptions": [
+              "No nonzero assumption is needed for sums of squares or the nonnegative square root."
+            ],
+            "required_inputs": [
+              "C2-S2",
+              "C2-I3"
+            ],
+            "conclusion": "S_B=S_A and sqrt(S_B)=sqrt(S_A).",
+            "justification": "Substitute amplitude equality into each finite summand and take the same square root."
+          },
+          {
+            "id": "C2-S4",
+            "claim": "Compute the transformed local row-Gram.",
+            "assumptions": [
+              "Real transpose reverses factor order."
+            ],
+            "required_inputs": [
+              "C2-I1",
+              "C2-I2"
+            ],
+            "conclusion": "Gram(B_j)=G_{j-1}^{-1}[sum_s A_j^s G_jG_j^T(A_j^s)^T]G_{j-1}^{-T}.",
+            "justification": "Expand each B_j^s(B_j^s)^T and pull out the factors independent of s."
+          },
+          {
+            "id": "C2-S5",
+            "claim": "Prove the orthogonal-gauge sufficient condition.",
+            "assumptions": [
+              "Original train is right-canonical; gauges including endpoints are orthogonal."
+            ],
+            "required_inputs": [
+              "C2-S4",
+              "C2-I2",
+              "C2-I4",
+              "C2-I5"
+            ],
+            "conclusion": "Every transformed local Gram is identity.",
+            "justification": "Use G_jG_j^T=I, then original canonicality, then G_{j-1}^{-1}G_{j-1}^{-T}=I."
+          },
+          {
+            "id": "C2-S5b",
+            "claim": "Prove orthogonality is necessary for two fully canonical trains.",
+            "assumptions": [
+              "A is right-canonical and, for this converse, B is right-canonical; terminal gauge is identity."
+            ],
+            "required_inputs": [
+              "C2-S4",
+              "C2-I2",
+              "C2-I4",
+              "C2-I6"
+            ],
+            "conclusion": "Every internal G_j is orthogonal.",
+            "justification": "Backward induction from G_n=I: if G_jG_j^T=I, the A and B row-Gram identities force I=G_{j-1}^{-1}G_{j-1}^{-T}, hence G_{j-1}G_{j-1}^T=I."
+          },
+          {
+            "id": "C2-S6",
+            "claim": "Refute unrestricted canonicality preservation while confirming global invariance.",
+            "assumptions": [
+              "n=2, all bonds one, A_j^0=1, A_j^1=0 and G_1=2 are legal inputs."
+            ],
+            "required_inputs": [
+              "C2-I1",
+              "C2-I2",
+              "C2-I3",
+              "C2-S2",
+              "C2-S4"
+            ],
+            "conclusion": "Input Grams are 1; output Grams are 4 and 1/4; the only nonzero scalar amplitude remains 1.",
+            "justification": "Direct substitution supplies an exact witness and uses both the amplitude and local-Gram branches."
+          },
+          {
+            "id": "C2-S7",
+            "claim": "Check empty and zero-dimensional gauge invariance without canonicality.",
+            "assumptions": [
+              "Empty products and sums, and the identity/inverse on the zero vector space, have the meanings fixed in the question. No canonicality assumption is used in this branch."
+            ],
+            "required_inputs": [
+              "C2-I1",
+              "C2-I2",
+              "C2-I3",
+              "C2-S1",
+              "C2-S2",
+              "C2-S3"
+            ],
+            "conclusion": "For n=0 there is one empty word with scalar amplitude 1, squared mass 1 and norm 1. For n=1 no internal gauge exists and B=A. If an internal bond is zero, every full scalar contraction is zero for both trains, so both masses and norms are zero; the exact prefix and amplitude identities remain valid.",
+            "justification": "The empty contraction is I_1 and both endpoint gauges are I_1. For n=1 both gauges bordering the single core are identities. A full product crossing a zero-dimensional internal space is the zero 1-by-1 matrix; all gauge cancellations still hold with empty matrix identities. No normalization or nonzero/full-rank premise is introduced."
+          },
+          {
+            "id": "C2-S7b",
+            "claim": "Check zero-bond impossibility only in the right-canonical branch.",
+            "assumptions": [
+              "Assume the original train is fully right-canonical for this conditional branch only."
+            ],
+            "required_inputs": [
+              "C2-I1",
+              "C2-I4"
+            ],
+            "conclusion": "A fully right-canonical train with initial dimension r_0=1 cannot have any zero-dimensional internal bond. Thus the conditional canonicality preservation and converse claims have no realizable zero-bond input, while unconditional gauge invariance in C2-S7 still applies to zero-bond trains.",
+            "justification": "If a zero internal dimension existed, choose the first such bond. Its preceding dimension is positive because r_0=1 and all earlier bonds are positive. Both slices of the core entering the zero bond have zero output width, so their bit-summed row Gram is zero, contradicting the positive-dimensional identity required by C2-I4. This proof uses no gauge or nonzero-state assumption."
+          }
+        ],
+        "reused_results": [
+          {
+            "id": "prefix-gauge-invariant",
+            "producer": "C2-S1",
+            "consumer_steps": [
+              "C2-S2",
+              "C2-S7"
+            ],
+            "status": "Original all-length NL derivation using the source contraction definition."
+          },
+          {
+            "id": "local-transformed-Gram",
+            "producer": "C2-S4",
+            "consumer_steps": [
+              "C2-S5",
+              "C2-S6",
+              "C2-S5b"
+            ],
+            "status": "Original NL matrix calculation; no dedicated frozen gauge theorem is asserted."
+          }
+        ],
+        "reconvergent_branches": [
+          {
+            "branches": [
+              "C2-S1 -> C2-S2",
+              "C2-S4"
+            ],
+            "join": "C2-S6",
+            "why": "The concrete witness is checked against both exact global amplitude invariance and failed local metric invariance."
+          }
+        ],
+        "AND_join_policy": "Each required_inputs list is conjunctive and lists all input/result interfaces used at that step."
+      },
+      "changes": [
+        "Replace original combined C2-S7 with unconditional empty/single-core/zero-bond invariance coverage whose AND-tail excludes C2-I4.",
+        "Add C2-S7b for the conditional impossibility of a fully right-canonical scalar-left train with a zero internal bond; only this branch uses C2-I4.",
+        "Keep all gauge, endpoint, local-Gram, counterexample and orthogonality-characterization steps and their conclusions unchanged."
+      ],
+      "grading_notes": [],
+      "source_addendum": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/C-reader-addendum.json"
+    },
+    "C3": {
+      "slot": "C3",
+      "payload_sha256": "c635422213fb601413c8a270169aabc91837961ac555213588c8404fdae82f9d",
+      "question_sha256": "776439a16abc8b20a757a0dc1e0a238a6defc29cf18d1dfb51cecf158a12720b",
+      "display_reasoning_map": {
+        "kind": "reader_scope_clarification_natural_language",
+        "not_extracted_lean_dependencies": true,
+        "inputs": [
+          {
+            "id": "C3-I1",
+            "statement": "Two finite real trains with common word order, common terminal dimension r, and possibly different intermediate bond dimensions.",
+            "kind": "assumption"
+          },
+          {
+            "id": "C3-I2",
+            "statement": "H_n=I_r and H_{j-1}=sum_t A_j^t H_j(B_j^t)^T.",
+            "kind": "assumption"
+          },
+          {
+            "id": "C3-I3",
+            "statement": "v,w are arbitrary initial column vectors; Phi values are the stated contractions, including all terminal labels.",
+            "kind": "convention"
+          },
+          {
+            "id": "C3-I4",
+            "statement": "For the Gram/PSD/kernel branch, A=B with matching bond dimensions.",
+            "kind": "assumption"
+          },
+          {
+            "id": "C3-I5",
+            "statement": "There is one empty word, empty product I, and finite sums over empty bond labels are zero.",
+            "kind": "convention"
+          }
+        ],
+        "steps": [
+          {
+            "id": "C3-S1",
+            "claim": "Prove the suffix cross-environment invariant.",
+            "assumptions": [
+              "Matching physical and terminal indices; transpose reverses the product."
+            ],
+            "required_inputs": [
+              "C3-I1",
+              "C3-I2",
+              "C3-I5"
+            ],
+            "conclusion": "H_j=sum_{suffix words} P_A,>j P_B,>j^T for every j.",
+            "justification": "Backward induction: empty suffix gives I_r; distributing the update produces the sum over the current bit and tail word."
+          },
+          {
+            "id": "C3-S2",
+            "claim": "Read every cross entry and a flattened matrix representation.",
+            "assumptions": [
+              "All terminal labels must be retained."
+            ],
+            "required_inputs": [
+              "C3-S1",
+              "C3-I1",
+              "C3-I5"
+            ],
+            "conclusion": "H_0(a,c)=sum_{s,b}P_A(s)_{ab}P_B(s)_{cb}, or H_0=U_A U_B^T.",
+            "justification": "Use the matrix-product entry formula and define U_A,U_B by columns (s,b)."
+          },
+          {
+            "id": "C3-S3",
+            "claim": "Evaluate arbitrary initial-boundary cross-inner-products.",
+            "assumptions": [
+              "No normalization or sign restriction on boundaries."
+            ],
+            "required_inputs": [
+              "C3-S2",
+              "C3-I3"
+            ],
+            "conclusion": "Phi_A(v)=U_A^T v and <Phi_A(v),Phi_B(w)>=v^T H_0 w.",
+            "justification": "Distribute finite sums, or multiply the displayed matrices with their exact dimensions."
+          },
+          {
+            "id": "C3-S4",
+            "claim": "Specialize to a symmetric positive-semidefinite Gram matrix.",
+            "assumptions": [
+              "Identical trains."
+            ],
+            "required_inputs": [
+              "C3-S2",
+              "C3-S3",
+              "C3-I3",
+              "C3-I4"
+            ],
+            "conclusion": "E_0=U_A U_A^T is symmetric and v^T E_0 v=||Phi_A(v)||^2>=0.",
+            "justification": "Transpose the product and sum the squares of real output amplitudes."
+          },
+          {
+            "id": "C3-S5",
+            "claim": "Identify the entire kernel.",
+            "assumptions": [
+              "Identical trains; no positive-definiteness assumption."
+            ],
+            "required_inputs": [
+              "C3-S2",
+              "C3-S4",
+              "C3-I3",
+              "C3-I4"
+            ],
+            "conclusion": "E_0 v=0 iff Phi_A(v)=0 coordinatewise.",
+            "justification": "Forward: zero quadratic form forces every squared coordinate zero. Reverse: U_A^T v=0 implies U_A U_A^T v=0."
+          },
+          {
+            "id": "C3-S6",
+            "claim": "Refute positivity for different trains.",
+            "assumptions": [
+              "n=1 and all bond dimensions one; A^0=1,B^0=-1,A^1=B^1=0."
+            ],
+            "required_inputs": [
+              "C3-I1",
+              "C3-I2",
+              "C3-S2"
+            ],
+            "conclusion": "H_0=-1, a legal square cross environment with negative quadratic form.",
+            "justification": "Substitute the scalar slices; same-train premise is deliberately absent."
+          },
+          {
+            "id": "C3-S7",
+            "claim": "Check empty and zero-dimensional cross environments without identifying the trains.",
+            "assumptions": [
+              "Retain the one-empty-word convention and finite sums over empty bond labels. The two trains may be different."
+            ],
+            "required_inputs": [
+              "C3-I1",
+              "C3-I2",
+              "C3-I3",
+              "C3-I5",
+              "C3-S1",
+              "C3-S2",
+              "C3-S3"
+            ],
+            "conclusion": "For n=0, p_0=q_0=r, H_0=I_r, Phi_A(v)=v, Phi_B(w)=w, and the pairing is v^T w. If r=0, an internal bond of either train is zero, or either full emitted map is zero, H_0=0. If p_0=0 or q_0=0, the corresponding initial vector and side of the rectangular identity are empty and the cross-pairing is zero. All formulas retain their specified dimensions.",
+            "justification": "At n=0 both ordered empty products are I_r. Empty terminal labels or a product through a zero internal space yield a zero emitted map. The representation H_0=U_A U_B^T then gives a zero cross environment whenever either factor is zero. Empty initial dimensions give the unique empty vector/empty row or column matrix. None of these conclusions uses A=B, canonicality, normalized boundaries or division by a norm."
+          },
+          {
+            "id": "C3-S7b",
+            "claim": "Specialize the boundary cases to the identical-train Gram and its kernel.",
+            "assumptions": [
+              "For this branch only assume A=B, with matching bond dimensions."
+            ],
+            "required_inputs": [
+              "C3-I1",
+              "C3-I3",
+              "C3-I4",
+              "C3-I5",
+              "C3-S4",
+              "C3-S5",
+              "C3-S7"
+            ],
+            "conclusion": "For n=0 the same-train Gram is I_r, the emitted norm is ||v|| and its kernel is {0}. When the full emitted map vanishes, including zero terminal/internal dimensions or a zero train, E_0=0 and every initial boundary lies in its kernel. A zero-dimensional initial space is covered by its unique vector. The general same-train Gram may be singular and need not be positive definite or entrywise nonnegative.",
+            "justification": "Under A=B, the unconditional cases of C3-S7 apply to E_0. Then C3-S4 identifies each quadratic form with output squared norm and C3-S5 identifies its entire kernel with coordinatewise vanishing emission. For n=0 emission is the identity on the terminal-labelled boundary, giving kernel {0}; for a zero output map every boundary emits zero. This conditional branch does not restrict the cross-environment cases in C3-S7. For the retained warning about entrywise signs, the legal one-core slices A^0=(1,-1)^T and A^1=(0,0)^T, with left dimension two and terminal dimension one, give E_0=[[1,-1],[-1,1]]. This is a same-train Gram with negative off-diagonal entries; the zero-output case already supplies singular Grams."
+          }
+        ],
+        "reused_results": [
+          {
+            "id": "cross-environment-suffix-invariant",
+            "producer": "C3-S1",
+            "consumer_steps": [
+              "C3-S2",
+              "C3-S7"
+            ],
+            "status": "Original NL two-train extension of the inspected same-train source Gram semantics."
+          },
+          {
+            "id": "full-cross-Gram-representation",
+            "producer": "C3-S2",
+            "consumer_steps": [
+              "C3-S3",
+              "C3-S4",
+              "C3-S5",
+              "C3-S6",
+              "C3-S7"
+            ],
+            "status": "Actually reused for boundary bilinear form, positivity/kernel specialization and the distinct-train boundary."
+          }
+        ],
+        "reconvergent_branches": [
+          {
+            "branches": [
+              "C3-S2 -> C3-S3",
+              "C3-I4"
+            ],
+            "join": "C3-S4",
+            "why": "The arbitrary-boundary bilinear form becomes a norm only when both train inputs and both boundaries coincide."
+          }
+        ],
+        "AND_join_policy": "Each required_inputs list is conjunctive and lists all input/result interfaces used at that step."
+      },
+      "changes": [
+        "Replace original combined C3-S7 with an unconditional rectangular cross-environment boundary node whose AND-tail excludes same-train C3-I4 and Gram/kernel-only S4/S5.",
+        "Add C3-S7b for identical-train Gram/kernel boundary consequences; this branch explicitly retains C3-I4 and both Gram/kernel interfaces.",
+        "Retain every word and terminal label, arbitrary initial boundaries, same-train PSD/kernel result and distinct-train negative counterexample."
+      ],
+      "grading_notes": [],
+      "source_addendum": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/C-reader-addendum.json"
+    },
+    "C4": {
+      "slot": "C4",
+      "payload_sha256": "169c92c69d5319c413c9ae91ad8207e70f7728859ae1b32ec51495b39da34f54",
+      "question_sha256": "ff9187905d07cd57e1adad33ff98abc17ff7c7c037ec8d7254ea176aa4d0a51e",
+      "display_reasoning_map": {
+        "kind": "reader_scope_clarification_natural_language",
+        "not_extracted_lean_dependencies": true,
+        "inputs": [
+          {
+            "id": "C4-I1",
+            "statement": "d,M are finite natural numbers, basis B_{d,r} has the displayed polynomial formula, and every sample lies in [0,1].",
+            "kind": "assumption"
+          },
+          {
+            "id": "C4-I2",
+            "statement": "Coefficient errors obey |ctilde_r-c_r|<=eta with eta>=0; raw vectors x,y are the evaluations at the same sample list.",
+            "kind": "assumption"
+          },
+          {
+            "id": "C4-I3a",
+            "statement": "The original squared sample mass satisfies ||x||^2>=m with m>0. This is the positive-mass component of original input C4-I3.",
+            "kind": "assumption"
+          },
+          {
+            "id": "C4-I3b",
+            "statement": "For the original strict-error route, eta sqrt(M)<sqrt(m). This is the strict-error component of original input C4-I3; the precision route proves the same inequality instead of assuming this component.",
+            "kind": "assumption"
+          },
+          {
+            "id": "C4-I4",
+            "statement": "Euclidean norms and signed amplitudes are retained; empty samples give mass zero and zeroth powers evaluate to one.",
+            "kind": "convention"
+          },
+          {
+            "id": "C4-I5",
+            "statement": "For nonzero x,y in a finite-dimensional real or complex Euclidean space, ||x/||x||-y/||y|||| <= 2||x-y||/||x||; if ||x-y||<=delta<||x|| then y is nonzero.",
+            "kind": "supplied_obligation"
+          },
+          {
+            "id": "C4-I6",
+            "statement": "For the precision branch 0<epsilon<2 and eta<=epsilon sqrt(m)/(2 sqrt(M)) after M>0 is established.",
+            "kind": "assumption"
+          },
+          {
+            "id": "C4-I7",
+            "statement": "For the endpoint branch an endpoint is actually sampled and its corresponding original coefficient has magnitude at least a>0.",
+            "kind": "assumption"
+          }
+        ],
+        "steps": [
+          {
+            "id": "C4-S1",
+            "claim": "Establish the two basis facts.",
+            "assumptions": [
+              "Real samples in [0,1]; degree d>=0."
+            ],
+            "required_inputs": [
+              "C4-I1",
+              "C4-I4"
+            ],
+            "conclusion": "B_{d,r}(t)>=0 and sum_{r=0}^d B_{d,r}(t)=1.",
+            "justification": "Nonnegative powers and binomial theorem; d=0 uses the constant polynomial convention."
+          },
+          {
+            "id": "C4-S2",
+            "claim": "Bound each evaluated error.",
+            "assumptions": [
+              "All coefficient errors are bounded by eta."
+            ],
+            "required_inputs": [
+              "C4-S1",
+              "C4-I1",
+              "C4-I2"
+            ],
+            "conclusion": "|ptilde(t)-p(t)|<=eta for t in [0,1].",
+            "justification": "Triangle inequality and the nonnegative unit-sum weights."
+          },
+          {
+            "id": "C4-S3",
+            "claim": "Accumulate errors over the full sample list.",
+            "assumptions": [
+              "There are M coordinates, including repetitions."
+            ],
+            "required_inputs": [
+              "C4-S2",
+              "C4-I1",
+              "C4-I2",
+              "C4-I4"
+            ],
+            "conclusion": "||x-y||<=delta=eta sqrt(M).",
+            "justification": "Square the coordinate bounds, sum M terms and take nonnegative square roots."
+          },
+          {
+            "id": "C4-S4",
+            "claim": "Produce the original nonzero and feasible-dimension facts.",
+            "assumptions": [
+              "Positive lower sample mass."
+            ],
+            "required_inputs": [
+              "C4-I1",
+              "C4-I3a",
+              "C4-I4"
+            ],
+            "conclusion": "||x||>=sqrt(m)>0 and M>=1.",
+            "justification": "Monotonicity of the square root; M=0 would give mass zero, contradicting m>0."
+          },
+          {
+            "id": "C4-S5a",
+            "claim": "Obtain the perturbed-norm lower bound before choosing a strictness route.",
+            "assumptions": [
+              "Only the proved raw-error bound and the original positive-mass lower bound are used; strictness is not assumed here."
+            ],
+            "required_inputs": [
+              "C4-S3",
+              "C4-S4"
+            ],
+            "conclusion": "||y||>=||x||-||x-y||>=sqrt(m)-eta sqrt(M). This lower bound has not yet been asserted positive.",
+            "justification": "Apply the reverse triangle inequality, then substitute C4-S3 and the norm lower bound in C4-S4. Its sign is settled separately by either the original strict-error premise or the epsilon-precision route."
+          },
+          {
+            "id": "C4-S5",
+            "claim": "Produce a positive perturbed norm on the original strict-error route.",
+            "assumptions": [
+              "Use the strict-error premise supplied for the original route. This premise is not imported into the separate precision route."
+            ],
+            "required_inputs": [
+              "C4-S5a",
+              "C4-I3b"
+            ],
+            "conclusion": "||y||>=sqrt(m)-eta sqrt(M)>0, so y is nonzero on this route.",
+            "justification": "The strict inequality in C4-I3b makes the previously derived lower bound strictly positive. Together with C4-S3 and C4-S4 it also gives ||x-y||<=delta<||x||."
+          },
+          {
+            "id": "C4-S6",
+            "claim": "Compose the supplied normalization interface.",
+            "assumptions": [
+              "Both vectors nonzero, same finite Euclidean space, and the verified raw error and original norm bounds."
+            ],
+            "required_inputs": [
+              "C4-I1",
+              "C4-I4",
+              "C4-I5",
+              "C4-S3",
+              "C4-S4",
+              "C4-S5"
+            ],
+            "conclusion": "||x/||x||-y/||y||||<=2 eta sqrt(M/m).",
+            "justification": "Apply the supplied 2delta inequality, then substitute the proved numerator upper bound and positive denominator lower bound."
+          },
+          {
+            "id": "C4-S7a",
+            "claim": "Derive strictness from coefficient precision without assuming the strict-error component.",
+            "assumptions": [
+              "Use the target-precision branch 0<epsilon<2 and eta<=epsilon sqrt(m)/(2 sqrt(M)); M>0 is already proved from positive mass."
+            ],
+            "required_inputs": [
+              "C4-I6",
+              "C4-S3",
+              "C4-S4"
+            ],
+            "conclusion": "delta=eta sqrt(M)<=epsilon sqrt(m)/2<sqrt(m). Thus the precision condition supplies strict error-to-mass control without C4-I3b.",
+            "justification": "By C4-S4, sqrt(M)>0 and sqrt(m)>0. Multiply the precision inequality by sqrt(M) to cancel its positive denominator; epsilon<2 then gives strict inequality. C4-S3 supplies delta and the raw-error meaning."
+          },
+          {
+            "id": "C4-S7b",
+            "claim": "Obtain nonzero y from the precision-derived strictness.",
+            "assumptions": [
+              "Use only the precision route and the unconditional reverse-triangle bound."
+            ],
+            "required_inputs": [
+              "C4-S5a",
+              "C4-S7a"
+            ],
+            "conclusion": "||y||>=sqrt(m)-eta sqrt(M)>0. More explicitly ||y||>=(1-epsilon/2)sqrt(m)>0 on the precision route.",
+            "justification": "Substitute the coefficient-precision estimate from C4-S7a into C4-S5a. Because 0<epsilon<2 and m>0 were retained by that route, the displayed lower bound is positive. This step has no dependency on C4-I3b or C4-S5."
+          },
+          {
+            "id": "C4-S6p",
+            "claim": "Apply normalization stability on the precision route.",
+            "assumptions": [
+              "Both vectors are nonzero in the same finite Euclidean space, with y nonzero supplied by precision-derived strictness."
+            ],
+            "required_inputs": [
+              "C4-I1",
+              "C4-I4",
+              "C4-I5",
+              "C4-S3",
+              "C4-S4",
+              "C4-S7b"
+            ],
+            "conclusion": "||x/||x||-y/||y||||<=2 eta sqrt(M/m) on the precision route.",
+            "justification": "Apply the explicitly supplied interface to nonzero x from C4-S4 and nonzero y from C4-S7b, then insert the common raw-error and original-norm bounds. This duplicates the legitimate interface application in C4-S6 under a different sufficient nonzero route; it does not require the original strict-error premise."
+          },
+          {
+            "id": "C4-S7",
+            "claim": "Conclude the requested epsilon accuracy from the precision route.",
+            "assumptions": [
+              "Retain 0<epsilon<2 and the stated sufficient coefficient-precision bound."
+            ],
+            "required_inputs": [
+              "C4-I6",
+              "C4-S4",
+              "C4-S7b",
+              "C4-S6p"
+            ],
+            "conclusion": "The precision condition implies both y nonzero and normalized-state error at most epsilon, independently of assuming C4-I3b.",
+            "justification": "The nonzero conclusion is C4-S7b. By C4-S4 the factors sqrt(M) and sqrt(m) are positive; substitute eta<=epsilon sqrt(m)/(2 sqrt(M)) into the C4-S6p bound to obtain epsilon. The strict-error route C4-S5/C4-S6 and this route are alternative sufficient routes, never a conjunction."
+          },
+          {
+            "id": "C4-S8",
+            "claim": "Supply a concrete mass certificate from a sampled endpoint.",
+            "assumptions": [
+              "An endpoint is sampled and its original coefficient magnitude is at least a."
+            ],
+            "required_inputs": [
+              "C4-I1",
+              "C4-I4",
+              "C4-I7"
+            ],
+            "conclusion": "p(0)=c_0, p(1)=c_d and m=a^2 is a valid positive lower mass.",
+            "justification": "Evaluate the basis at the endpoints; one squared coordinate supplies the bound, including d=0."
+          },
+          {
+            "id": "C4-S9",
+            "claim": "Demonstrate the shrinking-mass obstruction with all original premises realized.",
+            "assumptions": [
+              "Instantiate d=1, M=2, samples 0 and 1, c=(a,0), ctilde=(a,a/2), eta=a/2 and m=a^2 for a>0. Instantiate the endpoint-magnitude premise at endpoint 0 with magnitude a."
+            ],
+            "required_inputs": [
+              "C4-I1",
+              "C4-I2",
+              "C4-I4",
+              "C4-S3",
+              "C4-S8"
+            ],
+            "conclusion": "x=(a,0), y=(a,a/2), ||x||^2=m=a^2 and eta sqrt(M)=a/sqrt(2)<a=sqrt(m). As a tends to zero, eta tends to zero but the normalized distance remains sqrt(2-4/sqrt(5))>0. Thus no mass-independent error guarantee vanishing with eta follows, even within the strict perturbation regime.",
+            "justification": "Use the endpoint identities from C4-S8, instantiated on this family, and compute both norms directly: normalized vectors are (1,0) and (2,1)/sqrt(5). The family itself supplies positive mass and strictness; neither the full stability conclusion nor its strict-error assumption is needed to construct this witness. C4-S3 identifies the same delta used in the strictness check."
+          },
+          {
+            "id": "C4-S10",
+            "claim": "Check raw zero-error, zero-mass and empty-sample boundaries without imposing positive mass.",
+            "assumptions": [
+              "Use the raw polynomial/sample definitions and conventions. These boundary observations do not suppose a normalized state exists."
+            ],
+            "required_inputs": [
+              "C4-I1",
+              "C4-I2",
+              "C4-I4",
+              "C4-S1",
+              "C4-S2",
+              "C4-S3"
+            ],
+            "conclusion": "Signed coefficients and sample values are permitted. At d=0 the sole basis function is 1. If eta=0 then the coefficient rows, polynomial values and raw sample vectors agree. If the sampled mass is zero then x is the zero vector and x/||x|| is undefined. If M=0 both raw vectors are empty and the raw error bound is 0<=0.",
+            "justification": "Nonnegative unit Bernstein weights bound signed perturbations without changing signs. For d=0 the basis formula is identically 1. Eta=0 forces each coefficient error to vanish. A finite sum of real squares is zero precisely when all its coordinates vanish, including the empty-vector case. No division by sqrt(M) or by a zero norm is made."
+          },
+          {
+            "id": "C4-S10b",
+            "claim": "Restrict normalized conclusions to the realizable positive-mass cases.",
+            "assumptions": [
+              "For this branch retain the original positive-mass component. No strict-error component is needed for the zero-error or feasibility observations."
+            ],
+            "required_inputs": [
+              "C4-I3a",
+              "C4-S4",
+              "C4-S10"
+            ],
+            "conclusion": "Under positive original mass, eta=0 gives equal nonzero raw vectors and normalized error zero. Zero sampled mass and M=0 contradict this branch and are not realizable examples of the normalized theorem. In particular the precision formula involving 1/sqrt(M) is used only with M>=1.",
+            "justification": "C4-S4 supplies nonzero x and M>=1. Combine this with the raw equality at eta=0 in C4-S10 to obtain y=x nonzero. Combine positive mass with the zero-mass facts of C4-S10 to exclude the contradictory cases, rather than normalizing an empty vector."
+          }
+        ],
+        "reused_results": [
+          {
+            "id": "normalization-stability-2delta",
+            "producer_slot": "A2",
+            "supplied_input": "C4-I5",
+            "consumer_steps": [
+              "C4-S6",
+              "C4-S6p"
+            ],
+            "status": "The exact interface is explicitly supplied in this question; no hidden access to A2 answer or assumption of a different split is required."
+          },
+          {
+            "id": "Bernstein-nonnegative-unit-weights",
+            "producer": "C4-S1",
+            "consumer_steps": [
+              "C4-S2",
+              "C4-S10"
+            ],
+            "status": "Derived from formula; grounded in inspected basis_nonneg and basis_sum."
+          },
+          {
+            "id": "endpoint-evaluation",
+            "producer": "C4-S8",
+            "consumer_steps": [
+              "C4-S9"
+            ],
+            "status": "The same coefficient-to-endpoint map supplies the positive-mass anchor and the explicit small-mass family."
+          }
+        ],
+        "reconvergent_branches": [
+          {
+            "branches": [
+              "C4-S1 -> C4-S2 -> C4-S3",
+              "C4-I3a -> C4-S4"
+            ],
+            "join": "C4-S5a",
+            "why": "Raw-error control and positive original mass jointly supply a reverse-triangle lower bound before strictness is chosen."
+          },
+          {
+            "branches": [
+              "C4-S5a",
+              "C4-I3b"
+            ],
+            "join": "C4-S5",
+            "why": "This is the original strict-error sufficient route for nonzero y."
+          },
+          {
+            "branches": [
+              "C4-S3",
+              "C4-S4",
+              "C4-I6"
+            ],
+            "join": "C4-S7a",
+            "why": "The epsilon coefficient condition and positive original mass establish strictness directly, with no C4-I3b dependency."
+          },
+          {
+            "branches": [
+              "C4-S5a",
+              "C4-S7a"
+            ],
+            "join": "C4-S7b",
+            "why": "Reverse triangle and precision-derived strictness jointly establish nonzero y."
+          },
+          {
+            "branches": [
+              "C4-S3",
+              "C4-S4",
+              "C4-S5",
+              "C4-I5"
+            ],
+            "join": "C4-S6",
+            "why": "The original route checks both nonzero vectors and supplies the numerator and denominator bounds for normalization stability."
+          },
+          {
+            "branches": [
+              "C4-S3",
+              "C4-S4",
+              "C4-S7b",
+              "C4-I5"
+            ],
+            "join": "C4-S6p",
+            "why": "The precision route uses the same supplied stability interface after obtaining nonzero y without the original strict premise."
+          }
+        ],
+        "AND_join_policy": "Each required_inputs list is conjunctive. The original strict-error route and precision-derived strictness route are separate OR alternatives; a premise local to one route is not inherited by the other. Input C4-I3a is positive mass only; C4-I3b is strictness only.",
+        "alternative_routes": [
+          {
+            "conclusion": "A strictly positive perturbed norm and the normalized bound 2 eta sqrt(M/m).",
+            "routes": [
+              [
+                "C4-S5a",
+                "C4-I3b",
+                "C4-S5",
+                "C4-S6"
+              ],
+              [
+                "C4-S5a",
+                "C4-I6",
+                "C4-S7a",
+                "C4-S7b",
+                "C4-S6p"
+              ]
+            ],
+            "relationship": "OR: either route supplies strictness/nonzeroness; do not draw an AND edge requiring both routes."
+          }
+        ]
+      },
+      "changes": [
+        "Split original bundled input C4-I3 into positive sample mass C4-I3a and original strict-error component C4-I3b.",
+        "Add C4-S5a for the reverse-triangle lower bound before any strictness premise; original-route C4-S5 uses only that bound and C4-I3b.",
+        "Add a separate precision route C4-S7a -> C4-S7b -> C4-S6p -> C4-S7: epsilon precision supplies strictness and nonzero y before stability is applied, without any C4-I3b ancestor.",
+        "Keep original-route C4-S6 and add a separately scoped C4-S6p stability application, so the two sufficient routes remain OR alternatives rather than a false AND join.",
+        "Make C4-S9 construct and directly verify its shrinking-mass witness independently of the full stability theorem.",
+        "Split general raw signed/zero-error/zero-mass/M=0 boundaries from the concrete a>0 witness into C4-S10; C4-S10b then applies positive mass to exclude contradictory cases and normalize the eta=0 case.",
+        "Preserve the endpoint mass certificate, all original mathematical conclusions and the exact explicitly supplied stability interface; no new source or compiled Lean claim is added."
+      ],
+      "grading_notes": [],
+      "source_addendum": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/C-reader-addendum.json"
+    },
+    "B2": {
+      "slot": "B2",
+      "payload_sha256": "ca574f8df055f45d7c5efd939405394326ab634c2a3ca13559c0e375cc09ac8e",
+      "question_sha256": "74661287957a3aebfdb76e251de9bd74003ce9066014e95267f9eba00b431d8d",
+      "grading_notes": [
+        "A fully derived weighted complex-exponential, cosine or sine formula earns full credit for the norm-identity criterion when label orthogonality and elimination of cross terms are justified. An unexplained formula may earn partial credit; omission of sine normal form alone is not an error.",
+        "The question asks for an exact formula and does not prescribe its algebraic normal form. The weighted exponential, cosine and sine expressions are equal under the given normalized weights."
+      ],
+      "rubric_overrides": {
+        "r2": "A fully derived weighted complex-exponential, cosine or sine formula earns full credit for the norm-identity criterion when label orthogonality and elimination of cross terms are justified. An unexplained formula may earn partial credit; omission of sine normal form alone is not an error."
+      },
+      "changes": [
+        "Clarify r2 to award full credit to fully derived equivalent weighted exponential, cosine or sine identities; no question or mathematical target changes."
+      ],
+      "source_addendum": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/B-rubric-addendum.json"
+    }
+  }
+}
