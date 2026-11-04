@@ -210,10 +210,12 @@ def review_template(tasks, responses):
 
 def prepare_run(registry, output, *, split="test_public", track="semantic", task_ids=None, exposure="closed_book"):
     tasks = select_tasks(registry, split=split, track=track, task_ids=task_ids)
-    if exposure not in {"closed_book", "open_library"}:
-        raise ValueError("declare closed_book or open_library exposure")
-    if exposure == "closed_book" and any(t["track"] == "lean" for t in tasks):
-        raise ValueError("Lean course inputs expose imports and supplied interfaces; use open_library")
+    if exposure not in {"closed_book", "open_library", "approved_interface"}:
+        raise ValueError("declare closed_book, open_library or approved_interface exposure")
+    if any(t["track"] == "lean" for t in tasks) and exposure != "approved_interface":
+        raise ValueError("Lean course inputs retain their approved_interface protocol")
+    if exposure == "approved_interface" and any(t["track"] != "lean" for t in tasks):
+        raise ValueError("prepare formal approved-interface and natural-language runs separately")
     output = Path(output)
     if output.exists():
         raise FileExistsError("choose a fresh run directory")
@@ -261,8 +263,9 @@ def _manifest_tasks(registry, manifest):
     expected = select_tasks(registry, split=manifest["split"], track=manifest["track"], task_ids=[t["task_id"] for t in manifest["tasks"]])
     if [{"task_id": t["task_id"], "task_hash": t["task_hash"]} for t in expected] != manifest["tasks"]:
         raise ValueError("run task hashes/order differ from the registry")
-    if (manifest.get("exposure") not in {"closed_book", "open_library"}
-            or (manifest["exposure"] == "closed_book" and any(t["track"] == "lean" for t in expected))):
+    if (manifest.get("exposure") not in {"closed_book", "open_library", "approved_interface"}
+            or (manifest["exposure"] != "approved_interface" and any(t["track"] == "lean" for t in expected))
+            or (manifest["exposure"] == "approved_interface" and any(t["track"] != "lean" for t in expected))):
         raise ValueError("exposure differs from the supplied interface capability")
     return expected
 

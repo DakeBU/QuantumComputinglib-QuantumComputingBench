@@ -143,8 +143,10 @@ its original pilot views. Additional course companions currently have qualified
 task exports and synthetic fixture execution, not registration for live model
 execution; a course view ID cannot simply be passed to the original registry.
 To export a formal view here, use
-`--track lean`; preparing such a run requires `--exposure open_library` because
-the supplied imports/interfaces are visible. The generic CPU bundle rejects
+`--track lean`; preparing such a run requires `--exposure approved_interface`,
+matching the retained task input and its bounded interface protocol. It cannot
+be relabeled as an open-library run without a separately defined protocol.
+The generic CPU bundle rejects
 Lean tasks rather than silently offering a compiler-free proof environment.
 
 ## Test the authoring and scoring workflow without models

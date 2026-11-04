@@ -37,7 +37,7 @@ def main():
     parser.add_argument("--manifest", type=Path)
     parser.add_argument("--responses", type=Path)
     parser.add_argument("--reviews", type=Path)
-    parser.add_argument("--exposure", choices=("closed_book", "open_library"))
+    parser.add_argument("--exposure", choices=("closed_book", "open_library", "approved_interface"))
     args = parser.parse_args()
     try:
         for field, commands in {

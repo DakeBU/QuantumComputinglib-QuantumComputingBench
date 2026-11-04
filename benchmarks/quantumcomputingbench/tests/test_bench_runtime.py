@@ -202,7 +202,7 @@ class BenchRuntimeTests(unittest.TestCase):
         self.assertIsNone(score(self.registry, manifest, rows, original[:1])["aggregate_semantic_score"])
 
     def test_formal_text_is_never_executed_or_promoted(self):
-        manifest = self.prepare(split="train", track="lean", exposure="open_library")
+        manifest = self.prepare(split="train", track="lean", exposure="approved_interface")
         rows = response_template(self.registry["tasks"][-1:], manifest["run_id"])
         rows[0].update(status="answered", answer={"proof": "by run_tac IO.println \"UNTRUSTED\""})
         report = score(self.registry, manifest, rows)
@@ -210,6 +210,10 @@ class BenchRuntimeTests(unittest.TestCase):
         self.assertEqual(report["rows"][0]["formal_execution"], "ENV_BLOCKED")
         altered = deepcopy(manifest)
         altered["exposure"] = "closed_book"
+        altered["manifest_hash"] = digest({k: v for k, v in altered.items() if k != "manifest_hash"})
+        with self.assertRaises(ValueError):
+            score(self.registry, altered, rows)
+        altered["exposure"] = "open_library"
         altered["manifest_hash"] = digest({k: v for k, v in altered.items() if k != "manifest_hash"})
         with self.assertRaises(ValueError):
             score(self.registry, altered, rows)
