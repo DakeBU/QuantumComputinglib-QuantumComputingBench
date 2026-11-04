@@ -1,0 +1,1054 @@
+{
+  "admission": "candidate_not_counted",
+  "base_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+  "blind_test": false,
+  "catalog_hash": "5269b9f2521e3bf14db293fea34895f6e44a387c2479c164407b4d16dd9a2247",
+  "cohort_id": "731b95e4-7507-4a0f-b764-11fc10fb4ae0",
+  "lean_toolchain": "leanprover/lean4:v4.29.1",
+  "library_revision": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+  "model_performance_measured": false,
+  "new_canonical_formal_admissions": 0,
+  "probes": [
+    {
+      "assumptions": [],
+      "author_identity": "agent-task:root/learning_isometry_math",
+      "canonical_relation": "diagnostic_contract_candidate",
+      "cluster_id": "state_core_isometry_and_mass",
+      "conventions": [
+        "Equalities are exact. Fin n denotes the finite index set {0,...,n-1}; it is empty when n=0."
+      ],
+      "difficulty": {
+        "band": "D2",
+        "measured_model_difficulty": null,
+        "rationale": "Discriminate the stated contract using its actual algebra or an exact finite witness. Imported-source shortcuts remain callable; this is not measured model difficulty.",
+        "status": "provisional_author_mathematical_assessment"
+      },
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.TensorTrainCanonical"
+        ],
+        "proposition": "∀ {l r : ℕ} (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r), A * A.transpose = 1 → ∀ v : Fin l → ℝ, QuantumBlockEncoding.TensorTrainCanonical.mass (Matrix.vecMul v A) = QuantumBlockEncoding.TensorTrainCanonical.mass v"
+      },
+      "formal_coverage": "decision_polarity_only",
+      "gold": {
+        "answer": "P is true for every real v; no unit-norm premise is needed. The output coordinates of vA are (bit,new bond). Expanding their squared mass gives ∑_{a,c} v_a v_c ∑_out A_{a,out}A_{c,out}. The inner sum is (AAᵀ)_{a,c}=δ_{a,c}, so the result is ∑_a v_a². In circuit notation U_{out,a}=A_{a,out} viewed in C, so U has 2r output rows and l input columns; U†U=I_l. For real inputs U times the column v equals the transpose/cast of vA because scalar multiplication commutes. A normalized output follows only when M(v)=1. The mass identity itself includes arbitrary norm and the empty-index cases.",
+        "decision": "holds",
+        "reference_proof": "by\n  intro l r A hA v\n  exact QuantumBlockEncoding.TensorTrainCanonical.mass_vecMul A hA v",
+        "rubric": [
+          {
+            "criterion": "Expands the squared mass or equivalent Gram contraction and uses AAᵀ=I_l.",
+            "id": "criterion-1",
+            "weight": 1
+          },
+          {
+            "criterion": "Identifies old bond as input and (bit,new bond) as output; circuit U is the transposed/cast core.",
+            "id": "criterion-2",
+            "weight": 1
+          },
+          {
+            "criterion": "States equality for arbitrary signed v with no M(v)=1 premise.",
+            "id": "criterion-3",
+            "weight": 1
+          },
+          {
+            "criterion": "Distinguishes mass preservation from automatic unit normalization.",
+            "id": "criterion-4",
+            "weight": 1
+          }
+        ]
+      },
+      "pair_id": "d5611c30-9b40-4c43-8675-5d604fb12db7",
+      "parent_contracts": {
+        "qcb-core-sp-009": "108977edccc1cb916d3614d5b4d2927d1a82e337f901ff73421320ef956448b0"
+      },
+      "parent_core_ids": [
+        "qcb-core-sp-009"
+      ],
+      "probe_id": "2b3f25f2-db0a-4494-a887-14d7111eaf6a",
+      "question": "Let l,r be arbitrary natural numbers, possibly zero. Let A be a real l by (2r) matrix whose columns are indexed by (bit,new bond) in Fin 2 × Fin r, and assume AAᵀ=I_l. Define M(v)=∑_a v_a² for real row vectors. Proposition P: for every real row boundary v in R^l, M(vA)=M(v). Decide P and explain the input/output orientation and the role of normalization.",
+      "reasoning_kind": "assumption_diagnosis",
+      "source_nodes": [
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.mass",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.mass_vecMul",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.complexCore",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.complexCore_isometry"
+      ],
+      "split": "train"
+    },
+    {
+      "assumptions": [],
+      "author_identity": "agent-task:root/learning_isometry_math",
+      "canonical_relation": "diagnostic_contract_candidate",
+      "cluster_id": "state_core_isometry_and_mass",
+      "conventions": [
+        "Equalities are exact. Fin n denotes the finite index set {0,...,n-1}; it is empty when n=0."
+      ],
+      "difficulty": {
+        "band": "D2",
+        "measured_model_difficulty": null,
+        "rationale": "Discriminate the stated contract using its actual algebra or an exact finite witness. Imported-source shortcuts remain callable; this is not measured model difficulty.",
+        "status": "provisional_author_mathematical_assessment"
+      },
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.TensorTrainCanonical"
+        ],
+        "proposition": "∀ {l r : ℕ} (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r), A * A.transpose = 1 → ∀ v : Fin l → ℝ, QuantumBlockEncoding.TensorTrainCanonical.mass (Matrix.vecMul v A) = 1"
+      },
+      "formal_coverage": "decision_polarity_only",
+      "gold": {
+        "answer": "P is false. Take l=r=1 and A=[1,0], with columns (0,0),(1,0), and v=[2]. Then AAᵀ=[1], whereas vA=[2,0] has mass 4. The source interface gives M(vA)=M(v), which explains this failure without appealing to numerical rounding. Keep the arbitrary-input domain and replace 1 by M(v), or explicitly restrict v by M(v)=1. One must not silently add that normalization premise to a claim about every real v.",
+        "decision": "refuted",
+        "reference_proof": "by\n  intro h\n  let A : QuantumBlockEncoding.TensorTrainCanonical.Core 1 1 := fun _ out => if out.1 = 0 then 1 else 0\n  have hA : A * A.transpose = 1 := by\n      ext a c\n      fin_cases a\n      fin_cases c\n      norm_num [A, Matrix.mul_apply, Matrix.transpose_apply,\n        Matrix.one_apply, Fintype.sum_prod_type, Fin.sum_univ_two]\n  have bad := h A hA (fun _ => 2)\n  norm_num [QuantumBlockEncoding.TensorTrainCanonical.mass, Matrix.vecMul, dotProduct, A,\n    Fintype.sum_prod_type, Fin.sum_univ_two] at bad",
+        "rubric": [
+          {
+            "criterion": "Gives AAᵀ=I for an exact finite witness.",
+            "id": "criterion-1",
+            "weight": 1
+          },
+          {
+            "criterion": "Calculates a nonunit output mass, e.g. 4 for v=[2].",
+            "id": "criterion-2",
+            "weight": 1
+          },
+          {
+            "criterion": "Diagnoses preservation of the existing norm rather than normalization of arbitrary input.",
+            "id": "criterion-3",
+            "weight": 1
+          },
+          {
+            "criterion": "Offers corrected equality for arbitrary v or explicitly states M(v)=1 as the additional premise.",
+            "id": "criterion-4",
+            "weight": 1
+          }
+        ]
+      },
+      "pair_id": "d5611c30-9b40-4c43-8675-5d604fb12db7",
+      "parent_contracts": {
+        "qcb-core-sp-009": "108977edccc1cb916d3614d5b4d2927d1a82e337f901ff73421320ef956448b0"
+      },
+      "parent_core_ids": [
+        "qcb-core-sp-009"
+      ],
+      "probe_id": "b0c5d76c-2aa7-4818-8009-c451c9c1081a",
+      "question": "Let l,r,A and M be as follows: A is a real matrix with old-bond rows Fin l and output columns Fin 2 × Fin r, AAᵀ=I_l, and M(w)=∑_i w_i². Proposition P: every real row boundary v satisfies M(vA)=1. No further assumption on v is supplied. Decide P, and if it fails give exact dimensions, entries and a boundary, then state the minimum extra premise or corrected conclusion.",
+      "reasoning_kind": "assumption_diagnosis",
+      "source_nodes": [
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.mass_vecMul"
+      ],
+      "split": "train"
+    },
+    {
+      "assumptions": [],
+      "author_identity": "agent-task:root/learning_isometry_math",
+      "canonical_relation": "diagnostic_contract_candidate",
+      "cluster_id": "state_core_isometry_and_mass",
+      "conventions": [
+        "Equalities are exact. Fin n denotes the finite index set {0,...,n-1}; it is empty when n=0."
+      ],
+      "difficulty": {
+        "band": "D2",
+        "measured_model_difficulty": null,
+        "rationale": "Discriminate the stated contract using its actual algebra or an exact finite witness. Imported-source shortcuts remain callable; this is not measured model difficulty.",
+        "status": "provisional_author_mathematical_assessment"
+      },
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.TensorTrainCanonical"
+        ],
+        "proposition": "∀ {l r : ℕ} (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r), A * A.transpose = 1 → Matrix.conjTranspose (Matrix.of (fun (out : Fin r × Fin 2) (a : Fin l) => (A a (out.2, out.1) : ℂ))) * (Matrix.of (fun (out : Fin r × Fin 2) (a : Fin l) => (A a (out.2, out.1) : ℂ))) = (1 : Matrix (Fin l) (Fin l) ℂ)"
+      },
+      "formal_coverage": "decision_polarity_only",
+      "gold": {
+        "answer": "P is true. V is (2r) × l: only its output labels have changed from (b,j) to (j,b). For old-bond columns a,c, (V†V)_{a,c}=∑_{j,b} A_{a,(b,j)}A_{c,(b,j)}. Reindex the finite sum using the bijection (j,b)↔(b,j). It becomes (AAᵀ)_{a,c}=δ_{a,c}. Realness removes conjugation. Thus an output-register permutation preserves column orthonormality. It neither exchanges input and output nor asserts equality of amplitudes at unchanged labels; the coordinate equation is V_{(j,b),a}=U_{(b,j),a}. No boundary normalization is involved, and zero dimensions remain allowed when the premise is satisfiable.",
+        "decision": "holds",
+        "reference_proof": "by\n  intro l r A hA\n  ext a c\n  have h := congrFun (congrFun (QuantumBlockEncoding.TensorTrainCanonical.complexCore_isometry A hA) a) c\n  simp only [Matrix.mul_apply, Matrix.conjTranspose_apply, Matrix.one_apply] at h ⊢\n  exact ((Equiv.prodComm (Fin r) (Fin 2)).sum_comp\n    (fun out => star (QuantumBlockEncoding.TensorTrainCanonical.complexCore A out a) * QuantumBlockEncoding.TensorTrainCanonical.complexCore A out c)).trans h",
+        "rubric": [
+          {
+            "criterion": "States V has output index (new bond,bit) and input index old bond.",
+            "id": "criterion-1",
+            "weight": 1
+          },
+          {
+            "criterion": "Expands V†V and performs the explicit output-pair swap bijection.",
+            "id": "criterion-2",
+            "weight": 1
+          },
+          {
+            "criterion": "Uses realness and AAᵀ=I_l to conclude the input Gram identity.",
+            "id": "criterion-3",
+            "weight": 1
+          },
+          {
+            "criterion": "Explains that preserved isometry does not imply unchanged coordinate entries or additional normalization.",
+            "id": "criterion-4",
+            "weight": 1
+          }
+        ]
+      },
+      "pair_id": "36d1e210-126e-4988-a185-bf10d9a3d848",
+      "parent_contracts": {
+        "qcb-core-sp-009": "108977edccc1cb916d3614d5b4d2927d1a82e337f901ff73421320ef956448b0"
+      },
+      "parent_core_ids": [
+        "qcb-core-sp-009"
+      ],
+      "probe_id": "87a548fd-6c07-4b71-a224-c374ec1005f5",
+      "question": "Let A be a real l × (2r) core, A_{a,(b,j)}, where a is the old bond, b∈Fin 2 the emitted bit and j∈Fin r the new bond. Assume AAᵀ=I_l. Form V with output rows ordered (new bond,bit) by V_{(j,b),a}=A_{a,(b,j)} as a complex number. Proposition P: V†V=I_l for arbitrary natural l,r. Decide P; explain exactly which register is permuted and whether a new normalization assumption is needed.",
+      "reasoning_kind": "representation_transport",
+      "source_nodes": [
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.Core",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.complexCore",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.complexCore_isometry"
+      ],
+      "split": "train"
+    },
+    {
+      "assumptions": [],
+      "author_identity": "agent-task:root/learning_isometry_math",
+      "canonical_relation": "diagnostic_contract_candidate",
+      "cluster_id": "state_core_isometry_and_mass",
+      "conventions": [
+        "Equalities are exact. Fin n denotes the finite index set {0,...,n-1}; it is empty when n=0."
+      ],
+      "difficulty": {
+        "band": "D2",
+        "measured_model_difficulty": null,
+        "rationale": "Discriminate the stated contract using its actual algebra or an exact finite witness. Imported-source shortcuts remain callable; this is not measured model difficulty.",
+        "status": "provisional_author_mathematical_assessment"
+      },
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.TensorTrainCanonical"
+        ],
+        "proposition": "∀ (A : QuantumBlockEncoding.TensorTrainCanonical.Core 1 2), A * A.transpose = 1 → (fun (out : Fin 2 × Fin 2) (a : Fin 1) => (A a (out.2, out.1) : ℂ)) = QuantumBlockEncoding.TensorTrainCanonical.complexCore A"
+      },
+      "formal_coverage": "decision_polarity_only",
+      "gold": {
+        "answer": "P is false even though both matrices have orthonormal columns. Put A_{0,(1,0)}=1 and every other entry 0. Its row mass is one. U is supported on output label (1,0), whereas V is supported on label (0,1). At literal label (0,1), V has entry 1 and U has entry 0, so V≠U. The valid relation is V_{(j,b),0}=U_{(b,j),0}; as operators, V is obtained by applying the output-register swap permutation to U. Swapping factors preserves the Gram matrix, but the output state generally changes when read at fixed pair labels.",
+        "decision": "refuted",
+        "reference_proof": "by\n  intro h\n  let A : QuantumBlockEncoding.TensorTrainCanonical.Core 1 2 := fun _ out => if out = (1, 0) then 1 else 0\n  have hA : A * A.transpose = 1 := by\n      ext a c\n      fin_cases a\n      fin_cases c\n      norm_num [A, Matrix.mul_apply, Matrix.transpose_apply,\n        Matrix.one_apply, Fintype.sum_prod_type, Fin.sum_univ_two]\n  have bad := congrFun (congrFun (h A hA) (0, 1)) 0\n  norm_num [A, QuantumBlockEncoding.TensorTrainCanonical.complexCore] at bad",
+        "rubric": [
+          {
+            "criterion": "Provides any exact real 1-by-4 row satisfying AAᵀ=[1] under the stated indexing.",
+            "id": "criterion-1",
+            "weight": 1
+          },
+          {
+            "criterion": "Exhibits a fixed-label entry or an equivalent exact mathematical certificate showing V differs from U; any admissible witness is accepted.",
+            "id": "criterion-2",
+            "weight": 1
+          },
+          {
+            "criterion": "Distinguishes isometry from coordinate-wise invariance.",
+            "id": "criterion-3",
+            "weight": 1
+          },
+          {
+            "criterion": "States the swapped-label relationship or output-permutation composition.",
+            "id": "criterion-4",
+            "weight": 1
+          }
+        ]
+      },
+      "pair_id": "36d1e210-126e-4988-a185-bf10d9a3d848",
+      "parent_contracts": {
+        "qcb-core-sp-009": "108977edccc1cb916d3614d5b4d2927d1a82e337f901ff73421320ef956448b0"
+      },
+      "parent_core_ids": [
+        "qcb-core-sp-009"
+      ],
+      "probe_id": "c947872c-f1ae-4f09-9ff9-0d535c93b11c",
+      "question": "There is one old-bond basis vector, one two-level physical bit and one two-level new bond. Let A be a real 1 × 4 row, indexed by (bit,new bond), with AAᵀ=[1]. Define U_{(b,j),0}=A_{0,(b,j)} as complex entries, and define V_{(j,b),0}=A_{0,(b,j)}. Both ordered output sets happen to be Fin 2 × Fin 2. Proposition P: V=U as matrices with the same literal pair labels, for every such A. Decide P, including an exact witness if needed and the correct relationship between entries.",
+      "reasoning_kind": "representation_transport",
+      "source_nodes": [
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.Core",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.complexCore",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.complexCore_isometry"
+      ],
+      "split": "train"
+    },
+    {
+      "assumptions": [],
+      "author_identity": "agent-task:root/learning_isometry_math",
+      "canonical_relation": "diagnostic_contract_candidate",
+      "cluster_id": "state_core_isometry_and_mass",
+      "conventions": [
+        "Equalities are exact. Fin n denotes the finite index set {0,...,n-1}; it is empty when n=0."
+      ],
+      "difficulty": {
+        "band": "D2",
+        "measured_model_difficulty": null,
+        "rationale": "Discriminate the stated contract using its actual algebra or an exact finite witness. Imported-source shortcuts remain callable; this is not measured model difficulty.",
+        "status": "provisional_author_mathematical_assessment"
+      },
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.TensorTrainCanonical"
+        ],
+        "proposition": "∀ {l r : ℕ} (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r), A * A.transpose = 1 → (QuantumBlockEncoding.TensorTrainCanonical.complexCore A) * (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose = 1"
+      },
+      "formal_coverage": "decision_polarity_only",
+      "gold": {
+        "answer": "P is false. With l=r=1, take A=[1,0]. Then U=(1,0)ᵀ is a 2 × 1 embedding. U†U=[1] on the one-dimensional input, but UU†=diag(1,0), not I_2: the output (bit=1,new bond=0) diagonal entry is 0 rather than 1. Column orthonormality guarantees an isometric embedding of the input into the output; it does not imply surjectivity onto the entire output space. UU† is the orthogonal projection onto the range of U. For a square U, U†U=I does imply UU†=I in finite dimensions, but rectangular cores in this statement are not square in general.",
+        "decision": "refuted",
+        "reference_proof": "by\n  intro h\n  let A : QuantumBlockEncoding.TensorTrainCanonical.Core 1 1 := fun _ out => if out.1 = 0 then 1 else 0\n  have hA : A * A.transpose = 1 := by\n      ext a c\n      fin_cases a\n      fin_cases c\n      norm_num [A, Matrix.mul_apply, Matrix.transpose_apply,\n        Matrix.one_apply, Fintype.sum_prod_type, Fin.sum_univ_two]\n  have bad := congrFun (congrFun (h A hA) (1, 0)) (1, 0)\n  norm_num [A, QuantumBlockEncoding.TensorTrainCanonical.complexCore, Matrix.mul_apply,\n    Matrix.conjTranspose_apply, Matrix.one_apply] at bad",
+        "rubric": [
+          {
+            "criterion": "Provides exact admissible dimensions and a core with AAᵀ=I_l and correctly oriented U†U=I_l.",
+            "id": "criterion-1",
+            "weight": 1
+          },
+          {
+            "criterion": "Proves UU† differs from the identity on the output space, using any valid entry, vector, kernel, rank or equivalent exact certificate.",
+            "id": "criterion-2",
+            "weight": 1
+          },
+          {
+            "criterion": "Names the identity spaces correctly: U†U acts on input, UU† on output.",
+            "id": "criterion-3",
+            "weight": 1
+          },
+          {
+            "criterion": "Repairs by the range projection statement, or by explicitly imposing square/surjective finite-dimensional conditions.",
+            "id": "criterion-4",
+            "weight": 1
+          }
+        ]
+      },
+      "pair_id": "96781ec5-9de1-4bad-a56e-e242b9c47d8d",
+      "parent_contracts": {
+        "qcb-core-sp-009": "108977edccc1cb916d3614d5b4d2927d1a82e337f901ff73421320ef956448b0"
+      },
+      "parent_core_ids": [
+        "qcb-core-sp-009"
+      ],
+      "probe_id": "d883d091-46d3-4f97-9dd7-b560d53238f0",
+      "question": "For arbitrary natural l,r let A be a real l × (2r) matrix with AAᵀ=I_l. Let U have output rows (bit,new bond)∈Fin 2 × Fin r and input columns a∈Fin l, with U_{out,a}=A_{a,out} embedded in C. Proposition P: UU†=I_(Fin 2 × Fin r). Decide P; give an exact finite witness if it fails and explain the dimension and physical-register issue.",
+      "reasoning_kind": "assumption_diagnosis",
+      "source_nodes": [
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.complexCore",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.complexCore_isometry"
+      ],
+      "split": "train"
+    },
+    {
+      "assumptions": [],
+      "author_identity": "agent-task:root/learning_isometry_math",
+      "canonical_relation": "diagnostic_contract_candidate",
+      "cluster_id": "state_core_isometry_and_mass",
+      "conventions": [
+        "Equalities are exact. Fin n denotes the finite index set {0,...,n-1}; it is empty when n=0."
+      ],
+      "difficulty": {
+        "band": "D3",
+        "measured_model_difficulty": null,
+        "rationale": "Discriminate the stated contract using its actual algebra or an exact finite witness. Imported-source shortcuts remain callable; this is not measured model difficulty.",
+        "status": "provisional_author_mathematical_assessment"
+      },
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.TensorTrainCanonical"
+        ],
+        "proposition": "∀ {l r : ℕ} (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r), A * A.transpose = 1 → (((QuantumBlockEncoding.TensorTrainCanonical.complexCore A) * (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose) * ((QuantumBlockEncoding.TensorTrainCanonical.complexCore A) * (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose) = (QuantumBlockEncoding.TensorTrainCanonical.complexCore A) * (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose)"
+      },
+      "formal_coverage": "decision_polarity_only",
+      "gold": {
+        "answer": "P is true. The source orientation gives U†U=I_l. By associativity, Q²=(UU†)(UU†)=U(U†U)U†=UI_lU†=UU†=Q. Also Q†=Q follows from conjugate-transpose rules, and Q fixes each vector Ux while mapping every output vector into range(U). Hence it is the orthogonal projection onto that range. Idempotence alone does not say Q=I; the rectangular embedding U=(1,0)ᵀ yields Q=diag(1,0). The displayed Lean target certifies idempotence; the Hermitian/range explanation and any circuit completion claim have separate scope. No additional normalized state boundary is needed.",
+        "decision": "holds",
+        "reference_proof": "by\n  intro l r A hA\n  have hU := QuantumBlockEncoding.TensorTrainCanonical.complexCore_isometry A hA\n  calc\n    ((QuantumBlockEncoding.TensorTrainCanonical.complexCore A) * (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose) *\n        ((QuantumBlockEncoding.TensorTrainCanonical.complexCore A) * (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose) =\n        (QuantumBlockEncoding.TensorTrainCanonical.complexCore A) * ((QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose * (QuantumBlockEncoding.TensorTrainCanonical.complexCore A)) *\n          (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose := by simp only [Matrix.mul_assoc]\n    _ = (QuantumBlockEncoding.TensorTrainCanonical.complexCore A) * (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose := by\n      rw [hU, Matrix.mul_one]",
+        "rubric": [
+          {
+            "criterion": "Invokes or derives the correctly oriented U†U=I_l.",
+            "id": "criterion-1",
+            "weight": 1
+          },
+          {
+            "criterion": "Derives Q²=Q by a valid argument using the isometry condition, such as U(U†U)U† or the fact that Q maps into and fixes range(U).",
+            "id": "criterion-2",
+            "weight": 1
+          },
+          {
+            "criterion": "States idempotence without inferring Q=I.",
+            "id": "criterion-3",
+            "weight": 1
+          },
+          {
+            "criterion": "Explains the range projection meaning and its boundary; does not claim an efficient completion/compiler.",
+            "id": "criterion-4",
+            "weight": 1
+          }
+        ]
+      },
+      "pair_id": "96781ec5-9de1-4bad-a56e-e242b9c47d8d",
+      "parent_contracts": {
+        "qcb-core-sp-009": "108977edccc1cb916d3614d5b4d2927d1a82e337f901ff73421320ef956448b0"
+      },
+      "parent_core_ids": [
+        "qcb-core-sp-009"
+      ],
+      "probe_id": "5a644ea9-ef08-4026-8c7b-90a9e6dc2481",
+      "question": "Let l,r be arbitrary natural numbers and A a real core indexed by old bond a and output (bit,new bond), with AAᵀ=I_l. Define U_{out,a}=A_{a,out} in C and define Q=UU†, a square matrix on the output space. Proposition P: Q²=Q. Decide P and explain whether this condition asserts Q=I or unitary state preparation on the full output register.",
+      "reasoning_kind": "composition",
+      "source_nodes": [
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.complexCore_isometry"
+      ],
+      "split": "train"
+    },
+    {
+      "assumptions": [],
+      "author_identity": "agent-task:root/learning_isometry_math",
+      "canonical_relation": "diagnostic_contract_candidate",
+      "cluster_id": "state_marginal_norm_and_linearity",
+      "conventions": [
+        "Equalities are exact. Fin n denotes the finite index set {0,...,n-1}; it is empty when n=0."
+      ],
+      "difficulty": {
+        "band": "D2",
+        "measured_model_difficulty": null,
+        "rationale": "Discriminate the stated contract using its actual algebra or an exact finite witness. Imported-source shortcuts remain callable; this is not measured model difficulty.",
+        "status": "provisional_author_mathematical_assessment"
+      },
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.TensorTrainCanonical"
+        ],
+        "proposition": "∀ {n : ℕ} (f : QuantumBlockEncoding.PrimitiveBasis (n + 1) → ℝ), QuantumBlockEncoding.RealAmplitudePreparation.normSq (QuantumBlockEncoding.RealAmplitudePreparation.marginal f) = QuantumBlockEncoding.RealAmplitudePreparation.normSq f"
+      },
+      "formal_coverage": "decision_polarity_only",
+      "gold": {
+        "answer": "P is true for arbitrary signed and unnormalized real f. The radicand is nonnegative, so m(f)(b)²=f(b,0)²+f(b,1)². Sum over prefixes. Every (n+1)-bit word is uniquely (b,v) with v∈{0,1}, and reindexing along this bijection yields N(m(f))=N(f). Therefore N(f)=1 propagates to the marginal whenever it is actually assumed, and the equality also preserves any other squared norm. This is a nonlinear length-table reduction; it does not retain signed amplitudes or itself specify a linear quantum evolution. A recursive preparation circuit uses additional signed splitting data to reconstruct them.",
+        "decision": "holds",
+        "reference_proof": "by\n  exact QuantumBlockEncoding.RealAmplitudePreparation.normSq_marginal",
+        "rubric": [
+          {
+            "criterion": "Uses nonnegativity of the sum of two squares to square the square root.",
+            "id": "criterion-1",
+            "weight": 1
+          },
+          {
+            "criterion": "Reindexes all full words by prefix and last bit, including both last-bit cases.",
+            "id": "criterion-2",
+            "weight": 1
+          },
+          {
+            "criterion": "Retains arbitrary signed and unnormalized source domain.",
+            "id": "criterion-3",
+            "weight": 1
+          },
+          {
+            "criterion": "States conditional unit-normalization propagation and distinguishes the nonlinear table reduction from a linear state map.",
+            "id": "criterion-4",
+            "weight": 1
+          }
+        ]
+      },
+      "pair_id": "28837439-045e-483f-baa8-cb94525c2623",
+      "parent_contracts": {
+        "qcb-core-sp-005": "0821f527326022b9972f0d4083b8a2a99c179263e36e5d27112f6cb5c1c98865"
+      },
+      "parent_core_ids": [
+        "qcb-core-sp-005"
+      ],
+      "probe_id": "ce8fd401-a4af-4c95-bef4-cbc5b42c7314",
+      "question": "Let f be any real amplitude table on n+1 binary wires, with no positivity or normalization assumption. For an n-bit prefix b define m(f)(b)=sqrt(f(b,0)²+f(b,1)²), where (b,v) means appending last bit v. For any table g define N(g)=∑_w g(w)². Proposition P: N(m(f))=N(f) for all natural n and all such f. Decide P and explain the precise normalization invariant it supplies to a recursive loader.",
+      "reasoning_kind": "norm_vs_linearity",
+      "source_nodes": [
+        "declaration:QuantumBlockEncoding.RealAmplitudePreparation.pairNorm",
+        "declaration:QuantumBlockEncoding.RealAmplitudePreparation.pairNorm_sq",
+        "declaration:QuantumBlockEncoding.RealAmplitudePreparation.marginal",
+        "declaration:QuantumBlockEncoding.RealAmplitudePreparation.normSq",
+        "declaration:QuantumBlockEncoding.RealAmplitudePreparation.normSq_marginal"
+      ],
+      "split": "test_public"
+    },
+    {
+      "assumptions": [],
+      "author_identity": "agent-task:root/learning_isometry_math",
+      "canonical_relation": "diagnostic_contract_candidate",
+      "cluster_id": "state_marginal_norm_and_linearity",
+      "conventions": [
+        "Equalities are exact. Fin n denotes the finite index set {0,...,n-1}; it is empty when n=0."
+      ],
+      "difficulty": {
+        "band": "D2",
+        "measured_model_difficulty": null,
+        "rationale": "Discriminate the stated contract using its actual algebra or an exact finite witness. Imported-source shortcuts remain callable; this is not measured model difficulty.",
+        "status": "provisional_author_mathematical_assessment"
+      },
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.TensorTrainCanonical"
+        ],
+        "proposition": "∀ (f g : QuantumBlockEncoding.PrimitiveBasis 1 → ℝ), QuantumBlockEncoding.RealAmplitudePreparation.marginal (fun w => f w + g w) = (fun b => QuantumBlockEncoding.RealAmplitudePreparation.marginal f b + QuantumBlockEncoding.RealAmplitudePreparation.marginal g b)"
+      },
+      "formal_coverage": "decision_polarity_only",
+      "gold": {
+        "answer": "P is false. Take f=(1,0), g=(-1,0). Then f+g=(0,0), so m(f+g)=0, but m(f)=m(g)=1 and m(f)+m(g)=2. All values are exact; each of the two inputs separately has squared norm one. Thus norm preservation does not imply additivity or a linear isometry. The marginal loses sign information (m(-f)=m(f)); it is a nonlinear preprocessing map on amplitude descriptions. The correct source claim is squared-norm equality for each table, not linear evolution under addition. Even restricting to normalized inputs would not define a linear subspace; unit-norm inputs in this witness already expose the inappropriate linear-map claim.",
+        "decision": "refuted",
+        "reference_proof": "by\n  intro h\n  let f : QuantumBlockEncoding.PrimitiveBasis 1 → ℝ := fun w => if w 0 = 0 then 1 else 0\n  have bad := congrFun (h f (fun w => -f w)) (fun i : Fin 0 => Fin.elim0 i)\n  norm_num [QuantumBlockEncoding.RealAmplitudePreparation.marginal, QuantumBlockEncoding.RealAmplitudePreparation.pairNorm, f, Fin.snoc_zero] at bad",
+        "rubric": [
+          {
+            "criterion": "Provides any exact real one-wire tables f and g with a demonstrable failure of marginal additivity.",
+            "id": "criterion-1",
+            "weight": 1
+          },
+          {
+            "criterion": "Checks the two marginal expressions or an equivalent exact inequality and proves they differ; the reference pair and values are examples rather than required answers.",
+            "id": "criterion-2",
+            "weight": 1
+          },
+          {
+            "criterion": "Distinguishes pointwise norm preservation from additivity/linearity and sign retention.",
+            "id": "criterion-3",
+            "weight": 1
+          },
+          {
+            "criterion": "Repairs to the squared-norm invariant and explains why this preprocessing map cannot itself be the linear circuit state-action.",
+            "id": "criterion-4",
+            "weight": 1
+          }
+        ]
+      },
+      "pair_id": "28837439-045e-483f-baa8-cb94525c2623",
+      "parent_contracts": {
+        "qcb-core-sp-005": "0821f527326022b9972f0d4083b8a2a99c179263e36e5d27112f6cb5c1c98865"
+      },
+      "parent_core_ids": [
+        "qcb-core-sp-005"
+      ],
+      "probe_id": "94f36e25-6def-4b77-8bf8-7056c2425df5",
+      "question": "On one binary wire identify a real table f with the pair (f(0),f(1)). Its zero-wire marginal m(f) is the one-entry table with value sqrt(f(0)²+f(1)²). Addition of tables is entrywise. Proposition P: for every real one-wire f,g, m(f+g)=m(f)+m(g). Decide P; explain what your result says about treating the norm-preserving marginal pass as a linear circuit isometry.",
+      "reasoning_kind": "norm_vs_linearity",
+      "source_nodes": [
+        "declaration:QuantumBlockEncoding.RealAmplitudePreparation.pairNorm",
+        "declaration:QuantumBlockEncoding.RealAmplitudePreparation.marginal",
+        "declaration:QuantumBlockEncoding.RealAmplitudePreparation.normSq_marginal"
+      ],
+      "split": "test_public"
+    },
+    {
+      "assumptions": [],
+      "author_identity": "agent-task:root/learning_permutation_math",
+      "canonical_relation": "diagnostic_contract_candidate",
+      "cluster_id": "controlled_permutation_semantics",
+      "conventions": [
+        "Equalities are exact. Fin n denotes the finite index set {0,...,n-1}; it is empty when n=0."
+      ],
+      "difficulty": {
+        "band": "D2",
+        "measured_model_difficulty": null,
+        "rationale": "Discriminate the stated contract using its actual algebra or an exact finite witness. Imported-source shortcuts remain callable; this is not measured model difficulty.",
+        "status": "provisional_author_mathematical_assessment"
+      },
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.Robin.ComplexLCU"
+        ],
+        "proposition": "∀ {coefficient : Type} {selector : Type} {system : Type} [Fintype coefficient] [DecidableEq coefficient] [Fintype selector] [DecidableEq selector] [Fintype system] [DecidableEq system] (permutation : selector → system ≃ system) (row column : system × (coefficient × selector)), Matrix.reindexAlgEquiv ℂ ℂ ((Equiv.prodAssoc coefficient selector system).symm.trans (Equiv.prodComm (coefficient × selector) system)) (QuantumBlockEncoding.Robin.ComplexLCU.selectLift permutation) row column = if row = (permutation column.2.2 column.1, (column.2.1, column.2.2)) then (1 : ℂ) else 0"
+      },
+      "formal_coverage": "decision_polarity_only",
+      "gold": {
+        "answer": "J⁻¹(x,(c,s))=(c,(s,x)). Therefore J F_p J⁻¹(x,(c,s))=(p_s(x),(c,s)). Reindexing both matrix indices gives exactly the proposed indicator. The inverse on D is (x,(c,s))↦(p_s⁻¹(x),(c,s)); the selector is the third component in D, and both c and s remain preserved. The proof is uniform in all finite C,S,X, including empty carriers.",
+        "decision": "holds",
+        "reference_proof": "by\n  intro coefficient selector system fc dc fs ds fx dx permutation row column\n  rcases row with ⟨xr, cr, sr⟩\n  rcases column with ⟨xc, cc, sc⟩\n  simp [Matrix.reindexAlgEquiv_apply, Matrix.reindex_apply,\n    Matrix.submatrix_apply, Equiv.prodAssoc, Equiv.prodComm,\n    QuantumBlockEncoding.Robin.ComplexLCU.selectLift,\n    QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix,\n    QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv,\n    and_comm, and_left_comm, and_assoc]\n",
+        "rubric": [
+          {
+            "criterion": "Reconstructs J inverse and the conjugated controlled action without moving the control to the wrong register.",
+            "id": "criterion-1",
+            "weight": 1
+          },
+          {
+            "criterion": "Identifies the coefficient and selector components that are preserved.",
+            "id": "criterion-2",
+            "weight": 1
+          },
+          {
+            "criterion": "Derives the exact row/column indicator amplitude, including the zero case.",
+            "id": "criterion-3",
+            "weight": 1
+          }
+        ]
+      },
+      "pair_id": "5ec822e4-0b95-4f2a-bd7f-261e92066c9e",
+      "parent_contracts": {
+        "qcb-core-be-110": "f58c46fe0545b797fbc05fe022a9413adb33d92606e70eb4f28cf219e27ab9cd"
+      },
+      "parent_core_ids": [
+        "qcb-core-be-110"
+      ],
+      "probe_id": "b1234a5b-fe27-4add-bbe4-cb130e138af6",
+      "question": "Use exact complex amplitudes and column vectors. For finite sets C, S, X and a family p assigning a bijection p_s:X→X to every s∈S, the basis is A=C×(S×X). The controlled map is F_p(c,(s,x))=(c,(s,p_s(x))). The SELECT matrix is U_p(r,k)=1 if r=F_p(k), and 0 otherwise. Thus coefficient c and selector s are preserved, and no ancilla is added. All statements are exact equalities of matrices over ℂ; finite sets may be empty unless a concrete set is specified. Put D=X×(C×S), and let J(c,(s,x))=(x,(c,s)). Define U'_p(r,k)=U_p(J⁻¹(r),J⁻¹(k)). Proposition: for every C,S,X,p and every r,k∈D, U'_p(r,k)=1 exactly when r=(p_{k.2.2}(k.1),(k.2.1,k.2.2)), and it is 0 otherwise. Decide whether the stated proposition is valid under exactly the supplied assumptions. Give a mathematical reason. If it is invalid, give an exact finite basis witness and state a repair; distinguish the original proposition from the repair.",
+      "reasoning_kind": "representation_transport",
+      "source_nodes": [
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv",
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul",
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.selectLift"
+      ],
+      "split": "train"
+    },
+    {
+      "assumptions": [],
+      "author_identity": "agent-task:root/learning_permutation_math",
+      "canonical_relation": "diagnostic_contract_candidate",
+      "cluster_id": "controlled_permutation_semantics",
+      "conventions": [
+        "Equalities are exact. Fin n denotes the finite index set {0,...,n-1}; it is empty when n=0."
+      ],
+      "difficulty": {
+        "band": "D2",
+        "measured_model_difficulty": null,
+        "rationale": "Discriminate the stated contract using its actual algebra or an exact finite witness. Imported-source shortcuts remain callable; this is not measured model difficulty.",
+        "status": "provisional_author_mathematical_assessment"
+      },
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.Robin.ComplexLCU"
+        ],
+        "proposition": "∀ (permutation : Bool → Bool ≃ Bool) (row column : Bool × (Bool × Bool)), Matrix.reindexAlgEquiv ℂ ℂ ((Equiv.prodAssoc Bool Bool Bool).symm.trans (Equiv.prodComm (Bool × Bool) Bool)) (QuantumBlockEncoding.Robin.ComplexLCU.selectLift permutation) row column = if row = (permutation column.2.1 column.1, (column.2.1, column.2.2)) then (1 : ℂ) else 0"
+      },
+      "formal_coverage": "decision_polarity_only",
+      "gold": {
+        "answer": "Let p_false=id and p_true=X, where X exchanges false and true. For input k=(false,(true,false)) the actual control is selector false, so J F_p J⁻¹(k)=k. At r=(true,(true,false)), the actual amplitude is 0, while the proposed formula uses coefficient true as its control and returns 1. Repair k.2.1 to k.2.2 in the permutation subscript. This witness refutes the universal formula; it does not claim that every family distinguishes the two control wires.",
+        "decision": "refuted",
+        "reference_proof": "by\n  intro claim\n  have entry := claim\n    (fun s => if s then Equiv.swap false true else Equiv.refl Bool)\n    (true, (true, false)) (false, (true, false))\n  simpa [Matrix.reindexAlgEquiv_apply, Matrix.reindex_apply,\n    Matrix.submatrix_apply, Equiv.prodAssoc, Equiv.prodComm,\n    QuantumBlockEncoding.Robin.ComplexLCU.selectLift,\n    QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix,\n    QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv] using entry\n",
+        "rubric": [
+          {
+            "criterion": "Rejects the proposition using an explicit family and a concrete input/output basis pair.",
+            "id": "criterion-1",
+            "weight": 1
+          },
+          {
+            "criterion": "Computes unequal transition amplitudes, rather than citing a type error.",
+            "id": "criterion-2",
+            "weight": 1
+          },
+          {
+            "criterion": "Repairs the selector lookup to the appropriate transported component; distinguishes relabeling from a different controlled operator.",
+            "id": "criterion-3",
+            "weight": 1
+          }
+        ]
+      },
+      "pair_id": "5ec822e4-0b95-4f2a-bd7f-261e92066c9e",
+      "parent_contracts": {
+        "qcb-core-be-110": "f58c46fe0545b797fbc05fe022a9413adb33d92606e70eb4f28cf219e27ab9cd"
+      },
+      "parent_core_ids": [
+        "qcb-core-be-110"
+      ],
+      "probe_id": "93904687-6d03-43fe-b130-193a4f90ab4e",
+      "question": "Use exact complex amplitudes and column vectors. For finite sets C, S, X and a family p assigning a bijection p_s:X→X to every s∈S, the basis is A=C×(S×X). The controlled map is F_p(c,(s,x))=(c,(s,p_s(x))). The SELECT matrix is U_p(r,k)=1 if r=F_p(k), and 0 otherwise. Thus coefficient c and selector s are preserved, and no ancilla is added. All statements are exact equalities of matrices over ℂ; finite sets may be empty unless a concrete set is specified. Set C=S=X={false,true}. Put D=X×(C×S), J(c,(s,x))=(x,(c,s)), and U'_p(r,k)=U_p(J⁻¹(r),J⁻¹(k)). Proposition: for every family p and all r,k∈D, U'_p(r,k)=1 exactly when r=(p_{k.2.1}(k.1),(k.2.1,k.2.2)), and it is 0 otherwise. Decide whether the stated proposition is valid under exactly the supplied assumptions. Give a mathematical reason. If it is invalid, give an exact finite basis witness and state a repair; distinguish the original proposition from the repair.",
+      "reasoning_kind": "representation_transport",
+      "source_nodes": [
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv",
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul",
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.selectLift"
+      ],
+      "split": "train"
+    },
+    {
+      "assumptions": [],
+      "author_identity": "agent-task:root/learning_permutation_math",
+      "canonical_relation": "diagnostic_contract_candidate",
+      "cluster_id": "controlled_permutation_semantics",
+      "conventions": [
+        "Equalities are exact. Fin n denotes the finite index set {0,...,n-1}; it is empty when n=0."
+      ],
+      "difficulty": {
+        "band": "D2",
+        "measured_model_difficulty": null,
+        "rationale": "Discriminate the stated contract using its actual algebra or an exact finite witness. Imported-source shortcuts remain callable; this is not measured model difficulty.",
+        "status": "provisional_author_mathematical_assessment"
+      },
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.Robin.ComplexLCU"
+        ],
+        "proposition": "∀ {coefficient : Type} {selector : Type} {system : Type} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [fx : Fintype system] [dx : DecidableEq system] (permutation : selector → system ≃ system), (@QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx (fun s => (permutation s).symm) * @QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx permutation = 1) ∧ (@QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx permutation * @QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx (fun s => (permutation s).symm) = 1)"
+      },
+      "formal_coverage": "decision_polarity_only",
+      "gold": {
+        "answer": "On every basis state, F_q F_p(c,(s,x))=(c,(s,p_s⁻¹(p_s(x))))=(c,(s,x)); the reverse composite similarly uses p_s(p_s⁻¹(x))=x. Both composites read the preserved selector s. A matrix with column k equal to |F(k)⟩ composes as U_g U_f=U_{g∘f}; hence both matrix products equal I_A. This is a generic theorem, not inference from a few finite examples.",
+        "decision": "holds",
+        "reference_proof": "by\n  intro coefficient selector system fc dc fs ds fx dx permutation\n  have undo (p : selector → system ≃ system) :\n      QuantumBlockEncoding.Robin.ComplexLCU.selectLift\n          (coefficient := coefficient) (fun s => (p s).symm) *\n        QuantumBlockEncoding.Robin.ComplexLCU.selectLift p = 1 := by\n    change QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix\n          (QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv\n            (coefficient := coefficient) (fun s => (p s).symm)) *\n        QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix\n          (QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv p) = 1\n    rw [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul]\n    have cancel :\n        (QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv\n          (coefficient := coefficient) p).trans\n          (QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv\n            (fun s => (p s).symm)) = Equiv.refl _ := by\n      ext ⟨c, s, x⟩ <;>\n        simp [QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv]\n    rw [cancel]\n    ext row column\n    simp [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix,\n      Matrix.one_apply]\n  exact ⟨undo permutation, by simpa using undo (fun s => (permutation s).symm)⟩\n",
+        "rubric": [
+          {
+            "criterion": "Uses the same preserved selector for the inverse family.",
+            "id": "criterion-1",
+            "weight": 1
+          },
+          {
+            "criterion": "Explains both forward/inverse composites, not only one matrix entry.",
+            "id": "criterion-2",
+            "weight": 1
+          },
+          {
+            "criterion": "Keeps matrix multiplication chronology and coefficient preservation consistent.",
+            "id": "criterion-3",
+            "weight": 1
+          }
+        ]
+      },
+      "pair_id": "06e8be7c-8c32-482d-bd9f-c7bcb8d23e79",
+      "parent_contracts": {
+        "qcb-core-be-110": "f58c46fe0545b797fbc05fe022a9413adb33d92606e70eb4f28cf219e27ab9cd"
+      },
+      "parent_core_ids": [
+        "qcb-core-be-110"
+      ],
+      "probe_id": "badaa09e-22b6-482f-b277-b0ab8c1f28e7",
+      "question": "Use exact complex amplitudes and column vectors. For finite sets C, S, X and a family p assigning a bijection p_s:X→X to every s∈S, the basis is A=C×(S×X). The controlled map is F_p(c,(s,x))=(c,(s,p_s(x))). The SELECT matrix is U_p(r,k)=1 if r=F_p(k), and 0 otherwise. Thus coefficient c and selector s are preserved, and no ancilla is added. All statements are exact equalities of matrices over ℂ; finite sets may be empty unless a concrete set is specified. For every s put q_s=(p_s)⁻¹. Proposition: for every C,S,X,p, both U_q U_p=I_A and U_p U_q=I_A. Decide whether the stated proposition is valid under exactly the supplied assumptions. Give a mathematical reason. If it is invalid, give an exact finite basis witness and state a repair; distinguish the original proposition from the repair.",
+      "reasoning_kind": "assumption_diagnosis",
+      "source_nodes": [
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv",
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul",
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.selectLift"
+      ],
+      "split": "train"
+    },
+    {
+      "assumptions": [],
+      "author_identity": "agent-task:root/learning_permutation_math",
+      "canonical_relation": "diagnostic_contract_candidate",
+      "cluster_id": "controlled_permutation_semantics",
+      "conventions": [
+        "Equalities are exact. Fin n denotes the finite index set {0,...,n-1}; it is empty when n=0."
+      ],
+      "difficulty": {
+        "band": "D2",
+        "measured_model_difficulty": null,
+        "rationale": "Discriminate the stated contract using its actual algebra or an exact finite witness. Imported-source shortcuts remain callable; this is not measured model difficulty.",
+        "status": "provisional_author_mathematical_assessment"
+      },
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.Robin.ComplexLCU"
+        ],
+        "proposition": "∀ (permutation : Bool → Bool ≃ Bool), @QuantumBlockEncoding.Robin.ComplexLCU.selectLift Unit Bool Bool inferInstance inferInstance inferInstance (fun s => (permutation (!s)).symm) * @QuantumBlockEncoding.Robin.ComplexLCU.selectLift Unit Bool Bool inferInstance inferInstance inferInstance permutation = 1"
+      },
+      "formal_coverage": "decision_polarity_only",
+      "gold": {
+        "answer": "Take p_false=id and p_true=X. The normalized basis state |*,false,false⟩ is unchanged by U_p but then q_false=(p_true)⁻¹=X sends it to |*,false,true⟩. The product has amplitude 1 at that output, where I_A has amplitude 0. Repair q_s to p_s⁻¹. More generally a lookup τ works on every basis state exactly when p_{τ(s)}=p_s for every s. Different labels may name equal permutations: the assertion that every different label necessarily fails is also unjustified.",
+        "decision": "refuted",
+        "reference_proof": "by\n  intro claim\n  have equality := claim\n    (fun s : Bool => if s then Equiv.swap false true else Equiv.refl Bool)\n  dsimp only [QuantumBlockEncoding.Robin.ComplexLCU.selectLift] at equality\n  rw [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul] at equality\n  have entry := congrArg\n    (fun matrix : Matrix (Unit × (Bool × Bool)) (Unit × (Bool × Bool)) ℂ =>\n      matrix ((), (false, true)) ((), (false, false))) equality\n  simpa [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix,\n    QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv,\n    Equiv.trans_apply, Equiv.swap_apply_def, Matrix.one_apply] using entry\n",
+        "rubric": [
+          {
+            "criterion": "Provides any admissible permutation family and exact basis or equivalent operator witness showing the wrong-lookup product differs from identity; diagonal and off-diagonal certificates are both valid.",
+            "id": "criterion-1",
+            "weight": 1
+          },
+          {
+            "criterion": "Explains why a changed lookup is not generally an inverse.",
+            "id": "criterion-2",
+            "weight": 1
+          },
+          {
+            "criterion": "States a valid repair, such as using the same selector or a justified equal-permutation lookup; does not claim that different selector labels necessarily fail.",
+            "id": "criterion-3",
+            "weight": 1
+          }
+        ]
+      },
+      "pair_id": "06e8be7c-8c32-482d-bd9f-c7bcb8d23e79",
+      "parent_contracts": {
+        "qcb-core-be-110": "f58c46fe0545b797fbc05fe022a9413adb33d92606e70eb4f28cf219e27ab9cd"
+      },
+      "parent_core_ids": [
+        "qcb-core-be-110"
+      ],
+      "probe_id": "9653f2d7-5af9-420b-a8af-30ad44c0f651",
+      "question": "Use exact complex amplitudes and column vectors. For finite sets C, S, X and a family p assigning a bijection p_s:X→X to every s∈S, the basis is A=C×(S×X). The controlled map is F_p(c,(s,x))=(c,(s,p_s(x))). The SELECT matrix is U_p(r,k)=1 if r=F_p(k), and 0 otherwise. Thus coefficient c and selector s are preserved, and no ancilla is added. All statements are exact equalities of matrices over ℂ; finite sets may be empty unless a concrete set is specified. Set C={*}, S=X={false,true}. For every s define q_s=(p_{not s})⁻¹ while still preserving the selector. Proposition: for every family p, U_q U_p=I_A. Decide whether the stated proposition is valid under exactly the supplied assumptions. Give a mathematical reason. If it is invalid, give an exact finite basis witness and state a repair; distinguish the original proposition from the repair.",
+      "reasoning_kind": "assumption_diagnosis",
+      "source_nodes": [
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv",
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul",
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.selectLift"
+      ],
+      "split": "train"
+    },
+    {
+      "assumptions": [],
+      "author_identity": "agent-task:root/learning_permutation_math",
+      "canonical_relation": "diagnostic_contract_candidate",
+      "cluster_id": "controlled_permutation_semantics",
+      "conventions": [
+        "Equalities are exact. Fin n denotes the finite index set {0,...,n-1}; it is empty when n=0."
+      ],
+      "difficulty": {
+        "band": "D2",
+        "measured_model_difficulty": null,
+        "rationale": "Discriminate the stated contract using its actual algebra or an exact finite witness. Imported-source shortcuts remain callable; this is not measured model difficulty.",
+        "status": "provisional_author_mathematical_assessment"
+      },
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.Robin.ComplexLCU"
+        ],
+        "proposition": "∀ {coefficient : Type} {selector : Type} {system : Type} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [fx : Fintype system] [dx : DecidableEq system] (first second : selector → system ≃ system), @QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx first * @QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx second = @QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx (fun s => (first s).trans (second s))"
+      },
+      "formal_coverage": "decision_polarity_only",
+      "gold": {
+        "answer": "Use C={*}, S={false,true}, X={0,1,2}. On selector false let p exchange 0 and 1 and let q exchange 1 and 2; on selector true let both be identity. From |*,false,0⟩, U_r gives |*,false,2⟩, while U_p U_q applies q first and gives |*,false,1⟩. At row |*,false,2⟩ and the given input column the two amplitudes are 1 and 0. Repair the product to U_q U_p, or change r_s to p_s∘q_s. A two-level system alone would miss this mechanism because its permutations commute.",
+        "decision": "refuted",
+        "reference_proof": "by\n  intro claim\n  let first : Bool → Fin 3 ≃ Fin 3 :=\n    fun s => if s then Equiv.refl (Fin 3) else Equiv.swap 0 1\n  let second : Bool → Fin 3 ≃ Fin 3 :=\n    fun s => if s then Equiv.refl (Fin 3) else Equiv.swap 1 2\n  have equality := claim (coefficient := Unit) first second\n  dsimp only [QuantumBlockEncoding.Robin.ComplexLCU.selectLift] at equality\n  rw [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul] at equality\n  have entry := congrArg\n    (fun matrix : Matrix (Unit × (Bool × Fin 3)) (Unit × (Bool × Fin 3)) ℂ =>\n      matrix ((), (false, 2)) ((), (false, 0))) equality\n  simpa [first, second,\n    QuantumBlockEncoding.Robin.ComplexLCU.selectLift,\n    QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix,\n    QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv,\n    Equiv.trans_apply, Equiv.swap_apply_def] using entry\n",
+        "rubric": [
+          {
+            "criterion": "Uses an explicit noncommuting family, with chronological images and a concrete matrix-entry mismatch.",
+            "id": "criterion-1",
+            "weight": 1
+          },
+          {
+            "criterion": "Rejects the universal order claim without assuming all permutations commute.",
+            "id": "criterion-2",
+            "weight": 1
+          },
+          {
+            "criterion": "States the corrected second-times-first matrix order separately from the false proposition.",
+            "id": "criterion-3",
+            "weight": 1
+          }
+        ]
+      },
+      "pair_id": "6188885f-f3bf-4fbe-8321-380c10727903",
+      "parent_contracts": {
+        "qcb-core-be-111": "330eae3b85a045c8741e4a59046edb32f4f5c72a6ee7540a2a73dd635addbadf"
+      },
+      "parent_core_ids": [
+        "qcb-core-be-111"
+      ],
+      "probe_id": "976c9922-4202-4a48-a885-4d5a6d21656f",
+      "question": "Use exact complex amplitudes and column vectors. For finite sets C, S, X and a family p assigning a bijection p_s:X→X to every s∈S, the basis is A=C×(S×X). The controlled map is F_p(c,(s,x))=(c,(s,p_s(x))). The SELECT matrix is U_p(r,k)=1 if r=F_p(k), and 0 otherwise. Thus coefficient c and selector s are preserved, and no ancilla is added. All statements are exact equalities of matrices over ℂ; finite sets may be empty unless a concrete set is specified. Let p and q be two such families over the same S,X. For each s define r_s=q_s∘p_s, so r means first apply p_s and then q_s. Proposition: for every C,S,X,p,q, U_p U_q=U_r. Decide whether the stated proposition is valid under exactly the supplied assumptions. Give a mathematical reason. If it is invalid, give an exact finite basis witness and state a repair; distinguish the original proposition from the repair.",
+      "reasoning_kind": "composition",
+      "source_nodes": [
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv",
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul",
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.selectLift"
+      ],
+      "split": "test_public"
+    },
+    {
+      "assumptions": [],
+      "author_identity": "agent-task:root/learning_permutation_math",
+      "canonical_relation": "diagnostic_contract_candidate",
+      "cluster_id": "controlled_permutation_semantics",
+      "conventions": [
+        "Equalities are exact. Fin n denotes the finite index set {0,...,n-1}; it is empty when n=0."
+      ],
+      "difficulty": {
+        "band": "D2",
+        "measured_model_difficulty": null,
+        "rationale": "Discriminate the stated contract using its actual algebra or an exact finite witness. Imported-source shortcuts remain callable; this is not measured model difficulty.",
+        "status": "provisional_author_mathematical_assessment"
+      },
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.Robin.ComplexLCU"
+        ],
+        "proposition": "∀ {coefficient : Type} {selector : Type} {system : Type} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [fx : Fintype system] [dx : DecidableEq system] (first second : selector → system ≃ system), @QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx second * @QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx first = @QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx (fun s => (first s).trans (second s))"
+      },
+      "formal_coverage": "decision_polarity_only",
+      "gold": {
+        "answer": "F_q(F_p(c,(s,x)))=(c,(s,q_s(p_s(x))))=F_r(c,(s,x)). In the matrix entry (U_q U_p)(a,b), the U_p factor is nonzero only at the intermediate basis label k=F_p(b); the surviving U_q entry is 1 exactly when a=F_q(F_p(b)). Thus the product is U_r, with p applied first on column vectors. No commutativity assumption is present.",
+        "decision": "holds",
+        "reference_proof": "by\n  intro coefficient selector system fc dc fs ds fx dx first second\n  change QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix\n        (QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv\n          (coefficient := coefficient) second) *\n      QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix\n        (QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv first) =\n    QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix\n      (QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv\n        (fun s => (first s).trans (second s)))\n  rw [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul]\n  rfl\n",
+        "rubric": [
+          {
+            "criterion": "Derives the chronological basis-map composition.",
+            "id": "criterion-1",
+            "weight": 1
+          },
+          {
+            "criterion": "Connects that map to the column-vector permutation matrix product in the correct order.",
+            "id": "criterion-2",
+            "weight": 1
+          },
+          {
+            "criterion": "Keeps the selector unchanged in both stages and preserves the coefficient register.",
+            "id": "criterion-3",
+            "weight": 1
+          }
+        ]
+      },
+      "pair_id": "6188885f-f3bf-4fbe-8321-380c10727903",
+      "parent_contracts": {
+        "qcb-core-be-111": "330eae3b85a045c8741e4a59046edb32f4f5c72a6ee7540a2a73dd635addbadf"
+      },
+      "parent_core_ids": [
+        "qcb-core-be-111"
+      ],
+      "probe_id": "d67d7a90-a228-4d10-b10a-2e2957f00cd2",
+      "question": "Use exact complex amplitudes and column vectors. For finite sets C, S, X and a family p assigning a bijection p_s:X→X to every s∈S, the basis is A=C×(S×X). The controlled map is F_p(c,(s,x))=(c,(s,p_s(x))). The SELECT matrix is U_p(r,k)=1 if r=F_p(k), and 0 otherwise. Thus coefficient c and selector s are preserved, and no ancilla is added. All statements are exact equalities of matrices over ℂ; finite sets may be empty unless a concrete set is specified. Let p and q be two such families over the same S,X. For each s define r_s=q_s∘p_s, so r means first apply p_s and then q_s. Proposition: for every C,S,X,p,q, U_q U_p=U_r. Decide whether the stated proposition is valid under exactly the supplied assumptions. Give a mathematical reason. If it is invalid, give an exact finite basis witness and state a repair; distinguish the original proposition from the repair.",
+      "reasoning_kind": "composition",
+      "source_nodes": [
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv",
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul",
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.selectLift"
+      ],
+      "split": "test_public"
+    },
+    {
+      "assumptions": [
+        "k is an arbitrary natural number, including zero; p and q are arbitrary real-coefficient polynomials, including the zero polynomial.",
+        "For every natural j with 0≤j≤k, the j-th ordinary derivatives of p and q agree at -1 and also agree at 0.",
+        "Both p and q have degree at most 2k+1 under the stated zero-polynomial convention."
+      ],
+      "author_identity": "agent-task:root/learning_hermite_boundary",
+      "canonical_relation": "possible_alias",
+      "cluster_id": "hermite_endpoint_multiplicity",
+      "conventions": [
+        "Real polynomials and ordinary derivatives; the zero polynomial is allowed and satisfies the nonnegative degree bounds."
+      ],
+      "difficulty": {
+        "band": "D4",
+        "measured_model_difficulty": null,
+        "rationale": "Generic uniqueness combines independent endpoint divisibility, coprimality and a degree budget. No supplied intermediate DAG is exposed in the proof challenge.",
+        "status": "provisional_author_mathematical_assessment"
+      },
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.HermitePolynomial"
+        ],
+        "proposition": "∀ (k : ℕ) (p q : Polynomial ℝ), p.natDegree ≤ 2 * k + 1 → q.natDegree ≤ 2 * k + 1 → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval (-1) = (Polynomial.derivative^[j] q).eval (-1)) → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval 0 = (Polynomial.derivative^[j] q).eval 0) → p = q"
+      },
+      "formal_coverage": "decision_polarity_only",
+      "gold": {
+        "answer": "P is valid. Set d=p-q. Equality of all ordinary derivatives through k at a point a means that (x-a)^(k+1) divides d: the degree-j Taylor coefficient is d^(j)(a)/j!, and the factorial is nonzero over the reals. Thus (x+1)^(k+1) and x^(k+1) both divide d. The two factors are coprime since x+1 and x differ by the unit1, so their product divides d. This product has degree2k+2, whereas d has degree at most2k+1. A nonzero multiple cannot have smaller degree than its divisor, so d=0 and p=q. If d=0 already, this last conclusion is immediate. The assertion includes k=0 and zero input polynomials; it asserts uniqueness, not existence.",
+        "decision": "holds",
+        "reference_proof": "by\n  have qcb_step_jet104_jet_iff : ∀ (p q : Polynomial ℝ) (a : ℝ) (k : ℕ), (∀ j ≤ k, (Polynomial.derivative^[j] p).eval a = (Polynomial.derivative^[j] q).eval a) ↔ (Polynomial.X - Polynomial.C a) ^ (k + 1) ∣ p - q :=\n    by\n      intro p q a k\n      constructor\n      · intro h\n        have ht : Polynomial.X ^ (k + 1) ∣ Polynomial.taylor a (p - q) := by\n          apply Polynomial.X_pow_dvd_iff.mpr\n          intro j hj\n          have he : (j.factorial : ℝ) * (Polynomial.taylor a (p - q)).coeff j = 0 := by\n            rw [← QuantumBlockEncoding.HermitePolynomial.eval_iterate_derivative]\n            simp only [Polynomial.iterate_derivative_sub, Polynomial.eval_sub,\n              h j (by omega), sub_self]\n          exact (mul_eq_zero.mp he).resolve_left (by exact_mod_cast Nat.factorial_ne_zero j)\n        have hm := map_dvd (Polynomial.taylorAlgHom (-a)) ht\n        simpa [Polynomial.taylor_taylor, ← sub_eq_add_neg] using hm\n      · intro h j hj\n        exact QuantumBlockEncoding.HermitePolynomial.jet_eq_of_pow_dvd_sub p q a k j hj h\n  have qcb_step_jet104_left : ∀ (k : ℕ) (p q : Polynomial ℝ), (∀ j ≤ k, (Polynomial.derivative^[j] p).eval (-1) = (Polynomial.derivative^[j] q).eval (-1)) → QuantumBlockEncoding.HermitePolynomial.leftModulus k ∣ p - q :=\n    by\n      intro k p q h\n      exact (qcb_step_jet104_jet_iff p q (-1) k).mp h\n  have qcb_step_jet104_right : ∀ (k : ℕ) (p q : Polynomial ℝ), (∀ j ≤ k, (Polynomial.derivative^[j] p).eval 0 = (Polynomial.derivative^[j] q).eval 0) → QuantumBlockEncoding.HermitePolynomial.rightModulus k ∣ p - q :=\n    by\n      intro k p q h\n      exact (qcb_step_jet104_jet_iff p q 0 k).mp h\n  have qcb_step_jet104_coprime : ∀ (k : ℕ), IsCoprime (QuantumBlockEncoding.HermitePolynomial.leftModulus k) (QuantumBlockEncoding.HermitePolynomial.rightModulus k) :=\n    by\n      intro k\n      unfold QuantumBlockEncoding.HermitePolynomial.leftModulus\n        QuantumBlockEncoding.HermitePolynomial.rightModulus\n      apply IsCoprime.pow\n      exact Polynomial.isCoprime_X_sub_C_of_isUnit_sub (by norm_num)\n  have qcb_step_jet104_product : ∀ (k : ℕ) (p q : Polynomial ℝ), (∀ j ≤ k, (Polynomial.derivative^[j] p).eval (-1) = (Polynomial.derivative^[j] q).eval (-1)) → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval 0 = (Polynomial.derivative^[j] q).eval 0) → (QuantumBlockEncoding.HermitePolynomial.leftModulus k) * (QuantumBlockEncoding.HermitePolynomial.rightModulus k) ∣ p - q :=\n    by\n      intro k p q hl hr\n      exact (qcb_step_jet104_coprime k).mul_dvd\n        (qcb_step_jet104_left k p q hl) (qcb_step_jet104_right k p q hr)\n  have qcb_step_jet104_degree : ∀ (k : ℕ), ((QuantumBlockEncoding.HermitePolynomial.leftModulus k) * (QuantumBlockEncoding.HermitePolynomial.rightModulus k)).natDegree = 2 * k + 2 :=\n    by\n      intro k\n      unfold QuantumBlockEncoding.HermitePolynomial.leftModulus\n        QuantumBlockEncoding.HermitePolynomial.rightModulus\n      rw [Polynomial.natDegree_mul (pow_ne_zero _ (Polynomial.X_sub_C_ne_zero _))\n        (pow_ne_zero _ (Polynomial.X_sub_C_ne_zero _))]\n      simp only [Polynomial.natDegree_pow, Polynomial.natDegree_X_sub_C, mul_one]\n      omega\n  have qcb_step_jet104_annihilate : ∀ (k : ℕ) (d : Polynomial ℝ), d.natDegree ≤ 2 * k + 1 → (QuantumBlockEncoding.HermitePolynomial.leftModulus k) * (QuantumBlockEncoding.HermitePolynomial.rightModulus k) ∣ d → d = 0 :=\n    by\n      intro k d hb hdiv\n      by_contra hne\n      have hd := Polynomial.natDegree_le_of_dvd hdiv hne\n      rw [qcb_step_jet104_degree k] at hd\n      omega\n  intro k p q hp hq hl hr\n  apply sub_eq_zero.mp\n  exact qcb_step_jet104_annihilate k (p - q)\n    ((Polynomial.natDegree_sub_le p q).trans (max_le hp hq))\n    (qcb_step_jet104_product k p q hl hr)",
+        "rubric": [
+          {
+            "criterion": "Respects arbitrary real polynomials, natural k including0, both degree bounds, exactly endpoints-1/0 and ordinary derivatives j=0..k.",
+            "id": "criterion-1",
+            "weight": 1
+          },
+          {
+            "criterion": "Justifies how the two endpoint jet constraints control the polynomial difference, through multiplicity/divisibility, root counting or an equivalent rigorous uniqueness argument.",
+            "id": "criterion-2",
+            "weight": 1
+          },
+          {
+            "criterion": "Correctly uses the stated degree bound to exclude a nonzero difference, or gives a complete mathematically equivalent uniqueness proof under that bound.",
+            "id": "criterion-3",
+            "weight": 1
+          },
+          {
+            "criterion": "Proves the full universally quantified conclusion under its premises; a single positive example or a failed check cannot establish the universal law.",
+            "id": "criterion-4",
+            "weight": 1
+          }
+        ]
+      },
+      "pair_id": "7f870a77-e84d-4959-9cb0-4b2f5f2d2db7",
+      "parent_contracts": {
+        "qcb-core-sp-104": "7bbea63cce5e0f098f5b8294acda383c03cffca10fc69df2ddc12d1d2c8f4741"
+      },
+      "parent_core_ids": [
+        "qcb-core-sp-104"
+      ],
+      "probe_id": "8a8bdc71-dcd2-42e9-a564-19b2d0530fdf",
+      "question": "Proposition P: for every natural number k and all real-coefficient polynomials p and q, if both have degree at most 2k+1, and all their ordinary derivatives of orders 0 through k agree at -1 and agree at 0, then p=q. Is P valid under the assumptions and conventions below?",
+      "reasoning_kind": "boundary_counterfactual",
+      "source_nodes": [
+        "declaration:QuantumBlockEncoding.HermitePolynomial.sourceInterpolant_unique",
+        "declaration:QuantumBlockEncoding.HermitePolynomial.pow_dvd_sub_of_jet_eq",
+        "declaration:QuantumBlockEncoding.HermitePolynomial.jet_eq_of_pow_dvd_sub"
+      ],
+      "split": "train"
+    },
+    {
+      "assumptions": [
+        "k is an arbitrary natural number, including zero; p and q are arbitrary real-coefficient polynomials, including the zero polynomial.",
+        "For every natural j with 0≤j≤k, the j-th ordinary derivatives of p and q agree at -1 and also agree at 0.",
+        "Both p and q have degree at most 2k+2 under the stated zero-polynomial convention."
+      ],
+      "author_identity": "agent-task:root/learning_hermite_boundary",
+      "canonical_relation": "diagnostic_contract_candidate",
+      "cluster_id": "hermite_endpoint_multiplicity",
+      "conventions": [
+        "Real polynomials and ordinary derivatives; the zero polynomial is allowed and satisfies the nonnegative degree bounds."
+      ],
+      "difficulty": {
+        "band": "D2",
+        "measured_model_difficulty": null,
+        "rationale": "The false universal statement admits a k=0 quadratic witness; the separately authored all-k witness is deeper but does not inflate the polarity difficulty.",
+        "status": "provisional_author_mathematical_assessment"
+      },
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.HermitePolynomial"
+        ],
+        "proposition": "∀ (k : ℕ) (p q : Polynomial ℝ), p.natDegree ≤ 2 * k + 2 → q.natDegree ≤ 2 * k + 2 → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval (-1) = (Polynomial.derivative^[j] q).eval (-1)) → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval 0 = (Polynomial.derivative^[j] q).eval 0) → p = q"
+      },
+      "formal_coverage": "decision_polarity_only",
+      "gold": {
+        "answer": "P is invalid. For every natural k and every nonzero real c, choose p(x)=c*x^(k+1)*(x+1)^(k+1) and q(x)=0. The polynomial p is nonzero and has exact degree2k+2 because its leading coefficient is c. Each endpoint is a root of multiplicity at least k+1, so every derivative of order0 through k vanishes at both-1 and0. Hence p and q satisfy both degree bounds and both endpoint jet-equality hypotheses, but p≠q. Already k=0,c=1 gives p=x(x+1),q=0. The degree allowance2k+2 permits a nonzero multiple of the two endpoint multiplicity factors; divisibility and coprimality still hold. Restoring both bounds to2k+1 repairs universal uniqueness. More precisely, at allowance2k+2 any two polynomials with equal jets differ by a constant multiple of x^(k+1)*(x+1)^(k+1); the parameterized counterexample exhibits this missing freedom. That final classification is explanatory mathematics, not an additional certified root in this packet.",
+        "decision": "refuted",
+        "reference_proof": "by\n  have qcb_step_jet104_jet_iff : ∀ (p q : Polynomial ℝ) (a : ℝ) (k : ℕ), (∀ j ≤ k, (Polynomial.derivative^[j] p).eval a = (Polynomial.derivative^[j] q).eval a) ↔ (Polynomial.X - Polynomial.C a) ^ (k + 1) ∣ p - q :=\n    by\n      intro p q a k\n      constructor\n      · intro h\n        have ht : Polynomial.X ^ (k + 1) ∣ Polynomial.taylor a (p - q) := by\n          apply Polynomial.X_pow_dvd_iff.mpr\n          intro j hj\n          have he : (j.factorial : ℝ) * (Polynomial.taylor a (p - q)).coeff j = 0 := by\n            rw [← QuantumBlockEncoding.HermitePolynomial.eval_iterate_derivative]\n            simp only [Polynomial.iterate_derivative_sub, Polynomial.eval_sub,\n              h j (by omega), sub_self]\n          exact (mul_eq_zero.mp he).resolve_left (by exact_mod_cast Nat.factorial_ne_zero j)\n        have hm := map_dvd (Polynomial.taylorAlgHom (-a)) ht\n        simpa [Polynomial.taylor_taylor, ← sub_eq_add_neg] using hm\n      · intro h j hj\n        exact QuantumBlockEncoding.HermitePolynomial.jet_eq_of_pow_dvd_sub p q a k j hj h\n  have qcb_step_jet104_degree : ∀ (k : ℕ), ((QuantumBlockEncoding.HermitePolynomial.leftModulus k) * (QuantumBlockEncoding.HermitePolynomial.rightModulus k)).natDegree = 2 * k + 2 :=\n    by\n      intro k\n      unfold QuantumBlockEncoding.HermitePolynomial.leftModulus\n        QuantumBlockEncoding.HermitePolynomial.rightModulus\n      rw [Polynomial.natDegree_mul (pow_ne_zero _ (Polynomial.X_sub_C_ne_zero _))\n        (pow_ne_zero _ (Polynomial.X_sub_C_ne_zero _))]\n      simp only [Polynomial.natDegree_pow, Polynomial.natDegree_X_sub_C, mul_one]\n      omega\n  have qcb_step_hboundary_degree : ∀ (k : ℕ) (c : ℝ), c ≠ 0 → (Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k)).natDegree = 2 * k + 2 :=\n    by\n      intro k c hc\n      rw [Polynomial.natDegree_C_mul hc, qcb_step_jet104_degree k]\n  have qcb_step_hboundary_nonzero : ∀ (k : ℕ) (c : ℝ), c ≠ 0 → Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k) ≠ 0 :=\n    by\n      intro k c hc\n      apply mul_ne_zero (Polynomial.C_ne_zero.mpr hc)\n      exact mul_ne_zero\n        (pow_ne_zero _ (Polynomial.X_sub_C_ne_zero (-1 : ℝ)))\n        (pow_ne_zero _ (Polynomial.X_sub_C_ne_zero (0 : ℝ)))\n  have qcb_step_hboundary_left_jet : ∀ (k : ℕ) (c : ℝ) (j : ℕ), j ≤ k → (Polynomial.derivative^[j] (Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k))).eval (-1) = 0 :=\n    by\n      intro k c j hj\n      have hdiv : (Polynomial.X - Polynomial.C ((-1) : ℝ)) ^ (k + 1) ∣\n          Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k) - 0 := by\n        refine ⟨Polynomial.C c * QuantumBlockEncoding.HermitePolynomial.rightModulus k, ?_⟩\n        dsimp [QuantumBlockEncoding.HermitePolynomial.leftModulus]\n        ring\n      have he := (qcb_step_jet104_jet_iff\n        (Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k)) 0 ((-1)) k).mpr hdiv j hj\n      simpa only [Polynomial.iterate_derivative_zero, Polynomial.eval_zero] using he\n  have qcb_step_hboundary_right_jet : ∀ (k : ℕ) (c : ℝ) (j : ℕ), j ≤ k → (Polynomial.derivative^[j] (Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k))).eval 0 = 0 :=\n    by\n      intro k c j hj\n      have hdiv : (Polynomial.X - Polynomial.C (0 : ℝ)) ^ (k + 1) ∣\n          Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k) - 0 := by\n        refine ⟨Polynomial.C c * QuantumBlockEncoding.HermitePolynomial.leftModulus k, ?_⟩\n        dsimp [QuantumBlockEncoding.HermitePolynomial.rightModulus]\n        ring\n      have he := (qcb_step_jet104_jet_iff\n        (Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k)) 0 (0) k).mpr hdiv j hj\n      simpa only [Polynomial.iterate_derivative_zero, Polynomial.eval_zero] using he\n  have qcb_step_hboundary_family : ∀ (k : ℕ) (c : ℝ), c ≠ 0 → (Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k) ≠ 0 ∧ (Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k)).natDegree = 2 * k + 2 ∧ (∀ j ≤ k, (Polynomial.derivative^[j] (Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k))).eval (-1) = 0) ∧ (∀ j ≤ k, (Polynomial.derivative^[j] (Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k))).eval 0 = 0)) :=\n    by\n      intro k c hc\n      exact ⟨qcb_step_hboundary_nonzero k c hc,\n        qcb_step_hboundary_degree k c hc,\n        qcb_step_hboundary_left_jet k c,\n        qcb_step_hboundary_right_jet k c⟩\n  intro h\n  obtain ⟨hne, hdegree, hleft, hright⟩ := qcb_step_hboundary_family 0 1 (by norm_num)\n  have he := h 0\n    (Polynomial.C (1 : ℝ) * (QuantumBlockEncoding.HermitePolynomial.leftModulus 0 * QuantumBlockEncoding.HermitePolynomial.rightModulus 0))\n    (0 : Polynomial ℝ)\n    (by omega)\n    (by simp)\n    (fun j hj => by simpa only [Polynomial.iterate_derivative_zero, Polynomial.eval_zero] using hleft j hj)\n    (fun j hj => by simpa only [Polynomial.iterate_derivative_zero, Polynomial.eval_zero] using hright j hj)\n  exact hne he",
+        "rubric": [
+          {
+            "criterion": "Respects arbitrary real polynomials, natural k including0, both degree bounds, exactly endpoints-1/0 and ordinary derivatives j=0..k.",
+            "id": "criterion-1",
+            "weight": 1
+          },
+          {
+            "criterion": "Checks every required endpoint derivative equality for the chosen counterexample and k, by direct computation, justified multiplicity or an equivalent argument.",
+            "id": "criterion-2",
+            "weight": 1
+          },
+          {
+            "criterion": "Verifies the allowed degree bounds and non-equality, and explains the role of the extra degree. A single admissible exact witness is sufficient; an all-k family is an additional valid route.",
+            "id": "criterion-3",
+            "weight": 1
+          },
+          {
+            "criterion": "Uses an exact admissible counterexample and respects the scope of the negated universal statement; neither a compiler failure nor a claim that every instance fails is a substitute.",
+            "id": "criterion-4",
+            "weight": 1
+          }
+        ]
+      },
+      "pair_id": "7f870a77-e84d-4959-9cb0-4b2f5f2d2db7",
+      "parent_contracts": {
+        "qcb-core-sp-104": "7bbea63cce5e0f098f5b8294acda383c03cffca10fc69df2ddc12d1d2c8f4741"
+      },
+      "parent_core_ids": [
+        "qcb-core-sp-104"
+      ],
+      "probe_id": "645ccfc8-9c4b-4e41-b51b-b330748fc34e",
+      "question": "Proposition P: for every natural number k and all real-coefficient polynomials p and q, if both have degree at most 2k+2, and all their ordinary derivatives of orders 0 through k agree at -1 and agree at 0, then p=q. Is P valid under the assumptions and conventions below?",
+      "reasoning_kind": "boundary_counterfactual",
+      "source_nodes": [
+        "declaration:QuantumBlockEncoding.HermitePolynomial.sourceInterpolant_unique",
+        "declaration:QuantumBlockEncoding.HermitePolynomial.pow_dvd_sub_of_jet_eq",
+        "declaration:QuantumBlockEncoding.HermitePolynomial.jet_eq_of_pow_dvd_sub"
+      ],
+      "split": "train"
+    }
+  ],
+  "proof_inputs_sha256": "1e65e7d2984e4542ca2747837d71c516847e4e987d3bbd6c48b8a803eb36806e",
+  "schema_version": "qcb.learning_validity_cohort.v1",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "source_bindings": [
+    {
+      "path": "QuantumBlockEncoding/HermitePolynomial.lean",
+      "sha256_lf": "f8a3e1d5f29aed1228b6ede3577a9af1e76301559172ee67a266fcb0d56fee1e"
+    },
+    {
+      "path": "QuantumBlockEncoding/PrimitiveSemantics.lean",
+      "sha256_lf": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62"
+    },
+    {
+      "path": "QuantumBlockEncoding/RealAmplitudePreparation.lean",
+      "sha256_lf": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa"
+    },
+    {
+      "path": "QuantumBlockEncoding/Robin/ComplexLCU.lean",
+      "sha256_lf": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843"
+    },
+    {
+      "path": "QuantumBlockEncoding/TensorTrainCanonical.lean",
+      "sha256_lf": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f"
+    }
+  ]
+}

@@ -1,0 +1,243 @@
+{
+  "schema": "qcb.learning_validity.permutation.authored_reference_candidate.v1",
+  "admission": "candidate_not_counted",
+  "execution_status": "trusted_authored_syntax_smoke_passed; final_qualified_fresh_root_replay_pending",
+  "smoke_evidence": {
+    "result_path": "smoke/attempt-002/result.json",
+    "scratch_sha256": "194f360f176338c5681df58497f8574b8bbd711925a86af72ccddcb7e6222605",
+    "checked_assessed_blocks_identical": true,
+    "whole_file_identical": false,
+    "qualified_fresh_root_replay": false
+  },
+  "privacy_scope": "Withhold from Stage A; filename is an operational label, not access control or a secrecy claim.",
+  "exposure_profile": "open_imported_api",
+  "stage_b_note": "After a decision is committed, use P if the participant committed valid and ¬P if the participant committed invalid. Do not silently substitute this private gold target when the participant's commitment differs. This reference file supplies the gold-branch target only; a failure to prove the other branch is not itself a mathematical refutation.",
+  "probes": [
+    {
+      "probe_id": "perm-lv-01",
+      "pair_id": "perm-lv-pair-register",
+      "neutral_proposition_lean": "∀ {coefficient : Type} {selector : Type} {system : Type} [Fintype coefficient] [DecidableEq coefficient] [Fintype selector] [DecidableEq selector] [Fintype system] [DecidableEq system] (permutation : selector → system ≃ system) (row column : system × (coefficient × selector)), Matrix.reindexAlgEquiv ℂ ℂ ((Equiv.prodAssoc coefficient selector system).symm.trans (Equiv.prodComm (coefficient × selector) system)) (QuantumBlockEncoding.Robin.ComplexLCU.selectLift permutation) row column = if row = (permutation column.2.2 column.1, (column.2.1, column.2.2)) then (1 : ℂ) else 0",
+      "expected_stage_a_decision": "valid",
+      "formal_target": "∀ {coefficient : Type} {selector : Type} {system : Type} [Fintype coefficient] [DecidableEq coefficient] [Fintype selector] [DecidableEq selector] [Fintype system] [DecidableEq system] (permutation : selector → system ≃ system) (row column : system × (coefficient × selector)), Matrix.reindexAlgEquiv ℂ ℂ ((Equiv.prodAssoc coefficient selector system).symm.trans (Equiv.prodComm (coefficient × selector) system)) (QuantumBlockEncoding.Robin.ComplexLCU.selectLift permutation) row column = if row = (permutation column.2.2 column.1, (column.2.1, column.2.2)) then (1 : ℂ) else 0",
+      "reference_proof": "by\n  intro coefficient selector system fc dc fs ds fx dx permutation row column\n  rcases row with ⟨xr, cr, sr⟩\n  rcases column with ⟨xc, cc, sc⟩\n  simp [Matrix.reindexAlgEquiv_apply, Matrix.reindex_apply,\n    Matrix.submatrix_apply, Equiv.prodAssoc, Equiv.prodComm,\n    QuantumBlockEncoding.Robin.ComplexLCU.selectLift,\n    QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix,\n    QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv,\n    and_comm, and_left_comm, and_assoc]\n",
+      "imports": [
+        "QuantumBlockEncoding.Robin.ComplexLCU"
+      ],
+      "preamble": "",
+      "universe_parameters": [],
+      "reference_root": "QCBLearningValidity.Permutation.perm_lv_01",
+      "natural_language_answer": "J⁻¹(x,(c,s))=(c,(s,x)). Therefore J F_p J⁻¹(x,(c,s))=(p_s(x),(c,s)). Reindexing both matrix indices gives exactly the proposed indicator. The inverse on D is (x,(c,s))↦(p_s⁻¹(x),(c,s)); the selector is the third component in D, and both c and s remain preserved. The proof is uniform in all finite C,S,X, including empty carriers.",
+      "source_relation": "register-transport consequence of BE110 plus the definition of matrix reindexing; no whole-question equivalence asserted",
+      "source_cores_and_public_splits": {
+        "qcb-core-be-110": "train"
+      },
+      "shortcut_disclosure": "Literal definitions and generic reindex APIs suffice; no claim that those definitions prevent an imported shortcut.",
+      "admission": "candidate_not_counted",
+      "execution_status": "trusted_authored_syntax_smoke_passed; final_qualified_fresh_root_replay_pending",
+      "smoke_evidence": {
+        "result_path": "smoke/attempt-002/result.json",
+        "scratch_sha256": "194f360f176338c5681df58497f8574b8bbd711925a86af72ccddcb7e6222605",
+        "checked_assessed_blocks_identical": true,
+        "whole_file_identical": false,
+        "qualified_fresh_root_replay": false
+      },
+      "informational_smoke_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "reference_lean_sha256_lf": "87879501211a443e2f9d44993b2059c06eee500f11dbd7763e654934033445e0",
+      "neutral_proposition_sha256": "7d64a63a33c252ea616e6597e51725f53c42a86a7abbf8b6e23520aebf5558a2",
+      "formal_target_sha256": "7d64a63a33c252ea616e6597e51725f53c42a86a7abbf8b6e23520aebf5558a2"
+    },
+    {
+      "probe_id": "perm-lv-02",
+      "pair_id": "perm-lv-pair-register",
+      "neutral_proposition_lean": "∀ (permutation : Bool → Bool ≃ Bool) (row column : Bool × (Bool × Bool)), Matrix.reindexAlgEquiv ℂ ℂ ((Equiv.prodAssoc Bool Bool Bool).symm.trans (Equiv.prodComm (Bool × Bool) Bool)) (QuantumBlockEncoding.Robin.ComplexLCU.selectLift permutation) row column = if row = (permutation column.2.1 column.1, (column.2.1, column.2.2)) then (1 : ℂ) else 0",
+      "expected_stage_a_decision": "invalid",
+      "formal_target": "¬ (∀ (permutation : Bool → Bool ≃ Bool) (row column : Bool × (Bool × Bool)), Matrix.reindexAlgEquiv ℂ ℂ ((Equiv.prodAssoc Bool Bool Bool).symm.trans (Equiv.prodComm (Bool × Bool) Bool)) (QuantumBlockEncoding.Robin.ComplexLCU.selectLift permutation) row column = if row = (permutation column.2.1 column.1, (column.2.1, column.2.2)) then (1 : ℂ) else 0)",
+      "reference_proof": "by\n  intro claim\n  have entry := claim\n    (fun s => if s then Equiv.swap false true else Equiv.refl Bool)\n    (true, (true, false)) (false, (true, false))\n  simpa [Matrix.reindexAlgEquiv_apply, Matrix.reindex_apply,\n    Matrix.submatrix_apply, Equiv.prodAssoc, Equiv.prodComm,\n    QuantumBlockEncoding.Robin.ComplexLCU.selectLift,\n    QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix,\n    QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv] using entry\n",
+      "imports": [
+        "QuantumBlockEncoding.Robin.ComplexLCU"
+      ],
+      "preamble": "",
+      "universe_parameters": [],
+      "reference_root": "QCBLearningValidity.Permutation.perm_lv_02",
+      "natural_language_answer": "Let p_false=id and p_true=X, where X exchanges false and true. For input k=(false,(true,false)) the actual control is selector false, so J F_p J⁻¹(k)=k. At r=(true,(true,false)), the actual amplitude is 0, while the proposed formula uses coefficient true as its control and returns 1. Repair k.2.1 to k.2.2 in the permutation subscript. This witness refutes the universal formula; it does not claim that every family distinguishes the two control wires.",
+      "source_relation": "finite invalid control-wire perturbation of the BE110 register-transport view; no new canonical core",
+      "source_cores_and_public_splits": {
+        "qcb-core-be-110": "train"
+      },
+      "shortcut_disclosure": "An exact finite 0≠1 matrix-entry contradiction; compile failure is not used as falsity evidence.",
+      "admission": "candidate_not_counted",
+      "execution_status": "trusted_authored_syntax_smoke_passed; final_qualified_fresh_root_replay_pending",
+      "smoke_evidence": {
+        "result_path": "smoke/attempt-002/result.json",
+        "scratch_sha256": "194f360f176338c5681df58497f8574b8bbd711925a86af72ccddcb7e6222605",
+        "checked_assessed_blocks_identical": true,
+        "whole_file_identical": false,
+        "qualified_fresh_root_replay": false
+      },
+      "informational_smoke_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "reference_lean_sha256_lf": "87879501211a443e2f9d44993b2059c06eee500f11dbd7763e654934033445e0",
+      "neutral_proposition_sha256": "6acefdd0b9c34a806b9465ca1b9d04826be99ab4c8790fa10fe3fa8c39f14453",
+      "formal_target_sha256": "e73f9d7028fc638092e3eaf391fd7307fec7abf72c7f58843638bbba5402ecea"
+    },
+    {
+      "probe_id": "perm-lv-03",
+      "pair_id": "perm-lv-pair-inverse",
+      "neutral_proposition_lean": "∀ {coefficient : Type} {selector : Type} {system : Type} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [fx : Fintype system] [dx : DecidableEq system] (permutation : selector → system ≃ system), (@QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx (fun s => (permutation s).symm) * @QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx permutation = 1) ∧ (@QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx permutation * @QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx (fun s => (permutation s).symm) = 1)",
+      "expected_stage_a_decision": "valid",
+      "formal_target": "∀ {coefficient : Type} {selector : Type} {system : Type} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [fx : Fintype system] [dx : DecidableEq system] (permutation : selector → system ≃ system), (@QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx (fun s => (permutation s).symm) * @QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx permutation = 1) ∧ (@QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx permutation * @QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx (fun s => (permutation s).symm) = 1)",
+      "reference_proof": "by\n  intro coefficient selector system fc dc fs ds fx dx permutation\n  have undo (p : selector → system ≃ system) :\n      QuantumBlockEncoding.Robin.ComplexLCU.selectLift\n          (coefficient := coefficient) (fun s => (p s).symm) *\n        QuantumBlockEncoding.Robin.ComplexLCU.selectLift p = 1 := by\n    change QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix\n          (QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv\n            (coefficient := coefficient) (fun s => (p s).symm)) *\n        QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix\n          (QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv p) = 1\n    rw [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul]\n    have cancel :\n        (QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv\n          (coefficient := coefficient) p).trans\n          (QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv\n            (fun s => (p s).symm)) = Equiv.refl _ := by\n      ext ⟨c, s, x⟩ <;>\n        simp [QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv]\n    rw [cancel]\n    ext row column\n    simp [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix,\n      Matrix.one_apply]\n  exact ⟨undo permutation, by simpa using undo (fun s => (permutation s).symm)⟩\n",
+      "imports": [
+        "QuantumBlockEncoding.Robin.ComplexLCU"
+      ],
+      "preamble": "",
+      "universe_parameters": [],
+      "reference_root": "QCBLearningValidity.Permutation.perm_lv_03",
+      "natural_language_answer": "On every basis state, F_q F_p(c,(s,x))=(c,(s,p_s⁻¹(p_s(x))))=(c,(s,x)); the reverse composite similarly uses p_s(p_s⁻¹(x))=x. Both composites read the preserved selector s. A matrix with column k equal to |F(k)⟩ composes as U_g U_f=U_{g∘f}; hence both matrix products equal I_A. This is a generic theorem, not inference from a few finite examples.",
+      "source_relation": "matrix consequence of the same-selector two-sided inverse subtarget in BE110; old core alias/specialization review required",
+      "source_cores_and_public_splits": {
+        "qcb-core-be-110": "train",
+        "qcb-core-be-111": "test_public"
+      },
+      "shortcut_disclosure": "The authored reference calls source equivPermutationMatrix_mul, then reduces the controlled-map cancellation. Full imported API remains callable.",
+      "admission": "candidate_not_counted",
+      "execution_status": "trusted_authored_syntax_smoke_passed; final_qualified_fresh_root_replay_pending",
+      "smoke_evidence": {
+        "result_path": "smoke/attempt-002/result.json",
+        "scratch_sha256": "194f360f176338c5681df58497f8574b8bbd711925a86af72ccddcb7e6222605",
+        "checked_assessed_blocks_identical": true,
+        "whole_file_identical": false,
+        "qualified_fresh_root_replay": false
+      },
+      "informational_smoke_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "reference_lean_sha256_lf": "87879501211a443e2f9d44993b2059c06eee500f11dbd7763e654934033445e0",
+      "neutral_proposition_sha256": "a7eb2e52c8bf2f201074306ba0eecda58aa978be5f6e8807cb4b735ba5318eb2",
+      "formal_target_sha256": "a7eb2e52c8bf2f201074306ba0eecda58aa978be5f6e8807cb4b735ba5318eb2"
+    },
+    {
+      "probe_id": "perm-lv-04",
+      "pair_id": "perm-lv-pair-inverse",
+      "neutral_proposition_lean": "∀ (permutation : Bool → Bool ≃ Bool), @QuantumBlockEncoding.Robin.ComplexLCU.selectLift Unit Bool Bool inferInstance inferInstance inferInstance (fun s => (permutation (!s)).symm) * @QuantumBlockEncoding.Robin.ComplexLCU.selectLift Unit Bool Bool inferInstance inferInstance inferInstance permutation = 1",
+      "expected_stage_a_decision": "invalid",
+      "formal_target": "¬ (∀ (permutation : Bool → Bool ≃ Bool), @QuantumBlockEncoding.Robin.ComplexLCU.selectLift Unit Bool Bool inferInstance inferInstance inferInstance (fun s => (permutation (!s)).symm) * @QuantumBlockEncoding.Robin.ComplexLCU.selectLift Unit Bool Bool inferInstance inferInstance inferInstance permutation = 1)",
+      "reference_proof": "by\n  intro claim\n  have equality := claim\n    (fun s : Bool => if s then Equiv.swap false true else Equiv.refl Bool)\n  dsimp only [QuantumBlockEncoding.Robin.ComplexLCU.selectLift] at equality\n  rw [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul] at equality\n  have entry := congrArg\n    (fun matrix : Matrix (Unit × (Bool × Bool)) (Unit × (Bool × Bool)) ℂ =>\n      matrix ((), (false, true)) ((), (false, false))) equality\n  simpa [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix,\n    QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv,\n    Equiv.trans_apply, Equiv.swap_apply_def, Matrix.one_apply] using entry\n",
+      "imports": [
+        "QuantumBlockEncoding.Robin.ComplexLCU"
+      ],
+      "preamble": "",
+      "universe_parameters": [],
+      "reference_root": "QCBLearningValidity.Permutation.perm_lv_04",
+      "natural_language_answer": "Take p_false=id and p_true=X. The normalized basis state |*,false,false⟩ is unchanged by U_p but then q_false=(p_true)⁻¹=X sends it to |*,false,true⟩. The product has amplitude 1 at that output, where I_A has amplitude 0. Repair q_s to p_s⁻¹. More generally a lookup τ works on every basis state exactly when p_{τ(s)}=p_s for every s. Different labels may name equal permutations: the assertion that every different label necessarily fails is also unjustified.",
+      "source_relation": "invalid lookup perturbation of BE110 inverse; finite matrix witness uses BE111 composition provider",
+      "source_cores_and_public_splits": {
+        "qcb-core-be-110": "train",
+        "qcb-core-be-111": "test_public"
+      },
+      "shortcut_disclosure": "The reference proves the negation by an explicit Bool family and the (|*,false,true⟩,|*,false,false⟩) matrix entry.",
+      "admission": "candidate_not_counted",
+      "execution_status": "trusted_authored_syntax_smoke_passed; final_qualified_fresh_root_replay_pending",
+      "smoke_evidence": {
+        "result_path": "smoke/attempt-002/result.json",
+        "scratch_sha256": "194f360f176338c5681df58497f8574b8bbd711925a86af72ccddcb7e6222605",
+        "checked_assessed_blocks_identical": true,
+        "whole_file_identical": false,
+        "qualified_fresh_root_replay": false
+      },
+      "informational_smoke_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "reference_lean_sha256_lf": "87879501211a443e2f9d44993b2059c06eee500f11dbd7763e654934033445e0",
+      "neutral_proposition_sha256": "57411578a2b68c0a3e399847f5157e256afb8b991a0c13f8bf4ae25ac3ef8250",
+      "formal_target_sha256": "ed830558e33eceed6ba60698d76d381c3ab92fb72cdd3bfc09d6eeb1399de568"
+    },
+    {
+      "probe_id": "perm-lv-05",
+      "pair_id": "perm-lv-pair-chronology",
+      "neutral_proposition_lean": "∀ {coefficient : Type} {selector : Type} {system : Type} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [fx : Fintype system] [dx : DecidableEq system] (first second : selector → system ≃ system), @QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx first * @QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx second = @QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx (fun s => (first s).trans (second s))",
+      "expected_stage_a_decision": "invalid",
+      "formal_target": "¬ (∀ {coefficient : Type} {selector : Type} {system : Type} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [fx : Fintype system] [dx : DecidableEq system] (first second : selector → system ≃ system), @QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx first * @QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx second = @QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx (fun s => (first s).trans (second s)))",
+      "reference_proof": "by\n  intro claim\n  let first : Bool → Fin 3 ≃ Fin 3 :=\n    fun s => if s then Equiv.refl (Fin 3) else Equiv.swap 0 1\n  let second : Bool → Fin 3 ≃ Fin 3 :=\n    fun s => if s then Equiv.refl (Fin 3) else Equiv.swap 1 2\n  have equality := claim (coefficient := Unit) first second\n  dsimp only [QuantumBlockEncoding.Robin.ComplexLCU.selectLift] at equality\n  rw [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul] at equality\n  have entry := congrArg\n    (fun matrix : Matrix (Unit × (Bool × Fin 3)) (Unit × (Bool × Fin 3)) ℂ =>\n      matrix ((), (false, 2)) ((), (false, 0))) equality\n  simpa [first, second,\n    QuantumBlockEncoding.Robin.ComplexLCU.selectLift,\n    QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix,\n    QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv,\n    Equiv.trans_apply, Equiv.swap_apply_def] using entry\n",
+      "imports": [
+        "QuantumBlockEncoding.Robin.ComplexLCU"
+      ],
+      "preamble": "",
+      "universe_parameters": [],
+      "reference_root": "QCBLearningValidity.Permutation.perm_lv_05",
+      "natural_language_answer": "Use C={*}, S={false,true}, X={0,1,2}. On selector false let p exchange 0 and 1 and let q exchange 1 and 2; on selector true let both be identity. From |*,false,0⟩, U_r gives |*,false,2⟩, while U_p U_q applies q first and gives |*,false,1⟩. At row |*,false,2⟩ and the given input column the two amplitudes are 1 and 0. Repair the product to U_q U_p, or change r_s to p_s∘q_s. A two-level system alone would miss this mechanism because its permutations commute.",
+      "source_relation": "invalid order perturbation of controlled-family specialization of BE111, with BE110 register kernel; no whole-question alias claimed",
+      "source_cores_and_public_splits": {
+        "qcb-core-be-110": "train",
+        "qcb-core-be-111": "test_public"
+      },
+      "shortcut_disclosure": "The source multiplication law is available. The negation still requires a concrete noncommuting family and an exact unequal matrix entry.",
+      "admission": "candidate_not_counted",
+      "execution_status": "trusted_authored_syntax_smoke_passed; final_qualified_fresh_root_replay_pending",
+      "smoke_evidence": {
+        "result_path": "smoke/attempt-002/result.json",
+        "scratch_sha256": "194f360f176338c5681df58497f8574b8bbd711925a86af72ccddcb7e6222605",
+        "checked_assessed_blocks_identical": true,
+        "whole_file_identical": false,
+        "qualified_fresh_root_replay": false
+      },
+      "informational_smoke_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "reference_lean_sha256_lf": "87879501211a443e2f9d44993b2059c06eee500f11dbd7763e654934033445e0",
+      "neutral_proposition_sha256": "6c224c8956af10bcbbfaf38500297f0e81624d3c1ddd87db6b4e04602f5a7eda",
+      "formal_target_sha256": "aa78c2bf50b567c9c02d4bd809729a3e3447e007cbbeba3a3e433179255d6ee3"
+    },
+    {
+      "probe_id": "perm-lv-06",
+      "pair_id": "perm-lv-pair-chronology",
+      "neutral_proposition_lean": "∀ {coefficient : Type} {selector : Type} {system : Type} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [fx : Fintype system] [dx : DecidableEq system] (first second : selector → system ≃ system), @QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx second * @QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx first = @QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx (fun s => (first s).trans (second s))",
+      "expected_stage_a_decision": "valid",
+      "formal_target": "∀ {coefficient : Type} {selector : Type} {system : Type} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [fx : Fintype system] [dx : DecidableEq system] (first second : selector → system ≃ system), @QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx second * @QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx first = @QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx (fun s => (first s).trans (second s))",
+      "reference_proof": "by\n  intro coefficient selector system fc dc fs ds fx dx first second\n  change QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix\n        (QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv\n          (coefficient := coefficient) second) *\n      QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix\n        (QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv first) =\n    QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix\n      (QuantumBlockEncoding.Robin.ComplexLCU.controlledSystemEquiv\n        (fun s => (first s).trans (second s)))\n  rw [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul]\n  rfl\n",
+      "imports": [
+        "QuantumBlockEncoding.Robin.ComplexLCU"
+      ],
+      "preamble": "",
+      "universe_parameters": [],
+      "reference_root": "QCBLearningValidity.Permutation.perm_lv_06",
+      "natural_language_answer": "F_q(F_p(c,(s,x)))=(c,(s,q_s(p_s(x))))=F_r(c,(s,x)). In the matrix entry (U_q U_p)(a,b), the U_p factor is nonzero only at the intermediate basis label k=F_p(b); the surviving U_q entry is 1 exactly when a=F_q(F_p(b)). Thus the product is U_r, with p applied first on column vectors. No commutativity assumption is present.",
+      "source_relation": "controlled-family composition subtarget/instance of BE111; matrix multiplication exact root is imported after a definitional register adapter",
+      "source_cores_and_public_splits": {
+        "qcb-core-be-110": "train",
+        "qcb-core-be-111": "test_public"
+      },
+      "shortcut_disclosure": "The authored reference directly uses source equivPermutationMatrix_mul and an extensional equality of controlled equivalences. This is a disclosed library application, not standalone proof synthesis.",
+      "admission": "candidate_not_counted",
+      "execution_status": "trusted_authored_syntax_smoke_passed; final_qualified_fresh_root_replay_pending",
+      "smoke_evidence": {
+        "result_path": "smoke/attempt-002/result.json",
+        "scratch_sha256": "194f360f176338c5681df58497f8574b8bbd711925a86af72ccddcb7e6222605",
+        "checked_assessed_blocks_identical": true,
+        "whole_file_identical": false,
+        "qualified_fresh_root_replay": false
+      },
+      "informational_smoke_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "reference_lean_sha256_lf": "87879501211a443e2f9d44993b2059c06eee500f11dbd7763e654934033445e0",
+      "neutral_proposition_sha256": "24a7faeff26a60ae947d239263a4704cb532883839118e241b471dc81cd45705",
+      "formal_target_sha256": "24a7faeff26a60ae947d239263a4704cb532883839118e241b471dc81cd45705"
+    }
+  ]
+}

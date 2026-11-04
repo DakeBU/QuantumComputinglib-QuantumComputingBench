@@ -1,0 +1,104 @@
+{
+  "schema_version": "qcb.learning_formal_decode.v1",
+  "reviewer_identity": "agent-task:root/learning_formal_decoder",
+  "input_digest": "9bcc45bcd0a1188a6050afa84eb528f1f2afe3109a8e50fe0f951172c89f708e",
+  "method": "independent-formal-decoding",
+  "items": [
+    {
+      "probe_id": "2b3f25f2-db0a-4494-a887-14d7111eaf6a",
+      "decoded_mathematics": "For every pair of natural numbers l,r, let A be a real matrix with rows a in Fin l and columns (b,j) in Fin 2 × Fin r. If A Aᵀ = I_l, then every real row vector v indexed by Fin l satisfies Σ_(b,j) (Σ_a v(a) A(a,(b,j)))² = Σ_a v(a)². Thus right multiplication of row vectors by A preserves their squared Euclidean mass, with no restriction on the mass of v.",
+      "semantic_slots": "Quantifiers: all l,r ≥ 0, all such real A satisfying row orthonormality, and all real v. Input index is a; output index is (bit b, bond j), in that order. Matrix.vecMul is row-vector multiplication. The conclusion is exact preservation of a sum of real squares, without a unit-vector or phase hypothesis. Fin 0 is empty: l=0 gives mass zero on both sides; r=0 with l>0 has no matrix satisfying the premise. The zero vector is included at every admissible dimension.",
+      "uncertainty": "The row-vector and output-product conventions are fixed by the definitions. No basis-to-integer endianness, circuit implementation, or resource bound occurs in this statement."
+    },
+    {
+      "probe_id": "b0c5d76c-2aa7-4818-8009-c451c9c1081a",
+      "decoded_mathematics": "The universal assertion that every real A of shape Fin l × (Fin 2 × Fin r) with A Aᵀ = I_l sends every real row vector v to a vector of squared mass exactly 1 is false. Equivalently, there exist natural l,r, such a row-orthonormal A, and a real v for which Σ_(b,j) (Σ_a v(a) A(a,(b,j)))² ≠ 1. The outer negation requires at least one violating instance.",
+      "semantic_slots": "The negation encloses all dimensions, matrices, the orthonormality implication, and vectors. A counterexample therefore satisfies A Aᵀ = I_l and violates the mass-one conclusion. The output order is (bit,bond), and v is an arbitrary real row vector; no input normalization is assumed. Zero vectors remain in scope. With l=0 the unique input has mass zero; with r=0,l>0 the premise is unavailable. The formula does not require failure for every admissible A or every v.",
+      "uncertainty": "There is no remaining ambiguity in the scope of the negation. This is failure of a universal unit-mass law; it supplies no restriction that would exclude zero inputs or empty input dimensions."
+    },
+    {
+      "probe_id": "87a548fd-6c07-4b71-a224-c374ec1005f5",
+      "decoded_mathematics": "For every natural l,r and real core A with A Aᵀ = I_l, define a complex matrix B with rows (j,b) in Fin r × Fin 2 and columns a in Fin l by B((j,b),a) = A(a,(b,j)), embedded into ℂ. Then B† B = I_l. This is a column-isometry identity for the complex map whose output labels put the bond coordinate before the bit coordinate.",
+      "semantic_slots": "Assumption: orthonormal real rows of A. The complex matrix transposes the input/output roles of A and swaps the two output-product coordinates; Matrix.of does not change its entries. Conjugate transpose is the complex adjoint, and the identity matrix is on Fin l, not on the output space. Equality is exact, with no arbitrary global phase and no normalization premise on a state. l=0 gives an empty input identity; r=0,l>0 makes the premise impossible. Surjectivity onto all output coordinates is not asserted.",
+      "uncertainty": "The output order (bond,bit) is explicit in the lambda expression. No physical wire order beyond these product labels is supplied, and no such interpretation is needed to decode the Gram identity."
+    },
+    {
+      "probe_id": "c947872c-f1ae-4f09-9ff9-0d535c93b11c",
+      "decoded_mathematics": "There exists a real A of shape Fin 1 × (Fin 2 × Fin 2) satisfying A Aᵀ = I_1 such that the complex matrix B(out,a) = A(a,(out.2,out.1)) is unequal to complexCore A, whose entries are A(a,(out.1,out.2)). In other words, the normalized single real row is not forced to be invariant under swapping its two binary output coordinates.",
+      "semantic_slots": "The outer negation denies the universal equality of the two matrices under the row-orthonormality condition. All dimensions are fixed and nonempty: one input coordinate and four output coordinates. The condition is that the four real entries have squared sum 1. Both output-factor types are Fin 2, so the swapped expression and complexCore have the same matrix type, while assigning different coordinate roles. Matrix equality is pointwise exact equality, without quotienting by global phase. A witness needs one differing entry; some symmetric rows can still satisfy the equality.",
+      "uncertainty": "There is no type mismatch hidden by the swap because the two output factors are both Fin 2 here. Their mathematical roles are fixed only by position; the statement contains no additional physical register identification."
+    },
+    {
+      "probe_id": "d883d091-46d3-4f97-9dd7-b560d53238f0",
+      "decoded_mathematics": "It is false that for every natural l,r and every real row-orthonormal core A, the complex matrix C = complexCore A satisfies C C† = I_(Fin 2 × Fin r). Equivalently, there are dimensions and A with A Aᵀ = I_l for which the output-space matrix C C† differs from the output identity.",
+      "semantic_slots": "C has output rows (bit,bond) and input columns a, with C((b,j),a) = A(a,(b,j)) in ℂ. The denied identity is C C† on the 2r-dimensional output, rather than C† C on the l-dimensional input. No square-dimension, surjectivity, or nonempty-domain hypothesis is present. l=0,r>0 is in scope and gives a zero output operator against a nonempty identity; l=r=0 has the empty identity, and r=0,l>0 cannot meet row orthonormality. The negation requires only one counterexample and is an exact matrix claim, with no phase tolerance.",
+      "uncertainty": "The identity's index type is inferred unambiguously from C C†. The statement alone makes no assertion that this output identity fails for every row-orthonormal core."
+    },
+    {
+      "probe_id": "5a644ea9-ef08-4026-8c7b-90a9e6dc2481",
+      "decoded_mathematics": "For all natural l,r and real A with A Aᵀ = I_l, put C((b,j),a) = A(a,(b,j)) in ℂ and P = C C† on the output space indexed by Fin 2 × Fin r. The asserted equality is P² = P: this output-space Gram operator is idempotent.",
+      "semantic_slots": "The sole mathematical premise is orthonormality of A's real rows. C maps input columns indexed by Fin l to output rows ordered (bit,bond); its adjoint reverses these roles. The conclusion is idempotence of C C†, without requiring that operator to be the entire output identity. No normalized vector, state phase convention, or approximation is quantified. For l=0, P is zero and the conclusion includes every r; for r=0,l>0 there is no admissible premise. All equalities are exact complex matrix equalities.",
+      "uncertainty": "Calling the displayed equation idempotence introduces no extra condition. Although the construction also makes P self-adjoint, the formal conclusion written in the packet is specifically P²=P."
+    },
+    {
+      "probe_id": "ce8fd401-a4af-4c95-bef4-cbc5b42c7314",
+      "decoded_mathematics": "For every natural n and arbitrary real amplitude function f on the binary strings Fin (n+1) → Fin 2, define m(b) = sqrt(f(snoc b 0)² + f(snoc b 1)²) for each binary string b of length n. Then Σ_b m(b)² = Σ_w f(w)². Thus taking the Euclidean norm of each last-bit pair preserves total squared real mass.",
+      "semantic_slots": "PrimitiveBasis n means functions Fin n → Fin 2. Fin.snoc appends the last coordinate at index n and preserves the coordinates below n. The output marginal has nonnegative real values, while f may contain either sign. No unit-mass, positivity, or nonzero hypothesis is imposed; a zero pair gives sqrt(0)=0 without any division. n=0 is included: PrimitiveBasis 0 is a singleton empty string, so the output is one scalar, the norm of the two input amplitudes. These are real amplitude and squared-sum definitions, with no complex phases or circuit assertion.",
+      "uncertainty": "The last-coordinate orientation follows from Fin.snoc and is fully determined. No integer encoding of bitstrings or probabilistic normalization needs to be inferred."
+    },
+    {
+      "probe_id": "94f36e25-6def-4b77-8bf8-7056c2425df5",
+      "decoded_mathematics": "There exist two arbitrary real functions f,g on the one-bit binary basis such that marginal(f+g) is unequal, as a function on the zero-bit basis, to marginal(f)+marginal(g). Since the zero-bit basis has one element, this says that for some real two-component vectors f,g, ||f+g||₂ ≠ ||f||₂ + ||g||₂. The asserted fact is failure of additivity in general.",
+      "semantic_slots": "Dimensions are fixed: the inputs each have two real amplitudes and the output basis is the singleton empty bitstring. Equality inside the negation is pointwise equality of functions. Neither f nor g is required to be normalized, nonnegative, nonzero, or distinct. The marginal takes the square root of a sum of squares, so the comparison is between Euclidean norms, not squared masses. The outer negation requires one failing pair; zero inputs and other pairs where additivity holds remain allowed. There are no complex amplitudes or phase identifications.",
+      "uncertainty": "The zero-bit output is not an empty domain, which matters for interpreting function inequality. With that convention fixed, the existential nonadditivity content is unambiguous."
+    },
+    {
+      "probe_id": "b1234a5b-fe27-4add-bbe4-cb130e138af6",
+      "decoded_mathematics": "For all finite small types coefficient, selector and system with decidable equality, and every family of system permutations π_s, let U be the permutation matrix mapping (c,(s,x)) to (c,(s,π_s(x))). Reindex both matrix axes by e(c,(s,x)) = (x,(c,s)). For every row and column in system × (coefficient × selector), the resulting matrix entry is 1 exactly when row = (π_(column.2.2)(column.1),(column.2.1,column.2.2)), and is 0 otherwise.",
+      "semantic_slots": "The quantified types are Type, equipped with the specified Fintype and DecidableEq instances; no nonemptiness is assumed. Columns are inputs and rows are outputs. Matrix.reindexAlgEquiv relabels both axes by e, evaluating the old matrix at the inverse labels. In the new order (system,(coefficient,selector)), SELECT preserves the coefficient and selector and changes only the system, controlled by the selector in column.2.2. Entries are exact complex 0 or 1, with no phases or vector-normalization assumptions. If any factor type is empty, there are no row/column pairs and this entry law is vacuous.",
+      "uncertainty": "The direction of the reindexing was checked against its definition, including the inverse labels. Physical qubit encodings of the three arbitrary finite types are not specified."
+    },
+    {
+      "probe_id": "93904687-6d03-43fe-b130-193a4f90ab4e",
+      "decoded_mathematics": "There exist a family π indexed by Bool of permutations of Bool and row,column in Bool × (Bool × Bool) for which the reindexed SELECT entry disagrees with the proposed indicator row = (π_(column.2.1)(column.1),(column.2.1,column.2.2)). Here the reindexing sends (coefficient,(selector,system)) to (system,(coefficient,selector)); the proposed indicator uses the coefficient coordinate as its permutation selector.",
+      "semantic_slots": "All three underlying types are Bool and nonempty. In a column written (x,(c,s)), the actual controlled permutation uses π_s(x) and preserves c,s, whereas the formula being universally asserted inside the negation uses π_c(x). Because c and s share the Bool type, this alternative is well typed. The outer negation needs one family and one matrix entry that disagree; it does not require disagreement for every family or column. Equality is exact in ℂ, with entries 0 and 1, and no normalization or phase convention is involved.",
+      "uncertainty": "The coordinate roles are determined by the original LCUIndex and the explicit reindexing, despite all three factors having the same underlying type. No source interpretation is needed to distinguish column.2.1 from column.2.2."
+    },
+    {
+      "probe_id": "badaa09e-22b6-482f-b277-b0ab8c1f28e7",
+      "decoded_mathematics": "For every finite small coefficient, selector and system type with the given decidable equalities, and every permutation family π_s, let U_π map (c,(s,x)) to (c,(s,π_s(x))) and let U_inv use π_s⁻¹ at the same selector s. Both matrix identities hold: U_inv U_π = I and U_π U_inv = I on coefficient × (selector × system). The conclusion is their conjunction, a two-sided inverse statement.",
+      "semantic_slots": "All families, finite-type instances and equality instances are universally quantified. Matrix multiplication acts on column inputs with the right factor applied first. The inverse family uses precisely the unchanged selector coordinate, and both coefficient and selector registers are preserved. The statement uses exact complex permutation matrices; it does not require state normalization and includes no additional phases. Any factor type may be empty, in which case the full index is empty and both identities are the empty identity. No independently asserted conjugate-transpose formula occurs in the conclusion.",
+      "uncertainty": "The explicit instance arguments do not introduce extra mathematical hypotheses beyond finiteness and decidable equality. The two multiplication orders and the same-selector inverse are fully determined."
+    },
+    {
+      "probe_id": "9653f2d7-5af9-420b-a8af-30ad44c0f651",
+      "decoded_mathematics": "There exists a Bool-indexed family π_s of permutations of Bool such that U_q U_π ≠ I on Unit × (Bool × Bool), where q_s = π_(!s)⁻¹ and !s is Boolean negation. The left product applies π_s to the system and then the inverse permutation belonging to the opposite selector. Its system action at selector s is π_(!s)⁻¹(π_s(x)); the statement asserts that this is not always the identity map.",
+      "semantic_slots": "The coefficient register has its unique Unit value; the selector and system are both Bool and nonempty. SELECT preserves the selector, so the changed family is indexed at !s while acting on an input still labelled s. The outer negation means at least one family gives a nonidentity matrix, not that every family does. Matrix multiplication applies the right factor first, and equality is exact on the full four-element product basis. No vector normalization, phase freedom, or empty-register exception is present in these fixed types.",
+      "uncertainty": "Boolean ! is interpreted as negation of the selector argument in the inverse family. No unresolved ambiguity remains between changing a family index and changing the selector register itself."
+    },
+    {
+      "probe_id": "976c9922-4202-4a48-a885-4d5a6d21656f",
+      "decoded_mathematics": "The following equality is not universal over finite small coefficient, selector and system types and two selector-indexed permutation families first,second: U_first U_second = U_(first.trans second). Equiv.trans applies first and then second, so the right-hand system action is second_s(first_s(x)); the left-hand action on a column input is first_s(second_s(x)). Equivalently, there are finite types and families for which these two controlled permutation matrices differ.",
+      "semantic_slots": "All Fintype and DecidableEq instances are within the negated universal quantifiers. Both sides preserve c and s in the native order (c,(s,x)); the issue is the order of the two system permutations at the same selector. Matrix products apply the right factor first, while Equiv.trans uses function composition in the opposite written order. One noncommuting instance suffices for the negation; equality may hold for commuting families. An empty product index yields equality automatically, so it cannot supply a counterexample. Entries have exact complex 0/1 values, without phase or normalization assumptions.",
+      "uncertainty": "The application order of Equiv.trans was read from its definition, rather than inferred from its name. The formula only claims failure of the universal order law; it does not assert universal noncommutation."
+    },
+    {
+      "probe_id": "d67d7a90-a228-4d10-b10a-2e2957f00cd2",
+      "decoded_mathematics": "For all finite small coefficient, selector and system types with decidable equality and any two permutation families first,second, U_second U_first = U_(first.trans second). On a column input (c,(s,x)), each side produces (c,(s,second_s(first_s(x)))). Thus the matrix product with second written on the left represents applying first followed by second, as specified by Equiv.trans.",
+      "semantic_slots": "The quantifiers cover all the finite types, their instances and both families, with no commutation assumption. SELECT matrices use the native order coefficient × (selector × system); neither the coefficient nor selector changes. The equality is an exact complex matrix equality, independent of any chosen input state, normalization, or phase quotient. Empty coefficient, selector or system types are allowed and give the empty identity of maps/matrices. Equiv.trans is sequential composition first-then-second, while matrix multiplication acts on columns right-to-left.",
+      "uncertainty": "All composition and register conventions are fixed by the inspected definitions. No gate-count, implementation, or physical bit-order conclusion is included."
+    },
+    {
+      "probe_id": "8a8bdc71-dcd2-42e9-a564-19b2d0530fdf",
+      "decoded_mathematics": "For every natural k and real polynomials p,q of natural degree at most 2k+1, if p and q have equal ordinary derivatives of every order j=0,...,k at -1 and also equal derivatives of every such order at 0, then p=q as polynomials. Order zero is the polynomial itself. This is uniqueness from the two endpoint derivative jets within the stated degree bound.",
+      "semantic_slots": "Domains: k,j are natural numbers and p,q belong to ℝ[X]. The two degree bounds and both families of derivative equalities are antecedents. Polynomial.derivative^[j] is j-fold iteration of formal differentiation, without dividing by factorials. The endpoint values are exactly -1 and 0. natDegree is ordinary degree for nonzero polynomials and is 0 for the zero polynomial, so zero polynomials and constants are included. At k=0 the bound is 1 and only values at the two endpoints are required. The conclusion is full polynomial equality; no existence of a polynomial for prescribed data is asserted.",
+      "uncertainty": "The zero-polynomial degree convention and inclusion of derivative order zero are explicit after expanding the definitions. No numerical tolerance or unspecified derivative normalization remains."
+    },
+    {
+      "probe_id": "645ccfc8-9c4b-4e41-b51b-b330748fc34e",
+      "decoded_mathematics": "The uniqueness implication with degree bound 2k+2 is not universally valid. Equivalently, there exist a natural k and distinct real polynomials p,q, each of natural degree at most 2k+2, such that their ordinary derivatives of every order j=0,...,k agree at -1 and also agree at 0. The formula requires one such k and pair; it does not itself state a counterexample for every k.",
+      "semantic_slots": "The outer negation encloses the universal quantifiers and the implication, so a witness must meet both degree bounds and both endpoint-jet conditions while violating p=q. Derivatives are unscaled iterates, and j=0 supplies the values. natDegree(0)=0 keeps zero polynomials admissible, and k=0 is allowed with degree bound 2. All coefficients and evaluation points lie in ℝ, and all equalities are exact. The asserted nonuniqueness concerns a polynomial pair with common data; it does not claim failure of existence or impossibility for every prescribed jet.",
+      "uncertainty": "The negation's existential scope is unambiguous. Any stronger claim that each k admits nonuniqueness would require an additional statement beyond the formula being decoded."
+    }
+  ]
+}

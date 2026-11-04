@@ -1,0 +1,567 @@
+{
+  "schema_version": "qcb.learning_validity.isometry_draft.v1",
+  "author": "/root/learning_isometry_math",
+  "lifecycle": "candidate_not_counted",
+  "base_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+  "built_library_commit": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+  "toolchain": "leanprover/lean4:v4.29.1",
+  "source_bindings": [
+    {
+      "path": "QuantumBlockEncoding/TensorTrainCanonical.lean",
+      "sha256_lf": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+      "pinned_built_sibling_sha256_lf": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+      "source_equal": true
+    },
+    {
+      "path": "QuantumBlockEncoding/RealAmplitudePreparation.lean",
+      "sha256_lf": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+      "pinned_built_sibling_sha256_lf": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+      "source_equal": true
+    },
+    {
+      "path": "QuantumBlockEncoding/PrimitiveSemantics.lean",
+      "sha256_lf": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+      "pinned_built_sibling_sha256_lf": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+      "source_equal": true
+    },
+    {
+      "path": "lean-toolchain",
+      "sha256_lf": "7dc000621e0046d1aada809e2b7177e64454645cf4c741e9daaf79c99ec2e7a2",
+      "pinned_built_sibling_sha256_lf": "7dc000621e0046d1aada809e2b7177e64454645cf4c741e9daaf79c99ec2e7a2",
+      "source_equal": true
+    },
+    {
+      "path": "lake-manifest.json",
+      "sha256_lf": "3f85247e74f75c3030bf538085e098d3f721b2837d21d22da0bdc96efcc0a466",
+      "pinned_built_sibling_sha256_lf": "3f85247e74f75c3030bf538085e098d3f721b2837d21d22da0bdc96efcc0a466",
+      "source_equal": true
+    }
+  ],
+  "reference_state": "Parent-inspected author packet received bounded syntax-smoke authorization. All eight fixed gold decision roots compile together in syntax-smoke-04.json: exit 0, empty diagnostics, 37.328 seconds, Lean source SHA256 23023711941ac68937b0953cb7f6d253e0e33ad9117149fba93d70f8b3d8b42d. Attempts 01–03 preserve implementation diagnostics. No final qualified replay, source/review seal, axiom report, full repository gate, or model/GPU run is claimed.",
+  "canonical_registry_changes": false,
+  "production_changes": false,
+  "historical_pipeline_changes": false,
+  "pair_count": 4,
+  "probe_count": 8,
+  "public_stage_a_rule": "Export only stage_a_public.question and any separately supplied NL assumptions/conventions. Do not expose Lean names, imports, neutral formal types, pair/probe keys, private polarity, gold targets/proofs, answers, repairs or rubrics. Use randomized anonymous labels and delivery order.",
+  "stage_b_rule": "Select the later formal challenge from the model SEALED Stage A decision: P for its true decision and not-P for its false decision. The private gold target is only for reference qualification, never automatic target selection. Record wrong-decision proof failure and any later correction separately. Never expose any later answer-bearing challenge type before the decision is sealed.",
+  "exposure_boundary": "Hiding retrieval results is not an enforced theorem-use restriction. With these production imports a prover can name the already compiled source theorem directly. Record this as open-library theorem application unless the environment actually restricts proof terms/declarations. Reference replay checks executability, not learning or novelty.",
+  "probes": [
+    {
+      "probe_key": "row_mass",
+      "pair_key": "arbitrary_mass_vs_unit_mass",
+      "lifecycle": "candidate_not_counted",
+      "canonical_id": null,
+      "stage_a_public": {
+        "question": "Let l,r be arbitrary natural numbers, possibly zero. Let A be a real l by (2r) matrix whose columns are indexed by (bit,new bond) in Fin 2 × Fin r, and assume AAᵀ=I_l. Define M(v)=∑_a v_a² for real row vectors. Proposition P: for every real row boundary v in R^l, M(vA)=M(v). Decide P and explain the input/output orientation and the role of normalization.",
+        "response_request": "Decide whether proposition P holds as stated. Give the argument or an exact counterexample; diagnose the mathematical issue and state a valid repair when relevant."
+      },
+      "gold_private": {
+        "expected_polarity": true,
+        "formal_challenge_target": "∀ {l r : ℕ} (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r), A * A.transpose = 1 → ∀ v : Fin l → ℝ, QuantumBlockEncoding.TensorTrainCanonical.mass (Matrix.vecMul v A) = QuantumBlockEncoding.TensorTrainCanonical.mass v",
+        "reference_proof": "by\n  intro l r A hA v\n  exact QuantumBlockEncoding.TensorTrainCanonical.mass_vecMul A hA v",
+        "reference_answer": "P is true for every real v; no unit-norm premise is needed. The output coordinates of vA are (bit,new bond). Expanding their squared mass gives ∑_{a,c} v_a v_c ∑_out A_{a,out}A_{c,out}. The inner sum is (AAᵀ)_{a,c}=δ_{a,c}, so the result is ∑_a v_a². In circuit notation U_{out,a}=A_{a,out} viewed in C, so U has 2r output rows and l input columns; U†U=I_l. For real inputs U times the column v equals the transpose/cast of vA because scalar multiplication commutes. A normalized output follows only when M(v)=1. The mass identity itself includes arbitrary norm and the empty-index cases.",
+        "rubric": [
+          {
+            "criterion": "Expands the squared mass or equivalent Gram contraction and uses AAᵀ=I_l.",
+            "weight": 1
+          },
+          {
+            "criterion": "Identifies old bond as input and (bit,new bond) as output; circuit U is the transposed/cast core.",
+            "weight": 1
+          },
+          {
+            "criterion": "States equality for arbitrary signed v with no M(v)=1 premise.",
+            "weight": 1
+          },
+          {
+            "criterion": "Distinguishes mass preservation from automatic unit normalization.",
+            "weight": 1
+          }
+        ],
+        "repair": null,
+        "semantic_steps": [
+          "Double-sum expansion",
+          "Gram identity on old-bond indices",
+          "Arbitrary input mass is retained"
+        ]
+      },
+      "linked_knowledge": {
+        "source_declarations": [
+          "QuantumBlockEncoding.TensorTrainCanonical.mass",
+          "QuantumBlockEncoding.TensorTrainCanonical.mass_vecMul",
+          "QuantumBlockEncoding.TensorTrainCanonical.complexCore",
+          "QuantumBlockEncoding.TensorTrainCanonical.complexCore_isometry"
+        ],
+        "relation": "specialization of exact existing source theorem; no new core",
+        "potential_aliases": [
+          "qcb-core-sp-009",
+          "qcb-authored-0006"
+        ],
+        "alias_warning": "mass_vecMul is a local precursor to the existing chain-isometry question, not a new canonical admission."
+      },
+      "assessment_boundary": "The symbolic challenge certifies the displayed decision only. The NL explanation/rubric and claimed learning transfer need separate grading; source theorem access can make a formal challenge a library application.",
+      "formal_context_private": {
+        "imports": [
+          "QuantumBlockEncoding.TensorTrainCanonical"
+        ],
+        "neutral_proposition": "∀ {l r : ℕ} (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r), A * A.transpose = 1 → ∀ v : Fin l → ℝ, QuantumBlockEncoding.TensorTrainCanonical.mass (Matrix.vecMul v A) = QuantumBlockEncoding.TensorTrainCanonical.mass v",
+        "challenge_for_sealed_true": "∀ {l r : ℕ} (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r), A * A.transpose = 1 → ∀ v : Fin l → ℝ, QuantumBlockEncoding.TensorTrainCanonical.mass (Matrix.vecMul v A) = QuantumBlockEncoding.TensorTrainCanonical.mass v",
+        "challenge_for_sealed_false": "¬ (∀ {l r : ℕ} (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r), A * A.transpose = 1 → ∀ v : Fin l → ℝ, QuantumBlockEncoding.TensorTrainCanonical.mass (Matrix.vecMul v A) = QuantumBlockEncoding.TensorTrainCanonical.mass v)"
+      }
+    },
+    {
+      "probe_key": "unit_mass",
+      "pair_key": "arbitrary_mass_vs_unit_mass",
+      "lifecycle": "candidate_not_counted",
+      "canonical_id": null,
+      "stage_a_public": {
+        "question": "Let l,r,A and M be as follows: A is a real matrix with old-bond rows Fin l and output columns Fin 2 × Fin r, AAᵀ=I_l, and M(w)=∑_i w_i². Proposition P: every real row boundary v satisfies M(vA)=1. No further assumption on v is supplied. Decide P, and if it fails give exact dimensions, entries and a boundary, then state the minimum extra premise or corrected conclusion.",
+        "response_request": "Decide whether proposition P holds as stated. Give the argument or an exact counterexample; diagnose the mathematical issue and state a valid repair when relevant."
+      },
+      "gold_private": {
+        "expected_polarity": false,
+        "formal_challenge_target": "¬ (∀ {l r : ℕ} (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r), A * A.transpose = 1 → ∀ v : Fin l → ℝ, QuantumBlockEncoding.TensorTrainCanonical.mass (Matrix.vecMul v A) = 1)",
+        "reference_proof": "by\n  intro h\n  let A : QuantumBlockEncoding.TensorTrainCanonical.Core 1 1 := fun _ out => if out.1 = 0 then 1 else 0\n  have hA : A * A.transpose = 1 := by\n      ext a c\n      fin_cases a\n      fin_cases c\n      norm_num [A, Matrix.mul_apply, Matrix.transpose_apply,\n        Matrix.one_apply, Fintype.sum_prod_type, Fin.sum_univ_two]\n  have bad := h A hA (fun _ => 2)\n  norm_num [QuantumBlockEncoding.TensorTrainCanonical.mass, Matrix.vecMul, dotProduct, A,\n    Fintype.sum_prod_type, Fin.sum_univ_two] at bad",
+        "reference_answer": "P is false. Take l=r=1 and A=[1,0], with columns (0,0),(1,0), and v=[2]. Then AAᵀ=[1], whereas vA=[2,0] has mass 4. The source interface gives M(vA)=M(v), which explains this failure without appealing to numerical rounding. Keep the arbitrary-input domain and replace 1 by M(v), or explicitly restrict v by M(v)=1. One must not silently add that normalization premise to a claim about every real v.",
+        "rubric": [
+          {
+            "criterion": "Gives AAᵀ=I for an exact finite witness.",
+            "weight": 1
+          },
+          {
+            "criterion": "Calculates a nonunit output mass, e.g. 4 for v=[2].",
+            "weight": 1
+          },
+          {
+            "criterion": "Diagnoses preservation of the existing norm rather than normalization of arbitrary input.",
+            "weight": 1
+          },
+          {
+            "criterion": "Offers corrected equality for arbitrary v or explicitly states M(v)=1 as the additional premise.",
+            "weight": 1
+          }
+        ],
+        "repair": {
+          "minimal_domain_preserving": "M(vA)=M(v)",
+          "explicit_restricted_variant": "If M(v)=1 then M(vA)=1"
+        },
+        "semantic_steps": [
+          "Verify one orthonormal row",
+          "Compute boundary mass 4",
+          "Separate arbitrary mass preservation from the unit sphere"
+        ]
+      },
+      "linked_knowledge": {
+        "source_declarations": [
+          "QuantumBlockEncoding.TensorTrainCanonical.mass_vecMul"
+        ],
+        "relation": "new experimental false strengthening of exact source interface",
+        "potential_aliases": [
+          "row_mass"
+        ],
+        "alias_warning": "Paired normalization discrimination; no independent theorem novelty claim."
+      },
+      "assessment_boundary": "The symbolic challenge certifies the displayed decision only. The NL explanation/rubric and claimed learning transfer need separate grading; source theorem access can make a formal challenge a library application.",
+      "formal_context_private": {
+        "imports": [
+          "QuantumBlockEncoding.TensorTrainCanonical"
+        ],
+        "neutral_proposition": "∀ {l r : ℕ} (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r), A * A.transpose = 1 → ∀ v : Fin l → ℝ, QuantumBlockEncoding.TensorTrainCanonical.mass (Matrix.vecMul v A) = 1",
+        "challenge_for_sealed_true": "∀ {l r : ℕ} (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r), A * A.transpose = 1 → ∀ v : Fin l → ℝ, QuantumBlockEncoding.TensorTrainCanonical.mass (Matrix.vecMul v A) = 1",
+        "challenge_for_sealed_false": "¬ (∀ {l r : ℕ} (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r), A * A.transpose = 1 → ∀ v : Fin l → ℝ, QuantumBlockEncoding.TensorTrainCanonical.mass (Matrix.vecMul v A) = 1)"
+      }
+    },
+    {
+      "probe_key": "swap_isometry",
+      "pair_key": "register_permutation_vs_entry_invariance",
+      "lifecycle": "candidate_not_counted",
+      "canonical_id": null,
+      "stage_a_public": {
+        "question": "Let A be a real l × (2r) core, A_{a,(b,j)}, where a is the old bond, b∈Fin 2 the emitted bit and j∈Fin r the new bond. Assume AAᵀ=I_l. Form V with output rows ordered (new bond,bit) by V_{(j,b),a}=A_{a,(b,j)} as a complex number. Proposition P: V†V=I_l for arbitrary natural l,r. Decide P; explain exactly which register is permuted and whether a new normalization assumption is needed.",
+        "response_request": "Decide whether proposition P holds as stated. Give the argument or an exact counterexample; diagnose the mathematical issue and state a valid repair when relevant."
+      },
+      "gold_private": {
+        "expected_polarity": true,
+        "formal_challenge_target": "∀ {l r : ℕ} (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r), A * A.transpose = 1 → Matrix.conjTranspose (Matrix.of (fun (out : Fin r × Fin 2) (a : Fin l) => (A a (out.2, out.1) : ℂ))) * (Matrix.of (fun (out : Fin r × Fin 2) (a : Fin l) => (A a (out.2, out.1) : ℂ))) = (1 : Matrix (Fin l) (Fin l) ℂ)",
+        "reference_proof": "by\n  intro l r A hA\n  ext a c\n  have h := congrFun (congrFun (QuantumBlockEncoding.TensorTrainCanonical.complexCore_isometry A hA) a) c\n  simp only [Matrix.mul_apply, Matrix.conjTranspose_apply, Matrix.one_apply] at h ⊢\n  exact ((Equiv.prodComm (Fin r) (Fin 2)).sum_comp\n    (fun out => star (QuantumBlockEncoding.TensorTrainCanonical.complexCore A out a) * QuantumBlockEncoding.TensorTrainCanonical.complexCore A out c)).trans h",
+        "reference_answer": "P is true. V is (2r) × l: only its output labels have changed from (b,j) to (j,b). For old-bond columns a,c, (V†V)_{a,c}=∑_{j,b} A_{a,(b,j)}A_{c,(b,j)}. Reindex the finite sum using the bijection (j,b)↔(b,j). It becomes (AAᵀ)_{a,c}=δ_{a,c}. Realness removes conjugation. Thus an output-register permutation preserves column orthonormality. It neither exchanges input and output nor asserts equality of amplitudes at unchanged labels; the coordinate equation is V_{(j,b),a}=U_{(b,j),a}. No boundary normalization is involved, and zero dimensions remain allowed when the premise is satisfiable.",
+        "rubric": [
+          {
+            "criterion": "States V has output index (new bond,bit) and input index old bond.",
+            "weight": 1
+          },
+          {
+            "criterion": "Expands V†V and performs the explicit output-pair swap bijection.",
+            "weight": 1
+          },
+          {
+            "criterion": "Uses realness and AAᵀ=I_l to conclude the input Gram identity.",
+            "weight": 1
+          },
+          {
+            "criterion": "Explains that preserved isometry does not imply unchanged coordinate entries or additional normalization.",
+            "weight": 1
+          }
+        ],
+        "repair": null,
+        "semantic_steps": [
+          "Relabel output coordinates",
+          "Reindex Gram sum along product swap",
+          "Retain input Gram identity"
+        ]
+      },
+      "linked_knowledge": {
+        "source_declarations": [
+          "QuantumBlockEncoding.TensorTrainCanonical.Core",
+          "QuantumBlockEncoding.TensorTrainCanonical.complexCore",
+          "QuantumBlockEncoding.TensorTrainCanonical.complexCore_isometry"
+        ],
+        "mathlib_interfaces": [
+          "Equiv.prodComm",
+          "Equiv.sum_comp"
+        ],
+        "relation": "output-index equivalence transport of qcb-core-sp-009",
+        "potential_aliases": [
+          "qcb-core-sp-009"
+        ],
+        "alias_warning": "Likely semantic alias/representation transport, not a new mathematical core."
+      },
+      "assessment_boundary": "The symbolic challenge certifies the displayed decision only. The NL explanation/rubric and claimed learning transfer need separate grading; source theorem access can make a formal challenge a library application.",
+      "formal_context_private": {
+        "imports": [
+          "QuantumBlockEncoding.TensorTrainCanonical"
+        ],
+        "neutral_proposition": "∀ {l r : ℕ} (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r), A * A.transpose = 1 → Matrix.conjTranspose (Matrix.of (fun (out : Fin r × Fin 2) (a : Fin l) => (A a (out.2, out.1) : ℂ))) * (Matrix.of (fun (out : Fin r × Fin 2) (a : Fin l) => (A a (out.2, out.1) : ℂ))) = (1 : Matrix (Fin l) (Fin l) ℂ)",
+        "challenge_for_sealed_true": "∀ {l r : ℕ} (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r), A * A.transpose = 1 → Matrix.conjTranspose (Matrix.of (fun (out : Fin r × Fin 2) (a : Fin l) => (A a (out.2, out.1) : ℂ))) * (Matrix.of (fun (out : Fin r × Fin 2) (a : Fin l) => (A a (out.2, out.1) : ℂ))) = (1 : Matrix (Fin l) (Fin l) ℂ)",
+        "challenge_for_sealed_false": "¬ (∀ {l r : ℕ} (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r), A * A.transpose = 1 → Matrix.conjTranspose (Matrix.of (fun (out : Fin r × Fin 2) (a : Fin l) => (A a (out.2, out.1) : ℂ))) * (Matrix.of (fun (out : Fin r × Fin 2) (a : Fin l) => (A a (out.2, out.1) : ℂ))) = (1 : Matrix (Fin l) (Fin l) ℂ))"
+      }
+    },
+    {
+      "probe_key": "swap_entries",
+      "pair_key": "register_permutation_vs_entry_invariance",
+      "lifecycle": "candidate_not_counted",
+      "canonical_id": null,
+      "stage_a_public": {
+        "question": "There is one old-bond basis vector, one two-level physical bit and one two-level new bond. Let A be a real 1 × 4 row, indexed by (bit,new bond), with AAᵀ=[1]. Define U_{(b,j),0}=A_{0,(b,j)} as complex entries, and define V_{(j,b),0}=A_{0,(b,j)}. Both ordered output sets happen to be Fin 2 × Fin 2. Proposition P: V=U as matrices with the same literal pair labels, for every such A. Decide P, including an exact witness if needed and the correct relationship between entries.",
+        "response_request": "Decide whether proposition P holds as stated. Give the argument or an exact counterexample; diagnose the mathematical issue and state a valid repair when relevant."
+      },
+      "gold_private": {
+        "expected_polarity": false,
+        "formal_challenge_target": "¬ (∀ (A : QuantumBlockEncoding.TensorTrainCanonical.Core 1 2), A * A.transpose = 1 → (fun (out : Fin 2 × Fin 2) (a : Fin 1) => (A a (out.2, out.1) : ℂ)) = QuantumBlockEncoding.TensorTrainCanonical.complexCore A)",
+        "reference_proof": "by\n  intro h\n  let A : QuantumBlockEncoding.TensorTrainCanonical.Core 1 2 := fun _ out => if out = (1, 0) then 1 else 0\n  have hA : A * A.transpose = 1 := by\n      ext a c\n      fin_cases a\n      fin_cases c\n      norm_num [A, Matrix.mul_apply, Matrix.transpose_apply,\n        Matrix.one_apply, Fintype.sum_prod_type, Fin.sum_univ_two]\n  have bad := congrFun (congrFun (h A hA) (0, 1)) 0\n  norm_num [A, QuantumBlockEncoding.TensorTrainCanonical.complexCore] at bad",
+        "reference_answer": "P is false even though both matrices have orthonormal columns. Put A_{0,(1,0)}=1 and every other entry 0. Its row mass is one. U is supported on output label (1,0), whereas V is supported on label (0,1). At literal label (0,1), V has entry 1 and U has entry 0, so V≠U. The valid relation is V_{(j,b),0}=U_{(b,j),0}; as operators, V is obtained by applying the output-register swap permutation to U. Swapping factors preserves the Gram matrix, but the output state generally changes when read at fixed pair labels.",
+        "rubric": [
+          {
+            "criterion": "Verifies the exact one-hot row has AAᵀ=[1].",
+            "weight": 1
+          },
+          {
+            "criterion": "Exhibits V_(0,1),0=1 and U_(0,1),0=0.",
+            "weight": 1
+          },
+          {
+            "criterion": "Distinguishes isometry from coordinate-wise invariance.",
+            "weight": 1
+          },
+          {
+            "criterion": "States the swapped-label relationship or output-permutation composition.",
+            "weight": 1
+          }
+        ],
+        "repair": {
+          "valid_entry_equation": "V_(j,b),a=U_(b,j),a",
+          "valid_gram_relation": "V†V=U†U=I_l"
+        },
+        "semantic_steps": [
+          "Choose asymmetric one-hot output",
+          "Compare the same literal output label",
+          "Repair via explicit register permutation"
+        ]
+      },
+      "linked_knowledge": {
+        "source_declarations": [
+          "QuantumBlockEncoding.TensorTrainCanonical.Core",
+          "QuantumBlockEncoding.TensorTrainCanonical.complexCore",
+          "QuantumBlockEncoding.TensorTrainCanonical.complexCore_isometry"
+        ],
+        "relation": "new experimental exact witness against stronger register-invariance assertion",
+        "potential_aliases": [
+          "swap_isometry"
+        ],
+        "alias_warning": "A contrast probe for a representation change, not a new source theorem."
+      },
+      "assessment_boundary": "The symbolic challenge certifies the displayed decision only. The NL explanation/rubric and claimed learning transfer need separate grading; source theorem access can make a formal challenge a library application.",
+      "formal_context_private": {
+        "imports": [
+          "QuantumBlockEncoding.TensorTrainCanonical"
+        ],
+        "neutral_proposition": "∀ (A : QuantumBlockEncoding.TensorTrainCanonical.Core 1 2), A * A.transpose = 1 → (fun (out : Fin 2 × Fin 2) (a : Fin 1) => (A a (out.2, out.1) : ℂ)) = QuantumBlockEncoding.TensorTrainCanonical.complexCore A",
+        "challenge_for_sealed_true": "∀ (A : QuantumBlockEncoding.TensorTrainCanonical.Core 1 2), A * A.transpose = 1 → (fun (out : Fin 2 × Fin 2) (a : Fin 1) => (A a (out.2, out.1) : ℂ)) = QuantumBlockEncoding.TensorTrainCanonical.complexCore A",
+        "challenge_for_sealed_false": "¬ (∀ (A : QuantumBlockEncoding.TensorTrainCanonical.Core 1 2), A * A.transpose = 1 → (fun (out : Fin 2 × Fin 2) (a : Fin 1) => (A a (out.2, out.1) : ℂ)) = QuantumBlockEncoding.TensorTrainCanonical.complexCore A)"
+      }
+    },
+    {
+      "probe_key": "output_identity",
+      "pair_key": "rectangular_output_identity_vs_projection",
+      "lifecycle": "candidate_not_counted",
+      "canonical_id": null,
+      "stage_a_public": {
+        "question": "For arbitrary natural l,r let A be a real l × (2r) matrix with AAᵀ=I_l. Let U have output rows (bit,new bond)∈Fin 2 × Fin r and input columns a∈Fin l, with U_{out,a}=A_{a,out} embedded in C. Proposition P: UU†=I_(Fin 2 × Fin r). Decide P; give an exact finite witness if it fails and explain the dimension and physical-register issue.",
+        "response_request": "Decide whether proposition P holds as stated. Give the argument or an exact counterexample; diagnose the mathematical issue and state a valid repair when relevant."
+      },
+      "gold_private": {
+        "expected_polarity": false,
+        "formal_challenge_target": "¬ (∀ {l r : ℕ} (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r), A * A.transpose = 1 → (QuantumBlockEncoding.TensorTrainCanonical.complexCore A) * (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose = 1)",
+        "reference_proof": "by\n  intro h\n  let A : QuantumBlockEncoding.TensorTrainCanonical.Core 1 1 := fun _ out => if out.1 = 0 then 1 else 0\n  have hA : A * A.transpose = 1 := by\n      ext a c\n      fin_cases a\n      fin_cases c\n      norm_num [A, Matrix.mul_apply, Matrix.transpose_apply,\n        Matrix.one_apply, Fintype.sum_prod_type, Fin.sum_univ_two]\n  have bad := congrFun (congrFun (h A hA) (1, 0)) (1, 0)\n  norm_num [A, QuantumBlockEncoding.TensorTrainCanonical.complexCore, Matrix.mul_apply,\n    Matrix.conjTranspose_apply, Matrix.one_apply] at bad",
+        "reference_answer": "P is false. With l=r=1, take A=[1,0]. Then U=(1,0)ᵀ is a 2 × 1 embedding. U†U=[1] on the one-dimensional input, but UU†=diag(1,0), not I_2: the output (bit=1,new bond=0) diagonal entry is 0 rather than 1. Column orthonormality guarantees an isometric embedding of the input into the output; it does not imply surjectivity onto the entire output space. UU† is the orthogonal projection onto the range of U. For a square U, U†U=I does imply UU†=I in finite dimensions, but rectangular cores in this statement are not square in general.",
+        "rubric": [
+          {
+            "criterion": "Verifies AAᵀ=[1] and U†U=[1] for the 1→2 witness.",
+            "weight": 1
+          },
+          {
+            "criterion": "Computes the output (1,0) diagonal entry as 0 versus the identity entry 1.",
+            "weight": 1
+          },
+          {
+            "criterion": "Names the identity spaces correctly: U†U acts on input, UU† on output.",
+            "weight": 1
+          },
+          {
+            "criterion": "Repairs by the range projection statement, or by explicitly imposing square/surjective finite-dimensional conditions.",
+            "weight": 1
+          }
+        ],
+        "repair": {
+          "domain_preserving": "(UU†)²=UU† and (UU†)†=UU†; range(UU†)=range(U)",
+          "conditional_identity": "A square finite-dimensional U with U†U=I has UU†=I"
+        },
+        "semantic_steps": [
+          "Minimal strict dimension embedding",
+          "Evaluate absent output direction",
+          "Replace output identity by range projection"
+        ]
+      },
+      "linked_knowledge": {
+        "source_declarations": [
+          "QuantumBlockEncoding.TensorTrainCanonical.complexCore",
+          "QuantumBlockEncoding.TensorTrainCanonical.complexCore_isometry"
+        ],
+        "relation": "new experimental coisometry overclaim diagnosis",
+        "potential_aliases": [
+          "qcb-core-la-010"
+        ],
+        "alias_warning": "LA010 already contains a zero-padding row/column obstruction; independent core novelty is unresolved."
+      },
+      "assessment_boundary": "The symbolic challenge certifies the displayed decision only. The NL explanation/rubric and claimed learning transfer need separate grading; source theorem access can make a formal challenge a library application.",
+      "formal_context_private": {
+        "imports": [
+          "QuantumBlockEncoding.TensorTrainCanonical"
+        ],
+        "neutral_proposition": "∀ {l r : ℕ} (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r), A * A.transpose = 1 → (QuantumBlockEncoding.TensorTrainCanonical.complexCore A) * (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose = 1",
+        "challenge_for_sealed_true": "∀ {l r : ℕ} (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r), A * A.transpose = 1 → (QuantumBlockEncoding.TensorTrainCanonical.complexCore A) * (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose = 1",
+        "challenge_for_sealed_false": "¬ (∀ {l r : ℕ} (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r), A * A.transpose = 1 → (QuantumBlockEncoding.TensorTrainCanonical.complexCore A) * (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose = 1)"
+      }
+    },
+    {
+      "probe_key": "output_idempotence",
+      "pair_key": "rectangular_output_identity_vs_projection",
+      "lifecycle": "candidate_not_counted",
+      "canonical_id": null,
+      "stage_a_public": {
+        "question": "Let l,r be arbitrary natural numbers and A a real core indexed by old bond a and output (bit,new bond), with AAᵀ=I_l. Define U_{out,a}=A_{a,out} in C and define Q=UU†, a square matrix on the output space. Proposition P: Q²=Q. Decide P and explain whether this condition asserts Q=I or unitary state preparation on the full output register.",
+        "response_request": "Decide whether proposition P holds as stated. Give the argument or an exact counterexample; diagnose the mathematical issue and state a valid repair when relevant."
+      },
+      "gold_private": {
+        "expected_polarity": true,
+        "formal_challenge_target": "∀ {l r : ℕ} (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r), A * A.transpose = 1 → (((QuantumBlockEncoding.TensorTrainCanonical.complexCore A) * (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose) * ((QuantumBlockEncoding.TensorTrainCanonical.complexCore A) * (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose) = (QuantumBlockEncoding.TensorTrainCanonical.complexCore A) * (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose)",
+        "reference_proof": "by\n  intro l r A hA\n  have hU := QuantumBlockEncoding.TensorTrainCanonical.complexCore_isometry A hA\n  calc\n    ((QuantumBlockEncoding.TensorTrainCanonical.complexCore A) * (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose) *\n        ((QuantumBlockEncoding.TensorTrainCanonical.complexCore A) * (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose) =\n        (QuantumBlockEncoding.TensorTrainCanonical.complexCore A) * ((QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose * (QuantumBlockEncoding.TensorTrainCanonical.complexCore A)) *\n          (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose := by simp only [Matrix.mul_assoc]\n    _ = (QuantumBlockEncoding.TensorTrainCanonical.complexCore A) * (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose := by\n      rw [hU, Matrix.mul_one]",
+        "reference_answer": "P is true. The source orientation gives U†U=I_l. By associativity, Q²=(UU†)(UU†)=U(U†U)U†=UI_lU†=UU†=Q. Also Q†=Q follows from conjugate-transpose rules, and Q fixes each vector Ux while mapping every output vector into range(U). Hence it is the orthogonal projection onto that range. Idempotence alone does not say Q=I; the rectangular embedding U=(1,0)ᵀ yields Q=diag(1,0). The displayed Lean target certifies idempotence; the Hermitian/range explanation and any circuit completion claim have separate scope. No additional normalized state boundary is needed.",
+        "rubric": [
+          {
+            "criterion": "Invokes or derives the correctly oriented U†U=I_l.",
+            "weight": 1
+          },
+          {
+            "criterion": "Associates the four factors as U(U†U)U† and substitutes the input identity.",
+            "weight": 1
+          },
+          {
+            "criterion": "States idempotence without inferring Q=I.",
+            "weight": 1
+          },
+          {
+            "criterion": "Explains the range projection meaning and its boundary; does not claim an efficient completion/compiler.",
+            "weight": 1
+          }
+        ],
+        "repair": null,
+        "semantic_steps": [
+          "Source input Gram identity",
+          "Four-factor reassociation",
+          "Projection rather than surjectivity"
+        ]
+      },
+      "linked_knowledge": {
+        "source_declarations": [
+          "QuantumBlockEncoding.TensorTrainCanonical.complexCore_isometry"
+        ],
+        "mathlib_interfaces": [
+          "Matrix.mul_assoc",
+          "Matrix.mul_one"
+        ],
+        "relation": "small algebraic consequence/repair interface of SP009",
+        "potential_aliases": [
+          "qcb-core-sp-009",
+          "qcb-core-la-010"
+        ],
+        "alias_warning": "Projection repair is an experimental consequence; no new canonical ID or novelty claim."
+      },
+      "assessment_boundary": "The symbolic challenge certifies the displayed decision only. The NL explanation/rubric and claimed learning transfer need separate grading; source theorem access can make a formal challenge a library application.",
+      "formal_context_private": {
+        "imports": [
+          "QuantumBlockEncoding.TensorTrainCanonical"
+        ],
+        "neutral_proposition": "∀ {l r : ℕ} (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r), A * A.transpose = 1 → (((QuantumBlockEncoding.TensorTrainCanonical.complexCore A) * (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose) * ((QuantumBlockEncoding.TensorTrainCanonical.complexCore A) * (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose) = (QuantumBlockEncoding.TensorTrainCanonical.complexCore A) * (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose)",
+        "challenge_for_sealed_true": "∀ {l r : ℕ} (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r), A * A.transpose = 1 → (((QuantumBlockEncoding.TensorTrainCanonical.complexCore A) * (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose) * ((QuantumBlockEncoding.TensorTrainCanonical.complexCore A) * (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose) = (QuantumBlockEncoding.TensorTrainCanonical.complexCore A) * (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose)",
+        "challenge_for_sealed_false": "¬ (∀ {l r : ℕ} (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r), A * A.transpose = 1 → (((QuantumBlockEncoding.TensorTrainCanonical.complexCore A) * (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose) * ((QuantumBlockEncoding.TensorTrainCanonical.complexCore A) * (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose) = (QuantumBlockEncoding.TensorTrainCanonical.complexCore A) * (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose))"
+      }
+    },
+    {
+      "probe_key": "marginal_mass",
+      "pair_key": "norm_preservation_vs_linearity",
+      "lifecycle": "candidate_not_counted",
+      "canonical_id": null,
+      "stage_a_public": {
+        "question": "Let f be any real amplitude table on n+1 binary wires, with no positivity or normalization assumption. For an n-bit prefix b define m(f)(b)=sqrt(f(b,0)²+f(b,1)²), where (b,v) means appending last bit v. For any table g define N(g)=∑_w g(w)². Proposition P: N(m(f))=N(f) for all natural n and all such f. Decide P and explain the precise normalization invariant it supplies to a recursive loader.",
+        "response_request": "Decide whether proposition P holds as stated. Give the argument or an exact counterexample; diagnose the mathematical issue and state a valid repair when relevant."
+      },
+      "gold_private": {
+        "expected_polarity": true,
+        "formal_challenge_target": "∀ {n : ℕ} (f : QuantumBlockEncoding.PrimitiveBasis (n + 1) → ℝ), QuantumBlockEncoding.RealAmplitudePreparation.normSq (QuantumBlockEncoding.RealAmplitudePreparation.marginal f) = QuantumBlockEncoding.RealAmplitudePreparation.normSq f",
+        "reference_proof": "by\n  exact QuantumBlockEncoding.RealAmplitudePreparation.normSq_marginal",
+        "reference_answer": "P is true for arbitrary signed and unnormalized real f. The radicand is nonnegative, so m(f)(b)²=f(b,0)²+f(b,1)². Sum over prefixes. Every (n+1)-bit word is uniquely (b,v) with v∈{0,1}, and reindexing along this bijection yields N(m(f))=N(f). Therefore N(f)=1 propagates to the marginal whenever it is actually assumed, and the equality also preserves any other squared norm. This is a nonlinear length-table reduction; it does not retain signed amplitudes or itself specify a linear quantum evolution. A recursive preparation circuit uses additional signed splitting data to reconstruct them.",
+        "rubric": [
+          {
+            "criterion": "Uses nonnegativity of the sum of two squares to square the square root.",
+            "weight": 1
+          },
+          {
+            "criterion": "Reindexes all full words by prefix and last bit, including both last-bit cases.",
+            "weight": 1
+          },
+          {
+            "criterion": "Retains arbitrary signed and unnormalized source domain.",
+            "weight": 1
+          },
+          {
+            "criterion": "States conditional unit-normalization propagation and distinguishes the nonlinear table reduction from a linear state map.",
+            "weight": 1
+          }
+        ],
+        "repair": null,
+        "semantic_steps": [
+          "Pythagorean per-prefix equality",
+          "Last-bit bijection",
+          "Normalization invariant for every scale"
+        ]
+      },
+      "linked_knowledge": {
+        "source_declarations": [
+          "QuantumBlockEncoding.RealAmplitudePreparation.pairNorm",
+          "QuantumBlockEncoding.RealAmplitudePreparation.pairNorm_sq",
+          "QuantumBlockEncoding.RealAmplitudePreparation.marginal",
+          "QuantumBlockEncoding.RealAmplitudePreparation.normSq",
+          "QuantumBlockEncoding.RealAmplitudePreparation.normSq_marginal"
+        ],
+        "relation": "exact qcb-core-sp-005 theorem/calibration",
+        "potential_aliases": [
+          "qcb-core-sp-005"
+        ],
+        "alias_warning": "Existing canonical question and native formal view; no new core."
+      },
+      "assessment_boundary": "The symbolic challenge certifies the displayed decision only. The NL explanation/rubric and claimed learning transfer need separate grading; source theorem access can make a formal challenge a library application.",
+      "formal_context_private": {
+        "imports": [
+          "QuantumBlockEncoding.TensorTrainCanonical"
+        ],
+        "neutral_proposition": "∀ {n : ℕ} (f : QuantumBlockEncoding.PrimitiveBasis (n + 1) → ℝ), QuantumBlockEncoding.RealAmplitudePreparation.normSq (QuantumBlockEncoding.RealAmplitudePreparation.marginal f) = QuantumBlockEncoding.RealAmplitudePreparation.normSq f",
+        "challenge_for_sealed_true": "∀ {n : ℕ} (f : QuantumBlockEncoding.PrimitiveBasis (n + 1) → ℝ), QuantumBlockEncoding.RealAmplitudePreparation.normSq (QuantumBlockEncoding.RealAmplitudePreparation.marginal f) = QuantumBlockEncoding.RealAmplitudePreparation.normSq f",
+        "challenge_for_sealed_false": "¬ (∀ {n : ℕ} (f : QuantumBlockEncoding.PrimitiveBasis (n + 1) → ℝ), QuantumBlockEncoding.RealAmplitudePreparation.normSq (QuantumBlockEncoding.RealAmplitudePreparation.marginal f) = QuantumBlockEncoding.RealAmplitudePreparation.normSq f)"
+      }
+    },
+    {
+      "probe_key": "marginal_additivity",
+      "pair_key": "norm_preservation_vs_linearity",
+      "lifecycle": "candidate_not_counted",
+      "canonical_id": null,
+      "stage_a_public": {
+        "question": "On one binary wire identify a real table f with the pair (f(0),f(1)). Its zero-wire marginal m(f) is the one-entry table with value sqrt(f(0)²+f(1)²). Addition of tables is entrywise. Proposition P: for every real one-wire f,g, m(f+g)=m(f)+m(g). Decide P; explain what your result says about treating the norm-preserving marginal pass as a linear circuit isometry.",
+        "response_request": "Decide whether proposition P holds as stated. Give the argument or an exact counterexample; diagnose the mathematical issue and state a valid repair when relevant."
+      },
+      "gold_private": {
+        "expected_polarity": false,
+        "formal_challenge_target": "¬ (∀ (f g : QuantumBlockEncoding.PrimitiveBasis 1 → ℝ), QuantumBlockEncoding.RealAmplitudePreparation.marginal (fun w => f w + g w) = (fun b => QuantumBlockEncoding.RealAmplitudePreparation.marginal f b + QuantumBlockEncoding.RealAmplitudePreparation.marginal g b))",
+        "reference_proof": "by\n  intro h\n  let f : QuantumBlockEncoding.PrimitiveBasis 1 → ℝ := fun w => if w 0 = 0 then 1 else 0\n  have bad := congrFun (h f (fun w => -f w)) (fun i : Fin 0 => Fin.elim0 i)\n  norm_num [QuantumBlockEncoding.RealAmplitudePreparation.marginal, QuantumBlockEncoding.RealAmplitudePreparation.pairNorm, f, Fin.snoc_zero] at bad",
+        "reference_answer": "P is false. Take f=(1,0), g=(-1,0). Then f+g=(0,0), so m(f+g)=0, but m(f)=m(g)=1 and m(f)+m(g)=2. All values are exact; each of the two inputs separately has squared norm one. Thus norm preservation does not imply additivity or a linear isometry. The marginal loses sign information (m(-f)=m(f)); it is a nonlinear preprocessing map on amplitude descriptions. The correct source claim is squared-norm equality for each table, not linear evolution under addition. Even restricting to normalized inputs would not define a linear subspace; unit-norm inputs in this witness already expose the inappropriate linear-map claim.",
+        "rubric": [
+          {
+            "criterion": "Gives exact real tables f=(1,0),g=(-1,0).",
+            "weight": 1
+          },
+          {
+            "criterion": "Computes m(f+g)=0 while m(f)+m(g)=2.",
+            "weight": 1
+          },
+          {
+            "criterion": "Distinguishes pointwise norm preservation from additivity/linearity and sign retention.",
+            "weight": 1
+          },
+          {
+            "criterion": "Repairs to the squared-norm invariant and explains why this preprocessing map cannot itself be the linear circuit state-action.",
+            "weight": 1
+          }
+        ],
+        "repair": {
+          "valid_source_claim": "N(m(f))=N(f)",
+          "valid_sign_relation": "m(-f)=m(f), not -m(f)"
+        },
+        "semantic_steps": [
+          "Opposite signed input pair",
+          "Explicit failure of additivity",
+          "Differentiate classical description preprocessing and circuit state-action"
+        ]
+      },
+      "linked_knowledge": {
+        "source_declarations": [
+          "QuantumBlockEncoding.RealAmplitudePreparation.pairNorm",
+          "QuantumBlockEncoding.RealAmplitudePreparation.marginal",
+          "QuantumBlockEncoding.RealAmplitudePreparation.normSq_marginal"
+        ],
+        "relation": "new experimental false strengthening paired with SP005",
+        "potential_aliases": [
+          "qcb-core-sp-005"
+        ],
+        "alias_warning": "Diagnoses a stronger assertion; not a newly admitted problem core."
+      },
+      "assessment_boundary": "The symbolic challenge certifies the displayed decision only. The NL explanation/rubric and claimed learning transfer need separate grading; source theorem access can make a formal challenge a library application.",
+      "formal_context_private": {
+        "imports": [
+          "QuantumBlockEncoding.TensorTrainCanonical"
+        ],
+        "neutral_proposition": "∀ (f g : QuantumBlockEncoding.PrimitiveBasis 1 → ℝ), QuantumBlockEncoding.RealAmplitudePreparation.marginal (fun w => f w + g w) = (fun b => QuantumBlockEncoding.RealAmplitudePreparation.marginal f b + QuantumBlockEncoding.RealAmplitudePreparation.marginal g b)",
+        "challenge_for_sealed_true": "∀ (f g : QuantumBlockEncoding.PrimitiveBasis 1 → ℝ), QuantumBlockEncoding.RealAmplitudePreparation.marginal (fun w => f w + g w) = (fun b => QuantumBlockEncoding.RealAmplitudePreparation.marginal f b + QuantumBlockEncoding.RealAmplitudePreparation.marginal g b)",
+        "challenge_for_sealed_false": "¬ (∀ (f g : QuantumBlockEncoding.PrimitiveBasis 1 → ℝ), QuantumBlockEncoding.RealAmplitudePreparation.marginal (fun w => f w + g w) = (fun b => QuantumBlockEncoding.RealAmplitudePreparation.marginal f b + QuantumBlockEncoding.RealAmplitudePreparation.marginal g b))"
+      }
+    }
+  ],
+  "gold_target_boundary": "gold_private.formal_challenge_target is the correct reference decision target, not the target to assign to an arbitrary model decision.",
+  "syntax_smoke": {
+    "latest": "syntax-smoke-04.json",
+    "all_eight_gold_roots_compiled": true,
+    "qualified_replay": false,
+    "axiom_report_performed": false,
+    "source_sha256": "23023711941ac68937b0953cb7f6d253e0e33ad9117149fba93d70f8b3d8b42d"
+  }
+}

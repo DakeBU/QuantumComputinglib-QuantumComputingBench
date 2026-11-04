@@ -1,0 +1,225 @@
+{
+  "ambient_definitions": [
+    {
+      "first_line": 18,
+      "last_line": 18,
+      "namespace": "QuantumBlockEncoding.TensorTrainCanonical",
+      "path": "QuantumBlockEncoding/TensorTrainCanonical.lean",
+      "sha256_lf": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+      "source": "abbrev Core (l r : ℕ) := _root_.Matrix (Fin l) (Fin 2 × Fin r) ℝ"
+    },
+    {
+      "first_line": 120,
+      "last_line": 120,
+      "namespace": "QuantumBlockEncoding.TensorTrainCanonical",
+      "path": "QuantumBlockEncoding/TensorTrainCanonical.lean",
+      "sha256_lf": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+      "source": "noncomputable def mass {I : Type*} [Fintype I] (v : I → ℝ) : ℝ := ∑ i, v i ^ 2"
+    },
+    {
+      "first_line": 211,
+      "last_line": 213,
+      "namespace": "QuantumBlockEncoding.TensorTrainCanonical",
+      "path": "QuantumBlockEncoding/TensorTrainCanonical.lean",
+      "sha256_lf": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+      "source": "def complexCore {l r : ℕ} (A : Core l r) :\n    _root_.Matrix (Fin 2 × Fin r) (Fin l) ℂ := fun out a => (A a out : ℂ)\n"
+    },
+    {
+      "first_line": 116,
+      "last_line": 116,
+      "namespace": "QuantumBlockEncoding",
+      "path": "QuantumBlockEncoding/PrimitiveSemantics.lean",
+      "sha256_lf": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+      "source": "abbrev PrimitiveBasis (qubits : Nat) := Fin qubits → Fin 2"
+    },
+    {
+      "first_line": 143,
+      "last_line": 143,
+      "namespace": "QuantumBlockEncoding.RealAmplitudePreparation",
+      "path": "QuantumBlockEncoding/RealAmplitudePreparation.lean",
+      "sha256_lf": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+      "source": "noncomputable def pairNorm (a b : ℝ) : ℝ := Real.sqrt (a ^ 2 + b ^ 2)"
+    },
+    {
+      "first_line": 204,
+      "last_line": 205,
+      "namespace": "QuantumBlockEncoding.RealAmplitudePreparation",
+      "path": "QuantumBlockEncoding/RealAmplitudePreparation.lean",
+      "sha256_lf": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+      "source": "noncomputable def marginal {n : Nat} (f : PrimitiveBasis (n + 1) → ℝ) :\n    PrimitiveBasis n → ℝ := fun b => pairNorm (f (Fin.snoc b 0)) (f (Fin.snoc b 1))"
+    },
+    {
+      "first_line": 211,
+      "last_line": 211,
+      "namespace": "QuantumBlockEncoding.RealAmplitudePreparation",
+      "path": "QuantumBlockEncoding/RealAmplitudePreparation.lean",
+      "sha256_lf": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+      "source": "noncomputable def normSq {n : Nat} (f : PrimitiveBasis n → ℝ) : ℝ := ∑ b, f b ^ 2"
+    },
+    {
+      "first_line": 148,
+      "last_line": 151,
+      "namespace": "QuantumBlockEncoding.Robin.ComplexLCU",
+      "path": "QuantumBlockEncoding/Robin/ComplexLCU.lean",
+      "sha256_lf": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843",
+      "source": "def equivPermutationMatrix\n    {ι : Type*} [DecidableEq ι] (equiv : ι ≃ ι) :\n    _root_.Matrix ι ι ℂ := fun row column =>\n  if row = equiv column then 1 else 0"
+    },
+    {
+      "first_line": 250,
+      "last_line": 251,
+      "namespace": "QuantumBlockEncoding.Robin.ComplexLCU",
+      "path": "QuantumBlockEncoding/Robin/ComplexLCU.lean",
+      "sha256_lf": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843",
+      "source": "abbrev LCUIndex (coefficient selector system : Type*) :=\n  coefficient × (selector × system)"
+    },
+    {
+      "first_line": 315,
+      "last_line": 327,
+      "namespace": "QuantumBlockEncoding.Robin.ComplexLCU",
+      "path": "QuantumBlockEncoding/Robin/ComplexLCU.lean",
+      "sha256_lf": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843",
+      "source": "def controlledSystemEquiv\n    {coefficient selector system : Type*}\n    (permutation : selector → system ≃ system) :\n    LCUIndex coefficient selector system ≃\n      LCUIndex coefficient selector system where\n  toFun index :=\n    (index.1, (index.2.1, permutation index.2.1 index.2.2))\n  invFun index :=\n    (index.1, (index.2.1, (permutation index.2.1).symm index.2.2))\n  left_inv index := by\n    simp\n  right_inv index := by\n    simp"
+    },
+    {
+      "first_line": 330,
+      "last_line": 337,
+      "namespace": "QuantumBlockEncoding.Robin.ComplexLCU",
+      "path": "QuantumBlockEncoding/Robin/ComplexLCU.lean",
+      "sha256_lf": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843",
+      "source": "def selectLift\n    {coefficient selector system : Type*}\n    [DecidableEq coefficient] [DecidableEq selector] [DecidableEq system]\n    (permutation : selector → system ≃ system) :\n    _root_.Matrix\n      (LCUIndex coefficient selector system)\n      (LCUIndex coefficient selector system) ℂ :=\n  equivPermutationMatrix (controlledSystemEquiv permutation)"
+    },
+    {
+      "first_line": 120,
+      "last_line": 120,
+      "namespace": "QuantumBlockEncoding.HermitePolynomial",
+      "path": "QuantumBlockEncoding/HermitePolynomial.lean",
+      "sha256_lf": "f8a3e1d5f29aed1228b6ede3577a9af1e76301559172ee67a266fcb0d56fee1e",
+      "source": "def leftModulus (k : ℕ) : ℝ[X] := (X - C (-1)) ^ (k + 1)"
+    },
+    {
+      "first_line": 123,
+      "last_line": 123,
+      "namespace": "QuantumBlockEncoding.HermitePolynomial",
+      "path": "QuantumBlockEncoding/HermitePolynomial.lean",
+      "sha256_lf": "f8a3e1d5f29aed1228b6ede3577a9af1e76301559172ee67a266fcb0d56fee1e",
+      "source": "def rightModulus (k : ℕ) : ℝ[X] := (X - C 0) ^ (k + 1)"
+    }
+  ],
+  "dependency_manifest_sha256_lf": "3f85247e74f75c3030bf538085e098d3f721b2837d21d22da0bdc96efcc0a466",
+  "formal_items": [
+    {
+      "formal_statement": "∀ {l r : ℕ} (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r), A * A.transpose = 1 → ∀ v : Fin l → ℝ, QuantumBlockEncoding.TensorTrainCanonical.mass (Matrix.vecMul v A) = QuantumBlockEncoding.TensorTrainCanonical.mass v",
+      "imports": [
+        "QuantumBlockEncoding.TensorTrainCanonical"
+      ],
+      "probe_id": "2b3f25f2-db0a-4494-a887-14d7111eaf6a"
+    },
+    {
+      "formal_statement": "¬ (∀ {l r : ℕ} (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r), A * A.transpose = 1 → ∀ v : Fin l → ℝ, QuantumBlockEncoding.TensorTrainCanonical.mass (Matrix.vecMul v A) = 1)",
+      "imports": [
+        "QuantumBlockEncoding.TensorTrainCanonical"
+      ],
+      "probe_id": "b0c5d76c-2aa7-4818-8009-c451c9c1081a"
+    },
+    {
+      "formal_statement": "∀ {l r : ℕ} (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r), A * A.transpose = 1 → Matrix.conjTranspose (Matrix.of (fun (out : Fin r × Fin 2) (a : Fin l) => (A a (out.2, out.1) : ℂ))) * (Matrix.of (fun (out : Fin r × Fin 2) (a : Fin l) => (A a (out.2, out.1) : ℂ))) = (1 : Matrix (Fin l) (Fin l) ℂ)",
+      "imports": [
+        "QuantumBlockEncoding.TensorTrainCanonical"
+      ],
+      "probe_id": "87a548fd-6c07-4b71-a224-c374ec1005f5"
+    },
+    {
+      "formal_statement": "¬ (∀ (A : QuantumBlockEncoding.TensorTrainCanonical.Core 1 2), A * A.transpose = 1 → (fun (out : Fin 2 × Fin 2) (a : Fin 1) => (A a (out.2, out.1) : ℂ)) = QuantumBlockEncoding.TensorTrainCanonical.complexCore A)",
+      "imports": [
+        "QuantumBlockEncoding.TensorTrainCanonical"
+      ],
+      "probe_id": "c947872c-f1ae-4f09-9ff9-0d535c93b11c"
+    },
+    {
+      "formal_statement": "¬ (∀ {l r : ℕ} (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r), A * A.transpose = 1 → (QuantumBlockEncoding.TensorTrainCanonical.complexCore A) * (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose = 1)",
+      "imports": [
+        "QuantumBlockEncoding.TensorTrainCanonical"
+      ],
+      "probe_id": "d883d091-46d3-4f97-9dd7-b560d53238f0"
+    },
+    {
+      "formal_statement": "∀ {l r : ℕ} (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r), A * A.transpose = 1 → (((QuantumBlockEncoding.TensorTrainCanonical.complexCore A) * (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose) * ((QuantumBlockEncoding.TensorTrainCanonical.complexCore A) * (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose) = (QuantumBlockEncoding.TensorTrainCanonical.complexCore A) * (QuantumBlockEncoding.TensorTrainCanonical.complexCore A).conjTranspose)",
+      "imports": [
+        "QuantumBlockEncoding.TensorTrainCanonical"
+      ],
+      "probe_id": "5a644ea9-ef08-4026-8c7b-90a9e6dc2481"
+    },
+    {
+      "formal_statement": "∀ {n : ℕ} (f : QuantumBlockEncoding.PrimitiveBasis (n + 1) → ℝ), QuantumBlockEncoding.RealAmplitudePreparation.normSq (QuantumBlockEncoding.RealAmplitudePreparation.marginal f) = QuantumBlockEncoding.RealAmplitudePreparation.normSq f",
+      "imports": [
+        "QuantumBlockEncoding.TensorTrainCanonical"
+      ],
+      "probe_id": "ce8fd401-a4af-4c95-bef4-cbc5b42c7314"
+    },
+    {
+      "formal_statement": "¬ (∀ (f g : QuantumBlockEncoding.PrimitiveBasis 1 → ℝ), QuantumBlockEncoding.RealAmplitudePreparation.marginal (fun w => f w + g w) = (fun b => QuantumBlockEncoding.RealAmplitudePreparation.marginal f b + QuantumBlockEncoding.RealAmplitudePreparation.marginal g b))",
+      "imports": [
+        "QuantumBlockEncoding.TensorTrainCanonical"
+      ],
+      "probe_id": "94f36e25-6def-4b77-8bf8-7056c2425df5"
+    },
+    {
+      "formal_statement": "∀ {coefficient : Type} {selector : Type} {system : Type} [Fintype coefficient] [DecidableEq coefficient] [Fintype selector] [DecidableEq selector] [Fintype system] [DecidableEq system] (permutation : selector → system ≃ system) (row column : system × (coefficient × selector)), Matrix.reindexAlgEquiv ℂ ℂ ((Equiv.prodAssoc coefficient selector system).symm.trans (Equiv.prodComm (coefficient × selector) system)) (QuantumBlockEncoding.Robin.ComplexLCU.selectLift permutation) row column = if row = (permutation column.2.2 column.1, (column.2.1, column.2.2)) then (1 : ℂ) else 0",
+      "imports": [
+        "QuantumBlockEncoding.Robin.ComplexLCU"
+      ],
+      "probe_id": "b1234a5b-fe27-4add-bbe4-cb130e138af6"
+    },
+    {
+      "formal_statement": "¬ (∀ (permutation : Bool → Bool ≃ Bool) (row column : Bool × (Bool × Bool)), Matrix.reindexAlgEquiv ℂ ℂ ((Equiv.prodAssoc Bool Bool Bool).symm.trans (Equiv.prodComm (Bool × Bool) Bool)) (QuantumBlockEncoding.Robin.ComplexLCU.selectLift permutation) row column = if row = (permutation column.2.1 column.1, (column.2.1, column.2.2)) then (1 : ℂ) else 0)",
+      "imports": [
+        "QuantumBlockEncoding.Robin.ComplexLCU"
+      ],
+      "probe_id": "93904687-6d03-43fe-b130-193a4f90ab4e"
+    },
+    {
+      "formal_statement": "∀ {coefficient : Type} {selector : Type} {system : Type} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [fx : Fintype system] [dx : DecidableEq system] (permutation : selector → system ≃ system), (@QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx (fun s => (permutation s).symm) * @QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx permutation = 1) ∧ (@QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx permutation * @QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx (fun s => (permutation s).symm) = 1)",
+      "imports": [
+        "QuantumBlockEncoding.Robin.ComplexLCU"
+      ],
+      "probe_id": "badaa09e-22b6-482f-b277-b0ab8c1f28e7"
+    },
+    {
+      "formal_statement": "¬ (∀ (permutation : Bool → Bool ≃ Bool), @QuantumBlockEncoding.Robin.ComplexLCU.selectLift Unit Bool Bool inferInstance inferInstance inferInstance (fun s => (permutation (!s)).symm) * @QuantumBlockEncoding.Robin.ComplexLCU.selectLift Unit Bool Bool inferInstance inferInstance inferInstance permutation = 1)",
+      "imports": [
+        "QuantumBlockEncoding.Robin.ComplexLCU"
+      ],
+      "probe_id": "9653f2d7-5af9-420b-a8af-30ad44c0f651"
+    },
+    {
+      "formal_statement": "¬ (∀ {coefficient : Type} {selector : Type} {system : Type} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [fx : Fintype system] [dx : DecidableEq system] (first second : selector → system ≃ system), @QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx first * @QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx second = @QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx (fun s => (first s).trans (second s)))",
+      "imports": [
+        "QuantumBlockEncoding.Robin.ComplexLCU"
+      ],
+      "probe_id": "976c9922-4202-4a48-a885-4d5a6d21656f"
+    },
+    {
+      "formal_statement": "∀ {coefficient : Type} {selector : Type} {system : Type} [fc : Fintype coefficient] [dc : DecidableEq coefficient] [fs : Fintype selector] [ds : DecidableEq selector] [fx : Fintype system] [dx : DecidableEq system] (first second : selector → system ≃ system), @QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx second * @QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx first = @QuantumBlockEncoding.Robin.ComplexLCU.selectLift coefficient selector system dc ds dx (fun s => (first s).trans (second s))",
+      "imports": [
+        "QuantumBlockEncoding.Robin.ComplexLCU"
+      ],
+      "probe_id": "d67d7a90-a228-4d10-b10a-2e2957f00cd2"
+    },
+    {
+      "formal_statement": "∀ (k : ℕ) (p q : Polynomial ℝ), p.natDegree ≤ 2 * k + 1 → q.natDegree ≤ 2 * k + 1 → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval (-1) = (Polynomial.derivative^[j] q).eval (-1)) → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval 0 = (Polynomial.derivative^[j] q).eval 0) → p = q",
+      "imports": [
+        "QuantumBlockEncoding.HermitePolynomial"
+      ],
+      "probe_id": "8a8bdc71-dcd2-42e9-a564-19b2d0530fdf"
+    },
+    {
+      "formal_statement": "¬ (∀ (k : ℕ) (p q : Polynomial ℝ), p.natDegree ≤ 2 * k + 2 → q.natDegree ≤ 2 * k + 2 → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval (-1) = (Polynomial.derivative^[j] q).eval (-1)) → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval 0 = (Polynomial.derivative^[j] q).eval 0) → p = q)",
+      "imports": [
+        "QuantumBlockEncoding.HermitePolynomial"
+      ],
+      "probe_id": "645ccfc8-9c4b-4e41-b51b-b330748fc34e"
+    }
+  ],
+  "lean_toolchain": "leanprover/lean4:v4.29.1",
+  "schema_version": "qcb.learning_formal_decoder_input.v1"
+}

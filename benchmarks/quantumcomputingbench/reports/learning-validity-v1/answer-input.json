@@ -1,0 +1,497 @@
+{
+  "items": [
+    {
+      "assumptions": [],
+      "conventions": [
+        "Equalities are exact. Fin n denotes the finite index set {0,...,n-1}; it is empty when n=0."
+      ],
+      "formal_coverage": "decision_polarity_only",
+      "probe_id": "2b3f25f2-db0a-4494-a887-14d7111eaf6a",
+      "question": "Let l,r be arbitrary natural numbers, possibly zero. Let A be a real l by (2r) matrix whose columns are indexed by (bit,new bond) in Fin 2 × Fin r, and assume AAᵀ=I_l. Define M(v)=∑_a v_a² for real row vectors. Proposition P: for every real row boundary v in R^l, M(vA)=M(v). Decide P and explain the input/output orientation and the role of normalization.",
+      "reference_answer": "P is true for every real v; no unit-norm premise is needed. The output coordinates of vA are (bit,new bond). Expanding their squared mass gives ∑_{a,c} v_a v_c ∑_out A_{a,out}A_{c,out}. The inner sum is (AAᵀ)_{a,c}=δ_{a,c}, so the result is ∑_a v_a². In circuit notation U_{out,a}=A_{a,out} viewed in C, so U has 2r output rows and l input columns; U†U=I_l. For real inputs U times the column v equals the transpose/cast of vA because scalar multiplication commutes. A normalized output follows only when M(v)=1. The mass identity itself includes arbitrary norm and the empty-index cases.",
+      "rubric": [
+        {
+          "criterion": "Expands the squared mass or equivalent Gram contraction and uses AAᵀ=I_l.",
+          "id": "criterion-1",
+          "weight": 1
+        },
+        {
+          "criterion": "Identifies old bond as input and (bit,new bond) as output; circuit U is the transposed/cast core.",
+          "id": "criterion-2",
+          "weight": 1
+        },
+        {
+          "criterion": "States equality for arbitrary signed v with no M(v)=1 premise.",
+          "id": "criterion-3",
+          "weight": 1
+        },
+        {
+          "criterion": "Distinguishes mass preservation from automatic unit normalization.",
+          "id": "criterion-4",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "assumptions": [],
+      "conventions": [
+        "Equalities are exact. Fin n denotes the finite index set {0,...,n-1}; it is empty when n=0."
+      ],
+      "formal_coverage": "decision_polarity_only",
+      "probe_id": "b0c5d76c-2aa7-4818-8009-c451c9c1081a",
+      "question": "Let l,r,A and M be as follows: A is a real matrix with old-bond rows Fin l and output columns Fin 2 × Fin r, AAᵀ=I_l, and M(w)=∑_i w_i². Proposition P: every real row boundary v satisfies M(vA)=1. No further assumption on v is supplied. Decide P, and if it fails give exact dimensions, entries and a boundary, then state the minimum extra premise or corrected conclusion.",
+      "reference_answer": "P is false. Take l=r=1 and A=[1,0], with columns (0,0),(1,0), and v=[2]. Then AAᵀ=[1], whereas vA=[2,0] has mass 4. The source interface gives M(vA)=M(v), which explains this failure without appealing to numerical rounding. Keep the arbitrary-input domain and replace 1 by M(v), or explicitly restrict v by M(v)=1. One must not silently add that normalization premise to a claim about every real v.",
+      "rubric": [
+        {
+          "criterion": "Gives AAᵀ=I for an exact finite witness.",
+          "id": "criterion-1",
+          "weight": 1
+        },
+        {
+          "criterion": "Calculates a nonunit output mass, e.g. 4 for v=[2].",
+          "id": "criterion-2",
+          "weight": 1
+        },
+        {
+          "criterion": "Diagnoses preservation of the existing norm rather than normalization of arbitrary input.",
+          "id": "criterion-3",
+          "weight": 1
+        },
+        {
+          "criterion": "Offers corrected equality for arbitrary v or explicitly states M(v)=1 as the additional premise.",
+          "id": "criterion-4",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "assumptions": [],
+      "conventions": [
+        "Equalities are exact. Fin n denotes the finite index set {0,...,n-1}; it is empty when n=0."
+      ],
+      "formal_coverage": "decision_polarity_only",
+      "probe_id": "87a548fd-6c07-4b71-a224-c374ec1005f5",
+      "question": "Let A be a real l × (2r) core, A_{a,(b,j)}, where a is the old bond, b∈Fin 2 the emitted bit and j∈Fin r the new bond. Assume AAᵀ=I_l. Form V with output rows ordered (new bond,bit) by V_{(j,b),a}=A_{a,(b,j)} as a complex number. Proposition P: V†V=I_l for arbitrary natural l,r. Decide P; explain exactly which register is permuted and whether a new normalization assumption is needed.",
+      "reference_answer": "P is true. V is (2r) × l: only its output labels have changed from (b,j) to (j,b). For old-bond columns a,c, (V†V)_{a,c}=∑_{j,b} A_{a,(b,j)}A_{c,(b,j)}. Reindex the finite sum using the bijection (j,b)↔(b,j). It becomes (AAᵀ)_{a,c}=δ_{a,c}. Realness removes conjugation. Thus an output-register permutation preserves column orthonormality. It neither exchanges input and output nor asserts equality of amplitudes at unchanged labels; the coordinate equation is V_{(j,b),a}=U_{(b,j),a}. No boundary normalization is involved, and zero dimensions remain allowed when the premise is satisfiable.",
+      "rubric": [
+        {
+          "criterion": "States V has output index (new bond,bit) and input index old bond.",
+          "id": "criterion-1",
+          "weight": 1
+        },
+        {
+          "criterion": "Expands V†V and performs the explicit output-pair swap bijection.",
+          "id": "criterion-2",
+          "weight": 1
+        },
+        {
+          "criterion": "Uses realness and AAᵀ=I_l to conclude the input Gram identity.",
+          "id": "criterion-3",
+          "weight": 1
+        },
+        {
+          "criterion": "Explains that preserved isometry does not imply unchanged coordinate entries or additional normalization.",
+          "id": "criterion-4",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "assumptions": [],
+      "conventions": [
+        "Equalities are exact. Fin n denotes the finite index set {0,...,n-1}; it is empty when n=0."
+      ],
+      "formal_coverage": "decision_polarity_only",
+      "probe_id": "c947872c-f1ae-4f09-9ff9-0d535c93b11c",
+      "question": "There is one old-bond basis vector, one two-level physical bit and one two-level new bond. Let A be a real 1 × 4 row, indexed by (bit,new bond), with AAᵀ=[1]. Define U_{(b,j),0}=A_{0,(b,j)} as complex entries, and define V_{(j,b),0}=A_{0,(b,j)}. Both ordered output sets happen to be Fin 2 × Fin 2. Proposition P: V=U as matrices with the same literal pair labels, for every such A. Decide P, including an exact witness if needed and the correct relationship between entries.",
+      "reference_answer": "P is false even though both matrices have orthonormal columns. Put A_{0,(1,0)}=1 and every other entry 0. Its row mass is one. U is supported on output label (1,0), whereas V is supported on label (0,1). At literal label (0,1), V has entry 1 and U has entry 0, so V≠U. The valid relation is V_{(j,b),0}=U_{(b,j),0}; as operators, V is obtained by applying the output-register swap permutation to U. Swapping factors preserves the Gram matrix, but the output state generally changes when read at fixed pair labels.",
+      "rubric": [
+        {
+          "criterion": "Provides any exact real 1-by-4 row satisfying AAᵀ=[1] under the stated indexing.",
+          "id": "criterion-1",
+          "weight": 1
+        },
+        {
+          "criterion": "Exhibits a fixed-label entry or an equivalent exact mathematical certificate showing V differs from U; any admissible witness is accepted.",
+          "id": "criterion-2",
+          "weight": 1
+        },
+        {
+          "criterion": "Distinguishes isometry from coordinate-wise invariance.",
+          "id": "criterion-3",
+          "weight": 1
+        },
+        {
+          "criterion": "States the swapped-label relationship or output-permutation composition.",
+          "id": "criterion-4",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "assumptions": [],
+      "conventions": [
+        "Equalities are exact. Fin n denotes the finite index set {0,...,n-1}; it is empty when n=0."
+      ],
+      "formal_coverage": "decision_polarity_only",
+      "probe_id": "d883d091-46d3-4f97-9dd7-b560d53238f0",
+      "question": "For arbitrary natural l,r let A be a real l × (2r) matrix with AAᵀ=I_l. Let U have output rows (bit,new bond)∈Fin 2 × Fin r and input columns a∈Fin l, with U_{out,a}=A_{a,out} embedded in C. Proposition P: UU†=I_(Fin 2 × Fin r). Decide P; give an exact finite witness if it fails and explain the dimension and physical-register issue.",
+      "reference_answer": "P is false. With l=r=1, take A=[1,0]. Then U=(1,0)ᵀ is a 2 × 1 embedding. U†U=[1] on the one-dimensional input, but UU†=diag(1,0), not I_2: the output (bit=1,new bond=0) diagonal entry is 0 rather than 1. Column orthonormality guarantees an isometric embedding of the input into the output; it does not imply surjectivity onto the entire output space. UU† is the orthogonal projection onto the range of U. For a square U, U†U=I does imply UU†=I in finite dimensions, but rectangular cores in this statement are not square in general.",
+      "rubric": [
+        {
+          "criterion": "Provides exact admissible dimensions and a core with AAᵀ=I_l and correctly oriented U†U=I_l.",
+          "id": "criterion-1",
+          "weight": 1
+        },
+        {
+          "criterion": "Proves UU† differs from the identity on the output space, using any valid entry, vector, kernel, rank or equivalent exact certificate.",
+          "id": "criterion-2",
+          "weight": 1
+        },
+        {
+          "criterion": "Names the identity spaces correctly: U†U acts on input, UU† on output.",
+          "id": "criterion-3",
+          "weight": 1
+        },
+        {
+          "criterion": "Repairs by the range projection statement, or by explicitly imposing square/surjective finite-dimensional conditions.",
+          "id": "criterion-4",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "assumptions": [],
+      "conventions": [
+        "Equalities are exact. Fin n denotes the finite index set {0,...,n-1}; it is empty when n=0."
+      ],
+      "formal_coverage": "decision_polarity_only",
+      "probe_id": "5a644ea9-ef08-4026-8c7b-90a9e6dc2481",
+      "question": "Let l,r be arbitrary natural numbers and A a real core indexed by old bond a and output (bit,new bond), with AAᵀ=I_l. Define U_{out,a}=A_{a,out} in C and define Q=UU†, a square matrix on the output space. Proposition P: Q²=Q. Decide P and explain whether this condition asserts Q=I or unitary state preparation on the full output register.",
+      "reference_answer": "P is true. The source orientation gives U†U=I_l. By associativity, Q²=(UU†)(UU†)=U(U†U)U†=UI_lU†=UU†=Q. Also Q†=Q follows from conjugate-transpose rules, and Q fixes each vector Ux while mapping every output vector into range(U). Hence it is the orthogonal projection onto that range. Idempotence alone does not say Q=I; the rectangular embedding U=(1,0)ᵀ yields Q=diag(1,0). The displayed Lean target certifies idempotence; the Hermitian/range explanation and any circuit completion claim have separate scope. No additional normalized state boundary is needed.",
+      "rubric": [
+        {
+          "criterion": "Invokes or derives the correctly oriented U†U=I_l.",
+          "id": "criterion-1",
+          "weight": 1
+        },
+        {
+          "criterion": "Derives Q²=Q by a valid argument using the isometry condition, such as U(U†U)U† or the fact that Q maps into and fixes range(U).",
+          "id": "criterion-2",
+          "weight": 1
+        },
+        {
+          "criterion": "States idempotence without inferring Q=I.",
+          "id": "criterion-3",
+          "weight": 1
+        },
+        {
+          "criterion": "Explains the range projection meaning and its boundary; does not claim an efficient completion/compiler.",
+          "id": "criterion-4",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "assumptions": [],
+      "conventions": [
+        "Equalities are exact. Fin n denotes the finite index set {0,...,n-1}; it is empty when n=0."
+      ],
+      "formal_coverage": "decision_polarity_only",
+      "probe_id": "ce8fd401-a4af-4c95-bef4-cbc5b42c7314",
+      "question": "Let f be any real amplitude table on n+1 binary wires, with no positivity or normalization assumption. For an n-bit prefix b define m(f)(b)=sqrt(f(b,0)²+f(b,1)²), where (b,v) means appending last bit v. For any table g define N(g)=∑_w g(w)². Proposition P: N(m(f))=N(f) for all natural n and all such f. Decide P and explain the precise normalization invariant it supplies to a recursive loader.",
+      "reference_answer": "P is true for arbitrary signed and unnormalized real f. The radicand is nonnegative, so m(f)(b)²=f(b,0)²+f(b,1)². Sum over prefixes. Every (n+1)-bit word is uniquely (b,v) with v∈{0,1}, and reindexing along this bijection yields N(m(f))=N(f). Therefore N(f)=1 propagates to the marginal whenever it is actually assumed, and the equality also preserves any other squared norm. This is a nonlinear length-table reduction; it does not retain signed amplitudes or itself specify a linear quantum evolution. A recursive preparation circuit uses additional signed splitting data to reconstruct them.",
+      "rubric": [
+        {
+          "criterion": "Uses nonnegativity of the sum of two squares to square the square root.",
+          "id": "criterion-1",
+          "weight": 1
+        },
+        {
+          "criterion": "Reindexes all full words by prefix and last bit, including both last-bit cases.",
+          "id": "criterion-2",
+          "weight": 1
+        },
+        {
+          "criterion": "Retains arbitrary signed and unnormalized source domain.",
+          "id": "criterion-3",
+          "weight": 1
+        },
+        {
+          "criterion": "States conditional unit-normalization propagation and distinguishes the nonlinear table reduction from a linear state map.",
+          "id": "criterion-4",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "assumptions": [],
+      "conventions": [
+        "Equalities are exact. Fin n denotes the finite index set {0,...,n-1}; it is empty when n=0."
+      ],
+      "formal_coverage": "decision_polarity_only",
+      "probe_id": "94f36e25-6def-4b77-8bf8-7056c2425df5",
+      "question": "On one binary wire identify a real table f with the pair (f(0),f(1)). Its zero-wire marginal m(f) is the one-entry table with value sqrt(f(0)²+f(1)²). Addition of tables is entrywise. Proposition P: for every real one-wire f,g, m(f+g)=m(f)+m(g). Decide P; explain what your result says about treating the norm-preserving marginal pass as a linear circuit isometry.",
+      "reference_answer": "P is false. Take f=(1,0), g=(-1,0). Then f+g=(0,0), so m(f+g)=0, but m(f)=m(g)=1 and m(f)+m(g)=2. All values are exact; each of the two inputs separately has squared norm one. Thus norm preservation does not imply additivity or a linear isometry. The marginal loses sign information (m(-f)=m(f)); it is a nonlinear preprocessing map on amplitude descriptions. The correct source claim is squared-norm equality for each table, not linear evolution under addition. Even restricting to normalized inputs would not define a linear subspace; unit-norm inputs in this witness already expose the inappropriate linear-map claim.",
+      "rubric": [
+        {
+          "criterion": "Provides any exact real one-wire tables f and g with a demonstrable failure of marginal additivity.",
+          "id": "criterion-1",
+          "weight": 1
+        },
+        {
+          "criterion": "Checks the two marginal expressions or an equivalent exact inequality and proves they differ; the reference pair and values are examples rather than required answers.",
+          "id": "criterion-2",
+          "weight": 1
+        },
+        {
+          "criterion": "Distinguishes pointwise norm preservation from additivity/linearity and sign retention.",
+          "id": "criterion-3",
+          "weight": 1
+        },
+        {
+          "criterion": "Repairs to the squared-norm invariant and explains why this preprocessing map cannot itself be the linear circuit state-action.",
+          "id": "criterion-4",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "assumptions": [],
+      "conventions": [
+        "Equalities are exact. Fin n denotes the finite index set {0,...,n-1}; it is empty when n=0."
+      ],
+      "formal_coverage": "decision_polarity_only",
+      "probe_id": "b1234a5b-fe27-4add-bbe4-cb130e138af6",
+      "question": "Use exact complex amplitudes and column vectors. For finite sets C, S, X and a family p assigning a bijection p_s:X→X to every s∈S, the basis is A=C×(S×X). The controlled map is F_p(c,(s,x))=(c,(s,p_s(x))). The SELECT matrix is U_p(r,k)=1 if r=F_p(k), and 0 otherwise. Thus coefficient c and selector s are preserved, and no ancilla is added. All statements are exact equalities of matrices over ℂ; finite sets may be empty unless a concrete set is specified. Put D=X×(C×S), and let J(c,(s,x))=(x,(c,s)). Define U'_p(r,k)=U_p(J⁻¹(r),J⁻¹(k)). Proposition: for every C,S,X,p and every r,k∈D, U'_p(r,k)=1 exactly when r=(p_{k.2.2}(k.1),(k.2.1,k.2.2)), and it is 0 otherwise. Decide whether the stated proposition is valid under exactly the supplied assumptions. Give a mathematical reason. If it is invalid, give an exact finite basis witness and state a repair; distinguish the original proposition from the repair.",
+      "reference_answer": "J⁻¹(x,(c,s))=(c,(s,x)). Therefore J F_p J⁻¹(x,(c,s))=(p_s(x),(c,s)). Reindexing both matrix indices gives exactly the proposed indicator. The inverse on D is (x,(c,s))↦(p_s⁻¹(x),(c,s)); the selector is the third component in D, and both c and s remain preserved. The proof is uniform in all finite C,S,X, including empty carriers.",
+      "rubric": [
+        {
+          "criterion": "Reconstructs J inverse and the conjugated controlled action without moving the control to the wrong register.",
+          "id": "criterion-1",
+          "weight": 1
+        },
+        {
+          "criterion": "Identifies the coefficient and selector components that are preserved.",
+          "id": "criterion-2",
+          "weight": 1
+        },
+        {
+          "criterion": "Derives the exact row/column indicator amplitude, including the zero case.",
+          "id": "criterion-3",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "assumptions": [],
+      "conventions": [
+        "Equalities are exact. Fin n denotes the finite index set {0,...,n-1}; it is empty when n=0."
+      ],
+      "formal_coverage": "decision_polarity_only",
+      "probe_id": "93904687-6d03-43fe-b130-193a4f90ab4e",
+      "question": "Use exact complex amplitudes and column vectors. For finite sets C, S, X and a family p assigning a bijection p_s:X→X to every s∈S, the basis is A=C×(S×X). The controlled map is F_p(c,(s,x))=(c,(s,p_s(x))). The SELECT matrix is U_p(r,k)=1 if r=F_p(k), and 0 otherwise. Thus coefficient c and selector s are preserved, and no ancilla is added. All statements are exact equalities of matrices over ℂ; finite sets may be empty unless a concrete set is specified. Set C=S=X={false,true}. Put D=X×(C×S), J(c,(s,x))=(x,(c,s)), and U'_p(r,k)=U_p(J⁻¹(r),J⁻¹(k)). Proposition: for every family p and all r,k∈D, U'_p(r,k)=1 exactly when r=(p_{k.2.1}(k.1),(k.2.1,k.2.2)), and it is 0 otherwise. Decide whether the stated proposition is valid under exactly the supplied assumptions. Give a mathematical reason. If it is invalid, give an exact finite basis witness and state a repair; distinguish the original proposition from the repair.",
+      "reference_answer": "Let p_false=id and p_true=X, where X exchanges false and true. For input k=(false,(true,false)) the actual control is selector false, so J F_p J⁻¹(k)=k. At r=(true,(true,false)), the actual amplitude is 0, while the proposed formula uses coefficient true as its control and returns 1. Repair k.2.1 to k.2.2 in the permutation subscript. This witness refutes the universal formula; it does not claim that every family distinguishes the two control wires.",
+      "rubric": [
+        {
+          "criterion": "Rejects the proposition using an explicit family and a concrete input/output basis pair.",
+          "id": "criterion-1",
+          "weight": 1
+        },
+        {
+          "criterion": "Computes unequal transition amplitudes, rather than citing a type error.",
+          "id": "criterion-2",
+          "weight": 1
+        },
+        {
+          "criterion": "Repairs the selector lookup to the appropriate transported component; distinguishes relabeling from a different controlled operator.",
+          "id": "criterion-3",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "assumptions": [],
+      "conventions": [
+        "Equalities are exact. Fin n denotes the finite index set {0,...,n-1}; it is empty when n=0."
+      ],
+      "formal_coverage": "decision_polarity_only",
+      "probe_id": "badaa09e-22b6-482f-b277-b0ab8c1f28e7",
+      "question": "Use exact complex amplitudes and column vectors. For finite sets C, S, X and a family p assigning a bijection p_s:X→X to every s∈S, the basis is A=C×(S×X). The controlled map is F_p(c,(s,x))=(c,(s,p_s(x))). The SELECT matrix is U_p(r,k)=1 if r=F_p(k), and 0 otherwise. Thus coefficient c and selector s are preserved, and no ancilla is added. All statements are exact equalities of matrices over ℂ; finite sets may be empty unless a concrete set is specified. For every s put q_s=(p_s)⁻¹. Proposition: for every C,S,X,p, both U_q U_p=I_A and U_p U_q=I_A. Decide whether the stated proposition is valid under exactly the supplied assumptions. Give a mathematical reason. If it is invalid, give an exact finite basis witness and state a repair; distinguish the original proposition from the repair.",
+      "reference_answer": "On every basis state, F_q F_p(c,(s,x))=(c,(s,p_s⁻¹(p_s(x))))=(c,(s,x)); the reverse composite similarly uses p_s(p_s⁻¹(x))=x. Both composites read the preserved selector s. A matrix with column k equal to |F(k)⟩ composes as U_g U_f=U_{g∘f}; hence both matrix products equal I_A. This is a generic theorem, not inference from a few finite examples.",
+      "rubric": [
+        {
+          "criterion": "Uses the same preserved selector for the inverse family.",
+          "id": "criterion-1",
+          "weight": 1
+        },
+        {
+          "criterion": "Explains both forward/inverse composites, not only one matrix entry.",
+          "id": "criterion-2",
+          "weight": 1
+        },
+        {
+          "criterion": "Keeps matrix multiplication chronology and coefficient preservation consistent.",
+          "id": "criterion-3",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "assumptions": [],
+      "conventions": [
+        "Equalities are exact. Fin n denotes the finite index set {0,...,n-1}; it is empty when n=0."
+      ],
+      "formal_coverage": "decision_polarity_only",
+      "probe_id": "9653f2d7-5af9-420b-a8af-30ad44c0f651",
+      "question": "Use exact complex amplitudes and column vectors. For finite sets C, S, X and a family p assigning a bijection p_s:X→X to every s∈S, the basis is A=C×(S×X). The controlled map is F_p(c,(s,x))=(c,(s,p_s(x))). The SELECT matrix is U_p(r,k)=1 if r=F_p(k), and 0 otherwise. Thus coefficient c and selector s are preserved, and no ancilla is added. All statements are exact equalities of matrices over ℂ; finite sets may be empty unless a concrete set is specified. Set C={*}, S=X={false,true}. For every s define q_s=(p_{not s})⁻¹ while still preserving the selector. Proposition: for every family p, U_q U_p=I_A. Decide whether the stated proposition is valid under exactly the supplied assumptions. Give a mathematical reason. If it is invalid, give an exact finite basis witness and state a repair; distinguish the original proposition from the repair.",
+      "reference_answer": "Take p_false=id and p_true=X. The normalized basis state |*,false,false⟩ is unchanged by U_p but then q_false=(p_true)⁻¹=X sends it to |*,false,true⟩. The product has amplitude 1 at that output, where I_A has amplitude 0. Repair q_s to p_s⁻¹. More generally a lookup τ works on every basis state exactly when p_{τ(s)}=p_s for every s. Different labels may name equal permutations: the assertion that every different label necessarily fails is also unjustified.",
+      "rubric": [
+        {
+          "criterion": "Provides any admissible permutation family and exact basis or equivalent operator witness showing the wrong-lookup product differs from identity; diagonal and off-diagonal certificates are both valid.",
+          "id": "criterion-1",
+          "weight": 1
+        },
+        {
+          "criterion": "Explains why a changed lookup is not generally an inverse.",
+          "id": "criterion-2",
+          "weight": 1
+        },
+        {
+          "criterion": "States a valid repair, such as using the same selector or a justified equal-permutation lookup; does not claim that different selector labels necessarily fail.",
+          "id": "criterion-3",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "assumptions": [],
+      "conventions": [
+        "Equalities are exact. Fin n denotes the finite index set {0,...,n-1}; it is empty when n=0."
+      ],
+      "formal_coverage": "decision_polarity_only",
+      "probe_id": "976c9922-4202-4a48-a885-4d5a6d21656f",
+      "question": "Use exact complex amplitudes and column vectors. For finite sets C, S, X and a family p assigning a bijection p_s:X→X to every s∈S, the basis is A=C×(S×X). The controlled map is F_p(c,(s,x))=(c,(s,p_s(x))). The SELECT matrix is U_p(r,k)=1 if r=F_p(k), and 0 otherwise. Thus coefficient c and selector s are preserved, and no ancilla is added. All statements are exact equalities of matrices over ℂ; finite sets may be empty unless a concrete set is specified. Let p and q be two such families over the same S,X. For each s define r_s=q_s∘p_s, so r means first apply p_s and then q_s. Proposition: for every C,S,X,p,q, U_p U_q=U_r. Decide whether the stated proposition is valid under exactly the supplied assumptions. Give a mathematical reason. If it is invalid, give an exact finite basis witness and state a repair; distinguish the original proposition from the repair.",
+      "reference_answer": "Use C={*}, S={false,true}, X={0,1,2}. On selector false let p exchange 0 and 1 and let q exchange 1 and 2; on selector true let both be identity. From |*,false,0⟩, U_r gives |*,false,2⟩, while U_p U_q applies q first and gives |*,false,1⟩. At row |*,false,2⟩ and the given input column the two amplitudes are 1 and 0. Repair the product to U_q U_p, or change r_s to p_s∘q_s. A two-level system alone would miss this mechanism because its permutations commute.",
+      "rubric": [
+        {
+          "criterion": "Uses an explicit noncommuting family, with chronological images and a concrete matrix-entry mismatch.",
+          "id": "criterion-1",
+          "weight": 1
+        },
+        {
+          "criterion": "Rejects the universal order claim without assuming all permutations commute.",
+          "id": "criterion-2",
+          "weight": 1
+        },
+        {
+          "criterion": "States a mathematically valid repaired composition convention, such as reversing the matrix-product order or changing the composite family consistently; makes the resulting chronology explicit and distinguishes the repair from the false original.",
+          "id": "criterion-3",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "assumptions": [],
+      "conventions": [
+        "Equalities are exact. Fin n denotes the finite index set {0,...,n-1}; it is empty when n=0."
+      ],
+      "formal_coverage": "decision_polarity_only",
+      "probe_id": "d67d7a90-a228-4d10-b10a-2e2957f00cd2",
+      "question": "Use exact complex amplitudes and column vectors. For finite sets C, S, X and a family p assigning a bijection p_s:X→X to every s∈S, the basis is A=C×(S×X). The controlled map is F_p(c,(s,x))=(c,(s,p_s(x))). The SELECT matrix is U_p(r,k)=1 if r=F_p(k), and 0 otherwise. Thus coefficient c and selector s are preserved, and no ancilla is added. All statements are exact equalities of matrices over ℂ; finite sets may be empty unless a concrete set is specified. Let p and q be two such families over the same S,X. For each s define r_s=q_s∘p_s, so r means first apply p_s and then q_s. Proposition: for every C,S,X,p,q, U_q U_p=U_r. Decide whether the stated proposition is valid under exactly the supplied assumptions. Give a mathematical reason. If it is invalid, give an exact finite basis witness and state a repair; distinguish the original proposition from the repair.",
+      "reference_answer": "F_q(F_p(c,(s,x)))=(c,(s,q_s(p_s(x))))=F_r(c,(s,x)). In the matrix entry (U_q U_p)(a,b), the U_p factor is nonzero only at the intermediate basis label k=F_p(b); the surviving U_q entry is 1 exactly when a=F_q(F_p(b)). Thus the product is U_r, with p applied first on column vectors. No commutativity assumption is present.",
+      "rubric": [
+        {
+          "criterion": "Derives the chronological basis-map composition.",
+          "id": "criterion-1",
+          "weight": 1
+        },
+        {
+          "criterion": "Connects that map to the column-vector permutation matrix product in the correct order.",
+          "id": "criterion-2",
+          "weight": 1
+        },
+        {
+          "criterion": "Keeps the selector unchanged in both stages and preserves the coefficient register.",
+          "id": "criterion-3",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "assumptions": [
+        "k is an arbitrary natural number, including zero; p and q are arbitrary real-coefficient polynomials, including the zero polynomial.",
+        "For every natural j with 0≤j≤k, the j-th ordinary derivatives of p and q agree at -1 and also agree at 0.",
+        "Both p and q have degree at most 2k+1 under the stated zero-polynomial convention."
+      ],
+      "conventions": [
+        "Real polynomials and ordinary derivatives; the zero polynomial is allowed and satisfies the nonnegative degree bounds."
+      ],
+      "formal_coverage": "decision_polarity_only",
+      "probe_id": "8a8bdc71-dcd2-42e9-a564-19b2d0530fdf",
+      "question": "Proposition P: for every natural number k and all real-coefficient polynomials p and q, if both have degree at most 2k+1, and all their ordinary derivatives of orders 0 through k agree at -1 and agree at 0, then p=q. Is P valid under the assumptions and conventions below?",
+      "reference_answer": "P is valid. Set d=p-q. Equality of all ordinary derivatives through k at a point a means that (x-a)^(k+1) divides d: the degree-j Taylor coefficient is d^(j)(a)/j!, and the factorial is nonzero over the reals. Thus (x+1)^(k+1) and x^(k+1) both divide d. The two factors are coprime since x+1 and x differ by the unit1, so their product divides d. This product has degree2k+2, whereas d has degree at most2k+1. A nonzero multiple cannot have smaller degree than its divisor, so d=0 and p=q. If d=0 already, this last conclusion is immediate. The assertion includes k=0 and zero input polynomials; it asserts uniqueness, not existence.",
+      "rubric": [
+        {
+          "criterion": "Respects arbitrary real polynomials, natural k including0, both degree bounds, exactly endpoints-1/0 and ordinary derivatives j=0..k.",
+          "id": "criterion-1",
+          "weight": 1
+        },
+        {
+          "criterion": "Justifies how the two endpoint jet constraints control the polynomial difference, through multiplicity/divisibility, root counting or an equivalent rigorous uniqueness argument.",
+          "id": "criterion-2",
+          "weight": 1
+        },
+        {
+          "criterion": "Correctly uses the stated degree bound to exclude a nonzero difference, or gives a complete mathematically equivalent uniqueness proof under that bound.",
+          "id": "criterion-3",
+          "weight": 1
+        },
+        {
+          "criterion": "Proves the full universally quantified conclusion under its premises; a single positive example or a failed check cannot establish the universal law.",
+          "id": "criterion-4",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "assumptions": [
+        "k is an arbitrary natural number, including zero; p and q are arbitrary real-coefficient polynomials, including the zero polynomial.",
+        "For every natural j with 0≤j≤k, the j-th ordinary derivatives of p and q agree at -1 and also agree at 0.",
+        "Both p and q have degree at most 2k+2 under the stated zero-polynomial convention."
+      ],
+      "conventions": [
+        "Real polynomials and ordinary derivatives; the zero polynomial is allowed and satisfies the nonnegative degree bounds."
+      ],
+      "formal_coverage": "decision_polarity_only",
+      "probe_id": "645ccfc8-9c4b-4e41-b51b-b330748fc34e",
+      "question": "Proposition P: for every natural number k and all real-coefficient polynomials p and q, if both have degree at most 2k+2, and all their ordinary derivatives of orders 0 through k agree at -1 and agree at 0, then p=q. Is P valid under the assumptions and conventions below?",
+      "reference_answer": "P is invalid. For every natural k and every nonzero real c, choose p(x)=c*x^(k+1)*(x+1)^(k+1) and q(x)=0. The polynomial p is nonzero and has exact degree2k+2 because its leading coefficient is c. Each endpoint is a root of multiplicity at least k+1, so every derivative of order0 through k vanishes at both-1 and0. Hence p and q satisfy both degree bounds and both endpoint jet-equality hypotheses, but p≠q. Already k=0,c=1 gives p=x(x+1),q=0. The degree allowance2k+2 permits a nonzero multiple of the two endpoint multiplicity factors; divisibility and coprimality still hold. Restoring both bounds to2k+1 repairs universal uniqueness. More precisely, at allowance2k+2 any two polynomials with equal jets differ by a constant multiple of x^(k+1)*(x+1)^(k+1); the parameterized counterexample exhibits this missing freedom. That final classification is explanatory mathematics, not an additional certified root in this packet.",
+      "rubric": [
+        {
+          "criterion": "Respects arbitrary real polynomials, natural k including0, both degree bounds, exactly endpoints-1/0 and ordinary derivatives j=0..k.",
+          "id": "criterion-1",
+          "weight": 1
+        },
+        {
+          "criterion": "Checks every required endpoint derivative equality for the chosen counterexample and k, by direct computation, justified multiplicity or an equivalent argument.",
+          "id": "criterion-2",
+          "weight": 1
+        },
+        {
+          "criterion": "Verifies the allowed degree bounds and non-equality, and explains the role of the extra degree. A single admissible exact witness is sufficient; an all-k family is an additional valid route.",
+          "id": "criterion-3",
+          "weight": 1
+        },
+        {
+          "criterion": "Uses an exact admissible counterexample and respects the scope of the negated universal statement; neither a compiler failure nor a claim that every instance fails is a substitute.",
+          "id": "criterion-4",
+          "weight": 1
+        }
+      ]
+    }
+  ],
+  "schema_version": "qcb.learning_answer_review_input.v1",
+  "source_comparison_digest": "fbb347bb1524fdb8fdaf0c1ff2da278c374de6064c1e62d329f64d215061d4be",
+  "source_input_digest": "74b1be59f43b938321d86a861a16a0800abca2ed3c86b0623e5d41a597cb2755"
+}
