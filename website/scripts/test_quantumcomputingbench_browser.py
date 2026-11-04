@@ -6,9 +6,9 @@ import argparse
 import functools
 import http.server
 import json
-from pathlib import Path
 import sys
 import threading
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
@@ -28,14 +28,16 @@ def run(root, output, channel=None):
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
     base = f"http://127.0.0.1:{server.server_port}/"
-    rows, formal_rows, withdrawal_rows, revision_rows, course_rows, failures = [], [], [], [], [], []
+    rows, formal_rows, withdrawal_rows, revision_rows, course_rows, diagnostic_rows, failures = [], [], [], [], [], [], []
     checks = {k: False for k in ("mobile_no_overflow", "desktop_no_overflow", "themes", "solution_disclosure", "graph_links", "search_excludes_answers", "native_formal_panels", "quarantined_content_excluded", "question_revision_lineage", "convention_revision_lineage", "assumption_revision_lineage")}
+    checks.update(semantic_diagnostics_closed=False, semantic_diagnostic_panels=False)
     core_route = HUB + "cores/" + catalog["cores"][0]["core_id"] + "/index.html"
     routes = [HUB + "index.html", HUB + "non-lean/index.html", HUB + "lean/index.html",
               HUB + "non-lean/state-preparation/structured_preparation/index.html",
               HUB + "lean/warmups/index.html", core_route, HUB + "course/index.html",
               HUB + "course/d0/index.html", HUB + "course/d2/index.html",
               HUB + "course/d4/index.html", HUB + "reasoning/index.html"]
+    routes += manifest["public_semantic_diagnostics"]["routes"]
     try:
         with sync_playwright() as p:
             browser = p.chromium.launch(channel=channel)
@@ -65,6 +67,36 @@ def run(root, output, channel=None):
                                 failures.append("expanded solution overflow")
                         page.screenshot(path=str(output / f"reader-{n}-{width}-{theme}.png"), full_page=False)
                         rows.append({"route": route, "width": width, "theme": theme})
+            # Every new semantic question, with the actual expanded formal proof.
+            for width in (390, 1280):
+                page.set_viewport_size({"width": width, "height": 900})
+                for theme in THEMES:
+                    for cluster, expected in manifest["public_semantic_diagnostics"]["clusters"].items():
+                        route = HUB + "diagnostics/" + cluster + "/index.html"
+                        page.goto(base + route, wait_until="networkidle")
+                        page.evaluate("t => document.documentElement.dataset.theme = t", theme)
+                        if page.locator('.qcb-disclosure[open]').count():
+                            failures.append("diagnostic answers exposed by default: " + route)
+                        probes = page.locator('[data-qcb-diagnostic]')
+                        if probes.count() != expected:
+                            failures.append("diagnostic questions missing: " + route)
+                        for n in range(probes.count()):
+                            probe = probes.nth(n)
+                            probe_id = probe.get_attribute('data-qcb-diagnostic')
+                            opened = True
+                            for kind in ('answer', 'rubric', 'formal', 'proof'):
+                                panel = page.locator('#' + kind + '-' + probe_id)
+                                panel.locator(':scope > summary').focus()
+                                page.keyboard.press('Enter')
+                                if panel.get_attribute('open') is None:
+                                    opened = False
+                                    failures.append("diagnostic keyboard disclosure failed: " + kind + '-' + probe_id)
+                            if (not probe.locator('[data-qcb-diagnostic-target]').is_visible()
+                                    or page.evaluate("document.documentElement.scrollWidth > innerWidth + 2")):
+                                failures.append("expanded diagnostic target/proof overflow or hidden: " + probe_id)
+                            diagnostic_rows.append({'probe_id': probe_id, 'width': width, 'theme': theme,
+                                                    'four_panels_opened': opened})
+                        page.screenshot(path=str(output / f"diagnostic-{cluster}-{width}-{theme}.png"), full_page=False)
             # Every core, not merely one flattering sample: folded defaults and layout.
             # Optional course deep-links open only the selected panel, with all inputs.
             from website.scripts.quantumcomputingbench import course_reader
@@ -217,7 +249,7 @@ def run(root, output, channel=None):
             browser.close()
         if not failures:
             checks = {key: True for key in checks}
-    except Exception as error:
+    except Exception as error:  # noqa: BLE001 -- retain browser failure evidence, then fail the gate.
         failures.append(type(error).__name__ + ": " + str(error))
     finally:
         server.shutdown()
@@ -230,6 +262,7 @@ def run(root, output, channel=None):
               "withdrawal_notice_checks": withdrawal_rows,
               "question_revision_checks": revision_rows,
               "experimental_course_panel_checks": course_rows,
+              "semantic_diagnostic_panel_checks": diagnostic_rows,
               "failures": failures, "manual_visual_review": "not asserted by this script",
               "question_only_search": "Exact question summaries checked by check_site; reference answers are not indexed."}
     (output / "browser-report.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")

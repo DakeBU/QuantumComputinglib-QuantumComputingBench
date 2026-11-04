@@ -3,16 +3,16 @@
 from __future__ import annotations
 
 import argparse
-from collections import Counter
-from copy import deepcopy
 import hashlib
 import html
 import json
-from pathlib import Path, PurePosixPath
 import re
 import shutil
-from functools import lru_cache
 import sys
+from collections import Counter
+from copy import deepcopy
+from functools import lru_cache
+from pathlib import Path, PurePosixPath
 from urllib.parse import quote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -20,7 +20,7 @@ B = ROOT / "benchmarks/quantumcomputingbench"
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(B / "src"))
 from qcb_core import digest, read_json, write_json
-from qcb_curriculum import load_catalog, stable_readiness, reader_source_digest
+from qcb_curriculum import load_catalog, reader_source_digest, stable_readiness
 from qcb_integrity import text_sha
 from qcb_textbook_policy import public_reader_item
 
@@ -92,6 +92,172 @@ def course_reader():
     from lean_course_v3 import load_course
     plan, views, _, _, report = load_course()
     return plan, views, report
+
+
+DIAGNOSTIC_CLUSTERS = {
+    "state_core_isometry_and_mass": (
+        "Core orientation, mass and isometry",
+        "Track the input bond and the output registers through statements about mass, normalization and matrix orientation.",
+        "ᵀ denotes transpose, † denotes conjugate transpose, and I_l is the identity on l coordinates. Old bond, physical bit and new bond name distinct index registers.",
+        ("Mass and normalization", "Changing output order", "Operators on the output space")),
+    "state_marginal_norm_and_linearity": (
+        "Marginal amplitudes and linearity",
+        "Compare an amplitude table with its last-bit marginal, checking both the norm statement and the proposed linear action.",
+        "An n-bit prefix b records all but the last wire; (b,v) appends the bit v. The square root is the nonnegative real square root.",
+        ("A last-bit marginal",)),
+    "controlled_permutation_semantics": (
+        "Controlled permutations and register order",
+        "Follow the selector and coefficient through basis relabeling, inverse maps and chronological composition.",
+        "For k=(x,(c,s)), k.1=x, k.2.1=c and k.2.2=s. A matrix entry uses an output row and an input column. The stated column-vector convention fixes how matrix products act.",
+        ("Relabeling a controlled register", "A selector and its inverse", "Chronological composition")),
+    "hermite_endpoint_multiplicity": (
+        "Endpoint jets and the degree boundary",
+        "Compare matching endpoint derivative data under two different degree budgets.",
+        "Derivative order zero means the polynomial itself. Higher orders are ordinary repeated derivatives. Each degree bound applies separately to p and q.",
+        ("Two degree budgets",)),
+}
+
+
+def diagnostic_reader():
+    """Requalify the actual public cohort on every publication/check, without cache."""
+    from qcb_learning_reference import qualify
+    from qcb_learning_validity import load_cohort
+    packet, _ = load_cohort()
+    qualification = qualify(packet)
+    if (qualification.get("status") != "PUBLIC_SEMANTIC_REFERENCE_PILOT_QUALIFIED"
+            or qualification.get("cohort_digest") != digest(packet)
+            or qualification.get("formal_coverage") != "decision_polarity_only"
+            or qualification.get("actual_model_performance_measured") is not False
+            or qualification.get("learning_gain") is not None or qualification.get("hidden_holdout") is not False
+            or qualification.get("canonical_admissions_changed") is not False):
+        raise ValueError("diagnostic reader requires the actual content-bound reference qualification")
+    if {p["cluster_id"] for p in packet["probes"]} != set(DIAGNOSTIC_CLUSTERS):
+        raise ValueError("diagnostic reader cluster coverage needs an explicit editorial update")
+    return packet, qualification
+
+
+def diagnostic_source_link(path, publication_commit, label=None):
+    """Only the publication context supplies source revisions; never use main."""
+    relative = PurePosixPath(path)
+    if (relative.is_absolute() or ".." in relative.parts or "\\" in path or ":" in path):
+        raise ValueError("diagnostic source links must be repository-relative paths")
+    label = label or path
+    if not isinstance(publication_commit, str) or not re.fullmatch(r"[0-9a-f]{40}", publication_commit):
+        return '<span>' + esc(label) + ' (publication source link unavailable)</span>'
+    url = REPO + '/blob/' + publication_commit + '/' + quote(path, safe='/')
+    return '<a href="' + esc(url) + '">' + esc(label) + '</a>'
+
+
+def diagnostic_manifest(packet, qualification, publication_commit):
+    return {"schema_version": "qcb.public_semantic_diagnostics.v1", "cohort_id": packet["cohort_id"],
+            "cohort_digest": digest(packet), "reference_receipt_digest": qualification["reference_receipt_digest"],
+            "qualification": qualification["status"], "source_commit": publication_commit,
+            "reader_renderer_sha256_lf": text_sha(Path(__file__)),
+            "diagnostic_candidates": len(packet["probes"]),
+            "contrast_pairs": len({p["pair_id"] for p in packet["probes"]}),
+            "clusters": dict(Counter(p["cluster_id"] for p in packet["probes"])),
+            "reference_replay_count": qualification["reference_replay_count"],
+            "formal_coverage": "decision_polarity_only", "admission": "candidate_not_counted",
+            "new_canonical_core_ids": 0, "new_canonical_lean_admissions": 0, "new_course_companions": 0,
+            "hidden_holdout": False, "model_performance_measured": False, "learning_gain": None,
+            "routes": [HUB + "diagnostics/index.html"] + [HUB + "diagnostics/" + key + "/index.html" for key in DIAGNOSTIC_CLUSTERS]}
+
+
+def diagnostic_evidence(packet, qualification, publication_commit):
+    base = 'benchmarks/quantumcomputingbench/'
+    paths = ((base + 'tracks/lean/learning-validity/v1/cohort.json', 'Exact candidate questions, answers and rubrics'),
+             (base + 'reports/learning-validity-v1/decoder.json', 'Independent formal-statement reconstruction'),
+             (base + 'reports/learning-validity-v1/source-comparison.json', 'Distinct source-aware semantic comparison'),
+             (base + 'reports/learning-validity-v1/answer-review.json', 'Independent explanation and rubric review'),
+             (base + 'reports/learning-validity-v1/reference-checks.json', 'Actual authored Lean reference receipt'))
+    body = '<p>The authored Lean reference batch checks the decision target P or ¬P, including fresh final-root replays. It covers the decision polarity only. The explanatory answer and rubric have separate content-bound mathematical review; a compiled root does not certify every explanatory sentence or proposed repair.</p>'
+    body += '<p>Authoring and review are AI-assisted. Recorded distinct reviewers and exact hashes establish provenance; they do not authenticate real-world independence or imply human expert approval. No model evaluation is needed to read this public reference pilot.</p><ul>'
+    body += ''.join('<li>' + diagnostic_source_link(path, publication_commit, label) + '</li>' for path, label in paths) + '</ul>'
+    body += '<p>Cohort SHA-256: <code>' + esc(digest(packet)) + '</code><br>Reference receipt SHA-256: <code>' + esc(qualification["reference_receipt_digest"]) + '</code><br>Actual reference checks: ' + esc(qualification["reference_replay_count"]) + '.</p>'
+    body += '<h3>Bound library sources</h3><ul>' + ''.join('<li>' + diagnostic_source_link(s["path"], publication_commit) + '<br><small>Source SHA-256 (LF): <code>' + esc(s["sha256_lf"]) + '</code></small></li>' for s in packet["source_bindings"]) + '</ul>'
+    return disclosure("Sources, independent review and actual reference evidence", body, "diagnostic-evidence")
+
+
+def diagnostic_probe_body(probe, number, packet):
+    from qcb_learning_validity import challenge_task
+    anchor = 'probe-' + probe["probe_id"]
+    body = '<article class="qcb-part" id="' + esc(anchor) + '" data-qcb-diagnostic="' + esc(probe["probe_id"]) + '"><h3>Question ' + str(number) + '</h3>'
+    body += '<p class="qcb-meta">Candidate diagnostic · provisional ' + esc(probe["difficulty"]["band"]) + ' · ' + esc(probe["reasoning_kind"].replace('_', ' ')) + ' · inherited split: ' + esc(probe["split"]) + '</p>'
+    for field in ("assumptions", "conventions"):
+        body += '<h4>' + field.title() + '</h4><ul data-qcb-diagnostic-' + field + '>' + ''.join('<li>' + esc(value) + '</li>' for value in probe[field]) + '</ul>'
+        if not probe[field]:
+            body += '<p class="qcb-meta">None listed separately; all premises stated in the question still apply.</p>'
+    body += '<div data-qcb-diagnostic-question>' + prose(probe["question"]) + '</div>'
+    body += disclosure("Reference decision and mathematical explanation", '<p><strong>Reference decision: ' + esc(probe["gold"]["decision"]) + '</strong></p>' + prose(probe["gold"]["answer"]), 'answer-' + probe["probe_id"])
+    rubric = '<ol>' + ''.join('<li>' + esc(row["criterion"]) + ' <small>(weight ' + esc(row["weight"]) + ')</small></li>' for row in probe["gold"]["rubric"]) + '</ol>'
+    body += disclosure("Assessment rubric", rubric, 'rubric-' + probe["probe_id"])
+    # The same evaluator-owned construction used by reference qualification.
+    task = challenge_task(probe, probe["gold"]["decision"], snapshot_id=packet["snapshot_id"], library_revision=packet["library_revision"])
+    formal = '<p>Optional Lean syntax. The exact checked target is P or ¬P according to the reference decision. This certificate covers polarity, not the complete explanation, witness, repair or physical/resource interpretation.</p><p>Imports: <code>' + esc(', '.join(task["imports"])) + '</code>.</p>'
+    formal += '<pre><code data-qcb-diagnostic-target>' + esc(task["nodes"][0]["target"]) + '</code></pre>'
+    formal += disclosure("Fixed authored reference proof", '<pre><code>' + esc(probe["gold"]["reference_proof"]) + '</code></pre>', 'proof-' + probe["probe_id"])
+    body += disclosure("Optional Lean target and polarity certificate", formal, 'formal-' + probe["probe_id"])
+    provenance = '<p>Separate candidate contract; no new canonical core or Lean admission is created. Parent contract bindings:</p><ul>'
+    for core in probe["parent_core_ids"]:
+        provenance += '<li><a href="../../cores/' + esc(core) + '/index.html">' + esc(core) + '</a> · <code>' + esc(probe["parent_contracts"][core]) + '</code></li>'
+    provenance += '</ul><p>Exact source declaration anchors:</p><ul>' + ''.join('<li><code>' + esc(node) + '</code></li>' for node in probe["source_nodes"]) + '</ul>'
+    provenance += '<p>Provisional construction-band rationale: ' + esc(probe["difficulty"]["rationale"]) + ' This is not measured model difficulty.</p>'
+    body += disclosure("Parent contracts and source anchors", provenance, 'parents-' + probe["probe_id"])
+    return body + '</article>'
+
+
+def diagnostic_cluster_body(packet, cluster):
+    rows = [p for p in packet["probes"] if p["cluster_id"] == cluster]
+    pair_ids = list(dict.fromkeys(p["pair_id"] for p in rows))
+    labels = DIAGNOSTIC_CLUSTERS[cluster][3]
+    if len(pair_ids) != len(labels):
+        raise ValueError("diagnostic contrast hierarchy needs an explicit editorial update")
+    body = '<p class="qcb-boundary">Public semantic reference pilot · candidate contracts. Construction bands are provisional. These public questions do not measure model understanding, hidden-test performance or learning transfer.</p>'
+    body += section("Reading the notation", prose(DIAGNOSTIC_CLUSTERS[cluster][2]), "notation")
+    number = 0
+    for pair, label in zip(pair_ids, labels):
+        content = ''
+        for probe in rows:
+            if probe["pair_id"] == pair:
+                number += 1
+                content += diagnostic_probe_body(probe, number, packet)
+        body += section(label, content, 'contrast-' + pair)
+    return body
+
+
+def publish_diagnostics(write, intro, packet, qualification, publication_commit):
+    manifest = diagnostic_manifest(packet, qualification, publication_commit)
+    body = intro("Reason about quantum contracts", "Read each proposition, decide whether it follows from exactly the supplied assumptions, then explain your reasoning or give a precise counterexample. The mathematics is readable without Lean.")
+    body += '<p><a href="../index.html">Exercise book</a> / Semantic diagnostics · <a href="../non-lean/index.html">Mathematical path</a> · <a href="../lean/index.html">Lean path</a></p>'
+    body += '<p class="qcb-boundary">Public semantic reference pilot: ' + str(manifest["diagnostic_candidates"]) + ' candidate propositions in ' + str(manifest["contrast_pairs"]) + ' contrasts. They add no canonical mathematical cores, admitted native Lean views or experimental course companions. This is not a hidden evaluation set, a model-understanding result or a transfer claim.</p>'
+    body += section("Attempt the question before inspecting evidence", '<ol><li>Read every assumption and convention, including dimensions and empty cases.</li><li>Decide whether the exact proposition holds. An invalid statement needs a precise witness; distinguish any repaired claim from the original.</li><li>Open the folded mathematical reference and rubric to compare the argument.</li><li>Inspect the optional Lean target to see exactly which polarity is certified.</li></ol><p>D1–D4 describe provisional construction routes, not measured model difficulty. Existing train/dev/public-test source splits stay visible. Contrasted statements are not interchangeable fresh pre/post forms.</p>', "reading")
+    cards = '<div class="qcb-grid">'
+    for key, (title, description, _, _) in DIAGNOSTIC_CLUSTERS.items():
+        cards += '<article class="qcb-card"><h3><a href="' + key + '/index.html">' + esc(title) + '</a></h3>' + prose(description) + '<p>' + str(manifest["clusters"][key]) + ' candidate propositions</p></article>'
+    body += section("Four mathematical themes", cards + '</div>', "themes")
+    body += diagnostic_evidence(packet, qualification, publication_commit)
+    write(HUB + "diagnostics/", "Public quantum-semantic diagnostics", body + '</div>', "Public candidate propositions about quantum assumptions, representation, composition and boundary cases; separate reference evidence, no new canonical admissions.")
+    for key, (title, description, _, _) in DIAGNOSTIC_CLUSTERS.items():
+        body = intro(title, description)
+        body += '<p><a href="../index.html">All diagnostic themes</a> · <a href="../../non-lean/index.html">Mathematical path</a> · <a href="../../lean/index.html">Lean path</a></p>'
+        body += diagnostic_cluster_body(packet, key) + diagnostic_evidence(packet, qualification, publication_commit)
+        write(HUB + "diagnostics/" + key + "/", title + " · public diagnostics", body + '</div>', description + " Public candidate questions; reference answers and exact polarity certificates are folded.")
+    return manifest
+
+
+def check_diagnostic_pages(root, packet, qualification, manifest):
+    if manifest.get("public_semantic_diagnostics") != diagnostic_manifest(packet, qualification, manifest["source_commit"]):
+        raise ValueError("diagnostic projection has stale cohort, receipt, source or counting bindings")
+    index = (root / HUB / "diagnostics/index.html").read_text(encoding="utf-8")
+    if (diagnostic_evidence(packet, qualification, manifest["source_commit"]) not in index
+            or any('href="' + key + '/index.html"' not in index for key in DIAGNOSTIC_CLUSTERS)):
+        raise ValueError("diagnostic index lost its evidence binding or theme hierarchy")
+    for key in DIAGNOSTIC_CLUSTERS:
+        page = (root / HUB / "diagnostics" / key / "index.html").read_text(encoding="utf-8")
+        if diagnostic_cluster_body(packet, key) not in page:
+            raise ValueError("diagnostic question, premises, closed answer or exact formal projection changed")
+        if diagnostic_evidence(packet, qualification, manifest["source_commit"]) not in page:
+            raise ValueError("diagnostic source/evidence projection changed")
 
 
 def course_label(core_id):
@@ -334,6 +500,9 @@ def publish(root):
     catalog, items, graph = load_catalog()
     native_lean_count = sum("lean" in c["views"] for c in catalog["cores"])
     course_plan, course_views, course_report = course_reader()
+    # Fail before any output mutation if the actual new reference receipt is
+    # absent or stale. Historical course evidence cannot qualify these probes.
+    diagnostic_packet, diagnostic_qualification = diagnostic_reader()
     report = read_json(root / "build-report.json")
     context = site.git_context()
     if not report["leanGate"].get("passed") or report["leanGate"].get("commit") != context["commit"]:
@@ -368,6 +537,7 @@ def publish(root):
     body += '<div class="qcb-stats" aria-label="Distinct inventories"><div><strong>' + str(len(catalog["cores"])) + '</strong><span>shared mathematical core IDs</span></div><div><strong>' + str(native_lean_count) + '</strong><span>canonical native Lean views</span></div><div><strong>' + str(course_report["distinct_shared_cores"]) + '</strong><span>experimental course companions</span></div></div>'
     body += '<p class="qcb-meta">The course reuses existing cores, including the canonical formal cores. Natural-language and Lean versions are views of the same question, not extra questions.</p>'
     body += section("Choose your reading path", '<div class="qcb-grid"><article class="qcb-card"><p class="eyebrow">No Lean needed</p><h3><a href="non-lean/index.html">Explore the mathematics</a></h3><p>Read definitions, attempt a question, then open its hint, solution and rubric. Browse by subject and follow the source anchors.</p></article><article class="qcb-card"><p class="eyebrow">A guided progression</p><h3><a href="course/index.html">Build your reasoning skills</a></h3><p>Move from assumptions and local calculations to interface composition, induction and global arguments.</p></article><article class="qcb-card"><p class="eyebrow">Optional formal companion</p><h3><a href="lean/index.html">Inspect precise proof tasks</a></h3><p>Compare exact formal conclusions and supplied subgoals. Read the mathematics first; no installation is needed to inspect a task.</p></article></div>', "start")
+    body += section("Test the exact assumptions", '<p><a href="diagnostics/index.html">Explore ' + str(len(diagnostic_packet["probes"])) + ' public semantic candidate diagnostics</a> organized by mass and isometry, marginal amplitudes, controlled permutations and endpoint derivatives. Read the ordinary mathematics first; reference answers, rubrics and optional Lean certificates are folded. This separate public reference pilot adds no canonical core, native Lean admission or course companion.</p>', "diagnostics")
     body += section("A library makes the questions connect", '<p>QuantumComputinglib supplies shared definitions, reusable lemmas and explicit mathematical interfaces. A state-preparation question and a block-encoding question can therefore use the same conventions for norms, registers, matrices and composition. We can ask about an individual fact, a derivation between facts, or a construction combining several ingredients.</p><div class="qcb-grid"><article class="qcb-card"><h3>Breadth: what do you know?</h3><p>Objects and definitions, assumptions, boundary cases, representations and the meaning of a quantum construction.</p></article><article class="qcb-card"><h3>Depth: what can you connect?</h3><p>Local algebra, dependencies between lemmas, reuse of a common result, and conclusions requiring several premises together.</p></article><article class="qcb-card"><h3>Precision: what is actually checked?</h3><p>Linked sources expose the contract. A qualified Lean root checks one exact proposition; explanatory prose and resource claims still need their own review.</p></article></div><p><a href="reasoning/index.html">See how a graph connection becomes a reasoning question →</a></p><p class="qcb-meta">A graph is a coverage map, not a guarantee of exhaustive questions. Planned nodes are a roadmap; source-backed material and compiled declarations carry different evidence.</p>', "library")
     body += section("From understanding to construction", '<p>Choose a provisional construction level. These levels describe the guided course route, not measured model performance or the number of graph nodes.</p><ol class="qcb-ladder">' + ''.join('<li><a href="course/' + band.lower() + '/index.html"><span class="qcb-level">' + band + '</span><strong>' + esc(label) + '</strong></a><p>' + esc(description) + '</p></li>' for band, (label, description) in COURSE_BANDS.items()) + '</ol>', "progression")
     body += section("Shared foundations and four subject areas", "".join('<article class="qcb-part"><p class="eyebrow">' + ('Shared foundations' if p['id'] == 'foundations' else 'Subject area') + '</p><h3><a href="non-lean/' + p["id"] + '/index.html">' + esc(p["title"]) + '</a></h3>' + prose(p["summary"]) + '<p>' + str(sum(c["part"] == p["id"] for c in catalog["cores"])) + ' shared cores · ' + str(len(p["topics"])) + ' topics' + (' · source-backed / planned formal frontier' if p['id'] in ('quantum-information', 'scientific-computing') else '') + '</p></article>' for p in catalog["parts"]), "parts")
@@ -375,6 +545,7 @@ def publish(root):
     body += section("Read, solve, then inspect", '<ol><li>Choose a part and topic. Check dimensions, normalization, phase and resource conventions first.</li><li>Attempt the question before opening the hint or solution.</li><li>Follow exact graph/source anchors. Source-backed and planned material are visibly different evidence classes.</li><li>Use the Lean path to contribute a matching formal view, not another copy of the same question.</li></ol><p><a href="contribute/index.html">Contributor tracks and compatibility contract</a> · <a href="evidence/index.html">Release boundaries and current acceptance gates</a></p>', "reading")
     write(HUB, "QuantumComputingBench exercise book", body + '</div>', "Five-part graph-grounded quantum-computing exercise book with non-Lean and Lean companion paths.")
     publish_course(write, intro, course_plan, course_views, course_report)
+    diagnostic_report = publish_diagnostics(write, intro, diagnostic_packet, diagnostic_qualification, context["commit"])
     for track in TRACKS:
         prefix = "../../"
         is_lean = track == "lean"
@@ -386,6 +557,7 @@ def publish(root):
             if admitted:
                 body += section("Aligned native formal views", exercise_cards(admitted, prefix, items, track), "native-views")
         body += '<p><a href="../course/index.html">Choose a difficulty level</a> · <a href="../reasoning/index.html">Read the reasoning-graph guide</a></p>'
+        body += '<p><a href="../diagnostics/index.html">Try the public semantic reference pilot</a>: ' + str(len(diagnostic_packet["probes"])) + ' candidate propositions with folded answers and polarity-only Lean evidence; separate from canonical admissions and course views.</p>'
         body += '<div class="qcb-grid">' + "".join('<article class="qcb-card"><h2><a href="' + p["id"] + '/index.html">' + esc(p["title"]) + '</a></h2>' + prose(p["summary"]) + '</article>' for p in catalog["parts"]) + '</div>'
         write(HUB + track + "/", "Lean companion" if is_lean else "Non-Lean exercise book", body + '</div>', "Shared curriculum and exact evidence boundaries for the " + track + " track.")
         for part in catalog["parts"]:
@@ -437,7 +609,7 @@ def publish(root):
     write(HUB + "evidence/", "Evidence and release readiness", body + '</div>', "Current second-pass review, split/dedup, formal-view, isolation and publication boundaries.")
     home = root / "index.html"
     text = home.read_text(encoding="utf-8")
-    text = re.sub(r'<!-- qcb-textbook:start -->.*?<!-- qcb-textbook:end -->', '', text, flags=re.S)
+    text = re.sub(r'<!-- qcb-textbook:start -->.*?<!-- qcb-textbook:end -->', '', text, flags=re.DOTALL)
     panel = '<!-- qcb-textbook:start --><section class="qcb-home" id="quantumcomputingbench"><p class="eyebrow">QuantumComputingBench · open exercise book</p><h2><a href="quantumcomputingbench/index.html">A graph-grounded quantum-computing exercise book</a></h2><p>Five parts. ' + str(len(catalog["cores"])) + ' retained native core IDs. Read substantial mathematics without Lean, then inspect the formal companion and exact evidence boundaries.</p><p><a href="quantumcomputingbench/non-lean/index.html">Read the mathematical exercises</a> · <a href="quantumcomputingbench/course/index.html">Follow the difficulty course</a> · <a href="quantumcomputingbench/reasoning/index.html">Understand reasoning graphs</a> · <a href="quantumcomputingbench/lean/index.html">Explore the Lean companion</a></p><p><small>Textbook edition in progress; semantic review and formal-view expansion remain explicit gates.</small></p></section><!-- qcb-textbook:end -->'
     text = text.replace('<main id="main-content">', '<main id="main-content">' + panel, 1)
     if 'static/quantumcomputingbench.css' not in text:
@@ -454,6 +626,7 @@ def publish(root):
                 "reader_source_digest": reader_sources(), "routes": routes,
                 "native_core_ids": len(catalog["cores"]), "admitted_native_lean_views": native_lean_count,
                 "experimental_course": {"course_id": course_plan["course_id"], "course_digest": course_report["course_digest"], "distinct_shared_cores": course_report["distinct_shared_cores"], "new_mathematical_cores": 0, "canonical_admissions_changed": False, "by_construction_band": course_report["by_construction_band"]},
+                "public_semantic_diagnostics": diagnostic_report,
                 "withheld_routes": withheld_routes, "historical_native_core_count": catalog["historical_native_core_count"],
                 "legacy_reference_warmups": 3, "stable": False,
                 "leanGraphSha256": graph_hash, "source_commit": context["commit"]}
@@ -472,6 +645,8 @@ def check_site(root):
     manifest = read_json(root / "data/quantumcomputingbench/reader.json")
     catalog, items, _ = load_catalog()
     plan, views, course_report = course_reader()
+    diagnostic_packet, diagnostic_qualification = diagnostic_reader()
+    check_diagnostic_pages(root, diagnostic_packet, diagnostic_qualification, manifest)
     if (manifest.get("experimental_course", {}).get("course_digest") != course_report["course_digest"]
             or manifest["experimental_course"]["distinct_shared_cores"] != course_report["distinct_shared_cores"]
             or manifest["experimental_course"]["new_mathematical_cores"] != 0

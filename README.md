@@ -36,6 +36,11 @@ Contributors can use the [non-Lean goal](benchmarks/quantumcomputingbench/tracks
 or the [Lean goal](benchmarks/quantumcomputingbench/tracks/lean/AGENT_GOAL.md), under
 one [compatibility contract](benchmarks/quantumcomputingbench/shared/CONTRACT.md).
 
+The new [quantum-semantic diagnostic pilot](benchmarks/quantumcomputingbench/tracks/lean/LEARNING_VALIDITY.md)
+provides contrasted mathematical questions, readable reference answers, reviewed
+rubrics and fixed Lean polarity certificates. Its public candidates remain separate
+from canonical admissions and make no model-learning claim.
+
 ---
 
 ## Our place in Math 2.0

@@ -1,5 +1,10 @@
 # Matched learning registration and offline analysis
 
+This is an optional future evaluation specification. The current task is to
+author and qualify [questions and reference answers](LEARNING_VALIDITY.md);
+actual model responses, training runs and learning measurements are not required
+to accept that question-authoring work.
+
 The current learning-validity cohort is **public semantic calibration**. Its
 sixteen contrasted propositions form eight true/refuted contrasts, not eight
 pairs of interchangeable pre/post questions. Public questions, source proofs and
