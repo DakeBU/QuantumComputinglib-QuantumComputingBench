@@ -59,10 +59,13 @@ def render_navigation(prefix: str, current: str, papers: dict, cases: list[dict]
     research = links_section("research", "Structure & research", VIEWS)
     bench = links_section("quantumcomputingbench", "QuantumComputingBench", (
         ("Exercise book", "quantumcomputingbench/"),
+        ("Train and evaluate", "quantumcomputingbench/run/"),
+        ("Expert graph atlas", "quantumcomputingbench/expert/"),
         ("Mathematical exercises", "quantumcomputingbench/non-lean/"),
         ("Guided course · D0–D4", "quantumcomputingbench/course/"),
         ("How reasoning graphs work", "quantumcomputingbench/reasoning/"),
         ("Lean companion", "quantumcomputingbench/lean/"),
+        ("Semantic diagnostics", "quantumcomputingbench/diagnostics/"),
         ("Contribution contract", "quantumcomputingbench/contribute/"),
         ("Evidence and release gates", "quantumcomputingbench/evidence/"),
     ))

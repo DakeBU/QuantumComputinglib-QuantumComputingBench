@@ -22,20 +22,30 @@ class PremisesParser(HTMLParser):
     def __init__(self):
         super().__init__()
         self.role, self.in_li, self.text, self.lists = None, False, '', {}
+        self.math_depth = 0
 
     def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        if self.math_depth:
+            self.math_depth += 1
+        elif self.in_li and 'data-qcb-math-source' in attrs:
+            self.text += attrs['data-qcb-math-source']
+            self.math_depth = 1
         if tag == 'ul':
-            self.role = next((key for key, _ in attrs if key.startswith('data-qcb-')), None)
+            self.role = next((key for key in attrs if key.startswith('data-qcb-')), None)
             if self.role:
                 self.lists[self.role] = []
         if tag == 'li' and self.role:
             self.in_li, self.text = True, ''
 
     def handle_data(self, data):
-        if self.in_li:
+        if self.in_li and not self.math_depth:
             self.text += data
 
     def handle_endtag(self, tag):
+        if self.math_depth:
+            self.math_depth -= 1
+            return
         if tag == 'li' and self.in_li:
             self.lists[self.role].append(self.text)
             self.in_li = False
@@ -206,7 +216,7 @@ class AssumptionSuccessorTests(unittest.TestCase):
             self.execute(row, old, candidate, review)
 
     def test_actual_publisher_download_and_search_use_resolved_premises(self):
-        """Exercise publish(), with only surrounding site-shell gates stubbed in this unit fixture."""
+        """Exercise the question publisher; independent site/ecosystem projections are stubbed."""
         from website.scripts import build_site, research_atlas
         row, old, candidate, review = self.fixture()
         current, _ = self.execute(row, old, candidate, review)
@@ -228,6 +238,9 @@ class AssumptionSuccessorTests(unittest.TestCase):
             write_json(root / 'site-metadata.json', {})
             write_json(root / 'search-index.json', {'entries': []})
             with patch.object(reader, 'load_catalog', return_value=(catalog, {current['core_id']: current}, self.graph)), \
+                    patch.object(reader, 'math_notation_contract', return_value={'unit_fixture': True}), \
+                    patch('website.scripts.qcb_expert.build_expert_index', return_value=None), \
+                    patch('website.scripts.qcb_expert.publish_expert', return_value={'unit_fixture': True, 'routes': []}), \
                     patch.object(reader, 'stable_readiness', return_value={'stable': False, 'fixture_only': True}), \
                     patch.object(reader, 'formal_warmups', return_value=[]), \
                     patch.object(build_site, 'git_context', return_value={'commit': commit}), \

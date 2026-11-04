@@ -12,9 +12,18 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
+from website.scripts.qcb_ecosystem_browser import check_ecosystem, settle_math
+from website.scripts.qcb_render_test_support import recover_prose_source
 from website.scripts.quantumcomputingbench import HUB, check_site
 from website.scripts.research_browser_contract import THEMES
 from website.scripts.test_research_browser import QuietHandler
+
+
+def source_list_matches(locator, originals):
+    """Compare original premises after MathJax replaces their display text."""
+    return locator.count() == len(originals) and all(
+        recover_prose_source(locator.nth(i).inner_html(), original) == original
+        for i, original in enumerate(originals))
 
 
 def run(root, output, channel=None):
@@ -29,8 +38,10 @@ def run(root, output, channel=None):
     thread.start()
     base = f"http://127.0.0.1:{server.server_port}/"
     rows, formal_rows, withdrawal_rows, revision_rows, course_rows, diagnostic_rows, failures = [], [], [], [], [], [], []
+    ecosystem_checks = {}
     checks = {k: False for k in ("mobile_no_overflow", "desktop_no_overflow", "themes", "solution_disclosure", "graph_links", "search_excludes_answers", "native_formal_panels", "quarantined_content_excluded", "question_revision_lineage", "convention_revision_lineage", "assumption_revision_lineage")}
     checks.update(semantic_diagnostics_closed=False, semantic_diagnostic_panels=False)
+    checks.update(actual_corpus_math_compilation=False, expert_graph_workflow=False, benchmark_entry_points=False)
     core_route = HUB + "cores/" + catalog["cores"][0]["core_id"] + "/index.html"
     routes = [HUB + "index.html", HUB + "non-lean/index.html", HUB + "lean/index.html",
               HUB + "non-lean/state-preparation/structured_preparation/index.html",
@@ -38,6 +49,7 @@ def run(root, output, channel=None):
               HUB + "course/d0/index.html", HUB + "course/d2/index.html",
               HUB + "course/d4/index.html", HUB + "reasoning/index.html"]
     routes += manifest["public_semantic_diagnostics"]["routes"]
+    routes += manifest["benchmark_center"]["routes"] + manifest["expert_atlas"]["routes"]
     try:
         with sync_playwright() as p:
             browser = p.chromium.launch(channel=channel)
@@ -49,8 +61,7 @@ def run(root, output, channel=None):
                     for n, route in enumerate(routes):
                         page.goto(base + route, wait_until="networkidle")
                         page.evaluate("theme => document.documentElement.dataset.theme = theme", theme)
-                        page.wait_for_function("Boolean(window.MathJax?.startup?.promise)", timeout=60000)
-                        page.evaluate("async () => { await MathJax.startup.promise; await MathJax.typesetPromise(); }")
+                        settle_math(page)
                         if page.evaluate("document.documentElement.scrollWidth > innerWidth + 2"):
                             failures.append(f"overflow: {route} {width} {theme}")
                         if page.locator("mjx-merror").count():
@@ -61,6 +72,7 @@ def run(root, output, channel=None):
                                 failures.append("solution exposed by default")
                             solution.locator("summary").focus()
                             page.keyboard.press("Enter")
+                            settle_math(page)
                             if solution.get_attribute("open") is None:
                                 failures.append("keyboard solution disclosure failed")
                             if page.evaluate("document.documentElement.scrollWidth > innerWidth + 2"):
@@ -88,6 +100,7 @@ def run(root, output, channel=None):
                                 panel = page.locator('#' + kind + '-' + probe_id)
                                 panel.locator(':scope > summary').focus()
                                 page.keyboard.press('Enter')
+                                settle_math(page)
                                 if panel.get_attribute('open') is None:
                                     opened = False
                                     failures.append("diagnostic keyboard disclosure failed: " + kind + '-' + probe_id)
@@ -106,6 +119,7 @@ def run(root, output, channel=None):
                 for entry in plan["entries"]:
                     route = HUB + "cores/" + entry["core_id"] + "/index.html#course"
                     page.goto(base + route, wait_until="networkidle")
+                    settle_math(page)
                     panel = page.locator('#course')
                     if panel.get_attribute('open') is None:
                         failures.append('course deep-link did not open: ' + route)
@@ -125,6 +139,7 @@ def run(root, output, channel=None):
             for core in catalog["cores"]:
                 route = HUB + "cores/" + core["core_id"] + "/index.html"
                 page.goto(base + route, wait_until="domcontentloaded")
+                settle_math(page)
                 if page.locator('.qcb-disclosure[open]').count():
                     failures.append("unfolded answer/evidence: " + route)
                 if page.evaluate("document.documentElement.scrollWidth > innerWidth + 2"):
@@ -157,30 +172,28 @@ def run(root, output, channel=None):
                             failures.append('revision details unfolded by default: ' + route)
                         panel.locator('summary').focus()
                         page.keyboard.press('Enter')
+                        settle_math(page)
                         if panel.get_attribute('open') is None or any(value not in panel.inner_text() for value in
                                 (revision['predecessor_contract_hash'], core['contract_hash'])):
                             failures.append('question contract lineage disclosure failed: ' + route)
                         convention_revision = 'conventions' in revision['changed_contract_fields']
                         assumption_revision = 'assumptions' in revision['changed_contract_fields']
                         if assumption_revision:
-                            active = page.locator('#assumptions [data-qcb-active-assumptions] > li').all_text_contents()
-                            old = panel.locator('[data-qcb-original_assumptions] > li').all_text_contents()
-                            current = panel.locator('[data-qcb-current_assumptions] > li').all_text_contents()
-                            if (active != revision['current_assumptions'] or old != revision['original_assumptions']
-                                    or current != revision['current_assumptions']
+                            active = page.locator('#assumptions [data-qcb-active-assumptions] > li')
+                            old = panel.locator('[data-qcb-original_assumptions] > li')
+                            current = panel.locator('[data-qcb-current_assumptions] > li')
+                            if (not source_list_matches(active, revision['current_assumptions'])
+                                    or not source_list_matches(old, revision['original_assumptions'])
+                                    or not source_list_matches(current, revision['current_assumptions'])
                                     or page.locator('[data-qcb-assumption-revision="2"]').count() != 1):
                                 failures.append('active/historical assumptions not exactly distinguished: ' + route)
-                        if convention_revision:
-                            assumptions = page.locator('#assumptions').inner_text()
-                            if (page.locator('[data-qcb-convention-revision="2"]').count() != 1
-                                    or any(s not in assumptions for s in revision['current_conventions'])
-                                    or any(s in assumptions for s in revision['original_conventions']
-                                           if s not in revision['current_conventions'])
-                                    or any(s not in panel.inner_text() for s in
-                                           revision['original_conventions'] + revision['current_conventions'])
+                        if convention_revision and (page.locator('[data-qcb-convention-revision="2"]').count() != 1
+                                    or not source_list_matches(page.locator('#assumptions [data-qcb-active-conventions] > li'), revision['current_conventions'])
+                                    or not source_list_matches(panel.locator('[data-qcb-original_conventions] > li'), revision['original_conventions'])
+                                    or not source_list_matches(panel.locator('[data-qcb-current_conventions] > li'), revision['current_conventions'])
                                     or 'Historical conventions (audit only)' not in panel.inner_text()
                                     or 'Current conventions' not in panel.inner_text()):
-                                failures.append('active/historical conventions not distinguished: ' + route)
+                            failures.append('active/historical conventions not distinguished: ' + route)
                         if page.locator('#solution').get_attribute('open') is not None:
                             failures.append('revision disclosure exposed solution: ' + route)
                         if page.evaluate('document.documentElement.scrollWidth > innerWidth + 2'):
@@ -211,6 +224,7 @@ def run(root, output, channel=None):
                             failures.append("formal reference exposed by default: " + route)
                         proof.locator('summary').focus()
                         page.keyboard.press("Enter")
+                        settle_math(page)
                         if proof.get_attribute("open") is None or formal["reference_proof"] not in proof.inner_text():
                             failures.append("formal proof keyboard disclosure failed: " + route)
                         if page.evaluate("document.documentElement.scrollWidth > innerWidth + 2"):
@@ -246,6 +260,7 @@ def run(root, output, channel=None):
                 graph.click()
                 page.wait_for_load_state("networkidle")
                 page.wait_for_function("document.body.textContent.includes('Focused exact shared identity:')")
+            ecosystem_checks = check_ecosystem(page, base, root, manifest, output)
             browser.close()
         if not failures:
             checks = {key: True for key in checks}
@@ -263,6 +278,9 @@ def run(root, output, channel=None):
               "question_revision_checks": revision_rows,
               "experimental_course_panel_checks": course_rows,
               "semantic_diagnostic_panel_checks": diagnostic_rows,
+              "ecosystem": ecosystem_checks,
+              "presentation_digest": manifest["presentation"]["digest"],
+              "runtime_registry_hash": manifest["runtime_registry_hash"],
               "failures": failures, "manual_visual_review": "not asserted by this script",
               "question_only_search": "Exact question summaries checked by check_site; reference answers are not indexed."}
     (output / "browser-report.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")

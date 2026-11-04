@@ -25,6 +25,9 @@ QuantumComputinglib connects readable quantum mathematics to Lean evidence. **AS
 [**Without Lean**](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/non-lean/) ·
 [**Lean companion**](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/lean/)
 
+[**Run the benchmark**](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/run/) ·
+[**Expert graph atlas**](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/expert/)
+
 </div>
 
 QuantumComputingBench's textbook checkpoint organizes the retained native QA

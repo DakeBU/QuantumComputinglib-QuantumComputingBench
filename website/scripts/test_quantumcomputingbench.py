@@ -1,19 +1,23 @@
 """Shared-core, semantic binding, safe renderer and preview/stable regressions."""
-from copy import deepcopy
 import importlib.util
-from pathlib import Path
 import sys
 import tempfile
 import unittest
+import urllib.error
+from copy import deepcopy
+from pathlib import Path
 from unittest.mock import patch
 from uuid import uuid4
-import urllib.error
 
-from website.scripts import quantumcomputingbench as reader
-from website.scripts.sidebar_navigation import render_navigation
-from website.scripts.test_sidebar_navigation import NavigationParser
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "benchmarks/quantumcomputingbench/src"))
+
 import qcb_curriculum as shared
 from qcb_core import write_json
+
+from website.scripts import quantumcomputingbench as reader
+from website.scripts.qcb_render_test_support import recover_prose_source
+from website.scripts.sidebar_navigation import render_navigation
+from website.scripts.test_sidebar_navigation import NavigationParser
 
 
 class CurriculumTests(unittest.TestCase):
@@ -33,7 +37,7 @@ class CurriculumTests(unittest.TestCase):
         self.assertEqual(len(self.items), expected)
         self.assertEqual(len(self.catalog["parts"]), 5)
         self.assertEqual(len({c["core_id"] for c in self.catalog["cores"]}), expected)
-        self.assertEqual(set(c["topic"] for c in self.catalog["cores"]),
+        self.assertEqual({c["topic"] for c in self.catalog["cores"]},
                          {t for p in self.catalog["parts"] for t in p["topics"]})
         self.assertTrue(all("non-lean" in c["views"] and set(c["views"]) <= {"non-lean", "lean"} for c in self.catalog["cores"]))
         self.assertEqual(sum("lean" in c["views"] for c in self.catalog["cores"]),
@@ -197,12 +201,15 @@ class CurriculumTests(unittest.TestCase):
             self.assertIn('data-qcb-convention-revision="2"', body)
             self.assertIn('Historical conventions (audit only)', body)
             self.assertIn('Current conventions', body)
+            self.assertEqual(body.count('<ul data-qcb-original_conventions>'), 1)
+            self.assertEqual(body.count('<ul data-qcb-current_conventions>'), 1)
             for text in lineage['current_conventions']:
-                self.assertIn(reader.esc(text), active)
+                self.assertEqual(recover_prose_source(active, text), text)
             for text in lineage['original_conventions']:
-                self.assertIn(reader.esc(text), body.split('id="revision"', 1)[1])
+                self.assertEqual(recover_prose_source(body.split('id="revision"', 1)[1], text), text)
                 if text not in lineage['current_conventions']:
-                    self.assertNotIn(reader.esc(text), active)
+                    with self.assertRaises(AssertionError):
+                        recover_prose_source(active, text)
             proposal = self.proposal()
             proposal.update({k: core[k] for k in ('core_id', 'contract_hash', 'family', 'split', 'snapshot_id')})
             proposal['source_nodes'] = core['target_nodes']
@@ -279,8 +286,9 @@ class CurriculumTests(unittest.TestCase):
         c = self.catalog["cores"][0]
         i = self.items[c["core_id"]]
         body = reader.core_body(c, i, self.catalog, self.graph, set(self.graph), "../../../")
-        self.assertIn(reader.esc(i["question"]), body)
-        self.assertIn(reader.esc(i["reference_answer"]), body)
+        from website.scripts.qcb_render_test_support import recover_prose_source
+        self.assertEqual(recover_prose_source(body, i["question"]), i["question"])
+        self.assertEqual(recover_prose_source(body, i["reference_answer"]), i["reference_answer"])
         self.assertIn('id="solution"', body)
         self.assertNotIn(' open', body)
         self.assertLess(body.index('id="assumptions"'), body.index('id="question"'))
@@ -316,7 +324,10 @@ class CurriculumTests(unittest.TestCase):
         self.assertTrue(all(i["formal"]["target"] == r["formal_target"] for i, r in warmups))
 
     def test_repaired_answer_keeps_core_contract_and_split_without_old_acceptance_transfer(self):
-        from qcb_textbook_policy import apply_current_reader_policy, frozen_native_is_current
+        from qcb_textbook_policy import (
+            apply_current_reader_policy,
+            frozen_native_is_current,
+        )
         _, _, originals, _ = shared.preview.checked()
         current, decisions = apply_current_reader_policy(originals)
         old = next(i for i in originals if i["core_id"] == "qcb-core-sp-002")
@@ -341,8 +352,9 @@ class CurriculumTests(unittest.TestCase):
         self.assertEqual(len(parsed.links), len({a["href"] for a in parsed.links}))
 
     def test_full_publisher_is_idempotent_and_search_contains_questions_not_solutions(self):
-        from website.scripts import build_site
         from qcb_core import read_json
+
+        from website.scripts import build_site
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             (root / "static").mkdir()
@@ -382,8 +394,9 @@ class CurriculumTests(unittest.TestCase):
             self.assertEqual(text.count('id="quantumcomputingbench"'), 1)
 
     def test_transport_retry_never_retries_rejected_origins_or_not_found(self):
-        from website.scripts import restore_published_blueprint as restore
         from unittest.mock import MagicMock
+
+        from website.scripts import restore_published_blueprint as restore
         response = MagicMock()
         response.__enter__.return_value = response
         response.geturl.return_value = restore.ORIGIN + "fixture"
