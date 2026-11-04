@@ -1,0 +1,136 @@
+{
+  "schema_version": "qcb.learning_source_comparison.v1",
+  "reviewer_identity": "agent-task:root/learning_source_comparer",
+  "input_digest": "74b1be59f43b938321d86a861a16a0800abca2ed3c86b0623e5d41a597cb2755",
+  "method": "independent-source-and-decoded-statement-comparison",
+  "items": [
+    {
+      "probe_id": "2b3f25f2-db0a-4494-a887-14d7111eaf6a",
+      "alignment_verdict": "aligned",
+      "formal_coverage": "decision_polarity_only",
+      "independent_derivation": "P is true. Expanding the finite squares gives M(vA)=sum_(a,a') v_a v_a' sum_(b,j) A_(a,(b,j)) A_(a',(b,j))=sum_(a,a') v_a v_a' (AA^T)_(a,a')=sum_a v_a^2. Thus a row vector on the old bond is mapped to a row vector on (bit,new bond), preserving whatever mass it had. Input mass one is needed only to conclude output mass one. For l=0 both masses vanish; for r=0 and l>0 the orthonormality premise cannot hold.",
+      "reasoning": "The ambient Core, mass and pinned Mathlib vecMul definitions have exactly these indices, scalar field and row-vector orientation. The formal root is the universal implication P rather than a normalization claim. The independent decoder reconstructs the same equality and includes the zero vector and empty dimensions. The requested explanation of its normalization role is mathematically supported here but is outside the root's decision-only coverage.",
+      "uncertainties": ["No semantic uncertainty identified. This comparison does not rerun Lean or certify a circuit realization, gate cost or physical wire ordering beyond the stated product indices."]
+    },
+    {
+      "probe_id": "b0c5d76c-2aa7-4818-8009-c451c9c1081a",
+      "alignment_verdict": "aligned",
+      "formal_coverage": "decision_polarity_only",
+      "independent_derivation": "P is false. Take l=r=1, A_(0,(0,0))=1 and A_(0,(1,0))=0, so AA^T=[1]. The allowed boundary v_0=0 has M(vA)=0, not 1; alternatively v_0=2 gives mass 4. The actual invariant is M(vA)=M(v). Consequently the exact extra premise needed for a mass-one conclusion is M(v)=1. The l=0 case also has zero mass and is not excluded.",
+      "reasoning": "The root negates the entire universal implication, so one admissible matrix and boundary suffices; it does not say every boundary fails or assume an input state is normalized. This matches the question's unrestricted real v and the decoder's scope. The witness and normalization repair are independently justified in the derivation, while the formal root itself covers only the falsity decision and does not certify those requested answer components.",
+      "uncertainties": ["No semantic uncertainty identified; a repaired theorem with input mass one would need its own formal statement and review if advertised as certified."]
+    },
+    {
+      "probe_id": "87a548fd-6c07-4b71-a224-c374ec1005f5",
+      "alignment_verdict": "aligned",
+      "formal_coverage": "decision_polarity_only",
+      "independent_derivation": "P is true. For input labels a,a', (V^dagger V)_(a,a')=sum_(j,b) conjugate(A_(a,(b,j))) A_(a',(b,j))=sum_(b,j) A_(a,(b,j)) A_(a',(b,j))=delta_(a,a'), since A is real. The bit and new-bond output coordinates have been exchanged; the old-bond input coordinate is unchanged. Reindexing the output basis preserves the column Gram matrix without a new state-normalization premise. Empty input dimensions give the empty identity, and an empty output with positive input cannot satisfy AA^T=I.",
+      "reasoning": "The formal lambda explicitly has output type Fin r times Fin 2 and reads A at (out.2,out.1); this is precisely the question's V, not complexCore with unchanged output order. The adjoint product is on Fin l, so it asserts an input-space isometry and not an output-space identity. The decoder has these same index roles. Only the truth decision is formally covered, not a physical implementation of an output-register swap.",
+      "uncertainties": ["No mathematical or index-order ambiguity identified. Product-basis permutation is explicit; no hardware swap circuit or resource bound is specified."]
+    },
+    {
+      "probe_id": "c947872c-f1ae-4f09-9ff9-0d535c93b11c",
+      "alignment_verdict": "aligned",
+      "formal_coverage": "decision_polarity_only",
+      "independent_derivation": "P is false. Choose the normalized row A_(0,(0,1))=1 and all other entries zero. Then AA^T=[1], U_((0,1),0)=1, but V_((0,1),0)=A_(0,(1,0))=0. Conversely V_((1,0),0)=1. The correct entry relation is V_((j,b),0)=U_((b,j),0); equal underlying Fin 2 factors do not make the two literal pair labels interchangeable. Pointwise equality would require this particular row to be symmetric under swapping its output factors.",
+      "reasoning": "The formal root uses Core 1 2, compares exactly the swapped lambda with complexCore, and negates the universal equality under AA^T=1. These are the fixed nonempty dimensions and literal-label equality in the question. The decoder correctly distinguishes well-typed swap from equality; one differing entry proves the decision. The witness and repaired relationship are not conclusions of the decision root.",
+      "uncertainties": ["No semantic uncertainty identified. This is exact matrix inequality, with no quotient by basis relabeling or global phase."]
+    },
+    {
+      "probe_id": "d883d091-46d3-4f97-9dd7-b560d53238f0",
+      "alignment_verdict": "aligned",
+      "formal_coverage": "decision_polarity_only",
+      "independent_derivation": "P is false. Set l=r=1 and A=[1,0], with columns (0,0),(1,0). Then U is the column [1,0]^T and UU^dagger=diag(1,0), whereas the output identity is diag(1,1). In general U^dagger U=I_l, so UU^dagger is the rank-l range projection on the 2r-dimensional output. It equals the entire output identity only when this isometry is surjective, equivalently l=2r under the premise. The emitted bit remains part of the output space. The allowed l=0,r>0 case gives another zero-versus-identity witness.",
+      "reasoning": "The root's inferred identity index is Fin 2 times Fin r because its product is complexCore A times its adjoint. It negates the universal output-identity claim with no square-dimension premise, exactly as the question asks. It neither denies the valid input-identity law nor says output equality fails in every dimension. The decoder preserves these distinctions. An explanation about unitary completion is separate from formal decision coverage.",
+      "uncertainties": ["No semantic uncertainty identified. A physical state-preparation circuit or unitary extension requires additional data beyond this rectangular-matrix question."]
+    },
+    {
+      "probe_id": "5a644ea9-ef08-4026-8c7b-90a9e6dc2481",
+      "alignment_verdict": "aligned",
+      "formal_coverage": "decision_polarity_only",
+      "independent_derivation": "P is true. The real row-orthonormality premise gives U^dagger U=I_l. Associativity yields Q^2=UU^dagger UU^dagger=U(U^dagger U)U^dagger=UU^dagger=Q. Also Q is self-adjoint by its construction, so it is the orthogonal projection onto the image of U. It need not be I: l=r=1 and A=[1,0] gives Q=diag(1,0). For l=0 the projection is zero, including on nonempty output spaces; this is still idempotent.",
+      "reasoning": "The formal product is exactly the question's output-space Q squared, with complexCore preserving the (bit,new bond) output order. It asserts only idempotence, not surjectivity or a full-output unitary. The decoder reconstructs this same narrower assertion. The independent argument explains the physical limit: the old-bond image can be a proper subspace of the output register, so full state-preparation unitarity is not certified by the decision root.",
+      "uncertainties": ["No semantic uncertainty identified; self-adjointness, projection language and the counterexample to Q=I are independently reasoned additions, not additional formal conclusions of this root."]
+    },
+    {
+      "probe_id": "ce8fd401-a4af-4c95-bef4-cbc5b42c7314",
+      "alignment_verdict": "aligned",
+      "formal_coverage": "decision_polarity_only",
+      "independent_derivation": "P is true. For every prefix b, f(b,0)^2+f(b,1)^2 is nonnegative, hence m(f)(b)^2=f(b,0)^2+f(b,1)^2. Summing over prefixes and separating each (n+1)-bit string into its prefix and last bit gives N(m(f))=sum_b sum_(v in {0,1}) f(b,v)^2=N(f). Thus a recursive loader retains unit mass when the input already has unit mass; it also preserves any other mass, including zero. Signs of f are allowed, although the marginal entries themselves are nonnegative. At n=0 the output is the singleton empty-prefix table, not an empty index set.",
+      "reasoning": "PrimitiveBasis n is the function type Fin n to Fin 2, and Fin.snoc in the marginal definition appends exactly the last wire. The formal normSq and marginal therefore express the question's same squared-sum invariant, without positivity, nonzero or normalization premises. The decoder preserves the zero-wire singleton and last-bit convention. This scalar invariant is the root's decision target; it does not by itself specify a linear quantum operation.",
+      "uncertainties": ["No semantic uncertainty identified. The statement is about real amplitude tables; no complex-phase, division, success-probability or circuit-cost claim is present."]
+    },
+    {
+      "probe_id": "94f36e25-6def-4b77-8bf8-7056c2425df5",
+      "alignment_verdict": "aligned",
+      "formal_coverage": "decision_polarity_only",
+      "independent_derivation": "P is false. Let f=(1,0) and g=(-1,0). Their sum is zero, so m(f+g)=0, whereas the singleton-table values m(f)=1 and m(g)=1 give m(f)+m(g)=2. This norm-preserving marginal rule is nonlinear and therefore cannot be the amplitude action of one fixed linear circuit isometry on all these inputs. It may still serve as classical, input-dependent preprocessing for designing a loader; that does not turn the marginal table transformation into a circuit isometry.",
+      "reasoning": "The formal inputs have PrimitiveBasis 1 and marginal output PrimitiveBasis 0, whose domain is a singleton. Thus function inequality is witnessed at its one entry, exactly the question's one-wire pair calculation. The outer negation means failure of universal additivity, not failure for every f,g. The decoder agrees. The circuit interpretation follows independently from linearity of isometries and is not an extra theorem certified by the negated-additivity root.",
+      "uncertainties": ["No ambiguity in the mathematical decision. No author explanation or circuit construction has been inspected in this phase."]
+    },
+    {
+      "probe_id": "b1234a5b-fe27-4add-bbe4-cb130e138af6",
+      "alignment_verdict": "aligned",
+      "formal_coverage": "decision_polarity_only",
+      "independent_derivation": "P is true. Write k=(x,(c,s)). Then J^-1(k)=(c,(s,x)), F_p J^-1(k)=(c,(s,p_s(x))), and J F_p J^-1(k)=(p_s(x),(c,s)). Since reindexing uses J^-1 on both row and column, its entry is precisely 1 for r=(p_(k.2.2)(k.1),(k.2.1,k.2.2)) and zero otherwise. Both c and s are preserved; only the display positions of the three registers change. If any factor is empty there are no row/column pairs, so the entry assertion holds vacuously.",
+      "reasoning": "Pinned Mathlib prodAssoc.symm followed by prodComm maps (c,(s,x)) to (x,(c,s)), and Matrix.reindexAlgEquiv uses inverse reindexing of rows and columns. The ambient controlledSystemEquiv and selectLift use s as the controlling coordinate. These definitions and the independent decoder match the question's J, its exact 0/1 complex entries, and arbitrary finite types including empty ones. The root covers the decision for this entry formula, without an ancillary or hardware circuit claim.",
+      "uncertainties": ["No semantic uncertainty identified. The product ordering and inverse direction of reindexing were checked against the pinned Mathlib definitions."]
+    },
+    {
+      "probe_id": "93904687-6d03-43fe-b130-193a4f90ab4e",
+      "alignment_verdict": "aligned",
+      "formal_coverage": "decision_polarity_only",
+      "independent_derivation": "P is false. On Bool set p_false=id and p_true=not. Take column k=(false,(false,true)) in (system,(coefficient,selector)) order and row r=(true,(false,true)). The actual controlled map uses selector true, so U'_p(r,k)=1. The proposed indicator instead uses k.2.1=false, predicts system false, and gives zero at this row. The repair is to use k.2.2 as the permutation selector, retaining c and s in their original roles; equal underlying Bool types do not identify those registers.",
+      "reasoning": "The formal negation ranges over all Bool permutation families and every entry, so this one family and entry establishes precisely its asserted decision. The reindexing in the root is the question's J; the erroneous coordinate is exactly column.2.1, not an accidentally different transpose or inverse convention. The decoder reconstructs the same error. The repair and particular witness are mathematically supplied here but are outside the formal root's decision-only conclusion.",
+      "uncertainties": ["No semantic uncertainty identified. The repaired entry formula must be reviewed separately if it is claimed as formally certified."]
+    },
+    {
+      "probe_id": "badaa09e-22b6-482f-b277-b0ab8c1f28e7",
+      "alignment_verdict": "aligned",
+      "formal_coverage": "decision_polarity_only",
+      "independent_derivation": "P is true. At every basis vector (c,(s,x)), U_q U_p first replaces x by p_s(x) and then by p_s^-1(p_s(x))=x. In the other order it produces p_s(p_s^-1(x))=x. Both factors preserve c and s, so both products equal the identity on the full product basis, and hence as exact complex matrices. If a factor type is empty, the product index is empty and both equalities hold for the empty identity matrix. No state-normalization assumption is involved.",
+      "reasoning": "The formal family fun s => (permutation s).symm uses the unchanged selector, and the conclusion is explicitly the conjunction of the two multiplication orders. Ambient selectLift is the same permutation matrix as U_p. This matches both the question and the independent decoder, including empty finite types. The root is a two-sided inverse decision, not automatically a gate-level construction or resource certificate.",
+      "uncertainties": ["No semantic uncertainty identified. An adjoint/unitarity formulation would be a related additional statement, not the literal conjunction in this root."]
+    },
+    {
+      "probe_id": "9653f2d7-5af9-420b-a8af-30ad44c0f651",
+      "alignment_verdict": "aligned",
+      "formal_coverage": "decision_polarity_only",
+      "independent_derivation": "P is false. Let p_false=id and p_true=not on Bool. The basis input (*,(false,false)) is unchanged by U_p. The proposed q_false=p_true^-1=not then sends it to (*,(false,true)), while still preserving selector false. Thus the product has entry 1 at row (*,(false,true)), column (*,(false,false)), where the identity has entry 0. The correct general inverse uses q_s=p_s^-1 at the same selector. The opposite-selector choice can happen to work for special families, but not for all families.",
+      "reasoning": "The formal root fixes Unit, Bool and Bool exactly as the question and negates the universal single product identity. Its !s changes only the family lookup; controlledSystemEquiv does not flip the stored selector. The independent decoder makes the same distinction. This is an explicit finite semantic counterexample, unrelated to compilation success or failure. The corrected inverse is separately justified here and not certified by the decision-only negation.",
+      "uncertainties": ["No semantic uncertainty identified. No alternate circuit that flips a selector register has been assumed."]
+    },
+    {
+      "probe_id": "976c9922-4202-4a48-a885-4d5a6d21656f",
+      "alignment_verdict": "aligned",
+      "formal_coverage": "decision_polarity_only",
+      "independent_derivation": "P is false. Let C and S be singleton sets and X={0,1,2}. Choose p=(0 1) and q=(1 2). On system input 0, U_p U_q applies q first and then p, producing 1, whereas U_r with r=q composed with p produces q(p(0))=2. At output system 1 and input 0 the left matrix entry is 1 and the right entry is 0; the singleton coefficient and selector are preserved. The correct general law is U_q U_p=U_(q composed with p). Empty bases or commuting families can satisfy the original equality, so they are not counterexamples to this existential falsity decision.",
+      "reasoning": "Pinned Equiv.trans first second applies first and then second. Consequently the root's right side matches the question's r=q composed with p, while its left side reverses this action on column vectors. The negation encloses all finite types and both families, permitting the three-element noncommuting witness. The decoder reconstructs exactly this order issue. The formal root covers only failure of the universal law; the repair and witness need their own support as answer components.",
+      "uncertainties": ["No semantic uncertainty identified. The multiplication/composition directions were read from definitions, not inferred from notation alone."]
+    },
+    {
+      "probe_id": "d67d7a90-a228-4d10-b10a-2e2957f00cd2",
+      "alignment_verdict": "aligned",
+      "formal_coverage": "decision_polarity_only",
+      "independent_derivation": "P is true. For an input (c,(s,x)), the right factor U_p yields (c,(s,p_s(x))) and the left factor U_q then yields (c,(s,q_s(p_s(x)))). This is F_r with r_s=q_s composed with p_s. Equivalently the matrix-product sum has one possible nonzero intermediate basis index and gives exactly the indicator of this output. Both coefficient and selector are unchanged and no ancilla is introduced. If any factor type is empty the matrix equality still holds on the empty index set.",
+      "reasoning": "The formal left side places second to the left of first, and the right side uses first.trans second, whose pinned definition is second composed with first. The ambient SELECT convention is row equals image of column, so no transpose reversal is hidden. This agrees with the exact NL proposition and independent decoder for arbitrary finite types. Only the correctness decision is covered; no hardware sequencing cost follows from this matrix identity.",
+      "uncertainties": ["No semantic uncertainty identified; all equalities are exact complex matrix equalities without normalization or phase quotient assumptions."]
+    },
+    {
+      "probe_id": "8a8bdc71-dcd2-42e9-a564-19b2d0530fdf",
+      "alignment_verdict": "aligned",
+      "formal_coverage": "decision_polarity_only",
+      "independent_derivation": "P is true. Let h=p-q. Vanishing ordinary derivatives through order k at -1 and 0 mean that h has a root of multiplicity at least k+1 at each endpoint. Over the reals these distinct roots imply that (X+1)^(k+1) X^(k+1) divides h. If h were nonzero, its degree would therefore be at least 2k+2. But deg(h) is at most max(deg(p),deg(q)), hence at most 2k+1, a contradiction. Therefore h=0. At k=0 this reduces to equality of affine polynomials at two distinct points; zero polynomials cause no exception.",
+      "reasoning": "The formal bounds use natDegree and the packet's convention admits zero polynomials. Its derivative^[j] ranges over ordinary iterated differentiation including j=0, and its two endpoint antecedents are exactly those of the question. The decoder reconstructs the same uniqueness implication, without asserting existence for prescribed jets. The root matches the true decision under every quantified k. This is a polynomial uniqueness statement; it carries no quantum circuit or resource semantics by itself.",
+      "uncertainties": ["No semantic uncertainty identified. The multiplicity argument uses characteristic zero, supplied by the scalar field R, and not an unstated hypothesis on the data."]
+    },
+    {
+      "probe_id": "645ccfc8-9c4b-4e41-b51b-b330748fc34e",
+      "alignment_verdict": "aligned",
+      "formal_coverage": "decision_polarity_only",
+      "independent_derivation": "P is false. Already k=0, p=X(X+1) and q=0 have degree at most 2, agree in value at -1 and 0, and are distinct. More generally for any k, p=X^(k+1)(X+1)^(k+1) and q=0 have degree at most 2k+2; both endpoint derivatives through order k vanish because both roots have multiplicity k+1. This p is monic and nonzero. Reducing the degree bound to 2k+1 repairs the universal uniqueness implication, as the multiplicity-degree argument shows.",
+      "reasoning": "The formal root negates the full universal uniqueness proposition at degree 2k+2, so the k=0 witness is sufficient. It does not itself assert nonuniqueness for every k; the displayed family establishes that stronger fact independently. The endpoints, unscaled derivative orders, real coefficients and zero-polynomial allowance match the question and the decoder. The root covers only the false decision, and does not formally certify a particular witness or the proposed tighter-bound repair.",
+      "uncertainties": ["No semantic uncertainty identified. Exact endpoint vanishing and polynomial inequality are mathematical evidence here; no inference is drawn from a failed proof or compilation attempt."]
+    }
+  ]
+}

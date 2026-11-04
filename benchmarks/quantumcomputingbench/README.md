@@ -49,9 +49,19 @@ folded by default. It uses the existing QuantumComputinglib textbook shell.
 - [Guided course: knowledge facets and D1–D4 construction levels](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/course/)
 - [How graph connections become reasoning questions](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/reasoning/)
 - [Lean companion and diagnostic warmups](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/lean/)
+- [Public quantum-semantic diagnostic questions](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/diagnostics/)
 - [Shared core and split contract](shared/CONTRACT.md)
 - [Non-Lean collaborator goal](tracks/non-lean/AGENT_GOAL.md)
 - [Lean collaborator goal](tracks/lean/AGENT_GOAL.md)
+
+The [semantic diagnostic pilot](tracks/lean/LEARNING_VALIDITY.md) adds 16 candidate
+propositions in eight true/refuted contrasts, with readable answers, independently
+reviewed rubrics and exact authored Lean polarity references. It tests distinctions
+about assumptions, representations, composition and degree boundaries. These
+public candidates preserve their parent contracts and splits and add no canonical
+cores or formal admissions. Question/reference qualification needs no actual model
+responses; a [future matched experiment](tracks/lean/LEARNING_EXPERIMENT.md) is a
+separate specification, not a present claim of learned understanding or transfer.
 
 These are two views/contribution tracks, not duplicate datasets. Existing core
 contracts and splits are preserved; new UUID proposals remain uncounted until

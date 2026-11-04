@@ -1,0 +1,438 @@
+{
+  "schema_version": "qcb.learning_validity.hermite_draft.v1",
+  "author": "/root/learning_hermite_boundary",
+  "lifecycle": "candidate_not_counted",
+  "base_commit": "6b23dab68c2970062ddfd568ce94bce74b566483",
+  "built_library_commit": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+  "toolchain": "leanprover/lean4:v4.29.1",
+  "source_bindings": [
+    {
+      "path": "QuantumBlockEncoding/HermitePolynomial.lean",
+      "sha256_lf": "f8a3e1d5f29aed1228b6ede3577a9af1e76301559172ee67a266fcb0d56fee1e",
+      "pinned_built_sibling_sha256_lf": "f8a3e1d5f29aed1228b6ede3577a9af1e76301559172ee67a266fcb0d56fee1e",
+      "source_equal": true
+    },
+    {
+      "path": "lean-toolchain",
+      "sha256_lf": "7dc000621e0046d1aada809e2b7177e64454645cf4c741e9daaf79c99ec2e7a2",
+      "pinned_built_sibling_sha256_lf": "7dc000621e0046d1aada809e2b7177e64454645cf4c741e9daaf79c99ec2e7a2",
+      "source_equal": true
+    },
+    {
+      "path": "lake-manifest.json",
+      "sha256_lf": "3f85247e74f75c3030bf538085e098d3f721b2837d21d22da0bdc96efcc0a466",
+      "pinned_built_sibling_sha256_lf": "3f85247e74f75c3030bf538085e098d3f721b2837d21d22da0bdc96efcc0a466",
+      "source_equal": true
+    }
+  ],
+  "historical_bindings": [
+    {
+      "path": "benchmarks/quantumcomputingbench/tracks/lean/fixtures/graph-course-v3.json",
+      "sha256_lf": "ec5eac2b3da58a4bf566088f074acdfe5459081c3e4717ef2de60d5ac318e62d"
+    },
+    {
+      "path": "benchmarks/quantumcomputingbench/reports/lean-course-v3/reference-checks.json",
+      "sha256_lf": "b573680c7d55ad4510526f04eb3a2b49fc3c5e09bf7b0b57abe4a45568388eb9"
+    },
+    {
+      "path": "benchmarks/quantumcomputingbench/reports/lean-course-v3/comparison.json",
+      "sha256_lf": "4cbb274115c0153c7e9866fc59ace21fe09e880d4b1e6297c3079619a82f6201"
+    }
+  ],
+  "source_task_hash": "c3f8c34acc03cf48d032a6639381e9d289c5b87894d3d95cfc300523a5b06cdd",
+  "source_contract_hash": "7bbea63cce5e0f098f5b8294acda383c03cffca10fc69df2ddc12d1d2c8f4741",
+  "strict_target_byte_equal_to_source_root": true,
+  "reference_state": "Authored reference text and single-block proofs; bounded smoke results are separate artifacts, not fresh-reference qualification. Historical receipts are not current candidate receipts.",
+  "canonical_registry_changes": false,
+  "production_changes": false,
+  "historical_pipeline_changes": false,
+  "pair_count": 1,
+  "probe_count": 2,
+  "public_stage_a_rule": "Export ONLY stage_a_public with anonymous randomized labels. No Lean names/imports, private formal proposition, polarity, gold reference, pair keys, answer or rubric. Randomize probe order; pair adjacency could cue a decision.",
+  "stage_b_rule": "After Stage A belief is sealed, choose formal_private.challenges_by_sealed_belief from that belief. Gold targets/reference proofs grade correctness and verify satisfiable intended labels; they do not determine the model's challenge. Stage B is not a fresh polarity prediction.",
+  "learning_boundary": "No model calls, training, GPU execution, pre/post observations, learning score, new parallel form or learning-validity outcome is claimed. Fresh independently authored forms and exposure controls are a separate design obligation.",
+  "probes": [
+    {
+      "probe_key": "hermite-lv-01",
+      "pair_key": "hermite-degree-allowance",
+      "lifecycle": "candidate_not_counted",
+      "canonical_id": "qcb-core-sp-104",
+      "stage_a_public": {
+        "question": "Proposition P: for every natural number k and all real-coefficient polynomials p and q, if both have degree at most 2k+1, and all their ordinary derivatives of orders 0 through k agree at -1 and agree at 0, then p=q. Is P valid under the assumptions and conventions below?",
+        "assumptions": [
+          "k is an arbitrary natural number, including zero; p and q are arbitrary real-coefficient polynomials, including the zero polynomial.",
+          "For every natural j with 0≤j≤k, the j-th ordinary derivatives of p and q agree at -1 and also agree at 0.",
+          "Both p and q have degree at most 2k+1 under the stated zero-polynomial convention."
+        ],
+        "conventions": [
+          "The derivative of order zero is the polynomial itself, so j=0 requires equal endpoint values.",
+          "The degree bound means ordinary degree for nonzero polynomials, and the zero polynomial is admitted.",
+          "Equality in the conclusion is equality of polynomials, not equality only at the endpoints. No prescribed numerical endpoint values or interpolant existence assumption is supplied."
+        ],
+        "response_request": "Decide whether the stated universal proposition is valid. Give a mathematical proof or an exact counterexample and explain the relevant mechanism. If invalid, distinguish a justified repair from the original claim."
+      },
+      "formal_private": {
+        "proposition": "∀ (k : ℕ) (p q : Polynomial ℝ), p.natDegree ≤ 2 * k + 1 → q.natDegree ≤ 2 * k + 1 → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval (-1) = (Polynomial.derivative^[j] q).eval (-1)) → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval 0 = (Polynomial.derivative^[j] q).eval 0) → p = q",
+        "imports": [
+          "QuantumBlockEncoding.HermitePolynomial"
+        ],
+        "challenges_by_sealed_belief": {
+          "valid": "∀ (k : ℕ) (p q : Polynomial ℝ), p.natDegree ≤ 2 * k + 1 → q.natDegree ≤ 2 * k + 1 → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval (-1) = (Polynomial.derivative^[j] q).eval (-1)) → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval 0 = (Polynomial.derivative^[j] q).eval 0) → p = q",
+          "invalid": "¬ (∀ (k : ℕ) (p q : Polynomial ℝ), p.natDegree ≤ 2 * k + 1 → q.natDegree ≤ 2 * k + 1 → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval (-1) = (Polynomial.derivative^[j] q).eval (-1)) → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval 0 = (Polynomial.derivative^[j] q).eval 0) → p = q)"
+        },
+        "challenge_selection": "Use the model's sealed Stage A belief. Do not select by gold polarity or reveal the alternate target before sealing."
+      },
+      "gold_private": {
+        "expected_polarity": true,
+        "formal_challenge_target": "∀ (k : ℕ) (p q : Polynomial ℝ), p.natDegree ≤ 2 * k + 1 → q.natDegree ≤ 2 * k + 1 → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval (-1) = (Polynomial.derivative^[j] q).eval (-1)) → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval 0 = (Polynomial.derivative^[j] q).eval 0) → p = q",
+        "root_node_id": "jet104_root",
+        "reference_proof": "by\n  have qcb_step_jet104_jet_iff : ∀ (p q : Polynomial ℝ) (a : ℝ) (k : ℕ), (∀ j ≤ k, (Polynomial.derivative^[j] p).eval a = (Polynomial.derivative^[j] q).eval a) ↔ (Polynomial.X - Polynomial.C a) ^ (k + 1) ∣ p - q :=\n    by\n      intro p q a k\n      constructor\n      · intro h\n        have ht : Polynomial.X ^ (k + 1) ∣ Polynomial.taylor a (p - q) := by\n          apply Polynomial.X_pow_dvd_iff.mpr\n          intro j hj\n          have he : (j.factorial : ℝ) * (Polynomial.taylor a (p - q)).coeff j = 0 := by\n            rw [← QuantumBlockEncoding.HermitePolynomial.eval_iterate_derivative]\n            simp only [Polynomial.iterate_derivative_sub, Polynomial.eval_sub,\n              h j (by omega), sub_self]\n          exact (mul_eq_zero.mp he).resolve_left (by exact_mod_cast Nat.factorial_ne_zero j)\n        have hm := map_dvd (Polynomial.taylorAlgHom (-a)) ht\n        simpa [Polynomial.taylor_taylor, ← sub_eq_add_neg] using hm\n      · intro h j hj\n        exact QuantumBlockEncoding.HermitePolynomial.jet_eq_of_pow_dvd_sub p q a k j hj h\n  have qcb_step_jet104_left : ∀ (k : ℕ) (p q : Polynomial ℝ), (∀ j ≤ k, (Polynomial.derivative^[j] p).eval (-1) = (Polynomial.derivative^[j] q).eval (-1)) → QuantumBlockEncoding.HermitePolynomial.leftModulus k ∣ p - q :=\n    by\n      intro k p q h\n      exact (qcb_step_jet104_jet_iff p q (-1) k).mp h\n  have qcb_step_jet104_right : ∀ (k : ℕ) (p q : Polynomial ℝ), (∀ j ≤ k, (Polynomial.derivative^[j] p).eval 0 = (Polynomial.derivative^[j] q).eval 0) → QuantumBlockEncoding.HermitePolynomial.rightModulus k ∣ p - q :=\n    by\n      intro k p q h\n      exact (qcb_step_jet104_jet_iff p q 0 k).mp h\n  have qcb_step_jet104_coprime : ∀ (k : ℕ), IsCoprime (QuantumBlockEncoding.HermitePolynomial.leftModulus k) (QuantumBlockEncoding.HermitePolynomial.rightModulus k) :=\n    by\n      intro k\n      unfold QuantumBlockEncoding.HermitePolynomial.leftModulus\n        QuantumBlockEncoding.HermitePolynomial.rightModulus\n      apply IsCoprime.pow\n      exact Polynomial.isCoprime_X_sub_C_of_isUnit_sub (by norm_num)\n  have qcb_step_jet104_product : ∀ (k : ℕ) (p q : Polynomial ℝ), (∀ j ≤ k, (Polynomial.derivative^[j] p).eval (-1) = (Polynomial.derivative^[j] q).eval (-1)) → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval 0 = (Polynomial.derivative^[j] q).eval 0) → (QuantumBlockEncoding.HermitePolynomial.leftModulus k) * (QuantumBlockEncoding.HermitePolynomial.rightModulus k) ∣ p - q :=\n    by\n      intro k p q hl hr\n      exact (qcb_step_jet104_coprime k).mul_dvd\n        (qcb_step_jet104_left k p q hl) (qcb_step_jet104_right k p q hr)\n  have qcb_step_jet104_degree : ∀ (k : ℕ), ((QuantumBlockEncoding.HermitePolynomial.leftModulus k) * (QuantumBlockEncoding.HermitePolynomial.rightModulus k)).natDegree = 2 * k + 2 :=\n    by\n      intro k\n      unfold QuantumBlockEncoding.HermitePolynomial.leftModulus\n        QuantumBlockEncoding.HermitePolynomial.rightModulus\n      rw [Polynomial.natDegree_mul (pow_ne_zero _ (Polynomial.X_sub_C_ne_zero _))\n        (pow_ne_zero _ (Polynomial.X_sub_C_ne_zero _))]\n      simp only [Polynomial.natDegree_pow, Polynomial.natDegree_X_sub_C, mul_one]\n      omega\n  have qcb_step_jet104_annihilate : ∀ (k : ℕ) (d : Polynomial ℝ), d.natDegree ≤ 2 * k + 1 → (QuantumBlockEncoding.HermitePolynomial.leftModulus k) * (QuantumBlockEncoding.HermitePolynomial.rightModulus k) ∣ d → d = 0 :=\n    by\n      intro k d hb hdiv\n      by_contra hne\n      have hd := Polynomial.natDegree_le_of_dvd hdiv hne\n      rw [qcb_step_jet104_degree k] at hd\n      omega\n  intro k p q hp hq hl hr\n  apply sub_eq_zero.mp\n  exact qcb_step_jet104_annihilate k (p - q)\n    ((Polynomial.natDegree_sub_le p q).trans (max_le hp hq))\n    (qcb_step_jet104_product k p q hl hr)",
+        "reference_answer": "P is valid. Set d=p-q. Equality of all ordinary derivatives through k at a point a means that (x-a)^(k+1) divides d: the degree-j Taylor coefficient is d^(j)(a)/j!, and the factorial is nonzero over the reals. Thus (x+1)^(k+1) and x^(k+1) both divide d. The two factors are coprime since x+1 and x differ by the unit1, so their product divides d. This product has degree2k+2, whereas d has degree at most2k+1. A nonzero multiple cannot have smaller degree than its divisor, so d=0 and p=q. If d=0 already, this last conclusion is immediate. The assertion includes k=0 and zero input polynomials; it asserts uniqueness, not existence.",
+        "rubric": [
+          {
+            "criterion": "Respects arbitrary real polynomials, natural k including0, both degree bounds, exactly endpoints-1/0 and ordinary derivatives j=0..k.",
+            "weight": 1
+          },
+          {
+            "criterion": "Uses or justifies endpoint multiplicity k+1 and the two polynomial divisibilities.",
+            "weight": 1
+          },
+          {
+            "criterion": "Explains coprimality and product degree2k+2, and locates exactly where the degree allowance is decisive.",
+            "weight": 1
+          },
+          {
+            "criterion": "Provides an actual proof or an explicit mathematical witness; compile failure is not evidence of falsity.",
+            "weight": 1
+          }
+        ],
+        "repair": null,
+        "parameterized_counterexample": null,
+        "provider_scaffold_reference_proof": "by\n  intro k p q hp hq hl hr\n  apply sub_eq_zero.mp\n  exact qcb_step_jet104_annihilate k (p - q)\n    ((Polynomial.natDegree_sub_le p q).trans (max_le hp hq))\n    (qcb_step_jet104_product k p q hl hr)",
+        "reference_proof_form": "single unscaffolded root; exact dependency closure localized as have declarations",
+        "reference_proof_characters": 3712
+      },
+      "linked_knowledge": {
+        "source_core": "qcb-core-sp-104",
+        "source_split": "train",
+        "relation": "exact existing root alias; not a new core",
+        "novelty": "No novelty claim; controlled contrast built from existing Hermite multiplicity mechanism."
+      },
+      "task_map": {
+        "root_id": "jet104_root",
+        "provider_node_ids": [
+          "jet104_jet_iff",
+          "jet104_left",
+          "jet104_right",
+          "jet104_coprime",
+          "jet104_product",
+          "jet104_degree",
+          "jet104_annihilate",
+          "jet104_root"
+        ],
+        "supplemental_semantic_checks": [],
+        "providers_are_dependencies_not_root_premises": true,
+        "reference_file": "AuthoredGold.lean",
+        "reference_name": "HermiteLearningValidity.qcb_step_jet104_root",
+        "unused_helper_disclosure": "The shared packet includes the strict calibration DAG for one root and the parameterized witness DAG for the other; each task uses only its dependency closure. hboundary_formula is a separate authored semantic bridge, not needed by the refutation proof term.",
+        "single_block_reference_file": "SingleBlockGold.lean",
+        "single_block_reference_name": "HermiteSingleBlockGold.strict_root"
+      },
+      "assessment_boundary": "Pairwise semantic correctness pilot only. Symbolic proof certifies the selected formal proposition; NL reasoning, repair quality and learning transfer require separate assessment. Full imports remain callable; no theorem-use firewall is claimed."
+    },
+    {
+      "probe_key": "hermite-lv-02",
+      "pair_key": "hermite-degree-allowance",
+      "lifecycle": "candidate_not_counted",
+      "canonical_id": null,
+      "stage_a_public": {
+        "question": "Proposition P: for every natural number k and all real-coefficient polynomials p and q, if both have degree at most 2k+2, and all their ordinary derivatives of orders 0 through k agree at -1 and agree at 0, then p=q. Is P valid under the assumptions and conventions below?",
+        "assumptions": [
+          "k is an arbitrary natural number, including zero; p and q are arbitrary real-coefficient polynomials, including the zero polynomial.",
+          "For every natural j with 0≤j≤k, the j-th ordinary derivatives of p and q agree at -1 and also agree at 0.",
+          "Both p and q have degree at most 2k+2 under the stated zero-polynomial convention."
+        ],
+        "conventions": [
+          "The derivative of order zero is the polynomial itself, so j=0 requires equal endpoint values.",
+          "The degree bound means ordinary degree for nonzero polynomials, and the zero polynomial is admitted.",
+          "Equality in the conclusion is equality of polynomials, not equality only at the endpoints. No prescribed numerical endpoint values or interpolant existence assumption is supplied."
+        ],
+        "response_request": "Decide whether the stated universal proposition is valid. Give a mathematical proof or an exact counterexample and explain the relevant mechanism. If invalid, distinguish a justified repair from the original claim."
+      },
+      "formal_private": {
+        "proposition": "∀ (k : ℕ) (p q : Polynomial ℝ), p.natDegree ≤ 2 * k + 2 → q.natDegree ≤ 2 * k + 2 → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval (-1) = (Polynomial.derivative^[j] q).eval (-1)) → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval 0 = (Polynomial.derivative^[j] q).eval 0) → p = q",
+        "imports": [
+          "QuantumBlockEncoding.HermitePolynomial"
+        ],
+        "challenges_by_sealed_belief": {
+          "valid": "∀ (k : ℕ) (p q : Polynomial ℝ), p.natDegree ≤ 2 * k + 2 → q.natDegree ≤ 2 * k + 2 → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval (-1) = (Polynomial.derivative^[j] q).eval (-1)) → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval 0 = (Polynomial.derivative^[j] q).eval 0) → p = q",
+          "invalid": "¬ (∀ (k : ℕ) (p q : Polynomial ℝ), p.natDegree ≤ 2 * k + 2 → q.natDegree ≤ 2 * k + 2 → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval (-1) = (Polynomial.derivative^[j] q).eval (-1)) → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval 0 = (Polynomial.derivative^[j] q).eval 0) → p = q)"
+        },
+        "challenge_selection": "Use the model's sealed Stage A belief. Do not select by gold polarity or reveal the alternate target before sealing."
+      },
+      "gold_private": {
+        "expected_polarity": false,
+        "formal_challenge_target": "¬ (∀ (k : ℕ) (p q : Polynomial ℝ), p.natDegree ≤ 2 * k + 2 → q.natDegree ≤ 2 * k + 2 → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval (-1) = (Polynomial.derivative^[j] q).eval (-1)) → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval 0 = (Polynomial.derivative^[j] q).eval 0) → p = q)",
+        "root_node_id": "hboundary_relaxed_refutation",
+        "reference_proof": "by\n  have qcb_step_jet104_jet_iff : ∀ (p q : Polynomial ℝ) (a : ℝ) (k : ℕ), (∀ j ≤ k, (Polynomial.derivative^[j] p).eval a = (Polynomial.derivative^[j] q).eval a) ↔ (Polynomial.X - Polynomial.C a) ^ (k + 1) ∣ p - q :=\n    by\n      intro p q a k\n      constructor\n      · intro h\n        have ht : Polynomial.X ^ (k + 1) ∣ Polynomial.taylor a (p - q) := by\n          apply Polynomial.X_pow_dvd_iff.mpr\n          intro j hj\n          have he : (j.factorial : ℝ) * (Polynomial.taylor a (p - q)).coeff j = 0 := by\n            rw [← QuantumBlockEncoding.HermitePolynomial.eval_iterate_derivative]\n            simp only [Polynomial.iterate_derivative_sub, Polynomial.eval_sub,\n              h j (by omega), sub_self]\n          exact (mul_eq_zero.mp he).resolve_left (by exact_mod_cast Nat.factorial_ne_zero j)\n        have hm := map_dvd (Polynomial.taylorAlgHom (-a)) ht\n        simpa [Polynomial.taylor_taylor, ← sub_eq_add_neg] using hm\n      · intro h j hj\n        exact QuantumBlockEncoding.HermitePolynomial.jet_eq_of_pow_dvd_sub p q a k j hj h\n  have qcb_step_jet104_degree : ∀ (k : ℕ), ((QuantumBlockEncoding.HermitePolynomial.leftModulus k) * (QuantumBlockEncoding.HermitePolynomial.rightModulus k)).natDegree = 2 * k + 2 :=\n    by\n      intro k\n      unfold QuantumBlockEncoding.HermitePolynomial.leftModulus\n        QuantumBlockEncoding.HermitePolynomial.rightModulus\n      rw [Polynomial.natDegree_mul (pow_ne_zero _ (Polynomial.X_sub_C_ne_zero _))\n        (pow_ne_zero _ (Polynomial.X_sub_C_ne_zero _))]\n      simp only [Polynomial.natDegree_pow, Polynomial.natDegree_X_sub_C, mul_one]\n      omega\n  have qcb_step_hboundary_degree : ∀ (k : ℕ) (c : ℝ), c ≠ 0 → (Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k)).natDegree = 2 * k + 2 :=\n    by\n      intro k c hc\n      rw [Polynomial.natDegree_C_mul hc, qcb_step_jet104_degree k]\n  have qcb_step_hboundary_nonzero : ∀ (k : ℕ) (c : ℝ), c ≠ 0 → Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k) ≠ 0 :=\n    by\n      intro k c hc\n      apply mul_ne_zero (Polynomial.C_ne_zero.mpr hc)\n      exact mul_ne_zero\n        (pow_ne_zero _ (Polynomial.X_sub_C_ne_zero (-1 : ℝ)))\n        (pow_ne_zero _ (Polynomial.X_sub_C_ne_zero (0 : ℝ)))\n  have qcb_step_hboundary_left_jet : ∀ (k : ℕ) (c : ℝ) (j : ℕ), j ≤ k → (Polynomial.derivative^[j] (Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k))).eval (-1) = 0 :=\n    by\n      intro k c j hj\n      have hdiv : (Polynomial.X - Polynomial.C ((-1) : ℝ)) ^ (k + 1) ∣\n          Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k) - 0 := by\n        refine ⟨Polynomial.C c * QuantumBlockEncoding.HermitePolynomial.rightModulus k, ?_⟩\n        dsimp [QuantumBlockEncoding.HermitePolynomial.leftModulus]\n        ring\n      have he := (qcb_step_jet104_jet_iff\n        (Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k)) 0 ((-1)) k).mpr hdiv j hj\n      simpa only [Polynomial.iterate_derivative_zero, Polynomial.eval_zero] using he\n  have qcb_step_hboundary_right_jet : ∀ (k : ℕ) (c : ℝ) (j : ℕ), j ≤ k → (Polynomial.derivative^[j] (Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k))).eval 0 = 0 :=\n    by\n      intro k c j hj\n      have hdiv : (Polynomial.X - Polynomial.C (0 : ℝ)) ^ (k + 1) ∣\n          Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k) - 0 := by\n        refine ⟨Polynomial.C c * QuantumBlockEncoding.HermitePolynomial.leftModulus k, ?_⟩\n        dsimp [QuantumBlockEncoding.HermitePolynomial.rightModulus]\n        ring\n      have he := (qcb_step_jet104_jet_iff\n        (Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k)) 0 (0) k).mpr hdiv j hj\n      simpa only [Polynomial.iterate_derivative_zero, Polynomial.eval_zero] using he\n  have qcb_step_hboundary_family : ∀ (k : ℕ) (c : ℝ), c ≠ 0 → (Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k) ≠ 0 ∧ (Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k)).natDegree = 2 * k + 2 ∧ (∀ j ≤ k, (Polynomial.derivative^[j] (Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k))).eval (-1) = 0) ∧ (∀ j ≤ k, (Polynomial.derivative^[j] (Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k))).eval 0 = 0)) :=\n    by\n      intro k c hc\n      exact ⟨qcb_step_hboundary_nonzero k c hc,\n        qcb_step_hboundary_degree k c hc,\n        qcb_step_hboundary_left_jet k c,\n        qcb_step_hboundary_right_jet k c⟩\n  intro h\n  obtain ⟨hne, hdegree, hleft, hright⟩ := qcb_step_hboundary_family 0 1 (by norm_num)\n  have he := h 0\n    (Polynomial.C (1 : ℝ) * (QuantumBlockEncoding.HermitePolynomial.leftModulus 0 * QuantumBlockEncoding.HermitePolynomial.rightModulus 0))\n    (0 : Polynomial ℝ)\n    (by omega)\n    (by simp)\n    (fun j hj => by simpa only [Polynomial.iterate_derivative_zero, Polynomial.eval_zero] using hleft j hj)\n    (fun j hj => by simpa only [Polynomial.iterate_derivative_zero, Polynomial.eval_zero] using hright j hj)\n  exact hne he",
+        "reference_answer": "P is invalid. For every natural k and every nonzero real c, choose p(x)=c*x^(k+1)*(x+1)^(k+1) and q(x)=0. The polynomial p is nonzero and has exact degree2k+2 because its leading coefficient is c. Each endpoint is a root of multiplicity at least k+1, so every derivative of order0 through k vanishes at both-1 and0. Hence p and q satisfy both degree bounds and both endpoint jet-equality hypotheses, but p≠q. Already k=0,c=1 gives p=x(x+1),q=0. The degree allowance2k+2 permits a nonzero multiple of the two endpoint multiplicity factors; divisibility and coprimality still hold. Restoring both bounds to2k+1 repairs universal uniqueness. More precisely, at allowance2k+2 any two polynomials with equal jets differ by a constant multiple of x^(k+1)*(x+1)^(k+1); the parameterized counterexample exhibits this missing freedom. That final classification is explanatory mathematics, not an additional certified root in this packet.",
+        "rubric": [
+          {
+            "criterion": "Respects arbitrary real polynomials, natural k including0, both degree bounds, exactly endpoints-1/0 and ordinary derivatives j=0..k.",
+            "weight": 1
+          },
+          {
+            "criterion": "Uses or justifies endpoint multiplicity k+1 and the two polynomial divisibilities.",
+            "weight": 1
+          },
+          {
+            "criterion": "Explains coprimality and product degree2k+2, and locates exactly where the degree allowance is decisive.",
+            "weight": 1
+          },
+          {
+            "criterion": "Provides an actual proof or an explicit mathematical witness; compile failure is not evidence of falsity.",
+            "weight": 1
+          }
+        ],
+        "repair": "Replace both degree allowances2k+2 by2k+1.",
+        "parameterized_counterexample": {
+          "parameters": "Every k∈ℕ and c∈ℝ with c≠0.",
+          "p": "c*x^(k+1)*(x+1)^(k+1)",
+          "q": "0",
+          "degree_p": "2k+2",
+          "jet_orders": "j=0,...,k at exactly-1 and0",
+          "provider": "hboundary_family",
+          "literal_formula_bridge": "hboundary_formula"
+        },
+        "provider_scaffold_reference_proof": "by\n  intro h\n  obtain ⟨hne, hdegree, hleft, hright⟩ := qcb_step_hboundary_family 0 1 (by norm_num)\n  have he := h 0\n    (Polynomial.C (1 : ℝ) * (QuantumBlockEncoding.HermitePolynomial.leftModulus 0 * QuantumBlockEncoding.HermitePolynomial.rightModulus 0))\n    (0 : Polynomial ℝ)\n    (by omega)\n    (by simp)\n    (fun j hj => by simpa only [Polynomial.iterate_derivative_zero, Polynomial.eval_zero] using hleft j hj)\n    (fun j hj => by simpa only [Polynomial.iterate_derivative_zero, Polynomial.eval_zero] using hright j hj)\n  exact hne he",
+        "reference_proof_form": "single unscaffolded root; exact dependency closure localized as have declarations",
+        "reference_proof_characters": 5700
+      },
+      "linked_knowledge": {
+        "source_core": "qcb-core-sp-104",
+        "source_split": "train",
+        "relation": "degree-allowance perturbation; experimental candidate without canonical admission",
+        "novelty": "No novelty claim; controlled contrast built from existing Hermite multiplicity mechanism."
+      },
+      "task_map": {
+        "root_id": "hboundary_relaxed_refutation",
+        "provider_node_ids": [
+          "jet104_jet_iff",
+          "jet104_degree",
+          "hboundary_degree",
+          "hboundary_nonzero",
+          "hboundary_left_jet",
+          "hboundary_right_jet",
+          "hboundary_family",
+          "hboundary_relaxed_refutation"
+        ],
+        "supplemental_semantic_checks": [
+          "hboundary_formula"
+        ],
+        "providers_are_dependencies_not_root_premises": true,
+        "reference_file": "AuthoredGold.lean",
+        "reference_name": "HermiteLearningValidity.qcb_step_hboundary_relaxed_refutation",
+        "unused_helper_disclosure": "The shared packet includes the strict calibration DAG for one root and the parameterized witness DAG for the other; each task uses only its dependency closure. hboundary_formula is a separate authored semantic bridge, not needed by the refutation proof term.",
+        "single_block_reference_file": "SingleBlockGold.lean",
+        "single_block_reference_name": "HermiteSingleBlockGold.relaxed_refutation"
+      },
+      "assessment_boundary": "Pairwise semantic correctness pilot only. Symbolic proof certifies the selected formal proposition; NL reasoning, repair quality and learning transfer require separate assessment. Full imports remain callable; no theorem-use firewall is claimed."
+    }
+  ],
+  "provider_nodes": [
+    {
+      "depends_on": [],
+      "id": "jet104_jet_iff",
+      "target": "∀ (p q : Polynomial ℝ) (a : ℝ) (k : ℕ), (∀ j ≤ k, (Polynomial.derivative^[j] p).eval a = (Polynomial.derivative^[j] q).eval a) ↔ (Polynomial.X - Polynomial.C a) ^ (k + 1) ∣ p - q",
+      "reference_proof": "by\n  intro p q a k\n  constructor\n  · intro h\n    have ht : Polynomial.X ^ (k + 1) ∣ Polynomial.taylor a (p - q) := by\n      apply Polynomial.X_pow_dvd_iff.mpr\n      intro j hj\n      have he : (j.factorial : ℝ) * (Polynomial.taylor a (p - q)).coeff j = 0 := by\n        rw [← QuantumBlockEncoding.HermitePolynomial.eval_iterate_derivative]\n        simp only [Polynomial.iterate_derivative_sub, Polynomial.eval_sub,\n          h j (by omega), sub_self]\n      exact (mul_eq_zero.mp he).resolve_left (by exact_mod_cast Nat.factorial_ne_zero j)\n    have hm := map_dvd (Polynomial.taylorAlgHom (-a)) ht\n    simpa [Polynomial.taylor_taylor, ← sub_eq_add_neg] using hm\n  · intro h j hj\n    exact QuantumBlockEncoding.HermitePolynomial.jet_eq_of_pow_dvd_sub p q a k j hj h",
+      "provenance": "existing SP104 fixture, exact target/reference text",
+      "reference_execution": "Historical and current authored-smoke evidence are separate hash-bound artifacts; not a final fresh-reference receipt."
+    },
+    {
+      "depends_on": [
+        "jet104_jet_iff"
+      ],
+      "id": "jet104_left",
+      "target": "∀ (k : ℕ) (p q : Polynomial ℝ), (∀ j ≤ k, (Polynomial.derivative^[j] p).eval (-1) = (Polynomial.derivative^[j] q).eval (-1)) → QuantumBlockEncoding.HermitePolynomial.leftModulus k ∣ p - q",
+      "reference_proof": "by\n  intro k p q h\n  exact (qcb_step_jet104_jet_iff p q (-1) k).mp h",
+      "provenance": "existing SP104 fixture, exact target/reference text",
+      "reference_execution": "Historical and current authored-smoke evidence are separate hash-bound artifacts; not a final fresh-reference receipt."
+    },
+    {
+      "depends_on": [
+        "jet104_jet_iff"
+      ],
+      "id": "jet104_right",
+      "target": "∀ (k : ℕ) (p q : Polynomial ℝ), (∀ j ≤ k, (Polynomial.derivative^[j] p).eval 0 = (Polynomial.derivative^[j] q).eval 0) → QuantumBlockEncoding.HermitePolynomial.rightModulus k ∣ p - q",
+      "reference_proof": "by\n  intro k p q h\n  exact (qcb_step_jet104_jet_iff p q 0 k).mp h",
+      "provenance": "existing SP104 fixture, exact target/reference text",
+      "reference_execution": "Historical and current authored-smoke evidence are separate hash-bound artifacts; not a final fresh-reference receipt."
+    },
+    {
+      "depends_on": [],
+      "id": "jet104_coprime",
+      "target": "∀ (k : ℕ), IsCoprime (QuantumBlockEncoding.HermitePolynomial.leftModulus k) (QuantumBlockEncoding.HermitePolynomial.rightModulus k)",
+      "reference_proof": "by\n  intro k\n  unfold QuantumBlockEncoding.HermitePolynomial.leftModulus\n    QuantumBlockEncoding.HermitePolynomial.rightModulus\n  apply IsCoprime.pow\n  exact Polynomial.isCoprime_X_sub_C_of_isUnit_sub (by norm_num)",
+      "provenance": "existing SP104 fixture, exact target/reference text",
+      "reference_execution": "Historical and current authored-smoke evidence are separate hash-bound artifacts; not a final fresh-reference receipt."
+    },
+    {
+      "depends_on": [
+        "jet104_left",
+        "jet104_right",
+        "jet104_coprime"
+      ],
+      "id": "jet104_product",
+      "target": "∀ (k : ℕ) (p q : Polynomial ℝ), (∀ j ≤ k, (Polynomial.derivative^[j] p).eval (-1) = (Polynomial.derivative^[j] q).eval (-1)) → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval 0 = (Polynomial.derivative^[j] q).eval 0) → (QuantumBlockEncoding.HermitePolynomial.leftModulus k) * (QuantumBlockEncoding.HermitePolynomial.rightModulus k) ∣ p - q",
+      "reference_proof": "by\n  intro k p q hl hr\n  exact (qcb_step_jet104_coprime k).mul_dvd\n    (qcb_step_jet104_left k p q hl) (qcb_step_jet104_right k p q hr)",
+      "provenance": "existing SP104 fixture, exact target/reference text",
+      "reference_execution": "Historical and current authored-smoke evidence are separate hash-bound artifacts; not a final fresh-reference receipt."
+    },
+    {
+      "depends_on": [],
+      "id": "jet104_degree",
+      "target": "∀ (k : ℕ), ((QuantumBlockEncoding.HermitePolynomial.leftModulus k) * (QuantumBlockEncoding.HermitePolynomial.rightModulus k)).natDegree = 2 * k + 2",
+      "reference_proof": "by\n  intro k\n  unfold QuantumBlockEncoding.HermitePolynomial.leftModulus\n    QuantumBlockEncoding.HermitePolynomial.rightModulus\n  rw [Polynomial.natDegree_mul (pow_ne_zero _ (Polynomial.X_sub_C_ne_zero _))\n    (pow_ne_zero _ (Polynomial.X_sub_C_ne_zero _))]\n  simp only [Polynomial.natDegree_pow, Polynomial.natDegree_X_sub_C, mul_one]\n  omega",
+      "provenance": "existing SP104 fixture, exact target/reference text",
+      "reference_execution": "Historical and current authored-smoke evidence are separate hash-bound artifacts; not a final fresh-reference receipt."
+    },
+    {
+      "depends_on": [
+        "jet104_degree"
+      ],
+      "id": "jet104_annihilate",
+      "target": "∀ (k : ℕ) (d : Polynomial ℝ), d.natDegree ≤ 2 * k + 1 → (QuantumBlockEncoding.HermitePolynomial.leftModulus k) * (QuantumBlockEncoding.HermitePolynomial.rightModulus k) ∣ d → d = 0",
+      "reference_proof": "by\n  intro k d hb hdiv\n  by_contra hne\n  have hd := Polynomial.natDegree_le_of_dvd hdiv hne\n  rw [qcb_step_jet104_degree k] at hd\n  omega",
+      "provenance": "existing SP104 fixture, exact target/reference text",
+      "reference_execution": "Historical and current authored-smoke evidence are separate hash-bound artifacts; not a final fresh-reference receipt."
+    },
+    {
+      "depends_on": [
+        "jet104_product",
+        "jet104_annihilate"
+      ],
+      "id": "jet104_root",
+      "target": "∀ (k : ℕ) (p q : Polynomial ℝ), p.natDegree ≤ 2 * k + 1 → q.natDegree ≤ 2 * k + 1 → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval (-1) = (Polynomial.derivative^[j] q).eval (-1)) → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval 0 = (Polynomial.derivative^[j] q).eval 0) → p = q",
+      "reference_proof": "by\n  intro k p q hp hq hl hr\n  apply sub_eq_zero.mp\n  exact qcb_step_jet104_annihilate k (p - q)\n    ((Polynomial.natDegree_sub_le p q).trans (max_le hp hq))\n    (qcb_step_jet104_product k p q hl hr)",
+      "provenance": "existing SP104 fixture, exact target/reference text",
+      "reference_execution": "Historical and current authored-smoke evidence are separate hash-bound artifacts; not a final fresh-reference receipt."
+    },
+    {
+      "id": "hboundary_formula",
+      "target": "∀ (k : ℕ) (c : ℝ), Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k) = Polynomial.C c * Polynomial.X ^ (k + 1) * (Polynomial.X + 1) ^ (k + 1)",
+      "depends_on": [],
+      "reference_proof": "by\n  intro k c\n  simp only [QuantumBlockEncoding.HermitePolynomial.leftModulus, QuantumBlockEncoding.HermitePolynomial.rightModulus,\n    Polynomial.C_neg, Polynomial.C_1, Polynomial.C_0, sub_neg_eq_add, sub_zero]\n  ring",
+      "provenance": "new experimental internal provider; no canonical admission",
+      "reference_execution": "Current authored-smoke evidence is a separate hash-bound artifact; not a final fresh-reference receipt."
+    },
+    {
+      "id": "hboundary_degree",
+      "target": "∀ (k : ℕ) (c : ℝ), c ≠ 0 → (Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k)).natDegree = 2 * k + 2",
+      "depends_on": [
+        "jet104_degree"
+      ],
+      "reference_proof": "by\n  intro k c hc\n  rw [Polynomial.natDegree_C_mul hc, qcb_step_jet104_degree k]",
+      "provenance": "new experimental internal provider; no canonical admission",
+      "reference_execution": "Current authored-smoke evidence is a separate hash-bound artifact; not a final fresh-reference receipt."
+    },
+    {
+      "id": "hboundary_nonzero",
+      "target": "∀ (k : ℕ) (c : ℝ), c ≠ 0 → Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k) ≠ 0",
+      "depends_on": [],
+      "reference_proof": "by\n  intro k c hc\n  apply mul_ne_zero (Polynomial.C_ne_zero.mpr hc)\n  exact mul_ne_zero\n    (pow_ne_zero _ (Polynomial.X_sub_C_ne_zero (-1 : ℝ)))\n    (pow_ne_zero _ (Polynomial.X_sub_C_ne_zero (0 : ℝ)))",
+      "provenance": "new experimental internal provider; no canonical admission",
+      "reference_execution": "Current authored-smoke evidence is a separate hash-bound artifact; not a final fresh-reference receipt."
+    },
+    {
+      "id": "hboundary_left_jet",
+      "target": "∀ (k : ℕ) (c : ℝ) (j : ℕ), j ≤ k → (Polynomial.derivative^[j] (Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k))).eval (-1) = 0",
+      "depends_on": [
+        "jet104_jet_iff"
+      ],
+      "reference_proof": "by\n  intro k c j hj\n  have hdiv : (Polynomial.X - Polynomial.C ((-1) : ℝ)) ^ (k + 1) ∣\n      Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k) - 0 := by\n    refine ⟨Polynomial.C c * QuantumBlockEncoding.HermitePolynomial.rightModulus k, ?_⟩\n    dsimp [QuantumBlockEncoding.HermitePolynomial.leftModulus]\n    ring\n  have he := (qcb_step_jet104_jet_iff\n    (Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k)) 0 ((-1)) k).mpr hdiv j hj\n  simpa only [Polynomial.iterate_derivative_zero, Polynomial.eval_zero] using he",
+      "provenance": "new experimental internal provider; no canonical admission",
+      "reference_execution": "Current authored-smoke evidence is a separate hash-bound artifact; not a final fresh-reference receipt."
+    },
+    {
+      "id": "hboundary_right_jet",
+      "target": "∀ (k : ℕ) (c : ℝ) (j : ℕ), j ≤ k → (Polynomial.derivative^[j] (Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k))).eval 0 = 0",
+      "depends_on": [
+        "jet104_jet_iff"
+      ],
+      "reference_proof": "by\n  intro k c j hj\n  have hdiv : (Polynomial.X - Polynomial.C (0 : ℝ)) ^ (k + 1) ∣\n      Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k) - 0 := by\n    refine ⟨Polynomial.C c * QuantumBlockEncoding.HermitePolynomial.leftModulus k, ?_⟩\n    dsimp [QuantumBlockEncoding.HermitePolynomial.rightModulus]\n    ring\n  have he := (qcb_step_jet104_jet_iff\n    (Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k)) 0 (0) k).mpr hdiv j hj\n  simpa only [Polynomial.iterate_derivative_zero, Polynomial.eval_zero] using he",
+      "provenance": "new experimental internal provider; no canonical admission",
+      "reference_execution": "Current authored-smoke evidence is a separate hash-bound artifact; not a final fresh-reference receipt."
+    },
+    {
+      "id": "hboundary_family",
+      "target": "∀ (k : ℕ) (c : ℝ), c ≠ 0 → (Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k) ≠ 0 ∧ (Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k)).natDegree = 2 * k + 2 ∧ (∀ j ≤ k, (Polynomial.derivative^[j] (Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k))).eval (-1) = 0) ∧ (∀ j ≤ k, (Polynomial.derivative^[j] (Polynomial.C c * (QuantumBlockEncoding.HermitePolynomial.leftModulus k * QuantumBlockEncoding.HermitePolynomial.rightModulus k))).eval 0 = 0))",
+      "depends_on": [
+        "hboundary_nonzero",
+        "hboundary_degree",
+        "hboundary_left_jet",
+        "hboundary_right_jet"
+      ],
+      "reference_proof": "by\n  intro k c hc\n  exact ⟨qcb_step_hboundary_nonzero k c hc,\n    qcb_step_hboundary_degree k c hc,\n    qcb_step_hboundary_left_jet k c,\n    qcb_step_hboundary_right_jet k c⟩",
+      "provenance": "new experimental internal provider; no canonical admission",
+      "reference_execution": "Current authored-smoke evidence is a separate hash-bound artifact; not a final fresh-reference receipt."
+    },
+    {
+      "id": "hboundary_relaxed_refutation",
+      "target": "¬ (∀ (k : ℕ) (p q : Polynomial ℝ), p.natDegree ≤ 2 * k + 2 → q.natDegree ≤ 2 * k + 2 → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval (-1) = (Polynomial.derivative^[j] q).eval (-1)) → (∀ j ≤ k, (Polynomial.derivative^[j] p).eval 0 = (Polynomial.derivative^[j] q).eval 0) → p = q)",
+      "depends_on": [
+        "hboundary_family"
+      ],
+      "reference_proof": "by\n  intro h\n  obtain ⟨hne, hdegree, hleft, hright⟩ := qcb_step_hboundary_family 0 1 (by norm_num)\n  have he := h 0\n    (Polynomial.C (1 : ℝ) * (QuantumBlockEncoding.HermitePolynomial.leftModulus 0 * QuantumBlockEncoding.HermitePolynomial.rightModulus 0))\n    (0 : Polynomial ℝ)\n    (by omega)\n    (by simp)\n    (fun j hj => by simpa only [Polynomial.iterate_derivative_zero, Polynomial.eval_zero] using hleft j hj)\n    (fun j hj => by simpa only [Polynomial.iterate_derivative_zero, Polynomial.eval_zero] using hright j hj)\n  exact hne he",
+      "provenance": "new experimental internal provider; no canonical admission",
+      "reference_execution": "Current authored-smoke evidence is a separate hash-bound artifact; not a final fresh-reference receipt."
+    }
+  ],
+  "binder_audit": [
+    {
+      "binder": "k:ℕ and p,q:Polynomial ℝ",
+      "class": "TYPING",
+      "meaning": "Arbitrary parameters including k0 and zero polynomials."
+    },
+    {
+      "binder": "both degree bounds",
+      "class": "SOURCE",
+      "meaning": "Exactly2k+1 for calibration or2k+2 for perturbation."
+    },
+    {
+      "binder": "all jets throughk at-1/0 agree",
+      "class": "SOURCE",
+      "meaning": "Two explicit endpoint hypotheses, including j0."
+    },
+    {
+      "binder": "multiplicity/divisibility/coprimality/degree facts",
+      "class": "RULED",
+      "meaning": "Internal dependency nodes; never extra public assumptions."
+    },
+    {
+      "binder": "c≠0",
+      "class": "SOURCE",
+      "scope": "Only internal parameterized witness theorem",
+      "meaning": "Ensures the supplied family member is nonzero and has exact degree; c is instantiated1 in the refutation."
+    }
+  ],
+  "authored_reference_file_sha256_lf": "616f9f70936d8891ee47626a823535458f8d36248074e588f6593f8fed173cfa",
+  "single_block_reference_file_sha256_lf": "586fb12870351aa1a092b423862024237bb0182bd3ac3f4d6ffff04519b348fd",
+  "current_smoke_evidence": [
+    {
+      "report": "smoke-AuthoredGold-359f4c04c4a0.json",
+      "report_sha256_lf": "60e365338efc510e853e6593722ebaea8039fe7b01b9c793c75d8334ca6755f0",
+      "source_sha256_lf": "616f9f70936d8891ee47626a823535458f8d36248074e588f6593f8fed173cfa",
+      "syntax_smoke_passed": true,
+      "elapsed_seconds": 25.952999999994063,
+      "final_qualification": false
+    },
+    {
+      "report": "smoke-SingleBlockGold-3210cfd16cec.json",
+      "report_sha256_lf": "58302dda7d532ff92641415f7587a984e0b9847ae5e4356a55a4ee3b82c6cf48",
+      "source_sha256_lf": "586fb12870351aa1a092b423862024237bb0182bd3ac3f4d6ffff04519b348fd",
+      "syntax_smoke_passed": true,
+      "elapsed_seconds": 35.875,
+      "final_qualification": false
+    }
+  ]
+}

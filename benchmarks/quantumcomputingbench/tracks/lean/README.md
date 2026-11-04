@@ -53,6 +53,24 @@ fixed-reference proof, axiom audit and genuine execution class. A formal target
 that silently adds assumptions is not a verified view of the original question.
 An API application warmup is not a deep proof-synthesis benchmark.
 
+## Quantum-semantic questions and reference answers
+
+The additive [semantic diagnostic pilot](LEARNING_VALIDITY.md) authors 16
+propositions in eight true/refuted contrasts over state-core isometries,
+marginals, controlled permutations and a polynomial degree boundary. Each has
+a readable answer, independently reviewed scoring criteria and a fixed formal
+reference for the decision polarity. The candidates preserve their five parent
+cores and inherited splits; they add no canonical admissions or hidden test set.
+
+The optional two-stage assessment seals an ordinary mathematical answer before
+offering a single formal root selected from the respondent's stated belief.
+Decision, explanation and formal scores remain separate. Producing the question
+bank requires mathematical and reference validation, not actual model responses.
+The [future matched-experiment protocol](LEARNING_EXPERIMENT.md) is separate from
+this authoring gate and makes no present learning or understanding claim.
+
+## Contribution and admission boundaries
+
 Use `proposals/<UUID>.json`. Existing-core contracts and splits are immutable;
 semantic target changes require a separately reviewed successor. New candidates
 remain uncounted until reconciliation. Semantic review, successful elaboration,

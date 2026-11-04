@@ -78,7 +78,17 @@ jobs:
         run: python benchmarks/quantumcomputingbench/scripts/lean_course_v3.py run-fixture --view qcb-course-sp-104-v1 --episode-dir "${{ runner.temp }}/qcb-course-v3-fixture"
         env:
           PYTHONUTF8: '1'
-      - run: python -m unittest website.scripts.test_quantumcomputingbench -v
+      - name: Validate semantic question, review and authored-reference evidence
+        run: python benchmarks/quantumcomputingbench/scripts/learning_validity.py audit
+        env:
+          PYTHONUTF8: '1'
+      - name: Export answer-free semantic prompts and exercise decision controls
+        run: |
+          python benchmarks/quantumcomputingbench/scripts/learning_validity.py export-stage-a --seed 23 --output "${{ runner.temp }}/qcb-semantic-stage-a.json"
+          python benchmarks/quantumcomputingbench/scripts/learning_validity.py run-fixture --output "${{ runner.temp }}/qcb-semantic-fixture.json"
+        env:
+          PYTHONUTF8: '1'
+      - run: python -m unittest website.scripts.test_quantumcomputingbench website.scripts.test_qcb_diagnostics -v
         env:
           PYTHONUTF8: '1'
       # This job validates checked artifacts and software contracts. It does NOT

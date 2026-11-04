@@ -1,0 +1,136 @@
+{
+  "schema_version": "qcb.learning_answer_review.v1",
+  "reviewer_identity": "agent-task:root/learning_source_comparer",
+  "input_digest": "14d059a7a27258b5d801bc2fdf2cbec45b5698fe385acc24b8cfd9198b2e385d",
+  "method": "source-derivation-then-reference-answer-review",
+  "items": [
+    {
+      "probe_id": "2b3f25f2-db0a-4494-a887-14d7111eaf6a",
+      "answer_verdict": "accepted",
+      "rubric_verdict": "accepted",
+      "reasoning": "The answer's finite Gram contraction is valid: expanding M(vA) gives sum_(a,c) v_a v_c (AA^T)_(a,c), which reduces to M(v). Its complex-column interpretation is correctly oriented, with U_(out,a)=A_(a,out) and U^dagger U=I_l. The rubric admits equivalent Gram arguments and checks the substantive input/output and normalization distinctions rather than merely the truth label.",
+      "source_checks": "The frozen independent derivation applies to every signed real row boundary on the old bond, with output coordinates (bit,new bond). Neither the question nor this proof assumes unit mass. The answer correctly makes unit normalization conditional on M(v)=1. Empty input gives zero mass on both sides, while an empty output with positive input cannot satisfy AA^T=I.",
+      "remaining_limits": "Formal coverage is decision polarity only. The row/column bridge and physical interpretation are independently reviewed mathematics; no circuit implementation, gate cost or learning-generalization claim follows from this item."
+    },
+    {
+      "probe_id": "b0c5d76c-2aa7-4818-8009-c451c9c1081a",
+      "answer_verdict": "accepted",
+      "rubric_verdict": "accepted",
+      "reasoning": "For the reference's l=r=1, A=[1,0] and v=[2], AA^T=[1] and vA=[2,0] has squared mass 4, so the original universal mass-one claim is false. Replacing 1 with M(v) or explicitly imposing M(v)=1 gives the correct alternative statements. The rubric's 'e.g. 4' makes the sample boundary illustrative: other exact nonunit-mass witnesses receive the same mathematical credit.",
+      "source_checks": "The independent mass-preservation identity proves that M(v)=1 is necessary and sufficient for output mass one under AA^T=I. Thus the answer's repair is exact and does not silently narrow the original question. Zero inputs or allowed empty input dimensions are alternative witnesses, not exceptions that need excluding.",
+      "remaining_limits": "The formal root covers only the false decision. This particular witness and either repaired theorem require the separate mathematical checks supplied here; successful compilation alone would not grade them."
+    },
+    {
+      "probe_id": "87a548fd-6c07-4b71-a224-c374ec1005f5",
+      "answer_verdict": "accepted",
+      "rubric_verdict": "accepted",
+      "reasoning": "The reference correctly obtains (V^dagger V)_(a,c)=sum_(j,b) A_(a,(b,j)) A_(c,(b,j)), whose output-pair reindexing equals (AA^T)_(a,c). Realness removes conjugation, and no boundary normalization is needed. The rubric retains the required output swap and input identity. An equivalent explicit output-permutation proof V=PU also supplies its requested product expansion and swap bijection, because P^dagger P=I.",
+      "source_checks": "The question and frozen derivation place the output in (new bond,bit) order and input on the old bond. V_((j,b),a)=U_((b,j),a) does not exchange input and output and does not assert fixed-label equality. The allowed zero dimensions are handled whenever AA^T=I is satisfiable.",
+      "remaining_limits": "Formal coverage is the true decision V^dagger V=I_l only. No physical SWAP implementation, unchanged output-state claim, resource bound or full-output surjectivity follows from that root."
+    },
+    {
+      "probe_id": "c947872c-f1ae-4f09-9ff9-0d535c93b11c",
+      "answer_verdict": "accepted",
+      "rubric_verdict": "accepted",
+      "reasoning": "The reference's one-hot row at (1,0) has AA^T=[1], U supported at (1,0) and V supported at (0,1), so its witness is exact. The revised criteria now accept any normalized real row and any exact fixed-label mismatch or equivalent certificate. In particular they admit my independent mirrored one-hot witness, and the nonsymmetric row with entries 3/5 at (0,1) and 4/5 at (1,0), whose squared mass is 1. They still require both normalization and actual inequality.",
+      "source_checks": "The underlying factors are both Fin 2 but their bit and bond roles remain distinct. The correct relation is V_((j,b),0)=U_((b,j),0), equivalently an output-factor permutation. The answer and retained rubric criteria correctly separate column isometry from coordinate-wise invariance and do not identify these operators modulo relabeling.",
+      "remaining_limits": "The original rubric's reference-specific one-hot and entry requirements were rejected in the preserved pre-repair report. The actual revised wording resolves both restrictions. Formal coverage remains decision polarity only; the witness and swapped-entry relation are independently reviewed."
+    },
+    {
+      "probe_id": "d883d091-46d3-4f97-9dd7-b560d53238f0",
+      "answer_verdict": "accepted",
+      "rubric_verdict": "accepted",
+      "reasoning": "The reference's U=[1,0]^T satisfies U^dagger U=[1] but UU^dagger=diag(1,0), refuting the output identity. Its range-projection explanation and square/surjective repair are correct. The revised rubric allows any exact admissible dimensions and entry, vector, kernel, rank or equivalent mismatch certificate. Thus the independent 4-by-1 embedding and empty-input witnesses are no longer excluded, while AA^T=I and the two identity spaces must still be checked.",
+      "source_checks": "U maps the l-dimensional old bond into the 2r-dimensional output (bit,new bond); the emitted bit cannot be dropped from the identity space. Under AA^T=I, UU^dagger projects onto range(U) and equals the full output identity precisely when the isometry is surjective. The answer does not wrongly negate the valid input identity or claim failure in every dimension.",
+      "remaining_limits": "The original fixed 1-to-2 and fixed-entry grading requirements were rejected; the revised dimensions- and certificate-independent criteria resolve them. Formal coverage remains the false decision, not a separate projection theorem, repair certificate or physical completion."
+    },
+    {
+      "probe_id": "5a644ea9-ef08-4026-8c7b-90a9e6dc2481",
+      "answer_verdict": "accepted",
+      "rubric_verdict": "accepted",
+      "reasoning": "The answer correctly derives Q^2=U(U^dagger U)U^dagger=Q. Its additional facts Q^dagger=Q, Q(Ux)=Ux and range(Q) contained in range(U) establish the stated orthogonal-projection interpretation. The revised criterion 2 expressly accepts both the factor-association proof and the equally valid argument that Q maps into and fixes range(U). It still demands a valid proof from the isometry condition, not a positive example of idempotence.",
+      "source_checks": "The independent derivation gives U^dagger U=I_l from real AA^T=I without any normalized boundary. Q acts on the output space, which can properly contain range(U). The example diag(1,0) correctly shows why idempotence does not imply Q=I. Empty input gives Q=0 and remains idempotent.",
+      "remaining_limits": "The original mandatory four-factor proof form was rejected; the new equivalent-proof wording resolves that issue. Formal coverage remains decision polarity only. Hermitian/range language is separately checked mathematics; no efficient completion, compiler or full-output unitary is certified."
+    },
+    {
+      "probe_id": "ce8fd401-a4af-4c95-bef4-cbc5b42c7314",
+      "answer_verdict": "accepted",
+      "rubric_verdict": "accepted",
+      "reasoning": "For each prefix the nonnegative radicand gives m(f)(b)^2=f(b,0)^2+f(b,1)^2. Summing the two last-bit cases recovers N(f), exactly as the reference states. The rubric preserves arbitrary signed and unnormalized inputs and tests conditional unit-normalization propagation. Its distinction between nonlinear amplitude preprocessing and linear state evolution is mathematically warranted because the marginal discards sign information.",
+      "source_checks": "Fin.snoc appends the final coordinate, so prefix-and-last-bit decomposition enumerates every full basis word exactly once. At n=0 the output basis is the singleton empty word, not an empty set. Zero pairs need no division or nonzero hypothesis. Signed splitting information is additional data if a preparation circuit is to reconstruct the original amplitudes.",
+      "remaining_limits": "Formal coverage is equality of squared masses at decision level only. The loader-data interpretation and nonlinearity boundary are independently reviewed; no quantum circuit, success probability or resource bound is proved by that scalar invariant."
+    },
+    {
+      "probe_id": "94f36e25-6def-4b77-8bf8-7056c2425df5",
+      "answer_verdict": "accepted",
+      "rubric_verdict": "accepted",
+      "reasoning": "The reference's f=(1,0), g=(-1,0) produces marginals 0 and 2 on the two sides, so it exactly refutes additivity even with individually unit-norm inputs. The revised criteria admit any exact nonadditive real pair and equivalent inequality certificate. For example f=(1,0), g=(0,1) yields sqrt(2) versus 2 and is now accepted. The retained criteria still require explaining why norm preservation does not imply a linear circuit state action.",
+      "source_checks": "The output is one scalar on PrimitiveBasis 0. The domain is all real one-wire amplitude tables, and m(-f)=m(f) loses sign information. The reference correctly treats the marginal as input-dependent preprocessing, not a fixed linear isometry. Restricting to unit-norm inputs does not turn that set into a vector subspace or repair the linearity claim.",
+      "remaining_limits": "The original mandatory pair and 0-versus-2 scoring requirements were rejected; the actual revised wording resolves them. Formal coverage is nonadditivity's decision only, with the physical interpretation and any squared-norm repair checked separately."
+    },
+    {
+      "probe_id": "b1234a5b-fe27-4add-bbe4-cb130e138af6",
+      "answer_verdict": "accepted",
+      "rubric_verdict": "accepted",
+      "reasoning": "The reference correctly computes J^-1(x,(c,s))=(c,(s,x)) and J F_p J^-1(x,(c,s))=(p_s(x),(c,s)). Reindexing both matrix arguments therefore gives the exact proposed indicator including its zero case. The stated inverse uses p_s^-1 at the same selector and is correct. The rubric checks the transported controlled action, preserved registers and exact matrix entries, all central to this question.",
+      "source_checks": "Pinned reindexAlgEquiv uses the inverse equivalence on both indices, matching the question's convention. In D the selector is k.2.2 and the coefficient is k.2.1; neither changes. The proof includes empty carriers because there are then no basis-entry pairs to violate the formula. No extra ancilla or normalization premise has appeared.",
+      "remaining_limits": "Formal coverage remains the decision for the entry formula. The inverse formula and register interpretation are independently reviewed and do not establish a compiled circuit, gate count or physical wire-order implementation."
+    },
+    {
+      "probe_id": "93904687-6d03-43fe-b130-193a4f90ab4e",
+      "answer_verdict": "accepted",
+      "rubric_verdict": "accepted",
+      "reasoning": "For the reference's p_false=id and p_true=X, its k=(false,(true,false)) has actual selector false, hence unchanged system false. At r=(true,(true,false)) the actual entry is 0 while the erroneous coefficient-controlled indicator is 1. The selector repair k.2.1 to k.2.2 restores the transported operator under the original unrestricted family assumptions. The rubric permits any explicit family and concrete unequal entry rather than prescribing these labels.",
+      "source_checks": "All carriers are Bool, so the wrong control expression is well typed; citing a type error would miss the semantic issue. Both c and s are preserved, and only s selects the system permutation. The answer correctly says one family refutes universality without claiming every family distinguishes coefficient and selector controls.",
+      "remaining_limits": "Formal coverage is the false decision only. The concrete witness and corrected selector formula are independently checked mathematics, not additional certified conclusions of the negated universal root."
+    },
+    {
+      "probe_id": "badaa09e-22b6-482f-b277-b0ab8c1f28e7",
+      "answer_verdict": "accepted",
+      "rubric_verdict": "accepted",
+      "reasoning": "Both reference composites are correct on every basis state: p_s^-1(p_s(x))=x and p_s(p_s^-1(x))=x. The unchanged selector ensures the same family member is used in each cancellation. The reference's U_g U_f=U_(g composed with f) convention agrees with column-vector multiplication. The rubric requires both orders and preservation of coefficient and selector, rather than accepting a few sampled entries as a universal proof.",
+      "source_checks": "The full basis is C times (S times X), with no inserted ancilla. Equality of all basis columns proves the exact complex matrix identities. Empty product indices cause no exception because both matrices equal the empty identity. State normalization and phase quotients do not enter the inverse law.",
+      "remaining_limits": "Formal coverage remains the two-sided-inverse decision. An adjoint/unitarity restatement, a particular gate implementation and resource estimates would require separate claims and evidence."
+    },
+    {
+      "probe_id": "9653f2d7-5af9-420b-a8af-30ad44c0f651",
+      "answer_verdict": "accepted",
+      "rubric_verdict": "accepted",
+      "reasoning": "The reference's basis input |*,false,false> is unchanged by p_false=id and then flipped by q_false=p_true^-1=X, so the product differs from identity. The revised rubric correctly accepts either its off-diagonal 1-versus-0 certificate or the same input's diagonal 0-versus-1 certificate, as well as equivalent exact operator witnesses. Its repair criterion now accepts q_s=p_s^-1 directly or a justified equal-permutation lookup, without requiring the optional general classification.",
+      "source_checks": "The stored selector remains false: changing the family argument to not s does not flip the selector wire. For these fixed nonempty Unit/Bool/Bool carriers, p_(tau(s))^-1 p_s=id for all x is equivalent to p_(tau(s))=p_s. Thus the reference's generalized condition and warning that distinct labels may select equal permutations are valid.",
+      "remaining_limits": "The original off-diagonal-only and overgeneralized-repair requirements were rejected; the actual revised criteria resolve them. Formal coverage is only the original false decision. Repairs and the generalized iff are separately reviewed mathematics, with no extension of that iff to empty coefficient carriers asserted."
+    },
+    {
+      "probe_id": "976c9922-4202-4a48-a885-4d5a6d21656f",
+      "answer_verdict": "accepted",
+      "rubric_verdict": "accepted",
+      "reasoning": "The reference's noncommuting swaps send input system 0 to 2 under r=q composed with p and to 1 under U_p U_q, so the entry at output 2 is 1 for U_r and 0 for the wrong product. Both reference repairs are correct: retain r and reverse the product to U_q U_p, or retain U_p U_q and define the repaired family p composed with q. The final criterion 3 now explicitly accepts either sound convention with chronology and changed contract stated, while criteria 1-2 still require an exact noncommuting witness and rejection of the original universal.",
+      "source_checks": "The independent derivation used a singleton selector; the reference's added identity second selector is another allowed finite instance. Coefficient and selector remain unchanged. Pinned Equiv.trans applies p then q, while column-vector products apply the right factor first. Two-element system permutations commute, so the reference correctly uses three system values to expose the order defect.",
+      "remaining_limits": "Eighth-fix history: the seven-fix packet digest 9153b386dbd1024f15318e737b90d4c1ebe156a3aa0c519a508ced69fe331b78 still required only the reversed-product repair and was not finally accepted. The current bound packet replaces that criterion with the actual inclusive wording reviewed above. Question, proposition and reference mathematics remain unchanged. Formal coverage is decision polarity only, not either repaired law or its concrete witness."
+    },
+    {
+      "probe_id": "d67d7a90-a228-4d10-b10a-2e2957f00cd2",
+      "answer_verdict": "accepted",
+      "rubric_verdict": "accepted",
+      "reasoning": "The reference correctly composes the basis maps as F_q(F_p(c,(s,x)))=(c,(s,q_s(p_s(x))))=F_r(c,(s,x)). In the matrix sum the only possible nonzero intermediate index is F_p(b), and its contribution is the indicator that the output equals F_q(F_p(b)). The rubric tests both this chronology and its connection to the column-vector matrix product, while retaining the preserved control and coefficient semantics.",
+      "source_checks": "The full unchanged selector s chooses both p_s and q_s, and r means first p then q. No commutativity is assumed or needed. The matrix indicator convention places the 1 at row=image(column), so U_q U_p is the correctly ordered product. The argument remains valid for empty finite carriers.",
+      "remaining_limits": "Formal coverage is the true composition decision only. The proof is an exact matrix argument and implies no physical scheduling duration, gate synthesis, resource bound or learning-generalization result."
+    },
+    {
+      "probe_id": "8a8bdc71-dcd2-42e9-a564-19b2d0530fdf",
+      "answer_verdict": "accepted",
+      "rubric_verdict": "accepted",
+      "reasoning": "The reference supplies a valid universal proof: the difference has endpoint multiplicities at least k+1, so the coprime product X^(k+1)(X+1)^(k+1) divides it. A nonzero difference would have degree at least 2k+2, contradicting the 2k+1 bound. The revised criteria now admit rigorous root-count or equivalent uniqueness proofs instead of mandating divisibility prose. Criterion 4 expressly requires the full universal proof and rejects a single positive example or failed check, resolving the earlier quantifier defect.",
+      "source_checks": "The endpoint jets include ordinary derivative order zero at exactly -1 and 0. Real factorials are nonzero, and the distinct linear factors have coprime powers. The zero difference is handled before the nonzero degree comparison. Natural k includes zero and zero input polynomials remain admissible; only uniqueness, not existence for arbitrary jet data, is concluded.",
+      "remaining_limits": "The original route-specific criteria and proof-or-example alternative were rejected; the revised criteria resolve both issues without weakening the universal claim. Formal coverage remains decision polarity only. No interpolation existence, circuit or resource conclusion is admitted."
+    },
+    {
+      "probe_id": "645ccfc8-9c4b-4e41-b51b-b330748fc34e",
+      "answer_verdict": "accepted",
+      "rubric_verdict": "accepted",
+      "reasoning": "For every k and nonzero real c, the reference's p=c X^(k+1)(X+1)^(k+1), q=0 has degree exactly 2k+2, matching jets through k, and p not equal to q. Its constant-multiple classification also follows because the same product divides any difference and exhausts the degree allowance. The revised rubric accepts a single exact admissible k and direct jet calculations rather than forcing the all-k factor route. In particular k=0, p=X^2, q=-X satisfies both value conditions and disproves the universal just as completely.",
+      "source_checks": "The independent pre-answer derivation already established the k=0 and all-k counterexamples. For the alternative p=X^2,q=-X, both values at -1 are 1 and both values at 0 are 0, while their degrees are at most 2 and they differ. The extra degree permits a nonzero difference; coprimality itself has not failed. Restoring the 2k+1 bound repairs uniqueness.",
+      "remaining_limits": "The original mandatory general multiplicity/coprimality route was rejected; the revised criteria now distinguish one sufficient counterexample from the optional all-k family. Formal coverage is decision polarity only. The family, repaired bound and constant-multiple classification are independently reviewed explanatory mathematics, not additional certified roots."
+    }
+  ]
+}
