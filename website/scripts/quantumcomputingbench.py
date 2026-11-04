@@ -236,13 +236,13 @@ def diagnostic_probe_body(probe, number, packet, expert_index=None):
     body = '<article class="qcb-part" id="' + esc(anchor) + '" data-qcb-diagnostic="' + esc(probe["probe_id"]) + '"><h3>Question ' + str(number) + '</h3>'
     body += '<p class="qcb-meta">Candidate diagnostic · provisional ' + esc(probe["difficulty"]["band"]) + ' · ' + esc(probe["reasoning_kind"].replace('_', ' ')) + ' · inherited split: ' + esc(probe["split"]) + '</p>'
     for field in ("assumptions", "conventions"):
-        body += '<h4>' + field.title() + '</h4><ul data-qcb-diagnostic-' + field + '>' + ''.join('<li>' + esc(value) + '</li>' for value in probe[field]) + '</ul>'
+        body += '<h4>' + field.title() + '</h4><ul data-qcb-diagnostic-' + field + '>' + ''.join('<li>' + prose(value) + '</li>' for value in probe[field]) + '</ul>'
         if not probe[field]:
             body += '<p class="qcb-meta">None listed separately; all premises stated in the question still apply.</p>'
     body += '<div data-qcb-diagnostic-question>' + prose(probe["question"]) + '</div>'
     body += question_equations(probe["probe_id"], probe["question"])
     body += disclosure("Reference decision and mathematical explanation", '<p><strong>Reference decision: ' + esc(probe["gold"]["decision"]) + '</strong></p>' + prose(probe["gold"]["answer"]), 'answer-' + probe["probe_id"])
-    rubric = '<ol>' + ''.join('<li>' + esc(row["criterion"]) + ' <small>(weight ' + esc(row["weight"]) + ')</small></li>' for row in probe["gold"]["rubric"]) + '</ol>'
+    rubric = '<ol>' + ''.join('<li>' + prose(row["criterion"]) + ' <small>(weight ' + esc(row["weight"]) + ')</small></li>' for row in probe["gold"]["rubric"]) + '</ol>'
     body += disclosure("Assessment rubric", rubric, 'rubric-' + probe["probe_id"])
     # The same evaluator-owned construction used by reference qualification.
     task = challenge_task(probe, probe["gold"]["decision"], snapshot_id=packet["snapshot_id"], library_revision=packet["library_revision"])
@@ -439,7 +439,7 @@ def core_body(core, item, catalog, graph, live_ids, prefix, publication_commit=N
                     'Inherited reviews only; a current content-bound mathematical second pass remains pending.')
     body += '<p class="qcb-meta">Source relation: ' + esc(core["evidence_relation"].replace("_", " ")) + '. Review details are folded under Sources and provenance.</p>'
     premises = ''.join('<ul data-qcb-active-' + field + '>' + ''.join(
-        '<li>' + esc(s) + '</li>' for s in item[field]) + '</ul>'
+        '<li>' + prose(s) + '</li>' for s in item[field]) + '</ul>'
         for field in ('assumptions', 'conventions'))
     body += section("Assumptions and conventions", premises, "assumptions")
     if core.get("question_successor"):
@@ -449,10 +449,10 @@ def core_body(core, item, catalog, graph, live_ids, prefix, publication_commit=N
         if "assumptions" in core["question_successor"]["changed_contract_fields"]:
             body += '<p class="qcb-boundary" data-qcb-assumption-revision="2">The assumptions above are the current premises. The superseded assumptions are retained in the folded historical audit, not as current premises. This is an explicit correction, not an equivalent restatement.</p>'
     body += section("Question", prose(item["question"]) + question_equations(core["core_id"], item["question"]), "question")
-    roadmap = '<ol>' + "".join('<li>' + esc(s["claim"]) + '</li>' for s in item["semantic_steps"]) + '</ol>'
+    roadmap = '<ol>' + "".join('<li>' + prose(s["claim"]) + '</li>' for s in item["semantic_steps"]) + '</ol>'
     body += disclosure("Hint: mathematical route", prose(core["title"]) + roadmap, "hint")
     body += disclosure("Reference solution", prose(item["reference_answer"]), "solution")
-    rubric = '<ol>' + "".join('<li>' + esc(r["criterion"]) + ' <small>(' + esc(r["weight"]) + ' weight)</small></li>' for r in item["rubric"]) + '</ol>'
+    rubric = '<ol>' + "".join('<li>' + prose(r["criterion"]) + ' <small>(' + esc(r["weight"]) + ' weight)</small></li>' for r in item["rubric"]) + '</ol>'
     body += disclosure("Assessment rubric", rubric, "rubric")
     body += course_panel(core, prefix, publication_commit)
     if expert_index is not None:
@@ -483,12 +483,12 @@ def core_body(core, item, catalog, graph, live_ids, prefix, publication_commit=N
             for title, key in (("Historical conventions (audit only)", "original_conventions"),
                                ("Current conventions", "current_conventions")):
                 revision_body += '<h3>' + title + '</h3><ul>' + ''.join(
-                    '<li>' + esc(s) + '</li>' for s in lineage[key]) + '</ul>'
+                    '<li>' + prose(s) + '</li>' for s in lineage[key]) + '</ul>'
         if "assumptions" in lineage["changed_contract_fields"]:
             for title, key in (("Historical assumptions (audit only)", "original_assumptions"),
                                ("Current assumptions", "current_assumptions")):
                 revision_body += '<h3>' + title + '</h3><ul data-qcb-' + key + '>' + ''.join(
-                    '<li>' + esc(s) + '</li>' for s in lineage[key]) + '</ul>'
+                    '<li>' + prose(s) + '</li>' for s in lineage[key]) + '</ul>'
         body += disclosure("Question revision lineage", revision_body + prose(json.dumps(lineage, indent=2)), "revision")
     return body + '</article>'
 

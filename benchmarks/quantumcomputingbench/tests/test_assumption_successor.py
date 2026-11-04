@@ -22,20 +22,30 @@ class PremisesParser(HTMLParser):
     def __init__(self):
         super().__init__()
         self.role, self.in_li, self.text, self.lists = None, False, '', {}
+        self.math_depth = 0
 
     def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        if self.math_depth:
+            self.math_depth += 1
+        elif self.in_li and 'data-qcb-math-source' in attrs:
+            self.text += attrs['data-qcb-math-source']
+            self.math_depth = 1
         if tag == 'ul':
-            self.role = next((key for key, _ in attrs if key.startswith('data-qcb-')), None)
+            self.role = next((key for key in attrs if key.startswith('data-qcb-')), None)
             if self.role:
                 self.lists[self.role] = []
         if tag == 'li' and self.role:
             self.in_li, self.text = True, ''
 
     def handle_data(self, data):
-        if self.in_li:
+        if self.in_li and not self.math_depth:
             self.text += data
 
     def handle_endtag(self, tag):
+        if self.math_depth:
+            self.math_depth -= 1
+            return
         if tag == 'li' and self.in_li:
             self.lists[self.role].append(self.text)
             self.in_li = False

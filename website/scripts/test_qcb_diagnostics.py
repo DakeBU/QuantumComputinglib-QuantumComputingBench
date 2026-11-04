@@ -142,9 +142,11 @@ class DiagnosticReaderTests(unittest.TestCase):
                 self.assertIn(reader.prose(probe["gold"]["answer"]), page)
                 self.assertIn(reader.esc(probe["gold"]["reference_proof"]), page)
                 for field in ("assumptions", "conventions"):
-                    expected = '<ul data-qcb-diagnostic-' + field + '>' + ''.join('<li>' + reader.esc(v) + '</li>' for v in probe[field]) + '</ul>'
+                    expected = '<ul data-qcb-diagnostic-' + field + '>' + ''.join('<li>' + reader.prose(v) + '</li>' for v in probe[field]) + '</ul>'
                     self.assertIn(expected, page)
-                rubric = '<ol>' + ''.join('<li>' + reader.esc(row["criterion"]) + ' <small>(weight ' + reader.esc(row["weight"]) + ')</small></li>' for row in probe["gold"]["rubric"]) + '</ol>'
+                    for value in probe[field]:
+                        self.assertEqual(recover_prose_source(page, value), value)
+                rubric = '<ol>' + ''.join('<li>' + reader.prose(row["criterion"]) + ' <small>(weight ' + reader.esc(row["weight"]) + ')</small></li>' for row in probe["gold"]["rubric"]) + '</ol>'
                 self.assertIn(rubric, page)
                 target = probe["formal_context"]["proposition"]
                 if probe["gold"]["decision"] == "refuted":

@@ -36,6 +36,23 @@ class PublicationContractTests(unittest.TestCase):
                 self.assertRaisesRegex(ValueError, 'notation changed'):
             reader.math_notation_contract(review['catalog_hash'])
 
+    def test_premises_hints_rubrics_and_revision_lists_preserve_originals(self):
+        catalog, items, graph = reader.load_catalog()
+        for core in catalog['cores']:
+            item = items[core['core_id']]
+            values = item['assumptions'] + item['conventions']
+            values += [s['claim'] for s in item['semantic_steps']]
+            values += [r['criterion'] for r in item['rubric']]
+            lineage = core.get('question_successor') or {}
+            for key in ('original_assumptions', 'current_assumptions',
+                        'original_conventions', 'current_conventions'):
+                values += lineage.get(key, [])
+            body = reader.core_body(core, item, catalog, graph, set(graph), '../../../')
+            for original in values:
+                with self.subTest(core=core['core_id'], source=original[:50]):
+                    recovered = recover_prose_source(body, original)
+                    self.assertEqual(' '.join(recovered.split()), ' '.join(original.split()))
+
     def test_unexecuted_and_stale_container_evidence_are_different(self):
         registry = {'registry_hash': 'expected-registry', 'source_commit': 'a' * 40}
         with tempfile.TemporaryDirectory() as directory:

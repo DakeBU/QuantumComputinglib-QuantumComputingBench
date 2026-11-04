@@ -24,8 +24,21 @@ def check_ecosystem(page, base, root, manifest, output):
     items = json.loads((root / 'data/quantumcomputingbench/reader-items.json').read_text())['items']
     project = Path(__file__).resolve().parents[2]
     probes = json.loads((project / 'benchmarks/quantumcomputingbench/tracks/lean/learning-validity/v1/cohort.json').read_text())['probes']
-    expressions = {s.tex for item in items for key in ('question', 'reference_answer') for s in algebra_spans(item[key])}
-    expressions.update(s.tex for p in probes for text in (p['question'], p['gold']['answer']) for s in algebra_spans(text))
+    texts = []
+    for item in items:
+        texts += [item['question'], item['reference_answer']]
+        texts += item['assumptions'] + item['conventions']
+        texts += [s['claim'] for s in item['semantic_steps']]
+        texts += [r['criterion'] for r in item['rubric']]
+        lineage = item.get('question_successor') or {}
+        for key in ('original_assumptions', 'current_assumptions',
+                    'original_conventions', 'current_conventions'):
+            texts += lineage.get(key, [])
+    for probe in probes:
+        texts += [probe['question'], probe['gold']['answer']]
+        texts += probe['assumptions'] + probe['conventions']
+        texts += [r['criterion'] for r in probe['gold']['rubric']]
+    expressions = {s.tex for text in texts for s in algebra_spans(text)}
     expressions.update(x['tex'] for x in _QUESTION_COMPANIONS.values())
     page.goto(base + 'quantumcomputingbench/run/index.html', wait_until='networkidle')
     settle_math(page)

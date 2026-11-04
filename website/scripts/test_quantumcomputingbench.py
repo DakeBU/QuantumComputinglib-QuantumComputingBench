@@ -15,6 +15,7 @@ import qcb_curriculum as shared
 from qcb_core import write_json
 
 from website.scripts import quantumcomputingbench as reader
+from website.scripts.qcb_render_test_support import recover_prose_source
 from website.scripts.sidebar_navigation import render_navigation
 from website.scripts.test_sidebar_navigation import NavigationParser
 
@@ -201,11 +202,12 @@ class CurriculumTests(unittest.TestCase):
             self.assertIn('Historical conventions (audit only)', body)
             self.assertIn('Current conventions', body)
             for text in lineage['current_conventions']:
-                self.assertIn(reader.esc(text), active)
+                self.assertEqual(recover_prose_source(active, text), text)
             for text in lineage['original_conventions']:
-                self.assertIn(reader.esc(text), body.split('id="revision"', 1)[1])
+                self.assertEqual(recover_prose_source(body.split('id="revision"', 1)[1], text), text)
                 if text not in lineage['current_conventions']:
-                    self.assertNotIn(reader.esc(text), active)
+                    with self.assertRaises(AssertionError):
+                        recover_prose_source(active, text)
             proposal = self.proposal()
             proposal.update({k: core[k] for k in ('core_id', 'contract_hash', 'family', 'split', 'snapshot_id')})
             proposal['source_nodes'] = core['target_nodes']

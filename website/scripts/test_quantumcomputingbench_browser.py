@@ -13,9 +13,17 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 from website.scripts.qcb_ecosystem_browser import check_ecosystem, settle_math
+from website.scripts.qcb_render_test_support import recover_prose_source
 from website.scripts.quantumcomputingbench import HUB, check_site
 from website.scripts.research_browser_contract import THEMES
 from website.scripts.test_research_browser import QuietHandler
+
+
+def source_list_matches(locator, originals):
+    """Compare original premises after MathJax replaces their display text."""
+    return locator.count() == len(originals) and all(
+        recover_prose_source(locator.nth(i).inner_html(), original) == original
+        for i, original in enumerate(originals))
 
 
 def run(root, output, channel=None):
@@ -171,24 +179,21 @@ def run(root, output, channel=None):
                         convention_revision = 'conventions' in revision['changed_contract_fields']
                         assumption_revision = 'assumptions' in revision['changed_contract_fields']
                         if assumption_revision:
-                            active = page.locator('#assumptions [data-qcb-active-assumptions] > li').all_text_contents()
-                            old = panel.locator('[data-qcb-original_assumptions] > li').all_text_contents()
-                            current = panel.locator('[data-qcb-current_assumptions] > li').all_text_contents()
-                            if (active != revision['current_assumptions'] or old != revision['original_assumptions']
-                                    or current != revision['current_assumptions']
+                            active = page.locator('#assumptions [data-qcb-active-assumptions] > li')
+                            old = panel.locator('[data-qcb-original_assumptions] > li')
+                            current = panel.locator('[data-qcb-current_assumptions] > li')
+                            if (not source_list_matches(active, revision['current_assumptions'])
+                                    or not source_list_matches(old, revision['original_assumptions'])
+                                    or not source_list_matches(current, revision['current_assumptions'])
                                     or page.locator('[data-qcb-assumption-revision="2"]').count() != 1):
                                 failures.append('active/historical assumptions not exactly distinguished: ' + route)
-                        if convention_revision:
-                            assumptions = page.locator('#assumptions').inner_text()
-                            if (page.locator('[data-qcb-convention-revision="2"]').count() != 1
-                                    or any(s not in assumptions for s in revision['current_conventions'])
-                                    or any(s in assumptions for s in revision['original_conventions']
-                                           if s not in revision['current_conventions'])
-                                    or any(s not in panel.inner_text() for s in
-                                           revision['original_conventions'] + revision['current_conventions'])
+                        if convention_revision and (page.locator('[data-qcb-convention-revision="2"]').count() != 1
+                                    or not source_list_matches(page.locator('#assumptions [data-qcb-active-conventions] > li'), revision['current_conventions'])
+                                    or not source_list_matches(panel.locator('[data-qcb-original_conventions] > li'), revision['original_conventions'])
+                                    or not source_list_matches(panel.locator('[data-qcb-current_conventions] > li'), revision['current_conventions'])
                                     or 'Historical conventions (audit only)' not in panel.inner_text()
                                     or 'Current conventions' not in panel.inner_text()):
-                                failures.append('active/historical conventions not distinguished: ' + route)
+                            failures.append('active/historical conventions not distinguished: ' + route)
                         if page.locator('#solution').get_attribute('open') is not None:
                             failures.append('revision disclosure exposed solution: ' + route)
                         if page.evaluate('document.documentElement.scrollWidth > innerWidth + 2'):
