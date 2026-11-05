@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "cycle": 14,
+  "reviewer": "root/finite_bridge_reviewer_c14",
+  "review_kind": "distinct_exact_source_scoped_C_internal_provider_audit",
+  "accepted": true,
+  "verdict": "ACCEPTED_SCOPED_LITERAL_SIGNED_HALF_ANGLE_RY_AND_FULL_EUCLIDEAN_OPERATOR_LIFT",
+  "result_path": "experiments/hermite-polynomial/precision/saved-ry-interval/result-v2.json",
+  "result_sha256": "540b65b0a44213bce4a8e2c07695a3811398ffc82374b180f7bdca4176c0431a",
+  "provider_sha256": "218361c3ba2f40b6bb64fb012715fa19e6a329522eaf2da854df0a400a2e0675",
+  "consumer_sha256": "a414a8f414b34320dae33fbbc09926b383048f36e842d32b33c3e5b76a295a41",
+  "binding_verification": {"all_result_bindings": 19, "safe_v2_logs": 3, "mismatches": 0, "frozen_result_unchanged_after_review": true},
+  "complete_scope_read": ["statement-seal-v1.json", "consumer-seal-v1.json", "SavedRyInterval.lean", "ConsumerChecks.lean", "test_saved_ry_interval.py", "replay.ps1", "freeze_result.py", "HANDOFF-v1.md", "result-v2.json"],
+  "dependency_inspection": {
+    "complete_sources": ["FiniteTrig.lean", "finite_trig.py", "PrimitiveRyPerturbation.lean", "PrimitiveSemantics.lean", "PrimitiveBasisLE.lean", "saved_action.py"],
+    "actual_norm_definition": "Inspected Mathlib Matrix L2 operator norm construction, l2_opNorm_def and l2_opNorm_toEuclideanCLM. It is induced by Euclidean continuous-linear-map norm; not plain-function sup norm.",
+    "additional_bindings": {
+      "QuantumBlockEncoding/PrimitiveCircuit.lean": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c",
+      "QuantumBlockEncoding/Robin/ComplexLCU.lean": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843",
+      ".lake/packages/mathlib/Mathlib/Analysis/CStarAlgebra/Matrix.lean": "45aaab54676741b35977675fb7022804513af97f0a8d2a5784d78099414a2e8e"
+    },
+    "inherited_native_boundary": "PrimitiveBasisLE contains old native_decide proofs. New provider, author consumers and independent probes do not use new native_decide, and all printed roots in this review have only the standard three axioms, not Lean.ofReduceBool. This does not certify every inherited module."
+  },
+  "mathematical_review": {
+    "literal_matrix": "midpoint is precisely [[c,-s],[s,c]] with c=cosPoly(theta/2,n), s=sinPoly(theta/2,n), both computed in Rat. finiteRy is its literal real-to-complex cast. Existing standardRyMatrix also uses theta/2. All signs and relative phases are retained.",
+    "entry_error": "Actual unconditional FiniteTrig sin/cos Taylor error is consumed. Negative offdiagonal is handled by norm_neg, not by magnitude/phase replacement. No desired interval membership or operator bound is assumed.",
+    "operator_factor": "Actual signed error is a*RY(0)+b*RY(pi). Both fixed nominal matrices are proved unitary in the actual L2 matrix norm, so triangle inequality yields abs(a)+abs(b)<=2*radius. This is an explicit local2x2 factor; no false dimension-free implication from arbitrary entry bounds is used.",
+    "physical_lift": "The same decomposition survives the actual named-wire tensor/reindex lift via proved linearity. Its two fixed lifted nominal matrices are unitary on the full physical basis, so2*radius is retained without an exponential spectator-dimension penalty. target is typing data, not a free normValid/clean-sector assumption.",
+    "full_euclidean_action": "lifted_clm_error is explicit toEuclideanCLM norm; lifted_vector_error uses actual operator action on arbitrary full complex Euclidean vectors. Every spectator/garbage coordinate remains in the carrier. There is no projection or renormalization.",
+    "nonunitary_surrogate": "finiteRy is never assumed unitary. Own kernel fixture finiteRy(2,1) has first-column squared norm2, disproving a norm-one shortcut. Product amplification remains required for downstream nonunitary surrogate products.",
+    "actual_saved_consumer": "The exact first ASCII token in the unchanged saved QASM is -0.86958955523179937 on q3. The author consumer instantiates its rational angle and degree96 local entry/operator theorem. It is an actual angle instantiation, not a proof of the entire saved gate word or parser.",
+    "finite_tests": "All five supplied exact tests pass independently. They compare every distinct actual saved RY token's rational Taylor radius and dyadically outward-rounded endpoints to the older saved_action recurrence. This finite formula agreement is not a mechanized interpreter/refinement theorem.",
+    "rounding_and_stage_boundary": "The raw Taylor midpoint is not automatically the outward-rounded primitive center, and neither is automatically the final stage midpoint. Actual saved_action rounds each interval row after ordered gate updates and takes the midpoint only after the full stage. The newly proved primitive finiteRy theorem does not certify that different object.",
+    "parser_boundary": "Literal rational decimal semantics are distinct from Qiskit/binary64 parser semantics. Existing saved_action separately charges decimal-versus-binary angle transports. No Qiskit parser equality is inferred from one rational token theorem or endpoint agreement.",
+    "CX": "Only existing exact CX basis semantics are reused in a discriminator. Removed tautological helper receives no new semantic-bridge, resource or mathematical-delta credit."
+  },
+  "fresh_gates": {
+    "initial_replay_command": "powershell -NoProfile -ExecutionPolicy Bypass -File experiments/hermite-polynomial/precision/bridge-review-c14/replay-ry.ps1",
+    "fresh_provider_and_author_consumer_session": 33541,
+    "prefix_status": "Complete unchanged FiniteTrig and SavedRyInterval source compilation into own cache, followed by entire unchanged author ConsumerChecks, all passed. All15 printed author roots/discriminators have only standard axioms.",
+    "initial_composite_exit": 1,
+    "initial_failure": "Reviewer-only discriminator had ambiguous midpoint name and a Fin numeral match elaboration goal. Failed elaboration printed sorryAx for those incomplete reviewer probes. It is not accepted evidence and did not change the frozen package.",
+    "repair": "Qualified HermiteSavedRyInterval.midpoint and used explicit kernel Fin equality reduction, preserving sealed statements and changing only reviewer source.",
+    "final_probe_and_test_session": 6567,
+    "final_exit_code": 0,
+    "final_scope": "Entire corrected own RyDiscriminators.lean with all five printed roots plus all five actual saved RY Python tests",
+    "final_axioms_union": ["propext", "Classical.choice", "Quot.sound"],
+    "python_tests": 5,
+    "own_cache": "experiments/hermite-polynomial/precision/bridge-review-c14/.cache",
+    "forbidden_scan": "No sorry/admit/unsafe/declared axiom/native_decide/ofReduceBool/fake True closure/normValid in new provider, author consumer or final own Lean probe sources",
+    "warnings": "Existing locally changed Verso dependency and harmless simp/sequence lints; no clean external CI claim",
+    "whole_repository_gate": "Not independently run by this reviewer; parent owns integration build and Tests"
+  },
+  "independent_discriminators": {
+    "seal": "experiments/hermite-polynomial/precision/bridge-review-c14/ry-discriminator-seal-v1.json",
+    "seal_sha256": "30af5eecd61d918fc34315f63a6cf9059572358a8ce30e2fb95e32549c5fd9fe",
+    "source": "experiments/hermite-polynomial/precision/bridge-review-c14/RyDiscriminators.lean",
+    "source_sha256": "02541c0a2ecabbab3e774c50d7220abf75711c8fc85f7bffca464b5de82892be",
+    "checks": "Positive/negative theta2 half-angle signed matrices, nonunitary first-column squared norm, named q1 upper sign, spectator q2 mismatch refusal, no-premise parametric actual Euclidean operator supplier. Sealed before implementation and finally kernel checked.",
+    "common_blindspots": "Five independent exact Python tests separately pin scalar/global norm, post-product midpoint, binary64 rounding, amplification and garbage-carrier distinctions. These are not full saved-plan certificates."
+  },
+  "chronology": "Review began only after parent froze safe result-v2. Primary four exact signatures and quantum contract were pre-proof sealed; internal auxiliary/vector/entry glue is not independently Source Anchor sealed. Removed CX helper and safe successor privacy chronology are explicitly disclosed. Private v1 logs/results were not read, edited or approved by this review.",
+  "trusted_boundary": "Fresh full scoped elaboration, exact frozen source/dependency/log hashes and narrow exact discriminators. Existing pinned production/Mathlib dependencies remain upstream trust, not a fresh compiler or transitive-kernel audit. Source-blind decoding, scientific source topology and publication are NOT claimed.",
+  "failure_class": "NONE_FOR_FROZEN_PROVIDER; IMPLEMENTATION_FAILED_FOR_REPAIRED_INITIAL_REVIEWER_PROBE",
+  "open": ["outward interval and actual stage-midpoint refinement", "Python/decimal/Qiskit parser refinement", "whole saved tensor/readout and full garbage error composition", "four non-radius global stages", "uniform source-family and finite-bit/runtime/physical synthesis", "C2", "C3", "X2", "ROOT"],
+  "purification": "INTERNAL_REVIEW_ONLY_NOT_PUBLIC_PURIFIED",
+  "source_Anchor_approved": false,
+  "scientific_ROOT": false
+}

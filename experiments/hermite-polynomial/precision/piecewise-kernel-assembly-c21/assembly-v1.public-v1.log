@@ -1,0 +1,42 @@
+warning: verso: repository '.\.lake/packages\verso' has local changes
+experiments/hermite-polynomial/precision/piecewise-kernel-assembly-c21/ActualAssembly.lean:78:19: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (thresholdBlock n (min (2 ^ (n + 1)) ?m.40) ?flip).value ?x
+in the target expression
+  (thresholdBlock n (strictCut (n + 1) R s) flip).value x =
+    if flip = true then 1 - ↑(indicator (gridPoint n R x < s)) else ↑(indicator (gridPoint n R x < s))
+
+n : ℕ
+R s : ℚ
+hR : 0 < R
+flip : Bool
+x : Word (n + 1)
+⊢ (thresholdBlock n (strictCut (n + 1) R s) flip).value x =
+    if flip = true then 1 - ↑(indicator (gridPoint n R x < s)) else ↑(indicator (gridPoint n R x < s))
+experiments/hermite-polynomial/precision/piecewise-kernel-assembly-c21/ActualAssembly.lean:88:22: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (thresholdBlock n (min (2 ^ (n + 1)) ?m.40) ?flip).value ?x
+in the target expression
+  (thresholdBlock n (inclusiveCut (n + 1) R s) flip).value x =
+    if flip = true then 1 - ↑(indicator (gridPoint n R x ≤ s)) else ↑(indicator (gridPoint n R x ≤ s))
+
+n : ℕ
+R s : ℚ
+hR : 0 < R
+flip : Bool
+x : Word (n + 1)
+⊢ (thresholdBlock n (inclusiveCut (n + 1) R s) flip).value x =
+    if flip = true then 1 - ↑(indicator (gridPoint n R x ≤ s)) else ↑(indicator (gridPoint n R x ≤ s))
+experiments/hermite-polynomial/precision/piecewise-kernel-assembly-c21/ActualAssembly.lean:124:8: error: typeclass instance problem is stuck
+  AddCommMonoid ?m.112
+
+Note: Lean will not try to resolve this typeclass instance problem because the type argument to `AddCommMonoid` is a metavariable. This argument must be fully determined before Lean will try to resolve the typeclass.
+
+Hint: Adding type annotations and supplying implicit arguments to functions can give Lean more information for typeclass resolution. For example, if you have a variable `x` that you intend to be a `Nat`, but Lean reports it as having an unresolved type like `?m`, replacing `x` with `(x : Nat)` can get typeclass resolution un-stuck.
+'HermitePiecewiseAssembly.rationalGrid_wordIndex' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseAssembly.actualBlocks_value' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HermitePiecewiseAssembly.actualChain_contract' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HermitePiecewiseAssembly.actualChain_maxBond' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseAssembly.allocated_actualChain_contract' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+

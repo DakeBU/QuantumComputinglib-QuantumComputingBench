@@ -1,0 +1,99 @@
+{
+  "module": "QuantumBlockEncoding/MatrixProductChain.lean",
+  "source_id": "aspbe-local-matrix-product-chain",
+  "source_statement": "For arbitrary real fixed-D matrix kernels and explicit left/right boundary vectors, each positive-length ordered word has the exact coefficient of the scalar-boundary dependent chain obtained by right-terminal and first-core left absorption. Its actual bonds are bounded by max(D,1); its local scalar-address count is at most2*N*max(D,1)^2. All shapes including D=0 and N=1 are included; no normalization, circuit or runtime conclusion.",
+  "source_anchor": "docs/lessons/matrix-products-with-boundaries.md: all mathematical sections",
+  "lesson_path": "docs/lessons/matrix-products-with-boundaries.md",
+  "declarations": [
+    "QuantumBlockEncoding.MatrixProductChain.Kernel",
+    "QuantumBlockEncoding.MatrixProductChain.readout",
+    "QuantumBlockEncoding.MatrixProductChain.tailChain",
+    "QuantumBlockEncoding.MatrixProductChain.tailChain_contract",
+    "QuantumBlockEncoding.MatrixProductChain.closeLeft",
+    "QuantumBlockEncoding.MatrixProductChain.closeLeft_contract",
+    "QuantumBlockEncoding.MatrixProductChain.ofKernel",
+    "QuantumBlockEncoding.MatrixProductChain.ofKernel_contract",
+    "QuantumBlockEncoding.MatrixProductChain.tailChain_maxBond",
+    "QuantumBlockEncoding.MatrixProductChain.ofKernel_maxBond",
+    "QuantumBlockEncoding.MatrixProductChain.storedScalars",
+    "QuantumBlockEncoding.MatrixProductChain.storedScalars_le",
+    "QuantumBlockEncoding.MatrixProductChain.ofKernel_storedScalars"
+  ],
+  "obligation_map": [
+    {
+      "kind": "proof-edge",
+      "source_obligation": "local-matrix-product-boundaries:ordered readout, literal boundary absorption, exact coefficients, actual bonds and local scalar addresses",
+      "declarations": [
+        "QuantumBlockEncoding.MatrixProductChain.Kernel",
+        "QuantumBlockEncoding.MatrixProductChain.readout",
+        "QuantumBlockEncoding.MatrixProductChain.tailChain",
+        "QuantumBlockEncoding.MatrixProductChain.tailChain_contract",
+        "QuantumBlockEncoding.MatrixProductChain.closeLeft",
+        "QuantumBlockEncoding.MatrixProductChain.closeLeft_contract",
+        "QuantumBlockEncoding.MatrixProductChain.ofKernel",
+        "QuantumBlockEncoding.MatrixProductChain.ofKernel_contract",
+        "QuantumBlockEncoding.MatrixProductChain.tailChain_maxBond",
+        "QuantumBlockEncoding.MatrixProductChain.ofKernel_maxBond",
+        "QuantumBlockEncoding.MatrixProductChain.storedScalars",
+        "QuantumBlockEncoding.MatrixProductChain.storedScalars_le",
+        "QuantumBlockEncoding.MatrixProductChain.ofKernel_storedScalars"
+      ]
+    }
+  ],
+  "assumption_deltas": [
+    {
+      "classification": "same",
+      "source": "Arbitrary finite real D-dimensional matrices, boundaries, start and positive word lengthN=n+1; zero bond allowed",
+      "formal": "Kernel D, left/right:Fin D→ℝ, start n:Nat, Word(n+1)",
+      "explanation": "Pure carrier/dimension data and arbitrary input values, not assumed desired contraction or normalization."
+    },
+    {
+      "classification": "same",
+      "source": "All actual bonds bounded by B only for the general address-count theorem",
+      "formal": "storedScalars_le C B (maxBond C<=B)",
+      "explanation": "Quantitative size premise; ofKernel obtains its own maxBond bound internally."
+    },
+    {
+      "classification": "same",
+      "source": "Core scalar-address count only; excludes input evaluation, arithmetic/copying/bit cost and circuit action",
+      "formal": "storedScalars recursive2*l*m count with noncomputable real construction",
+      "explanation": "No executable/word-cost refinement is asserted."
+    }
+  ],
+  "graph_contribution": {
+    "baseline": "305952f4291d7be530c76f51f7e98d77faf1cf45",
+    "classes": [
+      "bridge"
+    ],
+    "node_ids": [
+      "module:QuantumBlockEncoding.MatrixProductChain",
+      "declaration:QuantumBlockEncoding.MatrixProductChain.Kernel",
+      "declaration:QuantumBlockEncoding.MatrixProductChain.readout",
+      "declaration:QuantumBlockEncoding.MatrixProductChain.tailChain",
+      "declaration:QuantumBlockEncoding.MatrixProductChain.tailChain_contract",
+      "declaration:QuantumBlockEncoding.MatrixProductChain.closeLeft",
+      "declaration:QuantumBlockEncoding.MatrixProductChain.closeLeft_contract",
+      "declaration:QuantumBlockEncoding.MatrixProductChain.ofKernel",
+      "declaration:QuantumBlockEncoding.MatrixProductChain.ofKernel_contract",
+      "declaration:QuantumBlockEncoding.MatrixProductChain.tailChain_maxBond",
+      "declaration:QuantumBlockEncoding.MatrixProductChain.ofKernel_maxBond",
+      "declaration:QuantumBlockEncoding.MatrixProductChain.storedScalars",
+      "declaration:QuantumBlockEncoding.MatrixProductChain.storedScalars_le",
+      "declaration:QuantumBlockEncoding.MatrixProductChain.ofKernel_storedScalars"
+    ],
+    "views": [
+      "source-construction-graph",
+      "lean-graph",
+      "compressed-quantum-spine",
+      "functor-hypergraph"
+    ],
+    "preserved_contract": "Whole existing module unchanged; retrospective literal boundary absorption source; no pre-proof/history or external novelty credit. Ordered matrix contraction distinct from physical bit mapping.",
+    "remaining_boundary": "Normalization/canonicalization/circuit register embedding and cleanup, input production/materialization, arithmetic/finite-bit/runtime, physical synthesis, reader/purification/main remain separate."
+  },
+  "formalizer": "root-retrospective-matrix-product-boundary-lesson-author-20261009; historical proof authors retained by Git",
+  "residual_boundary": "Only13-declaration current whole module; not whole imported providers or scientific/physical state ROOT.",
+  "decoder_evidence": "reviews/publication/matrix-product-chain/decoder-evidence.json",
+  "reviewer_evidence": "reviews/publication/matrix-product-chain/reviewer-evidence.json",
+  "status": "SOURCE_REVIEWED_LOCAL; reader/purification/main pending",
+  "binding_sha256": "5645420d2fcf3ee029fe958418202693b5c607aeb8c80bd9246293abbe3b774f"
+}

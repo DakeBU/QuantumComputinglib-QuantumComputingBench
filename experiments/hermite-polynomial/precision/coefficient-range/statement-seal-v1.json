@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "version": 1,
+  "status": "IMMUTABLE_PRE_PROOF_SIGNATURE_SEAL",
+  "task": "SP-HERMITE-POLY-002",
+  "direction_fingerprint": "all-k-literal-Bernstein-range-and-rational-input-cost",
+  "shared_proof_input_digest": "5a8f47f8d0afd1d4f957e55babde52a9e9c01babf05c481b988e99ebca2f7758",
+  "scientific_target": "Original signed normalized Hermite function-value grid, n>=1,k natural,L positive rational executable boundary,q0 LSB. No quantum target change, no oracle or dense construction.",
+  "source": "Existing HermiteBernstein sourceCoefficient_eq and leftCoefficient_eq; actual frozen offset_source.source_base_weights and source_coefficient_intervals use their literal binomial/factorial formula.",
+  "timing": "Written after source/formula and process reads, before local/Mathlib proof search and before creating the proof module. This file will not be amended; additional signatures require a separately retained versioned pre-proof delta.",
+  "level": "C internal range/cost providers, not a new accepted quantum Source Anchor",
+  "definitions": {
+    "coarseBound": "def coarseBound (k : Nat) : Real := (k+1:Real)^2 * 2^(3*k)",
+    "factorialEnvelope": "def factorialEnvelope (k : Nat) : Nat := (k+1)^k",
+    "commonDenominator": "def commonDenominator (k r : Nat) : Nat := k.factorial * (2*k+1).choose r"
+  },
+  "exact_signatures": [
+    "theorem sourceCoefficient_upper (k i : Nat) (hi : i <= k) : sourceCoefficient k i <= (k+1:Real) * 2^(2*k)",
+    "theorem leftCoefficient_upper (k r : Nat) : leftCoefficient k r <= coarseBound k",
+    "theorem sourceBernsteinCoefficient_range (k r : Nat) : sourceBernsteinCoefficient k r in Set.Icc 0 (2 * coarseBound k)",
+    "theorem restricted_source_range (k : Nat) (u v : Real) (hu : 0 <= u) (huv : u < v) (hv : v <= 1) (r : Nat) (hr : r <= 2*k+1) : restrictCoefficients (2*k+1) u v (sourceBernsteinCoefficient k) r in Set.Icc 0 (2 * coarseBound k)",
+    "theorem factorial_output_bound (k : Nat) : k.factorial <= factorialEnvelope k",
+    "theorem commonDenominator_bound (k r : Nat) : commonDenominator k r <= factorialEnvelope k * 2^(2*k+1)",
+    "theorem commonDenominator_pos (k r : Nat) (hr : r <= 2*k+1) : 0 < commonDenominator k r"
+  ],
+  "binder_classification": {"TYPING": ["natural k,i,r", "real interval endpoints"], "INTERNAL_DOMAIN": ["i<=k", "valid restriction interval", "r within degree for denominator positivity/restriction"], "EXCESS_SCIENTIFIC": []},
+  "definition_audit": "Literal existing source definitions; new bounds/envelopes are explicit formulas, no choice/fallback or numerical assumptions.",
+  "consumer": "OffsetSource polynomial interval coefficients and stored-conversion safety/cost analysis; existing restrictCoefficients_bounds transports proved range to every actual valid injection. Executable Python-to-Lean refinement remains distinct.",
+  "cost_boundary": "Exponential VALUE bound is allowed with polynomial logarithmic size in k. Common denominator bound concerns a possible exact output representation, not all intermediate sizes or runtime. Rational input L/tolerance/pi/exp(-1) enclosure costs remain separately charged.",
+  "nonclaims": ["No full all-k float64 totality", "No proof of exp(-1) interval membership or whole Python refinement", "No global epsilon allocation", "No QR/normalizer/circuit certificate", "No restoration of cycle11 initial seal bytes", "No aggregate/publication approval"]
+}

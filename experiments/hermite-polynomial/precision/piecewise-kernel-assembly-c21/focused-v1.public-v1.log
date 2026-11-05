@@ -1,0 +1,265 @@
+BEGIN QuantumBlockEncoding/HermiteTransferCores.lean
+warning: verso: repository '.\.lake/packages\verso' has local changes
+PASS QuantumBlockEncoding/HermiteTransferCores.lean
+BEGIN QuantumBlockEncoding/MatrixProductChain.lean
+warning: verso: repository '.\.lake/packages\verso' has local changes
+PASS QuantumBlockEncoding/MatrixProductChain.lean
+BEGIN QuantumBlockEncoding/StoredMatrixProductChain.lean
+warning: verso: repository '.\.lake/packages\verso' has local changes
+QuantumBlockEncoding/StoredMatrixProductChain.lean:107:59: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+PASS QuantumBlockEncoding/StoredMatrixProductChain.lean
+BEGIN QuantumBlockEncoding/StoredBinaryCoordinates.lean
+warning: verso: repository '.\.lake/packages\verso' has local changes
+PASS QuantumBlockEncoding/StoredBinaryCoordinates.lean
+BEGIN experiments/hermite-polynomial/precision/coefficient-range/CoefficientRange.lean
+warning: verso: repository '.\.lake/packages\verso' has local changes
+QuantumBlockEncoding.ExperimentalCoefficientRange.sourceCoefficient_upper (k i : ℕ) (hi : i ≤ k) :
+  sourceCoefficient k i ≤ (↑k + 1) * 2 ^ (2 * k)
+QuantumBlockEncoding.ExperimentalCoefficientRange.leftCoefficient_upper (k r : ℕ) : leftCoefficient k r ≤ coarseBound k
+QuantumBlockEncoding.ExperimentalCoefficientRange.sourceBernsteinCoefficient_range (k r : ℕ) :
+  sourceBernsteinCoefficient k r ∈ Set.Icc 0 (2 * coarseBound k)
+QuantumBlockEncoding.ExperimentalCoefficientRange.restricted_source_range (k : ℕ) (u v : ℝ) (hu : 0 ≤ u) (huv : u < v)
+  (hv : v ≤ 1) (r : ℕ) (hr : r ≤ 2 * k + 1) :
+  restrictCoefficients (2 * k + 1) u v (sourceBernsteinCoefficient k) r ∈ Set.Icc 0 (2 * coarseBound k)
+QuantumBlockEncoding.ExperimentalCoefficientRange.factorial_output_bound (k : ℕ) : k.factorial ≤ factorialEnvelope k
+QuantumBlockEncoding.ExperimentalCoefficientRange.commonDenominator_bound (k r : ℕ) :
+  commonDenominator k r ≤ factorialEnvelope k * 2 ^ (2 * k + 1)
+QuantumBlockEncoding.ExperimentalCoefficientRange.commonDenominator_pos (k r : ℕ) (hr : r ≤ 2 * k + 1) :
+  0 < commonDenominator k r
+'QuantumBlockEncoding.ExperimentalCoefficientRange.sourceCoefficient_upper' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalCoefficientRange.leftCoefficient_upper' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalCoefficientRange.sourceBernsteinCoefficient_range' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalCoefficientRange.restricted_source_range' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalCoefficientRange.factorial_output_bound' depends on axioms: [propext]
+'QuantumBlockEncoding.ExperimentalCoefficientRange.commonDenominator_bound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalCoefficientRange.commonDenominator_pos' depends on axioms: [propext]
+QuantumBlockEncoding.ExperimentalCoefficientRange.sourceNumerator_value (k i : ℕ) (hi : i ≤ k) :
+  sourceCoefficient k i = ↑(sourceNumerator k i) / ↑k.factorial
+QuantumBlockEncoding.ExperimentalCoefficientRange.leftNumerator_value (k r : ℕ) :
+  leftCoefficient k r = ↑(leftNumerator k r) / ↑(commonDenominator k r)
+QuantumBlockEncoding.ExperimentalCoefficientRange.leftNumerator_bound (k r : ℕ) (hr : r ≤ 2 * k + 1) :
+  leftNumerator k r ≤ (k + 1) ^ 2 * 2 ^ (3 * k) * commonDenominator k r
+QuantumBlockEncoding.ExperimentalCoefficientRange.commonDenominator_binary_bound (k r : ℕ) :
+  commonDenominator k r ≤ 2 ^ (k * (k + 1) + 2 * k + 1)
+QuantumBlockEncoding.ExperimentalCoefficientRange.leftNumerator_binary_bound (k r : ℕ) (hr : r ≤ 2 * k + 1) :
+  leftNumerator k r ≤ 2 ^ ((k + 2) * (k + 1) + k * (k + 1) + 5 * k + 1)
+'QuantumBlockEncoding.ExperimentalCoefficientRange.sourceNumerator_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalCoefficientRange.leftNumerator_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalCoefficientRange.leftNumerator_bound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalCoefficientRange.commonDenominator_binary_bound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalCoefficientRange.leftNumerator_binary_bound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+QuantumBlockEncoding.ExperimentalCoefficientRange.fromConstant_range (k : ℕ) (e : ℝ) (he : e ∈ Set.Icc 0 1)
+  (r : Fin (2 * k + 2)) : (StoredHermiteCoefficients.fromConstant k e).value[↑r] ∈ Set.Icc 0 (2 * coarseBound k)
+QuantumBlockEncoding.ExperimentalCoefficientRange.rationalSource_value (k r p q : ℕ) (hr : r ≤ 2 * k + 1) (hq : 0 < q) :
+  ↑p / ↑q * leftCoefficient k r + leftCoefficient k (2 * k + 1 - r) =
+    ↑(rationalSourceNumerator k r p q) / ↑(rationalSourceDenominator k r q)
+QuantumBlockEncoding.ExperimentalCoefficientRange.rationalSourceDenominator_pos (k r q : ℕ) (hr : r ≤ 2 * k + 1)
+  (hq : 0 < q) : 0 < rationalSourceDenominator k r q
+QuantumBlockEncoding.ExperimentalCoefficientRange.rationalSourceDenominator_bound (k r q : ℕ) :
+  rationalSourceDenominator k r q ≤ q * 2 ^ (2 * (k * (k + 1) + 2 * k + 1))
+QuantumBlockEncoding.ExperimentalCoefficientRange.rationalSourceNumerator_bound (k r p q : ℕ) (hr : r ≤ 2 * k + 1) :
+  rationalSourceNumerator k r p q ≤ (p + q) * 2 ^ ((k + 2) * (k + 1) + 2 * k * (k + 1) + 7 * k + 2)
+'QuantumBlockEncoding.ExperimentalCoefficientRange.fromConstant_range' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalCoefficientRange.rationalSource_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalCoefficientRange.rationalSourceDenominator_pos' depends on axioms: [propext]
+'QuantumBlockEncoding.ExperimentalCoefficientRange.rationalSourceDenominator_bound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalCoefficientRange.rationalSourceNumerator_bound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+PASS experiments/hermite-polynomial/precision/coefficient-range/CoefficientRange.lean
+BEGIN experiments/hermite-polynomial/precision/finite-exp/FiniteExp.lean
+warning: verso: repository '.\.lake/packages\verso' has local changes
+experiments/hermite-polynomial/precision/finite-exp/FiniteExp.lean:87:6: warning: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+'HermiteFiniteExp.error' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteFiniteExp.tail_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteFiniteExp.membership' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteFiniteExp.active_magnitude' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteFiniteExp.checked_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteFiniteExp.tailCutoff_budget' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteFiniteExp.tailCutoff_size' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteFiniteExp.checked_tail' depends on axioms: [propext, Classical.choice, Quot.sound]
+PASS experiments/hermite-polynomial/precision/finite-exp/FiniteExp.lean
+BEGIN experiments/hermite-polynomial/precision/finite-exp-degree/FiniteExpDegree.lean
+warning: verso: repository '.\.lake/packages\verso' has local changes
+experiments/hermite-polynomial/precision/finite-exp-degree/FiniteExpDegree.lean:21:13: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+experiments/hermite-polynomial/precision/finite-exp-degree/FiniteExpDegree.lean:21:13: warning: Unused tactic linter: `exact h` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+'HermiteFiniteExpDegree.factorial_block' depends on axioms: [propext, Quot.sound]
+'HermiteFiniteExpDegree.degree_formula' depends on axioms: [propext, Quot.sound]
+'HermiteFiniteExpDegree.sourceDegree_size' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteFiniteExpDegree.radius_degree' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteFiniteExpDegree.checked_complete' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteFiniteExpDegree.complete_enclosure' depends on axioms: [propext, Classical.choice, Quot.sound]
+PASS experiments/hermite-polynomial/precision/finite-exp-degree/FiniteExpDegree.lean
+BEGIN experiments/hermite-polynomial/precision/finite-middle-source/FiniteMiddleSource.lean
+warning: verso: repository '.\.lake/packages\verso' has local changes
+'HermiteFiniteMiddleSource.coefficientQ_cast' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteFiniteMiddleSource.coefficientQ_formula' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteFiniteMiddleSource.coefficientPolynomialQ_eval' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteFiniteMiddleSource.endpointPolynomialQ_eval' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteFiniteMiddleSource.middlePolynomialQ_eval' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteFiniteMiddleSource.coefficientPolynomial_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteFiniteMiddleSource.endpointFactor_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteFiniteMiddleSource.expMidpoint_error' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteFiniteMiddleSource.middle_error' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteFiniteMiddleSource.middle_central' depends on axioms: [propext, Classical.choice, Quot.sound]
+PASS experiments/hermite-polynomial/precision/finite-middle-source/FiniteMiddleSource.lean
+BEGIN experiments/hermite-polynomial/precision/finite-middle-source/ConsumerChecks.lean
+warning: verso: repository '.\.lake/packages\verso' has local changes
+[1, 1, 1, 1, 1]
+[true, true, true, true, true]
+[1, 1, 1, 1, 1]
+(1, 5, 29 / 2, 193 / 6)
+(1 / 2, 3 / 4)
+true
+(true, true)
+'HermiteFiniteMiddleSource.coefficientValueQ_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteFiniteMiddleSource.middleValueQ_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteFiniteMiddleSource.rational_middle_error' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteFiniteMiddleSource.rational_central' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteFiniteMiddleSource.literal_left_endpoint' depends on axioms: [propext, Classical.choice, Quot.sound]
+PASS experiments/hermite-polynomial/precision/finite-middle-source/ConsumerChecks.lean
+BEGIN experiments/hermite-polynomial/precision/global-radius-budget/GlobalRadiusBudget.lean
+warning: verso: repository '.\.lake/packages\verso' has local changes
+'QuantumBlockEncoding.ExperimentalGlobalRadiusBudget.lipschitzQ_cast' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalGlobalRadiusBudget.deltaRadius_positive' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalGlobalRadiusBudget.allocatedRadius_positive' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalGlobalRadiusBudget.allocatedRadius_error' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalGlobalRadiusBudget.normalized_allocatedRadius_error' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalGlobalRadiusBudget.allocatedTermCount_size' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+PASS experiments/hermite-polynomial/precision/global-radius-budget/GlobalRadiusBudget.lean
+BEGIN experiments/hermite-polynomial/precision/piecewise-source-budget/PiecewiseSourceBudget.lean
+warning: verso: repository '.\.lake/packages\verso' has local changes
+'HermitePiecewiseSourceBudget.amplification_ge_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseSourceBudget.negativeMidpoint_error' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseSourceBudget.piecewise_error' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseSourceBudget.piecewise_central' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseSourceBudget.rationalGrid_cast' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseSourceBudget.rationalGrid_central' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseSourceBudget.finiteVector_central' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseSourceBudget.finiteVector_norm_floor' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseSourceBudget.radiusVector_norm_floor' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseSourceBudget.finiteVector_error' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseSourceBudget.sourceDelta_positive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseSourceBudget.normalized_source_error' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseSourceBudget.normalized_original_error' depends on axioms: [propext, Classical.choice, Quot.sound]
+PASS experiments/hermite-polynomial/precision/piecewise-source-budget/PiecewiseSourceBudget.lean
+BEGIN experiments/hermite-polynomial/precision/piecewise-kernel-producer/ActualDecomposition.lean
+warning: verso: repository '.\.lake/packages\verso' has local changes
+'HermitePiecewiseKernelProducer.negativeMidpoint_split' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseKernelProducer.five_components' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseKernelProducer.actual_grid_five_components' depends on axioms: [propext, Classical.choice, Quot.sound]
+PASS experiments/hermite-polynomial/precision/piecewise-kernel-producer/ActualDecomposition.lean
+BEGIN experiments/hermite-polynomial/precision/piecewise-kernel-uniform-c20/UniformComparison.lean
+warning: verso: repository '.\.lake/packages\verso' has local changes
+'HermitePiecewiseUniform.scan_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseUniform.readout_scan' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseUniform.comparison_mask_contract' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseUniform.generated_window' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseUniform.produceComparison_refines' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseUniform.stored_comparison_contract' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseUniform.produceComparison_cost' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseUniform.produceComparison_quotients' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseUniform.produceComparison_remainders' depends on axioms: [propext, Classical.choice, Quot.sound]
+PASS experiments/hermite-polynomial/precision/piecewise-kernel-uniform-c20/UniformComparison.lean
+BEGIN experiments/hermite-polynomial/precision/piecewise-kernel-uniform-c20/UniformTranslation.lean
+warning: verso: repository '.\.lake/packages\verso' has local changes
+'HermitePiecewiseUniform.translationCoreQ_cast' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseUniform.polynomialKernel_cast' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseUniform.polynomial_mask_free_contract' depends on axioms: [propext, Classical.choice, Quot.sound]
+PASS experiments/hermite-polynomial/precision/piecewise-kernel-uniform-c20/UniformTranslation.lean
+BEGIN experiments/hermite-polynomial/precision/piecewise-kernel-uniform-c20/UniformThresholds.lean
+warning: verso: repository '.\.lake/packages\verso' has local changes
+'HermitePiecewiseUniform.strictCut_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseUniform.inclusiveCut_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseUniform.stored_strict_grid_mask' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseUniform.stored_inclusive_grid_mask' depends on axioms: [propext, Classical.choice, Quot.sound]
+PASS experiments/hermite-polynomial/precision/piecewise-kernel-uniform-c20/UniformThresholds.lean
+BEGIN experiments/hermite-polynomial/precision/piecewise-kernel-assembly-c21/IndexedKernel.lean
+warning: verso: repository '.\.lake/packages\verso' has local changes
+'HermitePiecewiseAssembly.product_amplitude' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseAssembly.sum_amplitude' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseAssembly.reindex_contract' depends on axioms: [propext, Classical.choice, Quot.sound]
+PASS experiments/hermite-polynomial/precision/piecewise-kernel-assembly-c21/IndexedKernel.lean
+BEGIN experiments/hermite-polynomial/precision/piecewise-kernel-assembly-c21/ActualCoefficients.lean
+warning: verso: repository '.\.lake/packages\verso' has local changes
+'HermitePiecewiseAssembly.sourceCoefficientQ_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseAssembly.middleCoeffQ_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseAssembly.middleCoeffQ_eval' depends on axioms: [propext, Classical.choice, Quot.sound]
+PASS experiments/hermite-polynomial/precision/piecewise-kernel-assembly-c21/ActualCoefficients.lean
+BEGIN experiments/hermite-polynomial/precision/piecewise-kernel-assembly-c21/ActualAssembly.lean
+warning: verso: repository '.\.lake/packages\verso' has local changes
+'HermitePiecewiseAssembly.rationalGrid_wordIndex' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseAssembly.actualBlocks_value' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseAssembly.actualChain_contract' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseAssembly.actualChain_maxBond' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseAssembly.allocated_actualChain_contract' depends on axioms: [propext, Classical.choice, Quot.sound]
+PASS experiments/hermite-polynomial/precision/piecewise-kernel-assembly-c21/ActualAssembly.lean
+BEGIN experiments/hermite-polynomial/precision/piecewise-kernel-assembly-c21/AssemblyConsumerChecks.lean
+warning: verso: repository '.\.lake/packages\verso' has local changes
+theorem HermitePiecewiseAssembly.full_actual_source_supplier : ∀ (k n : ℕ) (L epsilon : ℚ),
+  0 < L →
+    0 < epsilon →
+      ∀ (x : Word (n + 1)),
+        have R := ExperimentalGlobalRadiusBudget.allocatedRadius k n L epsilon;
+        have delta := sourceDelta k n epsilon;
+        have C := actualChain k n R delta;
+        contract C x 0 0 = ↑(piecewiseValue k delta (rationalGrid n R (wordIndex n x))) ∧
+          maxBond C ≤ 18 * (sourceDegree delta + 1) + 9 * (2 * k + 1 + 1) + 18 ∧
+            MatrixProductChain.storedScalars C ≤
+              2 * (n + 1) * (18 * (sourceDegree delta + 1) + 9 * (2 * k + 1 + 1) + 18) ^ 2 :=
+fun k n L epsilon hL he x =>
+  ⟨allocated_actualChain_contract k n L epsilon hL he x,
+    ⟨actualChain_maxBond k n (ExperimentalGlobalRadiusBudget.allocatedRadius k n L epsilon) (sourceDelta k n epsilon),
+      actualChain_scalarEnvelope k n (ExperimentalGlobalRadiusBudget.allocatedRadius k n L epsilon)
+        (sourceDelta k n epsilon)⟩⟩
+'HermitePiecewiseAssembly.actualChain_scalarEnvelope' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseAssembly.full_actual_source_supplier' depends on axioms: [propext, Classical.choice, Quot.sound]
+PASS experiments/hermite-polynomial/precision/piecewise-kernel-assembly-c21/AssemblyConsumerChecks.lean
+ALL PRE-GATE SOURCE/SEAL/FROZEN BINDINGS UNCHANGED
+

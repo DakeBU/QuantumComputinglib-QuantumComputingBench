@@ -1,0 +1,1189 @@
+{
+  "schema_version": 1,
+  "role": "decoder",
+  "identity": "/root/stored_matrix_blind_c17",
+  "run_id": "stored-matrix-blind-c17-v2",
+  "source_blind": true,
+  "binding_sha256": "c4bf0fd66e6c562cc27148de40167b8d0164f1a0882be170b41ad85c7cde9a1e",
+  "packet_path": "reviews/publication/stored-matrix-product-chain/decoder-packet.json",
+  "packet_sha256": "cf8e4645556ada30f8c66c44ee43576f2d9423b1022f35e9097bb30a726e8f9f",
+  "module": "QuantumBlockEncoding/StoredMatrixProductChain.lean",
+  "module_sha256": "75df853f83c166df5409a3e567234b96bdd1bd7303c84f4401388530dfa090b0",
+  "status": "formal-reconstruction-complete-focused-source-elaboration-passed",
+  "reconstruction": {
+    "statement": "For any natural n,D, any already-stored sequence of n+1 real D-by-(2D) local core tables, and arbitrary real length-D left/right vectors, ofTable returns a stored dependent real tensor chain of length n+1 with both boundary bonds 1. Its denotation exactly equals the chronological semantic boundary assembly whenever those finite tables match K on start,...,start+n. Its own synthetic charged operation total is at most 20D^2+30D+5n^2+7n+31 unconditionally. Its maximum bond is at most max(D,1) under the stated Window binder.",
+    "coefficient_formula": "For word (bit_0,...,bit_n), scalar coefficient = left^T K(start,bit_0) K(start+1,bit_1) ... K(start+n,bit_n) right. No conjugation, sign removal, normalization, approximation, or reversed matrix order.",
+    "ambient": {
+      "scalars": "Real; unrestricted signs and magnitudes",
+      "stored_core": "Vector (Vector Real (2*r)) l; flatten (bit,b) via finProdFinEquiv, index bit*r+b",
+      "chain": "Dependent inductive StoredChain n l r; nil r denotes identity at terminal bond r; cons changes n to n+1 and carries compatible intermediate bond",
+      "word": "Word 0=Unit; Word(n+1)=Fin2 x Word n; first head emits first bit",
+      "length": "Always n+1 >=1; zero-site ofTable is not defined. Zero D and zero r in initial are permitted; some Fin-index entry interfaces have empty domains then.",
+      "maxBond": "nil r maps to r; cons with left l maps to max l (maxBond tail), includes scalar endpoints",
+      "kernel": "Nat -> Fin2 -> Matrix(FinD)(FinD) Real; only a specification argument, not a production callback"
+    },
+    "declarations": [
+      {
+        "name": "QuantumBlockEncoding.StoredMatrixProductChain.terminalEntry",
+        "kind": "def",
+        "mathematics": "For fixed row a and bit, read each stored matrix entry A[a,bit*D+b] (two reads), read right[b] (one read), multiply, and sum all D terms with D charged additions (including the final addition to zero). Result is sum_b A[a,(bit,b)] right_b.",
+        "exact_source_signature": "noncomputable def terminalEntry {D : ℕ} (A : StoredCore D D)\n    (right : Vector ℝ D) (a : Fin D) (bit : Fin 2) : Run ℝ :=\n  sumEntries fun b => do\n    let x ← StoredThinLQ.entry A a (finProdFinEquiv (bit, b))\n    let y ← read right b\n    StoredGivens.mul x y",
+        "exact_source_declaration": "noncomputable def terminalEntry {D : ℕ} (A : StoredCore D D)\n    (right : Vector ℝ D) (a : Fin D) (bit : Fin 2) : Run ℝ :=\n  sumEntries fun b => do\n    let x ← StoredThinLQ.entry A a (finProdFinEquiv (bit, b))\n    let y ← read right b\n    StoredGivens.mul x y",
+        "kernel_checked_type": "QuantumBlockEncoding.StoredMatrixProductChain.terminalEntry {D : ℕ}\r\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (right : Vector ℝ D) (a : Fin D) (bit : Fin 2) :\r\n  QuantumBlockEncoding.StoredGivens.Run ℝ",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "definition_kind": "literal",
+        "binder_audit": {
+          "typing_and_data_inputs": "All binders except the logical premise listed below are dimension/carrier/index formation or explicit stored/kernel/start input data, fully listed in exact_source_signature and kernel_checked_type. No hidden project Prop bundle or project typeclass premise.",
+          "logical_inputs": [],
+          "source_classification": "Withheld source prevents SOURCE/STANDING/RULED/EXCESS comparison; formal inputs reconstructed without author classifications."
+        }
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredMatrixProductChain.terminal",
+        "kind": "def",
+        "mathematics": "Materialize the D by 2 table contracting the right boundary; right bond becomes 1. Each output bit uses terminalEntry.",
+        "exact_source_signature": "noncomputable def terminal {D : ℕ} (A : StoredCore D D)\n    (right : Vector ℝ D) : Run (StoredCore D 1) :=\n  materialize fun a j => terminalEntry A right a (finProdFinEquiv.symm j).1",
+        "exact_source_declaration": "noncomputable def terminal {D : ℕ} (A : StoredCore D D)\n    (right : Vector ℝ D) : Run (StoredCore D 1) :=\n  materialize fun a j => terminalEntry A right a (finProdFinEquiv.symm j).1",
+        "kernel_checked_type": "QuantumBlockEncoding.StoredMatrixProductChain.terminal {D : ℕ}\r\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (right : Vector ℝ D) :\r\n  QuantumBlockEncoding.StoredGivens.Run (QuantumBlockEncoding.StoredTensorTrain.StoredCore D 1)",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "definition_kind": "literal",
+        "binder_audit": {
+          "typing_and_data_inputs": "All binders except the logical premise listed below are dimension/carrier/index formation or explicit stored/kernel/start input data, fully listed in exact_source_signature and kernel_checked_type. No hidden project Prop bundle or project typeclass premise.",
+          "logical_inputs": [],
+          "source_classification": "Withheld source prevents SOURCE/STANDING/RULED/EXCESS comparison; formal inputs reconstructed without author classifications."
+        }
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredMatrixProductChain.initialEntry",
+        "kind": "def",
+        "mathematics": "For fixed flattened output j, sum_a left_a A[a,j] with three reads and two field operations per a; preserves signs.",
+        "exact_source_signature": "noncomputable def initialEntry {D r : ℕ} (left : Vector ℝ D)\n    (A : StoredCore D r) (j : Fin (2 * r)) : Run ℝ :=\n  sumEntries fun a => do\n    let x ← read left a\n    let y ← StoredThinLQ.entry A a j\n    StoredGivens.mul x y",
+        "exact_source_declaration": "noncomputable def initialEntry {D r : ℕ} (left : Vector ℝ D)\n    (A : StoredCore D r) (j : Fin (2 * r)) : Run ℝ :=\n  sumEntries fun a => do\n    let x ← read left a\n    let y ← StoredThinLQ.entry A a j\n    StoredGivens.mul x y",
+        "kernel_checked_type": "QuantumBlockEncoding.StoredMatrixProductChain.initialEntry {D r : ℕ} (left : Vector ℝ D)\r\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore D r) (j : Fin (2 * r)) :\r\n  QuantumBlockEncoding.StoredGivens.Run ℝ",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "definition_kind": "literal",
+        "binder_audit": {
+          "typing_and_data_inputs": "All binders except the logical premise listed below are dimension/carrier/index formation or explicit stored/kernel/start input data, fully listed in exact_source_signature and kernel_checked_type. No hidden project Prop bundle or project typeclass premise.",
+          "logical_inputs": [],
+          "source_classification": "Withheld source prevents SOURCE/STANDING/RULED/EXCESS comparison; formal inputs reconstructed without author classifications."
+        }
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredMatrixProductChain.initial",
+        "kind": "def",
+        "mathematics": "Materialize a 1 by 2r table; left bond becomes 1 and output bit/right-bond coordinates stay unchanged.",
+        "exact_source_signature": "noncomputable def initial {D r : ℕ} (left : Vector ℝ D)\n    (A : StoredCore D r) : Run (StoredCore 1 r) :=\n  materialize fun _ j => initialEntry left A j",
+        "exact_source_declaration": "noncomputable def initial {D r : ℕ} (left : Vector ℝ D)\n    (A : StoredCore D r) : Run (StoredCore 1 r) :=\n  materialize fun _ j => initialEntry left A j",
+        "kernel_checked_type": "QuantumBlockEncoding.StoredMatrixProductChain.initial {D r : ℕ} (left : Vector ℝ D)\r\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore D r) :\r\n  QuantumBlockEncoding.StoredGivens.Run (QuantumBlockEncoding.StoredTensorTrain.StoredCore 1 r)",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "definition_kind": "literal",
+        "binder_audit": {
+          "typing_and_data_inputs": "All binders except the logical premise listed below are dimension/carrier/index formation or explicit stored/kernel/start input data, fully listed in exact_source_signature and kernel_checked_type. No hidden project Prop bundle or project typeclass premise.",
+          "logical_inputs": [],
+          "source_classification": "Withheld source prevents SOURCE/STANDING/RULED/EXCESS comparison; formal inputs reconstructed without author classifications."
+        }
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredMatrixProductChain.tailTable",
+        "kind": "def",
+        "mathematics": "Collect xs[1],...,xs[n] into a new vector; elements are shared stored-core references, not copied scalar core tables.",
+        "exact_source_signature": "def tailTable {α : Type} {n : ℕ} (xs : Vector α (n + 1)) : Run (Vector α n) :=\n  collect fun i => read xs i.succ",
+        "exact_source_declaration": "def tailTable {α : Type} {n : ℕ} (xs : Vector α (n + 1)) : Run (Vector α n) :=\n  collect fun i => read xs i.succ",
+        "kernel_checked_type": "QuantumBlockEncoding.StoredMatrixProductChain.tailTable {α : Type} {n : ℕ} (xs : Vector α (n + 1)) :\r\n  QuantumBlockEncoding.StoredGivens.Run (Vector α n)",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "definition_kind": "literal",
+        "binder_audit": {
+          "typing_and_data_inputs": "All binders except the logical premise listed below are dimension/carrier/index formation or explicit stored/kernel/start input data, fully listed in exact_source_signature and kernel_checked_type. No hidden project Prop bundle or project typeclass premise.",
+          "logical_inputs": [],
+          "source_classification": "Withheld source prevents SOURCE/STANDING/RULED/EXCESS comparison; formal inputs reconstructed without author classifications."
+        }
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredMatrixProductChain.tailChain",
+        "kind": "def",
+        "mathematics": "Input has n+1 stored cores. n=0: read the last table, terminal-contract right, allocate cons and nil (two node budgets). n>0: read/share the first core, copy the remaining vector of references, recursively close the right boundary, allocate one cons.",
+        "exact_source_signature": "noncomputable def tailChain {D : ℕ} : {n : ℕ} →\n    Vector (StoredCore D D) (n + 1) → Vector ℝ D → Run (StoredChain (n + 1) D 1)\n  | 0, tables, right => do\n      let A ← read tables 0\n      let B ← terminal A right\n      (⟨.cons B (.nil 1), 2 • nodeBudget⟩ : Run _)\n  | _n + 1, tables, right => do\n      let A ← read tables 0\n      let ts ← tailTable tables\n      let C ← tailChain ts right\n      (⟨.cons A C, nodeBudget⟩ : Run _)",
+        "exact_source_declaration": "noncomputable def tailChain {D : ℕ} : {n : ℕ} →\n    Vector (StoredCore D D) (n + 1) → Vector ℝ D → Run (StoredChain (n + 1) D 1)\n  | 0, tables, right => do\n      let A ← read tables 0\n      let B ← terminal A right\n      (⟨.cons B (.nil 1), 2 • nodeBudget⟩ : Run _)\n  | _n + 1, tables, right => do\n      let A ← read tables 0\n      let ts ← tailTable tables\n      let C ← tailChain ts right\n      (⟨.cons A C, nodeBudget⟩ : Run _)",
+        "kernel_checked_type": "QuantumBlockEncoding.StoredMatrixProductChain.tailChain {D n : ℕ} :\r\n  Vector (QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (n + 1) →\r\n    Vector ℝ D → QuantumBlockEncoding.StoredGivens.Run (QuantumBlockEncoding.StoredTensorTrain.StoredChain (n + 1) D 1)",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "definition_kind": "literal",
+        "binder_audit": {
+          "typing_and_data_inputs": "All binders except the logical premise listed below are dimension/carrier/index formation or explicit stored/kernel/start input data, fully listed in exact_source_signature and kernel_checked_type. No hidden project Prop bundle or project typeclass premise.",
+          "logical_inputs": [],
+          "source_classification": "Withheld source prevents SOURCE/STANDING/RULED/EXCESS comparison; formal inputs reconstructed without author classifications."
+        }
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredMatrixProductChain.closeLeft",
+        "kind": "def",
+        "mathematics": "A nonempty StoredChain has a cons head with some dependent next bond m. Materialize initial left head to StoredCore 1 m, share its unchanged tail, and allocate one cons.",
+        "exact_source_signature": "noncomputable def closeLeft {n D : ℕ} (left : Vector ℝ D) :\n    StoredChain (n + 1) D 1 → Run (StoredChain (n + 1) 1 1)\n  | .cons A C => do\n      let B ← initial left A\n      (⟨.cons B C, nodeBudget⟩ : Run _)",
+        "exact_source_declaration": "noncomputable def closeLeft {n D : ℕ} (left : Vector ℝ D) :\n    StoredChain (n + 1) D 1 → Run (StoredChain (n + 1) 1 1)\n  | .cons A C => do\n      let B ← initial left A\n      (⟨.cons B C, nodeBudget⟩ : Run _)",
+        "kernel_checked_type": "QuantumBlockEncoding.StoredMatrixProductChain.closeLeft {n D : ℕ} (left : Vector ℝ D) :\r\n  QuantumBlockEncoding.StoredTensorTrain.StoredChain (n + 1) D 1 →\r\n    QuantumBlockEncoding.StoredGivens.Run (QuantumBlockEncoding.StoredTensorTrain.StoredChain (n + 1) 1 1)",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "definition_kind": "literal",
+        "binder_audit": {
+          "typing_and_data_inputs": "All binders except the logical premise listed below are dimension/carrier/index formation or explicit stored/kernel/start input data, fully listed in exact_source_signature and kernel_checked_type. No hidden project Prop bundle or project typeclass premise.",
+          "logical_inputs": [],
+          "source_classification": "Withheld source prevents SOURCE/STANDING/RULED/EXCESS comparison; formal inputs reconstructed without author classifications."
+        }
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredMatrixProductChain.ofTable",
+        "kind": "def",
+        "mathematics": "Run tailChain followed by closeLeft on that exact returned chain. Inputs are stored vectors only; neither K nor start occurs in production.",
+        "exact_source_signature": "noncomputable def ofTable {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (left right : Vector ℝ D) : Run (StoredChain (n + 1) 1 1)",
+        "exact_source_declaration": "noncomputable def ofTable {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (left right : Vector ℝ D) : Run (StoredChain (n + 1) 1 1) := do\n  let C ← tailChain tables right\n  closeLeft left C",
+        "kernel_checked_type": "QuantumBlockEncoding.StoredMatrixProductChain.ofTable {n D : ℕ}\r\n  (tables : Vector (QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (n + 1)) (left right : Vector ℝ D) :\r\n  QuantumBlockEncoding.StoredGivens.Run (QuantumBlockEncoding.StoredTensorTrain.StoredChain (n + 1) 1 1)",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "definition_kind": "literal",
+        "binder_audit": {
+          "typing_and_data_inputs": "All binders except the logical premise listed below are dimension/carrier/index formation or explicit stored/kernel/start input data, fully listed in exact_source_signature and kernel_checked_type. No hidden project Prop bundle or project typeclass premise.",
+          "logical_inputs": [],
+          "source_classification": "Withheld source prevents SOURCE/STANDING/RULED/EXCESS comparison; formal inputs reconstructed without author classifications."
+        }
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredMatrixProductChain.terminal_value",
+        "kind": "theorem",
+        "mathematics": "Equality of entire denoted core, not an existential witness: T[a,(bit,0)]=sum_b A[a,(bit,b)]right_b.",
+        "exact_source_signature": "theorem terminal_value {D : ℕ} (A : StoredCore D D) (right : Vector ℝ D) :\n    denoteCore (terminal A right).value =\n      fun a out => ∑ b, denoteCore A a (out.1, b) * right[b.val]",
+        "exact_source_declaration": "theorem terminal_value {D : ℕ} (A : StoredCore D D) (right : Vector ℝ D) :\n    denoteCore (terminal A right).value =\n      fun a out => ∑ b, denoteCore A a (out.1, b) * right[b.val] := by\n  ext a out\n  simp only [terminal, denoteCore, materialize, denote, collect_value,\n    Equiv.symm_apply_apply, terminalEntry, sumEntries_value]\n  rfl",
+        "kernel_checked_type": "QuantumBlockEncoding.StoredMatrixProductChain.terminal_value {D : ℕ}\r\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (right : Vector ℝ D) :\r\n  QuantumBlockEncoding.StoredTensorTrain.denoteCore\r\n      (QuantumBlockEncoding.StoredMatrixProductChain.terminal A right).value =\r\n    fun a out => ∑ b, QuantumBlockEncoding.StoredTensorTrain.denoteCore A a (out.1, b) * right[↑b]",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "definition_kind": null,
+        "binder_audit": {
+          "typing_and_data_inputs": "All binders except the logical premise listed below are dimension/carrier/index formation or explicit stored/kernel/start input data, fully listed in exact_source_signature and kernel_checked_type. No hidden project Prop bundle or project typeclass premise.",
+          "logical_inputs": [],
+          "source_classification": "Withheld source prevents SOURCE/STANDING/RULED/EXCESS comparison; formal inputs reconstructed without author classifications."
+        }
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredMatrixProductChain.initial_value",
+        "kind": "theorem",
+        "mathematics": "Equality of entire denoted core: I[0,out]=sum_a left_a A[a,out].",
+        "exact_source_signature": "theorem initial_value {D r : ℕ} (left : Vector ℝ D) (A : StoredCore D r) :\n    denoteCore (initial left A).value = fun _ out => ∑ a, left[a.val] * denoteCore A a out",
+        "exact_source_declaration": "theorem initial_value {D r : ℕ} (left : Vector ℝ D) (A : StoredCore D r) :\n    denoteCore (initial left A).value = fun _ out => ∑ a, left[a.val] * denoteCore A a out := by\n  ext a out\n  simp only [initial, denoteCore, materialize, denote, collect_value,\n    initialEntry, sumEntries_value]\n  rfl",
+        "kernel_checked_type": "QuantumBlockEncoding.StoredMatrixProductChain.initial_value {D r : ℕ} (left : Vector ℝ D)\r\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore D r) :\r\n  QuantumBlockEncoding.StoredTensorTrain.denoteCore\r\n      (QuantumBlockEncoding.StoredMatrixProductChain.initial left A).value =\r\n    fun x out => ∑ a, left[↑a] * QuantumBlockEncoding.StoredTensorTrain.denoteCore A a out",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "definition_kind": null,
+        "binder_audit": {
+          "typing_and_data_inputs": "All binders except the logical premise listed below are dimension/carrier/index formation or explicit stored/kernel/start input data, fully listed in exact_source_signature and kernel_checked_type. No hidden project Prop bundle or project typeclass premise.",
+          "logical_inputs": [],
+          "source_classification": "Withheld source prevents SOURCE/STANDING/RULED/EXCESS comparison; formal inputs reconstructed without author classifications."
+        }
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredMatrixProductChain.tailTable_value",
+        "kind": "theorem",
+        "mathematics": "Each i-th copied reference is the original successor-index reference xs[i+1].",
+        "exact_source_signature": "@[simp] theorem tailTable_value {α : Type} {n : ℕ} (xs : Vector α (n + 1)) (i : Fin n) :\n    (tailTable xs).value[i.val] = xs[i.succ.val]",
+        "exact_source_declaration": "@[simp] theorem tailTable_value {α : Type} {n : ℕ} (xs : Vector α (n + 1)) (i : Fin n) :\n    (tailTable xs).value[i.val] = xs[i.succ.val] := by\n  simp [tailTable, StoredGivens.read, charge]",
+        "kernel_checked_type": "QuantumBlockEncoding.StoredMatrixProductChain.tailTable_value {α : Type} {n : ℕ} (xs : Vector α (n + 1)) (i : Fin n) :\r\n  (QuantumBlockEncoding.StoredMatrixProductChain.tailTable xs).value[↑i] = xs[↑i.succ]",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "definition_kind": null,
+        "binder_audit": {
+          "typing_and_data_inputs": "All binders except the logical premise listed below are dimension/carrier/index formation or explicit stored/kernel/start input data, fully listed in exact_source_signature and kernel_checked_type. No hidden project Prop bundle or project typeclass premise.",
+          "logical_inputs": [],
+          "source_classification": "Withheld source prevents SOURCE/STANDING/RULED/EXCESS comparison; formal inputs reconstructed without author classifications."
+        }
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredMatrixProductChain.Window",
+        "kind": "def",
+        "mathematics": "Literal proposition: for every i in Fin(n+1), every a,b in Fin D, every bit in Fin2, the stored local core entry equals K(start+i,bit,a,b). Nothing is required outside this finite window.",
+        "exact_source_signature": "def Window {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (K : MatrixProductChain.Kernel D) (start : ℕ) : Prop :=\n  ∀ i : Fin (n + 1), denoteCore tables[i.val] = fun a out => K (start + i.val) out.1 a out.2",
+        "exact_source_declaration": "def Window {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (K : MatrixProductChain.Kernel D) (start : ℕ) : Prop :=\n  ∀ i : Fin (n + 1), denoteCore tables[i.val] = fun a out => K (start + i.val) out.1 a out.2",
+        "kernel_checked_type": "QuantumBlockEncoding.StoredMatrixProductChain.Window {n D : ℕ}\r\n  (tables : Vector (QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (n + 1))\r\n  (K : QuantumBlockEncoding.MatrixProductChain.Kernel D) (start : ℕ) : Prop",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "definition_kind": "literal",
+        "binder_audit": {
+          "typing_and_data_inputs": "All binders except the logical premise listed below are dimension/carrier/index formation or explicit stored/kernel/start input data, fully listed in exact_source_signature and kernel_checked_type. No hidden project Prop bundle or project typeclass premise.",
+          "logical_inputs": [],
+          "source_classification": "Withheld source prevents SOURCE/STANDING/RULED/EXCESS comparison; formal inputs reconstructed without author classifications."
+        }
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredMatrixProductChain.tailChain_value",
+        "kind": "theorem",
+        "mathematics": "Given Window, equality of whole denoted returned dependent chain to the chronological semantic tailChain K right start n, not just coefficient equivalence.",
+        "exact_source_signature": "theorem tailChain_value {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (right : Vector ℝ D) (K : MatrixProductChain.Kernel D) (start : ℕ)\n    (h : Window tables K start) :\n    denoteChain (tailChain tables right).value =\n      MatrixProductChain.tailChain K (fun i => right[i.val]) start n",
+        "exact_source_declaration": "theorem tailChain_value {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (right : Vector ℝ D) (K : MatrixProductChain.Kernel D) (start : ℕ)\n    (h : Window tables K start) :\n    denoteChain (tailChain tables right).value =\n      MatrixProductChain.tailChain K (fun i => right[i.val]) start n := by\n  induction n generalizing start with\n  | zero =>\n      simp only [tailChain, bind, Run.bind, StoredGivens.read, charge, denoteChain,\n        terminal_value, MatrixProductChain.tailChain]\n      have h0 := h 0\n      simp only [Fin.val_zero, Nat.add_zero] at h0\n      simp only [Fin.val_zero]\n      rw [h0]\n      rfl\n  | succ n ih =>\n      simp only [tailChain, bind, Run.bind, StoredGivens.read, charge, denoteChain,\n        MatrixProductChain.tailChain]\n      have h0 := h 0\n      simp only [Fin.val_zero, Nat.add_zero] at h0\n      simp only [Fin.val_zero]\n      rw [h0, ih (tailTable tables).value (start + 1)]\n      intro i\n      rw [tailTable_value, h i.succ]\n      simp [Fin.val_succ, Nat.add_comm, Nat.add_left_comm] <;> rfl",
+        "kernel_checked_type": "QuantumBlockEncoding.StoredMatrixProductChain.tailChain_value {n D : ℕ}\r\n  (tables : Vector (QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (n + 1)) (right : Vector ℝ D)\r\n  (K : QuantumBlockEncoding.MatrixProductChain.Kernel D) (start : ℕ)\r\n  (h : QuantumBlockEncoding.StoredMatrixProductChain.Window tables K start) :\r\n  QuantumBlockEncoding.StoredTensorTrain.denoteChain\r\n      (QuantumBlockEncoding.StoredMatrixProductChain.tailChain tables right).value =\r\n    QuantumBlockEncoding.MatrixProductChain.tailChain K (fun i => right[↑i]) start n",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "definition_kind": null,
+        "binder_audit": {
+          "typing_and_data_inputs": "All binders except the logical premise listed below are dimension/carrier/index formation or explicit stored/kernel/start input data, fully listed in exact_source_signature and kernel_checked_type. No hidden project Prop bundle or project typeclass premise.",
+          "logical_inputs": [
+            "h: Window tables K start, recursively expanded to forall finite i,a,b,bit entry equality"
+          ],
+          "source_classification": "Withheld source prevents SOURCE/STANDING/RULED/EXCESS comparison; formal inputs reconstructed without author classifications."
+        }
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredMatrixProductChain.closeLeft_value",
+        "kind": "theorem",
+        "mathematics": "Unconditional equality of whole denoted returned chain to semantic left-boundary closure of the input denotation.",
+        "exact_source_signature": "theorem closeLeft_value {n D : ℕ} (left : Vector ℝ D) (C : StoredChain (n + 1) D 1) :\n    denoteChain (closeLeft left C).value =\n      MatrixProductChain.closeLeft (fun i => left[i.val]) (denoteChain C)",
+        "exact_source_declaration": "theorem closeLeft_value {n D : ℕ} (left : Vector ℝ D) (C : StoredChain (n + 1) D 1) :\n    denoteChain (closeLeft left C).value =\n      MatrixProductChain.closeLeft (fun i => left[i.val]) (denoteChain C) := by\n  cases C with\n  | cons A C =>\n      simp only [closeLeft, bind, Run.bind, denoteChain, initial_value,\n        MatrixProductChain.closeLeft]",
+        "kernel_checked_type": "QuantumBlockEncoding.StoredMatrixProductChain.closeLeft_value {n D : ℕ} (left : Vector ℝ D)\r\n  (C : QuantumBlockEncoding.StoredTensorTrain.StoredChain (n + 1) D 1) :\r\n  QuantumBlockEncoding.StoredTensorTrain.denoteChain\r\n      (QuantumBlockEncoding.StoredMatrixProductChain.closeLeft left C).value =\r\n    QuantumBlockEncoding.MatrixProductChain.closeLeft (fun i => left[↑i])\r\n      (QuantumBlockEncoding.StoredTensorTrain.denoteChain C)",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "definition_kind": null,
+        "binder_audit": {
+          "typing_and_data_inputs": "All binders except the logical premise listed below are dimension/carrier/index formation or explicit stored/kernel/start input data, fully listed in exact_source_signature and kernel_checked_type. No hidden project Prop bundle or project typeclass premise.",
+          "logical_inputs": [],
+          "source_classification": "Withheld source prevents SOURCE/STANDING/RULED/EXCESS comparison; formal inputs reconstructed without author classifications."
+        }
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredMatrixProductChain.ofTable_refines",
+        "kind": "theorem",
+        "mathematics": "Given Window, equality of whole denoted returned chain to ofKernel K left right start n.",
+        "exact_source_signature": "theorem ofTable_refines {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (left right : Vector ℝ D) (K : MatrixProductChain.Kernel D) (start : ℕ)\n    (h : Window tables K start) :\n    denoteChain (ofTable tables left right).value =\n      MatrixProductChain.ofKernel K (fun i => left[i.val]) (fun i => right[i.val]) start n",
+        "exact_source_declaration": "theorem ofTable_refines {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (left right : Vector ℝ D) (K : MatrixProductChain.Kernel D) (start : ℕ)\n    (h : Window tables K start) :\n    denoteChain (ofTable tables left right).value =\n      MatrixProductChain.ofKernel K (fun i => left[i.val]) (fun i => right[i.val]) start n := by\n  simp only [ofTable, bind, Run.bind, closeLeft_value, tailChain_value tables right K start h,\n    MatrixProductChain.ofKernel]",
+        "kernel_checked_type": "QuantumBlockEncoding.StoredMatrixProductChain.ofTable_refines {n D : ℕ}\r\n  (tables : Vector (QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (n + 1)) (left right : Vector ℝ D)\r\n  (K : QuantumBlockEncoding.MatrixProductChain.Kernel D) (start : ℕ)\r\n  (h : QuantumBlockEncoding.StoredMatrixProductChain.Window tables K start) :\r\n  QuantumBlockEncoding.StoredTensorTrain.denoteChain\r\n      (QuantumBlockEncoding.StoredMatrixProductChain.ofTable tables left right).value =\r\n    QuantumBlockEncoding.MatrixProductChain.ofKernel K (fun i => left[↑i]) (fun i => right[↑i]) start n",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "definition_kind": null,
+        "binder_audit": {
+          "typing_and_data_inputs": "All binders except the logical premise listed below are dimension/carrier/index formation or explicit stored/kernel/start input data, fully listed in exact_source_signature and kernel_checked_type. No hidden project Prop bundle or project typeclass premise.",
+          "logical_inputs": [
+            "h: Window tables K start, recursively expanded to forall finite i,a,b,bit entry equality"
+          ],
+          "source_classification": "Withheld source prevents SOURCE/STANDING/RULED/EXCESS comparison; formal inputs reconstructed without author classifications."
+        }
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredMatrixProductChain.terminalEntry_cost",
+        "kind": "theorem",
+        "mathematics": "For each operation op, exact D*(3*tick(read,op)+2*tick(field,op)); no storage allocation per scalar entry.",
+        "exact_source_signature": "theorem terminalEntry_cost {D : ℕ} (A : StoredCore D D) (right : Vector ℝ D)\n    (a : Fin D) (bit : Fin 2) (op : Op) :\n    (terminalEntry A right a bit).cost op = D * (3 * tick .read op + 2 * tick .field op)",
+        "exact_source_declaration": "theorem terminalEntry_cost {D : ℕ} (A : StoredCore D D) (right : Vector ℝ D)\n    (a : Fin D) (bit : Fin 2) (op : Op) :\n    (terminalEntry A right a bit).cost op = D * (3 * tick .read op + 2 * tick .field op) := by\n  unfold terminalEntry\n  rw [sumEntries_cost_eq _ op (3 * tick .read op + tick .field op)]\n  · ring\n  · intro b\n    simp [bind, Run.bind, StoredGivens.read, StoredGivens.mul, charge]\n    ring",
+        "kernel_checked_type": "QuantumBlockEncoding.StoredMatrixProductChain.terminalEntry_cost {D : ℕ}\r\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (right : Vector ℝ D) (a : Fin D) (bit : Fin 2)\r\n  (op : QuantumBlockEncoding.StoredGivens.Op) :\r\n  (QuantumBlockEncoding.StoredMatrixProductChain.terminalEntry A right a bit).cost op =\r\n    D *\r\n      (3 * QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.read op +\r\n        2 * QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.field op)",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "definition_kind": null,
+        "binder_audit": {
+          "typing_and_data_inputs": "All binders except the logical premise listed below are dimension/carrier/index formation or explicit stored/kernel/start input data, fully listed in exact_source_signature and kernel_checked_type. No hidden project Prop bundle or project typeclass premise.",
+          "logical_inputs": [],
+          "source_classification": "Withheld source prevents SOURCE/STANDING/RULED/EXCESS comparison; formal inputs reconstructed without author classifications."
+        }
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredMatrixProductChain.initialEntry_cost",
+        "kind": "theorem",
+        "mathematics": "For each op, exact D*(3*tick(read,op)+2*tick(field,op)), independent of r, j and data.",
+        "exact_source_signature": "theorem initialEntry_cost {D r : ℕ} (left : Vector ℝ D) (A : StoredCore D r)\n    (j : Fin (2 * r)) (op : Op) :\n    (initialEntry left A j).cost op = D * (3 * tick .read op + 2 * tick .field op)",
+        "exact_source_declaration": "theorem initialEntry_cost {D r : ℕ} (left : Vector ℝ D) (A : StoredCore D r)\n    (j : Fin (2 * r)) (op : Op) :\n    (initialEntry left A j).cost op = D * (3 * tick .read op + 2 * tick .field op) := by\n  unfold initialEntry\n  rw [sumEntries_cost_eq _ op (3 * tick .read op + tick .field op)]\n  · ring\n  · intro a\n    simp [bind, Run.bind, StoredGivens.read, StoredGivens.mul, charge]\n    ring",
+        "kernel_checked_type": "QuantumBlockEncoding.StoredMatrixProductChain.initialEntry_cost {D r : ℕ} (left : Vector ℝ D)\r\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore D r) (j : Fin (2 * r))\r\n  (op : QuantumBlockEncoding.StoredGivens.Op) :\r\n  (QuantumBlockEncoding.StoredMatrixProductChain.initialEntry left A j).cost op =\r\n    D *\r\n      (3 * QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.read op +\r\n        2 * QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.field op)",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "definition_kind": null,
+        "binder_audit": {
+          "typing_and_data_inputs": "All binders except the logical premise listed below are dimension/carrier/index formation or explicit stored/kernel/start input data, fully listed in exact_source_signature and kernel_checked_type. No hidden project Prop bundle or project typeclass premise.",
+          "logical_inputs": [],
+          "source_classification": "Withheld source prevents SOURCE/STANDING/RULED/EXCESS comparison; formal inputs reconstructed without author classifications."
+        }
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredMatrixProductChain.terminal_cost",
+        "kind": "theorem",
+        "mathematics": "For each op, exact 2D^2*(3*tick(read,op)+2*tick(field,op))+6D*(tick(read,op)+tick(write,op)).",
+        "exact_source_signature": "theorem terminal_cost {D : ℕ} (A : StoredCore D D) (right : Vector ℝ D) (op : Op) :\n    (terminal A right).cost op =\n      2 * D ^ 2 * (3 * tick .read op + 2 * tick .field op) +\n      6 * D * (tick .read op + tick .write op)",
+        "exact_source_declaration": "theorem terminal_cost {D : ℕ} (A : StoredCore D D) (right : Vector ℝ D) (op : Op) :\n    (terminal A right).cost op =\n      2 * D ^ 2 * (3 * tick .read op + 2 * tick .field op) +\n      6 * D * (tick .read op + tick .write op) := by\n  simp [terminal, materialize_cost, terminalEntry_cost]\n  ring",
+        "kernel_checked_type": "QuantumBlockEncoding.StoredMatrixProductChain.terminal_cost {D : ℕ}\r\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (right : Vector ℝ D)\r\n  (op : QuantumBlockEncoding.StoredGivens.Op) :\r\n  (QuantumBlockEncoding.StoredMatrixProductChain.terminal A right).cost op =\r\n    2 * D ^ 2 *\r\n        (3 * QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.read op +\r\n          2 * QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.field op) +\r\n      6 * D *\r\n        (QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.read op +\r\n          QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.write op)",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "definition_kind": null,
+        "binder_audit": {
+          "typing_and_data_inputs": "All binders except the logical premise listed below are dimension/carrier/index formation or explicit stored/kernel/start input data, fully listed in exact_source_signature and kernel_checked_type. No hidden project Prop bundle or project typeclass premise.",
+          "logical_inputs": [],
+          "source_classification": "Withheld source prevents SOURCE/STANDING/RULED/EXCESS comparison; formal inputs reconstructed without author classifications."
+        }
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredMatrixProductChain.initial_cost",
+        "kind": "theorem",
+        "mathematics": "For each op, exact 2rD*(3*tick(read,op)+2*tick(field,op))+(4r+2)*(tick(read,op)+tick(write,op)).",
+        "exact_source_signature": "theorem initial_cost {D r : ℕ} (left : Vector ℝ D) (A : StoredCore D r) (op : Op) :\n    (initial left A).cost op =\n      2 * r * D * (3 * tick .read op + 2 * tick .field op) +\n      (4 * r + 2) * (tick .read op + tick .write op)",
+        "exact_source_declaration": "theorem initial_cost {D r : ℕ} (left : Vector ℝ D) (A : StoredCore D r) (op : Op) :\n    (initial left A).cost op =\n      2 * r * D * (3 * tick .read op + 2 * tick .field op) +\n      (4 * r + 2) * (tick .read op + tick .write op) := by\n  simp [initial, materialize_cost, initialEntry_cost]\n  ring",
+        "kernel_checked_type": "QuantumBlockEncoding.StoredMatrixProductChain.initial_cost {D r : ℕ} (left : Vector ℝ D)\r\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore D r) (op : QuantumBlockEncoding.StoredGivens.Op) :\r\n  (QuantumBlockEncoding.StoredMatrixProductChain.initial left A).cost op =\r\n    2 * r * D *\r\n        (3 * QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.read op +\r\n          2 * QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.field op) +\r\n      (4 * r + 2) *\r\n        (QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.read op +\r\n          QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.write op)",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "definition_kind": null,
+        "binder_audit": {
+          "typing_and_data_inputs": "All binders except the logical premise listed below are dimension/carrier/index formation or explicit stored/kernel/start input data, fully listed in exact_source_signature and kernel_checked_type. No hidden project Prop bundle or project typeclass premise.",
+          "logical_inputs": [],
+          "source_classification": "Withheld source prevents SOURCE/STANDING/RULED/EXCESS comparison; formal inputs reconstructed without author classifications."
+        }
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredMatrixProductChain.tailTable_cost",
+        "kind": "theorem",
+        "mathematics": "For each op, exact n*(3*tick(read,op)+2*tick(write,op)); reference-vector copying is charged even though core scalar data is shared.",
+        "exact_source_signature": "theorem tailTable_cost {α : Type} {n : ℕ} (xs : Vector α (n + 1)) (op : Op) :\n    (tailTable xs).cost op = n * (3 * tick .read op + 2 * tick .write op)",
+        "exact_source_declaration": "theorem tailTable_cost {α : Type} {n : ℕ} (xs : Vector α (n + 1)) (op : Op) :\n    (tailTable xs).cost op = n * (3 * tick .read op + 2 * tick .write op) := by\n  simp [tailTable, collect_cost, StoredGivens.read, charge]\n  ring",
+        "kernel_checked_type": "QuantumBlockEncoding.StoredMatrixProductChain.tailTable_cost {α : Type} {n : ℕ} (xs : Vector α (n + 1))\r\n  (op : QuantumBlockEncoding.StoredGivens.Op) :\r\n  (QuantumBlockEncoding.StoredMatrixProductChain.tailTable xs).cost op =\r\n    n *\r\n      (3 * QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.read op +\r\n        2 * QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.write op)",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "definition_kind": null,
+        "binder_audit": {
+          "typing_and_data_inputs": "All binders except the logical premise listed below are dimension/carrier/index formation or explicit stored/kernel/start input data, fully listed in exact_source_signature and kernel_checked_type. No hidden project Prop bundle or project typeclass premise.",
+          "logical_inputs": [],
+          "source_classification": "Withheld source prevents SOURCE/STANDING/RULED/EXCESS comparison; formal inputs reconstructed without author classifications."
+        }
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredMatrixProductChain.terminal_total_cost",
+        "kind": "theorem",
+        "mathematics": "Exact sum of all eight counters: 10D^2+12D.",
+        "exact_source_signature": "theorem terminal_total_cost {D : ℕ} (A : StoredCore D D) (right : Vector ℝ D) :\n    StoredRectangularGivens.total (terminal A right).cost = 10 * D ^ 2 + 12 * D",
+        "exact_source_declaration": "theorem terminal_total_cost {D : ℕ} (A : StoredCore D D) (right : Vector ℝ D) :\n    StoredRectangularGivens.total (terminal A right).cost = 10 * D ^ 2 + 12 * D := by\n  simp [StoredRectangularGivens.total, terminal_cost, tick]\n  ring",
+        "kernel_checked_type": "QuantumBlockEncoding.StoredMatrixProductChain.terminal_total_cost {D : ℕ}\r\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (right : Vector ℝ D) :\r\n  QuantumBlockEncoding.StoredRectangularGivens.total\r\n      (QuantumBlockEncoding.StoredMatrixProductChain.terminal A right).cost =\r\n    10 * D ^ 2 + 12 * D",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "definition_kind": null,
+        "binder_audit": {
+          "typing_and_data_inputs": "All binders except the logical premise listed below are dimension/carrier/index formation or explicit stored/kernel/start input data, fully listed in exact_source_signature and kernel_checked_type. No hidden project Prop bundle or project typeclass premise.",
+          "logical_inputs": [],
+          "source_classification": "Withheld source prevents SOURCE/STANDING/RULED/EXCESS comparison; formal inputs reconstructed without author classifications."
+        }
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredMatrixProductChain.initial_total_cost",
+        "kind": "theorem",
+        "mathematics": "Exact sum: 10rD+8r+4.",
+        "exact_source_signature": "theorem initial_total_cost {D r : ℕ} (left : Vector ℝ D) (A : StoredCore D r) :\n    StoredRectangularGivens.total (initial left A).cost = 10 * r * D + 8 * r + 4",
+        "exact_source_declaration": "theorem initial_total_cost {D r : ℕ} (left : Vector ℝ D) (A : StoredCore D r) :\n    StoredRectangularGivens.total (initial left A).cost = 10 * r * D + 8 * r + 4 := by\n  simp [StoredRectangularGivens.total, initial_cost, tick]\n  ring",
+        "kernel_checked_type": "QuantumBlockEncoding.StoredMatrixProductChain.initial_total_cost {D r : ℕ} (left : Vector ℝ D)\r\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore D r) :\r\n  QuantumBlockEncoding.StoredRectangularGivens.total\r\n      (QuantumBlockEncoding.StoredMatrixProductChain.initial left A).cost =\r\n    10 * r * D + 8 * r + 4",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "definition_kind": null,
+        "binder_audit": {
+          "typing_and_data_inputs": "All binders except the logical premise listed below are dimension/carrier/index formation or explicit stored/kernel/start input data, fully listed in exact_source_signature and kernel_checked_type. No hidden project Prop bundle or project typeclass premise.",
+          "logical_inputs": [],
+          "source_classification": "Withheld source prevents SOURCE/STANDING/RULED/EXCESS comparison; formal inputs reconstructed without author classifications."
+        }
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredMatrixProductChain.tailTable_total_cost",
+        "kind": "theorem",
+        "mathematics": "Exact sum: 5n.",
+        "exact_source_signature": "theorem tailTable_total_cost {α : Type} {n : ℕ} (xs : Vector α (n + 1)) :\n    StoredRectangularGivens.total (tailTable xs).cost = 5 * n",
+        "exact_source_declaration": "theorem tailTable_total_cost {α : Type} {n : ℕ} (xs : Vector α (n + 1)) :\n    StoredRectangularGivens.total (tailTable xs).cost = 5 * n := by\n  simp [StoredRectangularGivens.total, tailTable_cost, tick]\n  ring",
+        "kernel_checked_type": "QuantumBlockEncoding.StoredMatrixProductChain.tailTable_total_cost {α : Type} {n : ℕ} (xs : Vector α (n + 1)) :\r\n  QuantumBlockEncoding.StoredRectangularGivens.total (QuantumBlockEncoding.StoredMatrixProductChain.tailTable xs).cost =\r\n    5 * n",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "definition_kind": null,
+        "binder_audit": {
+          "typing_and_data_inputs": "All binders except the logical premise listed below are dimension/carrier/index formation or explicit stored/kernel/start input data, fully listed in exact_source_signature and kernel_checked_type. No hidden project Prop bundle or project typeclass premise.",
+          "logical_inputs": [],
+          "source_classification": "Withheld source prevents SOURCE/STANDING/RULED/EXCESS comparison; formal inputs reconstructed without author classifications."
+        }
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredMatrixProductChain.tailChain_total_cost_le",
+        "kind": "theorem",
+        "mathematics": "Unconditional total bound 10D^2+12D+5n^2+7n+13; accounts for terminal contraction/materialization, all suffix reference vectors, stored-table reads, chain nodes.",
+        "exact_source_signature": "theorem tailChain_total_cost_le {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (right : Vector ℝ D) :\n    StoredRectangularGivens.total (tailChain tables right).cost ≤\n      10 * D ^ 2 + 12 * D + 5 * n ^ 2 + 7 * n + 13",
+        "exact_source_declaration": "theorem tailChain_total_cost_le {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (right : Vector ℝ D) :\n    StoredRectangularGivens.total (tailChain tables right).cost ≤\n      10 * D ^ 2 + 12 * D + 5 * n ^ 2 + 7 * n + 13 := by\n  induction n with\n  | zero =>\n      simp only [tailChain, bind, Run.bind, total_add, read_total, terminal_total_cost]\n      simp [StoredRectangularGivens.total, nodeBudget, tick]\n      omega\n  | succ n ih =>\n      simp only [tailChain, bind, Run.bind, total_add, read_total, tailTable_total_cost, node_total]\n      have h := ih (tailTable tables).value\n      nlinarith",
+        "kernel_checked_type": "QuantumBlockEncoding.StoredMatrixProductChain.tailChain_total_cost_le {n D : ℕ}\r\n  (tables : Vector (QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (n + 1)) (right : Vector ℝ D) :\r\n  QuantumBlockEncoding.StoredRectangularGivens.total\r\n      (QuantumBlockEncoding.StoredMatrixProductChain.tailChain tables right).cost ≤\r\n    10 * D ^ 2 + 12 * D + 5 * n ^ 2 + 7 * n + 13",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "definition_kind": null,
+        "binder_audit": {
+          "typing_and_data_inputs": "All binders except the logical premise listed below are dimension/carrier/index formation or explicit stored/kernel/start input data, fully listed in exact_source_signature and kernel_checked_type. No hidden project Prop bundle or project typeclass premise.",
+          "logical_inputs": [],
+          "source_classification": "Withheld source prevents SOURCE/STANDING/RULED/EXCESS comparison; formal inputs reconstructed without author classifications."
+        }
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredMatrixProductChain.closeLeft_tail_total_cost_le",
+        "kind": "theorem",
+        "mathematics": "Only the cost of closeLeft applied to the value of tailChain, not the sum of both runs, is bounded by 10D^2+18D+18. n=0 initial next bond is 1; n>0 it is D.",
+        "exact_source_signature": "theorem closeLeft_tail_total_cost_le {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (left right : Vector ℝ D) :\n    StoredRectangularGivens.total (closeLeft left (tailChain tables right).value).cost ≤\n      10 * D ^ 2 + 18 * D + 18",
+        "exact_source_declaration": "theorem closeLeft_tail_total_cost_le {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (left right : Vector ℝ D) :\n    StoredRectangularGivens.total (closeLeft left (tailChain tables right).value).cost ≤\n      10 * D ^ 2 + 18 * D + 18 := by\n  cases n with\n  | zero =>\n      simp only [tailChain, bind, Run.bind, closeLeft, total_add, initial_total_cost, node_total]\n      nlinarith\n  | succ n =>\n      simp only [tailChain, bind, Run.bind, closeLeft, total_add, initial_total_cost, node_total]\n      nlinarith",
+        "kernel_checked_type": "QuantumBlockEncoding.StoredMatrixProductChain.closeLeft_tail_total_cost_le {n D : ℕ}\r\n  (tables : Vector (QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (n + 1)) (left right : Vector ℝ D) :\r\n  QuantumBlockEncoding.StoredRectangularGivens.total\r\n      (QuantumBlockEncoding.StoredMatrixProductChain.closeLeft left\r\n          (QuantumBlockEncoding.StoredMatrixProductChain.tailChain tables right).value).cost ≤\r\n    10 * D ^ 2 + 18 * D + 18",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "definition_kind": null,
+        "binder_audit": {
+          "typing_and_data_inputs": "All binders except the logical premise listed below are dimension/carrier/index formation or explicit stored/kernel/start input data, fully listed in exact_source_signature and kernel_checked_type. No hidden project Prop bundle or project typeclass premise.",
+          "logical_inputs": [],
+          "source_classification": "Withheld source prevents SOURCE/STANDING/RULED/EXCESS comparison; formal inputs reconstructed without author classifications."
+        }
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredMatrixProductChain.ofTable_total_cost_le",
+        "kind": "theorem",
+        "mathematics": "Unconditional bound on the actual composite run: 20D^2+30D+5n^2+7n+31, including both endpoint arithmetic/materialization, reference traffic, and node costs.",
+        "exact_source_signature": "theorem ofTable_total_cost_le {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (left right : Vector ℝ D) :\n    StoredRectangularGivens.total (ofTable tables left right).cost ≤\n      20 * D ^ 2 + 30 * D + 5 * n ^ 2 + 7 * n + 31",
+        "exact_source_declaration": "theorem ofTable_total_cost_le {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (left right : Vector ℝ D) :\n    StoredRectangularGivens.total (ofTable tables left right).cost ≤\n      20 * D ^ 2 + 30 * D + 5 * n ^ 2 + 7 * n + 31 := by\n  have h := tailChain_total_cost_le tables right\n  have g := closeLeft_tail_total_cost_le tables left right\n  simp only [ofTable, bind, Run.bind, total_add]\n  omega",
+        "kernel_checked_type": "QuantumBlockEncoding.StoredMatrixProductChain.ofTable_total_cost_le {n D : ℕ}\r\n  (tables : Vector (QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (n + 1)) (left right : Vector ℝ D) :\r\n  QuantumBlockEncoding.StoredRectangularGivens.total\r\n      (QuantumBlockEncoding.StoredMatrixProductChain.ofTable tables left right).cost ≤\r\n    20 * D ^ 2 + 30 * D + 5 * n ^ 2 + 7 * n + 31",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "definition_kind": null,
+        "binder_audit": {
+          "typing_and_data_inputs": "All binders except the logical premise listed below are dimension/carrier/index formation or explicit stored/kernel/start input data, fully listed in exact_source_signature and kernel_checked_type. No hidden project Prop bundle or project typeclass premise.",
+          "logical_inputs": [],
+          "source_classification": "Withheld source prevents SOURCE/STANDING/RULED/EXCESS comparison; formal inputs reconstructed without author classifications."
+        }
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredMatrixProductChain.window_of_entries",
+        "kind": "theorem",
+        "mathematics": "Pointwise entry equalities, universally over finite i,a,b,bit, imply the function-equality Window proposition; no computation of the supplier is certified.",
+        "exact_source_signature": "theorem window_of_entries {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (K : MatrixProductChain.Kernel D) (start : ℕ)\n    (h : ∀ (i : Fin (n + 1)) (a b : Fin D) (bit : Fin 2),\n      denoteCore tables[i.val] a (bit, b) = K (start + i.val) bit a b) :\n    Window tables K start",
+        "exact_source_declaration": "theorem window_of_entries {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (K : MatrixProductChain.Kernel D) (start : ℕ)\n    (h : ∀ (i : Fin (n + 1)) (a b : Fin D) (bit : Fin 2),\n      denoteCore tables[i.val] a (bit, b) = K (start + i.val) bit a b) :\n    Window tables K start := by\n  intro i\n  ext a out\n  exact h i a out.2 out.1",
+        "kernel_checked_type": "QuantumBlockEncoding.StoredMatrixProductChain.window_of_entries {n D : ℕ}\r\n  (tables : Vector (QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (n + 1))\r\n  (K : QuantumBlockEncoding.MatrixProductChain.Kernel D) (start : ℕ)\r\n  (h :\r\n    ∀ (i : Fin (n + 1)) (a b : Fin D) (bit : Fin 2),\r\n      QuantumBlockEncoding.StoredTensorTrain.denoteCore tables[↑i] a (bit, b) = K (start + ↑i) bit a b) :\r\n  QuantumBlockEncoding.StoredMatrixProductChain.Window tables K start",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "definition_kind": null,
+        "binder_audit": {
+          "typing_and_data_inputs": "All binders except the logical premise listed below are dimension/carrier/index formation or explicit stored/kernel/start input data, fully listed in exact_source_signature and kernel_checked_type. No hidden project Prop bundle or project typeclass premise.",
+          "logical_inputs": [
+            "h: forall finite i,a,b,bit, denoteCore tables[i] a (bit,b) = K(start+i) bit a b"
+          ],
+          "source_classification": "Withheld source prevents SOURCE/STANDING/RULED/EXCESS comparison; formal inputs reconstructed without author classifications."
+        }
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredMatrixProductChain.ofTable_maxBond",
+        "kind": "theorem",
+        "mathematics": "With the actual Window premise present, the maximum of every dependent bond dimension including both boundary dimensions is at most max(D,1).",
+        "exact_source_signature": "theorem ofTable_maxBond {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (left right : Vector ℝ D) (K : MatrixProductChain.Kernel D) (start : ℕ)\n    (h : Window tables K start) :\n    maxBond (denoteChain (ofTable tables left right).value) ≤ max D 1",
+        "exact_source_declaration": "theorem ofTable_maxBond {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (left right : Vector ℝ D) (K : MatrixProductChain.Kernel D) (start : ℕ)\n    (h : Window tables K start) :\n    maxBond (denoteChain (ofTable tables left right).value) ≤ max D 1 := by\n  rw [ofTable_refines tables left right K start h]\n  exact MatrixProductChain.ofKernel_maxBond K _ _ start n",
+        "kernel_checked_type": "QuantumBlockEncoding.StoredMatrixProductChain.ofTable_maxBond {n D : ℕ}\r\n  (tables : Vector (QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (n + 1)) (left right : Vector ℝ D)\r\n  (K : QuantumBlockEncoding.MatrixProductChain.Kernel D) (start : ℕ)\r\n  (h : QuantumBlockEncoding.StoredMatrixProductChain.Window tables K start) :\r\n  QuantumBlockEncoding.TensorTrainCanonical.maxBond\r\n      (QuantumBlockEncoding.StoredTensorTrain.denoteChain\r\n        (QuantumBlockEncoding.StoredMatrixProductChain.ofTable tables left right).value) ≤\r\n    max D 1",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "definition_kind": null,
+        "binder_audit": {
+          "typing_and_data_inputs": "All binders except the logical premise listed below are dimension/carrier/index formation or explicit stored/kernel/start input data, fully listed in exact_source_signature and kernel_checked_type. No hidden project Prop bundle or project typeclass premise.",
+          "logical_inputs": [
+            "h: Window tables K start, recursively expanded to forall finite i,a,b,bit entry equality"
+          ],
+          "source_classification": "Withheld source prevents SOURCE/STANDING/RULED/EXCESS comparison; formal inputs reconstructed without author classifications."
+        }
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredMatrixProductChain.ofTable_certified",
+        "kind": "theorem",
+        "mathematics": "With Window, one let-bound result simultaneously has exact whole-chain data refinement and the unconditional polynomial bound on that same Run's cost. It does not assert quantum normalization or finite-bit runtime.",
+        "exact_source_signature": "theorem ofTable_certified {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (left right : Vector ℝ D) (K : MatrixProductChain.Kernel D) (start : ℕ)\n    (h : Window tables K start) :\n    let result",
+        "exact_source_declaration": "theorem ofTable_certified {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (left right : Vector ℝ D) (K : MatrixProductChain.Kernel D) (start : ℕ)\n    (h : Window tables K start) :\n    let result := ofTable tables left right\n    denoteChain result.value =\n      MatrixProductChain.ofKernel K (fun i => left[i.val]) (fun i => right[i.val]) start n ∧\n    StoredRectangularGivens.total result.cost ≤\n      20 * D ^ 2 + 30 * D + 5 * n ^ 2 + 7 * n + 31 :=\n  ⟨ofTable_refines tables left right K start h, ofTable_total_cost_le tables left right⟩",
+        "kernel_checked_type": "QuantumBlockEncoding.StoredMatrixProductChain.ofTable_certified {n D : ℕ}\r\n  (tables : Vector (QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (n + 1)) (left right : Vector ℝ D)\r\n  (K : QuantumBlockEncoding.MatrixProductChain.Kernel D) (start : ℕ)\r\n  (h : QuantumBlockEncoding.StoredMatrixProductChain.Window tables K start) :\r\n  have result := QuantumBlockEncoding.StoredMatrixProductChain.ofTable tables left right;\r\n  QuantumBlockEncoding.StoredTensorTrain.denoteChain result.value =\r\n      QuantumBlockEncoding.MatrixProductChain.ofKernel K (fun i => left[↑i]) (fun i => right[↑i]) start n ∧\r\n    QuantumBlockEncoding.StoredRectangularGivens.total result.cost ≤ 20 * D ^ 2 + 30 * D + 5 * n ^ 2 + 7 * n + 31",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "definition_kind": null,
+        "binder_audit": {
+          "typing_and_data_inputs": "All binders except the logical premise listed below are dimension/carrier/index formation or explicit stored/kernel/start input data, fully listed in exact_source_signature and kernel_checked_type. No hidden project Prop bundle or project typeclass premise.",
+          "logical_inputs": [
+            "h: Window tables K start, recursively expanded to forall finite i,a,b,bit entry equality"
+          ],
+          "source_classification": "Withheld source prevents SOURCE/STANDING/RULED/EXCESS comparison; formal inputs reconstructed without author classifications."
+        }
+      }
+    ],
+    "private_helpers": [
+      "sumEntries_cost_eq: constant per-summand cost B gives k*(B+field tick), by induction and ring",
+      "total_add: eight-counter sum distributes over Cost addition",
+      "node_total: nodeBudget sums to 6",
+      "read_total: a stored-vector read sums to 1"
+    ],
+    "definition_audit": "All nine public definitions are literal transparent formulas/recursions over the whole typed carrier. No default/zero repair off a promised valid locus, classical-choice witness selection, quotient representative, or assumed unitary exists in this target. Empty summation yields zero legitimately; it is not a source repair. Noncomputable marks exact-real operations, not an efficiency verdict.",
+    "cost_model": {
+      "counters": [
+        "field",
+        "sqrt",
+        "angle",
+        "trig",
+        "compare",
+        "read",
+        "write",
+        "emit"
+      ],
+      "Run": "value plus Op->Nat cost; pure zero, bind adds componentwise; total sums all eight",
+      "scalar_entry": "StoredThinLQ.entry reads row reference and scalar; boundary read adds one; multiply and sum add two field counts per summand.",
+      "materialization": "collect f stores every counted Run once then projects values; n*(2 reads+2 writes) plus callback costs. materialize f nests collect: (N*M+N)*(2 reads+2 writes) plus all entry costs.",
+      "reference_copy": "tailTable copies vector references, not core scalar contents; 3n reads+2n writes. Every shrinking suffix is copied; quadratic length component is not suppressed.",
+      "nodes": "3 reads+3 writes per node. tail base charges two nodes, recursive cons one, closeLeft one.",
+      "production_operations": "Only field/read/write are nonzero; sqrt/angle/trig/compare/emit remain zero.",
+      "operation_counts": {
+        "terminal": {
+          "field": "4D^2",
+          "read": "6D^2+6D",
+          "write": "6D"
+        },
+        "initial": {
+          "field": "4rD",
+          "read": "6rD+4r+2",
+          "write": "4r+2"
+        },
+        "tailTable": {
+          "field": "0",
+          "read": "3n",
+          "write": "2n"
+        }
+      },
+      "exclusions": [
+        "Finite-bit encodings/precision and bit complexity",
+        "Loop-index and natural-number arithmetic",
+        "Counter metadata traversal and bookkeeping",
+        "Lean proof-checking work",
+        "Cost of creating/supplying input stored tables or boundary vectors",
+        "Cost of an arbitrary kernel callback or source discretization",
+        "Actual measured wall-clock or memory peak"
+      ]
+    },
+    "logical_premises": {
+      "Window_dependent": [
+        "tailChain_value",
+        "ofTable_refines",
+        "ofTable_maxBond",
+        "ofTable_certified"
+      ],
+      "entrywise_h": "window_of_entries only",
+      "unconditional": "All production definitions, local value identities, all scalar/per-operation/total cost theorems and closeLeft_value have no logical premise.",
+      "absent": [
+        "D>0",
+        "nonzero vectors",
+        "unit norm",
+        "positive/nonnegative entries",
+        "full rank",
+        "orthogonality",
+        "unitarity",
+        "smoothness",
+        "analytic approximation",
+        "oracle access",
+        "clean ancillas",
+        "success probability"
+      ]
+    },
+    "evidence_boundaries": [
+      "Whole current target freshly elaborated including source imports and private helpers; target olean never imported.",
+      "Cached provider and Mathlib context disclosed and content-bound in receipts; no transitive fresh-rebuild claim.",
+      "No source fidelity, root closure, main admission, novelty, PURIFIED or runtime verdict is made.",
+      "No quantum gate/circuit, state-preparation, canonicalization, measurement or finite-bit guarantee is a conclusion of this module."
+    ]
+  },
+  "probes": {
+    "accepted_receipt": {
+      "path": "reviews/publication/stored-matrix-product-chain/decoder-receipt-c17-v2.json",
+      "sha256": "4153ecd1e11dab1b8771237f4f0bb2bf007d3b9c13bb830b2aa524f75042c2b2"
+    },
+    "source": "reviews/publication/stored-matrix-product-chain/decoder-probes-c17-v2.lean",
+    "results": [
+      "All 29 #check and #print axioms passed; each exactly ordinary propext/Classical.choice/Quot.sound.",
+      "Symbolic terminal and initial counters test all eight operations; tailTable reference read/write arithmetic tested.",
+      "Zero-row materialization costs zero; one stored empty row still costs two reads/two writes.",
+      "One-site run total is exactly 10D^2+22D+31; three-site run total exactly 20D^2+20D+52, validating quadratic suffix traffic and node charges.",
+      "D=2 signed noncommuting example: chronological word00 coefficient -3; first-bit change gives -30; second-bit change gives -13; singleton coefficient 1.",
+      "D=0 one-site chain contracts to zero, with no positivity assumption."
+    ],
+    "negative_comparison": "The independently selected matrices are noncommuting. Hand-computed reverse-order word00 is 5 rather than -3, and swapped-boundary singleton is 6 rather than 1; these comparison values are arithmetic observations, not separately named Lean probes."
+  },
+  "chronology": {
+    "initial_opaque_binding": "d8299e3d5b7afb991e048a77c9d0fc343aaca573382845f5ac8f545e934743cb",
+    "current_opaque_binding": "c4bf0fd66e6c562cc27148de40167b8d0164f1a0882be170b41ad85c7cde9a1e",
+    "initial_observation": "Process protocols, full actual target and direct formal providers first read under packet v1.",
+    "authorized_successor": "Parent authorized revision2 after a formatting-only withheld EOF change. Updated allowed packet was read before evidence seal; source mathematics and formal hashes not inferred from withheld files. Opaque binding carried verbatim, never recomputed."
+  },
+  "failure_salvage": {
+    "current_failure_class": "NONE",
+    "history": [
+      {
+        "kind": "IMPLEMENTATION_FAILED",
+        "receipt": {
+          "path": "reviews/publication/stored-matrix-product-chain/decoder-runner-failure-c17-v1.json",
+          "sha256": "3a142e3759c4c4fb0611d13fac041b3a6daf158e4fbd3e9c498c87da97664de8"
+        },
+        "salvage": "Runner path expression fixed; no Lean launched in that failed invocation."
+      },
+      {
+        "kind": "IMPLEMENTATION_FAILED",
+        "receipt": {
+          "path": "reviews/publication/stored-matrix-product-chain/decoder-receipt-c17-v1.json",
+          "sha256": "50337bc7d0ef9c40f01a5aa2dd4c1a8492f33094aed23a7f23a76929d11adfc3"
+        },
+        "excluded": true,
+        "salvage": "Whole failed probe module retained; failed probe sorryAx is excluded, not promoted. All proofs rerun in new v2 source, successful whole module is the only accepted evidence."
+      }
+    ],
+    "mathematical_route_retired": false
+  },
+  "allowed_reads": [
+    {
+      "path": ".agents/skills/qbe-substantive-worker/SKILL.md",
+      "sha256": "906c1ab444d8a4492d84ee941bb214d55d550365cbc78471186f37fc23ac6c83"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/AdjacentGivens.olean",
+      "sha256": "25c38304b15f59661557f87eed7882b53201c4bbe9c17ec3706661009be757b7"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/BlockEncoding.olean",
+      "sha256": "580bbfe22478eb0cd119dda09d1d85c4f13c93fe770b8cbe513856d478c8ac1c"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/BlockEncodingClassics.olean",
+      "sha256": "bfbf1c9171a154e203af4304706b7d7c04a1871666621d934d51e8fec60f3641"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/Circuit.olean",
+      "sha256": "77a0e68fe1e9b3aa3dd5ad102098c5a53fd52f88cff5392ade36f3025a28b6d1"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/CircuitSemantics.olean",
+      "sha256": "ffac61409f8fd7837d9c2068edc7ea62c7e15f99db93c381ff32d65a80fb06a5"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/ConcreteSemantics.olean",
+      "sha256": "abe652408b2dac260b0ba5b2854d7603f28596beaffd45528c9e802335b3d705"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/ConstructiveTensorTrain.olean",
+      "sha256": "92fe0e05b742bc4d6fd968922bfc3af15cd2747936d7318fbb0f357ee45acf82"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/ConstructiveThinLQ.olean",
+      "sha256": "a8a2ccc47f4b4bc5c4fbfc975bdb4d6646b620776a914e31a385ac07b68715ce"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/Core.olean",
+      "sha256": "c6d35af9fd6488a221323fb19cd40f944b2236c80a3f89b6a18e359217d1ddd3"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/Examples/RobinHeat.olean",
+      "sha256": "ae3e73af76ed15da6f73b46437b09b45639481e2bf7dc80e13dd32d434c29dce"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/GHL2025.olean",
+      "sha256": "a1ae0c66d7ccb42c5c11797f6441afc0b47f7fdde227d2d51f38373198554506"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/MatrixProductChain.olean",
+      "sha256": "b63fd94d3affb18a98a5c10c39f1e569513a61b4c0e389767dbf6909c1c3aa4a"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/PrimitiveBasisLE.olean",
+      "sha256": "af04662471859feb29b432122d22336b42551cfecf49919ebcc1cdf3751ea838"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/PrimitiveCircuit.olean",
+      "sha256": "94441317555911adc7f2ed5914bbde8f69b354fbb3e10b24dc21e596f2a35ebc"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/PrimitiveSemantics.olean",
+      "sha256": "1829a8535eab8dd7ce8e1c384a168b420958320a75f0b04c9c1a06552e9f76c2"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/RealAmplitudePreparation.olean",
+      "sha256": "6f0da3691f870c319bd22d49eca89ec5eeb44dd1558b830cbb91334e808f0a46"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/RectangularGivens.olean",
+      "sha256": "d39fd2e5500d492c64c89e1c85294ac85fbe1d3678a9a4133792e689e8df88f2"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/Resources.olean",
+      "sha256": "cd0ed059a63189584cf228d738059b491a822711bc26162aadeececa3c8569a5"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/Robin/ComplexLCU.olean",
+      "sha256": "39ae59a3a2ed5ddf9e632f37cc10908cfc3208d016cda5f10a668259ba6e708c"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/Robin/ComplexLCUProjection.olean",
+      "sha256": "af45d383c2e11a1cc6d49d0a98eb1a217182c6ac75a67d57a7179fb09317a780"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/Robin/EvolvedCandidates.olean",
+      "sha256": "396f1d78a44ad6ee2f0fc6d2da4c7a0e5c3dbd5cf7f33fa371fc4baad91da3dd"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/Robin/FixedN3Data.olean",
+      "sha256": "97d6dbd20b18665b2b263215f89548c322b80e5c206ec1af3256acc10ea325f0"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/Robin/Hadamard8Verified.olean",
+      "sha256": "de2c2d45fd4a0b83db1a20752a2c785c74768b7b49bc17876b59f9687adf6b71"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/Robin/SourceBaseline.olean",
+      "sha256": "0f85f83b4f7899862c15d4e5b19a1c96ada5bd13fc3a5f43879011d170fb6093"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/Robin/WeightedPermutation.olean",
+      "sha256": "139c48530c0b354a01c445d036a11fec279f850f473a5bfacedc8cc2c2bf018a"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/RobinEvolution.olean",
+      "sha256": "0cec3f505243313459eb84a6b070ebe30040df0610d707e036e6b966b4e41e60"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/RobinMatrix.olean",
+      "sha256": "806ad490d51e4e9c98a9d9d64cb6cc5679716f84bebbd5c9b67cfeca10a1140c"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/SelectedRyPlane.olean",
+      "sha256": "371ccf3a533c33e67dabc937aebdb0396525ded100ad0d0cda078ad7920b3b52"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/SequentialBondPreparation.olean",
+      "sha256": "5f8673f2f7526dc55c5da3b955e821b88f5997cec9da4d847cdbc18938990a55"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/StatePreparation.olean",
+      "sha256": "467e2f77d2572fa2d65e2385cd6622e2408f475a45008c980860bfc2e20687b1"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/StoredGivens.olean",
+      "sha256": "e92db3701ff84887f55c9c457c4cd8121aee7d48b3efd4cb75ce8c8d8f3f7d09"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/StoredRectangularGivens.olean",
+      "sha256": "b6a2909ebda210391316f21fcb3221c2e4a5ce65ed87e02dae5972c75b2fbe88"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/StoredTensorTrain.olean",
+      "sha256": "f8d2a45960756f917ccc6144c97ba5e61c2fed76b7b4a0747aad09fd44118876"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/StoredThinLQ.olean",
+      "sha256": "403b0d4558ab193a770acc77b10ee1f72f4fb57e29d0bd7ce9d6330c7a125f0e"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/TensorTrainCanonical.olean",
+      "sha256": "06b34d2bd5c8cbfbb00d54fabaf251ec95561cf9c04cf49427b307cec593a4fd"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/ThinLQ.olean",
+      "sha256": "f199d4e39aacac2f9aef4d01acde9b8dc65fe2318a5687a2289c9667473a8f23"
+    },
+    {
+      "path": ".lake/build/lib/lean/QuantumBlockEncoding/UniformlyControlledRy.olean",
+      "sha256": "feaccfe34ad0f1ae6686d37c1af407359e26bb220ea771a025c4a4589ebfe41d"
+    },
+    {
+      "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/Analysis/InnerProductSpace/GramSchmidtOrtho.olean",
+      "sha256": "74dcea38cba6c04dfda15decf8cccb1ed8b5c1a5c046f16747dcaa2a6f28ca16"
+    },
+    {
+      "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.olean",
+      "sha256": "c3f70e5bdaa42054ea3d01315630236cab145c60200498b1cf263b91cff2ad96"
+    },
+    {
+      "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/Analysis/SpecialFunctions/Trigonometric/Inverse.olean",
+      "sha256": "8b04ebd32c8eaa25ea0be90a6f0046ce99c04e9281af03f0f8838fbe8ae5b55a"
+    },
+    {
+      "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/Data/Complex/Basic.olean",
+      "sha256": "f0dd349f6e747bb17cba310aed12ba9f0d4bd4a136baba6b576eb76146b0a992"
+    },
+    {
+      "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/Data/Finset/Lattice/Fold.olean",
+      "sha256": "124d7be2f4c27942096f63617861fca646aab652573a422b9749d525de73a1ac"
+    },
+    {
+      "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/Data/Matrix/Basic.olean",
+      "sha256": "b5152e5102fc44dfb245e4a3c8a7f44f077dfa1f4aed56f1bb8efaa0cc9363c8"
+    },
+    {
+      "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/Data/Matrix/Block.olean",
+      "sha256": "691fde2d4874713c7997308795c2122a6a7bc6ad17cf4779653f1a5a1d5778e7"
+    },
+    {
+      "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/Data/Matrix/Mul.olean",
+      "sha256": "5a0d9732666b6da99000b548c0351700cbe18ca5234ee055d0363320c2c18244"
+    },
+    {
+      "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/Data/Rat/Defs.olean",
+      "sha256": "03075080e42be4931e4818e0414262442de4459070656341cc13c629813310cf"
+    },
+    {
+      "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/Data/Real/Basic.olean",
+      "sha256": "6c7095c3f9f475831b4cd10f28ba2e7cea04cdbda31309df15a47924eac06413"
+    },
+    {
+      "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/LinearAlgebra/Matrix/Kronecker.olean",
+      "sha256": "787771277c4d49e26484ab5971cb51eb7dd6f0451e0b830397d47b3074445bb8"
+    },
+    {
+      "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/LinearAlgebra/Matrix/Reindex.olean",
+      "sha256": "00e469099a5f4c78f730e5a14d113acb9fe0ed3b4d717ab3989b60d7de8dd18c"
+    },
+    {
+      "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/LinearAlgebra/UnitaryGroup.olean",
+      "sha256": "d00931b90d40c878c1ac290a6af38f1d2bfc35b5a5af8bcd8d5e11a6a5aaf700"
+    },
+    {
+      "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/Tactic.olean",
+      "sha256": "c71aaaefb337826cd40ede82fd5f374299ece9c68476faca676474067b64ca7f"
+    },
+    {
+      "path": ".lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/GramSchmidtOrtho.lean",
+      "sha256": "437ca691e1837219907979ae0a5025fc8d6443743f3e173c8e258c05cd8a0c4b"
+    },
+    {
+      "path": ".lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean",
+      "sha256": "0294f9c8be3a112503d10f4ef01888f48a8d6aead32120222c56977e20c6a98c"
+    },
+    {
+      "path": ".lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/Trigonometric/Inverse.lean",
+      "sha256": "937fec422c888f63945b01bc98e6cf6cfb2e6f4ed5033cac6be8f36d9571f626"
+    },
+    {
+      "path": ".lake/packages/mathlib/Mathlib/Data/Complex/Basic.lean",
+      "sha256": "e974f69ab284fc405629ceff15af4412f56087f95025e3bd44c466a04b818390"
+    },
+    {
+      "path": ".lake/packages/mathlib/Mathlib/Data/Finset/Lattice/Fold.lean",
+      "sha256": "a93599652b2c2fdbfba0eed5d0d4aa0a5700a78f5f362290fe6f0f5526d83bbf"
+    },
+    {
+      "path": ".lake/packages/mathlib/Mathlib/Data/Matrix/Basic.lean",
+      "sha256": "f4743cf684a8cf1d0aa22905e09fe183237bee097e17cc67497024ad20bfaa7e"
+    },
+    {
+      "path": ".lake/packages/mathlib/Mathlib/Data/Matrix/Block.lean",
+      "sha256": "7e8c2114beed2417910205bcb87a5b11cd0392749781d7017d06ab8214305179"
+    },
+    {
+      "path": ".lake/packages/mathlib/Mathlib/Data/Matrix/Mul.lean",
+      "sha256": "53f1eb7c6730b36080b5d76f4a59bc01e7ba22c310e2d51ca4c7fa1acf71fd97"
+    },
+    {
+      "path": ".lake/packages/mathlib/Mathlib/Data/Rat/Defs.lean",
+      "sha256": "211acc16d1e3a82fb8318dd191540d1c6d1572e7a266a8297b8b59d1f8af5674"
+    },
+    {
+      "path": ".lake/packages/mathlib/Mathlib/Data/Real/Basic.lean",
+      "sha256": "21830eaa26fbfed5b28f30ebc7d973c9b2b0941266b8adf5eef451ec759b94f1"
+    },
+    {
+      "path": ".lake/packages/mathlib/Mathlib/LinearAlgebra/Matrix/Kronecker.lean",
+      "sha256": "df36f5d9d6479bbb9c9c3de760bb0f3c17787ede77377a688c2ef6802c268363"
+    },
+    {
+      "path": ".lake/packages/mathlib/Mathlib/LinearAlgebra/Matrix/Reindex.lean",
+      "sha256": "fc2d22b6a8d150463f4182ddb5b68aa719107c7253a46ae27e0aef679e9c3de4"
+    },
+    {
+      "path": ".lake/packages/mathlib/Mathlib/LinearAlgebra/UnitaryGroup.lean",
+      "sha256": "fbdf88d5c6e8d2ba110845d83e6e33b2587dfc354d2c6fa22c1f02e255047489"
+    },
+    {
+      "path": ".lake/packages/mathlib/Mathlib/Tactic.lean",
+      "sha256": "f16960e9fa5e3656276d0251569711808c299ec1e40c52c52ff21133deb82255"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "cd6c8e7a3065be88c70d3e09a2b8262e8e80c0805b434579223edb34536ec719"
+    },
+    {
+      "path": "docs/evidence-routed-memory-protocol.md",
+      "sha256": "2039b9ec55f287d9df5fe53e09b14cc92cb3aa6301be6c060c96f30b11a8e34b"
+    },
+    {
+      "path": "docs/proof-digestion-protocol.md",
+      "sha256": "c26999839c3b45f2b1663547c8be24c57534fea3e8459467866d1e41e553a75a"
+    },
+    {
+      "path": "docs/theorem-publication-protocol.md",
+      "sha256": "db45ec07c3cd092bef4c37dc460164d5b06767daee24664645e7b2a18dfc5cd0"
+    },
+    {
+      "path": "HARNESS.md",
+      "sha256": "74f8847cbb627073ab63d2228cd23b6300b5d59dcae019a9da442a6ddcbf4e2e"
+    },
+    {
+      "path": "lake-manifest.json",
+      "sha256": "510171e8214a2ac5e00f16c1bf92ad474d2de42c4cd2dc2b3d411272f7b58763"
+    },
+    {
+      "path": "lakefile.lean",
+      "sha256": "f6637c3a2467fdeee6b2de72505d0581c4a49793388197bd8e9e7df3f5817fc1"
+    },
+    {
+      "path": "lean-toolchain",
+      "sha256": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
+    },
+    {
+      "path": "QuantumBlockEncoding/AdjacentGivens.lean",
+      "sha256": "a43c3b4f543738cb317be01fa664fd466bfa28e21c33d10c7a90e74037a58d9c"
+    },
+    {
+      "path": "QuantumBlockEncoding/BlockEncoding.lean",
+      "sha256": "fe06f75a29822e28ccdbfedfb0b0e87f90872620fae7aed359085fad8fae64b4"
+    },
+    {
+      "path": "QuantumBlockEncoding/BlockEncodingClassics.lean",
+      "sha256": "94ac6632924df0a49b1ebd99bb5d9ed69b2ea463ec527033f38bd73deeb1346a"
+    },
+    {
+      "path": "QuantumBlockEncoding/Circuit.lean",
+      "sha256": "286c7b579f75891cb34f01d13e84a5f00e6b509a480efaaef9472a58a67a0f94"
+    },
+    {
+      "path": "QuantumBlockEncoding/CircuitSemantics.lean",
+      "sha256": "761ac3a98ea5a82ad5030e280e3810821081d10cec3d0a0a1d3c2add3fcd4666"
+    },
+    {
+      "path": "QuantumBlockEncoding/ConcreteSemantics.lean",
+      "sha256": "4b4e1c3612ea2d4eed3a2d5dbfec39ffae81263fd9ceb521c1a59231f786caa1"
+    },
+    {
+      "path": "QuantumBlockEncoding/ConstructiveTensorTrain.lean",
+      "sha256": "081e409bd31b91513ab38ad1041bd7dbcad88675275ba4197ae3587686c1d58d"
+    },
+    {
+      "path": "QuantumBlockEncoding/ConstructiveThinLQ.lean",
+      "sha256": "a9cec4dce7e7b955f663df02fb29716a67e42da63570dfac9c754a1aae9a8e18"
+    },
+    {
+      "path": "QuantumBlockEncoding/Core.lean",
+      "sha256": "c7e76d91c7fcfd844177f99c0399a3465a7d8360d3a522acb5d4c4e2f8277894"
+    },
+    {
+      "path": "QuantumBlockEncoding/Examples/RobinHeat.lean",
+      "sha256": "f2b2691ecc6300705a1dd319fa4386562e2b267e806ff905b66d81303b6645ff"
+    },
+    {
+      "path": "QuantumBlockEncoding/GHL2025.lean",
+      "sha256": "2dba31e056b134107b34c7e41c6a5c3a2130c22a2634372d1e9ce794961a4fd4"
+    },
+    {
+      "path": "QuantumBlockEncoding/MatrixProductChain.lean",
+      "sha256": "049a8f0c7003ef038f3945035a60264d52d62ea880326a959d0923f06d446a47"
+    },
+    {
+      "path": "QuantumBlockEncoding/PrimitiveBasisLE.lean",
+      "sha256": "00672a2bc6aab0861bf9dfed3eab651d3b649d3c5386d6f6ca8374e012e366ed"
+    },
+    {
+      "path": "QuantumBlockEncoding/PrimitiveCircuit.lean",
+      "sha256": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c"
+    },
+    {
+      "path": "QuantumBlockEncoding/PrimitiveSemantics.lean",
+      "sha256": "a68955f9dbe0e951c2751fcd14c535c28da7c8bcac75787b0005808b951f28de"
+    },
+    {
+      "path": "QuantumBlockEncoding/RealAmplitudePreparation.lean",
+      "sha256": "3c1c145a5262b85159bcead1997ec87875184ac06dfe4da8a6595ae063e434f7"
+    },
+    {
+      "path": "QuantumBlockEncoding/RectangularGivens.lean",
+      "sha256": "aa4b908e26c0e0b0bccc05034b839f170fb4a2641d96b713ff8d3fac731bcb52"
+    },
+    {
+      "path": "QuantumBlockEncoding/Resources.lean",
+      "sha256": "d7d939aa5e74965a28a3835750aa7ca5fa27aeeb0ef14ad1f5555cbf6279e09d"
+    },
+    {
+      "path": "QuantumBlockEncoding/Robin/ComplexLCU.lean",
+      "sha256": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843"
+    },
+    {
+      "path": "QuantumBlockEncoding/Robin/ComplexLCUProjection.lean",
+      "sha256": "fa0b84ce5c819184f190b81b4d259e12f725e6196cd37147984fab76fe4ec340"
+    },
+    {
+      "path": "QuantumBlockEncoding/Robin/EvolvedCandidates.lean",
+      "sha256": "93875b1775a857e70ea3447a892cf245b0d4a77a0dcb0ec3310c85bdf55e5268"
+    },
+    {
+      "path": "QuantumBlockEncoding/Robin/FixedN3Data.lean",
+      "sha256": "5d9cd56041be0af97ad2385aae2714f6ad05331a4df91ffc0704c2e983b453b8"
+    },
+    {
+      "path": "QuantumBlockEncoding/Robin/Hadamard8Verified.lean",
+      "sha256": "138b0ecf4a43b888d43d7e4d7682218139725644695952c0f3eb8d99663acfd4"
+    },
+    {
+      "path": "QuantumBlockEncoding/Robin/SourceBaseline.lean",
+      "sha256": "cc3aa711cb2bc5c4dfb308719e77ac299539d9a1f97f7b45002b4a11cc9a5722"
+    },
+    {
+      "path": "QuantumBlockEncoding/Robin/WeightedPermutation.lean",
+      "sha256": "c5c4ab73bd9a1d97f3672bfcb4ef374b9c832afec2935df378408283d2756eaf"
+    },
+    {
+      "path": "QuantumBlockEncoding/RobinEvolution.lean",
+      "sha256": "8673572458ff260cf35d6cfce60ffcc52b5b2be721671b3171919e32d0b73a37"
+    },
+    {
+      "path": "QuantumBlockEncoding/RobinMatrix.lean",
+      "sha256": "1cca5119ac056fe041b25c529909b9fb6c3e4995e04ebde2f69e83fce47a0835"
+    },
+    {
+      "path": "QuantumBlockEncoding/SelectedRyPlane.lean",
+      "sha256": "0098a9ef2bfc1af9eeaa44357b0818628084be35f88854232496e14d715c2f40"
+    },
+    {
+      "path": "QuantumBlockEncoding/SequentialBondPreparation.lean",
+      "sha256": "ad4542b108d44f196f2a02f78e59b58f43d45b1e890709cf4c22e1222805d5c5"
+    },
+    {
+      "path": "QuantumBlockEncoding/StatePreparation.lean",
+      "sha256": "2585a3b5ef2a58a0f7fb33664552e9166373cec2815eddf2542c9db66cb5f52f"
+    },
+    {
+      "path": "QuantumBlockEncoding/StoredGivens.lean",
+      "sha256": "c2a524772adb32a4ccad236dab347633dc865b0befb16adcbf6dc08fbdf3301d"
+    },
+    {
+      "path": "QuantumBlockEncoding/StoredMatrixProductChain.lean",
+      "sha256": "75df853f83c166df5409a3e567234b96bdd1bd7303c84f4401388530dfa090b0"
+    },
+    {
+      "path": "QuantumBlockEncoding/StoredRectangularGivens.lean",
+      "sha256": "f8638a6d287b3b984fa530b13eeb18e3992904543236bd0756eda41fa6490d98"
+    },
+    {
+      "path": "QuantumBlockEncoding/StoredTensorTrain.lean",
+      "sha256": "a9e5b0c2b00261d6f100a431fa95725c1bead82a4b87c41d54b59f0b084feae4"
+    },
+    {
+      "path": "QuantumBlockEncoding/StoredThinLQ.lean",
+      "sha256": "ed08ef278a93268f7d9620cb2ddafc2e3468fcc4f2543923251a3ce4e057177a"
+    },
+    {
+      "path": "QuantumBlockEncoding/TensorTrainCanonical.lean",
+      "sha256": "0b51ec0335aaf6248f40b3f8dcf6014172c231b9ae512bf5bb09d84ebf66f808"
+    },
+    {
+      "path": "QuantumBlockEncoding/ThinLQ.lean",
+      "sha256": "1b5b8434ba90063bb7d14ffe133ca7733a38772d4fe95f24427800d4edc62614"
+    },
+    {
+      "path": "QuantumBlockEncoding/UniformlyControlledRy.lean",
+      "sha256": "78d1aed9bb4068bcee138b665bd93a389463bbb591108837758a6d80752a1cf1"
+    },
+    {
+      "path": "reviews/publication/stored-matrix-product-chain/decoder-packet.json",
+      "sha256": "cf8e4645556ada30f8c66c44ee43576f2d9423b1022f35e9097bb30a726e8f9f"
+    },
+    {
+      "path": "reviews/publication/stored-matrix-product-chain/decoder-probes-c17-v2.lean",
+      "sha256": "24ef26c31bf59e6319798eb4640cf2cd930b7e430cc2ba0c014bcfe00701bb8f"
+    },
+    {
+      "path": "reviews/publication/stored-matrix-product-chain/decoder-run-c17.ps1",
+      "sha256": "b7ecbcd2400fa945f88220e374a313be6ff8ae80f18812077d6a3ca386bb49c3"
+    },
+    {
+      "path": "website/scripts/check_research_publications.py",
+      "sha256": "f8f6d7232376b5bc19a480b7e0ef549a5fafa8d66017e07482f7e6999962f8ad"
+    },
+    {
+      "path": "web/library/declarations.json",
+      "sha256": "d701a67ce3175d84ff2db23d4f128cceea4c478f1adf6770bc08209033f94bda"
+    }
+  ],
+  "read_scope": "Only process protocols/checker schema, allowed packet, actual target inventory (target filtered), target/formal provider import closure and relevant formal bodies, toolchain/manifest/lakefile, source and cache hashes, own outputs. No withheld source/lesson/registry/task/prior-review reads.",
+  "source_blind_limit": "The prior inventory output included generated target-only reader metadata; no source title, lesson, author judgement or independent-review record was accessed. Only exact actual target definitions/types/bodies govern this reconstruction.",
+  "writes_stopped_after_seal": true,
+  "remaining": "Distinct anti-anchored source reviewer and parent integration/publication gates remain outside decoder remit."
+}

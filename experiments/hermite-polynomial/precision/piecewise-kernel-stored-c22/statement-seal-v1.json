@@ -1,0 +1,20 @@
+{
+  "status": "PRE_PROOF_STATEMENT_SEAL",
+  "source_anchor": "tasks/SP-HERMITE-POLY-002.md unchanged; exact finite piecewise source supplier is the scoped frontier, not full scientific ROOT",
+  "parent_checkpoint": "efef2a34134d91b86589a598ad9953d979468d0f",
+  "inherited_result_sha256": "01b5c0f605c33d767979273753992a6ec0833170a9703510e90ee74336f9746f",
+  "inherited_manifest_sha256": "92b4d401a9547cd980c6d954185ee5d41deb0e0308730a67fcea31494e919f2d",
+  "exact_interface": "produceStored_refines (k n : Nat) (R delta : Rat) : StoredTensorTrain.denoteChain (produceStored k n R delta).value = HermitePiecewiseAssembly.actualChain k n R delta",
+  "source_consumer_interface": "produceStored_source (k n : Nat) (R delta : Rat) (hR : 0<R) (x : Word (n+1)) : contract (denoteChain (produceStored k n R delta).value) x 0 0 = (piecewiseValue k delta (rationalGrid n R (wordIndex n x)) : Real)",
+  "allocated_consumer": "Same produceStored at allocatedRadius k n L epsilon and sourceDelta k n epsilon, with positive L and epsilon only; radius positivity is supplied internally",
+  "binder_audit": {"k,n": "TYPING", "R,delta": "SOURCE literal rational source parameters", "hR": "STANDING grid positivity only in source-action consumer; no hR needed for same-chain refinement", "x": "TYPING arbitrary q0-LSB word", "L,epsilon,hL,he": "SOURCE original allocated-radius inputs"},
+  "excess_binders": [],
+  "forbidden_binders": ["desired Window", "mask correctness", "coefficient equality", "refinement", "rank", "desired generated entry", "source approximation oracle"],
+  "literal_definitions": ["computable rational BlockQ with exact comparisonEntry/binomial translation and source-derived coefficients", "explicit product/directsum rational blocks matching c21 actualBlocks and fullEquiv", "finite local rational table/boundary vectors materialized with StoredGivens.collect", "cast already generated stored rational data to real vectors", "produceStored calls canonical StoredMatrixProductChain.ofTable on those actual vectors"],
+  "source_topology": ["c21 actual source coefficients and clipped masks", "c21 full finite index equivalence", "rational entry/boundary cast equality to c21 exact full object", "materialize only (n+1) local D-by-2D cores and two D boundaries", "derive unconditional Window from generated entry equality", "canonical ofTable assembly", "same returned chain refinement and exact source-action", "transfer same-object D and scalar bounds"],
+  "dependencies_not_source_binders": ["c21 coefficient supplier", "c21 actualBlocks/fullEquiv/actualChain", "actual allocatedRadius_positive", "collect_value", "window_of_entries", "ofTable_refines", "c21 actualChain_maxBond/scalarEnvelope"],
+  "semantics": {"scalar": "computable exact rational data, cast to real only at canonical assembly boundary", "word": "q0 LSB, no amplitude vector enumeration", "masks": "strict/inclusive source ownership; clipped 0/N endpoint and T0/T1 preserved", "phase": "signed real amplitudes unchanged", "error": "exact finite-source equality; inherited original-source error separate", "quantum": "no new quantum circuit or foundation"},
+  "cost_seal": "First checkpoint may close actual stored producer/refinement while retaining exact quantified remaining source/entry evaluation costs. Container/vector/copy/assembly costs must refer to same produced data. No choose/factorial/power/expMidpoint treated as free O(1) and no full polynomial or finite-bit runtime claim.",
+  "implementation_audit": "Mathlib Nat.choose logical recursion branches; pinned Basic.lean has csimp choose_eq_fast_choose to descFactorial/factorial. Factorial and descFactorial also have binary-splitting compiler replacements. Computability is not a cost certificate; all integer operation, power, rational GCD and source parameter production costs remain explicit until charged.",
+  "write_scope": "piecewise-kernel-stored-c22 only, old c19/c20/c21 byte-identical; parent Git; no children"
+}

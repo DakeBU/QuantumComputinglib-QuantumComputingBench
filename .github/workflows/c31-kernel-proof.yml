@@ -1,0 +1,48 @@
+name: C31 exact three-proof kernel successor WIP
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/c31-kernel-proof.yml'
+      - 'tools/c31_kernel_proof_v1/**'
+      - 'tools/c31_kernel_proof_v2_guard/**'
+      - 'tools/c31_kernel_proof_v3/**'
+permissions:
+  contents: read
+concurrency:
+  group: c31-kernel-proof-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  c31-kernel-proof-independent:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v5
+      - name: Thirteen Python-only source and strict comparison tests
+        run: python3 -B -m unittest discover -s tools/c31_kernel_proof_v1 -p test_kernel.py -v
+      - name: Seven Python-only executing-file and negative guard tests
+        env:
+          C31_KERNEL_V1_TEST_PACKAGE: ${{ github.workspace }}/tools/c31_kernel_proof_v1
+        run: python3 -B -m unittest discover -s tools/c31_kernel_proof_v2_guard -p test_guard.py -v
+      - name: Fourteen Python-only shadow helper and true entry guards
+        env:
+          C31_KERNEL_V1_TEST_PACKAGE: ${{ github.workspace }}/tools/c31_kernel_proof_v1
+          C31_KERNEL_TEST_PROJECT: ${{ github.workspace }}
+        run: python3 -B -m unittest discover -s tools/c31_kernel_proof_v3 -p test_guard.py -v
+      - uses: leanprover/lean-action@v1
+        with:
+          auto-config: false
+          use-github-cache: true
+          use-mathlib-cache: true
+      - name: Inherited provider preparation only; not a clean transitive rebuild
+        run: lake build QuantumBlockEncoding.ReversibleClassical QuantumBlockEncoding.PrimitiveBasisLE QuantumBlockEncoding.CubicStatePreparation
+      - name: Actual isolated three-proof candidate with executing-file guard
+        run: lake env python3 -B tools/c31_kernel_proof_v3/entry.py
+      - name: Sanitized actual observations only, including failure receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: c31-kernel-proof-${{ github.sha }}
+          path: _out/c31-kernel-proof-v1/public/
+          if-no-files-found: warn
+          retention-days: 7

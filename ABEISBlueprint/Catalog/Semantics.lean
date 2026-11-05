@@ -2383,7 +2383,7 @@ Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:28](../../../../libra
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:41](../../../../library/modules/constructivetensortrain/#decl-quantumblockencoding-constructivetensortrain-result). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:42](../../../../library/modules/constructivetensortrain/#decl-quantumblockencoding-constructivetensortrain-result). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize" (lean := "QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize")
@@ -2397,7 +2397,7 @@ Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:41](../../../../libra
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:50](../../../../library/modules/constructivetensortrain/#decl-quantumblockencoding-constructivetensortrain-canonicalize). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:51](../../../../library/modules/constructivetensortrain/#decl-quantumblockencoding-constructivetensortrain-canonicalize). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_rightCanonical" (lean := "QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_rightCanonical")
@@ -2411,7 +2411,7 @@ Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:50](../../../../libra
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:73](../../../../library/modules/constructivetensortrain/#decl-quantumblockencoding-constructivetensortrain-canonicalize-rightcanonical). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:74](../../../../library/modules/constructivetensortrain/#decl-quantumblockencoding-constructivetensortrain-canonicalize-rightcanonical). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_rankReduced" (lean := "QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_rankReduced")
@@ -2425,7 +2425,7 @@ Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:73](../../../../libra
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:76](../../../../library/modules/constructivetensortrain/#decl-quantumblockencoding-constructivetensortrain-canonicalize-rankreduced). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:77](../../../../library/modules/constructivetensortrain/#decl-quantumblockencoding-constructivetensortrain-canonicalize-rankreduced). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_action" (lean := "QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_action")
@@ -2439,7 +2439,7 @@ Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:76](../../../../libra
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:79](../../../../library/modules/constructivetensortrain/#decl-quantumblockencoding-constructivetensortrain-canonicalize-action). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:80](../../../../library/modules/constructivetensortrain/#decl-quantumblockencoding-constructivetensortrain-canonicalize-action). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_maxBond_le" (lean := "QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_maxBond_le")
@@ -2453,7 +2453,7 @@ Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:79](../../../../libra
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:83](../../../../library/modules/constructivetensortrain/#decl-quantumblockencoding-constructivetensortrain-canonicalize-maxbond-le). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:84](../../../../library/modules/constructivetensortrain/#decl-quantumblockencoding-constructivetensortrain-canonicalize-maxbond-le). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.ConstructiveTensorTrain.boundary" (lean := "QuantumBlockEncoding.ConstructiveTensorTrain.boundary")
@@ -2467,7 +2467,7 @@ Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:83](../../../../libra
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:88](../../../../library/modules/constructivetensortrain/#decl-quantumblockencoding-constructivetensortrain-boundary). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:89](../../../../library/modules/constructivetensortrain/#decl-quantumblockencoding-constructivetensortrain-boundary). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.ConstructiveTensorTrain.boundary_action" (lean := "QuantumBlockEncoding.ConstructiveTensorTrain.boundary_action")
@@ -2481,7 +2481,7 @@ Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:88](../../../../libra
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:91](../../../../library/modules/constructivetensortrain/#decl-quantumblockencoding-constructivetensortrain-boundary-action). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:92](../../../../library/modules/constructivetensortrain/#decl-quantumblockencoding-constructivetensortrain-boundary-action). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.ConstructiveTensorTrain.boundary_mass" (lean := "QuantumBlockEncoding.ConstructiveTensorTrain.boundary_mass")
@@ -2495,7 +2495,7 @@ Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:91](../../../../libra
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:98](../../../../library/modules/constructivetensortrain/#decl-quantumblockencoding-constructivetensortrain-boundary-mass). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:99](../../../../library/modules/constructivetensortrain/#decl-quantumblockencoding-constructivetensortrain-boundary-mass). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.ConstructiveTensorTrain.boundary_normalized" (lean := "QuantumBlockEncoding.ConstructiveTensorTrain.boundary_normalized")
@@ -2509,7 +2509,7 @@ Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:98](../../../../libra
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:103](../../../../library/modules/constructivetensortrain/#decl-quantumblockencoding-constructivetensortrain-boundary-normalized). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:104](../../../../library/modules/constructivetensortrain/#decl-quantumblockencoding-constructivetensortrain-boundary-normalized). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary" (lean := "QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary")
@@ -2523,7 +2523,7 @@ Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:103](../../../../libr
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:108](../../../../library/modules/constructivetensortrain/#decl-quantumblockencoding-constructivetensortrain-stateboundary). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:109](../../../../library/modules/constructivetensortrain/#decl-quantumblockencoding-constructivetensortrain-stateboundary). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary_action" (lean := "QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary_action")
@@ -2537,7 +2537,7 @@ Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:108](../../../../libr
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:111](../../../../library/modules/constructivetensortrain/#decl-quantumblockencoding-constructivetensortrain-stateboundary-action). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:112](../../../../library/modules/constructivetensortrain/#decl-quantumblockencoding-constructivetensortrain-stateboundary-action). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary_normalized" (lean := "QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary_normalized")
@@ -2551,7 +2551,7 @@ Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:111](../../../../libr
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:117](../../../../library/modules/constructivetensortrain/#decl-quantumblockencoding-constructivetensortrain-stateboundary-normalized). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/ConstructiveTensorTrain.lean:118](../../../../library/modules/constructivetensortrain/#decl-quantumblockencoding-constructivetensortrain-stateboundary-normalized). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 # QuantumBlockEncoding/ConstructiveTensorTrainCompiler.lean
@@ -3565,7 +3565,7 @@ Source: [QuantumBlockEncoding/MatrixProductChain.lean:68](../../../../library/mo
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/MatrixProductChain.lean:75](../../../../library/modules/matrixproductchain/#decl-quantumblockencoding-matrixproductchain-storedscalars). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/MatrixProductChain.lean:77](../../../../library/modules/matrixproductchain/#decl-quantumblockencoding-matrixproductchain-storedscalars). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.MatrixProductChain.storedScalars_le" (lean := "QuantumBlockEncoding.MatrixProductChain.storedScalars_le")
@@ -3579,7 +3579,7 @@ Source: [QuantumBlockEncoding/MatrixProductChain.lean:75](../../../../library/mo
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/MatrixProductChain.lean:79](../../../../library/modules/matrixproductchain/#decl-quantumblockencoding-matrixproductchain-storedscalars-le). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/MatrixProductChain.lean:81](../../../../library/modules/matrixproductchain/#decl-quantumblockencoding-matrixproductchain-storedscalars-le). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.MatrixProductChain.ofKernel_storedScalars" (lean := "QuantumBlockEncoding.MatrixProductChain.ofKernel_storedScalars")
@@ -3593,7 +3593,7 @@ Source: [QuantumBlockEncoding/MatrixProductChain.lean:79](../../../../library/mo
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/MatrixProductChain.lean:95](../../../../library/modules/matrixproductchain/#decl-quantumblockencoding-matrixproductchain-ofkernel-storedscalars). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/MatrixProductChain.lean:97](../../../../library/modules/matrixproductchain/#decl-quantumblockencoding-matrixproductchain-ofkernel-storedscalars). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 # QuantumBlockEncoding/ModularAdder3.lean
@@ -5395,7 +5395,7 @@ Source: [QuantumBlockEncoding/PrimitiveMacros.lean:180](../../../../library/modu
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveMacros.lean:198](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-evalprimitivecx-eq-phasepermutationmatrix). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveMacros.lean:199](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-evalprimitivecx-eq-phasepermutationmatrix). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.liftPhaseMatrix_eq_phasePermutationMatrix" (lean := "QuantumBlockEncoding.liftPhaseMatrix_eq_phasePermutationMatrix")
@@ -5409,7 +5409,7 @@ Source: [QuantumBlockEncoding/PrimitiveMacros.lean:198](../../../../library/modu
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveMacros.lean:206](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-liftphasematrix-eq-phasepermutationmatrix). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveMacros.lean:207](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-liftphasematrix-eq-phasepermutationmatrix). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.primitiveCxProgram" (lean := "QuantumBlockEncoding.primitiveCxProgram")
@@ -5423,7 +5423,7 @@ Source: [QuantumBlockEncoding/PrimitiveMacros.lean:206](../../../../library/modu
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/PrimitiveMacros.lean:232](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-primitivecxprogram). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveMacros.lean:231](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-primitivecxprogram). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.primitiveCxProgram_eval" (lean := "QuantumBlockEncoding.primitiveCxProgram_eval")
@@ -5437,7 +5437,7 @@ Source: [QuantumBlockEncoding/PrimitiveMacros.lean:232](../../../../library/modu
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveMacros.lean:237](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-primitivecxprogram-eval). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveMacros.lean:236](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-primitivecxprogram-eval). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.primitiveTProgram_eval_monomial" (lean := "QuantumBlockEncoding.primitiveTProgram_eval_monomial")
@@ -5451,7 +5451,7 @@ Source: [QuantumBlockEncoding/PrimitiveMacros.lean:237](../../../../library/modu
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveMacros.lean:249](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-primitivetprogram-eval-monomial). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveMacros.lean:248](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-primitivetprogram-eval-monomial). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.primitiveTdgProgram_eval_monomial" (lean := "QuantumBlockEncoding.primitiveTdgProgram_eval_monomial")
@@ -5465,7 +5465,7 @@ Source: [QuantumBlockEncoding/PrimitiveMacros.lean:249](../../../../library/modu
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveMacros.lean:258](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-primitivetdgprogram-eval-monomial). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveMacros.lean:257](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-primitivetdgprogram-eval-monomial). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.MonomialProgram" (lean := "QuantumBlockEncoding.MonomialProgram")
@@ -5479,7 +5479,7 @@ Source: [QuantumBlockEncoding/PrimitiveMacros.lean:258](../../../../library/modu
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/PrimitiveMacros.lean:267](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-monomialprogram). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveMacros.lean:266](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-monomialprogram). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.MonomialProgram.seq" (lean := "QuantumBlockEncoding.MonomialProgram.seq")
@@ -5493,7 +5493,7 @@ Source: [QuantumBlockEncoding/PrimitiveMacros.lean:267](../../../../library/modu
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/PrimitiveMacros.lean:276](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-monomialprogram-seq). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveMacros.lean:275](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-monomialprogram-seq). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.MonomialProgram.cx" (lean := "QuantumBlockEncoding.MonomialProgram.cx")
@@ -5507,7 +5507,7 @@ Source: [QuantumBlockEncoding/PrimitiveMacros.lean:276](../../../../library/modu
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/PrimitiveMacros.lean:285](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-monomialprogram-cx). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveMacros.lean:284](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-monomialprogram-cx). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.MonomialProgram.t" (lean := "QuantumBlockEncoding.MonomialProgram.t")
@@ -5521,7 +5521,7 @@ Source: [QuantumBlockEncoding/PrimitiveMacros.lean:285](../../../../library/modu
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/PrimitiveMacros.lean:292](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-monomialprogram-t). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveMacros.lean:291](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-monomialprogram-t). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.MonomialProgram.tdg" (lean := "QuantumBlockEncoding.MonomialProgram.tdg")
@@ -5535,7 +5535,7 @@ Source: [QuantumBlockEncoding/PrimitiveMacros.lean:292](../../../../library/modu
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/PrimitiveMacros.lean:299](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-monomialprogram-tdg). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveMacros.lean:298](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-monomialprogram-tdg). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.primitiveCCXMiddle" (lean := "QuantumBlockEncoding.primitiveCCXMiddle")
@@ -5549,7 +5549,7 @@ Source: [QuantumBlockEncoding/PrimitiveMacros.lean:299](../../../../library/modu
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/PrimitiveMacros.lean:309](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-primitiveccxmiddle). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveMacros.lean:308](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-primitiveccxmiddle). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.primitiveCCXProgram" (lean := "QuantumBlockEncoding.primitiveCCXProgram")
@@ -5563,7 +5563,7 @@ Source: [QuantumBlockEncoding/PrimitiveMacros.lean:309](../../../../library/modu
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/PrimitiveMacros.lean:330](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-primitiveccxprogram). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveMacros.lean:329](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-primitiveccxprogram). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.primitiveCCXMiddle_permutation_eq_refl" (lean := "QuantumBlockEncoding.primitiveCCXMiddle_permutation_eq_refl")
@@ -5577,7 +5577,7 @@ Source: [QuantumBlockEncoding/PrimitiveMacros.lean:330](../../../../library/modu
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveMacros.lean:339](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-primitiveccxmiddle-permutation-eq-refl). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveMacros.lean:338](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-primitiveccxmiddle-permutation-eq-refl). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.primitiveCCXMiddle_phase_eq_ccz" (lean := "QuantumBlockEncoding.primitiveCCXMiddle_phase_eq_ccz")
@@ -5605,7 +5605,7 @@ Source: [QuantumBlockEncoding/PrimitiveMacros.lean:363](../../../../library/modu
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/PrimitiveMacros.lean:384](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-cczmatrix). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveMacros.lean:385](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-cczmatrix). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.primitiveCCXMiddle_eval" (lean := "QuantumBlockEncoding.primitiveCCXMiddle_eval")
@@ -5619,7 +5619,7 @@ Source: [QuantumBlockEncoding/PrimitiveMacros.lean:384](../../../../library/modu
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveMacros.lean:392](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-primitiveccxmiddle-eval). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveMacros.lean:393](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-primitiveccxmiddle-eval). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.zMatrix" (lean := "QuantumBlockEncoding.zMatrix")
@@ -5633,7 +5633,7 @@ Source: [QuantumBlockEncoding/PrimitiveMacros.lean:392](../../../../library/modu
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/PrimitiveMacros.lean:407](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-zmatrix). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveMacros.lean:408](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-zmatrix). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.hadamard_mul_hadamard" (lean := "QuantumBlockEncoding.hadamard_mul_hadamard")
@@ -5647,7 +5647,7 @@ Source: [QuantumBlockEncoding/PrimitiveMacros.lean:407](../../../../library/modu
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveMacros.lean:410](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-hadamard-mul-hadamard). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveMacros.lean:411](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-hadamard-mul-hadamard). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.hadamard_mul_z_mul_hadamard" (lean := "QuantumBlockEncoding.hadamard_mul_z_mul_hadamard")
@@ -5661,7 +5661,7 @@ Source: [QuantumBlockEncoding/PrimitiveMacros.lean:410](../../../../library/modu
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveMacros.lean:419](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-hadamard-mul-z-mul-hadamard). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveMacros.lean:420](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-hadamard-mul-z-mul-hadamard). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.liftPrimitiveOneQubit_eq_blockDiagonal" (lean := "QuantumBlockEncoding.liftPrimitiveOneQubit_eq_blockDiagonal")
@@ -5675,7 +5675,7 @@ Source: [QuantumBlockEncoding/PrimitiveMacros.lean:419](../../../../library/modu
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveMacros.lean:430](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-liftprimitiveonequbit-eq-blockdiagonal). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveMacros.lean:431](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-liftprimitiveonequbit-eq-blockdiagonal). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.cczTargetBlock" (lean := "QuantumBlockEncoding.cczTargetBlock")
@@ -5689,7 +5689,7 @@ Source: [QuantumBlockEncoding/PrimitiveMacros.lean:430](../../../../library/modu
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/PrimitiveMacros.lean:440](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-ccztargetblock). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveMacros.lean:441](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-ccztargetblock). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.cczMatrix_eq_blockDiagonal" (lean := "QuantumBlockEncoding.cczMatrix_eq_blockDiagonal")
@@ -5703,7 +5703,7 @@ Source: [QuantumBlockEncoding/PrimitiveMacros.lean:440](../../../../library/modu
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveMacros.lean:448](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-cczmatrix-eq-blockdiagonal). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveMacros.lean:449](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-cczmatrix-eq-blockdiagonal). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.ccxTargetBlock" (lean := "QuantumBlockEncoding.ccxTargetBlock")
@@ -5717,7 +5717,7 @@ Source: [QuantumBlockEncoding/PrimitiveMacros.lean:448](../../../../library/modu
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/PrimitiveMacros.lean:500](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-ccxtargetblock). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveMacros.lean:505](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-ccxtargetblock). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.equivPermutationMatrix_ccx_eq_blockDiagonal" (lean := "QuantumBlockEncoding.equivPermutationMatrix_ccx_eq_blockDiagonal")
@@ -5731,7 +5731,7 @@ Source: [QuantumBlockEncoding/PrimitiveMacros.lean:500](../../../../library/modu
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveMacros.lean:508](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-equivpermutationmatrix-ccx-eq-blockdiagonal). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveMacros.lean:513](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-equivpermutationmatrix-ccx-eq-blockdiagonal). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.hadamard_conjugates_ccz" (lean := "QuantumBlockEncoding.hadamard_conjugates_ccz")
@@ -5745,7 +5745,7 @@ Source: [QuantumBlockEncoding/PrimitiveMacros.lean:508](../../../../library/modu
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveMacros.lean:580](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-hadamard-conjugates-ccz). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveMacros.lean:585](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-hadamard-conjugates-ccz). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.primitiveCCXProgram_eval" (lean := "QuantumBlockEncoding.primitiveCCXProgram_eval")
@@ -5759,7 +5759,7 @@ Source: [QuantumBlockEncoding/PrimitiveMacros.lean:580](../../../../library/modu
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveMacros.lean:611](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-primitiveccxprogram-eval). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveMacros.lean:616](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-primitiveccxprogram-eval). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.primitiveCCXProgramRefinement" (lean := "QuantumBlockEncoding.primitiveCCXProgramRefinement")
@@ -5773,7 +5773,7 @@ Source: [QuantumBlockEncoding/PrimitiveMacros.lean:611](../../../../library/modu
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/PrimitiveMacros.lean:624](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-primitiveccxprogramrefinement). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveMacros.lean:629](../../../../library/modules/primitivemacros/#decl-quantumblockencoding-primitiveccxprogramrefinement). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 # QuantumBlockEncoding/PrimitiveRefinement.lean
@@ -5996,7 +5996,7 @@ Source: [QuantumBlockEncoding/PrimitiveRyPerturbation.lean:92](../../../../libra
 
 # QuantumBlockEncoding/PrimitiveSemantics.lean
 
-54 explicit public declarations, in source order.
+55 explicit public declarations, in source order.
 
 :::definition "QuantumBlockEncoding.standardRyMatrix" (lean := "QuantumBlockEncoding.standardRyMatrix")
 *Plain-English reading.* This definition gives the library's named construction or computation for “standard ry matrix”. Standard 'RY(theta)' in the convention used by Qiskit and OpenQASM 3.
@@ -6348,6 +6348,20 @@ Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:147](../../../../library/m
 Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:158](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-cxbasisequiv). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
+:::theorem "QuantumBlockEncoding.cxBasisEquiv_apply" (lean := "QuantumBlockEncoding.cxBasisEquiv_apply")
+*Plain-English reading.* Lean checks the proposition indexed as “cx basis equiv apply”; the hypotheses and conclusion in the code panel fix its exact scope.
+
+*Formal status.* Compiled theorem in the default ASPBE import surface; the displayed Lean signature is the authoritative claim.
+
+*Why it is in this chapter.* Circuit and register semantics, reusable tensor-train and matrix constructions, and explicit exact-real storage-cost refinements. Each declaration's hypotheses and conclusion fix its certified scope.
+
+*Technical source note.* The source declaration has no docstring. The reader cue above is generated from its kind and name and does not replace the Lean signature.
+
+*Declaration kind.* theorem.
+
+Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:166](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-cxbasisequiv-apply). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+:::
+
 :::definition "QuantumBlockEncoding.OtherPrimitiveWires" (lean := "QuantumBlockEncoding.OtherPrimitiveWires")
 *Plain-English reading.* This abbreviation gives a shorter name to the type or expression used for “other primitive wires”.
 
@@ -6359,7 +6373,7 @@ Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:158](../../../../library/m
 
 *Declaration kind.* abbrev.
 
-Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:166](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-otherprimitivewires). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:172](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-otherprimitivewires). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.splitPrimitiveWire" (lean := "QuantumBlockEncoding.splitPrimitiveWire")
@@ -6373,7 +6387,7 @@ Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:166](../../../../library/m
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:169](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-splitprimitivewire). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:175](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-splitprimitivewire). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.splitPrimitiveWire_other_apply" (lean := "QuantumBlockEncoding.splitPrimitiveWire_other_apply")
@@ -6387,7 +6401,7 @@ Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:169](../../../../library/m
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:188](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-splitprimitivewire-other-apply). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:194](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-splitprimitivewire-other-apply). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.liftPrimitiveOneQubit" (lean := "QuantumBlockEncoding.liftPrimitiveOneQubit")
@@ -6401,7 +6415,7 @@ Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:188](../../../../library/m
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:194](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-liftprimitiveonequbit). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:200](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-liftprimitiveonequbit). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.liftPrimitiveOneQubit_apply" (lean := "QuantumBlockEncoding.liftPrimitiveOneQubit_apply")
@@ -6415,7 +6429,7 @@ Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:194](../../../../library/m
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:202](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-liftprimitiveonequbit-apply). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:208](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-liftprimitiveonequbit-apply). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.liftPrimitiveOneQubit_unitary" (lean := "QuantumBlockEncoding.liftPrimitiveOneQubit_unitary")
@@ -6429,7 +6443,7 @@ Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:202](../../../../library/m
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:220](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-liftprimitiveonequbit-unitary). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:226](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-liftprimitiveonequbit-unitary). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.standardRzMatrix" (lean := "QuantumBlockEncoding.standardRzMatrix")
@@ -6443,7 +6457,7 @@ Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:220](../../../../library/m
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:232](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-standardrzmatrix). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:238](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-standardrzmatrix). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.standardRzMatrix_unitary" (lean := "QuantumBlockEncoding.standardRzMatrix_unitary")
@@ -6457,7 +6471,7 @@ Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:232](../../../../library/m
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:241](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-standardrzmatrix-unitary). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:247](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-standardrzmatrix-unitary). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.standardRzMatrix_neg" (lean := "QuantumBlockEncoding.standardRzMatrix_neg")
@@ -6471,7 +6485,7 @@ Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:241](../../../../library/m
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:263](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-standardrzmatrix-neg). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:269](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-standardrzmatrix-neg). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.star_equivPermutationMatrix" (lean := "QuantumBlockEncoding.star_equivPermutationMatrix")
@@ -6485,7 +6499,7 @@ Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:263](../../../../library/m
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:286](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-star-equivpermutationmatrix). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:292](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-star-equivpermutationmatrix). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.star_liftPrimitiveOneQubit" (lean := "QuantumBlockEncoding.star_liftPrimitiveOneQubit")
@@ -6499,7 +6513,7 @@ Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:286](../../../../library/m
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:306](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-star-liftprimitiveonequbit). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:312](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-star-liftprimitiveonequbit). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.evalPrimitiveGate" (lean := "QuantumBlockEncoding.evalPrimitiveGate")
@@ -6513,7 +6527,7 @@ Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:306](../../../../library/m
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:323](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-evalprimitivegate). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:329](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-evalprimitivegate). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.evalPrimitiveGate_unitary" (lean := "QuantumBlockEncoding.evalPrimitiveGate_unitary")
@@ -6527,7 +6541,7 @@ Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:323](../../../../library/m
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:331](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-evalprimitivegate-unitary). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:337](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-evalprimitivegate-unitary). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.xBasisEquiv_symm" (lean := "QuantumBlockEncoding.xBasisEquiv_symm")
@@ -6541,7 +6555,7 @@ Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:331](../../../../library/m
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:342](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-xbasisequiv-symm). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:348](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-xbasisequiv-symm). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.cxBasisEquiv_symm" (lean := "QuantumBlockEncoding.cxBasisEquiv_symm")
@@ -6555,7 +6569,7 @@ Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:342](../../../../library/m
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:346](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-cxbasisequiv-symm). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:352](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-cxbasisequiv-symm). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.evalPrimitiveGate_dagger" (lean := "QuantumBlockEncoding.evalPrimitiveGate_dagger")
@@ -6569,7 +6583,7 @@ Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:346](../../../../library/m
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:352](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-evalprimitivegate-dagger). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:358](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-evalprimitivegate-dagger). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.evalPrimitiveCircuit" (lean := "QuantumBlockEncoding.evalPrimitiveCircuit")
@@ -6583,7 +6597,7 @@ Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:352](../../../../library/m
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:374](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-evalprimitivecircuit). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:380](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-evalprimitivecircuit). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.evalPrimitiveCircuit_unitary" (lean := "QuantumBlockEncoding.evalPrimitiveCircuit_unitary")
@@ -6597,7 +6611,7 @@ Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:374](../../../../library/m
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:379](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-evalprimitivecircuit-unitary). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:385](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-evalprimitivecircuit-unitary). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.evalPrimitiveCircuit_append" (lean := "QuantumBlockEncoding.evalPrimitiveCircuit_append")
@@ -6611,7 +6625,7 @@ Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:379](../../../../library/m
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:389](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-evalprimitivecircuit-append). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:395](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-evalprimitivecircuit-append). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.evalPrimitiveCircuit_dagger" (lean := "QuantumBlockEncoding.evalPrimitiveCircuit_dagger")
@@ -6625,7 +6639,7 @@ Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:389](../../../../library/m
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:400](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-evalprimitivecircuit-dagger). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:406](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-evalprimitivecircuit-dagger). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.evalGlobalPhase" (lean := "QuantumBlockEncoding.evalGlobalPhase")
@@ -6639,7 +6653,7 @@ Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:400](../../../../library/m
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:413](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-evalglobalphase). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:419](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-evalglobalphase). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.evalGlobalPhase_unitary" (lean := "QuantumBlockEncoding.evalGlobalPhase_unitary")
@@ -6653,7 +6667,7 @@ Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:413](../../../../library/m
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:416](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-evalglobalphase-unitary). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:422](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-evalglobalphase-unitary). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.evalGlobalPhase_neg" (lean := "QuantumBlockEncoding.evalGlobalPhase_neg")
@@ -6667,7 +6681,7 @@ Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:416](../../../../library/m
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:430](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-evalglobalphase-neg). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:436](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-evalglobalphase-neg). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.evalPrimitiveProgram" (lean := "QuantumBlockEncoding.evalPrimitiveProgram")
@@ -6681,7 +6695,7 @@ Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:430](../../../../library/m
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:439](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-evalprimitiveprogram). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:445](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-evalprimitiveprogram). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.evalPrimitiveProgram_identity" (lean := "QuantumBlockEncoding.evalPrimitiveProgram_identity")
@@ -6695,7 +6709,7 @@ Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:439](../../../../library/m
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:444](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-evalprimitiveprogram-identity). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:450](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-evalprimitiveprogram-identity). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.evalPrimitiveProgram_seq" (lean := "QuantumBlockEncoding.evalPrimitiveProgram_seq")
@@ -6709,7 +6723,7 @@ Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:444](../../../../library/m
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:449](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-evalprimitiveprogram-seq). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:455](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-evalprimitiveprogram-seq). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.evalPrimitiveProgram_unitary" (lean := "QuantumBlockEncoding.evalPrimitiveProgram_unitary")
@@ -6723,7 +6737,7 @@ Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:449](../../../../library/m
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:463](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-evalprimitiveprogram-unitary). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:469](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-evalprimitiveprogram-unitary). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.evalPrimitiveProgram_dagger" (lean := "QuantumBlockEncoding.evalPrimitiveProgram_dagger")
@@ -6737,7 +6751,7 @@ Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:463](../../../../library/m
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:470](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-evalprimitiveprogram-dagger). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:476](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-evalprimitiveprogram-dagger). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.PrimitiveRefinement" (lean := "QuantumBlockEncoding.PrimitiveRefinement")
@@ -6751,7 +6765,7 @@ Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:470](../../../../library/m
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:482](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-primitiverefinement). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/PrimitiveSemantics.lean:488](../../../../library/modules/primitivesemantics/#decl-quantumblockencoding-primitiverefinement). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 # QuantumBlockEncoding/PrimitiveWireRename.lean
@@ -7197,7 +7211,7 @@ Source: [QuantumBlockEncoding/RealIsometryCompletion.lean:20](../../../../librar
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RealIsometryCompletion.lean:62](../../../../library/modules/realisometrycompletion/#decl-quantumblockencoding-realisometrycompletion-signflip). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RealIsometryCompletion.lean:65](../../../../library/modules/realisometrycompletion/#decl-quantumblockencoding-realisometrycompletion-signflip). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.RealIsometryCompletion.signFlip_orthogonal" (lean := "QuantumBlockEncoding.RealIsometryCompletion.signFlip_orthogonal")
@@ -7211,7 +7225,7 @@ Source: [QuantumBlockEncoding/RealIsometryCompletion.lean:62](../../../../librar
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RealIsometryCompletion.lean:65](../../../../library/modules/realisometrycompletion/#decl-quantumblockencoding-realisometrycompletion-signflip-orthogonal). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RealIsometryCompletion.lean:68](../../../../library/modules/realisometrycompletion/#decl-quantumblockencoding-realisometrycompletion-signflip-orthogonal). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.RealIsometryCompletion.signFlip_det" (lean := "QuantumBlockEncoding.RealIsometryCompletion.signFlip_det")
@@ -7225,7 +7239,7 @@ Source: [QuantumBlockEncoding/RealIsometryCompletion.lean:65](../../../../librar
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RealIsometryCompletion.lean:74](../../../../library/modules/realisometrycompletion/#decl-quantumblockencoding-realisometrycompletion-signflip-det). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RealIsometryCompletion.lean:77](../../../../library/modules/realisometrycompletion/#decl-quantumblockencoding-realisometrycompletion-signflip-det). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.RealIsometryCompletion.mul_signFlip_preserves" (lean := "QuantumBlockEncoding.RealIsometryCompletion.mul_signFlip_preserves")
@@ -7239,7 +7253,7 @@ Source: [QuantumBlockEncoding/RealIsometryCompletion.lean:74](../../../../librar
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RealIsometryCompletion.lean:77](../../../../library/modules/realisometrycompletion/#decl-quantumblockencoding-realisometrycompletion-mul-signflip-preserves). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RealIsometryCompletion.lean:80](../../../../library/modules/realisometrycompletion/#decl-quantumblockencoding-realisometrycompletion-mul-signflip-preserves). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.RealIsometryCompletion.exists_specialOrthogonal_completion_of_unused" (lean := "QuantumBlockEncoding.RealIsometryCompletion.exists_specialOrthogonal_completion_of_unused")
@@ -7253,7 +7267,7 @@ Source: [QuantumBlockEncoding/RealIsometryCompletion.lean:77](../../../../librar
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RealIsometryCompletion.lean:83](../../../../library/modules/realisometrycompletion/#decl-quantumblockencoding-realisometrycompletion-exists-specialorthogonal-completion-of-unused). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RealIsometryCompletion.lean:86](../../../../library/modules/realisometrycompletion/#decl-quantumblockencoding-realisometrycompletion-exists-specialorthogonal-completion-of-unused). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.RealIsometryCompletion.exists_specialOrthogonal_completion" (lean := "QuantumBlockEncoding.RealIsometryCompletion.exists_specialOrthogonal_completion")
@@ -7267,7 +7281,7 @@ Source: [QuantumBlockEncoding/RealIsometryCompletion.lean:83](../../../../librar
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RealIsometryCompletion.lean:107](../../../../library/modules/realisometrycompletion/#decl-quantumblockencoding-realisometrycompletion-exists-specialorthogonal-completion). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RealIsometryCompletion.lean:110](../../../../library/modules/realisometrycompletion/#decl-quantumblockencoding-realisometrycompletion-exists-specialorthogonal-completion). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 # QuantumBlockEncoding/RectangularGivens.lean
@@ -7411,7 +7425,7 @@ Source: [QuantumBlockEncoding/RectangularGivens.lean:110](../../../../library/mo
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RectangularGivens.lean:118](../../../../library/modules/rectangulargivens/#decl-quantumblockencoding-rectangulargivens-decompose). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RectangularGivens.lean:120](../../../../library/modules/rectangulargivens/#decl-quantumblockencoding-rectangulargivens-decompose). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.RectangularGivens.reduced" (lean := "QuantumBlockEncoding.RectangularGivens.reduced")
@@ -7425,7 +7439,7 @@ Source: [QuantumBlockEncoding/RectangularGivens.lean:118](../../../../library/mo
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RectangularGivens.lean:121](../../../../library/modules/rectangulargivens/#decl-quantumblockencoding-rectangulargivens-reduced). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RectangularGivens.lean:123](../../../../library/modules/rectangulargivens/#decl-quantumblockencoding-rectangulargivens-reduced). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.RectangularGivens.transform" (lean := "QuantumBlockEncoding.RectangularGivens.transform")
@@ -7439,7 +7453,7 @@ Source: [QuantumBlockEncoding/RectangularGivens.lean:121](../../../../library/mo
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RectangularGivens.lean:124](../../../../library/modules/rectangulargivens/#decl-quantumblockencoding-rectangulargivens-transform). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RectangularGivens.lean:126](../../../../library/modules/rectangulargivens/#decl-quantumblockencoding-rectangulargivens-transform). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.RectangularGivens.decompose_action" (lean := "QuantumBlockEncoding.RectangularGivens.decompose_action")
@@ -7453,7 +7467,7 @@ Source: [QuantumBlockEncoding/RectangularGivens.lean:124](../../../../library/mo
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RectangularGivens.lean:127](../../../../library/modules/rectangulargivens/#decl-quantumblockencoding-rectangulargivens-decompose-action). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RectangularGivens.lean:129](../../../../library/modules/rectangulargivens/#decl-quantumblockencoding-rectangulargivens-decompose-action). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.RectangularGivens.transform_mul" (lean := "QuantumBlockEncoding.RectangularGivens.transform_mul")
@@ -7467,7 +7481,7 @@ Source: [QuantumBlockEncoding/RectangularGivens.lean:127](../../../../library/mo
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RectangularGivens.lean:130](../../../../library/modules/rectangulargivens/#decl-quantumblockencoding-rectangulargivens-transform-mul). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RectangularGivens.lean:132](../../../../library/modules/rectangulargivens/#decl-quantumblockencoding-rectangulargivens-transform-mul). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.RectangularGivens.reduced_zero_below" (lean := "QuantumBlockEncoding.RectangularGivens.reduced_zero_below")
@@ -7481,7 +7495,7 @@ Source: [QuantumBlockEncoding/RectangularGivens.lean:130](../../../../library/mo
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RectangularGivens.lean:135](../../../../library/modules/rectangulargivens/#decl-quantumblockencoding-rectangulargivens-reduced-zero-below). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RectangularGivens.lean:137](../../../../library/modules/rectangulargivens/#decl-quantumblockencoding-rectangulargivens-reduced-zero-below). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.RectangularGivens.decompose_length_le" (lean := "QuantumBlockEncoding.RectangularGivens.decompose_length_le")
@@ -7495,7 +7509,7 @@ Source: [QuantumBlockEncoding/RectangularGivens.lean:135](../../../../library/mo
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RectangularGivens.lean:141](../../../../library/modules/rectangulargivens/#decl-quantumblockencoding-rectangulargivens-decompose-length-le). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RectangularGivens.lean:143](../../../../library/modules/rectangulargivens/#decl-quantumblockencoding-rectangulargivens-decompose-length-le). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.RectangularGivens.transform_orthogonal" (lean := "QuantumBlockEncoding.RectangularGivens.transform_orthogonal")
@@ -7509,7 +7523,7 @@ Source: [QuantumBlockEncoding/RectangularGivens.lean:141](../../../../library/mo
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RectangularGivens.lean:144](../../../../library/modules/rectangulargivens/#decl-quantumblockencoding-rectangulargivens-transform-orthogonal). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RectangularGivens.lean:146](../../../../library/modules/rectangulargivens/#decl-quantumblockencoding-rectangulargivens-transform-orthogonal). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.RectangularGivens.transform_det" (lean := "QuantumBlockEncoding.RectangularGivens.transform_det")
@@ -7523,7 +7537,7 @@ Source: [QuantumBlockEncoding/RectangularGivens.lean:144](../../../../library/mo
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RectangularGivens.lean:147](../../../../library/modules/rectangulargivens/#decl-quantumblockencoding-rectangulargivens-transform-det). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RectangularGivens.lean:149](../../../../library/modules/rectangulargivens/#decl-quantumblockencoding-rectangulargivens-transform-det). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.RectangularGivens.exact_recovery" (lean := "QuantumBlockEncoding.RectangularGivens.exact_recovery")
@@ -7537,12 +7551,12 @@ Source: [QuantumBlockEncoding/RectangularGivens.lean:147](../../../../library/mo
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RectangularGivens.lean:150](../../../../library/modules/rectangulargivens/#decl-quantumblockencoding-rectangulargivens-exact-recovery). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RectangularGivens.lean:152](../../../../library/modules/rectangulargivens/#decl-quantumblockencoding-rectangulargivens-exact-recovery). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 # QuantumBlockEncoding/ReversibleClassical.lean
 
-7 explicit public declarations, in source order.
+8 explicit public declarations, in source order.
 
 :::definition "QuantumBlockEncoding.ReversibleGate" (lean := "QuantumBlockEncoding.ReversibleGate")
 *Plain-English reading.* This type lists the allowed alternatives for “reversible gate”; its constructors are the cases that downstream code must handle.
@@ -7614,6 +7628,20 @@ Source: [QuantumBlockEncoding/ReversibleClassical.lean:30](../../../../library/m
 Source: [QuantumBlockEncoding/ReversibleClassical.lean:52](../../../../library/modules/reversibleclassical/#decl-quantumblockencoding-ccxbasisequiv). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
+:::theorem "QuantumBlockEncoding.ccxBasisEquiv_apply" (lean := "QuantumBlockEncoding.ccxBasisEquiv_apply")
+*Plain-English reading.* Lean checks the proposition indexed as “ccx basis equiv apply”; the hypotheses and conclusion in the code panel fix its exact scope.
+
+*Formal status.* Compiled theorem in the default ASPBE import surface; the displayed Lean signature is the authoritative claim.
+
+*Why it is in this chapter.* Circuit and register semantics, reusable tensor-train and matrix constructions, and explicit exact-real storage-cost refinements. Each declaration's hypotheses and conclusion fix its certified scope.
+
+*Technical source note.* The source declaration has no docstring. The reader cue above is generated from its kind and name and does not replace the Lean signature.
+
+*Declaration kind.* theorem.
+
+Source: [QuantumBlockEncoding/ReversibleClassical.lean:63](../../../../library/modules/reversibleclassical/#decl-quantumblockencoding-ccxbasisequiv-apply). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+:::
+
 :::definition "QuantumBlockEncoding.evalReversibleGate" (lean := "QuantumBlockEncoding.evalReversibleGate")
 *Plain-English reading.* This definition gives the library's named construction or computation for “eval reversible gate”.
 
@@ -7625,7 +7653,7 @@ Source: [QuantumBlockEncoding/ReversibleClassical.lean:52](../../../../library/m
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/ReversibleClassical.lean:63](../../../../library/modules/reversibleclassical/#decl-quantumblockencoding-evalreversiblegate). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/ReversibleClassical.lean:71](../../../../library/modules/reversibleclassical/#decl-quantumblockencoding-evalreversiblegate). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.evalReversibleProgram" (lean := "QuantumBlockEncoding.evalReversibleProgram")
@@ -7639,7 +7667,7 @@ Source: [QuantumBlockEncoding/ReversibleClassical.lean:63](../../../../library/m
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/ReversibleClassical.lean:70](../../../../library/modules/reversibleclassical/#decl-quantumblockencoding-evalreversibleprogram). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/ReversibleClassical.lean:78](../../../../library/modules/reversibleclassical/#decl-quantumblockencoding-evalreversibleprogram). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 # QuantumBlockEncoding/SelectedRyPlane.lean
@@ -9795,7 +9823,7 @@ Source: [QuantumBlockEncoding/StoredDyadicSpans.lean:152](../../../../library/mo
 
 *Declaration kind.* inductive.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:21](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-op). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:24](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-op). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.Cost" (lean := "QuantumBlockEncoding.StoredGivens.Cost")
@@ -9809,7 +9837,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:21](../../../../library/modules/
 
 *Declaration kind.* abbrev.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:25](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-cost). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:28](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-cost). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.tick" (lean := "QuantumBlockEncoding.StoredGivens.tick")
@@ -9823,7 +9851,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:25](../../../../library/modules/
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:27](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-tick). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:30](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-tick). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.Run" (lean := "QuantumBlockEncoding.StoredGivens.Run")
@@ -9837,7 +9865,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:27](../../../../library/modules/
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:29](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-run). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:32](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-run). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.Run.pure" (lean := "QuantumBlockEncoding.StoredGivens.Run.pure")
@@ -9851,7 +9879,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:29](../../../../library/modules/
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:33](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-run-pure). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:36](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-run-pure). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.Run.bind" (lean := "QuantumBlockEncoding.StoredGivens.Run.bind")
@@ -9865,7 +9893,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:33](../../../../library/modules/
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:35](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-run-bind). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:38](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-run-bind). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.charge" (lean := "QuantumBlockEncoding.StoredGivens.charge")
@@ -9879,7 +9907,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:35](../../../../library/modules/
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:43](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-charge). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:46](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-charge). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.add" (lean := "QuantumBlockEncoding.StoredGivens.add")
@@ -9893,7 +9921,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:43](../../../../library/modules/
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:45](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-add). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:48](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-add). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.sub" (lean := "QuantumBlockEncoding.StoredGivens.sub")
@@ -9907,7 +9935,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:45](../../../../library/modules/
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:46](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-sub). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:49](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-sub). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.mul" (lean := "QuantumBlockEncoding.StoredGivens.mul")
@@ -9921,7 +9949,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:46](../../../../library/modules/
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:47](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-mul). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:50](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-mul). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.div" (lean := "QuantumBlockEncoding.StoredGivens.div")
@@ -9935,7 +9963,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:47](../../../../library/modules/
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:48](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-div). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:51](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-div). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.sqrt" (lean := "QuantumBlockEncoding.StoredGivens.sqrt")
@@ -9949,7 +9977,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:48](../../../../library/modules/
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:49](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-sqrt). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:52](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-sqrt). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.arccos" (lean := "QuantumBlockEncoding.StoredGivens.arccos")
@@ -9963,7 +9991,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:49](../../../../library/modules/
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:50](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-arccos). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:53](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-arccos). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.cos" (lean := "QuantumBlockEncoding.StoredGivens.cos")
@@ -9977,7 +10005,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:50](../../../../library/modules/
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:51](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-cos). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:54](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-cos). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.sin" (lean := "QuantumBlockEncoding.StoredGivens.sin")
@@ -9991,7 +10019,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:51](../../../../library/modules/
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:52](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-sin). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:55](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-sin). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.zeroTest" (lean := "QuantumBlockEncoding.StoredGivens.zeroTest")
@@ -10005,7 +10033,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:52](../../../../library/modules/
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:53](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-zerotest). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:56](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-zerotest). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.signTest" (lean := "QuantumBlockEncoding.StoredGivens.signTest")
@@ -10019,7 +10047,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:53](../../../../library/modules/
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:54](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-signtest). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:57](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-signtest). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.read" (lean := "QuantumBlockEncoding.StoredGivens.read")
@@ -10033,7 +10061,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:54](../../../../library/modules/
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:56](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-read). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:59](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-read). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.collect" (lean := "QuantumBlockEncoding.StoredGivens.collect")
@@ -10047,7 +10075,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:56](../../../../library/modules/
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:60](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-collect). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:63](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-collect). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.replace" (lean := "QuantumBlockEncoding.StoredGivens.replace")
@@ -10061,7 +10089,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:60](../../../../library/modules/
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:67](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-replace). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:70](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-replace). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.StoredMatrix" (lean := "QuantumBlockEncoding.StoredGivens.StoredMatrix")
@@ -10075,7 +10103,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:67](../../../../library/modules/
 
 *Declaration kind.* abbrev.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:70](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-storedmatrix). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:73](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-storedmatrix). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.denote" (lean := "QuantumBlockEncoding.StoredGivens.denote")
@@ -10089,7 +10117,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:70](../../../../library/modules/
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:72](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-denote). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:75](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-denote). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.materialize" (lean := "QuantumBlockEncoding.StoredGivens.materialize")
@@ -10103,7 +10131,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:72](../../../../library/modules/
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:77](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-materialize). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:80](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-materialize). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.StoredGivens.collect_value" (lean := "QuantumBlockEncoding.StoredGivens.collect_value")
@@ -10117,7 +10145,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:77](../../../../library/modules/
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:80](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-collect-value). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:83](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-collect-value). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.StoredGivens.collect_cost" (lean := "QuantumBlockEncoding.StoredGivens.collect_cost")
@@ -10131,7 +10159,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:80](../../../../library/modules/
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:83](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-collect-cost). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:86](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-collect-cost). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.angle" (lean := "QuantumBlockEncoding.StoredGivens.angle")
@@ -10145,7 +10173,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:83](../../../../library/modules/
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:88](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-angle). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:91](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-angle). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.StoredGivens.angle_value" (lean := "QuantumBlockEncoding.StoredGivens.angle_value")
@@ -10159,7 +10187,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:88](../../../../library/modules/
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:102](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-angle-value). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:105](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-angle-value). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.coefficients" (lean := "QuantumBlockEncoding.StoredGivens.coefficients")
@@ -10173,7 +10201,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:102](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:110](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-coefficients). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:113](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-coefficients). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.StoredGivens.coefficients_value" (lean := "QuantumBlockEncoding.StoredGivens.coefficients_value")
@@ -10187,7 +10215,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:110](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:117](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-coefficients-value). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:120](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-coefficients-value). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.entryPair" (lean := "QuantumBlockEncoding.StoredGivens.entryPair")
@@ -10201,7 +10229,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:117](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:123](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-entrypair). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:126](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-entrypair). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.StoredGivens.entryPair_value" (lean := "QuantumBlockEncoding.StoredGivens.entryPair_value")
@@ -10215,7 +10243,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:123](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:132](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-entrypair-value). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:135](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-entrypair-value). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.StoredGivens.entryPair_cost" (lean := "QuantumBlockEncoding.StoredGivens.entryPair_cost")
@@ -10229,7 +10257,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:132](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:135](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-entrypair-cost). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:138](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-entrypair-cost). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.rowPair" (lean := "QuantumBlockEncoding.StoredGivens.rowPair")
@@ -10243,7 +10271,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:135](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:141](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-rowpair). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:144](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-rowpair). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.StoredGivens.rowPair_value" (lean := "QuantumBlockEncoding.StoredGivens.rowPair_value")
@@ -10257,7 +10285,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:141](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:155](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-rowpair-value). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:158](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-rowpair-value). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.rotate" (lean := "QuantumBlockEncoding.StoredGivens.rotate")
@@ -10271,7 +10299,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:155](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:161](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-rotate). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:164](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-rotate). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.StoredGivens.rotate_value" (lean := "QuantumBlockEncoding.StoredGivens.rotate_value")
@@ -10285,7 +10313,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:161](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:169](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-rotate-value). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:172](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-rotate-value). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.Elimination" (lean := "QuantumBlockEncoding.StoredGivens.Elimination")
@@ -10299,7 +10327,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:169](../../../../library/modules
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:188](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-elimination). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:191](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-elimination). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.eliminate" (lean := "QuantumBlockEncoding.StoredGivens.eliminate")
@@ -10313,7 +10341,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:188](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:192](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-eliminate). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:195](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-eliminate). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.StoredGivens.eliminate_angle" (lean := "QuantumBlockEncoding.StoredGivens.eliminate_angle")
@@ -10327,7 +10355,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:192](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:202](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-eliminate-angle). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:205](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-eliminate-angle). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.StoredGivens.eliminate_matrix" (lean := "QuantumBlockEncoding.StoredGivens.eliminate_matrix")
@@ -10341,7 +10369,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:202](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:207](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-eliminate-matrix). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:210](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-eliminate-matrix). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.Sweep" (lean := "QuantumBlockEncoding.StoredGivens.Sweep")
@@ -10355,7 +10383,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:207](../../../../library/modules
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:213](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-sweep). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:216](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-sweep). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.columnSweep" (lean := "QuantumBlockEncoding.StoredGivens.columnSweep")
@@ -10369,7 +10397,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:213](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:219](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-columnsweep). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:222](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-columnsweep). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.StoredGivens.columnSweep_matrix" (lean := "QuantumBlockEncoding.StoredGivens.columnSweep_matrix")
@@ -10383,7 +10411,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:219](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:231](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-columnsweep-matrix). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:234](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-columnsweep-matrix). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.StoredGivens.columnSweep_steps" (lean := "QuantumBlockEncoding.StoredGivens.columnSweep_steps")
@@ -10397,7 +10425,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:231](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:242](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-columnsweep-steps). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:245](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-columnsweep-steps). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.angleBudget" (lean := "QuantumBlockEncoding.StoredGivens.angleBudget")
@@ -10411,7 +10439,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:242](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:254](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-anglebudget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:257](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-anglebudget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.StoredGivens.angle_cost_le" (lean := "QuantumBlockEncoding.StoredGivens.angle_cost_le")
@@ -10425,7 +10453,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:254](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:257](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-angle-cost-le). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:260](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-angle-cost-le). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.coefficientBudget" (lean := "QuantumBlockEncoding.StoredGivens.coefficientBudget")
@@ -10439,7 +10467,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:257](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:263](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-coefficientbudget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:266](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-coefficientbudget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.StoredGivens.coefficients_cost_le" (lean := "QuantumBlockEncoding.StoredGivens.coefficients_cost_le")
@@ -10453,7 +10481,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:263](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:265](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-coefficients-cost-le). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:268](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-coefficients-cost-le). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.StoredGivens.rowPair_cost" (lean := "QuantumBlockEncoding.StoredGivens.rowPair_cost")
@@ -10467,7 +10495,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:265](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:272](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-rowpair-cost). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:275](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-rowpair-cost). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.StoredGivens.rotate_cost" (lean := "QuantumBlockEncoding.StoredGivens.rotate_cost")
@@ -10481,7 +10509,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:272](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:279](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-rotate-cost). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:282](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-rotate-cost). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.eliminationBudget" (lean := "QuantumBlockEncoding.StoredGivens.eliminationBudget")
@@ -10495,7 +10523,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:279](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:287](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-eliminationbudget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:290](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-eliminationbudget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.StoredGivens.eliminate_cost_le" (lean := "QuantumBlockEncoding.StoredGivens.eliminate_cost_le")
@@ -10509,7 +10537,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:287](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:292](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-eliminate-cost-le). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:295](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-eliminate-cost-le). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.StoredGivens.stepBudget" (lean := "QuantumBlockEncoding.StoredGivens.stepBudget")
@@ -10523,7 +10551,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:292](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:300](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-stepbudget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:303](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-stepbudget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.StoredGivens.columnSweep_cost_succ" (lean := "QuantumBlockEncoding.StoredGivens.columnSweep_cost_succ")
@@ -10537,7 +10565,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:300](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:302](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-columnsweep-cost-succ). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:305](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-columnsweep-cost-succ). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.StoredGivens.columnSweep_cost_le" (lean := "QuantumBlockEncoding.StoredGivens.columnSweep_cost_le")
@@ -10551,7 +10579,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:302](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:313](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-columnsweep-cost-le). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:316](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-columnsweep-cost-le). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.StoredGivens.stepBudget_fields" (lean := "QuantumBlockEncoding.StoredGivens.stepBudget_fields")
@@ -10565,7 +10593,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:313](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:328](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-stepbudget-fields). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:331](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-stepbudget-fields). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.StoredGivens.columnSweep_emit" (lean := "QuantumBlockEncoding.StoredGivens.columnSweep_emit")
@@ -10579,7 +10607,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:328](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:343](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-columnsweep-emit). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:346](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-columnsweep-emit). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.StoredGivens.columnSweep_steps_length" (lean := "QuantumBlockEncoding.StoredGivens.columnSweep_steps_length")
@@ -10593,7 +10621,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:343](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:355](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-columnsweep-steps-length). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:358](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-columnsweep-steps-length). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.StoredGivens.columnSweep_action" (lean := "QuantumBlockEncoding.StoredGivens.columnSweep_action")
@@ -10607,7 +10635,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:355](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:361](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-columnsweep-action). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:364](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-columnsweep-action). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.StoredGivens.materialize_cost" (lean := "QuantumBlockEncoding.StoredGivens.materialize_cost")
@@ -10621,7 +10649,7 @@ Source: [QuantumBlockEncoding/StoredGivens.lean:361](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/StoredGivens.lean:369](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-materialize-cost). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/StoredGivens.lean:372](../../../../library/modules/storedgivens/#decl-quantumblockencoding-storedgivens-materialize-cost). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 # QuantumBlockEncoding/StoredIsometryCompletion.lean
@@ -14941,7 +14969,7 @@ Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:67](../../../../library/
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:84](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-exists-rightcanonical). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:85](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-exists-rightcanonical). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TensorTrainCanonical.RankReduced.head_bound" (lean := "QuantumBlockEncoding.TensorTrainCanonical.RankReduced.head_bound")
@@ -14955,7 +14983,7 @@ Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:84](../../../../library/
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:104](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-rankreduced-head-bound). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:105](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-rankreduced-head-bound). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TensorTrainCanonical.RankReduced.last_bond_le_two" (lean := "QuantumBlockEncoding.TensorTrainCanonical.RankReduced.last_bond_le_two")
@@ -14969,7 +14997,7 @@ Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:104](../../../../library
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:113](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-rankreduced-last-bond-le-two). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:114](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-rankreduced-last-bond-le-two). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.TensorTrainCanonical.mass" (lean := "QuantumBlockEncoding.TensorTrainCanonical.mass")
@@ -14983,7 +15011,7 @@ Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:113](../../../../library
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:120](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-mass). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:121](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-mass). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TensorTrainCanonical.mass_vecMul" (lean := "QuantumBlockEncoding.TensorTrainCanonical.mass_vecMul")
@@ -14997,7 +15025,7 @@ Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:120](../../../../library
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:123](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-mass-vecmul). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:124](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-mass-vecmul). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.TensorTrainCanonical.chainMass" (lean := "QuantumBlockEncoding.TensorTrainCanonical.chainMass")
@@ -15011,7 +15039,7 @@ Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:123](../../../../library
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:138](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-chainmass). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:139](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-chainmass). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TensorTrainCanonical.chainMass_eq" (lean := "QuantumBlockEncoding.TensorTrainCanonical.chainMass_eq")
@@ -15025,7 +15053,7 @@ Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:138](../../../../library
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:142](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-chainmass-eq). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:143](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-chainmass-eq). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TensorTrainCanonical.residual_mass" (lean := "QuantumBlockEncoding.TensorTrainCanonical.residual_mass")
@@ -15039,7 +15067,7 @@ Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:142](../../../../library
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:161](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-residual-mass). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:164](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-residual-mass). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TensorTrainCanonical.exists_rightCanonical_normalized" (lean := "QuantumBlockEncoding.TensorTrainCanonical.exists_rightCanonical_normalized")
@@ -15053,7 +15081,7 @@ Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:161](../../../../library
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:172](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-exists-rightcanonical-normalized). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:175](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-exists-rightcanonical-normalized). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TensorTrainCanonical.exists_normalized_state" (lean := "QuantumBlockEncoding.TensorTrainCanonical.exists_normalized_state")
@@ -15067,7 +15095,7 @@ Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:172](../../../../library
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:183](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-exists-normalized-state). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:186](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-exists-normalized-state). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.TensorTrainCanonical.maxBond" (lean := "QuantumBlockEncoding.TensorTrainCanonical.maxBond")
@@ -15081,7 +15109,7 @@ Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:183](../../../../library
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:198](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-maxbond). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:201](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-maxbond). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TensorTrainCanonical.RankReduced.maxBond_le" (lean := "QuantumBlockEncoding.TensorTrainCanonical.RankReduced.maxBond_le")
@@ -15095,7 +15123,7 @@ Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:198](../../../../library
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:203](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-rankreduced-maxbond-le). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:206](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-rankreduced-maxbond-le). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.TensorTrainCanonical.complexCore" (lean := "QuantumBlockEncoding.TensorTrainCanonical.complexCore")
@@ -15109,7 +15137,7 @@ Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:203](../../../../library
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:211](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-complexcore). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:214](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-complexcore). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TensorTrainCanonical.complexCore_isometry" (lean := "QuantumBlockEncoding.TensorTrainCanonical.complexCore_isometry")
@@ -15123,7 +15151,7 @@ Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:211](../../../../library
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:215](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-complexcore-isometry). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:218](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-complexcore-isometry). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.TensorTrainCanonical.sequentialCore" (lean := "QuantumBlockEncoding.TensorTrainCanonical.sequentialCore")
@@ -15137,7 +15165,7 @@ Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:215](../../../../library
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:230](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-sequentialcore). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:233](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-sequentialcore). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TensorTrainCanonical.sequential_step" (lean := "QuantumBlockEncoding.TensorTrainCanonical.sequential_step")
@@ -15151,7 +15179,7 @@ Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:230](../../../../library
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:235](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-sequential-step). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:238](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-sequential-step). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.TensorTrainCanonical.padVector" (lean := "QuantumBlockEncoding.TensorTrainCanonical.padVector")
@@ -15165,7 +15193,7 @@ Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:235](../../../../library
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:246](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-padvector). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:249](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-padvector). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TensorTrainCanonical.padVector_active" (lean := "QuantumBlockEncoding.TensorTrainCanonical.padVector_active")
@@ -15179,7 +15207,7 @@ Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:246](../../../../library
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:249](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-padvector-active). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:252](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-padvector-active). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.TensorTrainCanonical.paddedCore" (lean := "QuantumBlockEncoding.TensorTrainCanonical.paddedCore")
@@ -15193,7 +15221,7 @@ Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:249](../../../../library
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:255](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-paddedcore). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:258](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-paddedcore). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TensorTrainCanonical.paddedCore_inactive_output" (lean := "QuantumBlockEncoding.TensorTrainCanonical.paddedCore_inactive_output")
@@ -15207,7 +15235,7 @@ Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:255](../../../../library
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:260](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-paddedcore-inactive-output). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:263](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-paddedcore-inactive-output). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TensorTrainCanonical.sum_padVector" (lean := "QuantumBlockEncoding.TensorTrainCanonical.sum_padVector")
@@ -15221,7 +15249,7 @@ Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:260](../../../../library
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:264](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-sum-padvector). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:267](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-sum-padvector). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TensorTrainCanonical.sequential_step_padded" (lean := "QuantumBlockEncoding.TensorTrainCanonical.sequential_step_padded")
@@ -15235,7 +15263,7 @@ Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:264](../../../../library
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:275](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-sequential-step-padded). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:278](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-sequential-step-padded). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TensorTrainCanonical.paddedCore_active_isometry" (lean := "QuantumBlockEncoding.TensorTrainCanonical.paddedCore_active_isometry")
@@ -15249,7 +15277,7 @@ Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:275](../../../../library
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:295](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-paddedcore-active-isometry). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainCanonical.lean:298](../../../../library/modules/tensortraincanonical/#decl-quantumblockencoding-tensortraincanonical-paddedcore-active-isometry). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 # QuantumBlockEncoding/TensorTrainLocalCompiler.lean
@@ -15393,7 +15421,7 @@ Source: [QuantumBlockEncoding/TensorTrainLocalCompiler.lean:99](../../../../libr
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TensorTrainLocalCompiler.lean:136](../../../../library/modules/tensortrainlocalcompiler/#decl-quantumblockencoding-tensortrainlocalcompiler-exists-local-circuit). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainLocalCompiler.lean:139](../../../../library/modules/tensortrainlocalcompiler/#decl-quantumblockencoding-tensortrainlocalcompiler-exists-local-circuit). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 # QuantumBlockEncoding/TensorTrainNormEnvironment.lean
@@ -15439,7 +15467,7 @@ Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:27](../../../../li
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:40](../../../../library/modules/tensortrainnormenvironment/#decl-quantumblockencoding-tensortrainnormenvironment-gram-scalar). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:44](../../../../library/modules/tensortrainnormenvironment/#decl-quantumblockencoding-tensortrainnormenvironment-gram-scalar). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TensorTrainNormEnvironment.gram_scalar_nonneg" (lean := "QuantumBlockEncoding.TensorTrainNormEnvironment.gram_scalar_nonneg")
@@ -15453,7 +15481,7 @@ Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:40](../../../../li
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:45](../../../../library/modules/tensortrainnormenvironment/#decl-quantumblockencoding-tensortrainnormenvironment-gram-scalar-nonneg). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:49](../../../../library/modules/tensortrainnormenvironment/#decl-quantumblockencoding-tensortrainnormenvironment-gram-scalar-nonneg). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.TensorTrainNormEnvironment.norm" (lean := "QuantumBlockEncoding.TensorTrainNormEnvironment.norm")
@@ -15467,7 +15495,7 @@ Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:45](../../../../li
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:51](../../../../library/modules/tensortrainnormenvironment/#decl-quantumblockencoding-tensortrainnormenvironment-norm). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:55](../../../../library/modules/tensortrainnormenvironment/#decl-quantumblockencoding-tensortrainnormenvironment-norm). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TensorTrainNormEnvironment.norm_eq" (lean := "QuantumBlockEncoding.TensorTrainNormEnvironment.norm_eq")
@@ -15481,7 +15509,7 @@ Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:51](../../../../li
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:53](../../../../library/modules/tensortrainnormenvironment/#decl-quantumblockencoding-tensortrainnormenvironment-norm-eq). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:57](../../../../library/modules/tensortrainnormenvironment/#decl-quantumblockencoding-tensortrainnormenvironment-norm-eq). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TensorTrainNormEnvironment.norm_sq" (lean := "QuantumBlockEncoding.TensorTrainNormEnvironment.norm_sq")
@@ -15495,7 +15523,7 @@ Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:53](../../../../li
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:57](../../../../library/modules/tensortrainnormenvironment/#decl-quantumblockencoding-tensortrainnormenvironment-norm-sq). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:61](../../../../library/modules/tensortrainnormenvironment/#decl-quantumblockencoding-tensortrainnormenvironment-norm-sq). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TensorTrainNormEnvironment.norm_pos_of_nonzero" (lean := "QuantumBlockEncoding.TensorTrainNormEnvironment.norm_pos_of_nonzero")
@@ -15509,7 +15537,7 @@ Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:57](../../../../li
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:61](../../../../library/modules/tensortrainnormenvironment/#decl-quantumblockencoding-tensortrainnormenvironment-norm-pos-of-nonzero). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:65](../../../../library/modules/tensortrainnormenvironment/#decl-quantumblockencoding-tensortrainnormenvironment-norm-pos-of-nonzero). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TensorTrainNormEnvironment.norm_eq_of_contract" (lean := "QuantumBlockEncoding.TensorTrainNormEnvironment.norm_eq_of_contract")
@@ -15523,7 +15551,7 @@ Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:61](../../../../li
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:69](../../../../library/modules/tensortrainnormenvironment/#decl-quantumblockencoding-tensortrainnormenvironment-norm-eq-of-contract). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:73](../../../../library/modules/tensortrainnormenvironment/#decl-quantumblockencoding-tensortrainnormenvironment-norm-eq-of-contract). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.TensorTrainNormEnvironment.environmentScalars" (lean := "QuantumBlockEncoding.TensorTrainNormEnvironment.environmentScalars")
@@ -15537,7 +15565,7 @@ Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:69](../../../../li
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:79](../../../../library/modules/tensortrainnormenvironment/#decl-quantumblockencoding-tensortrainnormenvironment-environmentscalars). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:83](../../../../library/modules/tensortrainnormenvironment/#decl-quantumblockencoding-tensortrainnormenvironment-environmentscalars). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TensorTrainNormEnvironment.environmentScalars_le" (lean := "QuantumBlockEncoding.TensorTrainNormEnvironment.environmentScalars_le")
@@ -15551,7 +15579,7 @@ Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:79](../../../../li
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:83](../../../../library/modules/tensortrainnormenvironment/#decl-quantumblockencoding-tensortrainnormenvironment-environmentscalars-le). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:87](../../../../library/modules/tensortrainnormenvironment/#decl-quantumblockencoding-tensortrainnormenvironment-environmentscalars-le). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.TensorTrainNormEnvironment.updateArithmeticBudget" (lean := "QuantumBlockEncoding.TensorTrainNormEnvironment.updateArithmeticBudget")
@@ -15565,7 +15593,7 @@ Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:83](../../../../li
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:101](../../../../library/modules/tensortrainnormenvironment/#decl-quantumblockencoding-tensortrainnormenvironment-updatearithmeticbudget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:105](../../../../library/modules/tensortrainnormenvironment/#decl-quantumblockencoding-tensortrainnormenvironment-updatearithmeticbudget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.TensorTrainNormEnvironment.arithmeticBudget" (lean := "QuantumBlockEncoding.TensorTrainNormEnvironment.arithmeticBudget")
@@ -15579,7 +15607,7 @@ Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:101](../../../../l
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:105](../../../../library/modules/tensortrainnormenvironment/#decl-quantumblockencoding-tensortrainnormenvironment-arithmeticbudget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:109](../../../../library/modules/tensortrainnormenvironment/#decl-quantumblockencoding-tensortrainnormenvironment-arithmeticbudget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TensorTrainNormEnvironment.updateArithmeticBudget_le" (lean := "QuantumBlockEncoding.TensorTrainNormEnvironment.updateArithmeticBudget_le")
@@ -15593,7 +15621,7 @@ Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:105](../../../../l
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:109](../../../../library/modules/tensortrainnormenvironment/#decl-quantumblockencoding-tensortrainnormenvironment-updatearithmeticbudget-le). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:113](../../../../library/modules/tensortrainnormenvironment/#decl-quantumblockencoding-tensortrainnormenvironment-updatearithmeticbudget-le). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TensorTrainNormEnvironment.arithmeticBudget_le" (lean := "QuantumBlockEncoding.TensorTrainNormEnvironment.arithmeticBudget_le")
@@ -15607,7 +15635,7 @@ Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:109](../../../../l
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:124](../../../../library/modules/tensortrainnormenvironment/#decl-quantumblockencoding-tensortrainnormenvironment-arithmeticbudget-le). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainNormEnvironment.lean:128](../../../../library/modules/tensortrainnormenvironment/#decl-quantumblockencoding-tensortrainnormenvironment-arithmeticbudget-le). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 # QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean
@@ -15765,7 +15793,7 @@ Source: [QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean:104](../../..
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean:117](../../../../library/modules/tensortrainprimitivepreparation/#decl-quantumblockencoding-tensortrainprimitivepreparation-run-circuits-clean). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean:120](../../../../library/modules/tensortrainprimitivepreparation/#decl-quantumblockencoding-tensortrainprimitivepreparation-run-circuits-clean). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TensorTrainPrimitivePreparation.publicCircuit_clean" (lean := "QuantumBlockEncoding.TensorTrainPrimitivePreparation.publicCircuit_clean")
@@ -15779,7 +15807,7 @@ Source: [QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean:117](../../..
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean:150](../../../../library/modules/tensortrainprimitivepreparation/#decl-quantumblockencoding-tensortrainprimitivepreparation-publiccircuit-clean). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean:153](../../../../library/modules/tensortrainprimitivepreparation/#decl-quantumblockencoding-tensortrainprimitivepreparation-publiccircuit-clean). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TensorTrainPrimitivePreparation.assemble_gateCount" (lean := "QuantumBlockEncoding.TensorTrainPrimitivePreparation.assemble_gateCount")
@@ -15793,7 +15821,7 @@ Source: [QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean:150](../../..
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean:166](../../../../library/modules/tensortrainprimitivepreparation/#decl-quantumblockencoding-tensortrainprimitivepreparation-assemble-gatecount). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean:169](../../../../library/modules/tensortrainprimitivepreparation/#decl-quantumblockencoding-tensortrainprimitivepreparation-assemble-gatecount). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TensorTrainPrimitivePreparation.publicCircuit_gateCount_bound" (lean := "QuantumBlockEncoding.TensorTrainPrimitivePreparation.publicCircuit_gateCount_bound")
@@ -15807,7 +15835,7 @@ Source: [QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean:166](../../..
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean:180](../../../../library/modules/tensortrainprimitivepreparation/#decl-quantumblockencoding-tensortrainprimitivepreparation-publiccircuit-gatecount-bound). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean:183](../../../../library/modules/tensortrainprimitivepreparation/#decl-quantumblockencoding-tensortrainprimitivepreparation-publiccircuit-gatecount-bound). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TensorTrainPrimitivePreparation.exists_primitive_preparation" (lean := "QuantumBlockEncoding.TensorTrainPrimitivePreparation.exists_primitive_preparation")
@@ -15821,7 +15849,7 @@ Source: [QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean:180](../../..
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean:202](../../../../library/modules/tensortrainprimitivepreparation/#decl-quantumblockencoding-tensortrainprimitivepreparation-exists-primitive-preparation). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean:205](../../../../library/modules/tensortrainprimitivepreparation/#decl-quantumblockencoding-tensortrainprimitivepreparation-exists-primitive-preparation). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 # QuantumBlockEncoding/TensorTrainSchedule.lean
@@ -16337,7 +16365,7 @@ Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:49](../../../../libr
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:62](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-paulixgate). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:83](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-paulixgate). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.TextbookStatePreparation.pauliXCertificate" (lean := "QuantumBlockEncoding.TextbookStatePreparation.pauliXCertificate")
@@ -16351,7 +16379,7 @@ Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:62](../../../../libr
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:66](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-paulixcertificate). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:87](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-paulixcertificate). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.TextbookStatePreparation.pauliXCircuit" (lean := "QuantumBlockEncoding.TextbookStatePreparation.pauliXCircuit")
@@ -16365,7 +16393,7 @@ Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:66](../../../../libr
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:72](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-paulixcircuit). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:93](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-paulixcircuit). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.TextbookStatePreparation.pauliXVerified" (lean := "QuantumBlockEncoding.TextbookStatePreparation.pauliXVerified")
@@ -16379,7 +16407,7 @@ Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:72](../../../../libr
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:74](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-paulixverified). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:95](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-paulixverified). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TextbookStatePreparation.pauliXVerified_cost" (lean := "QuantumBlockEncoding.TextbookStatePreparation.pauliXVerified_cost")
@@ -16393,7 +16421,7 @@ Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:74](../../../../libr
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:78](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-paulixverified-cost). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:99](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-paulixverified-cost). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.TextbookStatePreparation.invSqrtTwo" (lean := "QuantumBlockEncoding.TextbookStatePreparation.invSqrtTwo")
@@ -16407,7 +16435,7 @@ Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:78](../../../../libr
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:83](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-invsqrttwo). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:104](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-invsqrttwo). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TextbookStatePreparation.invSqrtTwo_mul_self" (lean := "QuantumBlockEncoding.TextbookStatePreparation.invSqrtTwo_mul_self")
@@ -16421,7 +16449,7 @@ Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:83](../../../../libr
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:86](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-invsqrttwo-mul-self). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:107](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-invsqrttwo-mul-self). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.TextbookStatePreparation.hadamard" (lean := "QuantumBlockEncoding.TextbookStatePreparation.hadamard")
@@ -16435,7 +16463,7 @@ Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:86](../../../../libr
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:94](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-hadamard). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:115](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-hadamard). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TextbookStatePreparation.star_hadamard" (lean := "QuantumBlockEncoding.TextbookStatePreparation.star_hadamard")
@@ -16449,7 +16477,7 @@ Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:94](../../../../libr
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:99](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-star-hadamard). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:120](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-star-hadamard). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TextbookStatePreparation.hadamard_unitary" (lean := "QuantumBlockEncoding.TextbookStatePreparation.hadamard_unitary")
@@ -16463,7 +16491,7 @@ Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:99](../../../../libr
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:104](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-hadamard-unitary). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:125](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-hadamard-unitary). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.TextbookStatePreparation.plusState" (lean := "QuantumBlockEncoding.TextbookStatePreparation.plusState")
@@ -16477,7 +16505,7 @@ Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:104](../../../../lib
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:113](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-plusstate). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:135](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-plusstate). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.TextbookStatePreparation.plusTarget" (lean := "QuantumBlockEncoding.TextbookStatePreparation.plusTarget")
@@ -16491,7 +16519,7 @@ Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:113](../../../../lib
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:116](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-plustarget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:138](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-plustarget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TextbookStatePreparation.plusTarget_normalized" (lean := "QuantumBlockEncoding.TextbookStatePreparation.plusTarget_normalized")
@@ -16505,7 +16533,7 @@ Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:116](../../../../lib
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:121](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-plustarget-normalized). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:143](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-plustarget-normalized). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TextbookStatePreparation.hadamard_prepares_plus" (lean := "QuantumBlockEncoding.TextbookStatePreparation.hadamard_prepares_plus")
@@ -16519,7 +16547,7 @@ Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:121](../../../../lib
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:128](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-hadamard-prepares-plus). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:150](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-hadamard-prepares-plus). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.TextbookStatePreparation.hadamardGate" (lean := "QuantumBlockEncoding.TextbookStatePreparation.hadamardGate")
@@ -16533,7 +16561,7 @@ Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:128](../../../../lib
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:139](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-hadamardgate). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:162](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-hadamardgate). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.TextbookStatePreparation.hadamardCertificate" (lean := "QuantumBlockEncoding.TextbookStatePreparation.hadamardCertificate")
@@ -16547,7 +16575,7 @@ Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:139](../../../../lib
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:143](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-hadamardcertificate). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:166](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-hadamardcertificate). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.TextbookStatePreparation.hadamardCircuit" (lean := "QuantumBlockEncoding.TextbookStatePreparation.hadamardCircuit")
@@ -16561,7 +16589,7 @@ Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:143](../../../../lib
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:150](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-hadamardcircuit). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:173](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-hadamardcircuit). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.TextbookStatePreparation.hadamardVerified" (lean := "QuantumBlockEncoding.TextbookStatePreparation.hadamardVerified")
@@ -16575,7 +16603,7 @@ Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:150](../../../../lib
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:152](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-hadamardverified). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:175](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-hadamardverified). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TextbookStatePreparation.hadamardVerified_cost" (lean := "QuantumBlockEncoding.TextbookStatePreparation.hadamardVerified_cost")
@@ -16589,7 +16617,7 @@ Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:152](../../../../lib
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:156](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-hadamardverified-cost). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:179](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-hadamardverified-cost). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TextbookStatePreparation.pauliXCertificate_prepares_one" (lean := "QuantumBlockEncoding.TextbookStatePreparation.pauliXCertificate_prepares_one")
@@ -16603,7 +16631,7 @@ Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:156](../../../../lib
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:162](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-paulixcertificate-prepares-one). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:185](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-paulixcertificate-prepares-one). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.TextbookStatePreparation.hadamardCertificate_prepares_plus" (lean := "QuantumBlockEncoding.TextbookStatePreparation.hadamardCertificate_prepares_plus")
@@ -16617,7 +16645,7 @@ Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:162](../../../../lib
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:168](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-hadamardcertificate-prepares-plus). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/TextbookStatePreparation.lean:191](../../../../library/modules/textbookstatepreparation/#decl-quantumblockencoding-textbookstatepreparation-hadamardcertificate-prepares-plus). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 # QuantumBlockEncoding/ThinLQ.lean
@@ -16723,7 +16751,7 @@ Source: [QuantumBlockEncoding/UniformlyControlledRy.lean:51](../../../../library
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/UniformlyControlledRy.lean:192](../../../../library/modules/uniformlycontrolledry/#decl-quantumblockencoding-compileuniformlycontrolledry). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/UniformlyControlledRy.lean:193](../../../../library/modules/uniformlycontrolledry/#decl-quantumblockencoding-compileuniformlycontrolledry). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.uniformlyControlledRyMatrix" (lean := "QuantumBlockEncoding.uniformlyControlledRyMatrix")
@@ -16737,7 +16765,7 @@ Source: [QuantumBlockEncoding/UniformlyControlledRy.lean:192](../../../../librar
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/UniformlyControlledRy.lean:217](../../../../library/modules/uniformlycontrolledry/#decl-quantumblockencoding-uniformlycontrolledrymatrix). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/UniformlyControlledRy.lean:218](../../../../library/modules/uniformlycontrolledry/#decl-quantumblockencoding-uniformlycontrolledrymatrix). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.compileUniformlyControlledRy_eval" (lean := "QuantumBlockEncoding.compileUniformlyControlledRy_eval")
@@ -16751,7 +16779,7 @@ Source: [QuantumBlockEncoding/UniformlyControlledRy.lean:217](../../../../librar
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/UniformlyControlledRy.lean:240](../../../../library/modules/uniformlycontrolledry/#decl-quantumblockencoding-compileuniformlycontrolledry-eval). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/UniformlyControlledRy.lean:241](../../../../library/modules/uniformlycontrolledry/#decl-quantumblockencoding-compileuniformlycontrolledry-eval). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.compileUniformlyControlledRy_eval_controlledRyBlockMatrix" (lean := "QuantumBlockEncoding.compileUniformlyControlledRy_eval_controlledRyBlockMatrix")
@@ -16765,7 +16793,7 @@ Source: [QuantumBlockEncoding/UniformlyControlledRy.lean:240](../../../../librar
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/UniformlyControlledRy.lean:259](../../../../library/modules/uniformlycontrolledry/#decl-quantumblockencoding-compileuniformlycontrolledry-eval-controlledryblockmatrix). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/UniformlyControlledRy.lean:260](../../../../library/modules/uniformlycontrolledry/#decl-quantumblockencoding-compileuniformlycontrolledry-eval-controlledryblockmatrix). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.compileUniformlyControlledRy_ryCount" (lean := "QuantumBlockEncoding.compileUniformlyControlledRy_ryCount")
@@ -16779,7 +16807,7 @@ Source: [QuantumBlockEncoding/UniformlyControlledRy.lean:259](../../../../librar
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/UniformlyControlledRy.lean:370](../../../../library/modules/uniformlycontrolledry/#decl-quantumblockencoding-compileuniformlycontrolledry-rycount). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/UniformlyControlledRy.lean:371](../../../../library/modules/uniformlycontrolledry/#decl-quantumblockencoding-compileuniformlycontrolledry-rycount). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.compileUniformlyControlledRy_cxCount" (lean := "QuantumBlockEncoding.compileUniformlyControlledRy_cxCount")
@@ -16793,7 +16821,7 @@ Source: [QuantumBlockEncoding/UniformlyControlledRy.lean:370](../../../../librar
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/UniformlyControlledRy.lean:386](../../../../library/modules/uniformlycontrolledry/#decl-quantumblockencoding-compileuniformlycontrolledry-cxcount). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/UniformlyControlledRy.lean:387](../../../../library/modules/uniformlycontrolledry/#decl-quantumblockencoding-compileuniformlycontrolledry-cxcount). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.compileUniformlyControlledRy_oracleCalls_eq_zero" (lean := "QuantumBlockEncoding.compileUniformlyControlledRy_oracleCalls_eq_zero")
@@ -16807,7 +16835,7 @@ Source: [QuantumBlockEncoding/UniformlyControlledRy.lean:386](../../../../librar
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/UniformlyControlledRy.lean:403](../../../../library/modules/uniformlycontrolledry/#decl-quantumblockencoding-compileuniformlycontrolledry-oraclecalls-eq-zero). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/UniformlyControlledRy.lean:404](../../../../library/modules/uniformlycontrolledry/#decl-quantumblockencoding-compileuniformlycontrolledry-oraclecalls-eq-zero). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.compileUniformlyControlledRy_five_control_counts" (lean := "QuantumBlockEncoding.compileUniformlyControlledRy_five_control_counts")
@@ -16821,5 +16849,5 @@ Source: [QuantumBlockEncoding/UniformlyControlledRy.lean:403](../../../../librar
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/UniformlyControlledRy.lean:411](../../../../library/modules/uniformlycontrolledry/#decl-quantumblockencoding-compileuniformlycontrolledry-five-control-counts). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/UniformlyControlledRy.lean:412](../../../../library/modules/uniformlycontrolledry/#decl-quantumblockencoding-compileuniformlycontrolledry-five-control-counts). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::

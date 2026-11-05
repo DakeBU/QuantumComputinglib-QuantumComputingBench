@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "role": "decoder",
+  "identity": "/root/thin_lq_blind_decoder",
+  "run_id": "thin-lq-blind-20261008",
+  "binding_sha256": "608241bcd9d3829a2b9ea60a84db0055dcf4c56bff3d71d36bd63be1d0ba3ae7",
+  "packet_path": "reviews/publication/thin-lq/decoder-packet.json",
+  "packet_sha256": "280961930bfc4c7e73587b16208704a2a875b1c4f66fa081d54cc9ee816def5d",
+  "artifact_path": "reviews/publication/thin-lq/decoder-artifact.json",
+  "artifact_sha256": "f165f1723e1e9ad513b6458dc3a71c0b032efb79224e9830acc6c72bcd68fef0",
+  "module_path": "QuantumBlockEncoding/ThinLQ.lean",
+  "module_sha256": "4053889ffc143f953ed1f19898146657f92db2beb764af8754a6709c3983220a",
+  "source_blind": true,
+  "reconstruction": {
+    "public_declaration_count": 3,
+    "sum_prefix_of_zero": "For arbitrary m<=n and any additive commutative monoid M, a function f:Fin n->M with zero entries at all indices >=m has its full sum equal to its first-m-index sum. Empty indices are allowed.",
+    "exists_factor_of_le": "Every real m by n matrix A with m<=n admits real R:m by m and Q:m by n with exact A=R*Q and Q*Q.transpose=I_m. There is no independence, nonzero-row, positive-dimension, or full-rank input assumption.",
+    "exists_thin_lq": "Every real m by n matrix admits R:m by r and Q:r by n, r=min(m,n), with exact A=R*Q and Q*Q.transpose=I_r. Entrywise the second equation is the real dot product of rows k,l of Q equaling delta(k,l).",
+    "width_and_rank": "Width r depends on shape, not on rank(A). Even zero and rank-deficient A receive r orthonormal Q rows. A's row space is contained in Q's row span, but equality is not general in a deficient-rank case.",
+    "proof_dependencies": "The wide case zero-pads the m rows to an n-index family in real Euclidean n-space, chooses an imported Gram-Schmidt orthonormal-basis completion, uses its later-coordinate zeros and finite basis reconstruction, then restricts to the first m basis vectors. The tall case takes R=A,Q=I_n. Imported finite matrix multiplication, transpose, identity and Euclidean inner-product definitions determine the exact entrywise meaning.",
+    "empty_and_zero_cases": "m=0 or n=0 yields r=0 and empty orthonormality constraints. For A=0 and r>0, Q still has unit rows and R=0 follows algebraically from R=A*Q.transpose.",
+    "unasserted_properties": [
+      "No triangular or trapezoidal R predicate occurs in the public conclusions. Wide proof coefficients have a triangular zero pattern, but it is not a clause in the exported existential statement; the tall proof returns arbitrary A as R.",
+      "No rank-minimal width, canonical/unique witnesses, or column orthonormality for a wide rectangular Q is asserted.",
+      "No algorithm, numerical stability, tolerance, complexity, oracle, circuit, block-encoding, ancilla, normalization, or quantum-resource statement is asserted. The wide basis-completion provider is noncomputable and uses choice."
+    ],
+    "uncertainty": "These findings decode the actual formal module independently. The withheld source, lessons and source-contract were not read, so source-faithfulness and publication acceptance are unassessed. No independent Lean compilation or transitive axiom audit was performed in this decoder run."
+  },
+  "consulted_files": [
+    "reviews/publication/thin-lq/decoder-packet.json",
+    "QuantumBlockEncoding/ThinLQ.lean",
+    "lean-toolchain",
+    "lake-manifest.json",
+    ".lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/GramSchmidtOrtho.lean",
+    ".lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/PiL2.lean",
+    ".lake/packages/mathlib/Mathlib/Data/Matrix/Basic.lean",
+    ".lake/packages/mathlib/Mathlib/Data/Matrix/Mul.lean",
+    ".lake/packages/mathlib/Mathlib/Data/Matrix/Diagonal.lean",
+    ".lake/packages/mathlib/Mathlib/LinearAlgebra/Matrix/Defs.lean"
+  ],
+  "search_only_files": [
+    ".lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/Orthonormal.lean",
+    ".lake/packages/mathlib/Mathlib/Data/Matrix/DMatrix.lean",
+    ".lake/packages/mathlib/Mathlib/Data/Matrix/Reflection.lean"
+  ],
+  "limitations": [
+    "The packet, target module, toolchain file and package manifest were fully read. Mathlib was read only through selected provider excerpts and symbol searches. One broad multi-file search was truncated; core semantic definitions were then checked in focused excerpts.",
+    "A probe for Mathlib/Data/Matrix/Defs.lean failed because it is absent; the actual formal Matrix carrier and transpose definitions were read from Mathlib/LinearAlgebra/Matrix/Defs.lean.",
+    "The anonymous packet was resealed while this review ran. The decoder reread the final packet and recomputed its hash; the target module hash stayed unchanged. This is a new actual review run, not a refreshed acceptance record.",
+    "No withheld-source comparison, prior-verdict inspection, broad build, production edit, source-registry edit, authored-lesson edit, publication-candidate edit, website edit, log edit, or Git operation was performed.",
+    "Only decoder-artifact.json and decoder-evidence.json were created. Artifact JSON syntax was parsed successfully and its SHA256 was computed from the saved bytes before this evidence file was created."
+  ]
+}

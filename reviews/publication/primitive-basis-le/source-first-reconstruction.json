@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "role": "source-first-reviewer-reconstruction",
+  "reviewer_identity": "/root/basis_le_source_reviewer",
+  "run_id": "ad972d6b-7c8c-4cdd-b636-17d162c426a8",
+  "created_at_utc": "2026-10-08T09:59:27.1322748Z",
+  "anti_anchored": true,
+  "phase": "source-only-preflight; formal comparison and verdict pending",
+  "read_order": [
+    "reviews/publication/primitive-basis-le/reviewer-source-packet.json",
+    "docs/lessons/little-endian-basis-indexing.md"
+  ],
+  "source_packet_sha256": "44c46b7e879c2648b917922c94feaf00162f6d44f41e44ae8ea8f6edb3266c4c",
+  "source_packet_binding_sha256": "2b99914b6c377c847baebcc4e132e7fdeaa65630e29e8df71f067c7433d17e83",
+  "source_text": "docs/lessons/little-endian-basis-indexing.md",
+  "actual_source_sha256": "742b96c6f729a421740f18b81b6dafb9e7fbc6221227e739d381e10dd9f90d6d",
+  "source_hash_matches_packet": true,
+  "coverage": "Complete lesson, including introductory convention, every mathematical section, named formal nodes, stated proof mechanisms, final assumptions and exclusions. No formal implementation, decoder, candidate classification, previous review or experimental alternative was inspected in this phase.",
+  "convention": {
+    "domain": "For q a nonnegative integer, b is a function from the named wires 0,...,q-1 to bits 0,1.",
+    "codomain": "Coordinates are integers 0,...,2^q-1, equivalently Fin(2^q).",
+    "wire_order": "Wire zero is least significant. Strings and tuples in the lesson list wire zero first.",
+    "recursion": "E_0(b)=0; E_(q+1)(b)=b_0+2*E_q(b_1,...,b_q).",
+    "closed_form": "The recursion yields E_q(b)=sum over i<q of 2^i*b_i. Only its six-wire instance is explicitly claimed as a named fixed-width formula in this source.",
+    "six_wire_instance": "E_6(b)=b_0+2*b_1+4*b_2+8*b_3+16*b_4+32*b_5 for all 64 assignments."
+  },
+  "independent_proofs": {
+    "general_bijection": "Induct on q. The empty wire set has exactly one function and Fin(1) has exactly zero. For j<2^(q+1), r=j mod 2 is a bit and k=floor(j/2)<2^q. Set the head to r and the tail to the induction inverse of k. Then r+2*k=j. Conversely b_0 in {0,1} ensures (b_0+2*k) mod 2=b_0 and floor((b_0+2*k)/2)=k, so the extracted tail and head recover b. The coordinate ordering of the product must be (tail,head) to obtain 2*tail+head.",
+    "six_wire": "Substitute the successor recursion six times; the q=0 residue is zero. The weights are 1,2,4,8,16,32 and the largest coordinate is their sum,63.",
+    "two_wire_inverse": "For 0<=j<4, quotient floor(j/2) is already a bit. The two returned bits are j mod 2 and floor(j/2) mod 2. Their E_2 sum is j. For each of four j, evaluate explicitly; the resulting table determines equality of the whole function and each projection.",
+    "three_wire_inverse": "For 0<=j<8, successive divisions by 2 recover bits at weights 1,2,4; floor(j/4)<2. The weighted sum of the three residues reconstructs j. Evaluate the eight j to establish both function and coordinate claims.",
+    "restriction_semantics": "A split at legal target t returns b(t) and b restricted to named wires unequal to t. Equality of the restricted functions is pointwise equality at all i != t; equality at t is irrelevant.",
+    "two_wire_context": "For t=0 the unique retained bit is wire 1=floor(j/2); for t=1 it is wire 0=j mod 2. Equality of a singleton-domain bit function is therefore equivalent to equality of the displayed code.",
+    "three_wire_context": "For t=0 the retained pair (wire1,wire2) has E_2 code floor(j/2). For t=1 the pair (wire0,wire2) has code j mod 2+2*floor(j/4). For t=2 the pair (wire0,wire1) has code j mod 4. Each code is injective on its pair: quotient and remainder by 2 recover both retained bits. Therefore context equality iff code equality in all three target cases.",
+    "carrier_reexpression": "2^2=4 and 2^3=8. Writing Fin(2^q) instead of the corresponding numeral changes the presentation of the same bounded coordinate carrier, not the ordering or encoding. Substitution of the preceding inverse identities transports each context assertion to the grid presentation."
+  },
+  "complete_inverse_tables": {
+    "two_wires_wire_zero_first": [[0,[0,0]],[1,[1,0]],[2,[0,1]],[3,[1,1]]],
+    "three_wires_wire_zero_first": [[0,[0,0,0]],[1,[1,0,0]],[2,[0,1,0]],[3,[1,1,0]],[4,[0,0,1]],[5,[1,0,1]],[6,[0,1,1]],[7,[1,1,1]]]
+  },
+  "context_codes": {
+    "two": {"target_0":"floor(j/2)","target_1":"j mod 2"},
+    "three": {"target_0":"floor(j/2)","target_1":"j mod 2+2*floor(j/4)","target_2":"j mod 4"},
+    "code_ranges": "Two-wire deletion codes are in {0,1}; three-wire deletion codes are in {0,1,2,3}.",
+    "retained_order": "Increasing original wire order, then compact little-endian weighting.",
+    "middle_target_boundary": "After deleting wire 1 in a three-wire state, original wire 2 receives weight 2, not 4.",
+    "not_target_equality": "For example indices 0 and 1 have equal contexts when deleting wire zero, despite differing target bits."
+  },
+  "source_topology": [
+    {"group":"general equivalence", "depends_on":"bit-head/tail splitting, empty-function uniqueness, recursive tail equivalence, finite product equivalence", "claims":["bijection for every q", "empty register coordinate", "successor coordinate", "six-wire unrolling"]},
+    {"group":"two-wire inverse", "depends_on":"general equivalence at q=2 and two explicit quotient/remainder bits", "claims":["whole inverse function on grid carrier", "two projections", "four explicit concrete inverse cases"]},
+    {"group":"three-wire inverse", "depends_on":"general equivalence at q=3 and three explicit quotient/remainder bits", "claims":["whole inverse function on grid carrier", "three projections", "eight explicit concrete inverse cases"]},
+    {"group":"two-wire deletion", "depends_on":"shared splitPrimitiveWire semantics and two-wire inverse", "claims":["one-bit context code definition on numeral carrier", "same definition on grid carrier", "context equality iff code equality for both carriers"]},
+    {"group":"three-wire deletion", "depends_on":"shared splitPrimitiveWire semantics and three-wire inverse, injectivity of compact two-bit encoding", "claims":["two-bit context code definition on numeral carrier", "same definition on grid carrier", "context equality iff code equality for both carriers"]}
+  ],
+  "source_named_public_nodes": {
+    "namespace": "QuantumBlockEncoding",
+    "count": 33,
+    "nodes": [
+      "primitiveBasisLEEquiv",
+      "primitiveBasisLEEquiv_zero_apply",
+      "primitiveBasisLEEquiv_succ_value",
+      "primitiveBasisLEEquiv_six_value",
+      "primitiveBits2LE",
+      "primitiveBasisLEEquiv_two_symm",
+      "primitiveBasisLEEquiv_two_symm_wire_zero",
+      "primitiveBasisLEEquiv_two_symm_wire_one",
+      "primitiveBasisLEEquiv_two_symm_0",
+      "primitiveBasisLEEquiv_two_symm_1",
+      "primitiveBasisLEEquiv_two_symm_2",
+      "primitiveBasisLEEquiv_two_symm_3",
+      "primitiveBits3LE",
+      "primitiveBasisLEEquiv_three_symm",
+      "primitiveBasisLEEquiv_three_symm_wire_zero",
+      "primitiveBasisLEEquiv_three_symm_wire_one",
+      "primitiveBasisLEEquiv_three_symm_wire_two",
+      "primitiveBasisLEEquiv_three_symm_0",
+      "primitiveBasisLEEquiv_three_symm_1",
+      "primitiveBasisLEEquiv_three_symm_2",
+      "primitiveBasisLEEquiv_three_symm_3",
+      "primitiveBasisLEEquiv_three_symm_4",
+      "primitiveBasisLEEquiv_three_symm_5",
+      "primitiveBasisLEEquiv_three_symm_6",
+      "primitiveBasisLEEquiv_three_symm_7",
+      "primitiveBits2LEWithout",
+      "primitiveBits2LEGridWithout",
+      "primitiveBits3LEWithout",
+      "primitiveBits3LEGridWithout",
+      "splitPrimitiveWire_primitiveBits2LE_context_eq",
+      "splitPrimitiveWire_primitiveBasisLEEquiv_two_symm_context_eq",
+      "splitPrimitiveWire_primitiveBits3LE_context_eq",
+      "splitPrimitiveWire_primitiveBasisLEEquiv_three_symm_context_eq"
+    ],
+    "note": "Names of the projection variants and suffixed cases are expanded from the source's naming description. This inventory is source-derived and remains to be checked against implementation. The shared splitPrimitiveWire provider is not counted as a new declaration in this module."
+  },
+  "assumptions": ["q is a nonnegative integer", "basis functions have bit codomain", "indices are bounded by 2^q", "deletion targets are legal named wires"],
+  "excluded_assumptions": ["norm", "phase", "measurement", "probability", "oracle", "cleanliness"],
+  "boundaries": [
+    "Retrospective bounded local convention for the existing PrimitiveBasisLE module, not an externally sourced paper or new construction.",
+    "No amplitude formula or physical six-qubit operation is inferred from the six-wire coordinate equation.",
+    "Coordinate relabelling is not physical register reversal or circuit action.",
+    "No matrix conjugation, gate synthesis, arbitrary-width context deletion, finite-bit runtime, executable exporter or resource certificate.",
+    "Consumers require their own semantic and resource bridges.",
+    "An authored lesson is not independent review or reader purification; whole-module admission remains separate."
+  ],
+  "proof_trust_to_check": {
+    "source_report": "General equivalence and successor equation are structural Lean constructions; fixed-width identities use finite evaluation including native_decide.",
+    "review_requirement": "Inspect actual theorem dependencies and preserve trusted evaluation axioms in the independent audit. Do not represent native_decide-derived results as using only three foundational axioms without actual evidence.",
+    "scope_separation": "A source mathematical-contract verdict does not imply kernel-only soundness, complete migration, consumer soundness or executable/resource certification."
+  },
+  "pending": ["Receive final exact decoder-bound reviewer-packet.json", "Inspect formal implementation and shared providers", "Inspect independent source-blind decoder artifacts and evidence", "Compare every 33 declaration and seven exact semantic slots", "Write independent artifact and evidence with final packet and actual artifact hashes"],
+  "verdict": null
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "evidence_class": "C_INTERNAL_PROVIDER",
+  "objective": "Exact arbitrary-width frozen literal real saved-stage word to existing complex PrimitiveSemantics through canonical primitiveBasisLEEquiv",
+  "definition_audit": {"compileInstruction": "literal: RY rational theta to existing .ry q (.rational theta); CX control,target,distinct preserved", "compileWord": "literal List.map", "castMatrix": "literal entrywise Complex.ofReal", "basis": "existing primitiveBasisLEEquiv; no new canonical equivalence"},
+  "sealed_roots": [
+    "theorem realWord_eq_primitive {width : ℕ} (word : List (Instruction width)) : castMatrix (realWord word realIdentity) = Matrix.reindexAlgEquiv ℂ ℂ (primitiveBasisLEEquiv width) (evalPrimitiveCircuit (compileWord word))",
+    "theorem realWord_input_eq_primitive {width : ℕ} (word : List (Instruction width)) (m : RealMatrix width) : castMatrix (realWord word m) = Matrix.reindexAlgEquiv ℂ ℂ (primitiveBasisLEEquiv width) (evalPrimitiveCircuit (compileWord word)) * castMatrix m"
+  ],
+  "binder_audit": {"width": "TYPING", "word": "SOURCE literal finite instruction list", "m": "SOURCE arbitrary whole real matrix input", "instruction_distinct": "TYPING inherited CX constructor; not an extra assumption", "proof_prerequisites": "dependency edges, no bridge hypotheses", "EXCESS": []},
+  "conventions": {"scalar": "real entries cast to complex", "dimension": "Fin (2^width) = Fin (gridSize width)", "basis": "q0 LSB existing recursive equivalence", "RY": "signed standard half-angle [[cos,-sin],[sin,cos]]", "CX": "control first target second", "order": "chronological later-left multiplication", "phase": "exact equality no quotient", "carrier": "all columns, rows, spectator and garbage sectors; width0 included", "error": "no approximate claim", "resources": "exact-real semantic bridge only"},
+  "source_graph": {"nodes": ["frozen realRyRow signed half-angle", "frozen bit/flip/low/high/cxRow", "frozen realStep and realWord foldl", "existing primitiveBasisLEEquiv recursive encoding", "existing evalPrimitiveGate", "existing evalPrimitiveCircuit chronological multiplication"], "edges": [["basis bit compatibility", "flip/low/high/cx compatibility"], ["flip/low/high/cx compatibility", "gate whole-matrix equality"], ["gate whole-matrix equality", "word input/root equality"]], "excluded": ["interval rounding and stageEta: not changed", "scientific Hermite ROOT and uniform runtime/resource certification: not claimed"], "independent_topology_review": "pending"},
+  "source_sha256": {"SavedStageInterpreter.lean": "9b6c52730dbb686908b7d98eff368bf7d87ed89b309ad162437372bca5e83d7d", "StageOperatorBound.lean": "d763f631af61c598a5cac6ae7cbaa37138d120a9801c1fa53969ffdbcc4d09f4", "nominal-stage-transport/result-v1.json": "8e0d6feca6631c0eb1586901917e209095233c29e32b97bf8b2044130bd3d743"},
+  "reuse_audit": {"local": "PrimitiveBasisLE, PrimitiveSemantics, StatePreparationPrimitiveRoutes, PrimitiveMacros and ComplexLCU searched", "mathlib": "Nat.testBit_bit_zero/succ, Nat.eq_of_testBit_eq, Equiv.sum_comp, Matrix.reindexAlgEquiv_mul searched", "external": "not needed; no new quantum foundation"},
+  "state": "STATEMENT_SEALED; not independently reviewed or PURIFIED"
+}

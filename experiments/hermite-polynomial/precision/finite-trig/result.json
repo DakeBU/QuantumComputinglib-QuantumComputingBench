@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "cycle": 13,
+  "status": "ALL_RATIONAL_FINITE_TAYLOR_SCALAR_SUPPLIER_AND_BOUNDED_EXECUTABLE_PRECISION_SEARCH_COMPILED",
+  "failure_class": "NONE",
+  "direction_fingerprint": "executable-finite-rational-RY-trigonometric-enclosures",
+  "author": "root/hermite_finite_trig_c13",
+  "declaration_level": "C_INTERNAL_PROVIDER",
+  "protected_digest": "5a8f47f8d0afd1d4f957e55babde52a9e9c01babf05c481b988e99ebca2f7758",
+  "prior_packet_sha256": "093137fe131260aff2b6888423b2e3dbd2e68cf64bfb8a685e9c1677771c1abc",
+  "parent_checkpoint": "667cc30e3f52be2fe64233a27d40e24a9864413b",
+  "narrow_verdict": "Literal computable finite rational Taylor polynomials produce sound sin/cos intervals for EVERY rational argument and EVERY natural degree, without any containment, magnitude, oracle or source-family hypothesis. A literal finite Lean degree search returns a checked width at most eps or none at its cap. This closes the analytic scalar producer gap, not the Python-to-Lean, parser, stage matrix, full saved circuit or ideal Hermite root.",
+  "unchanged_science": "Signed Hermite function values on original pi L domain; Euclidean full-register error including every terminal garbage sector; physical q0 LSB. No phase quotient, postselection, parameter exclusion or free evaluator added.",
+  "bindings": [
+    {"path": "experiments/hermite-polynomial/precision/finite-trig/statement-seal.json", "sha256": "27c27389b0beb651654dabb38b3badf8b3858c3bab47196d3d4d8380dd24136b"},
+    {"path": "experiments/hermite-polynomial/precision/finite-trig/producer-seal.json", "sha256": "7db5d260236752ec3079f9c33006139336e5c8e34e1e08e68c611e816094faa0"},
+    {"path": "experiments/hermite-polynomial/precision/finite-trig/FiniteTrig.lean", "sha256": "af127d0a3f8fd05d541deacfbaff212f519e71d2db836ef319516cefba6756a9"},
+    {"path": "experiments/hermite-polynomial/precision/finite-trig/FiniteTrigProducer.lean", "sha256": "8f919f01ee9114de13508cdd70a53db46b11dec890e9df97d0cc7f6efd7c8eb5"},
+    {"path": "experiments/hermite-polynomial/precision/finite-trig/FiniteTrigCheck.lean", "sha256": "f4e78db270aec32be2176eb991c94a1dca4e755929698d0bbfa08a25e6b6c1e7"},
+    {"path": "experiments/hermite-polynomial/precision/finite-trig/finite_trig.py", "sha256": "86e1669773b24952fb2bf32a0c20e3668f996c647a6e0a016d21f1c041995dff"},
+    {"path": "experiments/hermite-polynomial/precision/finite-trig/test_finite_trig.py", "sha256": "b010b70a22adbe980c7a631081926c05057b5946cd12fdb249d87e4e873d13bf"},
+    {"path": "experiments/hermite-polynomial/precision/finite-trig/replay.ps1", "sha256": "e668a6705eae430aed8426428c83aec2c5b00def2c39754ec21763f4584daa75"}
+  ],
+  "sealing": {
+    "scalar_formulas_and_error_roots": "Sealed before first local/Mathlib proof API search. q and n are pure typing data. No logical input hypotheses. Membership endpoints' explicit Rat-to-Real casts were prescribed in the seal; source has those casts.",
+    "finite_search": "Additive immutable producer seal fixed literal definition and selectDegree_sound before List.find API retrieval/proof search.",
+    "direct_consumers": "selected_sin_sound and selected_cos_sound combine the two already sealed interfaces; their combined types were written with implementation rather than separately pre-sealed. They are C internal convenience consumers, not new scientific Source Anchors or claim of independent source approval.",
+    "historical_bytes": "No prior frozen files or either new seal changed after freezing. No production, Tests, configuration, registry, historical log, user file, commit or push modified by worker."
+  },
+  "mathematics": {
+    "coefficients": "sinCoeff(i) cycles 0,1,0,-1; cosCoeff(i) cycles 1,0,-1,0. derivative_coeff proves these are literal iterated derivatives at zero.",
+    "producer": "Sum i=0..n coeff(i)*q^i/i! in Rat. Rational radius=abs(q)^(n+1)/(n+1)!. No Real.sin/cos is called by any producer definition.",
+    "analytic_argument": "For q=0, finite sums give sin center0, cos center1, radius0. Otherwise Mathlib Lagrange Taylor supplies y between0 and q, with error f^(n+1)(y)*q^(n+1)/(n+1)!. Mathlib proves absolute iterated sin/cos derivative <=1. A proved Taylor-sum/coefficient/cast bridge identifies the literal rational polynomial; abs multiplication/division yields the radius. abs_le gives endpoint membership. Interval subtraction gives width exactly2*radius.",
+    "finite_search": "List.range(cap+1).find? tests 2*radius<=eps with rational decidability. Successful return proves n<=cap and the checked inequality. Combined consumers obtain unconditional analytic membership plus desired width; none is honest bounded implementation failure.",
+    "no_source_assumption": "The producer-success equation is an internally verified computation event, not a sin/cos-containment assumption and not an added publicSourceAnchor hypothesis."
+  },
+  "lean": {
+    "toolchain": "leanprover/lean4:v4.33.0",
+    "toolchain_sha256": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "manifest_sha256": "510171e8214a2ac5e00f16c1bf92ad474d2de42c4cd2dc2b3d411272f7b58763",
+    "imports": ["Mathlib.Analysis.Calculus.Taylor", "Mathlib.Analysis.SpecialFunctions.Trigonometric.Deriv", "Mathlib.Tactic"],
+    "main_dependencies": ["taylor_mean_remainder_lagrange_iteratedDeriv", "iteratedDerivWithin_eq_iteratedDeriv", "Real.iteratedDeriv_add_one_sin", "Real.iteratedDeriv_add_one_cos", "Real.abs_iteratedDeriv_sin_le_one", "Real.abs_iteratedDeriv_cos_le_one", "List.mem_of_find?_eq_some", "List.find?_some"],
+    "namespace": "HermiteFiniteTrig",
+    "named_roots": ["derivative_coeff", "sin_error", "cos_error", "sin_mem", "cos_mem", "sin_width", "cos_width", "selectDegree_sound", "selected_sin_sound", "selected_cos_sound"],
+    "every_root_axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "custom_sorry_native_axioms": false,
+    "full_source_compile_sessions_exit0": [95571, 70252, 32074, 35132, 80169],
+    "final_replay_session_exit0": 90213,
+    "consumer_checks": "Two arbitrary theta/2 instantiations, exact degree7 negative-angle centers, degree7 radius at1/3, zero-angle bounds, success at zero/cap0, honest none at q1 eps0 cap2, executable evaluations and axiom census.",
+    "eval_outputs": {"sinBounds(1/3,7)": ["86555927/264539520", "86555929/264539520"], "cosBounds(1/3,7)": ["49995691/52907904", "249978457/264539520"], "selectDegree(8,2^-80,128)": "some56"},
+    "focused_replay": "replay.ps1 compiles full scalar and producer sources into ignored .lake/finite-trig-cache, then compiles actual consumer/axiom source and runs exact executable tests. Parent owns fresh integrated lake build + lake build Tests and admission review.",
+    "environment": "Existing verso dependency local-change warning preserved; worker did not touch it. Cache and Python bytecode were confirmed ignored."
+  },
+  "python": {
+    "entry": "enclose(q:Fraction,max_width:Fraction,max_degree=128)->Enclosure",
+    "actual_tests": "7 unittest tests passed under repository .venv, 0.049s measured test-run time (not asymptotic evidence)",
+    "checked": ["recurrence equals independent direct factorial sums at 25 finite q/degree pairs", "zero and odd/even sign symmetry", "minimal selected degree and exact width at 15 q/precision pairs", "honest cap failure q1000,eps2^-80,cap128", "honest cap failure q1,eps0", "exact decimal versus parsed-binary64 distinction", "float input rejection", "dyadic directed endpoint rounding and enlarged width"],
+    "strict_text": "exact_decimal parses literal finite decimal strings, rejects nan/inf/fractions/whitespace/hex and checks explicit text/exponent caps before large exponent construction; it does not certify any QASM parser or provenance.",
+    "rounding": "dyadic_outward returns a wider interval. Tested exact width<=raw width+2*2^-bits; consumer must account for enlargement. No Lean rounding-refinement theorem claimed.",
+    "measured_80bit_request": [
+      {"q": "0", "degree": 0, "stored_endpoint_max_bits": 1},
+      {"q": "1/3", "degree": 17, "stored_endpoint_max_bits": 82},
+      {"q": "-1", "degree": 24, "stored_endpoint_max_bits": 84},
+      {"q": "8", "degree": 56, "stored_endpoint_max_bits": 202},
+      {"q": "-123/7", "degree": 87, "stored_endpoint_max_bits": 616}
+    ],
+    "cost_boundary": "Endpoint size is measured, not maximum intermediate bit length or runtime. Recurrence has one coefficient accumulation and one rational multiply/divide update per term, but GCD, allocation, comparison, parsing and division costs remain unproved. No uniform polynomial bit/runtime or arbitrary-cap success claim."
+  },
+  "handoff": {
+    "effect": "A genuine finite rational producer now replaces the proposed free sin/cos evaluator boundary; no scalar-containment hypothesis is needed. Saved-action worker received pinned formulas/source and may consume them, without treating the communication as independent approval.",
+    "remaining": ["proved Python recurrence and decimal/dyadic decoder refinement to the Lean producer", "actual saved primitive RY/CX-to-stage matrix bridge", "operator/Frobenius stage error and full action telescope integration", "scientific ideal Hermite-to-stored-source error/norm floor", "uniform finite-bit runtime, precision schedule success and total root cost", "independent review and public publication/purification gates"],
+    "rejected_route": "Taylor mean-remainder bound has denominator n!, not sealed (n+1)!; Lagrange theorem chosen for correct sharper literal radius. No bound silently weakened.",
+    "salvage": "None needed; reusable scalar provider and finite search survived. No false route or mathematical exclusion asserted.",
+    "process_memory_ids": ["QBE-PM-LOW-TOKEN-CONTROL-PLANE", "QBE-PM-DENSE-CHECK-SMALL-INSTANCE", "QBE-PM-VERIFIER-SEMANTIC-LEVEL"],
+    "parallel": "Parent-authorized distinct uncertainty; this worker did scalar finite trig, other worker does actual saved-stage/full-terminal action. No child agents or Git mutations.",
+    "review_status": "Worker-authored compiled provider, not independent approval, scientific source closure, publication ProofSeal or PURIFIED ExpositionSeal. Parent owns fresh review and prompt contribution-branch checkpoint.",
+    "next": "Fresh-compile replay and review exact all-rational scalar types; bind actual saved half-angle rational values and outward width accounting in the separate stage-action package."
+  }
+}

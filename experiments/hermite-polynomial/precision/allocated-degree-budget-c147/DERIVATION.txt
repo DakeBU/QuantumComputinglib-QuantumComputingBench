@@ -1,0 +1,100 @@
+C147 INTERNAL ACTUAL ALLOCATED TAYLOR DEGREE — AUTHOR HANDOFF
+
+Status: authored candidate, frozen for parent compilation/review.
+No worker compiler, lake, supplied script, Git, network, simulator, or subagent
+was invoked. No successful elaboration, ordinary-axiom audit, full source
+closure, publication, Proof Seal, Exposition Seal, or scientific ROOT is claimed.
+
+Objective / frontier node
+  C147_EXPLICIT_NP_SCALING_ACTUAL_ALLOCATED_TAYLOR_DEGREE.
+  Exact selected root: HermiteAllocatedDegreeBudget.allocated_sourceDegree_le,
+  importing PiecewiseSourceBudget, with only k,n : Nat, epsilon : Rat, and
+  hepsilon : 0 < epsilon. The physical register count is n_p = n + 1.
+
+Mathematical derivation
+  Write T(e) = clog_2(max(1, ceil_N(1/e))). Mathlib's Nat.le_ceil followed by
+  Nat.le_pow_clog gives 1/e <= 2^T(e). For e > 0 and any natural m,
+    1/(e/2^m) = 2^m/e <= 2^(m+T(e)).
+  Nat.ceil_le transfers this bound to the natural ceiling; 1 <= 2^(m+T(e))
+  supplies the other branch of max. Nat.clog_le_iff_le_pow now yields
+    T(e/2^m) <= m + T(e).
+  The proof does NOT require ceil(1/e) > 1 or epsilon <= 1. In particular,
+  it keeps the literal max(1,...) and therefore includes large tolerances.
+
+  The actual allocation and amplification definitions give exactly
+    sourceDelta(k,n,epsilon)
+      = [epsilon/(4*(k+1)^2)] / 2^(n+1+2*k).
+  Use the scaling theorem with e = epsilon/(4*(k+1)^2) > 0 and
+  m = n+1+2*k. Thus the actual allocated cutoff is <=
+    M = n+1+2*k+T(epsilon/(4*(k+1)^2)).
+  Existing degree_formula gives sourceDegree(delta) = 4*T(delta)^2+2*T(delta)+1.
+  Monotonicity over naturals yields the exact sealed root <= 4*M^2+2*M+1.
+
+Declaration and reuse map
+  tailCutoff_div_pow_two_le: new reusable positive-rational dyadic cutoff bound.
+  sourceDelta_factorization: exact algebraic transport of existing definitions;
+    no positivity hypothesis needed for this equality in Rat.
+  allocated_tailCutoff_le: stronger named cutoff provider used by the root.
+  allocated_sourceDegree_le: exact selected public candidate signature.
+  Existing local reuse: HermiteFiniteExp.tailCutoff;
+    HermiteFiniteExpDegree.sourceDegree, degree, halfDegree, degree_formula;
+    HermitePiecewiseSourceBudget.sourceDelta;
+    HermiteFiniteMiddleSource.amplificationQ.
+  Narrow Mathlib reuse: Nat.le_ceil, Nat.ceil_le, Nat.le_pow_clog,
+    Nat.clog_le_iff_le_pow; rational field algebra, power addition, and
+    ordered multiplication/powers. Nat.ceil_pos was inspected but is unneeded.
+  No new quantum foundations, choice-defined objects, or alternate source.
+
+Provider and verification requirements
+  Parent must supply the exact inherited PiecewiseSourceBudget import closure,
+  Lean 4.33.0 context, manifest, and providers after its byte preflight.
+  The author checked the four raw local definition modules and the three
+  configuration hashes against the immutable pre-proof seal; all matched.
+  RootAudit.lean prints actual definition bodies and all four full candidate
+  theorem types/bodies and axiom reports. Parent must inspect actual output,
+  compare the selected elaborated signature to sealed-root-signature.txt,
+  and record bounded focused compilation under exact provider bytes.
+  An inherited binary preflight is not a new source-to-binary/whole-TCB proof.
+  The worker has not executed the audit and cannot self-approve it.
+
+Assumptions, edge cases, and failure boundary
+  k=0, n=0 and all epsilon>0 remain in scope. Positivity of k+1 discharges
+  denominator positivity internally. No normalization, cost or helper-
+  correctness premise appears in the root. No old exact-real 2*k+6 rank is
+  imported or asserted for the precision-dependent source.
+  This controls the actual Taylor polynomial source degree as a parameter;
+  it does not prove total coefficient-production work, cached implementation
+  consumption, numerator/denominator sizes, GCD cost, finite-bit complexity,
+  QR/TT contraction time, rotation-angle synthesis, physical gate count,
+  ancilla cleanup, uniform saved-executable error, or scientific acceptance.
+  A failure to elaborate this text is IMPLEMENTATION_FAILED or API_BLOCKED
+  as supported by its actual diagnostic, not a counterexample to the theorem.
+
+Evidence-gate and process handoff
+  Failure class: NONE observed statically; Lean acceptance is pending by design.
+  Salvage: all four declarations form one candidate dependency chain; none is
+    promoted as verified memory. No failed draft or retired mathematical route.
+  Process-memory IDs consulted: none beyond the parent bounded packet.
+  Direction fingerprint: C147_EXPLICIT_NP_SCALING_ACTUAL_ALLOCATED_TAYLOR_DEGREE.
+  Expected information gain: replace an implicit precision-dependent source
+    degree with an explicit bound in physical n_p, k, and base tolerance cutoff.
+  Parallel admission: parent-authorized complementary uncertainty; this worker
+    does not duplicate raw-runtime review or coefficient-cache consumption.
+  Common-blind-spot review: pending parent reconciliation, especially actual
+    definitions, physical n+1, sourceDelta factorization and resource boundary.
+  Default verified route/comparator: none selected; candidate is not verified.
+  Purification/Exposition Seal: not claimed; independent review and integration
+    remain parent-owned. Four declarations are all reachable from the root.
+  Recommended next step: bounded parent compile and actual RootAudit, then
+    independent semantic/signature review. Keep all provider/cost boundaries.
+
+Exact seals and input manifest
+  STATEMENT_SEAL.json SHA256:
+    2c889ac8aff71c338437caefaa034f8641ecc880ed0f76629ca24c1ed029c4d3
+  sealed-root-signature.txt SHA256:
+    e520f2d1a2a8dbbf8e6aee5fac90f00984a8eec86f1f1e533ac8f96b88f0f938
+  Both files predate authoring and were read/hash-checked, never edited.
+  Baseline supplied by parent:
+    67b750fcf30ac988df0a66d7af8f27e51a0fb74d
+  No Git command was run by this worker. Input and output bindings are listed
+  in AUTHOR_MANIFEST.json; paths there are relative and contain no credentials.

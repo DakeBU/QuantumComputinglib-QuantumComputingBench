@@ -1,0 +1,75 @@
+import QuantumBlockEncoding.TensorTrainCanonical
+
+set_option pp.fullNames true
+set_option pp.universes true
+set_option pp.explicit true
+
+#check @QuantumBlockEncoding.TensorTrainCanonical.Core
+#check @QuantumBlockEncoding.TensorTrainCanonical.slice
+#check @QuantumBlockEncoding.TensorTrainCanonical.Chain
+#check @QuantumBlockEncoding.TensorTrainCanonical.Word
+#check @QuantumBlockEncoding.TensorTrainCanonical.wordFintype
+#check @QuantumBlockEncoding.TensorTrainCanonical.contract
+#check @QuantumBlockEncoding.TensorTrainCanonical.RightCanonical
+#check @QuantumBlockEncoding.TensorTrainCanonical.RankReduced
+#check @QuantumBlockEncoding.TensorTrainCanonical.absorb
+#check @QuantumBlockEncoding.TensorTrainCanonical.absorb_slice
+#check @QuantumBlockEncoding.TensorTrainCanonical.exists_core_lq
+#check @QuantumBlockEncoding.TensorTrainCanonical.exists_rightCanonical
+#check @QuantumBlockEncoding.TensorTrainCanonical.RankReduced.head_bound
+#check @QuantumBlockEncoding.TensorTrainCanonical.RankReduced.last_bond_le_two
+#check @QuantumBlockEncoding.TensorTrainCanonical.mass
+#check @QuantumBlockEncoding.TensorTrainCanonical.mass_vecMul
+#check @QuantumBlockEncoding.TensorTrainCanonical.chainMass
+#check @QuantumBlockEncoding.TensorTrainCanonical.chainMass_eq
+#check @QuantumBlockEncoding.TensorTrainCanonical.residual_mass
+#check @QuantumBlockEncoding.TensorTrainCanonical.exists_rightCanonical_normalized
+#check @QuantumBlockEncoding.TensorTrainCanonical.exists_normalized_state
+#check @QuantumBlockEncoding.TensorTrainCanonical.maxBond
+#check @QuantumBlockEncoding.TensorTrainCanonical.RankReduced.maxBond_le
+#check @QuantumBlockEncoding.TensorTrainCanonical.complexCore
+#check @QuantumBlockEncoding.TensorTrainCanonical.complexCore_isometry
+#check @QuantumBlockEncoding.TensorTrainCanonical.sequentialCore
+#check @QuantumBlockEncoding.TensorTrainCanonical.sequential_step
+#check @QuantumBlockEncoding.TensorTrainCanonical.padVector
+#check @QuantumBlockEncoding.TensorTrainCanonical.padVector_active
+#check @QuantumBlockEncoding.TensorTrainCanonical.paddedCore
+#check @QuantumBlockEncoding.TensorTrainCanonical.paddedCore_inactive_output
+#check @QuantumBlockEncoding.TensorTrainCanonical.sum_padVector
+#check @QuantumBlockEncoding.TensorTrainCanonical.sequential_step_padded
+#check @QuantumBlockEncoding.TensorTrainCanonical.paddedCore_active_isometry
+
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.Core
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.slice
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.Chain
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.Word
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.wordFintype
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.contract
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.RightCanonical
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.RankReduced
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.absorb
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.absorb_slice
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.exists_core_lq
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.exists_rightCanonical
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.RankReduced.head_bound
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.RankReduced.last_bond_le_two
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.mass
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.mass_vecMul
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.chainMass
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.chainMass_eq
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.residual_mass
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.exists_rightCanonical_normalized
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.exists_normalized_state
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.maxBond
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.RankReduced.maxBond_le
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.complexCore
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.complexCore_isometry
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.sequentialCore
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.sequential_step
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.padVector
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.padVector_active
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.paddedCore
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.paddedCore_inactive_output
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.sum_padVector
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.sequential_step_padded
+#print axioms QuantumBlockEncoding.TensorTrainCanonical.paddedCore_active_isometry

@@ -1,0 +1,20 @@
+{
+  "test_command": ".venv/Scripts/python.exe -B -m unittest website.scripts.test_research_atlas.PublicCatalogProjectionTests website.scripts.test_deployed_research",
+  "result": "Ran 20 tests in 9.388s; FAILED (failures=2, errors=10)",
+  "environment_errors": {
+    "classification": "ENV_BLOCKED",
+    "count": 10,
+    "cause": "PermissionError writing or cleaning TemporaryDirectory in sandbox system Temp; first failure occurred in scan_sources writing sources.json",
+    "next_action": "Use private handoff tmp directory inside the writable workspace"
+  },
+  "new_test_isolation_failures": {
+    "classification": "IMPLEMENTATION_FAILED",
+    "count": 2,
+    "test": "test_live_gate_rejects_unprojected_sources_and_other_catalog_changes",
+    "actual": "ValueError: live canonical source mismatch: sources.json",
+    "expected": ["canonical source mismatch: atlas.json", "canonical source mismatch: state-preparation-wiki.json"],
+    "cause": "New test left intentionally unprojected source response in place before testing other files; production gate correctly rejected sources first",
+    "repair": "Restore exact projected source response before subsequent tamper cases"
+  },
+  "claim_boundary": "No tests, full site or release gate claimed green by this initial run"
+}

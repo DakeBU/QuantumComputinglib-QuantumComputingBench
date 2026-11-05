@@ -23,8 +23,11 @@ example : (parents 2 3 (-2) (1/2)).run.value[1].lower = -2 := by
     parents_lower 2 3 (-2) (1/2) (by norm_num) (1 : Fin 3)
 
 example : (parents 2 3 (-2) (1/2)).run.value[2].lower = -1 := by
-  convert parents_lower 2 3 (-2) (1/2) (by norm_num) (2 : Fin 3) using 1
-  norm_num [affinePoint, boundarySchedule]
+  have h := parents_lower 2 3 (-2) (1/2) (by norm_num) (2 : Fin 3)
+  change (parents 2 3 (-2) (1/2)).run.value[2].lower =
+    affinePoint (-2) (1/2) (boundarySchedule 3 1) at h
+  norm_num [affinePoint, boundarySchedule] at h
+  exact h
 
 example : (parents 2 3 (-2) (1/2)).run.cost .field = 24 := by
   simp [parents_cost, tick]

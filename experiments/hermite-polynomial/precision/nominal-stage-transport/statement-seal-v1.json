@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "cycle": 17,
+  "task": "SP-HERMITE-POLY-002",
+  "evidence_class": "C_INTERNAL_PROVIDER",
+  "status": "STATEMENT_SEALED_BEFORE_PROOF_SEARCH",
+  "source": "Internal literal construction derivation; no external paper attribution",
+  "frozen_result_sha256": "b2ee44272c1a5a9e95d05a41af7eef2a28a968af60faf751c8f97976edf25074",
+  "literal_source_sha256": "9b6c52730dbb686908b7d98eff368bf7d87ed89b309ad162437372bca5e83d7d",
+  "operator_source_sha256": "d763f631af61c598a5cac6ae7cbaa37138d120a9801c1fa53969ffdbcc4d09f4",
+  "signatures": [
+    "nominal_norm_preservation {width : Nat} (word : List (Instruction width)) (x : EuclideanSpace Real (Basis width)) : norm (Matrix.toEuclideanCLM (realWord word realIdentity) x) = norm x",
+    "nominal_contraction {width : Nat} (word : List (Instruction width)) : norm (Matrix.toEuclideanCLM (realWord word realIdentity)) <= 1",
+    "actual_stages_valid {width : Nat} (words : List (List (Instruction width))) (degree bits : Nat) : ExperimentalNonunitaryTransport.Valid (actualStages words degree bits)",
+    "actual_product_error {width : Nat} (words : List (List (Instruction width))) (degree bits : Nat) : norm (surrogateProduct (actualStages words degree bits) - nominalProduct (actualStages words degree bits)) <= growth (actualStages words degree bits) - 1",
+    "actual_apply_error {width : Nat} (words : List (List (Instruction width))) (degree bits : Nat) (x : EuclideanSpace Real (Basis width)) : norm (surrogateProduct (actualStages words degree bits) x - nominalProduct (actualStages words degree bits) x) <= (growth (actualStages words degree bits) - 1) * norm x"
+  ],
+  "definition_audit": "Literal: actualStage nominal is toEuclideanCLM(realWord word realIdentity); surrogate is toEuclideanCLM(stageCenter word degree bits); error is cast stageEta. actualStages maps this construction over chronological words. No alternative matrix, free phase, projection, clean sector, or fallback.",
+  "binder_audit": "width/words/degree/bits/x are TYPING data. Instruction CX distinct is syntax and expanded to two different valid Fin width wires. No Valid, contraction, surrogate unitarity, tolerance, initial membership or normalization input. No EXCESS binder.",
+  "conventions": "Arbitrary width including 0; entire Fin(2^width) real Euclidean carrier; q0 LSB; RY rows cos(theta/2)*u-sin(theta/2)*v and sin(theta/2)*u+cos(theta/2)*v; literal CX direction; chronological foldl; later stage multiplies on left; all garbage/spectator coordinates retained.",
+  "source_construction_map": [
+    "NODE RY signed pair preserves u^2+v^2 by sin^2+cos^2=1",
+    "NODE flip involution reindexes full sum; paired row square identity supplies whole-vector invariance",
+    "NODE CX distinct plus other-bit preservation gives involutive full-row permutation and sum invariance",
+    "NODE step mulVec commutes with the literal vector pair/permutation action",
+    "NODE chronological word induction from identity supplies exact norm preservation and contraction",
+    "NODE frozen enclosure supplies nonnegative stageEta and frozen Euclidean difference bound",
+    "NODE actualStage combines produced facts to discharge every Valid conjunct",
+    "NODE existing nonunitary multiplicative growth theorem supplies product error; CLM application supplies vector error",
+    "SOURCE_GAP custom realWord equality with complex PrimitiveSemantics remains OPEN",
+    "EXCLUDED parser/runtime, source-to-TT, stage partition, readout, desired global epsilon and finite-bit complexity are outside this provider"
+  ],
+  "reuse_audit": "Searched PrimitiveSemantics, PrimitiveBasisLE and StatePreparationPrimitiveRoutes. Existing circuit unitarity is reusable only after arbitrary-width flat-bit routing adapter. Direct literal real proof avoids an unproved adapter; Mathlib Euclidean CLM and NonunitaryTransport are reused.",
+  "cost_boundary": "All-matrix interval center/eta has 4^width entries if materialized. Symbolic contraction/error is not an efficient dense algorithm; small-support lifting and charged scalable runtime remain OPEN.",
+  "independent_review": "PENDING_PARENT_OWNED",
+  "scientific_root": false,
+  "public_purified": false
+}

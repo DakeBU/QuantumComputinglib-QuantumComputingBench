@@ -1,0 +1,168 @@
+{
+  "module": "QuantumBlockEncoding/StoredTensorTrain.lean",
+  "source_id": "aspbe-local-stored-tensor-train-canonicalization",
+  "source_statement": "For any already stored finite real tensor train C with arbitrary natural bonds, the specified deterministic backward stored thin-LQ canonicalization returns the same concrete data as ConstructiveTensorTrain.canonicalize after storage erasure, preserves every word and terminal label, produces right-canonical cores with no larger maximum bond, and moves full chain mass to its actual residual boundary. The same producer's eight-counter extended exact-real total is at most n*(176*D^3+116*D^2+29*D+8)+5*D^2+4*D+6 under maxBond(C)<=D. No input-core generation, finite-bit/runtime/peak-memory, physical primitive or Hermite ROOT theorem is included.",
+  "source_anchor": "docs/lessons/stored-tensor-train-canonicalization.md: Objects and complete word action through Reuse and remaining boundary",
+  "lesson_path": "docs/lessons/stored-tensor-train-canonicalization.md",
+  "declarations": [
+    "QuantumBlockEncoding.StoredTensorTrain.StoredCore",
+    "QuantumBlockEncoding.StoredTensorTrain.denoteCore",
+    "QuantumBlockEncoding.StoredTensorTrain.StoredChain",
+    "QuantumBlockEncoding.StoredTensorTrain.denoteChain",
+    "QuantumBlockEncoding.StoredTensorTrain.sumEntries",
+    "QuantumBlockEncoding.StoredTensorTrain.sumEntries_value",
+    "QuantumBlockEncoding.StoredTensorTrain.sumEntries_cost_le",
+    "QuantumBlockEncoding.StoredTensorTrain.absorptionEntry",
+    "QuantumBlockEncoding.StoredTensorTrain.absorptionEntry_value",
+    "QuantumBlockEncoding.StoredTensorTrain.absorptionEntry_cost_le",
+    "QuantumBlockEncoding.StoredTensorTrain.absorption",
+    "QuantumBlockEncoding.StoredTensorTrain.absorption_value",
+    "QuantumBlockEncoding.StoredTensorTrain.absorptionBudget",
+    "QuantumBlockEncoding.StoredTensorTrain.absorption_cost_le",
+    "QuantumBlockEncoding.StoredTensorTrain.CoreResult",
+    "QuantumBlockEncoding.StoredTensorTrain.factorCore",
+    "QuantumBlockEncoding.StoredTensorTrain.Result",
+    "QuantumBlockEncoding.StoredTensorTrain.nodeBudget",
+    "QuantumBlockEncoding.StoredTensorTrain.canonicalize",
+    "QuantumBlockEncoding.StoredTensorTrain.canonicalize_maxBond_le",
+    "QuantumBlockEncoding.StoredTensorTrain.absorption_total_cost_le",
+    "QuantumBlockEncoding.StoredTensorTrain.factorCore_total_cost_le",
+    "QuantumBlockEncoding.StoredTensorTrain.canonicalize_total_cost_le",
+    "QuantumBlockEncoding.StoredTensorTrain.boundary",
+    "QuantumBlockEncoding.StoredTensorTrain.boundary_mass",
+    "QuantumBlockEncoding.StoredTensorTrain.boundary_normalized",
+    "QuantumBlockEncoding.StoredTensorTrain.Result.toSemantic",
+    "QuantumBlockEncoding.StoredTensorTrain.factorCore_R",
+    "QuantumBlockEncoding.StoredTensorTrain.factorCore_Q",
+    "QuantumBlockEncoding.StoredTensorTrain.canonicalize_refines"
+  ],
+  "obligation_map": [
+    {
+      "kind": "prerequisite",
+      "source_obligation": "stored-tt:stored carriers and already-given literal semantic denotation",
+      "declarations": [
+        "QuantumBlockEncoding.StoredTensorTrain.StoredCore",
+        "QuantumBlockEncoding.StoredTensorTrain.denoteCore",
+        "QuantumBlockEncoding.StoredTensorTrain.StoredChain",
+        "QuantumBlockEncoding.StoredTensorTrain.denoteChain"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "stored-tt:actual sum/absorption/factorization/backward returned object and per-counter/total cost, exact semantic refinement",
+      "declarations": [
+        "QuantumBlockEncoding.StoredTensorTrain.sumEntries",
+        "QuantumBlockEncoding.StoredTensorTrain.sumEntries_value",
+        "QuantumBlockEncoding.StoredTensorTrain.sumEntries_cost_le",
+        "QuantumBlockEncoding.StoredTensorTrain.absorptionEntry",
+        "QuantumBlockEncoding.StoredTensorTrain.absorptionEntry_value",
+        "QuantumBlockEncoding.StoredTensorTrain.absorptionEntry_cost_le",
+        "QuantumBlockEncoding.StoredTensorTrain.absorption",
+        "QuantumBlockEncoding.StoredTensorTrain.absorption_value",
+        "QuantumBlockEncoding.StoredTensorTrain.absorptionBudget",
+        "QuantumBlockEncoding.StoredTensorTrain.absorption_cost_le",
+        "QuantumBlockEncoding.StoredTensorTrain.CoreResult",
+        "QuantumBlockEncoding.StoredTensorTrain.factorCore",
+        "QuantumBlockEncoding.StoredTensorTrain.Result",
+        "QuantumBlockEncoding.StoredTensorTrain.nodeBudget",
+        "QuantumBlockEncoding.StoredTensorTrain.canonicalize",
+        "QuantumBlockEncoding.StoredTensorTrain.canonicalize_maxBond_le",
+        "QuantumBlockEncoding.StoredTensorTrain.absorption_total_cost_le",
+        "QuantumBlockEncoding.StoredTensorTrain.factorCore_total_cost_le",
+        "QuantumBlockEncoding.StoredTensorTrain.canonicalize_total_cost_le",
+        "QuantumBlockEncoding.StoredTensorTrain.Result.toSemantic",
+        "QuantumBlockEncoding.StoredTensorTrain.factorCore_R",
+        "QuantumBlockEncoding.StoredTensorTrain.factorCore_Q",
+        "QuantumBlockEncoding.StoredTensorTrain.canonicalize_refines"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "stored-tt:all-terminal boundary mass and explicitly conditional normalization",
+      "declarations": [
+        "QuantumBlockEncoding.StoredTensorTrain.boundary",
+        "QuantumBlockEncoding.StoredTensorTrain.boundary_mass",
+        "QuantumBlockEncoding.StoredTensorTrain.boundary_normalized"
+      ]
+    }
+  ],
+  "assumption_deltas": [
+    {
+      "classification": "same",
+      "source": "Natural finite dimensions, arbitrary real stored cores and all-terminal recursive bit words; zero and rank-deficient inputs allowed",
+      "formal": "StoredChain, StoredCore and TensorTrainCanonical.Word with deterministic tail-to-head factorization",
+      "explanation": "No full-rank, positivity, source agreement, oracle or gate-action input premise. Bit flattening is b*r+j; recursive word order alone is not a physical little-endian theorem."
+    },
+    {
+      "classification": "same",
+      "source": "Maximum input bond <=D is needed only for the bounded cost theorem",
+      "formal": "canonicalize_total_cost_le bound : maxBond(denoteChain C)<=D",
+      "explanation": "D bounds actual dimensions, not numerical rank or uncharged input generation. Returned rank/rightCanonical/action fields are outputs supplied by proofs."
+    },
+    {
+      "classification": "same",
+      "source": "Input full chain mass one only for the normalization consumer",
+      "formal": "boundary_normalized normalized : chainMass(denoteChain C) v=1",
+      "explanation": "boundary_mass is unconditional; canonicalization does not create or assume a normalized scientific source."
+    },
+    {
+      "classification": "same",
+      "source": "Eight charged exact-real operations, stored-word materialization and node/reference traffic",
+      "formal": "StoredGivens.Run/Cost and StoredRectangularGivens.total",
+      "explanation": "Excludes integer/index/counter arithmetic, bit/GCD costs, numerical stability, execution time, peak memory and physical circuit resources. No scalar callback cost is silently hidden in absorption."
+    }
+  ],
+  "graph_contribution": {
+    "baseline": "305952f4291d7be530c76f51f7e98d77faf1cf45",
+    "classes": [
+      "bridge"
+    ],
+    "node_ids": [
+      "module:QuantumBlockEncoding.StoredTensorTrain",
+      "declaration:QuantumBlockEncoding.StoredTensorTrain.StoredCore",
+      "declaration:QuantumBlockEncoding.StoredTensorTrain.denoteCore",
+      "declaration:QuantumBlockEncoding.StoredTensorTrain.StoredChain",
+      "declaration:QuantumBlockEncoding.StoredTensorTrain.denoteChain",
+      "declaration:QuantumBlockEncoding.StoredTensorTrain.sumEntries",
+      "declaration:QuantumBlockEncoding.StoredTensorTrain.sumEntries_value",
+      "declaration:QuantumBlockEncoding.StoredTensorTrain.sumEntries_cost_le",
+      "declaration:QuantumBlockEncoding.StoredTensorTrain.absorptionEntry",
+      "declaration:QuantumBlockEncoding.StoredTensorTrain.absorptionEntry_value",
+      "declaration:QuantumBlockEncoding.StoredTensorTrain.absorptionEntry_cost_le",
+      "declaration:QuantumBlockEncoding.StoredTensorTrain.absorption",
+      "declaration:QuantumBlockEncoding.StoredTensorTrain.absorption_value",
+      "declaration:QuantumBlockEncoding.StoredTensorTrain.absorptionBudget",
+      "declaration:QuantumBlockEncoding.StoredTensorTrain.absorption_cost_le",
+      "declaration:QuantumBlockEncoding.StoredTensorTrain.CoreResult",
+      "declaration:QuantumBlockEncoding.StoredTensorTrain.factorCore",
+      "declaration:QuantumBlockEncoding.StoredTensorTrain.Result",
+      "declaration:QuantumBlockEncoding.StoredTensorTrain.nodeBudget",
+      "declaration:QuantumBlockEncoding.StoredTensorTrain.canonicalize",
+      "declaration:QuantumBlockEncoding.StoredTensorTrain.canonicalize_maxBond_le",
+      "declaration:QuantumBlockEncoding.StoredTensorTrain.absorption_total_cost_le",
+      "declaration:QuantumBlockEncoding.StoredTensorTrain.factorCore_total_cost_le",
+      "declaration:QuantumBlockEncoding.StoredTensorTrain.canonicalize_total_cost_le",
+      "declaration:QuantumBlockEncoding.StoredTensorTrain.boundary",
+      "declaration:QuantumBlockEncoding.StoredTensorTrain.boundary_mass",
+      "declaration:QuantumBlockEncoding.StoredTensorTrain.boundary_normalized",
+      "declaration:QuantumBlockEncoding.StoredTensorTrain.Result.toSemantic",
+      "declaration:QuantumBlockEncoding.StoredTensorTrain.factorCore_R",
+      "declaration:QuantumBlockEncoding.StoredTensorTrain.factorCore_Q",
+      "declaration:QuantumBlockEncoding.StoredTensorTrain.canonicalize_refines"
+    ],
+    "views": [
+      "source-construction-graph",
+      "lean-graph",
+      "compressed-quantum-spine",
+      "functor-hypergraph"
+    ],
+    "preserved_contract": "Whole production module unchanged. Retrospective exact local stored-algorithm/refinement contract, not a pre-proof seal or external invention.",
+    "remaining_boundary": "Input-core generation, thin-LQ provider-wide admission, integer/finite-bit/stability/runtime costs, physical embedding/completion/synthesis and full terminal cleanup/scientific ROOT remain separate."
+  },
+  "formalizer": "root-retrospective-stored-tensor-train-lesson-author-20261010; historical proof authors retained by Git",
+  "residual_boundary": "Reviewed whole30-declaration exact-real stored canonicalization/refinement only; not provider-wide source/cache correspondence, main admission, input-core generation, finite-bit/runtime/stability/peak-memory, physical synthesis/cleanup or scientific ROOT.",
+  "decoder_evidence": "reviews/publication/stored-tensor-train/decoder-admission-evidence-v1.json",
+  "reviewer_evidence": "reviews/publication/stored-tensor-train/source-review-c20/reviewer-admission-evidence-v1.json",
+  "status": "RETROSPECTIVE_WHOLE_MODULE_REVIEWED; final mechanical admission pending; reader/purification/main pending",
+  "binding_sha256": "20dbb523afbc95af7098d3fb50498946212dabbfab45a01e18544a9b27c99495"
+}

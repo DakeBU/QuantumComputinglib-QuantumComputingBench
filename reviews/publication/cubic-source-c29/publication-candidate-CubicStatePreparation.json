@@ -1,0 +1,2564 @@
+{
+  "module": "QuantumBlockEncoding/CubicStatePreparation.lean",
+  "source_id": "aspbe-local-cubic-grid-rational-operators",
+  "source_statement": "Frozen retrospective local source S01–S13, exact rational rank-one O/diagonal D/linear X and guarded eight-dimensional Householder/direct-sum construction, supplied interfaces, finite error and arithmetic. Whole 269 public and50 private source inventory with all source/definition/binder/metadata boundaries retained.",
+  "source_anchor": "docs/lessons/cubic-grid-rational-operators-and-contracts.md sections S01–S13",
+  "lesson_path": "docs/lessons/cubic-grid-rational-operators-and-contracts.md",
+  "declarations": [
+    "QuantumBlockEncoding.CubicStatePreparation.taskId",
+    "QuantumBlockEncoding.CubicStatePreparation.requestedEpsilon",
+    "QuantumBlockEncoding.CubicStatePreparation.gridPoint",
+    "QuantumBlockEncoding.CubicStatePreparation.cubicAmplitude",
+    "QuantumBlockEncoding.CubicStatePreparation.cubicOperator",
+    "QuantumBlockEncoding.CubicStatePreparation.cubicNormSq",
+    "QuantumBlockEncoding.CubicStatePreparation.conservativeNormalizer",
+    "QuantumBlockEncoding.CubicStatePreparation.cubicTarget",
+    "QuantumBlockEncoding.CubicStatePreparation.defaultRequiredCost",
+    "QuantumBlockEncoding.CubicStatePreparation.defaultPolicy",
+    "QuantumBlockEncoding.CubicStatePreparation.arithmeticCubicDefaultPrecision",
+    "QuantumBlockEncoding.CubicStatePreparation.arithmeticCubicLayout",
+    "QuantumBlockEncoding.CubicStatePreparation.arithmeticCubicCircuit",
+    "QuantumBlockEncoding.CubicStatePreparation.arithmeticCubicResource",
+    "QuantumBlockEncoding.CubicStatePreparation.arithmeticCubicNormalizer",
+    "QuantumBlockEncoding.CubicStatePreparation.arithmeticCubicCost",
+    "QuantumBlockEncoding.CubicStatePreparation.arithmeticCubicResourceTuple",
+    "QuantumBlockEncoding.CubicStatePreparation.arithmeticCubicResource_eq",
+    "QuantumBlockEncoding.CubicStatePreparation.arithmeticCubicLayout_auxiliaryQubits",
+    "QuantumBlockEncoding.CubicStatePreparation.arithmeticCubicClaim",
+    "QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicLayout",
+    "QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicCircuit",
+    "QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicResource",
+    "QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicNormalizer",
+    "QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicCost",
+    "QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicResourceTuple",
+    "QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicResource_eq",
+    "QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicLayout_auxiliaryQubits",
+    "QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicResourceTuple_n2_default",
+    "QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicClaim",
+    "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicWorkspace",
+    "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicLayout",
+    "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicCircuit",
+    "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicCircuit_rejectSignalRepair",
+    "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicResource",
+    "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicNormalizer",
+    "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicCost",
+    "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicResourceTuple",
+    "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicResource_eq",
+    "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicLayout_auxiliaryQubits",
+    "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicResourceTuple_n2",
+    "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicClaim",
+    "QuantumBlockEncoding.CubicStatePreparation.hardModeUpperAgentSchedule",
+    "QuantumBlockEncoding.CubicStatePreparation.hardModeMiddleAgentSchedule",
+    "QuantumBlockEncoding.CubicStatePreparation.hardModeLowerAgentSchedule",
+    "QuantumBlockEncoding.CubicStatePreparation.hardModeExactStallWindow",
+    "QuantumBlockEncoding.CubicStatePreparation.hardModeConstructionStallWindow",
+    "QuantumBlockEncoding.CubicStatePreparation.hardModeLevelCycleBudget",
+    "QuantumBlockEncoding.CubicStatePreparation.relaxedEpsilonLadder",
+    "QuantumBlockEncoding.CubicStatePreparation.relaxedEpsilonLadder_startsWithRequested",
+    "QuantumBlockEncoding.CubicStatePreparation.hardModeSchedules_have_four_levels",
+    "QuantumBlockEncoding.CubicStatePreparation.hardModeLowerAgentSchedule_final",
+    "QuantumBlockEncoding.CubicStatePreparation.initialExpectedPhase",
+    "QuantumBlockEncoding.CubicStatePreparation.gridSize_pos",
+    "QuantumBlockEncoding.CubicStatePreparation.cubicOperator_first_column",
+    "QuantumBlockEncoding.CubicStatePreparation.cubicOperator_only_first_column",
+    "QuantumBlockEncoding.CubicStatePreparation.rankOneCleanBlockContract",
+    "QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicCleanBlockContract",
+    "QuantumBlockEncoding.CubicStatePreparation.rankOneCleanBlockContract_pointwise_eq",
+    "QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicCleanBlockContract_pointwise_eq",
+    "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicCleanBlockContract",
+    "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicCleanBlockContract_pointwise_eq",
+    "QuantumBlockEncoding.CubicStatePreparation.rat_cube_sq_eq_sixth",
+    "QuantumBlockEncoding.CubicStatePreparation.cubicAmplitude_sq_eq_gridPoint_sixth",
+    "QuantumBlockEncoding.CubicStatePreparation.cubicNormSq_sixthPowerFold",
+    "QuantumBlockEncoding.CubicStatePreparation.gridSize_rat_ne_zero",
+    "QuantumBlockEncoding.CubicStatePreparation.gridSize_rat_pos",
+    "QuantumBlockEncoding.CubicStatePreparation.rat_div_cube_div_eq",
+    "QuantumBlockEncoding.CubicStatePreparation.cubicAmplitude_div_conservativeNormalizer_eq",
+    "QuantumBlockEncoding.CubicStatePreparation.gridSize_three_mul_eq_cube",
+    "QuantumBlockEncoding.CubicStatePreparation.gridSize_four_mul_eq_fourth",
+    "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubic_thresholdCountP_finRange",
+    "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubic_thresholdFilterLength",
+    "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubic_threshold_le_pathCapacity",
+    "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubic_thresholdPathCount",
+    "QuantumBlockEncoding.CubicStatePreparation.gridPoint_nonneg",
+    "QuantumBlockEncoding.CubicStatePreparation.gridPoint_lt_one",
+    "QuantumBlockEncoding.CubicStatePreparation.gridPoint_le_one",
+    "QuantumBlockEncoding.CubicStatePreparation.rat_pow_le_one_of_nonneg_le_one",
+    "QuantumBlockEncoding.CubicStatePreparation.cubicAmplitude_sq_le_one",
+    "QuantumBlockEncoding.CubicStatePreparation.foldl_add_le_add_length",
+    "QuantumBlockEncoding.CubicStatePreparation.cubicNormSq_le_gridSize",
+    "QuantumBlockEncoding.CubicStatePreparation.gridSize_rat_le_sq",
+    "QuantumBlockEncoding.CubicStatePreparation.cubicNormSq_le_conservativeNormalizer_sq",
+    "QuantumBlockEncoding.CubicStatePreparation.cubicNormSq_le_arithmeticCubicNormalizer_sq",
+    "QuantumBlockEncoding.CubicStatePreparation.cubicNormSq_le_hadamardCountingCubicNormalizer_sq",
+    "QuantumBlockEncoding.CubicStatePreparation.cubicNormSq_n1",
+    "QuantumBlockEncoding.CubicStatePreparation.cubicNormSq_n2",
+    "QuantumBlockEncoding.CubicStatePreparation.cubicNormSq_n3",
+    "QuantumBlockEncoding.CubicDiagonalOracle.taskId",
+    "QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalOperator",
+    "QuantumBlockEncoding.CubicDiagonalOracle.exactNormalizer",
+    "QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalTarget",
+    "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalOperator",
+    "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalTarget",
+    "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalCleanBlockContract",
+    "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalCleanBlockContract_pointwise_eq",
+    "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalCleanBlock_eq_target",
+    "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalExactCleanBlockFromPointwise",
+    "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalExactCleanBlockFromPointwise_clean_eq_target",
+    "QuantumBlockEncoding.CubicDiagonalOracle.LinearDiagonalInputBEContract",
+    "QuantumBlockEncoding.CubicDiagonalOracle.LinearDiagonalInputBEContract.exactPayload",
+    "QuantumBlockEncoding.CubicDiagonalOracle.LinearDiagonalInputBEContract.clean_eq_target",
+    "QuantumBlockEncoding.CubicDiagonalOracle.householderZero",
+    "QuantumBlockEncoding.CubicDiagonalOracle.dot8",
+    "QuantumBlockEncoding.CubicDiagonalOracle.householder8E0Minus",
+    "QuantumBlockEncoding.CubicDiagonalOracle.householder8",
+    "QuantumBlockEncoding.CubicDiagonalOracle.householder8E0Minus_normSq",
+    "QuantumBlockEncoding.CubicDiagonalOracle.householder8E0Minus_normSq_ne_zero",
+    "QuantumBlockEncoding.CubicDiagonalOracle.householder8_clean_entry",
+    "QuantumBlockEncoding.CubicDiagonalOracle.householder8_isRationalOrthogonal",
+    "QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8SystemIndex",
+    "QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8AncillaIndex",
+    "QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8Embed",
+    "QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8DirectSum",
+    "QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8_branchNontrivial_of_clean",
+    "QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8DirectSum_clean_entry",
+    "QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8DirectSum_columnInner_eq_identity_of_system_ne",
+    "QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8DirectSum_columnInner_eq_branch",
+    "QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8DirectSum_rowInner_eq_branch",
+    "QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8DirectSum_rowInner_eq_identity_of_system_ne",
+    "QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8DirectSum_isRationalOrthogonal",
+    "QuantumBlockEncoding.CubicDiagonalOracle.LinearDiagonalRationalCompletion",
+    "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalFourSquareBranchVector",
+    "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalFourSquareBranchVector_clean",
+    "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalFourSquareBranchVector_unit",
+    "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalRationalCompletion_of_fourSquareWitnesses",
+    "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalRationalCompletion_exists",
+    "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalRationalCompletion_branchData",
+    "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalRationalCompletion_backendSupport",
+    "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalHouseholderCircuit",
+    "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalHouseholderResource",
+    "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalHouseholderResource_eq",
+    "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalHouseholderInputBEContract",
+    "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalHouseholderInputBEContract_clean_eq_target",
+    "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalHouseholderInputBEContract_complete",
+    "QuantumBlockEncoding.CubicDiagonalOracle.approxDiagonalOperator",
+    "QuantumBlockEncoding.CubicDiagonalOracle.ratAbs",
+    "QuantumBlockEncoding.CubicDiagonalOracle.IsDiagonalRatMatrix",
+    "QuantumBlockEncoding.CubicDiagonalOracle.DiagonalRatOperatorNormBridge",
+    "QuantumBlockEncoding.CubicDiagonalOracle.ratSquaredEuclideanNorm",
+    "QuantumBlockEncoding.CubicDiagonalOracle.ratMatrixErrorAction",
+    "QuantumBlockEncoding.CubicDiagonalOracle.ratEuclideanOperatorNormErrorAtMost",
+    "QuantumBlockEncoding.CubicDiagonalOracle.ratMatrixErrorAction_eq_diagonal",
+    "QuantumBlockEncoding.CubicDiagonalOracle.ratAbs_nonneg",
+    "QuantumBlockEncoding.CubicDiagonalOracle.rat_mul_self_eq_ratAbs_mul_self",
+    "QuantumBlockEncoding.CubicDiagonalOracle.rat_mul_self_nonneg",
+    "QuantumBlockEncoding.CubicDiagonalOracle.rat_mul_self_le_of_abs_le",
+    "QuantumBlockEncoding.CubicDiagonalOracle.rat_mul_self_vector_le_of_abs_le",
+    "QuantumBlockEncoding.CubicDiagonalOracle.ratEuclideanDiagonalOperatorNormBridge",
+    "QuantumBlockEncoding.CubicDiagonalOracle.ratEuclideanOperatorNormErrorAtMost_not_vacuous",
+    "QuantumBlockEncoding.CubicDiagonalOracle.approxDiagonalOperator_isDiagonal",
+    "QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalOperator_isDiagonal",
+    "QuantumBlockEncoding.CubicDiagonalOracle.approxDiagonalEntrywiseErrorAtMost",
+    "QuantumBlockEncoding.CubicDiagonalOracle.approxDiagonalOperator_entrywise_error",
+    "QuantumBlockEncoding.CubicDiagonalOracle.approxDiagonalOperator_operatorNorm_error_of_contract",
+    "QuantumBlockEncoding.CubicDiagonalOracle.approxDiagonalOperator_operatorNorm_error",
+    "QuantumBlockEncoding.CubicDiagonalOracle.rationalCircleBranchVector",
+    "QuantumBlockEncoding.CubicDiagonalOracle.rationalCircleBranchVector_clean",
+    "QuantumBlockEncoding.CubicDiagonalOracle.rationalCircleBranchVector_unit",
+    "QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8DirectSum_clean_entry_of_branchValue",
+    "QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalFourSquareBranchVector",
+    "QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalFourSquareBranchVector_clean",
+    "QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalFourSquareBranchVector_unit",
+    "QuantumBlockEncoding.CubicDiagonalOracle.CubicDiagonalRationalCompletion",
+    "QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalRationalCompletion_of_fourSquareWitnesses",
+    "QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalRationalCompletion_exists",
+    "QuantumBlockEncoding.CubicDiagonalOracle.cubicAmplitude_lt_one",
+    "QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalRationalCompletion_backendSupport",
+    "QuantumBlockEncoding.CubicDiagonalOracle.CubicDiagonalExactBEContract",
+    "QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalHouseholderExactBEContract",
+    "QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalHouseholderExactBEContract_clean_eq_target",
+    "QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalHouseholderExactBEContract_complete",
+    "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonal_cube_eq_cubicDiagonalOperator",
+    "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalCubicProductCertificate",
+    "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalCubicProductCertificate_target_eq",
+    "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalCubicProductCertificate_clean_eq_target",
+    "QuantumBlockEncoding.CubicDiagonalOracle.cubicQSVTPolynomial",
+    "QuantumBlockEncoding.CubicDiagonalOracle.cubicQSVTPolynomial_gridPoint_abs_le_one",
+    "QuantumBlockEncoding.CubicDiagonalOracle.CubicQSVTLocalSideConditions",
+    "QuantumBlockEncoding.CubicDiagonalOracle.cubicQSVTLocalSideConditions",
+    "QuantumBlockEncoding.CubicDiagonalOracle.CubicQSVTExternalSemantics",
+    "QuantumBlockEncoding.CubicDiagonalOracle.CubicQSVTExternalSemantics.output_eq_cubic_target",
+    "QuantumBlockEncoding.CubicDiagonalOracle.CubicQSVTExternalSemantics.consumerContract",
+    "QuantumBlockEncoding.CubicDiagonalOracle.amplitudeOracleLayout",
+    "QuantumBlockEncoding.CubicDiagonalOracle.amplitudeOracleCircuit",
+    "QuantumBlockEncoding.CubicDiagonalOracle.amplitudeOracleResource",
+    "QuantumBlockEncoding.CubicDiagonalOracle.amplitudeOracleCost",
+    "QuantumBlockEncoding.CubicDiagonalOracle.amplitudeOracleResourceTuple",
+    "QuantumBlockEncoding.CubicDiagonalOracle.amplitudeOracleResource_eq",
+    "QuantumBlockEncoding.CubicDiagonalOracle.amplitudeOracleResourceTuple_eq",
+    "QuantumBlockEncoding.CubicDiagonalOracle.diagonalCleanBlockContract",
+    "QuantumBlockEncoding.CubicDiagonalOracle.diagonalCleanBlockContract_pointwise_eq",
+    "QuantumBlockEncoding.CubicDiagonalOracle.primitiveOracleCleanBlock_eq_target",
+    "QuantumBlockEncoding.CubicDiagonalOracle.cubicAmplitude_le_one",
+    "QuantumBlockEncoding.CubicDiagonalOracle.cubicAmplitude_nonneg",
+    "QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleDimension",
+    "QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleUnitary",
+    "QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleIsUnitary",
+    "QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleCleanBlockExtracts",
+    "QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleSemanticContract",
+    "QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleSemanticContract_unitary",
+    "QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleSemanticContract_cleanBlock_eq_target",
+    "QuantumBlockEncoding.CubicDiagonalOracle.expandedAmplitudeOracleLayout",
+    "QuantumBlockEncoding.CubicDiagonalOracle.expandedAmplitudeOracleLayout_auxiliaryQubits",
+    "QuantumBlockEncoding.CubicDiagonalOracle.expandedAmplitudeOracleNormalizer_eq",
+    "QuantumBlockEncoding.CubicDiagonalOracle.StandardRyCleanEntryScalarTier",
+    "QuantumBlockEncoding.CubicDiagonalOracle.expandedRyCleanEntryForCubicAmplitudes",
+    "QuantumBlockEncoding.CubicDiagonalOracle.expandedRyCleanEntryForCubicAmplitudes_of_standardTier",
+    "QuantumBlockEncoding.CubicDiagonalOracle.expandedArithmeticComputesCubicAmplitude",
+    "QuantumBlockEncoding.CubicDiagonalOracle.ExpandedCubicArithmeticBackend",
+    "QuantumBlockEncoding.CubicDiagonalOracle.symbolicExpandedCubicArithmeticBackend",
+    "QuantumBlockEncoding.CubicDiagonalOracle.expandedArithmeticBackendComputesCubicAmplitude",
+    "QuantumBlockEncoding.CubicDiagonalOracle.symbolicExpandedCubicArithmeticBackend_computes",
+    "QuantumBlockEncoding.CubicDiagonalOracle.expandedArithmeticBackendBridge",
+    "QuantumBlockEncoding.CubicDiagonalOracle.expandedArithmeticComputesCubicAmplitude_of_backendBridge",
+    "QuantumBlockEncoding.CubicDiagonalOracle.expandedArithmeticBackendBridge_iff_of_computes",
+    "QuantumBlockEncoding.CubicDiagonalOracle.expandedArithmeticComputesCubicAmplitude_of_symbolicBackendBridge",
+    "QuantumBlockEncoding.CubicDiagonalOracle.symbolicExpandedCubicArithmeticBackend_bridge_iff",
+    "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomCubicPayload_lt_capacity",
+    "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomCubicAmplitude_eq",
+    "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomCubicArithmeticBackend",
+    "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomCubicArithmeticBackend_computes",
+    "QuantumBlockEncoding.CubicDiagonalOracle.expandedArithmeticComputesCubicAmplitudeTransparent",
+    "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomCubicArithmeticRouteTransparent",
+    "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomCubicArithmeticBackend_bridge_iff",
+    "QuantumBlockEncoding.CubicDiagonalOracle.expandedControlledRyUsesCubicAngle",
+    "QuantumBlockEncoding.CubicDiagonalOracle.expandedControlledRyUsesCubicAngleTransparent",
+    "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomControlledRyRouteTransparent",
+    "QuantumBlockEncoding.CubicDiagonalOracle.expandedControlledRyBackendBridge",
+    "QuantumBlockEncoding.CubicDiagonalOracle.expandedControlledRyUsesCubicAngle_of_backendBridge",
+    "QuantumBlockEncoding.CubicDiagonalOracle.expandedControlledRyBackendBridge_iff_of_standardTier",
+    "QuantumBlockEncoding.CubicDiagonalOracle.ExpandedControlledRyWorkspaceReadonlyWitness",
+    "QuantumBlockEncoding.CubicDiagonalOracle.expandedControlledRyWorkspaceReadonlyTransparent",
+    "QuantumBlockEncoding.CubicDiagonalOracle.expandedWorkspaceCleanUncomputed",
+    "QuantumBlockEncoding.CubicDiagonalOracle.ExpandedArithmeticCleanUncomputeWitness",
+    "QuantumBlockEncoding.CubicDiagonalOracle.expandedWorkspaceCleanUncomputedTransparent",
+    "QuantumBlockEncoding.CubicDiagonalOracle.expandedWorkspaceCleanUncomputedTransparent_of_witness",
+    "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomCubicComputeStep",
+    "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomCubicUncomputeStep",
+    "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomCubicComputeStep_matches_backend_on_clean",
+    "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomCubicUncomputeStep_after_compute",
+    "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomExpandedArithmeticCleanUncomputeWitness",
+    "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomWorkspaceCleanUncomputedTransparent",
+    "QuantumBlockEncoding.CubicDiagonalOracle.LinearDiagonalValueBackend",
+    "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalValueBackendComputesGridPoint",
+    "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomLinearDiagonalValueBackend",
+    "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomLinearDiagonalValueBackend_computes",
+    "QuantumBlockEncoding.CubicDiagonalOracle.LinearDiagonalValueCleanUncomputeWitness",
+    "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalWorkspaceCleanUncomputedTransparent",
+    "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalWorkspaceCleanUncomputedTransparent_of_witness",
+    "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomLinearDiagonalComputeStep",
+    "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomLinearDiagonalUncomputeStep",
+    "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomLinearDiagonalComputeStep_matches_backend_on_clean",
+    "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomLinearDiagonalUncomputeStep_after_compute",
+    "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomLinearDiagonalCleanUncomputeWitness",
+    "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomLinearDiagonalWorkspaceCleanUncomputedTransparent",
+    "QuantumBlockEncoding.CubicDiagonalOracle.expandedAmplitudeOracleCleanBlockExtracts",
+    "QuantumBlockEncoding.CubicDiagonalOracle.expandedAmplitudeOracleCleanBlockContract",
+    "QuantumBlockEncoding.CubicDiagonalOracle.expandedAmplitudeOracleCleanBlockContract_diagonal",
+    "QuantumBlockEncoding.CubicDiagonalOracle.expandedAmplitudeOracleCleanBlockContract_eq_target",
+    "QuantumBlockEncoding.CubicDiagonalOracle.expandedAmplitudeOracleSemanticContract",
+    "QuantumBlockEncoding.CubicDiagonalOracle.expandedAmplitudeOracleSemanticContract_cleanBlock_eq_target",
+    "QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleCandidate",
+    "QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleCandidate_costTuple_eq",
+    "QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleCandidate_unitary_from_contract",
+    "QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleCandidate_block_from_contract",
+    "QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleVerified",
+    "QuantumBlockEncoding.CubicDiagonalOracle.amplitudeOracleClaim"
+  ],
+  "obligation_map": [
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-001",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.taskId"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-002",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.requestedEpsilon"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-003",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.gridPoint"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-004",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.cubicAmplitude"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-005",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.cubicOperator"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-006",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.cubicNormSq"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-007",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.conservativeNormalizer"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-008",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.cubicTarget"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-009",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.defaultRequiredCost"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-010",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.defaultPolicy"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-011",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.arithmeticCubicDefaultPrecision"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-012",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.arithmeticCubicLayout"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-013",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.arithmeticCubicCircuit"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-014",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.arithmeticCubicResource"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-015",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.arithmeticCubicNormalizer"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-016",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.arithmeticCubicCost"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-017",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.arithmeticCubicResourceTuple"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-018",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.arithmeticCubicResource_eq"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-019",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.arithmeticCubicLayout_auxiliaryQubits"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-020",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.arithmeticCubicClaim"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-021",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicLayout"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-022",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicCircuit"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-023",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicResource"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-024",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicNormalizer"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-025",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicCost"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-026",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicResourceTuple"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-027",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicResource_eq"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-028",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicLayout_auxiliaryQubits"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-029",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicResourceTuple_n2_default"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-030",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicClaim"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-031",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicWorkspace"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-032",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicLayout"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-033",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicCircuit"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-034",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicCircuit_rejectSignalRepair"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-035",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicResource"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-036",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicNormalizer"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-037",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicCost"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-038",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicResourceTuple"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-039",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicResource_eq"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-040",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicLayout_auxiliaryQubits"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-041",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicResourceTuple_n2"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-042",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicClaim"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-043",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.hardModeUpperAgentSchedule"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-044",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.hardModeMiddleAgentSchedule"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-045",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.hardModeLowerAgentSchedule"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-046",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.hardModeExactStallWindow"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-047",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.hardModeConstructionStallWindow"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-048",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.hardModeLevelCycleBudget"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-049",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.relaxedEpsilonLadder"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-050",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.relaxedEpsilonLadder_startsWithRequested"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-051",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.hardModeSchedules_have_four_levels"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-052",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.hardModeLowerAgentSchedule_final"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-053",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.initialExpectedPhase"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-054",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.gridSize_pos"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-055",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.cubicOperator_first_column"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-056",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.cubicOperator_only_first_column"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-057",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.rankOneCleanBlockContract"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-058",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicCleanBlockContract"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-059",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.rankOneCleanBlockContract_pointwise_eq"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-060",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicCleanBlockContract_pointwise_eq"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-061",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicCleanBlockContract"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-062",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicCleanBlockContract_pointwise_eq"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-063",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.rat_cube_sq_eq_sixth"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-064",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.cubicAmplitude_sq_eq_gridPoint_sixth"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-065",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.cubicNormSq_sixthPowerFold"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-066",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.gridSize_rat_ne_zero"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-067",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.gridSize_rat_pos"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-068",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.rat_div_cube_div_eq"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-069",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.cubicAmplitude_div_conservativeNormalizer_eq"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-070",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.gridSize_three_mul_eq_cube"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-071",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.gridSize_four_mul_eq_fourth"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-072",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubic_thresholdCountP_finRange"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-073",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubic_thresholdFilterLength"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-074",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubic_threshold_le_pathCapacity"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-075",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubic_thresholdPathCount"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-076",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.gridPoint_nonneg"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-077",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.gridPoint_lt_one"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-078",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.gridPoint_le_one"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-079",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.rat_pow_le_one_of_nonneg_le_one"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-080",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.cubicAmplitude_sq_le_one"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-081",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.foldl_add_le_add_length"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-082",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.cubicNormSq_le_gridSize"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-083",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.gridSize_rat_le_sq"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-084",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.cubicNormSq_le_conservativeNormalizer_sq"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-085",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.cubicNormSq_le_arithmeticCubicNormalizer_sq"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-086",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.cubicNormSq_le_hadamardCountingCubicNormalizer_sq"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-087",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.cubicNormSq_n1"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-088",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.cubicNormSq_n2"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-089",
+      "declarations": [
+        "QuantumBlockEncoding.CubicStatePreparation.cubicNormSq_n3"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-090",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.taskId"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-091",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalOperator"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-092",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.exactNormalizer"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-093",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalTarget"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-094",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalOperator"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-095",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalTarget"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-096",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalCleanBlockContract"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-097",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalCleanBlockContract_pointwise_eq"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-098",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalCleanBlock_eq_target"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-099",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalExactCleanBlockFromPointwise"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-100",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalExactCleanBlockFromPointwise_clean_eq_target"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-101",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.LinearDiagonalInputBEContract"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-102",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.LinearDiagonalInputBEContract.exactPayload"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-103",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.LinearDiagonalInputBEContract.clean_eq_target"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-104",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.householderZero"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-105",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.dot8"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-106",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.householder8E0Minus"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-107",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.householder8"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-108",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.householder8E0Minus_normSq"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-109",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.householder8E0Minus_normSq_ne_zero"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-110",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.householder8_clean_entry"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-122",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.householder8_isRationalOrthogonal"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-123",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8SystemIndex"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-124",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8AncillaIndex"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-125",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8Embed"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-126",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8DirectSum"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-134",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8_branchNontrivial_of_clean"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-135",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8DirectSum_clean_entry"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-137",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8DirectSum_columnInner_eq_identity_of_system_ne"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-158",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8DirectSum_columnInner_eq_branch"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-160",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8DirectSum_rowInner_eq_branch"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-161",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8DirectSum_rowInner_eq_identity_of_system_ne"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-162",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8DirectSum_isRationalOrthogonal"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-163",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.LinearDiagonalRationalCompletion"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-164",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalFourSquareBranchVector"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-165",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalFourSquareBranchVector_clean"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-166",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalFourSquareBranchVector_unit"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-167",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalRationalCompletion_of_fourSquareWitnesses"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-168",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalRationalCompletion_exists"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-169",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalRationalCompletion_branchData"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-170",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalRationalCompletion_backendSupport"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-171",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalHouseholderCircuit"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-172",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalHouseholderResource"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-173",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalHouseholderResource_eq"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-174",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalHouseholderInputBEContract"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-175",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalHouseholderInputBEContract_clean_eq_target"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-176",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalHouseholderInputBEContract_complete"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-177",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.approxDiagonalOperator"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-178",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.ratAbs"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-179",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.IsDiagonalRatMatrix"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-180",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.DiagonalRatOperatorNormBridge"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-181",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.ratSquaredEuclideanNorm"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-182",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.ratMatrixErrorAction"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-183",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.ratEuclideanOperatorNormErrorAtMost"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-189",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.ratMatrixErrorAction_eq_diagonal"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-190",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.ratAbs_nonneg"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-191",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.rat_mul_self_eq_ratAbs_mul_self"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-192",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.rat_mul_self_nonneg"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-193",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.rat_mul_self_le_of_abs_le"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-195",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.rat_mul_self_vector_le_of_abs_le"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-196",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.ratEuclideanDiagonalOperatorNormBridge"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-197",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.ratEuclideanOperatorNormErrorAtMost_not_vacuous"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-198",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.approxDiagonalOperator_isDiagonal"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-199",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalOperator_isDiagonal"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-200",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.approxDiagonalEntrywiseErrorAtMost"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-201",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.approxDiagonalOperator_entrywise_error"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-202",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.approxDiagonalOperator_operatorNorm_error_of_contract"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-203",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.approxDiagonalOperator_operatorNorm_error"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-204",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.rationalCircleBranchVector"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-205",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.rationalCircleBranchVector_clean"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-206",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.rationalCircleBranchVector_unit"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-207",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8DirectSum_clean_entry_of_branchValue"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-208",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalFourSquareBranchVector"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-209",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalFourSquareBranchVector_clean"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-210",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalFourSquareBranchVector_unit"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-211",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.CubicDiagonalRationalCompletion"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-212",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalRationalCompletion_of_fourSquareWitnesses"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-213",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalRationalCompletion_exists"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-214",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.cubicAmplitude_lt_one"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-215",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalRationalCompletion_backendSupport"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-216",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.CubicDiagonalExactBEContract"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-217",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalHouseholderExactBEContract"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-218",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalHouseholderExactBEContract_clean_eq_target"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-219",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalHouseholderExactBEContract_complete"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-223",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonal_cube_eq_cubicDiagonalOperator"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-224",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalCubicProductCertificate"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-225",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalCubicProductCertificate_target_eq"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-226",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalCubicProductCertificate_clean_eq_target"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-227",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.cubicQSVTPolynomial"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-228",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.cubicQSVTPolynomial_gridPoint_abs_le_one"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-229",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.CubicQSVTLocalSideConditions"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-230",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.cubicQSVTLocalSideConditions"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-231",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.CubicQSVTExternalSemantics"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-232",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.CubicQSVTExternalSemantics.output_eq_cubic_target"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-233",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.CubicQSVTExternalSemantics.consumerContract"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-234",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.amplitudeOracleLayout"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-235",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.amplitudeOracleCircuit"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-236",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.amplitudeOracleResource"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-237",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.amplitudeOracleCost"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-238",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.amplitudeOracleResourceTuple"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-239",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.amplitudeOracleResource_eq"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-240",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.amplitudeOracleResourceTuple_eq"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-241",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.diagonalCleanBlockContract"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-242",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.diagonalCleanBlockContract_pointwise_eq"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-243",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.primitiveOracleCleanBlock_eq_target"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-244",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.cubicAmplitude_le_one"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-245",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.cubicAmplitude_nonneg"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-246",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleDimension"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-247",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleUnitary"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-248",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleIsUnitary"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-249",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleCleanBlockExtracts"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-250",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleSemanticContract"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-251",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleSemanticContract_unitary"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-252",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleSemanticContract_cleanBlock_eq_target"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-253",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.expandedAmplitudeOracleLayout"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-254",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.expandedAmplitudeOracleLayout_auxiliaryQubits"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-255",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.expandedAmplitudeOracleNormalizer_eq"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-256",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.StandardRyCleanEntryScalarTier"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-257",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.expandedRyCleanEntryForCubicAmplitudes"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-258",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.expandedRyCleanEntryForCubicAmplitudes_of_standardTier"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-259",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.expandedArithmeticComputesCubicAmplitude"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-260",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.ExpandedCubicArithmeticBackend"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-261",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.symbolicExpandedCubicArithmeticBackend"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-262",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.expandedArithmeticBackendComputesCubicAmplitude"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-263",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.symbolicExpandedCubicArithmeticBackend_computes"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-264",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.expandedArithmeticBackendBridge"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-265",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.expandedArithmeticComputesCubicAmplitude_of_backendBridge"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-266",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.expandedArithmeticBackendBridge_iff_of_computes"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-267",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.expandedArithmeticComputesCubicAmplitude_of_symbolicBackendBridge"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-268",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.symbolicExpandedCubicArithmeticBackend_bridge_iff"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-269",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomCubicPayload_lt_capacity"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-270",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomCubicAmplitude_eq"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-271",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomCubicArithmeticBackend"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-272",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomCubicArithmeticBackend_computes"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-273",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.expandedArithmeticComputesCubicAmplitudeTransparent"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-274",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomCubicArithmeticRouteTransparent"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-275",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomCubicArithmeticBackend_bridge_iff"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-276",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.expandedControlledRyUsesCubicAngle"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-277",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.expandedControlledRyUsesCubicAngleTransparent"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-278",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomControlledRyRouteTransparent"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-279",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.expandedControlledRyBackendBridge"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-280",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.expandedControlledRyUsesCubicAngle_of_backendBridge"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-281",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.expandedControlledRyBackendBridge_iff_of_standardTier"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-282",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.ExpandedControlledRyWorkspaceReadonlyWitness"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-283",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.expandedControlledRyWorkspaceReadonlyTransparent"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-284",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.expandedWorkspaceCleanUncomputed"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-285",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.ExpandedArithmeticCleanUncomputeWitness"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-286",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.expandedWorkspaceCleanUncomputedTransparent"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-287",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.expandedWorkspaceCleanUncomputedTransparent_of_witness"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-289",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomCubicComputeStep"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-290",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomCubicUncomputeStep"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-291",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomCubicComputeStep_matches_backend_on_clean"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-292",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomCubicUncomputeStep_after_compute"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-293",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomExpandedArithmeticCleanUncomputeWitness"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-294",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomWorkspaceCleanUncomputedTransparent"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-295",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.LinearDiagonalValueBackend"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-296",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalValueBackendComputesGridPoint"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-297",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomLinearDiagonalValueBackend"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-298",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomLinearDiagonalValueBackend_computes"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-299",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.LinearDiagonalValueCleanUncomputeWitness"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-300",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalWorkspaceCleanUncomputedTransparent"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-301",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalWorkspaceCleanUncomputedTransparent_of_witness"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-302",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomLinearDiagonalComputeStep"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-303",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomLinearDiagonalUncomputeStep"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-304",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomLinearDiagonalComputeStep_matches_backend_on_clean"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-305",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomLinearDiagonalUncomputeStep_after_compute"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-306",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomLinearDiagonalCleanUncomputeWitness"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-307",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomLinearDiagonalWorkspaceCleanUncomputedTransparent"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-308",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.expandedAmplitudeOracleCleanBlockExtracts"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-309",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.expandedAmplitudeOracleCleanBlockContract"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-310",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.expandedAmplitudeOracleCleanBlockContract_diagonal"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-311",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.expandedAmplitudeOracleCleanBlockContract_eq_target"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-312",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.expandedAmplitudeOracleSemanticContract"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-313",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.expandedAmplitudeOracleSemanticContract_cleanBlock_eq_target"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-314",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleCandidate"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-315",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleCandidate_costTuple_eq"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-316",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleCandidate_unitary_from_contract"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C29-317",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleCandidate_block_from_contract"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-318",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleVerified"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C29-319",
+      "declarations": [
+        "QuantumBlockEncoding.CubicDiagonalOracle.amplitudeOracleClaim"
+      ]
+    }
+  ],
+  "assumption_deltas": [
+    {
+      "classification": "same",
+      "source": "Distinct O,D,X, exact Rat finite sums, scales N/1, literal branch unit/coordinate/nontrivial guards, local conditional supplier laws and complete unknown consumer gaps.",
+      "formal": "Every explicit public/private source header and recursive contract field retained. Primitive opaque predicates, arbitrary cleanup/resource propositions and unconstrained generic payload target are not strengthened.",
+      "explanation": "The retrospective source states the actual conditional mathematics; proof ingredients are not assumed for unconditional user-target closure."
+    },
+    {
+      "classification": "source-implicit",
+      "source": "n>=0 extension including N=1, ancilla-high/system-low b*N+s flattening, total rational division with stated reflection guard, noncanonical residual-square choice.",
+      "formal": "Finite range proof arguments, ambient definitions, full local import closure and exact selected formulas remain unchanged.",
+      "explanation": "Positive-n task prose does not hide the actual n=0 carrier; zero vector is not normalized. No uniqueness, finite-bit producer, gate count, arbitrary phase quotient or physical denotation is inferred."
+    },
+    {
+      "classification": "same",
+      "source": "Process schedule/error-ladder and transcript/resource descriptions are retained as metadata, excluded from scientific success.",
+      "formal": "Actual 3-rung ladder and literal 7/10/8/1 oracle-label counts are preserved, not silently replaced by historical task prose.",
+      "explanation": "Label resource equalities and algebraic clean-matrix products do not become controller efficacy or gate-expanded implementation certificates."
+    }
+  ],
+  "graph_contribution": {
+    "baseline": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+    "head": "6d755d1",
+    "head_provenance": "Parent-supplied contextual reference only; author did not execute Git.",
+    "classes": [
+      "reorganisation",
+      "bridge"
+    ],
+    "node_ids": [
+      "module:QuantumBlockEncoding.CubicStatePreparation",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.taskId",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.requestedEpsilon",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.gridPoint",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.cubicAmplitude",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.cubicOperator",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.cubicNormSq",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.conservativeNormalizer",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.cubicTarget",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.defaultRequiredCost",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.defaultPolicy",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.arithmeticCubicDefaultPrecision",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.arithmeticCubicLayout",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.arithmeticCubicCircuit",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.arithmeticCubicResource",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.arithmeticCubicNormalizer",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.arithmeticCubicCost",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.arithmeticCubicResourceTuple",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.arithmeticCubicResource_eq",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.arithmeticCubicLayout_auxiliaryQubits",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.arithmeticCubicClaim",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicLayout",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicCircuit",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicResource",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicNormalizer",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicCost",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicResourceTuple",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicResource_eq",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicLayout_auxiliaryQubits",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicResourceTuple_n2_default",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicClaim",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicWorkspace",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicLayout",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicCircuit",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicCircuit_rejectSignalRepair",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicResource",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicNormalizer",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicCost",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicResourceTuple",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicResource_eq",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicLayout_auxiliaryQubits",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicResourceTuple_n2",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicClaim",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.hardModeUpperAgentSchedule",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.hardModeMiddleAgentSchedule",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.hardModeLowerAgentSchedule",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.hardModeExactStallWindow",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.hardModeConstructionStallWindow",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.hardModeLevelCycleBudget",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.relaxedEpsilonLadder",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.relaxedEpsilonLadder_startsWithRequested",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.hardModeSchedules_have_four_levels",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.hardModeLowerAgentSchedule_final",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.initialExpectedPhase",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.gridSize_pos",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.cubicOperator_first_column",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.cubicOperator_only_first_column",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.rankOneCleanBlockContract",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicCleanBlockContract",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.rankOneCleanBlockContract_pointwise_eq",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.arithmeticRankOneCubicCleanBlockContract_pointwise_eq",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicCleanBlockContract",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubicCleanBlockContract_pointwise_eq",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.rat_cube_sq_eq_sixth",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.cubicAmplitude_sq_eq_gridPoint_sixth",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.cubicNormSq_sixthPowerFold",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.gridSize_rat_ne_zero",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.gridSize_rat_pos",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.rat_div_cube_div_eq",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.cubicAmplitude_div_conservativeNormalizer_eq",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.gridSize_three_mul_eq_cube",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.gridSize_four_mul_eq_fourth",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubic_thresholdCountP_finRange",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubic_thresholdFilterLength",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubic_threshold_le_pathCapacity",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.hadamardCountingCubic_thresholdPathCount",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.gridPoint_nonneg",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.gridPoint_lt_one",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.gridPoint_le_one",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.rat_pow_le_one_of_nonneg_le_one",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.cubicAmplitude_sq_le_one",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.foldl_add_le_add_length",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.cubicNormSq_le_gridSize",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.gridSize_rat_le_sq",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.cubicNormSq_le_conservativeNormalizer_sq",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.cubicNormSq_le_arithmeticCubicNormalizer_sq",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.cubicNormSq_le_hadamardCountingCubicNormalizer_sq",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.cubicNormSq_n1",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.cubicNormSq_n2",
+      "declaration:QuantumBlockEncoding.CubicStatePreparation.cubicNormSq_n3",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.taskId",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalOperator",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.exactNormalizer",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalTarget",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalOperator",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalTarget",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalCleanBlockContract",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalCleanBlockContract_pointwise_eq",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalCleanBlock_eq_target",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalExactCleanBlockFromPointwise",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalExactCleanBlockFromPointwise_clean_eq_target",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.LinearDiagonalInputBEContract",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.LinearDiagonalInputBEContract.exactPayload",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.LinearDiagonalInputBEContract.clean_eq_target",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.householderZero",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.dot8",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.householder8E0Minus",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.householder8",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.householder8E0Minus_normSq",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.householder8E0Minus_normSq_ne_zero",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.householder8_clean_entry",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.householder8_isRationalOrthogonal",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8SystemIndex",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8AncillaIndex",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8Embed",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8DirectSum",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8_branchNontrivial_of_clean",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8DirectSum_clean_entry",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8DirectSum_columnInner_eq_identity_of_system_ne",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8DirectSum_columnInner_eq_branch",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8DirectSum_rowInner_eq_branch",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8DirectSum_rowInner_eq_identity_of_system_ne",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8DirectSum_isRationalOrthogonal",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.LinearDiagonalRationalCompletion",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalFourSquareBranchVector",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalFourSquareBranchVector_clean",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalFourSquareBranchVector_unit",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalRationalCompletion_of_fourSquareWitnesses",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalRationalCompletion_exists",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalRationalCompletion_branchData",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalRationalCompletion_backendSupport",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalHouseholderCircuit",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalHouseholderResource",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalHouseholderResource_eq",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalHouseholderInputBEContract",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalHouseholderInputBEContract_clean_eq_target",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalHouseholderInputBEContract_complete",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.approxDiagonalOperator",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.ratAbs",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.IsDiagonalRatMatrix",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.DiagonalRatOperatorNormBridge",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.ratSquaredEuclideanNorm",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.ratMatrixErrorAction",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.ratEuclideanOperatorNormErrorAtMost",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.ratMatrixErrorAction_eq_diagonal",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.ratAbs_nonneg",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.rat_mul_self_eq_ratAbs_mul_self",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.rat_mul_self_nonneg",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.rat_mul_self_le_of_abs_le",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.rat_mul_self_vector_le_of_abs_le",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.ratEuclideanDiagonalOperatorNormBridge",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.ratEuclideanOperatorNormErrorAtMost_not_vacuous",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.approxDiagonalOperator_isDiagonal",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalOperator_isDiagonal",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.approxDiagonalEntrywiseErrorAtMost",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.approxDiagonalOperator_entrywise_error",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.approxDiagonalOperator_operatorNorm_error_of_contract",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.approxDiagonalOperator_operatorNorm_error",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.rationalCircleBranchVector",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.rationalCircleBranchVector_clean",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.rationalCircleBranchVector_unit",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8DirectSum_clean_entry_of_branchValue",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalFourSquareBranchVector",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalFourSquareBranchVector_clean",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalFourSquareBranchVector_unit",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.CubicDiagonalRationalCompletion",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalRationalCompletion_of_fourSquareWitnesses",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalRationalCompletion_exists",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.cubicAmplitude_lt_one",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalRationalCompletion_backendSupport",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.CubicDiagonalExactBEContract",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalHouseholderExactBEContract",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalHouseholderExactBEContract_clean_eq_target",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.cubicDiagonalHouseholderExactBEContract_complete",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonal_cube_eq_cubicDiagonalOperator",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalCubicProductCertificate",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalCubicProductCertificate_target_eq",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalCubicProductCertificate_clean_eq_target",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.cubicQSVTPolynomial",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.cubicQSVTPolynomial_gridPoint_abs_le_one",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.CubicQSVTLocalSideConditions",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.cubicQSVTLocalSideConditions",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.CubicQSVTExternalSemantics",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.CubicQSVTExternalSemantics.output_eq_cubic_target",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.CubicQSVTExternalSemantics.consumerContract",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.amplitudeOracleLayout",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.amplitudeOracleCircuit",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.amplitudeOracleResource",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.amplitudeOracleCost",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.amplitudeOracleResourceTuple",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.amplitudeOracleResource_eq",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.amplitudeOracleResourceTuple_eq",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.diagonalCleanBlockContract",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.diagonalCleanBlockContract_pointwise_eq",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.primitiveOracleCleanBlock_eq_target",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.cubicAmplitude_le_one",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.cubicAmplitude_nonneg",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleDimension",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleUnitary",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleIsUnitary",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleCleanBlockExtracts",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleSemanticContract",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleSemanticContract_unitary",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleSemanticContract_cleanBlock_eq_target",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.expandedAmplitudeOracleLayout",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.expandedAmplitudeOracleLayout_auxiliaryQubits",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.expandedAmplitudeOracleNormalizer_eq",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.StandardRyCleanEntryScalarTier",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.expandedRyCleanEntryForCubicAmplitudes",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.expandedRyCleanEntryForCubicAmplitudes_of_standardTier",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.expandedArithmeticComputesCubicAmplitude",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.ExpandedCubicArithmeticBackend",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.symbolicExpandedCubicArithmeticBackend",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.expandedArithmeticBackendComputesCubicAmplitude",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.symbolicExpandedCubicArithmeticBackend_computes",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.expandedArithmeticBackendBridge",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.expandedArithmeticComputesCubicAmplitude_of_backendBridge",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.expandedArithmeticBackendBridge_iff_of_computes",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.expandedArithmeticComputesCubicAmplitude_of_symbolicBackendBridge",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.symbolicExpandedCubicArithmeticBackend_bridge_iff",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomCubicPayload_lt_capacity",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomCubicAmplitude_eq",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomCubicArithmeticBackend",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomCubicArithmeticBackend_computes",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.expandedArithmeticComputesCubicAmplitudeTransparent",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomCubicArithmeticRouteTransparent",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomCubicArithmeticBackend_bridge_iff",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.expandedControlledRyUsesCubicAngle",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.expandedControlledRyUsesCubicAngleTransparent",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomControlledRyRouteTransparent",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.expandedControlledRyBackendBridge",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.expandedControlledRyUsesCubicAngle_of_backendBridge",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.expandedControlledRyBackendBridge_iff_of_standardTier",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.ExpandedControlledRyWorkspaceReadonlyWitness",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.expandedControlledRyWorkspaceReadonlyTransparent",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.expandedWorkspaceCleanUncomputed",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.ExpandedArithmeticCleanUncomputeWitness",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.expandedWorkspaceCleanUncomputedTransparent",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.expandedWorkspaceCleanUncomputedTransparent_of_witness",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomCubicComputeStep",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomCubicUncomputeStep",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomCubicComputeStep_matches_backend_on_clean",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomCubicUncomputeStep_after_compute",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomExpandedArithmeticCleanUncomputeWitness",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomWorkspaceCleanUncomputedTransparent",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.LinearDiagonalValueBackend",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalValueBackendComputesGridPoint",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomLinearDiagonalValueBackend",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomLinearDiagonalValueBackend_computes",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.LinearDiagonalValueCleanUncomputeWitness",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalWorkspaceCleanUncomputedTransparent",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonalWorkspaceCleanUncomputedTransparent_of_witness",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomLinearDiagonalComputeStep",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomLinearDiagonalUncomputeStep",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomLinearDiagonalComputeStep_matches_backend_on_clean",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomLinearDiagonalUncomputeStep_after_compute",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomLinearDiagonalCleanUncomputeWitness",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomLinearDiagonalWorkspaceCleanUncomputedTransparent",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.expandedAmplitudeOracleCleanBlockExtracts",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.expandedAmplitudeOracleCleanBlockContract",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.expandedAmplitudeOracleCleanBlockContract_diagonal",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.expandedAmplitudeOracleCleanBlockContract_eq_target",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.expandedAmplitudeOracleSemanticContract",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.expandedAmplitudeOracleSemanticContract_cleanBlock_eq_target",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleCandidate",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleCandidate_costTuple_eq",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleCandidate_unitary_from_contract",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleCandidate_block_from_contract",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.primitiveAmplitudeOracleVerified",
+      "declaration:QuantumBlockEncoding.CubicDiagonalOracle.amplitudeOracleClaim",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.delta8",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.fin8_exhaust",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.dot8_delta_delta",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.dot8_delta_left",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.dot8_delta_right",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.dot8_sub_sub",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.householder8_columnDot",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.householder8_symm",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.householder8_rowDot",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.columnInner_eq_dot8",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.rowInner_eq_dot8",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8Embed_val",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8SystemIndex_embed",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8AncillaIndex_embed",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8SystemIndex_productIndex",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8AncillaIndex_productIndex",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8_productIndex_eta",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8_identity_same_branch",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonal_foldl_add_zero_of_all_zero",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8DirectSum_column_off_branch_summand_zero",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8DirectSum_column_summand_productIndex",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8DirectSum_row_off_branch_summand_zero",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8DirectSum_row_summand_productIndex",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8BranchFiber",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8_productIndex_left_injective",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8BranchFiber_mem_iff",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonal_foldl_add_unique_of_nodup",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonal_nodup_map_of_injective",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonal_finRange_nodup",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8BranchFiber_nodup",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonal_perm_cons_erase_of_mem",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonal_perm_of_nodup_mem_iff",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonal_foldl_add_perm",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonal_foldl_add_filter_of_zero_acc",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonal_foldl_add_filter_of_zero",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonal_foldl_add_congr_acc",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonal_foldl_add_congr",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8BranchFiber_filter_perm",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8DirectSum_columnInner_productIndex",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.controlledHouseholder8DirectSum_rowInner_productIndex",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.diagonalFoldlAddZero",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.diagonalFoldlAddUnique",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.diagonalNodupMapOfInjective",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.diagonalFinRangeNodup",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.diagonalFoldlAddLe",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.rat_mul_product_self",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonal_foldl_add_unique_finRange",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonal_mul_entry",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.linearDiagonal_square_mul_entry",
+      "private-helper:QuantumBlockEncoding.CubicDiagonalOracle.fixedDenomCubicModAddSub_eq_self",
+      "SOURCE_GAP-NORMALIZED-SP",
+      "SOURCE_GAP-RANK-ONE-DENOTATION",
+      "SOURCE_GAP-FOUR-SQUARE-PRODUCER",
+      "SOURCE_GAP-CONTROLLED-GATE-SYNTHESIS",
+      "SOURCE_GAP-PRODUCT-PHYSICAL",
+      "SOURCE_GAP-QSVT-SUPPLY",
+      "SOURCE_GAP-APPROX-PRODUCER",
+      "SOURCE_GAP-COMMON-BACKEND-COMPOSITION",
+      "SOURCE_GAP-OPAQUE-CLEANUP-EXTRACTION",
+      "SOURCE_GAP-FAMILY-EXECUTABLE"
+    ],
+    "views": [
+      "source-construction-graph",
+      "lean-graph",
+      "compressed-quantum-spine",
+      "functor-hypergraph"
+    ],
+    "source_graph_sha256": "ea63aaa66fedd308d5aea482cfc8aa28665e82604388cc508bf173e8719e54fe",
+    "coverage_sha256": "7f06cc5abce3933df55775b99d3efbbdceed4e2711581275d6c1881fec2e7d70",
+    "formal_context_sha256": "22532e18fbf15d43d842b4c9e755d486046a36b505e50d235f66df6f1171b951",
+    "formal_packet_sha256": "f0448c746caad3383fc4ac26c8e5a2f9ba47a8c8c862565e561b27bdbc2b81c5",
+    "source_graph_authority": "AUTHOR_PROVISIONAL_NOT_INDEPENDENT",
+    "preserved_contract": "Whole target source, all ambient source inputs and trusted runtime unchanged; source recovery/metadata only, no new theorem or canonical admission.",
+    "remaining_boundary": "Retrospective local source; historical formalizer UNKNOWN. Distinct unnormalized rank-one O, diagonal D and linear X, exact Rat matrix carriers and scales N/1 retained. Four-square choice and 8D rational orthogonal direct sums establish matrix existence, not deterministic polynomial finite-bit preprocessing, gate/ancilla/depth or normalized SP. Multiplication of extracted clean matrices is not physical block-unitary composition. Generic cubic payload.A is not constrained to D; specific instance proves that equality. Primitive unitary/extraction and expanded cleanup/extraction predicates remain opaque conditional obligations; arbitrary Prop/resource/description fields are not circuit semantics. Generic cleanup contains only uncompute-after-compute; readonly signal basis function is not Ry amplitude semantics. Concrete rational all-vector Euclidean error transfer is not an approximation producer or scalar-extension theorem. Full rank-one denotation, normalized nonzero success/amplification, QSVT supplier/global phases, common-backend composition, finite-bit synthesis and family executable acceptance remain open."
+  },
+  "formalizer": "cubic-source-author-c29 retrospective AUTHOR-curator; historical formalizer UNKNOWN",
+  "historical_formalizer": "UNKNOWN",
+  "residual_boundary": "Retrospective local source; historical formalizer UNKNOWN. Distinct unnormalized rank-one O, diagonal D and linear X, exact Rat matrix carriers and scales N/1 retained. Four-square choice and 8D rational orthogonal direct sums establish matrix existence, not deterministic polynomial finite-bit preprocessing, gate/ancilla/depth or normalized SP. Multiplication of extracted clean matrices is not physical block-unitary composition. Generic cubic payload.A is not constrained to D; specific instance proves that equality. Primitive unitary/extraction and expanded cleanup/extraction predicates remain opaque conditional obligations; arbitrary Prop/resource/description fields are not circuit semantics. Generic cleanup contains only uncompute-after-compute; readonly signal basis function is not Ry amplitude semantics. Concrete rational all-vector Euclidean error transfer is not an approximation producer or scalar-extension theorem. Full rank-one denotation, normalized nonzero success/amplification, QSVT supplier/global phases, common-backend composition, finite-bit synthesis and family executable acceptance remain open.",
+  "decoder_evidence": "reviews/publication/cubic-source-c29/decoder-pending/CubicStatePreparation-evidence.json",
+  "reviewer_evidence": "reviews/publication/cubic-source-c29/reviewer-pending/CubicStatePreparation-evidence.json",
+  "evidence_paths_status": {
+    "decoder": "UNATTACHED_NOT_INSPECTED_NO_AUTHORED_EVIDENCE",
+    "reviewer": "UNATTACHED_NOT_INSPECTED_NO_AUTHORED_EVIDENCE"
+  },
+  "status": "AUTHOR_WIP_NOT_ADMITTED",
+  "statement_seal": {
+    "timing": "RETROSPECTIVE_LOCAL_AFTER_PREEXISTING_PROOFS",
+    "pre_proof_seal_claim": false
+  },
+  "source_proof_coverage": "reviews/publication/cubic-source-c29/author-source-coverage.json",
+  "binder_definition_audit": "reviews/publication/cubic-source-c29/author-binder-definition-audit.json",
+  "graph_views": "reviews/publication/cubic-source-c29/author-graph-views.json",
+  "formal_context": "reviews/publication/cubic-source-c29/author-formal-context.json",
+  "formal_packet": "reviews/publication/cubic-source-c29/author-decoder-packet.json",
+  "purification": {
+    "status": "PENDING",
+    "Exposition_Seal": "PENDING"
+  },
+  "independent_acceptance": false,
+  "main_admission": false,
+  "scientific_ROOT": false,
+  "binding_sha256": "5c23037871778ce883584e8aed865321c69ace57eff995915104a600253ff2bc"
+}

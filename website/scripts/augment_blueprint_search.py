@@ -22,6 +22,7 @@ ADAPTER = "blueprint-declarations.js"
 BEGIN = "// BEGIN ASPBE BLUEPRINT DECLARATION SEARCH"
 END = "// END ASPBE BLUEPRINT DECLARATION SEARCH"
 SEARCH_IMPORT = 'import { domainMappers } from "./domain-mappers.js";'
+SEARCH_IMPORT_433 = 'import { domainMappers, searchPriorities } from "./domain-mappers.js";'
 REQUIRED_DECLARATIONS = {"QuantumBlockEncoding.HermiteStatePreparation.hermiteStatePreparation_complete"}
 
 
@@ -57,6 +58,25 @@ def original_registry(source: str) -> str:
     if not source.rstrip().endswith("};"):
         raise SearchContractError("Unsupported Verso domain mapper terminator")
     return source.rstrip() + "\n"
+
+
+def validate_search_initialization(source: str) -> None:
+    """Accept only the two inspected Verso call shapes, preserving priorities."""
+    compact = re.sub(r"\s+", "", source)
+    contracts = (
+        (SEARCH_IMPORT, "registerSearch({searchWrapper,data,domainMappers})"),
+        (SEARCH_IMPORT_433,
+         "registerSearch({searchWrapper,data,domainMappers,searchPriorities,"
+         "docPriorities,searchPagePath,})"),
+    )
+    imports = re.findall(
+        r'import\s*\{[^}]+\}\s*from\s*"\./domain-mappers\.js";', source
+    )
+    if len(imports) != 1 or compact.count("registerSearch({") != 1:
+        raise SearchContractError("Unsupported Verso search initialization contract")
+    if not any(source.count(statement) == 1 and compact.count(call) == 1
+               for statement, call in contracts):
+        raise SearchContractError("Unsupported Verso search initialization contract")
 
 
 def declaration_entries(root: Path, xref: object) -> list[dict[str, str]]:
@@ -112,8 +132,7 @@ def expected_assets(root: Path) -> tuple[dict[str, str], int]:
         raise SearchContractError("Required Hermite root is missing from Blueprint search entries")
     registry = original_registry(required_text(root, "-verso-search/domain-mappers.js"))
     init = required_text(root, "-verso-search/search-init.js")
-    if init.count(SEARCH_IMPORT) != 1 or "registerSearch({ searchWrapper, data, domainMappers })" not in init:
-        raise SearchContractError("Unsupported Verso search initialization contract")
+    validate_search_initialization(init)
     search_box = required_text(root, "-verso-search/search-box.js")
     if "domainMappers[key].dataToSearchables(value)" not in search_box:
         raise SearchContractError("Unsupported Verso DomainMapper consumer")

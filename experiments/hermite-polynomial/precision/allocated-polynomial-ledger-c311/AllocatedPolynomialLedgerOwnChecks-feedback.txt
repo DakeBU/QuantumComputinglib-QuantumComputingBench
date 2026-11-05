@@ -1,0 +1,69 @@
+allocatedBudgetEnvelope : intendedAllocatedBudgetEnvelope
+allocatedBudgetEnvelope : intendedAllocatedBudgetEnvelope
+'HermiteAllocatedPolynomialCost.allocatedBudgetEnvelope' depends on axioms: [propext, Classical.choice, Quot.sound]
+allocatedSameRunPartialLedger : intendedAllocatedSameRunPartialLedger
+allocatedSameRunPartialLedger : intendedAllocatedSameRunPartialLedger
+'HermiteAllocatedPolynomialCost.allocatedSameRunPartialLedger' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+HermiteAllocatedDegreeBudget.allocated_tailCutoff_le (k n : ℕ) (epsilon : ℚ) (hepsilon : 0 < epsilon) :
+  HermiteFiniteExp.tailCutoff (HermitePiecewiseSourceBudget.sourceDelta k n epsilon) ≤
+    n + 1 + 2 * k + HermiteFiniteExp.tailCutoff (epsilon / (4 * ↑(k + 1) ^ 2))
+'HermiteAllocatedDegreeBudget.allocated_tailCutoff_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+HermiteAllocatedDegreeBudget.allocated_sourceDegree_le (k n : ℕ) (epsilon : ℚ) (hepsilon : 0 < epsilon) :
+  HermiteFiniteExpDegree.sourceDegree (HermitePiecewiseSourceBudget.sourceDelta k n epsilon) ≤
+    4 * (n + 1 + 2 * k + HermiteFiniteExp.tailCutoff (epsilon / (4 * ↑(k + 1) ^ 2))) ^ 2 +
+        2 * (n + 1 + 2 * k + HermiteFiniteExp.tailCutoff (epsilon / (4 * ↑(k + 1) ^ 2))) +
+      1
+'HermiteAllocatedDegreeBudget.allocated_sourceDegree_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+HermiteExplicitCachedStored.produceExplicitStored_cost_counters (k n : ℕ) (R delta : ℚ) :
+  have result := HermiteExplicitCachedStored.produceExplicitStored k n R delta;
+  StoredRectangularGivens.total result.run.cost ≤ HermiteExplicitCachedStored.frontierBudget k n delta ∧
+    result.quotientCalls ≤
+        14 * (n + 1) * HermitePiecewiseAssembly.assemblySize k delta ^ 2 +
+          4 * HermitePiecewiseAssembly.assemblySize k delta ∧
+      result.remainderCalls ≤
+        14 * (n + 1) * HermitePiecewiseAssembly.assemblySize k delta ^ 2 +
+          4 * HermitePiecewiseAssembly.assemblySize k delta
+'HermiteExplicitCachedStored.produceExplicitStored_cost_counters' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+def HermiteAllocatedPolynomialCost.operationScale : ℕ → ℕ → ℚ → ℕ :=
+fun k n epsilon => n + 1 + 2 * k + HermiteFiniteExp.tailCutoff (epsilon / (4 * ↑(k + 1) ^ 2))
+def HermiteAllocatedPolynomialCost.intendedAllocatedBudgetEnvelope : Prop :=
+∀ (k n : ℕ) (epsilon : ℚ),
+  0 < epsilon →
+    have delta := HermitePiecewiseSourceBudget.sourceDelta k n epsilon;
+    HermiteExplicitCachedStored.frontierBudget k n delta ≤ 5000000 * operationScale k n epsilon ^ 7 ∧
+      14 * (n + 1) * HermitePiecewiseAssembly.assemblySize k delta ^ 2 +
+          4 * HermitePiecewiseAssembly.assemblySize k delta ≤
+        500000 * operationScale k n epsilon ^ 5
+def HermiteAllocatedPolynomialCost.intendedAllocatedSameRunPartialLedger : Prop :=
+∀ (k n : ℕ) (R epsilon : ℚ),
+  0 < epsilon →
+    have result :=
+      HermiteExplicitCachedStored.produceExplicitStored k n R (HermitePiecewiseSourceBudget.sourceDelta k n epsilon);
+    StoredRectangularGivens.total result.run.cost ≤ 5000000 * operationScale k n epsilon ^ 7 ∧
+      result.quotientCalls ≤ 500000 * operationScale k n epsilon ^ 5 ∧
+        result.remainderCalls ≤ 500000 * operationScale k n epsilon ^ 5
+def HermiteExplicitCachedStored.frontierBudget : ℕ → ℕ → ℚ → ℕ :=
+fun k n delta =>
+  have T := HermiteFiniteExp.tailCutoff delta;
+  have d := HermiteFiniteExpDegree.sourceDegree delta;
+  have L := d + 2 * k + 1;
+  have D := HermitePiecewiseAssembly.assemblySize k delta;
+  have P := (n + 1) * (2 * D ^ 2 + D + 1) + 2 * D;
+  816 * (k + 1) ^ 2 + 81 * (d + 1) ^ 2 + 8 * (d + 1) + 80 * (L + 1) ^ 2 + 2 * (n + 1) * D ^ 2 * (n + L + 34) +
+                D * (L + 61) +
+              9 * P +
+            20 * D ^ 2 +
+          5 * n ^ 2 +
+        9 * n +
+      T +
+    59
+def HermitePiecewiseSourceBudget.sourceDelta : ℕ → ℕ → ℚ → ℚ :=
+fun k n epsilon => epsilon / (4 * 2 ^ (n + 1) * HermiteFiniteMiddleSource.amplificationQ k)
+def HermiteFiniteExpDegree.sourceDegree : ℚ → ℕ :=
+fun epsilon => HermiteFiniteExpDegree.degree (HermiteFiniteExp.tailCutoff epsilon) (HermiteFiniteExp.tailCutoff epsilon)
+def HermiteFiniteExp.tailCutoff : ℚ → ℕ :=
+fun epsilon => Nat.clog 2 (max 1 ⌈1 / epsilon⌉₊)

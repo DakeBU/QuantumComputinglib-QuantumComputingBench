@@ -1,0 +1,19 @@
+warning: verso: repository '<repository>\.lake/packages\verso' has local changes
+theorem HermitePiecewiseAssembly.full_actual_source_supplier : ∀ (k n : ℕ) (L epsilon : ℚ),
+  0 < L →
+    0 < epsilon →
+      ∀ (x : Word (n + 1)),
+        have R := ExperimentalGlobalRadiusBudget.allocatedRadius k n L epsilon;
+        have delta := sourceDelta k n epsilon;
+        have C := actualChain k n R delta;
+        contract C x 0 0 = ↑(piecewiseValue k delta (rationalGrid n R (wordIndex n x))) ∧
+          maxBond C ≤ 18 * (sourceDegree delta + 1) + 9 * (2 * k + 1 + 1) + 18 ∧
+            MatrixProductChain.storedScalars C ≤
+              2 * (n + 1) * (18 * (sourceDegree delta + 1) + 9 * (2 * k + 1 + 1) + 18) ^ 2 :=
+fun k n L epsilon hL he x =>
+  ⟨allocated_actualChain_contract k n L epsilon hL he x,
+    ⟨actualChain_maxBond k n (ExperimentalGlobalRadiusBudget.allocatedRadius k n L epsilon) (sourceDelta k n epsilon),
+      actualChain_scalarEnvelope k n (ExperimentalGlobalRadiusBudget.allocatedRadius k n L epsilon)
+        (sourceDelta k n epsilon)⟩⟩
+'HermitePiecewiseAssembly.actualChain_scalarEnvelope' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseAssembly.full_actual_source_supplier' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -36,10 +36,10 @@ theorem padMatrix_append {m : Nat}
   | zero =>
     have ha : Fin.append a x = a := by
       funext i
-      simpa only [Fin.castAdd_zero] using Fin.append_left a x i
+      simpa only [Fin.cast, Fin.castAdd, Fin.castLE] using Fin.append_left a x i
     have hb : Fin.append b y = b := by
       funext i
-      simpa only [Fin.castAdd_zero] using Fin.append_left b y i
+      simpa only [Fin.cast, Fin.castAdd, Fin.castLE] using Fin.append_left b y i
     rw [padMatrix, ha, hb, if_pos (Subsingleton.elim x y)]
   | succ t ih =>
     obtain ⟨⟨x, u⟩, rfl⟩ := (lastBasisEquiv t).symm.surjective x
@@ -169,10 +169,10 @@ theorem assembledMatrix_clean_column (q : Nat)
   | zero =>
     have hx : Fin.append b x = b := by
       funext i
-      simpa only [Fin.castAdd_zero] using Fin.append_left b x i
+      simpa only [Fin.cast, Fin.castAdd, Fin.castLE] using Fin.append_left b x i
     have ha : Fin.append a (fun _ : Fin 0 => (0 : Fin 2)) = a := by
       funext i
-      simpa only [Fin.castAdd_zero] using Fin.append_left a (fun _ => 0) i
+      simpa only [Fin.cast, Fin.castAdd, Fin.castLE] using Fin.append_left a (fun _ => 0) i
     simp [assembledMatrix, hx, ha, SequentialBondPreparation.run,
       SequentialBondPreparation.basisBoundary, _root_.Matrix.one_apply]
   | succ n ih =>

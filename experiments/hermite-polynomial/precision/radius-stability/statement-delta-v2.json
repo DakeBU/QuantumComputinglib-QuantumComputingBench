@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "version": 2,
+  "status": "IMMUTABLE_PRE_PROOF_INTERNAL_HELPER_DELTA",
+  "parent": "statement-seal-v1.json",
+  "parent_sha256": "8f6c4b56f239d68f6e9cea4b8252e8be568340f52d1c8fc0c5198c949460cc94",
+  "timing": "After library retrieval, before any helper/root proof or theorem probe. These additive helpers are sealed separately; v1 bytes remain unchanged.",
+  "exact_signatures": [
+    "theorem unit_power_difference (a b : Real) (ha : a in Set.Icc 0 1) (hb : b in Set.Icc 0 1) (m : Nat) : abs(a^m-b^m) <= (m:Real)*abs(a-b)",
+    "theorem basis_difference (d r : Nat) (hr : r<=d) (a b : Real) (ha : a in Set.Icc 0 1) (hb : b in Set.Icc 0 1) : abs(HermiteBernstein.basis d r a-HermiteBernstein.basis d r b) <= (2:Real)^d*(d:Real)*abs(a-b)",
+    "theorem exp_nonpositive_difference (x y : Real) (hx : x<=0) (hy : y<=0) : abs(Real.exp x-Real.exp y)<=abs(x-y)",
+    "theorem smoothInitial_left_closed (k : Nat) (x : Real) (hx : x<=-1) : HermitePolynomial.smoothInitial k x=Real.exp x",
+    "theorem smoothInitial_right_closed (k : Nat) (x : Real) (hx : 0<=x) : HermitePolynomial.smoothInitial k x=Real.exp(-x)",
+    "theorem smoothInitial_middle_difference (k : Nat) (x y : Real) (hx : x in Set.Icc(-1)0) (hy : y in Set.Icc(-1)0) : abs(HermitePolynomial.smoothInitial k x-HermitePolynomial.smoothInitial k y)<=sourceLipschitzConstant k*abs(x-y)",
+    "theorem smoothInitial_left_difference (k : Nat) (x y : Real) (hx : x<=-1) (hy : y<=-1) : abs(HermitePolynomial.smoothInitial k x-HermitePolynomial.smoothInitial k y)<=sourceLipschitzConstant k*abs(x-y)",
+    "theorem smoothInitial_right_difference (k : Nat) (x y : Real) (hx : 0<=x) (hy : 0<=y) : abs(HermitePolynomial.smoothInitial k x-HermitePolynomial.smoothInitial k y)<=sourceLipschitzConstant k*abs(x-y)",
+    "theorem smoothInitial_ordered_difference (k : Nat) (x y : Real) (hxy : x<=y) : abs(HermitePolynomial.smoothInitial k x-HermitePolynomial.smoothInitial k y)<=sourceLipschitzConstant k*(y-x)"
+  ],
+  "method": "Finite algebraic power differences for Bernstein middle piece, ordinary mean value bound for exp on nonpositive arguments, then endpoint matching and ordered cross-piece triangle inequalities. No global differentiability assumption on k0.",
+  "classification": "C internal consumed source proof ingredients, not new Source Anchor hypotheses or unrelated generic Lipschitz wrapper."
+}

@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "role": "decoder",
+  "identity": "matrix-product-source-blind-decoder-c16",
+  "run_id": "matrix-product-decoder-c16-20261009",
+  "source_blind": true,
+  "binding_sha256": "5645420d2fcf3ee029fe958418202693b5c607aeb8c80bd9246293abbe3b774f",
+  "packet_path": "reviews/publication/matrix-product-chain/decoder-packet.json",
+  "packet_sha256": "85fe7a7896b209a50643939cb75d924bd7ecf6d9cf76ee0e08752dfa0831f252",
+  "module": "QuantumBlockEncoding/MatrixProductChain.lean",
+  "module_sha256": "049a8f0c7003ef038f3945035a60264d52d62ea880326a959d0923f06d446a47",
+  "reconstruction": {
+    "summary": "For arbitrary finite real square matrices K(s,b) of width D, and arbitrary left/right real vectors, construct a dependent chain of N=n+1 binary cores with scalar boundary ranks. For each recursive binary word x=(b0,...,b(N-1)), its scalar contraction is left^T K(start,b0) K(start+1,b1) ... K(start+N-1,b(N-1)) right. All dimensions including D=0 are allowed. No normalization, rank, orthogonality, positivity, boundedness or invertibility premise is imposed. The construction and storage theorem concern exact algebraic tensor-chain objects, not circuits or runtime.",
+    "ambient_definitions": {
+      "Core(l,r)": "Matrix (Fin l) (Fin 2 × Fin r) Real; entries A(a,(bit,b)) have old bond as row and bit/new bond as column.",
+      "Chain(n,l,r)": "Dependent inductive chain. nil(r):Chain(0,r,r); cons(A:Core(l,m),C:Chain(n,m,r)):Chain(n+1,l,r). The intermediate rank m is an index, not a padded physical register.",
+      "Word(n)": "Word(0)=Unit; Word(n+1)=Fin 2 × Word(n). The outermost bit is emitted by the first core. No integer endianness is specified by this module.",
+      "slice(A,bit)": "slice(A,bit)(a,b)=A(a,(bit,b)).",
+      "contract": "contract(nil(r),x)=identity matrix on Fin r; contract(cons(A,C),(bit,y))=slice(A,bit)*contract(C,y). Thus matrix multiplication is left-to-right chronological, even though recursive evaluation of readout computes the suffix first.",
+      "maxBond": "maxBond(nil(r))=r; maxBond(cons(A:Core(l,m),C))=max(l,maxBond(C)). Includes both boundary dimensions and every actual internal rank."
+    },
+    "inventory_method": "Counted public top-level abbrev/def/theorem declarations from the entire actual module, then checked each in the freshly elaborated complete source. There are 13: 6 definition/abbreviation declarations and 7 theorems. Exact elaborated types and axiom prints are retained in decoder-lean-log.json.",
+    "public_declarations": [
+      {
+        "name": "QuantumBlockEncoding.MatrixProductChain.Kernel",
+        "kind": "abbrev",
+        "signature": "Kernel (D : Nat) := Nat → Fin 2 → Matrix (Fin D) (Fin D) Real",
+        "binders": "Explicit D:Nat. No logical premises.",
+        "meaning": "An arbitrary position/bit-indexed real D-by-D matrix family defined at all natural positions; no access or evaluation cost is attached."
+      },
+      {
+        "name": "QuantumBlockEncoding.MatrixProductChain.readout",
+        "kind": "noncomputable def",
+        "signature": "readout {D : Nat} (K : Kernel D) (right : Fin D → Real) (start : Nat) : {n : Nat} → Word n → Fin D → Real",
+        "binders": "Implicit D and length n; explicit K,right,start,word,bond label. No logical premises.",
+        "meaning": "For zero length returns right without reading K. For x=(bit,y), returns K(start,bit).mulVec(readout(K,right,start+1,y)). No left boundary is included."
+      },
+      {
+        "name": "QuantumBlockEncoding.MatrixProductChain.tailChain",
+        "kind": "noncomputable def",
+        "signature": "tailChain {D : Nat} (K : Kernel D) (right : Fin D → Real) (start n : Nat) : Chain (n+1) D 1",
+        "binders": "Implicit D; explicit K,right,start,n. No logical premises.",
+        "meaning": "Always nonempty. At n=0 the only core A(a,(bit,0))=(K(start,bit)*right)(a). For n>0 the first core is K(start,bit)(a,b), followed by the recursive chain starting at start+1. Original internal bonds are D, terminal bond is 1."
+      },
+      {
+        "name": "QuantumBlockEncoding.MatrixProductChain.tailChain_contract",
+        "kind": "theorem",
+        "signature": "tailChain_contract {D : Nat} (K : Kernel D) (right : Fin D → Real) (start n : Nat) (x : Word (n+1)) (a : Fin D) : contract (tailChain K right start n) x a 0 = readout K right start x a",
+        "binders": "Only dimensional, matrix, boundary, position, word and initial-label data. No extra proof bundle.",
+        "meaning": "For each word and initial label, terminal-boundary absorption preserves the exact suffix contraction. D=0 makes the a binder uninhabited, rather than requiring a positive-rank premise."
+      },
+      {
+        "name": "QuantumBlockEncoding.MatrixProductChain.closeLeft",
+        "kind": "noncomputable def",
+        "signature": "closeLeft {n D : Nat} (left : Fin D → Real) : Chain (n+1) D 1 → Chain (n+1) 1 1",
+        "binders": "Implicit n,D; explicit left and chain. No logical premises.",
+        "meaning": "For cons(A,C), replace only the first core by A'(0,out)=sum_a left(a)*A(a,out), preserving C and all its ranks. Requires nonempty length by type, not a runtime test."
+      },
+      {
+        "name": "QuantumBlockEncoding.MatrixProductChain.closeLeft_contract",
+        "kind": "theorem",
+        "signature": "closeLeft_contract {n D : Nat} (left : Fin D → Real) (C : Chain (n+1) D 1) (x : Word (n+1)) : contract (closeLeft left C) x 0 0 = sum_a left a * contract C x a 0",
+        "binders": "Only n,D,left,C,x. No canonicality/normalization/rank premise.",
+        "meaning": "The first-core absorption implements the left bilinear boundary exactly; finite sums can be exchanged."
+      },
+      {
+        "name": "QuantumBlockEncoding.MatrixProductChain.ofKernel",
+        "kind": "noncomputable def",
+        "signature": "ofKernel {D : Nat} (K : Kernel D) (left right : Fin D → Real) (start n : Nat) : Chain (n+1) 1 1",
+        "binders": "Implicit D; explicit K,left,right,start,n. No logical premises.",
+        "meaning": "Literal composition closeLeft(left,tailChain(K,right,start,n)); it is not a choice-based factorization or dense-state decomposition. N=n+1, not n."
+      },
+      {
+        "name": "QuantumBlockEncoding.MatrixProductChain.ofKernel_contract",
+        "kind": "theorem",
+        "signature": "ofKernel_contract {D : Nat} (K : Kernel D) (left right : Fin D → Real) (start n : Nat) (x : Word (n+1)) : contract (ofKernel K left right start n) x 0 0 = sum_a left a * readout K right start x a",
+        "binders": "Only D,K,left,right,start,n,x. No proof premise.",
+        "meaning": "Combines both absorption identities; the coefficient equals the ordered matrix product between explicit boundaries for every word."
+      },
+      {
+        "name": "QuantumBlockEncoding.MatrixProductChain.tailChain_maxBond",
+        "kind": "theorem",
+        "signature": "tailChain_maxBond {D : Nat} (K : Kernel D) (right : Fin D → Real) (start n : Nat) : maxBond (tailChain K right start n) ≤ max D 1",
+        "binders": "Only D,K,right,start,n. No proof premise.",
+        "meaning": "Bounds dimensions, not matrix rank. Terminal rank 1 must remain in the bound even at D=0."
+      },
+      {
+        "name": "QuantumBlockEncoding.MatrixProductChain.ofKernel_maxBond",
+        "kind": "theorem",
+        "signature": "ofKernel_maxBond {D : Nat} (K : Kernel D) (left right : Fin D → Real) (start n : Nat) : maxBond (ofKernel K left right start n) ≤ max D 1",
+        "binders": "Only D,K,left,right,start,n. No proof premise.",
+        "meaning": "Scalar boundaries and width-D internal bonds give this uniform bound. At N=1 there is no surviving D bond and maxBond is exactly 1."
+      },
+      {
+        "name": "QuantumBlockEncoding.MatrixProductChain.storedScalars",
+        "kind": "def",
+        "signature": "storedScalars : {n l r : Nat} → Chain n l r → Nat",
+        "binders": "Implicit n,l,r; explicit C. No proof premise.",
+        "meaning": "nil contributes 0; each cons with core shape l by (2*m) contributes 2*l*m plus tail count, irrespective of numerical zeros, reuse or sparsity. It counts hypothetical dense local scalar addresses, not allocation or evaluation behavior of function-valued matrices."
+      },
+      {
+        "name": "QuantumBlockEncoding.MatrixProductChain.storedScalars_le",
+        "kind": "theorem",
+        "signature": "storedScalars_le {n l r : Nat} (C : Chain n l r) (D : Nat) (h : maxBond C ≤ D) : storedScalars C ≤ 2*n*D^2",
+        "binders": "Implicit n,l,r; explicit C and independent bound D; sole logical premise h:maxBond(C)≤D. D here is any maximum-bond cap, not necessarily a Kernel width.",
+        "meaning": "Every core contributes at most 2*D^2. The maxBond premise includes both its left and right dimensions. For empty chains the count is 0 even if the carried boundary is nonzero; h still requires that boundary≤D."
+      },
+      {
+        "name": "QuantumBlockEncoding.MatrixProductChain.ofKernel_storedScalars",
+        "kind": "theorem",
+        "signature": "ofKernel_storedScalars {D : Nat} (K : Kernel D) (left right : Fin D → Real) (start n : Nat) : storedScalars (ofKernel K left right start n) ≤ 2*(n+1)*(max D 1)^2",
+        "binders": "Only D,K,left,right,start,n. No logical premise; the maxBond fact is supplied inside the proof.",
+        "meaning": "Specializes the generic dense-local-core address bound. It does not bound real arithmetic, obtaining K entries, finite-bit storage, preprocessing time, gates or quantum queries."
+      }
+    ],
+    "definition_audit": "All six public definitions/abbreviations are literal type abbreviations or recursive/composed formulas. No characterized or quotient representative is chosen. noncomputable is consistent with exact Real algebra and is neither an efficiency theorem nor an impossibility theorem.",
+    "binder_audit": "The only public logical premise is h:maxBond(C)≤D in storedScalars_le. Other binders are unconstrained data or typed dimensions/words/labels. Source-relative SOURCE/STANDING/TYPING/RULED/EXCESS classifications are deliberately not assigned in this blind pass.",
+    "proof_structure_from_actual_lean": "tailChain_contract is an induction on n; closeLeft_contract distributes finite sums and swaps sum order; ofKernel_contract combines those identities. tailChain_maxBond is an induction; ofKernel_maxBond separates the one-core case. storedScalars_le is induction on C using both endpoint dimension bounds; ofKernel_storedScalars applies it with max D 1. This describes implementation topology only, not any withheld source construction topology.",
+    "resource_model": "Exact dense local scalar-address count. For N=1, the closed chain has a 1-by-(2*1) core and exactly 2 scalar addresses for every original D. For N≥2, actual shapes are first 1→D, N-2 middle D→D, last D→1, giving 4*D+2*(N-2)*D^2 addresses. The theorem supplies the looser uniform bound 2*N*(max(D,1))^2. The sharper expression is explanatory; Lean probes certify its N=2 and N=3 cases only.",
+    "boundary_cases": "readout accepts empty words and returns right; tailChain/ofKernel/closeLeft have no zero-length interface. D=0 is accepted: closed coefficients are zero. N=1 still stores two addresses and has maxBond=1. N≥2 with D=0 has zero local scalar addresses despite scalar endpoints. Zero/negative/non-normalized coefficients are allowed; no positivity or normalization is inferred.",
+    "quantum_semantic_slots": {
+      "target": "A real scalar amplitude family obtained by exact ordered matrix contractions; no full state-action theorem in this module.",
+      "normalization": "None imposed or proved for ofKernel; arbitrary boundary scaling is preserved.",
+      "registers": "Recursive bit words and dependent bond indices; no physical qubit packing/endian adapter here.",
+      "oracles": "K is a mathematical function, not a certified constant-time array, coherent oracle, inverse or controlled operation.",
+      "ancillas_phases": "No circuit/ancilla/workspace semantics. Real coefficients can carry signs; no global-phase quotient or complex relative-phase specification.",
+      "error_success": "Exact equality only; no approximation, probability, postselection, success or amplification result.",
+      "resources": "Dense local scalar addresses only; runtime, gate/query count, depth, precision, connectivity and readout excluded."
+    },
+    "excluded_conclusions": ["Source-equivalence or source-correction verdict", "Full transitive fresh dependency build", "Root theorem closure, main admission or PURIFIED status", "Efficient stored implementation or finite-bit preprocessing", "State preparation, unitary synthesis or block encoding", "Normalized output state, success probability, ancilla cleanup", "Minimal matrix rank, canonicality, complex-coefficient generalization"]
+  },
+  "verification": {
+    "successful_log": "reviews/publication/matrix-product-chain/decoder-lean-log.json",
+    "probe_path": "reviews/publication/matrix-product-chain/decoder-probes.lean",
+    "replay_path": "reviews/publication/matrix-product-chain/decoder-replay.ps1",
+    "probes": ["Empty readout and nil storage/bond", "D=0 coefficient vanishes for every nonempty word", "Exact one/two/three-core shapes and storage", "D=0 and D=2 endpoint-inclusive bond/storage edges", "Noncommuting A=[[1,2],[0,1]],B=[[1,0],[3,1]]: chronological AB coefficient 7 versus BA coefficient 1", "Nonzero start=4 and position/bit dependence: words 01 and 10 give 144 and 150 with boundary scale 2*3"],
+    "failed_attempts": [
+      {"path": "reviews/publication/matrix-product-chain/decoder-attempt1-log.json", "probe_path": "reviews/publication/matrix-product-chain/decoder-attempt1-probes.lean", "exit_code": 1, "failure_class": "IMPLEMENTATION_FAILED", "cause": "Four concrete rw[ofKernel_contract] probes hit semireducible Word/Unit transparency at implicit tactic transparency. No mathematical route retired; all 13 actual module declarations checked and printed axioms."},
+      {"path": "reviews/publication/matrix-product-chain/decoder-attempt2-log.json", "probe_path": "reviews/publication/matrix-product-chain/decoder-attempt2-probes.lean", "exit_code": 1, "failure_class": "IMPLEMENTATION_FAILED", "cause": "Direct literal simplification left dependent closeLeft recursors unreduced in the same four concrete examples. No mathematical route retired. Final proof strategy names typed Word 2 constants and then applies ofKernel_contract before reducing readout."}
+    ],
+    "axiom_scope": "All 13 public declarations print only propext, Classical.choice and Quot.sound. No sorryAx/custom axiom reported. This is the checked target declaration closure, not a claim that every declaration in imported modules was freshly rebuilt or separately audited.",
+    "dependency_scope": "Whole target source freshly elaborated from UTF-8 stdin without importing the cached target or emitting an olean. Pinned provider oleans are reused. The log hashes every project-local recursive import source and olean before/after; this is not a fresh transitive dependency build.",
+    "repository_gates": "Parent integration owner must run full repository/test/publication/site gates. This decoder owns focused review evidence only."
+  },
+  "independence": {
+    "read_boundary": "Read the decoder packet, actual target and TensorTrainCanonical formal provider, toolchain/manifest/lakefile, mechanical checker schema, and mandatory process documents. The replay hashes and scans imports of relevant provider closure only. No new lesson, desired source conclusion, source-contract, source/publication/research registries, parent classifications, previous task reports or verdicts were read.",
+    "binding_policy": "Opaque whole-publication binding copied from packet, never recomputed using withheld material.",
+    "ownership": "Only decoder-* evidence files written; no Git, production/test/history or lesson mutation.",
+    "direction_fingerprint": "whole-formal-source-blind-matrix-chain-decoder-c16",
+    "expected_information_gain": "Independent reconstruction of all public interfaces plus discriminating order/index/empty/rank-zero/storage probes.",
+    "process_memory_ids": [],
+    "purification_exposition_seal": "Not assessed; source text and human-facing publication are withheld."
+  }
+}

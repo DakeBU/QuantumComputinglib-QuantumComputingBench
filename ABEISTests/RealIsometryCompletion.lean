@@ -30,8 +30,9 @@ example : ∃ U : _root_.Matrix (Fin 3) (Fin 3) ℝ,
     ext a b
     fin_cases a
     fin_cases b
-    norm_num [V, _root_.Matrix.mul_apply, _root_.Matrix.transpose_apply,
-      _root_.Matrix.one_apply, Fin.sum_univ_succ]
+    change (∑ i : Fin 3, (if i = 0 then (-1 : ℝ) else 0) *
+      (if i = 0 then (-1 : ℝ) else 0)) = 1
+    norm_num [Fin.sum_univ_succ]
   obtain ⟨U, hU, hd, hc⟩ := exists_specialOrthogonal_completion (by norm_num : 1 < 3)
     V nonPrefixPosition hV
   refine ⟨U, hU, hd, ?_⟩

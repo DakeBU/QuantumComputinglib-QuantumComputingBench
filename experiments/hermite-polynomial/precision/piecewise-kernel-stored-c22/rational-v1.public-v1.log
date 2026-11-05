@@ -1,0 +1,38 @@
+warning: verso: repository '.\.lake/packages\verso' has local changes
+experiments/hermite-polynomial/precision/piecewise-kernel-stored-c22/RationalBlocks.lean:29:44: error: unsolved goals
+case mk.mk
+α β : Type
+kernel✝¹ : ℕ → Fin 2 → α → α → ℚ
+left✝¹ right✝¹ : α → ℚ
+kernel✝ : ℕ → Fin 2 → β → β → ℚ
+left✝ right✝ : β → ℚ
+⊢ { kernel := fun q bit a c => ↑(kernel✝¹ q bit a.1 c.1) * ↑(kernel✝ q bit a.2 c.2),
+      left := fun a => ↑(left✝¹ a.1) * ↑(left✝ a.2), right := fun a => ↑(right✝¹ a.1) * ↑(right✝ a.2) } =
+    { kernel := productKernel (fun q bit a c => ↑(kernel✝¹ q bit a c)) fun q bit a c => ↑(kernel✝ q bit a c),
+      left := productBoundary (fun a => ↑(left✝¹ a)) fun a => ↑(left✝ a),
+      right := productBoundary (fun a => ↑(right✝¹ a)) fun a => ↑(right✝ a) }
+experiments/hermite-polynomial/precision/piecewise-kernel-stored-c22/RationalBlocks.lean:31:51: warning: This simp argument is unused:
+  productKernel
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [BlockQ.prod, BlockQ.cast, Block.prod, productBoundary, Rat.cast_mul]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+experiments/hermite-polynomial/precision/piecewise-kernel-stored-c22/RationalBlocks.lean:31:66: warning: This simp argument is unused:
+  productBoundary
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [BlockQ.prod, BlockQ.cast, Block.prod, productKernel, Rat.cast_mul]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+experiments/hermite-polynomial/precision/piecewise-kernel-stored-c22/RationalBlocks.lean:35:8: error(lean.unknownIdentifier): Unknown constant `HermitePiecewiseAssembly.Block.ext`
+experiments/hermite-polynomial/precision/piecewise-kernel-stored-c22/RationalBlocks.lean:36:2: error: No goals to be solved
+experiments/hermite-polynomial/precision/piecewise-kernel-stored-c22/RationalBlocks.lean:57:8: error(lean.unknownIdentifier): Unknown constant `HermitePiecewiseAssembly.Block.ext`
+experiments/hermite-polynomial/precision/piecewise-kernel-stored-c22/RationalBlocks.lean:58:2: error: No goals to be solved
+experiments/hermite-polynomial/precision/piecewise-kernel-stored-c22/RationalBlocks.lean:76:8: error(lean.unknownIdentifier): Unknown constant `HermitePiecewiseAssembly.Block.ext`
+experiments/hermite-polynomial/precision/piecewise-kernel-stored-c22/RationalBlocks.lean:77:2: error: No goals to be solved
+'HermitePiecewiseStored.actualBlocksQ_cast' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HermitePiecewiseStored.actualEntryQ_cast' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HermitePiecewiseStored.actualLeftQ_cast' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HermitePiecewiseStored.actualRightQ_cast' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+

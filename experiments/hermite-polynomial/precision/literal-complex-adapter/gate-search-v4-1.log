@@ -1,0 +1,51 @@
+warning: verso: repository '<repo>\.lake/packages\verso' has local changes
+experiments/hermite-polynomial/precision/literal-complex-adapter/LiteralComplexAdapter.lean:38:2: error: 'change' tactic failed, pattern
+  ∑ ctx, (if ((splitPrimitiveWire q) r).2 = ctx then g (r q) v else 0) * a ((splitPrimitiveWire q).symm (v, ctx)) c =
+    ?m.108
+is not definitionally equal to target
+  ∑ x,
+      (if ((splitPrimitiveWire q) r).2 = ((splitPrimitiveWire q) ((splitPrimitiveWire q).symm (v, x))).2 then
+          g (r q) ((splitPrimitiveWire q).symm (v, x) q)
+        else 0) *
+        a ((splitPrimitiveWire q).symm (v, x)) c =
+    g (r q) v * a ((splitPrimitiveWire q).symm (v, ((splitPrimitiveWire q) r).2)) c
+experiments/hermite-polynomial/precision/literal-complex-adapter/LiteralComplexAdapter.lean:65:40: warning: `Matrix.reindexAlgEquiv_apply` has been deprecated: Use `Matrix.coe_reindexAlgEquiv` instead
+
+Note: The updated constant has a different type:
+  ∀ {m : Type u_2} {n : Type u_3} (R : Type u_11) (A : Type u_12) [inst : CommSemiring R] [inst_1 : Fintype n]
+    [inst_2 : Fintype m] [inst_3 : DecidableEq m] [inst_4 : DecidableEq n] [inst_5 : Semiring A] [inst_6 : Algebra R A]
+    (e : m ≃ n), ⇑(Matrix.reindexAlgEquiv R A e) = ⇑(Matrix.reindex e e)
+instead of
+  ∀ {m : Type u_2} {n : Type u_3} (R : Type u_11) (A : Type u_12) [inst : CommSemiring R] [inst_1 : Fintype n]
+    [inst_2 : Fintype m] [inst_3 : DecidableEq m] [inst_4 : DecidableEq n] [inst_5 : Semiring A] [inst_6 : Algebra R A]
+    (e : m ≃ n) (M : _root_.Matrix m m A), (Matrix.reindexAlgEquiv R A e) M = (Matrix.reindex e e) M
+experiments/hermite-polynomial/precision/literal-complex-adapter/LiteralComplexAdapter.lean:79:81: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+experiments/hermite-polynomial/precision/literal-complex-adapter/LiteralComplexAdapter.lean:97:27: warning: `Matrix.reindexAlgEquiv_mul` has been deprecated: Use `map_mul` instead
+
+Note: The updated constant has a different type:
+  ∀ {M : Type u_4} {N : Type u_5} {F : Type u_9} [inst : Mul M] [inst_1 : Mul N] [inst_2 : FunLike F M N]
+    [MulHomClass F M N] (f : F) (x y : M), f (x * y) = f x * f y
+instead of
+  ∀ {m : Type u_2} {n : Type u_3} (R : Type u_11) (A : Type u_12) [inst : CommSemiring R] [inst_1 : Fintype n]
+    [inst_2 : Fintype m] [inst_3 : DecidableEq m] [inst_4 : DecidableEq n] [inst_5 : Semiring A] [inst_6 : Algebra R A]
+    (e : m ≃ n) (M N : _root_.Matrix m m A),
+    (Matrix.reindexAlgEquiv R A e) (M * N) = (Matrix.reindexAlgEquiv R A e) M * (Matrix.reindexAlgEquiv R A e) N
+
+Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.reindexAlgEquiv_mul` to `map_mul x`).
+experiments/hermite-polynomial/precision/literal-complex-adapter/LiteralComplexAdapter.lean:97:2: error: Type mismatch: After simplification, term
+  h
+ has type
+  castMatrix (realWord word m) =
+    (Matrix.reindexAlgEquiv ℂ ℂ (primitiveBasisLEEquiv width))
+      (evalPrimitiveCircuit (compileWord word) *
+        (Matrix.reindexAlgEquiv ℂ ℂ (primitiveBasisLEEquiv width)).symm (castMatrix m))
+but is expected to have type
+  castMatrix (realWord word m) =
+    (Matrix.reindexAlgEquiv ℂ ℂ (primitiveBasisLEEquiv width)) (evalPrimitiveCircuit (compileWord word)) * castMatrix m
+experiments/hermite-polynomial/precision/literal-complex-adapter/LiteralComplexAdapter.lean:105:63: error: unsolved goals
+width : ℕ
+word : List (Instruction width)
+i j : Basis width
+⊢ ↑(if i = j then 1 else 0) = if i = j then 1 else 0

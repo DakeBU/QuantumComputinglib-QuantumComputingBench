@@ -1,0 +1,47 @@
+import QuantumBlockEncoding.HermiteCutRank
+
+set_option pp.universes true
+set_option pp.explicit true
+set_option pp.fullNames true
+
+#check @QuantumBlockEncoding.HermiteCutRank.FactorsThrough
+#check @QuantumBlockEncoding.HermiteCutRank.FactorsThrough.rank_le
+#check @QuantumBlockEncoding.HermiteCutRank.polynomial_add_factorization
+#check @QuantumBlockEncoding.HermiteCutRank.polynomial_add_rank_le
+#check @QuantumBlockEncoding.HermiteCutRank.hermite_polynomial_add_rank_le
+#check @QuantumBlockEncoding.HermiteCutRank.product_factorization
+#check @QuantumBlockEncoding.HermiteCutRank.exponential_add_factorization
+#check @QuantumBlockEncoding.HermiteCutRank.FactorsThrough.add
+#check @QuantumBlockEncoding.HermiteCutRank.FactorsThrough.neg
+#check @QuantumBlockEncoding.HermiteCutRank.FactorsThrough.pointwise_mul
+#check @QuantumBlockEncoding.HermiteCutRank.blockIndex_lt_iff
+#check @QuantumBlockEncoding.HermiteCutRank.threshold_factorization
+#check @QuantumBlockEncoding.HermiteCutRank.threshold_complement_factorization
+#check @QuantumBlockEncoding.HermiteCutRank.affine_lt_cut
+#check @QuantumBlockEncoding.HermiteCutRank.smoothInitial_strict
+#check @QuantumBlockEncoding.HermiteCutRank.HermiteBond
+#check @QuantumBlockEncoding.HermiteCutRank.hermiteBond_card
+#check @QuantumBlockEncoding.HermiteCutRank.hermite_affine_factorization
+#check @QuantumBlockEncoding.HermiteCutRank.hermite_affine_cut_rank_le
+#check @QuantumBlockEncoding.HermiteCutRank.FactorsThrough.scale
+
+#print axioms QuantumBlockEncoding.HermiteCutRank.FactorsThrough
+#print axioms QuantumBlockEncoding.HermiteCutRank.FactorsThrough.rank_le
+#print axioms QuantumBlockEncoding.HermiteCutRank.polynomial_add_factorization
+#print axioms QuantumBlockEncoding.HermiteCutRank.polynomial_add_rank_le
+#print axioms QuantumBlockEncoding.HermiteCutRank.hermite_polynomial_add_rank_le
+#print axioms QuantumBlockEncoding.HermiteCutRank.product_factorization
+#print axioms QuantumBlockEncoding.HermiteCutRank.exponential_add_factorization
+#print axioms QuantumBlockEncoding.HermiteCutRank.FactorsThrough.add
+#print axioms QuantumBlockEncoding.HermiteCutRank.FactorsThrough.neg
+#print axioms QuantumBlockEncoding.HermiteCutRank.FactorsThrough.pointwise_mul
+#print axioms QuantumBlockEncoding.HermiteCutRank.blockIndex_lt_iff
+#print axioms QuantumBlockEncoding.HermiteCutRank.threshold_factorization
+#print axioms QuantumBlockEncoding.HermiteCutRank.threshold_complement_factorization
+#print axioms QuantumBlockEncoding.HermiteCutRank.affine_lt_cut
+#print axioms QuantumBlockEncoding.HermiteCutRank.smoothInitial_strict
+#print axioms QuantumBlockEncoding.HermiteCutRank.HermiteBond
+#print axioms QuantumBlockEncoding.HermiteCutRank.hermiteBond_card
+#print axioms QuantumBlockEncoding.HermiteCutRank.hermite_affine_factorization
+#print axioms QuantumBlockEncoding.HermiteCutRank.hermite_affine_cut_rank_le
+#print axioms QuantumBlockEncoding.HermiteCutRank.FactorsThrough.scale

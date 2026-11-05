@@ -1,6 +1,81 @@
 # Executable evidence hashes must survive Windows/Linux checkouts unchanged.
 executable-exports/SP-HERMITE-001/** text eol=lf
 *.sh text eol=lf
+
+# Publication bindings hash actual proof/configuration/lesson bytes, not a
+# newline-normalized approximation. Keep these identical in all checkouts.
+QuantumBlockEncoding/**/*.lean text eol=lf
+QuantumBlockEncoding/*.lean text eol=lf
+ABEISTests/**/*.lean text eol=lf
+ABEISTests/*.lean text eol=lf
+lean-toolchain text eol=lf
+lake-manifest.json text eol=lf
+docs/lessons/** text eol=lf
+docs/publication-c32-v3/** text eol=lf
+
+# Independently signed packets are immutable byte artifacts. In particular,
+# retain pre-policy CRLF packets as historical evidence; do not rehash them.
+reviews/publication/** -text
+reviews/internal/** -text
+
+# Experimental source/seals/results have frozen raw-byte evidence too. Keep
+# historical CRLF and newer LF packets intact; never silently refresh hashes.
+experiments/** -text
+failure-memory/** -text
+
+# Frozen migration build receipts retain the runner's original raw bytes.
+reports/lean-433-migration/*.json -text
+
+# Preserve the already frozen runtime/configuration bytes too, including
+# historical CRLF/mixed endings. This changes Git transport, not local code.
+lakefile.lean -text
+website/scripts/check_research_publications.py -text
+reports/lean-433-migration/*.md -text
+
+# Frozen optional diagnostic packages must retain manifest-bound raw bytes.
+tools/primitive_compiler_native_profile_v1/** -text
+tools/primitive_compiler_native_profile_ci2/** -text
+tools/primitive_compiler_native_profile_ci3/** -text
+tools/primitive_compiler_native_profile_ci4/** -text
+tools/cubic_c29_kernel_ci1/** -text
+tools/cubic_c29_kernel_types_v2/** -text
+tools/real_preparation_native_c34_ci1/** -text
+tools/c31_kernel_proof_v1/** -text
+tools/c31_kernel_proof_v2_guard/** -text
+tools/real_preparation_native_c34_ci3/** -text
+tools/real_preparation_native_c34_ci4/** -text
+tools/real_preparation_native_c34_ci5/** -text
+tools/c31_kernel_proof_v3/** -text
+tools/c29_c31_joint_kernel_v1/** -text
+
+# Preserve this independently reviewed retrospective lesson byte-for-byte;
+# its frozen source includes CRLF, unlike the default new lesson policy.
+docs/lessons/hermite-boundary-injection.md -text whitespace=trailing-space,space-before-tab,cr-at-eol
+# Frozen evidence retains original CRLF and, for the two signed results,
+# original blank EOF lines. Keep other trailing-space/tab checks enabled.
+reviews/publication/hermite-boundary-injection/source-coverage.json whitespace=trailing-space,space-before-tab,cr-at-eol
+reviews/publication/hermite-boundary-injection/final-review.md whitespace=trailing-space,space-before-tab,cr-at-eol,-blank-at-eof
+reviews/publication/hermite-boundary-injection/reviewer.json whitespace=trailing-space,space-before-tab,cr-at-eol,-blank-at-eof
+
+# Exact reviewed maintenance code/protocol and observation tool bytes.
+website/scripts/check_toolchain_maintenance.py text eol=lf
+QuantumBlockEncoding.lean text eol=lf
+Tests.lean text eol=lf
+docs/theorem-publication-protocol.md text eol=lf
+tools/robin_maintenance_export_audit/** -text
+
+# Preserve this bounded reviewed foundation packet and its exact source pins.
+/experiments/quantum-foundations/measurement-completeness/** -text
+/experiments/quantum-foundations/measurement-coherent/** -text
+/experiments/quantum-foundations/measurement-coherent/PARENT_GRAPH_V1.json whitespace=trailing-space,space-before-tab,cr-at-eol
+/experiments/quantum-foundations/measurement-coherent/PARENT_GRAPH_V2.json whitespace=trailing-space,space-before-tab,cr-at-eol
+/experiments/quantum-foundations/measurement-coherent/evidence/focused-runtime-v2.json whitespace=trailing-space,space-before-tab,cr-at-eol
+/experiments/quantum-foundations/measurement-coherent/evidence/portable-helper-graph.json whitespace=trailing-space,space-before-tab,cr-at-eol
+/experiments/quantum-foundations/measurement-coherent/evidence/portable-replay-c408-failed.json whitespace=trailing-space,space-before-tab,cr-at-eol
+/experiments/quantum-foundations/measurement-coherent/evidence/portable-replay-c409.json whitespace=trailing-space,space-before-tab,cr-at-eol
+/research-wiki/external-lean-libraries/axqm.md text eol=lf
+/reviews/publication/source-author-display-c407/** -text
+/reports/lean-433-migration/c412-qa-baseline-audit/** -text
 # Benchmark text hashes are LF-canonical on all supported platforms.
 benchmarks/quantumcomputingbench/** text eol=lf
 # Preserve the exact bytes sealed by these intake reviewers, including their

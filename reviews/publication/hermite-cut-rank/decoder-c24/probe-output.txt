@@ -1,0 +1,326 @@
+@QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2,
+    u_3} : {α : Type u_1} → {β : Type u_2} → {ι : Type u_3} → [Fintype.{u_3} ι] → Matrix.{u_1, u_2, 0} α β Real → Prop
+@QuantumBlockEncoding.HermiteCutRank.FactorsThrough.rank_le.{u_1, u_2,
+    u_3} : ∀ {α : Type u_1} {β : Type u_2} {ι : Type u_3} [inst : Fintype.{u_2} β] [inst_1 : Fintype.{u_3} ι]
+  {F : Matrix.{u_1, u_2, 0} α β Real},
+  @QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, u_3} α β ι inst_1 F →
+    @LE.le.{0} Nat instLENat (@Matrix.rank.{u_1, u_2, 0} α β Real inst Real.instCommSemiring F)
+      (@Fintype.card.{u_3} ι inst_1)
+@QuantumBlockEncoding.HermiteCutRank.polynomial_add_factorization.{u_1,
+    u_2} : ∀ {α : Type u_1} {β : Type u_2} (p : @Polynomial.{0} Real Real.semiring) (d : Nat),
+  @LE.le.{0} Nat instLENat (@Polynomial.natDegree.{0} Real Real.semiring p) d →
+    ∀ (u : α → Real) (v : β → Real),
+      @QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, 0} α β
+        (Fin
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) d
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+        (Fin.fintype
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) d
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+        fun x y =>
+        @Polynomial.eval.{0} Real Real.semiring
+          (@HAdd.hAdd.{0, 0, 0} Real Real Real (@instHAdd.{0} Real Real.instAdd) (u x) (v y)) p
+@QuantumBlockEncoding.HermiteCutRank.polynomial_add_rank_le.{u_1,
+    u_2} : ∀ {α : Type u_1} {β : Type u_2} [inst : Fintype.{u_2} β] (p : @Polynomial.{0} Real Real.semiring) (d : Nat),
+  @LE.le.{0} Nat instLENat (@Polynomial.natDegree.{0} Real Real.semiring p) d →
+    ∀ (u : α → Real) (v : β → Real),
+      @LE.le.{0} Nat instLENat
+        (@Matrix.rank.{u_1, u_2, 0} α β Real inst Real.instCommSemiring fun x y =>
+          @Polynomial.eval.{0} Real Real.semiring
+            (@HAdd.hAdd.{0, 0, 0} Real Real Real (@instHAdd.{0} Real Real.instAdd) (u x) (v y)) p)
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) d
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+@QuantumBlockEncoding.HermiteCutRank.hermite_polynomial_add_rank_le.{u_1,
+    u_2} : ∀ {α : Type u_1} {β : Type u_2} [inst : Fintype.{u_2} β] (k : Nat) (u : α → Real) (v : β → Real),
+  @LE.le.{0} Nat instLENat
+    (@Matrix.rank.{u_1, u_2, 0} α β Real inst Real.instCommSemiring fun x y =>
+      @Polynomial.eval.{0} Real Real.semiring
+        (@HAdd.hAdd.{0, 0, 0} Real Real Real (@instHAdd.{0} Real Real.instAdd) (u x) (v y))
+        (QuantumBlockEncoding.HermitePolynomial.sourceInterpolant k))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) k)
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+@QuantumBlockEncoding.HermiteCutRank.product_factorization.{u_1,
+    u_2} : ∀ {α : Type u_1} {β : Type u_2} (u : α → Real) (v : β → Real),
+  @QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, 0} α β Unit PUnit.fintype.{0} fun x y =>
+    @HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul) (u x) (v y)
+@QuantumBlockEncoding.HermiteCutRank.exponential_add_factorization.{u_1,
+    u_2} : ∀ {α : Type u_1} {β : Type u_2} (u : α → Real) (v : β → Real),
+  @QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, 0} α β Unit PUnit.fintype.{0} fun x y =>
+    Real.exp (@HAdd.hAdd.{0, 0, 0} Real Real Real (@instHAdd.{0} Real Real.instAdd) (u x) (v y))
+@QuantumBlockEncoding.HermiteCutRank.FactorsThrough.add.{u_1, u_2, u_3,
+    u_4} : ∀ {α : Type u_1} {β : Type u_2} {ι : Type u_3} {κ : Type u_4} [inst : Fintype.{u_3} ι]
+  [inst_1 : Fintype.{u_4} κ] {F G : Matrix.{u_1, u_2, 0} α β Real},
+  @QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, u_3} α β ι inst F →
+    @QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, u_4} α β κ inst_1 G →
+      @QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, max u_4 u_3} α β (Sum.{u_3, u_4} ι κ)
+        (@instFintypeSum.{u_3, u_4} ι κ inst inst_1) fun x y =>
+        @HAdd.hAdd.{0, 0, 0} Real Real Real (@instHAdd.{0} Real Real.instAdd) (F x y) (G x y)
+@QuantumBlockEncoding.HermiteCutRank.FactorsThrough.neg.{u_1, u_2,
+    u_3} : ∀ {α : Type u_1} {β : Type u_2} {ι : Type u_3} [inst : Fintype.{u_3} ι] {F : Matrix.{u_1, u_2, 0} α β Real},
+  @QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, u_3} α β ι inst F →
+    @QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, u_3} α β ι inst fun x y =>
+      @Neg.neg.{0} Real Real.instNeg (F x y)
+@QuantumBlockEncoding.HermiteCutRank.FactorsThrough.pointwise_mul.{u_1, u_2, u_3,
+    u_4} : ∀ {α : Type u_1} {β : Type u_2} {ι : Type u_3} {κ : Type u_4} [inst : Fintype.{u_3} ι]
+  [inst_1 : Fintype.{u_4} κ] {F G : Matrix.{u_1, u_2, 0} α β Real},
+  @QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, u_3} α β ι inst F →
+    @QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, u_4} α β κ inst_1 G →
+      @QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, max u_4 u_3} α β (Prod.{u_3, u_4} ι κ)
+        (@instFintypeProd.{u_3, u_4} ι κ inst inst_1) fun x y =>
+        @HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul) (F x y) (G x y)
+QuantumBlockEncoding.HermiteCutRank.blockIndex_lt_iff : ∀ (M x y T : Nat),
+  @LT.lt.{0} Nat instLTNat y M →
+    Iff
+      (@LT.lt.{0} Nat instLTNat
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) M x) y)
+        T)
+      (Or (@LT.lt.{0} Nat instLTNat x (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) T M))
+        (And (@Eq.{1} Nat x (@HDiv.hDiv.{0, 0, 0} Nat Nat Nat (@instHDiv.{0} Nat Nat.instDiv) T M))
+          (@LT.lt.{0} Nat instLTNat y (@HMod.hMod.{0, 0, 0} Nat Nat Nat (@instHMod.{0} Nat Nat.instMod) T M))))
+@QuantumBlockEncoding.HermiteCutRank.threshold_factorization.{u_1,
+    u_2} : ∀ {α : Type u_1} {β : Type u_2} (M T : Nat) (u : α → Nat) (v : β → Nat),
+  (∀ (y : β), @LT.lt.{0} Nat instLTNat (v y) M) →
+    @QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, 0} α β
+      (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (Fin.fintype (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) fun x y =>
+      @ite.{1} Real
+        (@LT.lt.{0} Nat instLTNat
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) M (u x)) (v y))
+          T)
+        ((@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+              (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) M (u x)) (v y)).decLt
+          T)
+        (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne))
+        (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero))
+@QuantumBlockEncoding.HermiteCutRank.threshold_complement_factorization.{u_1,
+    u_2} : ∀ {α : Type u_1} {β : Type u_2} (M T : Nat) (u : α → Nat) (v : β → Nat),
+  (∀ (y : β), @LT.lt.{0} Nat instLTNat (v y) M) →
+    @QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, 0} α β
+      (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (Fin.fintype (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) fun x y =>
+      @HSub.hSub.{0, 0, 0} Real Real Real (@instHSub.{0} Real Real.instSub)
+        (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne))
+        (@ite.{1} Real
+          (@LT.lt.{0} Nat instLTNat
+            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+              (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) M (u x)) (v y))
+            T)
+          ((@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+                (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) M (u x)) (v y)).decLt
+            T)
+          (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne))
+          (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)))
+QuantumBlockEncoding.HermiteCutRank.affine_lt_cut : ∀ (a h t : Real),
+  @LT.lt.{0} Real Real.instLT (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)) h →
+    ∀ (j : Nat),
+      Iff
+        (@LT.lt.{0} Real Real.instLT
+          (@HAdd.hAdd.{0, 0, 0} Real Real Real (@instHAdd.{0} Real Real.instAdd) a
+            (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul) h
+              (@Nat.cast.{0} Real Real.instNatCast j)))
+          t)
+        (@LT.lt.{0} Nat instLTNat j
+          (@Nat.ceil.{0} Real Real.semiring Real.partialOrder
+            (@FloorRing.toFloorSemiring.{0} Real Real.instRing Real.linearOrder Real.instFloorRing)
+            (@HDiv.hDiv.{0, 0, 0} Real Real Real
+              (@instHDiv.{0} Real (@DivInvMonoid.toDiv.{0} Real Real.instDivInvMonoid))
+              (@HSub.hSub.{0, 0, 0} Real Real Real (@instHSub.{0} Real Real.instSub) t a) h)))
+QuantumBlockEncoding.HermiteCutRank.smoothInitial_strict : ∀ (k : Nat) (p : Real),
+  @Eq.{1} Real (QuantumBlockEncoding.HermitePolynomial.smoothInitial k p)
+    (@ite.{1} Real
+      (@LT.lt.{0} Real Real.instLT p
+        (@Neg.neg.{0} Real Real.instNeg (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne))))
+      (p.decidableLT
+        (@Neg.neg.{0} Real Real.instNeg (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne))))
+      (Real.exp p)
+      (@ite.{1} Real
+        (@LT.lt.{0} Real Real.instLT p (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)))
+        (p.decidableLT (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)))
+        (@Polynomial.eval.{0} Real Real.semiring p (QuantumBlockEncoding.HermitePolynomial.sourceInterpolant k))
+        (Real.exp (@Neg.neg.{0} Real Real.instNeg p))))
+QuantumBlockEncoding.HermiteCutRank.HermiteBond : Nat → Type
+QuantumBlockEncoding.HermiteCutRank.hermiteBond_card : ∀ (k : Nat),
+  @Eq.{1} Nat
+    (@Fintype.card.{0} (QuantumBlockEncoding.HermiteCutRank.HermiteBond k)
+      (@instFintypeSum.{0, 0}
+        (Sum.{0, 0} (Prod.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Unit)
+          (Prod.{0, 0}
+            (Sum.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+              (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+            (Fin
+              (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+                (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) k)
+                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))))
+        (Prod.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Unit)
+        (@instFintypeSum.{0, 0} (Prod.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Unit)
+          (Prod.{0, 0}
+            (Sum.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+              (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+            (Fin
+              (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+                (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) k)
+                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))))
+          (@instFintypeProd.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Unit
+            (Fin.fintype (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) PUnit.fintype.{0})
+          (@instFintypeProd.{0, 0}
+            (Sum.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+              (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+            (Fin
+              (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+                (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) k)
+                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+            (@instFintypeSum.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+              (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+              (Fin.fintype (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+              (Fin.fintype (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+            (Fin.fintype
+              (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+                (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) k)
+                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))))
+        (@instFintypeProd.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Unit
+          (Fin.fintype (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) PUnit.fintype.{0})))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8))) k)
+      (@OfNat.ofNat.{0} Nat (nat_lit 12) (instOfNatNat (nat_lit 12))))
+@QuantumBlockEncoding.HermiteCutRank.hermite_affine_factorization.{u_1,
+    u_2} : ∀ {α : Type u_1} {β : Type u_2} (k M : Nat) (a h : Real),
+  @LT.lt.{0} Real Real.instLT (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)) h →
+    ∀ (u : α → Nat) (v : β → Nat),
+      (∀ (y : β), @LT.lt.{0} Nat instLTNat (v y) M) →
+        @QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, 0} α β
+          (QuantumBlockEncoding.HermiteCutRank.HermiteBond k)
+          (@instFintypeSum.{0, 0}
+            (Sum.{0, 0} (Prod.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Unit)
+              (Prod.{0, 0}
+                (Sum.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                  (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+                (Fin
+                  (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+                    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) k)
+                    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))))
+            (Prod.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Unit)
+            (@instFintypeSum.{0, 0}
+              (Prod.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Unit)
+              (Prod.{0, 0}
+                (Sum.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                  (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+                (Fin
+                  (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+                    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) k)
+                    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))))
+              (@instFintypeProd.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Unit
+                (Fin.fintype (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) PUnit.fintype.{0})
+              (@instFintypeProd.{0, 0}
+                (Sum.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                  (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+                (Fin
+                  (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+                    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) k)
+                    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+                (@instFintypeSum.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                  (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                  (Fin.fintype (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                  (Fin.fintype (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+                (Fin.fintype
+                  (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+                    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) k)
+                    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))))
+            (@instFintypeProd.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) Unit
+              (Fin.fintype (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) PUnit.fintype.{0}))
+          fun x y =>
+          QuantumBlockEncoding.HermitePolynomial.smoothInitial k
+            (@HAdd.hAdd.{0, 0, 0} Real Real Real (@instHAdd.{0} Real Real.instAdd) a
+              (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul) h
+                (@Nat.cast.{0} Real Real.instNatCast
+                  (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+                    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) M (u x)) (v y)))))
+@QuantumBlockEncoding.HermiteCutRank.hermite_affine_cut_rank_le.{u_1,
+    u_2} : ∀ {α : Type u_1} {β : Type u_2} [inst : Fintype.{u_2} β] (k M : Nat) (a h : Real),
+  @LT.lt.{0} Real Real.instLT (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)) h →
+    ∀ (u : α → Nat) (v : β → Nat),
+      (∀ (y : β), @LT.lt.{0} Nat instLTNat (v y) M) →
+        @LE.le.{0} Nat instLENat
+          (@Matrix.rank.{u_1, u_2, 0} α β Real inst Real.instCommSemiring fun x y =>
+            QuantumBlockEncoding.HermitePolynomial.smoothInitial k
+              (@HAdd.hAdd.{0, 0, 0} Real Real Real (@instHAdd.{0} Real Real.instAdd) a
+                (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul) h
+                  (@Nat.cast.{0} Real Real.instNatCast
+                    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+                      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) M (u x)) (v y))))))
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+              (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8))) k)
+            (@OfNat.ofNat.{0} Nat (nat_lit 12) (instOfNatNat (nat_lit 12))))
+@QuantumBlockEncoding.HermiteCutRank.FactorsThrough.scale.{u_1, u_2,
+    u_3} : ∀ {α : Type u_1} {β : Type u_2} {ι : Type u_3} [inst : Fintype.{u_3} ι] {F : Matrix.{u_1, u_2, 0} α β Real},
+  @QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, u_3} α β ι inst F →
+    ∀ (c : Real),
+      @QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, u_3} α β ι inst fun x y =>
+        @HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul) c (F x y)
+'QuantumBlockEncoding.HermiteCutRank.FactorsThrough' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.FactorsThrough.rank_le' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.polynomial_add_factorization' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.polynomial_add_rank_le' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.hermite_polynomial_add_rank_le' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.product_factorization' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.exponential_add_factorization' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.FactorsThrough.add' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.FactorsThrough.neg' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.FactorsThrough.pointwise_mul' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.blockIndex_lt_iff' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.threshold_factorization' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.threshold_complement_factorization' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.affine_lt_cut' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.smoothInitial_strict' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.HermiteBond' does not depend on any axioms
+'QuantumBlockEncoding.HermiteCutRank.hermiteBond_card' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.hermite_affine_factorization' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.hermite_affine_cut_rank_le' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.FactorsThrough.scale' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]

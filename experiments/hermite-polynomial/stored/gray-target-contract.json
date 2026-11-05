@@ -1,0 +1,18 @@
+{
+  "schema_version": 2,
+  "status": "STATEMENT_SEALED; internal provider, not paper Source Anchor",
+  "task": "SP-HERMITE-POLY-002",
+  "direction_fingerprint": "explicit-adjacent-gray-target-recursion",
+  "parent": "QuantumBlockEncoding.GrayBasis.adjacent",
+  "implementation": "experiments/hermite-polynomial/stored/GrayTarget.lean",
+  "definition_kind": "literal recursion on width and first-index parity",
+  "contract": "For first,second : Fin (2^n) with first.val+1=second.val, produce a Fin n target such that GrayBasis.equiv n second = xBasisAction target (GrayBasis.equiv n first). Even first index uses wire zero; odd first recurses on both half-indices and increments the returned wire. No Classical.choose for target discovery.",
+  "binder_audit": {"n_first_second": "TYPING", "adjacency": "provider input specifying an adjacent elimination record, not an extra scientific-root assumption"},
+  "resource_model": "unit integer words, quotient by 2, remainder modulo 2 and equality tests counted explicitly; actual same returned Discovery record",
+  "bounds": {"quotients": "<= 2*n", "remainders": "<= n", "comparisons": "<= n"},
+  "pre_proof_extension": "Materialize Gray bits by charged recursive quotient/head parity computations; each returned bit equals GrayBasis.equiv, stored vector equals the original little-endian Gray basis word. Local integer arithmetic overcharged in field tag; ordinary full cost <=8*n*(n+9). This extension is sealed before bit/word proof search.",
+  "omissions": ["word bit complexity", "argument/proof erasure", "allocation and address bookkeeping", "angle generation and instantiation", "full SO emitter and final placement"],
+  "semantic_boundary": "named little-endian PrimitiveBasis wires; original scientific source register adapter remains unchanged",
+  "tests_required": ["even edge target zero", "odd edge target one", "carry chain target two", "zero-width adjacency impossible"],
+  "promotion": "focused Lean and axiom check first; production integration and independent admission pending"
+}

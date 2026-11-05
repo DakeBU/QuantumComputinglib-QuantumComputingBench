@@ -1,0 +1,103 @@
+{
+  "module": "QuantumBlockEncoding/GrayBasis.lean",
+  "source_id": "aspbe-local-gray-basis",
+  "source_statement": "For every natural width n, Gray labels below2^n and named little-endian n-bit functions are recursively bijective by G(n+1,2q+b)=(b xor(q mod2),G(n,q)), including n=0. The parity twist is an involution; arithmetic head function is defined on all natural indices and has even-flip/odd-fixed transitions. Every pair of consecutive bounded labels differs by exactly one named wire flip. No wraparound adjacency, selected closed-form target, physical operator/circuit/export or cost statement.",
+  "source_anchor": "docs/lessons/gray-little-endian-order.md: Bits and labels through Four views and their limits; reviews/publication/gray-basis/source-contract.json",
+  "lesson_path": "docs/lessons/gray-little-endian-order.md",
+  "declarations": [
+    "QuantumBlockEncoding.GrayBasis.twist",
+    "QuantumBlockEncoding.GrayBasis.equiv",
+    "QuantumBlockEncoding.GrayBasis.headBit",
+    "QuantumBlockEncoding.GrayBasis.equiv_head",
+    "QuantumBlockEncoding.GrayBasis.equiv_tail",
+    "QuantumBlockEncoding.GrayBasis.headBit_even",
+    "QuantumBlockEncoding.GrayBasis.headBit_odd",
+    "QuantumBlockEncoding.GrayBasis.adjacent"
+  ],
+  "obligation_map": [
+    {
+      "kind": "proof-edge",
+      "source_obligation": "local-gray:twist; parity involution and recursive bijection",
+      "declarations": [
+        "QuantumBlockEncoding.GrayBasis.twist",
+        "QuantumBlockEncoding.GrayBasis.equiv"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "local-gray:head-tail; complete bounded recursion and natural head arithmetic extension",
+      "declarations": [
+        "QuantumBlockEncoding.GrayBasis.headBit",
+        "QuantumBlockEncoding.GrayBasis.equiv_head",
+        "QuantumBlockEncoding.GrayBasis.equiv_tail"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "local-gray:parity-transitions; even and odd cases",
+      "declarations": [
+        "QuantumBlockEncoding.GrayBasis.headBit_even",
+        "QuantumBlockEncoding.GrayBasis.headBit_odd"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "local-gray:adjacency; parity induction and finite legal bounds",
+      "declarations": [
+        "QuantumBlockEncoding.GrayBasis.adjacent"
+      ]
+    }
+  ],
+  "assumption_deltas": [
+    {
+      "classification": "same",
+      "source": "n natural; all legal labels i<2^n including n=0 single label",
+      "formal": "n:Nat,Fin(2^n),PrimitiveBasis n=Fin n→Fin2",
+      "explanation": "Exact carriers and LE head/tail order, no nonempty/rank/positivity premise."
+    },
+    {
+      "classification": "same",
+      "source": "Head transitions for any natural integer under even/odd remainder",
+      "formal": "index:Nat,index%2=0 or1; headBit explicit quotient/remainder",
+      "explanation": "Arithmetic extension does not invent finite register values."
+    },
+    {
+      "classification": "same",
+      "source": "Adjacent bounded labels first+1=second",
+      "formal": "first second:Fin(2^n),next:first.val+1=second.val",
+      "explanation": "No last-to-first cyclic claim. Flip target must be a legal named wire; target algorithm not supplied."
+    }
+  ],
+  "graph_contribution": {
+    "baseline": "305952f4291d7be530c76f51f7e98d77faf1cf45",
+    "classes": [
+      "reorganisation",
+      "bridge"
+    ],
+    "node_ids": [
+      "module:QuantumBlockEncoding.GrayBasis",
+      "declaration:QuantumBlockEncoding.GrayBasis.twist",
+      "declaration:QuantumBlockEncoding.GrayBasis.equiv",
+      "declaration:QuantumBlockEncoding.GrayBasis.headBit",
+      "declaration:QuantumBlockEncoding.GrayBasis.equiv_head",
+      "declaration:QuantumBlockEncoding.GrayBasis.equiv_tail",
+      "declaration:QuantumBlockEncoding.GrayBasis.headBit_even",
+      "declaration:QuantumBlockEncoding.GrayBasis.headBit_odd",
+      "declaration:QuantumBlockEncoding.GrayBasis.adjacent"
+    ],
+    "views": [
+      "source-construction-graph",
+      "lean-graph",
+      "compressed-quantum-spine",
+      "functor-hypergraph"
+    ],
+    "preserved_contract": "Existing complete module statements and proof bytes unchanged. Local retrospective parity proof and all8 public declarations covered. Source topology distinct from implementation provider edges; no elaborated dependency or categorical functor claim.",
+    "remaining_boundary": "No physical selected-control/X operator/circuit refinement, arbitrary closed-form target cost, gate/depth/oracle/precision or exporter acceptance. Other changed-module and reader/purification debt remains."
+  },
+  "formalizer": "root-retrospective-gray-contract-author-20261008; historical proof authors retained by Git",
+  "residual_boundary": "Whole current8-declaration coordinate module only. Actual transitive proof trust must be checked independently. No numerical/Hermite ROOT/main promotion.",
+  "decoder_evidence": "reviews/publication/gray-basis/decoder-evidence.json",
+  "reviewer_evidence": "reviews/publication/gray-basis/reviewer-evidence.json",
+  "binding_sha256": "f5cb8ba0cd715bcd9cee90de68237ffce6931087b9b955897fa3743f60c1e9e0",
+  "status": "CANDIDATE_NOT_ADMITTED"
+}

@@ -1,0 +1,52 @@
+name: Cubic c29 independent diagnostic WIP
+
+on:
+  pull_request:
+    paths:
+      - "tools/cubic_c29_diagnostic/**"
+      - ".github/workflows/cubic-c29-diagnostic.yml"
+      - "QuantumBlockEncoding/CubicStatePreparation.lean"
+      - "QuantumBlockEncoding/BlockEncodingClassics.lean"
+      - "QuantumBlockEncoding/BlockEncoding.lean"
+      - "QuantumBlockEncoding/Circuit.lean"
+      - "QuantumBlockEncoding/Resources.lean"
+      - "QuantumBlockEncoding/Core.lean"
+      - "lean-toolchain"
+      - "lake-manifest.json"
+      - "lakefile.lean"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cubic-c29-diagnostic-${{ github.sha }}
+  cancel-in-progress: false
+
+jobs:
+  cubic-c29-diagnostic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Python-only diagnostic implementation tests
+        run: python3 -m unittest discover -s tools/cubic_c29_diagnostic -p 'test*.py' -v
+      - name: Set up Lean and Mathlib cache
+        uses: leanprover/lean-action@v1
+        with:
+          auto-config: false
+          use-github-cache: true
+          use-mathlib-cache: true
+      - name: Prepare five local inherited providers only
+        run: lake build QuantumBlockEncoding.BlockEncodingClassics
+      - name: Run fresh formal diagnostic, not admission
+        run: lake env python3 tools/cubic_c29_diagnostic/runner.py
+      - name: Upload only sanitized diagnostic derivatives
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cubic-c29-diagnostic-${{ github.sha }}
+          path: _out/cubic-c29-diagnostic/public/
+          if-no-files-found: warn
+          retention-days: 7

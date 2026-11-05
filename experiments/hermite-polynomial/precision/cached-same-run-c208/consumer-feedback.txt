@@ -1,0 +1,13 @@
+produceCachedStored_same_run : ∀ (k n : ℕ) (R delta : ℚ),
+  have result := produceCachedStored k n R delta;
+  have D := assemblySize k delta;
+  denoteChain result.value = actualChain k n R delta ∧
+    StoredRectangularGivens.total result.cost ≤
+      816 * (k + 1) ^ 2 + StoredRectangularGivens.total (rightSetup n R delta).cost + 11 * D +
+                  9 * HermitePiecewiseStored.passContainers n D +
+                20 * D ^ 2 +
+              30 * D +
+            5 * n ^ 2 +
+          7 * n +
+        31
+'HermiteCachedPiecewiseStored.produceCachedStored_same_run' depends on axioms: [propext, Classical.choice, Quot.sound]

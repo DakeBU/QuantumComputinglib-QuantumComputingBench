@@ -1,0 +1,201 @@
+QuantumBlockEncoding.TensorTrainWord.toBasis {n : Nat} :
+  QuantumBlockEncoding.TensorTrainCanonical.Word n → QuantumBlockEncoding.PrimitiveBasis n
+'QuantumBlockEncoding.TensorTrainWord.toBasis' depends on axioms: [propext]
+QuantumBlockEncoding.TensorTrainWord.toBasis_wordOfBasis {n : Nat} (x : QuantumBlockEncoding.PrimitiveBasis n) :
+  @Eq.{1} (QuantumBlockEncoding.PrimitiveBasis n)
+    (@QuantumBlockEncoding.TensorTrainWord.toBasis n (@QuantumBlockEncoding.TensorTrainSchedule.wordOfBasis n x)) x
+'QuantumBlockEncoding.TensorTrainWord.toBasis_wordOfBasis' depends on axioms: [propext, Quot.sound.{u}]
+QuantumBlockEncoding.TensorTrainWord.wordOfBasis_toBasis {n : Nat}
+  (x : QuantumBlockEncoding.TensorTrainCanonical.Word n) :
+  @Eq.{1} (QuantumBlockEncoding.TensorTrainCanonical.Word n)
+    (@QuantumBlockEncoding.TensorTrainSchedule.wordOfBasis n (@QuantumBlockEncoding.TensorTrainWord.toBasis n x)) x
+'QuantumBlockEncoding.TensorTrainWord.wordOfBasis_toBasis' depends on axioms: [propext]
+QuantumBlockEncoding.TensorTrainWord.basisEquiv (n : Nat) :
+  Equiv.{1, 1} (QuantumBlockEncoding.TensorTrainCanonical.Word n) (QuantumBlockEncoding.PrimitiveBasis n)
+'QuantumBlockEncoding.TensorTrainWord.basisEquiv' depends on axioms: [propext, Quot.sound.{u}]
+QuantumBlockEncoding.TensorTrainWord.reverseBasis (n : Nat) :
+  Equiv.{1, 1} (QuantumBlockEncoding.PrimitiveBasis n) (QuantumBlockEncoding.PrimitiveBasis n)
+'QuantumBlockEncoding.TensorTrainWord.reverseBasis' depends on axioms: [propext, Quot.sound.{u}]
+QuantumBlockEncoding.TensorTrainWord.sampleEquiv (n : Nat) :
+  Equiv.{1, 1} (QuantumBlockEncoding.TensorTrainCanonical.Word n) (Fin (QuantumBlockEncoding.gridSize n))
+'QuantumBlockEncoding.TensorTrainWord.sampleEquiv' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+QuantumBlockEncoding.TensorTrainWord.toBits {n : Nat} : QuantumBlockEncoding.TensorTrainCanonical.Word n → List.{0} Bool
+'QuantumBlockEncoding.TensorTrainWord.toBits' depends on axioms: [propext]
+QuantumBlockEncoding.TensorTrainWord.toBits_length {n : Nat} (x : QuantumBlockEncoding.TensorTrainCanonical.Word n) :
+  @Eq.{1} Nat (@List.length.{0} Bool (@QuantumBlockEncoding.TensorTrainWord.toBits n x)) n
+'QuantumBlockEncoding.TensorTrainWord.toBits_length' depends on axioms: [propext]
+QuantumBlockEncoding.TensorTrainWord.primitive_snoc_value (n : Nat) (x : QuantumBlockEncoding.PrimitiveBasis n)
+  (bit : Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) :
+  @Eq.{1} Nat
+    (@Fin.val
+      (QuantumBlockEncoding.gridSize
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+      (@DFunLike.coe.{1, 1, 1}
+        (Equiv.{1, 1}
+          (QuantumBlockEncoding.PrimitiveBasis
+            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+              (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+          (Fin
+            (QuantumBlockEncoding.gridSize
+              (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+                (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))))
+        (QuantumBlockEncoding.PrimitiveBasis
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+        (fun x =>
+          Fin
+            (QuantumBlockEncoding.gridSize
+              (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+                (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))
+        (@EquivLike.toFunLike.{1, 1, 1}
+          (Equiv.{1, 1}
+            (QuantumBlockEncoding.PrimitiveBasis
+              (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+                (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+            (Fin
+              (QuantumBlockEncoding.gridSize
+                (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+                  (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))))
+          (QuantumBlockEncoding.PrimitiveBasis
+            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+              (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+          (Fin
+            (QuantumBlockEncoding.gridSize
+              (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+                (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))
+          (@Equiv.instEquivLike.{1, 1}
+            (QuantumBlockEncoding.PrimitiveBasis
+              (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+                (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+            (Fin
+              (QuantumBlockEncoding.gridSize
+                (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+                  (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))))
+        (QuantumBlockEncoding.primitiveBasisLEEquiv
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+        (@Fin.snoc.{1} n (fun a => Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) x bit)))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@Fin.val (QuantumBlockEncoding.gridSize n)
+        (@DFunLike.coe.{1, 1, 1}
+          (Equiv.{1, 1} (QuantumBlockEncoding.PrimitiveBasis n) (Fin (QuantumBlockEncoding.gridSize n)))
+          (QuantumBlockEncoding.PrimitiveBasis n) (fun x => Fin (QuantumBlockEncoding.gridSize n))
+          (@EquivLike.toFunLike.{1, 1, 1}
+            (Equiv.{1, 1} (QuantumBlockEncoding.PrimitiveBasis n) (Fin (QuantumBlockEncoding.gridSize n)))
+            (QuantumBlockEncoding.PrimitiveBasis n) (Fin (QuantumBlockEncoding.gridSize n))
+            (@Equiv.instEquivLike.{1, 1} (QuantumBlockEncoding.PrimitiveBasis n)
+              (Fin (QuantumBlockEncoding.gridSize n))))
+          (QuantumBlockEncoding.primitiveBasisLEEquiv n) x))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+          (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) n)
+        (@Fin.val (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) bit)))
+'QuantumBlockEncoding.TensorTrainWord.primitive_snoc_value' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.TensorTrainWord.sampleEquiv_value {n : Nat}
+  (x : QuantumBlockEncoding.TensorTrainCanonical.Word n) :
+  @Eq.{1} Nat
+    (@Fin.val (QuantumBlockEncoding.gridSize n)
+      (@DFunLike.coe.{1, 1, 1}
+        (Equiv.{1, 1} (QuantumBlockEncoding.TensorTrainCanonical.Word n) (Fin (QuantumBlockEncoding.gridSize n)))
+        (QuantumBlockEncoding.TensorTrainCanonical.Word n) (fun x => Fin (QuantumBlockEncoding.gridSize n))
+        (@EquivLike.toFunLike.{1, 1, 1}
+          (Equiv.{1, 1} (QuantumBlockEncoding.TensorTrainCanonical.Word n) (Fin (QuantumBlockEncoding.gridSize n)))
+          (QuantumBlockEncoding.TensorTrainCanonical.Word n) (Fin (QuantumBlockEncoding.gridSize n))
+          (@Equiv.instEquivLike.{1, 1} (QuantumBlockEncoding.TensorTrainCanonical.Word n)
+            (Fin (QuantumBlockEncoding.gridSize n))))
+        (QuantumBlockEncoding.TensorTrainWord.sampleEquiv n) x))
+    (QuantumBlockEncoding.HermiteBoundaryInjection.wordValue (@QuantumBlockEncoding.TensorTrainWord.toBits n x))
+'QuantumBlockEncoding.TensorTrainWord.sampleEquiv_value' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.TensorTrainWord.wordSampleIndex_eq (n : Nat)
+  (x :
+    QuantumBlockEncoding.TensorTrainCanonical.Word
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))) :
+  @Eq.{1}
+    (Fin
+      (QuantumBlockEncoding.gridSize
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))
+    (QuantumBlockEncoding.HermiteBoundaryInjection.wordSampleIndex n
+      (@QuantumBlockEncoding.TensorTrainWord.toBits
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+        x)
+      ⋯)
+    (@DFunLike.coe.{1, 1, 1}
+      (Equiv.{1, 1}
+        (QuantumBlockEncoding.TensorTrainCanonical.Word
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+        (Fin
+          (QuantumBlockEncoding.gridSize
+            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+              (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))))
+      (QuantumBlockEncoding.TensorTrainCanonical.Word
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+      (fun x =>
+        Fin
+          (QuantumBlockEncoding.gridSize
+            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+              (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))
+      (@EquivLike.toFunLike.{1, 1, 1}
+        (Equiv.{1, 1}
+          (QuantumBlockEncoding.TensorTrainCanonical.Word
+            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+              (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+          (Fin
+            (QuantumBlockEncoding.gridSize
+              (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+                (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))))
+        (QuantumBlockEncoding.TensorTrainCanonical.Word
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+        (Fin
+          (QuantumBlockEncoding.gridSize
+            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+              (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))
+        (@Equiv.instEquivLike.{1, 1}
+          (QuantumBlockEncoding.TensorTrainCanonical.Word
+            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+              (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+          (Fin
+            (QuantumBlockEncoding.gridSize
+              (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+                (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))))
+      (QuantumBlockEncoding.TensorTrainWord.sampleEquiv
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+      x)
+'QuantumBlockEncoding.TensorTrainWord.wordSampleIndex_eq' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.TensorTrainWord.sampleEquiv_public {n : Nat} (x : QuantumBlockEncoding.PrimitiveBasis n) :
+  @Eq.{1} (Fin (QuantumBlockEncoding.gridSize n))
+    (@DFunLike.coe.{1, 1, 1}
+      (Equiv.{1, 1} (QuantumBlockEncoding.TensorTrainCanonical.Word n) (Fin (QuantumBlockEncoding.gridSize n)))
+      (QuantumBlockEncoding.TensorTrainCanonical.Word n) (fun x => Fin (QuantumBlockEncoding.gridSize n))
+      (@EquivLike.toFunLike.{1, 1, 1}
+        (Equiv.{1, 1} (QuantumBlockEncoding.TensorTrainCanonical.Word n) (Fin (QuantumBlockEncoding.gridSize n)))
+        (QuantumBlockEncoding.TensorTrainCanonical.Word n) (Fin (QuantumBlockEncoding.gridSize n))
+        (@Equiv.instEquivLike.{1, 1} (QuantumBlockEncoding.TensorTrainCanonical.Word n)
+          (Fin (QuantumBlockEncoding.gridSize n))))
+      (QuantumBlockEncoding.TensorTrainWord.sampleEquiv n)
+      (@QuantumBlockEncoding.TensorTrainSchedule.wordOfBasis n fun i => x (@Fin.rev n i)))
+    (@DFunLike.coe.{1, 1, 1}
+      (Equiv.{1, 1} (QuantumBlockEncoding.PrimitiveBasis n) (Fin (QuantumBlockEncoding.gridSize n)))
+      (QuantumBlockEncoding.PrimitiveBasis n) (fun x => Fin (QuantumBlockEncoding.gridSize n))
+      (@EquivLike.toFunLike.{1, 1, 1}
+        (Equiv.{1, 1} (QuantumBlockEncoding.PrimitiveBasis n) (Fin (QuantumBlockEncoding.gridSize n)))
+        (QuantumBlockEncoding.PrimitiveBasis n) (Fin (QuantumBlockEncoding.gridSize n))
+        (@Equiv.instEquivLike.{1, 1} (QuantumBlockEncoding.PrimitiveBasis n) (Fin (QuantumBlockEncoding.gridSize n))))
+      (QuantumBlockEncoding.primitiveBasisLEEquiv n) x)
+'QuantumBlockEncoding.TensorTrainWord.sampleEquiv_public' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]

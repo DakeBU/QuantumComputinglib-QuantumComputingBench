@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "attempts": [
+    {
+      "class": "IMPLEMENTATION_FAILED",
+      "session": 5824,
+      "exit_code": 1,
+      "location": "FiniteExpDegree.lean factorial_block initial proof",
+      "diagnostic": "linarith failed to find a contradiction: factorial*d^d < d^d despite factorial>=1",
+      "cause": "Natural power expression did not serve the nonlinear arithmetic proof as intended",
+      "repair": "Use Nat.mul_le_mul_right (d^d) hf, then simp the one factor",
+      "mathematical_route_retired": false,
+      "salvage": "Same factorial-block argument retained and fully compiled"
+    },
+    {
+      "class": "API_BLOCKED",
+      "session": 5824,
+      "exit_code": 1,
+      "location": "FiniteExpDegree.lean radius_degree initial rational-cast bound",
+      "diagnostic": "not a positivity goal",
+      "cause": "After push_cast the target was an order comparison, not a positivity target",
+      "repair": "linarith using Nat.cast_nonneg b",
+      "mathematical_route_retired": false,
+      "salvage": "Exact sealed bound retained"
+    }
+  ],
+  "transient_error_axioms": "The failing initial source printed sorryAx from Lean error recovery. It was never accepted as a proof/cache or reported as compiled closure; final full replay is exit 0 and prints no sorryAx.",
+  "final_failure_class": "NONE",
+  "regressions": {
+    "positive_q": "kernel example rejects",
+    "zero_epsilon": "kernel example rejects",
+    "negative_epsilon": "kernel example rejects",
+    "insufficient_degree": "existing checker at q=-1,epsilon=1/1000,T=10,n=0 rejects",
+    "T_zero": "kernel and interpreter examples retain clipped enclosure, do not pretend zero-width",
+    "epsilon_2_pow_neg_80": "kernel instantiation of actual checked_complete, no factorial/Taylor evaluation cap",
+    "enormous_negative_q": "interpreter calls actual checker with q=-10^1000,T=80,n=25761; returns clipped [0,2^-80]"
+  },
+  "privacy": "No literal local path persisted; final gate output sanitized before this packet was written."
+}

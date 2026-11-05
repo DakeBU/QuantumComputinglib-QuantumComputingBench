@@ -1,0 +1,37 @@
+# New independent optional workflow proposal only. No existing file is edited.
+name: C31 exact proof kernel successor WIP
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: c31-kernel-proof-v1-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  c31-kernel-proof-v1:
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v5
+      - name: Python-only exact-token and strict negative tests
+        run: python3 -B -m unittest discover -s tools/c31_kernel_proof_v1 -p test_kernel.py -v
+      - name: Pinned Lean and inherited dependency caches
+        uses: leanprover/lean-action@v1
+        with:
+          auto-config: false
+          use-github-cache: true
+          use-mathlib-cache: true
+      - name: Inherited providers only, never build the three targets here
+        run: lake build QuantumBlockEncoding.ReversibleClassical QuantumBlockEncoding.PrimitiveBasisLE QuantumBlockEncoding.CubicStatePreparation
+      - name: Isolated exact proof-token candidate and complete actual-owned comparison
+        run: lake env python3 -B tools/c31_kernel_proof_v1/runtime.py
+      - name: Only sanitized derivative artifacts, including failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: c31-kernel-proof-v1-${{ github.sha }}
+          path: _out/c31-kernel-proof-v1/public/
+          if-no-files-found: warn
+          retention-days: 7

@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "parent": "stored-seal-v2.json",
+  "unchanged_source_target": true,
+  "exact_signatures": [
+    "translationCoreQ_cast (d : Nat) (w : Rational) : entrywise_real_cast(translationCoreQ d w)=HermiteTransferCores.translationCore d (w:Real)",
+    "polynomial_mask_free_contract (d n : Nat) (origin step : Rational) (coeff : Fin(d+1)->Rational) (x : Word(n+1)) : contract(ofKernel(polynomialKernel d step) (featuresQ_cast d origin) (coeff_cast) 0 n) x 0 0 = real_cast(sum_i coeff_i*(origin+step*wordValue x)^i)"
+  ],
+  "binder_audit": {"TYPING": ["degree,width,finite word", "rational origin/step/coefficient vector"], "SOURCE": [], "EXCESS": [], "scope": "Auxiliary generic polynomial kernel, not a source Anchor assuming correct Hermite coefficients. Actual source middle coefficients must be separately produced and proved, not inserted as public hypothesis."},
+  "reuse": "Exact rational entry cast then existing HermiteTransferCores.rowFeatures_translationCore; no duplicated proof of binomial theorem or quantum foundation.",
+  "remaining": ["actual source rational coefficient generation", "mask-product/directsum contraction", "stored polynomial generation/cost", "complete actual source root"],
+  "scientific_ROOT": false
+}

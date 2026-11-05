@@ -235,7 +235,7 @@ Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:103](../../../../libr
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:143](../../../../library/modules/cubicamplitudeprimitive/#decl-quantumblockencoding-cubicdiagonaloracle-cubicn2primitiveflatunitary). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:145](../../../../library/modules/cubicamplitudeprimitive/#decl-quantumblockencoding-cubicdiagonaloracle-cubicn2primitiveflatunitary). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.CubicDiagonalOracle.cubicN2PrimitiveFlatUnitary_unitary" (lean := "QuantumBlockEncoding.CubicDiagonalOracle.cubicN2PrimitiveFlatUnitary_unitary")
@@ -249,7 +249,7 @@ Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:143](../../../../libr
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:148](../../../../library/modules/cubicamplitudeprimitive/#decl-quantumblockencoding-cubicdiagonaloracle-cubicn2primitiveflatunitary-unitary). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:150](../../../../library/modules/cubicamplitudeprimitive/#decl-quantumblockencoding-cubicdiagonaloracle-cubicn2primitiveflatunitary-unitary). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.CubicDiagonalOracle.cubicN2PrimitiveCleanIndex" (lean := "QuantumBlockEncoding.CubicDiagonalOracle.cubicN2PrimitiveCleanIndex")
@@ -263,7 +263,7 @@ Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:148](../../../../libr
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:154](../../../../library/modules/cubicamplitudeprimitive/#decl-quantumblockencoding-cubicdiagonaloracle-cubicn2primitivecleanindex). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:156](../../../../library/modules/cubicamplitudeprimitive/#decl-quantumblockencoding-cubicdiagonaloracle-cubicn2primitivecleanindex). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.CubicDiagonalOracle.cubicN2PrimitiveFlatUnitary_cleanBlock" (lean := "QuantumBlockEncoding.CubicDiagonalOracle.cubicN2PrimitiveFlatUnitary_cleanBlock")
@@ -277,7 +277,7 @@ Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:154](../../../../libr
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:157](../../../../library/modules/cubicamplitudeprimitive/#decl-quantumblockencoding-cubicdiagonaloracle-cubicn2primitiveflatunitary-cleanblock). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:159](../../../../library/modules/cubicamplitudeprimitive/#decl-quantumblockencoding-cubicdiagonaloracle-cubicn2primitiveflatunitary-cleanblock). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.CubicDiagonalOracle.cubicN2ComplexTarget" (lean := "QuantumBlockEncoding.CubicDiagonalOracle.cubicN2ComplexTarget")
@@ -291,7 +291,7 @@ Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:157](../../../../libr
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:168](../../../../library/modules/cubicamplitudeprimitive/#decl-quantumblockencoding-cubicdiagonaloracle-cubicn2complextarget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:170](../../../../library/modules/cubicamplitudeprimitive/#decl-quantumblockencoding-cubicdiagonaloracle-cubicn2complextarget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.CubicDiagonalOracle.cubicN2PrimitivePresentation" (lean := "QuantumBlockEncoding.CubicDiagonalOracle.cubicN2PrimitivePresentation")
@@ -305,7 +305,7 @@ Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:168](../../../../libr
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:175](../../../../library/modules/cubicamplitudeprimitive/#decl-quantumblockencoding-cubicdiagonaloracle-cubicn2primitivepresentation). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:177](../../../../library/modules/cubicamplitudeprimitive/#decl-quantumblockencoding-cubicdiagonaloracle-cubicn2primitivepresentation). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.CubicDiagonalOracle.cubicN2PrimitiveResource" (lean := "QuantumBlockEncoding.CubicDiagonalOracle.cubicN2PrimitiveResource")
@@ -319,7 +319,7 @@ Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:175](../../../../libr
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:183](../../../../library/modules/cubicamplitudeprimitive/#decl-quantumblockencoding-cubicdiagonaloracle-cubicn2primitiveresource). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:185](../../../../library/modules/cubicamplitudeprimitive/#decl-quantumblockencoding-cubicdiagonaloracle-cubicn2primitiveresource). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.CubicDiagonalOracle.cubicN2PrimitiveOperatorCandidate" (lean := "QuantumBlockEncoding.CubicDiagonalOracle.cubicN2PrimitiveOperatorCandidate")
@@ -333,7 +333,7 @@ Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:183](../../../../libr
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:186](../../../../library/modules/cubicamplitudeprimitive/#decl-quantumblockencoding-cubicdiagonaloracle-cubicn2primitiveoperatorcandidate). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:188](../../../../library/modules/cubicamplitudeprimitive/#decl-quantumblockencoding-cubicdiagonaloracle-cubicn2primitiveoperatorcandidate). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.CubicDiagonalOracle.cubicN2PrimitiveVerifiedBlockEncoding" (lean := "QuantumBlockEncoding.CubicDiagonalOracle.cubicN2PrimitiveVerifiedBlockEncoding")
@@ -347,7 +347,7 @@ Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:186](../../../../libr
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:209](../../../../library/modules/cubicamplitudeprimitive/#decl-quantumblockencoding-cubicdiagonaloracle-cubicn2primitiveverifiedblockencoding). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:211](../../../../library/modules/cubicamplitudeprimitive/#decl-quantumblockencoding-cubicdiagonaloracle-cubicn2primitiveverifiedblockencoding). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.CubicDiagonalOracle.cubicN2Primitive_oracleCalls_eq_zero" (lean := "QuantumBlockEncoding.CubicDiagonalOracle.cubicN2Primitive_oracleCalls_eq_zero")
@@ -361,7 +361,7 @@ Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:209](../../../../libr
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:219](../../../../library/modules/cubicamplitudeprimitive/#decl-quantumblockencoding-cubicdiagonaloracle-cubicn2primitive-oraclecalls-eq-zero). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:221](../../../../library/modules/cubicamplitudeprimitive/#decl-quantumblockencoding-cubicdiagonaloracle-cubicn2primitive-oraclecalls-eq-zero). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.CubicDiagonalOracle.cubicN2Primitive_resource_faithful" (lean := "QuantumBlockEncoding.CubicDiagonalOracle.cubicN2Primitive_resource_faithful")
@@ -375,7 +375,7 @@ Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:219](../../../../libr
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:224](../../../../library/modules/cubicamplitudeprimitive/#decl-quantumblockencoding-cubicdiagonaloracle-cubicn2primitive-resource-faithful). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/CubicAmplitudePrimitive.lean:226](../../../../library/modules/cubicamplitudeprimitive/#decl-quantumblockencoding-cubicdiagonaloracle-cubicn2primitive-resource-faithful). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 # QuantumBlockEncoding/CubicStatePreparation.lean

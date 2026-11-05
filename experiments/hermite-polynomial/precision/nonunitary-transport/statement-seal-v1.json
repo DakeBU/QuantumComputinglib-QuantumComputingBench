@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "level": "C_INTERNAL_PROVIDER_NOT_SOURCE_ANCHOR",
+  "direction_fingerprint": "kernel-nonunitary-surrogate-product-amplification",
+  "base_commit": "667cc30e3f52be2fe64233a27d40e24a9864413b",
+  "parent_design": "experiments/hermite-polynomial/precision/next-circuit-frontier-design.json",
+  "parent_design_sha256": "664809e1fd69c2918e4575087a630fbb1589069715cb74cd94659ccd42b7be1c",
+  "formula": {
+    "Stage": "For a normed ring R with norm-one identity, literal triple (nominal:R,surrogate:R,error:Real). No proof fields in Stage.",
+    "Valid": "Every stage has 0<=error, norm(nominal)<=1, norm(surrogate-nominal)<=error.",
+    "nominalProduct": "[] -> 1; s::rest -> nominalProduct(rest)*s.nominal (chronological rightmost-first action)",
+    "surrogateProduct": "[] -> 1; s::rest -> surrogateProduct(rest)*s.surrogate",
+    "growth": "[] -> 1; s::rest -> growth(rest)*(1+s.error)"
+  },
+  "intended_signatures": [
+    "nominalProduct_norm_le_one (stages:List(Stage R)) (h:Valid stages) : norm(nominalProduct stages)<=1",
+    "surrogateProduct_norm_le_growth (stages:List(Stage R)) (h:Valid stages) : norm(surrogateProduct stages)<=growth stages",
+    "product_error_le (stages:List(Stage R)) (h:Valid stages) : norm(surrogateProduct stages-nominalProduct stages)<=growth stages-1"
+  ],
+  "binder_audit": {
+    "R_and_normed_ring_norm_one_classes": "TYPING",
+    "stages": "TYPING literal finite ordered data",
+    "Valid": "INTERNAL dependency interface only; never a new source assumption. Actual local surrogate bounds must be separately supplied.",
+    "EXCESS_source_binders": "No source-facing theorem is created."
+  },
+  "proof_topology_before_search": [
+    "Triangle inequality gives norm(surrogate)<=1+error without surrogate unitarity.",
+    "Submultiplicativity gives nominal product norm<=1 and surrogate product norm<=growth.",
+    "Literal identity: Btail*Bhead-Atail*Ahead=(Btail-Atail)*Ahead+Btail*(Bhead-Ahead).",
+    "Inductively use error tail<=growth tail-1, nominal head norm<=1, and surrogate tail norm<=growth tail.",
+    "Obtain growth tail-1+growth tail*head error=growth full-1."
+  ],
+  "tests": [
+    "Empty product retains identity and zero error.",
+    "Two expanding real scalars 11/10 versus 1 have error 21/100 greater than the naive summed 20/100.",
+    "Kernel axioms and complete-source compile; no sorry/admit/source axiom/native_decide."
+  ],
+  "open_edges": [
+    "Matrix interval entry bounds to operator norm",
+    "Exact saved gate composition, wire embedding and terminal readout refinement",
+    "Actual surrogate-to-stored TT residual and source/QR/synthesis error composition",
+    "Finite-bit producer runtime, executable family acceptance, independent review and root closure"
+  ],
+  "scientific_conventions": "Original Hermite target, q0 LSB, signed/full-vector norm, all ancilla garbage retained. Generic operator lemma does not identify a target state or discard registers.",
+  "publication": "Experimental internal provider only; not public canonical admission or main merge."
+}

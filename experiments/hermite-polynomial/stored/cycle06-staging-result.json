@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "status": "PROVED_LOCAL_STAGING_ONLY",
+  "task": "SP-HERMITE-POLY-002",
+  "base_head": "8c341b099e21ca98c264076837f10787a80d0c8f",
+  "lean_version": "4.33.0",
+  "production_proof_input_digest": "5a8f47f8d0afd1d4f957e55babde52a9e9c01babf05c481b988e99ebca2f7758",
+  "normalized_supplier": {
+    "source": "experiments/hermite-polynomial/stored/NormalizedCanonical.lean",
+    "sha256": "1b9b54933a360cc5a09b5858ae7f48644804ae1876e819986a43d00437501f4e",
+    "contract": "experiments/hermite-polynomial/stored/normalized-canonical-contract.json",
+    "focused_result": "experiments/hermite-polynomial/stored/normalized-canonical-result.json",
+    "root": "QuantumBlockEncoding.StagedNormalizedCanonical.compile_certified",
+    "refinement": "QuantumBlockEncoding.StagedNormalizedCanonical.compile_value",
+    "parameters": "n_p=n+1, k,n:Nat, L:Real; sole logical source premise 0<L",
+    "delta": "One actual returned stored chain: literal normalized Hermite action without phase quotient, signed residual absorption, right-canonicity, maxBond<=D=2*k+6, ordinary polynomial cost, unchanged raw extraordinary counters.",
+    "ordinary_bound": "rawBudget k n + (n+1)*(200*D^3+141*D^2+49*D+14)+10*D^2+44*D+100"
+  },
+  "explicit_control_supplier": {
+    "source": "experiments/hermite-polynomial/stored/ExplicitControls.lean",
+    "sha256": "cda3e960dd3798f4f46dec549746d1ccbd884347d71a14e3a36c8a3517969c77",
+    "contract": "experiments/hermite-polynomial/stored/explicit-controls-contract.json",
+    "root": "QuantumBlockEncoding.HermiteExplicitControlsCandidate.selected_plane",
+    "cost_root": "QuantumBlockEncoding.HermiteExplicitControlsCandidate.selected_total_cost_le",
+    "inputs": "stored q+1-bit assignment and known target; Gray word/target production remains upstream",
+    "delta": "Explicit increasing Fin.succAbove complement table; cached wire reads supply the pattern and the actual selected-RY trace.",
+    "ordinary_bound": "(16*q+12)*2^q+5*q^2+14*q",
+    "overhead": "5*q control-table work + 6*q cached pattern work",
+    "tests": ["zero controls", "middle target skip order", "stored bit-pattern order"],
+    "boundary": "Local q is not data width. A Hermite caller must supply logarithmic bond-width relation; no generic poly(q) claim. Angle instantiation and index arithmetic excluded."
+  },
+  "numerical_mutation": {
+    "candidate": "MPS-02-SCALE-01",
+    "parent": "MPS-02",
+    "source": "experiments/hermite-polynomial/mps/scaled_canonicalize.py",
+    "sha256": "7154179bd54addf22d8cf365cc29e6b195392bee2d182989c49b5f1fa4bff879",
+    "tests": "experiments/hermite-polynomial/mps/test_scaled_canonicalize.py",
+    "tests_sha256": "a58d31a47300cc6f3ecddad09b20a5a540f3bf51094f80cbc2acc0d517b4cf33",
+    "mutation": "Positive core/residual/absorption scaling with explicit mantissa/exponent normalizer; retain old backend and failure.",
+    "baseline_failure": "failure-memory/SP-HERMITE-POLY-002-float64-norm-overflow.json",
+    "master_rerun": "All 32 MPS tests passed after final candidate freeze; six new test methods included.",
+    "large_scope": "Hermite 1023..1026 and 2049; rank-one 2048/4096/8192; dense and SVD disabled in large diagnostics",
+    "small_scope": "Independent literal Hermite source checks, signs, deficient/non-prefix/extreme/invalid cases",
+    "not_claimed": "full large-state action, uniform QR backward error, exporter integration, family bit complexity or acceptance"
+  },
+  "verification": {
+    "master_focused_commands": [
+      "lake env lean experiments/hermite-polynomial/stored/NormalizedCanonical.lean",
+      "lake env lean experiments/hermite-polynomial/stored/ExplicitControls.lean",
+      "lake env lean experiments/walsh-loader/WalshInterference.lean"
+    ],
+    "focused_exit_codes": [0, 0, 0],
+    "axioms": "Printed staged roots contain only propext, Classical.choice, Quot.sound; no sorryAx/custom axiom.",
+    "exhaustive_production_gate_command": "python website/scripts/run_lean_gate.py --output _out/goal-20261008-lean-gate.json",
+    "exhaustive_gate_exit_code": 0,
+    "compiled_production_and_test_modules": 202,
+    "report": "_out/goal-20261008-lean-gate.json",
+    "scope_warning": "202-module report excludes staging files. Focused checks cover those separately. Compilation does not imply independent source/scientific publication review."
+  },
+  "parallel_phase": {
+    "worker_invocations": 3,
+    "objectives": ["same-run normalized canonical supplier", "scaled numerical normalization", "Walsh exact interference chain"],
+    "root_additional_objective": "costed explicit control/pattern adapter",
+    "per_worker_tokens": null,
+    "model_call_count": null,
+    "efficiency_claim": "none; no matched ablation"
+  },
+  "full_root": "C2/C3/X2/ROOT remain open; exact-real quantum gate root unchanged",
+  "remaining": ["stored active-column extraction/completion", "explicit Gray target and stored SO sweep", "charged angle instantiation and final-wire placement", "finite-bit/index/transcendental work", "input/core/QR/completion/serialization/synthesis error budgets", "independent serialized family acceptance", "genuine whole-module source-blind decoding/review", "safe isolated aggregate website gate", "production graph/lesson admission and purification"],
+  "release": "No production/controller/scoring/acceptance/historical-log rewrite, scientific main merge or deployment in this bounded staging phase."
+}

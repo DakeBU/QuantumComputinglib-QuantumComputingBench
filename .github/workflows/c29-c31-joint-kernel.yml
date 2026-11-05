@@ -1,0 +1,39 @@
+name: Joint CSP C31 fresh kernel diagnostic WIP
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/c29-c31-joint-kernel.yml'
+      - 'tools/c29_c31_joint_kernel_v1/**'
+permissions:
+  contents: read
+concurrency:
+  group: c29-c31-joint-kernel-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  joint-fresh-provider-consumer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+      - name: Seventeen joint Python guards and baseline replays, not joint Lean
+        env:
+          C31_JOINT_TEST_PROJECT: ${{ github.workspace }}
+        run: python3 -B -m unittest discover -s tools/c29_c31_joint_kernel_v1 -p test_joint.py -v
+      - uses: leanprover/lean-action@v1
+        with:
+          auto-config: false
+          use-github-cache: true
+          use-mathlib-cache: true
+      - name: Inherited provider preparation only, not a clean transitive rebuild
+        run: lake build QuantumBlockEncoding.ReversibleClassical QuantumBlockEncoding.PrimitiveBasisLE QuantumBlockEncoding.CubicStatePreparation
+      - name: Same-cohort fresh CSP then three consumers and both CSP probes
+        run: lake env python3 -B tools/c29_c31_joint_kernel_v1/entry.py --project .
+      - name: Sanitized actual observations including failure receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: c29-c31-joint-kernel-${{ github.sha }}
+          path: _out/c29-c31-joint-kernel-v1/public/
+          if-no-files-found: warn
+          retention-days: 7

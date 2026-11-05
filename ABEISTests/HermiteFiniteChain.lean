@@ -6,12 +6,10 @@ example : toBits (n := 3) (((1 : Fin 2), ((0 : Fin 2), ((1 : Fin 2), ()))) : Wor
     [true, false, true] := rfl
 
 example : (sampleEquiv 3 (((1 : Fin 2), ((1 : Fin 2), ((0 : Fin 2), ()))) : Word 3)).val = 6 := by
-  rw [sampleEquiv_value]
-  decide
+  exact (sampleEquiv_value (n := 3) (1, (1, (0, ())))).trans (by decide)
 
 example : (sampleEquiv 3 (((0 : Fin 2), ((1 : Fin 2), ((1 : Fin 2), ()))) : Word 3)).val = 3 := by
-  rw [sampleEquiv_value]
-  decide
+  exact (sampleEquiv_value (n := 3) (0, (1, (1, ())))).trans (by decide)
 
 example (n : Nat) (x : PrimitiveBasis n) :
     sampleEquiv n (TensorTrainSchedule.wordOfBasis (fun i => x i.rev)) =

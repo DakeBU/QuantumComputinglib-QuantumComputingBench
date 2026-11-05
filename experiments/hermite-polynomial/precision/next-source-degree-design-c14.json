@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "status": "DESIGN_ONLY_NOT_A_PROVED_DEGREE_OR_RUNTIME_BOUND",
+  "parent": "experiments/hermite-polynomial/precision/finite-exp/result.json",
+  "parent_sha256": "405705c2c30dee7ebd2d21747e28ad554ef5db5b2c56c5cbb1cdd7bd45659902",
+  "direction_fingerprint": "uniform-finite-exp-completeness-via-factorial-block-bound-not-external-free-scalar",
+  "objective": "Replace honest active-branch width failure by a universally sufficient finite polynomial degree, while retaining the existing genuinely clipped branch and original negative-exponential target.",
+  "proposed_signatures_not_yet_sealed_or_compiled": [
+    "For T,b:Nat, d=2*T^2+b+1, degree=2*d-1 and q:Rat with |q|<=T: radius(q,degree)<=1/2^(b+1).",
+    "For positive rational epsilon, T=tailCutoff(epsilon), degree=4*T^2+2*T+1, and q<=0: checked(q,epsilon,T,degree) returns some(bounds(q,T,degree))."
+  ],
+  "proposed_derivation": [
+    "d>=1 and 2*T^2<=d. The last d factors of (2d)! give (2d)!>=d^d, with all inequalities to be proved in Lean.",
+    "Then |q|^(2d)/(2d)! <= (T^2/d)^d <= (1/2)^d <= 2^-(b+1). No floating e or free factorial estimate is used.",
+    "The active interval width is twice its remainder. Set b=T=the existing checked logarithmic cutoff; width<=2^-T<=epsilon.",
+    "The clipped branch already has width<=epsilon. Outside it, |q|<T is already proved, so Taylor need not take powers of arbitrarily large L-scaled q."
+  ],
+  "exact_upstream_retrieval": [
+    {"file": ".lake/packages/mathlib/Mathlib/Data/Nat/Factorial/Basic.lean", "theorem": "Nat.factorial_mul_pow_le_factorial", "line": 88},
+    {"file": ".lake/packages/mathlib/Mathlib/Data/Nat/Factorial/Basic.lean", "theorem": "Nat.factorial_mul_pow_sub_le_factorial", "line": 177},
+    {"file": ".lake/packages/mathlib/Mathlib/Data/Nat/Factorial/Basic.lean", "theorem": "Nat.pow_succ_le_ascFactorial", "line": 277}
+  ],
+  "remaining_global_reserve_design": "Radius has epsilon/4 certified. The four remaining contributions may provisionally reserve 3*epsilon/16 each, summing with radius to epsilon. This is accounting design only; no contribution is assumed closed or silently zero.",
+  "possible_crossover_after_scalar_completeness": "Build the actual rational-coordinate piecewise source from finite exp(-1), clipped polynomial tails and exact rational cutoffs; consume existing tensor/masked-polynomial assets. Any new rank/resource route needs its own sealed original-state approximation proof and stored producer. Do not substitute it silently for existing MPS-01/exact-real supplier.",
+  "limitations": ["All displayed degree bounds and checked completeness remain unproved proposals", "Quadratic cutoff degree is conservative, not a performance or optimality claim", "Scalar width must still be transported to global normalized source error including middle coefficient amplification", "Input/intermediate/GCD/copy/storage/runtime and actual TT/QR/circuit/synthesis remain open"],
+  "scientific_ROOT": false,
+  "new_resource_winner": false,
+  "history": "No frozen producer, failed cap record, accepted target or previous resource tier is modified"
+}

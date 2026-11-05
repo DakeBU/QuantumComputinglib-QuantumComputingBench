@@ -1,0 +1,375 @@
+{
+  "schema_version": 1,
+  "role": "decoder",
+  "identity": "/root/stored_tt_blind_decoder_c19",
+  "run_id": "stored-tt-blind-decoder-c19-v3",
+  "source_blind": true,
+  "binding_sha256": "fd9ab0393ac26ae3707c90ac6333822ddfa19d96b73d1b1c97ab03a5764afe68",
+  "packet_sha256": "b236f3265e3f1aa8bdb2ec83e018a02ae513149d7bf652c04e86a291a32e6b07",
+  "module": "QuantumBlockEncoding/StoredTensorTrain.lean",
+  "module_sha256": "a9e5b0c2b00261d6f100a431fa95725c1bead82a4b87c41d54b59f0b084feae4",
+  "toolchain": "Lean (version 4.33.0, x86_64-w64-windows-gnu, commit d8b18978322de05a8f3dba51ef03cf5461676c17, Release)",
+  "reconstruction": {
+    "declarations": [
+      {
+        "name": "QuantumBlockEncoding.StoredTensorTrain.StoredCore",
+        "actual_checked_signature": "QuantumBlockEncoding.StoredTensorTrain.StoredCore (l r : Nat) : Type",
+        "actual_axiom_report": "'QuantumBlockEncoding.StoredTensorTrain.StoredCore' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]",
+        "exact_formal_declaration_source": "abbrev StoredCore (l r : ℕ) := StoredMatrix l (2 * r)",
+        "reconstruction": "Literal storage alias: l rows of real vectors with 2*r entries, representing physical bit then right-bond index."
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredTensorTrain.denoteCore",
+        "actual_checked_signature": "QuantumBlockEncoding.StoredTensorTrain.denoteCore {l r : Nat}\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l r) : QuantumBlockEncoding.TensorTrainCanonical.Core l r",
+        "actual_axiom_report": "'QuantumBlockEncoding.StoredTensorTrain.denoteCore' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]",
+        "exact_formal_declaration_source": "def denoteCore {l r : ℕ} (A : StoredCore l r) : Core l r :=\n  fun a out => denote A a (finProdFinEquiv out)",
+        "reconstruction": "Literal reindexing: A[a][bit*r+b] on the whole Fin l × (Fin 2 × Fin r) carrier; no truncation or padding."
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredTensorTrain.StoredChain",
+        "actual_checked_signature": "QuantumBlockEncoding.StoredTensorTrain.StoredChain : Nat → Nat → Nat → Type",
+        "actual_axiom_report": "'QuantumBlockEncoding.StoredTensorTrain.StoredChain' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]",
+        "exact_formal_declaration_source": "inductive StoredChain : ℕ → ℕ → ℕ → Type\n  | nil (r : ℕ) : StoredChain 0 r r\n  | cons {n l m r : ℕ} (head : StoredCore l m) (tail : StoredChain n m r) :\n      StoredChain (n + 1) l r",
+        "reconstruction": "Dependent actual stored chain: nil has length 0 and equal boundaries r; cons joins l→m core to length-n m→r tail, yielding length n+1 l→r."
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredTensorTrain.denoteChain",
+        "actual_checked_signature": "QuantumBlockEncoding.StoredTensorTrain.denoteChain {n l r : Nat} :\n  QuantumBlockEncoding.StoredTensorTrain.StoredChain n l r → QuantumBlockEncoding.TensorTrainCanonical.Chain n l r",
+        "actual_axiom_report": "'QuantumBlockEncoding.StoredTensorTrain.denoteChain' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]",
+        "exact_formal_declaration_source": "def denoteChain : {n l r : ℕ} → StoredChain n l r → Chain n l r\n  | _, _, _, .nil r => .nil r\n  | _, _, _, .cons A C => .cons (denoteCore A) (denoteChain C)\n\n/-- Each callback is invoked once; its arithmetic cost remains charged. -/",
+        "reconstruction": "Structural storage forgetting, preserving length, every intermediate dimension, emitted-bit order and terminal dimension."
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredTensorTrain.sumEntries",
+        "actual_checked_signature": "QuantumBlockEncoding.StoredTensorTrain.sumEntries {k : Nat} :\n  (Fin k → QuantumBlockEncoding.StoredGivens.Run Real) → QuantumBlockEncoding.StoredGivens.Run Real",
+        "actual_axiom_report": "'QuantumBlockEncoding.StoredTensorTrain.sumEntries' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]",
+        "exact_formal_declaration_source": "noncomputable def sumEntries : {k : ℕ} → (Fin k → Run ℝ) → Run ℝ\n  | 0, _ => pure 0\n  | k + 1, f => do\n      let first ← f 0\n      let rest ← sumEntries (fun i : Fin k => f i.succ)\n      StoredGivens.add first rest",
+        "reconstruction": "Literal recursion: k=0 returns zero at zero cost; k+1 evaluates f 0, recursively evaluates successor indices, then charges one addition. There are k additions including the last addition to zero."
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredTensorTrain.sumEntries_value",
+        "actual_checked_signature": "QuantumBlockEncoding.StoredTensorTrain.sumEntries_value {k : Nat}\n  (f : Fin k → QuantumBlockEncoding.StoredGivens.Run Real) :\n  @Eq.{1} Real\n    (@QuantumBlockEncoding.StoredGivens.Run.value Real (@QuantumBlockEncoding.StoredTensorTrain.sumEntries k f))\n    (@Finset.sum.{0, 0} (Fin k) Real Real.instAddCommMonoid (@Finset.univ.{0} (Fin k) (Fin.fintype k))\n      fun (i : Fin k) => @QuantumBlockEncoding.StoredGivens.Run.value Real (f i))",
+        "actual_axiom_report": "'QuantumBlockEncoding.StoredTensorTrain.sumEntries_value' depends on axioms: [propext,\n Classical.choice.{u},\n Quot.sound.{u}]",
+        "exact_formal_declaration_source": "theorem sumEntries_value {k : ℕ} (f : Fin k → Run ℝ) :\n    (sumEntries f).value = ∑ i, (f i).value := by\n  induction k with\n  | zero => simp [sumEntries, pure, Run.pure]\n  | succ k ih =>\n      simp only [sumEntries, bind, Run.bind, StoredGivens.add, charge]\n      rw [ih, Fin.sum_univ_succ]",
+        "reconstruction": "Value equals the finite sum of the supplied Run values for every k, including zero."
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredTensorTrain.sumEntries_cost_le",
+        "actual_checked_signature": "QuantumBlockEncoding.StoredTensorTrain.sumEntries_cost_le {k : Nat}\n  (f : Fin k → QuantumBlockEncoding.StoredGivens.Run Real) (op : QuantumBlockEncoding.StoredGivens.Op) (B : Nat)\n  (bound : ∀ (i : Fin k), @LE.le.{0} Nat instLENat (@QuantumBlockEncoding.StoredGivens.Run.cost Real (f i) op) B) :\n  @LE.le.{0} Nat instLENat\n    (@QuantumBlockEncoding.StoredGivens.Run.cost Real (@QuantumBlockEncoding.StoredTensorTrain.sumEntries k f) op)\n    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) k\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) B\n        (QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.field op)))",
+        "actual_axiom_report": "'QuantumBlockEncoding.StoredTensorTrain.sumEntries_cost_le' depends on axioms: [propext,\n Classical.choice.{u},\n Quot.sound.{u}]",
+        "exact_formal_declaration_source": "theorem sumEntries_cost_le {k : ℕ} (f : Fin k → Run ℝ) (op : Op) (B : ℕ)\n    (bound : ∀ i, (f i).cost op ≤ B) :\n    (sumEntries f).cost op ≤ k * (B + tick .field op) := by\n  induction k with\n  | zero => simp [sumEntries, pure, Run.pure]\n  | succ k ih =>\n      simp only [sumEntries, bind, Run.bind, StoredGivens.add, charge, Pi.add_apply]\n      have first := bound 0\n      have rest := ih (fun i => f i.succ) (fun i => bound i.succ)\n      rw [Nat.succ_mul]\n      omega\n\n/-- Multiply the residual into a single bit-preserving output entry. -/",
+        "reconstruction": "Logical premise: uniform bound for the chosen operation counter on every callback Run. Conclusion k*(B+one field tick). This does not verify that an arbitrary external callback honestly accounts for its evaluation."
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredTensorTrain.absorptionEntry",
+        "actual_checked_signature": "QuantumBlockEncoding.StoredTensorTrain.absorptionEntry {l m r : Nat}\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l m) (R : QuantumBlockEncoding.StoredGivens.StoredMatrix m r)\n  (a : Fin l) (out : Prod.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin r)) :\n  QuantumBlockEncoding.StoredGivens.Run Real",
+        "actual_axiom_report": "'QuantumBlockEncoding.StoredTensorTrain.absorptionEntry' depends on axioms: [propext,\n Classical.choice.{u},\n Quot.sound.{u}]",
+        "exact_formal_declaration_source": "noncomputable def absorptionEntry {l m r : ℕ} (A : StoredCore l m)\n    (R : StoredMatrix m r) (a : Fin l) (out : Fin 2 × Fin r) : Run ℝ :=\n  sumEntries fun b => do\n    let x ← StoredThinLQ.entry A a (finProdFinEquiv (out.1, b))\n    let y ← StoredThinLQ.entry R b out.2\n    StoredGivens.mul x y",
+        "reconstruction": "Bit-preserving local contraction: sum over b in Fin m of stored A[a,bit*m+b] times stored R[b,c]. Each summand charges four stored reads, one multiplication and the recursion one addition."
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredTensorTrain.absorptionEntry_value",
+        "actual_checked_signature": "QuantumBlockEncoding.StoredTensorTrain.absorptionEntry_value {l m r : Nat}\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l m) (R : QuantumBlockEncoding.StoredGivens.StoredMatrix m r)\n  (a : Fin l) (out : Prod.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin r)) :\n  @Eq.{1} Real\n    (@QuantumBlockEncoding.StoredGivens.Run.value Real\n      (@QuantumBlockEncoding.StoredTensorTrain.absorptionEntry l m r A R a out))\n    (@QuantumBlockEncoding.TensorTrainCanonical.absorb l m r (@QuantumBlockEncoding.StoredTensorTrain.denoteCore l m A)\n      (@QuantumBlockEncoding.StoredGivens.denote m r R) a out)",
+        "actual_axiom_report": "'QuantumBlockEncoding.StoredTensorTrain.absorptionEntry_value' depends on axioms: [propext,\n Classical.choice.{u},\n Quot.sound.{u}]",
+        "exact_formal_declaration_source": "theorem absorptionEntry_value {l m r : ℕ} (A : StoredCore l m)\n    (R : StoredMatrix m r) (a : Fin l) (out : Fin 2 × Fin r) :\n    (absorptionEntry A R a out).value = absorb (denoteCore A) (denote R) a out := by\n  rw [absorptionEntry, sumEntries_value]\n  rfl",
+        "reconstruction": "Exact equality to semantic absorb at every a and output bit/bond pair, not an approximate value or projected sector."
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredTensorTrain.absorptionEntry_cost_le",
+        "actual_checked_signature": "QuantumBlockEncoding.StoredTensorTrain.absorptionEntry_cost_le {l m r : Nat}\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l m) (R : QuantumBlockEncoding.StoredGivens.StoredMatrix m r)\n  (a : Fin l) (out : Prod.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin r))\n  (op : QuantumBlockEncoding.StoredGivens.Op) :\n  @LE.le.{0} Nat instLENat\n    (@QuantumBlockEncoding.StoredGivens.Run.cost Real\n      (@QuantumBlockEncoding.StoredTensorTrain.absorptionEntry l m r A R a out) op)\n    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) m\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n          (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))\n          (QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.read op))\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))\n          (QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.field op))))",
+        "actual_axiom_report": "'QuantumBlockEncoding.StoredTensorTrain.absorptionEntry_cost_le' depends on axioms: [propext,\n Classical.choice.{u},\n Quot.sound.{u}]",
+        "exact_formal_declaration_source": "theorem absorptionEntry_cost_le {l m r : ℕ} (A : StoredCore l m)\n    (R : StoredMatrix m r) (a : Fin l) (out : Fin 2 × Fin r) (op : Op) :\n    (absorptionEntry A R a out).cost op ≤ m * (4 * tick .read op + 2 * tick .field op) := by\n  have h := sumEntries_cost_le (fun b => do\n    let x ← StoredThinLQ.entry A a (finProdFinEquiv (out.1, b))\n    let y ← StoredThinLQ.entry R b out.2\n    StoredGivens.mul x y) op (4 * tick .read op + tick .field op) (by\n      intro b\n      simp [bind, Run.bind, StoredGivens.mul, charge]\n      omega)\n  simpa only [absorptionEntry, Nat.add_assoc, ← two_mul] using h",
+        "reconstruction": "For each operation counter, upper bound m*(4 read ticks+2 field ticks), with no rank/nonzero premise."
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredTensorTrain.absorption",
+        "actual_checked_signature": "QuantumBlockEncoding.StoredTensorTrain.absorptionEntry {l m r : Nat}\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l m) (R : QuantumBlockEncoding.StoredGivens.StoredMatrix m r)\n  (a : Fin l) (out : Prod.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin r)) :\n  QuantumBlockEncoding.StoredGivens.Run Real",
+        "actual_axiom_report": "'QuantumBlockEncoding.StoredTensorTrain.absorption' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]",
+        "exact_formal_declaration_source": "noncomputable def absorption {l m r : ℕ} (A : StoredCore l m)\n    (R : StoredMatrix m r) : Run (StoredCore l r) :=\n  materialize (fun a j => absorptionEntry A R a (finProdFinEquiv.symm j))",
+        "reconstruction": "Materializes every local contraction once in l × (2*r) stored output; nested collect charges storage passes and preserves bit/bond relabeling."
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredTensorTrain.absorption_value",
+        "actual_checked_signature": "QuantumBlockEncoding.StoredTensorTrain.absorption_value {l m r : Nat}\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l m) (R : QuantumBlockEncoding.StoredGivens.StoredMatrix m r) :\n  @Eq.{1} (QuantumBlockEncoding.TensorTrainCanonical.Core l r)\n    (@QuantumBlockEncoding.StoredTensorTrain.denoteCore l r\n      (@QuantumBlockEncoding.StoredGivens.Run.value (QuantumBlockEncoding.StoredTensorTrain.StoredCore l r)\n        (@QuantumBlockEncoding.StoredTensorTrain.absorption l m r A R)))\n    (@QuantumBlockEncoding.TensorTrainCanonical.absorb l m r (@QuantumBlockEncoding.StoredTensorTrain.denoteCore l m A)\n      (@QuantumBlockEncoding.StoredGivens.denote m r R))",
+        "actual_axiom_report": "'QuantumBlockEncoding.StoredTensorTrain.absorption_value' depends on axioms: [propext,\n Classical.choice.{u},\n Quot.sound.{u}]",
+        "exact_formal_declaration_source": "theorem absorption_value {l m r : ℕ} (A : StoredCore l m)\n    (R : StoredMatrix m r) :\n    denoteCore (absorption A R).value = absorb (denoteCore A) (denote R) := by\n  ext a out\n  simp only [denoteCore, absorption, materialize, denote, collect_value,\n    Equiv.symm_apply_apply]\n  exact absorptionEntry_value A R a out",
+        "reconstruction": "Whole-core function equality between denoted actual stored output and semantic absorb."
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredTensorTrain.absorptionBudget",
+        "actual_checked_signature": "QuantumBlockEncoding.StoredTensorTrain.absorptionBudget (l m r : Nat) : QuantumBlockEncoding.StoredGivens.Cost",
+        "actual_axiom_report": "'QuantumBlockEncoding.StoredTensorTrain.absorptionBudget' does not depend on any axioms",
+        "exact_formal_declaration_source": "def absorptionBudget (l m r : ℕ) : Cost := fun op =>\n  l * (2 * r) * m * (4 * tick .read op + 2 * tick .field op) +\n    (l * (2 * r) + l) * (2 * tick .read op + 2 * tick .write op)",
+        "reconstruction": "Literal componentwise polynomial: 2*l*r*m*(4 read+2 field)+(2*l*r+l)*(2 read+2 write)."
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredTensorTrain.absorption_cost_le",
+        "actual_checked_signature": "QuantumBlockEncoding.StoredTensorTrain.absorption_cost_le {l m r : Nat}\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l m) (R : QuantumBlockEncoding.StoredGivens.StoredMatrix m r)\n  (op : QuantumBlockEncoding.StoredGivens.Op) :\n  @LE.le.{0} Nat instLENat\n    (@QuantumBlockEncoding.StoredGivens.Run.cost (QuantumBlockEncoding.StoredTensorTrain.StoredCore l r)\n      (@QuantumBlockEncoding.StoredTensorTrain.absorption l m r A R) op)\n    (QuantumBlockEncoding.StoredTensorTrain.absorptionBudget l m r op)",
+        "actual_axiom_report": "'QuantumBlockEncoding.StoredTensorTrain.absorption_cost_le' depends on axioms: [propext,\n Classical.choice.{u},\n Quot.sound.{u}]",
+        "exact_formal_declaration_source": "theorem absorption_cost_le {l m r : ℕ} (A : StoredCore l m)\n    (R : StoredMatrix m r) (op : Op) :\n    (absorption A R).cost op ≤ absorptionBudget l m r op := by\n  rw [absorption, materialize_cost]\n  have h : (∑ a : Fin l, ∑ j : Fin (2 * r),\n      (absorptionEntry A R a (finProdFinEquiv.symm j)).cost op) ≤\n      l * (2 * r) * (m * (4 * tick .read op + 2 * tick .field op)) := by\n    calc\n      _ ≤ ∑ _a : Fin l, ∑ _j : Fin (2 * r),\n          m * (4 * tick .read op + 2 * tick .field op) := by\n        apply Finset.sum_le_sum\n        intro a _\n        apply Finset.sum_le_sum\n        intro j _\n        exact absorptionEntry_cost_le A R a _ op\n      _ = _ := by simp; ring\n  simp only [absorptionBudget]\n  nlinarith",
+        "reconstruction": "Uniform operationwise upper bound on the actual absorption Run. It is not equality to the budget nor a bit-runtime claim."
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredTensorTrain.CoreResult",
+        "actual_checked_signature": "QuantumBlockEncoding.StoredTensorTrain.CoreResult {l r : Nat}\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l r) : Type",
+        "actual_axiom_report": "'QuantumBlockEncoding.StoredTensorTrain.CoreResult' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]",
+        "exact_formal_declaration_source": "structure CoreResult {l r : ℕ} (A : StoredCore l r) where\n  R : StoredMatrix l (min l (2 * r))\n  Q : StoredCore (min l (2 * r)) r\n  factorization : denoteCore A = denote R * denoteCore Q\n  orthogonal : denoteCore Q * (denoteCore Q).transpose = 1",
+        "reconstruction": "Produced bundle: stored R of l × min(l,2r), stored Q of min(l,2r) × 2r, exact factorization and row orthogonality. These proofs are fields of an output, not assumptions of factorCore."
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredTensorTrain.factorCore",
+        "actual_checked_signature": "QuantumBlockEncoding.StoredTensorTrain.factorCore {l r : Nat}\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l r) :\n  QuantumBlockEncoding.StoredGivens.Run (@QuantumBlockEncoding.StoredTensorTrain.CoreResult l r A)",
+        "actual_axiom_report": "'QuantumBlockEncoding.StoredTensorTrain.factorCore' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]",
+        "exact_formal_declaration_source": "noncomputable def factorCore {l r : ℕ} (A : StoredCore l r) : Run (CoreResult A) :=\n  let result := StoredThinLQ.compile A\n  ⟨{ R := result.value.R, Q := result.value.Q,\n     factorization := by\n       ext a out\n       exact congrFun (congrFun (StoredThinLQ.compile_correct A).1 a) (finProdFinEquiv out),\n     orthogonal := by\n       ext a b\n       have h := congrFun (congrFun (StoredThinLQ.compile_correct A).2 a) b\n       simp only [_root_.Matrix.mul_apply, _root_.Matrix.transpose_apply] at h ⊢\n       exact (finProdFinEquiv.sum_comp (fun j =>\n         denote result.value.Q a j * denote result.value.Q b j)).trans h }, result.cost⟩",
+        "reconstruction": "Actual StoredThinLQ.compile output, reindexed into physical bit/right bond. l≤2r dispatch uses transpose, rectangular adjacent Givens, prefix extraction; tall l>2r returns A and materialized identity. Dimension comparison is charged. Zero/deficient data do not change the chosen inner dimension."
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredTensorTrain.Result",
+        "actual_checked_signature": "QuantumBlockEncoding.StoredTensorTrain.Result {n l r : Nat}\n  (C : QuantumBlockEncoding.StoredTensorTrain.StoredChain n l r) : Type",
+        "actual_axiom_report": "'QuantumBlockEncoding.StoredTensorTrain.Result' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]",
+        "exact_formal_declaration_source": "structure Result {n l r : ℕ} (C : StoredChain n l r) where\n  rank : ℕ\n  residual : StoredMatrix l rank\n  canonical : StoredChain n rank r\n  rightCanonical : RightCanonical (denoteChain canonical)\n  rankReduced : RankReduced (denoteChain C) (denoteChain canonical)\n  action : ∀ x, contract (denoteChain C) x = denote residual * contract (denoteChain canonical) x\n  rank_le : rank ≤ l\n\n/-- Read the input tag/payload and allocate the output chain node. -/",
+        "reconstruction": "Produced bundle indexed by original chain: concrete rank, stored residual, concrete stored canonical chain, RightCanonical, structural RankReduced, action for all words, and rank≤original left dimension."
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredTensorTrain.nodeBudget",
+        "actual_checked_signature": "QuantumBlockEncoding.StoredTensorTrain.nodeBudget : QuantumBlockEncoding.StoredGivens.Cost",
+        "actual_axiom_report": "'QuantumBlockEncoding.StoredTensorTrain.nodeBudget' depends on axioms: [propext, Quot.sound.{u}]",
+        "exact_formal_declaration_source": "def nodeBudget : Cost := 3 • tick .read + 3 • tick .write",
+        "reconstruction": "Literal three read plus three write ticks. This accounting convention charges chain tag/payload and allocation; it is not measured wall-clock time."
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredTensorTrain.canonicalize",
+        "actual_checked_signature": "QuantumBlockEncoding.StoredTensorTrain.canonicalize {n l r : Nat}\n  (C : QuantumBlockEncoding.StoredTensorTrain.StoredChain n l r) :\n  QuantumBlockEncoding.StoredGivens.Run (@QuantumBlockEncoding.StoredTensorTrain.Result n l r C)",
+        "actual_axiom_report": "'QuantumBlockEncoding.StoredTensorTrain.canonicalize' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]",
+        "exact_formal_declaration_source": "noncomputable def canonicalize : {n l r : ℕ} → (C : StoredChain n l r) → Run (Result C)\n  | _, _, _, .nil r =>\n      let I := StoredRectangularGivens.identity r\n      ⟨{ rank := r, residual := I.value, canonical := .nil r,\n         rightCanonical := trivial, rankReduced := .nil r,\n         action := fun _ => by simp [denoteChain, contract, I, StoredRectangularGivens.identity_value],\n         rank_le := le_rfl }, nodeBudget + I.cost⟩\n  | _, l, _, .cons A C =>\n      let tailResult := canonicalize C\n      let absorbed := absorption A tailResult.value.residual\n      let headResult := factorCore absorbed.value\n      ⟨{ rank := min l (2 * tailResult.value.rank), residual := headResult.value.R,\n         canonical := .cons headResult.value.Q tailResult.value.canonical,\n         rightCanonical := ⟨headResult.value.orthogonal, tailResult.value.rightCanonical⟩,\n         rankReduced := .cons tailResult.value.rankReduced,\n         action := by\n           intro x\n           change slice (denoteCore A) x.1 * contract (denoteChain C) x.2 =\n             denote headResult.value.R *\n               (slice (denoteCore headResult.value.Q) x.1 *\n                 contract (denoteChain tailResult.value.canonical) x.2)\n           rw [tailResult.value.action, ← _root_.Matrix.mul_assoc, ← absorb_slice]\n           have hs : slice (absorb (denoteCore A) (denote tailResult.value.residual)) x.1 =\n               denote headResult.value.R * slice (denoteCore headResult.value.Q) x.1 := by\n             rw [← absorption_value]\n             ext a b\n             exact congrFun (congrFun headResult.value.factorization a) (x.1, b)\n           rw [hs, _root_.Matrix.mul_assoc],\n         rank_le := min_le_left _ _ },\n       nodeBudget + tailResult.cost + absorbed.cost + headResult.cost⟩",
+        "reconstruction": "Literal structural tail-first producer: nil returns materialized identity and nil at same terminal rank; cons recursively canonicalizes tail, materializes absorption of tail residual, factorizes it, joins actual Q and actual tail. Adds node, tail, absorption and factor costs."
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredTensorTrain.canonicalize_maxBond_le",
+        "actual_checked_signature": "QuantumBlockEncoding.StoredTensorTrain.canonicalize_maxBond_le {n l r : Nat}\n  (C : QuantumBlockEncoding.StoredTensorTrain.StoredChain n l r) :\n  @LE.le.{0} Nat instLENat\n    (@QuantumBlockEncoding.TensorTrainCanonical.maxBond n\n      (@QuantumBlockEncoding.StoredTensorTrain.Result.rank n l r C\n        (@QuantumBlockEncoding.StoredGivens.Run.value (@QuantumBlockEncoding.StoredTensorTrain.Result n l r C)\n          (@QuantumBlockEncoding.StoredTensorTrain.canonicalize n l r C)))\n      r\n      (@QuantumBlockEncoding.StoredTensorTrain.denoteChain n\n        (@QuantumBlockEncoding.StoredTensorTrain.Result.rank n l r C\n          (@QuantumBlockEncoding.StoredGivens.Run.value (@QuantumBlockEncoding.StoredTensorTrain.Result n l r C)\n            (@QuantumBlockEncoding.StoredTensorTrain.canonicalize n l r C)))\n        r\n        (@QuantumBlockEncoding.StoredTensorTrain.Result.canonical n l r C\n          (@QuantumBlockEncoding.StoredGivens.Run.value (@QuantumBlockEncoding.StoredTensorTrain.Result n l r C)\n            (@QuantumBlockEncoding.StoredTensorTrain.canonicalize n l r C)))))\n    (@QuantumBlockEncoding.TensorTrainCanonical.maxBond n l r\n      (@QuantumBlockEncoding.StoredTensorTrain.denoteChain n l r C))",
+        "actual_axiom_report": "'QuantumBlockEncoding.StoredTensorTrain.canonicalize_maxBond_le' depends on axioms: [propext,\n Classical.choice.{u},\n Quot.sound.{u}]",
+        "exact_formal_declaration_source": "theorem canonicalize_maxBond_le {n l r : ℕ} (C : StoredChain n l r) :\n    maxBond (denoteChain (canonicalize C).value.canonical) ≤ maxBond (denoteChain C) :=\n  (canonicalize C).value.rankReduced.maxBond_le",
+        "reconstruction": "Largest dimension of actual output chain, including initial and terminal boundaries, is at most that of actual input. Produced RankReduced supplies the proof."
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredTensorTrain.absorption_total_cost_le",
+        "actual_checked_signature": "QuantumBlockEncoding.StoredTensorTrain.absorption_total_cost_le {l m r : Nat}\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l m) (R : QuantumBlockEncoding.StoredGivens.StoredMatrix m r) :\n  @LE.le.{0} Nat instLENat\n    (QuantumBlockEncoding.StoredRectangularGivens.total\n      (@QuantumBlockEncoding.StoredGivens.Run.cost (QuantumBlockEncoding.StoredTensorTrain.StoredCore l r)\n        (@QuantumBlockEncoding.StoredTensorTrain.absorption l m r A R)))\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n              (@OfNat.ofNat.{0} Nat (nat_lit 12) (instOfNatNat (nat_lit 12))) l)\n            m)\n          r)\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n            (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8))) l)\n          r))\n      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n        (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) l))",
+        "actual_axiom_report": "'QuantumBlockEncoding.StoredTensorTrain.absorption_total_cost_le' depends on axioms: [propext,\n Classical.choice.{u},\n Quot.sound.{u}]",
+        "exact_formal_declaration_source": "theorem absorption_total_cost_le {l m r : ℕ} (A : StoredCore l m)\n    (R : StoredMatrix m r) :\n    StoredRectangularGivens.total (absorption A R).cost ≤\n      12 * l * m * r + 8 * l * r + 4 * l := by\n  have hf := absorption_cost_le A R .field\n  have hs := absorption_cost_le A R .sqrt\n  have ha := absorption_cost_le A R .angle\n  have ht := absorption_cost_le A R .trig\n  have hc := absorption_cost_le A R .compare\n  have hr := absorption_cost_le A R .read\n  have hw := absorption_cost_le A R .write\n  have he := absorption_cost_le A R .emit\n  simp [absorptionBudget, tick] at hf hs ha ht hc hr hw he\n  simp only [StoredRectangularGivens.total]\n  nlinarith",
+        "reconstruction": "Total of all eight counters is at most 12*l*m*r+8*l*r+4*l. No normalization/full-rank input."
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredTensorTrain.factorCore_total_cost_le",
+        "actual_checked_signature": "QuantumBlockEncoding.StoredTensorTrain.factorCore_total_cost_le {l r : Nat}\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l r) (D : Nat) (hl : @LE.le.{0} Nat instLENat l D)\n  (hr : @LE.le.{0} Nat instLENat r D) :\n  @LE.le.{0} Nat instLENat\n    (QuantumBlockEncoding.StoredRectangularGivens.total\n      (@QuantumBlockEncoding.StoredGivens.Run.cost (@QuantumBlockEncoding.StoredTensorTrain.CoreResult l r A)\n        (@QuantumBlockEncoding.StoredTensorTrain.factorCore l r A)))\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n            (@OfNat.ofNat.{0} Nat (nat_lit 164) (instOfNatNat (nat_lit 164)))\n            (@HPow.hPow.{0, 0, 0} Nat Nat Nat\n              (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid))) D\n              (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))))\n          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n            (@OfNat.ofNat.{0} Nat (nat_lit 108) (instOfNatNat (nat_lit 108)))\n            (@HPow.hPow.{0, 0, 0} Nat Nat Nat\n              (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid))) D\n              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))))\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n          (@OfNat.ofNat.{0} Nat (nat_lit 25) (instOfNatNat (nat_lit 25))) D))\n      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))",
+        "actual_axiom_report": "'QuantumBlockEncoding.StoredTensorTrain.factorCore_total_cost_le' depends on axioms: [propext,\n Classical.choice.{u},\n Quot.sound.{u}]",
+        "exact_formal_declaration_source": "theorem factorCore_total_cost_le {l r : ℕ} (A : StoredCore l r) (D : ℕ)\n    (hl : l ≤ D) (hr : r ≤ D) :\n    StoredRectangularGivens.total (factorCore A).cost ≤\n      164 * D ^ 3 + 108 * D ^ 2 + 25 * D + 2 := by\n  have bound := StoredThinLQ.compile_total_cost_le A\n  change StoredRectangularGivens.total (StoredThinLQ.compile A).cost ≤ _\n  calc\n    _ ≤ (2 * r) * l * (22 * l + 30 * (2 * r) + 41) +\n        5 * (2 * r) * (2 * r) + 6 * l * l + 8 * (2 * r) + 9 * l + 2 := bound\n    _ ≤ (2 * D) * D * (22 * D + 30 * (2 * D) + 41) +\n        5 * (2 * D) * (2 * D) + 6 * D * D + 8 * (2 * D) + 9 * D + 2 := by gcongr\n    _ = _ := by ring",
+        "reconstruction": "Logical premises l≤D and r≤D, not 2r≤D. Total actual factor cost bounded by 164D^3+108D^2+25D+2."
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredTensorTrain.canonicalize_total_cost_le",
+        "actual_checked_signature": "QuantumBlockEncoding.StoredTensorTrain.canonicalize_total_cost_le {n l r : Nat}\n  (C : QuantumBlockEncoding.StoredTensorTrain.StoredChain n l r) (D : Nat)\n  (bound :\n    @LE.le.{0} Nat instLENat\n      (@QuantumBlockEncoding.TensorTrainCanonical.maxBond n l r\n        (@QuantumBlockEncoding.StoredTensorTrain.denoteChain n l r C))\n      D) :\n  @LE.le.{0} Nat instLENat\n    (QuantumBlockEncoding.StoredRectangularGivens.total\n      (@QuantumBlockEncoding.StoredGivens.Run.cost (@QuantumBlockEncoding.StoredTensorTrain.Result n l r C)\n        (@QuantumBlockEncoding.StoredTensorTrain.canonicalize n l r C)))\n    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) n\n            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n              (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n                (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)\n                  (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n                    (@OfNat.ofNat.{0} Nat (nat_lit 176) (instOfNatNat (nat_lit 176)))\n                    (@HPow.hPow.{0, 0, 0} Nat Nat Nat\n                      (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid))) D\n                      (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))))\n                  (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n                    (@OfNat.ofNat.{0} Nat (nat_lit 116) (instOfNatNat (nat_lit 116)))\n                    (@HPow.hPow.{0, 0, 0} Nat Nat Nat\n                      (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid))) D\n                      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))))\n                (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n                  (@OfNat.ofNat.{0} Nat (nat_lit 29) (instOfNatNat (nat_lit 29))) D))\n              (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8)))))\n          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n            (@OfNat.ofNat.{0} Nat (nat_lit 5) (instOfNatNat (nat_lit 5)))\n            (@HPow.hPow.{0, 0, 0} Nat Nat Nat\n              (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid))) D\n              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))))\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n          (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) D))\n      (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))",
+        "actual_axiom_report": "'QuantumBlockEncoding.StoredTensorTrain.canonicalize_total_cost_le' depends on axioms: [propext,\n Classical.choice.{u},\n Quot.sound.{u}]",
+        "exact_formal_declaration_source": "theorem canonicalize_total_cost_le {n l r : ℕ} (C : StoredChain n l r) (D : ℕ)\n    (bound : maxBond (denoteChain C) ≤ D) :\n    StoredRectangularGivens.total (canonicalize C).cost ≤\n      n * (176 * D ^ 3 + 116 * D ^ 2 + 29 * D + 8) + 5 * D ^ 2 + 4 * D + 6 := by\n  induction C with\n  | nil r =>\n      have hr : r ≤ D := bound\n      simp only [canonicalize, total_add, identity_total_cost, Nat.zero_mul, zero_add]\n      have node : StoredRectangularGivens.total nodeBudget = 6 := by\n        simp [nodeBudget, StoredRectangularGivens.total, tick]\n      rw [node]\n      have square := Nat.pow_le_pow_left hr 2\n      omega\n  | @cons n l m r A C ih =>\n      have hl : l ≤ D := (max_le_iff.mp bound).1\n      have ht : maxBond (denoteChain C) ≤ D := (max_le_iff.mp bound).2\n      have hm : m ≤ D := by\n        cases C with\n        | nil r => exact ht\n        | cons B C => exact (max_le_iff.mp ht).1\n      have hr : (canonicalize C).value.rank ≤ D := (canonicalize C).value.rank_le.trans hm\n      have tail := ih ht\n      have absorbed := absorption_total_cost_le A (canonicalize C).value.residual\n      have absorbBound : 12 * l * m * (canonicalize C).value.rank +\n          8 * l * (canonicalize C).value.rank + 4 * l ≤\n          12 * D ^ 3 + 8 * D ^ 2 + 4 * D := by\n        calc\n          _ ≤ 12 * D * D * D + 8 * D * D + 4 * D := by gcongr\n          _ = _ := by ring\n      have head := factorCore_total_cost_le (absorption A (canonicalize C).value.residual).value D hl hr\n      simp only [canonicalize, total_add]\n      have node : StoredRectangularGivens.total nodeBudget = 6 := by\n        simp [nodeBudget, StoredRectangularGivens.total, tick]\n      rw [node]\n      nlinarith\n\n/-- The output's semantic boundary is obtained from its stored residual. -/",
+        "reconstruction": "Logical premise maxBond(denoteChain C)≤D, covering every actual bond and both boundaries. Total actual cost at most n*(176D^3+116D^2+29D+8)+5D^2+4D+6."
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredTensorTrain.boundary",
+        "actual_checked_signature": "QuantumBlockEncoding.StoredTensorTrain.boundary {n l r : Nat}\n  (C : QuantumBlockEncoding.StoredTensorTrain.StoredChain n l r) (v : Fin l → Real) :\n  Fin\n      (@QuantumBlockEncoding.StoredTensorTrain.Result.rank n l r C\n        (@QuantumBlockEncoding.StoredGivens.Run.value (@QuantumBlockEncoding.StoredTensorTrain.Result n l r C)\n          (@QuantumBlockEncoding.StoredTensorTrain.canonicalize n l r C))) →\n    Real",
+        "actual_axiom_report": "'QuantumBlockEncoding.StoredTensorTrain.boundary' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]",
+        "exact_formal_declaration_source": "noncomputable def boundary {n l r : ℕ} (C : StoredChain n l r) (v : Fin l → ℝ) :\n    Fin (canonicalize C).value.rank → ℝ := _root_.Matrix.vecMul v (denote (canonicalize C).value.residual)",
+        "reconstruction": "Literal row-vector multiplication of input boundary v by denoted returned residual. Defined without normalization, on Fin returned-rank, including zero dimensions."
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredTensorTrain.boundary_mass",
+        "actual_checked_signature": "QuantumBlockEncoding.StoredTensorTrain.boundary_mass {n l r : Nat}\n  (C : QuantumBlockEncoding.StoredTensorTrain.StoredChain n l r) (v : Fin l → Real) :\n  @Eq.{1} Real\n    (@QuantumBlockEncoding.TensorTrainCanonical.chainMass n l r\n      (@QuantumBlockEncoding.StoredTensorTrain.denoteChain n l r C) v)\n    (@QuantumBlockEncoding.TensorTrainCanonical.mass.{0}\n      (Fin\n        (@QuantumBlockEncoding.StoredTensorTrain.Result.rank n l r C\n          (@QuantumBlockEncoding.StoredGivens.Run.value (@QuantumBlockEncoding.StoredTensorTrain.Result n l r C)\n            (@QuantumBlockEncoding.StoredTensorTrain.canonicalize n l r C))))\n      (Fin.fintype\n        (@QuantumBlockEncoding.StoredTensorTrain.Result.rank n l r C\n          (@QuantumBlockEncoding.StoredGivens.Run.value (@QuantumBlockEncoding.StoredTensorTrain.Result n l r C)\n            (@QuantumBlockEncoding.StoredTensorTrain.canonicalize n l r C))))\n      (@QuantumBlockEncoding.StoredTensorTrain.boundary n l r C v))",
+        "actual_axiom_report": "'QuantumBlockEncoding.StoredTensorTrain.boundary_mass' depends on axioms: [propext,\n Classical.choice.{u},\n Quot.sound.{u}]",
+        "exact_formal_declaration_source": "theorem boundary_mass {n l r : ℕ} (C : StoredChain n l r) (v : Fin l → ℝ) :\n    chainMass (denoteChain C) v = mass (boundary C v) :=\n  residual_mass (denoteChain C) (denoteChain (canonicalize C).value.canonical)\n    (denote (canonicalize C).value.residual) (canonicalize C).value.rightCanonical\n    (canonicalize C).value.action v",
+        "reconstruction": "Unconditional total mass equality: sum over every emitted Word n AND every terminal Fin r component equals squared Euclidean mass of returned boundary. Not mass of one projected endpoint or postselected component."
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredTensorTrain.boundary_normalized",
+        "actual_checked_signature": "QuantumBlockEncoding.StoredTensorTrain.boundary_normalized {n l r : Nat}\n  (C : QuantumBlockEncoding.StoredTensorTrain.StoredChain n l r) (v : Fin l → Real)\n  (normalized :\n    @Eq.{1} Real\n      (@QuantumBlockEncoding.TensorTrainCanonical.chainMass n l r\n        (@QuantumBlockEncoding.StoredTensorTrain.denoteChain n l r C) v)\n      (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne))) :\n  @Eq.{1} Real\n    (@QuantumBlockEncoding.TensorTrainCanonical.mass.{0}\n      (Fin\n        (@QuantumBlockEncoding.StoredTensorTrain.Result.rank n l r C\n          (@QuantumBlockEncoding.StoredGivens.Run.value (@QuantumBlockEncoding.StoredTensorTrain.Result n l r C)\n            (@QuantumBlockEncoding.StoredTensorTrain.canonicalize n l r C))))\n      (Fin.fintype\n        (@QuantumBlockEncoding.StoredTensorTrain.Result.rank n l r C\n          (@QuantumBlockEncoding.StoredGivens.Run.value (@QuantumBlockEncoding.StoredTensorTrain.Result n l r C)\n            (@QuantumBlockEncoding.StoredTensorTrain.canonicalize n l r C))))\n      (@QuantumBlockEncoding.StoredTensorTrain.boundary n l r C v))\n    (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne))",
+        "actual_axiom_report": "'QuantumBlockEncoding.StoredTensorTrain.boundary_normalized' depends on axioms: [propext,\n Classical.choice.{u},\n Quot.sound.{u}]",
+        "exact_formal_declaration_source": "theorem boundary_normalized {n l r : ℕ} (C : StoredChain n l r) (v : Fin l → ℝ)\n    (normalized : chainMass (denoteChain C) v = 1) : mass (boundary C v) = 1 :=\n  (boundary_mass C v).symm.trans normalized\n\n/-- Forget storage, retaining the actual concrete canonicalization data. -/",
+        "reconstruction": "Only extra logical input is chainMass(denoteChain C) v=1. Then returned boundary has mass 1. It does not claim automatic normalization or nonzero success for arbitrary inputs."
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredTensorTrain.Result.toSemantic",
+        "actual_checked_signature": "QuantumBlockEncoding.StoredTensorTrain.Result.toSemantic {n l r : Nat}\n  {C : QuantumBlockEncoding.StoredTensorTrain.StoredChain n l r}\n  (result : @QuantumBlockEncoding.StoredTensorTrain.Result n l r C) :\n  @QuantumBlockEncoding.ConstructiveTensorTrain.Result n l r\n    (@QuantumBlockEncoding.StoredTensorTrain.denoteChain n l r C)",
+        "actual_axiom_report": "'QuantumBlockEncoding.StoredTensorTrain.Result.toSemantic' depends on axioms: [propext,\n Classical.choice.{u},\n Quot.sound.{u}]",
+        "exact_formal_declaration_source": "def Result.toSemantic {n l r : ℕ} {C : StoredChain n l r} (result : Result C) :\n    ConstructiveTensorTrain.Result (denoteChain C) where\n  rank := result.rank\n  residual := denote result.residual\n  canonical := denoteChain result.canonical\n  rightCanonical := result.rightCanonical\n  rankReduced := result.rankReduced\n  action := result.action",
+        "reconstruction": "Literal conversion of a supplied stored Result to semantic Result, preserving rank, residual entries, canonical cores and all proof fields except the stored-only rank_le field. The supplied Result itself contains the expanded correctness bundle; this conversion is not a new producer."
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredTensorTrain.factorCore_R",
+        "actual_checked_signature": "QuantumBlockEncoding.StoredTensorTrain.factorCore_R {l r : Nat}\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l r) :\n  @Eq.{1}\n    (Matrix.{0, 0, 0} (Fin l)\n      (Fin\n        (@Min.min.{0} Nat instMinNat l\n          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r)))\n      Real)\n    (@QuantumBlockEncoding.StoredGivens.denote l\n      (@Min.min.{0} Nat instMinNat l\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r))\n      (@QuantumBlockEncoding.StoredTensorTrain.CoreResult.R l r A\n        (@QuantumBlockEncoding.StoredGivens.Run.value (@QuantumBlockEncoding.StoredTensorTrain.CoreResult l r A)\n          (@QuantumBlockEncoding.StoredTensorTrain.factorCore l r A))))\n    (@QuantumBlockEncoding.ConstructiveTensorTrain.CoreFactorization.R l r\n      (@QuantumBlockEncoding.StoredTensorTrain.denoteCore l r A)\n      (@QuantumBlockEncoding.ConstructiveTensorTrain.factorCore l r\n        (@QuantumBlockEncoding.StoredTensorTrain.denoteCore l r A)))",
+        "actual_axiom_report": "'QuantumBlockEncoding.StoredTensorTrain.factorCore_R' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]",
+        "exact_formal_declaration_source": "theorem factorCore_R {l r : ℕ} (A : StoredCore l r) :\n    denote (factorCore A).value.R = (ConstructiveTensorTrain.factorCore (denoteCore A)).R := by\n  change denote (StoredThinLQ.compile A).value.R =\n    (ConstructiveThinLQ.factor (fun a j => denoteCore A a (finProdFinEquiv.symm j))).R\n  have flatten : (fun a j => denoteCore A a (finProdFinEquiv.symm j)) = denote A := by\n    funext a j\n    exact congrArg (denote A a)\n      ((finProdFinEquiv : Fin 2 × Fin r ≃ Fin (2 * r)).apply_symm_apply j)\n  rw [flatten]\n  exact StoredThinLQ.compile_R A",
+        "reconstruction": "Whole returned R data equality to the deterministic ConstructiveTensorTrain.factorCore R, not mere existence of a valid factor."
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredTensorTrain.factorCore_Q",
+        "actual_checked_signature": "QuantumBlockEncoding.StoredTensorTrain.factorCore_Q {l r : Nat}\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l r) :\n  @Eq.{1}\n    (QuantumBlockEncoding.TensorTrainCanonical.Core\n      (@Min.min.{0} Nat instMinNat l\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r))\n      r)\n    (@QuantumBlockEncoding.StoredTensorTrain.denoteCore\n      (@Min.min.{0} Nat instMinNat l\n        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)\n          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r))\n      r\n      (@QuantumBlockEncoding.StoredTensorTrain.CoreResult.Q l r A\n        (@QuantumBlockEncoding.StoredGivens.Run.value (@QuantumBlockEncoding.StoredTensorTrain.CoreResult l r A)\n          (@QuantumBlockEncoding.StoredTensorTrain.factorCore l r A))))\n    (@QuantumBlockEncoding.ConstructiveTensorTrain.CoreFactorization.Q l r\n      (@QuantumBlockEncoding.StoredTensorTrain.denoteCore l r A)\n      (@QuantumBlockEncoding.ConstructiveTensorTrain.factorCore l r\n        (@QuantumBlockEncoding.StoredTensorTrain.denoteCore l r A)))",
+        "actual_axiom_report": "'QuantumBlockEncoding.StoredTensorTrain.factorCore_Q' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]",
+        "exact_formal_declaration_source": "theorem factorCore_Q {l r : ℕ} (A : StoredCore l r) :\n    denoteCore (factorCore A).value.Q = (ConstructiveTensorTrain.factorCore (denoteCore A)).Q := by\n  ext a out\n  change denote (StoredThinLQ.compile A).value.Q a (finProdFinEquiv out) =\n    (ConstructiveThinLQ.factor (fun a j => denoteCore A a (finProdFinEquiv.symm j))).Q a\n      (finProdFinEquiv out)\n  have flatten : (fun a j => denoteCore A a (finProdFinEquiv.symm j)) = denote A := by\n    funext a j\n    exact congrArg (denote A a)\n      ((finProdFinEquiv : Fin 2 × Fin r ≃ Fin (2 * r)).apply_symm_apply j)\n  rw [flatten]\n  rw [StoredThinLQ.compile_Q]",
+        "reconstruction": "Whole returned physical-bit/right-bond Q data equality to the deterministic semantic Q, retaining the product reindexing."
+      },
+      {
+        "name": "QuantumBlockEncoding.StoredTensorTrain.canonicalize_refines",
+        "actual_checked_signature": "QuantumBlockEncoding.StoredTensorTrain.canonicalize_refines {n l r : Nat}\n  (C : QuantumBlockEncoding.StoredTensorTrain.StoredChain n l r) :\n  @Eq.{1}\n    (@QuantumBlockEncoding.ConstructiveTensorTrain.Result n l r\n      (@QuantumBlockEncoding.StoredTensorTrain.denoteChain n l r C))\n    (@QuantumBlockEncoding.StoredTensorTrain.Result.toSemantic n l r C\n      (@QuantumBlockEncoding.StoredGivens.Run.value (@QuantumBlockEncoding.StoredTensorTrain.Result n l r C)\n        (@QuantumBlockEncoding.StoredTensorTrain.canonicalize n l r C)))\n    (@QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize n l r\n      (@QuantumBlockEncoding.StoredTensorTrain.denoteChain n l r C))",
+        "actual_axiom_report": "'QuantumBlockEncoding.StoredTensorTrain.canonicalize_refines' depends on axioms: [propext,\n Classical.choice.{u},\n Quot.sound.{u}]",
+        "exact_formal_declaration_source": "theorem canonicalize_refines {n l r : ℕ} (C : StoredChain n l r) :\n    (canonicalize C).value.toSemantic = ConstructiveTensorTrain.canonicalize (denoteChain C) := by\n  induction C with\n  | nil r =>\n      simp only [canonicalize, Result.toSemantic, denoteChain,\n        ConstructiveTensorTrain.canonicalize, StoredRectangularGivens.identity_value]\n  | @cons n l m r A C ih =>\n      change _ = semanticStep (denoteCore A) (ConstructiveTensorTrain.canonicalize (denoteChain C))\n      rw [← ih]\n      have hR := (factorCore_R (absorption A (canonicalize C).value.residual).value).trans\n        (congrArg (fun B : Core l (canonicalize C).value.rank =>\n          (ConstructiveTensorTrain.factorCore B).R)\n          (absorption_value A (canonicalize C).value.residual))\n      have hQ := (factorCore_Q (absorption A (canonicalize C).value.residual).value).trans\n        (congrArg (fun B : Core l (canonicalize C).value.rank =>\n          (ConstructiveTensorTrain.factorCore B).Q)\n          (absorption_value A (canonicalize C).value.residual))\n      simp only [canonicalize, semanticStep, Result.toSemantic, denoteChain,\n        hR, hQ]",
+        "reconstruction": "Equality of the ENTIRE converted dependent Result to the deterministic semantic canonicalize output, including rank, residual and canonical chain (proof fields equal by Lean proof irrelevance). Does not identify costs with semantic producer; not uniqueness among all right-canonical factorizations."
+      }
+    ],
+    "typing_inputs": "All n,l,m,r,k,D,B are natural dimensions/budgets; Fin carriers and stored vectors/chains are dependent typing data. Scalars are exact reals. No positivity of dimensions, rank fullness, nonzero pivots or normalized state is a standing premise.",
+    "logical_inputs": {
+      "sumEntries_cost_le": "∀ i, (f i).cost op ≤ B",
+      "factorCore_total_cost_le": "l ≤ D and r ≤ D",
+      "canonicalize_total_cost_le": "maxBond (denoteChain C) ≤ D",
+      "boundary_normalized": "chainMass (denoteChain C) v = 1",
+      "Result.toSemantic": "A Result C argument carrying its proof fields; this is a forgetful conversion, while canonicalize produces them."
+    },
+    "expanded_bundles": {
+      "CoreResult": "k=min l (2*r); R:StoredMatrix l k; Q:StoredCore k r; denoteCore A = denote R * denoteCore Q; denoteCore Q*(denoteCore Q).transpose=1.",
+      "Result": "rank:Nat; residual:StoredMatrix l rank; canonical:StoredChain n rank r; RightCanonical(denoteChain canonical); RankReduced(denoteChain C)(denoteChain canonical); ∀ x:Word n, contract(denoteChain C)x=denote residual*contract(denoteChain canonical)x; rank≤l.",
+      "RightCanonical": "nil:True; cons(A,C):A*A.transpose=1 AND RightCanonical C. Orthogonality sums over both physical bit and every right-bond label.",
+      "RankReduced": "nil r relates nil r to nil r. cons relates original left dimension l and tail C to Q with left dimension min l (2*mprime) and tail D, provided RankReduced C D. Terminal bond unchanged. This is a dimension recurrence, not minimal algebraic rank.",
+      "semantic_Result": "rank:Nat; residual:Matrix(Fin l)(Fin rank) Real; canonical:Chain n rank r; rightCanonical; rankReduced; all-word matrix action. No rank_le field in the semantic bundle.",
+      "Run": "value:alpha and cost:Op→Nat; pure returns zero cost, bind adds costs and applies continuation to actual value.",
+      "mass_and_chainMass": "mass v=∑i v(i)^2. chainMass C v=∑x:Word n ∑j:Fin r ((vecMul v (contract C x)) j)^2. Word 0=Unit; Word(n+1)=Fin2×Word n. contract(nil)=identity; contract(cons)=slice(head,first-bit)*contract(tail,remaining-word)."
+    },
+    "definition_kind": "Definitions are literal operational/reindexing/forgetful bodies. Stored deterministic producers do not use a factorization-existence theorem to select data. Noncomputable exact-real operations and standard classical axioms are not a finite-bit implementation certificate. No uniqueness of canonical TT gauges is asserted.",
+    "cost_model": {
+      "operations": [
+        "field",
+        "sqrt",
+        "angle",
+        "trig",
+        "compare",
+        "read",
+        "write",
+        "emit"
+      ],
+      "total": "Sum of all eight operation counters, no category omitted.",
+      "absorption_category_budget": {
+        "field": "4*l*m*r",
+        "read": "8*l*m*r+4*l*r+2*l",
+        "write": "4*l*r+2*l",
+        "sqrt": "0",
+        "angle": "0",
+        "trig": "0",
+        "compare": "0",
+        "emit": "0"
+      },
+      "storage": "StoredMatrix N M = Vector (Vector Real M) N. Entry uses two charged reads. collect materializes Run results then projects values, charging two reads and two writes per element; materialize adds inner-entry and outer-row costs. Persistent replacement copies full vectors. Input stored-table acquisition/evaluation is a separate boundary.",
+      "omissions": [
+        "Proof checking",
+        "counter metadata/bookkeeping",
+        "finite-bit scalar representation and precision",
+        "real arithmetic/transcendental runtime",
+        "initial external data/callback generation unless separately counted",
+        "gate synthesis, circuit emission for the TT itself, ancilla embedding, quantum execution, noise and readout"
+      ],
+      "nil_exact_total": "5*r^2+4*r+6, including full materialized identity and node cost. The uniform theorem uses 5*D^2+4*D+6 for n=0."
+    },
+    "complete_carrier_boundary": "Input/output have same terminal Fin r, not necessarily r=1. All-word action is equality of whole matrices; mass includes all terminal labels. Complete-carrier n=0,r=2 consumer has terminal component 0 zero and component 1 one, total mass one. Projecting terminal 0 would lose all mass in this witness.",
+    "exact_refinement_boundary": "canonicalize_refines establishes actual returned semantic data equality, not an existential witness. It forgets storage and cost; it does not equate stored memory layout or counters with the uncosted semantic producer, prove minimal rank, uniqueness, circuit correctness or bit complexity.",
+    "private_helpers": [
+      {
+        "name": "total_add",
+        "exact_source": "private theorem total_add (a b : Cost) :\n    StoredRectangularGivens.total (a + b) =\n      StoredRectangularGivens.total a + StoredRectangularGivens.total b := by\n  simp only [StoredRectangularGivens.total, Pi.add_apply]\n  ring"
+      },
+      {
+        "name": "identity_total_cost",
+        "exact_source": "private theorem identity_total_cost (r : ℕ) :\n    StoredRectangularGivens.total (StoredRectangularGivens.identity r).cost =\n      5 * r ^ 2 + 4 * r := by\n  simp [StoredRectangularGivens.total, StoredRectangularGivens.identity_cost,\n    StoredRectangularGivens.identityBudget, tick]\n  ring\n\n/-- The actual stored producer uses linear-in-length, cubic-in-bond work in\nthe declared exact-real model, including absorption, storage, and node costs. -/"
+      },
+      {
+        "name": "semanticStep",
+        "exact_source": "private noncomputable def semanticStep {n l m r : ℕ} {C : Chain n m r}\n    (A : Core l m) (tailResult : ConstructiveTensorTrain.Result C) :\n    ConstructiveTensorTrain.Result (.cons A C) :=\n  let headResult := ConstructiveTensorTrain.factorCore (absorb A tailResult.residual)\n  { rank := min l (2 * tailResult.rank), residual := headResult.R,\n    canonical := .cons headResult.Q tailResult.canonical,\n    rightCanonical := ⟨headResult.orthogonal, tailResult.rightCanonical⟩,\n    rankReduced := .cons tailResult.rankReduced,\n    action := by\n      intro x\n      change slice A x.1 * contract C x.2 =\n        headResult.R * (slice headResult.Q x.1 * contract tailResult.canonical x.2)\n      rw [tailResult.action, ← _root_.Matrix.mul_assoc, ← absorb_slice]\n      have hs : slice (absorb A tailResult.residual) x.1 =\n          headResult.R * slice headResult.Q x.1 := by\n        ext a b\n        exact congrFun (congrFun headResult.factorization a) (x.1, b)\n      rw [hs, _root_.Matrix.mul_assoc] }\n\n/-- Exact data refinement, not just another witness of the same contract. -/"
+      }
+    ],
+    "private_helper_roles": {
+      "total_add": "Rewrites eight-counter totals over pointwise addition; accounting proof only.",
+      "identity_total_cost": "Exact eight-counter identity total 5r^2+4r.",
+      "semanticStep": "One semantic cons step for the exact-data induction, using actual semantic factorCore, produced tail proofs, bit-preserving absorb and matrix associativity."
+    },
+    "producer_dependency_topology": [
+      "StoredThinLQ.compile supplies actual R,Q with correctness and exact semantic factor refinement.",
+      "StoredRectangularGivens supplies materialized identity, fused elimination/log and replayed transform.",
+      "ConstructiveTensorTrain supplies deterministic semantic TT factorCore/canonicalize.",
+      "TensorTrainCanonical supplies literal core/chain/word/absorb/mass and residual_mass, plus structural RankReduced.maxBond_le.",
+      "canonicalize works tail→absorption→factor→cons; action composes tail action, absorb_slice, core factorization and matrix associativity.",
+      "Mass theorem uses produced right-canonicality and produced whole-word action, not hypotheses requiring those facts from a caller.",
+      "Exact data induction uses factorCore_R/Q, absorption_value and the induction hypothesis."
+    ],
+    "source_hypothesis_classification": "Source-blind decoder cannot assign SOURCE/STANDING/RULED/EXCESS against withheld original prose. The formal typing and logical inputs are listed exhaustively for a distinct reviewer to compare."
+  },
+  "independent_consumers": [
+    "Explicit product flattening on r=3 gives indices (1,0)→3, (0,2)→2, (1,2)→5.",
+    "Asymmetric core [1,2,4,8] and signed residual [3,-1] yield bit-zero value 1 and bit-one value 4; bit permutation/interleaving is discriminated.",
+    "Zero data with l=2,r=3 yields reported dimension 2, and tall zero l=5,r=1 yields dimension 2, not numerical rank zero.",
+    "Empty internal/terminal bond and zero-length zero-rank cases produce rank/mass zero without illegitimate normalization.",
+    "Empty-length two-dimensional terminal witness separates total mass from endpoint projection.",
+    "Universal all-word/all-terminal-entry action and conditional normalized-boundary consumers.",
+    "Universal factor R/Q and entire Result equality consumers.",
+    "Each of field,sqrt,angle,trig,compare,read,write,emit instantiated separately in absorption cost consumers; exact eight-counter total identity and uniform canonicalize total consumer."
+  ],
+  "fresh_elaboration": {
+    "receipt": "reviews/publication/stored-tensor-train/decoder-c19-v3-public-receipt.json",
+    "receipt_sha256": "70aecca3bbccbde0eb2d34e1373391fdc3715254b2d3a7f77041399f1c388c69",
+    "raw_execution_receipt": "reviews/publication/stored-tensor-train/decoder-c19-v3-receipt.json",
+    "raw_execution_receipt_sha256": "fbada671cf4e9256641a328db9e960919af94aeabdfabde9e32a2fbaf342f972",
+    "raw_receipt_preserved_private_byte_identical": true,
+    "public_derivative_same_run_scope": true,
+    "returncode": 0,
+    "all_30_checked_and_axioms_printed": true,
+    "whole_actual_source_including_private_helpers": true,
+    "import_cached_target": false,
+    "production_compiler_outputs": false,
+    "provider_count": 4689,
+    "provider_pins_unchanged": true,
+    "cache_provenance": "Existing repository .lake build outputs, plus pinned package/toolchain libraries; imported providers were not freshly recompiled. Source and cache byte equality checked before/after, not a claim of fresh source-cache equivalence."
+  },
+  "read_scope": [
+    "AGENTS.md",
+    "HARNESS.md",
+    "docs/theorem-publication-protocol.md",
+    "docs/proof-digestion-protocol.md",
+    "docs/evidence-routed-memory-protocol.md",
+    ".agents/skills/qbe-substantive-worker/SKILL.md",
+    "decoder-packet.json",
+    "whole actual target",
+    "allowed recursive formal-provider source/cache closure",
+    "lean-toolchain",
+    "lake-manifest.json",
+    "lakefile.lean",
+    "own probes and own receipts"
+  ],
+  "withheld_not_read": [
+    "docs/lessons/stored-tensor-train-canonicalization.md",
+    "website/research/sources.json",
+    "publication-candidate.json",
+    "other review artifacts",
+    "task ledgers",
+    "parent conclusions",
+    "desired verdict"
+  ],
+  "admission_scope": "Formal whole-module reconstruction uncertainty addressed. Source comparison and approval remain with a distinct reviewer. No self-approval, whole-repository gate, ROOT/public/main/site/provider-wide claim.",
+  "failure_and_salvage": "Own preflight parser failures and failed v1/v2 Lean consumer receipts are retained immutable, typed IMPLEMENTATION_FAILED; no mathematics retired. Their raw paths predate the publication-safe v3 redaction and are private audit history, not publishable evidence outputs.",
+  "retained_failed_receipts": [
+    {
+      "path": "decoder-c19-v1-receipt.json",
+      "sha256": "cd27ad7c2f8e5100dbe44d6cb6a2fbbc40b838065a5bbf53431fa09d22066645",
+      "failure_class": "IMPLEMENTATION_FAILED",
+      "publication_safe": false
+    },
+    {
+      "path": "decoder-c19-v2-receipt.json",
+      "sha256": "f2e06dcf2a43df31754bb1bc1ffbe2551090e07379342c73fa579cbe16b0184d",
+      "failure_class": "IMPLEMENTATION_FAILED",
+      "publication_safe": false
+    }
+  ],
+  "privacy": "Explicit versioned PUBLIC derivative uses symbolic repository/toolchain prefixes retaining exact suffix locators and original receipt provenance. The original execution receipt is retained byte-identical private history. Final artifact/evidence and PUBLIC derivative are covered by decoder-privacy-c19-v3-public.json (literal paths, decoded JSON keys/strings and nested decoded logs). Immutable older failures are separately flagged and not overwritten."
+}

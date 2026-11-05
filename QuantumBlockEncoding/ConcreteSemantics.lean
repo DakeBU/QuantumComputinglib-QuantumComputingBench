@@ -113,17 +113,17 @@ The ABEIS first-column contract is exactly the state-action equation
 -/
 theorem firstColumnMatches_iff_applyVec_zeroKet
     {α : Type u} [NonAssocSemiring α] {qubits : Nat}
-    (operator : Matrix (gridSize qubits) (gridSize qubits) α)
+    (operator : FiniteMatrix (gridSize qubits) (gridSize qubits) α)
     (target : StatePreparationTarget α qubits) :
     FirstColumnMatches operator target ↔
       applyVec operator (zeroKet qubits) = target.amplitudes := by
   constructor
   · intro firstColumn
-    funext row
-    simpa using firstColumn row
+    rw [applyVec_zeroKet]
+    exact funext firstColumn
   · intro action row
-    have rowAction := congrFun action row
-    simpa using rowAction
+    rw [applyVec_zeroKet] at action
+    exact congrFun action row
 
 /--
 Concrete state-preparation evidence.  This is an optional final semantic layer:

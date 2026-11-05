@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "status": "PROVED_LOCAL",
+  "checked_at": "2026-10-08T01:42:45+08:00",
+  "objective": "Bounded literal Figure 3 diagonal supplier to accepted branch, success and normalization; not V.1, IV.1 or a scalable resource theorem.",
+  "direction_fingerprint": "literal-diagonal-projected-block-and-success-adapter",
+  "expected_information_gain": "Close the actual H-controlled-phase-H-P supplier and its state-preparation consumer without assuming projected-block correctness; discriminate source phase and acceptance-label ambiguities.",
+  "source": {
+    "id": "zylberman-et-al-2025-diagonal",
+    "url": "https://arxiv.org/pdf/2404.02819v4",
+    "sha256": "b1a72d586d59ad81e88008e3680639de2c9fe565d044adcfd5129151efcce93c",
+    "inspected": "Printed pp.8-12 text, printed p.10 pixels (Figure 3, Eq17-21); IV.1 Eq15-16 and V.1 text inspected, not proved; Appendix B not inspected or claimed closed.",
+    "source_topology_review": "PENDING; author source extraction is not independent review",
+    "phase_issue": "Literal P=diag(1,-i) produces cos(theta)|0>+sin(theta)|1>, not printed -i*cos(theta)|0>+sin(theta)|1>. Exact theta=0 discriminator compiled. Tentative source-contract mismatch, no independently reviewed SOURCE_INVALID classification.",
+    "signal_issue": "Literal accepted projection is output1<-input0. Eq18's output0<-input0 and Fig4 caption's success0 are not silently equated. No X-output relabeling adapter or resource charge is included."
+  },
+  "lean": {
+    "file": "experiments/diagonal-operators/DiagonalProjectedBlock.lean",
+    "sha256": "d46508db7ae04922e51506d924c696a38ea667d30a0b5eac010f757573e6e0d5",
+    "namespace": "QuantumBlockEncoding.DiagonalProjectedBlock",
+    "staging_module": "experiments.\u00abdiagonal-operators\u00bb.DiagonalProjectedBlock",
+    "required_imports": ["QuantumBlockEncoding.TextbookStatePreparation", "QuantumBlockEncoding.Robin.ComplexLCU", "Mathlib.Analysis.SpecialFunctions.Trigonometric.Inverse"],
+    "roots": ["literalDilation_unitary", "literalDilation_projectedBlock", "literalDilation_acceptedBranch", "literalDilation_success", "literalDilation_normalizedBranch", "literalDilation_normalized_mass", "literalDilation_probability_le_one"],
+    "exact_types": "All seven complete signatures and binder expansions are recorded in statement-seal.json, no abstract correctness premise.",
+    "standard_axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "custom_axioms": [],
+    "placeholders": [],
+    "toolchain": "leanprover/lean4:v4.33.0",
+    "toolchain_sha256": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "manifest_sha256": "510171e8214a2ac5e00f16c1bf92ad474d2de42c4cd2dc2b3d411272f7b58763",
+    "statement_seal_sha256": "039fefb2038ba897d2a28cdaf43d54836d201fe9bf6419a6c477e5235d031992",
+    "signature_sha256": "dc1e208c72b3c1a88cb35867e92f9bcabcff0a018269552eccddf2a209b826ab"
+  },
+  "conventions": {
+    "dimension": "Finite N, with source specialization N=2^n; explicit finite-dimension generalization.",
+    "entries": "Signed real d_j; complex input amplitudes; complex-eigenvalue extension excluded.",
+    "scale": "Positive total scale beta and |d_j|<=beta. Source beta=alpha*dmax (alpha>=1,dmax>0); beta=dmax for Eq21. No dmax=max|d_j| producer formalized here, so the source-scale instantiation is an explicit residual bridge.",
+    "success": "Actual sum Complex.normSq accepted = sum d_j^2*Complex.normSq psi_j / beta^2. This is Born probability only for normalized input; p<=1 proved with that input convention.",
+    "normalization": "Positive unscaled output mass only; accepted/sqrt(success) = (D psi)/sqrt(unscaled mass), and actual sum normSq=1. No normalized state claimed for zero branch.",
+    "registers": "Signal first high order and data second; source Eq19 system-first display bridged explicitly by Matrix.reindexAlgEquiv(Equiv.prodComm), with entry and unitarity lemmas. Input signal0, output signal1, system labels preserved. No pure/dirty workspace in this bounded Figure3 slice.",
+    "error": "Exact accepted block, epsilon=0. No normalized-block operator error delta, beta*delta unscaled-error, robust normalized-state error, or finite-gate error theorem is claimed.",
+    "resources": "Ideal exact-real matrix sequence only; no gate/depth/width optimality, angle preprocessing, connectivity, finite-bit synthesis, repeated preparation, RUS or amplification bound."
+  },
+  "source_to_lean": [
+    {"source_nodes": ["diag:fig3-H", "diag:fig3-controls", "diag:fig3-HP"], "lean_nodes": ["sourceP", "sourceControlledPhase", "sourceScalarCircuit", "literalDilation", "literalDilation_unitary"], "layer": "Exact literal matrix sequence and unitarity, not scalable primitive synthesis"},
+    {"source_nodes": ["diag:eq19-register-order"], "lean_nodes": ["sourceSystemFirstDilation", "sourceSystemFirstDilation_entry", "sourceSystemFirstDilation_unitary"], "layer": "Index/tensor notation transport, no bit-level circuit convention inferred"},
+    {"source_nodes": ["diag:eq20-accepted"], "lean_nodes": ["literalDilation_projectedBlock", "literalDilation_acceptedBranch", "literalDilation_normalizedBranch", "literalDilation_normalized_mass"], "layer": "Accepted1<-0 action and normalized consumer"},
+    {"source_nodes": ["diag:eq21-mass"], "lean_nodes": ["literalDilation_success", "literalDilation_probability_le_one"], "layer": "Exact finite success identity and normalized-input upper bound"},
+    {"source_nodes": ["diag:eq19-rejected-phase"], "lean_nodes": ["source_zero_angle_failure_discriminator"], "layer": "Exact smallest mismatch discriminator; independent source review pending"}
+  ],
+  "reuse": [
+    {"api": "TextbookStatePreparation.hadamard / hadamard_unitary / invSqrtTwo_mul_self", "use": "The actual source H and its normalization, through typed sourceH adapter; no second Hadamard implementation"},
+    {"api": "Robin.ComplexLCU.blockDiagonal_unitary", "use": "Lift actual per-data-label scalar circuits without a generic block premise"},
+    {"api": "Robin.ComplexLCU.reindex_unitary", "use": "Transport source-system-first display to local signal-first order"},
+    {"api": "ConcreteSemantics.ProductRegisterMatrix", "use": "Compatible explicit signal/system carrier convention; same-sector block projection deliberately not used for crossed1<-0 acceptance"},
+    {"api": "Mathlib Matrix.diagonal / mulVec / unitaryGroup / blockDiagonal / reindexAlgEquiv", "use": "Canonical finite-matrix and unitary semantics"},
+    {"api": "Mathlib Complex.normSq / Real.sin_arcsin / Real.sqrt_div", "use": "Signed amplitude, Euclidean success mass and positive-scale normalization"}
+  ],
+  "tests": {
+    "focused_command": "lake env lean experiments/diagonal-operators/DiagonalProjectedBlock.lean",
+    "exit_code": 0,
+    "axiom_check": "#print axioms on all seven roots and source_zero_angle_failure_discriminator: only standard axioms listed above",
+    "regressions": ["theta=0 rejected amplitude1 differs from printed -i", "negative one scalar accepted sign", "one-half scalar success1/4", "zero scalar accepted amplitude0", "two-slot signed plus zero diagonal retains zero accepted slot", "two simultaneous slots -1 and1/2 retain relative sign", "nonzero diagonal with input supported on zero slot has zero success"],
+    "clean_scan": "No sorry, admit or custom axiom declaration in source",
+    "full_repository_gate": "NOT RUN: staging-only scope; root integration owner must run required gate before promotion",
+    "site_gate": "NOT RUN: no production/publication/site edits",
+    "known_environment_warning": "Existing .lake/packages/verso local changes; Lean check still exits0"
+  },
+  "failure_class": "NONE",
+  "source_uncertainty": "Tentative source-contract mismatch for printed full-state/clean-sector claims remains pending independent review; not SOURCE_INVALID-certified.",
+  "salvage": "Exact supplier, signed accepted branch, success/normalization and minimal phase discriminator kept as staging evidence; no failed circuit or resource route promoted.",
+  "process_memory_ids_consulted": ["QBE-PM-LOW-TOKEN-CONTROL-PLANE"],
+  "parallel_admission": "Worker dispatched by root for distinct diagonal-source uncertainty; no child agent spawned",
+  "common_blind_spot_audit": "No competing serious proof routes; source-blind decoder and distinct independent reviewer remain pending",
+  "default_route": "Literal Figure3 H-controlled-phase-H-P, chosen because it preserves the source gates and phases; generic contraction dilation deprioritized as off-source substitution",
+  "purification": "PENDING integration and independent Exposition Seal; no PROOF_SEALED/PUBLISHED/MERGED/PURIFIED claim",
+  "graph_delta": "Staging bridge: explicit signed diagonal supplier -> accepted branch -> finite success -> normalized state, with source gaps retained and no resource edge.",
+  "files_changed": ["experiments/diagonal-operators/DiagonalProjectedBlock.lean", "experiments/diagonal-operators/statement-seal.json", "experiments/diagonal-operators/result.json"],
+  "baseline": {"commit": "8c341b099e21ca98c264076837f10787a80d0c8f", "production_digest": "5a8f47f8d0afd1d4f957e55babde52a9e9c01babf05c481b988e99ebca2f7758"},
+  "next": "Independent decode/review of the literal circuit and phase/clean-sector mismatch; explicit dmax/alpha instantiation and reviewed charged X clean-sector adapter if desired; scalable phase supplier, parallel cleanup, approximation and resource contracts remain separate targets."
+}

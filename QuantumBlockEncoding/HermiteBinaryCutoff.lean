@@ -41,7 +41,7 @@ theorem search_cost (remaining start : ℕ) (lower span : ℝ) (op : Op) :
   | succ remaining ih =>
       simp only [search, StoredGivens.div, StoredGivens.add, below, charge,
         bind, Run.bind]
-      split <;> simp [ih] <;> ring
+      by_cases h : lower + span / 2 < -1 <;> simp [h, ih] <;> ring
 
 private theorem half_span (step : ℝ) (remaining : ℕ) :
     (step * (2 : ℝ) ^ (remaining + 1)) / 2 = step * (2 : ℝ) ^ remaining := by

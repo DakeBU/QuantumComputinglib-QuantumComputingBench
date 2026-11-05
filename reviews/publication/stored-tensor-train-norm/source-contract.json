@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "kind": "retrospective-local-mathematical-contract",
+  "source_id": "aspbe-local-stored-tensor-train-norm",
+  "source": "docs/lessons/cached-stored-tensor-train-norm.md",
+  "source_sha256": "26def45467ddbffd78a13f3073a5735e17f0aafb65565b2eb4a8179c7255d305",
+  "existing_module": "QuantumBlockEncoding/StoredTensorTrainNorm.lean",
+  "module_sha256": "000db174cba35e68c360bb59754bf6e75aec362c6a5bf8f003d96abf80810f88",
+  "public_declarations": [
+    "QuantumBlockEncoding.StoredTensorTrainNorm.firstEntry",
+    "QuantumBlockEncoding.StoredTensorTrainNorm.firstPass",
+    "QuantumBlockEncoding.StoredTensorTrainNorm.firstPass_value",
+    "QuantumBlockEncoding.StoredTensorTrainNorm.secondEntry",
+    "QuantumBlockEncoding.StoredTensorTrainNorm.secondPass",
+    "QuantumBlockEncoding.StoredTensorTrainNorm.secondPass_value",
+    "QuantumBlockEncoding.StoredTensorTrainNorm.addMatrices",
+    "QuantumBlockEncoding.StoredTensorTrainNorm.addMatrices_value",
+    "QuantumBlockEncoding.StoredTensorTrainNorm.update",
+    "QuantumBlockEncoding.StoredTensorTrainNorm.update_value",
+    "QuantumBlockEncoding.StoredTensorTrainNorm.cacheNode",
+    "QuantumBlockEncoding.StoredTensorTrainNorm.gram",
+    "QuantumBlockEncoding.StoredTensorTrainNorm.gram_value",
+    "QuantumBlockEncoding.StoredTensorTrainNorm.norm",
+    "QuantumBlockEncoding.StoredTensorTrainNorm.norm_value",
+    "QuantumBlockEncoding.StoredTensorTrainNorm.norm_eq_sum",
+    "QuantumBlockEncoding.StoredTensorTrainNorm.productBudget",
+    "QuantumBlockEncoding.StoredTensorTrainNorm.additionBudget",
+    "QuantumBlockEncoding.StoredTensorTrainNorm.updateBudget",
+    "QuantumBlockEncoding.StoredTensorTrainNorm.firstEntry_cost_le",
+    "QuantumBlockEncoding.StoredTensorTrainNorm.secondEntry_cost_le",
+    "QuantumBlockEncoding.StoredTensorTrainNorm.firstPass_cost_le",
+    "QuantumBlockEncoding.StoredTensorTrainNorm.secondPass_cost_le",
+    "QuantumBlockEncoding.StoredTensorTrainNorm.addMatrices_cost_le",
+    "QuantumBlockEncoding.StoredTensorTrainNorm.update_cost_le",
+    "QuantumBlockEncoding.StoredTensorTrainNorm.update_total_cost_le",
+    "QuantumBlockEncoding.StoredTensorTrainNorm.gram_total_cost_le",
+    "QuantumBlockEncoding.StoredTensorTrainNorm.norm_cost",
+    "QuantumBlockEncoding.StoredTensorTrainNorm.norm_total_cost_le"
+  ],
+  "statement_seal": "Retrospective existing-signature freeze only, not historical pre-proof seal; no source/proof mutation.",
+  "source_construction_graph": [
+    {
+      "id": "stored-gram:representation",
+      "region": "Matrices and complete norm",
+      "disposition": "NODE",
+      "formula": "Stored real cores, ordered bit-word matrix product, complete right-terminal identity and all-label norm"
+    },
+    {
+      "id": "stored-gram:two-pass",
+      "region": "Stored contraction procedure",
+      "disposition": "NODE",
+      "dependencies": [
+        "stored-gram:representation"
+      ],
+      "formula": "F=A_bit E, G=F A_bit^T; actual materialized tables"
+    },
+    {
+      "id": "stored-gram:cached-induction",
+      "region": "Stored contraction procedure",
+      "disposition": "NODE",
+      "dependencies": [
+        "stored-gram:two-pass"
+      ],
+      "formula": "Tail environment bound once; sum over both bits; induction equals complete word Gram"
+    },
+    {
+      "id": "stored-gram:cost-model",
+      "region": "Charged operation model first two paragraphs",
+      "disposition": "NODE",
+      "formula": "Eight counters, entry two reads, exact-real field/sqrt cost, full collect materialization and six-word cache node"
+    },
+    {
+      "id": "stored-gram:site-cost",
+      "region": "Charged operation model product and sum equations",
+      "disposition": "NODE",
+      "dependencies": [
+        "stored-gram:two-pass",
+        "stored-gram:cost-model"
+      ],
+      "formula": "12lm²+12l²m+8lm+17l²+20l"
+    },
+    {
+      "id": "stored-gram:global-cost",
+      "region": "Charged operation model recurrence",
+      "disposition": "NODE",
+      "dependencies": [
+        "stored-gram:cached-induction",
+        "stored-gram:site-cost"
+      ],
+      "formula": "n*(24D³+25D²+20D+6)+5D²+4D+6; scalar lookup/sqrt adds3"
+    },
+    {
+      "id": "stored-gram:consumer-boundary",
+      "region": "Charged operation model final paragraph; Reuse and the four graph views",
+      "disposition": "NODE",
+      "formula": "Input generation/finite-bit/runtime/peak-memory/physical-wire/circuit/complex/cross-Gram excluded and transports proposed only"
+    },
+    {
+      "id": "stored-gram:formal-navigation",
+      "region": "Mathematical and formal correspondence",
+      "disposition": "EXCLUDED",
+      "reason": "Lossless authored navigation to entire29-declaration interface; not an additional mathematical theorem"
+    }
+  ],
+  "binder_roles": {
+    "finite_dimensions": "TYPING",
+    "arbitrary_stored_real_chain": "SOURCE",
+    "scalar_boundaries": "SOURCE",
+    "max_bond_bound_D": "SOURCE_ONLY_FOR_COST_RESULT",
+    "run_producer_value_correctness": "PROVED_INTERNAL_DEPENDENCY",
+    "cost_counter_definitions": "STANDING_LITERAL_LOCAL_MODEL",
+    "physical_wire_and_quantum_action": "NOT_ASSERTED"
+  },
+  "definition_kind": "Literal charged stored matrix/chain recursion; noncomputable exact-real scalar arithmetic, no unique-choice or free correctness hypothesis",
+  "source_coverage": "Whole local authored lesson and all29 public declarations; no external paper or whole provider admission",
+  "admission": "Distinct blinded decoder plus separate source-first anti-anchored reviewer required; parent never self-approves this lesson"
+}

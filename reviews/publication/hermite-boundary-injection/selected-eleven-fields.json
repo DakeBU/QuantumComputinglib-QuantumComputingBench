@@ -1,0 +1,1132 @@
+{
+  "module": "QuantumBlockEncoding/HermiteBoundaryInjection.lean",
+  "source_id": "aspbe-local-retrospective-oneboundary-bernstein-contraction-c56",
+  "source_statement": "For all k,n natural, real L>0 and Boolean words of length n+1, the explicit fixed-bond real core contraction is the literal unnormalized Hermite sample at its MSB-first integer. Dense bond and address cardinalities are exact; no downstream quantum/cost closure.",
+  "source_anchor": "docs/lessons/hermite-boundary-injection.md S1-S8; exact original SHA256 69f7b917b21e70ca98285530571b11668ea69333f8fdcc0cfca43b19cf898018; retrospective implementation-informed source, not historical pre-proof or novelty evidence",
+  "lesson_path": "docs/lessons/hermite-boundary-injection.md",
+  "declarations": [
+    "QuantumBlockEncoding.HermiteBoundaryInjection.wordValue",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.wordValue_lt",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.pathCoordinate_eq_wordValue",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.Full",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.Outside",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.Partial",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.partial_prefix_eq",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.partial_prefix_unique",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.not_partial_unit",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.partial_middle_prefix_unique",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.middle_root_not_full",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.affinePoint",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.injectedReadout",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.injectedReadout_eq",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.unitCoefficient",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.sharedCore",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.sharedCore_false",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.sharedCore_true",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.sharedCore_basis",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.sharedContract",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.sharedContract_eq_basis",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.injectedFiniteReadout",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.injectedFiniteReadout_eq_injectedReadout",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.injectedFiniteReadout_eq",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.boundaryReadout",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.boundaryReadout_eq",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.InjectionBond",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.selectedChild",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.blockInjectionRow",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.injectionCore",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.injectionContract",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.injectionContract_shared",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.ScheduleValid",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.injectionContract_boundary",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule_child",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule_valid",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule_root",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.middle_root_partial",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.partial_left_prefix_eq",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule_left_valid",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.ScalarBond",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.scalarFreeContract",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.scalarCore",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.scalarContract",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.scalarContract_shared",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.scalarBoundaryReadout",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.scalarBoundaryReadout_eq",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.scalarContract_boundary",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.leftFree",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.leftInject",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.leftFreeContract_eq",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.leftInject_readout",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.leftInject_eq_last",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.leftFree_bounds",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.gridStep",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.gridStep_pos",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat_eq_gridPoint",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat_midpoint",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat_strictMono",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat_lt_zero_iff",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat_lt_neg_one_iff",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex_le_midpoint",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex_eq_clamped",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.middle_membership_iff",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.injection_domain",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.middleReadout",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.middleReadout_eq",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.middleReadout_empty",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.wordSampleIndex",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.middleReadout_eq_masked_sample",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.middleFiniteReadout",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.middleFiniteReadout_eq_middleReadout",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.middleFiniteReadout_eq_masked_sample",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.leftFiniteReadout",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.leftFiniteReadout_eq",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.leftInject_bounds",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.leftFiniteReadout_eq_masked_sample",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.rightFree",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.rightFree_bounds",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.rightFreeContract_eq",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.rightCore",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.rightCore_suffix",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.rightFiniteReadout",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.rightFiniteReadout_eq",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.rightFiniteReadout_eq_masked_sample",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.threeBranchReadout_eq_sample",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.Kernel",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.kernelContract",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.kernelAmplitude",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.sumKernel",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.kernelContract_sum_inl",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.kernelContract_sum_inr",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.kernelAmplitude_sum",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.injectionTerminal",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.scalarTerminal",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.kernelContract_injection",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.kernelContract_scalar",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.kernelContract_unit",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.leftKernel",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.middleKernel",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.rightKernel",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.leftInitial",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.middleInitial",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.kernelAmplitude_left",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.kernelAmplitude_middle",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.kernelAmplitude_right",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.HermiteFiniteBond",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.hermiteKernel",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.hermiteInitial",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.hermiteTerminal",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.hermiteKernel_eq_sample",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.hermiteFiniteBond_card",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.HermiteCoreAddress",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.hermiteCoreEntry",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.hermiteCoreAddress_card",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.injectionBond_card",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.MiddleBond",
+    "QuantumBlockEncoding.HermiteBoundaryInjection.middleBond_card"
+  ],
+  "obligation_map": [
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S2",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.wordValue"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S2",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.wordValue_lt"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S2",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.pathCoordinate_eq_wordValue"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.Full"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.Outside"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.Partial"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.partial_prefix_eq"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.partial_prefix_unique"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.not_partial_unit"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.partial_middle_prefix_unique"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.middle_root_not_full"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S3, S4",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.affinePoint"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S3, S4",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.injectedReadout"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S3, S4",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.injectedReadout_eq"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S4",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.unitCoefficient"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S4",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.sharedCore"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S4",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.sharedCore_false"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S4",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.sharedCore_true"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S4",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.sharedCore_basis"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S4",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.sharedContract"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S4",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.sharedContract_eq_basis"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S4",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.injectedFiniteReadout"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S4",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.injectedFiniteReadout_eq_injectedReadout"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S4",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.injectedFiniteReadout_eq"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.boundaryReadout"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.boundaryReadout_eq"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.InjectionBond"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.selectedChild"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.blockInjectionRow"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.injectionCore"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.injectionContract"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.injectionContract_shared"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.ScheduleValid"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.injectionContract_boundary"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule_child"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule_valid"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule_root"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.middle_root_partial"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.partial_left_prefix_eq"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule_left_valid"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S6",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.ScalarBond"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S6",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.scalarFreeContract"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S6",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.scalarCore"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S6",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.scalarContract"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S6",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.scalarContract_shared"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S6",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.scalarBoundaryReadout"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S6",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.scalarBoundaryReadout_eq"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S6",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.scalarContract_boundary"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S6",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.leftFree"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S6",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.leftInject"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S6",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.leftFreeContract_eq"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S6",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.leftInject_readout"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S6",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.leftInject_eq_last"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S6",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.leftFree_bounds"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S1, S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.gridStep"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S1, S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S1, S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.gridStep_pos"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S1, S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat_eq_gridPoint"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S1, S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat_midpoint"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S1, S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat_strictMono"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S1, S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat_lt_zero_iff"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S1, S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S1, S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat_lt_neg_one_iff"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S1, S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex_le_midpoint"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S1, S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex_eq_clamped"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S1, S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.middle_membership_iff"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S1, S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.injection_domain"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5, S7",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.middleReadout"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5, S7",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.middleReadout_eq"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5, S7",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.middleReadout_empty"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5, S7",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.wordSampleIndex"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5, S7",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.middleReadout_eq_masked_sample"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5, S7",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.middleFiniteReadout"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5, S7",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.middleFiniteReadout_eq_middleReadout"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S5, S7",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.middleFiniteReadout_eq_masked_sample"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S6, S7",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.leftFiniteReadout"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S6, S7",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.leftFiniteReadout_eq"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S6, S7",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.leftInject_bounds"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S6, S7",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.leftFiniteReadout_eq_masked_sample"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S6, S7",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.rightFree"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S6, S7",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.rightFree_bounds"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S6, S7",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.rightFreeContract_eq"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S6, S7",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.rightCore"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S6, S7",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.rightCore_suffix"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S6, S7",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.rightFiniteReadout"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S6, S7",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.rightFiniteReadout_eq"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S6, S7",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.rightFiniteReadout_eq_masked_sample"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S6, S7",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.threeBranchReadout_eq_sample"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S7, S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.Kernel"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S7, S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.kernelContract"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S7, S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.kernelAmplitude"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S7, S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.sumKernel"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S7, S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.kernelContract_sum_inl"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S7, S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.kernelContract_sum_inr"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S7, S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.kernelAmplitude_sum"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S7, S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.injectionTerminal"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S7, S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.scalarTerminal"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S7, S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.kernelContract_injection"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S7, S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.kernelContract_scalar"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S7, S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.kernelContract_unit"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S7, S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.leftKernel"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S7, S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.middleKernel"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S7, S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.rightKernel"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S7, S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.leftInitial"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S7, S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.middleInitial"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S7, S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.kernelAmplitude_left"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S7, S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.kernelAmplitude_middle"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S7, S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.kernelAmplitude_right"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S7, S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.HermiteFiniteBond"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S7, S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.hermiteKernel"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S7, S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.hermiteInitial"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S7, S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.hermiteTerminal"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S7, S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.hermiteKernel_eq_sample"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S7, S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.hermiteFiniteBond_card"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S7, S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.HermiteCoreAddress"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S7, S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.hermiteCoreEntry"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S7, S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.hermiteCoreAddress_card"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S7, S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.injectionBond_card"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S7, S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.MiddleBond"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/hermite-boundary-injection.md S7, S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteBoundaryInjection.middleBond_card"
+      ]
+    }
+  ],
+  "assumption_deltas": [
+    {
+      "classification": "same",
+      "source": "k,n natural; L>0; MSB word length n+1; exact unnormalized scalar target",
+      "formal": "hermiteKernel_eq_sample retains exactly hL and hbits; helper interfaces retain their conditional premises",
+      "explanation": "Retrospective source states the actual existing contract; no historical pre-proof or independent fidelity claim."
+    },
+    {
+      "classification": "same",
+      "source": "Total literal helper definitions; affine interpretation requires nonzero start coordinate",
+      "formal": "injectedReadout_eq/injectedFiniteReadout_eq require hfirst; generic traversal hvalid; schedule adapters hnext AND hp; scalar adapter hinject",
+      "explanation": "Root internally supplies geometric/schedule/exponential facts. No new root premises."
+    }
+  ],
+  "graph_contribution": {
+    "baseline": "Main af585d9cbbb299c1c8c48647627a2cb820ef536a versus contribution 7252cd28fef9f7fa7c845bb2e10b54d7d90e7be2; retrospective reorganisation of an existing exact-real construction, not a new circuit discovery",
+    "classes": [
+      "reorganisation"
+    ],
+    "node_ids": [
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.wordValue",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.wordValue_lt",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.pathCoordinate_eq_wordValue",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.Full",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.Outside",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.Partial",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.partial_prefix_eq",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.partial_prefix_unique",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.not_partial_unit",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.partial_middle_prefix_unique",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.middle_root_not_full",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.affinePoint",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.injectedReadout",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.injectedReadout_eq",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.unitCoefficient",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.sharedCore",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.sharedCore_false",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.sharedCore_true",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.sharedCore_basis",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.sharedContract",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.sharedContract_eq_basis",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.injectedFiniteReadout",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.injectedFiniteReadout_eq_injectedReadout",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.injectedFiniteReadout_eq",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.boundaryReadout",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.boundaryReadout_eq",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.InjectionBond",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.selectedChild",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.blockInjectionRow",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.injectionCore",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.injectionContract",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.injectionContract_shared",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.ScheduleValid",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.injectionContract_boundary",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule_child",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule_valid",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule_root",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.middle_root_partial",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.partial_left_prefix_eq",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule_left_valid",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.ScalarBond",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.scalarFreeContract",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.scalarCore",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.scalarContract",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.scalarContract_shared",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.scalarBoundaryReadout",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.scalarBoundaryReadout_eq",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.scalarContract_boundary",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.leftFree",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.leftInject",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.leftFreeContract_eq",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.leftInject_readout",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.leftInject_eq_last",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.leftFree_bounds",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.gridStep",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.gridStep_pos",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat_eq_gridPoint",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat_midpoint",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat_strictMono",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat_lt_zero_iff",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat_lt_neg_one_iff",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex_le_midpoint",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex_eq_clamped",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.middle_membership_iff",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.injection_domain",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.middleReadout",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.middleReadout_eq",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.middleReadout_empty",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.wordSampleIndex",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.middleReadout_eq_masked_sample",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.middleFiniteReadout",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.middleFiniteReadout_eq_middleReadout",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.middleFiniteReadout_eq_masked_sample",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.leftFiniteReadout",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.leftFiniteReadout_eq",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.leftInject_bounds",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.leftFiniteReadout_eq_masked_sample",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.rightFree",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.rightFree_bounds",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.rightFreeContract_eq",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.rightCore",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.rightCore_suffix",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.rightFiniteReadout",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.rightFiniteReadout_eq",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.rightFiniteReadout_eq_masked_sample",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.threeBranchReadout_eq_sample",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.Kernel",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.kernelContract",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.kernelAmplitude",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.sumKernel",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.kernelContract_sum_inl",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.kernelContract_sum_inr",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.kernelAmplitude_sum",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.injectionTerminal",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.scalarTerminal",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.kernelContract_injection",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.kernelContract_scalar",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.kernelContract_unit",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.leftKernel",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.middleKernel",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.rightKernel",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.leftInitial",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.middleInitial",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.kernelAmplitude_left",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.kernelAmplitude_middle",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.kernelAmplitude_right",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.HermiteFiniteBond",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.hermiteKernel",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.hermiteInitial",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.hermiteTerminal",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.hermiteKernel_eq_sample",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.hermiteFiniteBond_card",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.HermiteCoreAddress",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.hermiteCoreEntry",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.hermiteCoreAddress_card",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.injectionBond_card",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.MiddleBond",
+      "declaration:QuantumBlockEncoding.HermiteBoundaryInjection.middleBond_card"
+    ],
+    "views": [
+      "Source Proof / Construction Graph: exact C74 corrected source-graph-v2.json SHA256 c0e6f83e2eb402836a325810bf3ad3c78cee18f4e871f6d1dc426ade3b859aa0 with source-coverage.json SHA256 95b198eaf46578ccbf83c154647a8020bbb36d1c8dda2f0712849a60ad6c5021; source-only topology review is distinct from whole formal correspondence",
+      "Lean Dependency Graph: all public module identities and exact local import/provider context; textual dependency explanation, not a complete elaborated proof-term audit",
+      "Compressed Quantum Spine: unnormalized exact-real structured-sample contraction prerequisite only; no circuit preparation, normalization or finite-bit root",
+      "Functor Hypergraph: typed source supplier AND tails retained; no new category/functor/quantum transport theorem or algorithmic OR winner asserted"
+    ],
+    "preserved_contract": "Same literal f_k samples, exact real row-oriented finite contraction, full all-branch sum, positive L and exact word width",
+    "remaining_boundary": "Exact-real scalar contraction and dense finite-cardinality result only. Classical coefficient/grid/cut production, bit complexity, normalized SP, circuit compilation, synthesis, phase/ancilla cleanup, resource bounds and executable family acceptance remain open. Current final scientific metadata/raw/runtime association and publication gates require distinct review."
+  },
+  "formalizer": "UNKNOWN",
+  "residual_boundary": "Retrospective local source; historical formalizer UNKNOWN. No pre-proof chronology, novelty or paper-theorem attribution is inferred. The original lesson keeps its historical AUTHOR/WIP header unchanged; later reviews are separately dated and bound. This selected eleven-field proposal is not acceptance. Independent source-first and source-blind textual stages exist, while exact final raw/runtime/metadata association and integration are pending. No normalized quantum state, finite-bit algorithm, full resource/epsilon guarantee, main migration or PURIFIED claim."
+}

@@ -1,0 +1,252 @@
+{
+  "schema_version": 1,
+  "status": "AUTHOR_PROPOSED_FOUR_VIEWS_REVIEW_PENDING",
+  "contribution": "documentation-only retrospective publication bridge; existing production nodes unchanged; no novelty inference",
+  "baseline": "08284762faf5e2b9c613526fd2cf735e72a7fdfd",
+  "views": {
+    "source-construction-graph": {
+      "source_path": "docs/lessons/constructive-tensor-train-canonicalization.md",
+      "provenance": "Author lesson-derived retrospective topology; not an independent historical-source extraction",
+      "nodes": [
+        {
+          "id": "source:ctt:carriers",
+          "content": "Arbitrary natural bonds, real core shape, slices, recursive words, empty identity, complete matrix carrier"
+        },
+        {
+          "id": "source:ctt:orthogonality",
+          "content": "Right-canonical whole flattened core, all-bit/all-terminal row inner products"
+        },
+        {
+          "id": "source:ctt:core-factor",
+          "content": "bit-major equivalence; concrete wide/tall thin LQ; deterministic sweep; zero-pair branch; sum reindexing; numerical-rank nonclaim"
+        },
+        {
+          "id": "source:ctt:recursion",
+          "content": "same actual returned residual and chain; tail-first construction"
+        },
+        {
+          "id": "source:ctt:action",
+          "content": "slice-wise absorption and factorization, associativity, every input/terminal entry"
+        },
+        {
+          "id": "source:ctt:bond-bound",
+          "content": "minimum cap at each nonempty site and unchanged terminal dimension"
+        },
+        {
+          "id": "source:ctt:boundary-mass",
+          "content": "vR; every word/terminal amplitude; full mass equals residual boundary mass"
+        },
+        {
+          "id": "source:ctt:conditional-normalization",
+          "content": "only input chainMass one yields output mass one"
+        },
+        {
+          "id": "source:ctt:scalar",
+          "content": "Chain n 1 1 specialization, exact scalar amplitude and conditional norm"
+        },
+        {
+          "id": "source:ctt:empty-zero",
+          "content": "empty identity, zero carriers/sums, recurrence propagates zero, impossible normalization on zero action"
+        },
+        {
+          "id": "source:ctt:views-boundary",
+          "content": "four views distinct, complete physical AND-tail, exact-real/uncosted limits"
+        }
+      ],
+      "hyperedges": [
+        {
+          "tails": [
+            "source:ctt:carriers",
+            "source:ctt:orthogonality",
+            "source:ctt:core-factor"
+          ],
+          "heads": [
+            "source:ctt:recursion"
+          ],
+          "mechanism": "literal absorption and tail-first structural recursion",
+          "logic": "AND"
+        },
+        {
+          "tails": [
+            "source:ctt:recursion",
+            "source:ctt:core-factor"
+          ],
+          "heads": [
+            "source:ctt:action",
+            "source:ctt:bond-bound"
+          ],
+          "mechanism": "induction, slice absorption/factorization and exact cap",
+          "logic": "AND"
+        },
+        {
+          "tails": [
+            "source:ctt:action",
+            "source:ctt:orthogonality"
+          ],
+          "heads": [
+            "source:ctt:boundary-mass"
+          ],
+          "mechanism": "full terminal row mass induction and residual transport",
+          "logic": "AND"
+        },
+        {
+          "tails": [
+            "source:ctt:boundary-mass",
+            "premise:input-chainMass-one"
+          ],
+          "heads": [
+            "source:ctt:conditional-normalization"
+          ],
+          "logic": "AND"
+        },
+        {
+          "tails": [
+            "source:ctt:action",
+            "source:ctt:boundary-mass",
+            "typing:scalar-bonds-one"
+          ],
+          "heads": [
+            "source:ctt:scalar"
+          ],
+          "mechanism": "singleton boundary specialization; norm one remains a separate premise",
+          "logic": "AND"
+        }
+      ],
+      "source_gaps": [
+        {
+          "id": "SOURCE_GAP:ctt:physical-preparation",
+          "status": "OUT_OF_SCOPE_OPEN",
+          "description": "Compatible word/wire order, active embeddings, realized isometry completion, primitive clean-column action and full terminal physical cleanup are not supplied by this module."
+        },
+        {
+          "id": "SOURCE_GAP:ctt:finite-bit-cost",
+          "status": "OUT_OF_SCOPE_OPEN",
+          "description": "Input generation/storage/evaluation, finite-bit arithmetic, numeric stability and uniform compiled resource/error costs not supplied."
+        }
+      ],
+      "alternative_sufficient_OR_routes": []
+    },
+    "lean-graph": {
+      "module": "module:QuantumBlockEncoding.ConstructiveTensorTrain",
+      "imports": [
+        "module:QuantumBlockEncoding.ConstructiveThinLQ",
+        "module:QuantumBlockEncoding.TensorTrainCanonical"
+      ],
+      "ownership": [
+        "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.CoreFactorization",
+        "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.factorCore",
+        "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.Result",
+        "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize",
+        "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_rightCanonical",
+        "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_rankReduced",
+        "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_action",
+        "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_maxBond_le",
+        "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.boundary",
+        "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.boundary_action",
+        "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.boundary_mass",
+        "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.boundary_normalized",
+        "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary",
+        "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary_action",
+        "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary_normalized"
+      ],
+      "edges_semantics": "Actual import and module ownership only; not theorem-to-theorem proof-term dependencies",
+      "reference_signals": {
+        "style": "dashed incomplete source-reference signals",
+        "providers": [
+          "ConstructiveThinLQ.factor",
+          "TensorTrainCanonical.absorb",
+          "TensorTrainCanonical.absorb_slice",
+          "TensorTrainCanonical.residual_mass",
+          "TensorTrainCanonical.RankReduced.maxBond_le",
+          "Matrix.vecMul_vecMul",
+          "Matrix.mul_assoc",
+          "finProdFinEquiv"
+        ]
+      },
+      "fresh_elaboration": "NOT_RUN"
+    },
+    "compressed-quantum-spine": {
+      "node": "concept:ctt-deterministic-right-canonicalization",
+      "moves": [
+        {
+          "move": "preserve bit/right-bond index under exact thin-LQ",
+          "expands": [
+            "source:ctt:core-factor"
+          ]
+        },
+        {
+          "move": "tail residual absorption and recursive exact action",
+          "expands": [
+            "source:ctt:recursion",
+            "source:ctt:action",
+            "source:ctt:bond-bound"
+          ]
+        },
+        {
+          "move": "full-terminal isometric boundary transport",
+          "expands": [
+            "source:ctt:boundary-mass",
+            "source:ctt:conditional-normalization",
+            "source:ctt:scalar"
+          ]
+        }
+      ],
+      "lossless_Lean_expansion": [
+        "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.CoreFactorization",
+        "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.factorCore",
+        "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.Result",
+        "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize",
+        "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_rightCanonical",
+        "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_rankReduced",
+        "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_action",
+        "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_maxBond_le",
+        "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.boundary",
+        "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.boundary_action",
+        "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.boundary_mass",
+        "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.boundary_normalized",
+        "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary",
+        "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary_action",
+        "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary_normalized"
+      ],
+      "compression_is_not_new_theorem": true,
+      "independent_exposition_seal": "PENDING"
+    },
+    "functor-hypergraph": {
+      "edges": [
+        {
+          "id": "transport:ctt-to-physical-sequential-preparation-proposal",
+          "status": "PROPOSED_NOT_CERTIFIED",
+          "tails": [
+            "concept:ctt-deterministic-right-canonicalization",
+            "premise:normalized-residual-boundary",
+            "obligation:word-wire-order-bridge",
+            "obligation:active-bond-physical-embeddings",
+            "obligation:realized-local-isometry-completion",
+            "obligation:exact-primitive-clean-column-action",
+            "obligation:full-terminal-cleanup"
+          ],
+          "heads": [
+            "concept:physical-sequential-state-preparation"
+          ],
+          "formula": "Complete clean-register circuit state equals the embedded scalar tensor contraction only after every listed input is discharged.",
+          "mechanism": "real row isometries transported to complex input columns, embedded and implemented sequentially",
+          "hypothesis_map": "rightCanonical is produced here; normalized boundary requires input source mass one; all physical premises remain separately supplied",
+          "conclusion_map": "full state action, not a selected output block or measurement distribution",
+          "failure_boundary": "Arbitrary terminal r is not cleaned; word order is not integer/wire order; finite-bit compiled resources need extra cost/error certificates.",
+          "sources": [
+            "aspbe-local-constructive-tensor-train-canonicalization"
+          ],
+          "candidate_Lean_substrates": [
+            "TensorTrainCanonical.complexCore_isometry",
+            "TensorTrainCanonical.paddedCore_active_isometry",
+            "SequentialBondPreparation.run_circuitStages_eq_transfer",
+            "SequentialBondPreparation.run_terminal_clean"
+          ],
+          "independent_review": "PENDING",
+          "certified_functor": false
+        }
+      ]
+    }
+  },
+  "remaining_boundary": "Input-core construction/storage/evaluation costs, arithmetic/finite-bit runtime and numerical stability, physical basis order/embeddings/isometry completion/primitive synthesis/full terminal cleanup and scientific ROOT are not certified by this module. Independent review, current Lean gate and reader/purification/main admission pending."
+}

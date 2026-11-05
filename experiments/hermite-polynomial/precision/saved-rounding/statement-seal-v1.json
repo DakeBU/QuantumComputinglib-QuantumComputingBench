@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "evidence_class": "C_INTERNAL_PROVIDER",
+  "direction_fingerprint": "outward-stage-not-uniform-exp-degree",
+  "shared_context_digest": "5a8f47f8d0afd1d4f957e55babde52a9e9c01babf05c481b988e99ebca2f7758",
+  "source": "precision/saved-action/saved_action.py: Interval, plus, negative, times, outward, stage_surrogates",
+  "definition_kind": "literal rational algorithm model; Python refinement not formal",
+  "definitions": {
+    "Interval": "structure with lo hi : Rat; Ordered means lo <= hi; Mem a x means (a.lo:Real)<=x and x<=(a.hi:Real)",
+    "plus": "[a.lo+b.lo,a.hi+b.hi]",
+    "negative": "[-a.hi,-a.lo]",
+    "times": "min/max of a.lo*b.lo,a.lo*b.hi,a.hi*b.lo,a.hi*b.hi",
+    "grid": "(2:Rat)^bits",
+    "outward": "[floor(a.lo*grid)/grid,ceil(a.hi*grid)/grid] using signed Int floor/ceil",
+    "sine cosine": "outward of FiniteTrig sinBounds/cosBounds(theta/2,n)",
+    "ryRow": "pair outward(plus(times(cosine,u),negative(times(sine,v)))),outward(plus(times(sine,u),times(cosine,v)))",
+    "midpoint": "(a.lo+a.hi)/2; only evaluated after interval updates",
+    "rowTrace": "chronological fold of rounded ryRow on one row pair with true real RY pair recurrence"
+  },
+  "signatures": [
+    "outward_mem (a : Interval) (bits : Nat) (x : Real) (hx : Mem a x) : Mem (outward a bits) x",
+    "outward_widening (a : Interval) (bits : Nat) : a.lo-1/grid bits < (outward a bits).lo and (outward a bits).lo <= a.lo and a.hi <= (outward a bits).hi and (outward a bits).hi < a.hi+1/grid bits",
+    "times_mem (a b : Interval) (x y : Real) (hx : Mem a x) (hy : Mem b y) : Mem (times a b) (x*y)",
+    "ryRow_mem (theta : Rat) (n bits : Nat) (u v : Interval) (x y : Real) (hu : Mem u x) (hv : Mem v y) : Mem (ryRow theta n bits u v).1 (cos(theta/2)*x-sin(theta/2)*y) and Mem (ryRow theta n bits u v).2 (sin(theta/2)*x+cos(theta/2)*y)",
+    "midpoint_error (a : Interval) (x : Real) (hx : Mem a x) : abs(x-(midpoint a:Real)) <= ((a.hi-a.lo)/2:Rat)",
+    "rowTrace_mem (angles : List Rat) (n bits : Nat) : same pair enclosure preserved by chronological fold, with no intermediate midpoint"
+  ],
+  "binder_audit": "Rat/Real inputs and Nat degree/grid are TYPING; entry Mem inputs are internal local invariant, never a public saved-action source premise. Taylor enclosure is discharged by FiniteTrig unconditional supplier.",
+  "physical_scope": "Actual RY paired-row recurrence for any column; no change of q0 LSB, no quantum matrix or dimension identification claimed here.",
+  "source_graph": ["raw Taylor supplier", "outward trig endpoints", "four-corner interval product", "signed row sum", "outward after every output", "chronological same-pair chain", "end-only midpoint"],
+  "open": ["Python Fraction and signed // refinement", "matrix row-pair routing and CX interleaving", "stage matrix entries and operator norm eta", "saved stage partition/data-first TT/readout", "uniform family finite-bit cost"],
+  "independent_review": "NOT_PERFORMED",
+  "scientific_root_closed": false
+}

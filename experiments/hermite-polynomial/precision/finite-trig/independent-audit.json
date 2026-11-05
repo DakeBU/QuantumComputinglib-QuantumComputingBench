@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "cycle": 13,
+  "reviewer": "root/finite_provider_reviewer_c13",
+  "review_kind": "distinct_exact_source_scoped_internal_provider_audit",
+  "accepted": true,
+  "verdict": "ACCEPTED_SCOPED_INTERNAL_PROVIDER_WITH_OPEN_REFINEMENT_AND_COST_BOUNDARIES",
+  "result_sha256": "45e8e0dc798cdcc28491dce317ed97ae77fdb939ee025ffab12542f99c895e12",
+  "binding_verification": {"all_result_bindings": 8, "mismatches": 0},
+  "complete_scope_read": ["statement-seal.json", "producer-seal.json", "FiniteTrig.lean", "FiniteTrigProducer.lean", "FiniteTrigCheck.lean", "finite_trig.py", "test_finite_trig.py", "replay.ps1", "result.json"],
+  "mathematical_review": {
+    "domain": "Both analytic error and membership roots quantify over EVERY rational q and EVERY natural degree n, with no logical hypotheses. Degree zero and q=0 are included; negative q uses unordered intervals.",
+    "coefficients": "Exact derivative cycle at zero is proved from the actual Real.iteratedDeriv_add_one_sin/cos dependencies. Taylor-sum identification includes every i=0..n and explicit rational-to-real casts.",
+    "remainder": "Inspected actual Mathlib Taylor.lean lines348-361: Lagrange remainder is derivative order n+1 times (q-0)^(n+1) divided by (n+1)!. The source uses this theorem, not the Cauchy/mean n! denominator. Global sin/cos derivative magnitude bounds hold for all real intermediate points. Zero argument is separately proved from the literal sums.",
+    "endpoints": "sin_error/cos_error imply correctly ordered lower=center-radius and upper=center+radius by abs_le. Width is exactly2*radius, not radius. All endpoint casts agree with the sealed literal rational formulas.",
+    "search": "Successful List.range(cap+1).find? proves n<=cap AND checked width<=eps. No bound on successful degree, universal cap success, minimal-degree theorem or runtime is inferred from this conditional theorem.",
+    "saved_argument": "Actual consumer instantiates theta/2 in Rat. This is not a proof of any external QASM token parser or RY matrix decoder.",
+    "python": "Inspected recurrence and direct finite formulas; numerical tests agree. Python max_width rejects negatives while Lean selectDegree can return none. Optional outward rounding enlarges the interval and must receive a separate downstream budget. Neither finite agreement nor textual Fraction parsing is a proved cross-language refinement."
+  },
+  "fresh_gates": {
+    "session": 97848,
+    "exit_code": 0,
+    "scope": "Complete FiniteTrig.lean, complete FiniteTrigProducer.lean, actual FiniteTrigCheck.lean, then all7 supplied Python tests",
+    "cache": ".lake/provider-review-c13-cache",
+    "printed_roots": 10,
+    "axioms_union": ["propext", "Classical.choice", "Quot.sound"],
+    "python_tests": 7,
+    "python_seconds": 0.033,
+    "warnings": "Existing verso dirty warning; unnecessarySimpa linter only. No source edits."
+  },
+  "independent_discriminators": {
+    "directory": "experiments/hermite-polynomial/precision/provider-review-c13",
+    "python_gate_chunk": "175b2a",
+    "python_tests_total": 5,
+    "python_exit": 0,
+    "finite_trig_checks": "49 independent signed/zero/large/tiny rational q-degree formula comparisons; honest cap failure; negative request rejection; demonstrably enlarged outward width.",
+    "lean_source_sha256": "e9493ada26eacbcac6422071722ba503d21fca46862c0341ea63d5f8a2523300",
+    "lean_phase_session": 17365,
+    "lean_exit_code": 0,
+    "lean_phase": "Own complete Discriminators.lean compiled with six named roots printing only standard axioms; the same successful session also freshly compiled complete RadiusStability.lean and repeated the actual radius consumer."
+  },
+  "statement_chronology": "Scalar formulas and error roots were pre-API sealed; finite selectDegree was additively sealed before its proof search. selected_sin_sound and selected_cos_sound were implemented without separate prior seals. This is disclosed internal-consumer chronology debt, not independent Source Anchor or canonical publication approval.",
+  "trusted_boundary": "Fresh focused Lean elaboration with existing pinned Mathlib oleans, checked exact source/result bindings and printed axiom census. Not a fresh rebuild of every transitive Mathlib dependency, compiler/kernel audit, source-blind decoder, canonicalSourceAnchor admission or full repository gate.",
+  "open": ["Python recurrence/decimal/dyadic decoder refinement", "saved primitive/stage/wire action bridge", "joint full-register error allocation", "uniform precision-schedule success and finite-bit runtime", "C2", "C3", "X2", "ROOT"],
+  "scientific_contract": "Original signed function-value target, normalized Euclidean full-vector error, q0 LSB, all terminal ancilla garbage retained, no free oracle/phase quotient/postselection/parameter exclusion.",
+  "failure_class": "NONE_FOR_FROZEN_SCOPE",
+  "purification": "NOT_PURIFIED_INTERNAL_REVIEW_ONLY",
+  "source_Anchor_approved": false,
+  "ROOT": false
+}

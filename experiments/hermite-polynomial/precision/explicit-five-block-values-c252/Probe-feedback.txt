@@ -1,0 +1,83 @@
+OWN\Probe.lean:71:2: error: Tactic `rfl` failed: The left-hand side
+  Sum.inr
+    (match finSumFinEquiv.symm rest with
+    | Sum.inl x => Sum.inl ((componentEquiv (HermiteFiniteExpDegree.sourceDegree delta)).symm x)
+    | Sum.inr z => Sum.inr (e3.symm z))
+is not definitionally equal to the right-hand side
+  Sum.inr
+    (match finSumFinEquiv.symm rest with
+    | Sum.inl x => Sum.inl ((componentEquiv (HermiteFiniteExpDegree.sourceDegree delta)).symm x)
+    | Sum.inr y => Sum.inr (e3.symm y))
+
+k : ℕ
+delta : ℚ
+rest :
+  Fin
+    (componentSize (HermiteFiniteExpDegree.sourceDegree delta) +
+      (componentSize (2 * k + 1) + (componentSize 0 + componentSize (HermiteFiniteExpDegree.sourceDegree delta))))
+e4 : ComponentIndex 0 ⊕ ComponentIndex (HermiteFiniteExpDegree.sourceDegree delta) ≃
+  Fin (componentSize 0 + componentSize (HermiteFiniteExpDegree.sourceDegree delta)) :=
+  ((componentEquiv 0).sumCongr (componentEquiv (HermiteFiniteExpDegree.sourceDegree delta))).trans finSumFinEquiv
+e3 : ComponentIndex (2 * k + 1) ⊕ ComponentIndex 0 ⊕ ComponentIndex (HermiteFiniteExpDegree.sourceDegree delta) ≃
+  Fin (componentSize (2 * k + 1) + (componentSize 0 + componentSize (HermiteFiniteExpDegree.sourceDegree delta))) :=
+  ((componentEquiv (2 * k + 1)).sumCongr e4).trans finSumFinEquiv
+e2 : ComponentIndex (HermiteFiniteExpDegree.sourceDegree delta) ⊕
+    ComponentIndex (2 * k + 1) ⊕ ComponentIndex 0 ⊕ ComponentIndex (HermiteFiniteExpDegree.sourceDegree delta) ≃
+  Fin
+    (componentSize (HermiteFiniteExpDegree.sourceDegree delta) +
+      (componentSize (2 * k + 1) + (componentSize 0 + componentSize (HermiteFiniteExpDegree.sourceDegree delta)))) :=
+  ((componentEquiv (HermiteFiniteExpDegree.sourceDegree delta)).sumCongr e3).trans finSumFinEquiv
+hSecond :
+  e2.symm rest =
+    match finSumFinEquiv.symm rest with
+    | Sum.inl x => Sum.inl ((componentEquiv (HermiteFiniteExpDegree.sourceDegree delta)).symm x)
+    | Sum.inr y => Sum.inr (e3.symm y)
+⊢ Sum.inr
+      (match finSumFinEquiv.symm rest with
+      | Sum.inl x => Sum.inl ((componentEquiv (HermiteFiniteExpDegree.sourceDegree delta)).symm x)
+      | Sum.inr z => Sum.inr (e3.symm z)) =
+    Sum.inr
+      (match finSumFinEquiv.symm rest with
+      | Sum.inl x => Sum.inl ((componentEquiv (HermiteFiniteExpDegree.sourceDegree delta)).symm x)
+      | Sum.inr y => Sum.inr (e3.symm y))
+HermiteExplicitCachedStored.C275Probe.c268_sumInverse {α β : Type} {m n : ℕ} (e : α ≃ Fin m) (f : β ≃ Fin n)
+  (i : Fin (m + n)) :
+  ((e.sumCongr f).trans finSumFinEquiv).symm i =
+    match finSumFinEquiv.symm i with
+    | Sum.inl x => Sum.inl (e.symm x)
+    | Sum.inr y => Sum.inr (f.symm y)
+'_private.Probe.0.HermiteExplicitCachedStored.C275Probe.c268_sumInverse' depends on axioms: [propext, Quot.sound]
+HermiteExplicitCachedStored.C275Probe.firstInr_constructor_iota_hSecond (k : ℕ) (delta : ℚ)
+  (rest :
+    Fin
+      (componentSize (HermiteFiniteExpDegree.sourceDegree delta) +
+        (componentSize (2 * k + 1) + (componentSize 0 + componentSize (HermiteFiniteExpDegree.sourceDegree delta))))) :
+  (match Sum.inr rest with
+    | Sum.inl x => Sum.inl ((componentEquiv 0).symm x)
+    | Sum.inr y =>
+      Sum.inr
+        (match finSumFinEquiv.symm y with
+        | Sum.inl x => Sum.inl ((componentEquiv (HermiteFiniteExpDegree.sourceDegree delta)).symm x)
+        | Sum.inr z =>
+          Sum.inr
+            ((((componentEquiv (2 * k + 1)).sumCongr
+                      (((componentEquiv 0).sumCongr (componentEquiv (HermiteFiniteExpDegree.sourceDegree delta))).trans
+                        finSumFinEquiv)).trans
+                  finSumFinEquiv).symm
+              z))) =
+    match Sum.inr rest with
+    | Sum.inl x => Sum.inl ((componentEquiv 0).symm x)
+    | Sum.inr y =>
+      Sum.inr
+        ((((componentEquiv (HermiteFiniteExpDegree.sourceDegree delta)).sumCongr
+                  (((componentEquiv (2 * k + 1)).sumCongr
+                        (((componentEquiv 0).sumCongr
+                              (componentEquiv (HermiteFiniteExpDegree.sourceDegree delta))).trans
+                          finSumFinEquiv)).trans
+                    finSumFinEquiv)).trans
+              finSumFinEquiv).symm
+          y)
+'HermiteExplicitCachedStored.C275Probe.firstInr_constructor_iota_hSecond' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]

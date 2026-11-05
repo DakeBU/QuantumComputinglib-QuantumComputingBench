@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "statement_version": "global-assembly-v1",
+  "status": "STATEMENT_SEALED",
+  "level": "C_INTERNAL_PROVIDER; original source-facing specialization remains experimental",
+  "source": "tasks/SP-HERMITE-POLY-002.md; proof-obligations/SP-HERMITE-POLY-002.md; cycle08-staging-result.json",
+  "production_normalized_sha256": "5a8f47f8d0afd1d4f957e55babde52a9e9c01babf05c481b988e99ebca2f7758",
+  "toolchain": "leanprover/lean4:v4.33.0",
+  "producer": "StagedGlobalAssembly.compile k n L hL binds StagedNormalizedCanonical.compile once, collect-materializes all n+1 actual StagedStagePrimitive.compileAt returns from that cached chain, recursively lifts/places/appends their actual lists, then performs the public wire relabeling.",
+  "signature": "theorem compile_certified (k n : Nat) (L : Real) (hL : 0 < L) : let result := compile k n L hL; result.run.value.gateCount = (n+1)*localGates (HermiteFiniteChain.bondQubits k) AND result.run.value.resource.depth <= (n+1)*localGates (HermiteFiniteChain.bondQubits k) AND result.run.value.resource.oracleCalls = 0 AND evalPrimitiveCircuit result.run.value in Matrix.unitaryGroup (PrimitiveBasis ((n+1)+HermiteFiniteChain.bondQubits k)) Complex AND StoredHermiteRawCost.ordinary result.run.cost <= compilerBudget k n AND (forall x b, evalPrimitiveCircuit result.run.value (Fin.append x b) (fun _ => 0) = if b = (fun _ => 0) then HermiteStatePreparation.normalizedAmplitude k (n+1) L (primitiveBasisLEEquiv (n+1) x) else 0)",
+  "binder_audit": {"k_n": "TYPING natural Hermite degree and data-width-minus-one", "L": "SOURCE real grid scale", "hL": "SOURCE positive grid scale", "canonicality_normalization_bond_SO_stage_action": "dependency edges, not public premises", "excess": []},
+  "definition_kind": "literal deterministic producer; no existential circuit choice or callback-based source",
+  "scalar_and_order": "Real exact angles, Complex circuit matrices; n+1 data wires little endian and clean bond wires high; chronological stage0 emits most significant data bit",
+  "phase_ancilla": "literal signed amplitudes, no quotient by phase, no postselection, every nonzero terminal bond sector zero",
+  "resource_model": "Inherited exact-real scalar/index-word Run model. Ordinary includes sqrt/angle/trig/comparison/read/write/emit. Global list map charges one read, eight index-word field-tag allowances and one write per node, plus one end read; full persistent append charges copied left spine. Padding traverses the entire list once per added wire. Eight fixed index-word allowances are the declared placement instruction model, not bit complexity or generic free source callback evaluation.",
+  "budget": "localGates(q)=2^(q+1)*(2^(q+1)-1)/2 * LocalSOEmission.gatesPerPlane(q); assemblyBudget(N,q)=N^2*(32*localGates(q)+6)+10*N*localGates(q)+1; compilerBudget(k,n)=NormalizedCanonical.compilerBudget(k,n)+(n+1)*(StagePrimitive.stageBudget(q,2*k+6,n)+4)+assemblyBudget(n+1,q), q=bondQubits(k)",
+  "refinement": "Full matrix refinement to publicCircuit [] of the existing deterministic ConstructiveTensorTrainCompiler.stage on the same cached canonical chain; literal Hermite clean-input column refinement to ConstructiveHermitePreparation.prepare, not unjustified whole-unitary equality between different canonical chain representations",
+  "regressions": ["q=0", "zero stages", "signed amplitudes", "stage ordering", "all bond sectors", "existing non-prefix completion preserved by frozen StagePrimitive"],
+  "source_construction_graph": ["literal raw Hermite chain and local Gram normalization", "signed residual absorption", "all cached active-column local completions", "actual Gray/Givens primitive emission", "persistent global placement", "LE public clean-column semantics"],
+  "excluded": ["finite-bit runtime", "computed numerical angles", "uniform numerical accuracy", "saved serialization replay", "scientific ROOT", "production admission", "publication", "independent source review"]
+}

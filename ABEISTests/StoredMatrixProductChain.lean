@@ -8,6 +8,7 @@ def emptyTables (n : ℕ) : Vector (StoredCore 0 0) (n + 1) :=
 
 def emptyBoundary : Vector ℝ 0 := Vector.ofFn Fin.elim0
 
+set_option backward.isDefEq.respectTransparency false in
 example (n : ℕ) (x : Word (n + 1)) :
     contract (denoteChain (ofTable (emptyTables n) emptyBoundary emptyBoundary).value) x 0 0 = 0 := by
   rw [ofTable_refines _ _ _ (fun _ _ a => Fin.elim0 a) 7]
@@ -40,6 +41,7 @@ example : StoredRectangularGivens.total (ofTable signedTables left right).cost =
     nodeBudget, StoredGivens.read, charge, tick]
   decide
 
+set_option backward.isDefEq.respectTransparency false in
 /-- Both boundaries must be absorbed even for the single core. -/
 example (bit : Fin 2) :
     contract (denoteChain (ofTable signedTables left right).value) (bit, ()) 0 0 = 24 := by
@@ -55,6 +57,7 @@ noncomputable def orderedTables : Vector (StoredCore 1 1) 2 :=
   Vector.ofFn fun i => Vector.ofFn fun _ => Vector.ofFn fun j =>
     if i.val = 0 then (if j.val = 0 then -2 else 3) else 5
 
+set_option backward.isDefEq.respectTransparency false in
 /-- Chronological order, signed nonzero values, and two distinct bit slices. -/
 example :
     contract (denoteChain (ofTable orderedTables left right).value) (0, 1, ()) 0 0 = 120 := by

@@ -1,0 +1,10 @@
+Command: powershell -NoProfile -ExecutionPolicy Bypass -File reviews/publication/constructive-tensor-train/decoder-c23-run.ps1 -Stage target
+Exit code: 1
+PowerShell converted native stderr into a terminating error because the initial
+runner set ErrorActionPreference to Stop. The diagnostic was Lake's warning:
+warning: verso: repository '.lake/packages/verso' has local changes
+The initial runner stopped at its native Lake call, before writing a stage receipt.
+This is IMPLEMENTATION_FAILED (logging harness), not a Lean theorem rejection.
+The private original target-raw.log is retained, including unsanitized native stderr.
+The repaired runner gives every attempt a distinct raw/public log and temporarily
+sets Continue for native calls. No mathematical contract was changed.

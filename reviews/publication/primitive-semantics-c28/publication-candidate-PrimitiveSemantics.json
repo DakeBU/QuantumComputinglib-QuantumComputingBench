@@ -1,0 +1,579 @@
+{
+  "module": "QuantumBlockEncoding/PrimitiveSemantics.lean",
+  "source_id": "aspbe-local-concrete-primitive-reversible-semantics",
+  "source_statement": "Frozen retrospective local mathematical source sections 1-8, losslessly covered, with complete actual ambient/declarations and explicit conditional unitarity, evidence, metadata, phase/order, empty-carrier and consumer boundaries.",
+  "source_anchor": "docs/lessons/concrete-primitive-and-reversible-semantics.md sections 1-8",
+  "lesson_path": "docs/lessons/concrete-primitive-and-reversible-semantics.md",
+  "declarations": [
+    "QuantumBlockEncoding.standardRyMatrix",
+    "QuantumBlockEncoding.standardRyMatrix_zero",
+    "QuantumBlockEncoding.standardRyMatrix_add",
+    "QuantumBlockEncoding.star_complex_cos_ofReal",
+    "QuantumBlockEncoding.conj_complex_cos_ofReal",
+    "QuantumBlockEncoding.star_complex_sin_ofReal",
+    "QuantumBlockEncoding.conj_complex_sin_ofReal",
+    "QuantumBlockEncoding.complex_ofReal_div_two",
+    "QuantumBlockEncoding.conj_complex_cos_ofReal_div_two",
+    "QuantumBlockEncoding.conj_complex_sin_ofReal_div_two",
+    "QuantumBlockEncoding.standardRyMatrix_neg",
+    "QuantumBlockEncoding.xMatrix",
+    "QuantumBlockEncoding.xMatrix_conjugates_standardRy",
+    "QuantumBlockEncoding.standardRyMatrix_unitary",
+    "QuantumBlockEncoding.standardRyMatrix_two_arccos_eq_amplitudeRotation",
+    "QuantumBlockEncoding.standardRyMatrix_pi_div_two_eq_warmRobinUniformBitPrepare",
+    "QuantumBlockEncoding.PrimitiveBasis",
+    "QuantumBlockEncoding.flipBit",
+    "QuantumBlockEncoding.flipBit_flipBit",
+    "QuantumBlockEncoding.xBasisAction",
+    "QuantumBlockEncoding.xBasisAction_involutive",
+    "QuantumBlockEncoding.xBasisEquiv",
+    "QuantumBlockEncoding.cxBasisAction",
+    "QuantumBlockEncoding.cxBasisAction_involutive",
+    "QuantumBlockEncoding.cxBasisEquiv",
+    "QuantumBlockEncoding.cxBasisEquiv_apply",
+    "QuantumBlockEncoding.OtherPrimitiveWires",
+    "QuantumBlockEncoding.splitPrimitiveWire",
+    "QuantumBlockEncoding.splitPrimitiveWire_other_apply",
+    "QuantumBlockEncoding.liftPrimitiveOneQubit",
+    "QuantumBlockEncoding.liftPrimitiveOneQubit_apply",
+    "QuantumBlockEncoding.liftPrimitiveOneQubit_unitary",
+    "QuantumBlockEncoding.standardRzMatrix",
+    "QuantumBlockEncoding.standardRzMatrix_unitary",
+    "QuantumBlockEncoding.standardRzMatrix_neg",
+    "QuantumBlockEncoding.star_equivPermutationMatrix",
+    "QuantumBlockEncoding.star_liftPrimitiveOneQubit",
+    "QuantumBlockEncoding.evalPrimitiveGate",
+    "QuantumBlockEncoding.evalPrimitiveGate_unitary",
+    "QuantumBlockEncoding.xBasisEquiv_symm",
+    "QuantumBlockEncoding.cxBasisEquiv_symm",
+    "QuantumBlockEncoding.evalPrimitiveGate_dagger",
+    "QuantumBlockEncoding.evalPrimitiveCircuit",
+    "QuantumBlockEncoding.evalPrimitiveCircuit_unitary",
+    "QuantumBlockEncoding.evalPrimitiveCircuit_append",
+    "QuantumBlockEncoding.evalPrimitiveCircuit_dagger",
+    "QuantumBlockEncoding.evalGlobalPhase",
+    "QuantumBlockEncoding.evalGlobalPhase_unitary",
+    "QuantumBlockEncoding.evalGlobalPhase_neg",
+    "QuantumBlockEncoding.evalPrimitiveProgram",
+    "QuantumBlockEncoding.evalPrimitiveProgram_identity",
+    "QuantumBlockEncoding.evalPrimitiveProgram_seq",
+    "QuantumBlockEncoding.evalPrimitiveProgram_unitary",
+    "QuantumBlockEncoding.evalPrimitiveProgram_dagger",
+    "QuantumBlockEncoding.PrimitiveRefinement"
+  ],
+  "obligation_map": [
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C28-026",
+      "declarations": [
+        "QuantumBlockEncoding.standardRyMatrix"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-027",
+      "declarations": [
+        "QuantumBlockEncoding.standardRyMatrix_zero"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-028",
+      "declarations": [
+        "QuantumBlockEncoding.standardRyMatrix_add"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-029",
+      "declarations": [
+        "QuantumBlockEncoding.star_complex_cos_ofReal"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-030",
+      "declarations": [
+        "QuantumBlockEncoding.conj_complex_cos_ofReal"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-031",
+      "declarations": [
+        "QuantumBlockEncoding.star_complex_sin_ofReal"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-032",
+      "declarations": [
+        "QuantumBlockEncoding.conj_complex_sin_ofReal"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-033",
+      "declarations": [
+        "QuantumBlockEncoding.complex_ofReal_div_two"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-034",
+      "declarations": [
+        "QuantumBlockEncoding.conj_complex_cos_ofReal_div_two"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-035",
+      "declarations": [
+        "QuantumBlockEncoding.conj_complex_sin_ofReal_div_two"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-036",
+      "declarations": [
+        "QuantumBlockEncoding.standardRyMatrix_neg"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C28-037",
+      "declarations": [
+        "QuantumBlockEncoding.xMatrix"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-038",
+      "declarations": [
+        "QuantumBlockEncoding.xMatrix_conjugates_standardRy"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-039",
+      "declarations": [
+        "QuantumBlockEncoding.standardRyMatrix_unitary"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-040",
+      "declarations": [
+        "QuantumBlockEncoding.standardRyMatrix_two_arccos_eq_amplitudeRotation"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-041",
+      "declarations": [
+        "QuantumBlockEncoding.standardRyMatrix_pi_div_two_eq_warmRobinUniformBitPrepare"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C28-042",
+      "declarations": [
+        "QuantumBlockEncoding.PrimitiveBasis"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C28-043",
+      "declarations": [
+        "QuantumBlockEncoding.flipBit"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-044",
+      "declarations": [
+        "QuantumBlockEncoding.flipBit_flipBit"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C28-045",
+      "declarations": [
+        "QuantumBlockEncoding.xBasisAction"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-046",
+      "declarations": [
+        "QuantumBlockEncoding.xBasisAction_involutive"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C28-047",
+      "declarations": [
+        "QuantumBlockEncoding.xBasisEquiv"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C28-048",
+      "declarations": [
+        "QuantumBlockEncoding.cxBasisAction"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-049",
+      "declarations": [
+        "QuantumBlockEncoding.cxBasisAction_involutive"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C28-050",
+      "declarations": [
+        "QuantumBlockEncoding.cxBasisEquiv"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-051",
+      "declarations": [
+        "QuantumBlockEncoding.cxBasisEquiv_apply"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C28-052",
+      "declarations": [
+        "QuantumBlockEncoding.OtherPrimitiveWires"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C28-053",
+      "declarations": [
+        "QuantumBlockEncoding.splitPrimitiveWire"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-054",
+      "declarations": [
+        "QuantumBlockEncoding.splitPrimitiveWire_other_apply"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C28-055",
+      "declarations": [
+        "QuantumBlockEncoding.liftPrimitiveOneQubit"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-056",
+      "declarations": [
+        "QuantumBlockEncoding.liftPrimitiveOneQubit_apply"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-057",
+      "declarations": [
+        "QuantumBlockEncoding.liftPrimitiveOneQubit_unitary"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C28-058",
+      "declarations": [
+        "QuantumBlockEncoding.standardRzMatrix"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-059",
+      "declarations": [
+        "QuantumBlockEncoding.standardRzMatrix_unitary"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-060",
+      "declarations": [
+        "QuantumBlockEncoding.standardRzMatrix_neg"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-061",
+      "declarations": [
+        "QuantumBlockEncoding.star_equivPermutationMatrix"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-062",
+      "declarations": [
+        "QuantumBlockEncoding.star_liftPrimitiveOneQubit"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C28-063",
+      "declarations": [
+        "QuantumBlockEncoding.evalPrimitiveGate"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-064",
+      "declarations": [
+        "QuantumBlockEncoding.evalPrimitiveGate_unitary"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-065",
+      "declarations": [
+        "QuantumBlockEncoding.xBasisEquiv_symm"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-066",
+      "declarations": [
+        "QuantumBlockEncoding.cxBasisEquiv_symm"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-067",
+      "declarations": [
+        "QuantumBlockEncoding.evalPrimitiveGate_dagger"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C28-068",
+      "declarations": [
+        "QuantumBlockEncoding.evalPrimitiveCircuit"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-069",
+      "declarations": [
+        "QuantumBlockEncoding.evalPrimitiveCircuit_unitary"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-070",
+      "declarations": [
+        "QuantumBlockEncoding.evalPrimitiveCircuit_append"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-071",
+      "declarations": [
+        "QuantumBlockEncoding.evalPrimitiveCircuit_dagger"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C28-072",
+      "declarations": [
+        "QuantumBlockEncoding.evalGlobalPhase"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-073",
+      "declarations": [
+        "QuantumBlockEncoding.evalGlobalPhase_unitary"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-074",
+      "declarations": [
+        "QuantumBlockEncoding.evalGlobalPhase_neg"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C28-075",
+      "declarations": [
+        "QuantumBlockEncoding.evalPrimitiveProgram"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-076",
+      "declarations": [
+        "QuantumBlockEncoding.evalPrimitiveProgram_identity"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-077",
+      "declarations": [
+        "QuantumBlockEncoding.evalPrimitiveProgram_seq"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-078",
+      "declarations": [
+        "QuantumBlockEncoding.evalPrimitiveProgram_unitary"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "C28-079",
+      "declarations": [
+        "QuantumBlockEncoding.evalPrimitiveProgram_dagger"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "C28-080",
+      "declarations": [
+        "QuantumBlockEncoding.PrimitiveRefinement"
+      ]
+    }
+  ],
+  "assumption_deltas": [
+    {
+      "classification": "same",
+      "source": "Stated coefficient interval, valid-wire inequalities, conditional input-matrix unitarity, and supplied certificate N/unitarity/action evidence.",
+      "formal": "All exact lexical logical binders and nested evidence-bearing records retained in author audit.",
+      "explanation": "Author proposal only; output gate/circuit/program unitarity is derived and is not inserted as a theorem premise."
+    },
+    {
+      "classification": "source-implicit",
+      "source": "Natural finite dimensions, scalar algebra and exact real expressions; arbitrary normalization proposition and unconstrained presentation metadata are explicit.",
+      "formal": "Function-valued matrix carrier, full ambient imports, named-wire functions and high-signal/low-system product indices preserved.",
+      "explanation": "No analytic normalization, metadata implementation, endian identification, finite-bit cost, CCX compiler or phase quotient is inferred."
+    }
+  ],
+  "graph_contribution": {
+    "baseline": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+    "head": "cc25e39022db29ce9f98e77708850ce2dc0b0739",
+    "head_provenance": "Parent-supplied reference context; this continuation did not invoke Git.",
+    "classes": [
+      "reorganisation",
+      "bridge"
+    ],
+    "node_ids": [
+      "module:QuantumBlockEncoding.PrimitiveSemantics",
+      "declaration:QuantumBlockEncoding.standardRyMatrix",
+      "declaration:QuantumBlockEncoding.standardRyMatrix_zero",
+      "declaration:QuantumBlockEncoding.standardRyMatrix_add",
+      "declaration:QuantumBlockEncoding.star_complex_cos_ofReal",
+      "declaration:QuantumBlockEncoding.conj_complex_cos_ofReal",
+      "declaration:QuantumBlockEncoding.star_complex_sin_ofReal",
+      "declaration:QuantumBlockEncoding.conj_complex_sin_ofReal",
+      "declaration:QuantumBlockEncoding.complex_ofReal_div_two",
+      "declaration:QuantumBlockEncoding.conj_complex_cos_ofReal_div_two",
+      "declaration:QuantumBlockEncoding.conj_complex_sin_ofReal_div_two",
+      "declaration:QuantumBlockEncoding.standardRyMatrix_neg",
+      "declaration:QuantumBlockEncoding.xMatrix",
+      "declaration:QuantumBlockEncoding.xMatrix_conjugates_standardRy",
+      "declaration:QuantumBlockEncoding.standardRyMatrix_unitary",
+      "declaration:QuantumBlockEncoding.standardRyMatrix_two_arccos_eq_amplitudeRotation",
+      "declaration:QuantumBlockEncoding.standardRyMatrix_pi_div_two_eq_warmRobinUniformBitPrepare",
+      "declaration:QuantumBlockEncoding.PrimitiveBasis",
+      "declaration:QuantumBlockEncoding.flipBit",
+      "declaration:QuantumBlockEncoding.flipBit_flipBit",
+      "declaration:QuantumBlockEncoding.xBasisAction",
+      "declaration:QuantumBlockEncoding.xBasisAction_involutive",
+      "declaration:QuantumBlockEncoding.xBasisEquiv",
+      "declaration:QuantumBlockEncoding.cxBasisAction",
+      "declaration:QuantumBlockEncoding.cxBasisAction_involutive",
+      "declaration:QuantumBlockEncoding.cxBasisEquiv",
+      "declaration:QuantumBlockEncoding.cxBasisEquiv_apply",
+      "declaration:QuantumBlockEncoding.OtherPrimitiveWires",
+      "declaration:QuantumBlockEncoding.splitPrimitiveWire",
+      "declaration:QuantumBlockEncoding.splitPrimitiveWire_other_apply",
+      "declaration:QuantumBlockEncoding.liftPrimitiveOneQubit",
+      "declaration:QuantumBlockEncoding.liftPrimitiveOneQubit_apply",
+      "declaration:QuantumBlockEncoding.liftPrimitiveOneQubit_unitary",
+      "declaration:QuantumBlockEncoding.standardRzMatrix",
+      "declaration:QuantumBlockEncoding.standardRzMatrix_unitary",
+      "declaration:QuantumBlockEncoding.standardRzMatrix_neg",
+      "declaration:QuantumBlockEncoding.star_equivPermutationMatrix",
+      "declaration:QuantumBlockEncoding.star_liftPrimitiveOneQubit",
+      "declaration:QuantumBlockEncoding.evalPrimitiveGate",
+      "declaration:QuantumBlockEncoding.evalPrimitiveGate_unitary",
+      "declaration:QuantumBlockEncoding.xBasisEquiv_symm",
+      "declaration:QuantumBlockEncoding.cxBasisEquiv_symm",
+      "declaration:QuantumBlockEncoding.evalPrimitiveGate_dagger",
+      "declaration:QuantumBlockEncoding.evalPrimitiveCircuit",
+      "declaration:QuantumBlockEncoding.evalPrimitiveCircuit_unitary",
+      "declaration:QuantumBlockEncoding.evalPrimitiveCircuit_append",
+      "declaration:QuantumBlockEncoding.evalPrimitiveCircuit_dagger",
+      "declaration:QuantumBlockEncoding.evalGlobalPhase",
+      "declaration:QuantumBlockEncoding.evalGlobalPhase_unitary",
+      "declaration:QuantumBlockEncoding.evalGlobalPhase_neg",
+      "declaration:QuantumBlockEncoding.evalPrimitiveProgram",
+      "declaration:QuantumBlockEncoding.evalPrimitiveProgram_identity",
+      "declaration:QuantumBlockEncoding.evalPrimitiveProgram_seq",
+      "declaration:QuantumBlockEncoding.evalPrimitiveProgram_unitary",
+      "declaration:QuantumBlockEncoding.evalPrimitiveProgram_dagger",
+      "declaration:QuantumBlockEncoding.PrimitiveRefinement",
+      "SOURCE_GAP-NORMALIZATION",
+      "SOURCE_GAP-PRESENTATION-DENOTATION",
+      "SOURCE_GAP-NAMED-WIRE-ENDIAN",
+      "SOURCE_GAP-CCX-FOUR-PRIMITIVE",
+      "SOURCE_GAP-RESOURCES-FINITE-BIT",
+      "SOURCE_GAP-SYMBOLIC-ENV-UNITARITY",
+      "SOURCE_GAP-SUCCESS-CLEANUP"
+    ],
+    "views": [
+      "source-construction-graph",
+      "lean-graph",
+      "compressed-quantum-spine",
+      "functor-hypergraph"
+    ],
+    "source_graph_sha256": "23c0b2fab908c2f7e30824dcecae3f83580458e2f3f1aa245b2c7a4ebb384b8a",
+    "coverage_sha256": "50839c2f739fadf3a1e5af25c687a8b2a9499dcccaa7f30fa40b27e17cd77d9a",
+    "formal_context_sha256": "e4ea9d28a25c669fee85ec683d9de5403e2495eaebc945fbb57f27a4d16bd754",
+    "formal_packet_sha256": "832d55e5f3121f35d12697e32f4137112262f1dc8aa09d726ac184a0a18d73d5",
+    "source_graph_authority": "AUTHOR_PROVISIONAL_NOT_INDEPENDENT",
+    "preserved_contract": "Three whole production sources unchanged; metadata/source correspondence only, not a new mathematical result or canonical admission.",
+    "remaining_boundary": "Retrospective local mathematics only; historical formalizer UNKNOWN. Target normalization is an arbitrary stored Prop, not automatically squared norm one. Presentation circuit/schedule/resource/auxiliary data are not linked to matrix denotation or charged implementation. Named-wire assignments have no certified integer-endian bridge here. Half angles, signed entries, chronological later-on-left order and exact global phase, including zero wires, are retained; RY(pi/2) is not H. CCX belongs to reversible proof IR, not the final four primitives; compilation and costs need a separate consumer bridge. No finite-bit angle/runtime, measurement/success, ancilla cleanup or hardware/resource theorem is inferred."
+  },
+  "formalizer": "primitive-semantics-author-c28 retrospective AUTHOR-curator; historical formalizer UNKNOWN",
+  "historical_formalizer": "UNKNOWN",
+  "residual_boundary": "Retrospective local mathematics only; historical formalizer UNKNOWN. Target normalization is an arbitrary stored Prop, not automatically squared norm one. Presentation circuit/schedule/resource/auxiliary data are not linked to matrix denotation or charged implementation. Named-wire assignments have no certified integer-endian bridge here. Half angles, signed entries, chronological later-on-left order and exact global phase, including zero wires, are retained; RY(pi/2) is not H. CCX belongs to reversible proof IR, not the final four primitives; compilation and costs need a separate consumer bridge. No finite-bit angle/runtime, measurement/success, ancilla cleanup or hardware/resource theorem is inferred.",
+  "decoder_evidence": "reviews/publication/primitive-semantics-c28/decoder-pending/PrimitiveSemantics-evidence.json",
+  "reviewer_evidence": "reviews/publication/primitive-semantics-c28/reviewer-pending/PrimitiveSemantics-evidence.json",
+  "evidence_paths_status": {
+    "decoder": "UNATTACHED_NOT_INSPECTED_NO_AUTHORED_EVIDENCE",
+    "reviewer": "UNATTACHED_NOT_INSPECTED_NO_AUTHORED_EVIDENCE"
+  },
+  "status": "AUTHOR_WIP_NOT_ADMITTED",
+  "statement_seal": {
+    "timing": "RETROSPECTIVE_LOCAL_AFTER_PREEXISTING_PROOFS",
+    "pre_proof_seal_claim": false
+  },
+  "source_proof_coverage": "reviews/publication/primitive-semantics-c28/author-source-coverage.json",
+  "binder_definition_audit": "reviews/publication/primitive-semantics-c28/author-binder-definition-audit.json",
+  "graph_views": "reviews/publication/primitive-semantics-c28/author-graph-views.json",
+  "formal_context": "reviews/publication/primitive-semantics-c28/author-formal-context.json",
+  "formal_packet": "reviews/publication/primitive-semantics-c28/author-decoder-packet.json",
+  "purification": {
+    "status": "PENDING",
+    "Exposition_Seal": "PENDING"
+  },
+  "independent_acceptance": false,
+  "main_admission": false,
+  "scientific_ROOT": false,
+  "binding_sha256": "3c0e0f8e0b982c875dc05e09de342e65d6ddac2842278d0feac3195261b0337a"
+}

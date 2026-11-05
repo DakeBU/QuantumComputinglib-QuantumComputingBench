@@ -1,0 +1,883 @@
+{
+  "schema_version": 1,
+  "role": "decoder",
+  "identity": "/root/stored_gram_blind_c15",
+  "run_id": "stored_gram_blind_c15-current-whole-source-2026-10-09",
+  "binding_sha256": "7aa774a6dfeea6acc7976f88dc274a200375e4cc09526ddfa7fefbe759cdcd66",
+  "binding_treatment": "Opaque carried binding; not recomputed from withheld inputs.",
+  "source_blind": true,
+  "prior_familiarity": "Fresh delegated context. No previous source lesson, publication candidate, source contract, author classifications, task/experiment packets or review judgments read. The task supplies only the opaque module/binding, prescribed allowed inputs and review questions. Formal source comments were visible but meanings below were checked against bodies and elaborated types.",
+  "scope": {
+    "module": "QuantumBlockEncoding/StoredTensorTrainNorm.lean",
+    "module_sha256": "000db174cba35e68c360bb59754bf6e75aec362c6a5bf8f003d96abf80810f88",
+    "public_declarations": 29,
+    "private_helpers": [
+      "bind_value",
+      "cacheNode_value",
+      "materialize_cost_le",
+      "total_add",
+      "total_mono",
+      "identity_total_cost",
+      "node_total"
+    ],
+    "no_production_or_test_edits": true,
+    "no_git_writes": true,
+    "no_main_admission_or_global_root_claim": true
+  },
+  "reconstruction": {
+    "summary": "A stored exact-real producer computes right Gram environments by contracting local core slices with one recursively obtained stored tail environment. With scalar boundaries it returns the Euclidean norm of the full real tensor-train amplitude family. The full word sum is a specification, not the producer's evaluation schedule. Explicit Run counters include arithmetic, stored reads, full materialization passes, terminal identity decisions and fixed chain-node records.",
+    "carriers": "StoredMatrix N M = Vector (Vector R M) N, not an arbitrary callback. StoredCore l m = StoredMatrix l (2*m). StoredChain is dependent nil r : StoredChain 0 r r and cons A(l,2*m) tail(n,m,r) : StoredChain(n+1,l,r). All dimensions natural, including zero; all entries real.",
+    "word_and_address_order": "Word 0=Unit; Word(n+1)=Fin 2 x Word n. Head core emits first tuple bit and contract multiplies slices in head-to-tail order. finProdFinEquiv address is j+m*bit (equivalently bit*m+j), so local stored columns are bit-0 block followed by bit-1 block, each with right-bond index varying fastest. No conversion to integer basis indices or little-/big-endian quantum wire order is supplied by this module.",
+    "general_gram_formula": "G_C[a,c]=sum x:Word n, sum t:Fin r, contract(C,x)[a,t]*contract(C,x)[c,t]. Terminal nil is I_r, not a selected terminal index or an all-ones boundary. All terminal labels are retained. Scalar norm specializes l=r=1, square-roots G[0,0], and preserves signs only through their squared contributions.",
+    "assumptions_and_binders": "Definitions and correctness use only natural dimensions, stored tables/chains and appropriate Fin indices. update correctness permits any real stored E, not just a Gram/PSD matrix. norm takes only C:StoredChain n 1 1. Cost theorems take arbitrary op:Op; global cost additionally takes D:Nat and maxBond(denoteChain C)<=D, where maxBond includes initial, intermediate and terminal dimensions. No positivity/nonzero/rank/canonicalization/oracle/access/circuit premise is hidden in the norm interface.",
+    "run_semantics": "Run alpha has a value and an Op->Nat counter. pure supplies zero counters; bind obtains y=f x.value then returns y.value and pointwise x.cost+y.cost. This is a denotational counted producer, not operational semantics for a compiled runtime. charge attaches one tick to a mathematical value. Scalars are arbitrary exact Reals, primitives noncomputable.",
+    "charging_and_materialization": "Op has field,sqrt,angle,trig,compare,read,write,emit. total sums all eight without weights. entry reads outer vector row and inner scalar (2 reads). sumEntries visits each Fin k callback once in its recursive schedule; each term uses one extra field add, including the final add-to-zero. collect first forms a vector of counted Run results, then maps values and sums stored counters; modeled overhead per collected element is two reads and two writes. Nested materialize charges (N*M+N)*(2 read+2 write) beyond supplied per-cell cost; N outer row references are charged even when M=0. Metadata/counter aggregation and proof work are excluded.",
+    "cache_and_schedule": "gram recursively binds the tail result once; both physical-bit branches read the same stored E. update creates four stored contraction outputs plus a stored sum; secondEntry uses A at reversed indices instead of constructing a free transpose. cacheNode merely adds the stipulated 3 read+3 write allowance at each cons/nil. The recurrence avoids evaluating dense Word n amplitudes. Sharing is present in the stated schedule, but pointer aliasing, garbage collection, evaluation strategy and actual runtime caching have no separate proved refinement.",
+    "cost_formulas": {
+      "identity_total": "5*r^2+4*r",
+      "cache_node_total": 6,
+      "update_total": "12*l*m^2+12*l^2*m+8*l*m+17*l^2+20*l",
+      "gram_total": "n*(24*D^3+25*D^2+20*D+6)+5*D^2+4*D+6",
+      "norm_extra": {
+        "read": 2,
+        "sqrt": 1,
+        "total": 3
+      },
+      "norm_total": "n*(24*D^3+25*D^2+20*D+6)+5*D^2+4*D+9"
+    },
+    "zero_empty_and_deficient": "nil 1 represents the single empty-word contraction 1, hence norm 1 and modeled total cost 18. nil 0 has empty Gram and no identity cells, but six node overhead remains. Zero inner bonds yield empty sums=0 and no scalar callbacks; materialization still accounts for outer row slots. l=0 update has no rows, but recursive tail and node costs remain. No divisions or zero-pivot branch occur in this supplier; deficient and all-zero real cores are admitted, giving zero norm when every amplitude vanishes. Scalar boundaries force maxBond>=1, so D=0 cannot satisfy a scalar-chain bond bound.",
+    "formal_dependency_scope": "Two direct imports: StoredTensorTrain and TensorTrainNormEnvironment. Their local transitive module closure contains 38 files including the target, frozen below by source and olean byte hashes. Those are module-level imports, not a claim that every theorem depends on every imported declaration. Relevant providers inspected are StoredGivens Run/read/collect/materialize/field/sqrt, StoredThinLQ.entry, StoredTensorTrain sumEntries/nodeBudget/stored types, StoredRectangularGivens.identity/identityBudget/total, TensorTrainCanonical core/word/contract/maxBond, and TensorTrainNormEnvironment Gram/norm/all-terminal semantic proof."
+  },
+  "declarations": [
+    {
+      "name": "QuantumBlockEncoding.StoredTensorTrainNorm.firstEntry",
+      "checked_type": "QuantumBlockEncoding.StoredTensorTrainNorm.firstEntry {l m : ℕ}\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l m) (E : QuantumBlockEncoding.StoredGivens.StoredMatrix m m)\n  (bit : Fin 2) (a : Fin l) (j : Fin m) : QuantumBlockEncoding.StoredGivens.Run ℝ",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "independent_meaning": "Entry (a,j) of A_bit E: sum b<m of stored A[a,bit*m+b] times stored E[b,j], via two two-read lookups and one charged multiply per term plus one charged addition per recursive term."
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredTensorTrainNorm.firstPass",
+      "checked_type": "QuantumBlockEncoding.StoredTensorTrainNorm.firstPass {l m : ℕ}\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l m) (E : QuantumBlockEncoding.StoredGivens.StoredMatrix m m)\n  (bit : Fin 2) : QuantumBlockEncoding.StoredGivens.Run (QuantumBlockEncoding.StoredGivens.StoredMatrix l m)",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "independent_meaning": "Materialize firstEntry into nested stored l-by-m table."
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredTensorTrainNorm.firstPass_value",
+      "checked_type": "QuantumBlockEncoding.StoredTensorTrainNorm.firstPass_value {l m : ℕ}\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l m) (E : QuantumBlockEncoding.StoredGivens.StoredMatrix m m)\n  (bit : Fin 2) :\n  QuantumBlockEncoding.StoredGivens.denote (QuantumBlockEncoding.StoredTensorTrainNorm.firstPass A E bit).value =\n    QuantumBlockEncoding.TensorTrainCanonical.slice (QuantumBlockEncoding.StoredTensorTrain.denoteCore A) bit *\n      QuantumBlockEncoding.StoredGivens.denote E",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "independent_meaning": "Denotation of firstPass is A_bit E."
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredTensorTrainNorm.secondEntry",
+      "checked_type": "QuantumBlockEncoding.StoredTensorTrainNorm.secondEntry {l m : ℕ}\n  (F : QuantumBlockEncoding.StoredGivens.StoredMatrix l m) (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l m)\n  (bit : Fin 2) (a c : Fin l) : QuantumBlockEncoding.StoredGivens.Run ℝ",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "independent_meaning": "Entry (a,c) of F A_bit^T: sum j<m of F[a,j] A[c,bit*m+j], using stored reads; transpose only exchanges indices."
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredTensorTrainNorm.secondPass",
+      "checked_type": "QuantumBlockEncoding.StoredTensorTrainNorm.secondPass {l m : ℕ} (F : QuantumBlockEncoding.StoredGivens.StoredMatrix l m)\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l m) (bit : Fin 2) :\n  QuantumBlockEncoding.StoredGivens.Run (QuantumBlockEncoding.StoredGivens.StoredMatrix l l)",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "independent_meaning": "Materialize secondEntry into stored l-by-l table."
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredTensorTrainNorm.secondPass_value",
+      "checked_type": "QuantumBlockEncoding.StoredTensorTrainNorm.secondPass_value {l m : ℕ}\n  (F : QuantumBlockEncoding.StoredGivens.StoredMatrix l m) (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l m)\n  (bit : Fin 2) :\n  QuantumBlockEncoding.StoredGivens.denote (QuantumBlockEncoding.StoredTensorTrainNorm.secondPass F A bit).value =\n    QuantumBlockEncoding.StoredGivens.denote F *\n      (QuantumBlockEncoding.TensorTrainCanonical.slice (QuantumBlockEncoding.StoredTensorTrain.denoteCore A)\n          bit).transpose",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "independent_meaning": "Denotation of secondPass is F A_bit^T."
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredTensorTrainNorm.addMatrices",
+      "checked_type": "QuantumBlockEncoding.StoredTensorTrainNorm.addMatrices {l : ℕ}\n  (A B : QuantumBlockEncoding.StoredGivens.StoredMatrix l l) :\n  QuantumBlockEncoding.StoredGivens.Run (QuantumBlockEncoding.StoredGivens.StoredMatrix l l)",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "independent_meaning": "Materialize elementwise sum of two stored l-by-l matrices; two two-read lookups and one field addition per cell."
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredTensorTrainNorm.addMatrices_value",
+      "checked_type": "QuantumBlockEncoding.StoredTensorTrainNorm.addMatrices_value {l : ℕ}\n  (A B : QuantumBlockEncoding.StoredGivens.StoredMatrix l l) :\n  QuantumBlockEncoding.StoredGivens.denote (QuantumBlockEncoding.StoredTensorTrainNorm.addMatrices A B).value =\n    QuantumBlockEncoding.StoredGivens.denote A + QuantumBlockEncoding.StoredGivens.denote B",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "independent_meaning": "Denotation of addMatrices is ordinary matrix addition."
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredTensorTrainNorm.update",
+      "checked_type": "QuantumBlockEncoding.StoredTensorTrainNorm.update {l m : ℕ} (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l m)\n  (E : QuantumBlockEncoding.StoredGivens.StoredMatrix m m) :\n  QuantumBlockEncoding.StoredGivens.Run (QuantumBlockEncoding.StoredGivens.StoredMatrix l l)",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "independent_meaning": "Sequentially materialize F0=A0E, G0=F0A0^T, F1=A1E, G1=F1A1^T, then materialize G0+G1."
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredTensorTrainNorm.update_value",
+      "checked_type": "QuantumBlockEncoding.StoredTensorTrainNorm.update_value {l m : ℕ}\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l m) (E : QuantumBlockEncoding.StoredGivens.StoredMatrix m m) :\n  QuantumBlockEncoding.StoredGivens.denote (QuantumBlockEncoding.StoredTensorTrainNorm.update A E).value =\n    ∑ bit,\n      QuantumBlockEncoding.TensorTrainCanonical.slice (QuantumBlockEncoding.StoredTensorTrain.denoteCore A) bit *\n          QuantumBlockEncoding.StoredGivens.denote E *\n        (QuantumBlockEncoding.TensorTrainCanonical.slice (QuantumBlockEncoding.StoredTensorTrain.denoteCore A)\n            bit).transpose",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "independent_meaning": "Denotation is sum bit<2 A_bit E A_bit^T for arbitrary supplied stored E; E need not be positive semidefinite."
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredTensorTrainNorm.cacheNode",
+      "checked_type": "QuantumBlockEncoding.StoredTensorTrainNorm.cacheNode {α : Type} (run : QuantumBlockEncoding.StoredGivens.Run α) :\n  QuantumBlockEncoding.StoredGivens.Run α",
+      "axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "independent_meaning": "Preserve run.value and add nodeBudget=3 read+3 write to its cost; no independent cache mechanism is created by this wrapper."
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredTensorTrainNorm.gram",
+      "checked_type": "QuantumBlockEncoding.StoredTensorTrainNorm.gram {n l r : ℕ} :\n  QuantumBlockEncoding.StoredTensorTrain.StoredChain n l r →\n    QuantumBlockEncoding.StoredGivens.Run (QuantumBlockEncoding.StoredGivens.StoredMatrix l l)",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "independent_meaning": "Recurse from terminal identity, bind tail environment once, then update each head with the same stored tail environment and add nodeBudget at every cons and nil."
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredTensorTrainNorm.gram_value",
+      "checked_type": "QuantumBlockEncoding.StoredTensorTrainNorm.gram_value {n l r : ℕ}\n  (C : QuantumBlockEncoding.StoredTensorTrain.StoredChain n l r) :\n  QuantumBlockEncoding.StoredGivens.denote (QuantumBlockEncoding.StoredTensorTrainNorm.gram C).value =\n    QuantumBlockEncoding.TensorTrainNormEnvironment.gram (QuantumBlockEncoding.StoredTensorTrain.denoteChain C)",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "independent_meaning": "Stored Gram denotation equals the semantic Gram recursion for arbitrary real chains and natural dimensions."
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredTensorTrainNorm.norm",
+      "checked_type": "QuantumBlockEncoding.StoredTensorTrainNorm.norm {n : ℕ} (C : QuantumBlockEncoding.StoredTensorTrain.StoredChain n 1 1) :\n  QuantumBlockEncoding.StoredGivens.Run ℝ",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "independent_meaning": "For stored chain with both boundaries exactly one: compute Gram, read E[0,0] with two reads, apply one charged Real.sqrt."
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredTensorTrainNorm.norm_value",
+      "checked_type": "QuantumBlockEncoding.StoredTensorTrainNorm.norm_value {n : ℕ}\n  (C : QuantumBlockEncoding.StoredTensorTrain.StoredChain n 1 1) :\n  (QuantumBlockEncoding.StoredTensorTrainNorm.norm C).value =\n    QuantumBlockEncoding.TensorTrainNormEnvironment.norm (QuantumBlockEncoding.StoredTensorTrain.denoteChain C)",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "independent_meaning": "Produced scalar equals semantic scalar-boundary norm."
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredTensorTrainNorm.norm_eq_sum",
+      "checked_type": "QuantumBlockEncoding.StoredTensorTrainNorm.norm_eq_sum {n : ℕ}\n  (C : QuantumBlockEncoding.StoredTensorTrain.StoredChain n 1 1) :\n  (QuantumBlockEncoding.StoredTensorTrainNorm.norm C).value =\n    √(∑ x,\n        QuantumBlockEncoding.TensorTrainCanonical.contract (QuantumBlockEncoding.StoredTensorTrain.denoteChain C) x 0\n            0 ^\n          2)",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "independent_meaning": "Produced scalar equals sqrt(sum over all recursively ordered bit words of squared real scalar contractions). No nonzero, normalized, full-rank or canonical premise."
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredTensorTrainNorm.productBudget",
+      "checked_type": "QuantumBlockEncoding.StoredTensorTrainNorm.productBudget (l m r : ℕ) : QuantumBlockEncoding.StoredGivens.Cost",
+      "axioms": [],
+      "independent_meaning": "Componentwise product pass budget for l-by-m times m-by-r: l*r*m*(4 read+2 field)+(l*r+l)*(2 read+2 write). The parameter named r is output width, not necessarily the chain's terminal bond."
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredTensorTrainNorm.additionBudget",
+      "checked_type": "QuantumBlockEncoding.StoredTensorTrainNorm.additionBudget (l : ℕ) : QuantumBlockEncoding.StoredGivens.Cost",
+      "axioms": [],
+      "independent_meaning": "Componentwise addition budget: l^2*(4 read+1 field)+(l^2+l)*(2 read+2 write)."
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredTensorTrainNorm.updateBudget",
+      "checked_type": "QuantumBlockEncoding.StoredTensorTrainNorm.updateBudget (l m : ℕ) : QuantumBlockEncoding.StoredGivens.Cost",
+      "axioms": [],
+      "independent_meaning": "Two productBudget(l,m,m), two productBudget(l,m,l), plus additionBudget(l)."
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredTensorTrainNorm.firstEntry_cost_le",
+      "checked_type": "QuantumBlockEncoding.StoredTensorTrainNorm.firstEntry_cost_le {l m : ℕ}\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l m) (E : QuantumBlockEncoding.StoredGivens.StoredMatrix m m)\n  (bit : Fin 2) (a : Fin l) (j : Fin m) (op : QuantumBlockEncoding.StoredGivens.Op) :\n  (QuantumBlockEncoding.StoredTensorTrainNorm.firstEntry A E bit a j).cost op ≤\n    m *\n      (4 * QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.read op +\n        2 * QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.field op)",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "independent_meaning": "Each firstEntry counter is at most m*(4 tick_read+2 tick_field)."
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredTensorTrainNorm.secondEntry_cost_le",
+      "checked_type": "QuantumBlockEncoding.StoredTensorTrainNorm.secondEntry_cost_le {l m : ℕ}\n  (F : QuantumBlockEncoding.StoredGivens.StoredMatrix l m) (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l m)\n  (bit : Fin 2) (a c : Fin l) (op : QuantumBlockEncoding.StoredGivens.Op) :\n  (QuantumBlockEncoding.StoredTensorTrainNorm.secondEntry F A bit a c).cost op ≤\n    m *\n      (4 * QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.read op +\n        2 * QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.field op)",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "independent_meaning": "Each secondEntry counter is at most m*(4 tick_read+2 tick_field)."
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredTensorTrainNorm.firstPass_cost_le",
+      "checked_type": "QuantumBlockEncoding.StoredTensorTrainNorm.firstPass_cost_le {l m : ℕ}\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l m) (E : QuantumBlockEncoding.StoredGivens.StoredMatrix m m)\n  (bit : Fin 2) (op : QuantumBlockEncoding.StoredGivens.Op) :\n  (QuantumBlockEncoding.StoredTensorTrainNorm.firstPass A E bit).cost op ≤\n    QuantumBlockEncoding.StoredTensorTrainNorm.productBudget l m m op",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "independent_meaning": "Each firstPass counter is at most productBudget(l,m,m)."
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredTensorTrainNorm.secondPass_cost_le",
+      "checked_type": "QuantumBlockEncoding.StoredTensorTrainNorm.secondPass_cost_le {l m : ℕ}\n  (F : QuantumBlockEncoding.StoredGivens.StoredMatrix l m) (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l m)\n  (bit : Fin 2) (op : QuantumBlockEncoding.StoredGivens.Op) :\n  (QuantumBlockEncoding.StoredTensorTrainNorm.secondPass F A bit).cost op ≤\n    QuantumBlockEncoding.StoredTensorTrainNorm.productBudget l m l op",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "independent_meaning": "Each secondPass counter is at most productBudget(l,m,l)."
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredTensorTrainNorm.addMatrices_cost_le",
+      "checked_type": "QuantumBlockEncoding.StoredTensorTrainNorm.addMatrices_cost_le {l : ℕ}\n  (A B : QuantumBlockEncoding.StoredGivens.StoredMatrix l l) (op : QuantumBlockEncoding.StoredGivens.Op) :\n  (QuantumBlockEncoding.StoredTensorTrainNorm.addMatrices A B).cost op ≤\n    QuantumBlockEncoding.StoredTensorTrainNorm.additionBudget l op",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "independent_meaning": "Each addMatrices counter is at most additionBudget(l)."
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredTensorTrainNorm.update_cost_le",
+      "checked_type": "QuantumBlockEncoding.StoredTensorTrainNorm.update_cost_le {l m : ℕ}\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l m) (E : QuantumBlockEncoding.StoredGivens.StoredMatrix m m)\n  (op : QuantumBlockEncoding.StoredGivens.Op) :\n  (QuantumBlockEncoding.StoredTensorTrainNorm.update A E).cost op ≤\n    QuantumBlockEncoding.StoredTensorTrainNorm.updateBudget l m op",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "independent_meaning": "Each update counter is at most updateBudget(l,m)."
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredTensorTrainNorm.update_total_cost_le",
+      "checked_type": "QuantumBlockEncoding.StoredTensorTrainNorm.update_total_cost_le {l m : ℕ}\n  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l m) (E : QuantumBlockEncoding.StoredGivens.StoredMatrix m m) :\n  QuantumBlockEncoding.StoredRectangularGivens.total (QuantumBlockEncoding.StoredTensorTrainNorm.update A E).cost ≤\n    12 * l * m * m + 12 * l * l * m + 8 * l * m + 17 * l * l + 20 * l",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "independent_meaning": "Sum of eight update counters is at most 12*l*m^2+12*l^2*m+8*l*m+17*l^2+20*l."
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredTensorTrainNorm.gram_total_cost_le",
+      "checked_type": "QuantumBlockEncoding.StoredTensorTrainNorm.gram_total_cost_le {n l r : ℕ}\n  (C : QuantumBlockEncoding.StoredTensorTrain.StoredChain n l r) (D : ℕ)\n  (bound :\n    QuantumBlockEncoding.TensorTrainCanonical.maxBond (QuantumBlockEncoding.StoredTensorTrain.denoteChain C) ≤ D) :\n  QuantumBlockEncoding.StoredRectangularGivens.total (QuantumBlockEncoding.StoredTensorTrainNorm.gram C).cost ≤\n    n * (24 * D ^ 3 + 25 * D ^ 2 + 20 * D + 6) + 5 * D ^ 2 + 4 * D + 6",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "independent_meaning": "Assuming all actual bonds including boundaries are <=D, total Gram cost <=n*(24*D^3+25*D^2+20*D+6)+5*D^2+4*D+6."
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredTensorTrainNorm.norm_cost",
+      "checked_type": "QuantumBlockEncoding.StoredTensorTrainNorm.norm_cost {n : ℕ}\n  (C : QuantumBlockEncoding.StoredTensorTrain.StoredChain n 1 1) (op : QuantumBlockEncoding.StoredGivens.Op) :\n  (QuantumBlockEncoding.StoredTensorTrainNorm.norm C).cost op =\n    (QuantumBlockEncoding.StoredTensorTrainNorm.gram C).cost op +\n        2 * QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.read op +\n      QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.sqrt op",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "independent_meaning": "Exact componentwise norm cost = Gram cost+2 read ticks+1 sqrt tick."
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredTensorTrainNorm.norm_total_cost_le",
+      "checked_type": "QuantumBlockEncoding.StoredTensorTrainNorm.norm_total_cost_le {n : ℕ}\n  (C : QuantumBlockEncoding.StoredTensorTrain.StoredChain n 1 1) (D : ℕ)\n  (bound :\n    QuantumBlockEncoding.TensorTrainCanonical.maxBond (QuantumBlockEncoding.StoredTensorTrain.denoteChain C) ≤ D) :\n  QuantumBlockEncoding.StoredRectangularGivens.total (QuantumBlockEncoding.StoredTensorTrainNorm.norm C).cost ≤\n    n * (24 * D ^ 3 + 25 * D ^ 2 + 20 * D + 6) + 5 * D ^ 2 + 4 * D + 9",
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "independent_meaning": "Under the same all-bond bound, total norm cost <=n*(24*D^3+25*D^2+20*D+6)+5*D^2+4*D+9."
+    }
+  ],
+  "caveats": [
+    {
+      "kind": "source_comparison_unavailable",
+      "finding": "No desired source statement was read, so no natural-language source equivalence or repaired source claim is certified. This artifact is only the independently reconstructed formal meaning."
+    },
+    {
+      "kind": "exact_real_not_finite_bit",
+      "finding": "Unit-cost real field/sqrt and word reads are stipulated mathematical operations. There is no finite precision/bit-length/Clifford+T/numerical stability/error accumulation theorem or executable numeric implementation."
+    },
+    {
+      "kind": "input_generation_excluded",
+      "finding": "The input core tables are already supplied. Generating them from functions, oracles, data, polynomial coefficients or any classical preprocessing is not costed here."
+    },
+    {
+      "kind": "memory_unproved",
+      "finding": "No theorem certifies peak live storage, stack depth, garbage collection or lifetime/reuse of F0,G0,F1,G1. The imported environmentScalars bound counts retained semantic environments only and cannot be repurposed as total producer memory."
+    },
+    {
+      "kind": "model_omissions",
+      "finding": "Counter bookkeeping, proof checking, index arithmetic/Fin-equivalence arithmetic, type proofs, runtime allocation details, bit representations and machine instruction costs are not independently refined. Six-word node cost is a specified allowance, not measured runtime."
+    },
+    {
+      "kind": "quantum_scope",
+      "finding": "No quantum gate list, clean-ancilla/state-action, relative phase, postselection/success probability, coherent oracle or block-encoding contract is constructed by this module; these semantic slots are inapplicable to this real classical supplier."
+    },
+    {
+      "kind": "terminal_and_order_boundary",
+      "finding": "General Gram includes all terminal labels. Scalar norm is available only for fixed boundaries 1/1. Recursive physical-word order and bit-major local address flattening do not independently imply an integer-basis or wire endian convention."
+    },
+    {
+      "kind": "import_evidence_boundary",
+      "finding": "Fresh target source elaboration uses existing frozen imported oleans; the target olean itself was not used for the 29-declaration probe. Olean hashes pin actual binary inputs but do not alone prove each transitive cached olean was rebuilt from its corresponding current source in this decoder run."
+    }
+  ],
+  "verdict": "reconstruction-complete-with-explicit-boundaries; no source acceptance verdict presumed",
+  "permitted_formal_inputs": [
+    {
+      "module": "QuantumBlockEncoding.StoredTensorTrainNorm",
+      "source_path": "QuantumBlockEncoding/StoredTensorTrainNorm.lean",
+      "source_sha256": "000db174cba35e68c360bb59754bf6e75aec362c6a5bf8f003d96abf80810f88",
+      "imports": [
+        "QuantumBlockEncoding.StoredTensorTrain",
+        "QuantumBlockEncoding.TensorTrainNormEnvironment"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/StoredTensorTrainNorm.olean",
+      "olean_sha256": "2443b5ef0cd47525d96300cf162933a11621da7a0fb12ac81ba508ad4a0a2f5e"
+    },
+    {
+      "module": "QuantumBlockEncoding.StoredTensorTrain",
+      "source_path": "QuantumBlockEncoding/StoredTensorTrain.lean",
+      "source_sha256": "a9e5b0c2b00261d6f100a431fa95725c1bead82a4b87c41d54b59f0b084feae4",
+      "imports": [
+        "QuantumBlockEncoding.StoredThinLQ",
+        "QuantumBlockEncoding.ConstructiveTensorTrain"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/StoredTensorTrain.olean",
+      "olean_sha256": "f8d2a45960756f917ccc6144c97ba5e61c2fed76b7b4a0747aad09fd44118876"
+    },
+    {
+      "module": "QuantumBlockEncoding.TensorTrainNormEnvironment",
+      "source_path": "QuantumBlockEncoding/TensorTrainNormEnvironment.lean",
+      "source_sha256": "a898ff4a83a1cc6426af7e85d3adc812c46175af0a31c1fd5eb2d48c776afb0d",
+      "imports": [
+        "QuantumBlockEncoding.TensorTrainCanonical"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/TensorTrainNormEnvironment.olean",
+      "olean_sha256": "f3fbaff9aa8ba07f72711bace9d4bfd481422aa6a9af3696ec34d600aa4788b1"
+    },
+    {
+      "module": "QuantumBlockEncoding.StoredThinLQ",
+      "source_path": "QuantumBlockEncoding/StoredThinLQ.lean",
+      "source_sha256": "ed08ef278a93268f7d9620cb2ddafc2e3468fcc4f2543923251a3ce4e057177a",
+      "imports": [
+        "QuantumBlockEncoding.StoredRectangularGivens",
+        "QuantumBlockEncoding.ConstructiveThinLQ"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/StoredThinLQ.olean",
+      "olean_sha256": "403b0d4558ab193a770acc77b10ee1f72f4fb57e29d0bd7ce9d6330c7a125f0e"
+    },
+    {
+      "module": "QuantumBlockEncoding.ConstructiveTensorTrain",
+      "source_path": "QuantumBlockEncoding/ConstructiveTensorTrain.lean",
+      "source_sha256": "081e409bd31b91513ab38ad1041bd7dbcad88675275ba4197ae3587686c1d58d",
+      "imports": [
+        "QuantumBlockEncoding.ConstructiveThinLQ",
+        "QuantumBlockEncoding.TensorTrainCanonical"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/ConstructiveTensorTrain.olean",
+      "olean_sha256": "92fe0e05b742bc4d6fd968922bfc3af15cd2747936d7318fbb0f357ee45acf82"
+    },
+    {
+      "module": "QuantumBlockEncoding.TensorTrainCanonical",
+      "source_path": "QuantumBlockEncoding/TensorTrainCanonical.lean",
+      "source_sha256": "0b51ec0335aaf6248f40b3f8dcf6014172c231b9ae512bf5bb09d84ebf66f808",
+      "imports": [
+        "QuantumBlockEncoding.ThinLQ",
+        "QuantumBlockEncoding.SequentialBondPreparation"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/TensorTrainCanonical.olean",
+      "olean_sha256": "06b34d2bd5c8cbfbb00d54fabaf251ec95561cf9c04cf49427b307cec593a4fd"
+    },
+    {
+      "module": "QuantumBlockEncoding.StoredRectangularGivens",
+      "source_path": "QuantumBlockEncoding/StoredRectangularGivens.lean",
+      "source_sha256": "f8638a6d287b3b984fa530b13eeb18e3992904543236bd0756eda41fa6490d98",
+      "imports": [
+        "QuantumBlockEncoding.StoredGivens",
+        "QuantumBlockEncoding.RectangularGivens"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/StoredRectangularGivens.olean",
+      "olean_sha256": "b6a2909ebda210391316f21fcb3221c2e4a5ce65ed87e02dae5972c75b2fbe88"
+    },
+    {
+      "module": "QuantumBlockEncoding.ConstructiveThinLQ",
+      "source_path": "QuantumBlockEncoding/ConstructiveThinLQ.lean",
+      "source_sha256": "a9cec4dce7e7b955f663df02fb29716a67e42da63570dfac9c754a1aae9a8e18",
+      "imports": [
+        "QuantumBlockEncoding.RectangularGivens",
+        "QuantumBlockEncoding.ThinLQ"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/ConstructiveThinLQ.olean",
+      "olean_sha256": "a8a2ccc47f4b4bc5c4fbfc975bdb4d6646b620776a914e31a385ac07b68715ce"
+    },
+    {
+      "module": "QuantumBlockEncoding.ThinLQ",
+      "source_path": "QuantumBlockEncoding/ThinLQ.lean",
+      "source_sha256": "1b5b8434ba90063bb7d14ffe133ca7733a38772d4fe95f24427800d4edc62614",
+      "imports": [
+        "Mathlib.Analysis.InnerProductSpace.GramSchmidtOrtho",
+        "Mathlib.Data.Matrix.Basic"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/ThinLQ.olean",
+      "olean_sha256": "f199d4e39aacac2f9aef4d01acde9b8dc65fe2318a5687a2289c9667473a8f23"
+    },
+    {
+      "module": "QuantumBlockEncoding.SequentialBondPreparation",
+      "source_path": "QuantumBlockEncoding/SequentialBondPreparation.lean",
+      "source_sha256": "ad4542b108d44f196f2a02f78e59b58f43d45b1e890709cf4c22e1222805d5c5",
+      "imports": [
+        "QuantumBlockEncoding.RealAmplitudePreparation"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/SequentialBondPreparation.olean",
+      "olean_sha256": "5f8673f2f7526dc55c5da3b955e821b88f5997cec9da4d847cdbc18938990a55"
+    },
+    {
+      "module": "QuantumBlockEncoding.StoredGivens",
+      "source_path": "QuantumBlockEncoding/StoredGivens.lean",
+      "source_sha256": "c2a524772adb32a4ccad236dab347633dc865b0befb16adcbf6dc08fbdf3301d",
+      "imports": [
+        "QuantumBlockEncoding.AdjacentGivens"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/StoredGivens.olean",
+      "olean_sha256": "e92db3701ff84887f55c9c457c4cd8121aee7d48b3efd4cb75ce8c8d8f3f7d09"
+    },
+    {
+      "module": "QuantumBlockEncoding.RectangularGivens",
+      "source_path": "QuantumBlockEncoding/RectangularGivens.lean",
+      "source_sha256": "aa4b908e26c0e0b0bccc05034b839f170fb4a2641d96b713ff8d3fac731bcb52",
+      "imports": [
+        "QuantumBlockEncoding.AdjacentGivens"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/RectangularGivens.olean",
+      "olean_sha256": "d39fd2e5500d492c64c89e1c85294ac85fbe1d3678a9a4133792e689e8df88f2"
+    },
+    {
+      "module": "QuantumBlockEncoding.RealAmplitudePreparation",
+      "source_path": "QuantumBlockEncoding/RealAmplitudePreparation.lean",
+      "source_sha256": "3c1c145a5262b85159bcead1997ec87875184ac06dfe4da8a6595ae063e434f7",
+      "imports": [
+        "QuantumBlockEncoding.UniformlyControlledRy",
+        "QuantumBlockEncoding.PrimitiveBasisLE",
+        "QuantumBlockEncoding.StatePreparation"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/RealAmplitudePreparation.olean",
+      "olean_sha256": "6f0da3691f870c319bd22d49eca89ec5eeb44dd1558b830cbb91334e808f0a46"
+    },
+    {
+      "module": "QuantumBlockEncoding.AdjacentGivens",
+      "source_path": "QuantumBlockEncoding/AdjacentGivens.lean",
+      "source_sha256": "a43c3b4f543738cb317be01fa664fd466bfa28e21c33d10c7a90e74037a58d9c",
+      "imports": [
+        "QuantumBlockEncoding.RealAmplitudePreparation",
+        "QuantumBlockEncoding.SelectedRyPlane"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/AdjacentGivens.olean",
+      "olean_sha256": "25c38304b15f59661557f87eed7882b53201c4bbe9c17ec3706661009be757b7"
+    },
+    {
+      "module": "QuantumBlockEncoding.UniformlyControlledRy",
+      "source_path": "QuantumBlockEncoding/UniformlyControlledRy.lean",
+      "source_sha256": "78d1aed9bb4068bcee138b665bd93a389463bbb591108837758a6d80752a1cf1",
+      "imports": [
+        "QuantumBlockEncoding.PrimitiveSemantics"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/UniformlyControlledRy.olean",
+      "olean_sha256": "feaccfe34ad0f1ae6686d37c1af407359e26bb220ea771a025c4a4589ebfe41d"
+    },
+    {
+      "module": "QuantumBlockEncoding.PrimitiveBasisLE",
+      "source_path": "QuantumBlockEncoding/PrimitiveBasisLE.lean",
+      "source_sha256": "00672a2bc6aab0861bf9dfed3eab651d3b649d3c5386d6f6ca8374e012e366ed",
+      "imports": [
+        "QuantumBlockEncoding.PrimitiveSemantics"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/PrimitiveBasisLE.olean",
+      "olean_sha256": "af04662471859feb29b432122d22336b42551cfecf49919ebcc1cdf3751ea838"
+    },
+    {
+      "module": "QuantumBlockEncoding.StatePreparation",
+      "source_path": "QuantumBlockEncoding/StatePreparation.lean",
+      "source_sha256": "2585a3b5ef2a58a0f7fb33664552e9166373cec2815eddf2542c9db66cb5f52f",
+      "imports": [
+        "QuantumBlockEncoding.BlockEncoding"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/StatePreparation.olean",
+      "olean_sha256": "467e2f77d2572fa2d65e2385cd6622e2408f475a45008c980860bfc2e20687b1"
+    },
+    {
+      "module": "QuantumBlockEncoding.SelectedRyPlane",
+      "source_path": "QuantumBlockEncoding/SelectedRyPlane.lean",
+      "source_sha256": "0098a9ef2bfc1af9eeaa44357b0818628084be35f88854232496e14d715c2f40",
+      "imports": [
+        "QuantumBlockEncoding.UniformlyControlledRy"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/SelectedRyPlane.olean",
+      "olean_sha256": "371ccf3a533c33e67dabc937aebdb0396525ded100ad0d0cda078ad7920b3b52"
+    },
+    {
+      "module": "QuantumBlockEncoding.PrimitiveSemantics",
+      "source_path": "QuantumBlockEncoding/PrimitiveSemantics.lean",
+      "source_sha256": "a68955f9dbe0e951c2751fcd14c535c28da7c8bcac75787b0005808b951f28de",
+      "imports": [
+        "QuantumBlockEncoding.PrimitiveCircuit",
+        "QuantumBlockEncoding.Robin.Hadamard8Verified",
+        "Mathlib.Tactic"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/PrimitiveSemantics.olean",
+      "olean_sha256": "1829a8535eab8dd7ce8e1c384a168b420958320a75f0b04c9c1a06552e9f76c2"
+    },
+    {
+      "module": "QuantumBlockEncoding.BlockEncoding",
+      "source_path": "QuantumBlockEncoding/BlockEncoding.lean",
+      "source_sha256": "fe06f75a29822e28ccdbfedfb0b0e87f90872620fae7aed359085fad8fae64b4",
+      "imports": [
+        "QuantumBlockEncoding.Circuit"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/BlockEncoding.olean",
+      "olean_sha256": "580bbfe22478eb0cd119dda09d1d85c4f13c93fe770b8cbe513856d478c8ac1c"
+    },
+    {
+      "module": "QuantumBlockEncoding.PrimitiveCircuit",
+      "source_path": "QuantumBlockEncoding/PrimitiveCircuit.lean",
+      "source_sha256": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c",
+      "imports": [
+        "QuantumBlockEncoding.Resources",
+        "Mathlib.Analysis.SpecialFunctions.Trigonometric.Inverse",
+        "Mathlib.Data.Rat.Defs",
+        "Mathlib.Data.Real.Basic",
+        "Mathlib.Data.Finset.Lattice.Fold"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/PrimitiveCircuit.olean",
+      "olean_sha256": "94441317555911adc7f2ed5914bbde8f69b354fbb3e10b24dc21e596f2a35ebc"
+    },
+    {
+      "module": "QuantumBlockEncoding.Robin.Hadamard8Verified",
+      "source_path": "QuantumBlockEncoding/Robin/Hadamard8Verified.lean",
+      "source_sha256": "138b0ecf4a43b888d43d7e4d7682218139725644695952c0f3eb8d99663acfd4",
+      "imports": [
+        "QuantumBlockEncoding.Robin.EvolvedCandidates",
+        "QuantumBlockEncoding.Robin.ComplexLCUProjection",
+        "Mathlib.Tactic"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/Robin/Hadamard8Verified.olean",
+      "olean_sha256": "de2c2d45fd4a0b83db1a20752a2c785c74768b7b49bc17876b59f9687adf6b71"
+    },
+    {
+      "module": "QuantumBlockEncoding.Circuit",
+      "source_path": "QuantumBlockEncoding/Circuit.lean",
+      "source_sha256": "286c7b579f75891cb34f01d13e84a5f00e6b509a480efaaef9472a58a67a0f94",
+      "imports": [
+        "QuantumBlockEncoding.Resources"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/Circuit.olean",
+      "olean_sha256": "77a0e68fe1e9b3aa3dd5ad102098c5a53fd52f88cff5392ade36f3025a28b6d1"
+    },
+    {
+      "module": "QuantumBlockEncoding.Resources",
+      "source_path": "QuantumBlockEncoding/Resources.lean",
+      "source_sha256": "d7d939aa5e74965a28a3835750aa7ca5fa27aeeb0ef14ad1f5555cbf6279e09d",
+      "imports": [
+        "QuantumBlockEncoding.Core"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/Resources.olean",
+      "olean_sha256": "cd0ed059a63189584cf228d738059b491a822711bc26162aadeececa3c8569a5"
+    },
+    {
+      "module": "QuantumBlockEncoding.Robin.EvolvedCandidates",
+      "source_path": "QuantumBlockEncoding/Robin/EvolvedCandidates.lean",
+      "source_sha256": "93875b1775a857e70ea3447a892cf245b0d4a77a0dcb0ec3310c85bdf55e5268",
+      "imports": [
+        "QuantumBlockEncoding.Robin.SourceBaseline",
+        "QuantumBlockEncoding.Robin.WeightedPermutation",
+        "Mathlib.Tactic"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/Robin/EvolvedCandidates.olean",
+      "olean_sha256": "396f1d78a44ad6ee2f0fc6d2da4c7a0e5c3dbd5cf7f33fa371fc4baad91da3dd"
+    },
+    {
+      "module": "QuantumBlockEncoding.Robin.ComplexLCUProjection",
+      "source_path": "QuantumBlockEncoding/Robin/ComplexLCUProjection.lean",
+      "source_sha256": "fa0b84ce5c819184f190b81b4d259e12f725e6196cd37147984fab76fe4ec340",
+      "imports": [
+        "QuantumBlockEncoding.Robin.ComplexLCU",
+        "Mathlib.Tactic"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/Robin/ComplexLCUProjection.olean",
+      "olean_sha256": "af45d383c2e11a1cc6d49d0a98eb1a217182c6ac75a67d57a7179fb09317a780"
+    },
+    {
+      "module": "QuantumBlockEncoding.Core",
+      "source_path": "QuantumBlockEncoding/Core.lean",
+      "source_sha256": "c7e76d91c7fcfd844177f99c0399a3465a7d8360d3a522acb5d4c4e2f8277894",
+      "imports": [
+        "Std"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/Core.olean",
+      "olean_sha256": "c6d35af9fd6488a221323fb19cd40f944b2236c80a3f89b6a18e359217d1ddd3"
+    },
+    {
+      "module": "QuantumBlockEncoding.Robin.SourceBaseline",
+      "source_path": "QuantumBlockEncoding/Robin/SourceBaseline.lean",
+      "source_sha256": "cc3aa711cb2bc5c4dfb308719e77ac299539d9a1f97f7b45002b4a11cc9a5722",
+      "imports": [
+        "QuantumBlockEncoding.Robin.FixedN3Data",
+        "Mathlib.Analysis.SpecialFunctions.Trigonometric.Inverse",
+        "Mathlib.Tactic"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/Robin/SourceBaseline.olean",
+      "olean_sha256": "0f85f83b4f7899862c15d4e5b19a1c96ada5bd13fc3a5f43879011d170fb6093"
+    },
+    {
+      "module": "QuantumBlockEncoding.Robin.WeightedPermutation",
+      "source_path": "QuantumBlockEncoding/Robin/WeightedPermutation.lean",
+      "source_sha256": "c5c4ab73bd9a1d97f3672bfcb4ef374b9c832afec2935df378408283d2756eaf",
+      "imports": [
+        "QuantumBlockEncoding.Robin.FixedN3Data",
+        "Mathlib.Tactic"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/Robin/WeightedPermutation.olean",
+      "olean_sha256": "139c48530c0b354a01c445d036a11fec279f850f473a5bfacedc8cc2c2bf018a"
+    },
+    {
+      "module": "QuantumBlockEncoding.Robin.ComplexLCU",
+      "source_path": "QuantumBlockEncoding/Robin/ComplexLCU.lean",
+      "source_sha256": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843",
+      "imports": [
+        "QuantumBlockEncoding.ConcreteSemantics",
+        "Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic",
+        "Mathlib.Data.Matrix.Block",
+        "Mathlib.LinearAlgebra.Matrix.Kronecker",
+        "Mathlib.LinearAlgebra.Matrix.Reindex",
+        "Mathlib.Tactic"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/Robin/ComplexLCU.olean",
+      "olean_sha256": "39ae59a3a2ed5ddf9e632f37cc10908cfc3208d016cda5f10a668259ba6e708c"
+    },
+    {
+      "module": "QuantumBlockEncoding.Robin.FixedN3Data",
+      "source_path": "QuantumBlockEncoding/Robin/FixedN3Data.lean",
+      "source_sha256": "5d9cd56041be0af97ad2385aae2714f6ad05331a4df91ffc0704c2e983b453b8",
+      "imports": [
+        "QuantumBlockEncoding.RobinEvolution",
+        "QuantumBlockEncoding.BlockEncodingClassics",
+        "Mathlib.Tactic"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/Robin/FixedN3Data.olean",
+      "olean_sha256": "97d6dbd20b18665b2b263215f89548c322b80e5c206ec1af3256acc10ea325f0"
+    },
+    {
+      "module": "QuantumBlockEncoding.ConcreteSemantics",
+      "source_path": "QuantumBlockEncoding/ConcreteSemantics.lean",
+      "source_sha256": "4b4e1c3612ea2d4eed3a2d5dbfec39ffae81263fd9ceb521c1a59231f786caa1",
+      "imports": [
+        "Mathlib.Data.Complex.Basic",
+        "Mathlib.Data.Matrix.Mul",
+        "Mathlib.LinearAlgebra.UnitaryGroup",
+        "QuantumBlockEncoding.BlockEncodingClassics",
+        "QuantumBlockEncoding.CircuitSemantics",
+        "QuantumBlockEncoding.StatePreparation"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/ConcreteSemantics.olean",
+      "olean_sha256": "abe652408b2dac260b0ba5b2854d7603f28596beaffd45528c9e802335b3d705"
+    },
+    {
+      "module": "QuantumBlockEncoding.RobinEvolution",
+      "source_path": "QuantumBlockEncoding/RobinEvolution.lean",
+      "source_sha256": "8673572458ff260cf35d6cfce60ffcc52b5b2be721671b3171919e32d0b73a37",
+      "imports": [
+        "QuantumBlockEncoding.RobinMatrix",
+        "Mathlib.Tactic"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/RobinEvolution.olean",
+      "olean_sha256": "0cec3f505243313459eb84a6b070ebe30040df0610d707e036e6b966b4e41e60"
+    },
+    {
+      "module": "QuantumBlockEncoding.BlockEncodingClassics",
+      "source_path": "QuantumBlockEncoding/BlockEncodingClassics.lean",
+      "source_sha256": "94ac6632924df0a49b1ebd99bb5d9ed69b2ea463ec527033f38bd73deeb1346a",
+      "imports": [
+        "QuantumBlockEncoding.BlockEncoding"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/BlockEncodingClassics.olean",
+      "olean_sha256": "bfbf1c9171a154e203af4304706b7d7c04a1871666621d934d51e8fec60f3641"
+    },
+    {
+      "module": "QuantumBlockEncoding.CircuitSemantics",
+      "source_path": "QuantumBlockEncoding/CircuitSemantics.lean",
+      "source_sha256": "761ac3a98ea5a82ad5030e280e3810821081d10cec3d0a0a1d3c2add3fcd4666",
+      "imports": [
+        "QuantumBlockEncoding.BlockEncoding"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/CircuitSemantics.olean",
+      "olean_sha256": "ffac61409f8fd7837d9c2068edc7ea62c7e15f99db93c381ff32d65a80fb06a5"
+    },
+    {
+      "module": "QuantumBlockEncoding.RobinMatrix",
+      "source_path": "QuantumBlockEncoding/RobinMatrix.lean",
+      "source_sha256": "1cca5119ac056fe041b25c529909b9fb6c3e4995e04ebde2f69e83fce47a0835",
+      "imports": [
+        "QuantumBlockEncoding.Core",
+        "QuantumBlockEncoding.CircuitSemantics",
+        "QuantumBlockEncoding.Examples.RobinHeat"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/RobinMatrix.olean",
+      "olean_sha256": "806ad490d51e4e9c98a9d9d64cb6cc5679716f84bebbd5c9b67cfeca10a1140c"
+    },
+    {
+      "module": "QuantumBlockEncoding.Examples.RobinHeat",
+      "source_path": "QuantumBlockEncoding/Examples/RobinHeat.lean",
+      "source_sha256": "f2b2691ecc6300705a1dd319fa4386562e2b267e806ff905b66d81303b6645ff",
+      "imports": [
+        "QuantumBlockEncoding.GHL2025"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/Examples/RobinHeat.olean",
+      "olean_sha256": "ae3e73af76ed15da6f73b46437b09b45639481e2bf7dc80e13dd32d434c29dce"
+    },
+    {
+      "module": "QuantumBlockEncoding.GHL2025",
+      "source_path": "QuantumBlockEncoding/GHL2025.lean",
+      "source_sha256": "2dba31e056b134107b34c7e41c6a5c3a2130c22a2634372d1e9ce794961a4fd4",
+      "imports": [
+        "QuantumBlockEncoding.BlockEncoding",
+        "QuantumBlockEncoding.CircuitSemantics"
+      ],
+      "olean_path": ".lake/build/lib/lean/QuantumBlockEncoding/GHL2025.olean",
+      "olean_sha256": "a1ae0c66d7ccb42c5c11797f6441afc0b47f7fdde227d2d51f38373198554506"
+    }
+  ],
+  "additional_inputs": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "cd6c8e7a3065be88c70d3e09a2b8262e8e80c0805b434579223edb34536ec719"
+    },
+    {
+      "path": "HARNESS.md",
+      "sha256": "74f8847cbb627073ab63d2228cd23b6300b5d59dcae019a9da442a6ddcbf4e2e"
+    },
+    {
+      "path": "docs/theorem-publication-protocol.md",
+      "sha256": "db45ec07c3cd092bef4c37dc460164d5b06767daee24664645e7b2a18dfc5cd0"
+    },
+    {
+      "path": "docs/proof-digestion-protocol.md",
+      "sha256": "c26999839c3b45f2b1663547c8be24c57534fea3e8459467866d1e41e553a75a"
+    },
+    {
+      "path": "docs/evidence-routed-memory-protocol.md",
+      "sha256": "2039b9ec55f287d9df5fe53e09b14cc92cb3aa6301be6c060c96f30b11a8e34b"
+    },
+    {
+      "path": ".agents/skills/qbe-substantive-worker/SKILL.md",
+      "sha256": "906c1ab444d8a4492d84ee941bb214d55d550365cbc78471186f37fc23ac6c83"
+    },
+    {
+      "path": ".agents/skills/qbe-frontier-master/SKILL.md",
+      "sha256": "f336e1d3eb82a6d3393eaa1f0722aaba06afa17835f362966591ab1749256c90"
+    },
+    {
+      "path": "website/scripts/check_research_publications.py",
+      "sha256": "f8f6d7232376b5bc19a480b7e0ef549a5fafa8d66017e07482f7e6999962f8ad"
+    },
+    {
+      "path": "lakefile.lean",
+      "sha256": "f6637c3a2467fdeee6b2de72505d0581c4a49793388197bd8e9e7df3f5817fc1"
+    },
+    {
+      "path": "lean-toolchain",
+      "sha256": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
+    },
+    {
+      "path": "lake-manifest.json",
+      "sha256": "510171e8214a2ac5e00f16c1bf92ad474d2de42c4cd2dc2b3d411272f7b58763"
+    },
+    {
+      "path": "reviews/publication/stored-tensor-train-norm/decoder-packet.json",
+      "sha256": "2cde2cede57bcf9724512991e1aa55f016fd3b671a7468923d1b4accbd3a2f88"
+    },
+    {
+      "path": ".lake/packages/mathlib/Mathlib/Logic/Equiv/Fin/Basic.lean",
+      "sha256": "38ff9069ddd248fd0c77ea21d717ce5ec1cb07ea6e3a0d97849c90c6e03db2c9"
+    }
+  ],
+  "disclosed_input_expansion": "lakefile.lean was read to inspect local build/toolchain context in addition to the expressly named toolchain and manifest; it contains only the Lake package configuration. Its byte hash is disclosed above. No withheld mathematical/source-facing artifact was read.",
+  "no_source_equivalence_claim": true,
+  "elaboration": {
+    "mode": "Complete current production source read into memory, appended checks/probes and piped to lean --stdin; no -o/-i output and no import of the target cached module for target checks.",
+    "initial_whole_source_exit": 0,
+    "final_whole_source_and_edge_replay_exit": 0,
+    "checked_public_declarations": 29,
+    "axiom_union": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "unexpected_axioms": [],
+    "frozen_project_modules": 38,
+    "frozen_input_changed_count": 0,
+    "log_path": "reviews/publication/stored-tensor-train-norm/decoder-lean-log.json",
+    "replay_path": "reviews/publication/stored-tensor-train-norm/decoder-replay.ps1",
+    "replay_sha256": "421ddcaf0e2bfe36ef2d0048be8bc3a7771ad15c4f0b6138ae3336165a547dea",
+    "preexisting_warning": "Verso package has local changes; no dependency repair attempted.",
+    "additional_checked_examples": [
+      "Gram entries include every terminal bond label",
+      "General empty-chain Gram is identity",
+      "Scalar empty-chain norm is 1",
+      "General empty-chain total cost is 5*r^2+4*r+6",
+      "Scalar empty-chain norm total cost is 18",
+      "Zero inner-bond second contraction is 0",
+      "Local physical-bit address equals bit*m+j",
+      "Empty terminal dimension has Gram total cost 6"
+    ],
+    "failed_probe": "The initial address equality used rfl on the commuted formula and failed; the final probe explicitly applies Nat multiplication/addition commutativity. This was proof-script failure, not a mathematical counterexample or production failure."
+  },
+  "handoff": {
+    "failure_class": "NONE for production/source elaboration; IMPLEMENTATION_FAILED for repaired initial probe; ENV_BLOCKED for corrected file-search/path probes",
+    "salvage": "Eight accepted independent edge probes preserved in replay.",
+    "process_memory_ids_consulted": [],
+    "direction_fingerprint": "fresh-source-blind-whole-module-gram-cost-provider-terminal-order-audit",
+    "expected_information_gain": "Reconstruct exact formal meaning and model boundaries without withheld source/author anchoring.",
+    "parallel_work": "No child agents spawned.",
+    "purification_and_exposition": "Not reviewed in this source-blind task.",
+    "next_step": "A distinct anti-anchored source reviewer may compare this exact reconstruction to the separately pinned source contract; parent must run integration/admission gates."
+  }
+}

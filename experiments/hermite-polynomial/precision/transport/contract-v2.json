@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "status": "VERSIONED_DIAGNOSTIC_REPAIR_SEALED_BEFORE_IMPLEMENTATION",
+  "inherits_contract": "experiments/hermite-polynomial/precision/transport/contract.json",
+  "inherits_sha256": "279490e60a52b5bb8ce3472ec8e64b3562ea732852632bf6090f322161e423df",
+  "evidence": "Independent reviewer reproduced schema_version=true and schema_version=1.0 being accepted because Python equality considers each equal to1. Prior saved-input transport measurements are unaffected; strict schema rejection is not satisfied by v1.",
+  "repair": "Require schema_version to have exact Python int type and value1; add regressions for true,false,1.0,string1,null and other integer versions. Do not change mathematical bounds, gate interpretation, targets, inputs or production acceptance.",
+  "order_scope_clarification": "Structural gate kind/physical wires and chronological positions must match. For consecutive same-kind/same-wire RY gates, changed angle order is measured by the positional exact error bound, not rejected merely because the angles differ. SERIALIZATION_ONLY_PASS denotes a completed diagnostic, not zero discrepancy or strict writer identity.",
+  "acceptance_boundary": "No scientific/full-state/Lean-root acceptance. Positive measured error remains visible; scientific_root_closed stays false.",
+  "rollback": "Isolated diagnostic only. Retain old contract, independent v1 rejection and failure information; no historical evidence or production controller mutation."
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "evidence_class": "C_INTERNAL_PROVIDER",
+  "statement_relation": "Additive consumers of the unchanged v1 contraction/Valid/product/apply statements; no weakened conclusion or new premise",
+  "source": "Internal literal chronological matrix composition",
+  "signatures": [
+    "nominalProduct_eq_flatten {width : Nat} (words : List (List (Instruction width))) (degree bits : Nat) : nominalProduct (actualStages words degree bits) = Matrix.toEuclideanCLM (realWord words.flatten realIdentity)",
+    "actual_flatten_product_error {width : Nat} (words : List (List (Instruction width))) (degree bits : Nat) : norm (surrogateProduct (actualStages words degree bits) - Matrix.toEuclideanCLM (realWord words.flatten realIdentity)) <= growth (actualStages words degree bits) - 1",
+    "actual_flatten_apply_error {width : Nat} (words : List (List (Instruction width))) (degree bits : Nat) (x : StageSpace width) : norm (surrogateProduct (actualStages words degree bits) x - Matrix.toEuclideanCLM (realWord words.flatten realIdentity) x) <= (growth (actualStages words degree bits) - 1) * norm x"
+  ],
+  "binder_audit": "Only TYPING data; no contraction/Valid/unitarity premise",
+  "definition_audit": "Literal words.flatten preserves stage and gate order. Only nominal product identifies with exact concatenation; surrogate products have separately computed stage-end midpoints and are not identified with a single whole-word midpoint.",
+  "construction_map": "realStep commutes with right matrix multiplication (same linear signed row action) -> realWord commutes with right multiplication -> foldl append -> exact chronological stage composition -> CLM multiplicativity -> nominal product flatten identity -> substitute into existing produced bounds",
+  "independent_review": "PENDING_PARENT_OWNED"
+}

@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "leaf": "MPS-02 executable unnormalized norm and canonicalization",
+  "failure_class": "IMPLEMENTATION_FAILED",
+  "trace_scope": "bounded executable falsifier; not a family impossibility certificate",
+  "observed_head": "8c341b099e21ca98c264076837f10787a80d0c8f",
+  "direction_fingerprint": "input-precision-to-serialized-circuit-acceptance",
+  "environment": {"python": "3.12.14", "numpy": "1.26.4"},
+  "parameters": {"n_p": 1025, "k": 0, "L": "1/100"},
+  "observations": {
+    "raw_source_construction": "succeeded",
+    "max_bond": 5,
+    "core_scalars": 51170,
+    "left_cutoff": "0",
+    "dense_statevector_used": false,
+    "right_canonicalize": "ArithmeticError: canonicalization has no finite positive norm",
+    "compile_mps": "ArithmeticError: canonicalization has no finite positive norm",
+    "actual_compiler_command_exit_code": 1,
+    "neighboring_direct_canonicalization": [
+      {"n_p": 1023, "status": "finite_norm", "norm": 9.360303296701047e153},
+      {"n_p": 1024, "status": "finite_norm", "norm": 1.3237467870120218e154},
+      {"n_p": 1025, "status": "arithmetic_error"},
+      {"n_p": 1026, "status": "arithmetic_error"}
+    ],
+    "minimality_scope": "first failing width in the tested bracket only"
+  },
+  "source_evidence": [
+    {"file": "experiments/hermite-polynomial/mps/mps_stable_cores.py", "lines": [101, 106, 129], "sha256": "446cb38910cd418af9fa293bd33e8d6eb09769f9fcdf41d919210eaaee2142c0"},
+    {"file": "experiments/hermite-polynomial/mps/mps_core_probe.py", "lines": [233, 243, 245], "sha256": "1ef28771ee4e4e153cc54fb8247c1e033eea70c137f6fe4506f90fe9ddd0f693"},
+    {"file": "experiments/hermite-polynomial/mps/mps_ry_compiler.py", "lines": [164, 165], "sha256": "9f4977ce291f6ef0bf05fc2d558dc8ec80c0c0ccc6dbfc9658cae5d9d0d0bbeb"}
+  ],
+  "reproduction": {
+    "working_directory": "repository root",
+    "command": ".venv/Scripts/python.exe -B -c \"import sys; sys.path.insert(0,'experiments/hermite-polynomial/mps'); from fractions import Fraction; from mps_stable_cores import stable_hermite_tt; from mps_ry_compiler import compile_mps; raw,meta=stable_hermite_tt(1025,0,Fraction(1,100)); compile_mps(raw)\"",
+    "expected": "nonzero exit with the exact ArithmeticError above",
+    "local_bounded_probe": "runs/hermite-curriculum-goal-20261008/probe_float64_norm_boundary.py",
+    "local_probe_scope": "a diagnostic catches expected failures; its passing assertions do not mean compiler acceptance"
+  },
+  "derived_explanation_not_lean_certificate": "For this k=0,L=1/100 family, g(p)>=exp(-pi/100), so the unnormalized squared norm is >=2^n_p*exp(-2*pi/100). This exceeds float64 range at the failing width. Squaring in the current norm evaluation overflows despite a representable square root.",
+  "rejected_route": "Treat unrestricted float64 canonicalization coverage, local orthogonality, or a positive Bernstein representation as a uniform finite-bit family certificate.",
+  "repair_route": "First verify scaled norm computation and per-stage rescaling with an explicit exponent/log normalizer; then certify actual source action and numerical backward error. Merely suppressing the exception or checking finite core entries is insufficient.",
+  "salvage": ["positive Bernstein raw representation", "bounded local trace", "conditional physical RY circuit error theorem", "existing exact-real polynomial quantum root"],
+  "does_not_establish": ["exponential precision lower bound", "impossibility of polynomial preparation", "full classical bit-complexity bound", "new Lean root closure", "independent family acceptance"],
+  "remaining_frontier": "C2/C3/X2/ROOT remain open in proof-obligations/SP-HERMITE-POLY-002.md",
+  "review_status": "implementation-informed worker observation independently reproduced by the master; not source-blind semantic publication review"
+}

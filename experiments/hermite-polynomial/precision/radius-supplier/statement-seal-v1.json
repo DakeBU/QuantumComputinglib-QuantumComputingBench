@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "level": "internal-provider-staging",
+  "direction_fingerprint": "total-finite-rational-Machin-radius-supplier-with-original-target-error",
+  "parent_packet": "experiments/hermite-polynomial/precision/cycle12-staging-result.json",
+  "parent_sha256": "093137fe131260aff2b6888423b2e3dbd2e68cf64bfb8a685e9c1677771c1abc",
+  "definition_kind": "literal finite rational arithmetic",
+  "computable_formula": {
+    "atanSum": "atanSum(q,m) = sum i in range(m), (-1)^i / ((2*i+1)*q^(2*i+1)) in Rat",
+    "piApprox": "16*atanSum(5,m)-4*atanSum(239,m)",
+    "piError": "20/(2*m+1), a deliberately coarse rational majorant of the two omitted alternating terms",
+    "termCount": "m(L,epsilon) = (20*L/epsilon).ceil.toNat + 1",
+    "radius": "piApprox(termCount(L,epsilon))*L",
+    "radiusInterval": "[(piApprox(m)-piError(m))*L,(piApprox(m)+piError(m))*L]"
+  },
+  "intended_signatures": [
+    "def atanSum (q : Rat) (m : Nat) : Rat",
+    "def piApprox (m : Nat) : Rat",
+    "def piError (m : Nat) : Rat",
+    "def termCount (L epsilon : Rat) : Nat",
+    "def radius (L epsilon : Rat) : Rat",
+    "theorem piApprox_error (m : Nat) : abs ((piApprox m : Real)-Real.pi) <= (piError m : Real)",
+    "theorem radius_error (L epsilon : Rat) (hL : 0 < L) (hepsilon : 0 < epsilon) : abs ((radius L epsilon : Real)-Real.pi*(L : Real)) <= (epsilon : Real)",
+    "theorem radius_membership (L epsilon : Rat) (hL : 0 < L) (hepsilon : 0 < epsilon) : Real.pi*(L : Real) belongs to the cast rational radiusInterval"
+  ],
+  "binder_audit": {
+    "q,m,L,epsilon": "TYPING",
+    "hL,hepsilon": "SOURCE positive physical length and selected tolerance",
+    "analytic_remainder_Machin_identity_stability": "dependency edges, not theorem inputs",
+    "EXCESS": []
+  },
+  "source_topology": [
+    "NODE finite alternating rational sums",
+    "NODE arctan omitted-term enclosure from geometric integral or alternating series",
+    "NODE Machin identity pi=16 atan(1/5)-4 atan(1/239)",
+    "NODE cast-compatible rational interval arithmetic",
+    "NODE computable rational ceiling term count",
+    "NODE multiply enclosure by positive L",
+    "NODE reuse original signed-state radius stability; no cutoff separation"
+  ],
+  "conventions": "Original signed source amplitudes, q0 least significant, original normalizer and target. No state/circuit conventions changed by classical radius supplier.",
+  "resource_boundary": "Exact rational finite producer. Coarse N is O(L/epsilon); no polynomial-in-log(1/epsilon) claim, no GCD/runtime refinement claim.",
+  "expected_information_gain": "Close real pi-to-rational radius analytic bridge without fixed512 cutoff separation; otherwise name exact missing API.",
+  "independent_review": "pending; no source publication/admission requested"
+}

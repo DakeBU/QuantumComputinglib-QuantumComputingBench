@@ -1,0 +1,209 @@
+@QuantumBlockEncoding.TensorTrainNormEnvironment.gram : {n l r : Nat} →
+  QuantumBlockEncoding.TensorTrainCanonical.Chain n l r → Matrix.{0, 0, 0} (Fin l) (Fin l) Real
+@QuantumBlockEncoding.TensorTrainNormEnvironment.gram_eq_sum : ∀ {n l r : Nat}
+  (C : QuantumBlockEncoding.TensorTrainCanonical.Chain n l r),
+  @Eq.{1} (Matrix.{0, 0, 0} (Fin l) (Fin l) Real) (@QuantumBlockEncoding.TensorTrainNormEnvironment.gram n l r C)
+    (∑ x,
+      @HMul.hMul.{0, 0, 0} (Matrix.{0, 0, 0} (Fin l) (Fin r) Real) (Matrix.{0, 0, 0} (Fin r) (Fin l) Real)
+        (Matrix.{0, 0, 0} (Fin l) (Fin l) Real)
+        (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{0, 0, 0, 0} (Fin l) (Fin r) (Fin l) Real (Fin.fintype r)
+          Real.instMul Real.instAddCommMonoid)
+        (@QuantumBlockEncoding.TensorTrainCanonical.contract n l r C x)
+        (@Matrix.transpose.{0, 0, 0} (Fin l) (Fin r) Real
+          (@QuantumBlockEncoding.TensorTrainCanonical.contract n l r C x)))
+@QuantumBlockEncoding.TensorTrainNormEnvironment.gram_scalar : ∀ {n : Nat}
+  (C :
+    QuantumBlockEncoding.TensorTrainCanonical.Chain n (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  @Eq.{1} Real
+    (@QuantumBlockEncoding.TensorTrainNormEnvironment.gram n
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) C
+      (@OfNat.ofNat.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) (nat_lit 0)
+        (@Fin.instOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) ⋯ (nat_lit 0)))
+      (@OfNat.ofNat.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) (nat_lit 0)
+        (@Fin.instOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) ⋯ (nat_lit 0))))
+    (∑ x,
+      @HPow.hPow.{0, 0, 0} Real Nat Real
+        (@instHPow.{0, 0} Real Nat (@NPow.toPow.{0} Real (@Monoid.toNPow.{0} Real Real.instMonoid)))
+        (@QuantumBlockEncoding.TensorTrainCanonical.contract n
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) C x
+          (@OfNat.ofNat.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) (nat_lit 0)
+            (@Fin.instOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) ⋯ (nat_lit 0)))
+          (@OfNat.ofNat.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) (nat_lit 0)
+            (@Fin.instOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) ⋯ (nat_lit 0))))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+@QuantumBlockEncoding.TensorTrainNormEnvironment.gram_scalar_nonneg : ∀ {n : Nat}
+  (C :
+    QuantumBlockEncoding.TensorTrainCanonical.Chain n (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  @LE.le.{0} Real Real.instLE (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero))
+    (@QuantumBlockEncoding.TensorTrainNormEnvironment.gram n
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) C
+      (@OfNat.ofNat.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) (nat_lit 0)
+        (@Fin.instOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) ⋯ (nat_lit 0)))
+      (@OfNat.ofNat.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) (nat_lit 0)
+        (@Fin.instOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) ⋯ (nat_lit 0))))
+@QuantumBlockEncoding.TensorTrainNormEnvironment.norm : {n : Nat} →
+  QuantumBlockEncoding.TensorTrainCanonical.Chain n (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) →
+    Real
+@QuantumBlockEncoding.TensorTrainNormEnvironment.norm_eq : ∀ {n : Nat}
+  (C :
+    QuantumBlockEncoding.TensorTrainCanonical.Chain n (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  @Eq.{1} Real (@QuantumBlockEncoding.TensorTrainNormEnvironment.norm n C)
+    (∑ x,
+        @HPow.hPow.{0, 0, 0} Real Nat Real
+          (@instHPow.{0, 0} Real Nat (@NPow.toPow.{0} Real (@Monoid.toNPow.{0} Real Real.instMonoid)))
+          (@QuantumBlockEncoding.TensorTrainCanonical.contract n
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) C x
+            (@OfNat.ofNat.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) (nat_lit 0)
+              (@Fin.instOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) ⋯ (nat_lit 0)))
+            (@OfNat.ofNat.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) (nat_lit 0)
+              (@Fin.instOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) ⋯ (nat_lit 0))))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))).sqrt
+@QuantumBlockEncoding.TensorTrainNormEnvironment.norm_sq : ∀ {n : Nat}
+  (C :
+    QuantumBlockEncoding.TensorTrainCanonical.Chain n (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  @Eq.{1} Real
+    (@HPow.hPow.{0, 0, 0} Real Nat Real
+      (@instHPow.{0, 0} Real Nat (@NPow.toPow.{0} Real (@Monoid.toNPow.{0} Real Real.instMonoid)))
+      (@QuantumBlockEncoding.TensorTrainNormEnvironment.norm n C)
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+    (∑ x,
+      @HPow.hPow.{0, 0, 0} Real Nat Real
+        (@instHPow.{0, 0} Real Nat (@NPow.toPow.{0} Real (@Monoid.toNPow.{0} Real Real.instMonoid)))
+        (@QuantumBlockEncoding.TensorTrainCanonical.contract n
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) C x
+          (@OfNat.ofNat.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) (nat_lit 0)
+            (@Fin.instOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) ⋯ (nat_lit 0)))
+          (@OfNat.ofNat.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) (nat_lit 0)
+            (@Fin.instOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) ⋯ (nat_lit 0))))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+@QuantumBlockEncoding.TensorTrainNormEnvironment.norm_pos_of_nonzero : ∀ {n : Nat}
+  (C :
+    QuantumBlockEncoding.TensorTrainCanonical.Chain n (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  (∃ x,
+      @Ne.{1} Real
+        (@QuantumBlockEncoding.TensorTrainCanonical.contract n
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) C x
+          (@OfNat.ofNat.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) (nat_lit 0)
+            (@Fin.instOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) ⋯ (nat_lit 0)))
+          (@OfNat.ofNat.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) (nat_lit 0)
+            (@Fin.instOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) ⋯ (nat_lit 0))))
+        (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero))) →
+    @LT.lt.{0} Real Real.instLT (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero))
+      (@QuantumBlockEncoding.TensorTrainNormEnvironment.norm n C)
+@QuantumBlockEncoding.TensorTrainNormEnvironment.norm_eq_of_contract.{u_1} : ∀ {n : Nat} {I : Type u_1}
+  [inst : Fintype.{u_1} I]
+  (C :
+    QuantumBlockEncoding.TensorTrainCanonical.Chain n (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+  (e : Equiv.{1, u_1 + 1} (QuantumBlockEncoding.TensorTrainCanonical.Word n) I) (target : I → Real),
+  (∀ (x : QuantumBlockEncoding.TensorTrainCanonical.Word n),
+      @Eq.{1} Real
+        (@QuantumBlockEncoding.TensorTrainCanonical.contract n
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) C x
+          (@OfNat.ofNat.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) (nat_lit 0)
+            (@Fin.instOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) ⋯ (nat_lit 0)))
+          (@OfNat.ofNat.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) (nat_lit 0)
+            (@Fin.instOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) ⋯ (nat_lit 0))))
+        (target
+          (@DFunLike.coe.{u_1 + 1, 1, u_1 + 1} (Equiv.{1, u_1 + 1} (QuantumBlockEncoding.TensorTrainCanonical.Word n) I)
+            (QuantumBlockEncoding.TensorTrainCanonical.Word n) (fun x => I)
+            (@EquivLike.toFunLike.{u_1 + 1, 1, u_1 + 1}
+              (Equiv.{1, u_1 + 1} (QuantumBlockEncoding.TensorTrainCanonical.Word n) I)
+              (QuantumBlockEncoding.TensorTrainCanonical.Word n) I
+              (@Equiv.instEquivLike.{1, u_1 + 1} (QuantumBlockEncoding.TensorTrainCanonical.Word n) I))
+            e x))) →
+    @Eq.{1} Real (@QuantumBlockEncoding.TensorTrainNormEnvironment.norm n C)
+      (∑ i,
+          @HPow.hPow.{0, 0, 0} Real Nat Real
+            (@instHPow.{0, 0} Real Nat (@NPow.toPow.{0} Real (@Monoid.toNPow.{0} Real Real.instMonoid))) (target i)
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))).sqrt
+@QuantumBlockEncoding.TensorTrainNormEnvironment.environmentScalars : {n l r : Nat} →
+  QuantumBlockEncoding.TensorTrainCanonical.Chain n l r → Nat
+@QuantumBlockEncoding.TensorTrainNormEnvironment.environmentScalars_le : ∀ {n l r : Nat}
+  (C : QuantumBlockEncoding.TensorTrainCanonical.Chain n l r) (D : Nat),
+  @LE.le.{0} Nat instLENat (@QuantumBlockEncoding.TensorTrainCanonical.maxBond n l r C) D →
+    @LE.le.{0} Nat instLENat (@QuantumBlockEncoding.TensorTrainNormEnvironment.environmentScalars n l r C)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+          (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid))) D
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+QuantumBlockEncoding.TensorTrainNormEnvironment.updateArithmeticBudget : Nat → Nat → Nat
+@QuantumBlockEncoding.TensorTrainNormEnvironment.arithmeticBudget : {n l r : Nat} →
+  QuantumBlockEncoding.TensorTrainCanonical.Chain n l r → Nat
+QuantumBlockEncoding.TensorTrainNormEnvironment.updateArithmeticBudget_le : ∀ (l m D : Nat),
+  @LE.le.{0} Nat instLENat l D →
+    @LE.le.{0} Nat instLENat m D →
+      @LE.le.{0} Nat instLENat (QuantumBlockEncoding.TensorTrainNormEnvironment.updateArithmeticBudget l m)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 9) (instOfNatNat (nat_lit 9)))
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+            (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid))) D
+            (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))))
+@QuantumBlockEncoding.TensorTrainNormEnvironment.arithmeticBudget_le : ∀ {n l r : Nat}
+  (C : QuantumBlockEncoding.TensorTrainCanonical.Chain n l r) (D : Nat),
+  @LE.le.{0} Nat instLENat (@QuantumBlockEncoding.TensorTrainCanonical.maxBond n l r C) D →
+    @LE.le.{0} Nat instLENat (@QuantumBlockEncoding.TensorTrainNormEnvironment.arithmeticBudget n l r C)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 9) (instOfNatNat (nat_lit 9))) n)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+          (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid))) D
+          (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))))
+'QuantumBlockEncoding.TensorTrainNormEnvironment.gram' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainNormEnvironment.gram_eq_sum' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainNormEnvironment.gram_scalar' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainNormEnvironment.gram_scalar_nonneg' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainNormEnvironment.norm' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainNormEnvironment.norm_eq' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainNormEnvironment.norm_sq' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainNormEnvironment.norm_pos_of_nonzero' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainNormEnvironment.norm_eq_of_contract' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainNormEnvironment.environmentScalars' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainNormEnvironment.environmentScalars_le' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainNormEnvironment.updateArithmeticBudget' does not depend on any axioms
+'QuantumBlockEncoding.TensorTrainNormEnvironment.arithmeticBudget' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainNormEnvironment.updateArithmeticBudget_le' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainNormEnvironment.arithmeticBudget_le' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]

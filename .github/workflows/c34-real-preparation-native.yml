@@ -1,0 +1,42 @@
+name: Real preparation 57-root finite native observation WIP
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/c34-real-preparation-native.yml'
+      - 'tools/real_preparation_native_c34_ci1/**'
+      - 'tools/real_preparation_native_c34_ci3/**'
+      - 'tools/real_preparation_native_c34_ci4/**'
+      - 'tools/real_preparation_native_c34_ci5/**'
+permissions:
+  contents: read
+concurrency:
+  group: c34-real-preparation-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  c34-real-preparation-native:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v5
+      - name: Exact portable transport and 35 Python-only resource guards
+        run: python3 -B tools/real_preparation_native_c34_ci5/launch.py --python-tests
+      - uses: leanprover/lean-action@v1
+        with:
+          auto-config: false
+          use-github-cache: true
+          use-mathlib-cache: true
+      - name: Prepare inherited provider closure; original target dependencies may compile here
+        run: lake build QuantumBlockEncoding.TensorTrainLocalCompiler QuantumBlockEncoding.ConstructiveIsometryCompletion
+      - name: Actual compiler discovery and fresh target cohort; no target artifacts inherited
+        run: lake env python3 -B tools/real_preparation_native_c34_ci5/launch.py --ci
+      - name: Only sanitized actual diagnostics and hash-only launcher receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: c34-real-preparation-${{ github.sha }}
+          path: |
+            _out/real-preparation-native-c34-implement-v2/public/
+            _out/c34-native-ci5/public/
+          if-no-files-found: warn
+          retention-days: 7

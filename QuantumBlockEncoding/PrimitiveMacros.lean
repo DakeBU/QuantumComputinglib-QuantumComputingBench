@@ -190,7 +190,8 @@ theorem phasePermutationMatrix_mul {index : Type*}
   rw [_root_.Matrix.mul_apply]
   classical
   rw [Finset.sum_eq_single (leftPerm column)]
-  · simp [phasePermutationMatrix, mul_comm]
+  · by_cases h : row = rightPerm (leftPerm column) <;>
+      simp [phasePermutationMatrix, h, mul_comm]
   · intro middle _ different
     simp [phasePermutationMatrix, different]
   · simp
@@ -215,9 +216,8 @@ theorem liftPhaseMatrix_eq_phasePermutationMatrix {qubits : Nat}
   simp only [phasePermutationMatrix, Equiv.refl_apply]
   by_cases equal : row = column
   · subst row
-    rw [if_pos rfl, if_pos rfl, phaseMatrix_apply]
-    by_cases zero : column target = 0 <;> simp [zero]
-  · rw [if_neg equal]
+    simp [phaseMatrix_apply]
+  ·
     by_cases context : (splitPrimitiveWire target row).2 =
         (splitPrimitiveWire target column).2
     · have targetNe : row target ≠ column target := by
@@ -225,9 +225,8 @@ theorem liftPhaseMatrix_eq_phasePermutationMatrix {qubits : Nat}
         apply equal
         apply (splitPrimitiveWire target).injective
         exact Prod.ext targetEqual context
-      rw [if_pos context, phaseMatrix_apply]
-      simp [targetNe]
-    · rw [if_neg context]
+      simp [equal, context, phaseMatrix_apply, targetNe]
+    · simp [equal, context]
 
 def primitiveCxProgram {qubits : Nat} (control target : Fin qubits)
     (distinct : control ≠ target) : PrimitiveProgram qubits where
@@ -354,7 +353,8 @@ theorem primitiveCCXMiddle_permutation_eq_refl {qubits : Nat}
     by_cases wa : wire = a <;> by_cases wb : wire = b <;>
       by_cases wt : wire = target <;>
       simp [primitiveCCXMiddle, MonomialProgram.seq, MonomialProgram.cx,
-        MonomialProgram.t, MonomialProgram.tdg, cxBasisEquiv, cxBasisAction,
+        MonomialProgram.t, MonomialProgram.tdg, cxBasisEquiv_apply,
+        cxBasisAction,
         xBasisAction, flipBit, ha, hb, ht, wa, wb, wt,
         a_ne_b, a_ne_target, b_ne_target, Ne.symm a_ne_b,
         Ne.symm a_ne_target, Ne.symm b_ne_target]
@@ -373,7 +373,8 @@ theorem primitiveCCXMiddle_phase_eq_ccz {qubits : Nat}
     rcases bitCases (state target) with ht | ht
   all_goals
     simp [primitiveCCXMiddle, MonomialProgram.seq, MonomialProgram.cx,
-      MonomialProgram.t, MonomialProgram.tdg, cxBasisEquiv, cxBasisAction,
+      MonomialProgram.t, MonomialProgram.tdg, cxBasisEquiv_apply,
+      cxBasisAction,
       xBasisAction, flipBit, ha, hb, ht, a_ne_b, a_ne_target, b_ne_target,
       Ne.symm a_ne_b, Ne.symm a_ne_target, Ne.symm b_ne_target,
       ← Complex.exp_add]
@@ -456,7 +457,7 @@ theorem cczMatrix_eq_blockDiagonal {qubits : Nat}
   simp only [cczMatrix, phasePermutationMatrix,
     _root_.Matrix.reindexAlgEquiv_apply, _root_.Matrix.reindex_apply,
     _root_.Matrix.submatrix_apply, Equiv.symm_symm,
-    _root_.Matrix.blockDiagonal_apply, Equiv.refl_apply]
+    _root_.Matrix.blockDiagonal_apply]
   by_cases context : (splitPrimitiveWire target row).2 =
       (splitPrimitiveWire target column).2
   · rw [if_pos context]
@@ -465,7 +466,7 @@ theorem cczMatrix_eq_blockDiagonal {qubits : Nat}
         apply (splitPrimitiveWire target).injective
         exact Prod.ext targetEqual context
       subst row
-      rw [if_pos rfl]
+      rw [if_pos (show column = (Equiv.refl _) column by rfl)]
       by_cases active : column a = 1 ∧ column b = 1
       · have bitCases (bit : Fin 2) : bit = 0 ∨ bit = 1 := by
           fin_cases bit <;> simp
@@ -480,7 +481,9 @@ theorem cczMatrix_eq_blockDiagonal {qubits : Nat}
     · have notEqual : row ≠ column := by
         intro equal
         exact targetEqual (congrFun equal target)
-      rw [if_neg notEqual]
+      have notEqualRefl : row ≠ (Equiv.refl _) column := by
+        simpa using notEqual
+      rw [if_neg notEqualRefl]
       have splitTargetNe :
           (splitPrimitiveWire target row).1 ≠
             (splitPrimitiveWire target column).1 := by
@@ -495,7 +498,9 @@ theorem cczMatrix_eq_blockDiagonal {qubits : Nat}
       intro equal
       exact context (congrArg (fun state =>
         (splitPrimitiveWire target state).2) equal)
-    rw [if_neg notEqual, if_neg context]
+    have notEqualRefl : row ≠ (Equiv.refl _) column := by
+      simpa using notEqual
+    rw [if_neg notEqualRefl, if_neg context]
 
 noncomputable def ccxTargetBlock {qubits : Nat}
     (a b target : Fin qubits) (a_ne_target : a ≠ target)
@@ -517,7 +522,7 @@ theorem equivPermutationMatrix_ccx_eq_blockDiagonal {qubits : Nat}
   simp only [Robin.ComplexLCU.equivPermutationMatrix,
     _root_.Matrix.reindexAlgEquiv_apply, _root_.Matrix.reindex_apply,
     _root_.Matrix.submatrix_apply, Equiv.symm_symm,
-    _root_.Matrix.blockDiagonal_apply]
+    _root_.Matrix.blockDiagonal_apply, ccxBasisEquiv_apply]
   by_cases context : (splitPrimitiveWire target row).2 =
       (splitPrimitiveWire target column).2
   · rw [if_pos context]
@@ -550,7 +555,7 @@ theorem equivPermutationMatrix_ccx_eq_blockDiagonal {qubits : Nat}
         rcases bitCases (row target) with hrow | hrow <;>
           rcases bitCases (column target) with hcolumn | hcolumn <;>
           simp [hrow, hcolumn, flipBit]
-      simp [ccxTargetBlock, active, rowActive, ccxBasisEquiv,
+      simp [ccxTargetBlock, active, rowActive,
         ccxBasisAction, xMatrix, splitPrimitiveWire, xBasisAction,
         actionIff, flipIff]
     · have rowInactive : ¬(row a = 1 ∧ row b = 1) := by
@@ -562,7 +567,7 @@ theorem equivPermutationMatrix_ccx_eq_blockDiagonal {qubits : Nat}
         · intro targetEqual
           apply (splitPrimitiveWire target).injective
           exact Prod.ext targetEqual context
-      simp [ccxTargetBlock, active, rowInactive, ccxBasisEquiv,
+      simp [ccxTargetBlock, active, rowInactive,
         ccxBasisAction, rowEqIff, splitPrimitiveWire,
         _root_.Matrix.one_apply]
   · have actionMiss : row ≠ ccxBasisAction a b target column := by
@@ -575,7 +580,7 @@ theorem equivPermutationMatrix_ccx_eq_blockDiagonal {qubits : Nat}
       · simpa [ccxBasisAction, active, xBasisAction, wire.property] using
           actionWire
       · simpa [ccxBasisAction, active] using actionWire
-    simp [ccxTargetBlock, context, ccxBasisEquiv, actionMiss]
+    simp [ccxTargetBlock, context, actionMiss]
 
 theorem hadamard_conjugates_ccz {qubits : Nat}
     (a b target : Fin qubits)

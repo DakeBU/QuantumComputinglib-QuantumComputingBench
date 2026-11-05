@@ -1,0 +1,34 @@
+warning: verso: repository '<repo>\.lake/packages\verso' has local changes
+'HermiteSavedStageInterpreter.flip_flip' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedStageInterpreter.bit_flip' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedStageInterpreter.bit_flip_other' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedStageInterpreter.cxRow_involutive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedStageInterpreter.identity_encloses' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedStageInterpreter.step_encloses' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedStageInterpreter.word_encloses' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedStageInterpreter.stage_enclosure' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedStageInterpreter.stage_midpoint_error' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedStageInterpreter.changing_target_CX_full_matrix' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedStageInterpreter.changing_target_CX_end_error' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedStageInterpreter.actual_first_saved_angle_full_matrix' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+HermiteSavedStageInterpreter.stage_enclosure {width : ℕ} (word : List (Instruction width)) (degree bits : ℕ)
+  (i j : Basis width) : Mem (intervalWord word degree bits intervalIdentity i j) (realWord word realIdentity i j)
+HermiteSavedStageInterpreter.stage_midpoint_error {width : ℕ} (word : List (Instruction width)) (degree bits : ℕ)
+  (i j : Basis width) :
+  |realWord word realIdentity i j -
+        ↑(HermiteSavedRounding.midpoint (intervalWord word degree bits intervalIdentity i j))| ≤
+    ↑(((intervalWord word degree bits intervalIdentity i j).hi -
+          (intervalWord word degree bits intervalIdentity i j).lo) /
+        2)
+'HermiteSavedStageInterpreter.stage_maxRadius_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedStageInterpreter.stage_max_entry_error' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedStageInterpreter.real_entry_bound_euclidean_opnorm' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HermiteSavedStageInterpreter.stage_euclidean_operator_error' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedStageInterpreter.changing_target_CX_eta' depends on axioms: [propext, Classical.choice, Quot.sound]
+HermiteSavedStageInterpreter.stage_euclidean_operator_error {width : ℕ} (word : List (Instruction width))
+  (degree bits : ℕ) :
+  ‖Matrix.toEuclideanCLM (stageCenter word degree bits - realWord word realIdentity)‖ ≤ ↑(stageEta word degree bits)

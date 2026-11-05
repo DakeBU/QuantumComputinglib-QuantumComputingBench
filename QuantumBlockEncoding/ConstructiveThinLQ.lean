@@ -41,7 +41,7 @@ theorem wide_factorization {m n : ℕ} (hmn : m ≤ n)
   have restrictedSum := ThinLQ.sum_prefix_of_zero hmn
     (fun k => reduced A.transpose k i * transform A.transpose k j) (by
       intro k hk
-      dsimp only
+      change reduced A.transpose k i * transform A.transpose k j = 0
       rw [reduced_zero_below A.transpose k i (by omega), zero_mul])
   change A i j = ∑ k : Fin m,
     reduced A.transpose (Fin.castLE hmn k) i * transform A.transpose (Fin.castLE hmn k) j

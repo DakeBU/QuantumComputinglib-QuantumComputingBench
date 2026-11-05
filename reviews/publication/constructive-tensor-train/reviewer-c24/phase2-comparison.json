@@ -1,0 +1,98 @@
+{
+  "review_identity":"ctt_source_first_review_c24",
+  "status":"SOURCE_FORMAL_GRAPH_COMPARISON_COMPLETE_DECODER_PENDING",
+  "phase1_seal_sha256":"29cb76e633f1a0a248066ba888a768395c1e3d7c5bb9eeb9ab38c3efa940c450",
+  "bindings":{
+    "QuantumBlockEncoding/ConstructiveTensorTrain.lean":"081e409bd31b91513ab38ad1041bd7dbcad88675275ba4197ae3587686c1d58d",
+    "docs/lessons/constructive-tensor-train-canonicalization.md":"5954d90c4dfeff23178127e58514b628be94db220f4e2c1d393029153f757cf7",
+    "reviews/publication/constructive-tensor-train/author-formal-context.json":"074edbc41045f015a36adfeab33fcd6062d6713db0a7067e094a78c7015e9c7a",
+    "reviews/publication/constructive-tensor-train/parent-graph-views-v2.json":"ae78af6906d8d9d504a1a35e6a72559c24fab861092753d58396cdff9ce6b05c",
+    "reviews/publication/constructive-tensor-train/parent-source-coverage-v2.json":"a77f4dc57e2c993628ab73a2ebcce07488c405caf599a929904d4bd91fcedefc",
+    "QuantumBlockEncoding/ConstructiveThinLQ.lean":"a9cec4dce7e7b955f663df02fb29716a67e42da63570dfac9c754a1aae9a8e18",
+    "QuantumBlockEncoding/TensorTrainCanonical.lean":"0b51ec0335aaf6248f40b3f8dcf6014172c231b9ae512bf5bb09d84ebf66f808",
+    "QuantumBlockEncoding/RectangularGivens.lean":"aa4b908e26c0e0b0bccc05034b839f170fb4a2641d96b713ff8d3fac731bcb52",
+    "QuantumBlockEncoding/ThinLQ.lean":"1b5b8434ba90063bb7d14ffe133ca7733a38772d4fe95f24427800d4edc62614",
+    "QuantumBlockEncoding/AdjacentGivens.lean":"a43c3b4f543738cb317be01fa664fd466bfa28e21c33d10c7a90e74037a58d9c",
+    "QuantumBlockEncoding/SequentialBondPreparation.lean":"ad4542b108d44f196f2a02f78e59b58f43d45b1e890709cf4c22e1222805d5c5",
+    "QuantumBlockEncoding/RealAmplitudePreparation.lean":"3c1c145a5262b85159bcead1997ec87875184ac06dfe4da8a6595ae063e434f7",
+    "lean-toolchain":"302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "lake-manifest.json":"510171e8214a2ac5e00f16c1bf92ad474d2de42c4cd2dc2b3d411272f7b58763"
+  },
+  "opaque_binding":"9be3c975b10363ad36778d6dc9da4c7a941857f6571f3e2f6072c73d65a51c09",
+  "opaque_binding_is_verdict":false,
+  "formal_context_check":{
+    "all_15_source_exact_strings_contained_in_actual_target":true,
+    "all_8_full_source_texts_and_sha256_match_actual_files":true,
+    "kind":"source lexical snapshot, not elaborated type/proof-term export",
+    "fresh_Lean_execution":false,
+    "cached_olean_attestation":false,
+    "no_claim_from_snapshot_that_imports_or_proofs_were_recompiled":true
+  },
+  "declarations":[
+    {"name":"QuantumBlockEncoding.ConstructiveTensorTrain.CoreFactorization","lines":"21-25","source":"S08-S13","comparison":"EXACT: fixed min(l,2*r) residual/core shapes and factorization/row-orthogonality output fields; not a public canonicalization premise"},
+    {"name":"QuantumBlockEncoding.ConstructiveTensorTrain.factorCore","lines":"28-39","source":"S08-S13","comparison":"EXACT: flatten actual matrix with e.symm, call ConstructiveThinLQ.factor, relabel Q by e; finite-sum transport is e.sum_comp"},
+    {"name":"QuantumBlockEncoding.ConstructiveTensorTrain.Result","lines":"42-48","source":"S14","comparison":"EXACT: rank/residual/canonical with fixed n,r, produced RightCanonical, RankReduced and all-word matrix action"},
+    {"name":"QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize","lines":"51-72","source":"S15-S20,S28","comparison":"EXACT: structural tail recursion uses actual tailResult then actual absorbed core; nil identity and cons min recurrence; internal factors/actions are supplied rather than assumed"},
+    {"name":"QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_rightCanonical","lines":"74-75","source":"S20","comparison":"EXACT projection of returned proof; no original-core canonicality premise"},
+    {"name":"QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_rankReduced","lines":"77-78","source":"S17-S18","comparison":"EXACT projection; expanded RankReduced is literal backward min relation with unchanged terminal"},
+    {"name":"QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_action","lines":"80-82","source":"S19-S20","comparison":"EXACT every word full matrix equality; no final entry selection"},
+    {"name":"QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_maxBond_le","lines":"84-86","source":"S20","comparison":"EXACT imported RankReduced.maxBond_le; expanded maxBond includes nil terminal and each left dimension"},
+    {"name":"QuantumBlockEncoding.ConstructiveTensorTrain.boundary","lines":"89-90","source":"S21","comparison":"EXACT row vecMul v residual, arbitrary v"},
+    {"name":"QuantumBlockEncoding.ConstructiveTensorTrain.boundary_action","lines":"92-96","source":"S22","comparison":"EXACT row-vector equality at all terminal indices for every word"},
+    {"name":"QuantumBlockEncoding.ConstructiveTensorTrain.boundary_mass","lines":"99-102","source":"S23-S25","comparison":"EXACT all-terminal chainMass equals residual row mass; calls residual_mass with internally produced canonicality and action"},
+    {"name":"QuantumBlockEncoding.ConstructiveTensorTrain.boundary_normalized","lines":"104-106","source":"S25","comparison":"EXACT SOURCE premise chainMass C v=1 and no other logical premise; does not normalize arbitrary input"},
+    {"name":"QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary","lines":"109-110","source":"S26","comparison":"EXACT Chain n 1 1 and all-one singleton row"},
+    {"name":"QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary_action","lines":"112-116","source":"S26","comparison":"EXACT unconditional scalar (0,0) contraction sum over all new initial labels"},
+    {"name":"QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary_normalized","lines":"118-123","source":"S27","comparison":"EXACT SOURCE premise complete original scalar squared sum=1; singleton sum simplification supplies boundary normalization premise"}
+  ],
+  "seven_semantic_slots":[
+    {"slot":"target_and_normalization","result":"MATCH","detail":"Exact all-word/all-terminal real contractions; chain mass retained; only two normalization consumers require input mass one; no scientific target agreement theorem."},
+    {"slot":"dimensions_scalar_basis_order","result":"MATCH","detail":"All natural bonds including zero, real scalar, Fin2 x Fin r bit-major flatten e(b,j)=j+r*b=b*r+j; recursive word order unchanged. No physical endian bridge claimed."},
+    {"slot":"oracle_coherent_access_inverse_controls","result":"MATCH_BOUNDARY","detail":"Arbitrary real entry functions only, no coherent oracle access/inverse/control semantics or cost promise."},
+    {"slot":"ancilla_workspace_garbage","result":"MATCH_BOUNDARY","detail":"No physical registers in this module. Arbitrary terminal dimension and all labels retained; mathematical singleton terminal does not prove clean physical workspace."},
+    {"slot":"phase","result":"MATCH","detail":"Signed real amplitudes preserved exactly entrywise, not modulo phase; no complex-input or physical phase/ancilla composition theorem."},
+    {"slot":"norm_error_success","result":"MATCH","detail":"Exact squared Euclidean row mass, all-word/all-terminal summation. No approximation/postselection/success probability, and zero action cannot satisfy normalized mass premise."},
+    {"slot":"resources_and_input_model","result":"MATCH_BOUNDARY","detail":"Fixed exact-real supplier, no full-rank premise, numerical rank, runtime, finite-bit arithmetic, stability, gate/depth/connectivity/oracle/input-construction/readout certificate. StoredTensorTrain refinement is separate."}
+  ],
+  "provider_checks":[
+    "ConstructiveThinLQ.factor handles m<=q with wide factorization, and m>q with A and identity, without an existence witness; min dimensions and equal case match lesson.",
+    "RectangularGivens sweep advances columns and invokes bottom-up AdjacentGivens.columnSweep; reduced_zero_below, transform_orthogonal and exact_recovery supply the stated wide derivation. Row orthogonality uses square mul_eq_one_comm, not an illicit reversal for rectangular matrices.",
+    "AdjacentGivens.eliminationAngle is negative splitAngle.eval; eliminationAngle_zero proves the zero-pair angle exactly zero. RealAmplitudePreparation.splitAngle has signed arccos branch and pairNorm-zero guard, so no nonnegative/full-rank input premise is hidden.",
+    "Actual upstream finProdFinEquiv has value x.2+n*x.1 and inverse divNat/modNat, matching bit-major source formula and vacuous zero carrier.",
+    "TensorTrainCanonical RankReduced is inductive literal min recurrence, RightCanonical is every complete core row orthogonality, mass/chainMass sum complete finite carriers, and residual_mass applies produced action plus canonical-chain mass preservation. No new binder excess found."
+  ],
+  "source_coverage_crosswalk":{
+    "source:ctt:carriers":["S03","S04","S05"],
+    "source:ctt:orthogonality":["S06","S07"],
+    "source:ctt:core-factor":["S08","S09","S10","S11","S12","S13"],
+    "source:ctt:recursion":["S14","S15","S16","S17","S18"],
+    "source:ctt:action":["S19","S20"],
+    "source:ctt:bond-bound":["S20"],
+    "source:ctt:boundary-mass":["S21","S22","S23","S24","S25"],
+    "source:ctt:conditional-normalization":["S25"],
+    "source:ctt:scalar-action":["S26"],
+    "source:ctt:scalar-normalization":["S27"],
+    "source:ctt:empty-zero":["S28"],
+    "source:ctt:views-boundary":["S29","S31","S32"],
+    "source:ctt:retrospective-status":["S02"],
+    "source:ctt:exact-disclosures":["S33"],
+    "reviewer_explicit_summary_disposition":"S01 is a repeated aggregate of recursion/action/bond-bound/boundary-mass/conditional-normalization, not a new theorem; its exact claims are covered by those nodes. S30 is implementation-view metadata, not extra mathematical evidence; S34 is navigation. This supplies finer paragraph disposition than the author's coarse inventory."
+  },
+  "graph_review":{
+    "source_graph":"ACCEPT_AS_GROUPED_RETROSPECTIVE_TOPOLOGY: same one deterministic sufficient route, no alternative construction claimed. Predicate/typing nodes are definitions, not assumed original-core orthogonality; core-factor and recursive construction produce the new-core/tail orthogonality used in the mass proof. Independent phase1 expands the grouped nodes.",
+    "conditional_edges":"ACCEPT: general normalization AND-tail includes premise:input-chainMass-one. Unconditional scalar action separate from scalar normalization; latter AND-tail includes scalar-bonds-one and complete input-scalar-square-sum-one. No action-only normalization arrow.",
+    "source_gaps":"ACCEPT: physical preparation and finite-bit costs remain OUT_OF_SCOPE_OPEN, consistent with independent phase1; no open internal matrix proof obligation identified.",
+    "lean_view":"ACCEPT_AT_DECLARED_LEVEL: exactly two actual imports and all 15 authored declaration roots; source reference signals explicitly incomplete and dashed, not an elaborated proof-term dependency export. Structure-generated fields/constructors are represented through their owning root, not claimed as separately enumerated roots.",
+    "compressed_spine":"ACCEPT_AS_PRESENTATION: three moves expand to source nodes and exact owning Lean roots; not a new theorem, purification or independent exposition seal. Detailed reviewer expansion remains available.",
+    "functor_view":"ACCEPT_AS_PROPOSAL_ONLY: complete seven-input physical AND-tail, conditional normalized boundary, explicit embeddings/order/isometry/primitive action/terminal cleanup; resource failure boundary retained; not a certified functor or physical circuit theorem.",
+    "novelty":"No graph-shape or retrospective publication bridge novelty inference accepted.",
+    "verdict_boundary":"This phase is not a round-trip verdict, current build acceptance, full-site/ROOT/main admission or PURIFIED seal. Frozen new decoder comparison remains required."
+  },
+  "compilation":{
+    "fresh_execution":"NOT_RUN",
+    "inherited_dependency_boundary":"Static actual-source review only; no fresh target/dependency elaboration or cached olean provenance attestation is supplied by this reviewer. Any later gate must bind actual target, toolchain and manifest plus its own dependency/proof-input evidence.",
+    "production_or_cache_mutation":false
+  },
+  "mismatches":[],
+  "decoder":"WAITING_FOR_PARENT_SUPPLIED_NEW_FROZEN_REPORT; no live scratch, prior decoder, prior verdict or older review opened"
+}

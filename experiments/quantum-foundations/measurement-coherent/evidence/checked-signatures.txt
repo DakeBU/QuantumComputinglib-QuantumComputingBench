@@ -1,0 +1,40 @@
+@QuantumBlockEncoding.MeasurementCoherent.branchIsometry.{u_1, u_2,
+    u_3} : {ι : Type u_1} →
+  {E : Type u_2} →
+    {F : Type u_3} →
+      [inst : Fintype.{u_1} ι] →
+        [inst_1 : NormedAddCommGroup.{u_2} E] →
+          [inst_2 : InnerProductSpace.{0, u_2} ℂ E] →
+            [inst_3 : CompleteSpace.{u_2} E] →
+              [inst_4 : NormedAddCommGroup.{u_3} F] →
+                [inst_5 : InnerProductSpace.{0, u_3} ℂ F] →
+                  [inst_6 : CompleteSpace.{u_3} F] →
+                    (M : ι → ContinuousLinearMap.{0, 0, u_2, u_3} (RingHom.id.{0} ℂ) E F) →
+                      Eq.{u_2 + 1}
+                          (∑ i,
+                            ContinuousLinearMap.comp.{0, 0, 0, u_2, u_3, u_2}
+                              (ContinuousLinearMap.adjoint.{0, u_2, u_3} (M i)) (M i))
+                          1 →
+                        LinearIsometry.{0, 0, u_2, max u_3 u_1} (RingHom.id.{0} ℂ) E (PiLp.{u_1, u_3} 2 fun x => F)
+@QuantumBlockEncoding.MeasurementCoherent.branchIsometry_apply.{u_1, u_2,
+    u_3} : ∀ {ι : Type u_1} {E : Type u_2} {F : Type u_3} [inst : Fintype.{u_1} ι] [inst_1 : NormedAddCommGroup.{u_2} E]
+  [inst_2 : InnerProductSpace.{0, u_2} ℂ E] [inst_3 : CompleteSpace.{u_2} E] [inst_4 : NormedAddCommGroup.{u_3} F]
+  [inst_5 : InnerProductSpace.{0, u_3} ℂ F] [inst_6 : CompleteSpace.{u_3} F]
+  (M : ι → ContinuousLinearMap.{0, 0, u_2, u_3} (RingHom.id.{0} ℂ) E F)
+  (hM :
+    Eq.{u_2 + 1}
+      (∑ i, ContinuousLinearMap.comp.{0, 0, 0, u_2, u_3, u_2} (ContinuousLinearMap.adjoint.{0, u_2, u_3} (M i)) (M i))
+      1)
+  (ψ : E) (i : ι),
+  Eq.{u_3 + 1}
+    (WithLp.ofLp.{max u_1 u_3} ((QuantumBlockEncoding.MeasurementCoherent.branchIsometry.{u_1, u_2, u_3} M hM) ψ) i)
+    ((M i) ψ)
+@QuantumBlockEncoding.MeasurementCoherent.sum_inner_eq.{u_1, u_2,
+    u_3} : ∀ {ι : Type u_1} {E : Type u_2} {F : Type u_3} [inst : Fintype.{u_1} ι] [inst_1 : NormedAddCommGroup.{u_2} E]
+  [inst_2 : InnerProductSpace.{0, u_2} ℂ E] [inst_3 : CompleteSpace.{u_2} E] [inst_4 : NormedAddCommGroup.{u_3} F]
+  [inst_5 : InnerProductSpace.{0, u_3} ℂ F] [inst_6 : CompleteSpace.{u_3} F]
+  (M : ι → ContinuousLinearMap.{0, 0, u_2, u_3} (RingHom.id.{0} ℂ) E F),
+  Eq.{u_2 + 1}
+      (∑ i, ContinuousLinearMap.comp.{0, 0, 0, u_2, u_3, u_2} (ContinuousLinearMap.adjoint.{0, u_2, u_3} (M i)) (M i))
+      1 →
+    ∀ (ψ φ : E), Eq.{1} (∑ i, inner.{0, u_3} ℂ ((M i) ψ) ((M i) φ)) (inner.{0, u_2} ℂ ψ φ)

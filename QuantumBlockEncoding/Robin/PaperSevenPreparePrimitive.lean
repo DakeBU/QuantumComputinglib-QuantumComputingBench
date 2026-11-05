@@ -76,6 +76,9 @@ theorem warmRobinPaperSevenHighContext_iff
           (warmRobinPaperSevenSystemBits column, column 7) := by
   native_decide +revert
 
+-- Retain pre-4.33 elaboration across the definitionally equal finite index types.
+-- This affects tactic unification only; the Lean kernel still checks the proof.
+set_option backward.isDefEq.respectTransparency false in
 theorem warmRobinPaperSevenHighPhysical_eval :
     evalPrimitiveGate (.ry (5 : Fin 8) warmRobinUniformSevenHighAngle) =
       _root_.Matrix.reindexAlgEquiv ℂ ℂ
@@ -123,6 +126,7 @@ theorem warmRobinPaperSevenMiddleContext_iff
           (warmRobinPaperSevenSystemBits column, column 7) := by
   native_decide +revert
 
+set_option backward.isDefEq.respectTransparency false in
 theorem warmRobinPaperSevenMiddlePhysical_eval :
     controlledRyBlockMatrix warmRobinPaperSevenMiddlePhysicalWires 4
         warmRobinPaperSevenMiddlePhysicalWires_ne_target
@@ -183,6 +187,7 @@ theorem warmRobinPaperSevenLowContext_iff
           (warmRobinPaperSevenSystemBits column, column 7) := by
   native_decide +revert
 
+set_option backward.isDefEq.respectTransparency false in
 theorem warmRobinPaperSevenLowPhysical_eval :
     controlledRyBlockMatrix warmRobinPaperSevenLowPhysicalWires 3
         warmRobinPaperSevenLowPhysicalWires_ne_target

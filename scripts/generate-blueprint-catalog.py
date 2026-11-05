@@ -567,8 +567,8 @@ def blueprint_declaration_url(decl: Declaration, catalog_slug: str) -> str:
     source_route = decl.source.replace("/", "___").replace(".", "___")
     encoded_name = decl.full_name.replace(".", "___")
     anchor = (
-        "--informal-external-decl-_FLQQ_"
-        f"{encoded_name}_FLQQ_-{encoded_name}"
+        "--informal-preview-_FLQQ_"
+        f"{encoded_name}_FLQQ_--statement"
     )
     return (
         f"../blueprint/html-multi/{catalog_slug}/{source_route}/"

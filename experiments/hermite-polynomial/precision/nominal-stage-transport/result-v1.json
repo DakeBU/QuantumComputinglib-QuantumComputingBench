@@ -1,0 +1,300 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "cycle": 17,
+  "evidence_class": "C_INTERNAL_PROVIDER",
+  "status": "PROVED_LOCAL_FOCUSED",
+  "objective": "Unconditional literal full-carrier real nominal contraction and produced actual nonunitary-stage chronological transport",
+  "namespace": "HermiteNominalStageTransport",
+  "mathematical_delta": "Every frozen arbitrary-width real RY/CX word preserves the full real Euclidean norm, hence contracts. Frozen stageCenter and produced stageEta form actual CLM stages with all Valid conjuncts internally discharged. Their chronological product and vector application error are bounded by product(1+eta)-1 against the literal flattened exact word.",
+  "effect_on_root_frontier": "Closes nominal exact-stage contraction and actual stages Valid/product/apply prerequisite from c16. Does not close complex circuit adapter, saved parser, source-to-stored TT, readout, runtime/resources or scientific ROOT.",
+  "roots": [
+    "sum_involution",
+    "ry_pair_square",
+    "vectorStep_ry_pair",
+    "vectorStep_sum_square",
+    "realStep_mulVec",
+    "realStep_norm_preservation",
+    "realWord_norm_preservation",
+    "nominal_norm_preservation",
+    "nominal_contraction",
+    "stageEta_nonneg",
+    "actual_stage_valid",
+    "actual_stages_valid",
+    "actual_product_error",
+    "actual_apply_error",
+    "realIdentity_eq_one",
+    "realStep_right_mul",
+    "realWord_right_mul",
+    "realWord_append_composition",
+    "nominalProduct_eq_flatten",
+    "actual_flatten_product_error",
+    "actual_flatten_apply_error",
+    "changing_full_norm",
+    "changing_full_valid",
+    "changing_full_apply",
+    "empty_width_valid",
+    "literal_signed_high_column",
+    "literal_signed_low_column"
+  ],
+  "assumptions": "Roots take only width, valid literal instruction words, degree/grid data, and arbitrary real full-carrier vector. CX distinct is instruction syntax. No contraction/Valid/surrogate unitarity/phase quotient/normalization/initial membership/tolerance premise.",
+  "conventions": "Fin(2^width), width including 0, q0 LSB, physical bit flip, RY row0 c*u-s*v and row1 s*u+c*v at exact rational theta/2, literal CX control direction. Full Euclidean norm, not entrywise Matrix norm. Chronological list/foldl and latest factor on left. All spectators and garbage retained.",
+  "literal_definition": "actualStage nominal=toEuclideanCLM(realWord word realIdentity), surrogate=toEuclideanCLM(stageCenter word degree bits), error=cast stageEta; actualStages maps over chronological word list.",
+  "proof_explanation": "The exact signed RY pair preserves u^2+v^2 using sin^2+cos^2=1. Compare the output row at i and flip(i), then sum over the full carrier; involutive reindexing turns both pair sums into twice the global square sum. CX is an involutive permutation because distinct targets preserve the control bit. Matrix mulVec commutes with these literal row actions, so every exact step preserves the Euclidean norm of every transformed vector. Word induction from identity proves unconditional nominal norm preservation and opnorm<=1. Frozen interval enclosure supplies nonnegative maxRadius and eta, and the frozen CLM difference bound supplies the third Valid conjunct. Existing nonunitary product-error transport then applies without surrogate contraction. Right matrix multiplication commutes with linear row action; chronological append and CLM multiplicativity identify nominal products with realWord words.flatten. Substitution and le_opNorm give error on every vector.",
+  "source_lean_expansion": "Literal pair/permutation -> full square sum -> mulVec -> Euclidean CLM norm -> exact word contraction; frozen enclosure/radius/error -> produced Stage.Valid -> existing product growth -> chronological exact flatten identity -> full vector apply error.",
+  "reuse": "Frozen SavedStageInterpreter and StageOperatorBound, Mathlib Euclidean CLM and Real.sin_sq_add_cos_sq, existing ExperimentalNonunitaryTransport product_error_le. PrimitiveSemantics/PrimitiveBasisLE/StatePreparationPrimitiveRoutes searched but not imported as an unproved custom-real semantics adapter.",
+  "finite_discriminators": "Five independent exact-rational tests cover signed rotations/Gram, spectator full blocks, asymmetric CX/q0 LSB, chronology, width0 and exact CX involution, actual frozen expanding surrogate [[1,-1],[1,1]] with Gram2I, multiplicative-vs-additive growth, and separate stage-midpoint-product versus whole-word midpoint. Rational rotation test matrices are convention diagnostics, not exact evaluation of rational-theta trigonometry. Two compiled symbolic literal RY signed-column guards check actual vectorStep signs for every rational theta.",
+  "gate": {
+    "path": "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-full-v1.json",
+    "sha256": "6c11548d4218f64a4040fff60f93c2f13fbcc1a72fec417d99b8546644590033"
+  },
+  "execution": [
+    {
+      "command": [
+        "lake",
+        "env",
+        "lean",
+        "-o",
+        "experiments/hermite-polynomial/precision/nominal-stage-transport/.cache/FiniteTrig.olean",
+        "experiments/hermite-polynomial/precision/finite-trig/FiniteTrig.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 35.22368009999627,
+      "log": "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-full-v1-0.log",
+      "log_sha256": "dbe9c4d299581b4e97492a67ce5a00bc8949b7e7cec1f485dd12f9b02f16743e"
+    },
+    {
+      "command": [
+        "lake",
+        "env",
+        "lean",
+        "-o",
+        "experiments/hermite-polynomial/precision/nominal-stage-transport/.cache/SavedRounding.olean",
+        "experiments/hermite-polynomial/precision/saved-rounding/SavedRounding.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 33.404498199990485,
+      "log": "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-full-v1-1.log",
+      "log_sha256": "d8c0e1d08d031e7e608d27e3ece544a001fc72ddd3237ad0a2a0c059cf21a502"
+    },
+    {
+      "command": [
+        "lake",
+        "env",
+        "lean",
+        "-o",
+        "experiments/hermite-polynomial/precision/nominal-stage-transport/.cache/SavedStageInterpreter.olean",
+        "experiments/hermite-polynomial/precision/saved-stage-interpreter/SavedStageInterpreter.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 32.66896439999982,
+      "log": "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-full-v1-2.log",
+      "log_sha256": "bb145963d87aef1f318c79c96f13df1effb98b4a7bed6c466b4402639b5ce4f3"
+    },
+    {
+      "command": [
+        "lake",
+        "env",
+        "lean",
+        "-o",
+        "experiments/hermite-polynomial/precision/nominal-stage-transport/.cache/StageOperatorBound.olean",
+        "experiments/hermite-polynomial/precision/saved-stage-interpreter/StageOperatorBound.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 33.88927200000035,
+      "log": "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-full-v1-3.log",
+      "log_sha256": "d8c0e1d08d031e7e608d27e3ece544a001fc72ddd3237ad0a2a0c059cf21a502"
+    },
+    {
+      "command": [
+        "lake",
+        "env",
+        "lean",
+        "-o",
+        "experiments/hermite-polynomial/precision/nominal-stage-transport/.cache/NonunitaryTransport.olean",
+        "experiments/hermite-polynomial/precision/nonunitary-transport/NonunitaryTransport.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 32.06718220000039,
+      "log": "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-full-v1-4.log",
+      "log_sha256": "3c992f76e514bd0777f06348db23aa2136eee6248c5564d6ce3c253f177af289"
+    },
+    {
+      "command": [
+        "lake",
+        "env",
+        "lean",
+        "-o",
+        "experiments/hermite-polynomial/precision/nominal-stage-transport/.cache/NominalStageTransport.olean",
+        "experiments/hermite-polynomial/precision/nominal-stage-transport/NominalStageTransport.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 34.97638800001005,
+      "log": "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-full-v1-5.log",
+      "log_sha256": "d8c0e1d08d031e7e608d27e3ece544a001fc72ddd3237ad0a2a0c059cf21a502"
+    },
+    {
+      "command": [
+        "lake",
+        "env",
+        "lean",
+        "-o",
+        "experiments/hermite-polynomial/precision/nominal-stage-transport/.cache/ChronologicalTransport.olean",
+        "experiments/hermite-polynomial/precision/nominal-stage-transport/ChronologicalTransport.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 33.7982381000038,
+      "log": "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-full-v1-6.log",
+      "log_sha256": "d8c0e1d08d031e7e608d27e3ece544a001fc72ddd3237ad0a2a0c059cf21a502"
+    },
+    {
+      "command": [
+        "lake",
+        "env",
+        "lean",
+        "experiments/hermite-polynomial/precision/nominal-stage-transport/ConsumerChecks.lean"
+      ],
+      "exit_code": 0,
+      "seconds": 32.52903079999669,
+      "log": "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-full-v1-7.log",
+      "log_sha256": "d495d93431b2d0434dce6dab6151d77859b34322f02a189ef5aa849387ae34a9"
+    },
+    {
+      "command": [
+        ".venv/Scripts/python.exe",
+        "experiments/hermite-polynomial/precision/nominal-stage-transport/test_discriminators.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "seconds": 0.48149849999754224,
+      "log": "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-full-v1-8.log",
+      "log_sha256": "00b47cdf8e045b8fbe2e54b597d19b01729e080210a3d230f061ce926168b412"
+    }
+  ],
+  "bindings_sha256": {
+    ".lake/packages/mathlib/Mathlib/Analysis/CStarAlgebra/Matrix.lean": "45aaab54676741b35977675fb7022804513af97f0a8d2a5784d78099414a2e8e",
+    "QuantumBlockEncoding/PrimitiveBasisLE.lean": "00672a2bc6aab0861bf9dfed3eab651d3b649d3c5386d6f6ca8374e012e366ed",
+    "QuantumBlockEncoding/PrimitiveSemantics.lean": "a68955f9dbe0e951c2751fcd14c535c28da7c8bcac75787b0005808b951f28de",
+    "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean": "61b91ecd2ab5d53d088ae84705b39029e8b82aad81c19b8c5ac9c435f052ad99",
+    "experiments/hermite-polynomial/precision/finite-trig/FiniteTrig.lean": "af127d0a3f8fd05d541deacfbaff212f519e71d2db836ef319516cefba6756a9",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/.gitignore": "046032151fe6113c18a8d7d9971c557e81129ca1ba244e5263d54b7e0e6f9643",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/ChronologicalTransport.lean": "1f7130b676d77ba7e2963ff971a4c703651e4d8e4370188b2077aef0df6eb71f",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/ConsumerChecks.lean": "6de4a81f3453c5d3cb54aab87dab202b0f30149ad1bc156a25fe8e674c1cad99",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/NominalStageTransport.lean": "0c9262c66ac3b933be7f87e47b3246978e46f87300f365605ed819a116e87aba",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/chronology-seal-v2-additive.json": "99751cf4467aebadeafa0463ca5a9e2f3a45c87d66831283f0ff910483ca6376",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/freeze_result.py": "74c65e13a841efa0311566161ded944fc5919dcf2084256088b622b081fa8d8e",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-full-v1-0.log": "dbe9c4d299581b4e97492a67ce5a00bc8949b7e7cec1f485dd12f9b02f16743e",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-full-v1-1.log": "d8c0e1d08d031e7e608d27e3ece544a001fc72ddd3237ad0a2a0c059cf21a502",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-full-v1-2.log": "bb145963d87aef1f318c79c96f13df1effb98b4a7bed6c466b4402639b5ce4f3",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-full-v1-3.log": "d8c0e1d08d031e7e608d27e3ece544a001fc72ddd3237ad0a2a0c059cf21a502",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-full-v1-4.log": "3c992f76e514bd0777f06348db23aa2136eee6248c5564d6ce3c253f177af289",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-full-v1-5.log": "d8c0e1d08d031e7e608d27e3ece544a001fc72ddd3237ad0a2a0c059cf21a502",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-full-v1-6.log": "d8c0e1d08d031e7e608d27e3ece544a001fc72ddd3237ad0a2a0c059cf21a502",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-full-v1-7.log": "d495d93431b2d0434dce6dab6151d77859b34322f02a189ef5aa849387ae34a9",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-full-v1-8.log": "00b47cdf8e045b8fbe2e54b597d19b01729e080210a3d230f061ce926168b412",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-full-v1.json": "6c11548d4218f64a4040fff60f93c2f13fbcc1a72fec417d99b8546644590033",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-search-v1-0.log": "dbe9c4d299581b4e97492a67ce5a00bc8949b7e7cec1f485dd12f9b02f16743e",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-search-v1-1.log": "d8c0e1d08d031e7e608d27e3ece544a001fc72ddd3237ad0a2a0c059cf21a502",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-search-v1-2.log": "bb145963d87aef1f318c79c96f13df1effb98b4a7bed6c466b4402639b5ce4f3",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-search-v1-3.log": "d8c0e1d08d031e7e608d27e3ece544a001fc72ddd3237ad0a2a0c059cf21a502",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-search-v1-4.log": "3c992f76e514bd0777f06348db23aa2136eee6248c5564d6ce3c253f177af289",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-search-v1-5.log": "d091b0dde1c2fa841079d20b14479fda685974c0847eefc1abfbc8de71fa4128",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-search-v1.json": "baf190730b843dc798d6221785c3ef974d31c1bf734ac4a25acbfcad550476f8",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-search-v2-0.log": "d8c0e1d08d031e7e608d27e3ece544a001fc72ddd3237ad0a2a0c059cf21a502",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-search-v2-1.log": "b6343a71cba3ea6b893bc0746b0d79d4e2a93bb73a15ace2d76026558bdf41f3",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-search-v2-2.log": "2ab7d24141686ef616ff935bc96bf7a89b2b672e23834cce41d28b4da61e9789",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-search-v2.json": "21f7fe41acc9119bde0a85c268535cc25c10361a0602a6f12ed51fea448cf911",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-search-v3-0.log": "d8c0e1d08d031e7e608d27e3ece544a001fc72ddd3237ad0a2a0c059cf21a502",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-search-v3-1.log": "8a2ff2877657a4a7fa7259458d3eb48a14505aa5e3e4466b88f67bbc4e589620",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-search-v3.json": "ddeedacb7808ea1a3fc1f58568b90c43369228544bdd5b4471f831618d2d8df4",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-search-v4-0.log": "d8c0e1d08d031e7e608d27e3ece544a001fc72ddd3237ad0a2a0c059cf21a502",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-search-v4-1.log": "854dc104d822733e79596a1cab9db63a0c5861a9f0570f1aa45fe4474dd69116",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-search-v4.json": "f52e7b03a7a4203fec9a1560b06a9bd16b479f6ea9e62806141bd5d21a89f817",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-search-v5-0.log": "d8c0e1d08d031e7e608d27e3ece544a001fc72ddd3237ad0a2a0c059cf21a502",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-search-v5-1.log": "d8c0e1d08d031e7e608d27e3ece544a001fc72ddd3237ad0a2a0c059cf21a502",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-search-v5-2.log": "bc88fef6a55b21107859ad003609163d8d2111b1140645f7235723f3bcb833dc",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-search-v5.json": "ba29a41f532ebec42ade86f6abc4ade428290f819a57ad8a646aeee32e506062",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-search-v6-0.log": "d8c0e1d08d031e7e608d27e3ece544a001fc72ddd3237ad0a2a0c059cf21a502",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-search-v6-1.log": "d8c0e1d08d031e7e608d27e3ece544a001fc72ddd3237ad0a2a0c059cf21a502",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-search-v6-2.log": "022f96c6e2f8c848c520f28185356981f7ff08dc717feac486bb72ee976e2b47",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-search-v6-3.log": "715890ec59e9ac0f388178df0e3e55257acae881682f0a72964fcfd75efbec72",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-search-v6.json": "b25236dc4979d4a2a0bef5502aa02714505e4119cf9415186026b4e9d76f3736",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/replay.py": "831678bfc24a20294305d03f46ea2565ed320ce7e200e253c936cd1d61e40381",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/statement-seal-v1.json": "4d9b41706cb4b8e858d0a303ef939b76566cc6fe63b1d5cf9063f63c9f277f66",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/test_discriminators.py": "32d52e77c2c9ab912ef3a8d390020c7dfa19c1fa0ca8594e902456d5c3526bfa",
+    "experiments/hermite-polynomial/precision/nonunitary-transport/ConsumerChecks.lean": "a97d7cd445ac3df1842797f6b68a2a93eaf4a9765a3e3503e2bd36a5b6ae9c3a",
+    "experiments/hermite-polynomial/precision/nonunitary-transport/NonunitaryTransport.lean": "5bb9e4fd79124814ed800cf28fcc44567390f53b49186e1fb0fc2568f42119e2",
+    "experiments/hermite-polynomial/precision/saved-rounding/SavedRounding.lean": "1052620295fbbd9c5053f81d8a6fd35c761a7948f60fa9e3f4536e4cab274417",
+    "experiments/hermite-polynomial/precision/saved-stage-interpreter/SavedStageInterpreter.lean": "9b6c52730dbb686908b7d98eff368bf7d87ed89b309ad162437372bca5e83d7d",
+    "experiments/hermite-polynomial/precision/saved-stage-interpreter/StageOperatorBound.lean": "d763f631af61c598a5cac6ae7cbaa37138d120a9801c1fa53969ffdbcc4d09f4",
+    "experiments/hermite-polynomial/precision/saved-stage-interpreter/independent-audit.json": "256a1ad8409005dd9acfe97c94ea8930125f6b5406c3b1872a87f23ebde03a68",
+    "experiments/hermite-polynomial/precision/saved-stage-interpreter/result-v1.json": "b2ee44272c1a5a9e95d05a41af7eef2a28a968af60faf751c8f97976edf25074",
+    "lake-manifest.json": "510171e8214a2ac5e00f16c1bf92ad474d2de42c4cd2dc2b3d411272f7b58763",
+    "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "tasks/SP-HERMITE-POLY-002.md": "99bd13431c2e49de7a67658e489935b8fd5c965ab473285e3fbaf0a78b5b1ce9"
+  },
+  "axioms_expected_union": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "axioms_checked_union": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "new_axioms": false,
+  "new_sorry": false,
+  "new_native_decide": false,
+  "failure_class": "NONE_FOR_FINAL_PROVIDER; IMPLEMENTATION_FAILED_FOR_RETAINED_SEARCH_RECEIPTS",
+  "authoring_failures": [
+    "search-v1: ambiguous flip_flip and underspecified sum reindex functions; cast through opaque actualStage not unfolded. No mathematical contradiction.",
+    "search-v3/v4: chronology proof simplification did not expand the RHS matrix product underneath an unfolded row-action lambda. Scoped Matrix notation was made explicit; early Matrix.mul_apply rewrite repairs the proof route. Consumer changed during failed v3; bound_inputs_unchanged=false. Failed records excluded from final evidence.",
+    "search-v5: chronology provider compiled with ordinary3, but two new sign guards had ambiguous flip simplifier names and emitted Lean recovery sorryAx. Failed source/log receipt retained and excluded; fully qualified literal flip fixes the implementation. Replay/freezer were edited during search-v5, so its binding check is also excluded.",
+    "Pre-proof read-only path typo caused ENV_BLOCKED command creation; corrected immediately with no file mutation."
+  ],
+  "failure_receipts": [
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-search-v1.json",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-search-v3.json",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-search-v4.json",
+    "experiments/hermite-polynomial/precision/nominal-stage-transport/gate-search-v5.json"
+  ],
+  "salvage_audit": "All final mathematical helpers reach roots or real consumers. search-v2 proved contraction/actual Valid/product/apply before additive flatten consumer. Failed search sources are content-hash recorded, logs retained, no false mathematical route retirement. Private cache is not final proof evidence.",
+  "process_memory_ids": [
+    "QBE-PM-LOW-TOKEN-CONTROL-PLANE",
+    "QBE-PM-DENSE-CHECK-SMALL-INSTANCE",
+    "QBE-PM-VERIFIER-SEMANTIC-LEVEL"
+  ],
+  "direction_fingerprint": "literal-real-pair-permutation-norm-to-produced-stage-valid",
+  "expected_information_gain": "Close c16 nominal contraction/Valid prerequisite and end-to-end chronological real-word error without assuming surrogate unitarity or complex adapter.",
+  "parallel_admission": "Parent-authorized substantive worker; no worker subagents.",
+  "common_blind_spot_review": "PENDING_PARENT_OWNED",
+  "independent_review": "PENDING_PARENT_OWNED",
+  "default_verified_route": "Direct literal real norm proof; complex circuit adapter remains a distinct open route, not a competing certified result.",
+  "purification": "Internal helper reachability checked; no public/source-anchor PURIFIED or Exposition Seal claimed.",
+  "remaining": [
+    "Actual real-to-complex PrimitiveSemantics arbitrary-width bit/order/entry adapter",
+    "Saved parser/Python Fraction/Int/in-place/runtime and caps refinement",
+    "Saved stage partitions, physical wire maps, data-first TT and full terminal readout",
+    "Source-to-stored C/QR/source norm floor and all global error stages",
+    "Degree/grid selection or checked requested eta and final epsilon",
+    "Efficient small-support lifting or explicitly charged dense 4^width matrix work/storage",
+    "Uniform input/intermediate integer denominator/GCD/runtime/storage and physical synthesis costs",
+    "C2",
+    "C3",
+    "X2",
+    "ROOT"
+  ],
+  "cost_boundary": "The mathematical full-carrier theorem is symbolic. stageCenter/stageEta dense materialization requires 4^width entries; no polynomial resource theorem follows. Local support/rank lifting and all scalable costs remain open.",
+  "scientific_root": false,
+  "source_anchor": false,
+  "public_purified": false,
+  "uniform_finite_bit_certificate": false,
+  "surrogate_unitarity_assumed": false,
+  "full_repository_gate": "Parent-owned; focused fresh whole experimental provider/consumer gate only.",
+  "scope": "experiments/hermite-polynomial/precision/nominal-stage-transport/",
+  "worker_git_mutations": false,
+  "parent_owns_checkpoint": true,
+  "per_worker_tokens": "unknown",
+  "recommended_next": "Independent exact-source/auditor replay, then parent checkpoint. Next independent mathematical bridge is arbitrary-width custom-real to existing complex PrimitiveSemantics, or full saved stage partition/TT/readout adapter."
+}

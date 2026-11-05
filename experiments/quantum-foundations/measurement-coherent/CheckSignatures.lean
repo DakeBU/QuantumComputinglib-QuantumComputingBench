@@ -1,0 +1,6 @@
+import QuantumBlockEncoding.MeasurementCoherent
+
+set_option pp.universes true
+#check @QuantumBlockEncoding.MeasurementCoherent.branchIsometry
+#check @QuantumBlockEncoding.MeasurementCoherent.branchIsometry_apply
+#check @QuantumBlockEncoding.MeasurementCoherent.sum_inner_eq

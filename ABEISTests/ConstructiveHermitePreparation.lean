@@ -74,14 +74,14 @@ example : evalPrimitiveCircuit repeatedCircuit
     norm_num [repeatedSource, contract, slice, _root_.Matrix.mul_apply,
       _root_.Matrix.one_apply, Fin.sum_univ_succ]
   rw [if_pos rfl, ha] at h
-  simpa only [Complex.ofReal_div, Complex.ofReal_ofNat] using h
+  simpa only [repeatedCircuit, Complex.ofReal_div, Complex.ofReal_ofNat] using h
 
 example : evalPrimitiveCircuit repeatedCircuit
     (Fin.append (fun _ => 0) (![1, 0] : PrimitiveBasis 2)) (fun _ => 0) = 0 := by
   have h := compile_columns (q := 2) repeatedSource
     (by norm_num [repeatedSource, maxBond]) repeatedSource_normalized (fun _ => 0) ![1, 0]
   have hb : (![1, 0] : PrimitiveBasis 2) ≠ (fun _ => 0) := by decide
-  simpa only [if_neg hb] using h
+  simpa only [repeatedCircuit, if_neg hb] using h
 
 example : (ConstructiveHermitePreparation.prepare 0 0 1).gateCount ≤ 10368 ∧
     (ConstructiveHermitePreparation.prepare 0 0 1).resource.depth ≤ 10368 := by

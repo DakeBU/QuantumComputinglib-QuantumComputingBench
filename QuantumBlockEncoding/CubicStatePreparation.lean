@@ -249,7 +249,7 @@ theorem arithmeticRankOneCubicLayout_auxiliaryQubits (n precision : Nat) :
 theorem arithmeticRankOneCubicResourceTuple_n2_default :
     arithmeticRankOneCubicResourceTuple 2 arithmeticCubicDefaultPrecision =
       (10, 10, 52, 10) := by
-  native_decide
+  decide +kernel
 
 /--
 Human-facing construction claim for the rank-one wrapped scalable route.  This
@@ -369,7 +369,7 @@ theorem hadamardCountingCubicLayout_auxiliaryQubits (n : Nat) :
 /-- Default small diagnostic score for the counting route at `n = 2`. -/
 theorem hadamardCountingCubicResourceTuple_n2 :
     hadamardCountingCubicResourceTuple 2 = (8, 8, 21, 8) := by
-  native_decide
+  decide +kernel
 
 /--
 Human-facing construction claim for the Hadamard-counting exact route.  This is
@@ -434,11 +434,11 @@ theorem hardModeSchedules_have_four_levels :
     hardModeMiddleAgentSchedule.length = 4 ∧
     hardModeLowerAgentSchedule.length = 4 ∧
     hardModeLevelCycleBudget.length = 4 := by
-  native_decide
+  decide +kernel
 
 theorem hardModeLowerAgentSchedule_final :
     hardModeLowerAgentSchedule.getLast? = some 6 := by
-  native_decide
+  decide +kernel
 
 /--
 Current expected phase.  This is a planning declaration, not a proof of
@@ -768,15 +768,15 @@ theorem cubicNormSq_le_hadamardCountingCubicNormalizer_sq (n : Nat) :
 
 theorem cubicNormSq_n1 :
     cubicNormSq 1 = (1 : Rat) / 64 := by
-  native_decide
+  decide +kernel
 
 theorem cubicNormSq_n2 :
     cubicNormSq 2 = (397 : Rat) / 2048 := by
-  native_decide
+  decide +kernel
 
 theorem cubicNormSq_n3 :
     cubicNormSq 3 = (46205 : Rat) / 65536 := by
-  native_decide
+  decide +kernel
 
 end CubicStatePreparation
 
@@ -890,7 +890,7 @@ theorem linearDiagonalExactCleanBlockFromPointwise_clean_eq_target
       (BlockEncodingClassics.ExactCleanBlock.clean
         (linearDiagonalExactCleanBlockFromPointwise U embed h))
       (linearDiagonalTarget n).operator := by
-  simpa [linearDiagonalTarget] using
+  simpa [linearDiagonalTarget, linearDiagonalExactCleanBlockFromPointwise] using
     (BlockEncodingClassics.ExactCleanBlock.clean_eq_target
       (linearDiagonalExactCleanBlockFromPointwise U embed h))
 
@@ -2462,7 +2462,7 @@ theorem ratMatrixErrorAction_eq_diagonal {dim : Nat}
   · intro col _ hne
     have hrowcol : row ≠ col := Ne.symm hne
     rw [hA row col hrowcol, hB row col hrowcol]
-    have hzero : (0 : Rat) - 0 = 0 := by native_decide
+    have hzero : (0 : Rat) - 0 = 0 := by exact Rat.sub_self
     rw [hzero, Rat.zero_mul]
 
 theorem ratAbs_nonneg (x : Rat) : 0 ≤ ratAbs x := by
@@ -2532,7 +2532,7 @@ theorem ratEuclideanOperatorNormErrorAtMost_not_vacuous :
           (ratMatrixErrorAction
             (Matrix.identity 1 Rat) (Matrix.zero 1 1 Rat) (fun _ => 1)) ≤
         ratSquaredEuclideanNorm (fun _ : Fin 1 => (0 : Rat) * 1) := by
-    native_decide
+    decide +kernel
   exact hnot hunit
 
 /-- The supplied approximate diagonal matrix has zero off-diagonal entries. -/
@@ -3031,11 +3031,11 @@ theorem linearDiagonalCubicProductCertificate_target_eq (n : Nat) :
     Matrix.PointwiseEq
       (linearDiagonalCubicProductCertificate n).target
       (cubicDiagonalTarget n).operator := by
-  simpa [linearDiagonalCubicProductCertificate,
-    BlockEncodingClassics.productCleanBlockCertificate,
-    BlockEncodingClassics.ExactCleanBlock.toLCUCertificate,
-    linearDiagonalTarget, cubicDiagonalTarget] using
-    linearDiagonal_cube_eq_cubicDiagonalOperator n
+  change Matrix.PointwiseEq
+    (((linearDiagonalOperator n).mul (linearDiagonalOperator n)).mul
+      (linearDiagonalOperator n))
+    (cubicDiagonalOperator n)
+  exact linearDiagonal_cube_eq_cubicDiagonalOperator n
 
 theorem linearDiagonalCubicProductCertificate_clean_eq_target (n : Nat) :
     Matrix.PointwiseEq

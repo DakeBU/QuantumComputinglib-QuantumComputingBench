@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "parent": "statement-seal-v1.json",
+  "unchanged_math_target": true,
+  "new_exact_signatures": [
+    "produceComparison_cost (n cut : Nat) : StoredRectangularGivens.total (produceComparison n cut).run.cost <= 5*n^2+149*n+479",
+    "produceComparison_quotients (n cut : Nat) : (produceComparison n cut).quotientCalls = 18*(n+1)",
+    "produceComparison_remainders (n cut : Nat) : (produceComparison n cut).remainderCalls = 18*(n+1)"
+  ],
+  "generation_contract": "Actually generate each0/1 entry with3 charged comparisons and1 integer quotient/remainder, materialize all18 entries per local table, collect the width tables, generate stored boundary vectors, then call existing StoredMatrixProductChain.ofTable. Cost and denotation refer to the same returned IndexedRun/StoredChain, not a virtual callback.",
+  "cost_omissions": ["integer pow/address arithmetic", "finite-bit input/division/comparison and loop/counter bookkeeping", "peak RAM", "actual rational source cut selection", "polynomial entries/product/directsum", "QR/normalizer/physical circuit/gate synthesis"],
+  "binder_audit": {"EXCESS": [], "only_conditions": "cut<=2^(n+1) for semantics; unconditional generation/cost"},
+  "resource_win": false,
+  "scientific_ROOT": false
+}

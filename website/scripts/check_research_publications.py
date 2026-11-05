@@ -148,12 +148,15 @@ def check(root: Path, base: str, inventory_path: Path | None = None) -> dict[str
     registry = load(root, REGISTRY.as_posix())
     if registry.get("schema_version") != 1:
         raise ValueError("unsupported publication registry")
-    records = registry["records"]
-    by_module = {item["module"]: item for item in records}
-    if len(by_module) != len(records):
-        raise ValueError("duplicate publication module")
+    # Direct script invocation starts with website/scripts on sys.path, not
+    # the repository root. Use this script's trusted root, never --root input.
+    import sys
+    if str(ROOT) not in sys.path:
+        sys.path.insert(0, str(ROOT))
+    from website.scripts import check_toolchain_maintenance as maintenance
+    by_module, by_maintenance = maintenance.partition_records(registry)
     changed = changed_modules(root, base)
-    missing = [name for name in changed if name not in by_module]
+    missing = [name for name in changed if name not in by_module and name not in by_maintenance]
     if missing:
         raise ValueError("changed production modules lack reviewed publication records: " + ", ".join(missing))
     if changed:
@@ -162,8 +165,13 @@ def check(root: Path, base: str, inventory_path: Path | None = None) -> dict[str
             raise ValueError("generate the current declaration inventory before admission")
         inventory = {item["fullName"]: item for item in json.loads(source.read_text(encoding="utf-8"))["declarations"]}
         for module in changed:
-            validate_record(root, by_module[module], inventory)
+            if module in by_module:
+                validate_record(root, by_module[module], inventory)
+            else:
+                maintenance.validate_record(root, by_maintenance[module], inventory)
     return {"base": base, "changed_modules": changed, "accepted_module_packets": len(changed),
+            "source_assimilated_module_packets": sum(m in by_module for m in changed),
+            "compatibility_maintenance_module_packets": sum(m in by_maintenance for m in changed),
             "unchanged_legacy_policy": "not retroactively source-reviewed", "natural_language_equivalence_proved": False}
 
 

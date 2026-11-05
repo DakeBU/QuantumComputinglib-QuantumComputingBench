@@ -25,28 +25,10 @@ def warmRobinPairCoordinateBasisEquiv :
 theorem warmRobinPairCoordinateCircuit_eval_eq :
     evalPrimitiveCircuit warmRobinPairCoordinateCircuit =
       ComplexLCU.equivPermutationMatrix warmRobinPairCoordinateBasisEquiv := by
-  ext row column
   simp only [warmRobinPairCoordinateCircuit, evalPrimitiveCircuit,
     evalPrimitiveGate, Matrix.one_mul]
-  rw [ComplexLCU.equivPermutationMatrix_mul_apply]
-  unfold ComplexLCU.equivPermutationMatrix warmRobinPairCoordinateBasisEquiv
-  by_cases selected :
-      (cxBasisEquiv (2 : Fin 3) (0 : Fin 3) (by decide)).symm row =
-        cxBasisEquiv (2 : Fin 3) (1 : Fin 3) (by decide) column
-  · have selected' :
-        row = cxBasisEquiv (2 : Fin 3) (0 : Fin 3) (by decide)
-          (cxBasisEquiv (2 : Fin 3) (1 : Fin 3) (by decide) column) := by
-      rw [← selected]
-      exact (cxBasisEquiv (2 : Fin 3) (0 : Fin 3) (by decide)).apply_symm_apply row |>.symm
-    simp [selected']
-  · have selected' :
-        row ≠ cxBasisEquiv (2 : Fin 3) (0 : Fin 3) (by decide)
-          (cxBasisEquiv (2 : Fin 3) (1 : Fin 3) (by decide) column) := by
-      intro equality
-      apply selected
-      rw [equality]
-      exact (cxBasisEquiv (2 : Fin 3) (0 : Fin 3) (by decide)).symm_apply_apply _
-    simp [selected, selected']
+  rw [ComplexLCU.equivPermutationMatrix_mul]
+  rfl
 
 def warmRobinPairBits (index : WarmRobinSymmetrySystem) : PrimitiveBasis 3 :=
   fun wire =>

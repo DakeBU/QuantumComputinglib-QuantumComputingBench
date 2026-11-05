@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "role": "source-blind-formal-reconstruction",
+  "identity": "hermite-cached-global-independent-gray-decoder",
+  "run_id": "gray-basis-decoder-bf78ec70-d76b-431e-abb0-b1b9ab254bc6",
+  "module": "QuantumBlockEncoding/GrayBasis.lean",
+  "module_sha256": "c77348ac8e29bcbcdaee8ac2728f86263c17a131fc23fdb5d0e98b0bfa79080e",
+  "binding_sha256": "f5cb8ba0cd715bcd9cee90de68237ffce6931087b9b955897fa3743f60c1e9e0",
+  "verdict": "FORMAL_RECONSTRUCTION_COMPLETE; source correspondence not assessed",
+  "context_provenance": {
+    "existing_agent_context_reused": true,
+    "fresh_context_reset_or_fork": false,
+    "prior_context": "The decoder previously proved a separate Hermite global assembly experiment and inspected frozen formal GrayTable/StagePrimitive providers and older unrelated Hermite task summaries. It knew the formal Gray compiler interface. It did not author GrayBasis or the new GrayBasis source lesson.",
+    "new_target_source_exposure": "No authored GrayBasis lesson, source-contract, publication candidate, source registry/classifications or earlier Gray review was read. The decoder-packet was the first input inspected for this new objective.",
+    "blindness_scope": "Source-blind to the NEW target natural-language source and classifications; not unfamiliar with Gray code or the repository's existing formal compiler. No fresh-agent/fresh-context independence is claimed.",
+    "schema_inspection": "Only evidence validation fields in website/scripts/check_research_publications.py were inspected, not publication/source records.",
+    "admission_limit": "An independent source-first reviewer must compare this reconstruction with the withheld source. This decoder cannot certify source correspondence or global publication acceptance."
+  },
+  "reconstruction": {
+    "objects": "For each natural width n, a basis state is a function from Fin n to Fin 2, hence an n-bit labelled word. The ordinal carrier is Fin(2^n). GrayBasis.equiv is an equivalence between ordinal labels and these bit functions, constructed recursively with least-significant coordinate at wire0. It gives the binary-reflected Gray order under that encoding.",
+    "recursive_formula": "Write a legal (n+1)-bit ordinal i as 2*q+b, with q=i/2 and b=i%2. The new wire0 is b when q is even and flipBit(b) when q is odd; each wire j+1 is equiv(n,q) at j. Thus wire0 is the XOR of the two lowest binary digits of i, and the upper wires apply the same rule recursively. This is a decoded formula, not a separately supplied closed-form XOR theorem.",
+    "central_theorem": "For any n and first,second in Fin(2^n) with first.val+1=second.val, there exists target in Fin n such that the complete Gray bit function of second equals the complete Gray bit function of first with only target flipped. This is a basis-label equality for strictly successive, non-wrapping ordinal labels.",
+    "proof_mechanism": "Induction on width separates even and odd first labels. An even first label and its successor share quotient tails, while the low Gray bit flips; target0 suffices. For an odd first label the low Gray bit stays fixed and quotient tails become successive; the inductive target is shifted to target.succ. At width0 no successive pair exists, so the hypothesis is contradictory.",
+    "domain_and_order": "Natural-number Euclidean quotient/remainder, not signed division. Fin n names physical bit positions. Fin.consEquiv puts its supplied bit at coordinate0 and the recursive word at successors. primitiveBasisLEEquiv flattens b to sum b_j*2^j; it is not a big-endian or reversed-wire encoding.",
+    "scope": "Three total data definitions and five symbolic arithmetic/basis theorems. No amplitudes, complex scalar assumptions, state norm, phase convention, ancillas, oracle access, measurement, circuit list, matrix conjugation, gate resource ledger or finite-bit complexity is part of these eight signatures. Imported xBasisAction names an X-like basis update but the local theorem does not assemble or evaluate a quantum gate circuit."
+  },
+  "providers": [
+    {"name": "QuantumBlockEncoding.PrimitiveBasis", "definition": "abbrev PrimitiveBasis (qubits : Nat) := Fin qubits -> Fin 2", "carrier": "Exactly one binary value for each named wire; PrimitiveBasis0 has a single empty function."},
+    {"name": "QuantumBlockEncoding.flipBit", "definition": "flipBit bit := if bit=0 then 1 else 0", "meaning": "Interchanges the two members of Fin2. Imported flipBit_flipBit certifies involution."},
+    {"name": "QuantumBlockEncoding.xBasisAction", "definition": "Function.update state target (flipBit (state target))", "meaning": "Changes the target coordinate and leaves every other coordinate unchanged. Its local result type is a bit function, not a quantum matrix."},
+    {"name": "QuantumBlockEncoding.primitiveBasisLEEquiv", "definition": "PrimitiveBasis q equiv Fin(gridSize q), gridSize q=2^q", "meaning": "At width0 the unique empty word maps to index0. At successor width, index=bits0+2*index(tail), fixing wire0 as least significant."},
+    {"name": "finProdFinEquiv", "definition": "Fin m x Fin n equiv Fin(m*n), (a,b) maps to b+n*a; inverse uses divNat/modNat", "use": "With n=2, ordinal i decomposes into (i/2,i%2), in this order."},
+    {"name": "Fin.consEquiv", "definition": "(alpha0 x ((i:Fin n)->alpha(i.succ))) equiv ((i:Fin(n+1))->alpha i)", "use": "Constructs the new low wire from the bit after prodComm; upper wires are the recursively generated Gray word."},
+    {"name": "finCongr, Equiv.prodCongr, Equiv.prodComm, Equiv.trans", "meaning": "Finite bound cast by 2^(n+1)=2^n*2, product equivalence transport, product swap and composition. They change carrier coordinates explicitly rather than postulating an arbitrary permutation."}
+  ],
+  "declarations": [
+    {
+      "name": "QuantumBlockEncoding.GrayBasis.twist", "kind": "definition", "source_line": 9,
+      "signature": "def twist (n : ℕ) : Equiv.Perm (Fin (2 ^ n) × Fin 2)",
+      "binders": ["n : Nat, explicit dimension data; no logical hypothesis or hidden typeclass"],
+      "meaning": "The involutive permutation (q,b) -> (q,b) for q even, and (q,flipBit b) for q odd. Tail q is preserved. Forward and inverse maps are the same; bundled left/right inverse proofs are part of the equivalence, not premises.",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"], "level": "finite-carrier permutation"
+    },
+    {
+      "name": "QuantumBlockEncoding.GrayBasis.equiv", "kind": "definition", "source_line": 15,
+      "signature": "def equiv : (n : ℕ) → Fin (2 ^ n) ≃ PrimitiveBasis n",
+      "binders": ["n : Nat, explicit dimension data; no logical hypothesis or hidden typeclass"],
+      "meaning": "A total recursively defined equivalence, not a chosen existential bijection. Width0 uses the inverse empty-word LE encoding. At width n+1 it decomposes ordinal into quotient and remainder, twists the remainder by quotient parity, recursively Gray-encodes the quotient and conses the twisted low bit.",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"], "level": "finite basis-label equivalence"
+    },
+    {
+      "name": "QuantumBlockEncoding.GrayBasis.headBit", "kind": "definition", "source_line": 24,
+      "signature": "def headBit (index : ℕ) : Fin 2",
+      "binders": ["index : Nat, explicit value; no upper-bound or other hypothesis"],
+      "meaning": "Return index%2 when (index/2)%2=0, otherwise flip that bit. It is defined on all naturals; no off-domain default or source-dependent oracle is involved.",
+      "axioms": ["propext", "Quot.sound"], "level": "natural arithmetic bit supplier"
+    },
+    {
+      "name": "QuantumBlockEncoding.GrayBasis.equiv_head", "kind": "theorem", "source_line": 28,
+      "signature": "@[simp] theorem equiv_head (n : ℕ) (index : Fin (2 ^ (n + 1))) : equiv (n + 1) index 0 = headBit index.val",
+      "binders": ["n : Nat, explicit dimension", "index : Fin(2^(n+1)), explicit finite label whose bound is carried in the type"],
+      "meaning": "The low coordinate of the Gray equivalence is literally the headBit supplier. No parity assumption is needed; both parity branches are part of the definition. Proof is rfl.",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"], "level": "basis coordinate identity"
+    },
+    {
+      "name": "QuantumBlockEncoding.GrayBasis.equiv_tail", "kind": "theorem", "source_line": 31,
+      "signature": "@[simp] theorem equiv_tail (n : ℕ) (index : Fin (2 ^ (n + 1))) (wire : Fin n) : equiv (n + 1) index wire.succ = equiv n ⟨index.val / 2, by\n        have bound : index.val < 2 ^ n * 2 := by simpa only [pow_succ] using index.isLt\n        omega⟩ wire",
+      "binders": ["n : Nat, explicit dimension", "index : Fin(2^(n+1)), explicit label", "wire : Fin n, explicit legal recursive upper-wire coordinate"],
+      "meaning": "Each upper Gray coordinate is the lower-width Gray code of the quotient index. Quotient legality is derived from index.isLt and the power identity, not assumed separately. Proof is rfl; the displayed Fin-bound proof is proof-irrelevant type-formation data.",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"], "level": "basis coordinate identity"
+    },
+    {
+      "name": "QuantumBlockEncoding.GrayBasis.headBit_even", "kind": "theorem", "source_line": 37,
+      "signature": "theorem headBit_even (index : ℕ) (even : index % 2 = 0) : headBit (index + 1) = flipBit (headBit index)",
+      "binders": ["index : Nat, explicit value", "even : index%2=0, the sole explicit arithmetic hypothesis"],
+      "meaning": "At even ordinal steps, the quotient remains fixed, the binary low digit becomes1, and the resulting Gray head flips. No finite-width bound is required.",
+      "axioms": ["propext", "Quot.sound"], "level": "natural arithmetic transition"
+    },
+    {
+      "name": "QuantumBlockEncoding.GrayBasis.headBit_odd", "kind": "theorem", "source_line": 44,
+      "signature": "theorem headBit_odd (index : ℕ) (odd : index % 2 = 1) : headBit (index + 1) = headBit index",
+      "binders": ["index : Nat, explicit value", "odd : index%2=1, the sole explicit arithmetic hypothesis"],
+      "meaning": "At odd ordinal steps, quotient increments and low digit resets to0. The toggled quotient parity compensates for that reset, leaving the Gray head unchanged. No finite-width bound is required.",
+      "axioms": ["propext", "Quot.sound"], "level": "natural arithmetic transition"
+    },
+    {
+      "name": "QuantumBlockEncoding.GrayBasis.adjacent", "kind": "theorem", "source_line": 55,
+      "signature": "theorem adjacent {n : ℕ} (first second : Fin (2 ^ n)) (next : first.val + 1 = second.val) : ∃ target : Fin n, equiv n second = xBasisAction target (equiv n first)",
+      "binders": ["n : Nat, IMPLICIT universally quantified dimension", "first second : Fin(2^n), explicit labels", "next : first.val+1=second.val, the sole explicit logical hypothesis"],
+      "meaning": "Strictly consecutive labels have Gray words related by flipping one legal wire. The statement supplies an existential target, not a named extraction algorithm, a unique-existence declaration, gate list or costed implementation.",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"], "level": "symbolic arbitrary-width basis adjacency"
+    }
+  ],
+  "signature_notation": "Each signature retains namespace-relative Lean source type and binder syntax, with formatting-only line joining except the embedded Fin-bound proof in equiv_tail. The actual compiler #check transcript was separately inspected for all eight, including @adjacent's implicit n. No additional binders were omitted.",
+  "boundary_audit": {
+    "width0": "Fin(2^0)=Fin1 has only ordinal0 and PrimitiveBasis0 is the empty bit function. equiv0 is the unique equivalence. adjacent at n=0 is vacuous because 0+1=0 cannot hold; it does not construct a Fin0 wire.",
+    "width1": "Gray labels0,1 are bits0,1 and adjacency flips the only wire.",
+    "last_index": "The adjacency premise requires second still in Fin(2^n), so first cannot be the maximum label. Last-to-first cyclic adjacency is not supplied.",
+    "arithmetic_cases": "headBit accepts every natural; even and odd hypotheses partition parity. For a successor-width equivalence tail quotient is always in Fin(2^n).",
+    "phase_register_resource": "No quantum phase, amplitude, clean ancillary register or resource assumption exists in the signatures. They cannot support conclusions about such objects without additional downstream bridges."
+  },
+  "checks": {
+    "actual_source_exit": 0,
+    "pasted_source_probe_exit": 0,
+    "pasted_source_normalized_prefix_equals_actual": true,
+    "target_cache_not_imported_by_probe": true,
+    "declarations_checked": 8,
+    "all8_axioms_printed": true,
+    "finite_diagnostic": "A fresh #eval after the pasted module computed LE-flat Gray labels at width3: [0,1,3,2,6,7,5,4]. This is a diagnostic, not the arbitrary-width theorem or a native_decide proof.",
+    "provider_trust": "Relevant named provider axioms were inspected. PrimitiveBasisLE contains unrelated fixed-width native_decide theorems, but none of the eight printed GrayBasis roots depends on Lean.ofReduceBool or sorryAx. This is a transitive dependency audit of those declarations, not an assertion that the entire imported environment lacks native proofs.",
+    "no_source_equivalence_claim": true
+  },
+  "discrepancies_or_questions": [
+    "The module's 'physical X action' phrasing is faithfully decoded as xBasisAction on labelled bit functions. It does not itself prove a compiled quantum gate or matrix action.",
+    "The quantified adjacency contract is non-wrapping and existential. A source requiring cyclic closure, a named target algorithm, uniqueness theorem or resource bound would need separate evidence; the withheld source was not inspected."
+  ],
+  "remaining": ["independent source-first comparison", "publication gate", "any downstream basis-to-matrix/circuit/resource bridges required by consumers"],
+  "failure_class": "NONE"
+}

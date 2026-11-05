@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "role": "independent-scoped-evidence-auditor",
+  "identity": "hermite-cached-global-source-reachable-auditor",
+  "run_id": "source-reachable-audit-41d6a15a-a2ee-4e0c-98c7-33169b61a8f4",
+  "time": "2026-10-08T18:51:04+08:00",
+  "task": "SP-HERMITE-POLY-002",
+  "context": "Existing compiler/Gray-decoder agent context reused explicitly; no fresh-context fork or reset claim. This agent did not author the source-reachable numeric result, tests or Lean providers. This is an evidence audit, not source-blind decoding or theorem authorship.",
+  "verdict": "SUPPORTED_WITH_SCOPED_LIMITS",
+  "supported_conclusion": "The frozen actual Decimal/float64 MPS-02 source supplier is not total over the stated positive rational input family: the valid n2,k0,L=1/10^100 call fails during polynomial interval injection. This is an implementation failure, not a contradiction of the exact Hermite target or ideal preparation. The n2,k0,L1000 observation is instead tiny-tail underflow with a valid finite exact-source error bound; it is not an all-zero normalization failure.",
+  "audit_failure_class": "NONE",
+  "witness_failure_class": "IMPLEMENTATION_FAILED",
+  "frozen_bindings_sha256": {
+    "result.json": "b9cb53a05a6c93c04356abd0ec97635c44d62e7f19d06f45b4875d8235cc01af",
+    "statement-seal.json": "38901e0033aac2be7adb2ba772b71486cfa8cfa667190d227b23d8dee71065ca",
+    "BernsteinError.lean": "237497d80953ff70ef900b2509c38af802b35f28464a89b2c345ac99eb44c06b",
+    "test_source_precision.py": "6f0da5a6818ea45b089bca36a39168352f2396cbff44130488425aa217931a11",
+    "experiments/hermite-polynomial/mps/mps_stable_cores.py": "446cb38910cd418af9fa293bd33e8d6eb09769f9fcdf41d919210eaaee2142c0",
+    "experiments/hermite-polynomial/mps/scaled_canonicalize.py": "7154179bd54addf22d8cf365cc29e6b195392bee2d182989c49b5f1fa4bff879",
+    "experiments/hermite-polynomial/mps/mps_core_probe.py": "1ef28771ee4e4e153cc54fb8247c1e033eea70c137f6fe4506f90fe9ddd0f693",
+    "experiments/hermite-polynomial/mass/analytic_mass.py": "7a7eb478cb346ead3cc95cc6c7548d53bd431cb17316c06985eaef47f8ac848b",
+    "QuantumBlockEncoding/HermiteBernstein.lean": "661618d9c10826491ee293c7c411ac2d55056426739f4bbfd3e7c410c05e4bff",
+    "QuantumBlockEncoding/HermiteIntervalMass.lean": "ff87cc69d0527cb1a7001a7bae4b916cf0a2c2b8bd1e6ba017511c3be27bc69f",
+    "experiments/hermite-polynomial/precision/NormalizationStability.lean": "bd3afe3e1367c6b5af31173369a0321118756822875cc644fc3f2089bcfecac3"
+  },
+  "actual_checks": [
+    {
+      "command": ".venv/Scripts/python.exe -B -m unittest discover -s experiments/hermite-polynomial/precision/source-reachable -p test_source_precision.py -v",
+      "exit_code": 0,
+      "tests": 4,
+      "measured_seconds": 0.206,
+      "meaning": "Expected-failure assertion reproduces a supplier failure. Coefficient-collapse equality over k0..24 is finite exact-rational checking, not a universal theorem. Neighbor L1/100 source-action check is a finite diagnostic."
+    },
+    {
+      "command": ".venv/Scripts/python.exe -B experiments/hermite-polynomial/precision/source-reachable/test_source_precision.py --witness",
+      "exit_code": 0,
+      "observed": "Tiny-L rounded endpoints both equal1; exact named ArithmeticError. Large-L normalized diagnostic[0,0,1,0], scaled normalizer1, source cutoff2."
+    },
+    {
+      "command": ".venv/Scripts/python.exe -B -c $auditPython",
+      "exit_code": 0,
+      "probe_kind": "Separate in-memory auditor code; no mock, patch, producer changes or local probe file",
+      "python_checks": [
+        "Import frozen mps_stable_cores, left_cutoff, pi_interval and scaled_right_canonicalize from the repository mps directory.",
+        "Call stable_hermite_tt(2,0,Fraction(1,10**100)) directly without instrumentation; require ArithmeticError with exact text 'source polynomial restriction outside [0,1]'.",
+        "Recompute digits=ceil(2*log10(2))+90 and terms=max(left_cutoff(...)[1],ceil((digits+10)/log10(25))); obtain91digits and73pi terms.",
+        "At Decimal precision91 compute radius=decimal_fraction(pi interval midpoint)*decimal_fraction(Fraction(1,10**100)); require radius>0, lower=1+radius*(0/4-1)=1, upper=1+radius*(4/4-1)=1.",
+        "Require tiny-L cutoff0 and exact rational numerator/denominator bit lengths1,333.",
+        "Call stable_hermite_tt(2,0,Fraction(1000)) directly, scaled-right-canonicalize its actual return, and obtain each amplitude through TT.amplitude(i); require[0.0,0.0,1.0,0.0] and norm.to_float()==1.0.",
+        "Verify 4*Fraction(factorial(300),1500**300)<Fraction(1,10**300) by exact rational arithmetic."
+      ],
+      "observed": {"digits": 91, "pi_terms": 73, "tiny_L_cutoff": 0, "radius_positive": true, "both_rounded_endpoints_one": true, "L_bits": [1, 333], "large_L_cutoff": 2, "large_L_state": [0, 0, 1, 0], "large_L_normalizer": 1, "exact_tail_bound_below_1e_minus_300": true}
+    }
+  ],
+  "tiny_L_analysis": {
+    "input_semantics": "Fraction(1,10**100) is an exactly represented positive rational with1numerator bit and333denominator bits. stable_hermite_tt first computes a rational interval cutoff, then chooses coefficient Decimal precision depending only on physical width n. The input is not replaced by binary64 L, zero, or a promise excluding small positive L.",
+    "producer_path": "left_cutoff returns0. The first fully included middle child is integer interval[0,2] of the4-point grid, yielding exact Bernstein coordinate interval[1-radius,1]. polynomial_inject computes those coordinates as1+radius*(2a/4-1),1+radius*(2b/4-1); restrict_bernstein requires strict lower<upper and throws before any QR or normalization when they round equal.",
+    "decimal_mechanism": "For precision91 under the default nearest Decimal rounding, the neighbor immediately below1 is1-10^-91. pi/10^100<4/10^100<0.5*10^-91, so the exact positive-width interval collapses at the low endpoint. The Decimal radius itself remains positive: this is cancellation in an affine coordinate near1, not input underflow.",
+    "literal_source_validity": "For k0 and r=pi/10^100<1, the exact four samples are[1-(1-exp(-1))*r,1-(1-exp(-1))*r/2,1,exp(-r/2)]. They are positive and the central sample is exactly1; the source norm therefore is at least1. n2,k0,L>0 satisfies the unchanged family.",
+    "instrumentation_audit": "The worker test's patch only wraps restrict_bernstein to record the actual lower/upper arguments before calling its original body. It does not modify inputs or return values. The separate direct unpatched call confirms failure does not rely on that wrapper.",
+    "consequence": "Unrestricted totality of this frozen supplier over the stipulated input family is false. It remains possible to repair the coordinate/precision mechanism; no minimal witness, general complexity lower bound or impossibility of Hermite preparation is established."
+  },
+  "large_L_analysis": {
+    "literal_source": "At n2,k0,L1000 the exact raw vector is x=[exp(-1000*pi),exp(-500*pi),1,exp(-500*pi)]. The actual stored normalized output observed in this environment is y=[0,0,1,0], with scaled normalizer1. This output is not the exact source target, but is extremely close.",
+    "independent_error_derivation": "pi>3 makes each of the three discarded amplitudes at most exp(-1500). Hence ||y-x||2<=sqrt(3)*exp(-1500). Since ||x||2>=1, normalization_stability gives ||y-x/||x||2||2<=2*sqrt(3)*exp(-1500)<4*exp(-1500). A positive Taylor term gives exp(1500)>1500^300/300!, and the independently checked rational inequality yields error<10^-300.",
+    "scope": "Exact mathematics for this finite source and observed returned vector; not a formal IEEE exponential/QR implementation certificate, uniform family bound or accepted approximate-variant tolerance rung. It is not all-zero output, loss of the central amplitude or normalization failure."
+  },
+  "formal_provider_audit": {
+    "BernsteinError": "Read actual theorem bodies and assumptions. bernstein_eval_error and restriction_coefficient_error concern exact evaluation/restriction on valid coordinates with caller-supplied coefficient sup errors. rounded_casteljau_error needs bounds for actual row residuals and initial data; source_perturbed_eval uses the literal sourceInterpolant_bernstein bridge. exp_underflow_error is exact monotonicity for a caller-supplied T<=x. None certifies Decimal, pi approximation, float conversion or QR errors on its own.",
+    "coordinate_boundary": "restriction_coefficient_error requires u<v. The actual tiny-L endpoints violate this premise, so its proof cannot be used to certify the failing call. Coordinate error in t also needs a separate bound; coefficient error alone does not absorb it.",
+    "NormalizationStability": "The norm floor and positive rescaling concern the literal Euclidean signed source. hermite_serialized_relative_error remains conditional on computed-vector error delta, F*delta<1, relative normalizer error eta<1 and serialized-action error zeta. The numerical tests provide none of these as an arbitrary-width producer certificate.",
+    "fresh_Lean_gate": "Not independently rerun by this auditor because root explicitly owns fresh focused Lean checks and aggregate gates. Author-reported compilation/axioms were not relabelled as this auditor's fresh compiler output."
+  },
+  "coefficient_range_review": {
+    "verdict": "Human algebra is consistent with the inspected literal coefficient formulas; universal Lean status remains OPEN",
+    "derivation_checked": "For d=2k+1 and r<=k, swapping the finite sums gives b_r=sum_{m=0}^r sum_{u=0}^{r-m} choose(k+u,u)*choose(k-m-u,r-m-u)/(choose(d,r)*m!). The coefficient of t^(r-m) in (1+t)^(k-m)*sum_{u>=0}choose(k+u,u)*(t/(1+t))^u equals the coefficient in (1+t)^(2k+1-m), yielding the stated collapse. Relevant u<=r-m<=k-m ensures nonnegative binomial upper arguments.",
+    "range_checked": "The binomial ratio equals the product of(r-j)/(d-j) for j<m. Each is<=1/2 since r<=k<d/2, and the m0 term is1. Thus1<=b_r<=sum_m(1/2)^m/m!<=exp(1/2)<2; b_r=0 above k on the degree-d range. As d is odd, the two reflected halves have disjoint support and each source coefficient lies in[exp(-1),exp(1/2)]. Exact convex restriction preserves the interval.",
+    "do_not_promote": "The k0..24 Fraction test is a finite discriminator. The above independent human derivation is not an all-k Lean theorem, nor a proof that floating-point generated coefficients/QR/normalization satisfy these bounds or a uniform error certificate."
+  },
+  "target_substitution_audit": "No narrower scientific target, magnitude promise, dense constructor input, phase quotient or postselection was introduced in the witness. analytic_mass.HermiteMass.value is a separate factored-formula diagnostic at higher precision; its four samples are not construction inputs. The exact target and public label order stay unchanged.",
+  "limitations": ["No overall Hermite impossibility or scientific ROOT acceptance", "No uniform producer/QR/normalizer/angle/serialization error or finite-bit runtime theorem", "No assertion that increasing digits alone fixes or certifies the entire producer", "No universal coefficient-range Lean certificate", "No cross-platform Python/NumPy/Decimal behavior certificate or minimal witness claim", "Independent audit is not publication/source-blind/exposition admission"],
+  "recommended_next": "Keep the tiny-L failure as a mandatory regression for a successor coordinate representation or adaptively certified interval supplier. Preserve exact-real and convex-error lemmas. Certify actual scalar and coordinate residuals before applying them, then separately certify QR, normalizer and serialization errors.",
+  "changes": "Only this new independent-audit.json; frozen worker files, earlier Gray artifacts, production, registry and source contracts untouched. No commits or pushes.",
+  "live_terminal_handles": []
+}

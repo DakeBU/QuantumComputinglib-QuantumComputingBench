@@ -101,7 +101,9 @@ theorem contDiff_right_splice (k : ℕ) :
     ContDiff ℝ k
       (splice 0 (fun p => (sourceInterpolant k).eval p) (fun p => Real.exp (-p))) := by
   apply contDiff_splice k 0
-  · simpa using (sourceInterpolant k).contDiff_aeval (k : WithTop ℕ∞)
+  · induction sourceInterpolant k using Polynomial.induction_on' with
+    | add p q hp hq => simpa using hp.add hq
+    | monomial n a => simpa using contDiff_const.mul (contDiff_id.pow n)
   · exact Real.contDiff_exp.comp contDiff_id.neg
   · intro j hj
     rw [sourceInterpolant_right_iteratedDeriv k j hj, iteratedDeriv_exp_neg]

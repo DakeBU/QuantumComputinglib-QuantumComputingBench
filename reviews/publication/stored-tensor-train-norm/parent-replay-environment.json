@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "scope": "Parent replay environment discriminator; frozen decoder/source/proof bytes untouched",
+  "module": "QuantumBlockEncoding/StoredTensorTrainNorm.lean",
+  "module_sha256": "000db174cba35e68c360bb59754bf6e75aec362c6a5bf8f003d96abf80810f88",
+  "replay_path": "reviews/publication/stored-tensor-train-norm/decoder-replay.ps1",
+  "replay_sha256": "421ddcaf0e2bfe36ef2d0048be8bc3a7771ad15c4f0b6138ae3336165a547dea",
+  "attempts": [
+    {
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File reviews/publication/stored-tensor-train-norm/decoder-replay.ps1",
+      "session": 11439,
+      "exit_code": 1,
+      "classification": "ENV_BLOCKED",
+      "diagnostics": [
+        "<stdin>:1:0: error: expected token",
+        "<stdin>:2:0: error: invalid 'import' command, it must be used in the beginning of the file"
+      ],
+      "accepted_as_success": false
+    },
+    {
+      "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File reviews/publication/stored-tensor-train-norm/decoder-replay.ps1",
+      "session": 94381,
+      "exit_code": 0,
+      "scope": "Whole actual source, all29 type/axiom checks and eight independent decoder edge probes; no target cached import/output",
+      "axioms_union": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    }
+  ],
+  "environment_observations": {
+    "default_thread_shell": "PowerShell7.6.5, OutputEncoding=utf-8",
+    "legacy_powershell_executable": "PowerShell5.1.26100.9444, OutputEncoding=us-ascii",
+    "verification_command": "powershell -NoProfile -Command '$PSVersionTable.PSVersion.ToString(); $OutputEncoding.WebName'",
+    "verification_exit": 0
+  },
+  "diagnosis": "The chosen legacy shell is not the decoder's original UTF-8 thread shell. Its Unicode stdin/script interoperability failed; the same unchanged source and replay pass under explicit UTF-8 PowerShell7. No mathematical failure or global policy change inferred.",
+  "boundaries": [
+    "No frozen source/author/decoder/audit result rewritten",
+    "No global execution policy or dependency repair",
+    "Local Verso compatibility warning remains; not clean Linux/CI/reader evidence",
+    "Parent replay success is not a new source or full scientific acceptance verdict"
+  ],
+  "scientific_ROOT": false
+}

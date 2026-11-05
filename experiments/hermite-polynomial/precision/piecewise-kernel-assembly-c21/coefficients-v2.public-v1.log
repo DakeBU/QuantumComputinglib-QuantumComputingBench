@@ -1,0 +1,63 @@
+warning: verso: repository '.\.lake/packages\verso' has local changes
+experiments/hermite-polynomial/precision/piecewise-kernel-assembly-c21/ActualCoefficients.lean:36:38: warning: `Polynomial.finset_sum_coeff` has been deprecated: Use `Polynomial.finsetSum_coeff` instead
+experiments/hermite-polynomial/precision/piecewise-kernel-assembly-c21/ActualCoefficients.lean:36:38: warning: This simp argument is unused:
+  finset_sum_coeff
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [middleCoeffQ, expandedMiddle, shiftedCoeff]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+experiments/hermite-polynomial/precision/piecewise-kernel-assembly-c21/ActualCoefficients.lean:47:2: error: failed to synthesize
+  HasDistribNeg ℚ
+maximum recursion depth has been reached
+use `set_option maxRecDepth <num>` to increase limit
+use `set_option diagnostics true` to get diagnostic information
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+experiments/hermite-polynomial/precision/piecewise-kernel-assembly-c21/ActualCoefficients.lean:59:15: error: don't know how to synthesize implicit argument `p`
+  @natDegree_mul_le_of_le ℚ (i * 1) ?m.113 Rat.semiring
+    ((monomial ?m.113) (expMidpoint delta * sourceCoefficientQ k i * (-1) ^ (k + 1))) ((X + 1) ^ i)
+    (natDegree_monomial_le (expMidpoint delta * sourceCoefficientQ k i * (-1) ^ (k + 1))) (natDegree_pow_le_of_le i hx)
+context:
+k : ℕ
+delta : ℚ
+hx : (X + 1).natDegree ≤ 1
+i : ℕ
+hi : i ∈ Finset.range (k + 1)
+hi' : i ≤ k
+⊢ ℚ[X]
+experiments/hermite-polynomial/precision/piecewise-kernel-assembly-c21/ActualCoefficients.lean:59:15: error: don't know how to synthesize implicit argument `m`
+  @natDegree_mul_le_of_le ℚ (i * 1) ?m.113 Rat.semiring
+    ((monomial ?m.113) (expMidpoint delta * sourceCoefficientQ k i * (-1) ^ (k + 1))) ((X + 1) ^ i)
+    (natDegree_monomial_le (expMidpoint delta * sourceCoefficientQ k i * (-1) ^ (k + 1))) (natDegree_pow_le_of_le i hx)
+context:
+k : ℕ
+delta : ℚ
+hx : (X + 1).natDegree ≤ 1
+i : ℕ
+hi : i ∈ Finset.range (k + 1)
+hi' : i ≤ k
+⊢ ℕ
+experiments/hermite-polynomial/precision/piecewise-kernel-assembly-c21/ActualCoefficients.lean:60:7: error: don't know how to synthesize implicit argument `m`
+  @natDegree_monomial_le ℚ Rat.semiring (expMidpoint delta * sourceCoefficientQ k i * (-1) ^ (k + 1)) ?m.113
+context:
+k : ℕ
+delta : ℚ
+hx : (X + 1).natDegree ≤ 1
+i : ℕ
+hi : i ∈ Finset.range (k + 1)
+hi' : i ≤ k
+⊢ ℕ
+experiments/hermite-polynomial/precision/piecewise-kernel-assembly-c21/ActualCoefficients.lean:59:9: error: failed to infer `have` declaration type
+experiments/hermite-polynomial/precision/piecewise-kernel-assembly-c21/ActualCoefficients.lean:77:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∑ i, ?f ↑i
+in the target expression
+  ∑ x, (expandedMiddle k delta).coeff ↑x * p ^ ↑x = middleValueQ k delta p
+
+k : ℕ
+delta p : ℚ
+⊢ ∑ x, (expandedMiddle k delta).coeff ↑x * p ^ ↑x = middleValueQ k delta p
+'HermitePiecewiseAssembly.sourceCoefficientQ_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseAssembly.middleCoeffQ_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseAssembly.middleCoeffQ_eval' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+

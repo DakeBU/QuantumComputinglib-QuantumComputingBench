@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "cycle": 12,
+  "status": "FOCUSED_COMPUTABLE_RATIONAL_BUDGET_PROVIDER_PASS_PENDING_ROOT_REVIEW",
+  "scientific_ROOT": false,
+  "unconditional_finite_bit_hermite_pipeline": false,
+  "direction_fingerprint": "rational-input-global-budget-to-same-angle-list",
+  "verified_memory_digest": "5a8f47f8d0afd1d4f957e55babde52a9e9c01babf05c481b988e99ebca2f7758",
+  "context_disclosure": "Reused worker /root/hermite_dyadic_supplier, author of frozen SafeEnclosure and DyadicSupplier. Not independent review of those dependencies or a fresh whole-chain context. Root owns aggregate gates and distinct review.",
+  "files": {
+    "RationalBudget.lean": "e167419e288526aa1e837ae69f49aaa85105ecb490ee7bf4ecccd910eba169d7",
+    "statement-seal-v1.json": "d25b35dc5d755285eb93a9fe412e38997501e5f7842bff7275db014530f930b0",
+    "statement-delta-v2.json": "d8a1dedfa25b57d39fe28659df8b15f6f4f7a54a22034d2be2eb707676c09943",
+    "statement-delta-v3.json": "5a286dc1848a87ed52bb58a63e87f631f2fc8f9f33d754556547c0565909e749"
+  },
+  "seal_history": "V1 created before allocator API/proof search. V2 additive num/den ceiling interface sealed after actual Rat/Int API retrieval but before its proof. V3 additive original-input-size interfaces sealed before their Lean proof/probe search; earlier v1/v2 cast-bridge attempt retained separately. No old seal was retrospectively amended.",
+  "bootstrap_rechecked": {
+    "tasks/SP-HERMITE-POLY-002.md": "07f53397e16021ee970ad3a698ea1c3e6c30cdf09de5e72403dc95c893f0b526",
+    "experiments/hermite-polynomial/precision/cycle11-staging-result.json": "d0bb5e80c434f9957f8464f332dc12e6097bfc4cbdb94134fde3ff2090affea5"
+  },
+  "frozen_dependency_hashes_before_and_after": {
+    "experiments/hermite-polynomial/precision/safe-enclosure/SafeEnclosure.lean": "959d39bcea8150db22be07560a5f12ab7055bbc6e2594cf2f923f88133db8d6a",
+    "experiments/hermite-polynomial/precision/dyadic-supplier/DyadicSupplier.lean": "da741bb844d8ee809ab95e40ebdc3c3f003f4138cec6ebe67e3447ebebf69968",
+    "experiments/hermite-polynomial/stored/GlobalAssembly.lean": "ad6d6ebca61a27c6c7e89dd305cc9be161ea0f8bb326ecb9af9ebddc15172624"
+  },
+  "gates": {
+    "lean_version": "4.33.0",
+    "lean_commit": "d8b18978322de05a8f3dba51ef03cf5461676c17",
+    "lean_path_prefix": ".lake/safe-enclosure-cache;.lake/global-assembly-cache;_out/goal-20261008-staging-imports",
+    "fresh_dependency": {
+      "command": "lake env lean -o .lake/safe-enclosure-cache/SafeEnclosure.olean experiments/hermite-polynomial/precision/safe-enclosure/SafeEnclosure.lean",
+      "session": 63747,
+      "exit": 0,
+      "printed_roots": 11,
+      "cache_sha256": "3ab6626d6753a7a2924896de169634b02a094da21f94313e2ee655e8e39fb49f",
+      "boundary": "Full frozen dependency source actually elaborated to explicitly authorized ignored cache; no source edit, tracked binary or prior focused-result substitution."
+    },
+    "focused_final": {
+      "command": "lake env lean experiments/hermite-polynomial/precision/rational-budget/RationalBudget.lean",
+      "session": 99558,
+      "exit": 0,
+      "printed_roots": 12,
+      "axioms": ["propext", "Classical.choice", "Quot.sound"],
+      "sorryAx": false,
+      "native_decide_axiom": false
+    },
+    "earlier_attempt": "Session12451 exited1 only on Rat-to-Real exact_mod_cast bridge; executable tests and rational proof succeeded. Explicit Rat.cast_le plus simplification fixed it; session40684 then exited0 for v1/v2. Final session99558 included all v3 interfaces and exited0. No target weakening or dependency source repair.",
+    "retrieval_note": "An initial PowerShell unexpanded Rat/*.lean rg path failed; concrete directory plus -g retrieval succeeded. This was API retrieval syntax, not mathematical evidence.",
+    "warnings": "Pre-existing verso local-change warning only on successful runs.",
+    "aggregate": "Root-owned build/Tests/integration gates, not claimed by this worker.",
+    "live_handles": []
+  },
+  "mathematical_delta": {
+    "literal_allocator": "A=24*(n+1)*(2*k+6)^3:Nat. For epsilon:Rat, q=A/epsilon; threshold=Nat.ceil q; b=Nat.clog 2 (max 1 threshold). allocate checks epsilon>0 and returns some b, otherwise none. No arbitrary-real epsilon evaluation or real ceiling determines this output.",
+    "actual_integer_computation": "ceilingThreshold_num_den proves threshold=(-(-q.num/(q.den:Int))).toNat, using computable integer division on the normalized rational ratio. The allocation code and regression computations execute without noncomputable definitions.",
+    "precision_guarantee": "bits_error_rat proves A/2^b<=epsilon for epsilon>0; bits_error_real transports that to the frozen errorCoefficient and the real interpretation of epsilon.",
+    "actual_consumer": "supplyBudget binds allocate to b and passes that exact b to frozen SafeEnclosure.supplyCircuit, returning some(b,returned) only on both actual successes. Zero/negative budget returns none, not an empty fallback circuit.",
+    "actual_return_root": "QuantumBlockEncoding.RationalBudget.hermite_internal_supplier",
+    "root_signature_scope": "For actual frozen GlobalAssembly list and explicitly INTERNAL Sound/ValidIntervals/RY-arity data at computed b, obtains actual successful return internally via supplyCircuit_complete, then identical full Resource, chronological constructors/ordered wires/non-RY payloads after erasing RY payload only, and full Euclidean target error<=(epsilon:Real). Neither successful return, alignment nor budget-bound certificate is supplied as an external premise.",
+    "target_preserved": "Original normalized signed Hermite function values, q0 least significant, physical data count n+1, D=2*k+6, full garbage coordinates and terminal zero-bond target. No phase quotient, projection/postselection replacement, free oracle or easier source target.",
+    "allocation_efficiency": "Actual logarithmic ceiling division depends on both rational numerator and denominator. Coarse proved input-size bounds below do not replace it with linear bits or ignore the numerator in the actual algorithm."
+  },
+  "input_output_bounds": {
+    "threshold": "For epsilon>0, threshold<=A*epsilon.den because its positive integer numerator is at least one.",
+    "allocated_bits": "b<=Nat.size(max 1 threshold), b<=Nat.size(A*epsilon.den), and b<=Nat.size(A)+Nat.size(epsilon.den).",
+    "actual_dyadic_integer_output": "Nat.size(abs(nearestNumerator b lo hi))<=Nat.size(abs(lo.num)+abs(hi.num)+1)+Nat.size(A)+Nat.size(epsilon.den).",
+    "grid_denominator": "Frozen SafeEnclosure.gridDenominator_bits gives Nat.size(2^b)=b+1. This is the unreduced dyadic grid, not a certificate of all rational denominators.",
+    "interpretation": "These are finite original-input/output storage bounds for precision selection and the dyadic numerator. They do not bound the work needed to read a huge epsilon numerator, normalize the rational ratio, or generate endpoint data."
+  },
+  "executed_regressions": {
+    "allocator": [
+      {"k": 0, "n": 0, "epsilon": "0", "output": "none"},
+      {"k": 0, "n": 0, "epsilon": "-1/10", "output": "none"},
+      {"k": 0, "n": 0, "epsilon": "1", "output": "some 13"},
+      {"k": 0, "n": 0, "epsilon": "1/10", "output": "some 16"},
+      {"k": 0, "n": 0, "epsilon": "10000", "output": "some 0"},
+      {"k": 0, "n": 0, "epsilon": "10^50", "output": "some 0"},
+      {"k": 0, "n": 0, "epsilon": "1/10^100", "output": "some 345"},
+      {"k": 2, "n": 5, "epsilon": "1/1000", "output": "some 28"}
+    ],
+    "equality_checks": "Seven executable #eval decide allocator equalities returned true; two kernel norm_num rejection examples passed.",
+    "same_finite_list": "epsilon1, k0,n0 passed the computed b13 to actual finite input RY(1,1/10),CX(1,0),RY(0,-1/10). Returned some(13,[(ry,1,819/8192),(cx,1,0),(ry,0,-819/8192)]), preserving chronology and ordered wires.",
+    "rejecting_composition": "Four executable isNone checks returned true for zero budget, missing intervals, extra intervals and too-wide interval at epsilon1.",
+    "scope": "These are exact executed finite allocator/primitive-list regressions, not an executed actual Hermite source/QR pipeline. The theorem covers all natural k,n with nphysical=n+1; no unrelated positive-dimension/rank restriction is introduced."
+  },
+  "remaining_upstream_interfaces": {
+    "finite_source_representation": "Represent L and all scientific inputs finitely, compute/refine the actual same-source circuit/list and maintain actual RY chronology without an arbitrary exact-real evaluator.",
+    "enclosure_generation": "Return finite rational endpoint list with actual RY arity, width<=2^-b and Sound for source exp/sqrt/arccos/trig/field/QR/normalizer/angle computations, handling sign/rank/zero-pivot/cancellation cases.",
+    "global_error_accounting": "Allocation here gives the entire epsilon budget to perturbing an already exact source list. A genuine approximate source/QR/normalizer pipeline must separately allocate and prove all errors (including saved interpretation and gate synthesis), then compose their sum within the original global epsilon. No such additional errors are assumed zero by this result.",
+    "runtime": "Prove original/intermediate numerator/denominator sizes and cost of reading inputs, Nat coefficient multiplication, rational division/reduction/GCD, integer ceiling, Nat.clog, powers, endpoint generation, repeated rounding, list/copy/storage and serialization. Computability of this allocator is not a total polynomial preprocessing theorem.",
+    "public_anchor": "Internal Sound/validity/arity must be produced upstream, not exported as new SOURCE/STANDING assumptions to call the original Hermite Source Anchor complete.",
+    "serialization_physical": "No parser bridge, saved-byte scientific acceptance, finite-precision circuit execution or physical gate synthesis certificate is added here."
+  },
+  "structured_handoff": {
+    "objective_frontier": "Close finite rational epsilon->bits->same interval-returned list precision selection, leaving source-producing and total-cost interfaces explicit.",
+    "effect_on_root": "Removes arbitrary-real epsilon precision selection for the new rational-input internal path. Does not close C2/C3/X2 or scientific ROOT.",
+    "failure_class": "NONE for final sealed internal provider",
+    "salvage": "Promote computable ceiling/log allocator, original-input/output bit bounds and actual returned-list/full-state composition. Earlier cast bridge failure repaired without weakening; no failed source construction discarded.",
+    "named_evidence": "RationalBudget.hermite_internal_supplier, bits_error_rat/real, ceilingThreshold_num_den, bits_input_sum_size_bound, allocated_numerator_input_bits; exact tests and fresh dependency/focused sessions above.",
+    "assumptions": "Budget positivity is validated finite input domain. L>0 is inherited scientific domain. Interval count/validity/Sound remain internal missing-producer requirements. Canonical target action/count/resources/alignment/return are internally supplied by frozen dependencies.",
+    "process_memory": "Current verified digest and cycle11 retained audits/finite-bit boundary reviewed; mandatory worker/master, publication, digestion and evidence-routed protocols reread. No memory/registry/controller/ledger mutation.",
+    "parallel_common_blind_spot": "Distinct independent audit pending root dispatch; no self-review admission. No parallel competing-source default selection made.",
+    "default_route": "Exact rational integer ceiling followed by Nat.clog; retains efficient numerator-aware actual allocation and honest coarse input-size bounds.",
+    "purification_exposition": "Experimental INTERNAL provider, not public Exposition-Sealed or admitted; root owns reader integration/aggregate review.",
+    "source_lean_expansion": "Finite rational budget -> computable ceiling/log b -> frozen finite interval consumer -> actual Some list -> internally proved primitive alignment -> canonical perturbation/full-column bound. Actual source enclosure/list refinement remains an unresolved upstream node.",
+    "residual_risk": "High confidence after focused proof/tests in this finite input interface; no confidence transfer to unproved source enclosures, backend refinement, stored global action or machine-cost closure.",
+    "recommended_next": "Root independent compile/review, then source-specific finite enclosure refinement and composed error/cost interfaces. Queued distinct offset-entry-v2/fixed-cutoff independent review will not substitute for scientific ROOT."
+  },
+  "ownership": "Only new rational-budget files plus explicitly authorized ignored SafeEnclosure cache; frozen source/reviews/config/registry/production/controller/ledgers unchanged. No commits/push/main/publication changes.",
+  "live_handles": []
+}

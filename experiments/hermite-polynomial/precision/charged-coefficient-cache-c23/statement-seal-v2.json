@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "supersedes": "statement-seal-v1.json",
+  "state": "STATEMENT_SEALED_BEFORE_V2_PROOF_SEARCH",
+  "direction_fingerprint": "C23_ACTUAL_CHARGED_SOURCE_COEFFICIENT_CACHE",
+  "definition_kind": "literal",
+  "final_signatures": [
+    "def produceSourceCache (k : Nat) : QuantumBlockEncoding.StoredGivens.Run (Vector Rat (k+1))",
+    "theorem produceSourceCache_entry (k : Nat) (i : Fin (k+1)) : (produceSourceCache k).value[i.val] = HermitePiecewiseAssembly.sourceCoefficientQ k i.val",
+    "theorem produceSourceCache_cost_le (k : Nat) (op : QuantumBlockEncoding.StoredGivens.Op) : (produceSourceCache k).cost op <= 52*(k+1)^2"
+  ],
+  "binder_audit": {"k": "TYPING", "i": "TYPING", "op": "TYPING", "logical_inputs": [], "EXCESS": []},
+  "construction": "Rational refinement of StoredHermiteCoefficients factorials/chooseFrom/sourceEntry/sources: one full-copy factorial cache through 2k+1, with charged multiplier addition; each binomial from three cached factorial reads, charged multiplication/division; exact source sum with charged division/addition; one stored returned vector. No Nat.choose/factorial executable callback.",
+  "reuse_audit": "StoredHermiteCoefficients has monomorphic noncomputable Real primitives; it cannot directly return computable Rat entries. Rational refinement is restricted to the source-coefficient prerequisite and reuses Run/tick/read/collect. SharedTables and SourceCache are actual real Bernstein consumers, not rational C22 providers. V1 Pascal route abandoned before compilation in favor of the existing quadratic construction.",
+  "operation_model": "Inherited eight StoredGivens counters; rational arithmetic, reads/writes, extension index comparisons charged. Natural indexing and counter metadata outside model. No integer bitlength/GCD/allocator/finite-bit theorem.",
+  "source_coverage": "Same sourceCoefficientQ formula and inherited C21 actual bridge as V1. Middle source coefficient formula, full boundary/local tables, quantum state preparation, scalar setup and finite-bit bounds EXCLUDED with the exact V1 reasons unchanged.",
+  "conventions": "Exact Rat; full signed source and q0LSB unchanged; no logical hypotheses",
+  "independent_review": "PENDING; no claim of source admission",
+  "expected_information_gain": "Actual quadratic charged source cache removes repeated source formula evaluation prerequisite"
+}

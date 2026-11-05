@@ -1,0 +1,21 @@
+UncomputeGaussian206.localIncrement_block128_constancy (j D : ℕ) :
+  j < 1024 → D < 2 ^ 25 → localIncrement j D = localIncrement j (128 * (D / 128))
+localIncrement_block128_constancy : ∀ (j D : ℕ),
+  j < 1024 → D < 2 ^ 25 → localIncrement j D = localIncrement j (128 * (D / 128))
+theorem UncomputeGaussian206.localIncrement_block128_constancy : ∀ (j D : ℕ),
+  j < 1024 → D < 2 ^ 25 → localIncrement j D = localIncrement j (128 * (D / 128)) :=
+fun j D _hj _hD =>
+  id
+    (Eq.mpr
+      (id
+        (congrArg
+          (fun _a =>
+            128 * ↑(a0 j) - finalSum _a D = 128 * ↑(a0 j) - finalSum (slopeWord j (128 * (D / 128))) (128 * (D / 128)))
+          (UncomputeGaussian206.c230_slopeWord_constancy✝ j D)))
+      (Eq.mpr
+        (id
+          (congrArg
+            (fun _a => 128 * ↑(a0 j) - _a = 128 * ↑(a0 j) - finalSum (slopeWord j (128 * (D / 128))) (128 * (D / 128)))
+            (UncomputeGaussian206.c230_finalSum_constancy✝ (slopeWord j (128 * (D / 128))) D)))
+        (Eq.refl (128 * ↑(a0 j) - finalSum (slopeWord j (128 * (D / 128))) (128 * (D / 128))))))
+'UncomputeGaussian206.localIncrement_block128_constancy' depends on axioms: [propext, Classical.choice, Quot.sound]

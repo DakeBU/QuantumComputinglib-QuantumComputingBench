@@ -86,9 +86,12 @@ theorem adjacent {n : ℕ} (first second : Fin (2 ^ n))
           omega
         obtain ⟨target, action⟩ := ih firstTail secondTail tailNext
         refine ⟨target.succ, ?_⟩
+        have targetSuccNeZero : target.succ ≠ (0 : Fin (n + 1)) := by simp
         funext wire
         refine Fin.cases ?_ (fun rest => ?_) wire
-        · simpa [xBasisAction, equiv_head, ← next] using headBit_odd first.val odd
+        · simpa [xBasisAction, Function.update_apply, equiv_head, ← next,
+            targetSuccNeZero, Ne.symm targetSuccNeZero] using
+            headBit_odd first.val odd
         · have entry := congrFun action rest
           simpa [xBasisAction, Function.update_apply, equiv_tail,
             firstTail, secondTail] using entry

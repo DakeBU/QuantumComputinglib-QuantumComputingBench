@@ -22,27 +22,34 @@ variable {α β ι κ : Type*}
 
 /-- Explicit finite-width separation, retaining both factors as witnesses. -/
 def FactorsThrough [Fintype ι] (F : Matrix α β ℝ) : Prop :=
-  ∃ A : Matrix α ι ℝ, ∃ B : Matrix ι β ℝ, F = A * B
+  ∃ A : Matrix α ι ℝ, ∃ B : Matrix ι β ℝ,
+    ∀ x y, F x y = ∑ i, A x i * B i y
 
 theorem FactorsThrough.rank_le [Fintype β] [Fintype ι]
     {F : Matrix α β ℝ} (h : FactorsThrough (ι := ι) F) :
     F.rank ≤ Fintype.card ι := by
-  obtain ⟨A, B, rfl⟩ := h
+  obtain ⟨A, B, h⟩ := h
+  have hmul : F = A * B := by
+    ext x y
+    rw [Matrix.mul_apply]
+    exact h x y
+  rw [hmul]
   exact (Matrix.rank_mul_le_left A B).trans (Matrix.rank_le_card_width A)
 
 /-- Taylor coefficients give a degree-sized factorization at any additive cut. -/
 theorem polynomial_add_factorization (p : ℝ[X]) (d : ℕ)
     (hd : p.natDegree ≤ d) (u : α → ℝ) (v : β → ℝ) :
     FactorsThrough (ι := Fin (d + 1)) (fun x y => p.eval (u x + v y)) := by
-  refine ⟨(fun x i => (taylor (u x) p).coeff i),
-    (fun i y => v y ^ (i : ℕ)), ?_⟩
-  ext x y
+  refine ⟨((fun x i => (taylor (u x) p).coeff i) :
+      Matrix α (Fin (d + 1)) ℝ),
+    ((fun i y => v y ^ (i : ℕ)) : Matrix (Fin (d + 1)) β ℝ), ?_⟩
+  intro x y
   have hdegree : (taylor (u x) p).natDegree < d + 1 := by
     rw [natDegree_taylor]
     omega
   have he := eval_eq_sum_range' hdegree (v y)
   rw [taylor_eval, ← Fin.sum_univ_eq_sum_range] at he
-  simpa only [Matrix.mul_apply, add_comm] using he
+  simpa only [add_comm] using he
 
 theorem polynomial_add_rank_le [Fintype β] (p : ℝ[X]) (d : ℕ)
     (hd : p.natDegree ≤ d) (u : α → ℝ) (v : β → ℝ) :
@@ -60,9 +67,10 @@ theorem hermite_polynomial_add_rank_le [Fintype β] (k : ℕ)
 
 theorem product_factorization (u : α → ℝ) (v : β → ℝ) :
     FactorsThrough (ι := Unit) (fun x y => u x * v y) := by
-  refine ⟨(fun x _ => u x), (fun _ y => v y), ?_⟩
-  ext x y
-  simp [Matrix.mul_apply]
+  refine ⟨((fun x _ => u x) : Matrix α Unit ℝ),
+    ((fun _ y => v y) : Matrix Unit β ℝ), ?_⟩
+  intro x y
+  simp
 
 theorem exponential_add_factorization (u : α → ℝ) (v : β → ℝ) :
     FactorsThrough (ι := Unit) (fun x y => Real.exp (u x + v y)) := by
@@ -73,30 +81,41 @@ theorem exponential_add_factorization (u : α → ℝ) (v : β → ℝ) :
 theorem FactorsThrough.add [Fintype ι] [Fintype κ]
     {F G : Matrix α β ℝ} (hf : FactorsThrough (ι := ι) F)
     (hg : FactorsThrough (ι := κ) G) :
-    FactorsThrough (ι := Sum ι κ) (F + G) := by
-  obtain ⟨A, B, rfl⟩ := hf
-  obtain ⟨C, D, rfl⟩ := hg
-  refine ⟨(fun x i => Sum.elim (A x) (C x) i), Sum.elim B D, ?_⟩
-  ext x y
-  simp [Matrix.mul_apply, Fintype.sum_sum_type]
+    FactorsThrough (ι := Sum ι κ) (fun x y => F x y + G x y) := by
+  obtain ⟨A, B, hf⟩ := hf
+  obtain ⟨C, D, hg⟩ := hg
+  refine ⟨((fun x i => Sum.elim (A x) (C x) i) : Matrix α (Sum ι κ) ℝ),
+    (Sum.elim B D : Matrix (Sum ι κ) β ℝ), ?_⟩
+  intro x y
+  change F x y + G x y = _
+  rw [hf x y, hg x y, Fintype.sum_sum_type]
+  rfl
 
 theorem FactorsThrough.neg [Fintype ι]
     {F : Matrix α β ℝ} (hf : FactorsThrough (ι := ι) F) :
-    FactorsThrough (ι := ι) (-F) := by
-  obtain ⟨A, B, rfl⟩ := hf
-  exact ⟨-A, B, by simp⟩
+    FactorsThrough (ι := ι) (fun x y => -F x y) := by
+  obtain ⟨A, B, hf⟩ := hf
+  refine ⟨-A, B, ?_⟩
+  intro x y
+  change -F x y = _
+  rw [hf x y]
+  simp
 
 /-- Entrywise multiplication multiplies widths, without constructing a dense matrix. -/
 theorem FactorsThrough.pointwise_mul [Fintype ι] [Fintype κ]
     {F G : Matrix α β ℝ} (hf : FactorsThrough (ι := ι) F)
     (hg : FactorsThrough (ι := κ) G) :
     FactorsThrough (ι := ι × κ) (fun x y => F x y * G x y) := by
-  obtain ⟨A, B, rfl⟩ := hf
-  obtain ⟨C, D, rfl⟩ := hg
-  refine ⟨(fun x i => A x i.1 * C x i.2),
-    (fun i y => B i.1 y * D i.2 y), ?_⟩
-  ext x y
-  simp only [Matrix.mul_apply, Fintype.sum_prod_type, Finset.sum_mul, Finset.mul_sum]
+  obtain ⟨A, B, hf⟩ := hf
+  obtain ⟨C, D, hg⟩ := hg
+  refine ⟨((fun x i => A x i.1 * C x i.2) : Matrix α (ι × κ) ℝ),
+    ((fun i y => B i.1 y * D i.2 y) : Matrix (ι × κ) β ℝ), ?_⟩
+  intro x y
+  change F x y * G x y = _
+  rw [hf x y, hg x y]
+  change (∑ i, A x i * B i y) * (∑ j, C x j * D j y) =
+    ∑ ij : ι × κ, (A x ij.1 * C x ij.2) * (B ij.1 y * D ij.2 y)
+  simp only [Fintype.sum_prod_type, Finset.sum_mul, Finset.mul_sum]
   rw [Finset.sum_comm]
   apply Finset.sum_congr rfl
   intro i _
@@ -135,11 +154,16 @@ theorem threshold_factorization (M T : ℕ) (u : α → ℕ) (v : β → ℕ)
     (hv : ∀ y, v y < M) :
     FactorsThrough (ι := Fin 2)
       (fun x y => if M * u x + v y < T then (1 : ℝ) else 0) := by
-  refine ⟨(fun x => ![if u x < T / M then 1 else 0,
-    if u x = T / M then 1 else 0]),
-    ![(fun _ => 1), (fun y => if v y < T % M then 1 else 0)], ?_⟩
-  ext x y
-  simp only [Matrix.mul_apply, Fin.sum_univ_two, Matrix.cons_val_zero,
+  refine ⟨((fun x => ![if u x < T / M then 1 else 0,
+    if u x = T / M then 1 else 0]) : Matrix α (Fin 2) ℝ),
+    (![(fun _ => 1), (fun y => if v y < T % M then 1 else 0)] :
+      Matrix (Fin 2) β ℝ), ?_⟩
+  intro x y
+  change (if M * u x + v y < T then (1 : ℝ) else 0) =
+    ∑ i : Fin 2, (![if u x < T / M then (1 : ℝ) else 0,
+      if u x = T / M then 1 else 0] i) *
+      (![(fun _ => (1 : ℝ)), (fun y => if v y < T % M then 1 else 0)] i y)
+  simp only [Fin.sum_univ_two, Matrix.cons_val_zero,
     Matrix.cons_val_one, mul_one]
   simp only [blockIndex_lt_iff M (u x) (v y) T (hv y)]
   by_cases hl : u x < T / M
@@ -152,11 +176,16 @@ theorem threshold_complement_factorization (M T : ℕ) (u : α → ℕ) (v : β 
     (hv : ∀ y, v y < M) :
     FactorsThrough (ι := Fin 2)
       (fun x y => 1 - if M * u x + v y < T then (1 : ℝ) else 0) := by
-  refine ⟨(fun x => ![1 - if u x < T / M then 1 else 0,
-    -(if u x = T / M then 1 else 0)]),
-    ![(fun _ => 1), (fun y => if v y < T % M then 1 else 0)], ?_⟩
-  ext x y
-  simp only [Matrix.mul_apply, Fin.sum_univ_two, Matrix.cons_val_zero,
+  refine ⟨((fun x => ![1 - if u x < T / M then 1 else 0,
+    -(if u x = T / M then 1 else 0)]) : Matrix α (Fin 2) ℝ),
+    (![(fun _ => 1), (fun y => if v y < T % M then 1 else 0)] :
+      Matrix (Fin 2) β ℝ), ?_⟩
+  intro x y
+  change (1 - if M * u x + v y < T then (1 : ℝ) else 0) =
+    ∑ i : Fin 2, (![1 - if u x < T / M then (1 : ℝ) else 0,
+      -(if u x = T / M then 1 else 0)] i) *
+      (![(fun _ => (1 : ℝ)), (fun y => if v y < T % M then 1 else 0)] i y)
+  simp only [Fin.sum_univ_two, Matrix.cons_val_zero,
     Matrix.cons_val_one, mul_one]
   simp only [blockIndex_lt_iff M (u x) (v y) T (hv y)]
   by_cases hl : u x < T / M
@@ -217,8 +246,10 @@ theorem hermite_affine_factorization (k M : ℕ) (a h : ℝ) (hh : 0 < h)
   have hright := (threshold_complement_factorization M B u v hv).pointwise_mul
     (exponential_add_factorization (fun x => -row x) (fun y => -col y))
   have hsum := (hleft.add hmiddle).add hright
-  convert hsum using 1
-  ext x y
+  obtain ⟨leftFactor, rightFactor, hfactor⟩ := hsum
+  refine ⟨leftFactor, rightFactor, ?_⟩
+  intro x y
+  rw [← hfactor x y]
   have hgrid : row x + col y = a + h * ((M * u x + v y : ℕ) : ℝ) := by
     simp only [row, col, Nat.cast_add]
     ring
@@ -251,9 +282,11 @@ theorem hermite_affine_cut_rank_le [Fintype β] (k M : ℕ) (a h : ℝ) (hh : 0 
 theorem FactorsThrough.scale [Fintype ι] {F : Matrix α β ℝ}
     (hf : FactorsThrough (ι := ι) F) (c : ℝ) :
     FactorsThrough (ι := ι) (fun x y => c * F x y) := by
-  obtain ⟨A, B, rfl⟩ := hf
-  refine ⟨(fun x i => c * A x i), B, ?_⟩
-  ext x y
-  simp [Matrix.mul_apply, Finset.mul_sum, mul_assoc]
+  obtain ⟨A, B, hf⟩ := hf
+  refine ⟨((fun x i => c * A x i) : Matrix α ι ℝ), B, ?_⟩
+  intro x y
+  change c * F x y = _
+  rw [hf x y]
+  simp [Finset.mul_sum, mul_assoc]
 
 end QuantumBlockEncoding.HermiteCutRank

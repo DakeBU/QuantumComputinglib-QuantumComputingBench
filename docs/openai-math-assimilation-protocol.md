@@ -343,3 +343,46 @@ This changes the recommended first-wave order to:
 `QuantumCircuit -> QuantumFactoring -> AmplitudeDamping -> foundational QIT
 adapters -> EntangledGames/PhotonNumber`.
 
+## Full-tree reconciliation for the quantum curriculum
+
+The 2026-10-07 reconciliation inspects the complete tree at the pinned commit,
+not only paths already named by the first intake. It adds these scoped routes to
+`research-wiki/openai-math-2026-intake.json`:
+
+- `Computability/FourierCircuit`: a Comparator-backed exact Fourier-circuit and
+  resource route for the scientific-computing Fourier/QPE chapter. It is a
+  possible circuit supplier, not by itself a QPE, state-preparation or
+  block-encoding certificate.
+- `Analysis/Quantum/PPTSquare` and the companion
+  `InformationTheory/DimensionTen`: advanced channel, entanglement-breaking,
+  Choi and secret-key consumers for the QIT extended chapters. They sit above a
+  canonical state/channel adapter layer.
+- the scoped `RepresentationTheory/Young`, `YoungSymmetry` and `FiniteUnitary`
+  subtrees: candidate ingredients for representation theory and Schur--Weyl.
+  Manuscript-specific namespaces and assumptions must be purified first.
+- the Comparator-backed `Saxl` and `FoulkesHowe` routes: advanced representation
+  theory extensions, not prerequisites of the basic QIT spine.
+- `Analysis/Laughlin`: a Comparator-backed mathematical-physics target for an
+  extended many-body-model chapter, not a quantum-algorithm certificate.
+
+The same reconciliation records a lexical rejection: `OAI.Analysis.Naimark`
+concerns the C*-algebra Naimark problem, not Naimark dilation of POVMs. It
+therefore creates no measurement-theory edge.
+
+### Exact toolchain boundary
+
+The pinned OpenAI Math snapshot declares `leanprover/lean4:v4.34.1`; this
+project declares `leanprover/lean4:v4.33.0`. OpenAI Math therefore remains a
+pinned source/adapter corpus and is not a direct Lake dependency. A result may
+enter local proof memory only after its exact declaration has been ported or
+adapted and compiled under local Lean 4.33.0. The intake JSON and tests enforce
+this boundary.
+
+### Textbook placement is not theorem admission
+
+Every admitted intake cluster names one or more curriculum consumers. Placement
+gives agents a retrieval address and helps the Functor Hypergraph avoid
+duplicated foundations; it does not create a solid Lean edge. The four peer
+textbook parts are defined in `website/curriculum-parts.json`, which separates
+compiled chapters, partial routes and planned/extended chapters.
+

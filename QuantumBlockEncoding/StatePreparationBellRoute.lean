@@ -44,9 +44,9 @@ noncomputable def bellCxCircuit : PrimitiveCircuit 2 :=
 noncomputable def bellPrimitiveCircuit : PrimitiveCircuit 2 :=
   bellRyCircuit ++ bellCxCircuit
 
-noncomputable def bellAfterRy : StateVector (gridSize 2) ℂ :=
-  bellAmplitude • basisKet (gridSize 2) (0 : Fin 4) +
-    bellAmplitude • basisKet (gridSize 2) (1 : Fin 4)
+noncomputable def bellAfterRy : StateVector 4 ℂ :=
+  bellAmplitude • basisKet 4 (0 : Fin 4) +
+    bellAmplitude • basisKet 4 (1 : Fin 4)
 
 @[simp] theorem evalPrimitiveCircuitLE_singleton_cx_apply
     {qubits : Nat} (control target : Fin qubits) (distinct : control ≠ target)
@@ -57,7 +57,7 @@ noncomputable def bellAfterRy : StateVector (gridSize 2) ℂ :=
       then 1 else 0 := by
   simp [evalPrimitiveCircuitLE, evalPrimitiveCircuit, evalPrimitiveGate,
     _root_.Matrix.reindexAlgEquiv_apply, _root_.Matrix.reindex_apply,
-    _root_.Matrix.submatrix_apply, equivPermutationMatrix, primitiveLEBits]
+    _root_.Matrix.submatrix_apply, equivPermutationMatrix, primitiveLEBits] <;> rfl
 
 private theorem bellAfterRy_0 :
     bellAfterRy (0 : Fin 4) = bellAmplitude := by
@@ -83,6 +83,9 @@ private theorem bellRy_entry_00 :
     evalPrimitiveCircuitLE bellRyCircuit (0 : Fin 4) (0 : Fin 4) =
       bellAmplitude := by
   unfold bellRyCircuit
+  change evalPrimitiveCircuitLE _
+    (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 2))
+    (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 2)) = bellAmplitude
   rw [evalPrimitiveCircuitLE_singleton_ry_apply]
   rw [if_pos (by native_decide)]
   rw [standardRyMatrix_bellRyAngle]
@@ -94,6 +97,9 @@ private theorem bellRy_entry_10 :
     evalPrimitiveCircuitLE bellRyCircuit (1 : Fin 4) (0 : Fin 4) =
       bellAmplitude := by
   unfold bellRyCircuit
+  change evalPrimitiveCircuitLE _
+    (⟨1, by norm_num [gridSize]⟩ : Fin (gridSize 2))
+    (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 2)) = bellAmplitude
   rw [evalPrimitiveCircuitLE_singleton_ry_apply]
   rw [if_pos (by native_decide)]
   rw [standardRyMatrix_bellRyAngle]
@@ -104,12 +110,18 @@ private theorem bellRy_entry_10 :
 private theorem bellRy_entry_20 :
     evalPrimitiveCircuitLE bellRyCircuit (2 : Fin 4) (0 : Fin 4) = 0 := by
   unfold bellRyCircuit
+  change evalPrimitiveCircuitLE _
+    (⟨2, by norm_num [gridSize]⟩ : Fin (gridSize 2))
+    (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 2)) = 0
   rw [evalPrimitiveCircuitLE_singleton_ry_apply]
   rw [if_neg (by native_decide)]
 
 private theorem bellRy_entry_30 :
     evalPrimitiveCircuitLE bellRyCircuit (3 : Fin 4) (0 : Fin 4) = 0 := by
   unfold bellRyCircuit
+  change evalPrimitiveCircuitLE _
+    (⟨3, by norm_num [gridSize]⟩ : Fin (gridSize 2))
+    (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 2)) = 0
   rw [evalPrimitiveCircuitLE_singleton_ry_apply]
   rw [if_neg (by native_decide)]
 
@@ -138,48 +150,72 @@ theorem bellRy_prepares :
 private theorem bellCx_entry_00 :
     evalPrimitiveCircuitLE bellCxCircuit (0 : Fin 4) (0 : Fin 4) = 1 := by
   unfold bellCxCircuit
+  change evalPrimitiveCircuitLE _
+    (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 2))
+    (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 2)) = 1
   rw [evalPrimitiveCircuitLE_singleton_cx_apply]
   rw [if_pos (by native_decide)]
 
 private theorem bellCx_entry_10 :
     evalPrimitiveCircuitLE bellCxCircuit (1 : Fin 4) (0 : Fin 4) = 0 := by
   unfold bellCxCircuit
+  change evalPrimitiveCircuitLE _
+    (⟨1, by norm_num [gridSize]⟩ : Fin (gridSize 2))
+    (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 2)) = 0
   rw [evalPrimitiveCircuitLE_singleton_cx_apply]
   rw [if_neg (by native_decide)]
 
 private theorem bellCx_entry_20 :
     evalPrimitiveCircuitLE bellCxCircuit (2 : Fin 4) (0 : Fin 4) = 0 := by
   unfold bellCxCircuit
+  change evalPrimitiveCircuitLE _
+    (⟨2, by norm_num [gridSize]⟩ : Fin (gridSize 2))
+    (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 2)) = 0
   rw [evalPrimitiveCircuitLE_singleton_cx_apply]
   rw [if_neg (by native_decide)]
 
 private theorem bellCx_entry_30 :
     evalPrimitiveCircuitLE bellCxCircuit (3 : Fin 4) (0 : Fin 4) = 0 := by
   unfold bellCxCircuit
+  change evalPrimitiveCircuitLE _
+    (⟨3, by norm_num [gridSize]⟩ : Fin (gridSize 2))
+    (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 2)) = 0
   rw [evalPrimitiveCircuitLE_singleton_cx_apply]
   rw [if_neg (by native_decide)]
 
 private theorem bellCx_entry_01 :
     evalPrimitiveCircuitLE bellCxCircuit (0 : Fin 4) (1 : Fin 4) = 0 := by
   unfold bellCxCircuit
+  change evalPrimitiveCircuitLE _
+    (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 2))
+    (⟨1, by norm_num [gridSize]⟩ : Fin (gridSize 2)) = 0
   rw [evalPrimitiveCircuitLE_singleton_cx_apply]
   rw [if_neg (by native_decide)]
 
 private theorem bellCx_entry_11 :
     evalPrimitiveCircuitLE bellCxCircuit (1 : Fin 4) (1 : Fin 4) = 0 := by
   unfold bellCxCircuit
+  change evalPrimitiveCircuitLE _
+    (⟨1, by norm_num [gridSize]⟩ : Fin (gridSize 2))
+    (⟨1, by norm_num [gridSize]⟩ : Fin (gridSize 2)) = 0
   rw [evalPrimitiveCircuitLE_singleton_cx_apply]
   rw [if_neg (by native_decide)]
 
 private theorem bellCx_entry_21 :
     evalPrimitiveCircuitLE bellCxCircuit (2 : Fin 4) (1 : Fin 4) = 0 := by
   unfold bellCxCircuit
+  change evalPrimitiveCircuitLE _
+    (⟨2, by norm_num [gridSize]⟩ : Fin (gridSize 2))
+    (⟨1, by norm_num [gridSize]⟩ : Fin (gridSize 2)) = 0
   rw [evalPrimitiveCircuitLE_singleton_cx_apply]
   rw [if_neg (by native_decide)]
 
 private theorem bellCx_entry_31 :
     evalPrimitiveCircuitLE bellCxCircuit (3 : Fin 4) (1 : Fin 4) = 1 := by
   unfold bellCxCircuit
+  change evalPrimitiveCircuitLE _
+    (⟨3, by norm_num [gridSize]⟩ : Fin (gridSize 2))
+    (⟨1, by norm_num [gridSize]⟩ : Fin (gridSize 2)) = 1
   rw [evalPrimitiveCircuitLE_singleton_cx_apply]
   rw [if_pos (by native_decide)]
 
@@ -230,6 +266,10 @@ private theorem bellCx_output_3 :
 theorem bellCx_on_afterRy :
     applyVec (evalPrimitiveCircuitLE bellCxCircuit) bellAfterRy = bellState := by
   unfold bellAfterRy
+  let matrix : _root_.Matrix (Fin 4) (Fin 4) ℂ :=
+    evalPrimitiveCircuitLE bellCxCircuit
+  change applyVec matrix
+    (bellAmplitude • basisKet 4 0 + bellAmplitude • basisKet 4 1) = bellState
   rw [applyVec_twoBasisSuperposition]
   funext row
   fin_cases row

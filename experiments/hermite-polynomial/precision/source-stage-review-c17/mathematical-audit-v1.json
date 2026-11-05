@@ -1,0 +1,49 @@
+{
+  "cycle": 17,
+  "reviewer": "root/scalar_rounding_review_c15",
+  "status": "SCOPED_MATHEMATICAL_REVIEW_PENDING_OWN_GATE_COMPLETION",
+  "independence": "Distinct from nominal_stage_transport_c17 and piecewise_source_budget_c17. Reviewer retains cycle15/16 internal dependency-review lineage and saw author scope statements; NOT a source-blind decoder, human review, public source-topology review or publication approval.",
+  "evidence_class": "C_INTERNAL_PROVIDER",
+  "direction_fingerprint": "cross-stage-source-binder-original-target-precision-masks-local-carrier-error-norm-review",
+  "author_inputs": {
+    "nominal-stage-transport/result-v1.json": "8e0d6feca6631c0eb1586901917e209095233c29e32b97bf8b2044130bd3d743",
+    "nominal-stage-transport/NominalStageTransport.lean": "0c9262c66ac3b933be7f87e47b3246978e46f87300f365605ed819a116e87aba",
+    "nominal-stage-transport/ChronologicalTransport.lean": "1f7130b676d77ba7e2963ff971a4c703651e4d8e4370188b2077aef0df6eb71f",
+    "nominal-stage-transport/ConsumerChecks.lean": "6de4a81f3453c5d3cb54aab87dab202b0f30149ad1bc156a25fe8e674c1cad99",
+    "piecewise-source-budget/result.json": "a0f06c47ce4ae37abeef4d957949b1db0f8aedf0faf023417378a30a36bb0680",
+    "piecewise-source-budget/PiecewiseSourceBudget.lean": "d821b555e0450ee74456b7ea842a918a1e7ffb58bda3afcbc65bfd2998f0f0c2",
+    "piecewise-source-budget/PiecewiseConsumerChecks.lean": "c61fb5ee6a64165d602d09cdba4372ed1673f1a2f30675df58e83d75399d5c38"
+  },
+  "source_audit": {
+    "definition": "Literal branch ownership p<-1, else p<=0, else right. Tail negativeMidpoint uses actual complete FiniteExp.bounds; midpoint of clipped [0,2^-T] is2^(-T-1), not0. Exact rational middle is cast coefficient-by-coefficient for i<=k; no off-range factorial division identity is assumed.",
+    "original_target": "targetVector expands to WithLp2 of original normalizedAmplitude at p=-pi*L+2*pi*L*j/N, N=2^(n+1); sampleNorm is sqrt of ALL squared function samples. allocatedRadius is a separately proved rational approximation, not the desired scientific target. normalized_original_error uses triangle through normalized radiusVector with two epsilon/4 bounds.",
+    "binders": "k,n and rational inputs are TYPING. Final error requires only L>0 and epsilon>0; physical width is n+1, so at least1. No floor, nonzero, positivity of finite rounded samples, source/radius error oracle, hidden Valid or target agreement assumption. Reference floor and finite floor are produced from central exact1; holds even invalid delta, but that does not grant an invalid-delta approximation theorem.",
+    "metric_and_allocation": "Scalar absolute error <=delta*B/2, B=(k+1)^2*2^(2k)>=1; Euclidean aggregation gives sqrtN*delta*B/2. Normalization perturbation gives factor2/reference norm and exact central floor>=1. sourceDelta=epsilon/(4*N*B) is conservative, yields epsilon/4 source normalized error; actual radius allocation contributes epsilon/4. Full squared amplitude consumer gives epsilon^2/4. Positive scaling retains signs; arbitrary negative scaling or phase alignment is not licensed.",
+    "precision_masks_rank": "On active tails midpoint is Taylor poly(q,d), d=4*T^2+2*T+1 at T=tailCutoff(sourceDelta), with sign-negated argument on right. For T>=2: clipped p<=-T, active -T<p<-1, middle[-1,0], active0<p<T, clipped p>=T. T=1 has empty active left tail; T=0 clips all tail branches. Masks at +/-T and -1/0 must be accounted for, with coincident thresholds treated by regime. Middle degree remains<=2k+1, but this does not restore the original exact-exponential TT rank2k+6 for THIS finite source. Own degree43>6 guard is a dependence discriminator, NOT a proved lower bound/refutation of rank6 on every finite grid.",
+    "normalization_boundary": "Exact NormedSpace.normalize is mathematical. allocatedVector is a finite-carrier function wrapper, not materialized TT output, finite-bit inverse normalizer, QR certificate or executable storage/runtime refinement. Positive rationals L/epsilon are the represented input scope, not all unspecified real inputs."
+  },
+  "stage_audit": {
+    "literal_semantics": "Fin(2^width), width0 has dimension1. q0LSB via testBit/xor; CX distinct is syntactic valid CNOT input, target Fin width. RY uses rational theta/2, row0 c*u-s*v, row1 s*u+c*v on the SAME old low/high pair, all columns/spectators retained. word.foldl executes chronological gates; later factors on left.",
+    "contraction_producer": "RY pair squared norm uses sin^2+cos^2=1. Pair flip involution and summed pair identity give whole square-sum invariance; CX is an involutive permutation. realStep_mulVec lifts to every real Euclidean vector. Full word from identity preserves norm and therefore nominal opnorm<=1, with no state membership, normalization, projection, sector or contraction premise.",
+    "valid_producer": "actualStage is exactly CLM(realWord identity), CLM(stageCenter) and rational stageEta cast to real. Actual interval enclosure produces nonnegative maxRadius; opnorm error <=2^width*maxRadius uses full Euclidean norm, not entrywise matrix norm. actual_stages_valid discharges all3 Valid conjuncts internally. Surrogate contraction/unitarity is NOT required and is false for an existing expanding midpoint fixture.",
+    "composition": "NonunitaryTransport products use latest factor left. Real row action commutes with right multiplication, append identity gives nominalProduct=CLM(realWord words.flatten identity), and product/application error is product(1+eta)-1 (times normx on application). Surrogate stages center separately: no equality to one full-word midpoint is claimed. Degree/bits arbitrary proves soundness, NOT selection achieving a requested eta/epsilon.",
+    "field_boundary": "Carrier is real Euclidean CLM. No equality with complex PrimitiveSemantics, arbitrary-width basis/register adapter, actual parsed saved stream, compiler angles, stage partition maps, tensor lifting, terminal readout or original prepared complex state has been proved by these sources.",
+    "local_dense_boundary": "Generic stageCenter/maxRadius materialization/scan has4^width entries. Actual frozen saved_action.stage_surrogates uses B=2^a,size=2B and remaps ancillas plus current data bit, i.e. local widtha+1. It is incorrect to infer that actual script materializes4^(np+a) from the generic theorem. Its local cost still needs dependence on a/rank, reuse/cache/copy/bit charges and formal local-to-global lifting; caps and tiny tests are not uniform efficiency proof."
+  },
+  "common_blindspots": [
+    "Two complementary source and stage ingredients are neither alternative full ROOT constructions nor sufficient to compose without source-to-stored TT, real-to-complex/local-to-global and readout bridges.",
+    "Source-only epsilon/2 and free produced stage eta do not supply an end-to-end epsilon state certificate.",
+    "Original function values, exact reference normalizer, q0LSB and all garbage sectors remain unchanged; no squared-probability loading, renormalized surrogate target, phase quotient or garbage projection.",
+    "Output degree/bit envelopes do not certify intermediate numerator/denominator, GCD, comparisons, QR, storage, preprocessing, angle synthesis or total finite-bit runtime."
+  ],
+  "author_failures": "All historical nominal search-v1/v3/v4/v5 failures and piecewise negative-evidence-v1/v2/v3 remain immutable; recovery sorryAx in failed modules is not green evidence. These were environment/implementation faults, not retired mathematics. Final frozen whole-source gates are the only accepted author scope.",
+  "own_failure": "Own replay-v1 failed preflight before Lean; immutable negative-evidence-v1 and additive replay-v2 retained. Pending independent gates determine final execution status, not this mathematical record alone.",
+  "remaining": ["C2","C3","X2","ROOT","stored precision-aware piecewise TT/core and rank/mask refinement","QR and finite-bit exact normalizer","real-to-complex PrimitiveSemantics adapter","saved parser/partition/local-to-global support lifting","all terminal readout/error stages","degree/grid selection achieving final epsilon","uniform integer/GCD/storage/runtime and physical synthesis costs","parent aggregate publication/integration gates"],
+  "process_memory": ["QBE-PM-LOW-TOKEN-CONTROL-PLANE","QBE-PM-DENSE-CHECK-SMALL-INSTANCE","QBE-PM-VERIFIER-SEMANTIC-LEVEL"],
+  "scientific_ROOT": false,
+  "public_SourceAnchor": false,
+  "public_PURIFIED": false,
+  "resource_winner": false,
+  "worker_tokens": "unknown",
+  "scope": "Only new source-stage-review-c17 subtree. No author, production, task, registry, history or Git mutation; no subagents."
+}

@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "cycle": 18,
+  "evidence_class": "C_INTERNAL_PROVIDER",
+  "status": "proved_locally_pending_distinct_review",
+  "objective": "Exact full-matrix literal saved-stage real word to existing complex primitive evaluator through canonical primitiveBasisLEEquiv",
+  "roots": [
+    "HermiteLiteralComplexAdapter.realWord_eq_primitive",
+    "HermiteLiteralComplexAdapter.realWord_input_eq_primitive"
+  ],
+  "internal_dependencies": [
+    "encode_testBit",
+    "decode_bit",
+    "decode_flip",
+    "decode_cxRow",
+    "decode_low",
+    "decode_high",
+    "lift_mul_apply",
+    "namedCast_step",
+    "namedCast_word"
+  ],
+  "consumers": [
+    "primitive_entry_enclosure",
+    "primitive_entry_midpoint_error",
+    "primitive_has_exact_real_entries",
+    "chronological_consumer",
+    "arbitrary_complex_input_consumer",
+    "width_zero_word_empty"
+  ],
+  "full_source_gate": {
+    "path": "experiments/hermite-polynomial/precision/literal-complex-adapter/gate-full-v1.json",
+    "sha256": "0db5dfc70a7822fad9c225b32c53a9d201af37c6fbdeb0cd71114f4716ecac2c"
+  },
+  "sources": [
+    {
+      "path": "experiments/hermite-polynomial/precision/literal-complex-adapter/BasisCompatibility.lean",
+      "sha256": "67431d597c13c47caefcbd77b24d98d59fa9fc7f27b3acf631a9a25d4190a6b7"
+    },
+    {
+      "path": "experiments/hermite-polynomial/precision/literal-complex-adapter/LiteralComplexAdapter.lean",
+      "sha256": "e4ebf95923bf644a6b782711dbfec96d5bf568fa55d479316ad7ed3aba9a33f8"
+    },
+    {
+      "path": "experiments/hermite-polynomial/precision/literal-complex-adapter/ConsumerChecks.lean",
+      "sha256": "26e91f568fc07dc62177f8253409f4ebd33def6b61ae22a1c5b4c8c7ba4ec584"
+    }
+  ],
+  "statement_seal": {
+    "path": "experiments/hermite-polynomial/precision/literal-complex-adapter/statement-seal-v1.json",
+    "sha256": "66651e413531322ea42f5185924987b17b83477df1f7f80b8e9937f8f77aafe2"
+  },
+  "replay": {
+    "path": "experiments/hermite-polynomial/precision/literal-complex-adapter/replay.py",
+    "sha256": "be76307214c3d4b1e30ebf32b9c7a99a962ca891ed4ccee706c5ef839eaed817"
+  },
+  "finite_screen": {
+    "path": "experiments/hermite-polynomial/precision/literal-complex-adapter/test_discriminators.py",
+    "sha256": "7d181abe2b87a253aa80b9a037296fe73f22b97733082ab930fef266bae1876e"
+  },
+  "failure_receipts": [
+    {
+      "path": "experiments/hermite-polynomial/precision/literal-complex-adapter/gate-search-v1.json",
+      "sha256": "38d80947b9149a9e208e2064fcf503093160bf1e87d26e635d4a9c35dc3942bb",
+      "failure_class": "IMPLEMENTATION_FAILED",
+      "mathematical_route_retired": false
+    },
+    {
+      "path": "experiments/hermite-polynomial/precision/literal-complex-adapter/gate-search-v2.json",
+      "sha256": "666866b01e38ea61debdf6a996865bc8d1cb1bbd1b4617c7ec5b876a6b2089e1",
+      "failure_class": "IMPLEMENTATION_FAILED",
+      "mathematical_route_retired": false
+    },
+    {
+      "path": "experiments/hermite-polynomial/precision/literal-complex-adapter/gate-search-v3.json",
+      "sha256": "66d8dfc584eb8b042e509816d24abfd523e0f3264f13ca7df7a4243e05e46d1f",
+      "failure_class": "IMPLEMENTATION_FAILED",
+      "mathematical_route_retired": false
+    },
+    {
+      "path": "experiments/hermite-polynomial/precision/literal-complex-adapter/gate-search-v4.json",
+      "sha256": "1bc7f7721ab41c63f35c49a47656ed8dd39c28b00ab23f5f6cfdf6f61ce33bef",
+      "failure_class": "IMPLEMENTATION_FAILED",
+      "mathematical_route_retired": false
+    },
+    {
+      "path": "experiments/hermite-polynomial/precision/literal-complex-adapter/gate-search-v5.json",
+      "sha256": "6a369d5baab0b2e4af8a6118a6137131f2260f63dafff26043139f30abea1609",
+      "failure_class": "IMPLEMENTATION_FAILED",
+      "mathematical_route_retired": false
+    },
+    {
+      "path": "experiments/hermite-polynomial/precision/literal-complex-adapter/gate-search-v6.json",
+      "sha256": "7c4ef18f4fc521b7e8fa25e25c19b5c3631881c92a3e5b5145e99fff8ed7c501",
+      "failure_class": "IMPLEMENTATION_FAILED",
+      "mathematical_route_retired": false
+    }
+  ],
+  "assumptions": {
+    "public_bridge_hypotheses": [],
+    "CX_distinct": "inherited literal instruction constructor",
+    "axioms": "propext, Classical.choice, Quot.sound only; final ConsumerChecks prints actual roots",
+    "gridSize_elaboration": "local definition unfolding gridSize n = 2^n; no equality axiom or carrier replacement"
+  },
+  "source_graph": {
+    "literal_row": "SavedRounding.realRyRow",
+    "literal_word": "SavedStageInterpreter.realWord",
+    "canonical_basis": "QuantumBlockEncoding.primitiveBasisLEEquiv",
+    "target_evaluator": "QuantumBlockEncoding.evalPrimitiveCircuit",
+    "independent_topology_review": "pending"
+  },
+  "mathematical_argument": [
+    "Induct on width in the EXISTING recursive basis equivalence: encode b = b0 + 2 encode tail. Nat.bit and testBit_bit_succ give testBit(encode b,q)=decide(b q=1).",
+    "Invert that identity. Frozen XOR flip complements exactly the target test bit and preserves all other bits. Thus inverse canonical indexing carries literal flip to xBasisAction, low/high to the splitPrimitiveWire inverse at bit0/bit1, and cxRow to existing cxBasisAction.",
+    "Reindex a real matrix cast to named primitive coordinates. For RY, reindex the summation by splitPrimitiveWire and collapse the spectator-context identity; the two remaining terms are exactly the signed realRyRow half-angle. For CX, the existing involutive permutation multiplication theorem gives the actual frozen row action.",
+    "Induct over chronological foldl. The existing evaluator is eval(rest)*eval(first), so later gates remain on the left. Reindex back by primitiveBasisLEEquiv and specialize the cast identity matrix.",
+    "Substitute whole-matrix equality into frozen interval enclosure/midpoint theorems and into arbitrary complex-vector multiplication. Imaginary entries are identically zero."
+  ],
+  "finite_diagnostics": {
+    "tests": 5,
+    "widths": "0 through5 as applicable",
+    "scope": "screening only",
+    "checks": [
+      "width0",
+      "signed halfangle",
+      "all spectator wires and CX directions",
+      "noncommuting chronological-order discriminator",
+      "complex input"
+    ]
+  },
+  "scientific_ROOT": false,
+  "full_family_acceptance": false,
+  "public_PURIFIED": false,
+  "stageEta_complex_operator_transport": "OPEN",
+  "uniform_error_budget": "OPEN",
+  "local_support_lift": "OPEN",
+  "classical_runtime_resources": "OPEN",
+  "repository_build_Tests_site_gates": "parent-owned integration gates; not claimed by focused receipt",
+  "independent_review": "pending distinct reviewer",
+  "failure_class": "NONE",
+  "salvage": "arbitrary-width canonical basis and full gate/word bridges locally compiled",
+  "token_usage": null,
+  "process_memory_ids": [
+    "QBE-PM-DENSE-CHECK-SMALL-INSTANCE"
+  ],
+  "direction_fingerprint": "canonical-recursive-LE-testBit;named-wire-sparse-sum;chronological-full-matrix-cast",
+  "expected_information_gain": "Close evaluator identification frontier without inventing a circuit or assuming compatibility",
+  "parallel_admission": "single assigned worker, no child agents",
+  "common_blind_spot_review": "pending distinct review of register/order/phase and full-carrier claims",
+  "purification": "local duplicate-semantics and placeholder audit passed; public purification pending integration/review",
+  "scope": "all writes confined to experiments/hermite-polynomial/precision/literal-complex-adapter",
+  "writes_stopped_after_handoff": true
+}

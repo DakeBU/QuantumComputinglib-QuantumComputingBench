@@ -31,7 +31,8 @@ def flags (lower upper first last : ℕ) : Run Flags := do
 
 theorem flags_full (lower upper first size : ℕ) :
     (flags lower upper first (first + size)).value.full = decide (Full lower upper first size) := by
-  simp [flags, bind, Run.bind, charge, Full]
+  by_cases hlo : lower ≤ first <;> by_cases hhi : first + size ≤ upper <;>
+    simp [flags, bind, Run.bind, charge, Full, hlo, hhi]
 
 theorem flags_partial (lower upper first size : ℕ) :
     (flags lower upper first (first + size)).value.isPartial = decide (Partial lower upper first size) := by

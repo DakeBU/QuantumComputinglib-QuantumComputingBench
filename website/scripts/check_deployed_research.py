@@ -37,11 +37,12 @@ def check(commit: str) -> dict:
     gate = report['leanGate']
     if gate.get('proofInputsSha256') != proof_input_digest(ROOT) or gate.get('compiledModules') != lean_module_targets(ROOT):
         raise ValueError('live proof inputs or compiled module inventory differ')
+    from website.scripts.research_atlas import FILES, load_catalog, public_catalog
+    expected_catalogue = public_catalog(load_catalog(ROOT / 'website/research'))
     catalogue = {}
-    for filename in ('atlas.json', 'state-preparation-wiki.json', 'sources.json'):
+    for name, filename in FILES.items():
         actual = json.loads(fetch('data/research/' + filename, commit))
-        expected = json.loads((ROOT / 'website/research' / filename).read_text(encoding='utf-8'))
-        if actual != expected:
+        if actual != expected_catalogue[name]:
             raise ValueError('live canonical source mismatch: ' + filename)
         catalogue[filename] = actual
     curriculum = json.loads(fetch('data/curriculum-parts.json', commit))
@@ -78,6 +79,7 @@ def check(commit: str) -> dict:
         raise ValueError('live deployment changed during verification')
     return {'passed': True, 'origin': ORIGIN, 'commit': commit,
             'checked_reader_routes': len(routes), 'canonical_sources_match': True,
+            'source_author_display_projection_match': True,
             'proof_inputs_match': True, 'browser_combinations': combinations,
             'curriculum_parts_match': True,
             'live_reader_check_only': True}

@@ -27,7 +27,11 @@ bond label. The full word sum appears only in the specification. -/
 theorem gram_eq_sum {n l r : ℕ} (C : Chain n l r) :
     gram C = ∑ x : Word n, contract C x * (contract C x).transpose := by
   induction C with
-  | nil r => simp [gram, contract, Word]
+  | nil r =>
+    change (1 : _root_.Matrix (Fin r) (Fin r) ℝ) =
+      ∑ _x : Unit, (1 : _root_.Matrix (Fin r) (Fin r) ℝ) *
+        (1 : _root_.Matrix (Fin r) (Fin r) ℝ).transpose
+    simp
   | @cons n l m r A C ih =>
     change (∑ bit : Fin 2, slice A bit * gram C * (slice A bit).transpose) =
       ∑ x : Fin 2 × Word n, (slice A x.1 * contract C x.2) *

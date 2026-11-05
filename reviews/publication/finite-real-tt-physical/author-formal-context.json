@@ -1,0 +1,1348 @@
+{
+  "status": "FORMAL_ONLY_INPUT_NO_ACCEPTANCE",
+  "target_files": [
+    {
+      "path": "QuantumBlockEncoding/TensorTrainLocalCompiler.lean",
+      "sha256": "ba397af87d9faf52be581f4d87e414c50821fa438541f7fbc6ef801e6acb88e2",
+      "full_source_lines": [
+        "import QuantumBlockEncoding.TensorTrainSchedule\n",
+        "import QuantumBlockEncoding.RealIsometryCompletion\n",
+        "import QuantumBlockEncoding.GrayGivensCompiler\n",
+        "\n",
+        "namespace QuantumBlockEncoding.TensorTrainLocalCompiler\n",
+        "\n",
+        "open scoped BigOperators\n",
+        "open TensorTrainCanonical TensorTrainSchedule SequentialBondPreparation\n",
+        "\n",
+        "/-- Coordinate adapter for special-orthogonal completion on any finite\n",
+        "named basis, with prescribed columns at arbitrary physical labels. -/\n",
+        "theorem exists_SO_named {I : Type*} [Fintype I] [DecidableEq I] {r : ℕ}\n",
+        "    (hr : r < Fintype.card I) (V : _root_.Matrix I (Fin r) ℝ) (e : Fin r ↪ I)\n",
+        "    (hV : V.transpose * V = 1) :\n",
+        "    ∃ U : _root_.Matrix I I ℝ, U.transpose * U = 1 ∧ U.det = 1 ∧\n",
+        "      ∀ i a, U i (e a) = V i a := by\n",
+        "  classical\n",
+        "  let f := Fintype.equivFin I\n",
+        "  let W : _root_.Matrix (Fin (Fintype.card I)) (Fin r) ℝ := fun i a => V (f.symm i) a\n",
+        "  have hW : W.transpose * W = 1 := by\n",
+        "    ext a b\n",
+        "    have h := congrFun (congrFun hV a) b\n",
+        "    simp only [_root_.Matrix.mul_apply, _root_.Matrix.transpose_apply] at h ⊢\n",
+        "    exact ((f.symm).sum_comp (fun i => V i a * V i b)).trans h\n",
+        "  obtain ⟨U, hU, hd, hc⟩ := RealIsometryCompletion.exists_specialOrthogonal_completion\n",
+        "    hr W (e.trans f.toEmbedding) hW\n",
+        "  let tr := _root_.Matrix.reindexAlgEquiv ℝ ℝ f.symm\n",
+        "  refine ⟨tr U, ?_, ?_, ?_⟩\n",
+        "  · change tr U.transpose * tr U = 1\n",
+        "    rw [← map_mul, hU, map_one]\n",
+        "  · simpa [tr, _root_.Matrix.reindexAlgEquiv_apply] using hd\n",
+        "  · intro i a\n",
+        "    simpa [tr, W, _root_.Matrix.reindexAlgEquiv_apply, _root_.Matrix.reindex_apply] using hc (f i) a\n",
+        "\n",
+        "/-- The bit is the highest local physical wire; the bond uses low wires. -/\n",
+        "def localIndex (q : ℕ) : PrimitiveBasis (q + 1) ≃ Fin 2 × Fin (2 ^ q) :=\n",
+        "  (localBasisEquiv q).trans (Equiv.prodCongr (Equiv.refl _) (primitiveBasisLEEquiv q))\n",
+        "\n",
+        "@[simp] theorem localIndex_snoc (q : ℕ) (b : PrimitiveBasis q) (bit : Fin 2) :\n",
+        "    localIndex q (Fin.snoc b bit) = (bit, primitiveBasisLEEquiv q b) := by\n",
+        "  simp [localIndex, localBasisEquiv, RealAmplitudePreparation.lastBasisEquiv]\n",
+        "  rfl\n",
+        "\n",
+        "theorem paddedAt_real {n l r B : ℕ} (C : Chain n l r) (t : ℕ)\n",
+        "    (out : Fin 2 × Fin B) (a : Fin B) :\n",
+        "    ((paddedAt C t out a).re : ℂ) = paddedAt C t out a := by\n",
+        "  induction C generalizing t with\n",
+        "  | nil _ => simp [paddedAt]\n",
+        "  | cons A C ih =>\n",
+        "    cases t with\n",
+        "    | zero =>\n",
+        "      simp only [paddedAt, paddedCore]\n",
+        "      split_ifs <;> simp\n",
+        "    | succ t => exact ih t\n",
+        "\n",
+        "theorem paddedAt_im_zero {n l r B : ℕ} (C : Chain n l r) (t : ℕ)\n",
+        "    (out : Fin 2 × Fin B) (a : Fin B) : (paddedAt C t out a).im = 0 := by\n",
+        "  have h := congrArg Complex.im (paddedAt_real C t out a)\n",
+        "  simpa only [Complex.ofReal_im] using h.symm\n",
+        "\n",
+        "def activePositions {q l : ℕ} (hl : l ≤ 2 ^ q) : Fin l ↪ PrimitiveBasis (q + 1) where\n",
+        "  toFun a := (localIndex q).symm (0, Fin.castLE hl a)\n",
+        "  inj' a b h := by\n",
+        "    have he := congrArg (fun x => ((localIndex q) x).2.val) h\n",
+        "    apply Fin.ext\n",
+        "    simpa only [Equiv.apply_symm_apply, Fin.castLE] using he\n",
+        "\n",
+        "/-- The occupied real columns of a padded core, in physical named-wire order. -/\n",
+        "def activeColumns {n l r q : ℕ} (C : Chain n l r) (t : ℕ)\n",
+        "    (hB : maxBond C ≤ 2 ^ q) :\n",
+        "    _root_.Matrix (PrimitiveBasis (q + 1)) (Fin (rankAt C t)) ℝ :=\n",
+        "  fun row a => (paddedAt C t (localIndex q row)\n",
+        "    (Fin.castLE ((rankAt_le_maxBond C t).trans hB) a)).re\n",
+        "\n",
+        "/-- Exact real orthonormality is extracted from the proved complex padded-core\n",
+        "semantics; no ambient matrix or desired circuit action is assumed. -/\n",
+        "theorem activeColumns_isometry {n l r q : ℕ} (C : Chain n l r)\n",
+        "    (hC : RightCanonical C) (hB : maxBond C ≤ 2 ^ q) (t : ℕ) (ht : t < n) :\n",
+        "    (activeColumns C t hB).transpose * activeColumns C t hB = 1 := by\n",
+        "  classical\n",
+        "  ext a c\n",
+        "  have h := congrArg Complex.re (paddedAt_active_isometry C hC hB t ht a c)\n",
+        "  have hr : (∑ out : Fin 2 × Fin (2 ^ q),\n",
+        "      (paddedAt C t out (Fin.castLE ((rankAt_le_maxBond C t).trans hB) a)).re *\n",
+        "        (paddedAt C t out (Fin.castLE ((rankAt_le_maxBond C t).trans hB) c)).re) =\n",
+        "      if a = c then 1 else 0 := by\n",
+        "    by_cases hac : a = c <;>\n",
+        "      simpa [hac, map_sum, Complex.mul_re, Complex.star_def, paddedAt_im_zero] using h\n",
+        "  simp only [_root_.Matrix.mul_apply, _root_.Matrix.transpose_apply,\n",
+        "    _root_.Matrix.one_apply, activeColumns]\n",
+        "  exact ((localIndex q).sum_comp (fun out =>\n",
+        "    (paddedAt C t out (Fin.castLE ((rankAt_le_maxBond C t).trans hB) a)).re *\n",
+        "      (paddedAt C t out (Fin.castLE ((rankAt_le_maxBond C t).trans hB) c)).re)).trans hr\n",
+        "\n",
+        "/-- Every actual canonical stage has an exact primitive implementation on the\n",
+        "`q` low bond wires and one highest output wire. Completion has a spare column\n",
+        "because the active rank is at most half the physical dimension. The existence\n",
+        "proof uses exact real choices and is not a classical preprocessing-cost bound. -/\n",
+        "theorem exists_local_circuit_with_resources {n l r q : ℕ} (C : Chain n l r)\n",
+        "    (hC : RightCanonical C) (hB : maxBond C ≤ 2 ^ q) (t : ℕ) (ht : t < n) :\n",
+        "    ∃ c : PrimitiveCircuit (q + 1),\n",
+        "      c.gateCount ≤ 6 * (2 ^ q) ^ 3 ∧ c.resource.oracleCalls = 0 ∧\n",
+        "      ∀ (bit : Fin 2) (b a : PrimitiveBasis q),\n",
+        "        (primitiveBasisLEEquiv q a).val < rankAt C t →\n",
+        "        evalPrimitiveCircuit c (Fin.snoc b bit) (Fin.snoc a 0) =\n",
+        "          paddedAt C t (bit, primitiveBasisLEEquiv q b) (primitiveBasisLEEquiv q a) := by\n",
+        "  classical\n",
+        "  have hl : rankAt C t ≤ 2 ^ q := (rankAt_le_maxBond C t).trans hB\n",
+        "  have hs : rankAt C t < Fintype.card (PrimitiveBasis (q + 1)) := by\n",
+        "    have hp : 0 < 2 ^ q := by positivity\n",
+        "    have hc : Fintype.card (PrimitiveBasis (q + 1)) = 2 ^ q * 2 := by\n",
+        "      simp [PrimitiveBasis, pow_succ]\n",
+        "    rw [hc]\n",
+        "    omega\n",
+        "  obtain ⟨U, hU, hd, columns⟩ := exists_SO_named hs (activeColumns C t hB)\n",
+        "    (activePositions hl) (activeColumns_isometry C hC hB t ht)\n",
+        "  refine ⟨GrayGivensCompiler.compileSO U,\n",
+        "    (GrayGivensCompiler.compileSO_cubic_bound U).1,\n",
+        "    (GrayGivensCompiler.compileSO_cubic_bound U).2, ?_⟩\n",
+        "  intro bit b a ha\n",
+        "  let aa : Fin (rankAt C t) := ⟨(primitiveBasisLEEquiv q a).val, ha⟩\n",
+        "  have hcast : Fin.castLE hl aa = primitiveBasisLEEquiv q a := by\n",
+        "    apply Fin.ext\n",
+        "    rfl\n",
+        "  have he : activePositions hl aa = Fin.snoc a 0 := by\n",
+        "    apply (localIndex q).injective\n",
+        "    change localIndex q ((localIndex q).symm (0, Fin.castLE hl aa)) =\n",
+        "      localIndex q (Fin.snoc a 0)\n",
+        "    rw [Equiv.apply_symm_apply, localIndex_snoc, hcast]\n",
+        "    rfl\n",
+        "  rw [GrayGivensCompiler.compileSO_eval U hU hd]\n",
+        "  change (U (Fin.snoc b bit) (Fin.snoc a 0) : ℂ) = _\n",
+        "  rw [← he, columns]\n",
+        "  change ((paddedAt C t (localIndex q (Fin.snoc b bit)) (Fin.castLE hl aa)).re : ℂ) = _\n",
+        "  rw [localIndex_snoc, hcast]\n",
+        "  exact paddedAt_real C t (bit, primitiveBasisLEEquiv q b) (primitiveBasisLEEquiv q a)\n",
+        "\n",
+        "/-- Minimal local-column interface for sequential tensor-train assembly. -/\n",
+        "theorem exists_local_circuit {n l r q : ℕ} (C : Chain n l r)\n",
+        "    (hC : RightCanonical C) (hB : maxBond C ≤ 2 ^ q) (t : ℕ) (ht : t < n) :\n",
+        "    ∃ c : PrimitiveCircuit (q + 1), c.gateCount ≤ 6 * (2 ^ q) ^ 3 ∧\n",
+        "      ∀ (bit : Fin 2) (b a : PrimitiveBasis q),\n",
+        "        (primitiveBasisLEEquiv q a).val < rankAt C t →\n",
+        "        evalPrimitiveCircuit c (Fin.snoc b bit) (Fin.snoc a 0) =\n",
+        "          paddedAt C t (bit, primitiveBasisLEEquiv q b) (primitiveBasisLEEquiv q a) := by\n",
+        "  obtain ⟨c, hc, _, columns⟩ := exists_local_circuit_with_resources C hC hB t ht\n",
+        "  exact ⟨c, hc, columns⟩\n",
+        "\n",
+        "end QuantumBlockEncoding.TensorTrainLocalCompiler\n"
+      ],
+      "imports": [
+        "QuantumBlockEncoding.TensorTrainSchedule",
+        "QuantumBlockEncoding.RealIsometryCompletion",
+        "QuantumBlockEncoding.GrayGivensCompiler"
+      ]
+    },
+    {
+      "path": "QuantumBlockEncoding/TensorTrainWord.lean",
+      "sha256": "2b7d16226ae2ebf09f5ead27572af52d75f37b0e1e7a8133bd2f0ee42d3a82e4",
+      "full_source_lines": [
+        "import QuantumBlockEncoding.TensorTrainSchedule\n",
+        "import QuantumBlockEncoding.HermiteBoundaryInjection\n",
+        "\n",
+        "/-! Explicit conversion between head-first tensor words, Boolean words, and\n",
+        "little-endian public samples. Reversal is a stated index map, never implicit. -/\n",
+        "\n",
+        "namespace QuantumBlockEncoding.TensorTrainWord\n",
+        "open TensorTrainCanonical TensorTrainSchedule RealAmplitudePreparation\n",
+        "\n",
+        "def toBasis : {n : Nat} → Word n → PrimitiveBasis n\n",
+        "  | 0, _ => Fin.elim0\n",
+        "  | _ + 1, x => Fin.cons x.1 (toBasis x.2)\n",
+        "\n",
+        "theorem toBasis_wordOfBasis {n : Nat} (x : PrimitiveBasis n) :\n",
+        "    toBasis (wordOfBasis x) = x := by\n",
+        "  induction n with\n",
+        "  | zero => exact Subsingleton.elim _ _\n",
+        "  | succ n ih => simpa only [wordOfBasis, toBasis, ih] using Fin.cons_self_tail x\n",
+        "\n",
+        "theorem wordOfBasis_toBasis {n : Nat} (x : Word n) :\n",
+        "    wordOfBasis (toBasis x) = x := by\n",
+        "  induction n with\n",
+        "  | zero => cases x; rfl\n",
+        "  | succ n ih => simp [wordOfBasis, toBasis, ih] <;> rfl\n",
+        "\n",
+        "def basisEquiv (n : Nat) : Word n ≃ PrimitiveBasis n where\n",
+        "  toFun := toBasis\n",
+        "  invFun := wordOfBasis\n",
+        "  left_inv := wordOfBasis_toBasis\n",
+        "  right_inv := toBasis_wordOfBasis\n",
+        "\n",
+        "def reverseBasis (n : Nat) : PrimitiveBasis n ≃ PrimitiveBasis n where\n",
+        "  toFun x := fun i => x i.rev\n",
+        "  invFun x := fun i => x i.rev\n",
+        "  left_inv x := by funext i; simp\n",
+        "  right_inv x := by funext i; simp\n",
+        "\n",
+        "def sampleEquiv (n : Nat) : Word n ≃ Fin (gridSize n) :=\n",
+        "  (basisEquiv n).trans ((reverseBasis n).trans (primitiveBasisLEEquiv n))\n",
+        "\n",
+        "def toBits : {n : Nat} → Word n → List Bool\n",
+        "  | 0, _ => []\n",
+        "  | _ + 1, x => decide (x.1 = 1) :: toBits x.2\n",
+        "\n",
+        "@[simp] theorem toBits_length {n : Nat} (x : Word n) : (toBits x).length = n := by\n",
+        "  induction n with\n",
+        "  | zero => rfl\n",
+        "  | succ n ih => simp [toBits, ih]\n",
+        "\n",
+        "theorem primitive_snoc_value (n : Nat) (x : PrimitiveBasis n) (bit : Fin 2) :\n",
+        "    (primitiveBasisLEEquiv (n + 1) (Fin.snoc x bit)).val =\n",
+        "      (primitiveBasisLEEquiv n x).val + 2 ^ n * bit.val := by\n",
+        "  induction n with\n",
+        "  | zero => simp [primitiveBasisLEEquiv_succ_value, Fin.snoc]\n",
+        "  | succ n ih =>\n",
+        "    rw [primitiveBasisLEEquiv_succ_value]\n",
+        "    have ht : (fun w : Fin (n + 1) =>\n",
+        "        (Fin.snoc x bit : PrimitiveBasis (n + 2)) w.succ) =\n",
+        "        (Fin.snoc (Fin.tail x) bit : PrimitiveBasis (n + 1)) := by\n",
+        "      funext w\n",
+        "      refine Fin.lastCases ?_ (fun i => ?_) w\n",
+        "      · simp\n",
+        "      · rw [show i.castSucc.succ = i.succ.castSucc from rfl]\n",
+        "        simp only [Fin.snoc_castSucc]\n",
+        "        rfl\n",
+        "    rw [ht, ih, primitiveBasisLEEquiv_succ_value]\n",
+        "    simp only [Fin.snoc_apply_zero]\n",
+        "    change (x 0).val + 2 * ((primitiveBasisLEEquiv n (Fin.tail x)).val + 2 ^ n * bit.val) =\n",
+        "      (x 0).val + 2 * (primitiveBasisLEEquiv n (Fin.tail x)).val + 2 ^ (n + 1) * bit.val\n",
+        "    rw [pow_succ]\n",
+        "    ring\n",
+        "\n",
+        "theorem sampleEquiv_value {n : Nat} (x : Word n) :\n",
+        "    (sampleEquiv n x).val = HermiteBoundaryInjection.wordValue (toBits x) := by\n",
+        "  induction n with\n",
+        "  | zero => rfl\n",
+        "  | succ n ih =>\n",
+        "    rcases x with ⟨bit, x⟩\n",
+        "    change (primitiveBasisLEEquiv (n + 1)\n",
+        "      (fun i => (Fin.cons bit (toBasis x) : PrimitiveBasis (n + 1)) i.rev)).val = _\n",
+        "    have hr : (fun i : Fin (n + 1) =>\n",
+        "        (Fin.cons bit (toBasis x) : PrimitiveBasis (n + 1)) i.rev) =\n",
+        "        (Fin.snoc (fun i => toBasis x i.rev) bit : PrimitiveBasis (n + 1)) :=\n",
+        "      Fin.cons_comp_rev bit (toBasis x)\n",
+        "    rw [hr, primitive_snoc_value]\n",
+        "    change (sampleEquiv n x).val + 2 ^ n * bit.val = _\n",
+        "    rw [ih]\n",
+        "    fin_cases bit <;> simp [toBits, HermiteBoundaryInjection.wordValue, Nat.add_comm]\n",
+        "\n",
+        "theorem wordSampleIndex_eq (n : Nat) (x : Word (n + 1)) :\n",
+        "    HermiteBoundaryInjection.wordSampleIndex n (toBits x) (toBits_length x) =\n",
+        "      sampleEquiv (n + 1) x := by\n",
+        "  apply Fin.ext\n",
+        "  exact (sampleEquiv_value x).symm\n",
+        "\n",
+        "theorem sampleEquiv_public {n : Nat} (x : PrimitiveBasis n) :\n",
+        "    sampleEquiv n (wordOfBasis (fun i => x i.rev)) = primitiveBasisLEEquiv n x := by\n",
+        "  change primitiveBasisLEEquiv n\n",
+        "    (fun i => toBasis (wordOfBasis (fun j => x j.rev)) i.rev) = _\n",
+        "  simp only [toBasis_wordOfBasis, Fin.rev_rev]\n",
+        "\n",
+        "end QuantumBlockEncoding.TensorTrainWord\n"
+      ],
+      "imports": [
+        "QuantumBlockEncoding.TensorTrainSchedule",
+        "QuantumBlockEncoding.HermiteBoundaryInjection"
+      ]
+    },
+    {
+      "path": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "sha256": "3b9c745db873f678b80bc7ddc3200eb9ed9d4ba14587f7ad9edeb01251131000",
+      "full_source_lines": [
+        "import QuantumBlockEncoding.TensorTrainSchedule\n",
+        "import QuantumBlockEncoding.RealIsometryCompletion\n",
+        "import QuantumBlockEncoding.GrayGivensCompiler\n",
+        "import QuantumBlockEncoding.SequentialPrimitiveAssembly\n",
+        "import QuantumBlockEncoding.TensorTrainLocalCompiler\n",
+        "\n",
+        "/-!\n",
+        "# Primitive preparation from bounded normalized real tensor trains\n",
+        "\n",
+        "The signed residual boundary is absorbed into the first canonical core, so\n",
+        "initialization is the genuine empty circuit on a computational-zero bond.\n",
+        "Local matrices are completed on their occupied columns and compiled through\n",
+        "the checked special-orthogonal Gray/Givens backend. Classical existence is\n",
+        "kept separate from arithmetic preprocessing complexity.\n",
+        "-/\n",
+        "\n",
+        "namespace QuantumBlockEncoding.TensorTrainPrimitivePreparation\n",
+        "\n",
+        "open scoped BigOperators\n",
+        "open TensorTrainCanonical TensorTrainSchedule SequentialBondPreparation\n",
+        "\n",
+        "def boundaryRow {l : ℕ} (u : Fin l → ℝ) : _root_.Matrix (Fin 1) (Fin l) ℝ := fun _ a => u a\n",
+        "\n",
+        "theorem boundaryRow_isometry {l : ℕ} (u : Fin l → ℝ) (hu : mass u = 1) :\n",
+        "    boundaryRow u * (boundaryRow u).transpose = 1 := by\n",
+        "  ext a b\n",
+        "  fin_cases a\n",
+        "  fin_cases b\n",
+        "  simpa [boundaryRow, mass, pow_two, _root_.Matrix.mul_apply,\n",
+        "    _root_.Matrix.transpose_apply, _root_.Matrix.one_apply] using hu\n",
+        "\n",
+        "theorem boundaryCore_isometry {l r : ℕ} (u : Fin l → ℝ) (hu : mass u = 1)\n",
+        "    (A : TensorTrainCanonical.Core l r) (hA : A * A.transpose = 1) :\n",
+        "    (boundaryRow u * A) * (boundaryRow u * A).transpose = 1 := by\n",
+        "  rw [_root_.Matrix.transpose_mul]\n",
+        "  calc\n",
+        "    _ = boundaryRow u * (A * A.transpose) * (boundaryRow u).transpose := by\n",
+        "      simp only [_root_.Matrix.mul_assoc]\n",
+        "    _ = 1 := by rw [hA, _root_.Matrix.mul_one, boundaryRow_isometry u hu]\n",
+        "\n",
+        "theorem boundaryCore_contract {n l m r : ℕ} (u : Fin l → ℝ)\n",
+        "    (A : TensorTrainCanonical.Core l m) (C : Chain n m r) (x : Word (n + 1)) :\n",
+        "    contract (.cons (boundaryRow u * A) C) x = boundaryRow u * contract (.cons A C) x := by\n",
+        "  have hs : slice (boundaryRow u * A) x.1 = boundaryRow u * slice A x.1 := by\n",
+        "    ext a b\n",
+        "    rfl\n",
+        "  simp only [contract, hs, _root_.Matrix.mul_assoc]\n",
+        "\n",
+        "/-- Eliminate the signed initial residual by absorbing it into the first\n",
+        "row-isometric core. This is not a free state-initialization assumption. -/\n",
+        "theorem exists_unitBoundary_canonical {n B : ℕ} (C : Chain (n + 1) 1 1)\n",
+        "    (hB : maxBond C ≤ B)\n",
+        "    (hNorm : (∑ x : Word (n + 1), (contract C x 0 0) ^ 2) = 1) :\n",
+        "    ∃ D : Chain (n + 1) 1 1, RightCanonical D ∧ maxBond D ≤ B ∧\n",
+        "      ∀ x, contract D x 0 0 = contract C x 0 0 := by\n",
+        "  obtain ⟨l', u, D, hD, hRanks, hu, hAmp⟩ := exists_normalized_state C hNorm\n",
+        "  have hDB : maxBond D ≤ B := hRanks.maxBond_le.trans hB\n",
+        "  have hOne : 1 ≤ B := by\n",
+        "    have h := (rankAt_le_maxBond C 0).trans hB\n",
+        "    simpa only [rankAt_zero] using h\n",
+        "  cases D with\n",
+        "  | @cons _ _ m _ A tail =>\n",
+        "    refine ⟨.cons (boundaryRow u * A) tail, ⟨boundaryCore_isometry u hu A hD.1, hD.2⟩,\n",
+        "      max_le hOne ((le_max_right _ _).trans hDB), ?_⟩\n",
+        "    intro x\n",
+        "    rw [boundaryCore_contract]\n",
+        "    simpa [boundaryRow, _root_.Matrix.mul_apply] using (hAmp x).symm\n",
+        "\n",
+        "/-- Reindex only the finite bond labels of a local stage. -/\n",
+        "def transportStage {B C : Type*} (e : B ≃ C) (U : Stage C) : Stage B :=\n",
+        "  fun row col => U (row.1, e row.2) (col.1, e col.2)\n",
+        "\n",
+        "theorem run_transport {B C : Type*} [Fintype B] [Fintype C] [DecidableEq B] [DecidableEq C]\n",
+        "    (e : B ≃ C) (U : ℕ → Stage C) (boundary : B → ℂ)\n",
+        "    (n : ℕ) (x : PrimitiveBasis n) (b : C) :\n",
+        "    run U (fun c => boundary (e.symm c)) n (x, b) =\n",
+        "      run (fun t => transportStage e (U t)) boundary n (x, e.symm b) := by\n",
+        "  induction n generalizing b with\n",
+        "  | zero => rfl\n",
+        "  | succ n ih =>\n",
+        "    rw [run, step_apply, run, step_apply]\n",
+        "    simp_rw [ih]\n",
+        "    have he := e.symm.sum_comp (fun a : B => U n (x (Fin.last n), b) (0, e a) *\n",
+        "      run (fun t => transportStage e (U t)) boundary n (Fin.init x, a))\n",
+        "    simpa only [transportStage, Equiv.apply_symm_apply] using he\n",
+        "\n",
+        "theorem bondIndex_zero (q : ℕ) : (primitiveBasisLEEquiv q (fun _ => 0)).val = 0 := by\n",
+        "  induction q with\n",
+        "  | zero => rfl\n",
+        "  | succ q ih =>\n",
+        "    rw [primitiveBasisLEEquiv_succ_value]\n",
+        "    simpa only [Fin.val_zero, Nat.zero_add, Nat.mul_zero] using congrArg (2 * ·) ih\n",
+        "\n",
+        "theorem bondIndex_zero_iff {q : ℕ} (b : PrimitiveBasis q) :\n",
+        "    (primitiveBasisLEEquiv q b).val = 0 ↔ b = (fun _ => 0) := by\n",
+        "  constructor\n",
+        "  · intro hb\n",
+        "    apply (primitiveBasisLEEquiv q).injective\n",
+        "    apply Fin.ext\n",
+        "    rw [hb, bondIndex_zero]\n",
+        "  · rintro rfl\n",
+        "    exact bondIndex_zero q\n",
+        "\n",
+        "theorem initial_padding {q : ℕ} (b : PrimitiveBasis q) :\n",
+        "    padVector (fun _ : Fin 1 => (1 : ℂ)) (primitiveBasisLEEquiv q b) =\n",
+        "      evalPrimitiveCircuit ([] : PrimitiveCircuit q) b (fun _ => 0) := by\n",
+        "  by_cases hb : b = (fun _ => 0)\n",
+        "  · subst b\n",
+        "    simp [padVector, zeroBasisIndex, evalPrimitiveCircuit]\n",
+        "  · have hz : ¬ (primitiveBasisLEEquiv q b).val < 1 := by\n",
+        "      have h := (bondIndex_zero_iff b).not.mpr hb\n",
+        "      omega\n",
+        "    simp [padVector, hz, evalPrimitiveCircuit, hb]\n",
+        "\n",
+        "-- Lean 4.33 requires explicit permission to unfold the definitionally equal\n",
+        "-- grid-size aliases when matching named-basis and finite-index columns.\n",
+        "set_option backward.isDefEq.respectTransparency false in\n",
+        "/-- Actual local circuit columns imply the complete sequential source state\n",
+        "from an empty initial circuit, including terminal cleanup. -/\n",
+        "theorem run_circuits_clean {n q : ℕ} (D : Chain n 1 1) (hB : maxBond D ≤ 2 ^ q)\n",
+        "    (stages : ℕ → PrimitiveCircuit (q + 1))\n",
+        "    (columns : ∀ t, t < n → ∀ bit (b a : PrimitiveBasis q),\n",
+        "      (primitiveBasisLEEquiv q a).val < rankAt D t →\n",
+        "      evalPrimitiveCircuit (stages t) (Fin.snoc b bit) (Fin.snoc a 0) =\n",
+        "        paddedAt D t (bit, primitiveBasisLEEquiv q b) (primitiveBasisLEEquiv q a))\n",
+        "    (x : PrimitiveBasis n) (b : PrimitiveBasis q) :\n",
+        "    run (fun t => circuitStage (stages t))\n",
+        "      (fun c => evalPrimitiveCircuit ([] : PrimitiveCircuit q) c (fun _ => 0)) n (x, b) =\n",
+        "      if b = (fun _ => 0) then (contract D (wordOfBasis x) 0 0 : ℂ) else 0 := by\n",
+        "  let e : Fin (2 ^ q) ≃ PrimitiveBasis q := (primitiveBasisLEEquiv q).symm\n",
+        "  let U := fun t => transportStage e (circuitStage (stages t))\n",
+        "  have hc : ∀ t, t < n → ∀ bit (b a : Fin (2 ^ q)), a.val < rankAt D t →\n",
+        "      U t (bit, b) (0, a) = paddedAt D t (bit, b) a := by\n",
+        "    intro t ht bit b a ha\n",
+        "    have he (a : Fin (2 ^ q)) : primitiveBasisLEEquiv q (e a) = a :=\n",
+        "      (primitiveBasisLEEquiv q).apply_symm_apply a\n",
+        "    change evalPrimitiveCircuit (stages t) (Fin.snoc (e b) bit) (Fin.snoc (e a) 0) = _\n",
+        "    simpa only [he] using columns t ht bit (e b) (e a) (by rw [he]; exact ha)\n",
+        "  have hrun := TensorTrainSchedule.run_terminal_clean D hB U hc (fun _ => 1)\n",
+        "    x (primitiveBasisLEEquiv q b)\n",
+        "  have htransport := run_transport e (fun t => circuitStage (stages t))\n",
+        "    (padVector (fun _ : Fin 1 => (1 : ℂ))) n x b\n",
+        "  change run (fun t => circuitStage (stages t))\n",
+        "    (fun c => padVector (fun _ : Fin 1 => (1 : ℂ)) (primitiveBasisLEEquiv q c)) n (x, b) =\n",
+        "      run U (padVector (fun _ : Fin 1 => (1 : ℂ))) n (x, primitiveBasisLEEquiv q b) at htransport\n",
+        "  simp_rw [initial_padding] at htransport\n",
+        "  rw [htransport]\n",
+        "  simp only [bondIndex_zero_iff] at hrun\n",
+        "  simpa [U, _root_.Matrix.vecMul, dotProduct] using hrun\n",
+        "\n",
+        "/-- The published data-low/bond-high circuit realizes the chain in the\n",
+        "corresponding most-significant-bit-first word order. -/\n",
+        "theorem publicCircuit_clean {n q : ℕ} (D : Chain n 1 1) (hB : maxBond D ≤ 2 ^ q)\n",
+        "    (stages : ℕ → PrimitiveCircuit (q + 1))\n",
+        "    (columns : ∀ t, t < n → ∀ bit (b a : PrimitiveBasis q),\n",
+        "      (primitiveBasisLEEquiv q a).val < rankAt D t →\n",
+        "      evalPrimitiveCircuit (stages t) (Fin.snoc b bit) (Fin.snoc a 0) =\n",
+        "        paddedAt D t (bit, primitiveBasisLEEquiv q b) (primitiveBasisLEEquiv q a))\n",
+        "    (x : PrimitiveBasis n) (b : PrimitiveBasis q) :\n",
+        "    evalPrimitiveCircuit (SequentialPrimitiveAssembly.publicCircuit [] stages n)\n",
+        "      (Fin.append x b) (fun _ => 0) = if b = (fun _ => 0) then\n",
+        "        (contract D (wordOfBasis (fun i => x i.rev)) 0 0 : ℂ) else 0 := by\n",
+        "  have hzero : (fun _ : Fin (n + q) => (0 : Fin 2)) = Fin.append (fun _ => 0) (fun _ => 0) := by\n",
+        "    funext i\n",
+        "    refine Fin.addCases (fun i => ?_) (fun i => ?_) i <;> simp\n",
+        "  rw [hzero, SequentialPrimitiveAssembly.publicCircuit_column]\n",
+        "  exact run_circuits_clean D hB stages columns _ b\n",
+        "\n",
+        "theorem assemble_gateCount (q : ℕ) (stages : ℕ → PrimitiveCircuit (q + 1)) (n : ℕ) :\n",
+        "    (SequentialPrimitiveAssembly.assemble q stages n).gateCount =\n",
+        "      ∑ t ∈ Finset.range n, (stages t).gateCount := by\n",
+        "  induction n with\n",
+        "  | zero => simp [SequentialPrimitiveAssembly.assemble, PrimitiveCircuit.gateCount]\n",
+        "  | succ n ih =>\n",
+        "    simp only [SequentialPrimitiveAssembly.assemble, PrimitiveCircuit.gateCount,\n",
+        "      List.length_append, List.length_map, Finset.sum_range_succ]\n",
+        "    have hp : (SequentialPrimitiveAssembly.placeStage n (stages n)).length = (stages n).length :=\n",
+        "      SequentialPrimitiveAssembly.placeStage_gateCount n (stages n)\n",
+        "    rw [hp]\n",
+        "    exact congrArg (fun k => k + (stages n).length) ih\n",
+        "\n",
+        "/-- Gate-list length, not only an arithmetic count proxy, is bounded. -/\n",
+        "theorem publicCircuit_gateCount_bound {q : ℕ} (stages : ℕ → PrimitiveCircuit (q + 1))\n",
+        "    (n bound : ℕ) (h : ∀ t, t < n → (stages t).gateCount ≤ bound) :\n",
+        "    (SequentialPrimitiveAssembly.publicCircuit [] stages n).gateCount ≤ n * bound := by\n",
+        "  have he : (SequentialPrimitiveAssembly.publicCircuit [] stages n).gateCount =\n",
+        "      ∑ t ∈ Finset.range n, (stages t).gateCount := by\n",
+        "    simp only [SequentialPrimitiveAssembly.publicCircuit, PrimitiveWireRename.circuit,\n",
+        "      SequentialPrimitiveAssembly.withInitial, PrimitiveCircuit.gateCount, List.length_map,\n",
+        "      List.length_append]\n",
+        "    change (SequentialPrimitiveAssembly.pad ([] : PrimitiveCircuit q) n).gateCount +\n",
+        "      (SequentialPrimitiveAssembly.assemble q stages n).gateCount = _\n",
+        "    rw [SequentialPrimitiveAssembly.pad_gateCount, assemble_gateCount]\n",
+        "    simp [PrimitiveCircuit.gateCount]\n",
+        "  rw [he]\n",
+        "  calc\n",
+        "    _ ≤ ∑ _t ∈ Finset.range n, bound :=\n",
+        "      Finset.sum_le_sum (fun t ht => h t (Finset.mem_range.mp ht))\n",
+        "    _ = _ := by simp\n",
+        "\n",
+        "/-- Any bounded normalized nonempty real scalar-boundary tensor train has\n",
+        "an actual clean primitive preparation. The bound counts every instruction in\n",
+        "the circuit list; initialization uses zero gates after exact boundary absorption.\n",
+        "This theorem makes no claim about classical computation of its exact angles. -/\n",
+        "theorem exists_primitive_preparation {n q : ℕ} (C : Chain (n + 1) 1 1)\n",
+        "    (hB : maxBond C ≤ 2 ^ q)\n",
+        "    (hNorm : (∑ x : Word (n + 1), (contract C x 0 0) ^ 2) = 1) :\n",
+        "    ∃ circuit : PrimitiveCircuit ((n + 1) + q),\n",
+        "      circuit.gateCount ≤ (n + 1) * (6 * (2 ^ q) ^ 3) ∧ circuit.resource.oracleCalls = 0 ∧\n",
+        "      evalPrimitiveCircuit circuit ∈ _root_.Matrix.unitaryGroup (PrimitiveBasis ((n + 1) + q)) ℂ ∧\n",
+        "      ∀ (x : PrimitiveBasis (n + 1)) (b : PrimitiveBasis q),\n",
+        "        evalPrimitiveCircuit circuit (Fin.append x b) (fun _ => 0) =\n",
+        "          if b = (fun _ => 0) then\n",
+        "            (contract C (wordOfBasis (fun i => x i.rev)) 0 0 : ℂ) else 0 := by\n",
+        "  classical\n",
+        "  obtain ⟨D, hD, hDB, hAmp⟩ := exists_unitBoundary_canonical C hB hNorm\n",
+        "  have hex : ∀ t : ℕ, ∃ stage : PrimitiveCircuit (q + 1),\n",
+        "      stage.gateCount ≤ 6 * (2 ^ q) ^ 3 ∧\n",
+        "      (t < n + 1 → ∀ bit (b a : PrimitiveBasis q),\n",
+        "        (primitiveBasisLEEquiv q a).val < rankAt D t →\n",
+        "        evalPrimitiveCircuit stage (Fin.snoc b bit) (Fin.snoc a 0) =\n",
+        "          paddedAt D t (bit, primitiveBasisLEEquiv q b) (primitiveBasisLEEquiv q a)) := by\n",
+        "    intro t\n",
+        "    by_cases ht : t < n + 1\n",
+        "    · obtain ⟨stage, hgate, hcol⟩ := TensorTrainLocalCompiler.exists_local_circuit D hD hDB t ht\n",
+        "      exact ⟨stage, hgate, fun _ => hcol⟩\n",
+        "    · exact ⟨[], by simp [PrimitiveCircuit.gateCount], fun h => False.elim (ht h)⟩\n",
+        "  choose stages hgate hcols using hex\n",
+        "  let circuit := SequentialPrimitiveAssembly.publicCircuit [] stages (n + 1)\n",
+        "  refine ⟨circuit, publicCircuit_gateCount_bound stages (n + 1) _ (fun t _ => hgate t),\n",
+        "    rfl, evalPrimitiveCircuit_unitary circuit, ?_⟩\n",
+        "  intro x b\n",
+        "  rw [show circuit = SequentialPrimitiveAssembly.publicCircuit [] stages (n + 1) from rfl,\n",
+        "    publicCircuit_clean D hDB stages hcols x b, hAmp]\n",
+        "\n",
+        "end QuantumBlockEncoding.TensorTrainPrimitivePreparation\n"
+      ],
+      "imports": [
+        "QuantumBlockEncoding.TensorTrainSchedule",
+        "QuantumBlockEncoding.RealIsometryCompletion",
+        "QuantumBlockEncoding.GrayGivensCompiler",
+        "QuantumBlockEncoding.SequentialPrimitiveAssembly",
+        "QuantumBlockEncoding.TensorTrainLocalCompiler"
+      ]
+    }
+  ],
+  "inventory": [
+    {
+      "name": "QuantumBlockEncoding.TensorTrainLocalCompiler.exists_SO_named",
+      "module": "QuantumBlockEncoding/TensorTrainLocalCompiler.lean",
+      "kind": "theorem",
+      "line": 12
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainLocalCompiler.localIndex",
+      "module": "QuantumBlockEncoding/TensorTrainLocalCompiler.lean",
+      "kind": "def",
+      "line": 36
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainLocalCompiler.localIndex_snoc",
+      "module": "QuantumBlockEncoding/TensorTrainLocalCompiler.lean",
+      "kind": "theorem",
+      "line": 39
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainLocalCompiler.paddedAt_real",
+      "module": "QuantumBlockEncoding/TensorTrainLocalCompiler.lean",
+      "kind": "theorem",
+      "line": 44
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainLocalCompiler.paddedAt_im_zero",
+      "module": "QuantumBlockEncoding/TensorTrainLocalCompiler.lean",
+      "kind": "theorem",
+      "line": 56
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainLocalCompiler.activePositions",
+      "module": "QuantumBlockEncoding/TensorTrainLocalCompiler.lean",
+      "kind": "def",
+      "line": 61
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainLocalCompiler.activeColumns",
+      "module": "QuantumBlockEncoding/TensorTrainLocalCompiler.lean",
+      "kind": "def",
+      "line": 69
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainLocalCompiler.activeColumns_isometry",
+      "module": "QuantumBlockEncoding/TensorTrainLocalCompiler.lean",
+      "kind": "theorem",
+      "line": 77
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainLocalCompiler.exists_local_circuit_with_resources",
+      "module": "QuantumBlockEncoding/TensorTrainLocalCompiler.lean",
+      "kind": "theorem",
+      "line": 99
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainLocalCompiler.exists_local_circuit",
+      "module": "QuantumBlockEncoding/TensorTrainLocalCompiler.lean",
+      "kind": "theorem",
+      "line": 139
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainWord.toBasis",
+      "module": "QuantumBlockEncoding/TensorTrainWord.lean",
+      "kind": "def",
+      "line": 10
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainWord.toBasis_wordOfBasis",
+      "module": "QuantumBlockEncoding/TensorTrainWord.lean",
+      "kind": "theorem",
+      "line": 14
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainWord.wordOfBasis_toBasis",
+      "module": "QuantumBlockEncoding/TensorTrainWord.lean",
+      "kind": "theorem",
+      "line": 20
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainWord.basisEquiv",
+      "module": "QuantumBlockEncoding/TensorTrainWord.lean",
+      "kind": "def",
+      "line": 26
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainWord.reverseBasis",
+      "module": "QuantumBlockEncoding/TensorTrainWord.lean",
+      "kind": "def",
+      "line": 32
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainWord.sampleEquiv",
+      "module": "QuantumBlockEncoding/TensorTrainWord.lean",
+      "kind": "def",
+      "line": 38
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainWord.toBits",
+      "module": "QuantumBlockEncoding/TensorTrainWord.lean",
+      "kind": "def",
+      "line": 41
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainWord.toBits_length",
+      "module": "QuantumBlockEncoding/TensorTrainWord.lean",
+      "kind": "theorem",
+      "line": 45
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainWord.primitive_snoc_value",
+      "module": "QuantumBlockEncoding/TensorTrainWord.lean",
+      "kind": "theorem",
+      "line": 50
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainWord.sampleEquiv_value",
+      "module": "QuantumBlockEncoding/TensorTrainWord.lean",
+      "kind": "theorem",
+      "line": 73
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainWord.wordSampleIndex_eq",
+      "module": "QuantumBlockEncoding/TensorTrainWord.lean",
+      "kind": "theorem",
+      "line": 90
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainWord.sampleEquiv_public",
+      "module": "QuantumBlockEncoding/TensorTrainWord.lean",
+      "kind": "theorem",
+      "line": 96
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainPrimitivePreparation.boundaryRow",
+      "module": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "kind": "def",
+      "line": 22
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainPrimitivePreparation.boundaryRow_isometry",
+      "module": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "kind": "theorem",
+      "line": 24
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainPrimitivePreparation.boundaryCore_isometry",
+      "module": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "kind": "theorem",
+      "line": 32
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainPrimitivePreparation.boundaryCore_contract",
+      "module": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "kind": "theorem",
+      "line": 41
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainPrimitivePreparation.exists_unitBoundary_canonical",
+      "module": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "kind": "theorem",
+      "line": 51
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainPrimitivePreparation.transportStage",
+      "module": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "kind": "def",
+      "line": 70
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainPrimitivePreparation.run_transport",
+      "module": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "kind": "theorem",
+      "line": 73
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainPrimitivePreparation.bondIndex_zero",
+      "module": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "kind": "theorem",
+      "line": 87
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainPrimitivePreparation.bondIndex_zero_iff",
+      "module": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "kind": "theorem",
+      "line": 94
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainPrimitivePreparation.initial_padding",
+      "module": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "kind": "theorem",
+      "line": 104
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainPrimitivePreparation.run_circuits_clean",
+      "module": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "kind": "theorem",
+      "line": 120
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainPrimitivePreparation.publicCircuit_clean",
+      "module": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "kind": "theorem",
+      "line": 153
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainPrimitivePreparation.assemble_gateCount",
+      "module": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "kind": "theorem",
+      "line": 169
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainPrimitivePreparation.publicCircuit_gateCount_bound",
+      "module": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "kind": "theorem",
+      "line": 183
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainPrimitivePreparation.exists_primitive_preparation",
+      "module": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "kind": "theorem",
+      "line": 205
+    }
+  ],
+  "ambient_scope": [
+    {
+      "module": "QuantumBlockEncoding/TensorTrainLocalCompiler.lean",
+      "commands": [
+        "namespace QuantumBlockEncoding.TensorTrainLocalCompiler",
+        "open scoped BigOperators",
+        "open TensorTrainCanonical TensorTrainSchedule SequentialBondPreparation",
+        "end QuantumBlockEncoding.TensorTrainLocalCompiler"
+      ],
+      "additional_named_instances": [],
+      "private_helpers": [],
+      "scope": "Every target source line is retained, including proof-local definitions, imports, namespaces, attributes, scoped option and final end."
+    },
+    {
+      "module": "QuantumBlockEncoding/TensorTrainWord.lean",
+      "commands": [
+        "namespace QuantumBlockEncoding.TensorTrainWord",
+        "open TensorTrainCanonical TensorTrainSchedule RealAmplitudePreparation",
+        "end QuantumBlockEncoding.TensorTrainWord"
+      ],
+      "additional_named_instances": [],
+      "private_helpers": [],
+      "scope": "Every target source line is retained, including proof-local definitions, imports, namespaces, attributes, scoped option and final end."
+    },
+    {
+      "module": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "commands": [
+        "namespace QuantumBlockEncoding.TensorTrainPrimitivePreparation",
+        "open scoped BigOperators",
+        "open TensorTrainCanonical TensorTrainSchedule SequentialBondPreparation",
+        "set_option backward.isDefEq.respectTransparency false in",
+        "end QuantumBlockEncoding.TensorTrainPrimitivePreparation"
+      ],
+      "additional_named_instances": [],
+      "private_helpers": [],
+      "scope": "Every target source line is retained, including proof-local definitions, imports, namespaces, attributes, scoped option and final end."
+    }
+  ],
+  "provider_index": [
+    {
+      "path": "QuantumBlockEncoding/AdjacentGivens.lean",
+      "sha256": "a43c3b4f543738cb317be01fa664fd466bfa28e21c33d10c7a90e74037a58d9c",
+      "imports": [
+        "QuantumBlockEncoding.RealAmplitudePreparation",
+        "QuantumBlockEncoding.SelectedRyPlane"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/BlockEncoding.lean",
+      "sha256": "fe06f75a29822e28ccdbfedfb0b0e87f90872620fae7aed359085fad8fae64b4",
+      "imports": [
+        "QuantumBlockEncoding.Circuit"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/BlockEncodingClassics.lean",
+      "sha256": "94ac6632924df0a49b1ebd99bb5d9ed69b2ea463ec527033f38bd73deeb1346a",
+      "imports": [
+        "QuantumBlockEncoding.BlockEncoding"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/Circuit.lean",
+      "sha256": "286c7b579f75891cb34f01d13e84a5f00e6b509a480efaaef9472a58a67a0f94",
+      "imports": [
+        "QuantumBlockEncoding.Resources"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/CircuitSemantics.lean",
+      "sha256": "761ac3a98ea5a82ad5030e280e3810821081d10cec3d0a0a1d3c2add3fcd4666",
+      "imports": [
+        "QuantumBlockEncoding.BlockEncoding"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/ConcreteSemantics.lean",
+      "sha256": "4b4e1c3612ea2d4eed3a2d5dbfec39ffae81263fd9ceb521c1a59231f786caa1",
+      "imports": [
+        "Mathlib.Data.Complex.Basic",
+        "Mathlib.Data.Matrix.Mul",
+        "Mathlib.LinearAlgebra.UnitaryGroup",
+        "QuantumBlockEncoding.BlockEncodingClassics",
+        "QuantumBlockEncoding.CircuitSemantics",
+        "QuantumBlockEncoding.StatePreparation"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/Core.lean",
+      "sha256": "c7e76d91c7fcfd844177f99c0399a3465a7d8360d3a522acb5d4c4e2f8277894",
+      "imports": [
+        "Std"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/Examples/RobinHeat.lean",
+      "sha256": "f2b2691ecc6300705a1dd319fa4386562e2b267e806ff905b66d81303b6645ff",
+      "imports": [
+        "QuantumBlockEncoding.GHL2025"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/GHL2025.lean",
+      "sha256": "2dba31e056b134107b34c7e41c6a5c3a2130c22a2634372d1e9ce794961a4fd4",
+      "imports": [
+        "QuantumBlockEncoding.BlockEncoding",
+        "QuantumBlockEncoding.CircuitSemantics"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/GrayBasis.lean",
+      "sha256": "c77348ac8e29bcbcdaee8ac2728f86263c17a131fc23fdb5d0e98b0bfa79080e",
+      "imports": [
+        "QuantumBlockEncoding.PrimitiveBasisLE"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/GrayGivensCompiler.lean",
+      "sha256": "21bb92938d2d0d81341700123e66195fdebb12e72db7faf066a897479fe942ce",
+      "imports": [
+        "QuantumBlockEncoding.GrayBasis",
+        "QuantumBlockEncoding.AdjacentGivens"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/HermiteBernstein.lean",
+      "sha256": "661618d9c10826491ee293c7c411ac2d55056426739f4bbfd3e7c410c05e4bff",
+      "imports": [
+        "QuantumBlockEncoding.HermitePolynomial",
+        "Mathlib.RingTheory.Polynomial.Bernstein"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/HermiteBoundaryInjection.lean",
+      "sha256": "7b16e1ee4b88b9e775cee1a63482c60df2121ce88ad43f10e72ca2e88c6d472c",
+      "imports": [
+        "QuantumBlockEncoding.HermiteBernstein",
+        "QuantumBlockEncoding.HermiteSampleStructure"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/HermiteCutRank.lean",
+      "sha256": "4953db6b9d5e255f0dd63094a243ef7bb6685053e86e920ffe02552faee86ce0",
+      "imports": [
+        "QuantumBlockEncoding.HermitePolynomial",
+        "Mathlib.LinearAlgebra.Matrix.Rank",
+        "Mathlib.Algebra.Order.Floor.Semiring"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/HermitePolynomial.lean",
+      "sha256": "f8a3e1d5f29aed1228b6ede3577a9af1e76301559172ee67a266fcb0d56fee1e",
+      "imports": [
+        "Mathlib.Analysis.SpecialFunctions.ExpDeriv",
+        "Mathlib.Analysis.Calculus.Deriv.Polynomial",
+        "Mathlib.Analysis.Calculus.IteratedDeriv.Lemmas",
+        "Mathlib.Algebra.Polynomial.Taylor",
+        "Mathlib.Algebra.Polynomial.FieldDivision",
+        "Mathlib.RingTheory.PowerSeries.Exp",
+        "Mathlib.RingTheory.PowerSeries.WellKnown",
+        "Mathlib.RingTheory.PowerSeries.Trunc",
+        "Mathlib.Tactic"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/HermiteSampleStructure.lean",
+      "sha256": "eda04790bd59d39a49da0e98bc9602261ef7c5b0cdb531d88a97c3f6d1036d1f",
+      "imports": [
+        "QuantumBlockEncoding.HermiteCutRank",
+        "QuantumBlockEncoding.HermiteStatePreparation"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/HermiteStatePreparation.lean",
+      "sha256": "dee753c9379124c29f3c2b08e2b597714b9f9dacca073ec315add33f7f169ec7",
+      "imports": [
+        "QuantumBlockEncoding.HermitePolynomial",
+        "QuantumBlockEncoding.RealAmplitudePreparation"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/PrimitiveBasisLE.lean",
+      "sha256": "00672a2bc6aab0861bf9dfed3eab651d3b649d3c5386d6f6ca8374e012e366ed",
+      "imports": [
+        "QuantumBlockEncoding.PrimitiveSemantics"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/PrimitiveCircuit.lean",
+      "sha256": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c",
+      "imports": [
+        "QuantumBlockEncoding.Resources",
+        "Mathlib.Analysis.SpecialFunctions.Trigonometric.Inverse",
+        "Mathlib.Data.Rat.Defs",
+        "Mathlib.Data.Real.Basic",
+        "Mathlib.Data.Finset.Lattice.Fold"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/PrimitiveSemantics.lean",
+      "sha256": "a68955f9dbe0e951c2751fcd14c535c28da7c8bcac75787b0005808b951f28de",
+      "imports": [
+        "QuantumBlockEncoding.PrimitiveCircuit",
+        "QuantumBlockEncoding.Robin.Hadamard8Verified",
+        "Mathlib.Tactic"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/PrimitiveWireRename.lean",
+      "sha256": "9f9b653ddda82a40bc9eafde31f6c932f59f631c03bfe24fbdc282acb8307727",
+      "imports": [
+        "QuantumBlockEncoding.RealAmplitudePreparation"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/RealAmplitudePreparation.lean",
+      "sha256": "3c1c145a5262b85159bcead1997ec87875184ac06dfe4da8a6595ae063e434f7",
+      "imports": [
+        "QuantumBlockEncoding.UniformlyControlledRy",
+        "QuantumBlockEncoding.PrimitiveBasisLE",
+        "QuantumBlockEncoding.StatePreparation"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/RealIsometryCompletion.lean",
+      "sha256": "e4f41db2f5e3c35f113fa4d91799316ccdfe305753f736d9f9669cda08346017",
+      "imports": [
+        "Mathlib.Analysis.InnerProductSpace.PiL2",
+        "Mathlib.LinearAlgebra.Matrix.Determinant.Basic"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/Resources.lean",
+      "sha256": "d7d939aa5e74965a28a3835750aa7ca5fa27aeeb0ef14ad1f5555cbf6279e09d",
+      "imports": [
+        "QuantumBlockEncoding.Core"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/Robin/ComplexLCU.lean",
+      "sha256": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843",
+      "imports": [
+        "QuantumBlockEncoding.ConcreteSemantics",
+        "Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic",
+        "Mathlib.Data.Matrix.Block",
+        "Mathlib.LinearAlgebra.Matrix.Kronecker",
+        "Mathlib.LinearAlgebra.Matrix.Reindex",
+        "Mathlib.Tactic"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/Robin/ComplexLCUProjection.lean",
+      "sha256": "fa0b84ce5c819184f190b81b4d259e12f725e6196cd37147984fab76fe4ec340",
+      "imports": [
+        "QuantumBlockEncoding.Robin.ComplexLCU",
+        "Mathlib.Tactic"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/Robin/EvolvedCandidates.lean",
+      "sha256": "93875b1775a857e70ea3447a892cf245b0d4a77a0dcb0ec3310c85bdf55e5268",
+      "imports": [
+        "QuantumBlockEncoding.Robin.SourceBaseline",
+        "QuantumBlockEncoding.Robin.WeightedPermutation",
+        "Mathlib.Tactic"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/Robin/FixedN3Data.lean",
+      "sha256": "5d9cd56041be0af97ad2385aae2714f6ad05331a4df91ffc0704c2e983b453b8",
+      "imports": [
+        "QuantumBlockEncoding.RobinEvolution",
+        "QuantumBlockEncoding.BlockEncodingClassics",
+        "Mathlib.Tactic"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/Robin/Hadamard8Verified.lean",
+      "sha256": "138b0ecf4a43b888d43d7e4d7682218139725644695952c0f3eb8d99663acfd4",
+      "imports": [
+        "QuantumBlockEncoding.Robin.EvolvedCandidates",
+        "QuantumBlockEncoding.Robin.ComplexLCUProjection",
+        "Mathlib.Tactic"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/Robin/SourceBaseline.lean",
+      "sha256": "cc3aa711cb2bc5c4dfb308719e77ac299539d9a1f97f7b45002b4a11cc9a5722",
+      "imports": [
+        "QuantumBlockEncoding.Robin.FixedN3Data",
+        "Mathlib.Analysis.SpecialFunctions.Trigonometric.Inverse",
+        "Mathlib.Tactic"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/Robin/WeightedPermutation.lean",
+      "sha256": "c5c4ab73bd9a1d97f3672bfcb4ef374b9c832afec2935df378408283d2756eaf",
+      "imports": [
+        "QuantumBlockEncoding.Robin.FixedN3Data",
+        "Mathlib.Tactic"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/RobinEvolution.lean",
+      "sha256": "8673572458ff260cf35d6cfce60ffcc52b5b2be721671b3171919e32d0b73a37",
+      "imports": [
+        "QuantumBlockEncoding.RobinMatrix",
+        "Mathlib.Tactic"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/RobinMatrix.lean",
+      "sha256": "1cca5119ac056fe041b25c529909b9fb6c3e4995e04ebde2f69e83fce47a0835",
+      "imports": [
+        "QuantumBlockEncoding.Core",
+        "QuantumBlockEncoding.CircuitSemantics",
+        "QuantumBlockEncoding.Examples.RobinHeat"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/SelectedRyPlane.lean",
+      "sha256": "0098a9ef2bfc1af9eeaa44357b0818628084be35f88854232496e14d715c2f40",
+      "imports": [
+        "QuantumBlockEncoding.UniformlyControlledRy"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/SequentialBondPreparation.lean",
+      "sha256": "ad4542b108d44f196f2a02f78e59b58f43d45b1e890709cf4c22e1222805d5c5",
+      "imports": [
+        "QuantumBlockEncoding.RealAmplitudePreparation"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/SequentialPrimitiveAssembly.lean",
+      "sha256": "46c8c3aaa6d37a61dadc36dd7ef618b46f7667ffd91047f738b7c3efd40a4f55",
+      "imports": [
+        "QuantumBlockEncoding.PrimitiveWireRename",
+        "QuantumBlockEncoding.SequentialBondPreparation"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/StatePreparation.lean",
+      "sha256": "2585a3b5ef2a58a0f7fb33664552e9166373cec2815eddf2542c9db66cb5f52f",
+      "imports": [
+        "QuantumBlockEncoding.BlockEncoding"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/TensorTrainCanonical.lean",
+      "sha256": "0b51ec0335aaf6248f40b3f8dcf6014172c231b9ae512bf5bb09d84ebf66f808",
+      "imports": [
+        "QuantumBlockEncoding.ThinLQ",
+        "QuantumBlockEncoding.SequentialBondPreparation"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/TensorTrainSchedule.lean",
+      "sha256": "2cd10d741a8655132286cbba741293b6ab2a89c713d8553beebd2820b0aab8e3",
+      "imports": [
+        "QuantumBlockEncoding.TensorTrainCanonical"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/ThinLQ.lean",
+      "sha256": "1b5b8434ba90063bb7d14ffe133ca7733a38772d4fe95f24427800d4edc62614",
+      "imports": [
+        "Mathlib.Analysis.InnerProductSpace.GramSchmidtOrtho",
+        "Mathlib.Data.Matrix.Basic"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    },
+    {
+      "path": "QuantumBlockEncoding/UniformlyControlledRy.lean",
+      "sha256": "78d1aed9bb4068bcee138b665bd93a389463bbb591108837758a6d80752a1cf1",
+      "imports": [
+        "QuantumBlockEncoding.PrimitiveSemantics"
+      ],
+      "permission": "fixed provider read by relative source path after exact hash equality; not an independently audited theorem inventory"
+    }
+  ],
+  "type_authority": "No signature/statement-body extraction is supplied. Full lexical sources are byte-exact inputs; actual elaborated signatures require independent fresh #check.",
+  "dependency_context": [
+    {
+      "path": "lean-toolchain",
+      "sha256": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+      "full_source_lines": [
+        "leanprover/lean4:v4.33.0\n"
+      ]
+    },
+    {
+      "path": "lake-manifest.json",
+      "sha256": "510171e8214a2ac5e00f16c1bf92ad474d2de42c4cd2dc2b3d411272f7b58763",
+      "full_source_lines": [
+        "{\"version\": \"1.2.0\",\n",
+        " \"packagesDir\": \".lake/packages\",\n",
+        " \"packages\":\n",
+        " [{\"url\": \"https://github.com/leanprover-community/mathlib4.git\",\n",
+        "   \"type\": \"git\",\n",
+        "   \"subDir\": null,\n",
+        "   \"scope\": \"\",\n",
+        "   \"rev\": \"db584cd6d46c92f209a44c0f1c829460d327499d\",\n",
+        "   \"name\": \"mathlib\",\n",
+        "   \"manifestFile\": \"lake-manifest.json\",\n",
+        "   \"inputRev\": \"v4.33.0\",\n",
+        "   \"inherited\": false,\n",
+        "   \"configFile\": \"lakefile.lean\"},\n",
+        "  {\"url\": \"https://github.com/leanprover/verso-blueprint\",\n",
+        "   \"type\": \"git\",\n",
+        "   \"subDir\": null,\n",
+        "   \"scope\": \"\",\n",
+        "   \"rev\": \"e0d667222e8222ac4bfd74780f69a2e89cd4655f\",\n",
+        "   \"name\": \"VersoBlueprint\",\n",
+        "   \"manifestFile\": \"lake-manifest.json\",\n",
+        "   \"inputRev\": \"v4.33.0\",\n",
+        "   \"inherited\": false,\n",
+        "   \"configFile\": \"lakefile.lean\"},\n",
+        "  {\"url\": \"https://github.com/leanprover-community/plausible\",\n",
+        "   \"type\": \"git\",\n",
+        "   \"subDir\": null,\n",
+        "   \"scope\": \"leanprover-community\",\n",
+        "   \"rev\": \"b7eb3304aeae834b12dda98993a37f6a41f6f0bb\",\n",
+        "   \"name\": \"plausible\",\n",
+        "   \"manifestFile\": \"lake-manifest.json\",\n",
+        "   \"inputRev\": \"main\",\n",
+        "   \"inherited\": true,\n",
+        "   \"configFile\": \"lakefile.toml\"},\n",
+        "  {\"url\": \"https://github.com/leanprover-community/LeanSearchClient\",\n",
+        "   \"type\": \"git\",\n",
+        "   \"subDir\": null,\n",
+        "   \"scope\": \"leanprover-community\",\n",
+        "   \"rev\": \"5f4d51b81cbd3f6b32b156bfad9056621a040404\",\n",
+        "   \"name\": \"LeanSearchClient\",\n",
+        "   \"manifestFile\": \"lake-manifest.json\",\n",
+        "   \"inputRev\": \"main\",\n",
+        "   \"inherited\": true,\n",
+        "   \"configFile\": \"lakefile.toml\"},\n",
+        "  {\"url\": \"https://github.com/leanprover-community/import-graph\",\n",
+        "   \"type\": \"git\",\n",
+        "   \"subDir\": null,\n",
+        "   \"scope\": \"leanprover-community\",\n",
+        "   \"rev\": \"16f02aa7642864af59f1ff0e384a015994db9118\",\n",
+        "   \"name\": \"importGraph\",\n",
+        "   \"manifestFile\": \"lake-manifest.json\",\n",
+        "   \"inputRev\": \"main\",\n",
+        "   \"inherited\": true,\n",
+        "   \"configFile\": \"lakefile.toml\"},\n",
+        "  {\"url\": \"https://github.com/leanprover-community/ProofWidgets4\",\n",
+        "   \"type\": \"git\",\n",
+        "   \"subDir\": null,\n",
+        "   \"scope\": \"leanprover-community\",\n",
+        "   \"rev\": \"4be2e3d5087eeb272cf5a8853b8f9dd025ef5957\",\n",
+        "   \"name\": \"proofwidgets\",\n",
+        "   \"manifestFile\": \"lake-manifest.json\",\n",
+        "   \"inputRev\": \"main\",\n",
+        "   \"inherited\": true,\n",
+        "   \"configFile\": \"lakefile.lean\"},\n",
+        "  {\"url\": \"https://github.com/leanprover-community/aesop\",\n",
+        "   \"type\": \"git\",\n",
+        "   \"subDir\": null,\n",
+        "   \"scope\": \"leanprover-community\",\n",
+        "   \"rev\": \"3448c0bcc5ce01b2d1546e483ec3620e32df3d0e\",\n",
+        "   \"name\": \"aesop\",\n",
+        "   \"manifestFile\": \"lake-manifest.json\",\n",
+        "   \"inputRev\": \"master\",\n",
+        "   \"inherited\": true,\n",
+        "   \"configFile\": \"lakefile.toml\"},\n",
+        "  {\"url\": \"https://github.com/leanprover-community/quote4\",\n",
+        "   \"type\": \"git\",\n",
+        "   \"subDir\": null,\n",
+        "   \"scope\": \"leanprover-community\",\n",
+        "   \"rev\": \"92c15be17b7caf78c2ad767ec40f89052d908d81\",\n",
+        "   \"name\": \"Qq\",\n",
+        "   \"manifestFile\": \"lake-manifest.json\",\n",
+        "   \"inputRev\": \"master\",\n",
+        "   \"inherited\": true,\n",
+        "   \"configFile\": \"lakefile.toml\"},\n",
+        "  {\"url\": \"https://github.com/leanprover-community/batteries\",\n",
+        "   \"type\": \"git\",\n",
+        "   \"subDir\": null,\n",
+        "   \"scope\": \"leanprover-community\",\n",
+        "   \"rev\": \"4488d40d070b9700d4d5a6aa342f0d40c31b2a2d\",\n",
+        "   \"name\": \"batteries\",\n",
+        "   \"manifestFile\": \"lake-manifest.json\",\n",
+        "   \"inputRev\": \"main\",\n",
+        "   \"inherited\": true,\n",
+        "   \"configFile\": \"lakefile.toml\"},\n",
+        "  {\"url\": \"https://github.com/leanprover/verso-slides\",\n",
+        "   \"type\": \"git\",\n",
+        "   \"subDir\": null,\n",
+        "   \"scope\": \"\",\n",
+        "   \"rev\": \"ddea15f92035c6de1d76e3afa5476f7ab3de955d\",\n",
+        "   \"name\": \"«verso-slides»\",\n",
+        "   \"manifestFile\": \"lake-manifest.json\",\n",
+        "   \"inputRev\": \"v4.33.0\",\n",
+        "   \"inherited\": true,\n",
+        "   \"configFile\": \"lakefile.lean\"},\n",
+        "  {\"url\": \"https://github.com/leanprover/verso\",\n",
+        "   \"type\": \"git\",\n",
+        "   \"subDir\": null,\n",
+        "   \"scope\": \"\",\n",
+        "   \"rev\": \"36664a0ebe032ef3f9e72a8ed0d7be9b14af17d2\",\n",
+        "   \"name\": \"verso\",\n",
+        "   \"manifestFile\": \"lake-manifest.json\",\n",
+        "   \"inputRev\": \"36664a0ebe032ef3f9e72a8ed0d7be9b14af17d2\",\n",
+        "   \"inherited\": true,\n",
+        "   \"configFile\": \"lakefile.lean\"},\n",
+        "  {\"url\": \"https://github.com/leanprover/lean4-cli\",\n",
+        "   \"type\": \"git\",\n",
+        "   \"subDir\": null,\n",
+        "   \"scope\": \"leanprover\",\n",
+        "   \"rev\": \"6130a47896ce867c6a4a55373441e59e565bad0f\",\n",
+        "   \"name\": \"Cli\",\n",
+        "   \"manifestFile\": \"lake-manifest.json\",\n",
+        "   \"inputRev\": \"v4.33.0\",\n",
+        "   \"inherited\": true,\n",
+        "   \"configFile\": \"lakefile.toml\"},\n",
+        "  {\"url\": \"https://github.com/leanprover/illuminate\",\n",
+        "   \"type\": \"git\",\n",
+        "   \"subDir\": null,\n",
+        "   \"scope\": \"\",\n",
+        "   \"rev\": \"6bc815869cba1f19515715dc6b47795acd521f1c\",\n",
+        "   \"name\": \"illuminate\",\n",
+        "   \"manifestFile\": \"lake-manifest.json\",\n",
+        "   \"inputRev\": \"main\",\n",
+        "   \"inherited\": true,\n",
+        "   \"configFile\": \"lakefile.lean\"},\n",
+        "  {\"url\": \"https://github.com/acmepjz/md4lean\",\n",
+        "   \"type\": \"git\",\n",
+        "   \"subDir\": null,\n",
+        "   \"scope\": \"\",\n",
+        "   \"rev\": \"31907cc18f48a95384f99cee5582c00fb39e0f67\",\n",
+        "   \"name\": \"MD4Lean\",\n",
+        "   \"manifestFile\": \"lake-manifest.json\",\n",
+        "   \"inputRev\": \"main\",\n",
+        "   \"inherited\": true,\n",
+        "   \"configFile\": \"lakefile.lean\"},\n",
+        "  {\"url\": \"https://github.com/leanprover/subverso\",\n",
+        "   \"type\": \"git\",\n",
+        "   \"subDir\": null,\n",
+        "   \"scope\": \"\",\n",
+        "   \"rev\": \"3a75ede05278806fd3249bb0c97a6fb5777a4f7d\",\n",
+        "   \"name\": \"subverso\",\n",
+        "   \"manifestFile\": \"lake-manifest.json\",\n",
+        "   \"inputRev\": \"main\",\n",
+        "   \"inherited\": true,\n",
+        "   \"configFile\": \"lakefile.lean\"}],\n",
+        " \"name\": \"aspbe\",\n",
+        " \"lakeDir\": \".lake\",\n",
+        " \"fixedToolchain\": false}\n"
+      ]
+    }
+  ],
+  "fixed_read_boundary": {
+    "targets": "complete target_files only, with all lexical scope",
+    "providers": "exact provider_index paths/hashes; full provider text is not repeated in this packet; read those actual files only after verifying hashes",
+    "external": "Mathlib context follows the pinned manifest/toolchain; further claims or changed/missing source require an explicitly resealed bounded request",
+    "not_claimed": "This source-path/hash catalogue is not an elaborated proof-term dependency export or independent review."
+  }
+}

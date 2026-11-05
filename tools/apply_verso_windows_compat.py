@@ -18,8 +18,8 @@ import sys
 
 
 ROOT = Path(__file__).absolute().parents[1]
-VERSO_REV = "ddc362f0643d98cea6754211e54e42d7b38ce542"
-VERSO_URL = "https://github.com/ejgallego/verso"
+VERSO_REV = "36664a0ebe032ef3f9e72a8ed0d7be9b14af17d2"
+VERSO_URL = "https://github.com/leanprover/verso"
 TARGET = Path(".lake/packages/verso/src/verso-search/VersoSearch/DomainSearch.lean")
 ORIGINAL = r'''public def searchBoxCode : Array (String × ByteArray) :=
   (include_bin_dir "../../../static-web/search").filterMap fun (name, contents) =>

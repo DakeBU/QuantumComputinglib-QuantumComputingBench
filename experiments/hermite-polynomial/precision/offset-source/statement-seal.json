@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "status": "STATEMENT_SEALED_BEFORE_PROOF_AND_SUCCESSOR_IMPLEMENTATION",
+  "direction_fingerprint": "actual-source-offset-coordinate-and-certified-local-error",
+  "expected_information_gain": "Replace a demonstrated actual-source coordinate failure with a non-cancelling supplier, prove exact reflection/coordinate and interval-rounding interfaces, and distinguish certified local coefficient bounds from remaining exponential/QR/normalizer/global errors.",
+  "source_contract": "Unchanged g_k(-pi L+2pi L*j/2^n_p)/sampleNorm; n_p>=1,k natural,L positive rational executable input; source real family unchanged; signed little-endian samples, no phase quotient, postselection, free oracle or dense construction input.",
+  "predecessor": "source-reachable/result.json and independently audited tiny-L failure; fixed-digit producer preserved unchanged",
+  "mechanism": "Keep s=1-t=-p offsets. For included integer interval[a,b] use s_lo=pi L*(N-2b)/N,s_hi=pi L*(N-2a)/N. Restrict reflected coefficients c_(d-r) to increasing[s_lo,s_hi], then reverse output coefficient order so chronological sample coordinate remains increasing in j.",
+  "local_certificate": "Actual rational interval de Casteljau supplier computes coefficient intervals from rational Machin pi enclosures and alternating exp(-1) Taylor enclosures. Float coefficient is interpreted as its exact stored dyadic Fraction; maximum distance to both rational interval endpoints is recorded and must be <= requested positive coefficient tolerance. Adaptive retries fail closed, never exclude tiny L or return a substituted target.",
+  "planned_lean_interfaces": {
+    "offset_interval": "R,N,a,b:Real; 0<R,0<N,0<=a,a<b,2*b<=N,R*(N-2*a)/N<=1 -> 0<=R*(N-2*b)/N and R*(N-2*b)/N<R*(N-2*a)/N and R*(N-2*a)/N<=1",
+    "offsetRestriction_eval": "d:Nat,c:Nat->Real,lo hi y:Real,lo!=1 -> sum_r offsetRestriction(d,lo,hi,c,r)*basis(d,r,y)=sum_r c(r)*basis(d,r,1-hi+(hi-lo)*y)",
+    "offset_source_eval": "k:Nat,lo hi y:Real,lo!=1 -> sum_r offsetRestriction(2*k+1,lo,hi,sourceBernsteinCoefficient(k),r)*basis(2*k+1,r,y)=sourceInterpolant(k).eval(-hi+(hi-lo)*y)",
+    "affine_endpoint_bounds": "u<=t<=v -> (1-t)*a+t*b lies between min and max of its endpoint evaluations at u,v",
+    "convex_interval_step": "t in Icc0 1,t in Iccu v,a in Iccalo ahi,b in Iccblo bhi -> convex update lies between min lower-coefficient endpoint evaluations and max upper-coefficient endpoint evaluations",
+    "interval_rounding_error": "x in Icclo hi -> abs(stored-x)<=max(abs(stored-lo),abs(stored-hi))",
+    "normalized_parameter_mono": "R<=S,0<=A,0<=B-A,S*A<1 -> R*(B-A)/(1-R*A)<=S*(B-A)/(1-S*A)",
+    "intervalRows_sound": "The recursively computed four-corner interval rows enclose exact casteljau d c t i whenever t is in Icc0 1 and Iccu v and the initial coefficients in the finite dependency cone j<=i+d are enclosed. Internal compositional consumer of convex_interval_step; no new scientific premise.",
+    "offset_grid_source_eval": "Internal action refinement of offset_source_eval: substitute lo=R*(N-2b)/N,hi=R*(N-2a)/N,y=(j-a)/(b-a), with N!=0,b-a!=0,lo!=1; exact offset coefficient evaluation equals sourceInterpolant(k).eval(-R+2R*j/N)."
+  },
+  "declaration_level": "C internal exact-real providers; no new accepted scientific Source Anchor or quantum closure",
+  "binder_audit": {"TYPING": ["natural degree", "real scalar carrier", "coefficient functions", "finite coefficient range"], "INTERNAL_PROOF_INPUT": ["valid source restriction locus", "literal interval membership and positivity/bounds", "actual local coefficient error budget"], "EXCESS_SCIENTIFIC_BINDERS": []},
+  "definition_kind": "literal offset/reflection of existing Bernstein definitions; no arbitrary choice or off-source fallback",
+  "source_topology": [
+    {"node": "positive source coefficients and exact sourceInterpolant_bernstein", "disposition": "NODE"},
+    {"node": "s=-p reflected affine restriction and order reversal", "disposition": "NODE"},
+    {"node": "rational enclosure convex updates and stored dyadic endpoint error", "disposition": "NODE"},
+    {"node": "source active cutoff/geometry", "disposition": "NODE", "boundary": "reuse actual rational cutoff, bounded refinement remains explicit"},
+    {"node": "pi and exp(-1) series mathematical membership / Python refinement", "disposition": "SOURCE_GAP", "boundary": "rational arithmetic supplier and analytic enclosure justification are separate from machine-checked whole Python equivalence"},
+    {"node": "subdivision float matrix entries, exponential cores, QR, scaled normalizer, gate/angle serialization", "disposition": "SOURCE_GAP"}
+  ],
+  "cost_scope": "Charge rational numerator/denominator bit lengths, pi/Taylor terms and adaptive retries, coefficient arithmetic/storage/copying, float conversion, Decimal exp calls and QR/normalizer work. No count-only argument becomes finite-bit polynomial runtime.",
+  "epsilon_scope": "Positive local coefficient tolerance is not global epsilon acceptance. Global Euclidean error must separately compose source coordinate/cutoff/subdivision/exp errors, computed-vector error, relative normalizer error and serialized circuit action.",
+  "reviews_and_gates": "Focused Lean4.33 and actual-source regression gates by worker; aggregate and independent admission by root. No fake ProofSeal/PURIFIED or uniform stability claim."
+}

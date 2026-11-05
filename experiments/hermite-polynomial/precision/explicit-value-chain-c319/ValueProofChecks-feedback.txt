@@ -1,0 +1,92 @@
+decode_value : ∀ (k : ℕ) (delta : ℚ) (a : Fin (assemblySize k delta)),
+  (decode (HermiteFiniteExpDegree.sourceDegree delta) (2 * k + 1) a).run.value = (fullEquiv k delta).symm a
+'HermiteExplicitCachedStored.decode_value' depends on axioms: [propext, Classical.choice, Quot.sound]
+comparisonQ_value : ∀ (cut q : ℕ) (bit : Fin 2) (a b : Fin 3),
+  (comparisonQ cut q bit a b).run.value = HermitePiecewiseUniform.comparisonEntry cut q bit a b
+'HermiteExplicitCachedStored.comparisonQ_value' depends on axioms: [propext, Quot.sound]
+translationQ_actual_factorials : ∀ (L r q : ℕ) (hr : r ≤ L) (step : ℚ) (bit : Fin 2) (i j : Fin (r + 1)),
+  (translationQ L r q (HermiteChargedSourceCache.factorials L).value.values hr step bit i j).value =
+    HermitePiecewiseUniform.translationCoreQ r (step * 2 ^ q * ↑↑bit) i j
+'HermiteExplicitCachedStored.translationQ_actual_factorials' depends on axioms: [propext, Classical.choice, Quot.sound]
+produceExplicitQData_value : ∀ (k n : ℕ) (R delta : ℚ),
+  (produceExplicitQData k n R delta).run.value = (HermiteCachedPiecewiseStored.produceCachedQData k n R delta).value
+'HermiteExplicitCachedStored.produceExplicitQData_value' depends on axioms: [propext, Classical.choice, Quot.sound]
+produceExplicitData_window : ∀ (k n : ℕ) (R delta : ℚ),
+  StoredMatrixProductChain.Window (produceExplicitData k n R delta).run.value.tables
+    (reindexKernel (fullEquiv k delta) (actualBlocks k n R delta).kernel) 0
+'HermiteExplicitCachedStored.produceExplicitData_window' depends on axioms: [propext, Classical.choice, Quot.sound]
+produceExplicitStored_refines : ∀ (k n : ℕ) (R delta : ℚ),
+  denoteChain (produceExplicitStored k n R delta).run.value = actualChain k n R delta
+'HermiteExplicitCachedStored.produceExplicitStored_refines' depends on axioms: [propext, Classical.choice, Quot.sound]
+produceExplicitStored_source : ∀ (k n : ℕ) (R delta : ℚ),
+  0 < R →
+    ∀ (x : TensorTrainCanonical.Word (n + 1)),
+      TensorTrainCanonical.contract (denoteChain (produceExplicitStored k n R delta).run.value) x 0 0 =
+        ↑(HermitePiecewiseSourceBudget.piecewiseValue k delta
+            (HermitePiecewiseSourceBudget.rationalGrid n R (wordIndex n x)))
+'HermiteExplicitCachedStored.produceExplicitStored_source' depends on axioms: [propext, Classical.choice, Quot.sound]
+def HermiteExplicitCachedStored.decode : (d m : ℕ) →
+  Fin (fiveSize d m) → StoredBinaryCoordinates.IndexedRun (FiveIndex d m) :=
+fun d m i =>
+  have result :=
+    match
+      splitIndex (componentSize 0) (componentSize d + (componentSize m + (componentSize 0 + componentSize d))) i with
+    | Sum.inl a => Sum.inl (unpackComponent 0 a)
+    | Sum.inr rest =>
+      match splitIndex (componentSize d) (componentSize m + (componentSize 0 + componentSize d)) rest with
+      | Sum.inl a => Sum.inr (Sum.inl (unpackComponent d a))
+      | Sum.inr rest =>
+        match splitIndex (componentSize m) (componentSize 0 + componentSize d) rest with
+        | Sum.inl a => Sum.inr (Sum.inr (Sum.inl (unpackComponent m a)))
+        | Sum.inr rest =>
+          match splitIndex (componentSize 0) (componentSize d) rest with
+          | Sum.inl a => Sum.inr (Sum.inr (Sum.inr (Sum.inl (unpackComponent 0 a))))
+          | Sum.inr a => Sum.inr (Sum.inr (Sum.inr (Sum.inr (unpackComponent d a))));
+  { run := { value := result, cost := 4 • tick Op.compare }, quotientCalls := 2, remainderCalls := 2 }
+def HermiteExplicitCachedStored.comparisonQ : ℕ → ℕ → Fin 2 → Fin 3 → Fin 3 → StoredBinaryCoordinates.IndexedRun ℚ :=
+fun cut q bit a b =>
+  have digit := cut / 2 ^ q % 2;
+  have low := charge Op.compare (decide (↑bit < digit));
+  have high := charge Op.compare (decide (digit < ↑bit));
+  have next := if low.value = true then 0 else if high.value = true then 2 else a;
+  have hit := charge Op.compare (decide (next = b));
+  { run := { value := if hit.value = true then 1 else 0, cost := low.cost + high.cost + hit.cost }, quotientCalls := 1,
+    remainderCalls := 1 }
+def HermiteExplicitCachedStored.translationQ : (L r : ℕ) →
+  ℕ → Vector ℚ (L + 1) → r ≤ L → ℚ → Fin 2 → Fin (r + 1) → Fin (r + 1) → Run ℚ :=
+fun L r q F hr step bit i j =>
+  have result :=
+    if h : ↑i ≤ ↑j then do
+      let binomial ← HermiteChargedSourceCache.chooseFrom F (↑j) (↑i) h ⋯
+      let dyadic ← HermiteCachedPiecewiseStored.powQ 2 q
+      let bitValue ← charge Op.compare (if bit = 1 then 1 else 0)
+      let scaled ← HermiteChargedSourceCache.qMul step dyadic
+      let w ← HermiteChargedSourceCache.qMul scaled bitValue
+      let power ← HermiteCachedPiecewiseStored.powQ w (↑j - ↑i)
+      HermiteChargedSourceCache.qMul binomial power
+    else pure 0;
+  { value := result.value, cost := tick Op.compare + result.cost }
+def HermiteExplicitCachedStored.kernelAt : (d m L : ℕ) →
+  ℕ →
+    Vector ℚ (L + 1) →
+      d ≤ L →
+        m ≤ L → ℕ → ℕ → ℕ → ℕ → ℚ → ℚ → Fin 2 → FiveIndex d m → FiveIndex d m → StoredBinaryCoordinates.IndexedRun ℚ :=
+fun d m L q F hd hm cutMinusOne cutZero cutMinusT cutT step minusStep bit a b =>
+  have result :=
+    match a, b with
+    | Sum.inl a, Sum.inl b => componentKernel L 0 q F ⋯ cutMinusOne cutMinusT 0 bit a b
+    | Sum.inr (Sum.inl a), Sum.inr (Sum.inl b) => componentKernel L d q F hd cutMinusOne cutMinusT step bit a b
+    | Sum.inr (Sum.inr (Sum.inl a)), Sum.inr (Sum.inr (Sum.inl b)) =>
+      componentKernel L m q F hm cutMinusOne cutZero step bit a b
+    | Sum.inr (Sum.inr (Sum.inr (Sum.inl a))), Sum.inr (Sum.inr (Sum.inr (Sum.inl b))) =>
+      componentKernel L 0 q F ⋯ cutZero cutT 0 bit a b
+    | Sum.inr (Sum.inr (Sum.inr (Sum.inr a))), Sum.inr (Sum.inr (Sum.inr (Sum.inr b))) =>
+      componentKernel L d q F hd cutZero cutT minusStep bit a b
+    | x, x_1 => liftRun (pure 0);
+  { run := { value := result.run.value, cost := 8 • tick Op.compare + result.run.cost },
+    quotientCalls := result.quotientCalls, remainderCalls := result.remainderCalls }
+def HermiteExplicitCachedStored.leftAt : (d m : ℕ) → ℚ → ℚ → FiveIndex d m → Run ℚ :=
+fun d m R minusR a =>
+  have result :=
+    match a
+[Bounded excerpt; complete raw streams retained privately.]

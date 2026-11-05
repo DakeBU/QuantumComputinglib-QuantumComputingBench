@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "status": "AUTHOR_PROPOSED_RETROSPECTIVE_COVERAGE_NOT_INDEPENDENTLY_REVIEWED",
+  "source_path": "docs/lessons/constructive-tensor-train-canonicalization.md",
+  "timing": "Lesson reconstructed after reading existing implementation. This is not an independent historical source-first topology extraction.",
+  "scope": "All mathematical definitions, formulas, construction and proof paragraphs, provider provenance and boundaries in the authored local lesson",
+  "inventory": [
+    {
+      "id": "source:ctt:carriers",
+      "region": "Carriers, word order, and the terminal bond; first three paragraphs and contraction formula",
+      "disposition": "NODE",
+      "content": "Arbitrary natural bonds, real core shape, slices, recursive words, empty identity, complete matrix carrier",
+      "declarations": [
+        "TensorTrainCanonical.Core",
+        "TensorTrainCanonical.slice",
+        "TensorTrainCanonical.Chain",
+        "TensorTrainCanonical.Word",
+        "TensorTrainCanonical.contract"
+      ],
+      "role": "ambient prerequisite"
+    },
+    {
+      "id": "source:ctt:orthogonality",
+      "region": "Carriers, word order, and the terminal bond; row-orthonormal formula and following paragraph",
+      "disposition": "NODE",
+      "content": "Right-canonical whole flattened core, all-bit/all-terminal row inner products",
+      "declarations": [
+        "TensorTrainCanonical.RightCanonical"
+      ],
+      "role": "ambient prerequisite"
+    },
+    {
+      "id": "source:ctt:core-factor",
+      "region": "The specified deterministic core supplier; all definitions/formulas and provider proof paragraphs",
+      "disposition": "NODE",
+      "content": "bit-major equivalence; concrete wide/tall thin LQ; deterministic sweep; zero-pair branch; sum reindexing; numerical-rank nonclaim",
+      "declarations": [
+        "QuantumBlockEncoding.ConstructiveTensorTrain.CoreFactorization",
+        "QuantumBlockEncoding.ConstructiveTensorTrain.factorCore"
+      ],
+      "role": "produced local supplier"
+    },
+    {
+      "id": "source:ctt:recursion",
+      "region": "Tail-first recursion and exact all-word action; result specification, empty case, tail absorption and cap recurrence",
+      "disposition": "NODE",
+      "content": "same actual returned residual and chain; tail-first construction",
+      "declarations": [
+        "QuantumBlockEncoding.ConstructiveTensorTrain.Result",
+        "QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize",
+        "QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_rankReduced"
+      ],
+      "role": "recursive construction"
+    },
+    {
+      "id": "source:ctt:action",
+      "region": "Tail-first recursion and exact all-word action; displayed equality chain and proof paragraphs",
+      "disposition": "NODE",
+      "content": "slice-wise absorption and factorization, associativity, every input/terminal entry",
+      "declarations": [
+        "QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_action",
+        "QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_rightCanonical"
+      ],
+      "role": "exactness proof"
+    },
+    {
+      "id": "source:ctt:bond-bound",
+      "region": "Tail-first recursion and exact all-word action; maximum-bond justification",
+      "disposition": "NODE",
+      "content": "minimum cap at each nonempty site and unchanged terminal dimension",
+      "declarations": [
+        "QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_maxBond_le"
+      ],
+      "role": "dimension consumer"
+    },
+    {
+      "id": "source:ctt:boundary-mass",
+      "region": "Full boundary action and mass; all formulas, finite-sum induction and provider provenance",
+      "disposition": "NODE",
+      "content": "vR; every word/terminal amplitude; full mass equals residual boundary mass",
+      "declarations": [
+        "QuantumBlockEncoding.ConstructiveTensorTrain.boundary",
+        "QuantumBlockEncoding.ConstructiveTensorTrain.boundary_action",
+        "QuantumBlockEncoding.ConstructiveTensorTrain.boundary_mass"
+      ],
+      "role": "mass consumer"
+    },
+    {
+      "id": "source:ctt:conditional-normalization",
+      "region": "Full boundary action and mass; normalization and no-projection paragraph",
+      "disposition": "NODE",
+      "content": "only input chainMass one yields output mass one",
+      "declarations": [
+        "QuantumBlockEncoding.ConstructiveTensorTrain.boundary_normalized"
+      ],
+      "role": "conditional consumer"
+    },
+    {
+      "id": "source:ctt:scalar",
+      "region": "Scalar-boundary specialization; all definitions, formulas and proof",
+      "disposition": "NODE",
+      "content": "Chain n 1 1 specialization, exact scalar amplitude and conditional norm",
+      "declarations": [
+        "QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary",
+        "QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary_action",
+        "QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary_normalized"
+      ],
+      "role": "specialization"
+    },
+    {
+      "id": "source:ctt:empty-zero",
+      "region": "Empty and zero-dimensional cases; complete section",
+      "disposition": "NODE",
+      "content": "empty identity, zero carriers/sums, recurrence propagates zero, impossible normalization on zero action",
+      "declarations": [
+        "QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize",
+        "QuantumBlockEncoding.ConstructiveTensorTrain.boundary_mass",
+        "QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary_normalized"
+      ],
+      "role": "edge-case semantics"
+    },
+    {
+      "id": "source:ctt:views-boundary",
+      "region": "Dependency views and remaining boundary; complete section",
+      "disposition": "NODE",
+      "content": "four views distinct, complete physical AND-tail, exact-real/uncosted limits",
+      "role": "boundary contract"
+    },
+    {
+      "id": "source:ctt:retrospective-status",
+      "region": "Opening paragraphs on retrospective status and no fresh Lean",
+      "disposition": "EXCLUDED",
+      "reason": "Process and attribution declarations, not an additional mathematical theorem; retained and binding-reviewed"
+    },
+    {
+      "id": "source:ctt:exact-disclosures",
+      "region": "All generated folded statement and definition/proof disclosures",
+      "disposition": "EXCLUDED",
+      "reason": "Exact duplicate formal evidence for the preceding mathematical nodes, not additional source proof obligations"
+    }
+  ],
+  "source_gaps": [
+    {
+      "id": "SOURCE_GAP:ctt:physical-preparation",
+      "status": "OUT_OF_SCOPE_OPEN",
+      "description": "Compatible word/wire order, active embeddings, realized isometry completion, primitive clean-column action and full terminal physical cleanup are not supplied by this module."
+    },
+    {
+      "id": "SOURCE_GAP:ctt:finite-bit-cost",
+      "status": "OUT_OF_SCOPE_OPEN",
+      "description": "Input generation/storage/evaluation, finite-bit arithmetic, numeric stability and uniform compiled resource/error costs not supplied."
+    }
+  ],
+  "alternative_routes": [],
+  "independent_topology_review": "PENDING distinct source-first review; lint cannot approve mathematical coverage"
+}

@@ -1,0 +1,234 @@
+warning: verso: repository '<repo>\.lake/packages\verso' has local changes
+<stdin>:107:59: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+QuantumBlockEncoding.StoredMatrixProductChain.terminalEntry {D : ℕ}
+  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (right : Vector ℝ D) (a : Fin D) (bit : Fin 2) :
+  QuantumBlockEncoding.StoredGivens.Run ℝ
+'QuantumBlockEncoding.StoredMatrixProductChain.terminalEntry' depends on axioms: [propext, Classical.choice, Quot.sound]
+QuantumBlockEncoding.StoredMatrixProductChain.terminal {D : ℕ}
+  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (right : Vector ℝ D) :
+  QuantumBlockEncoding.StoredGivens.Run (QuantumBlockEncoding.StoredTensorTrain.StoredCore D 1)
+'QuantumBlockEncoding.StoredMatrixProductChain.terminal' depends on axioms: [propext, Classical.choice, Quot.sound]
+QuantumBlockEncoding.StoredMatrixProductChain.initialEntry {D r : ℕ} (left : Vector ℝ D)
+  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore D r) (j : Fin (2 * r)) :
+  QuantumBlockEncoding.StoredGivens.Run ℝ
+'QuantumBlockEncoding.StoredMatrixProductChain.initialEntry' depends on axioms: [propext, Classical.choice, Quot.sound]
+QuantumBlockEncoding.StoredMatrixProductChain.initial {D r : ℕ} (left : Vector ℝ D)
+  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore D r) :
+  QuantumBlockEncoding.StoredGivens.Run (QuantumBlockEncoding.StoredTensorTrain.StoredCore 1 r)
+'QuantumBlockEncoding.StoredMatrixProductChain.initial' depends on axioms: [propext, Classical.choice, Quot.sound]
+QuantumBlockEncoding.StoredMatrixProductChain.tailTable {α : Type} {n : ℕ} (xs : Vector α (n + 1)) :
+  QuantumBlockEncoding.StoredGivens.Run (Vector α n)
+'QuantumBlockEncoding.StoredMatrixProductChain.tailTable' depends on axioms: [propext, Classical.choice, Quot.sound]
+QuantumBlockEncoding.StoredMatrixProductChain.tailChain {D n : ℕ} :
+  Vector (QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (n + 1) →
+    Vector ℝ D → QuantumBlockEncoding.StoredGivens.Run (QuantumBlockEncoding.StoredTensorTrain.StoredChain (n + 1) D 1)
+'QuantumBlockEncoding.StoredMatrixProductChain.tailChain' depends on axioms: [propext, Classical.choice, Quot.sound]
+QuantumBlockEncoding.StoredMatrixProductChain.closeLeft {n D : ℕ} (left : Vector ℝ D) :
+  QuantumBlockEncoding.StoredTensorTrain.StoredChain (n + 1) D 1 →
+    QuantumBlockEncoding.StoredGivens.Run (QuantumBlockEncoding.StoredTensorTrain.StoredChain (n + 1) 1 1)
+'QuantumBlockEncoding.StoredMatrixProductChain.closeLeft' depends on axioms: [propext, Classical.choice, Quot.sound]
+QuantumBlockEncoding.StoredMatrixProductChain.ofTable {n D : ℕ}
+  (tables : Vector (QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (n + 1)) (left right : Vector ℝ D) :
+  QuantumBlockEncoding.StoredGivens.Run (QuantumBlockEncoding.StoredTensorTrain.StoredChain (n + 1) 1 1)
+'QuantumBlockEncoding.StoredMatrixProductChain.ofTable' depends on axioms: [propext, Classical.choice, Quot.sound]
+QuantumBlockEncoding.StoredMatrixProductChain.terminal_value {D : ℕ}
+  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (right : Vector ℝ D) :
+  QuantumBlockEncoding.StoredTensorTrain.denoteCore
+      (QuantumBlockEncoding.StoredMatrixProductChain.terminal A right).value =
+    fun a out => ∑ b, QuantumBlockEncoding.StoredTensorTrain.denoteCore A a (out.1, b) * right[↑b]
+'QuantumBlockEncoding.StoredMatrixProductChain.terminal_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+QuantumBlockEncoding.StoredMatrixProductChain.initial_value {D r : ℕ} (left : Vector ℝ D)
+  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore D r) :
+  QuantumBlockEncoding.StoredTensorTrain.denoteCore
+      (QuantumBlockEncoding.StoredMatrixProductChain.initial left A).value =
+    fun x out => ∑ a, left[↑a] * QuantumBlockEncoding.StoredTensorTrain.denoteCore A a out
+'QuantumBlockEncoding.StoredMatrixProductChain.initial_value' depends on axioms: [propext, Classical.choice, Quot.sound]
+QuantumBlockEncoding.StoredMatrixProductChain.tailTable_value {α : Type} {n : ℕ} (xs : Vector α (n + 1)) (i : Fin n) :
+  (QuantumBlockEncoding.StoredMatrixProductChain.tailTable xs).value[↑i] = xs[↑i.succ]
+'QuantumBlockEncoding.StoredMatrixProductChain.tailTable_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+QuantumBlockEncoding.StoredMatrixProductChain.Window {n D : ℕ}
+  (tables : Vector (QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (n + 1))
+  (K : QuantumBlockEncoding.MatrixProductChain.Kernel D) (start : ℕ) : Prop
+'QuantumBlockEncoding.StoredMatrixProductChain.Window' depends on axioms: [propext, Classical.choice, Quot.sound]
+QuantumBlockEncoding.StoredMatrixProductChain.tailChain_value {n D : ℕ}
+  (tables : Vector (QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (n + 1)) (right : Vector ℝ D)
+  (K : QuantumBlockEncoding.MatrixProductChain.Kernel D) (start : ℕ)
+  (h : QuantumBlockEncoding.StoredMatrixProductChain.Window tables K start) :
+  QuantumBlockEncoding.StoredTensorTrain.denoteChain
+      (QuantumBlockEncoding.StoredMatrixProductChain.tailChain tables right).value =
+    QuantumBlockEncoding.MatrixProductChain.tailChain K (fun i => right[↑i]) start n
+'QuantumBlockEncoding.StoredMatrixProductChain.tailChain_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+QuantumBlockEncoding.StoredMatrixProductChain.closeLeft_value {n D : ℕ} (left : Vector ℝ D)
+  (C : QuantumBlockEncoding.StoredTensorTrain.StoredChain (n + 1) D 1) :
+  QuantumBlockEncoding.StoredTensorTrain.denoteChain
+      (QuantumBlockEncoding.StoredMatrixProductChain.closeLeft left C).value =
+    QuantumBlockEncoding.MatrixProductChain.closeLeft (fun i => left[↑i])
+      (QuantumBlockEncoding.StoredTensorTrain.denoteChain C)
+'QuantumBlockEncoding.StoredMatrixProductChain.closeLeft_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+QuantumBlockEncoding.StoredMatrixProductChain.ofTable_refines {n D : ℕ}
+  (tables : Vector (QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (n + 1)) (left right : Vector ℝ D)
+  (K : QuantumBlockEncoding.MatrixProductChain.Kernel D) (start : ℕ)
+  (h : QuantumBlockEncoding.StoredMatrixProductChain.Window tables K start) :
+  QuantumBlockEncoding.StoredTensorTrain.denoteChain
+      (QuantumBlockEncoding.StoredMatrixProductChain.ofTable tables left right).value =
+    QuantumBlockEncoding.MatrixProductChain.ofKernel K (fun i => left[↑i]) (fun i => right[↑i]) start n
+'QuantumBlockEncoding.StoredMatrixProductChain.ofTable_refines' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+QuantumBlockEncoding.StoredMatrixProductChain.terminalEntry_cost {D : ℕ}
+  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (right : Vector ℝ D) (a : Fin D) (bit : Fin 2)
+  (op : QuantumBlockEncoding.StoredGivens.Op) :
+  (QuantumBlockEncoding.StoredMatrixProductChain.terminalEntry A right a bit).cost op =
+    D *
+      (3 * QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.read op +
+        2 * QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.field op)
+'QuantumBlockEncoding.StoredMatrixProductChain.terminalEntry_cost' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+QuantumBlockEncoding.StoredMatrixProductChain.initialEntry_cost {D r : ℕ} (left : Vector ℝ D)
+  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore D r) (j : Fin (2 * r))
+  (op : QuantumBlockEncoding.StoredGivens.Op) :
+  (QuantumBlockEncoding.StoredMatrixProductChain.initialEntry left A j).cost op =
+    D *
+      (3 * QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.read op +
+        2 * QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.field op)
+'QuantumBlockEncoding.StoredMatrixProductChain.initialEntry_cost' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+QuantumBlockEncoding.StoredMatrixProductChain.terminal_cost {D : ℕ}
+  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (right : Vector ℝ D)
+  (op : QuantumBlockEncoding.StoredGivens.Op) :
+  (QuantumBlockEncoding.StoredMatrixProductChain.terminal A right).cost op =
+    2 * D ^ 2 *
+        (3 * QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.read op +
+          2 * QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.field op) +
+      6 * D *
+        (QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.read op +
+          QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.write op)
+'QuantumBlockEncoding.StoredMatrixProductChain.terminal_cost' depends on axioms: [propext, Classical.choice, Quot.sound]
+QuantumBlockEncoding.StoredMatrixProductChain.initial_cost {D r : ℕ} (left : Vector ℝ D)
+  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore D r) (op : QuantumBlockEncoding.StoredGivens.Op) :
+  (QuantumBlockEncoding.StoredMatrixProductChain.initial left A).cost op =
+    2 * r * D *
+        (3 * QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.read op +
+          2 * QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.field op) +
+      (4 * r + 2) *
+        (QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.read op +
+          QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.write op)
+'QuantumBlockEncoding.StoredMatrixProductChain.initial_cost' depends on axioms: [propext, Classical.choice, Quot.sound]
+QuantumBlockEncoding.StoredMatrixProductChain.tailTable_cost {α : Type} {n : ℕ} (xs : Vector α (n + 1))
+  (op : QuantumBlockEncoding.StoredGivens.Op) :
+  (QuantumBlockEncoding.StoredMatrixProductChain.tailTable xs).cost op =
+    n *
+      (3 * QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.read op +
+        2 * QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.write op)
+'QuantumBlockEncoding.StoredMatrixProductChain.tailTable_cost' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+QuantumBlockEncoding.StoredMatrixProductChain.terminal_total_cost {D : ℕ}
+  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (right : Vector ℝ D) :
+  QuantumBlockEncoding.StoredRectangularGivens.total
+      (QuantumBlockEncoding.StoredMatrixProductChain.terminal A right).cost =
+    10 * D ^ 2 + 12 * D
+'QuantumBlockEncoding.StoredMatrixProductChain.terminal_total_cost' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+QuantumBlockEncoding.StoredMatrixProductChain.initial_total_cost {D r : ℕ} (left : Vector ℝ D)
+  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore D r) :
+  QuantumBlockEncoding.StoredRectangularGivens.total
+      (QuantumBlockEncoding.StoredMatrixProductChain.initial left A).cost =
+    10 * r * D + 8 * r + 4
+'QuantumBlockEncoding.StoredMatrixProductChain.initial_total_cost' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+QuantumBlockEncoding.StoredMatrixProductChain.tailTable_total_cost {α : Type} {n : ℕ} (xs : Vector α (n + 1)) :
+  QuantumBlockEncoding.StoredRectangularGivens.total (QuantumBlockEncoding.StoredMatrixProductChain.tailTable xs).cost =
+    5 * n
+'QuantumBlockEncoding.StoredMatrixProductChain.tailTable_total_cost' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+QuantumBlockEncoding.StoredMatrixProductChain.tailChain_total_cost_le {n D : ℕ}
+  (tables : Vector (QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (n + 1)) (right : Vector ℝ D) :
+  QuantumBlockEncoding.StoredRectangularGivens.total
+      (QuantumBlockEncoding.StoredMatrixProductChain.tailChain tables right).cost ≤
+    10 * D ^ 2 + 12 * D + 5 * n ^ 2 + 7 * n + 13
+'QuantumBlockEncoding.StoredMatrixProductChain.tailChain_total_cost_le' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+QuantumBlockEncoding.StoredMatrixProductChain.closeLeft_tail_total_cost_le {n D : ℕ}
+  (tables : Vector (QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (n + 1)) (left right : Vector ℝ D) :
+  QuantumBlockEncoding.StoredRectangularGivens.total
+      (QuantumBlockEncoding.StoredMatrixProductChain.closeLeft left
+          (QuantumBlockEncoding.StoredMatrixProductChain.tailChain tables right).value).cost ≤
+    10 * D ^ 2 + 18 * D + 18
+'QuantumBlockEncoding.StoredMatrixProductChain.closeLeft_tail_total_cost_le' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+QuantumBlockEncoding.StoredMatrixProductChain.ofTable_total_cost_le {n D : ℕ}
+  (tables : Vector (QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (n + 1)) (left right : Vector ℝ D) :
+  QuantumBlockEncoding.StoredRectangularGivens.total
+      (QuantumBlockEncoding.StoredMatrixProductChain.ofTable tables left right).cost ≤
+    20 * D ^ 2 + 30 * D + 5 * n ^ 2 + 7 * n + 31
+'QuantumBlockEncoding.StoredMatrixProductChain.ofTable_total_cost_le' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+QuantumBlockEncoding.StoredMatrixProductChain.window_of_entries {n D : ℕ}
+  (tables : Vector (QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (n + 1))
+  (K : QuantumBlockEncoding.MatrixProductChain.Kernel D) (start : ℕ)
+  (h :
+    ∀ (i : Fin (n + 1)) (a b : Fin D) (bit : Fin 2),
+      QuantumBlockEncoding.StoredTensorTrain.denoteCore tables[↑i] a (bit, b) = K (start + ↑i) bit a b) :
+  QuantumBlockEncoding.StoredMatrixProductChain.Window tables K start
+'QuantumBlockEncoding.StoredMatrixProductChain.window_of_entries' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+QuantumBlockEncoding.StoredMatrixProductChain.ofTable_maxBond {n D : ℕ}
+  (tables : Vector (QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (n + 1)) (left right : Vector ℝ D)
+  (K : QuantumBlockEncoding.MatrixProductChain.Kernel D) (start : ℕ)
+  (h : QuantumBlockEncoding.StoredMatrixProductChain.Window tables K start) :
+  QuantumBlockEncoding.TensorTrainCanonical.maxBond
+      (QuantumBlockEncoding.StoredTensorTrain.denoteChain
+        (QuantumBlockEncoding.StoredMatrixProductChain.ofTable tables left right).value) ≤
+    max D 1
+'QuantumBlockEncoding.StoredMatrixProductChain.ofTable_maxBond' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+QuantumBlockEncoding.StoredMatrixProductChain.ofTable_certified {n D : ℕ}
+  (tables : Vector (QuantumBlockEncoding.StoredTensorTrain.StoredCore D D) (n + 1)) (left right : Vector ℝ D)
+  (K : QuantumBlockEncoding.MatrixProductChain.Kernel D) (start : ℕ)
+  (h : QuantumBlockEncoding.StoredMatrixProductChain.Window tables K start) :
+  have result := QuantumBlockEncoding.StoredMatrixProductChain.ofTable tables left right;
+  QuantumBlockEncoding.StoredTensorTrain.denoteChain result.value =
+      QuantumBlockEncoding.MatrixProductChain.ofKernel K (fun i => left[↑i]) (fun i => right[↑i]) start n ∧
+    QuantumBlockEncoding.StoredRectangularGivens.total result.cost ≤ 20 * D ^ 2 + 30 * D + 5 * n ^ 2 + 7 * n + 31
+'QuantumBlockEncoding.StoredMatrixProductChain.ofTable_certified' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ReviewerC17.signed_chronological' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ReviewerC17.first_bit_column' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ReviewerC17.second_bit_column' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ReviewerC17.both_bits' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ReviewerC17.reversed_product_discriminator' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ReviewerC17.singleton_both_boundaries' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ReviewerC17.swapped_boundary_discriminator' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ReviewerC17.empty_bond_scalar' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ReviewerC17.empty_bond_nonzero_materialization' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ReviewerC17.singleton_exact_cost' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ReviewerC17.two_site_exact_cost' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ReviewerC17.four_site_exact_cost' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ReviewerC17.all_terminal_counters' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ReviewerC17.all_initial_counters' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ReviewerC17.actual_singleton_bond' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ReviewerC17.actual_two_site_bond' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ReviewerC17.tail_reference_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ReviewerC17.source_coefficient_bridge' depends on axioms: [propext, Classical.choice, Quot.sound]

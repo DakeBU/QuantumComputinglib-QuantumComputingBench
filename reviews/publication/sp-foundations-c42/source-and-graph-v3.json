@@ -1,0 +1,1704 @@
+{
+  "status": "AUTHOR/WIP_SUCCESSOR_REQUIRES_EXACT_REREVIEW",
+  "provenance": "RETROSPECTIVE_IMPLEMENTATION_INFORMED",
+  "source_topology_independently_reconstructed_before_implementation": false,
+  "source_topology_independently_reviewed": false,
+  "nodes": [
+    {
+      "id": "F",
+      "kind": "shared-existing-foundation",
+      "contract": "finite complex vectors/matrices; generic Prop boundary; actual unitary subgroup; first-column action; LE basis and literal resources",
+      "disposition": "NODE",
+      "source_anchors": [
+        "natural-source-v2.md#f-shared-finite-semantics-and-the-precise-certificate-boundary"
+      ],
+      "providers": [
+        "QuantumBlockEncoding/Core.lean",
+        "QuantumBlockEncoding/Resources.lean",
+        "QuantumBlockEncoding/Circuit.lean",
+        "QuantumBlockEncoding/BlockEncoding.lean",
+        "QuantumBlockEncoding/StatePreparation.lean",
+        "QuantumBlockEncoding/ConcreteSemantics.lean",
+        "QuantumBlockEncoding/Robin/ComplexLCU.lean",
+        "QuantumBlockEncoding/PrimitiveCircuit.lean",
+        "QuantumBlockEncoding/PrimitiveSemantics.lean",
+        "QuantumBlockEncoding/PrimitiveBasisLE.lean",
+        "QuantumBlockEncoding/UniformlyControlledRy.lean"
+      ]
+    },
+    {
+      "id": "T",
+      "kind": "fixed-matrix-and-wrapper-construction",
+      "contract": "X/H exact matrix normalization/unitarity/action, literal wrapper resources, no display-circuit refinement",
+      "disposition": "NODE"
+    },
+    {
+      "id": "B1",
+      "kind": "fixed-matrix-construction",
+      "contract": "Bell exact target, selfadjoint completion, normalization/unitarity/action",
+      "disposition": "NODE"
+    },
+    {
+      "id": "B2",
+      "kind": "fixed-matrix-construction",
+      "contract": "rational quaternion completion for the fixed dense vector",
+      "disposition": "NODE"
+    },
+    {
+      "id": "B3",
+      "kind": "fixed-matrix-construction",
+      "contract": "product vector and full tensor-rotation matrix",
+      "disposition": "NODE"
+    },
+    {
+      "id": "B4",
+      "kind": "fixed-matrix-construction",
+      "contract": "exact 8-column sparse completion including complementary permutation",
+      "disposition": "NODE"
+    },
+    {
+      "id": "B5",
+      "kind": "total-arithmetic",
+      "contract": "Nat count formula incl zero lambda; only two evaluations and strict comparison",
+      "disposition": "NODE"
+    },
+    {
+      "id": "P1",
+      "kind": "interface-and-representation",
+      "contract": "reindexed primitive unitary; generic route fields and literal cost",
+      "disposition": "NODE"
+    },
+    {
+      "id": "P2",
+      "kind": "angle-convention-and-private-helpers",
+      "contract": "all four Pythagorean constraints, private rational values, exact arccos half-angle identities",
+      "disposition": "NODE"
+    },
+    {
+      "id": "P3",
+      "kind": "shared-compiler-semantics",
+      "contract": "LE bit conversion, list order, singleton lift and UCRY block formula, no control-injectivity assumption",
+      "disposition": "NODE"
+    },
+    {
+      "id": "P4",
+      "kind": "two-exact-constructions",
+      "contract": "constant UCRY/operator identities; factorized full matrix equality; same target preparation",
+      "disposition": "NODE"
+    },
+    {
+      "id": "P5",
+      "kind": "matched-literal-resource-comparison",
+      "contract": "unsimplified emitted lists, wire-depth trace, 2<5 strict cost comparison",
+      "disposition": "NODE"
+    },
+    {
+      "id": "Q",
+      "kind": "boundary",
+      "contract": "exact representative; no ancillas/postselection; finite-bit/general-method boundary",
+      "disposition": "NODE"
+    },
+    {
+      "id": "G-DISPLAY",
+      "kind": "SOURCE_GAP",
+      "disposition": "SOURCE_GAP",
+      "description": "See typed gap with this identity in binder-audit.md; not silently discharged."
+    },
+    {
+      "id": "G-SPARSE-COMMENT",
+      "kind": "SOURCE_GAP",
+      "disposition": "SOURCE_GAP",
+      "description": "See typed gap with this identity in binder-audit.md; not silently discharged."
+    },
+    {
+      "id": "G-GENERAL-PAPERS",
+      "kind": "SOURCE_GAP",
+      "disposition": "SOURCE_GAP",
+      "description": "See typed gap with this identity in binder-audit.md; not silently discharged."
+    },
+    {
+      "id": "G-FINITE-BIT",
+      "kind": "SOURCE_GAP",
+      "disposition": "SOURCE_GAP",
+      "description": "See typed gap with this identity in binder-audit.md; not silently discharged."
+    },
+    {
+      "id": "G-TRUST",
+      "kind": "SOURCE_GAP",
+      "disposition": "SOURCE_GAP",
+      "description": "See typed gap with this identity in binder-audit.md; not silently discharged."
+    }
+  ],
+  "source_construction_hyperedges": [
+    {
+      "id": "T-X",
+      "tails": [
+        "F",
+        "literal X and e1"
+      ],
+      "heads": [
+        "X unitary AND normalized e1 AND X e0=e1"
+      ],
+      "operation": "swap involution + first column",
+      "mode": "AND"
+    },
+    {
+      "id": "T-H",
+      "mode": "AND",
+      "tails": [
+        "F finite complex matrix/ket/norm semantics",
+        "a=(sqrt2/2:C) real with positive real sqrt",
+        "a*a=1/2 and |a|^2=1/2",
+        "literal H=[[a,a],[a,-a]]",
+        "literal plusState=(a,a), plusTarget normalization=sum normSq=1",
+        "adjoint of real symmetric H is H",
+        "finite multiplication: H^2 diagonal=2a^2 and offdiagonal=a^2-a^2",
+        "plus norm=2|a|^2; first column=(a,a)"
+      ],
+      "heads": [
+        "star_hadamard",
+        "H unitary",
+        "plusTarget normalized",
+        "H e0=plusTarget.amplitudes"
+      ],
+      "mechanism": "Actual literal H/plus data plus finite adjoint, multiplication, norm and first-column steps; no displayed-circuit evaluator."
+    },
+    {
+      "id": "T-WRAPPERS",
+      "tails": [
+        "T-X",
+        "T-H",
+        "literal display lists/schedules/resource arguments",
+        "ConcreteSemantics certificate wrapper"
+      ],
+      "heads": [
+        "two generic verified records",
+        "two literal cost tuples"
+      ],
+      "mode": "AND",
+      "failure_boundary": "No evaluator links the display lists to the matrices; G-DISPLAY retained."
+    },
+    {
+      "id": "BELL",
+      "tails": [
+        "F",
+        "T amplitude identity",
+        "literal Bell columns"
+      ],
+      "heads": [
+        "B1 normalization",
+        "B1 unitary",
+        "B1 action",
+        "B1 certificate"
+      ],
+      "mode": "AND"
+    },
+    {
+      "id": "DENSE",
+      "tails": [
+        "F",
+        "literal quaternion-pattern columns",
+        "39^2+52^2+60^2+144^2=169^2"
+      ],
+      "heads": [
+        "B2 normalization",
+        "B2 unitary",
+        "B2 action",
+        "B2 certificate"
+      ],
+      "mode": "AND"
+    },
+    {
+      "id": "B3-LITERAL-DATA",
+      "mode": "AND",
+      "tails": [
+        "F",
+        "c=3/5,s=4/5",
+        "vP=(9,12,12,16)/25",
+        "UP=(1/25)[[9,-12,-12,16],[12,9,-16,-12],[12,-16,9,-12],[16,12,12,9]]"
+      ],
+      "heads": [
+        "B3 exact literal vector, target and matrix data"
+      ],
+      "mechanism": "Literal data identity only; no norm/unitarity inferred from a name."
+    },
+    {
+      "id": "B3-NORM-TENSOR",
+      "mode": "AND",
+      "tails": [
+        "B3 literal vector vP",
+        "c=3/5,s=4/5 and c^2+s^2=1",
+        "literal identification vP=(c,s) tensor (c,s)",
+        "finite tensor squared-norm multiplicativity",
+        "one-factor squared norm c^2+s^2=1"
+      ],
+      "heads": [
+        "B3 squared norm=1 via tensor argument"
+      ],
+      "mechanism": "Tensor source proof route.",
+      "implementation_status": "SOURCE_MATHEMATICS_ONLY; target Lean does not implement this tensor proof."
+    },
+    {
+      "id": "B3-NORM-DIRECT",
+      "mode": "AND",
+      "tails": [
+        "B3 literal vector vP",
+        "finite coordinate squared-norm sum",
+        "9^2+12^2+12^2+16^2=81+144+144+256=625=25^2"
+      ],
+      "heads": [
+        "B3 squared norm=1 via direct coordinate sum"
+      ],
+      "mechanism": "Four scalar terms over denominator625.",
+      "implementation_status": "SOURCE_ROUTE_MATCHES_FINITE_ENTRY_IMPLEMENTATION_STYLE; not an elaborated dependency claim."
+    },
+    {
+      "id": "B3-NORMALIZATION",
+      "mode": "OR",
+      "alternative_complete_and_tails": [
+        [
+          "B3-NORM-TENSOR"
+        ],
+        [
+          "B3-NORM-DIRECT"
+        ]
+      ],
+      "heads": [
+        "groverRudolphProductTarget.normalization"
+      ],
+      "mechanism": "Either complete norm proof suffices; retain both source alternatives.",
+      "warning": "Each alternative's complete AND-tail must be supplied; alternatives are not jointly mandatory."
+    },
+    {
+      "id": "B3-UNITARY-TENSOR",
+      "mode": "AND",
+      "tails": [
+        "B3 literal matrix UP",
+        "c=3/5,s=4/5 and c^2+s^2=1",
+        "entry identification UP=R(c,s) tensor R(c,s)",
+        "R(c,s)* R(c,s)=I from circle equation",
+        "finite tensor adjoint/multiplication/unitarity laws"
+      ],
+      "heads": [
+        "UP unitary via tensor argument"
+      ],
+      "mechanism": "Tensor source proof route.",
+      "implementation_status": "SOURCE_MATHEMATICS_ONLY; no target Lean tensor proof claimed."
+    },
+    {
+      "id": "B3-UNITARY-DIRECT",
+      "mode": "AND",
+      "tails": [
+        "B3 four literal columns",
+        "all four column squared norms: 625/625=1",
+        "dot01=(-108+108-192+192)/625=0",
+        "dot02=(-108-192+108+192)/625=0",
+        "dot03=(144-144-144+144)/625=0",
+        "dot12=(144-144-144+144)/625=0",
+        "dot13=(-192-108+192+108)/625=0",
+        "dot23=(-192+192-108+108)/625=0",
+        "finite Gram criterion U*U=I"
+      ],
+      "heads": [
+        "UP unitary via direct columns"
+      ],
+      "mechanism": "All four diagonal norms and all six offdiagonal cancellations.",
+      "implementation_status": "ACTUAL_TARGET_USES_FINITE_ENTRY_GRAM_PROOF; source references do not claim an elaborated theorem dependency export."
+    },
+    {
+      "id": "B3-UNITARITY",
+      "mode": "OR",
+      "alternative_complete_and_tails": [
+        [
+          "B3-UNITARY-TENSOR"
+        ],
+        [
+          "B3-UNITARY-DIRECT"
+        ]
+      ],
+      "heads": [
+        "groverRudolphProductMatrix_unitary"
+      ],
+      "mechanism": "Either complete unitary proof suffices; do not require both.",
+      "warning": "Each alternative's complete AND-tail must be supplied; alternatives are not jointly mandatory."
+    },
+    {
+      "id": "B3-FIRST-COLUMN",
+      "mode": "AND",
+      "tails": [
+        "B3 literal matrix UP",
+        "B3 target identification target.amplitudes=vP",
+        "column zero of UP is vP",
+        "F applyVec_basisKet / zeroKet selects column zero"
+      ],
+      "heads": [
+        "UP e0=groverRudolphProductTarget.amplitudes"
+      ],
+      "mechanism": "Exact first-column action; no norm or unitary binder is needed for the column identity."
+    },
+    {
+      "id": "PRODUCT-MATRIX",
+      "mode": "AND",
+      "tails": [
+        "B3-LITERAL-DATA",
+        "B3-NORMALIZATION (either full OR branch)",
+        "B3-UNITARITY (either full OR branch)",
+        "B3-FIRST-COLUMN",
+        "concrete Gate/Certificate structure fields"
+      ],
+      "heads": [
+        "B3 normalization, full unitary, first-column action and fixed certificate"
+      ],
+      "mechanism": "AND packaging after separate sufficient proof alternatives, not a tensor-specific Lean implementation claim."
+    },
+    {
+      "id": "SPARSE",
+      "tails": [
+        "F",
+        "literal eight columns",
+        "three pairwise cancellations",
+        "three column norms",
+        "complementary-row orthonormality"
+      ],
+      "heads": [
+        "B4 normalization",
+        "B4 unitary",
+        "B4 action",
+        "B4 certificate"
+      ],
+      "mode": "AND",
+      "failure_boundary": "Not an identity extension and not general sparse-state circuit synthesis."
+    },
+    {
+      "id": "COUNT-ARITHMETIC",
+      "tails": [
+        "B5 total Nat definition",
+        "literal (16,1,1)",
+        "literal (16,1,4)"
+      ],
+      "heads": [
+        "72",
+        "48",
+        "48<72"
+      ],
+      "mode": "AND",
+      "failure_boundary": "No SelectSwap circuit/T-count correctness theorem."
+    },
+    {
+      "id": "P-REINDEX",
+      "tails": [
+        "shared primitive gate unitarity",
+        "chronological circuit composition",
+        "shared LE equivalence",
+        "shared reindex-unitary bridge"
+      ],
+      "heads": [
+        "P1 evaluated matrix unitarity"
+      ],
+      "mode": "AND"
+    },
+    {
+      "id": "PYTHAGOREAN",
+      "mode": "AND",
+      "tails": [
+        "real c,s",
+        "lower:-1<=c",
+        "upper:c<=1",
+        "sine_nonneg:0<=s",
+        "normalization:c*c+s*s=1",
+        "literal amplitudeRotation(c)=R(cos(arccos c),sin(arccos c))",
+        "cos(arccos c)=c under interval bounds",
+        "arccos c in [0,pi], hence sine nonnegative",
+        "sin^2+cos^2=1; equal nonnegative squares imply sin(arccos c)=s"
+      ],
+      "heads": [
+        "generic amplitudeRotation(c)=R(c,s)"
+      ],
+      "mechanism": "Only the generic private four-premise theorem; fixed-angle instantiations are separate."
+    },
+    {
+      "id": "PYTHAGOREAN-35",
+      "mode": "AND",
+      "tails": [
+        "PYTHAGOREAN generic identity",
+        "private rational c=3/5,s=4/5",
+        "-1<=3/5<=1,0<=4/5,(3/5)^2+(4/5)^2=1",
+        "ExactAngle.twiceArccosRational(3/5) with |3/5|<=1 witness",
+        "ryAngle35.eval=2 arccos(3/5)",
+        "standard RY(theta)=realRotation(theta/2); exact cancellation (2 arccos c)/2=arccos c"
+      ],
+      "heads": [
+        "standardRyMatrix_ryAngle35=R(3/5,4/5)"
+      ],
+      "mechanism": "Only this fixed angle is required by the product routes."
+    },
+    {
+      "id": "PYTHAGOREAN-513",
+      "mode": "AND",
+      "tails": [
+        "PYTHAGOREAN generic identity",
+        "private rational c=5/13,s=12/13",
+        "-1<=5/13<=1,0<=12/13,(5/13)^2+(12/13)^2=1",
+        "ExactAngle.twiceArccosRational(5/13) with |5/13|<=1 witness",
+        "ryAngle513.eval=2 arccos(5/13)",
+        "standard RY half-angle definition and exact cancellation"
+      ],
+      "heads": [
+        "standardRyMatrix_ryAngle513=R(5/13,12/13)"
+      ],
+      "mechanism": "Retained reusable but unused fixed angle; not a product-route premise."
+    },
+    {
+      "id": "ANGLE-ZERO",
+      "mode": "AND",
+      "tails": [
+        "ryAngleZero=ExactAngle.rational 0",
+        "ExactAngle rational eval=0",
+        "standard RY half-angle,cos0=1,sin0=0"
+      ],
+      "heads": [
+        "standardRyMatrix_ryAngleZero=I"
+      ],
+      "mechanism": "Separate zero-angle branch; not forced into the fixed product preparation AND-tail."
+    },
+    {
+      "id": "UCRY-BASE",
+      "mode": "AND",
+      "tails": [
+        "zero-control compiler emits sole singleton RY(angle(empty))",
+        "unique empty control assignment",
+        "primitive singleton RY evaluation",
+        "named-target lift equals a fixed RY block on every unchanged non-target context",
+        "independent controlledRyBlockMatrix definition"
+      ],
+      "heads": [
+        "zero-control compiled matrix equals its specified context blocks"
+      ],
+      "mechanism": "Base case before induction."
+    },
+    {
+      "id": "UCRY-ANGLE-EVAL",
+      "mode": "AND",
+      "tails": [
+        "literal prependControlBit and halfAddAngles/halfSubAngles definitions",
+        "ExactAngle add/neg/scale evaluation",
+        "for each tail assignment A0,A1: alpha=(A0+A1)/2 and beta=(A0-A1)/2 in evaluated Real angles"
+      ],
+      "heads": [
+        "evaluated half-sum/half-difference angle-table identities"
+      ],
+      "mechanism": "Exact syntax/evaluation bridge, not a finite-bit evaluator."
+    },
+    {
+      "id": "UCRY-ROTATIONS",
+      "mode": "AND",
+      "tails": [
+        "standard RY(theta)=R(cos(theta/2),sin(theta/2))",
+        "sine/cosine angle addition formulas",
+        "finite 2x2 multiplication",
+        "literal X=[[0,1],[1,0]]"
+      ],
+      "heads": [
+        "RY(beta)RY(alpha)=RY(alpha+beta)",
+        "X RY(beta) X=RY(-beta)"
+      ],
+      "mechanism": "Full half-angle/sign identities."
+    },
+    {
+      "id": "UCRY-CONTEXT",
+      "mode": "AND",
+      "tails": [
+        "w:Fin controls->Fin qubits,target t",
+        "forall k,w(k)!=t (no pairwise injectivity)",
+        "fixed unchanged non-target context z",
+        "control assignment k->z(w(k))",
+        "head bit z(w(0)) and consistent tail assignment k->z(w(k.succ))",
+        "CX preserves every non-target bit"
+      ],
+      "heads": [
+        "consistent head0/head1 assignments select A0/A1 and common tail context"
+      ],
+      "mechanism": "Repeated control wires remain allowed; only reachable assignments matter."
+    },
+    {
+      "id": "UCRY-INDUCTIVE-STEP",
+      "mode": "AND",
+      "tails": [
+        "recursive compiler=UCRY(alpha),CX,UCRY(beta),CX chronologically",
+        "induction hypothesis for the halfAdd tail table and tail wires",
+        "induction hypothesis for the halfSub tail table and tail wires",
+        "tail wires still avoid target",
+        "UCRY-ANGLE-EVAL",
+        "UCRY-ROTATIONS",
+        "UCRY-CONTEXT",
+        "chronological multiplication later on left",
+        "head0 CX block=I gives RY(beta)RY(alpha)=RY(A0)",
+        "head1 CX block=X gives X RY(beta) X RY(alpha)=RY(A1)"
+      ],
+      "heads": [
+        "successor-control compiled matrix equals specified context blocks"
+      ],
+      "mechanism": "Both induction hypotheses and head assignments are required."
+    },
+    {
+      "id": "UCRY-RECURSIVE",
+      "mode": "AND",
+      "tails": [
+        "typed angle table",
+        "forall control,wires control!=target",
+        "UCRY-BASE",
+        "UCRY-INDUCTIVE-STEP for all predecessor control counts/tail tables",
+        "induction on natural number of controls"
+      ],
+      "heads": [
+        "shared compiled UCRY full context-block semantics"
+      ],
+      "mechanism": "Existing supplier's complete source construction, not a new theorem."
+    },
+    {
+      "id": "UCRY-LE-ENTRY",
+      "mode": "AND",
+      "tails": [
+        "UCRY-RECURSIVE full block matrix equality",
+        "primitiveBasisLEEquiv and primitiveLEBits inverse",
+        "simultaneous row/column reindexing entry formula",
+        "splitPrimitiveWire target bit/non-target-context equivalence",
+        "controlledRyBlockMatrix apply/lift-entry formula"
+      ],
+      "heads": [
+        "evalPrimitiveCircuitLE_compileUniformlyControlledRy_apply"
+      ],
+      "mechanism": "Explicit flat-index consumer transport; no hidden bit-order identification."
+    },
+    {
+      "id": "FACTORIZED-OPERATOR",
+      "mode": "AND",
+      "tails": [
+        "fixed factorized typed list [RY1(angle35),RY0(angle35)]",
+        "PYTHAGOREAN-35",
+        "P3 singleton LE lift entries",
+        "literal lowMatrix=L and highMatrix=K (source P4)",
+        "chronological append: eval_LE factorized=L*K",
+        "entry multiplication L*K=literal B3 UP"
+      ],
+      "heads": [
+        "eval_LE factorized=UP"
+      ],
+      "mechanism": "Full all-column operator equality, not merely target action."
+    },
+    {
+      "id": "FACTORIZED",
+      "mode": "AND",
+      "tails": [
+        "FACTORIZED-OPERATOR",
+        "B3 target identification target.amplitudes=vP",
+        "B3-FIRST-COLUMN: UP e0=target.amplitudes",
+        "same all-zero input e0 in the same LE flat carrier"
+      ],
+      "heads": [
+        "factorized target action"
+      ],
+      "mechanism": "Explicit operator-to-state bridge."
+    },
+    {
+      "id": "TREE-OPERATOR-EQUALITY",
+      "mode": "AND",
+      "tails": [
+        "fixed tree typed list root RY1(angle35) then compiled one-control UCRY0",
+        "wire1!=wire0",
+        "constant angle table on BOTH assignments",
+        "UCRY-RECURSIVE and named-wire RY block semantics",
+        "constant UCRY full matrix equals singleton RY0(angle35)",
+        "chronological list append",
+        "simultaneous LE reindex transport"
+      ],
+      "heads": [
+        "eval_LE tree=eval_LE factorized"
+      ],
+      "mechanism": "Full all-column equality; this does not imply action without the next bridge."
+    },
+    {
+      "id": "TREE",
+      "mode": "AND",
+      "tails": [
+        "TREE-OPERATOR-EQUALITY",
+        "FACTORIZED target action",
+        "same fixed target and all-zero input"
+      ],
+      "heads": [
+        "tree target action"
+      ],
+      "mechanism": "The actual action proof uses factorized action, not an unconnected UP action."
+    },
+    {
+      "id": "FACTORIZED-ROUTE-RECORD",
+      "mode": "AND",
+      "tails": [
+        "FACTORIZED target action",
+        "B3 normalization proof",
+        "fixed B3 typed target",
+        "fixed factorized typed circuit",
+        "P1 ExactPrimitiveStatePreparationRoute record fields"
+      ],
+      "heads": [
+        "groverRudolphFactorizedRoute"
+      ],
+      "mechanism": "One complete corresponding record."
+    },
+    {
+      "id": "TREE-ROUTE-RECORD",
+      "mode": "AND",
+      "tails": [
+        "TREE target action",
+        "B3 normalization proof",
+        "fixed B3 typed target",
+        "fixed tree typed circuit",
+        "P1 ExactPrimitiveStatePreparationRoute record fields"
+      ],
+      "heads": [
+        "groverRudolphTreeRoute"
+      ],
+      "mechanism": "The other complete corresponding record."
+    },
+    {
+      "id": "ROUTE-RECORDS",
+      "mode": "AND",
+      "tails": [
+        "FACTORIZED-ROUTE-RECORD",
+        "TREE-ROUTE-RECORD"
+      ],
+      "heads": [
+        "two same-target route records"
+      ],
+      "mechanism": "Collection requires BOTH independently supplied action fields, not one schematic corresponding action."
+    },
+    {
+      "id": "SAME-TARGET-ROUTES",
+      "mode": "OR",
+      "alternative_complete_and_tails": [
+        [
+          "FACTORIZED-ROUTE-RECORD"
+        ],
+        [
+          "TREE-ROUTE-RECORD"
+        ]
+      ],
+      "heads": [
+        "an exact primitive route preparing the fixed product target"
+      ],
+      "mechanism": "Either complete route prepares the same target. Physical construction alternatives do not claim independent implementation proofs.",
+      "warning": "Each alternative's complete AND-tail must be supplied; alternatives are not jointly mandatory."
+    },
+    {
+      "id": "COST-COMPARE",
+      "mode": "AND",
+      "tails": [
+        "FACTORIZED-ROUTE-RECORD",
+        "TREE-ROUTE-RECORD",
+        "literal unsimplified typed instruction lists including halfAdd/halfSub angle syntax and zero-evaluating RY",
+        "shared PrimitiveCircuit Resource/depth definitions",
+        "factorized two disjoint RY: gates2,depth1,aux0,oracles0",
+        "tree five wire-depth updates (0,1),(1,1),(2,2),(3,2),(4,4): gates5,depth4,aux0,oracles0",
+        "2<5",
+        "strict lexicographic comparator first disjunct"
+      ],
+      "heads": [
+        "two literal cost tuples",
+        "factorized betterThan tree"
+      ],
+      "mechanism": "AND comparison of BOTH exact same-target records; no optimized/hardware/global-optimality claim."
+    }
+  ],
+  "explicit_declaration_coverage": [
+    {
+      "source": "QuantumBlockEncoding/TextbookStatePreparation.lean",
+      "line": 20,
+      "name": "QuantumBlockEncoding.TextbookStatePreparation.zeroIndex",
+      "node": "T",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/TextbookStatePreparation.lean",
+      "line": 22,
+      "name": "QuantumBlockEncoding.TextbookStatePreparation.oneIndex",
+      "node": "T",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/TextbookStatePreparation.lean",
+      "line": 24,
+      "name": "QuantumBlockEncoding.TextbookStatePreparation.pauliX",
+      "node": "T",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/TextbookStatePreparation.lean",
+      "line": 28,
+      "name": "QuantumBlockEncoding.TextbookStatePreparation.pauliX_unitary",
+      "node": "T",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/TextbookStatePreparation.lean",
+      "line": 35,
+      "name": "QuantumBlockEncoding.TextbookStatePreparation.oneState",
+      "node": "T",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/TextbookStatePreparation.lean",
+      "line": 38,
+      "name": "QuantumBlockEncoding.TextbookStatePreparation.oneTarget",
+      "node": "T",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/TextbookStatePreparation.lean",
+      "line": 43,
+      "name": "QuantumBlockEncoding.TextbookStatePreparation.oneTarget_normalized",
+      "node": "T",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/TextbookStatePreparation.lean",
+      "line": 49,
+      "name": "QuantumBlockEncoding.TextbookStatePreparation.pauliX_prepares_one",
+      "node": "T",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/TextbookStatePreparation.lean",
+      "line": 83,
+      "name": "QuantumBlockEncoding.TextbookStatePreparation.pauliXGate",
+      "node": "T",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/TextbookStatePreparation.lean",
+      "line": 87,
+      "name": "QuantumBlockEncoding.TextbookStatePreparation.pauliXCertificate",
+      "node": "T",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/TextbookStatePreparation.lean",
+      "line": 93,
+      "name": "QuantumBlockEncoding.TextbookStatePreparation.pauliXCircuit",
+      "node": "T",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/TextbookStatePreparation.lean",
+      "line": 95,
+      "name": "QuantumBlockEncoding.TextbookStatePreparation.pauliXVerified",
+      "node": "T",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/TextbookStatePreparation.lean",
+      "line": 99,
+      "name": "QuantumBlockEncoding.TextbookStatePreparation.pauliXVerified_cost",
+      "node": "T",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/TextbookStatePreparation.lean",
+      "line": 104,
+      "name": "QuantumBlockEncoding.TextbookStatePreparation.invSqrtTwo",
+      "node": "T",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/TextbookStatePreparation.lean",
+      "line": 107,
+      "name": "QuantumBlockEncoding.TextbookStatePreparation.invSqrtTwo_mul_self",
+      "node": "T",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/TextbookStatePreparation.lean",
+      "line": 115,
+      "name": "QuantumBlockEncoding.TextbookStatePreparation.hadamard",
+      "node": "T",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/TextbookStatePreparation.lean",
+      "line": 120,
+      "name": "QuantumBlockEncoding.TextbookStatePreparation.star_hadamard",
+      "node": "T",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/TextbookStatePreparation.lean",
+      "line": 125,
+      "name": "QuantumBlockEncoding.TextbookStatePreparation.hadamard_unitary",
+      "node": "T",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/TextbookStatePreparation.lean",
+      "line": 135,
+      "name": "QuantumBlockEncoding.TextbookStatePreparation.plusState",
+      "node": "T",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/TextbookStatePreparation.lean",
+      "line": 138,
+      "name": "QuantumBlockEncoding.TextbookStatePreparation.plusTarget",
+      "node": "T",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/TextbookStatePreparation.lean",
+      "line": 143,
+      "name": "QuantumBlockEncoding.TextbookStatePreparation.plusTarget_normalized",
+      "node": "T",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/TextbookStatePreparation.lean",
+      "line": 150,
+      "name": "QuantumBlockEncoding.TextbookStatePreparation.hadamard_prepares_plus",
+      "node": "T",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/TextbookStatePreparation.lean",
+      "line": 162,
+      "name": "QuantumBlockEncoding.TextbookStatePreparation.hadamardGate",
+      "node": "T",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/TextbookStatePreparation.lean",
+      "line": 166,
+      "name": "QuantumBlockEncoding.TextbookStatePreparation.hadamardCertificate",
+      "node": "T",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/TextbookStatePreparation.lean",
+      "line": 173,
+      "name": "QuantumBlockEncoding.TextbookStatePreparation.hadamardCircuit",
+      "node": "T",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/TextbookStatePreparation.lean",
+      "line": 175,
+      "name": "QuantumBlockEncoding.TextbookStatePreparation.hadamardVerified",
+      "node": "T",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/TextbookStatePreparation.lean",
+      "line": 179,
+      "name": "QuantumBlockEncoding.TextbookStatePreparation.hadamardVerified_cost",
+      "node": "T",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/TextbookStatePreparation.lean",
+      "line": 185,
+      "name": "QuantumBlockEncoding.TextbookStatePreparation.pauliXCertificate_prepares_one",
+      "node": "T",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/TextbookStatePreparation.lean",
+      "line": 191,
+      "name": "QuantumBlockEncoding.TextbookStatePreparation.hadamardCertificate_prepares_plus",
+      "node": "T",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 22,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.bellAmplitude",
+      "node": "B1",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 25,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.bellState",
+      "node": "B1",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 28,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.bellTarget",
+      "node": "B1",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 33,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.bellTarget_normalized",
+      "node": "B1",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 41,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.bellMatrix",
+      "node": "B1",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 54,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.star_bellMatrix",
+      "node": "B1",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 59,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.bellMatrix_unitary",
+      "node": "B1",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 71,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.bellGate",
+      "node": "B1",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 75,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.bellMatrix_prepares_target",
+      "node": "B1",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 84,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.bellCertificate",
+      "node": "B1",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 92,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseState",
+      "node": "B2",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 99,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseTarget",
+      "node": "B2",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 104,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseTarget_normalized",
+      "node": "B2",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 110,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseMatrix",
+      "node": "B2",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 132,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseMatrix_unitary",
+      "node": "B2",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 145,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseGate",
+      "node": "B2",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 149,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseMatrix_prepares_target",
+      "node": "B2",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 163,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseCertificate",
+      "node": "B2",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 172,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductState",
+      "node": "B3",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 180,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductTarget",
+      "node": "B3",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 185,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductTarget_normalized",
+      "node": "B3",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 192,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductMatrix",
+      "node": "B3",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 214,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductMatrix_unitary",
+      "node": "B3",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 228,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductGate",
+      "node": "B3",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 232,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductMatrix_prepares_target",
+      "node": "B3",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 246,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductCertificate",
+      "node": "B3",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 255,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeState",
+      "node": "B4",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 261,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeTarget",
+      "node": "B4",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 266,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeTarget_normalized",
+      "node": "B4",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 272,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeMatrix",
+      "node": "B4",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 293,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeMatrix_unitary",
+      "node": "B4",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 306,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeGate",
+      "node": "B4",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 310,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeMatrix_prepares_target",
+      "node": "B4",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 322,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeCertificate",
+      "node": "B4",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 330,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.selectSwapCleanTCount",
+      "node": "B5",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 333,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.selectSwapCleanTCount_16_1_1",
+      "node": "B5",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 336,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.selectSwapCleanTCount_16_1_4",
+      "node": "B5",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "line": 339,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.selectSwapCleanTCount_lambda4_better_lambda1",
+      "node": "B5",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 21,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.evalPrimitiveCircuitLE",
+      "node": "P1",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 27,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.evalPrimitiveCircuitLE_unitary",
+      "node": "P1",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 34,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.ExactPrimitiveStatePreparationRoute",
+      "node": "P1",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 44,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.ExactPrimitiveStatePreparationRoute.cost",
+      "node": "P1",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 51,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.ExactPrimitiveStatePreparationRoute.unitary",
+      "node": "P1",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 60,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.amplitudeRotation_eq_pythagorean",
+      "node": "P2",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 78,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.cosine35",
+      "node": "P2",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 79,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.sine35",
+      "node": "P2",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 80,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.cosine513",
+      "node": "P2",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 81,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.sine513",
+      "node": "P2",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 83,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.ryAngle35",
+      "node": "P2",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 87,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.ryAngle513",
+      "node": "P2",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 91,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.ryAngleZero",
+      "node": "P2",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 93,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.standardRyMatrix_ryAngle35",
+      "node": "P2",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 109,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.standardRyMatrix_ryAngle513",
+      "node": "P2",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 125,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.standardRyMatrix_ryAngleZero",
+      "node": "P2",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 131,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.primitiveLEBits",
+      "node": "P3",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 135,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.evalPrimitiveCircuitLE_append",
+      "node": "P3",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 142,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.evalPrimitiveCircuitLE_singleton_ry_apply",
+      "node": "P3",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 157,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.evalPrimitiveCircuitLE_compileUniformlyControlledRy_apply",
+      "node": "P3",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 183,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphControlWire",
+      "node": "P4",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 185,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphControlWire_ne_target",
+      "node": "P4",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 191,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphConstantAngles",
+      "node": "P4",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 195,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphTreeCircuit",
+      "node": "P4",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 201,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphFactorizedCircuit",
+      "node": "P4",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 205,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphConstantUcry_eval",
+      "node": "P4",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 215,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphTree_eval_eq_factorized",
+      "node": "P4",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 223,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphTree_evalLE_eq_factorized",
+      "node": "P4",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 229,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphFactorized_evalLE_eq_matrix",
+      "node": "P4",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 275,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphFactorized_prepares_target",
+      "node": "P4",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 281,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphTree_prepares_target",
+      "node": "P4",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 287,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphFactorizedRoute",
+      "node": "P4",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 294,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphTreeRoute",
+      "node": "P4",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 301,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphFactorizedVerified_cost",
+      "node": "P5",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 306,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphTreeVerified_cost",
+      "node": "P5",
+      "disposition": "NODE"
+    },
+    {
+      "source": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "line": 311,
+      "name": "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphFactorized_betterThan_tree",
+      "node": "P5",
+      "disposition": "NODE"
+    }
+  ],
+  "four_views": {
+    "source": "Successor retrospective source topology responds to every released edge review; explicit norm/unitary and circuit OR routes retain their full AND dependencies. Exact independent re-review PENDING.",
+    "lean": "Actual module imports/ownership only: Textbook imports ConcreteSemantics; CoreFixed imports ConcreteSemantics + Textbook + Mathlib.Tactic; PrimitiveRoutes imports CoreFixed + PrimitiveBasisLE + UniformlyControlledRy + Mathlib.Tactic. Declaration references in this packet are source-level signals, not elaborated proof-term edges. In particular B3 source tensor norm/unitary proofs are explanatory alternatives only: actual target code uses finite coordinate/Gram entries. Tree action uses factorized action after full operator equality; no second independent whole implementation proof is invented.",
+    "compressed": "One shared finite-matrix/first-column spine; exact rotations plus named-wire LE lift/UCRY; two product-state circuits; matched literal resource comparison. Preserve source and full formal expansion.",
+    "functor": "No certified categorical functor. Conditional presentation transport from concrete certificate to generic wrapper retains physical Prop instantiation and all display-resource gaps; primitive named bits to LE matrix retains equivalence. No SP-to-BE claim; PREPARE alone supplies no SELECT/unprepare/LCU normalization."
+  },
+  "comparison_object_separation": {
+    "source": "natural-source-v2.md",
+    "actual_formal": "formal/target-01.lean through target-03.lean plus bounded provider context",
+    "discovered_mismatch": "binder-audit-v2.md typed gaps, notably G-SPARSE-COMMENT and G-DISPLAY; these boundaries remain explanations, not code repairs.",
+    "proposed_repair": "EDITORIAL_CENSUS_ONLY: editorial-proposal.json replaces exactly the Bell six-core-plus-adjoint count sentence. No mathematical statement, premise, matrix, cost or Lean code changes. Independent exact-proposal minimality review remains required."
+  },
+  "version": 3,
+  "source": "natural-source-v2.md",
+  "prior_review": {
+    "logical_reference": "hermite-export-work/sp-foundations-c41-source-review-phase3/author-topology-review.json",
+    "sha256": "42d2c7b0c84f36138c3fa9b704ba79693f452172045dc20fa8ac2191cabfadd2",
+    "verdict_retained": "WITHHELD_CHANGES_REQUIRED",
+    "successor_review": "PENDING"
+  },
+  "implementation_alignment": {
+    "B3_norm": "Actual groverRudolphProductTarget_normalized is finite coordinate arithmetic, not a tensor Lean proof.",
+    "B3_unitary": "Actual groverRudolphProductMatrix_unitary is full finite-entry Gram checking, not a tensor Lean proof.",
+    "factorized": "Actual full matrix equality -> B3 first-column/action -> factorized action.",
+    "tree": "Actual tree=factorized full operator equality -> factorized action -> tree action.",
+    "trust": "Lexical/manual source inspection only; no new Lean/native execution or elaborated dependency export."
+  },
+  "edge_review_responses": [
+    {
+      "original_edge": "T-X",
+      "prior_review_result": "PASS_BOUNDED",
+      "prior_review_reason": "Shared finite semantics AND literal X/e1 support swap involution, norm and column action as a combined result. No display refinement inferred.",
+      "successor_edges": [
+        "T-X"
+      ],
+      "author_response_status": "PROPOSED_REPAIR_AWAITING_SAME_REVIEWER",
+      "requested_additions": [],
+      "note": "This records the author's response; it does not alter the old verdict or assert reviewer acceptance."
+    },
+    {
+      "original_edge": "T-H",
+      "prior_review_result": "REQUIRES_EXPLICIT_DATA_TAIL",
+      "prior_review_reason": "F,sqrt representative and a^2 do not name the actual H entry definition or plus vector; those relations occur in the source but should be explicit in a complete tail for the H/plus head.",
+      "successor_edges": [
+        "T-H"
+      ],
+      "author_response_status": "PROPOSED_REPAIR_AWAITING_SAME_REVIEWER",
+      "requested_additions": [
+        "literal H=[[a,a],[a,-a]] and plusState=(a,a)",
+        "H*/H-square and plus norm/first-column derivation under those literal definitions"
+      ],
+      "note": "This records the author's response; it does not alter the old verdict or assert reviewer acceptance."
+    },
+    {
+      "original_edge": "T-WRAPPERS",
+      "prior_review_result": "PASS_WITH_GAP_RETAINED",
+      "prior_review_reason": "Both X/H results AND exact annotation arguments AND the actual certificate wrapper produce the two stored records/costs. G-DISPLAY correctly stays open. Both examples are a collection, not same-target OR routes.",
+      "successor_edges": [
+        "T-WRAPPERS"
+      ],
+      "author_response_status": "PROPOSED_REPAIR_AWAITING_SAME_REVIEWER",
+      "requested_additions": [],
+      "note": "This records the author's response; it does not alter the old verdict or assert reviewer acceptance."
+    },
+    {
+      "original_edge": "BELL",
+      "prior_review_result": "PASS_BOUNDED",
+      "prior_review_reason": "Literal columns, shared finite semantics and the fixed sqrt amplitude determine norm/unitarity/action/package. The extra star_bellMatrix is covered in source and declaration map; Bell prose census erratum does not omit it.",
+      "successor_edges": [
+        "BELL"
+      ],
+      "author_response_status": "PROPOSED_REPAIR_AWAITING_SAME_REVIEWER",
+      "requested_additions": [],
+      "note": "This records the author's response; it does not alter the old verdict or assert reviewer acceptance."
+    },
+    {
+      "original_edge": "DENSE",
+      "prior_review_result": "PASS_BOUNDED",
+      "prior_review_reason": "Literal quaternion-pattern columns AND exact square sum AND finite Gram/column semantics suffice for this fixed matrix only. No arbitrary Mottonen compiler implied.",
+      "successor_edges": [
+        "DENSE"
+      ],
+      "author_response_status": "PROPOSED_REPAIR_AWAITING_SAME_REVIEWER",
+      "requested_additions": [],
+      "note": "This records the author's response; it does not alter the old verdict or assert reviewer acceptance."
+    },
+    {
+      "original_edge": "PRODUCT-MATRIX",
+      "prior_review_result": "VALID_ROUTE_BUT_ALTERNATIVES_MISSING",
+      "prior_review_reason": "Tensor route is mathematically sufficient, but source line53 also supplies direct-coordinate normalization and equivalent direct-column unitarity. Current graph has only one OR hyperedge overall and drops these two proof alternatives.",
+      "successor_edges": [
+        "B3-LITERAL-DATA",
+        "B3-NORM-TENSOR",
+        "B3-NORM-DIRECT",
+        "B3-NORMALIZATION",
+        "B3-UNITARY-TENSOR",
+        "B3-UNITARY-DIRECT",
+        "B3-UNITARITY",
+        "B3-FIRST-COLUMN",
+        "PRODUCT-MATRIX"
+      ],
+      "author_response_status": "PROPOSED_REPAIR_AWAITING_SAME_REVIEWER",
+      "requested_additions": [
+        "OR: tensor norm multiplicativity versus literal81+144+144+256=625 norm proof",
+        "OR: tensor rotation unitarity versus all four norms and six cross-column cancellations",
+        "retain the complete data/normalization/tensor or column tails of each alternative separately"
+      ],
+      "note": "This records the author's response; it does not alter the old verdict or assert reviewer acceptance."
+    },
+    {
+      "original_edge": "SPARSE",
+      "prior_review_result": "PASS_BOUNDED",
+      "prior_review_reason": "All eight literal columns AND three norms AND all three pairwise cancellations AND complementary-row orthonormality form the full finite Gram tail. Nonidentity complement and no general sparse compiler/resource claim are preserved.",
+      "successor_edges": [
+        "SPARSE"
+      ],
+      "author_response_status": "PROPOSED_REPAIR_AWAITING_SAME_REVIEWER",
+      "requested_additions": [],
+      "note": "This records the author's response; it does not alter the old verdict or assert reviewer acceptance."
+    },
+    {
+      "original_edge": "COUNT-ARITHMETIC",
+      "prior_review_result": "PASS_ARITHMETIC_ONLY",
+      "prior_review_reason": "Total Nat definition and exact input triples yield72,48 and their inequality. No lambda positivity, hardware or SelectSwap correctness theorem introduced.",
+      "successor_edges": [
+        "COUNT-ARITHMETIC"
+      ],
+      "author_response_status": "PROPOSED_REPAIR_AWAITING_SAME_REVIEWER",
+      "requested_additions": [],
+      "note": "This records the author's response; it does not alter the old verdict or assert reviewer acceptance."
+    },
+    {
+      "original_edge": "P-REINDEX",
+      "prior_review_result": "PASS_BOUNDED",
+      "prior_review_reason": "Gate unitarity AND chronological finite products AND LE equivalence AND reindex-unitary bridge all retained; no arbitrary target Prop supplies this fact.",
+      "successor_edges": [
+        "P-REINDEX"
+      ],
+      "author_response_status": "PROPOSED_REPAIR_AWAITING_SAME_REVIEWER",
+      "requested_additions": [],
+      "note": "This records the author's response; it does not alter the old verdict or assert reviewer acceptance."
+    },
+    {
+      "original_edge": "PYTHAGOREAN",
+      "prior_review_result": "REQUIRES_HEAD_TAIL_PRECISION",
+      "prior_review_reason": "Listed four constraints/trig facts support the generic private R(c,s) identity. The advertised rational-entry rotation head additionally needs explicit rational values, exact angle evaluations and their checked instances; zero-angle identity is a separate easy branch.",
+      "successor_edges": [
+        "PYTHAGOREAN",
+        "PYTHAGOREAN-35",
+        "PYTHAGOREAN-513",
+        "ANGLE-ZERO"
+      ],
+      "author_response_status": "PROPOSED_REPAIR_AWAITING_SAME_REVIEWER",
+      "requested_additions": [
+        "separate generic four-premise amplitude identity from fixed angle35/angle513 instantiations",
+        "for each fixed branch include exact rational c,s values and constructor domain witness/half-angle evaluation",
+        "retain unused angle513 and rational-zero identity without forcing them into product route AND tails"
+      ],
+      "note": "This records the author's response; it does not alter the old verdict or assert reviewer acceptance."
+    },
+    {
+      "original_edge": "UCRY-RECURSIVE",
+      "prior_review_result": "REQUIRES_SUPPLIER_EXPANSION",
+      "prior_review_reason": "Direction and repeated-control boundary are right. For the promised complete tail, the zero-control RY/lift base, induction on tail tables, ExactAngle halfAdd/halfSub evaluation and RY addition identity must be exposed alongside the already listed X-conjugation/context preservation. A separate LE entry transport retains the bit equivalence.",
+      "successor_edges": [
+        "UCRY-BASE",
+        "UCRY-ANGLE-EVAL",
+        "UCRY-ROTATIONS",
+        "UCRY-CONTEXT",
+        "UCRY-INDUCTIVE-STEP",
+        "UCRY-RECURSIVE",
+        "UCRY-LE-ENTRY"
+      ],
+      "author_response_status": "PROPOSED_REPAIR_AWAITING_SAME_REVIEWER",
+      "requested_additions": [
+        "zero-control singleton RY equals its sole context block",
+        "induction hypotheses for halfAdd/halfSub tail tables",
+        "ExactAngle evaluation of half sums/differences",
+        "RY(alpha+beta) composition and X-conjugation identities",
+        "consistent head/tail assignment from unchanged non-target context",
+        "LE equivalence/lift-entry transport for the flat-index consumer"
+      ],
+      "note": "This records the author's response; it does not alter the old verdict or assert reviewer acceptance."
+    },
+    {
+      "original_edge": "FACTORIZED",
+      "prior_review_result": "MISSING_STATE_ACTION_BRIDGE",
+      "prior_review_reason": "L*K=U_P and singleton entries prove operator equality. If the head also advertises target action, explicitly require the target definition and B3's U_P e0=v_P first-column fact. Merely naming the literal matrix should not hide that consumer bridge.",
+      "successor_edges": [
+        "FACTORIZED-OPERATOR",
+        "FACTORIZED"
+      ],
+      "author_response_status": "PROPOSED_REPAIR_AWAITING_SAME_REVIEWER",
+      "requested_additions": [
+        "B3 target identification v_P",
+        "B3 exact first-column action U_P e0=v_P"
+      ],
+      "note": "This records the author's response; it does not alter the old verdict or assert reviewer acceptance."
+    },
+    {
+      "original_edge": "TREE",
+      "prior_review_result": "MISSING_FACTORIZED_BRIDGE",
+      "prior_review_reason": "tree=factorized plus B3 U_P action does not by itself identify factorized with U_P. The source/actual proof explicitly uses factorized action after the operator equality.",
+      "successor_edges": [
+        "TREE-OPERATOR-EQUALITY",
+        "TREE"
+      ],
+      "author_response_status": "PROPOSED_REPAIR_AWAITING_SAME_REVIEWER",
+      "requested_additions": [
+        "FACTORIZED target action (or FACTORIZED operator=U_P AND B3 first-column action)",
+        "tree=factorized full operator equality with fixed data/append/LE context"
+      ],
+      "note": "This records the author's response; it does not alter the old verdict or assert reviewer acceptance."
+    },
+    {
+      "original_edge": "SAME-TARGET-ROUTES",
+      "prior_review_result": "OR_SHAPE_CORRECT_TAIL_REPAIRS_PENDING",
+      "prior_review_reason": "FACTORIZED or TREE is the correct construction alternative, not an AND. Its route nodes must first receive the missing action bridges above. No false OR across different T/B target families was found.",
+      "successor_edges": [
+        "SAME-TARGET-ROUTES"
+      ],
+      "author_response_status": "PROPOSED_REPAIR_AWAITING_SAME_REVIEWER",
+      "requested_additions": [],
+      "note": "This records the author's response; it does not alter the old verdict or assert reviewer acceptance."
+    },
+    {
+      "original_edge": "ROUTE-RECORDS",
+      "prior_review_result": "REQUIRES_BOTH_ACTIONS_EXPLICIT",
+      "prior_review_reason": "The phrase corresponding route can be read as a schematic family, but the head promises TWO records. State both fixed action producers explicitly, or split into two separately quantified construction edges.",
+      "successor_edges": [
+        "FACTORIZED-ROUTE-RECORD",
+        "TREE-ROUTE-RECORD",
+        "ROUTE-RECORDS"
+      ],
+      "author_response_status": "PROPOSED_REPAIR_AWAITING_SAME_REVIEWER",
+      "requested_additions": [
+        "factorized action AND its exact typed circuit/target",
+        "tree action AND its exact typed circuit/target",
+        "shared B3 normalization proof and P1 route structure"
+      ],
+      "note": "This records the author's response; it does not alter the old verdict or assert reviewer acceptance."
+    },
+    {
+      "original_edge": "COST-COMPARE",
+      "prior_review_result": "PASS_BOUNDED_AFTER_ROUTE_TAIL_REPAIRS",
+      "prior_review_reason": "Exact unsimplified lists, literal resource/depth definitions, both same-target records and2<5 support this fixed comparison; no optimized costs, Pareto order, global optimum or finite-bit/hardware tier inferred. Source's five depth updates remain expansion evidence.",
+      "successor_edges": [
+        "COST-COMPARE"
+      ],
+      "author_response_status": "PROPOSED_REPAIR_AWAITING_SAME_REVIEWER",
+      "requested_additions": [],
+      "note": "This records the author's response; it does not alter the old verdict or assert reviewer acceptance."
+    }
+  ],
+  "metadata_successor": {
+    "editor": "parent metadata editor, not independent reviewer",
+    "prior_graph_sha256": "1f02a749ca7e3405d397ed5177b703208ee40fb343f843f862bb3f0160e90f21",
+    "reason": "Distinct source reviewer noticed stale v1 names and NONE repair prose inside v2 comparison-object separation.",
+    "changed_existing_fields": [
+      "comparison_object_separation.source",
+      "comparison_object_separation.discovered_mismatch",
+      "comparison_object_separation.proposed_repair",
+      "version"
+    ],
+    "all_other_prior_fields_unchanged": true,
+    "all_mathematical_edges_unchanged": true,
+    "source_and_103_declaration_inventory_unchanged": true,
+    "review_status": "PENDING_EXACT_SUCCESSOR_REVIEW"
+  }
+}

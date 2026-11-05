@@ -1,0 +1,851 @@
+{
+  "status": "author-proposed retrospective topology, independent raw-source review pending",
+  "source_sha256": "583cc9333ea977ec6684313749b6f52b49aded53e50456913f065487cada426a",
+  "nodes": [
+    {
+      "id": "source:c48:S0",
+      "and_tail": []
+    },
+    {
+      "id": "source:c48:S1",
+      "and_tail": []
+    },
+    {
+      "id": "source:c48:S2",
+      "and_tail": [
+        "source:c48:S1"
+      ]
+    },
+    {
+      "id": "source:c48:S3",
+      "and_tail": [
+        "source:c48:S1",
+        "source:c48:S2"
+      ]
+    },
+    {
+      "id": "source:c48:S4",
+      "and_tail": [
+        "source:c48:S2",
+        "source:c48:S3"
+      ]
+    },
+    {
+      "id": "source:c48:S5",
+      "and_tail": [
+        "source:c48:S1",
+        "source:c48:S3",
+        "source:c48:S4"
+      ]
+    },
+    {
+      "id": "source:c48:S6",
+      "and_tail": [
+        "source:c48:S2",
+        "source:c48:S4",
+        "source:c48:S5"
+      ]
+    },
+    {
+      "id": "source:c48:S7",
+      "and_tail": [
+        "source:c48:S1",
+        "source:c48:S2",
+        "source:c48:S3",
+        "source:c48:S4",
+        "source:c48:S6"
+      ]
+    },
+    {
+      "id": "source:c48:S8",
+      "and_tail": [
+        "source:c48:S2",
+        "source:c48:S6",
+        "source:c48:S7"
+      ]
+    },
+    {
+      "id": "source:c48:S9",
+      "and_tail": [
+        "source:c48:S0",
+        "source:c48:S1",
+        "source:c48:S4",
+        "source:c48:S5",
+        "source:c48:S6",
+        "source:c48:S8"
+      ]
+    }
+  ],
+  "coverage": [
+    {
+      "id": "c48:region:000",
+      "section": "frontmatter",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 1,
+      "end_line": 1,
+      "sha256_utf8": "0f0a546c9a8988bbca904d6ed442002ea43a42cfe2229f192a65e7649f2fa702",
+      "text": "# Sequential primitive assembly on literal physical wires"
+    },
+    {
+      "id": "c48:region:001",
+      "section": "frontmatter",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 3,
+      "end_line": 7,
+      "sha256_utf8": "8c833bd9eab5880abe05e13d4040656c1c20d56d880c20113e85d3e0ff9234f6",
+      "text": "LOCAL retrospective mathematical source and reusable lesson, version 1.\nAuthor: Codex worker `/root/sequential_assembly_c48_source_author`.\nThis is a newly authored account of an existing construction, not an original\npaper, a pre-proof source, an independent review, or a new synthesis result.\nThe claims below concern exactly supplied finite instruction lists."
+    },
+    {
+      "id": "c48:region:002",
+      "section": "S0",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 9,
+      "end_line": 9,
+      "sha256_utf8": "5e91b7f547b0b069426b923acb2e8e056b19163a12eab0fdfc8d69ca398d67ac",
+      "text": "## S0. The question and its boundary"
+    },
+    {
+      "id": "c48:region:003",
+      "section": "S0",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 11,
+      "end_line": 17,
+      "sha256_utf8": "4b656adfeeb4aeb22a120e816bdbdb5f647d19147f328e29f50bfd0650d261ab",
+      "text": "Given a bond register, an initial circuit on it, and one small circuit for each\nemitted bit, construct a single chronological instruction list on their final\nphysical wires. Identify all amplitudes arising from zero data inputs, retain\nthe initial preparation cost, and expose the reversal needed when the first\nemitted bit is interpreted as the most significant data bit. The bond can\nchange at every stage; previously emitted data bits must not change at later\nstages. A wire label remaining fixed does not mean its state is preserved."
+    },
+    {
+      "id": "c48:region:004",
+      "section": "S0",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 19,
+      "end_line": 24,
+      "sha256_utf8": "f2518416ce2bf753a2321d747dc351c8f9bf0e3d889f5fb8785bad8ebae0843c",
+      "text": "The input consists of a natural number q, a natural number n, an actual finite\ninitial list J on q wires, and a family C_t of actual finite lists on q+1 wires,\nindexed by all natural numbers t. Only C_0 through C_(n-1) are used. No promise\nabout later lists is needed. No target state, tensor core, support promise,\nnormalization witness, unitary completion algorithm, or cost-free initial\nstate is supplied. Empty lists and q=0 or n=0 are legal."
+    },
+    {
+      "id": "c48:region:005",
+      "section": "S1",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 26,
+      "end_line": 26,
+      "sha256_utf8": "1a7a128b75fb5b72ec71e61368f6f5750c144fd0349cbabaaeebbaa1c782ce30",
+      "text": "## S1. Finite carriers, exact gates, and standing conventions"
+    },
+    {
+      "id": "c48:region:006",
+      "section": "S1",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 28,
+      "end_line": 33,
+      "sha256_utf8": "e69fcd33894f239d4bb3284c4445490dc9e158955e773fdd625e5aef7c0aac6a",
+      "text": "Let B_m be the set of functions {0,...,m-1} to {0,1}; it has 2^m elements.\nB_0 contains the unique empty word. All vectors have complex entries and all\nmatrices use output rows and input columns. Write a|x for concatenation of\na in B_m with x in B_t, and a·u for appending a bit u to a. The empty word is\nthe unit for concatenation. Write 0_m for the constant-zero word (also empty\nwhen m=0). Matrix multiplication is (MN)[r,s]=sum_z M[r,z]N[z,s]."
+    },
+    {
+      "id": "c48:region:007",
+      "section": "S1",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 35,
+      "end_line": 42,
+      "sha256_utf8": "544b112b70d51f44d93d5bb300cc08def53ebf9c8689fb78c951caceda08da09",
+      "text": "An instruction on m wires is one of X_i, RY_i(theta), RZ_i(theta), or\nCX_(i,j), with i,j in {0,...,m-1}, i different from j. An angle is a supplied\nexact real expression: rational, rational multiple of pi, twice arccos of a\nrational in [-1,1], twice arccos of the square root of a rational in [0,1],\nan arbitrary real, or an expression obtained by addition, negation and rational\nscaling. The inequalities are part of the respective expression's input\ninterface. No real evaluation or finite representation cost is assumed free\nin a computational claim; no such computational claim is made here."
+    },
+    {
+      "id": "c48:region:008",
+      "section": "S1",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 44,
+      "end_line": 44,
+      "sha256_utf8": "01a40b2a223ff1a49e2a0bac1818230acc5641e7d05200b7c2b179a6bf4d6cb2",
+      "text": "The one-bit matrices, in row/column order 0,1, are"
+    },
+    {
+      "id": "c48:region:009",
+      "section": "S1",
+      "disposition": "NODE",
+      "region_kind": "formula",
+      "start_line": 46,
+      "end_line": 51,
+      "sha256_utf8": "ec81243b3a6ebec2bc658e97daf7fcafb2fc55997efd1bad05bcb8b034b0490a",
+      "text": "\\[\n X=\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix},\\quad\n RY(\\theta)=\\begin{pmatrix}\\cos(\\theta/2)&-\\sin(\\theta/2)\\\\\n \\sin(\\theta/2)&\\cos(\\theta/2)\\end{pmatrix},\\quad\n RZ(\\theta)=\\operatorname{diag}(e^{-i\\theta/2},e^{i\\theta/2}). \\tag{1}\n\\]"
+    },
+    {
+      "id": "c48:region:010",
+      "section": "S1",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 53,
+      "end_line": 58,
+      "sha256_utf8": "2e5c246b3dc747ce6b436d8d97f5a9250362c8570ec0f823d8d67c7e13e44092",
+      "text": "A one-bit instruction has zero matrix entry unless every other wire agrees,\nand otherwise has the indicated one-bit entry. CX permutes a basis word by\nflipping its target exactly when its control is 1. A list is chronological:\nif L=[g_0,...,g_(k-1)], define E(L)=E(g_(k-1))...E(g_0); E([])=I.\nConsequently E(L++K)=E(K)E(L). These are the standing semantic definitions,\nnot assumed implementations of an unspecified external gate."
+    },
+    {
+      "id": "c48:region:011",
+      "section": "S1",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 60,
+      "end_line": 65,
+      "sha256_utf8": "07341d33d70a8c435c30dc5de9903c5f178acdda0796c7198565fe40c557a8c9",
+      "text": "All gates are unitary: X and CX permute an orthonormal basis; the columns of\nRY are orthonormal by cos^2+sin^2=1; each diagonal entry of RZ has modulus one.\nFinite products are unitary. This observation explains normalization for an\nactual basis input but is not a premise required for the algebraic identities\nbelow. No global-phase quotient is taken: all equations are literal complex\namplitude equalities, preserving relative and global phases."
+    },
+    {
+      "id": "c48:region:012",
+      "section": "S2",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 67,
+      "end_line": 67,
+      "sha256_utf8": "774a02fb2c1dac53e20eb2b3a3f03736d5aa509f24fb8a406fb445625ab1b3d8",
+      "text": "## S2. Padding and physical placement"
+    },
+    {
+      "id": "c48:region:013",
+      "section": "S2",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 69,
+      "end_line": 72,
+      "sha256_utf8": "7b8624e325642cd71a077e3c1d99035d806aee07cf758f883f61680beb20d7fc",
+      "text": "For a list L on m wires, define pad_t(L) by embedding each existing target\nand control as the same integer among m+t wires. It inserts no instructions.\nFor any complex matrix M on B_m, let P_0(M)=M and let P_(t+1)(M) be P_t(M)\ntensored with identity on a new highest wire. Equivalently,"
+    },
+    {
+      "id": "c48:region:014",
+      "section": "S2",
+      "disposition": "NODE",
+      "region_kind": "formula",
+      "start_line": 74,
+      "end_line": 77,
+      "sha256_utf8": "7137f5e6c5d992b311a7114d5e3b92c63385cea7ec8911a29da3e4863ea1c470",
+      "text": "\\[\n P_t(M)[a|x,b|y]=[x=y]M[a,b],\\qquad\n a,b\\in B_m,\\ x,y\\in B_t. \\tag{2}\n\\]"
+    },
+    {
+      "id": "c48:region:015",
+      "section": "S2",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 79,
+      "end_line": 86,
+      "sha256_utf8": "f646c8d48a964215cc7c5144bc66fc769247ba56fe5d6cb364d9424da9629217",
+      "text": "Here [p] equals 1 if p is true and 0 otherwise. Formula (2) follows by\ninduction on t: for the last new bit, the tensor identity supplies its equality\nindicator; multiply that indicator by the prefix equality indicator. For t=0\nthe equality of the two empty words is automatic. Embedding a single gate\ngives E(pad_t([g]))=P_t(E(g)) directly from (1) and the untouched-coordinate\nconditions (or the CX basis permutation). Multiplication of padded matrices\npreserves products because the intermediate passive word is forced to agree.\nThus induction on the list gives E(pad_t(L))=P_t(E(L))."
+    },
+    {
+      "id": "c48:region:016",
+      "section": "S2",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 88,
+      "end_line": 90,
+      "sha256_utf8": "ef01e0b9d5621870267657310caa2e7f24598a795a40a9dd27333c2f80ec43fc",
+      "text": "More generally, let e be a bijection from m old wire names to m' new wire\nnames. Replace every target and control in L by its image under e; call this\nlist e_*L. Both boundary basis labels change:"
+    },
+    {
+      "id": "c48:region:017",
+      "section": "S2",
+      "disposition": "NODE",
+      "region_kind": "formula",
+      "start_line": 92,
+      "end_line": 94,
+      "sha256_utf8": "34b1e1ec294979a8f0c74c48299d22901f875596f590b86b8723a2af83be15eb",
+      "text": "\\[\n E(e_*L)[r,s]=E(L)[r\\circ e,s\\circ e]. \\tag{3}\n\\]"
+    },
+    {
+      "id": "c48:region:018",
+      "section": "S2",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 96,
+      "end_line": 104,
+      "sha256_utf8": "e9b9b6800b64dba246bfe2860bc55ed7079d548bb34c728e9c383ebdc8792f9b",
+      "text": "To prove (3), first consider one instruction. The touched bits agree under e,\nthe untouched equality conditions correspond bijectively, and injectivity\npreserves distinct CX wires. Therefore the gate entries agree. For a product,\nthe substitution z -> z composed with e is a bijection of the intermediate\nbasis set, so finite matrix multiplication preserves the equality. Induction\non L, starting from identity, proves (3). This is a placement construction\nfor the entire program, not a physical state-permutation instruction added to\nan already fixed program. It supplies no uncharged routing between fixed\nhardware locations. All-to-all named-wire instructions are the model."
+    },
+    {
+      "id": "c48:region:019",
+      "section": "S2",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 106,
+      "end_line": 110,
+      "sha256_utf8": "c1abe46b22cb810d760419a88a9451825c3e927808d703f14275f21c90fde4aa",
+      "text": "For any list L, define R(L) as its number of RY instructions, C(L) as its\nnumber of CX instructions, and G(L) as its length. Padding and placement\npreserve all three: they replace each instruction by exactly one of the same\nkind, with the same angle. Counts add under concatenation. X and RZ contribute\nto G but not to R+C."
+    },
+    {
+      "id": "c48:region:020",
+      "section": "S3",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 112,
+      "end_line": 112,
+      "sha256_utf8": "28fff0160e03ec734cbf56fb9ec8eae8abb5a37f4248edd5dc5c46a4d0a16938",
+      "text": "## S3. Where one stage acts"
+    },
+    {
+      "id": "c48:region:021",
+      "section": "S3",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 114,
+      "end_line": 117,
+      "sha256_utf8": "b8bb671a924aefd18058b0aaf8dac12ec5b078bd583fe30b9cc87cf5281f3717",
+      "text": "Before stage t the growing register has order bond (q wires), old data (t\nwires). The local list C_t expects bond on its first q wires and a fresh bit\non its last wire. First pad C_t by t wires; its temporary order is bond,\nfresh, old data. Define the bijection p_(q,t) by the following exhaustive cases:"
+    },
+    {
+      "id": "c48:region:022",
+      "section": "S3",
+      "disposition": "NODE",
+      "region_kind": "formula",
+      "start_line": 119,
+      "end_line": 122,
+      "sha256_utf8": "3fc4c112dfe31d1679153d46d02ade64a7bf99cc45a27bcd753320ba6e9e6d6b",
+      "text": "\\[\n i\\mapsto i\\ (0\\le i<q),\\qquad q\\mapsto q+t,\\qquad\n q+1+j\\mapsto q+j\\ (0\\le j<t). \\tag{4}\n\\]"
+    },
+    {
+      "id": "c48:region:023",
+      "section": "S3",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 124,
+      "end_line": 128,
+      "sha256_utf8": "d4e4496b1ffc19e59c4557de2c3c1e79a68cf0200fd34ac62d586beedfded6a8",
+      "text": "Its inverse sends the first q indices to themselves, each q+j with j<t to\nq+1+j, and q+t to q. These cases are disjoint and cover both index sets,\nincluding empty ranges. Define T_t(L)=p_(q,t)*pad_t(L), a list on q+t+1\nwires. Define its matrix version Q_t(M) by the same padding and reindexing.\nThe basis pullback is"
+    },
+    {
+      "id": "c48:region:024",
+      "section": "S3",
+      "disposition": "NODE",
+      "region_kind": "formula",
+      "start_line": 130,
+      "end_line": 132,
+      "sha256_utf8": "63449f98b6d5774fe9444d920ea7823086ef4d0886c052a5c7432f30047fbcce",
+      "text": "\\[\n (a|x)\\mathbin{\\cdot}u\\ \\circ p_{q,t}=(a\\mathbin{\\cdot}u)|x. \\tag{5}\n\\]"
+    },
+    {
+      "id": "c48:region:025",
+      "section": "S3",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 134,
+      "end_line": 134,
+      "sha256_utf8": "daa43a2116bc7a235d0f7a7554d2c40d0cd1290f7326bece5b90d914f28d5e53",
+      "text": "Checking (5) in the three cases of (4), then applying (2) and (3), proves"
+    },
+    {
+      "id": "c48:region:026",
+      "section": "S3",
+      "disposition": "NODE",
+      "region_kind": "formula",
+      "start_line": 136,
+      "end_line": 140,
+      "sha256_utf8": "2b8cc3be348b70a11511e7cd2a34e736d9cd9a55bbc4cba85bb73583dc6951ff",
+      "text": "\\[\n E(T_t(L))=Q_t(E(L)),\\qquad\n Q_t(M)[(a|x)\\mathbin{\\cdot}u,(b|y)\\mathbin{\\cdot}v]\n =[x=y]M[a\\mathbin{\\cdot}u,b\\mathbin{\\cdot}v]. \\tag{6}\n\\]"
+    },
+    {
+      "id": "c48:region:027",
+      "section": "S3",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 142,
+      "end_line": 146,
+      "sha256_utf8": "a94c596cd46546da91b9b614da244905d5deb61ac2117513900a5158a3d14262",
+      "text": "Every old data coordinate is therefore preserved by the stage, whereas the\nbond and new bit can change. Bond wire *positions* are preserved by (4), not\nbond amplitudes by the stage. The fresh wire is exactly q+t. The instruction\ncounts R,C,G of T_t(L) equal those of L. For example, q=2,t=3 gives images\n(0,1,5,2,3,4); this is a placement example, not a SWAP circuit."
+    },
+    {
+      "id": "c48:region:028",
+      "section": "S4",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 148,
+      "end_line": 148,
+      "sha256_utf8": "ec0033f2411b3f4425d240d94f62d6253921274da08c3041ec3023f9e5c7fe49",
+      "text": "## S4. The flattened list and its full matrix definition"
+    },
+    {
+      "id": "c48:region:029",
+      "section": "S4",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 150,
+      "end_line": 150,
+      "sha256_utf8": "297332c28a99977f1f1c65977f96b502979c5840555822a04fdaf26bc825689b",
+      "text": "Define A_0=[] on q wires. Recursively define"
+    },
+    {
+      "id": "c48:region:030",
+      "section": "S4",
+      "disposition": "NODE",
+      "region_kind": "formula",
+      "start_line": 152,
+      "end_line": 155,
+      "sha256_utf8": "bac00c4119881261e71ba310be20b553d692e0da6623e2cdd9223f39e21783d7",
+      "text": "\\[\n A_{t+1}=\\operatorname{pad}_1(A_t)\\mathbin{++}T_t(C_t),\\qquad\n F_0=I_{B_q},\\quad F_{t+1}=Q_t(E(C_t))P_1(F_t). \\tag{7}\n\\]"
+    },
+    {
+      "id": "c48:region:031",
+      "section": "S4",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 157,
+      "end_line": 163,
+      "sha256_utf8": "731a4a60461682100b2175c260d73f78c6c059973fc9e768b45aa81a9c383464",
+      "text": "At a fixed final width q+n, the lifting of earlier lists changes only their\ntypes: all their numerical wire labels remain unchanged. By induction, using\nchronological concatenation and (6), E(A_n)=F_n as complete matrices. This\ncomplete matrix identity has no clean-input restriction; F_n is defined by\nthe actual supplied stage matrices, including all dirty-input columns. It is\nnot a claim that a smaller collection of clean columns determines an arbitrary\nunitary operator."
+    },
+    {
+      "id": "c48:region:032",
+      "section": "S5",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 165,
+      "end_line": 165,
+      "sha256_utf8": "62746be1d0b52dbedd2021f4fcc93daeb04244726388bf47feb498178976a278",
+      "text": "## S5. Accumulation on the clean data-input sector"
+    },
+    {
+      "id": "c48:region:033",
+      "section": "S5",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 167,
+      "end_line": 167,
+      "sha256_utf8": "91dbae1ba6b04f46638aacb7c81acda0ae360eb28362ec9721d14d1f426d1f7e",
+      "text": "For each t define a local square matrix on {0,1} x B_q by"
+    },
+    {
+      "id": "c48:region:034",
+      "section": "S5",
+      "disposition": "NODE",
+      "region_kind": "formula",
+      "start_line": 169,
+      "end_line": 171,
+      "sha256_utf8": "1c4d788dffa3b10b60500f21c4bd6a68c7011ff45ebd2a48f0680d7daad416cc",
+      "text": "\\[\n U_t[(u,b),(v,a)]=E(C_t)[b\\mathbin{\\cdot}u,a\\mathbin{\\cdot}v]. \\tag{8}\n\\]"
+    },
+    {
+      "id": "c48:region:035",
+      "section": "S5",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 173,
+      "end_line": 174,
+      "sha256_utf8": "77cfc0a4b173b1cb917410841d7fe30a71317a91d0b94ada5ee08e48acad09da",
+      "text": "For arbitrary complex boundary v:B_q -> C, define a state R_t(v) on B_t x B_q\nby"
+    },
+    {
+      "id": "c48:region:036",
+      "section": "S5",
+      "disposition": "NODE",
+      "region_kind": "formula",
+      "start_line": 176,
+      "end_line": 180,
+      "sha256_utf8": "b63b79a01672087ee331e80ce94e8894f0de001964626677e4186b20dff3300f",
+      "text": "\\[\n R_0(v)[\\varnothing,b]=v[b],\\qquad\n R_{t+1}(v)[x\\mathbin{\\cdot}u,b]\n =\\sum_{c\\in B_q} U_t[(u,b),(0,c)]R_t(v)[x,c]. \\tag{9}\n\\]"
+    },
+    {
+      "id": "c48:region:037",
+      "section": "S5",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 182,
+      "end_line": 187,
+      "sha256_utf8": "1d8866564efc4a83d089bc97ea7cedac38687319b4a1f613b23f914e6227f916",
+      "text": "This recurrence is precisely: append a new bit in zero, act with U_t on\nfresh-bit and bond, leave the old-data prefix untouched, then regroup the\nbasis to put the new bit last in the emitted word. It is ordinary linear\naction, not measurement. Writing the full finite sum gives a passive-word\nindicator [x=y] and a fresh-input indicator [v=0]; both sums collapse to (9).\nThe boundary need not be normalized, nonzero, real, or positive."
+    },
+    {
+      "id": "c48:region:038",
+      "section": "S5",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 189,
+      "end_line": 189,
+      "sha256_utf8": "caf46eaffd189101554527d0c119a1f5b572ba295ce6139e1f73746c9a8e722d",
+      "text": "For every a,b in B_q and x in B_n, with no restrictions on the C_t,"
+    },
+    {
+      "id": "c48:region:039",
+      "section": "S5",
+      "disposition": "NODE",
+      "region_kind": "formula",
+      "start_line": 191,
+      "end_line": 194,
+      "sha256_utf8": "411bd95d8548ea26e212fdc031b669f0c79b2d407d940f55672b49e596fc539e",
+      "text": "\\[\n F_n[b|x,a|0_n]=R_n(\\delta_a)[x,b],\\qquad\n \\delta_a[c]=[c=a]. \\tag{10}\n\\]"
+    },
+    {
+      "id": "c48:region:040",
+      "section": "S5",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 196,
+      "end_line": 199,
+      "sha256_utf8": "b5904562361222531fa6ecea8e5e3c73d3b152645887d911ea300b42ebcc1e74",
+      "text": "Proof: for n=0, the left side is the identity entry [b=a] and the right side\nis delta_a[b]. At the successor, write x·u for the output word and expand\n(7) over an intermediate basis (c|y)·v. The lifted F_n forces v=0 by (2);\nthe placed stage forces y=x by (6). Exactly"
+    },
+    {
+      "id": "c48:region:041",
+      "section": "S5",
+      "disposition": "NODE",
+      "region_kind": "formula",
+      "start_line": 201,
+      "end_line": 204,
+      "sha256_utf8": "ffc053b89bcb8891385c96a168fa78568c5699c71e93a9fdbaecee15c7ccbf40",
+      "text": "\\[\n \\sum_{c\\in B_q}E(C_n)[b\\mathbin{\\cdot}u,c\\mathbin{\\cdot}0]\n F_n[c|x,a|0_n] \\tag{11}\n\\]"
+    },
+    {
+      "id": "c48:region:042",
+      "section": "S5",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 206,
+      "end_line": 209,
+      "sha256_utf8": "5846339f607d7b0f343248571363480b2d73e395d86f9ace3415e208b8b15983",
+      "text": "remains. Substitute the induction hypothesis and (8); (9) proves (10).\nSince E(A_n)=F_n, (10) also identifies the actual flattened list's column.\nEvery x and every b occurs, including nonzero bond labels. No off-sector\namplitude is ignored, but it has not been shown zero merely by being named."
+    },
+    {
+      "id": "c48:region:043",
+      "section": "S5",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 211,
+      "end_line": 211,
+      "sha256_utf8": "452e544dcd64ce0e388b58e02dbf7d05819556485c850158dfb58830439b4a07",
+      "text": "The recurrence is linear in its boundary, with the explicit formula"
+    },
+    {
+      "id": "c48:region:044",
+      "section": "S5",
+      "disposition": "NODE",
+      "region_kind": "formula",
+      "start_line": 213,
+      "end_line": 215,
+      "sha256_utf8": "1ff4dcd1ea974ae0cbde84b0a9226a8044209cffd4c45e47b2429827950df56c",
+      "text": "\\[\n R_n(v)[x,b]=\\sum_{a\\in B_q}R_n(\\delta_a)[x,b]v[a]. \\tag{12}\n\\]"
+    },
+    {
+      "id": "c48:region:045",
+      "section": "S5",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 217,
+      "end_line": 220,
+      "sha256_utf8": "a229f61adaeef4a0df6b5e9c3391219e648eb0eb31bd40c36bb7ff65593c5127",
+      "text": "For n=0 the delta sum equals v[b]. If (12) holds at n, substitute it into\n(9), distribute multiplication, and interchange the two finite sums. The\ninner sum is R_(n+1)(delta_a), proving (12). No convergence or division is\ninvolved."
+    },
+    {
+      "id": "c48:region:046",
+      "section": "S6",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 222,
+      "end_line": 222,
+      "sha256_utf8": "8fb2030b4e069d7fa8e5c599ba3af99f1c939429738b6e7c728bd4c25fe2821b",
+      "text": "## S6. The initial bond is not free"
+    },
+    {
+      "id": "c48:region:047",
+      "section": "S6",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 224,
+      "end_line": 225,
+      "sha256_utf8": "84991bb2487f7f21aef916b96e9db9089f23092155cd959be4dec549aa8b7b19",
+      "text": "Define W_n=pad_n(J)++A_n. The input bond basis label a can be any element of\nB_q, not only zero. Put v_a[c]=E(J)[c,a]. For every b and x,"
+    },
+    {
+      "id": "c48:region:048",
+      "section": "S6",
+      "disposition": "NODE",
+      "region_kind": "formula",
+      "start_line": 227,
+      "end_line": 229,
+      "sha256_utf8": "200bc150e39eb39e3b7cac4b8902f0f94d56eb556f54f66a95da59b266cce48d",
+      "text": "\\[\n E(W_n)[b|x,a|0_n]=R_n(v_a)[x,b]. \\tag{13}\n\\]"
+    },
+    {
+      "id": "c48:region:049",
+      "section": "S6",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 231,
+      "end_line": 236,
+      "sha256_utf8": "12caf4b858521973bdcf1d20acc07d3d0f9c0fee31a55eb4113eb1c6d5cd9bc5",
+      "text": "Expand the product E(A_n)P_n(E(J)). Formula (2) forces the intermediate\ndata word to 0_n; the remaining sum over c is\nsum_c R_n(delta_c)[x,b]E(J)[c,a], by (10). Formula (12) gives (13).\nAn arbitrary externally supplied v is useful for (9) and (12), but (13)\nuses the column of an actual initial circuit and does not manufacture a\ncircuit for an arbitrary v. For an all-zero physical input choose a=0_q."
+    },
+    {
+      "id": "c48:region:050",
+      "section": "S7",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 238,
+      "end_line": 238,
+      "sha256_utf8": "51999892d3fab3061b6eeb3ae4ec7ecb02115083af87c0fefcd480978c24ff11",
+      "text": "## S7. Actual list counts and the exact model boundary"
+    },
+    {
+      "id": "c48:region:051",
+      "section": "S7",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 240,
+      "end_line": 240,
+      "sha256_utf8": "6513201917da6952b362a27d8163b6b165fca2a24100caa309138fd76f9019a4",
+      "text": "For D equal to R or C, all q,n and supplied lists satisfy"
+    },
+    {
+      "id": "c48:region:052",
+      "section": "S7",
+      "disposition": "NODE",
+      "region_kind": "formula",
+      "start_line": 242,
+      "end_line": 245,
+      "sha256_utf8": "d0f306b914c35d785c2d40f93bb02c907ef2e990900a357b570cfb5cede06f9b",
+      "text": "\\[\n D(A_n)=\\sum_{t=0}^{n-1}D(C_t),\\qquad\n D(W_n)=D(J)+\\sum_{t=0}^{n-1}D(C_t). \\tag{14}\n\\]"
+    },
+    {
+      "id": "c48:region:053",
+      "section": "S7",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 247,
+      "end_line": 251,
+      "sha256_utf8": "5eec72e6ec3aa89dff46b6642b5b399ea042d8a5608a1e2b1b1db19b851de7b1",
+      "text": "Proof: the empty list has count zero; (7) and the count invariance of padding\nand placement add exactly D(C_t) at the successor. Adding the initial padded\nlist proves the second equality. Padding and single-stage placement also\npreserve G, as established in S2-S3. Equation (14) is a selected-kind count,\nnot a blanket total gate or depth certificate."
+    },
+    {
+      "id": "c48:region:054",
+      "section": "S7",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 253,
+      "end_line": 254,
+      "sha256_utf8": "04130b1cf73700c9065e95235aee86a089a0ed79754fc3dabd6e7f96d61ee58a",
+      "text": "Let h be a supplied natural bound such that, for every natural t<n,\nR(C_t)+C(C_t) <= h. Then"
+    },
+    {
+      "id": "c48:region:055",
+      "section": "S7",
+      "disposition": "NODE",
+      "region_kind": "formula",
+      "start_line": 256,
+      "end_line": 258,
+      "sha256_utf8": "dd49d74ae9c1d9ee5be33643ef90b0391a74237671107a110e887cd61950a39a",
+      "text": "\\[\n R(W_n)+C(W_n)\\le R(J)+C(J)+nh. \\tag{15}\n\\]"
+    },
+    {
+      "id": "c48:region:056",
+      "section": "S7",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 260,
+      "end_line": 263,
+      "sha256_utf8": "83035b3f280c4eb7ef20ab9e1ae2ca588823080389646f9e4bec30eac807b3c5",
+      "text": "Sum each of the n inequalities, use (14), and collect the initial counts.\nThere is no assumption on t>=n. At n=0 the sum is empty and the bound is\nequality, irrespective of h. This hypothesis is a real input promise for\nthe conditional bound; it is not proved for arbitrary supplied lists."
+    },
+    {
+      "id": "c48:region:057",
+      "section": "S7",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 265,
+      "end_line": 272,
+      "sha256_utf8": "b0a2f8b2a7bf4e3f811842ba35c0c1e878b90c7c16c19fb875d7349a2f609b29",
+      "text": "There are zero oracle instructions: the instruction grammar has none. This\ndoes not say that producing the lists or their real angles is cost-free.\nNo bound on X/RZ counts, synthesis precision, Clifford+T cost, classical\nprecomputation, depth, hardware connectivity, readout, or runtime follows\nfrom (15). For example, a list containing only many X instructions has R+C=0\nand large G. All equations are exact-real mathematical semantics; there is\nno numerical tolerance, postselection, approximation probability, or hidden\namplification cost."
+    },
+    {
+      "id": "c48:region:058",
+      "section": "S8",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 274,
+      "end_line": 274,
+      "sha256_utf8": "bb2352f58f4acf45db67a8f7aee2af3bd4239ec3cde7437e42df58d8896c1ea6",
+      "text": "## S8. Public low-data-wire convention and the MSB/LE adapter"
+    },
+    {
+      "id": "c48:region:059",
+      "section": "S8",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 276,
+      "end_line": 277,
+      "sha256_utf8": "c89c7cc46c18fe1c284169ec9b861b00adf652a1b32056c226655427d35176b3",
+      "text": "The growing circuit order has bond first and data in emission order. Place\nthe *entire* W_n list by the bijection o_(q,n) from q+n wires to n+q wires:"
+    },
+    {
+      "id": "c48:region:060",
+      "section": "S8",
+      "disposition": "NODE",
+      "region_kind": "formula",
+      "start_line": 279,
+      "end_line": 282,
+      "sha256_utf8": "1b5bf4ef5030773532dad1c631bcad4e8a1ffc1953e38da42021f7309ddc7ba6",
+      "text": "\\[\n i\\mapsto n+i\\quad(0\\le i<q),\\qquad\n q+t\\mapsto n-1-t\\quad(0\\le t<n). \\tag{16}\n\\]"
+    },
+    {
+      "id": "c48:region:061",
+      "section": "S8",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 284,
+      "end_line": 286,
+      "sha256_utf8": "1f456bb6f36ce661bfab2aa047174480a13edb084f1c53ab588b324c39e69980",
+      "text": "The inverse sends data position j<n to q+(n-1-j), and bond position n+i to i.\nFor x in B_n let rev(x)[t]=x[n-1-t]. For n=0 this is the unique empty\nfunction; no invalid index is evaluated. Direct substitution proves"
+    },
+    {
+      "id": "c48:region:062",
+      "section": "S8",
+      "disposition": "NODE",
+      "region_kind": "formula",
+      "start_line": 288,
+      "end_line": 290,
+      "sha256_utf8": "366f950d36d16a7f0175fdf6286f9dcee1d0ec00c39ffee456fdbf41b7d49109",
+      "text": "\\[\n (x|b)\\circ o_{q,n}=b|\\operatorname{rev}(x). \\tag{17}\n\\]"
+    },
+    {
+      "id": "c48:region:063",
+      "section": "S8",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 292,
+      "end_line": 293,
+      "sha256_utf8": "6448bb06a7e89a789bf641676a2aab0ccfbc96f5e2ab4d996437a74a5bf107d8",
+      "text": "Define V_n=o_(q,n)*W_n. Applying (3), (17), and (13) proves the public column\nidentity, for every a,b,x:"
+    },
+    {
+      "id": "c48:region:064",
+      "section": "S8",
+      "disposition": "NODE",
+      "region_kind": "formula",
+      "start_line": 295,
+      "end_line": 297,
+      "sha256_utf8": "eb002e06525f8f7b7a834d261006c6e7759a43640b67c2272aea3a8aec2a655d",
+      "text": "\\[\n E(V_n)[x|b,0_n|a]=R_n(v_a)[\\operatorname{rev}(x),b]. \\tag{18}\n\\]"
+    },
+    {
+      "id": "c48:region:065",
+      "section": "S8",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 299,
+      "end_line": 308,
+      "sha256_utf8": "44d96c006ef27699283bee8708ae1019bce4af49cc895904ba88433204bd1da0",
+      "text": "Low data wires use the little-endian value sum_(j<n) 2^j x[j]. If one\ninterprets the emitted word w as most-significant-first, its value is\nsum_(t<n)2^(n-1-t)w[t]; substituting w=rev(x) makes these integers equal.\nThus stage zero is placed at the highest data wire and the bond follows all\ndata wires. Example q=2,n=3 gives images (3,4,2,1,0). Both input and output\nlabels are reindexed; no operation permutes a previously prepared physical\nstate for free. All R,C,G counts are preserved by this placement, so (15)\nholds for V_n with the same right side. Although these following bond wires\nare often intended as clean workspace in applications, (18) alone does not\nassert that their output is zero."
+    },
+    {
+      "id": "c48:region:066",
+      "section": "S9",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 310,
+      "end_line": 310,
+      "sha256_utf8": "f0374140e31dc0f1e3a091b46e5f041a8e16f01e5442eeaac0a78041864371ec",
+      "text": "## S9. Degenerate cases and what a stronger claim must supply"
+    },
+    {
+      "id": "c48:region:067",
+      "section": "S9",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 312,
+      "end_line": 321,
+      "sha256_utf8": "f49ed04e3f7303e19b48decd709a2a7a157c4d1ee03087e9a8d5555c2076719b",
+      "text": "When q=0 the bond carrier B_q is a singleton, not an empty state space.\nThere is still a fresh one-bit stage, and every bond sum in (9)-(13) has one\nterm. An initial circuit on zero wires must be empty since no gate target\nexists. The stage placement still inserts the new bit at t, with all old\ndata passive. When n=0, A_0 is the empty circuit, W_0=J, o_(q,0) fixes the\nbond coordinates, and (18) reduces to E(J)[b,a]=v_a[b]. When q=n=0 every\nassembled, initial and public circuit matrix is the 1 by 1 identity. When any C_t is empty its matrix is identity;\nthat stage leaves the bond unchanged and emits a zero bit. These conclusions\nfollow by substituting the empty-word and identity definitions above, without\npositivity/rank assumptions or a default chosen output."
+    },
+    {
+      "id": "c48:region:068",
+      "section": "S9",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 323,
+      "end_line": 331,
+      "sha256_utf8": "a4281cfe1ae601eb3eb5baf10f54e8688ab633e9b93a749d0be3a6ad5c6740a2",
+      "text": "To conclude a particular tensor contraction, an application must identify\nthe occupied local clean columns E(C_t)[b·u,c·0] with its tensor core, and\njustify the initial boundary. If the identification holds only on an active\nbond set, an initial-support invariant and preservation of that support are\nadditional obligations. To conclude terminal clean bond, it must prove\nR_n(v_a)[x,b]=0 for every non-clean b, and identify the remaining amplitudes.\nThis is not implied by old data being passive. A terminal prescription on\nall padded input columns may even be incompatible with unitarity; restrict\nit to a justified occupied subspace when necessary."
+    },
+    {
+      "id": "c48:region:069",
+      "section": "S9",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 333,
+      "end_line": 339,
+      "sha256_utf8": "c1f8ebb9497d76168fc21ea196d77874e5cd71230c9446aff0aa828fdc30ea8b",
+      "text": "To replace the clean-sector identity by a target full-operator equality, an\napplication must additionally specify and verify all nonzero-data-input\ncolumns (or a sufficient independent full-operator argument). A phase-exact\nfull-matrix example is diag(1,1) versus\ndiag(1,-1): their first columns coincide and their second columns do not.\nThese matrix examples distinguish information content, not an additional\ninstruction constructor."
+    },
+    {
+      "id": "c48:region:070",
+      "section": "S9",
+      "disposition": "NODE",
+      "region_kind": "paragraph_or_heading",
+      "start_line": 341,
+      "end_line": 345,
+      "sha256_utf8": "16762c0f0de413ae01d7f4e990091ae83df7b5642eec37551291d35540efdc98",
+      "text": "Finally, no Hermite formula, parameter-dependent rank bound, source core\ngenerator, small-unitary compiler, terminal cleanup proof, finite-bit\nalgorithm, or hardware routing has been constructed by this lesson. Those\nare separate AND-prerequisites for those stronger application claims.\n"
+    }
+  ],
+  "excluded": [],
+  "source_gaps": [
+    {
+      "id": "gap:target-contraction",
+      "kind": "SOURCE_GAP",
+      "and_tail": [
+        "actual local occupied clean-column/core alignment",
+        "initial boundary identity",
+        "active input support",
+        "core support preservation"
+      ],
+      "head": "specific tensor contraction; conditional stronger application only"
+    },
+    {
+      "id": "gap:terminal-cleanup",
+      "kind": "SOURCE_GAP",
+      "and_tail": [
+        "identified run",
+        "terminal occupied-subspace column semantics",
+        "support at terminal input",
+        "target amplitude identity"
+      ],
+      "head": "clean terminal bond and specified target"
+    },
+    {
+      "id": "gap:full-target-unitary",
+      "kind": "SOURCE_GAP",
+      "and_tail": [
+        "clean-sector equality",
+        "specified and verified remaining data-input columns"
+      ],
+      "head": "target full operator equality"
+    },
+    {
+      "id": "gap:finite-bit-hardware",
+      "kind": "SOURCE_GAP",
+      "and_tail": [
+        "finite input encoding",
+        "costed producer and angle evaluation",
+        "rounding/error theorem",
+        "logical synthesis and routing cost model"
+      ],
+      "head": "finite-bit hardware-resource certificate"
+    },
+    {
+      "id": "gap:Hermite-root",
+      "kind": "SOURCE_GAP",
+      "and_tail": [
+        "literal Hermite formula and norm",
+        "core generator/rank bound",
+        "compiler columns",
+        "initial and terminal interfaces",
+        "charged selected/full resource theorem"
+      ],
+      "head": "Hermite family preparation"
+    }
+  ],
+  "or_alternatives": [],
+  "or_explanation": "single supplied-list assembly route; stronger applications are gaps, not proved alternatives",
+  "no_Lean_import_graph_substitution": true
+}

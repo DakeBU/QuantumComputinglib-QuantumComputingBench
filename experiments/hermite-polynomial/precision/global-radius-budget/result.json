@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "status": "proved_locally",
+  "freeze": "IMMUTABLE_FINAL_PACKAGE_PENDING_DISTINCT_REVIEW",
+  "declaration_level": "C_INTERNAL_PROVIDER",
+  "checkpoint_base": "b68ecbe",
+  "branch_context": "work/lean433-curriculum-20261008",
+  "direction_fingerprint": "global-normalized-metric-dimension-aware-rational-radius-allocation",
+  "expected_information_gain": "Remove the scalar-to-global normalized-metric allocation gap by selecting an actual rational radius tolerance from global epsilon, grid dimension and the already proved all-k source constant, without any supplied Lipschitz/error premise.",
+  "narrow_verdict": "For every natural k,n and positive rational L,epsilon, the literal actual logRadius supplier with deltaRadius=epsilon/(8*2^(n+1)*Cq(k)) returns a positive rational radius and its normalized actual signed source vector is within epsilon/4 of the unchanged original piL targetVector. This reserves only the radius contribution. No full source/circuit/global-error closure is claimed.",
+  "contract": {
+    "input": "k:Nat, physical width n_p=n+1>=1, L:positive rational, epsilon:positive rational global Euclidean-state budget",
+    "target": "Original normalized signed smoothInitial Hermite function values, p_j=-pi*L+2*pi*L*j/2^(n+1), targetVector uses HermiteStatePreparation.normalizedAmplitude and the original sampleNorm",
+    "order_and_phase": "q0 least significant; literal complex amplitudes, not modulo an unspecified phase",
+    "garbage": "No circuit or register transformation is introduced, so no original garbage sector is removed or silently declared clean. Same-wires action and all garbage cleanup remain outside this analytic provider.",
+    "norm": "EuclideanSpace complex PiLp 2 norm; not sup norm or fidelity",
+    "resource": "Exact finite rational supplier and term-count inequality; no compiled bit-runtime or gate-synthesis result"
+  },
+  "mathematics": {
+    "constant": "Cq(k)=2*(k+1)^2*2^(3k)*(2k+2)*(2k+1)*2^(2k+1), a literal rational integer; lipschitzQ_cast proves its cast is exactly the frozen sourceLipschitzConstant. Algebraically it is 2^(5k+2)*(k+1)^2*(2k+2)*(2k+1).",
+    "allocation": "N=2^(n+1)>=1, delta=epsilon/(8*N*Cq(k))>0. allocatedRadius(k,n,L,epsilon)=logRadius(L,delta), not an assumed approximation wrapper.",
+    "actual_error": "The existing proved logRadius_error supplies |allocatedRadius-piL|<=delta and logRadius_positive supplies positivity. normalized_radius_error consumes this actual rational and the unchanged source target.",
+    "global_radius_reserve": "The consumed state estimate is 2*sqrt(N)*C(k)*delta. sqrt(N)<=N for N>=1; exact cast of Cq then cancels the positive denominator, giving 2*N*C(k)*epsilon/(8*N*C(k))=epsilon/4.",
+    "term_count": "Substitution into the actual logTermCount_size theorem gives m<=Nat.size(max 1 (Nat.ceil(160*L*2^(n+1)*Cq(k)/epsilon)))+1. This is an exact checked threshold-size bound, not yet a canonical-input-bit or runtime theorem.",
+    "remaining_budget": "Only epsilon/4 is proved for radius perturbation. The other four stage contributions remain OPEN; none is set to zero, inferred small, or passed as a free closed-error premise. This packet does not compose their sum."
+  },
+  "formal": {
+    "toolchain": "leanprover/lean4:v4.33.0",
+    "namespace": "QuantumBlockEncoding.ExperimentalGlobalRadiusBudget",
+    "provider": "GlobalRadiusBudget.lean",
+    "roots": ["lipschitzQ_cast", "deltaRadius_positive", "allocatedRadius_positive", "allocatedRadius_error", "normalized_allocatedRadius_error", "allocatedTermCount_size"],
+    "provider_gate": {
+      "command": "$env:LEAN_PATH='.lake/radius-supplier-cache;.lake/radius-stability-cache;' + $env:LEAN_PATH; lake env lean -o experiments/hermite-polynomial/precision/global-radius-budget/GlobalRadiusBudget.olean experiments/hermite-polynomial/precision/global-radius-budget/GlobalRadiusBudget.lean",
+      "session": 38011,
+      "exit": 0,
+      "scope": "Entire final provider source and all six printed roots",
+      "axioms_union": ["propext", "Classical.choice", "Quot.sound"],
+      "sorryAx": false
+    },
+    "consumer_gate": {
+      "command": "$env:LEAN_PATH='experiments/hermite-polynomial/precision/global-radius-budget;.lake/radius-supplier-cache;.lake/radius-stability-cache;' + $env:LEAN_PATH; lake env lean experiments/hermite-polynomial/precision/global-radius-budget/ConsumerChecks.lean",
+      "session": 13791,
+      "exit": 0,
+      "scope": "Universal actual original-target instantiation, tiny-L/n=200/k=0 symbolic instantiation, and seven literal rational interpreter diagnostics",
+      "axioms_union": ["propext", "Classical.choice", "Quot.sound"],
+      "sorryAx": false
+    },
+    "warnings": "Existing unchanged verso repository dirty warning; no final local provider/consumer unused-binder warnings.",
+    "forbidden_scan": {
+      "patterns": "sorry, admit, unsafe, declared axiom, native_decide, ofReduceBool",
+      "scope": "Both final Lean files",
+      "matches": 0,
+      "rg_exit": 1,
+      "interpretation": "Expected no-match scan result, not a failed proof gate"
+    },
+    "whole_repository_gate": "Not run by this worker; parent owns integrated lake build and lake build Tests, independent review and any public gate. Focused compilation does not substitute for those gates.",
+    "cache_statement": "Frozen dependency oleans were reused from the named ignored .lake caches. This is fresh full-source compilation of this new provider and consumer, not a fresh rebuild of all frozen upstream sources. Local provider olean is generated under this package and ignored by its own .gitignore. No frozen source/cache was edited.",
+    "reproduction": "From repository root run powershell -File experiments/hermite-polynomial/precision/global-radius-budget/replay.ps1 with the stated Lean toolchain, manifest and exact cached dependencies below. The script restores prior LEAN_PATH. For independent dependency rebuilding, the parent must regenerate its frozen caches under their own reproduction contracts before replay; the caches are not fetched Lean sources or external trust substitutes.",
+    "live_handles": []
+  },
+  "execution_evidence": {
+    "layer": "Actual Lean rational producer interpreter; no executable Bool is used as a symbolic proof premise",
+    "checks": [
+      {"input": "k=0,n=0,epsilon=1/1000", "Cq": 8, "deltaRadius": "1/128000"},
+      {"input": "tiny L=1/10^100,epsilon=1/10^110,k=0,n=0", "logTermCount": 46},
+      {"input": "L=1,epsilon=1/1000,k=0,n=200", "logTermCount": 223},
+      {"input": "L=1,epsilon=1/1000,k=20,n=0", "logTermCount": 141},
+      {"input": "actual allocatedRadius(0,0,1/10^100,1/10^110)", "positive": true, "reduced_numerator_bits": 1042, "reduced_denominator_bits": 1373},
+      {"input": "deltaRadius(0,200,1/1000)<deltaRadius(0,0,1/1000)", "result": true},
+      {"input": "deltaRadius(20,0,1/1000)<deltaRadius(0,0,1/1000)", "result": true}
+    ],
+    "raw_output": "(8, 1 / 128000)\n46\n223\n141\n(true, 1042, 1373)\ntrue\ntrue\nnormalized_allocatedRadius_error axioms: propext, Classical.choice, Quot.sound",
+    "invalid_inputs": "No optional rejection wrapper supplied. Functions are total literal rational functions, but scientific guarantees are only for positive L and epsilon. No invalid input is promoted as a valid global budget.",
+    "limits": "Not a runtime scaling measurement, floating-point implementation refinement, or source-independent proof of a saved circuit. Large-n symbolic instantiation is a parametric analytic theorem, not a simulated 201-qubit state."
+  },
+  "statement_audit": {
+    "preproof_seal": "statement-seal-v1.json pins exact six signatures, formulas, definitions and boundaries before provider implementation; consumer-seal-v1.json pins the two kinds of consumer and all interpreter discriminators before consumer implementation",
+    "definition_kind": "Literal exact rational arithmetic; no choice, exact-real oracle, external interval or silent approximation fallback",
+    "TYPING": ["k,n natural; actual width n+1", "L,epsilon finite rational"],
+    "SOURCE": ["positive L", "positive epsilon"],
+    "EXCESS": [],
+    "new_unused_binders": [],
+    "inherited_binder_debt": "Existing normalized_radius_error carries positive L/Rhat domain binders even though its stronger analytic proof does not use them. This package does not edit that frozen interface or claim its purification/source review.",
+    "signature_debt": "Seal is a pre-proof exact handwritten signature record with hashes; independent elaborated type/statement matching and distinct review pending. No independent reviewer identity fabricated.",
+    "dependencies": "All-k actual source Lipschitz theorem, Machin logarithmic supplier and normalization stability are dependency edges consumed in proof, never new assumed epsilonLipschitz or assumed error binders.",
+    "source_topology": "Original target frozen -> radius perturbation moves each original grid by at most radius change -> actual source Lipschitz function bound -> Euclidean sqrt(N) aggregation -> actual original-normalizer stability -> exact dimension-aware rational allocation. This is internal construction topology, not a new source proof credit.",
+    "lean_topology": "lipschitzQ_cast plus deltaRadius positivity -> actual logRadius positivity/error -> frozen normalized_radius_error -> sqrt dimension comparison and rational cancellation -> normalized_allocatedRadius_error; threshold substitution -> allocatedTermCount_size",
+    "excluded": ["No replacement target", "No new circuit/register/garbage semantics", "No new quantum foundational API", "No public registry/root credit"],
+    "source_gaps": ["Four remaining stage errors and their sum", "Canonical input-bit translation", "Stored integer/rational intermediate size", "GCD/reduction/copy/allocation cost", "Full producer runtime", "QR/isometry numerical stability", "Same-wires circuit action and garbage cleanup", "Physical gate synthesis and complete global epsilon certificate"]
+  },
+  "artifact_hashes": {
+    "statement-seal-v1.json": "03055a1bb33d1bf79d687a336c9adb89473e740d7afcff4b5605cceb42f935e5",
+    "consumer-seal-v1.json": "5fe184122c403782614b69c35bc19273956be8abac0f5296eec2ede3ad90b6ca",
+    "GlobalRadiusBudget.lean": "7b72b6058ca126824a22e5521ce890549d3299013aadbfa7a78c0123edf152f0",
+    "ConsumerChecks.lean": "4317fa822497113b07ba93834fe7799ccd3cda1bc30cbb49e792dba8faddd86d",
+    "generated_ignored_GlobalRadiusBudget.olean": "a3b93c078fc8dc7b22860d59ac4513ba97850791c2f408cfcd2ec5a31a7669ae"
+  },
+  "dependency_hashes": {
+    "experiments/hermite-polynomial/precision/radius-supplier/RadiusSupplier.lean": "e5db51a9b361220ddae5393d083728f289c8543737e26c735e198ccb55a6a4c9",
+    "experiments/hermite-polynomial/precision/radius-stability/RadiusStability.lean": "19e157fb2fcade8d68c5d92694634193dddaeb840d16a5d374a506d8a9a8b552",
+    "experiments/hermite-polynomial/precision/coefficient-range/CoefficientRange.lean": "e9ab95bb972ba742339a70dca1e5f1a302978092a1ca2a3cb42cd32b7faa4888",
+    "experiments/hermite-polynomial/precision/NormalizationStability.lean": "bd3afe3e1367c6b5af31173369a0321118756822875cc644fc3f2089bcfecac3",
+    ".lake/radius-supplier-cache/RadiusSupplier.olean": "2093d08ab3f52994f23bb70def54889825c0acecc72321f127e6ae052d272133",
+    ".lake/radius-stability-cache/RadiusStability.olean": "beb933fe953b2c8bc61a3332499eaf498c925e0c0bc2cd679f025f04ebba9051",
+    ".lake/radius-stability-cache/CoefficientRange.olean": "45bf5622506f79e02427071ec304075aae40c842023889596b708d235e1f7db4",
+    ".lake/radius-stability-cache/NormalizationStability.olean": "80d4bf5b76d01ff15c70956818e0e47b9b5b937ed62a1171e61feb674dae19fe",
+    "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "lake-manifest.json": "510171e8214a2ac5e00f16c1bf92ad474d2de42c4cd2dc2b3d411272f7b58763"
+  },
+  "attempt_diagnostics": [
+    {"session": 78429, "exit": 1, "class": "IMPLEMENTATION_FAILED", "detail": "positivity tactic was incorrectly asked to prove1<=natural power; all other roots compiled. No failed transient proof is certified."},
+    {"session": 55630, "exit": 1, "class": "IMPLEMENTATION_FAILED", "detail": "Generic one_le_pow left an uninstantiated base metavariable under Nat-to-Real cast. Repaired with explicit Nat.one_le_pow and exact_mod_cast. Exact sealed statement unchanged."},
+    {"session": 38011, "exit": 0, "class": "NONE", "detail": "Final provider full source checked; six ordinary-axiom roots."},
+    {"session": 13791, "exit": 0, "class": "NONE", "detail": "Final actual original-target consumers and all seven rational interpreter checks pass."}
+  ],
+  "structured_handoff": {
+    "mathematical_delta": "Actual radius supplier is now selected automatically from a positive rational global epsilon with dimension/k dependence and proved epsilon/4 original normalized-state contribution, not just radius tolerance input.",
+    "frontier_effect": "Radius reserve only. Four other errors, total finite-bit resources, root source/circuit/synthesis remain OPEN.",
+    "failure_class": "NONE_FOR_FINAL_PACKAGE",
+    "salvage": "No mathematical route rejected; initial errors are ordinary Lean API/cast diagnostics. No disconnected theorem or failed-proof placeholder retained.",
+    "skills_effect": "Substantive-worker and source-dependency-audit required exact pre-proof sealing, reuse of the actual all-k constant and supplier, original-target consumption, dependency-only proof ingredients and explicit global-error/resource boundary.",
+    "process_memory_ids": ["QBE-PM-LOW-TOKEN-CONTROL-PLANE", "QBE-PM-DENSE-CHECK-SMALL-INSTANCE", "QBE-PM-VERIFIER-SEMANTIC-LEVEL"],
+    "parallel_admission": "Parent assigned distinct global metric/dimension-allocation uncertainty; no worker subdelegation",
+    "common_blind_spot_review": "Pending parent distinct review; this worker does not self-approve.",
+    "default_route": "Use actual frozen logRadius with the literal positive rational deltaRadius; no alternative radius construction introduced.",
+    "purification": "Internal C-provider only; local dead-code/forbidden scan passed, no duplicate foundational API. Independent Exposition/Proof Seal and public purification not claimed.",
+    "scope": "Only global-radius-budget subtree changed, including an ignored local generated olean. No git mutation, production/frozen source/cache, exports or public ledgers changed.",
+    "next_action": "Parent checkpoint exact final files, replay gates and distinct review; independent follow-up may prove canonical-input-bit and stored-cost refinement, or supply one of the remaining four actual stage error bounds. Any frozen correction requires successor package.",
+    "token_usage": "unknown"
+  }
+}

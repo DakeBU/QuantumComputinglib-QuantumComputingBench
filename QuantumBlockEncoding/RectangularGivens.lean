@@ -113,7 +113,9 @@ theorem stepsMatrix_det {N : ℕ} (steps : List (Step N)) :
   | nil => simp [stepsMatrix]
   | cons step rest ih =>
       rw [stepsMatrix, _root_.Matrix.det_mul, ih]
-      simpa only [one_mul] using planeMatrix_det _ _ step.distinct step.angle
+      rw [one_mul]
+      change (planeMatrix step.first step.second step.angle).det = 1
+      exact planeMatrix_det _ _ step.distinct step.angle
 
 noncomputable def decompose {N M : ℕ} (A : _root_.Matrix (Fin N) (Fin M) ℝ) :
     List (Step N) := sweepSteps A 0 M (by omega)

@@ -1,0 +1,42 @@
+eLE : (w : ℕ) → TensorTrainCanonical.Word w ≃ Fin (gridSize w)
+producerVector : ℕ → (n : ℕ) → ℚ → ℚ → EuclideanSpace ℂ (Fin (gridSize (n + 1)))
+OWN\ExactChecks.lean:12:28: warning: Variable name `k` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _k
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Eq.refl wordIndex_public_LE : wordIndex_public_LE = wordIndex_public_LE
+Eq.refl producerVector_eq_finiteVector : producerVector_eq_finiteVector = producerVector_eq_finiteVector
+Eq.refl
+  normalized_allocated_producer_original_error : normalized_allocated_producer_original_error =
+  normalized_allocated_producer_original_error
+def HermitePublicLEProducer.eLE : (w : ℕ) → TensorTrainCanonical.Word w ≃ Fin (gridSize w) :=
+fun w => (TensorTrainWord.basisEquiv w).trans (primitiveBasisLEEquiv w)
+def HermitePublicLEProducer.producerVector : ℕ → (n : ℕ) → ℚ → ℚ → EuclideanSpace ℂ (Fin (gridSize (n + 1))) :=
+fun k n R delta =>
+  WithLp.toLp 2 fun j =>
+    ↑(TensorTrainCanonical.contract
+        (StoredTensorTrain.denoteChain (HermiteExplicitCachedStored.produceExplicitStored k n R delta).run.value)
+        ((eLE (n + 1)).symm j) 0 0)
+def HermitePublicLEProducer.wordIndex_public_LE : Prop :=
+∀ (n : ℕ) (x : TensorTrainCanonical.Word (n + 1)),
+  HermitePiecewiseAssembly.wordIndex n x = (primitiveBasisLEEquiv (n + 1)) (TensorTrainWord.toBasis x)
+def HermitePublicLEProducer.producerVector_eq_finiteVector : Prop :=
+∀ (k n : ℕ) (R delta : ℚ), 0 < R → producerVector k n R delta = HermitePiecewiseSourceBudget.finiteVector k n R delta
+def HermitePublicLEProducer.normalized_allocated_producer_original_error : Prop :=
+∀ (k n : ℕ) (L epsilon : ℚ),
+  0 < L →
+    0 < epsilon →
+      ‖NormedSpace.normalize
+              (producerVector k n (ExperimentalGlobalRadiusBudget.allocatedRadius k n L epsilon)
+                (HermitePiecewiseSourceBudget.sourceDelta k n epsilon)) -
+            ExperimentalNormalizationStability.targetVector k n ↑L‖ ≤
+        ↑epsilon / 2
+'HermitePublicLEProducer.eLE' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePublicLEProducer.producerVector' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePublicLEProducer.wordIndex_public_LE' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePublicLEProducer.producerVector_eq_finiteVector' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePublicLEProducer.normalized_allocated_producer_original_error' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

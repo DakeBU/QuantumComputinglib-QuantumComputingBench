@@ -1,0 +1,51 @@
+ASPBE.Uncompute.MBU.OperationBridge.compiledAndCleanupKernel_eq (m : Fin 2) :
+  ASPBE.Uncompute.MBU.OperationBridge.zeroInsert * ASPBE.Uncompute.MBU.OperationBridge.conditionalCZ m *
+          ASPBE.Uncompute.MBU.OperationBridge.xBra m *
+        QuantumBlockEncoding.evalPrimitiveProgram ASPBE.Uncompute.MBU.OperationBridge.ccx3Program *
+      ASPBE.Uncompute.MBU.OperationBridge.zeroInsert =
+    ASPBE.Uncompute.MBU.branchScale • ASPBE.Uncompute.MBU.OperationBridge.zeroInsert
+ASPBE.Uncompute.MBU.OperationBridge.ccx3_zeroInsert_apply.{u_1} {R : Type u_1} (alpha : R → Fin 2 → Fin 2 → ℂ) (r : R)
+  (x : ASPBE.Uncompute.MBU.OperationBridge.WorkBasis) :
+  (QuantumBlockEncoding.evalPrimitiveProgram ASPBE.Uncompute.MBU.OperationBridge.ccx3Program *
+          ASPBE.Uncompute.MBU.OperationBridge.zeroInsert).mulVec
+      (fun y => alpha r (y 0) (y 1)) x =
+    if x 2 = ASPBE.Uncompute.MBU.andBit (x 0) (x 1) then alpha r (x 0) (x 1) else 0
+ASPBE.Uncompute.MBU.OperationBridge.zeroInsert_isometry :
+  ASPBE.Uncompute.MBU.OperationBridge.zeroInsert.conjTranspose * ASPBE.Uncompute.MBU.OperationBridge.zeroInsert = 1
+ASPBE.Uncompute.MBU.OperationBridge.conditionalCZ_isometry (m : Fin 2) :
+  (ASPBE.Uncompute.MBU.OperationBridge.conditionalCZ m).conjTranspose *
+      ASPBE.Uncompute.MBU.OperationBridge.conditionalCZ m =
+    1
+ASPBE.Uncompute.MBU.OperationBridge.xBra_complete :
+  ∑ m, (ASPBE.Uncompute.MBU.OperationBridge.xBra m).conjTranspose * ASPBE.Uncompute.MBU.OperationBridge.xBra m = 1
+ASPBE.Uncompute.MBU.OperationBridge.compiledAndBranch_eq_helper.{u_1} {R : Type u_1} (alpha : R → Fin 2 → Fin 2 → ℂ)
+  (m : Fin 2) (r : R) (x : ASPBE.Uncompute.MBU.OperationBridge.WorkBasis) :
+  (ASPBE.Uncompute.MBU.OperationBridge.zeroInsert * ASPBE.Uncompute.MBU.OperationBridge.conditionalCZ m *
+              ASPBE.Uncompute.MBU.OperationBridge.xBra m *
+            QuantumBlockEncoding.evalPrimitiveProgram ASPBE.Uncompute.MBU.OperationBridge.ccx3Program *
+          ASPBE.Uncompute.MBU.OperationBridge.zeroInsert).mulVec
+      (fun y => alpha r (y 0) (y 1)) x =
+    ASPBE.Uncompute.MBU.correctedTemporaryAndBranch alpha m r (x 0) (x 1) (x 2)
+ASPBE.Uncompute.MBU.OperationBridge.compiledAndBranch_mass.{u_1} {R : Type u_1} [Fintype R]
+  (alpha : R → Fin 2 → Fin 2 → ℂ) (m : Fin 2) :
+  ∑ r,
+      ∑ x,
+        Complex.normSq
+          ((ASPBE.Uncompute.MBU.OperationBridge.zeroInsert * ASPBE.Uncompute.MBU.OperationBridge.conditionalCZ m *
+                    ASPBE.Uncompute.MBU.OperationBridge.xBra m *
+                  QuantumBlockEncoding.evalPrimitiveProgram ASPBE.Uncompute.MBU.OperationBridge.ccx3Program *
+                ASPBE.Uncompute.MBU.OperationBridge.zeroInsert).mulVec
+            (fun y => alpha r (y 0) (y 1)) x) =
+    ASPBE.Uncompute.MBU.inputMass alpha / 2
+'ASPBE.Uncompute.MBU.OperationBridge.compiledAndCleanupKernel_eq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ASPBE.Uncompute.MBU.OperationBridge.ccx3_zeroInsert_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ASPBE.Uncompute.MBU.OperationBridge.zeroInsert_isometry' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ASPBE.Uncompute.MBU.OperationBridge.conditionalCZ_isometry' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ASPBE.Uncompute.MBU.OperationBridge.xBra_complete' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ASPBE.Uncompute.MBU.OperationBridge.compiledAndBranch_eq_helper' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ASPBE.Uncompute.MBU.OperationBridge.compiledAndBranch_mass' depends on axioms: [propext, Classical.choice, Quot.sound]
+warning: verso: repository 'R\.lake/packages\verso' has local changes

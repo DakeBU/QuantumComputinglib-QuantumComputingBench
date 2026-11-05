@@ -1,0 +1,42 @@
+{
+  "schema": "C40_REAL_PREPARATION_NATURAL_V3_CLARIFICATION_PROPOSAL",
+  "author": "/root",
+  "evidence_class": "RETROSPECTIVE_IMPLEMENTATION_INFORMED",
+  "historical_formalizer": "UNKNOWN",
+  "previous_source_sha256": "936020bf35582267a8149ed49addd9a9b106c23512205acaf49e9a3febaa6d80",
+  "source_sha256": "dba646110300c6a8e9f8b275eeb0dba2140add2a9f0096934f03a51e886da6cd",
+  "previous_source": "clarification-v2/source-effective-v2.md",
+  "source": "source-effective-v3.md",
+  "change_id": "A2_LITERAL_RZ_PHASE_CONVENTION",
+  "before": "An instruction on an old wire is lifted to the same numbered wire. This applies to bit flip, real y-rotation, z-rotation, and a controlled bit flip with distinct control and target. If an old target wire is removed from a word, equality of the remaining contexts on \\(n+1\\) wires means both equality of the old \\(n\\)-wire contexts and equality of the newly added highest bits. To prove the converse, examine a remaining wire: it is either the highest wire or an old remaining wire. This gives the two cases directly.",
+  "after": "An instruction on an old wire is lifted to the same numbered wire. This applies to bit flip, real y-rotation, z-rotation, and a controlled bit flip with distinct control and target. If an old target wire is removed from a word, equality of the remaining contexts on \\(n+1\\) wires means both equality of the old \\(n\\)-wire contexts and equality of the newly added highest bits. To prove the converse, examine a remaining wire: it is either the highest wire or an old remaining wire. This gives the two cases directly.\n\nFor a real angle \\(\\theta\\), the z-rotation named here has the literal matrix\n\\[\n R_z(\\theta)=\\operatorname{diag}\\!\\left(\n \\cos(\\theta/2)-i\\sin(\\theta/2),\\;\n \\cos(\\theta/2)+i\\sin(\\theta/2)\\right).\n\\]\nOff-diagonal entries are zero. This is equality of complex matrix entries, not equality up to a global phase; in particular it is not silently replaced by \\(\\operatorname{diag}(1,e^{i\\theta})\\). The instruction lift retains this same angle and matrix on the old target wire. The arbitrary one-qubit matrix lifting argument below therefore applies to this matrix as well. This convention adds no z-rotation to the later real RY/CX preparation tree.",
+  "independent_finding": "real-preparation-reviewer-c39-phase2/phase2-independent-comparison.md#RZ-NATURAL-SPEC",
+  "prior_independent_phase2_seal_sha256": "cc4a8c14af38f8bfccc8e600f37823e5e1147838675caa42bf27ffcc9ff344fc",
+  "problem": "Natural A2 names Rz without fixing its literal relative/global phase convention; the generic lift remains valid but whole four-kind source scope is underspecified.",
+  "minimality_proposal": "Add only its two diagonal entries and zero off-diagonal entries, unchanged angle, exact-phase boundary and explicit non-use by the real preparation tree. No new hypothesis, theorem, instruction, target or bound.",
+  "formal_reference": "QuantumBlockEncoding.PrimitiveSemantics.standardRzMatrix literal cos-minus/plus-i-sin definition; generic lift_oneQubit covers arbitrary 2x2 complex matrices.",
+  "unchanged_sections": [
+    "A1",
+    "all old A2 prose",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I"
+  ],
+  "production_changed": false,
+  "proof_search": false,
+  "preproof_claim": false,
+  "independent_review": "PENDING",
+  "sourceAgreement": null,
+  "publicationBinding": null,
+  "remaining": [
+    "H0 assembly use-site/global placement",
+    "signed unchanged-tree all-width refuted at zero",
+    "structured finite-bit suppliers and cost/error/global circuit obligations",
+    "actual decoder comparison/final metadata/integration/reader/PURIFIED"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "cycle": 15,
+  "declaration_level": "C_INTERNAL_PROVIDER",
+  "status": "STATEMENT_SEALED_BEFORE_PROOF_SEARCH",
+  "direction_fingerprint": "uniform-exp-degree-vs-stage-rounding",
+  "parent_result_sha256": "405705c2c30dee7ebd2d21747e28ad554ef5db5b2c56c5cbb1cdd7bd45659902",
+  "design_sha256": "a169b48517b31a886a5073051f3074fdda8501a0c6f7ae0ab8683fa7804f9238",
+  "definitions": {
+    "halfDegree": "def halfDegree (T b : Nat) : Nat := 2*T^2+b+1",
+    "degree": "def degree (T b : Nat) : Nat := 2*halfDegree T b-1",
+    "sourceDegree": "def sourceDegree (epsilon : Rat) : Nat := degree (HermiteFiniteExp.tailCutoff epsilon) (HermiteFiniteExp.tailCutoff epsilon)",
+    "kind": "literal computable natural arithmetic; original rational checker unchanged"
+  },
+  "named_signatures": [
+    "theorem HermiteFiniteExpDegree.radius_degree (q : Rat) (T b : Nat) (hq : |q| <= (T : Rat)) : HermiteFiniteExp.radius q (degree T b) <= 1/(2 : Rat)^(b+1)",
+    "theorem HermiteFiniteExpDegree.degree_formula (T b : Nat) : degree T b = 4*T^2+2*b+1",
+    "theorem HermiteFiniteExpDegree.checked_complete (q epsilon : Rat) (hq : q <= 0) (he : 0 < epsilon) : HermiteFiniteExp.checked q epsilon (HermiteFiniteExp.tailCutoff epsilon) (sourceDegree epsilon) = some (HermiteFiniteExp.bounds q (HermiteFiniteExp.tailCutoff epsilon) (sourceDegree epsilon))",
+    "theorem HermiteFiniteExpDegree.complete_enclosure (q epsilon : Rat) (hq : q <= 0) (he : 0 < epsilon) : Real.exp (q : Real) in Set.Icc ((HermiteFiniteExp.bounds q (HermiteFiniteExp.tailCutoff epsilon) (sourceDegree epsilon)).1 : Real) ((HermiteFiniteExp.bounds q (HermiteFiniteExp.tailCutoff epsilon) (sourceDegree epsilon)).2 : Real) and (HermiteFiniteExp.bounds q (HermiteFiniteExp.tailCutoff epsilon) (sourceDegree epsilon)).2-(HermiteFiniteExp.bounds q (HermiteFiniteExp.tailCutoff epsilon) (sourceDegree epsilon)).1 <= epsilon"
+  ],
+  "binder_audit": {"q_T_b_epsilon": "TYPING", "hq_he": "original scalar validity/range premises", "assumed_width": false, "factorial_estimate_axiom": false, "fixed_max_degree": false},
+  "boundary": ["Only scalar interval width", "No global normalized state epsilon", "Original signed functionvalue/full garbage/q0 LSB target unchanged", "Input/GCD/intermediate/runtime/storage/TT/QR/physical synthesis remain OPEN", "No Source Anchor or public/root credit"]
+}

@@ -1,0 +1,10 @@
+rightSetup_values : ∀ (n : ℕ) (R delta : ℚ),
+  have s := (rightSetup n R delta).value;
+  s.cutMinusOne = HermitePiecewiseUniform.strictCut (n + 1) R (-1) ∧
+    s.cutZero = HermitePiecewiseUniform.inclusiveCut (n + 1) R 0 ∧
+      s.cutMinusT = HermitePiecewiseUniform.inclusiveCut (n + 1) R (-↑(HermiteFiniteExp.tailCutoff delta)) ∧
+        s.cutT = HermitePiecewiseUniform.strictCut (n + 1) R ↑(HermiteFiniteExp.tailCutoff delta) ∧
+          (∀ (i : Fin (sourceDegree delta + 1)), s.tailCoeffs[↑i] = 1 / ↑(↑i).factorial) ∧
+            s.clipped = HermitePiecewiseKernelProducer.clippedValue delta ∧
+              s.midpoint = HermiteFiniteMiddleSource.expMidpoint delta
+'HermiteCachedPiecewiseStored.rightSetup_values' depends on axioms: [propext, Classical.choice, Quot.sound]

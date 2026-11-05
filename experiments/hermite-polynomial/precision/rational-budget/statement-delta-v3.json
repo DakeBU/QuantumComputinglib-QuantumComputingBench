@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "statement_version": 3,
+  "state": "ADDITIVE_INTERFACE_SEAL_BEFORE_NEW_LEAN_PROOF_SEARCH",
+  "parent_delta": "statement-delta-v2.json",
+  "parent_sha256": "d8a1dedfa25b57d39fe28659df8b15f6f4f7a54a22034d2be2eb707676c09943",
+  "v1_sha256": "d25b35dc5d755285eb93a9fe412e38997501e5f7842bff7275db014530f930b0",
+  "unchanged": "V1/v2 definitions and all scientific/internal boundaries preserved; this is not a seal amendment.",
+  "new_interfaces": {
+    "threshold_input_bound": "forall k n epsilon:Rat, 0<epsilon -> ceilingThreshold k n epsilon <= coefficientNat k n * epsilon.den",
+    "bits_input_size_bound": "forall k n epsilon:Rat, 0<epsilon -> bits k n epsilon <= Nat.size(coefficientNat k n * epsilon.den)",
+    "bits_input_sum_size_bound": "forall k n epsilon:Rat, 0<epsilon -> bits k n epsilon <= Nat.size(coefficientNat k n)+Nat.size(epsilon.den)",
+    "allocated_numerator_input_bits": "forall k n epsilon lo hi:Rat, 0<epsilon -> Nat.size((SafeEnclosure.nearestNumerator (bits k n epsilon) lo hi).natAbs) <= Nat.size(lo.num.natAbs+hi.num.natAbs+1)+Nat.size(coefficientNat k n)+Nat.size(epsilon.den)"
+  },
+  "reason": "Expose a bound in finite original budget-input quantities, not only the size of an already computed rational threshold. Contract design uses the positive rational numerator being at least one. Actual allocator still divides by that numerator and uses exact logarithmic ceiling; this coarser upper bound does not replace its efficient actual allocation.",
+  "cost_boundary": "These bounds do not charge reading a large epsilon numerator, rational normalization/GCD/division or all intermediate arithmetic and source-enclosure work. No machine runtime/preprocessing certificate is added.",
+  "proof_timing": "No Lean proof or targeted probe for these new four interfaces was run before this file was created. Earlier v1/v2 proof search and recorded cast-bridge failure belong to already sealed interfaces.",
+  "scientific_promotion": false
+}

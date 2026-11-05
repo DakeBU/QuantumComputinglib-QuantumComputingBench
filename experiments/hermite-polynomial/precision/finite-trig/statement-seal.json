@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "cycle": 13,
+  "level": "C_INTERNAL_PROVIDER",
+  "status": "STATEMENT_SEALED_PRE_API_SEARCH",
+  "direction_fingerprint": "executable-finite-rational-RY-trigonometric-enclosures",
+  "protected_digest": "5a8f47f8d0afd1d4f957e55babde52a9e9c01babf05c481b988e99ebca2f7758",
+  "prior_packet_sha256": "093137fe131260aff2b6888423b2e3dbd2e68cf64bfb8a685e9c1677771c1abc",
+  "design_sha256": "664809e1fd69c2918e4575087a630fbb1589069715cb74cd94659ccd42b7be1c",
+  "namespace": "HermiteFiniteTrig",
+  "literal_definitions": {
+    "sinCoeff(i)": "if i%4=1 then 1 else if i%4=3 then -1 else 0 : Rat",
+    "cosCoeff(i)": "if i%4=0 then 1 else if i%4=2 then -1 else 0 : Rat",
+    "sinPoly(q,n)": "sum i in Finset.range(n+1), sinCoeff(i)*q^i/(Nat.factorial(i):Rat)",
+    "cosPoly(q,n)": "sum i in Finset.range(n+1), cosCoeff(i)*q^i/(Nat.factorial(i):Rat)",
+    "radius(q,n)": "abs(q)^(n+1)/(Nat.factorial(n+1):Rat)",
+    "sinBounds(q,n)": "(sinPoly(q,n)-radius(q,n), sinPoly(q,n)+radius(q,n))",
+    "cosBounds(q,n)": "(cosPoly(q,n)-radius(q,n), cosPoly(q,n)+radius(q,n))"
+  },
+  "exact_signatures": [
+    "theorem sin_error (q : Rat) (n : Nat) : abs (Real.sin (q : Real) - (sinPoly q n : Real)) <= (radius q n : Real)",
+    "theorem cos_error (q : Rat) (n : Nat) : abs (Real.cos (q : Real) - (cosPoly q n : Real)) <= (radius q n : Real)",
+    "theorem sin_mem (q : Rat) (n : Nat) : (sinBounds q n).1 <= Real.sin (q : Real) /\\ Real.sin (q : Real) <= (sinBounds q n).2 [with explicit Rat-to-Real endpoint casts]",
+    "theorem cos_mem (q : Rat) (n : Nat) : (cosBounds q n).1 <= Real.cos (q : Real) /\\ Real.cos (q : Real) <= (cosBounds q n).2 [with explicit Rat-to-Real endpoint casts]",
+    "theorem sin_width (q : Rat) (n : Nat) : (sinBounds q n).2 - (sinBounds q n).1 = 2 * radius q n",
+    "theorem cos_width (q : Rat) (n : Nat) : (cosBounds q n).2 - (cosBounds q n).1 = 2 * radius q n"
+  ],
+  "binder_audit": "q: TYPING arbitrary exact rational argument; n: TYPING arbitrary finite Taylor degree. No logical hypotheses, oracle, containment assumptions, source-parameter exclusion, or tolerance promises.",
+  "source_topology": "Internal classical analysis dependency: literal Taylor polynomial -> derivative magnitude <=1 -> finite Taylor remainder -> rational interval membership. No new scientific Source Anchor and no source credit.",
+  "saved_semantics": "Consumer passes exact parsed textual rational theta/2. Parsing and cross-language refinement are separate obligations; binary64 angle is not relabeled as exact decimal.",
+  "precision": "Exact width is 2*radius. Optional finite search checks this rational width against requested rational tolerance, returning honest failure at an implementation cap. Output size and rational operation counts are not uniform finite-bit runtime proofs.",
+  "unchanged_scientific_contract": "Signed Hermite function values, original pi L domain, Euclidean full terminal-garbage error and physical q0 LSB unchanged.",
+  "scope": "Only new finite-trig directory and ignored finite-trig cache. No production, frozen previous files, tests/config/registry/historical logs or user files. Parent owns integration gates and Git mutations.",
+  "review": "Independent review, source-blind/publication seals and whole-repository gate not self-approved. Parent reconciles when actual compiled evidence exists."
+}

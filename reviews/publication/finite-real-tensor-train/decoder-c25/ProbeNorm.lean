@@ -1,0 +1,37 @@
+import QuantumBlockEncoding.TensorTrainNormEnvironment
+
+set_option pp.fullNames true
+set_option pp.universes true
+set_option pp.explicit true
+
+#check @QuantumBlockEncoding.TensorTrainNormEnvironment.gram
+#check @QuantumBlockEncoding.TensorTrainNormEnvironment.gram_eq_sum
+#check @QuantumBlockEncoding.TensorTrainNormEnvironment.gram_scalar
+#check @QuantumBlockEncoding.TensorTrainNormEnvironment.gram_scalar_nonneg
+#check @QuantumBlockEncoding.TensorTrainNormEnvironment.norm
+#check @QuantumBlockEncoding.TensorTrainNormEnvironment.norm_eq
+#check @QuantumBlockEncoding.TensorTrainNormEnvironment.norm_sq
+#check @QuantumBlockEncoding.TensorTrainNormEnvironment.norm_pos_of_nonzero
+#check @QuantumBlockEncoding.TensorTrainNormEnvironment.norm_eq_of_contract
+#check @QuantumBlockEncoding.TensorTrainNormEnvironment.environmentScalars
+#check @QuantumBlockEncoding.TensorTrainNormEnvironment.environmentScalars_le
+#check @QuantumBlockEncoding.TensorTrainNormEnvironment.updateArithmeticBudget
+#check @QuantumBlockEncoding.TensorTrainNormEnvironment.arithmeticBudget
+#check @QuantumBlockEncoding.TensorTrainNormEnvironment.updateArithmeticBudget_le
+#check @QuantumBlockEncoding.TensorTrainNormEnvironment.arithmeticBudget_le
+
+#print axioms QuantumBlockEncoding.TensorTrainNormEnvironment.gram
+#print axioms QuantumBlockEncoding.TensorTrainNormEnvironment.gram_eq_sum
+#print axioms QuantumBlockEncoding.TensorTrainNormEnvironment.gram_scalar
+#print axioms QuantumBlockEncoding.TensorTrainNormEnvironment.gram_scalar_nonneg
+#print axioms QuantumBlockEncoding.TensorTrainNormEnvironment.norm
+#print axioms QuantumBlockEncoding.TensorTrainNormEnvironment.norm_eq
+#print axioms QuantumBlockEncoding.TensorTrainNormEnvironment.norm_sq
+#print axioms QuantumBlockEncoding.TensorTrainNormEnvironment.norm_pos_of_nonzero
+#print axioms QuantumBlockEncoding.TensorTrainNormEnvironment.norm_eq_of_contract
+#print axioms QuantumBlockEncoding.TensorTrainNormEnvironment.environmentScalars
+#print axioms QuantumBlockEncoding.TensorTrainNormEnvironment.environmentScalars_le
+#print axioms QuantumBlockEncoding.TensorTrainNormEnvironment.updateArithmeticBudget
+#print axioms QuantumBlockEncoding.TensorTrainNormEnvironment.arithmeticBudget
+#print axioms QuantumBlockEncoding.TensorTrainNormEnvironment.updateArithmeticBudget_le
+#print axioms QuantumBlockEncoding.TensorTrainNormEnvironment.arithmeticBudget_le

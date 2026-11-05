@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "direction_fingerprint": "total-finite-rational-Machin-radius-supplier-with-original-target-error",
+  "status": "FROZEN_COMPUTABLE_RATIONAL_RADIUS_ANALYTIC_PROVIDER_WITH_LOGARITHMIC_TERM_COUNT_PENDING_DISTINCT_REVIEW",
+  "failure_class": "NONE_FOR_FINAL_FORMAL_AND_EXECUTION_TARGETS",
+  "checkpoint_base": "667cc30e3f52be2fe64233a27d40e24a9864413b",
+  "parent_packet": "experiments/hermite-polynomial/precision/cycle12-staging-result.json",
+  "parent_sha256": "093137fe131260aff2b6888423b2e3dbd2e68cf64bfb8a685e9c1677771c1abc",
+  "shared_proof_input_digest": "5a8f47f8d0afd1d4f957e55babde52a9e9c01babf05c481b988e99ebca2f7758",
+  "narrow_verdict": "A literal total finite Lean rational producer logRadius takes positive rational L and radius tolerance epsilon, returns a positive rational, supplies an actual rational interval containing the original real pi*L, and proves absolute radius error<=epsilon. The term count is logarithmic in a computable rational ceiling threshold, with a kernel Nat.size bound. The universal normalized_logRadius_error consumer proves an error against the unchanged original signed source target. No comparison separating pi*L from a splice, no Real floor/pi oracle, and no real enclosure assumptions are inputs.",
+  "scientific_contract": "Original signed function-value amplitudes, original normalizer and p_j=-pi*L+2*pi*L*j/2^(n+1), positive finite rational L, arbitrary natural k,n (physical width n+1), q0 least significant. Radius error is an internally charged contribution. The source target and circuit conventions are unchanged.",
+  "mathematics": {
+    "producer": "S_q(m)=sum i<m (-1)^i/((2i+1)*q^(2i+1)) in Rat. P(m)=16*S_5(m)-4*S_239(m). Both suppliers return P(m)*L, not a chosen real approximation or a characterization witness.",
+    "analytic_dependency": "Real.hasSum_arctan identifies the alternating tsum for x in[0,1). Positive terms f_i=x^(2i+1)/(2i+1) are antitone and dominated by x^i, so absolute summability follows from the geometric series. Mathlib alternating_series_error_bound gives the omitted-term bound, recorded as atan_remainder_sharp. No omitted-term theorem is assumed by the supplier.",
+    "coarse_enclosure": "f_m<=1/(2m+1). Exact Machin identity gives |P(m)-pi|<=20/(2m+1). termCount=Int.ceil(20L/epsilon).toNat+1 makes the rational radius budget<=epsilon. This sealed conservative supplier remains as a non-default baseline.",
+    "geometric_enclosure": "For 0<=x<=1/2, f_m<=x^(2m+1)<=x^m<=2^(-m). The two actual Machin arguments1/5 and1/239 satisfy this domain. The same identity gives |P(m)-pi|<=20/2^m uniformly for all m. This is deliberately coarse but exponentially convergent.",
+    "logarithmic_allocator": "T=Nat.ceil(20L/epsilon), m=Nat.clog 2(max1 T)+1. Nat.le_pow_clog gives T<=2^m; Nat.le_ceil gives20L/epsilon<=T. Thus20L/2^m<=epsilon. All ceilings/logarithms are computable rational/integer/natural operations. No Real ceiling is used.",
+    "positivity": "P(m)>0 for every m>=1. For m>=4, the coarse universal pi bound20/(2m+1)<=20/9 and Mathlib pi>3 imply positivity. The remaining finite bases m=1,2,3 are exact rational kernel arithmetic. These are induction-domain base cases of a uniform theorem, not finite simulation substituted for an arbitrary-m bound.",
+    "membership": "Multiplying the two-sided |P(m)-pi| bound by positive L proves piL belongs to[(P(m)-20/2^m)L,(P(m)+20/2^m)L], the actual cast endpoints of logRadiusInterval. Endpoints may be broad/negative at low precision; the returned center is positive and all requested membership/error conclusions still hold.",
+    "original_target_consumer": "Frozen normalized_radius_error applied to actual logRadius and its proved positivity gives ||normalize(V(logRadius))-targetVector(k,n,L)||<=2sqrt(2^(n+1))*C(k)*epsilon. The supplied source target is the unchanged original signed target, not an approximate-radius state declared as a replacement target. C(k) is exactly the prior all-k sourceLipschitzConstant. Other pipeline error contributions are not set to zero.",
+    "precision_interpretation": "A desired normalized-state radius contribution eta can be allocated a rational radius tolerance small enough that2sqrt(2^(n+1))*C(k)*epsilon<=eta. The consumer charges this factor explicitly; this packet does not implement a complete allocator for all numerical stages. The logarithmic supplier itself works for every positive rational radius tolerance, including arbitrarily small ones."
+  },
+  "formal": {
+    "toolchain": "leanprover/lean4:v4.33.0",
+    "provider": "experiments/hermite-polynomial/precision/radius-supplier/RadiusSupplier.lean",
+    "namespace": "QuantumBlockEncoding.ExperimentalRadiusSupplier",
+    "roots": ["atan_remainder_sharp", "atan_remainder_geometric", "atan_remainder", "atanSum_cast", "piApprox_error", "piApprox_positive", "radius_budget", "radius_error", "radius_positive", "radius_membership", "piApprox_error_geometric", "logRadius_budget", "logRadius_error", "logRadius_positive", "logRadius_membership", "logTermCount_size"],
+    "provider_gate": {
+      "command": "lake env lean -o .lake/radius-supplier-cache/RadiusSupplier.olean experiments/hermite-polynomial/precision/radius-supplier/RadiusSupplier.lean",
+      "session_id": 24843,
+      "exit": 0,
+      "scope": "Entire final provider source, all16 printed roots; exact final source hash below",
+      "axioms_union": ["propext", "Classical.choice", "Quot.sound"],
+      "sorryAx": false,
+      "warnings": "Existing verso package dirty warning; retained sealed positive-domain hL/hepsilon binders unused in stronger helper proofs. No dependency source edited.",
+      "cache": ".lake/radius-supplier-cache/RadiusSupplier.olean",
+      "cache_sha256": "2093d08ab3f52994f23bb70def54889825c0acecc72321f127e6ae052d272133"
+    },
+    "consumer_gate": {
+      "file": "experiments/hermite-polynomial/precision/radius-supplier/ConsumerChecks.lean",
+      "command": "LEAN_PATH=.lake/radius-supplier-cache;.lake/radius-stability-cache; plus existing environment; lake env lean experiments/hermite-polynomial/precision/radius-supplier/ConsumerChecks.lean",
+      "session_id": 74123,
+      "exit": 0,
+      "kernel_roots": ["normalized_logRadius_error", "tiny positive rational original-piL membership instantiation"],
+      "axioms_union": ["propext", "Classical.choice", "Quot.sound"],
+      "sorryAx": false,
+      "execution_checks": 6
+    },
+    "forbidden_source_scan": {
+      "scope": "Both complete final Lean files",
+      "patterns": "sorry, admit, unsafe, declared axiom, native_decide, ofReduceBool",
+      "exit": 1,
+      "meaning": "rg no matches; expected absence exit, not a failed proof gate"
+    },
+    "live_handles": [],
+    "boundary": "Focused actual-source and consumer gates only. Existing frozen source/cache dependencies reused; this is not a fresh whole-project dependency build. Parent owns integrated repository gates and distinct review."
+  },
+  "execution_evidence": {
+    "layer": "Lean interpreter executes the actual rational producer; no interpreter result is used as a symbolic proof shortcut",
+    "checks": [
+      {"input": "L=1,epsilon=1/1000", "logTermCount": 16},
+      {"input": "L=1,epsilon=100", "logTermCount": 1},
+      {"input": "L=10^100,epsilon=1/10^100", "logTermCount": 670},
+      {"input": "L=1/10^100,epsilon=1/10^110", "logTermCount": 39},
+      {"input": "actual logRadius(1/10^100,1/10^110)", "positive": true, "reduced_numerator_bits": 879, "reduced_denominator_bits": 1210},
+      {"input": "L=1,epsilon=100", "radius": "3804/1195", "interval": ["-8146/1195", "15754/1195"]}
+    ],
+    "raw_success_output": "16\n1\n670\n39\n(true, 879, 1210)\n(3804 / 1195, -8146 / 1195, 15754 / 1195)\n'normalized_logRadius_error' depends on axioms: [propext, Classical.choice, Quot.sound]",
+    "limits": "Not measured runtime/memory scaling, a Python refinement theorem, or a finite fitted analytic claim. The arbitrary-input analytic claims are established by the provider proofs."
+  },
+  "statement_history": [
+    {"file": "statement-seal-v1.json", "sha256": "fbc261862049e399904940ce8b3724c010c5d011b37c0a392933477c44a7e4ae", "coverage": "Sealed computable conservative formula and requested radius/error/membership contract before proof/API search"},
+    {"file": "statement-delta-v2.json", "sha256": "23ff989da72dc3e61cf796a9a4f883b415771c6ea8898378b797171691e3c91e", "coverage": "Helper analytic/cast signatures after Mathlib retrieval, before helper implementation"},
+    {"file": "statement-delta-v3.json", "sha256": "2b0c4eb5162d82a9e994e7172157c11f1af9a8ba0e205545cfc11df756027c1e", "coverage": "Inverse-natural-power cast clarification and consumed positivity/budget helpers, before their implementation"},
+    {"file": "statement-delta-v4.json", "sha256": "a3614bccf155c0920d497532c12564dc78028e178a4a4387d332413a7ba3ae96", "coverage": "Separate logarithmic allocator successor and sharp/geometric analytic/error/size signatures, before implementation; conservative formula not overwritten"},
+    {"file": "consumer-seal-v5.json", "sha256": "7b0e899beb598b5bd4e1e6682924578848d2946b30ea23ce845cca5da79045e1", "coverage": "Universal actual original-target consumer and exact/finite interpreter checks before writing consumer source"}
+  ],
+  "binder_definition_topology_audit": {
+    "definition_kind": "Literal finite rational arithmetic; no choice, hidden real oracle, fallback approximation or external interval callback",
+    "TYPING": ["Nat q-independent m,k,n", "finite sum index", "Rat q,L,epsilon", "internal Real arctan argument"],
+    "SOURCE": ["positive physical L", "positive selected radius tolerance"],
+    "internal_domain": ["0<=x<1 for convergent arctan expansion", "0<=x<=1/2 for geometric domination", "m>=1 for positive Machin approximation"],
+    "EXCESS": [],
+    "proof_ingredients": "arctan HasSum, summability, antitone terms, omitted-term bound, Machin identity, positivity, rational ceiling, natural power/clog bound and source normalization stability are internally supplied dependency edges, not scientific theorem hypotheses",
+    "source_nodes": ["literal finite alternating sums", "uniform geometric series remainder", "exact Machin identity", "actual finite rational count and endpoints", "positive-L interval/error multiplication", "actual original signed source normalized error"],
+    "excluded": "No new quantum foundational API or circuit; no changes to prior coefficient/normalization/radius-stability source",
+    "source_gap": ["External implementation/Python decoding refinement", "full stored integer/GCD/copying/runtime cost theorem", "joint numerical-stage tolerance allocator"],
+    "Lean_topology": "Geometric domination and antitone -> Mathlib alternating bound -> actual arctan identification -> exact Machin combination -> coarse or logarithmic rational budget -> actual positive radius/error/endpoints -> frozen original-target normalization consumer",
+    "reuse_search": "Searched local precision providers and Mathlib before implementation. Retrieved Real.hasSum_arctan from Complex/Arctan, alternating_series_error_bound from SpecificLimits/Normed, exact Machin identity from Trigonometric/Arctan. No missing bridge remained and no geometric-integral reimplementation was needed.",
+    "graph_boundary": "This is an authored internal analytic construction topology, not an elaborated theorem-dependency exporter or a replacement global graph."
+  },
+  "bit_work_model": {
+    "checked_count_bound": "logTermCount<=Nat.size(max1(Nat.ceil(20L/epsilon)))+1, kernel theorem logTermCount_size",
+    "input_interpretation": "For reduced positive inputs L=a/b,epsilon=c/d, the threshold is ceil(20ad/(bc))<=20ad because b,c>=1. Consequently the selected m is O(size(a)+size(d)+1). This input-size translation is mathematical analysis, not a newly compiled input-bit theorem in this packet.",
+    "literal_schedule": "Two finite sums of m terms, powers q^(2i+1) for q=5,239 and i<m, two rational divisions per index, finite rational addition, constant-factor combination, multiplication by L, and endpoint/error rational arithmetic. Power evaluation is charged, not treated as free transcendental evaluation.",
+    "arithmetic_model": "Exact arbitrary-size integer-backed rational operations, rational ceil via integer division, natural clog. The kernel counts theorem is not a runtime theorem for these operations, Finset iteration, allocation or reduction.",
+    "conservative_bit_analysis": "Without assuming cancellation, multiplying term denominators gives product_i<m((2i+1)q^(2i+1)), whose log2 size is at most m*log2(2m+1)+m^2*log2(q). Numerator magnitudes add at most a factor m for each sum. Thus an unreduced rational-sum envelope is O(m^2+m log(m+1)); radius multiplication adds L input bits. This is an explicit safe analytic size model, not checked stored intermediate bounds or GCD cost.",
+    "open_boundaries": ["Proved relation between rational canonical input bits and every stored intermediate", "Lean integer pow/ceil/clog implementation runtime", "GCD/reduction and copying/allocation cost", "Python-to-Lean or emitted external producer refinement", "Complete joint precision allocation and downstream scalar/QR/serialization errors"],
+    "default": "Use logRadius; retain coarse radius only as the earlier sealed baseline. No adaptive exact-cutoff separation or fixed term cap exists in the new default producer."
+  },
+  "retained_attempt_diagnostics": [
+    {"session": 30598, "exit": 1, "class": "IMPLEMENTATION_FAILED", "detail": "Wrong summable helper qualification, positivity tactic used on1<=denominator, under-specified trans intermediate, and integer zpow cast syntax. Analytic statement unchanged; helper cast representation clarified in immutable v3 delta."},
+    {"session": 92934, "exit": 1, "class": "IMPLEMENTATION_FAILED", "detail": "Nat.cast_nonneg argument-name mismatch and push_cast zpow normal-form mismatch; repaired with actual alpha parameter and natural-power inverse form."},
+    {"session": 73312, "exit": 1, "class": "IMPLEMENTATION_FAILED", "detail": "Int.le_toNat was an iff rather than requested inequality; needed explicit div_mul_eq_mul_div and whitespace after absolute value. Ordinary analytic roots already checked, final full-source not accepted until repair."},
+    {"session": 55181, "exit": 0, "class": "NONE", "detail": "Conservative complete supplier checked before logarithmic successor was added; not final frozen gate."},
+    {"session": 29612, "exit": 1, "class": "IMPLEMENTATION_FAILED", "detail": "Direct exact_mod_cast on rational power budget failed; Nat.lt_size_self needed Data.Nat.Size import. Repaired cast via Rat.cast_le and explicit size import; target unchanged."},
+    {"session": 49305, "exit": 1, "class": "IMPLEMENTATION_FAILED", "detail": "Tiny-L anonymous cast-normalization timed out; interpreter tried printing Prop instead of Bool. Universal normalized consumer already ordinary axioms. Repaired to exact Rat cast and decide Bool for execution only."},
+    {"session": 85333, "exit": 1, "class": "IMPLEMENTATION_FAILED", "detail": "Tiny-L expression still elaborated division in Real; added full inner Rat annotation. All6 interpreter outputs reproduced; no provider statement change."}
+  ],
+  "artifact_hashes": {
+    "statement-seal-v1.json": "fbc261862049e399904940ce8b3724c010c5d011b37c0a392933477c44a7e4ae",
+    "statement-delta-v2.json": "23ff989da72dc3e61cf796a9a4f883b415771c6ea8898378b797171691e3c91e",
+    "statement-delta-v3.json": "2b0c4eb5162d82a9e994e7172157c11f1af9a8ba0e205545cfc11df756027c1e",
+    "statement-delta-v4.json": "a3614bccf155c0920d497532c12564dc78028e178a4a4387d332413a7ba3ae96",
+    "consumer-seal-v5.json": "7b0e899beb598b5bd4e1e6682924578848d2946b30ea23ce845cca5da79045e1",
+    "RadiusSupplier.lean": "e5db51a9b361220ddae5393d083728f289c8543737e26c735e198ccb55a6a4c9",
+    "ConsumerChecks.lean": "c532c17e86dae2a335b1b263edffb056843e157c5f643ef25b2cfa281b1b088b"
+  },
+  "dependency_hashes": {
+    "experiments/hermite-polynomial/precision/radius-stability/RadiusStability.lean": "19e157fb2fcade8d68c5d92694634193dddaeb840d16a5d374a506d8a9a8b552",
+    ".lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/Complex/Arctan.lean": "bd5628ceede07a69a13331d7282f0432de4f017494eac6ac20ec347cb947810d",
+    ".lake/packages/mathlib/Mathlib/Analysis/SpecificLimits/Normed.lean": "3b193e56ab938214ae45b10ea7f9d17661db6bafac6c1682d871aa9df9d6901a",
+    ".lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/Trigonometric/Arctan.lean": "bbd8de25aaf8493e4bebedc9cf1aa4975fbfd12b018135809dc96b596d905cd4",
+    "lake-manifest.json": "510171e8214a2ac5e00f16c1bf92ad474d2de42c4cd2dc2b3d411272f7b58763",
+    "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
+  },
+  "structured_handoff": {
+    "objective_frontier": "Actual computable rational pi/radius enclosure with original-source analytic error and no cutoff separation",
+    "delta": "Uniform scalar analytic supplier now contains its own convergent finite producer and logarithmic computable term-count bound, rather than accepting an assumed pi interval. Original signed normalization consumer is compiled.",
+    "skills_effect": "Substantive-worker/source-dependency-audit required source-independent sealing, local reuse before deriving a new analytic bridge, dependency-only analytic premises, and explicit implementation/cost gaps.",
+    "process_memory_ids": ["QBE-PM-LOW-TOKEN-CONTROL-PLANE", "QBE-PM-DENSE-CHECK-SMALL-INSTANCE", "QBE-PM-VERIFIER-SEMANTIC-LEVEL"],
+    "parallel_admission": "Human-authorized distinct scalar radius uncertainty; no delegation by worker",
+    "expected_information_gain": "Removes the scalar pi/radius analytic membership gap without requiring exact pi cutoff decisions",
+    "salvage": "No mathematical route rejected. Final coarse supplier remains a checked sealed baseline; failed tactic attempts are implementation diagnostics only. Transient unsuccessful source versions are not claimed as certified artifacts.",
+    "default_verified_route": "logRadius; same Machin arithmetic with logarithmic rather than linear tolerance term count",
+    "independent_review": "Pending parent-assigned distinct review; worker does not self-approve",
+    "exposition_state": "Internal provider handoff only; parent owns any reader-facing integration",
+    "scope": "New radius-supplier subtree and explicitly allowed ignored radius-supplier cache only; no prior frozen/production/test/config/registry/history edits, no git mutations",
+    "next_action": "Parent fresh-compile exact provider/consumer hashes and obtain distinct review; then attach a stored/costed implementation refinement or reuse actual Lean rational output in the finite scalar chain. Preserve remaining downstream errors and all old cutoff-supplier failures unchanged.",
+    "token_usage": "unknown"
+  }
+}

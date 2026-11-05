@@ -112,6 +112,9 @@ theorem initial_padding {q : ℕ} (b : PrimitiveBasis q) :
       omega
     simp [padVector, hz, evalPrimitiveCircuit, hb]
 
+-- Lean 4.33 requires explicit permission to unfold the definitionally equal
+-- grid-size aliases when matching named-basis and finite-index columns.
+set_option backward.isDefEq.respectTransparency false in
 /-- Actual local circuit columns imply the complete sequential source state
 from an empty initial circuit, including terminal cleanup. -/
 theorem run_circuits_clean {n q : ℕ} (D : Chain n 1 1) (hB : maxBond D ≤ 2 ^ q)

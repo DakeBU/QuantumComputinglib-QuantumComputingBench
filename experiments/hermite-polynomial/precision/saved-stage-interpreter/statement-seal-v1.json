@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "evidence_class": "C_INTERNAL_PROVIDER",
+  "status": "STATEMENT_SEALED_BEFORE_PROOF",
+  "direction_fingerprint": "variable-target-CX-full-matrix-interval-refinement",
+  "contract": "Literal full 2^width by 2^width real and rational interval matrices. Physical index is Fin(2^width); wire q uses Nat.testBit q and xor 2^q, so q0 is LSB. Chronological left-action RY/CX word starts at identity. RY outputs c*u-s*v,s*u+c*v at exact rational halfangle, with outward after each instruction output. CX is exact output-row permutation. No midpoint before stage end, no garbage projection, no phase quotient.",
+  "frozen_signatures": {
+    "flip": "{width : Nat} -> Fin width -> Fin (2^width) -> Fin (2^width)",
+    "Instruction": "(width : Nat) -> Type; ry(theta : Rat)(target : Fin width), cx(control target : Fin width)(distinct : control != target)",
+    "intervalStep": "{width : Nat} -> Instruction width -> Nat -> Nat -> Matrix (Fin(2^width)) (Fin(2^width)) Interval -> Matrix (Fin(2^width)) (Fin(2^width)) Interval",
+    "realStep": "{width : Nat} -> Instruction width -> Matrix (Fin(2^width)) (Fin(2^width)) Real -> Matrix (Fin(2^width)) (Fin(2^width)) Real",
+    "intervalWord": "{width : Nat} -> List (Instruction width) -> Nat -> Nat -> IntervalMatrix width -> IntervalMatrix width",
+    "realWord": "{width : Nat} -> List (Instruction width) -> RealMatrix width -> RealMatrix width",
+    "stage_enclosure": "forall {width : Nat} (word : List(Instruction width)) (degree bits : Nat) (i j : Fin(2^width)), Mem (intervalWord word degree bits intervalIdentity i j) (realWord word realIdentity i j)",
+    "stage_midpoint_error": "forall {width : Nat} (word : List(Instruction width)) (degree bits : Nat) (i j : Fin(2^width)), abs(realWord word realIdentity i j - Rat.cast(midpoint(intervalWord word degree bits intervalIdentity i j))) <= Rat.cast(((intervalWord word degree bits intervalIdentity i j).hi-(intervalWord word degree bits intervalIdentity i j).lo)/2)"
+  },
+  "binder_audit": {
+    "width_indices": "TYPING finite carrier and valid physical wire",
+    "word_angles_degree_bits": "TYPING literal saved instruction payload and finite arithmetic parameters; no angle cap or analytical error premise",
+    "cx_distinct": "TYPING valid instruction syntax; encoded in constructor, not correctness premise",
+    "local_entry_membership": "Internal induction invariant only, discharged from identity by stage_enclosure",
+    "Valid_contraction_unitarity": "ABSENT",
+    "excess": []
+  },
+  "definition_audit": "All definitions literal. No default values, characterized choices, or quotient representatives. Only real semantics noncomputable; rational interval recurrence executable.",
+  "construction_graph": ["identity singleton enclosures", "finite trig supplier plus signed outward RY pair", "physical changing-target row routing", "exact CX row permutation", "chronological full matrix induction", "stage-end midpoint entry error"],
+  "optional_successor": "Dimension-aware Euclidean operator eta=2^width*max-entry-radius requires an additive successor seal before proof. It must not supply Valid or nominal contraction by assumption substitution.",
+  "remaining": ["Python parser/runtime/loop refinement", "literal stage partitions/data-first TT/readout", "Euclidean operator radius supplier unless successor sealed", "nominal contraction and NonunitaryTransport integration", "uniform finite-bit/root/publication"],
+  "source_anchor": false,
+  "scientific_root": false,
+  "independent_review": "PENDING_PARENT_OWNED"
+}

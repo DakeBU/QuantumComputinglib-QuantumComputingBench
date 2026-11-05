@@ -1,0 +1,12 @@
+HermiteSourceSuffix.suffixEnvelope : HermiteSourceSuffix.SuffixEnvelopeSpec
+C347ExactChecks.suffixEnvelopeExpandedCheck (k : ℕ) (i : Fin (k + 1)) (s : Fin (↑i + 2)) :
+  have q := ∑ r ∈ Finset.Ico (↑s) (↑i + 1), ↑((k + ↑i - r).choose k) / ↑r.factorial;
+  q.den ∣ k.factorial ∧ 0 ≤ q ∧ q ≤ ↑((↑i + 1 - ↑s) * 2 ^ (2 * k))
+def HermiteSourceSuffix.SourceSuffix : (k : ℕ) → (i : Fin (k + 1)) → Fin (↑i + 2) → ℚ :=
+fun k i s => ∑ r ∈ Finset.Ico (↑s) (↑i + 1), ↑((k + ↑i - r).choose k) / ↑r.factorial
+def HermiteSourceSuffix.SuffixEnvelopeSpec : Prop :=
+∀ (k : ℕ) (i : Fin (k + 1)) (s : Fin (↑i + 2)),
+  have q := HermiteSourceSuffix.SourceSuffix k i s;
+  q.den ∣ k.factorial ∧ 0 ≤ q ∧ q ≤ ↑((↑i + 1 - ↑s) * 2 ^ (2 * k))
+'HermiteSourceSuffix.suffixEnvelope' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C347ExactChecks.suffixEnvelopeExpandedCheck' depends on axioms: [propext, Classical.choice, Quot.sound]

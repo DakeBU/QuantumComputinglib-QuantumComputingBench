@@ -1,0 +1,108 @@
+{
+  "schema": "aspbe-staged-provider-result-v1",
+  "status": "PROVED_LOCAL",
+  "failure_class": "NONE",
+  "objective": "SP-HERMITE-POLY-002:C2 stored-active-column-materialization",
+  "source_sha256": "57557e479fb603f7323da958d7d34bd82db3db88c5409df3e277595b823b66ee",
+  "contract_sha256": "c2a537d1de5cff5a1719bc72e4e8eb0804b2234b9da3c9bb296ea32bcabd1868",
+  "frozen_normalized_supplier_sha256_unchanged": "1b9b54933a360cc5a09b5858ae7f48644804ae1876e819986a43d00437501f4e",
+  "head_context": "8c341b099e21ca98c264076837f10787a80d0c8f",
+  "production_proof_input_digest_context_only": "5a8f47f8d0afd1d4f957e55babde52a9e9c01babf05c481b988e99ebca2f7758",
+  "toolchain": "leanprover/lean4:v4.33.0",
+  "imports": ["NormalizedCanonical", "QuantumBlockEncoding.StoredIsometryCompletion", "QuantumBlockEncoding.ConstructiveIsometryLocal"],
+  "namespace": "QuantumBlockEncoding.StagedActiveColumns",
+  "checked_interfaces": [
+    {
+      "name": "extract",
+      "line": 76,
+      "type": "{n l r : Nat} -> (C : StoredChain n l r) -> (q t : Nat) -> (ht : t<n) -> Run (StoredMatrix (2*2^q) (rankAt (denoteChain C) t))"
+    },
+    {
+      "name": "extract_value",
+      "line": 86,
+      "type": "{n l r q : Nat} (C : StoredChain n l r) (hB : maxBond (denoteChain C) <= 2^q) (t : Nat) (ht : t<n) : denote (extract C q t ht).value = fun row a => activeColumns (denoteChain C) t hB ((coordinates q).symm row) a"
+    },
+    {
+      "name": "completeAt",
+      "line": 169,
+      "type": "{n l r q : Nat} (C : StoredChain n l r) (hB : maxBond (denoteChain C) <= 2^q) (t : Nat) (ht : t<n) : Run (StoredMatrix (2*2^q) (2*2^q))"
+    },
+    {
+      "name": "completeAt_value",
+      "line": 185,
+      "type": "{n l r q : Nat} (C : StoredChain n l r) (hB : maxBond (denoteChain C) <= 2^q) (t : Nat) (ht : t<n) : denote (completeAt C hB t ht).value = (completeStage (denoteChain C) hB t).submatrix (coordinates q).symm (coordinates q).symm"
+    },
+    {
+      "name": "hermiteStage",
+      "line": 267,
+      "type": "(k n : Nat) (L : Real) (hL : 0<L) (t : Fin (n+1)) : StoredHermiteRawSource.RawRun (StoredMatrix (2*2^(HermiteFiniteChain.bondQubits k)) (2*2^(HermiteFiniteChain.bondQubits k)))"
+    },
+    {
+      "name": "hermiteStage_certified",
+      "line": 331,
+      "type_exact_source": "theorem hermiteStage_certified (k n : ℕ) (L : ℝ) (hL : 0<L) (t : Fin (n+1)) :\n    let result := hermiteStage k n L hL t\n    (denote result.run.value).transpose * denote result.run.value = 1 ∧\n    (denote result.run.value).det = 1 ∧\n    (∀ (bit : Fin 2) (b a : PrimitiveBasis (HermiteFiniteChain.bondQubits k)),\n      (primitiveBasisLEEquiv (HermiteFiniteChain.bondQubits k) a).val <\n        rankAt (denoteChain (StagedNormalizedCanonical.compile k n L).run.value) t.val →\n      (denote result.run.value\n        (coordinates _ (Fin.snoc b bit)) (coordinates _ (Fin.snoc a 0)) : ℂ) =\n        paddedAt (denoteChain (StagedNormalizedCanonical.compile k n L).run.value)\n          t.val (bit, primitiveBasisLEEquiv _ b) (primitiveBasisLEEquiv _ a)) ∧\n    StoredRectangularGivens.total result.run.cost ≤ hermiteStageBudget k n"
+    }
+  ],
+  "mathematical_delta": "An actual stored table is extracted by traversing the returned dependent stored chain, selecting the actual core and reading signed core entries with explicit bit/bond indexing. Prefix physical input labels are materialized. The stored completion output is proved equal to the existing deterministic completeStage under the explicit coordinates, not merely an existential SO completion. The source-facing supplier binds StagedNormalizedCanonical.compile once and obtains canonicality and the rank bound internally from L>0.",
+  "mathematical_argument": [
+    "At stage t the actual active rank is rankAt (denoteChain C) t. Cons traversal reaches the actual StoredCore l m, never an arbitrary scalar callback.",
+    "Decode row as (bit,b) by quotient/remainder at S=2^q. If b<m, read the actual stored entry A[a][bit*m+b]; otherwise return exactly zero. This is paddedCore, with Fin l supplying the active-input prefix condition. Induction on cons traversal identifies the exact activeColumns matrix in physical coordinates.",
+    "RightCanonical of the actual returned normalized chain implies orthonormal active columns. There is always a spare physical column because active rank <=S<2S. The existing stored completeFrom producer applies its counted completion to these exact stored columns and counted prefix labels.",
+    "Prefix labels agree with coordinates(activePositions a). Existing completeFrom_value then identifies the exact deterministic completeStage matrix. Existing complete_spec proves SO and column preservation; completeStage_spec gives the physical bit/bond action.",
+    "Each cell pays two decode index operations and one support comparison; a supported cell also pays two flatten index operations and two stored reads. Existing nested materialize charges four word operations per cell and four per output row. Visiting t+1 cons nodes charges three reads each.",
+    "Combining these gives extraction <=22*S*rank+8*S+3*(t+1). Prefix positions pay exactly 5*rank. Existing completion contributes its checked total bound, and monotonicity in rank/stage combines this with the actual normalized supplier cost."
+  ],
+  "certified_costs": {
+    "extract_total": "22*S*rank+8*S+3*(t+1)",
+    "extract_selected_index_operations": "cost.field <=4*(2*S)*rank; this module uses the field tag to charge selected natural index work, not real arithmetic",
+    "prefix_labels_total_exact": "5*rank",
+    "existing_completion_total": "H*rank*(22*rank+30*H+43)+20*H^2+27*H+5*rank+3, H=2*S",
+    "stageBudget": "22*S*rank+8*S+3*(t+1)+5*rank+H*rank*(22*rank+30*H+43)+20*H^2+27*H+5*rank+3",
+    "source_plus_single_stage": "hermiteStageBudget k n = StagedNormalizedCanonical.compilerBudget k n + stageBudget (HermiteFiniteChain.bondQubits k) (2*k+6) n",
+    "raw_extra_counters_theorem": "hermiteStage_raw_extraCounters, line301: exp=raw exp; quot=(n+1)*(n+2); rem=(n+1)^2; doubling=n; additions=4*(n+1), all explicitly RAW SOURCE scope only"
+  },
+  "regressions_checked": [
+    {"lines": "383-398", "case": "literal signed deficient/noncanonical core; row0 negative entry, row2 positive entry; padded row1,row3 zero; no isometry claim for deficient input"},
+    {"lines": "401-404", "case": "arbitrary padded output row is zero outside actual next rank, exact power-of-two bit/bond layout"},
+    {"lines": "406-418", "case": "zero next rank; later zero active rank; concrete extracted cells all zero and nonzero materialization traffic retained"},
+    {"lines": "421-424", "case": "empty generic train has no valid stage; source n=0 still has one valid SO stage"},
+    {"lines": "427-441", "case": "existing completion producer preserves a negative column at non-prefix physical label1"},
+    {"lines": "443-445", "case": "raw source exponential counter survives unchanged"}
+  ],
+  "verification": {
+    "focused_command": "$env:LEAN_PATH = '<external-cache>;' + $env:LEAN_PATH; lake env lean experiments/hermite-polynomial/stored/ActiveColumns.lean",
+    "cache_creation_command": "lake env lean -R experiments/hermite-polynomial/stored -o <external-cache>/NormalizedCanonical.olean experiments/hermite-polynomial/stored/NormalizedCanonical.lean",
+    "cache_path_this_run": "<external-cache>",
+    "final_command_exit": 0,
+    "lean_source_warnings": [],
+    "environment_warnings": ["pre-existing local changes in verso dependency"],
+    "axiom_roots": ["extract_value", "completeAt_value", "hermiteStage_certified", "hermiteStage_total_cost_le"],
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "sorry_or_custom_axioms": false,
+    "full_repository_gate": "not run by worker; root owns integration",
+    "production_promotion": "pending",
+    "independent_decoder_reviewer": "pending"
+  },
+  "binder_audit": {"k_n_L": "SOURCE parameters", "hL": "SOURCE L>0", "t:Fin(n+1)": "TYPING stage selection", "hB_hC_in_generic_helpers": "INTERNAL dependency contracts; supplied from frozen normalized supplier, absent from Hermite public acceptance binders"},
+  "residuals": [
+    "This is a single-stage supplier, not full C2. A global compiler must bind normalized compile once and feed its cached chain to completeAt for every stage. Calling hermiteStage separately at each stage would rebuild the source and cannot be charged as one source run.",
+    "Sequential extract from the chain root at each stage visits t+1 nodes; summing stages incurs a quadratic traversal term unless a later stored schedule supplier caches stages. Do not infer a linear global compiler cost from local bounds.",
+    "Selected integer quotient/remainder and flatten multiplication/addition are charged here; general loop/enumeration, proof/type metadata and counter bookkeeping operations remain excluded. Raw extra integer counters do not cover these new operations.",
+    "Stored completion emit records are intermediate elimination records, not final primitive circuit length.",
+    "Gray/Givens primitive emission, numerical angle instantiation, physical wire placement and persistent global list copying remain separate composition prerequisites.",
+    "Finite-bit real/transcendental arithmetic, numerical conditioning and uniform end-to-end error remain C3/X2 gaps.",
+    "Production admission, independent semantic review and purification/publication remain pending."
+  ],
+  "next_dependency_ready_supplier": "For cached C=(StagedNormalizedCanonical.compile k n L).run.value, consume completeAt C bound t ht outputs into the stored local Gray/Givens emission supplier; bind C only once in the all-stage producer and charge schedule/list assembly explicitly.",
+  "reuse": {"direct": ["StoredGivens.collect/materialize", "StoredThinLQ.entry", "StoredTensorTrain.StoredChain/denoteChain", "TensorTrainSchedule.rankAt/paddedAt", "TensorTrainLocalCompiler.activeColumns/activeColumns_isometry", "StoredIsometryCompletion.Positions.materialize/completeFrom/complete_spec/complete_total_cost_le", "ConstructiveIsometryLocal.coordinates/completeStage/completeStage_spec", "StagedNormalizedCanonical.compile/compile_canonical/compile_maxBond/compile_total_cost_le"], "note": "No module named StoredOrthogonalCompletion exists; actual StoredIsometryCompletion reused. No scalar normalization API copied; no data-word amplitude enumeration."},
+  "process_memory_ids_consulted": ["QBE-PM-LOW-TOKEN-CONTROL-PLANE", "QBE-PM-DENSE-CHECK-SMALL-INSTANCE", "QBE-PM-VERIFIER-SEMANTIC-LEVEL"],
+  "direction_fingerprint": "stored-active-column-materialization",
+  "expected_information_gain_delivered": "Closed the actual callback/indexing gap between stored normalized chain and deterministic stored local completion.",
+  "parallel_admission": "parent assigned disjoint stored extraction versus Gray-target leaf; no new subagents spawned",
+  "common_blind_spot_review": "pending at source-route integration; this is one internal supplier, not an independently source-reviewed alternative root",
+  "salvage": "all compiled provider/refinement/cost interfaces retained; no failed fragments or placeholders retained",
+  "default_route": "existing stored completion with explicit physical coordinates; no new isometry existence route",
+  "purification_exposition_seal": "pending; mathematical argument above is authored explanation, not independent Exposition Seal",
+  "worker_token_telemetry": null,
+  "worker_elapsed_seconds": null
+}

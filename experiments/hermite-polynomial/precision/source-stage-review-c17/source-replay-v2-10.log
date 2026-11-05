@@ -1,0 +1,45 @@
+QuantumBlockEncoding.ExperimentalNormalizationStability.normalization_stability.{u_1} {E : Type u_1}
+  [NormedAddCommGroup E] [NormedSpace ℝ E] (x y : E) (hx : x ≠ 0) :
+  ‖NormedSpace.normalize y - NormedSpace.normalize x‖ ≤ 2 * ‖y - x‖ / ‖x‖
+QuantumBlockEncoding.ExperimentalNormalizationStability.normalizer_relative_error {b s η : ℝ} (hb : 0 < b) (hη : 0 ≤ η)
+  (small : η < 1) (error : |s - b| ≤ η * b) : 0 < s ∧ |b / s - 1| ≤ η / (1 - η)
+QuantumBlockEncoding.ExperimentalNormalizationStability.hermite_norm_floor (k n : ℕ) (L : ℝ) :
+  1 ≤ HermiteStatePreparation.sampleNorm k (n + 1) L
+QuantumBlockEncoding.ExperimentalNormalizationStability.target_error_sq (k n : ℕ) (L : ℝ)
+  (w : EuclideanSpace ℂ (Fin (gridSize (n + 1)))) :
+  ‖w - targetVector k n L‖ ^ 2 =
+    ∑ j, Complex.normSq (w.ofLp j - HermiteStatePreparation.normalizedAmplitude k (n + 1) L j)
+QuantumBlockEncoding.ExperimentalNormalizationStability.hermite_scaled_error (k n : ℕ) (L : ℝ) {F δ : ℝ} (hF : 0 < F)
+  (y : EuclideanSpace ℂ (Fin (gridSize (n + 1)))) (error : ‖y - F⁻¹ • sourceVector k n L‖ ≤ δ) :
+  ‖NormedSpace.normalize y - targetVector k n L‖ ≤ 2 * F * δ
+QuantumBlockEncoding.ExperimentalNormalizationStability.hermite_computed_nonzero (k n : ℕ) (L : ℝ) {F δ : ℝ}
+  (hF : 0 < F) (y : EuclideanSpace ℂ (Fin (gridSize (n + 1)))) (error : ‖y - F⁻¹ • sourceVector k n L‖ ≤ δ)
+  (small : F * δ < 1) : y ≠ 0
+QuantumBlockEncoding.ExperimentalNormalizationStability.hermite_serialized_error (k n : ℕ) (L : ℝ) {F δ s τ ζ : ℝ}
+  (hF : 0 < F) (y w : EuclideanSpace ℂ (Fin (gridSize (n + 1)))) (error : ‖y - F⁻¹ • sourceVector k n L‖ ≤ δ)
+  (small : F * δ < 1) (_hs : 0 < s) (scalar_error : |‖y‖ / s - 1| ≤ τ) (output_error : ‖w - s⁻¹ • y‖ ≤ ζ) :
+  ‖w - targetVector k n L‖ ≤ 2 * F * δ + τ + ζ
+QuantumBlockEncoding.ExperimentalNormalizationStability.hermite_serialized_relative_error (k n : ℕ) (L : ℝ)
+  {F δ s η ζ : ℝ} (hF : 0 < F) (y w : EuclideanSpace ℂ (Fin (gridSize (n + 1))))
+  (error : ‖y - F⁻¹ • sourceVector k n L‖ ≤ δ) (small : F * δ < 1) (hη : 0 ≤ η) (ηsmall : η < 1)
+  (norm_error : |s - ‖y‖| ≤ η * ‖y‖) (output_error : ‖w - s⁻¹ • y‖ ≤ ζ) :
+  ‖w - targetVector k n L‖ ≤ 2 * F * δ + η / (1 - η) + ζ
+'QuantumBlockEncoding.ExperimentalNormalizationStability.normalization_stability' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalNormalizationStability.normalizer_relative_error' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalNormalizationStability.hermite_scaled_error' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalNormalizationStability.hermite_serialized_error' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalNormalizationStability.hermite_serialized_relative_error' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalNormalizationStability.target_error_sq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+warning: verso: repository '<repo>\.lake/packages\verso' has local changes

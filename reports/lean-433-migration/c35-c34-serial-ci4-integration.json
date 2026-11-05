@@ -1,0 +1,57 @@
+{
+  "schema": "C34_CI4_PARENT_EXACT_TARGET_ONLY_SCHEDULING_TRANSPORT",
+  "archive_sha256": "058990f8d6ea9a4ffc18696d81a56f40fd16cb4a9a3102dc2bff43e1f3a1afd9",
+  "approved_seal_sha256": "7bf39b09d1720039016864c40d56ad05fef221dae45e633a0ee2cbd22d288439",
+  "launcher_sha256": "f0b8f059641f44e23991a89fde73e5c85b06b8ed323c885339ae277555b0794e",
+  "predecessor": "tools/real_preparation_native_c34_ci3",
+  "changed_existing": [
+    "runner.py",
+    "package-bindings.json",
+    "packet-seal.json"
+  ],
+  "additions": [
+    "compile-policy.json",
+    "test_serial_policy.py"
+  ],
+  "runtime_change": "Only three fresh target argv vectors add -DElab.async=false before -o",
+  "memory_mib": 3072,
+  "threads": 1,
+  "target_seconds": 600,
+  "whole_seconds": 2100,
+  "automatic_retries": 0,
+  "scheduling_benefit_established": false,
+  "actual_new_Lean": "NOT_RUN",
+  "sourceAgreement": null,
+  "nativeAccepted": false,
+  "scientific_ROOT": false,
+  "old_seals_changed": false,
+  "production_changed": false,
+  "parent_review": "Full CI4 runner/test/policy/seal/handoff and actual failure diagnosis read; one-expression inverse SHA checked; no higher-cap inference.",
+  "private_diagnosis_boundary": "Original diagnosis anchorRoot is a private host path and is deliberately excluded from public transport; original seal retained unchanged.",
+  "workflow_before_sha256": "e3a4a1dd6c914f2117bb90d3a7a3ca66d49db42cdbad29a6fd4b217ad594e833",
+  "workflow_after_sha256": "0c00a08a73f2ecfc64d2ae9587ac3204b21b2ac5c214f5556fd4e9281729d3d1",
+  "workflow_changes": [
+    {
+      "before": "      - 'tools/real_preparation_native_c34_ci3/**'",
+      "after": "      - 'tools/real_preparation_native_c34_ci3/**'\n      - 'tools/real_preparation_native_c34_ci4/**'"
+    },
+    {
+      "before": "      - name: Exact portable transport and 26 Python-only guards",
+      "after": "      - name: Exact portable transport and 29 Python-only guards"
+    },
+    {
+      "before": "        run: python3 -B tools/real_preparation_native_c34_ci3/launch.py --python-tests",
+      "after": "        run: python3 -B tools/real_preparation_native_c34_ci4/launch.py --python-tests"
+    },
+    {
+      "before": "        run: lake env python3 -B tools/real_preparation_native_c34_ci3/launch.py --ci",
+      "after": "        run: lake env python3 -B tools/real_preparation_native_c34_ci4/launch.py --ci"
+    },
+    {
+      "before": "            _out/c34-native-ci3/public/",
+      "after": "            _out/c34-native-ci4/public/"
+    }
+  ],
+  "historical_current_workflow_tests": "Only current expected launcher version updated in three unsealed parent tests; all old payload hashes and negative checks retained.",
+  "rollback": "Switch optional workflow to the retained CI3 entry and expectations; retain exact failure and both sealed packages."
+}

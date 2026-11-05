@@ -18,8 +18,9 @@ theorem negativeOne_canonical : RightCanonical negativeOne := by
   · ext a b
     fin_cases a
     fin_cases b
-    norm_num [negativeOne, _root_.Matrix.mul_apply, _root_.Matrix.transpose_apply,
-      _root_.Matrix.one_apply, Fintype.sum_prod_type, Fin.sum_univ_two]
+    change (∑ out : Fin 2 × Fin 1, (if out.1 = 1 then (-1 : ℝ) else 0) *
+      (if out.1 = 1 then (-1 : ℝ) else 0)) = 1
+    norm_num [Fintype.sum_prod_type, Fin.sum_univ_two]
   · trivial
 
 theorem negativeOne_actual :

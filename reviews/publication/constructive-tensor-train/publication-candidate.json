@@ -1,0 +1,147 @@
+{
+  "module": "QuantumBlockEncoding/ConstructiveTensorTrain.lean",
+  "source_id": "aspbe-local-constructive-tensor-train-canonicalization",
+  "source_statement": "For every finite real Chain n l r with arbitrary natural bonds, including empty/zero/deficient cases, the specified deterministic tail-first thin-LQ recursion returns actual residual R and right-canonical chain D with unchanged terminal dimension r, exact backward cap s_n=d_n and s_i=min(d_i,2*s_(i+1)), full matrix action contract C x=R*contract D x for every word, and maxBond D<=maxBond C. For every real initial row v, boundary vR preserves all word/terminal amplitudes and chainMass C v=mass(vR). Normalization follows only given input chainMass one; the scalar Chain n 1 1 specialization recovers every scalar amplitude and has normalized boundary only under its stated squared-sum-one premise. No numerical-rank minimality, arithmetic cost, finite-bit stability, or physical circuit/root theorem is included.",
+  "source_anchor": "docs/lessons/constructive-tensor-train-canonicalization.md: all mathematical sections",
+  "lesson_path": "docs/lessons/constructive-tensor-train-canonicalization.md",
+  "declarations": [
+    "QuantumBlockEncoding.ConstructiveTensorTrain.CoreFactorization",
+    "QuantumBlockEncoding.ConstructiveTensorTrain.factorCore",
+    "QuantumBlockEncoding.ConstructiveTensorTrain.Result",
+    "QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize",
+    "QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_rightCanonical",
+    "QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_rankReduced",
+    "QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_action",
+    "QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_maxBond_le",
+    "QuantumBlockEncoding.ConstructiveTensorTrain.boundary",
+    "QuantumBlockEncoding.ConstructiveTensorTrain.boundary_action",
+    "QuantumBlockEncoding.ConstructiveTensorTrain.boundary_mass",
+    "QuantumBlockEncoding.ConstructiveTensorTrain.boundary_normalized",
+    "QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary",
+    "QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary_action",
+    "QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary_normalized"
+  ],
+  "obligation_map": [
+    {
+      "kind": "prerequisite",
+      "source_obligation": "ctt:specified flattened exact-real core supplier and produced contract",
+      "declarations": [
+        "QuantumBlockEncoding.ConstructiveTensorTrain.CoreFactorization",
+        "QuantumBlockEncoding.ConstructiveTensorTrain.factorCore"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "ctt:actual tail-first result; exact recurrence, every word and terminal entry, nonincreasing maximum bond",
+      "declarations": [
+        "QuantumBlockEncoding.ConstructiveTensorTrain.Result",
+        "QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize",
+        "QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_rightCanonical",
+        "QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_rankReduced",
+        "QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_action",
+        "QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_maxBond_le"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "ctt:actual residual boundary; complete action and all-terminal mass; normalization only from source mass one",
+      "declarations": [
+        "QuantumBlockEncoding.ConstructiveTensorTrain.boundary",
+        "QuantumBlockEncoding.ConstructiveTensorTrain.boundary_action",
+        "QuantumBlockEncoding.ConstructiveTensorTrain.boundary_mass",
+        "QuantumBlockEncoding.ConstructiveTensorTrain.boundary_normalized"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "ctt:scalar initial/terminal specialization and explicitly conditional normalization",
+      "declarations": [
+        "QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary",
+        "QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary_action",
+        "QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary_normalized"
+      ]
+    }
+  ],
+  "assumption_deltas": [
+    {
+      "classification": "same",
+      "source": "Arbitrary finite real input cores, natural dimensions, recursive words and unchanged complete terminal carrier",
+      "formal": "Chain n l r, Core l r, Word n over real Matrix; no positivity/nonzero/full-rank/action or canonicality input premise",
+      "explanation": "Dimension and carrier parameters are TYPING; the concrete input cores are SOURCE data. All rank/action/rightCanonical fields are producer outputs, not added hypotheses."
+    },
+    {
+      "classification": "same",
+      "source": "Specified deterministic dimension cap and bit-major physical-bit/right-bond reindexing",
+      "formal": "ConstructiveThinLQ.factor after finProdFinEquiv, rank=min l (2*tailResult.rank)",
+      "explanation": "Flattening has address b*r+j. Cap is not numerical rank; returned factors are fixed by this producer, not unique among all factorizations. Word order alone is not physical little-endian semantics."
+    },
+    {
+      "classification": "same",
+      "source": "Input complete mass one only in normalization consumers",
+      "formal": "boundary_normalized normalized:chainMass C v=1; stateBoundary_normalized normalized:(sum x,(contract C x 0 0)^2)=1",
+      "explanation": "SOURCE logical premises appear only in these two consumers. Mass and amplitude equalities themselves are unconditional and include every terminal label."
+    },
+    {
+      "classification": "same",
+      "source": "Exact-real semantic producer with uncosted core input and arithmetic; no executable resource or physical contract",
+      "formal": "noncomputable recursion and exact matrix equalities over real scalars",
+      "explanation": "No stored/bit/runtime/stability or gate-count theorem occurs in this module. The noncomputable marker alone is not an inefficiency proof; storage refinement and physical synthesis are separate."
+    }
+  ],
+  "graph_contribution": {
+    "baseline": "08284762faf5e2b9c613526fd2cf735e72a7fdfd",
+    "head": "same production bytes; documentation-only author candidate",
+    "classes": [
+      "bridge"
+    ],
+    "node_ids": [
+      "module:QuantumBlockEncoding.ConstructiveTensorTrain",
+      "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.CoreFactorization",
+      "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.factorCore",
+      "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.Result",
+      "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize",
+      "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_rightCanonical",
+      "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_rankReduced",
+      "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_action",
+      "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_maxBond_le",
+      "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.boundary",
+      "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.boundary_action",
+      "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.boundary_mass",
+      "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.boundary_normalized",
+      "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary",
+      "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary_action",
+      "declaration:QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary_normalized"
+    ],
+    "views": [
+      "source-construction-graph",
+      "lean-graph",
+      "compressed-quantum-spine",
+      "functor-hypergraph"
+    ],
+    "preserved_contract": "Whole production module unchanged. Retrospective local explanation and proposed publication bridge only; no pre-proof Statement Seal, independent review or original novelty claim.",
+    "remaining_boundary": "Input-core construction/storage/evaluation costs, arithmetic/finite-bit runtime and numerical stability, physical basis order/embeddings/isometry completion/primitive synthesis/full terminal cleanup and scientific ROOT are not certified by this module. Independent review, current Lean gate and reader/purification/main admission pending."
+  },
+  "formalizer": "constructive_tt_publication_packet retrospective packet author, 2026-10-10; historical formalizer unknown, retained in Git provenance",
+  "author_identity": "constructive_tt_publication_packet; retrospective agent packet author",
+  "historical_formalizer": "unknown; no attribution manufactured",
+  "residual_boundary": "Input-core construction/storage/evaluation costs, arithmetic/finite-bit runtime and numerical stability, physical basis order/embeddings/isometry completion/primitive synthesis/full terminal cleanup and scientific ROOT are not certified by this module. Independent review, current Lean gate and reader/purification/main admission pending.",
+  "decoder_evidence": "PENDING distinct source-blind run; no evidence fabricated",
+  "reviewer_evidence": "PENDING distinct anti-anchored source-first run; no evidence fabricated",
+  "status": "AUTHOR_CANDIDATE_NOT_REVIEWED_NOT_ADMITTED",
+  "statement_seal": {
+    "timing": "RETROSPECTIVE_LOCAL_CONTRACT_AFTER_EXISTING_PROOF",
+    "pre_proof_seal_claim": false,
+    "binder_audit": "author-binder-definition-audit.json",
+    "independent_review": "PENDING"
+  },
+  "source_proof_coverage": "reviews/publication/constructive-tensor-train/author-source-coverage.json",
+  "graph_views": "reviews/publication/constructive-tensor-train/author-graph-views.json",
+  "purification": {
+    "status": "PENDING",
+    "exposition_seal": "PENDING independent confirmation; authored lesson is not a seal"
+  },
+  "fresh_Lean_execution": false,
+  "binding_sha256": "121c0c8603b75ccde304783e94fa61abd82159768b0007da675da201f7501c24",
+  "binding_mode": "checker binding_digest with the owned proposed source row, not canonical registry insertion",
+  "owned_source_row_candidate": "reviews/publication/constructive-tensor-train/author-source-row-candidate.json"
+}

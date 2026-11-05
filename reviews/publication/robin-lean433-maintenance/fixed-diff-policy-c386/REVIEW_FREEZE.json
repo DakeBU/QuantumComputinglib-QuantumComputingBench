@@ -1,0 +1,56 @@
+{
+  "schema": "C386_FIXED_DIFF_REVIEW_FREEZE_V1",
+  "frozen_at_utc": "2026-10-19T05:57:11Z",
+  "reviewer": "/root/robin_compatibility_review_c364",
+  "reviewer_is_repair_author": false,
+  "verdict": "accepted-for-compatibility-only",
+  "scope": "exact explicit-abbrev8 source/test repair, not actual Linux CI, registry, main, BE-root or TCB acceptance",
+  "candidate_bindings": [
+    {"path": "W/c386-fixed-diff-candidate/check_toolchain_maintenance.py", "bytes": 13434, "sha256": "e5d411116296caffc80db5d479a3c7b7dfdea344876bec737aacb80d8e4b7c43"},
+    {"path": "W/c386-fixed-diff-candidate/test_toolchain_maintenance.py", "bytes": 18631, "sha256": "f486902cd77bffc521c31311c34b31060a021a6636b962163dbbbcc4c7bf3a37"},
+    {"path": "W/c386-fixed-diff-candidate/REPRODUCTION.json", "bytes": 406, "sha256": "5d93ab5da42c20479ee7aefdb11fdf09514cfdd38bab5b62c85a753cfc1990d6"}
+  ],
+  "all_eight_manifest_inputs_rechecked_unchanged": true,
+  "bound_outputs": [
+    {"path": "W/robin-c386-fixed-diff-policy-review/REPORT.md", "bytes": 4943, "sha256": "e0d9cbe7ef96c9a5501d6ba796db6b68c4a1c2f86eaade067f7e71334dc95898"},
+    {"path": "W/robin-c386-fixed-diff-policy-review/INPUT_MANIFEST.json", "bytes": 4650, "sha256": "6450f8198981955798dfec84633592067f357811398223475845714ed7751739"}
+  ],
+  "self_hash": null,
+  "self_hash_explanation": "No recursive self-binding; final file hash is separately reported in handoff.",
+  "required_changes": [],
+  "preservation": "only source comment and --abbrev=8 argument added; tests only exact mock argument and new real Git fixture; reverse edits reconstruct C375 and current production bytes exactly",
+  "actual_runs": [
+    {"attempt": "default sandbox", "tests": 34, "seconds": 19.672, "result": "33 existing passed; one real temporary git-init error exit128; captured stderr not printed"},
+    {"attempt": "same unchanged suite, scoped escalation", "tests": 34, "seconds": 11.384, "result": "OK"}
+  ],
+  "independent_actual_local_diff": {
+    "base": "af585d9cbbb299c1c8c48647627a2cb820ef536a",
+    "path": "R/QuantumBlockEncoding/RobinMatrix.lean",
+    "explicit8_sha256": "9418ed5a4e1754b042d03084cab78ac171794cd35f71ed469ea94f0933df4bd2",
+    "explicit8_bytes": 5426,
+    "explicit8_equals_immutable_patch_raw_bytes": true,
+    "explicit7_sha256": "baf1d672dc5b1dfb8f127bc82e8410122f731231ff7d4b0f42ec4020830fef17",
+    "explicit7_bytes": 5424,
+    "only_index_header_differs": true,
+    "optional_Git_locks_disabled": true,
+    "actual_failing_Linux_patch_observed": false
+  },
+  "limits": [
+    "Real temporary fixture varies core.abbrev 7/8/12/40, not every Git setting or possible abbreviation collision",
+    "Local evidence supports failure mechanism; actual Linux output and future CI success remain unobserved",
+    "Changed checker bytes require new integration bindings; no registry record updated or admitted",
+    "Prior scientific, historical-review and trust boundaries unchanged"
+  ],
+  "operations": {
+    "production_source_policy_registry_or_historical_input_edits": false,
+    "production_branch_push_restart_cancel": false,
+    "live_CI_queried_or_touched": false,
+    "network_Lean_subagents": false,
+    "scoped_test_and_readonly_diff_escalations": true,
+    "temporary_Git_init_config_commit_only_inside_disposable_fixture": true,
+    "writes": "new C386 three-file packet and automatically cleaned temporary fixtures only",
+    "absolute_local_paths_in_packet": false
+  },
+  "failure_class_after_scoped_rerun": "NONE",
+  "stop": true
+}

@@ -120,6 +120,17 @@ class SanitizerTests(unittest.TestCase):
                 SANITIZER._assert_no_local_paths(output, root), 1
             )
 
+    def test_publication_scan_checks_esm_runtime_modules(self) -> None:
+        root = Path.cwd().resolve()
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary)
+            module = output / "runtime.mjs"
+            module.write_text('export const safe = "relative/source.lean";', encoding="utf-8")
+            self.assertEqual(SANITIZER._assert_no_local_paths(output, root), 1)
+            module.write_text('export const path = ' + json.dumps(str(root)) + ';', encoding="utf-8")
+            with self.assertRaises(ValueError):
+                SANITIZER._assert_no_local_paths(output, root)
+
     def test_inline_xref_preserves_every_entry_html_and_source_anchor(self) -> None:
         # This regression needs JSON-escaped Windows separators even on Linux.
         root = WINDOWS_SOURCE_ROOT

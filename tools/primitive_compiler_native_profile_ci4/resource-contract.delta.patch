@@ -1,0 +1,82 @@
+--- immutable-ci3/resource_gate_v3.py
++++ new-ci4/resource_gate_v4.py
+@@ -1,4 +1,4 @@
+-"""Root-interface API correction; finite budgets and CI2 process machinery unchanged."""
++"""CI4: mandatory self-only reserved-init namespace contract; no PID1 interface read."""
+ import hashlib
+ from datetime import datetime
+ import os
+@@ -22,7 +22,7 @@
+     context = actual_context() if context is None else context
+     read_bytes = (lambda p: Path(p).read_bytes()) if read_bytes is None else read_bytes
+     read_link = os.readlink if read_link is None else read_link
+-    row = dict(schema='C31_CI3_RESOURCE_ROOT_API_V1', startedUTC=utc(), context=context,
++    row = dict(schema='C31_CI4_RESOURCE_SELF_NAMESPACE_V1', startedUTC=utc(), context=context,
+         budgetMiB=5120, reserveMiB=2048, requiredHeadroomBytes=7168 * MIB,
+         observationComplete=False, gatePassed=False, fileReads=[], namespaceReads=[], readAttempts=[],
+         memAvailableBytes=None, effectiveHeadroomBytes=None, cgroupVersion=None, cgroups=[],
+@@ -70,17 +70,17 @@
+         row.update(cgroupMountRoot=str(root), cgroupMountPoint=str(mount), cgroupMembership=str(member))
+         require(root == PurePosixPath('/'), 'HIDDEN_DELEGATED_MOUNT_ROOT_REFUSED')
+         ns_values = []
+-        for path, logical in (('/proc/self/ns/cgroup', '$PROC/self/ns/cgroup'),
+-                              ('/proc/1/ns/cgroup', '$PROC/pid1/ns/cgroup')):
++        for path, logical in (('/proc/self/ns/cgroup', '$PROC/self/ns/cgroup'),):
+             text = observe(path, logical, link=True)
+             found = re.fullmatch(r'cgroup:\[(\d+)\]', text)
+             require(found is not None, 'UNKNOWN_CGROUP_NAMESPACE_LINK_FORMAT')
+             ns_values.append(int(found[1]))
+-        row['namespaceObservation'] = dict(selfInode=ns_values[0], pid1Inode=ns_values[1],
+-            requiredInitInode=INIT_CGROUP_INODE,
++        row['namespaceObservation'] = dict(selfInode=ns_values[0], requiredInitInode=INIT_CGROUP_INODE,
++            policy='SELF_ONLY_RESERVED_INIT_V1',
++            pid1Observation=dict(status='NOT_REQUESTED_NOT_REQUIRED', readRequested=False, value=None),
+             recognition='LINUX_V6_12_RESERVED_INIT_CGROUP_INODE_IMPLEMENTATION_FINGERPRINT_NOT_BINARY_ATTESTATION')
+-        require(ns_values == [INIT_CGROUP_INODE, INIT_CGROUP_INODE],
+-                'NAMESPACE_VIRTUAL_OR_UNKNOWN_REFUSED_EVEN_IF_PID1_MATCHES')
++        require(ns_values == [INIT_CGROUP_INODE],
++                'SELF_NAMESPACE_VIRTUAL_OR_UNKNOWN_REFUSED_NO_PID1_FALLBACK')
+         current = mount / member.relative_to(root)
+         headrooms = [row['memAvailableBytes']]
+         for depth in range(65):
+@@ -136,14 +136,17 @@
+         'rootObservation','failedReadLogicalPath','failedReadAtVerifiedMountRoot',
+         'cgroupMountRoot','cgroupMountPoint','cgroupMembership','namespaceObservation')) <= set(row),
+         'missing mandatory resource field')
+-    require(row.get('schema') == 'C31_CI3_RESOURCE_ROOT_API_V1' and row.get('observationComplete') is True,
++    require(row.get('schema') == 'C31_CI4_RESOURCE_SELF_NAMESPACE_V1' and row.get('observationComplete') is True,
+             'root API observation incomplete')
+     context_check(row.get('context', {}))
+     require(row.get('budgetMiB') == 5120 and row.get('reserveMiB') == 2048 and
+             row.get('requiredHeadroomBytes') == 7168 * MIB, 'memory threshold changed')
+     require(row.get('cgroupVersion') == 2 and row.get('cgroupMountRoot') == '/', 'unknown/hidden mount')
+     ns = row.get('namespaceObservation', {})
+-    require(ns.get('selfInode') == INIT_CGROUP_INODE and ns.get('pid1Inode') == INIT_CGROUP_INODE
++    require(set(ns) == {'selfInode','requiredInitInode','recognition','policy','pid1Observation'}
++            and ns.get('selfInode') == INIT_CGROUP_INODE
++            and ns.get('policy') == 'SELF_ONLY_RESERVED_INIT_V1'
++            and ns.get('pid1Observation') == dict(status='NOT_REQUESTED_NOT_REQUIRED', readRequested=False, value=None)
+             and ns.get('requiredInitInode') == INIT_CGROUP_INODE and ns.get('recognition') ==
+             'LINUX_V6_12_RESERVED_INIT_CGROUP_INODE_IMPLEMENTATION_FINGERPRINT_NOT_BINARY_ATTESTATION',
+             'initial namespace implementation fingerprint unverified')
+@@ -192,8 +195,8 @@
+     reads = row.get('fileReads'); links = row.get('namespaceReads'); attempts = row.get('readAttempts')
+     require(isinstance(reads,list) and len(reads) == len(expected) and {r['logicalPath'] for r in reads} == expected,
+             'missing/duplicate real resource-file observations')
+-    require(isinstance(links,list) and len(links) == 2 and {r['logicalPath'] for r in links} ==
+-            {'$PROC/self/ns/cgroup','$PROC/pid1/ns/cgroup'}, 'namespace link reads missing')
++    require(isinstance(links,list) and len(links) == 1 and {r['logicalPath'] for r in links} ==
++            {'$PROC/self/ns/cgroup'}, 'namespace link reads missing')
+     require(isinstance(attempts,list) and len(attempts) == len(reads)+len(links)
+             and all(a.get('status') == 'READ_OK' for a in attempts), 'incomplete/failed read attempt cannot be green')
+     for receipt in reads+links:
+@@ -202,8 +205,7 @@
+             False if logical.startswith('$CGROUP_NONROOT_') else None)
+         link = receipt in links
+         expected_path = ({'$PROC/meminfo':'/proc/meminfo', '$PROC/self/cgroup':'/proc/self/cgroup',
+-            '$PROC/self/mountinfo':'/proc/self/mountinfo', '$PROC/self/ns/cgroup':'/proc/self/ns/cgroup',
+-            '$PROC/pid1/ns/cgroup':'/proc/1/ns/cgroup'}.get(logical))
++            '$PROC/self/mountinfo':'/proc/self/mountinfo', '$PROC/self/ns/cgroup':'/proc/self/ns/cgroup'}.get(logical))
+         if expected_path is None:
+             coordinates = [(g['logicalPath'], g['path']) for g in groups] + [('$CGROUP_REAL_ROOT',str(mount))]
+             matches = [str(PurePosixPath(path) / logical[len(prefix)+1:]) for prefix,path in coordinates

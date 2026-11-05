@@ -1,0 +1,39 @@
+QuantumBlockEncoding.ReversibleGate (qubits : Nat) : Type
+'QuantumBlockEncoding.ReversibleGate' does not depend on any axioms
+QuantumBlockEncoding.ReversibleProgram (qubits : Nat) : Type
+'QuantumBlockEncoding.ReversibleProgram' does not depend on any axioms
+QuantumBlockEncoding.ccxBasisAction {qubits : Nat} (control0 control1 target : Fin qubits)
+  (state : QuantumBlockEncoding.PrimitiveBasis qubits) : QuantumBlockEncoding.PrimitiveBasis qubits
+'QuantumBlockEncoding.ccxBasisAction' depends on axioms: [propext]
+QuantumBlockEncoding.ccxBasisAction_involutive {qubits : Nat} (control0 control1 target : Fin qubits)
+  (c0_ne_target : @Ne.{1} (Fin qubits) control0 target) (c1_ne_target : @Ne.{1} (Fin qubits) control1 target) :
+  @Function.Involutive.{1} (QuantumBlockEncoding.PrimitiveBasis qubits)
+    (@QuantumBlockEncoding.ccxBasisAction qubits control0 control1 target)
+'QuantumBlockEncoding.ccxBasisAction_involutive' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+QuantumBlockEncoding.ccxBasisEquiv {qubits : Nat} (control0 control1 target : Fin qubits)
+  (c0_ne_target : @Ne.{1} (Fin qubits) control0 target) (c1_ne_target : @Ne.{1} (Fin qubits) control1 target) :
+  Equiv.{1, 1} (QuantumBlockEncoding.PrimitiveBasis qubits) (QuantumBlockEncoding.PrimitiveBasis qubits)
+'QuantumBlockEncoding.ccxBasisEquiv' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+QuantumBlockEncoding.ccxBasisEquiv_apply {qubits : Nat} (control0 control1 target : Fin qubits)
+  (c0_ne_target : @Ne.{1} (Fin qubits) control0 target) (c1_ne_target : @Ne.{1} (Fin qubits) control1 target)
+  (state : QuantumBlockEncoding.PrimitiveBasis qubits) :
+  @Eq.{1} (QuantumBlockEncoding.PrimitiveBasis qubits)
+    (@DFunLike.coe.{1, 1, 1}
+      (Equiv.{1, 1} (QuantumBlockEncoding.PrimitiveBasis qubits) (QuantumBlockEncoding.PrimitiveBasis qubits))
+      (QuantumBlockEncoding.PrimitiveBasis qubits) (fun x => QuantumBlockEncoding.PrimitiveBasis qubits)
+      (@EquivLike.toFunLike.{1, 1, 1}
+        (Equiv.{1, 1} (QuantumBlockEncoding.PrimitiveBasis qubits) (QuantumBlockEncoding.PrimitiveBasis qubits))
+        (QuantumBlockEncoding.PrimitiveBasis qubits) (QuantumBlockEncoding.PrimitiveBasis qubits)
+        (@Equiv.instEquivLike.{1, 1} (QuantumBlockEncoding.PrimitiveBasis qubits)
+          (QuantumBlockEncoding.PrimitiveBasis qubits)))
+      (@QuantumBlockEncoding.ccxBasisEquiv qubits control0 control1 target c0_ne_target c1_ne_target) state)
+    (@QuantumBlockEncoding.ccxBasisAction qubits control0 control1 target state)
+'QuantumBlockEncoding.ccxBasisEquiv_apply' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+QuantumBlockEncoding.evalReversibleGate {qubits : Nat} :
+  QuantumBlockEncoding.ReversibleGate qubits →
+    Equiv.{1, 1} (QuantumBlockEncoding.PrimitiveBasis qubits) (QuantumBlockEncoding.PrimitiveBasis qubits)
+'QuantumBlockEncoding.evalReversibleGate' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+QuantumBlockEncoding.evalReversibleProgram {qubits : Nat} :
+  QuantumBlockEncoding.ReversibleProgram qubits →
+    Equiv.{1, 1} (QuantumBlockEncoding.PrimitiveBasis qubits) (QuantumBlockEncoding.PrimitiveBasis qubits)
+'QuantumBlockEncoding.evalReversibleProgram' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]

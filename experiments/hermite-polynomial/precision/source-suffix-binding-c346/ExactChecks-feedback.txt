@@ -1,0 +1,11 @@
+HermiteSourceSuffix.actualSuffix : ActualSuffixSpec
+HermiteSourceSuffix.actualSuffix_expanded (k : ℕ) (i : Fin (k + 1)) (s : Fin (↑i + 2)) :
+  actualSuffixObservation k i s = SourceSuffix k i s ∧
+    actualSuffixObservation k i ⟨0, ⋯⟩ = (HermiteChargedSourceCache.sourceEntry k (actualFactorials k) i).value ∧
+      if h : ↑s < ↑i + 1 then
+        have next := ⟨↑s + 1, ⋯⟩;
+        actualTailObservation k i s = actualSuffixObservation k i next ∧
+          actualSuffixObservation k i s = (actualSourceTerm k i ⟨↑s, h⟩).value + actualTailObservation k i s
+      else actualSuffixObservation k i s = 0
+'HermiteSourceSuffix.actualSuffix' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSourceSuffix.actualSuffix_expanded' depends on axioms: [propext, Classical.choice, Quot.sound]

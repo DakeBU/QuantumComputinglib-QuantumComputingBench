@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "role": "reviewer",
+  "identity": "/root/thin_lq_independent_reviewer",
+  "run_id": "thin-lq-independent-20261008",
+  "binding_sha256": "608241bcd9d3829a2b9ea60a84db0055dcf4c56bff3d71d36bd63be1d0ba3ae7",
+  "packet_path": "reviews/publication/thin-lq/reviewer-packet.json",
+  "packet_sha256": "de76b10990d784e19e13883728cb0c474b4b9288d0c36f9859308d8a04562ae0",
+  "artifact_path": "reviews/publication/thin-lq/reviewer-artifact.json",
+  "artifact_sha256": "da7575b8b3ece6a3101474dd5f3582bf9d38d7c62e5b98e45ed4f2ac4af31af9",
+  "module_path": "QuantumBlockEncoding/ThinLQ.lean",
+  "module_sha256": "4053889ffc143f953ed1f19898146657f92db2beb764af8754a6709c3983220a",
+  "decoder_evidence_sha256": "6126a56c698146c25baa96b653b4151ba98829d57e793e5aa685a6eff5580d86",
+  "anti_anchored": true,
+  "verdict": "accepted",
+  "review_order": "Read the pinned lesson fully and independently reconstructed its statement, proof topology and boundaries before inspecting the implementation or decoder. Then read all of ThinLQ.lean, relevant formal providers and the bound decoder artifacts. No publication-candidate, source-contract classification, prior verdict or earlier chat summary was consulted.",
+  "reviewed_declarations": [
+    "QuantumBlockEncoding.ThinLQ.sum_prefix_of_zero",
+    "QuantumBlockEncoding.ThinLQ.exists_factor_of_le",
+    "QuantumBlockEncoding.ThinLQ.exists_thin_lq"
+  ],
+  "mathematical_comparison": "All three public types match the authored source. The zero-tail sum proof is valid in an additive commutative monoid. In the wide case, ordered orthonormal completion gives later-coordinate zeros without independence assumptions; full basis expansion, prefix restriction and coordinate evaluation give A=RQ, while the row Gram matrix gives QQ^T=I. In the tall case R=A,Q=I_n is valid. Empty, zero, deficient-rank and square cases introduce no missing premise. No mathematical mismatch or repair was found.",
+  "semantic_slots": {
+    "target": "Exact real A=RQ with R:m-by-r,Q:r-by-n,r=min(m,n) and QQ^T=I_r matches both source and Lean. Width is not rank(A); no triangularity, uniqueness or canonical factor selection is claimed.",
+    "normalization": "Existing Q rows have real dot products delta_kl, hence unit norms and pairwise orthogonality. No normalization of A or R is assumed. State-vector normalization and block-encoding scaling are not applicable to this finite-matrix existence theorem.",
+    "registers": "No quantum registers are present. Fin indices specify row-first matrix coordinates and exact factor dimensions; ordinary transpose swaps indices. Qubit/tensor ordering and endianness are not applicable and are not implicitly introduced.",
+    "oracles": "No oracle or access model is assumed. Mathlib completion, basis expansion and finite sum results are internal proof dependencies, not quantum or classical black-box input oracles.",
+    "ancillas_phases": "No circuit ancilla, workspace, garbage or phase contract is present. Scalars are real and transpose is ordinary transpose. Noncanonical orthonormal-completion witnesses do not imply a circuit phase or cleanup theorem.",
+    "error_success": "Both equations are exact for all allowed inputs, including zero and empty shapes. There are no tolerances, numerical stability assertions, random success guarantees or postselection sectors.",
+    "resources": "Only factor shapes are asserted. Choice-based existence does not provide stored factors, deterministic numerical extraction, runtime, query/gate counts or finite-bit synthesis. The source explicitly declines these claims and no such clause appears in the public theorem types."
+  },
+  "consulted_files": [
+    "AGENTS.md",
+    "HARNESS.md",
+    ".agents/skills/qbe-frontier-master/SKILL.md",
+    ".agents/skills/qbe-substantive-worker/SKILL.md",
+    "docs/theorem-publication-protocol.md",
+    "docs/proof-digestion-protocol.md",
+    "docs/evidence-routed-memory-protocol.md",
+    "reviews/publication/thin-lq/reviewer-packet.json",
+    "docs/lessons/finite-real-thin-lq.md",
+    "QuantumBlockEncoding/ThinLQ.lean",
+    "reviews/publication/thin-lq/decoder-artifact.json",
+    "reviews/publication/thin-lq/decoder-evidence.json",
+    "lean-toolchain",
+    "lake-manifest.json",
+    ".lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/GramSchmidtOrtho.lean",
+    ".lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/PiL2.lean",
+    ".lake/packages/mathlib/Mathlib/Data/Matrix/Basic.lean",
+    ".lake/packages/mathlib/Mathlib/LinearAlgebra/Matrix/Defs.lean",
+    ".lake/packages/mathlib/Mathlib/Data/Matrix/Mul.lean",
+    ".lake/packages/mathlib/Mathlib/Data/Matrix/Diagonal.lean"
+  ],
+  "search_only_files": [
+    ".lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/Orthonormal.lean"
+  ],
+  "limitations": [
+    "This verdict is restricted to the exact current-local packet, module and decoder bytes whose SHA256 hashes were computed. It does not imply equivalence of another line-ending transport or cross-platform CI/main admission.",
+    "No independent Lean compilation, broad build, integration, generated-reader, migration, deployment or purification gate was run. Compilation and transitive axiom cleanliness are not certified by this artifact.",
+    "Target-module and GramSchmidtOrtho source were fully read; other formal-provider review used selected excerpts. No sorry, admit or custom axiom was found in ThinLQ.lean, but no full transitive proof-term/axiom audit was attempted.",
+    "The independent decoder's reconstruction agrees with this source-first review; its expressly unexported triangularity, rank and projection remarks were not promoted to public theorem clauses.",
+    "No repository-wide duplicate/canonicality audit, external-paper reproduction review, stored/constructive supplier certification, runtime proof or quantum construction review was undertaken.",
+    "Only reviewer-artifact.json and reviewer-evidence.json were created with apply_patch. The saved artifact parsed successfully and its exact SHA256 was computed before creating this evidence; packet/module/decoder evidence hashes were recomputed and unchanged. No production, source, lesson, registry, candidate, history or Git edit was made."
+  ]
+}

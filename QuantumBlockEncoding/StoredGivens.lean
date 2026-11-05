@@ -18,6 +18,9 @@ namespace QuantumBlockEncoding.StoredGivens
 
 open AdjacentGivens RealAmplitudePreparation
 
+-- The generated finite-enumeration membership proof needs definitional
+-- unfolding of the list-to-multiset coercion under Lean 4.33.
+set_option backward.isDefEq.respectTransparency false in
 inductive Op where
   | field | sqrt | angle | trig | compare | read | write | emit
   deriving DecidableEq, Fintype

@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "cycle": 14,
+  "level": "C_INTERNAL_PROVIDER",
+  "status": "STATEMENT_SEALED_BEFORE_IMPLEMENTATION",
+  "namespace": "HermiteFiniteExp",
+  "source_contract": "Literal Real.exp(q) for q:Rat<=0; original Hermite left/right tails use q=p and q=-p. No replacement of source interpolant or normalization.",
+  "definitions": {
+    "poly": "poly(q:Rat,n:Nat):Rat = sum i in range(n+1), q^i / i!",
+    "radius": "radius(q:Rat,n:Nat):Rat = abs(q)^(n+1)/(n+1)!",
+    "tailRadius": "tailRadius(T:Nat):Rat = 1/2^T",
+    "bounds": "bounds(q:Rat,T n:Nat):Rat*Rat = if q<=-(T:Rat) then (0,tailRadius T) else (poly q n-radius q n,poly q n+radius q n)",
+    "checked": "checked(q epsilon:Rat,T n:Nat):Option(Rat*Rat) = some(bounds q T n) exactly if q<=0,epsilon>0 and width<=epsilon; otherwise none"
+  },
+  "signatures": [
+    "error(q:Rat,n:Nat)(hq:q<=0): abs(Real.exp(q:Real)-(poly q n:Real)) <= (radius q n:Real)",
+    "tail_bound(q:Rat,T:Nat)(hq:q<=-(T:Rat)): Real.exp(q:Real) <= (tailRadius T:Real)",
+    "membership(q:Rat,T n:Nat)(hq:q<=0): Real.exp(q:Real) in Set.Icc ((bounds q T n).1:Real) ((bounds q T n).2:Real)",
+    "active_magnitude(q:Rat,T:Nat)(hq:q<=0)(hactive:not q<=-(T:Rat)): abs q < (T:Rat)",
+    "checked_sound(q epsilon:Rat,T n:Nat,I:Rat*Rat)(h:checked q epsilon T n=some I): 0<epsilon and Real.exp(q:Real) in Set.Icc (I.1:Real)(I.2:Real) and I.2-I.1<=epsilon"
+  ],
+  "binder_audit": "q<=0 is the literal scalar domain. T/n are finite producer choices. No exp interval, derivative estimate, source Lipschitz or desired certificate is assumed.",
+  "resource_boundary": "The clipped branch avoids evaluating powers of arbitrarily huge |q|; input parsing/comparison remains charged. No uniform degree-cap, allocation/completeness, Python refinement or total bit/runtime theorem is asserted.",
+  "dependency_routes": ["Mathlib Taylor Lagrange + literal exp derivatives", "exp(1)>=2 + exp natural multiple + inverse monotonicity", "existing HermitePolynomial smoothInitial_left/right"],
+  "independent_review": "pending"
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "version": 2,
+  "status": "IMMUTABLE_PRE_PROOF_ADDITIONAL_SIGNATURE_DELTA",
+  "parent": "statement-seal-v1.json",
+  "parent_sha256": "d399b6509dbec5e7b57dfb858c907d156c6136611ff78a452ec427154ea2c93b",
+  "timing": "After initial coarse-range proof attempt and local API retrieval; before defining or proving the numerator representation or explicit binary-size bounds listed here. No replacement of v1 bytes or claim that these signatures appeared in v1.",
+  "definitions": {
+    "sourceNumerator": "def sourceNumerator (k i : Nat) : Nat := sum m in range(i+1), choose(k+i-m,k) * (k.factorial / m.factorial)",
+    "leftNumerator": "def leftNumerator (k r : Nat) : Nat := sum i in range(k+1), if i<=r and r<=k then sourceNumerator k i * choose(k-i,r-i) else0"
+  },
+  "exact_signatures": [
+    "theorem sourceNumerator_value (k i : Nat) (hi : i <= k) : sourceCoefficient k i = (sourceNumerator k i : Real) / (k.factorial : Real)",
+    "theorem leftNumerator_value (k r : Nat) : leftCoefficient k r = (leftNumerator k r : Real) / (commonDenominator k r : Real)",
+    "theorem leftNumerator_bound (k r : Nat) (hr : r <= 2*k+1) : leftNumerator k r <= (k+1)^2 * 2^(3*k) * commonDenominator k r",
+    "theorem commonDenominator_binary_bound (k r : Nat) : commonDenominator k r <= 2^(k*(k+1)+2*k+1)",
+    "theorem leftNumerator_binary_bound (k r : Nat) (hr : r <= 2*k+1) : leftNumerator k r <= 2^((k+2)*(k+1)+k*(k+1)+5*k+1)"
+  ],
+  "classification": "C internal literal numerator representation and output-size interfaces; domain restriction for numerator upper bound is valid degree, not an added quantum source hypothesis.",
+  "consumer": "An actual literal Python base Fraction has a representation A/D. Reduced denominator divides D and reduced numerator cannot exceed A. Explicit powers of2 expose polynomial binary output length in numeric k, not in log(k), and do not prove runtime or all intermediate size.",
+  "source_boundary": "No pi/exp membership, Python executable refinement, floating-point conversion or global epsilon result is smuggled into these integer interfaces."
+}

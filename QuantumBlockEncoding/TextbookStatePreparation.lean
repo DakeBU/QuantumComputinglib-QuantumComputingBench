@@ -48,16 +48,37 @@ theorem oneTarget_normalized : oneTarget.normalization := by
 
 theorem pauliX_prepares_one :
     applyVec pauliX (zeroKet 1) = oneTarget.amplitudes := by
-  have hcolumn :
-      applyVec pauliX (zeroKet 1) =
-        pauliX.col (zeroBasisIndex 1) := by
-    exact applyVec_zeroKet pauliX
-  rw [hcolumn]
-  change pauliX.col (0 : Fin 2) = oneState
+  change (_root_.Matrix.swap ℂ zeroIndex oneIndex).mulVec (zeroKet 1) = oneState
+  rw [_root_.Matrix.swap_mulVec]
   funext row
-  fin_cases row <;>
-    simp [pauliX, zeroIndex, oneIndex, oneState, basisKet,
-      _root_.Matrix.swap] <;> native_decide
+  simp only [Function.comp_apply]
+  by_cases hzero : row = zeroIndex
+  · subst row
+    rw [Equiv.swap_apply_left]
+    have h10 : oneIndex ≠ zeroBasisIndex 1 := by
+      intro h
+      have hval := congrArg Fin.val h
+      norm_num [oneIndex, zeroBasisIndex] at hval
+    have h01 : zeroIndex ≠ oneIndex := by
+      intro h
+      have hval := congrArg Fin.val h
+      norm_num [zeroIndex, oneIndex] at hval
+    simp [zeroKet, oneState, basisKet, Pi.single_apply, h10, h01]
+  · have hone : row = oneIndex := by
+      apply Fin.ext
+      change row.val = 1
+      have hlt := row.isLt
+      change row.val < 2 at hlt
+      have hne : row.val ≠ 0 := by
+        intro hz
+        apply hzero
+        apply Fin.ext
+        simpa [zeroIndex] using hz
+      omega
+    subst row
+    rw [Equiv.swap_apply_right]
+    simp [zeroKet, oneState, basisKet, Pi.single_apply,
+      zeroBasisIndex, zeroIndex, oneIndex, Fin.mk.injEq]
 
 def pauliXGate : ComplexUnitaryGate 1 where
   matrix := pauliX
@@ -107,7 +128,8 @@ theorem hadamard_unitary :
   ext row column
   fin_cases row <;> fin_cases column <;>
     rw [_root_.Matrix.mul_apply, Finset.sum_fin_eq_sum_range] <;>
-    simp [gridSize, hadamard, invSqrtTwo_mul_self] <;>
+    simp [gridSize, hadamard, invSqrtTwo_mul_self,
+      _root_.Matrix.one_apply] <;>
     norm_num [Finset.sum_range_succ]
 
 noncomputable def plusState : StateVector (gridSize 1) ℂ :=
@@ -134,7 +156,8 @@ theorem hadamard_prepares_plus :
   rw [hcolumn]
   change hadamard.col (0 : Fin 2) = plusState
   funext row
-  fin_cases row <;> simp [hadamard, plusState]
+  change hadamard row (zeroBasisIndex 1) = invSqrtTwo
+  fin_cases row <;> simp [hadamard, zeroBasisIndex, gridSize]
 
 noncomputable def hadamardGate : ComplexUnitaryGate 1 where
   matrix := hadamard

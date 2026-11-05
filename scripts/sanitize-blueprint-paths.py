@@ -10,7 +10,7 @@ from pathlib import Path, PurePosixPath, PureWindowsPath
 from typing import Any
 
 
-TEXT_OUTPUT_SUFFIXES = {".css", ".html", ".js", ".json", ".map", ".svg"}
+TEXT_OUTPUT_SUFFIXES = {".css", ".html", ".js", ".mjs", ".json", ".map", ".svg"}
 ABSOLUTE_PATH_RE = re.compile(
     r"(?i)"
     r"(?:file:///[^\s\"'<>]+"
@@ -269,6 +269,7 @@ def _assert_no_local_paths(output_root: Path, repo_root: Path) -> int:
     repo_spellings = {
         str(repo_root).replace("\\", "/").casefold(),
         str(repo_root).replace("/", "\\").casefold(),
+        json.dumps(str(repo_root), ensure_ascii=False)[1:-1].casefold(),
     }
     checked = 0
     leaking_files = 0
@@ -285,7 +286,10 @@ def _assert_no_local_paths(output_root: Path, repo_root: Path) -> int:
         # path. Repository-root checks above still inspect the complete file;
         # only the generic path heuristic skips rendered mathematics.
         non_math_text = MATHJAX_REGION_RE.sub("", text)
-        if ABSOLUTE_PATH_RE.search(non_math_text):
+        # Inspect JSON/JavaScript escaped Windows separators too. This is a
+        # detection-only view: never rewrite serialized code through it.
+        if (ABSOLUTE_PATH_RE.search(non_math_text)
+                or ABSOLUTE_PATH_RE.search(non_math_text.replace("\\\\", "\\"))):
             leaking_files += 1
 
     if leaking_files:

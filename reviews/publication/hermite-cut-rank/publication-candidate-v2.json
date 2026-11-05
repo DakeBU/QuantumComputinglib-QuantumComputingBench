@@ -1,0 +1,295 @@
+{
+  "module": "QuantumBlockEncoding/HermiteCutRank.lean",
+  "source_id": "aspbe-local-hermite-affine-cut-separation",
+  "source_statement": "Local exposition S1-S20 in full, with explicit source polynomial and remaining algorithmic boundary.",
+  "source_anchor": "docs/lessons/hermite-affine-cut-separation.md sections S1-S20",
+  "lesson_path": "docs/lessons/hermite-affine-cut-separation.md",
+  "declarations": [
+    "QuantumBlockEncoding.HermiteCutRank.FactorsThrough",
+    "QuantumBlockEncoding.HermiteCutRank.FactorsThrough.rank_le",
+    "QuantumBlockEncoding.HermiteCutRank.polynomial_add_factorization",
+    "QuantumBlockEncoding.HermiteCutRank.polynomial_add_rank_le",
+    "QuantumBlockEncoding.HermiteCutRank.hermite_polynomial_add_rank_le",
+    "QuantumBlockEncoding.HermiteCutRank.product_factorization",
+    "QuantumBlockEncoding.HermiteCutRank.exponential_add_factorization",
+    "QuantumBlockEncoding.HermiteCutRank.FactorsThrough.add",
+    "QuantumBlockEncoding.HermiteCutRank.FactorsThrough.neg",
+    "QuantumBlockEncoding.HermiteCutRank.FactorsThrough.pointwise_mul",
+    "QuantumBlockEncoding.HermiteCutRank.blockIndex_lt_iff",
+    "QuantumBlockEncoding.HermiteCutRank.threshold_factorization",
+    "QuantumBlockEncoding.HermiteCutRank.threshold_complement_factorization",
+    "QuantumBlockEncoding.HermiteCutRank.affine_lt_cut",
+    "QuantumBlockEncoding.HermiteCutRank.smoothInitial_strict",
+    "QuantumBlockEncoding.HermiteCutRank.HermiteBond",
+    "QuantumBlockEncoding.HermiteCutRank.hermiteBond_card",
+    "QuantumBlockEncoding.HermiteCutRank.hermite_affine_factorization",
+    "QuantumBlockEncoding.HermiteCutRank.hermite_affine_cut_rank_le",
+    "QuantumBlockEncoding.HermiteCutRank.FactorsThrough.scale"
+  ],
+  "obligation_map": [
+    {
+      "kind": "prerequisite",
+      "source_obligation": "S1",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteCutRank.FactorsThrough"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S2",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteCutRank.FactorsThrough.rank_le"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S3",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteCutRank.polynomial_add_factorization"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S4",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteCutRank.polynomial_add_rank_le"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S5",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteCutRank.hermite_polynomial_add_rank_le"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S6",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteCutRank.product_factorization"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S7",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteCutRank.exponential_add_factorization"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S8",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteCutRank.FactorsThrough.add"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S9",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteCutRank.FactorsThrough.neg"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S10",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteCutRank.FactorsThrough.pointwise_mul"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S11",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteCutRank.blockIndex_lt_iff"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S12",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteCutRank.threshold_factorization"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S13",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteCutRank.threshold_complement_factorization"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S14",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteCutRank.affine_lt_cut"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S15",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteCutRank.smoothInitial_strict"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "S16",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteCutRank.HermiteBond"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S17",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteCutRank.hermiteBond_card"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S18",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteCutRank.hermite_affine_factorization"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S19",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteCutRank.hermite_affine_cut_rank_le"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S20",
+      "declarations": [
+        "QuantumBlockEncoding.HermiteCutRank.FactorsThrough.scale"
+      ]
+    }
+  ],
+  "assumption_deltas": [
+    {
+      "classification": "same",
+      "source": "Real matrices on arbitrary X,Y with finite separation index, possibly empty.",
+      "formal": "FactorsThrough [Fintype ι] over Matrix α β ℝ; pointwise finite sum witness equality.",
+      "explanation": "Index/scalar carriers are typing. Witnesses are existential mathematical outputs, not a stored or computable oracle."
+    },
+    {
+      "classification": "same",
+      "source": "Finite Y only for rank consumers; polynomial degree bound in generic polynomial factorization.",
+      "formal": "[Fintype β] in rank roots; p.natDegree≤d in polynomial roots.",
+      "explanation": "No finite X or generic nonzero/full-rank assumption is added. Explicit premises are preserved, including zero polynomial and empty carriers."
+    },
+    {
+      "classification": "same",
+      "source": "Natural suffix values satisfy v(y)<M; strict natural cuts include T=0 and boundary rows.",
+      "formal": "hy:y<M and hv:∀y,v y<M; quotient/remainder threshold functions.",
+      "explanation": "No stronger global M>0 premise or injective/surjective prefix/suffix map is silently inserted."
+    },
+    {
+      "classification": "same",
+      "source": "Positive exact real grid step, nonnegative natural ceiling, literal P_k with degree and endpoint prerequisites.",
+      "formal": "0<h; Nat.ceil real thresholds; HermitePolynomial.sourceInterpolant and smoothInitial reused.",
+      "explanation": "No finite-bit ceiling oracle or evaluation cost is claimed; both p=-1 and p=0 samples are retained."
+    },
+    {
+      "classification": "same",
+      "source": "Tagged widths total8k+12; arbitrary constant scaling does not normalize a state.",
+      "formal": "HermiteBond; hermiteBond_card; exact affine factorization/rank; FactorsThrough.scale.",
+      "explanation": "A bound in k is not a physical bond-qubit or poly(n_p) algorithmic cost certificate. No scientific parameter/target is replaced."
+    }
+  ],
+  "graph_contribution": {
+    "baseline": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+    "head": "fixed production bytes on contribution565516d; author metadata only",
+    "classes": [
+      "bridge"
+    ],
+    "node_ids": [
+      "module:QuantumBlockEncoding.HermiteCutRank",
+      "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough",
+      "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough.rank_le",
+      "declaration:QuantumBlockEncoding.HermiteCutRank.polynomial_add_factorization",
+      "declaration:QuantumBlockEncoding.HermiteCutRank.polynomial_add_rank_le",
+      "declaration:QuantumBlockEncoding.HermiteCutRank.hermite_polynomial_add_rank_le",
+      "declaration:QuantumBlockEncoding.HermiteCutRank.product_factorization",
+      "declaration:QuantumBlockEncoding.HermiteCutRank.exponential_add_factorization",
+      "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough.add",
+      "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough.neg",
+      "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough.pointwise_mul",
+      "declaration:QuantumBlockEncoding.HermiteCutRank.blockIndex_lt_iff",
+      "declaration:QuantumBlockEncoding.HermiteCutRank.threshold_factorization",
+      "declaration:QuantumBlockEncoding.HermiteCutRank.threshold_complement_factorization",
+      "declaration:QuantumBlockEncoding.HermiteCutRank.affine_lt_cut",
+      "declaration:QuantumBlockEncoding.HermiteCutRank.smoothInitial_strict",
+      "declaration:QuantumBlockEncoding.HermiteCutRank.HermiteBond",
+      "declaration:QuantumBlockEncoding.HermiteCutRank.hermiteBond_card",
+      "declaration:QuantumBlockEncoding.HermiteCutRank.hermite_affine_factorization",
+      "declaration:QuantumBlockEncoding.HermiteCutRank.hermite_affine_cut_rank_le",
+      "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough.scale",
+      "source:S1",
+      "source:S2",
+      "source:S3",
+      "source:S4",
+      "source:S5",
+      "source:S6",
+      "source:S7",
+      "source:S8",
+      "source:S9",
+      "source:S10",
+      "source:S11",
+      "source:S12",
+      "source:S13",
+      "source:S14",
+      "source:S15",
+      "source:S16",
+      "source:S17",
+      "source:S18",
+      "source:S19",
+      "source:S20",
+      "typing:real-indexed-matrices",
+      "typing:finite-witness-index",
+      "typing:finite-columns",
+      "premise:polynomial-degree-bound",
+      "typing:fixed-hermite-polynomial",
+      "prerequisite:hermite-degree-and-endpoint",
+      "premise:suffix-less-than-base",
+      "premise:local-suffix-bound",
+      "premise:positive-real-step",
+      "typing:natural-grid-data",
+      "typing:constant-real-scale",
+      "premise:F-separated-through-I",
+      "premise:G-separated-through-J"
+    ],
+    "views": [
+      "source-construction-graph",
+      "lean-graph",
+      "compressed-quantum-spine",
+      "functor-hypergraph"
+    ],
+    "source_graph_sha256": "ab3237cbf60aa96e397790ce2d82a1372d19d8d3182ae96427ee9abdd7ef8c68",
+    "coverage_sha256": "8e92542aade9eb19b49c334567408feaaa7104adcd208ba98c9ff88ffd27e473",
+    "preserved_contract": "Whole current production source unchanged; no historical independence or novelty fabricated.",
+    "remaining_boundary": "Exact-real finite separation/rank only. No coherent oracle, circuit embedding/bit order, terminal cleanup, state normalization producer, error/finite-bit/stability/synthesis, total classical/oracle/gate/depth resource certificate or scientific ROOT. Main/reader/purification admission pending."
+  },
+  "formalizer": "parent hcr-c24 retrospective packet author; historical formalizer UNKNOWN",
+  "historical_formalizer": "UNKNOWN",
+  "residual_boundary": "Exact-real finite separation/rank only. No coherent oracle, circuit embedding/bit order, terminal cleanup, state normalization producer, error/finite-bit/stability/synthesis, total classical/oracle/gate/depth resource certificate or scientific ROOT. Main/reader/purification admission pending.",
+  "decoder_evidence": "PENDING actual distinct formal-only run",
+  "reviewer_evidence": "PENDING actual distinct source-first run",
+  "status": "VERSIONED_AUTHOR_CANDIDATE_REVIEW_PENDING",
+  "statement_seal": {
+    "timing": "RETROSPECTIVE_LOCAL_CONTRACT_AFTER_EXISTING_PROOF",
+    "pre_proof_seal_claim": false
+  },
+  "source_proof_coverage": "reviews/publication/hermite-cut-rank/parent-source-coverage-v2.json",
+  "graph_views": "reviews/publication/hermite-cut-rank/parent-graph-views-v2.json",
+  "purification": {
+    "status": "PENDING",
+    "Exposition_Seal": "PENDING"
+  },
+  "main_admission": false,
+  "scientific_ROOT": false,
+  "binding_sha256": "a754b4c7b288d0c2adadbaf7ab29984a985458c1b917421c36ef54d8c6754f84"
+}

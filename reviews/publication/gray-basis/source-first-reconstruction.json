@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "role": "independent-source-first-reconstruction",
+  "status": "SOURCE_ONLY_PREFLIGHT_COMPLETE_NO_FORMAL_VERDICT",
+  "reviewer_identity": "hermite_source_numeric",
+  "reviewer_run_id": "gray-source-first-d60a6648-563d-426f-a8e3-9e2f62b14320",
+  "recorded_at_utc": "2026-10-08 10:48:18 UTC",
+  "immutable_phase_record": true,
+  "source_binding": {
+    "packet": "reviews/publication/gray-basis/reviewer-source-packet.json",
+    "packet_sha256": "3fb4b14535fafc6de1360707abcafd0fffc398bc809890e4d6b48b3eee0c6887",
+    "packet_binding_sha256": "f5cb8ba0cd715bcd9cee90de68237ffce6931087b9b955897fa3743f60c1e9e0",
+    "source": "docs/lessons/gray-little-endian-order.md",
+    "source_sha256": "7863fe47a35093bdeb9b3364a47be5099bd7b4ce001596410d2c08bd18b512c3",
+    "source_read": "Complete lesson from heading through final paragraph; source hash matches packet.",
+    "binding_scope": "Source packet's aggregate binding copied as an opaque supplied identifier; not recomputed from withheld formal evidence."
+  },
+  "context_boundary": {
+    "context_kind": "Scoped reused subagent context; neither new reset nor fresh-context claim",
+    "previous_objective": "Actual Hermite source-reachable coefficient cancellation/underflow and independent Bernstein precision providers",
+    "previous_gray_exposure": "Only Gray-related filenames occurred in a repository file listing. No Gray production/provider contents, source lesson, decoder outputs, prior Gray review or alternate Gray implementation were previously read.",
+    "preflight_inputs_read": ["reviews/publication/gray-basis/reviewer-source-packet.json", "docs/lessons/gray-little-endian-order.md"],
+    "withheld_and_not_read": ["Gray production Lean and formal providers", "source-contract and candidate classifications", "decoder evidence", "publication registry classifications", "previous Gray reviews", "alternative Gray implementations"],
+    "authorization": "Root specifically assigned disjoint independent source-first review; root authors the contract and a distinct cached global-blind decoder supplies reconstruction later. No child reviewer or fictitious identity created."
+  },
+  "independent_mathematical_reconstruction": {
+    "ambient": {
+      "width": "n is any natural, including0",
+      "bit_carrier": "B_n = functions from coordinates0..n-1 to binary bits",
+      "label_carrier": "I_n = integers i with0<=i<2^n",
+      "coordinate_order": "Wire0 is the least significant coordinate; recursive tail coordinate t becomes physical coordinate t+1",
+      "empty_width": "B_0 has one empty function and I_0 has one label0; neither carrier is empty",
+      "flip": "X_t x toggles only bit t, preserving every other bit; legal t<n. It is a function on bit registers, not a quantum X-gate theorem."
+    },
+    "literal_objects": [
+      {"name": "G_0", "definition": "Maps sole label0 to the empty register"},
+      {"name": "T_n", "definition": "For q in I_n and binary b, T_n(q,b)=(q,b xor(q mod2))"},
+      {"name": "G_(n+1)", "definition": "Write legal i=2q+b uniquely. Output head b xor(q mod2), tail G_n(q)"},
+      {"name": "h", "definition": "For every natural i, h(i)=(i mod2) xor((i div2) mod2); no finite-range restriction on this arithmetic function"}
+    ],
+    "inverse": "For a bit register x of width n+1, recover q=G_n^(-1)(tail x), then recover b=x_0 xor(q mod2), then return2q+b. Since0<=q<2^n and b is binary, the result is a legal label below2^(n+1).",
+    "statements": [
+      {
+        "id": "S1_TWIST_INVOLUTION",
+        "source_name": "twist",
+        "statement": "For every natural n,q in I_n and binary b, T_n(T_n(q,b))=(q,b); first coordinate q is preserved.",
+        "proof": "The same q parity is xor-ed twice; binary xor with the same bit twice is identity. Applies also n0,q0."
+      },
+      {
+        "id": "S2_RECURSIVE_BIJECTION",
+        "source_name": "equiv",
+        "statement": "For every natural n, G_n is a bijection I_n to B_n, defined by the displayed recursion.",
+        "proof": "Induct on n. Base singleton carriers. Successor composes quotient/remainder splitting, involution T_n, induction's tail bijection, and head/tail assembly. The explicit inverse above proves both directions without extra assumptions."
+      },
+      {
+        "id": "S3_TOTAL_HEAD_FORMULA",
+        "source_name": "headBit",
+        "statement": "h:N->binary bits is defined on all natural integers by remainder xor quotient parity; its use outside I_(n+1) does not define off-range G_(n+1).",
+        "proof": "Each remainder modulo2 is binary and xor is binary; this is a literal arithmetic definition."
+      },
+      {
+        "id": "S4_HEAD_RECURSION",
+        "source_name": "equiv_head",
+        "statement": "For every natural n and legal i<2^(n+1), the head coordinate of G_(n+1)(i) equals h(i).",
+        "proof": "Unique quotient/remainder i=2q+b identifies b=i mod2 and q=i div2; substitute the literal recursion."
+      },
+      {
+        "id": "S5_TAIL_RECURSION",
+        "source_name": "equiv_tail",
+        "statement": "For every natural n, legal i<2^(n+1), and t<n, G_(n+1)(i)_(t+1)=G_n(i div2)_t.",
+        "proof": "The quotient is legal in I_n; tail assembly in the recursion supplies the equality."
+      },
+      {
+        "id": "S6_EVEN_HEAD_TRANSITION",
+        "source_name": "headBit_even",
+        "statement": "For every natural even i, h(i+1) is the binary flip of h(i), regardless of any register range.",
+        "proof": "Write i=2q. Then i+1=2q+1: quotient q unchanged, remainder0 becomes1, so xor head toggles."
+      },
+      {
+        "id": "S7_ODD_HEAD_TRANSITION",
+        "source_name": "headBit_odd",
+        "statement": "For every natural odd i, h(i+1)=h(i), regardless of any register range.",
+        "proof": "Write i=2q+1. Next i+1=2(q+1): remainder1 becomes0 while quotient parity toggles. Since parity(q+1)=flip parity(q), xor changes cancel."
+      },
+      {
+        "id": "S8_LEGAL_ADJACENCY",
+        "source_name": "adjacent",
+        "statement": "For every natural n and legal a,b<2^n with b=a+1, there exists a coordinate t<n such that G_n(b)=X_t(G_n(a)). This implies exactly one changed bit.",
+        "proof": "Induct on width. Width0 has only label0, hence no legal consecutive pair. At successor width split on parity of a. If even, quotients agree and S6 toggles the head only; choose t0. If odd a=2q+1, then b=2(q+1), S7 keeps head unchanged, and legal b bounds imply q and q+1 are both legal tail labels. Invoke induction on those tail labels and shift its coordinate by1. In both cases the selected bit differs from its flip and all others agree."
+      }
+    ],
+    "illustrations": {
+      "width2": "Ordinary little-endian integer coordinates of outputs in increasing label order are0,1,3,2",
+      "width3": "Outputs are0,1,3,2,6,7,5,4",
+      "evidence_role": "Consistency illustrations of the recursive definition; no finite examples replace the arbitrary-width induction."
+    }
+  },
+  "source_proof_topology": {
+    "nodes": [
+      {"id": "P0", "role": "Shared finite binary-register carrier, head/tail assembly, legal named-wire flip"},
+      {"id": "P1", "role": "Unique quotient/remainder splitting of a legal successor-width label"},
+      {"id": "P2", "role": "Parity xor and its involution; S1"},
+      {"id": "P3", "role": "Width0 singleton bijection"},
+      {"id": "P4", "role": "Recursive composition and explicit inverse; S2"},
+      {"id": "P5", "role": "Literal all-natural head arithmetic h; S3"},
+      {"id": "P6", "role": "Legal-label head/tail recursion; S4,S5"},
+      {"id": "P7", "role": "Even arithmetic branch; S6"},
+      {"id": "P8", "role": "Odd arithmetic branch; S7"},
+      {"id": "P9", "role": "Width induction with legal quotient bounds and shifted tail flip; S8"}
+    ],
+    "dependencies": [
+      {"tails": ["P0", "P1", "P2", "P3"], "head": "P4", "meaning": "Recursive bijection induction/composition"},
+      {"tails": ["P1", "P4", "P5"], "head": "P6", "meaning": "Identify coordinates of the literal recursion"},
+      {"tails": ["P1", "P2", "P5"], "head": "P7", "meaning": "Even successor arithmetic"},
+      {"tails": ["P1", "P2", "P5"], "head": "P8", "meaning": "Odd successor arithmetic"},
+      {"tails": ["P0", "P3", "P6", "P7", "P8"], "head": "P9", "meaning": "Both parity branches and the induction hypothesis are needed to cover all legal adjacent pairs; branches are cases, not two independent sufficient arbitrary-label routes"}
+    ],
+    "distinction": "These are independently reconstructed mathematical/source dependencies, not claims about elaborated Lean proof terms or import fan-out.",
+    "source_gaps_found_at_preflight": [],
+    "no_gap_claim_scope": "The bounded local mathematical convention is sufficiently specified. Whether the actual eight declarations implement it is withheld and undecided."
+  },
+  "coverage_and_dispositions": [
+    {"source_region": "Opening scope paragraph", "disposition": "NODE", "coverage": "Coordinate ordering, empty register, least-significant wire0; no physical circuit/cost"},
+    {"source_region": "Bits and labels", "disposition": "NODE", "coverage": "Ambient carriers, literal flip, base and successor recursion, explicit inverse, legal label bounds"},
+    {"source_region": "Width2 and width3 examples", "disposition": "NODE", "coverage": "Illustrations only, not proof"},
+    {"source_region": "The parity twist", "disposition": "NODE", "coverage": "Twist involution, recursive bijection composition, total-natural head formula and legal tail"},
+    {"source_region": "Why adjacent labels change one wire", "disposition": "NODE", "coverage": "Even/odd head arithmetic, tail induction, exact one-coordinate meaning, empty-width vacuity, noncyclic range"},
+    {"source_region": "Source construction and formal coverage", "disposition": "NODE", "coverage": "Retrospective local provenance; eight named mathematical obligations; shared-carrier prerequisites; imports not declaration-dependency evidence"},
+    {"source_region": "Four views and their limits", "disposition": "NODE", "coverage": "Source, formal, compressed parity mechanism and proposed conceptual transport retained as distinct views; downstream exclusions explicit"}
+  ],
+  "boundary_reconstruction": {
+    "source_kind": "Retrospective local mathematical convention, not external-paper assimilation or novelty claim",
+    "definition_audit": "All four reconstructed objects are literal; no classical choice, fallback, quotient-by-phase, or uniquely characterized object is necessary",
+    "public_logical_premises": "Natural widths; finite legal labels/registers/coordinates; parity only for head transition cases; consecutive-label equality for adjacency. No rank, distinct-input-bit, nonzero-width or quantum premise should be added.",
+    "noncyclic": "Adjacent theorem does not include transition from final label2^n-1 to0",
+    "changed_wire_algorithm": "An existential changed coordinate is proved; no chosen closed-form target algorithm or its refinement is certified",
+    "quantum_exclusions": ["state normalization", "global or relative phase", "oracle semantics", "ancilla cleanup", "approximate accuracy", "postselection", "gate count", "depth", "classical runtime", "finite-bit complexity", "saved exporter action", "unitary/operator/matrix semantics"],
+    "transport": "Only proposed conceptual relation between integer labels and named-wire bit functions, retaining width/order. No categorical functor or circuit/resource implication follows.",
+    "future_comparison_questions": [
+      "Does actual G_n use this parity-twisted head and recursive tail with wire0 least significant?",
+      "Are both inverse directions and width0 handled without off-source defaults?",
+      "Is h genuinely all-natural while G stays finite-label-only?",
+      "Do even/odd head statements have the correct toggle/equality and no hidden range restriction?",
+      "Does adjacency preserve legal successor bounds and exactly one legal named-wire flip, without silently including wraparound?",
+      "Does the whole formal/provider scope preserve all exclusions and avoid quantum/resource overstatement?"
+    ]
+  },
+  "phase_exit": {
+    "verdict": "NOT_ISSUED",
+    "implementation_fidelity": "UNKNOWN_UNTIL_FINAL_DECODER_BOUND_PACKET",
+    "next": "Wait for root's final exact decoder-bound packet. Only after its receipt inspect the actual whole eight declarations/providers and whole decoder, then write a separate independently owned verdict without modifying this reconstruction.",
+    "no_approval": "This preflight is not source/formal acceptance, independent full-module review, Proof Seal, publication admission or Exposition Seal."
+  }
+}

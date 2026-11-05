@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "status": "PROVED_LOCAL_EXPERIMENTAL_PENDING_INDEPENDENT_REVIEW",
+  "direction_fingerprint": "positive-scaling-normalized-action-invariant",
+  "source": "experiments/hermite-polynomial/precision/ScaledInvariant.lean",
+  "source_sha256": "134947cecfdeacdb811eb5b04cb9929ad05c61bf674e4b539fac014c0133a7e6",
+  "statement_seal": "experiments/hermite-polynomial/precision/scaled-invariant-contract.json",
+  "statement_seal_sha256": "8c039149352661c7f5d6b1e3e7f366332e20123a52fe6b9d121668394ee9f777",
+  "toolchain_file": "leanprover/lean4:v4.33.0",
+  "proof_input_digest_supplied_by_root_not_recomputed": "5a8f47f8d0afd1d4f957e55babde52a9e9c01babf05c481b988e99ebca2f7758",
+  "focused_check": {
+    "command": "lake env lean experiments/hermite-polynomial/precision/ScaledInvariant.lean",
+    "actual_exit_code": 0,
+    "all_12_theorem_checks_and_axiom_prints_completed": true,
+    "warning": "verso repository has local changes; no compiler error on final run",
+    "gate_scope": "One experimental file elaborated using current cached imported modules; no full Lean/Tests/publication build run.",
+    "earlier_iteration": "One failed local attempt: reversed norm-square rewrite and under-inferred example dimensions. Fixed proof/example machinery without changing sealed theorem conclusions. Subsequent focused checks exited zero."
+  },
+  "namespace": "QuantumBlockEncoding.ExperimentalScaledInvariant",
+  "definitions": {
+    "factorProduct": "{n : ℕ} → (Fin n → ℝ) → ℝ; empty product 1; successor product factors 0 * factorProduct (Fin.tail factors)",
+    "rescale": "{n l r : ℕ} → Chain n l r → (Fin n → ℝ) → Chain n l r; nil unchanged; cons head replaced by (factors 0)⁻¹ • head and tail rescaled recursively"
+  },
+  "full_checked_signatures": {
+    "factorProduct_pos": "{n : ℕ} (factors : Fin n → ℝ) (positive : ∀ i, 0 < factors i) : 0 < factorProduct factors",
+    "contract_rescale": "{n l r : ℕ} (C : Chain n l r) (factors : Fin n → ℝ) (x : Word n) : contract (rescale C factors) x = (factorProduct factors)⁻¹ • contract C x",
+    "recover_contract": "{n l r : ℕ} (C : Chain n l r) (factors : Fin n → ℝ) (positive : ∀ i, 0 < factors i) (x : Word n) : factorProduct factors • contract (rescale C factors) x = contract C x",
+    "maxBond_rescale": "{n l r : ℕ} (C : Chain n l r) (factors : Fin n → ℝ) : maxBond (rescale C factors) = maxBond C",
+    "storedScalars_rescale": "{n l r : ℕ} (C : Chain n l r) (factors : Fin n → ℝ) : MatrixProductChain.storedScalars (rescale C factors) = MatrixProductChain.storedScalars C",
+    "norm_rescale": "{n : ℕ} (C : Chain n 1 1) (factors : Fin n → ℝ) (positive : ∀ i, 0 < factors i) : TensorTrainNormEnvironment.norm (rescale C factors) = TensorTrainNormEnvironment.norm C / factorProduct factors",
+    "normalized_action": "{n : ℕ} (C : Chain n 1 1) (factors : Fin n → ℝ) (positive : ∀ i, 0 < factors i) (nonzero : 0 < TensorTrainNormEnvironment.norm C) (x : Word n) : contract (rescale C factors) x 0 0 / TensorTrainNormEnvironment.norm (rescale C factors) = contract C x 0 0 / TensorTrainNormEnvironment.norm C",
+    "absorb_recovered": "{l m r : ℕ} (A : Core l m) (R : _root_.Matrix (Fin m) (Fin r) ℝ) (a b : ℝ) (ha : 0 < a) (hb : 0 < b) : (a * b) • absorb (a⁻¹ • A) (b⁻¹ • R) = absorb A R",
+    "absorb_rescale_recovered": "{l m r : ℕ} (A : Core l m) (R : _root_.Matrix (Fin m) (Fin r) ℝ) (a b c : ℝ) (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) : (a * b * c) • (c⁻¹ • absorb (a⁻¹ • A) (b⁻¹ • R)) = absorb A R",
+    "boundary_action": "{D : ℕ} (K : MatrixProductChain.Kernel D) (left right : Fin D → ℝ) (start n : ℕ) (factors : Fin (n + 1) → ℝ) (positive : ∀ i, 0 < factors i) (x : Word (n + 1)) : factorProduct factors * contract (rescale (MatrixProductChain.ofKernel K left right start n) factors) x 0 0 = ∑ a, left a * MatrixProductChain.readout K right start x a",
+    "hermite_target": "(k n : ℕ) (L : ℝ) (hL : 0 < L) (factors : Fin (n + 1) → ℝ) (positive : ∀ i, 0 < factors i) (x : Word (n + 1)) : contract (rescale (HermiteExplicitBond.rawSourceChain k n L) factors) x 0 0 / TensorTrainNormEnvironment.norm (rescale (HermiteExplicitBond.rawSourceChain k n L) factors) = HermiteStatePreparation.sampledAmplitude k (n + 1) L (TensorTrainWord.sampleEquiv (n + 1) x) / HermiteStatePreparation.sampleNorm k (n + 1) L",
+    "hermite_target_public": "(k n : ℕ) (L : ℝ) (hL : 0 < L) (factors : Fin (n + 1) → ℝ) (positive : ∀ i, 0 < factors i) (x : PrimitiveBasis (n + 1)) : ((contract (rescale (HermiteExplicitBond.rawSourceChain k n L) factors) (TensorTrainSchedule.wordOfBasis (fun i => x i.rev)) 0 0 / TensorTrainNormEnvironment.norm (rescale (HermiteExplicitBond.rawSourceChain k n L) factors) : ℝ) : ℂ) = HermiteStatePreparation.normalizedAmplitude k (n + 1) L (primitiveBasisLEEquiv (n + 1) x)"
+  },
+  "axioms_for_each_of_the_12_checked_theorems": ["propext", "Classical.choice", "Quot.sound"],
+  "no_sorryAx_or_new_axiom": true,
+  "existing_semantics_reused": [
+    "TensorTrainCanonical.Chain/Core/Word/contract/absorb/maxBond",
+    "MatrixProductChain.ofKernel_contract/storedScalars",
+    "TensorTrainNormEnvironment.norm/norm_sq",
+    "HermiteExplicitBond.rawSourceChain_contract/rawSourceChain_norm",
+    "TensorTrainWord.sampleEquiv_public",
+    "HermiteStatePreparation.sampleNorm_pos/normalizedAmplitude"
+  ],
+  "python_mechanism_mapping": [
+    {"file": "experiments/hermite-polynomial/mps/scaled_canonicalize.py", "lines": "70-79, 92-101", "mathematical_node": "rescale + contract_rescale + factorProduct"},
+    {"file": "experiments/hermite-polynomial/mps/scaled_canonicalize.py", "lines": "110-112", "mathematical_node": "absorb_recovered and absorb_rescale_recovered"},
+    {"file": "experiments/hermite-polynomial/mps/scaled_canonicalize.py", "lines": "116-121", "mathematical_node": "norm_rescale + normalized_action + hermite_target_public; not correctness of numerical hypot or QR"}
+  ],
+  "checked_edge_examples": ["empty chain and empty product", "zero-dimensional empty bond", "zero core contraction", "literal negative amplitudes", "rank-deficient repeated signed rows", "zero terminal dimension"],
+  "remaining_obligations": [
+    "No proof that numerical max-scales equal supplied exact factors or are positive for all represented nonzero trains",
+    "No exact-real QR producer refinement to NumPy; no backward-error bound for QR/einsum",
+    "No underflow or cancellation-induced-zero analysis",
+    "No accuracy theorem for binary mantissa/exponent accumulation, logarithm, hypot or normalizer reconstruction",
+    "No uniform precision or finite-bit runtime theorem",
+    "No serialized circuit or ancilla-cleanup theorem"
+  ],
+  "root_frontier_effect": "Mathematical positive-scaling mechanism proved locally; C3/X2/ROOT remain open.",
+  "independent_review": "Pending root rerun; no self source-blind review, proof seal, publication admission or Exposition Seal claimed.",
+  "failure_class": "NONE",
+  "files_changed_in_this_subtask": [
+    "experiments/hermite-polynomial/precision/ScaledInvariant.lean",
+    "experiments/hermite-polynomial/precision/scaled-invariant-contract.json",
+    "experiments/hermite-polynomial/precision/scaled-invariant-result.json"
+  ]
+}

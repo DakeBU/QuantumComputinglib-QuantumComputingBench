@@ -1,0 +1,3118 @@
+{
+  "status": "AUTHOR_WIP_NOT_ADMITTED",
+  "role": "AUTHOR_CURATOR_NOT_INDEPENDENT_REVIEWER",
+  "source_path": "docs/lessons/finite-real-tt-primitive-preparation-and-word-order.md",
+  "source_sha256": "d71f16da026938debcd024d6f2fa9fa9268ade2096b5854a030d2065828b315d",
+  "source_bytes": 21210,
+  "paragraph_count": 74,
+  "reconstruction": "Concatenate exact_text without adding separators; preserve every indent, blank separator and final LF.",
+  "source_paragraphs": [
+    {
+      "id": "paragraph:001",
+      "source_lines": [
+        1,
+        1
+      ],
+      "section": null,
+      "start_utf8_byte": 0,
+      "end_utf8_byte": 63,
+      "exact_text": "Finite real tensor trains on explicitly ordered circuit wires\n\n",
+      "sha256": "b16d17fc3483f2134a819d426249d681122466a4aea2539015432ce89b3a6e2f",
+      "disposition": "EXCLUDED",
+      "reason": "title/navigation",
+      "source_nodes": [],
+      "independent_disposition_text": []
+    },
+    {
+      "id": "paragraph:002",
+      "source_lines": [
+        3,
+        3
+      ],
+      "section": null,
+      "start_utf8_byte": 63,
+      "end_utf8_byte": 436,
+      "exact_text": "This is retrospective local mathematics assembled from pre-existing local material. The historical formalizer is unknown. It is not an external-paper reconstruction, a pre-proof chronology, a novelty claim, or a finite-precision implementation. Exact existence, actual finite instruction lists, and classical computation of their real parameters are different assertions.\n\n",
+      "sha256": "90da7772f0cce417898817203eed8a8d3cc8fb2bbbb64c5d036bec506d7fbbb7",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "boundary:retrospective-provenance"
+      ],
+      "independent_disposition_text": [
+        "RETROSPECTIVE-PROVENANCE / evidence boundary"
+      ]
+    },
+    {
+      "id": "paragraph:003",
+      "source_lines": [
+        5,
+        5
+      ],
+      "section": "S1",
+      "start_utf8_byte": 436,
+      "end_utf8_byte": 493,
+      "exact_text": "S1. Finite cores, occupied bonds, and local coordinates\n\n",
+      "sha256": "0431203970cafc0bb45af9b31da46d053a5092005c1bfbec0f310213fcfc815f",
+      "disposition": "EXCLUDED",
+      "reason": "section heading/navigation",
+      "source_nodes": [],
+      "independent_disposition_text": []
+    },
+    {
+      "id": "paragraph:004",
+      "source_lines": [
+        7,
+        7
+      ],
+      "section": "S1",
+      "start_utf8_byte": 493,
+      "end_utf8_byte": 1048,
+      "exact_text": "Write [d]={0,...,d-1} for a natural dimension d, allowing d=0. A real core A from a left bond l to a right bond r has entries A(a,b,j), with a in [l], b in {0,1}, and j in [r]. Its flattened matrix has left-bond rows and (bit,right-bond) columns. Its fixed-bit slice is A(b). A chain C of N cores has the matrix contraction M_C(w)=A_0(w_0)...A_(N-1)(w_(N-1)); the empty chain at bond r contracts to I_r. Words are head-first: the empty word is unique and a nonempty word is a first bit paired with its tail. All initial and terminal labels are retained.\n\n",
+      "sha256": "32de606cf67d16098e36f9ca140f78d87ab729d4700001aae9a15bf114df2ff8",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P01"
+      ],
+      "independent_disposition_text": [
+        "P01 full chain/word carriers"
+      ]
+    },
+    {
+      "id": "paragraph:005",
+      "source_lines": [
+        9,
+        9
+      ],
+      "section": "S1",
+      "start_utf8_byte": 1048,
+      "end_utf8_byte": 1470,
+      "exact_text": "A chain is right-canonical when each flattened core satisfies A A^T=I on its left bond; the empty chain satisfies the condition. Its maximum bond includes both boundaries. Let r_t be the active dimension before site t; r_0 is the initial dimension, r_N is the terminal dimension, and r_t remains the terminal dimension after the last site. For a fixed physical bond [B], extract at each actual site the coefficient table\n\n",
+      "sha256": "eb468f60353a9267d1d7ca15c0dcbbd7f5647cf0c361aecc5a1a752d1912c429",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P02",
+        "source:P03"
+      ],
+      "independent_disposition_text": [
+        "P02–P03 real/support/isometry table and actual-site restriction"
+      ]
+    },
+    {
+      "id": "paragraph:006",
+      "source_lines": [
+        11,
+        11
+      ],
+      "section": "S1",
+      "start_utf8_byte": 1470,
+      "end_utf8_byte": 1538,
+      "exact_text": "  P_t((b,j),a)=A_t(a,b,j) if a<r_t and j<r_(t+1), and 0 otherwise.\n\n",
+      "sha256": "880d086c18903cd0e7a36289b23fea5cb27e1c2097cf7643207edc7a01a2de04",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P02",
+        "source:P03"
+      ],
+      "independent_disposition_text": [
+        "P02–P03 real/support/isometry table and actual-site restriction"
+      ]
+    },
+    {
+      "id": "paragraph:007",
+      "source_lines": [
+        13,
+        13
+      ],
+      "section": "S1",
+      "start_utf8_byte": 1538,
+      "end_utf8_byte": 1908,
+      "exact_text": "Real entries here are also regarded as complex numbers with zero imaginary part. After the last site define P_t=0. Thus the table has zero imaginary part for every time, whether or not the chain is canonical. It vanishes on every output label j>=r_(t+1). At an actual site of a canonical chain whose every bond is at most B, its occupied input columns are orthonormal:\n\n",
+      "sha256": "1e9977166babc15acede28fc9ec444c9cf18c097e6d9814f2748a29c72889ac4",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P02",
+        "source:P03"
+      ],
+      "independent_disposition_text": [
+        "P02–P03 real/support/isometry table and actual-site restriction"
+      ]
+    },
+    {
+      "id": "paragraph:008",
+      "source_lines": [
+        15,
+        16
+      ],
+      "section": "S1",
+      "start_utf8_byte": 1908,
+      "end_utf8_byte": 2024,
+      "exact_text": "  sum_(b in {0,1},j in [B]) conjugate(P_t((b,j),a)) P_t((b,j),c)\n    = delta_(a,c),                  a,c in [r_t].\n\n",
+      "sha256": "617c6558c9052a556bef6492ade45c52ef3a27b6a006e08edd470fdd09dc73fa",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P02",
+        "source:P03"
+      ],
+      "independent_disposition_text": [
+        "P02–P03 real/support/isometry table and actual-site restriction"
+      ]
+    },
+    {
+      "id": "paragraph:009",
+      "source_lines": [
+        18,
+        18
+      ],
+      "section": "S1",
+      "start_utf8_byte": 2024,
+      "end_utf8_byte": 2225,
+      "exact_text": "This follows by discarding the zero output tail and using A_t A_t^T=I. The actual-site restriction t<N is essential: the intentionally zero table after the schedule is not asserted to be an isometry.\n\n",
+      "sha256": "d05e75ce586f85abb3fc70c029566fc7464de2f227f3942aed5c7c7ea0a0e410",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P02",
+        "source:P03"
+      ],
+      "independent_disposition_text": [
+        "P02–P03 real/support/isometry table and actual-site restriction"
+      ]
+    },
+    {
+      "id": "paragraph:010",
+      "source_lines": [
+        20,
+        20
+      ],
+      "section": "S1",
+      "start_utf8_byte": 2225,
+      "end_utf8_byte": 2803,
+      "exact_text": "A q-wire bond label is a function z:[q]->{0,1}. Its little-endian integer label is L_q(z)=sum_(i<q) 2^i z_i, a bijection onto [2^q]; L_0 is zero on the unique empty label. Put S=2^q. A local stage has q low bond wires and one highest fresh output wire. Its coordinate bijection sends the label obtained by appending bit b to z to (b,L_q(z)) in {0,1} x [S]. In particular the fresh-zero active input positions for a dimension l<=S are the distinct labels corresponding to (0,a), a in [l]. This injection need not be a prefix in some other enumeration of all local basis states.\n\n",
+      "sha256": "b8e6c05cd411ec0c19a167c42baa8e688728538f1bbdedb759335d5a546d5938",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P04"
+      ],
+      "independent_disposition_text": [
+        "P04 LE coordinates and arbitrary injected active positions"
+      ]
+    },
+    {
+      "id": "paragraph:011",
+      "source_lines": [
+        22,
+        22
+      ],
+      "section": "S2",
+      "start_utf8_byte": 2803,
+      "end_utf8_byte": 2860,
+      "exact_text": "S2. Prescribed columns and an unused orientation column\n\n",
+      "sha256": "0610ca1920a07efb63b526f556a4cf2a8fd311f9363dbba09e7e6b637b59ab9b",
+      "disposition": "EXCLUDED",
+      "reason": "section heading/navigation",
+      "source_nodes": [],
+      "independent_disposition_text": []
+    },
+    {
+      "id": "paragraph:012",
+      "source_lines": [
+        24,
+        24
+      ],
+      "section": "S2",
+      "start_utf8_byte": 2860,
+      "end_utf8_byte": 3086,
+      "exact_text": "Let I be any finite named basis, V a real matrix with rows I and r columns, and e:[r]->I an injection specifying their physical column positions. Assume V^T V=I_r and r<|I|. There exists a real square matrix U on I such that\n\n",
+      "sha256": "7e08ff945f2c23b93c3d41f9a7b901fb8c47986fc26c4eb53826593b4eae8830",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P05",
+        "source:P06"
+      ],
+      "independent_disposition_text": [
+        "P05–P06 full-column SO completion, spare counterexample, nonunique choice"
+      ]
+    },
+    {
+      "id": "paragraph:013",
+      "source_lines": [
+        26,
+        26
+      ],
+      "section": "S2",
+      "start_utf8_byte": 3086,
+      "end_utf8_byte": 3150,
+      "exact_text": "  U^T U=I,              det U=1,              U(i,e(a))=V(i,a)\n\n",
+      "sha256": "2621fc3f45bafb2e912bb51be90aa94e956e857ef43b9feb73892dde8add74a3",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P05",
+        "source:P06"
+      ],
+      "independent_disposition_text": [
+        "P05–P06 full-column SO completion, spare counterexample, nonunique choice"
+      ]
+    },
+    {
+      "id": "paragraph:014",
+      "source_lines": [
+        28,
+        28
+      ],
+      "section": "S2",
+      "start_utf8_byte": 3150,
+      "end_utf8_byte": 3824,
+      "exact_text": "for every row i and active a. The last equality preserves entire columns, not only a projected block. To see this, extend the orthonormal columns to an orthonormal basis, keeping them at the distinct prescribed labels. The resulting orthogonal matrix has determinant +1 or -1. If necessary multiply one unused column by -1. This diagonal sign flip is orthogonal with determinant -1, so it fixes the determinant without changing any prescribed column. A strict spare-column inequality guarantees such an unused label. Relabeling a finite basis in both rows and columns preserves the inner products and determinant, so the argument does not require numeric prefix positions.\n\n",
+      "sha256": "495878ff5b6f71797716beb8d2094cea781ad4595e9908cd2532b5405210d080",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P05",
+        "source:P06"
+      ],
+      "independent_disposition_text": [
+        "P05–P06 full-column SO completion, spare counterexample, nonunique choice"
+      ]
+    },
+    {
+      "id": "paragraph:015",
+      "source_lines": [
+        30,
+        30
+      ],
+      "section": "S2",
+      "start_utf8_byte": 3824,
+      "end_utf8_byte": 4250,
+      "exact_text": "The completion is generally nonunique; no canonical representative or efficient procedure for choosing it is specified. Without an unused column, determinant correction need not be possible while all columns remain fixed. For example, a completely prescribed determinant-minus-one orthogonal matrix cannot also have determinant plus one. Thus the strict dimension condition is a genuine hypothesis of this completion result.\n\n",
+      "sha256": "0bbdb75549ab9149893471d36cbc4bef90814b85e865226d14d097441a0bb6a9",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P05",
+        "source:P06"
+      ],
+      "independent_disposition_text": [
+        "P05–P06 full-column SO completion, spare counterexample, nonunique choice"
+      ]
+    },
+    {
+      "id": "paragraph:016",
+      "source_lines": [
+        32,
+        32
+      ],
+      "section": "S3",
+      "start_utf8_byte": 4250,
+      "end_utf8_byte": 4317,
+      "exact_text": "S3. Exact real special-orthogonal matrices as finite instructions\n\n",
+      "sha256": "fbeedd0f2752d4c56b3cb3c736c4b8ea430a2cbd0322dd49c23cb8d11da5edd4",
+      "disposition": "EXCLUDED",
+      "reason": "section heading/navigation",
+      "source_nodes": [],
+      "independent_disposition_text": []
+    },
+    {
+      "id": "paragraph:017",
+      "source_lines": [
+        34,
+        34
+      ],
+      "section": "S3",
+      "start_utf8_byte": 4317,
+      "end_utf8_byte": 4357,
+      "exact_text": "The single-wire rotation convention is\n\n",
+      "sha256": "d8bac2147e588a7f34b883177c033cd1c8d41c6f5d52ad84e8be023ae2e63335",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P07"
+      ],
+      "independent_disposition_text": [
+        "P07 all primitive semantics and chronological lists"
+      ]
+    },
+    {
+      "id": "paragraph:018",
+      "source_lines": [
+        36,
+        37
+      ],
+      "section": "S3",
+      "start_utf8_byte": 4357,
+      "end_utf8_byte": 4449,
+      "exact_text": "  RY(theta) = [[cos(theta/2),-sin(theta/2)],\n               [sin(theta/2), cos(theta/2)]].\n\n",
+      "sha256": "e0ad2abf7463229d4ff4664f1b6ac743178c9906a9a03c3cb0bc4bf5033d151f",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P07"
+      ],
+      "independent_disposition_text": [
+        "P07 all primitive semantics and chronological lists"
+      ]
+    },
+    {
+      "id": "paragraph:019",
+      "source_lines": [
+        39,
+        39
+      ],
+      "section": "S3",
+      "start_utf8_byte": 4449,
+      "end_utf8_byte": 5162,
+      "exact_text": "The ambient finite instruction language also allows the single-wire bit flip X and the diagonal rotation RZ(theta)=diag(cos(theta/2)-i sin(theta/2),cos(theta/2)+i sin(theta/2)). Controlled-NOT flips its target when its control bit is one and fixes the control and other wires. A single-wire gate fixes every non-target wire, and control and target are distinct. Finite lists are chronological: later instruction matrices multiply on the left. The empty list denotes identity. Every instruction in this language is unitary, including at arbitrary exact real angles. The special-orthogonal construction below uses only RY and controlled-NOT; the general list/composition identities allow the full stated language.\n\n",
+      "sha256": "a04f4b9e71ab6fdf19bdef62646d9c2198be6325236f46995290d70af8d2c24a",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P07"
+      ],
+      "independent_disposition_text": [
+        "P07 all primitive semantics and chronological lists"
+      ]
+    },
+    {
+      "id": "paragraph:020",
+      "source_lines": [
+        41,
+        41
+      ],
+      "section": "S3",
+      "start_utf8_byte": 5162,
+      "end_utf8_byte": 5849,
+      "exact_text": "For a real determinant-one orthogonal matrix on D numeric basis labels, adjacent-row elimination gives D(D-1)/2 ordered two-level rotations, including harmless zero-angle rotations. Each pair sweep annihilates a lower entry using a signed angle that sends the two real entries to their nonnegative Euclidean length and zero; a zero pair uses angle zero. Previously fixed standard-basis columns, orthogonality, and determinant are preserved. Process columns in increasing order with bottom-up adjacent sweeps. The final remaining sign is plus because the determinant is one. Reversing the elimination list and negating its angles therefore realizes the original matrix, not its inverse.\n\n",
+      "sha256": "ca50f34f807b2718478c5695d5dcfcf539aa30055884b5d7cc34ae29ebd19686",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P08",
+        "source:P09"
+      ],
+      "independent_disposition_text": [
+        "P08–P09 signed adjacent elimination, determinant, inverse order"
+      ]
+    },
+    {
+      "id": "paragraph:021",
+      "source_lines": [
+        43,
+        43
+      ],
+      "section": "S3",
+      "start_utf8_byte": 5849,
+      "end_utf8_byte": 6412,
+      "exact_text": "For D=2^(q+1)=2S, order the basis internally by a binary Gray enumeration: consecutive labels differ on one wire. Each adjacent two-level rotation becomes a rotation of that target wire selected by the assignment on all q other wires, fixing every basis vector outside the selected pair. If the first endpoint has target bit one rather than zero, negate the physical rotation angle to preserve the ordered two-level matrix. Transport the input matrix into Gray coordinates and transport the resulting denotation back; the external named-wire basis is unchanged.\n\n",
+      "sha256": "e5bac0cc0d89ba6ddf5ad72d19c072e717aae5d00fb5e71dda766c2286afb969",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P10"
+      ],
+      "independent_disposition_text": [
+        "P10 Gray transport and endpoint orientation"
+      ]
+    },
+    {
+      "id": "paragraph:022",
+      "source_lines": [
+        45,
+        45
+      ],
+      "section": "S3",
+      "start_utf8_byte": 6412,
+      "end_utf8_byte": 6999,
+      "exact_text": "A selected rotation with q controls is realized by a recursive rotation/controlled-NOT list, not an opaque multiply controlled primitive. Its two control branches use half-sum and half-difference angle tables, separated and followed by a target flip controlled on the added control wire. The identity X RY(theta) X=RY(-theta) verifies the two branches. Starting with one rotation at q=0, this gives S rotations and 2(S-1) controlled-NOTs, on the existing q+1 wires without extra working wires. Consequently the complete special-orthogonal matrix is realized by an actual list of length\n\n",
+      "sha256": "8bd6b70225fa3ac19612d2a8fcd0d38256a5bbaf1eff84b4ed2b50354d4a0f28",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P11",
+        "source:P12"
+      ],
+      "independent_disposition_text": [
+        "P11–P12 recursive selected list, exact count and cost exclusions"
+      ]
+    },
+    {
+      "id": "paragraph:023",
+      "source_lines": [
+        47,
+        47
+      ],
+      "section": "S3",
+      "start_utf8_byte": 6999,
+      "end_utf8_byte": 7034,
+      "exact_text": "  [D(D-1)/2] [S+2(S-1)] <= 6 S^3.\n\n",
+      "sha256": "a0b7e598af8c41efbc67c1d3ebd66f53d6e8c99e8a6d4b9141c36bddc2e032a4",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P11",
+        "source:P12"
+      ],
+      "independent_disposition_text": [
+        "P11–P12 recursive selected list, exact count and cost exclusions"
+      ]
+    },
+    {
+      "id": "paragraph:024",
+      "source_lines": [
+        49,
+        49
+      ],
+      "section": "S3",
+      "start_utf8_byte": 7034,
+      "end_utf8_byte": 7442,
+      "exact_text": "The bound counts instructions, including zero-angle entries kept by this schedule. There are no oracle-call instructions. It is a gate-list bound with exact real angles, not a bound on computing those angles, reading an arbitrary input matrix, storing intermediate data, or synthesizing rotations over a finite gate alphabet. Gray order is internal bookkeeping, not an extra uncounted physical permutation.\n\n",
+      "sha256": "78486c4ffdee5c81daf8f4f2e7b38cf28df9115f1fb3a43cb608d5a7524aa98d",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P11",
+        "source:P12"
+      ],
+      "independent_disposition_text": [
+        "P11–P12 recursive selected list, exact count and cost exclusions"
+      ]
+    },
+    {
+      "id": "paragraph:025",
+      "source_lines": [
+        51,
+        51
+      ],
+      "section": "S4",
+      "start_utf8_byte": 7442,
+      "end_utf8_byte": 7492,
+      "exact_text": "S4. Local circuits produced from canonical cores\n\n",
+      "sha256": "5b3aa2dd2069ec859d33877388dc06106597bc2899a6d58a587c76a6c52963d4",
+      "disposition": "EXCLUDED",
+      "reason": "section heading/navigation",
+      "source_nodes": [],
+      "independent_disposition_text": []
+    },
+    {
+      "id": "paragraph:026",
+      "source_lines": [
+        53,
+        53
+      ],
+      "section": "S4",
+      "start_utf8_byte": 7492,
+      "end_utf8_byte": 7877,
+      "exact_text": "Suppose C is right-canonical, its maximum bond is at most S=2^q, and t<N is an actual site. Form the real matrix V whose rows are local q+1-wire labels and whose column a in [r_t] is the real part of P_t at that row's (bit,bond) coordinates and input label a. The table is real, and S1 gives V^T V=I. Its prescribed column position is the fresh-zero label (0,a) in those coordinates.\n\n",
+      "sha256": "6224c528b6e48e7ad18e9d4f13d6093adff848b868f44d4799da2eeaaea24cfc",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P13",
+        "source:P14"
+      ],
+      "independent_disposition_text": [
+        "P13–P14 local existence, same produced columns/unitarity/bound"
+      ]
+    },
+    {
+      "id": "paragraph:027",
+      "source_lines": [
+        55,
+        55
+      ],
+      "section": "S4",
+      "start_utf8_byte": 7877,
+      "end_utf8_byte": 8280,
+      "exact_text": "Since r_t<=S and S>0, there are strictly fewer active columns than the 2S local basis labels. S2 supplies an exact determinant-one orthogonal completion, and S3 supplies an actual rotation/controlled-NOT circuit c_t with at most 6 S^3 instructions and no oracle calls. For every output bit b, output bond label z, and input bond label a whose integer value L_q(a) is active, its matrix entries satisfy\n\n",
+      "sha256": "388df70f51cc565aef29c112966ef2116059ade2e399e315a9607ae8c7aa2829",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P13",
+        "source:P14"
+      ],
+      "independent_disposition_text": [
+        "P13–P14 local existence, same produced columns/unitarity/bound"
+      ]
+    },
+    {
+      "id": "paragraph:028",
+      "source_lines": [
+        57,
+        57
+      ],
+      "section": "S4",
+      "start_utf8_byte": 8280,
+      "end_utf8_byte": 8323,
+      "exact_text": "  <z,b|c_t|a,0> = P_t((b,L_q(z)),L_q(a)).\n\n",
+      "sha256": "201788f2f0cc9e8fc3f2edd2ecaec438103664a0d055da2419aaa350e1ec7cb9",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P13",
+        "source:P14"
+      ],
+      "independent_disposition_text": [
+        "P13–P14 local existence, same produced columns/unitarity/bound"
+      ]
+    },
+    {
+      "id": "paragraph:029",
+      "source_lines": [
+        59,
+        59
+      ],
+      "section": "S4",
+      "start_utf8_byte": 8323,
+      "end_utf8_byte": 8860,
+      "exact_text": "The notation on the left lists q bond bits followed by the highest fresh bit. The equality covers every physical output, but only the occupied fresh-zero input columns. Other input columns of the completion remain free. Here orthogonality, determinant, and the displayed local-column equality are produced, not assumptions about a desired circuit. A shorter form may retain only circuit existence, the instruction bound, and the local-column equations; dropping the no-oracle field from that interface does not change the construction.\n\n",
+      "sha256": "eb08a3ffbdbf3a9da2266b3efcc0ae2c851fa97fa6c865dfd48931cea5706664",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P13",
+        "source:P14"
+      ],
+      "independent_disposition_text": [
+        "P13–P14 local existence, same produced columns/unitarity/bound"
+      ]
+    },
+    {
+      "id": "paragraph:030",
+      "source_lines": [
+        61,
+        61
+      ],
+      "section": "S4",
+      "start_utf8_byte": 8860,
+      "end_utf8_byte": 9155,
+      "exact_text": "This local result includes q=0, where S=1 and the local stage has one wire. It imposes no positive lower bound on q and no full-rank promise on the original, pre-canonical cores. It makes no isometry or compilation claim for the zero schedule entries at t>=N; those times will not be executed.\n\n",
+      "sha256": "64ac902b74e35523bdf5d3c2a9e11b76134c48d109d39e0f4b25c5d5a0c64978",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P14"
+      ],
+      "independent_disposition_text": [
+        "local q=0 and after-schedule boundary"
+      ]
+    },
+    {
+      "id": "paragraph:031",
+      "source_lines": [
+        63,
+        63
+      ],
+      "section": "S5",
+      "start_utf8_byte": 9155,
+      "end_utf8_byte": 9196,
+      "exact_text": "S5. Absorbing a signed initial boundary\n\n",
+      "sha256": "8cc693570e9b37e9f5151a25e3a7ad7ddefccec33e7ad89db3ebd9b2a662f602",
+      "disposition": "EXCLUDED",
+      "reason": "section heading/navigation",
+      "source_nodes": [],
+      "independent_disposition_text": []
+    },
+    {
+      "id": "paragraph:032",
+      "source_lines": [
+        65,
+        65
+      ],
+      "section": "S5",
+      "start_utf8_byte": 9196,
+      "end_utf8_byte": 9358,
+      "exact_text": "For a real vector u on [l], let B_u be the one-row matrix with B_u(0,a)=u_a. If sum_a u_a^2=1, then B_u B_u^T=I_1. If also A A^T=I_l, matrix associativity gives\n\n",
+      "sha256": "0db0311287bc3481c227c23b84f68d78500aed446d86e59a1c4d28ea3c283cf4",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P15",
+        "source:P16"
+      ],
+      "independent_disposition_text": [
+        "P15–P16 norm/canonical hypotheses separated from contraction identity"
+      ]
+    },
+    {
+      "id": "paragraph:033",
+      "source_lines": [
+        67,
+        67
+      ],
+      "section": "S5",
+      "start_utf8_byte": 9358,
+      "end_utf8_byte": 9405,
+      "exact_text": "  (B_u A)(B_u A)^T = B_u (A A^T) B_u^T = I_1.\n\n",
+      "sha256": "c8e321d21b196a4f979b7bfe9ba2a889e0a74406df4aed75672401eb45f4fecd",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P15",
+        "source:P16"
+      ],
+      "independent_disposition_text": [
+        "P15–P16 norm/canonical hypotheses separated from contraction identity"
+      ]
+    },
+    {
+      "id": "paragraph:034",
+      "source_lines": [
+        69,
+        69
+      ],
+      "section": "S5",
+      "start_utf8_byte": 9405,
+      "end_utf8_byte": 9784,
+      "exact_text": "The core B_u A keeps the emitted bit and the right bond. For every head-first word, replacing a first core A by B_u A changes the chain contraction to B_u times the previous contraction, with every terminal column retained. This contraction identity requires neither normalization of u nor canonicality of A; those two premises are needed for the row-isometry conclusion above.\n\n",
+      "sha256": "317293d1d2b0568c6c5cbcf1894ba597139869b9597321f387df7eb87c612b27",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P15",
+        "source:P16"
+      ],
+      "independent_disposition_text": [
+        "P15–P16 norm/canonical hypotheses separated from contraction identity"
+      ]
+    },
+    {
+      "id": "paragraph:035",
+      "source_lines": [
+        71,
+        71
+      ],
+      "section": "S5",
+      "start_utf8_byte": 9784,
+      "end_utf8_byte": 10042,
+      "exact_text": "Now let C be a nonempty real chain with both boundary dimensions one, maximum bond at most B, and original scalar amplitude square sum one. Tail-first thin factorization supplies a canonical chain E with the same terminal bond, a real initial vector u, and\n\n",
+      "sha256": "a082e943e2a0a7f625597ad4405668ca1d911a0b24a55f8705ee3f3ad94bbc43",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P17"
+      ],
+      "independent_disposition_text": [
+        "P17 canonical-factor/full-mass supplier and normalized residual output"
+      ]
+    },
+    {
+      "id": "paragraph:036",
+      "source_lines": [
+        73,
+        73
+      ],
+      "section": "S5",
+      "start_utf8_byte": 10042,
+      "end_utf8_byte": 10108,
+      "exact_text": "  sum_a u_a^2=1,             M_C(w)_(0,0)=sum_a u_a M_E(w)_(a,0)\n\n",
+      "sha256": "4c2fe79a87d16bf7aa46fbfc385cdc949e32ae6a9c2926212056357f631fa920",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P17"
+      ],
+      "independent_disposition_text": [
+        "P17 canonical-factor/full-mass supplier and normalized residual output"
+      ]
+    },
+    {
+      "id": "paragraph:037",
+      "source_lines": [
+        75,
+        75
+      ],
+      "section": "S5",
+      "start_utf8_byte": 10108,
+      "end_utf8_byte": 10589,
+      "exact_text": "for every word. Its maximum bond is no larger than that of C. This supplier factors each absorbed head with exactly min(old left dimension, twice the new tail dimension) orthonormal rows. The empty recursion returns an identity residual; the nonempty recursion absorbs the tail residual before factoring the head. Row-isometries preserve complete finite squared mass, so the input normalization implies the unit mass of u. It is not an extra free state-initialization assumption.\n\n",
+      "sha256": "c82802bb0cdcb10d26d0c3a4411cccd765c32f7599b30dae45d9f262f0d2e685",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P17"
+      ],
+      "independent_disposition_text": [
+        "P17 canonical-factor/full-mass supplier and normalized residual output"
+      ]
+    },
+    {
+      "id": "paragraph:038",
+      "source_lines": [
+        77,
+        77
+      ],
+      "section": "S5",
+      "start_utf8_byte": 10589,
+      "end_utf8_byte": 11092,
+      "exact_text": "Because the chain is nonempty, write E=A::T and replace its first core by B_u A. The resulting chain D has both boundary dimensions one, is right-canonical, and has precisely the original scalar amplitude at every word. Its tail bond dimensions are unchanged. The original initial dimension one implies B>=1, so the new initial dimension one also respects the same maximum-bond bound. Signed entries of u are absorbed without taking absolute values, discarding a phase, or selecting a terminal sector.\n\n",
+      "sha256": "6f1cb3b446b9724ddb29653ce2b93cc443cec883834007514c80f048c87bc18a",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P18"
+      ],
+      "independent_disposition_text": [
+        "P18 signed first-head absorption, positive N and max-bound argument"
+      ]
+    },
+    {
+      "id": "paragraph:039",
+      "source_lines": [
+        79,
+        79
+      ],
+      "section": "S5",
+      "start_utf8_byte": 11092,
+      "end_utf8_byte": 11347,
+      "exact_text": "This is existence with exact real choices. It is not a claim that the completion factors or u can be found within a stated classical runtime. Positivity of the chain length is used exactly to provide a first core into which the boundary can be absorbed.\n\n",
+      "sha256": "1654d356d8dcd63da26a764bbb4ec7793e458a639e4e11c98d628b99fd0cdd86",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P18"
+      ],
+      "independent_disposition_text": [
+        "P18 signed first-head absorption, positive N and max-bound argument"
+      ]
+    },
+    {
+      "id": "paragraph:040",
+      "source_lines": [
+        81,
+        81
+      ],
+      "section": "S6",
+      "start_utf8_byte": 11347,
+      "end_utf8_byte": 11419,
+      "exact_text": "S6. Empty initialization, finite-label transport, and terminal cleanup\n\n",
+      "sha256": "1ca905e14c03c69dd155809decc635d8e518ad6194ed9a5c34c08a27a4e5cb38",
+      "disposition": "EXCLUDED",
+      "reason": "section heading/navigation",
+      "source_nodes": [],
+      "independent_disposition_text": []
+    },
+    {
+      "id": "paragraph:041",
+      "source_lines": [
+        83,
+        83
+      ],
+      "section": "S6",
+      "start_utf8_byte": 11419,
+      "end_utf8_byte": 11887,
+      "exact_text": "For any q, L_q(z)=0 if and only if all q bits of z are zero. This follows recursively from L_(q+1)(z)=z_0+2 L_q(tail z), including the singleton q=0 case. Thus the vector on the physical bond that is one at integer label zero and zero elsewhere is exactly the all-zero input column of the empty circuit on q wires. Zero-filling the one-entry vector (1) into [S] prepares this same vector with zero instructions; no arbitrary normalized boundary is supplied for free.\n\n",
+      "sha256": "153c15737a669b5d279563a40cec012f557fc244ca77e14d4301840122806033",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P19",
+        "source:P20"
+      ],
+      "independent_disposition_text": [
+        "P19–P20 all-zero initialization with zero list cost"
+      ]
+    },
+    {
+      "id": "paragraph:042",
+      "source_lines": [
+        85,
+        85
+      ],
+      "section": "S6",
+      "start_utf8_byte": 11887,
+      "end_utf8_byte": 12073,
+      "exact_text": "Relabeling a finite bond set is algebraic transport, not a physical gate. If e:B->C is a bijection and U_t is a local square complex matrix on bit x C, define its transported matrix by\n\n",
+      "sha256": "9ff1373476bedacd7bd364942f1131145b53ce82aa5f337c67ac92e817a4127d",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P21"
+      ],
+      "independent_disposition_text": [
+        "P21 finite-label transport, arbitrary complex boundary, passive prefix"
+      ]
+    },
+    {
+      "id": "paragraph:043",
+      "source_lines": [
+        87,
+        87
+      ],
+      "section": "S6",
+      "start_utf8_byte": 12073,
+      "end_utf8_byte": 12121,
+      "exact_text": "  U_t^e((b,j),(b',a))=U_t((b,e(j)),(b',e(a))).\n\n",
+      "sha256": "18dc8e9b98da1d691eaf4976b19180075cea608428657837e4397b6f2fe75fe0",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P21"
+      ],
+      "independent_disposition_text": [
+        "P21 finite-label transport, arbitrary complex boundary, passive prefix"
+      ]
+    },
+    {
+      "id": "paragraph:044",
+      "source_lines": [
+        89,
+        89
+      ],
+      "section": "S6",
+      "start_utf8_byte": 12121,
+      "end_utf8_byte": 12530,
+      "exact_text": "Starting from any complex boundary v on B, the run with U_t and boundary v composed with e^(-1), evaluated at (x,c), equals the run with U_t^e and v at (x,e^(-1)(c)). Expand each local matrix-vector product and change its finite summation variable by e. The emitted bit prefix is not permuted by this bond-only transport. Neither unitarity nor a state-action hypothesis is needed for the transport identity.\n\n",
+      "sha256": "c5a616862bea493ec05ac635535500bd7baa820a92de5a92e3874abb88da6fbc",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P21"
+      ],
+      "independent_disposition_text": [
+        "P21 finite-label transport, arbitrary complex boundary, passive prefix"
+      ]
+    },
+    {
+      "id": "paragraph:045",
+      "source_lines": [
+        91,
+        91
+      ],
+      "section": "S6",
+      "start_utf8_byte": 12530,
+      "end_utf8_byte": 13003,
+      "exact_text": "Let D be any real chain of length N with both boundaries one and maximum bond at most S. Canonicality is not assumed in the following conditional action statement. Supply local circuits c_t for which, at each t<N, the active fresh-zero input columns equal P_t on all physical output rows, as in S4. No equations are required of c_t after the last site. Starting at the all-zero bond and adjoining a fresh zero output bit at each step, the complete sequential amplitude is\n\n",
+      "sha256": "edc22f23f10d91dee65f5bc0d9bf886a5edc97cc4716042c465d935e186e0d75",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P22"
+      ],
+      "independent_disposition_text": [
+        "P22 conditional all-output sequential action and complete terminal cleanup"
+      ]
+    },
+    {
+      "id": "paragraph:046",
+      "source_lines": [
+        93,
+        93
+      ],
+      "section": "S6",
+      "start_utf8_byte": 13003,
+      "end_utf8_byte": 13037,
+      "exact_text": "  delta_(z,0^q) M_D(w(y))_(0,0).\n\n",
+      "sha256": "a83ac6c0d6668eb0bafa4737db38f091d818452e84557c42a85cebf0ef15cf13",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P22"
+      ],
+      "independent_disposition_text": [
+        "P22 conditional all-output sequential action and complete terminal cleanup"
+      ]
+    },
+    {
+      "id": "paragraph:047",
+      "source_lines": [
+        95,
+        95
+      ],
+      "section": "S6",
+      "start_utf8_byte": 13037,
+      "end_utf8_byte": 13285,
+      "exact_text": "Here y=(y_0,...,y_(N-1)) lists bits in chronological emission order, w(y) is the head-first word with those same successive bits, and z is the final q-wire bond. At stage t the old prefix stays passive and y_t is appended as its highest new wire.\n\n",
+      "sha256": "6191a98112d53f2e5586393f5fe38777315a285ca022d2e93c4844cf75d1bdb9",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P22"
+      ],
+      "independent_disposition_text": [
+        "P22 conditional all-output sequential action and complete terminal cleanup"
+      ]
+    },
+    {
+      "id": "paragraph:048",
+      "source_lines": [
+        97,
+        97
+      ],
+      "section": "S6",
+      "start_utf8_byte": 13285,
+      "end_utf8_byte": 14042,
+      "exact_text": "To prove the statement, the input initially has support only on the active rank one. The extracted core table maps every active input to the next active output rank and has zero coefficient outside it. Inductively, unused completion columns never act on occupied amplitude. Expanding one stage gives the padded real row-vector core contraction. Induction then gives the whole product M_D(w(y)), not a global-action premise. The terminal dimension is one, so its padded output is supported only at integer label zero; S6's zero-label identity turns this into all q bond bits being zero. This is full-state cleanup at every output amplitude, not projection, measurement, or postselection. Normalization is not needed for this conditional algebraic identity.\n\n",
+      "sha256": "b9d7c9a2df843fd02ee5acfec3509186a8ea500e55dd268ff09b49f731955933",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P22"
+      ],
+      "independent_disposition_text": [
+        "P22 conditional all-output sequential action and complete terminal cleanup"
+      ]
+    },
+    {
+      "id": "paragraph:049",
+      "source_lines": [
+        99,
+        99
+      ],
+      "section": "S6",
+      "start_utf8_byte": 14042,
+      "end_utf8_byte": 14316,
+      "exact_text": "For N=0 there are no local-column premises and no stages. The only scalar-boundary empty chain contracts to I_1, and the empty circuit leaves the all-zero bond unchanged. This helper case does not justify absorbing an arbitrary signed scalar into a nonexistent first core.\n\n",
+      "sha256": "c9f5526dfcbf03667d6b8870999d059ae4bbaff3feefb0b799619491781e7599",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P23"
+      ],
+      "independent_disposition_text": [
+        "P23 zero-length conditional helper and signed-empty limitation"
+      ]
+    },
+    {
+      "id": "paragraph:050",
+      "source_lines": [
+        101,
+        101
+      ],
+      "section": "S7",
+      "start_utf8_byte": 14316,
+      "end_utf8_byte": 14387,
+      "exact_text": "S7. Head-first words, Boolean lists, and public little-endian samples\n\n",
+      "sha256": "7a3bd023af06f96d1de6a3736a0dfd15781e536b7c521b382b3a54501c2d397c",
+      "disposition": "EXCLUDED",
+      "reason": "section heading/navigation",
+      "source_nodes": [],
+      "independent_disposition_text": []
+    },
+    {
+      "id": "paragraph:051",
+      "source_lines": [
+        103,
+        103
+      ],
+      "section": "S7",
+      "start_utf8_byte": 14387,
+      "end_utf8_byte": 14858,
+      "exact_text": "Map a head-first word to the basis function that puts its first bit at coordinate zero and recursively puts its tail at later coordinates. Conversely, read coordinate zero and recurse on the tail. The empty maps are unique, and induction shows that these two maps are mutually inverse. Convert a word to a Boolean list by replacing each bit by whether it is one; this list has exactly the word length. Let rev_N(x)_i=x_(N-1-i). Reversing twice is identity, also at N=0.\n\n",
+      "sha256": "034dc3885da59a6bbde936cead6ea23fa7759ee736b53a76d06c30459c705b17",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P24",
+        "source:P25"
+      ],
+      "independent_disposition_text": [
+        "P24–P25 word/basis/list maps and reversal"
+      ]
+    },
+    {
+      "id": "paragraph:052",
+      "source_lines": [
+        105,
+        105
+      ],
+      "section": "S7",
+      "start_utf8_byte": 14858,
+      "end_utf8_byte": 15060,
+      "exact_text": "The public sample index of a head-first word w is obtained by first taking its basis function, then reversing it, then using L_N. Equivalently it is the most-significant-first list value J(w) given by\n\n",
+      "sha256": "000fa4877c05cad7b0c4fbf46c3f4add0ab770de536f6fabf7869734555fb67f",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P26",
+        "source:P27"
+      ],
+      "independent_disposition_text": [
+        "P26–P27 MSB list samples, LE append, positive-width comparison and reversal cancellation"
+      ]
+    },
+    {
+      "id": "paragraph:053",
+      "source_lines": [
+        107,
+        107
+      ],
+      "section": "S7",
+      "start_utf8_byte": 15060,
+      "end_utf8_byte": 15116,
+      "exact_text": "  J(empty)=0,             J(b::v)=2^(length v) b+J(v).\n\n",
+      "sha256": "279e88ad676d3f467a443031644b6d95ac05df96384f43e6ba1ffd9e5dfd877f",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P26",
+        "source:P27"
+      ],
+      "independent_disposition_text": [
+        "P26–P27 MSB list samples, LE append, positive-width comparison and reversal cancellation"
+      ]
+    },
+    {
+      "id": "paragraph:054",
+      "source_lines": [
+        109,
+        109
+      ],
+      "section": "S7",
+      "start_utf8_byte": 15116,
+      "end_utf8_byte": 15173,
+      "exact_text": "To verify this relation, appending a last bit satisfies\n\n",
+      "sha256": "c7352e7bd99663c1c03883ccd10846a5c1cd9cc5638ed9814f9e34f862e1deae",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P26",
+        "source:P27"
+      ],
+      "independent_disposition_text": [
+        "P26–P27 MSB list samples, LE append, positive-width comparison and reversal cancellation"
+      ]
+    },
+    {
+      "id": "paragraph:055",
+      "source_lines": [
+        111,
+        111
+      ],
+      "section": "S7",
+      "start_utf8_byte": 15173,
+      "end_utf8_byte": 15211,
+      "exact_text": "  L_(N+1)(append(x,b))=L_N(x)+2^N b.\n\n",
+      "sha256": "1a2ece169c4ace093402580aed2e228aac7297308eb760d16d715e25dd3bd0db",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P26",
+        "source:P27"
+      ],
+      "independent_disposition_text": [
+        "P26–P27 MSB list samples, LE append, positive-width comparison and reversal cancellation"
+      ]
+    },
+    {
+      "id": "paragraph:056",
+      "source_lines": [
+        113,
+        113
+      ],
+      "section": "S7",
+      "start_utf8_byte": 15211,
+      "end_utf8_byte": 15562,
+      "exact_text": "Reversal changes a first-bit cons into a last-bit append, and induction gives the displayed recurrence for J. In particular the finite sample index formed directly from a Boolean word of length k+1 agrees with this word-to-sample map at that same positive width. The arithmetic is exact; length evidence only identifies the common carrier [2^(k+1)].\n\n",
+      "sha256": "ac2224779fa9988001b3b3e5409552df7572f18afec32337678c502282af52a2",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P26",
+        "source:P27"
+      ],
+      "independent_disposition_text": [
+        "P26–P27 MSB list samples, LE append, positive-width comparison and reversal cancellation"
+      ]
+    },
+    {
+      "id": "paragraph:057",
+      "source_lines": [
+        115,
+        115
+      ],
+      "section": "S7",
+      "start_utf8_byte": 15562,
+      "end_utf8_byte": 16000,
+      "exact_text": "For any public data basis function x, taking the head-first word of rev_N(x) and applying the word-to-sample map yields L_N(x): the two reversals cancel. Thus chronological head-first order, increasing emission-wire order, and public little-endian integer order are related by explicit maps; they are not silently identified. These index identities alone do not assert that a supplied chain contracts to any particular sampled function.\n\n",
+      "sha256": "0e56d3fe3f45225c4aca53f074343dc5b783f7097b060a2bf42602e85fecb9fd",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P26",
+        "source:P27"
+      ],
+      "independent_disposition_text": [
+        "P26–P27 MSB list samples, LE append, positive-width comparison and reversal cancellation"
+      ]
+    },
+    {
+      "id": "paragraph:058",
+      "source_lines": [
+        117,
+        117
+      ],
+      "section": "S8",
+      "start_utf8_byte": 16000,
+      "end_utf8_byte": 16057,
+      "exact_text": "S8. One circuit on N+q wires and its actual list length\n\n",
+      "sha256": "6073ef6ef1d807ee0eba2134f3cd084e156cc5f45216bb9de075756279f92666",
+      "disposition": "EXCLUDED",
+      "reason": "section heading/navigation",
+      "source_nodes": [],
+      "independent_disposition_text": []
+    },
+    {
+      "id": "paragraph:059",
+      "source_lines": [
+        119,
+        119
+      ],
+      "section": "S8",
+      "start_utf8_byte": 16057,
+      "end_utf8_byte": 16616,
+      "exact_text": "First assemble the stages internally on q low bond wires followed by N chronological data wires. At stage t place its local bond wires on the existing q bond wires and its local highest fresh wire at internal position q+t. Previous data wires remain passive. Lift the earlier instruction list over the next fresh zero bit and append the newly placed stage list. Matrix evaluation of this single list equals the sequential action, by induction and the passive-prefix matrix entries. The initial circuit can be padded and prepended; here it is empty by S5-S6.\n\n",
+      "sha256": "b4de1c393c2c21ea937066c81c4d03b86471cb33595b8cc16588e41ee420ab2d",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P28"
+      ],
+      "independent_disposition_text": [
+        "P28 one actual internal list by placement/lifting/composition"
+      ]
+    },
+    {
+      "id": "paragraph:060",
+      "source_lines": [
+        121,
+        121
+      ],
+      "section": "S8",
+      "start_utf8_byte": 16616,
+      "end_utf8_byte": 17052,
+      "exact_text": "For the public N+q-wire convention, place data on low wires 0,...,N-1 and bond on high wires N,...,N+q-1. Rewrite every instruction's wire labels so internal bond wire a goes to N+a and internal data wire q+t goes to N-1-t. This is construction of gates on their final named wires, not a free physical SWAP of an already prepared state. A separate hardware connectivity restriction would require its own routing and resource analysis.\n\n",
+      "sha256": "824c17f253c3316e7c28defcd4d976bbc4b4a2690e20366d41b6afbfc38d4d1a",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P29"
+      ],
+      "independent_disposition_text": [
+        "P29 public named-wire rename, not free physical SWAP; hardware boundary"
+      ]
+    },
+    {
+      "id": "paragraph:061",
+      "source_lines": [
+        123,
+        123
+      ],
+      "section": "S8",
+      "start_utf8_byte": 17052,
+      "end_utf8_byte": 17216,
+      "exact_text": "For arbitrary supplied stage circuits satisfying S6's columns, the public circuit amplitude at public data x and bond z, from the all-zero input on every wire, is\n\n",
+      "sha256": "680c2fbcc4660eed9aa428ac0c1eabd54e5854322f1b7469d8eaaf317a1850e5",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P29"
+      ],
+      "independent_disposition_text": [
+        "P29 full public amplitude, arbitrary supplied stage columns, no canonicality premise"
+      ]
+    },
+    {
+      "id": "paragraph:062",
+      "source_lines": [
+        125,
+        125
+      ],
+      "section": "S8",
+      "start_utf8_byte": 17216,
+      "end_utf8_byte": 17257,
+      "exact_text": "  delta_(z,0^q) M_D(w(rev_N(x)))_(0,0).\n\n",
+      "sha256": "23d1982016d54c48bcea47188e6ab02439474a8326c8ad6831a24fc430f8f80a",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P29"
+      ],
+      "independent_disposition_text": [
+        "P29 full public amplitude, arbitrary supplied stage columns, no canonicality premise"
+      ]
+    },
+    {
+      "id": "paragraph:063",
+      "source_lines": [
+        127,
+        127
+      ],
+      "section": "S8",
+      "start_utf8_byte": 17257,
+      "end_utf8_byte": 17582,
+      "exact_text": "This statement still does not require D to be canonical or normalized: those are needed by the existence construction of its stages, not by composition after the columns are supplied. It includes every data and bond basis label. The instruction relabeling explains why the reversal in S7 is present at this public boundary.\n\n",
+      "sha256": "b696e71095ed782e871b1be936f153aa5714aa06f456587c5735323887c4276a",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P29"
+      ],
+      "independent_disposition_text": [
+        "P29 full public amplitude, arbitrary supplied stage columns, no canonicality premise"
+      ]
+    },
+    {
+      "id": "paragraph:064",
+      "source_lines": [
+        129,
+        129
+      ],
+      "section": "S8",
+      "start_utf8_byte": 17582,
+      "end_utf8_byte": 18078,
+      "exact_text": "Padding, lifting, and placing a stage preserve its list length, and renaming each instruction preserves length. Therefore the assembled list length is exactly sum_(t=0)^(N-1) length(c_t). With an empty initial circuit the public list has the same sum. For any natural bound K such that each executed stage has length at most K, its public gate count is at most N K. This counts every instruction, not only rotations or an arithmetic-operation proxy. The empty N=0 sum and list have length zero.\n\n",
+      "sha256": "dccc53cdb2d5a557b9512e065801be68ab7df9e39c6a73248fb8a5d6737d2ce0",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P30",
+        "source:P31"
+      ],
+      "independent_disposition_text": [
+        "P30–P31 exact list sum/uniform bound/empty cases"
+      ]
+    },
+    {
+      "id": "paragraph:065",
+      "source_lines": [
+        131,
+        131
+      ],
+      "section": "S9",
+      "start_utf8_byte": 18078,
+      "end_utf8_byte": 18129,
+      "exact_text": "S9. Complete positive-length exact-real existence\n\n",
+      "sha256": "927f5f93ec2a9bb6d1af511154f381edb8585b636acc6ca257a9284034ea4ea0",
+      "disposition": "EXCLUDED",
+      "reason": "section heading/navigation",
+      "source_nodes": [],
+      "independent_disposition_text": []
+    },
+    {
+      "id": "paragraph:066",
+      "source_lines": [
+        133,
+        133
+      ],
+      "section": "S9",
+      "start_utf8_byte": 18129,
+      "end_utf8_byte": 18286,
+      "exact_text": "Fix a positive length N, any q>=0, and a real chain C of length N with both boundary dimensions one. Assume only that its maximum bond is at most S=2^q and\n\n",
+      "sha256": "061f51de9a7e9b845f872735eedeb1708e68f8a16f1e7c88a48d76b7b473b3e0",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P32"
+      ],
+      "independent_disposition_text": [
+        "P32 root inputs, one-circuit AND outputs, exact phase and positive route scope"
+      ]
+    },
+    {
+      "id": "paragraph:067",
+      "source_lines": [
+        135,
+        135
+      ],
+      "section": "S9",
+      "start_utf8_byte": 18286,
+      "end_utf8_byte": 18334,
+      "exact_text": "  sum_(head-first words w) M_C(w)_(0,0)^2 = 1.\n\n",
+      "sha256": "52a47c1815f4f7a92f7d4b5ba5bb5baf35cd8fe438c6f98e2988fe2c8bf1712d",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P32"
+      ],
+      "independent_disposition_text": [
+        "P32 root inputs, one-circuit AND outputs, exact phase and positive route scope"
+      ]
+    },
+    {
+      "id": "paragraph:068",
+      "source_lines": [
+        137,
+        137
+      ],
+      "section": "S9",
+      "start_utf8_byte": 18334,
+      "end_utf8_byte": 18862,
+      "exact_text": "S5 produces a canonical scalar-boundary D with the same amplitude function and the same maximum-bond bound. At every actual site S4 produces a local finite circuit, including its exact active columns and length at most 6 S^3. Choose such circuits for the finitely used sites; unused later sites may be assigned empty lists because no later column equation is requested. S6 starts from the genuine empty zero-initialization circuit and proves terminal cleanup, and S8 composes these into one public circuit c on N+q wires. Thus\n\n",
+      "sha256": "8c7af9a2df28ef4fa895581fbca1aeebe0c6de818a8ea39f9b8cd60f9fc24e4a",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P32"
+      ],
+      "independent_disposition_text": [
+        "P32 root inputs, one-circuit AND outputs, exact phase and positive route scope"
+      ]
+    },
+    {
+      "id": "paragraph:069",
+      "source_lines": [
+        139,
+        141
+      ],
+      "section": "S9",
+      "start_utf8_byte": 18862,
+      "end_utf8_byte": 19021,
+      "exact_text": "  length(c)<=N (6 S^3),              oracle calls(c)=0,\n  c is unitary on the entire N+q-wire space,\n  <x,z|c|0^(N+q)> = delta_(z,0^q) M_C(w(rev_N(x)))_(0,0)\n\n",
+      "sha256": "c7461e598e3c3cefe3114287ae1ae9207b795f1e529682923fc0e62ef57ce375",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P32"
+      ],
+      "independent_disposition_text": [
+        "P32 root inputs, one-circuit AND outputs, exact phase and positive route scope"
+      ]
+    },
+    {
+      "id": "paragraph:070",
+      "source_lines": [
+        143,
+        143
+      ],
+      "section": "S9",
+      "start_utf8_byte": 19021,
+      "end_utf8_byte": 19471,
+      "exact_text": "for every public x and z. The conclusions hold together for the same circuit. Full unitarity follows from the actual primitive instructions; it is not assumed as the desired final state action. The original signed amplitudes are exact, not merely their probabilities or their equality up to an unspecified global phase. There is no extra initial preparation cost in the instruction list because its signed boundary was absorbed into the first core.\n\n",
+      "sha256": "99757962b0d97696e99a54c8dc87098040261bb40e4c0fc16925ca6a9267f5ff",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P32"
+      ],
+      "independent_disposition_text": [
+        "P32 root inputs, one-circuit AND outputs, exact phase and positive route scope"
+      ]
+    },
+    {
+      "id": "paragraph:071",
+      "source_lines": [
+        145,
+        145
+      ],
+      "section": "S9",
+      "start_utf8_byte": 19471,
+      "end_utf8_byte": 19907,
+      "exact_text": "The positivity restriction belongs to this complete boundary-absorption existence route. General transport, conditional sequential cleanup, public placement, word maps, and list-count identities above include their stated zero-length cases. The empty scalar chain already has its unique amplitude +1. These facts must not be replaced by a claim that an arbitrary zero-wire signed state was covered by the positive-length construction.\n\n",
+      "sha256": "930ededec2c229eadbc78615c7ac99ac37a7d369c3f5b75b994a29e43df12d54",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "source:P32"
+      ],
+      "independent_disposition_text": [
+        "P32 root inputs, one-circuit AND outputs, exact phase and positive route scope"
+      ]
+    },
+    {
+      "id": "paragraph:072",
+      "source_lines": [
+        147,
+        147
+      ],
+      "section": "S10",
+      "start_utf8_byte": 19907,
+      "end_utf8_byte": 19944,
+      "exact_text": "S10. Exact scope and remaining work\n\n",
+      "sha256": "06c0dff943b69b975ee382b616ed698d88248c51cf5d06327f2985d007aaab27",
+      "disposition": "EXCLUDED",
+      "reason": "section heading/navigation",
+      "source_nodes": [
+        "boundary:exact-real-scope",
+        "SOURCE_GAP-C26-INPUT-TARGET",
+        "SOURCE_GAP-C26-DETERMINISTIC-PARAMETERS",
+        "SOURCE_GAP-C26-FINITE-PRECISION",
+        "SOURCE_GAP-C26-HARDWARE-RESOURCES",
+        "SOURCE_GAP-C26-ORACLE-BE-TRANSPORT",
+        "SOURCE_GAP-C26-SCIENTIFIC-SCALING"
+      ],
+      "independent_disposition_text": []
+    },
+    {
+      "id": "paragraph:073",
+      "source_lines": [
+        149,
+        149
+      ],
+      "section": "S10",
+      "start_utf8_byte": 19944,
+      "end_utf8_byte": 20414,
+      "exact_text": "The gate model permits exact real RY angles and named-wire controlled-NOTs. The bound N*6*(2^q)^3 is a genuine length bound in that model. It is not a finite-bit, Clifford+T, nearest-neighbor, depth, preprocessing, or readout bound, and it does not become polynomial in another scientific input parameter merely by treating q as fixed. Nonunique factor and completion choices are not a deterministic stored-data algorithm, even though a finite instruction list exists.\n\n",
+      "sha256": "7ef818d8756b11962d144cef2ca402afdb55683ecb0f8c10406d2d531534bb7e",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "boundary:exact-real-scope",
+        "SOURCE_GAP-C26-INPUT-TARGET",
+        "SOURCE_GAP-C26-DETERMINISTIC-PARAMETERS",
+        "SOURCE_GAP-C26-FINITE-PRECISION",
+        "SOURCE_GAP-C26-HARDWARE-RESOURCES",
+        "SOURCE_GAP-C26-ORACLE-BE-TRANSPORT",
+        "SOURCE_GAP-C26-SCIENTIFIC-SCALING"
+      ],
+      "independent_disposition_text": [
+        "exact-real gate model and stable stronger-consumer gaps below"
+      ]
+    },
+    {
+      "id": "paragraph:074",
+      "source_lines": [
+        151,
+        151
+      ],
+      "section": "S10",
+      "start_utf8_byte": 20414,
+      "end_utf8_byte": 21210,
+      "exact_text": "Further obligations remain for a concrete sampled problem: an actual input/data producer and proof that the given cores represent its desired amplitudes with the required normalization; a deterministic refinement of factor/completion selection and angle computation with explicit storage and input-access costs; finite precision, numerical stability, rotation synthesis and accumulated error; hardware routing/depth and total resources; and any coherent oracle, inverse/control, block-encoding, accepted-branch or amplification transport. None is supplied by the instruction-count field or by a word-index bijection. This local exact-real circuit existence does not assert a new scientific algorithm or a complete preparation/block-encoding resource theorem for an externally specified function.\n",
+      "sha256": "704ccd53a0088f5fc0c3484d0b67040c814cccc1e5709761da2639bc22a41f4d",
+      "disposition": "NODE",
+      "reason": null,
+      "source_nodes": [
+        "boundary:exact-real-scope",
+        "SOURCE_GAP-C26-INPUT-TARGET",
+        "SOURCE_GAP-C26-DETERMINISTIC-PARAMETERS",
+        "SOURCE_GAP-C26-FINITE-PRECISION",
+        "SOURCE_GAP-C26-HARDWARE-RESOURCES",
+        "SOURCE_GAP-C26-ORACLE-BE-TRANSPORT",
+        "SOURCE_GAP-C26-SCIENTIFIC-SCALING"
+      ],
+      "independent_disposition_text": [
+        "exact-real gate model and stable stronger-consumer gaps below"
+      ]
+    }
+  ],
+  "whole_module_inventory": [
+    {
+      "name": "QuantumBlockEncoding.TensorTrainLocalCompiler.exists_SO_named",
+      "module": "QuantumBlockEncoding/TensorTrainLocalCompiler.lean",
+      "line": 12,
+      "kind": "theorem",
+      "source_sections": [
+        "S2"
+      ],
+      "logical_inputs": [
+        {
+          "classification": "SOURCE",
+          "description": "hr: r < cardinality of the named finite basis"
+        },
+        {
+          "classification": "SOURCE",
+          "description": "e: supplied injection prescribing arbitrary distinct columns"
+        },
+        {
+          "classification": "SOURCE",
+          "description": "hV: V^T V = identity"
+        }
+      ],
+      "role": "existence; same U satisfies orthogonality AND determinant one AND every prescribed column",
+      "definition_class": "theorem-not-definition",
+      "author_only": true,
+      "id": "LC-01",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "I : finite type, with Fintype and DecidableEq; implicit r : Nat; V : real matrix I (Fin r); e : supplied embedding Fin r into I",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "exists a single real U on I",
+        "U^T*U = I",
+        "det U = 1",
+        "for every i,a, U(i,e(a)) = V(i,a)"
+      ],
+      "definition_audit": {
+        "kind": "theorem-not-definition",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:012",
+        "paragraph:013",
+        "paragraph:014",
+        "paragraph:015"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainLocalCompiler.localIndex",
+      "module": "QuantumBlockEncoding/TensorTrainLocalCompiler.lean",
+      "line": 36,
+      "kind": "def",
+      "source_sections": [
+        "S1"
+      ],
+      "logical_inputs": [],
+      "role": "literal coordinate equivalence; q low bond wires and highest fresh bit",
+      "definition_class": "literal",
+      "author_only": true,
+      "id": "LC-02",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "q : Nat",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "specified bijection: q low bond wires and highest fresh bit -> (bit,LE bond index)"
+      ],
+      "definition_audit": {
+        "kind": "literal",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:004",
+        "paragraph:005",
+        "paragraph:006",
+        "paragraph:007",
+        "paragraph:008",
+        "paragraph:009",
+        "paragraph:010"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainLocalCompiler.localIndex_snoc",
+      "module": "QuantumBlockEncoding/TensorTrainLocalCompiler.lean",
+      "line": 39,
+      "kind": "theorem",
+      "source_sections": [
+        "S1"
+      ],
+      "logical_inputs": [],
+      "role": "coordinate adapter on appended last bit",
+      "definition_class": "theorem-not-definition",
+      "author_only": true,
+      "id": "LC-03",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "q : Nat; b : q-bit named basis; bit : Fin 2",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "localIndex q (snoc b bit) = (bit, primitiveBasisLEEquiv q b)"
+      ],
+      "definition_audit": {
+        "kind": "theorem-not-definition",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:004",
+        "paragraph:005",
+        "paragraph:006",
+        "paragraph:007",
+        "paragraph:008",
+        "paragraph:009",
+        "paragraph:010"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainLocalCompiler.paddedAt_real",
+      "module": "QuantumBlockEncoding/TensorTrainLocalCompiler.lean",
+      "line": 44,
+      "kind": "theorem",
+      "source_sections": [
+        "S1"
+      ],
+      "logical_inputs": [],
+      "role": "all schedule entries real for arbitrary chain and every time, including zero after the schedule",
+      "definition_class": "theorem-not-definition",
+      "author_only": true,
+      "id": "LC-04",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "implicit n l r B : Nat; C : Chain n l r; t : Nat; out : Fin 2 x Fin B; a : Fin B",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "real part of paddedAt embedded back into complex equals the original entry"
+      ],
+      "definition_audit": {
+        "kind": "theorem-not-definition",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:004",
+        "paragraph:005",
+        "paragraph:006",
+        "paragraph:007",
+        "paragraph:008",
+        "paragraph:009",
+        "paragraph:010"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainLocalCompiler.paddedAt_im_zero",
+      "module": "QuantumBlockEncoding/TensorTrainLocalCompiler.lean",
+      "line": 56,
+      "kind": "theorem",
+      "source_sections": [
+        "S1"
+      ],
+      "logical_inputs": [],
+      "role": "zero imaginary part; no canonicality premise",
+      "definition_class": "theorem-not-definition",
+      "author_only": true,
+      "id": "LC-05",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "implicit n l r B : Nat; C : Chain n l r; t : Nat; out : Fin 2 x Fin B; a : Fin B",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "every paddedAt entry has imaginary part zero"
+      ],
+      "definition_audit": {
+        "kind": "theorem-not-definition",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:004",
+        "paragraph:005",
+        "paragraph:006",
+        "paragraph:007",
+        "paragraph:008",
+        "paragraph:009",
+        "paragraph:010"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainLocalCompiler.activePositions",
+      "module": "QuantumBlockEncoding/TensorTrainLocalCompiler.lean",
+      "line": 61,
+      "kind": "def",
+      "source_sections": [
+        "S1"
+      ],
+      "logical_inputs": [
+        {
+          "classification": "SOURCE",
+          "description": "hl: active left dimension <= 2^q"
+        }
+      ],
+      "role": "literal embedding with injectivity proof; fresh-zero active physical input labels",
+      "definition_class": "literal",
+      "author_only": true,
+      "id": "LC-06",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "implicit q l : Nat; proof hl separately SOURCE",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "specified fresh-zero injection of Fin l into named (q+1)-bit basis; injectivity included in embedding data"
+      ],
+      "definition_audit": {
+        "kind": "literal",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:004",
+        "paragraph:005",
+        "paragraph:006",
+        "paragraph:007",
+        "paragraph:008",
+        "paragraph:009",
+        "paragraph:010"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainLocalCompiler.activeColumns",
+      "module": "QuantumBlockEncoding/TensorTrainLocalCompiler.lean",
+      "line": 69,
+      "kind": "def",
+      "source_sections": [
+        "S1",
+        "S4"
+      ],
+      "logical_inputs": [
+        {
+          "classification": "SOURCE",
+          "description": "hB: maximum bond <= 2^q"
+        }
+      ],
+      "role": "literal real table of occupied columns; definition requires its dimension-bound proof",
+      "definition_class": "literal",
+      "author_only": true,
+      "id": "LC-07",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "implicit n l r q : Nat; C : Chain n l r; t : Nat; proof hB separately SOURCE",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "specified real matrix of occupied columns: real part of paddedAt in localIndex row coordinates with castLE hB active input"
+      ],
+      "definition_audit": {
+        "kind": "literal",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:004",
+        "paragraph:005",
+        "paragraph:006",
+        "paragraph:007",
+        "paragraph:008",
+        "paragraph:009",
+        "paragraph:010",
+        "paragraph:026",
+        "paragraph:027",
+        "paragraph:028",
+        "paragraph:029",
+        "paragraph:030"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainLocalCompiler.activeColumns_isometry",
+      "module": "QuantumBlockEncoding/TensorTrainLocalCompiler.lean",
+      "line": 77,
+      "kind": "theorem",
+      "source_sections": [
+        "S1",
+        "S4"
+      ],
+      "logical_inputs": [
+        {
+          "classification": "SOURCE",
+          "description": "hC: chain right-canonical"
+        },
+        {
+          "classification": "SOURCE",
+          "description": "hB: maximum bond <= 2^q"
+        },
+        {
+          "classification": "SOURCE",
+          "description": "ht: t < chain length"
+        }
+      ],
+      "role": "active-column real isometry produced from full complex padded sums",
+      "definition_class": "theorem-not-definition",
+      "author_only": true,
+      "id": "LC-08",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "implicit n l r q : Nat; C : Chain n l r; t : Nat; hC/hB/ht separately SOURCE",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "activeColumns(C,t,hB)^T * activeColumns(C,t,hB) = I"
+      ],
+      "definition_audit": {
+        "kind": "theorem-not-definition",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:004",
+        "paragraph:005",
+        "paragraph:006",
+        "paragraph:007",
+        "paragraph:008",
+        "paragraph:009",
+        "paragraph:010",
+        "paragraph:026",
+        "paragraph:027",
+        "paragraph:028",
+        "paragraph:029",
+        "paragraph:030"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainLocalCompiler.exists_local_circuit_with_resources",
+      "module": "QuantumBlockEncoding/TensorTrainLocalCompiler.lean",
+      "line": 99,
+      "kind": "theorem",
+      "source_sections": [
+        "S2",
+        "S3",
+        "S4"
+      ],
+      "logical_inputs": [
+        {
+          "classification": "SOURCE",
+          "description": "hC: chain right-canonical"
+        },
+        {
+          "classification": "SOURCE",
+          "description": "hB: maximum bond <= 2^q"
+        },
+        {
+          "classification": "SOURCE",
+          "description": "ht: t < chain length"
+        }
+      ],
+      "role": "same local circuit: length <= 6*(2^q)^3 AND no oracle calls AND all occupied clean-column equations",
+      "definition_class": "theorem-not-definition",
+      "author_only": true,
+      "id": "LC-09",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "implicit n l r q : Nat; C : Chain n l r; t : Nat; hC/hB/ht separately SOURCE",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "exists the same c : PrimitiveCircuit(q+1)",
+        "gateCount c <= 6*(2^q)^3",
+        "resource.oracleCalls c = 0",
+        "all bit and physical b,a: if LE(a)<rankAt C t then eval c (snoc b bit) (snoc a 0) equals paddedAt C t (bit,LE b) (LE a)"
+      ],
+      "definition_audit": {
+        "kind": "theorem-not-definition",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:012",
+        "paragraph:013",
+        "paragraph:014",
+        "paragraph:015",
+        "paragraph:017",
+        "paragraph:018",
+        "paragraph:019",
+        "paragraph:020",
+        "paragraph:021",
+        "paragraph:022",
+        "paragraph:023",
+        "paragraph:024",
+        "paragraph:026",
+        "paragraph:027",
+        "paragraph:028",
+        "paragraph:029",
+        "paragraph:030"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainLocalCompiler.exists_local_circuit",
+      "module": "QuantumBlockEncoding/TensorTrainLocalCompiler.lean",
+      "line": 139,
+      "kind": "theorem",
+      "source_sections": [
+        "S4"
+      ],
+      "logical_inputs": [
+        {
+          "classification": "SOURCE",
+          "description": "hC: chain right-canonical"
+        },
+        {
+          "classification": "SOURCE",
+          "description": "hB: maximum bond <= 2^q"
+        },
+        {
+          "classification": "SOURCE",
+          "description": "ht: t < chain length"
+        }
+      ],
+      "role": "projection of the stronger local interface; length AND columns retained",
+      "definition_class": "theorem-not-definition",
+      "author_only": true,
+      "id": "LC-10",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "implicit n l r q : Nat; C : Chain n l r; t : Nat; hC/hB/ht separately SOURCE",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "exists the same c : PrimitiveCircuit(q+1)",
+        "gateCount c <= 6*(2^q)^3",
+        "all bit and physical b,a: if LE(a)<rankAt C t then eval c (snoc b bit) (snoc a 0) equals paddedAt C t (bit,LE b) (LE a)"
+      ],
+      "definition_audit": {
+        "kind": "theorem-not-definition",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:026",
+        "paragraph:027",
+        "paragraph:028",
+        "paragraph:029",
+        "paragraph:030"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainWord.toBasis",
+      "module": "QuantumBlockEncoding/TensorTrainWord.lean",
+      "line": 10,
+      "kind": "def",
+      "source_sections": [
+        "S7"
+      ],
+      "logical_inputs": [],
+      "role": "literal recursive head-bit to coordinate-zero map; empty carrier included",
+      "definition_class": "literal",
+      "author_only": true,
+      "id": "TW-01",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "implicit n : Nat; Word n; recursive empty/cons cases",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "specified empty/cons head-first word to named bit function"
+      ],
+      "definition_audit": {
+        "kind": "literal",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:051",
+        "paragraph:052",
+        "paragraph:053",
+        "paragraph:054",
+        "paragraph:055",
+        "paragraph:056",
+        "paragraph:057"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainWord.toBasis_wordOfBasis",
+      "module": "QuantumBlockEncoding/TensorTrainWord.lean",
+      "line": 14,
+      "kind": "theorem",
+      "source_sections": [
+        "S7"
+      ],
+      "logical_inputs": [],
+      "role": "first inverse law by word-length induction",
+      "definition_class": "theorem-not-definition",
+      "author_only": true,
+      "id": "TW-02",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "implicit n : Nat; x : named n-bit basis",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "toBasis(wordOfBasis x) = x"
+      ],
+      "definition_audit": {
+        "kind": "theorem-not-definition",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:051",
+        "paragraph:052",
+        "paragraph:053",
+        "paragraph:054",
+        "paragraph:055",
+        "paragraph:056",
+        "paragraph:057"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainWord.wordOfBasis_toBasis",
+      "module": "QuantumBlockEncoding/TensorTrainWord.lean",
+      "line": 20,
+      "kind": "theorem",
+      "source_sections": [
+        "S7"
+      ],
+      "logical_inputs": [],
+      "role": "second inverse law by word-length induction",
+      "definition_class": "theorem-not-definition",
+      "author_only": true,
+      "id": "TW-03",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "implicit n : Nat; x : Word n",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "wordOfBasis(toBasis x) = x"
+      ],
+      "definition_audit": {
+        "kind": "theorem-not-definition",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:051",
+        "paragraph:052",
+        "paragraph:053",
+        "paragraph:054",
+        "paragraph:055",
+        "paragraph:056",
+        "paragraph:057"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainWord.basisEquiv",
+      "module": "QuantumBlockEncoding/TensorTrainWord.lean",
+      "line": 26,
+      "kind": "def",
+      "source_sections": [
+        "S7"
+      ],
+      "logical_inputs": [],
+      "role": "literal equivalence with both supplied inverse proofs",
+      "definition_class": "literal",
+      "author_only": true,
+      "id": "TW-04",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "n : Nat",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "specified word/basis equivalence with both inverse proofs"
+      ],
+      "definition_audit": {
+        "kind": "literal",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:051",
+        "paragraph:052",
+        "paragraph:053",
+        "paragraph:054",
+        "paragraph:055",
+        "paragraph:056",
+        "paragraph:057"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainWord.reverseBasis",
+      "module": "QuantumBlockEncoding/TensorTrainWord.lean",
+      "line": 32,
+      "kind": "def",
+      "source_sections": [
+        "S7"
+      ],
+      "logical_inputs": [],
+      "role": "literal reversal equivalence/involution; includes empty basis",
+      "definition_class": "literal",
+      "author_only": true,
+      "id": "TW-05",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "n : Nat",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "specified coordinate-reversal equivalence with involution as its inverse proofs"
+      ],
+      "definition_audit": {
+        "kind": "literal",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:051",
+        "paragraph:052",
+        "paragraph:053",
+        "paragraph:054",
+        "paragraph:055",
+        "paragraph:056",
+        "paragraph:057"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainWord.sampleEquiv",
+      "module": "QuantumBlockEncoding/TensorTrainWord.lean",
+      "line": 38,
+      "kind": "def",
+      "source_sections": [
+        "S7"
+      ],
+      "logical_inputs": [],
+      "role": "literal basis-map THEN reversal THEN little-endian integer-map; not an implicit endian identification",
+      "definition_class": "literal",
+      "author_only": true,
+      "id": "TW-06",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "n : Nat",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "specified composition: basisEquiv THEN reverseBasis THEN primitiveBasisLEEquiv"
+      ],
+      "definition_audit": {
+        "kind": "literal",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:051",
+        "paragraph:052",
+        "paragraph:053",
+        "paragraph:054",
+        "paragraph:055",
+        "paragraph:056",
+        "paragraph:057"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainWord.toBits",
+      "module": "QuantumBlockEncoding/TensorTrainWord.lean",
+      "line": 41,
+      "kind": "def",
+      "source_sections": [
+        "S7"
+      ],
+      "logical_inputs": [],
+      "role": "literal recursive Boolean list; each entry is whether the bit equals one",
+      "definition_class": "literal",
+      "author_only": true,
+      "id": "TW-07",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "implicit n : Nat; Word n; recursive empty/cons cases",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "specified Boolean list: empty list or decide(first bit = 1) cons recursive tail list"
+      ],
+      "definition_audit": {
+        "kind": "literal",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:051",
+        "paragraph:052",
+        "paragraph:053",
+        "paragraph:054",
+        "paragraph:055",
+        "paragraph:056",
+        "paragraph:057"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainWord.toBits_length",
+      "module": "QuantumBlockEncoding/TensorTrainWord.lean",
+      "line": 45,
+      "kind": "theorem",
+      "source_sections": [
+        "S7"
+      ],
+      "logical_inputs": [],
+      "role": "Boolean list length equals word length",
+      "definition_class": "theorem-not-definition",
+      "author_only": true,
+      "id": "TW-08",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "implicit n : Nat; x : Word n",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "length(toBits x) = n"
+      ],
+      "definition_audit": {
+        "kind": "theorem-not-definition",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:051",
+        "paragraph:052",
+        "paragraph:053",
+        "paragraph:054",
+        "paragraph:055",
+        "paragraph:056",
+        "paragraph:057"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainWord.primitive_snoc_value",
+      "module": "QuantumBlockEncoding/TensorTrainWord.lean",
+      "line": 50,
+      "kind": "theorem",
+      "source_sections": [
+        "S7"
+      ],
+      "logical_inputs": [],
+      "role": "integer little-endian append-last-bit recurrence",
+      "definition_class": "theorem-not-definition",
+      "author_only": true,
+      "id": "TW-09",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "n : Nat; x : named n-bit basis; bit : Fin 2",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "LE(snoc x bit).val = LE(x).val + 2^n * bit.val"
+      ],
+      "definition_audit": {
+        "kind": "theorem-not-definition",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:051",
+        "paragraph:052",
+        "paragraph:053",
+        "paragraph:054",
+        "paragraph:055",
+        "paragraph:056",
+        "paragraph:057"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainWord.sampleEquiv_value",
+      "module": "QuantumBlockEncoding/TensorTrainWord.lean",
+      "line": 73,
+      "kind": "theorem",
+      "source_sections": [
+        "S7"
+      ],
+      "logical_inputs": [],
+      "role": "word sample equals MSB-first Boolean list value",
+      "definition_class": "theorem-not-definition",
+      "author_only": true,
+      "id": "TW-10",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "implicit n : Nat; x : Word n",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "sampleEquiv(n,x).val = wordValue(toBits x)"
+      ],
+      "definition_audit": {
+        "kind": "theorem-not-definition",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:051",
+        "paragraph:052",
+        "paragraph:053",
+        "paragraph:054",
+        "paragraph:055",
+        "paragraph:056",
+        "paragraph:057"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainWord.wordSampleIndex_eq",
+      "module": "QuantumBlockEncoding/TensorTrainWord.lean",
+      "line": 90,
+      "kind": "theorem",
+      "source_sections": [
+        "S7"
+      ],
+      "logical_inputs": [],
+      "role": "positive width n+1; direct finite Boolean-word sample index agrees exactly",
+      "definition_class": "theorem-not-definition",
+      "author_only": true,
+      "id": "TW-11",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "n : Nat; x : Word (n+1); length proof is produced by toBits_length, not assumed",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "wordSampleIndex n (toBits x) (toBits_length x) = sampleEquiv(n+1,x)"
+      ],
+      "definition_audit": {
+        "kind": "theorem-not-definition",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:051",
+        "paragraph:052",
+        "paragraph:053",
+        "paragraph:054",
+        "paragraph:055",
+        "paragraph:056",
+        "paragraph:057"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainWord.sampleEquiv_public",
+      "module": "QuantumBlockEncoding/TensorTrainWord.lean",
+      "line": 96,
+      "kind": "theorem",
+      "source_sections": [
+        "S7"
+      ],
+      "logical_inputs": [],
+      "role": "reversed public basis then word conversion cancels the sample adapter reversal",
+      "definition_class": "theorem-not-definition",
+      "author_only": true,
+      "id": "TW-12",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "implicit n : Nat; x : named n-bit basis",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "sampleEquiv n (wordOfBasis (x composed with coordinate rev)) = primitiveBasisLEEquiv n x"
+      ],
+      "definition_audit": {
+        "kind": "theorem-not-definition",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:051",
+        "paragraph:052",
+        "paragraph:053",
+        "paragraph:054",
+        "paragraph:055",
+        "paragraph:056",
+        "paragraph:057"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainPrimitivePreparation.boundaryRow",
+      "module": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "line": 22,
+      "kind": "def",
+      "source_sections": [
+        "S5"
+      ],
+      "logical_inputs": [],
+      "role": "literal one-row boundary matrix",
+      "definition_class": "literal",
+      "author_only": true,
+      "id": "TP-01",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "implicit l : Nat; u : Fin l -> real",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "specified real one-row matrix with entries u(a)"
+      ],
+      "definition_audit": {
+        "kind": "literal",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:032",
+        "paragraph:033",
+        "paragraph:034",
+        "paragraph:035",
+        "paragraph:036",
+        "paragraph:037",
+        "paragraph:038",
+        "paragraph:039"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainPrimitivePreparation.boundaryRow_isometry",
+      "module": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "line": 24,
+      "kind": "theorem",
+      "source_sections": [
+        "S5"
+      ],
+      "logical_inputs": [
+        {
+          "classification": "SOURCE",
+          "description": "hu: mass u = 1"
+        }
+      ],
+      "role": "unit norm row isometry",
+      "definition_class": "theorem-not-definition",
+      "author_only": true,
+      "id": "TP-02",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "implicit l : Nat; u : Fin l -> real; hu separately SOURCE",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "boundaryRow u * (boundaryRow u)^T = I"
+      ],
+      "definition_audit": {
+        "kind": "theorem-not-definition",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:032",
+        "paragraph:033",
+        "paragraph:034",
+        "paragraph:035",
+        "paragraph:036",
+        "paragraph:037",
+        "paragraph:038",
+        "paragraph:039"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainPrimitivePreparation.boundaryCore_isometry",
+      "module": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "line": 32,
+      "kind": "theorem",
+      "source_sections": [
+        "S5"
+      ],
+      "logical_inputs": [
+        {
+          "classification": "SOURCE",
+          "description": "hu: mass u = 1"
+        },
+        {
+          "classification": "SOURCE",
+          "description": "hA: real flattened core A A^T = identity"
+        }
+      ],
+      "role": "absorbed head remains row-isometric",
+      "definition_class": "theorem-not-definition",
+      "author_only": true,
+      "id": "TP-03",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "implicit l r : Nat; u : Fin l -> real; A : real Core l r; hu/hA separately SOURCE",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "(boundaryRow u * A) * (boundaryRow u * A)^T = I"
+      ],
+      "definition_audit": {
+        "kind": "theorem-not-definition",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:032",
+        "paragraph:033",
+        "paragraph:034",
+        "paragraph:035",
+        "paragraph:036",
+        "paragraph:037",
+        "paragraph:038",
+        "paragraph:039"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainPrimitivePreparation.boundaryCore_contract",
+      "module": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "line": 41,
+      "kind": "theorem",
+      "source_sections": [
+        "S5"
+      ],
+      "logical_inputs": [],
+      "role": "all-word full-matrix contraction identity; no hu/hA premise",
+      "definition_class": "theorem-not-definition",
+      "author_only": true,
+      "id": "TP-04",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "implicit n l m r : Nat; u : Fin l -> real; A : Core l m; C : Chain n m r; x : Word (n+1)",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "contract(cons(boundaryRow u * A,C),x) = boundaryRow u * contract(cons(A,C),x) on the full terminal carrier"
+      ],
+      "definition_audit": {
+        "kind": "theorem-not-definition",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:032",
+        "paragraph:033",
+        "paragraph:034",
+        "paragraph:035",
+        "paragraph:036",
+        "paragraph:037",
+        "paragraph:038",
+        "paragraph:039"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainPrimitivePreparation.exists_unitBoundary_canonical",
+      "module": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "line": 51,
+      "kind": "theorem",
+      "source_sections": [
+        "S5",
+        "S9"
+      ],
+      "logical_inputs": [
+        {
+          "classification": "SOURCE",
+          "description": "hB: maximum source bond <= B"
+        },
+        {
+          "classification": "SOURCE",
+          "description": "hNorm: original complete scalar amplitude square sum = 1"
+        }
+      ],
+      "role": "positive length n+1; same D has canonicality AND unchanged B bound AND every original signed amplitude",
+      "definition_class": "theorem-not-definition",
+      "author_only": true,
+      "id": "TP-05",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "implicit n B : Nat; C : Chain (n+1) 1 1; positive length is encoded in this carrier, not an added convenience Prop binder",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "exists the same D : Chain(n+1,1,1)",
+        "RightCanonical D",
+        "maxBond D <= B",
+        "for every word x, contract D x 0 0 = contract C x 0 0"
+      ],
+      "definition_audit": {
+        "kind": "theorem-not-definition",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:032",
+        "paragraph:033",
+        "paragraph:034",
+        "paragraph:035",
+        "paragraph:036",
+        "paragraph:037",
+        "paragraph:038",
+        "paragraph:039",
+        "paragraph:066",
+        "paragraph:067",
+        "paragraph:068",
+        "paragraph:069",
+        "paragraph:070",
+        "paragraph:071"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainPrimitivePreparation.transportStage",
+      "module": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "line": 70,
+      "kind": "def",
+      "source_sections": [
+        "S6"
+      ],
+      "logical_inputs": [
+        {
+          "classification": "SOURCE",
+          "description": "e: supplied finite bond bijection"
+        }
+      ],
+      "role": "literal bond-only reindexing, not a physical gate or data-wire permutation",
+      "definition_class": "literal",
+      "author_only": true,
+      "id": "TP-06",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "B C : types; e : supplied equivalence B to C; U : complex Stage C; e's bijection content separately SOURCE; no Fintype requirement on this definition",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "specified bond-only complex matrix reindex: U(row.bit,e(row.bond))(col.bit,e(col.bond))"
+      ],
+      "definition_audit": {
+        "kind": "literal",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:041",
+        "paragraph:042",
+        "paragraph:043",
+        "paragraph:044",
+        "paragraph:045",
+        "paragraph:046",
+        "paragraph:047",
+        "paragraph:048",
+        "paragraph:049"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainPrimitivePreparation.run_transport",
+      "module": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "line": 73,
+      "kind": "theorem",
+      "source_sections": [
+        "S6"
+      ],
+      "logical_inputs": [
+        {
+          "classification": "SOURCE",
+          "description": "e: supplied finite bond bijection"
+        }
+      ],
+      "role": "finite-sum change-of-variable identity; U/boundary arbitrary, no unitary or state-action premise",
+      "definition_class": "theorem-not-definition",
+      "author_only": true,
+      "id": "TP-07",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "B C : finite types with Fintype and DecidableEq; e : supplied equivalence; U : Nat -> Stage C; boundary : B -> complex; n : Nat; x : n-bit named basis; b : C",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "run U (boundary composed with e.symm) n (x,b) = run (transportStage e composed with U) boundary n (x,e.symm b)"
+      ],
+      "definition_audit": {
+        "kind": "theorem-not-definition",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:041",
+        "paragraph:042",
+        "paragraph:043",
+        "paragraph:044",
+        "paragraph:045",
+        "paragraph:046",
+        "paragraph:047",
+        "paragraph:048",
+        "paragraph:049"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainPrimitivePreparation.bondIndex_zero",
+      "module": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "line": 87,
+      "kind": "theorem",
+      "source_sections": [
+        "S6"
+      ],
+      "logical_inputs": [],
+      "role": "all-zero q-wire bond has integer label zero, including q=0",
+      "definition_class": "theorem-not-definition",
+      "author_only": true,
+      "id": "TP-08",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "q : Nat",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "LE index of all-zero q-bit basis has value zero"
+      ],
+      "definition_audit": {
+        "kind": "theorem-not-definition",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:041",
+        "paragraph:042",
+        "paragraph:043",
+        "paragraph:044",
+        "paragraph:045",
+        "paragraph:046",
+        "paragraph:047",
+        "paragraph:048",
+        "paragraph:049"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainPrimitivePreparation.bondIndex_zero_iff",
+      "module": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "line": 94,
+      "kind": "theorem",
+      "source_sections": [
+        "S6"
+      ],
+      "logical_inputs": [],
+      "role": "integer label zero iff all bond bits zero",
+      "definition_class": "theorem-not-definition",
+      "author_only": true,
+      "id": "TP-09",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "implicit q : Nat; b : named q-bit basis",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "LE(b).val = 0 iff b is the all-zero q-bit basis"
+      ],
+      "definition_audit": {
+        "kind": "theorem-not-definition",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:041",
+        "paragraph:042",
+        "paragraph:043",
+        "paragraph:044",
+        "paragraph:045",
+        "paragraph:046",
+        "paragraph:047",
+        "paragraph:048",
+        "paragraph:049"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainPrimitivePreparation.initial_padding",
+      "module": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "line": 104,
+      "kind": "theorem",
+      "source_sections": [
+        "S6"
+      ],
+      "logical_inputs": [],
+      "role": "one-entry zero fill equals the actual empty circuit's all-zero input column",
+      "definition_class": "theorem-not-definition",
+      "author_only": true,
+      "id": "TP-10",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "implicit q : Nat; b : named q-bit basis",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "padVector of the singleton vector 1 at LE(b) equals eval of the empty q-wire circuit at row b and all-zero input"
+      ],
+      "definition_audit": {
+        "kind": "theorem-not-definition",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:041",
+        "paragraph:042",
+        "paragraph:043",
+        "paragraph:044",
+        "paragraph:045",
+        "paragraph:046",
+        "paragraph:047",
+        "paragraph:048",
+        "paragraph:049"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainPrimitivePreparation.run_circuits_clean",
+      "module": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "line": 120,
+      "kind": "theorem",
+      "source_sections": [
+        "S6"
+      ],
+      "logical_inputs": [
+        {
+          "classification": "SOURCE",
+          "description": "hB: scalar-boundary D maximum bond <= 2^q"
+        },
+        {
+          "classification": "SOURCE",
+          "description": "columns: only t<length, occupied fresh-zero inputs, every physical output row"
+        }
+      ],
+      "role": "conditional whole sequential action AND exact terminal cleanup; no canonicality/normalization premise",
+      "definition_class": "theorem-not-definition",
+      "author_only": true,
+      "id": "TP-11",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "implicit n q : Nat; D : Chain n 1 1; stages : Nat -> PrimitiveCircuit (q+1); x : named n-bit basis; b : named q-bit basis",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "run of actual stage matrices from the empty-circuit input column at every x,b equals contract D (wordOfBasis x) 0 0 when b=zero and is zero otherwise"
+      ],
+      "definition_audit": {
+        "kind": "theorem-not-definition",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:041",
+        "paragraph:042",
+        "paragraph:043",
+        "paragraph:044",
+        "paragraph:045",
+        "paragraph:046",
+        "paragraph:047",
+        "paragraph:048",
+        "paragraph:049"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainPrimitivePreparation.publicCircuit_clean",
+      "module": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "line": 153,
+      "kind": "theorem",
+      "source_sections": [
+        "S7",
+        "S8"
+      ],
+      "logical_inputs": [
+        {
+          "classification": "SOURCE",
+          "description": "hB: scalar-boundary D maximum bond <= 2^q"
+        },
+        {
+          "classification": "SOURCE",
+          "description": "columns: only t<length, occupied fresh-zero inputs, every physical output row"
+        }
+      ],
+      "role": "actual N+q-wire public list action; explicit reversed public basis in head-first word",
+      "definition_class": "theorem-not-definition",
+      "author_only": true,
+      "id": "TP-12",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "implicit n q : Nat; D : Chain n 1 1; stages : Nat -> PrimitiveCircuit (q+1); x : named n-bit basis; b : named q-bit basis",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "actual publicCircuit [] stages n at output append(x,b) and all-zero input equals contract D (wordOfBasis(x composed with rev)) 0 0 when b=zero and is zero otherwise"
+      ],
+      "definition_audit": {
+        "kind": "theorem-not-definition",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:051",
+        "paragraph:052",
+        "paragraph:053",
+        "paragraph:054",
+        "paragraph:055",
+        "paragraph:056",
+        "paragraph:057",
+        "paragraph:059",
+        "paragraph:060",
+        "paragraph:061",
+        "paragraph:062",
+        "paragraph:063",
+        "paragraph:064"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainPrimitivePreparation.assemble_gateCount",
+      "module": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "line": 169,
+      "kind": "theorem",
+      "source_sections": [
+        "S8"
+      ],
+      "logical_inputs": [],
+      "role": "exact list length is sum of all executed stage-list lengths, including length zero",
+      "definition_class": "theorem-not-definition",
+      "author_only": true,
+      "id": "TP-13",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "q : Nat; stages : Nat -> PrimitiveCircuit (q+1); n : Nat",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "gateCount(assemble q stages n) = sum over t in range n of gateCount(stages t)"
+      ],
+      "definition_audit": {
+        "kind": "theorem-not-definition",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:059",
+        "paragraph:060",
+        "paragraph:061",
+        "paragraph:062",
+        "paragraph:063",
+        "paragraph:064"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainPrimitivePreparation.publicCircuit_gateCount_bound",
+      "module": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "line": 183,
+      "kind": "theorem",
+      "source_sections": [
+        "S8"
+      ],
+      "logical_inputs": [
+        {
+          "classification": "SOURCE",
+          "description": "h: each executed stage's list length <= supplied natural bound"
+        }
+      ],
+      "role": "public list with empty initial circuit has length <= N*bound",
+      "definition_class": "theorem-not-definition",
+      "author_only": true,
+      "id": "TP-14",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "implicit q : Nat; stages : Nat -> PrimitiveCircuit (q+1); n bound : Nat; h separately SOURCE",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "gateCount(publicCircuit [] stages n) <= n*bound"
+      ],
+      "definition_audit": {
+        "kind": "theorem-not-definition",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:059",
+        "paragraph:060",
+        "paragraph:061",
+        "paragraph:062",
+        "paragraph:063",
+        "paragraph:064"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    },
+    {
+      "name": "QuantumBlockEncoding.TensorTrainPrimitivePreparation.exists_primitive_preparation",
+      "module": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "line": 205,
+      "kind": "theorem",
+      "source_sections": [
+        "S9"
+      ],
+      "logical_inputs": [
+        {
+          "classification": "SOURCE",
+          "description": "hB: original maximum bond <= 2^q"
+        },
+        {
+          "classification": "SOURCE",
+          "description": "hNorm: original complete scalar amplitude square sum = 1"
+        }
+      ],
+      "role": "positive length n+1; same actual N+q-wire circuit has length bound AND no oracle calls AND full unitarity AND all public data/bond amplitudes exact",
+      "definition_class": "theorem-not-definition",
+      "author_only": true,
+      "id": "TP-15",
+      "typing_data_binders": {
+        "classification": "TYPING",
+        "description": "implicit n q : Nat; C : Chain (n+1) 1 1; positive length encoded in carrier; hB/hNorm separately SOURCE",
+        "scope": "Exact full source and fresh #check, not this descriptive prose, determine the complete elaborated type."
+      },
+      "output_logic": "AND",
+      "output_conjuncts": [
+        "exists the same circuit : PrimitiveCircuit((n+1)+q)",
+        "gateCount circuit <= (n+1)*(6*(2^q)^3)",
+        "resource.oracleCalls circuit = 0",
+        "eval circuit is unitary on the entire named ((n+1)+q)-bit basis",
+        "for every data x and bond b: eval circuit (append x b) zero = contract C (wordOfBasis(x composed with rev)) 0 0 embedded in complex if b=zero, and zero otherwise"
+      ],
+      "definition_audit": {
+        "kind": "theorem-not-definition",
+        "noncanonical_witness_note": "SO completions, factor/angle choices and finite stage choices are nonunique existential representatives, not uniquely characterized or efficient producers."
+      },
+      "source_paragraphs": [
+        "paragraph:066",
+        "paragraph:067",
+        "paragraph:068",
+        "paragraph:069",
+        "paragraph:070",
+        "paragraph:071"
+      ],
+      "status": "AUTHOR_WIP_NOT_ADMITTED"
+    }
+  ],
+  "canonical_inventory_roots": 37,
+  "additional_top_level_named_instances": 0,
+  "private_target_helpers": 0,
+  "ambient_scope": [
+    {
+      "module": "QuantumBlockEncoding/TensorTrainLocalCompiler.lean",
+      "commands": [
+        "namespace QuantumBlockEncoding.TensorTrainLocalCompiler",
+        "open scoped BigOperators",
+        "open TensorTrainCanonical TensorTrainSchedule SequentialBondPreparation",
+        "end QuantumBlockEncoding.TensorTrainLocalCompiler"
+      ],
+      "additional_named_instances": [],
+      "private_helpers": [],
+      "scope": "Every target source line is retained, including proof-local definitions, imports, namespaces, attributes, scoped option and final end."
+    },
+    {
+      "module": "QuantumBlockEncoding/TensorTrainWord.lean",
+      "commands": [
+        "namespace QuantumBlockEncoding.TensorTrainWord",
+        "open TensorTrainCanonical TensorTrainSchedule RealAmplitudePreparation",
+        "end QuantumBlockEncoding.TensorTrainWord"
+      ],
+      "additional_named_instances": [],
+      "private_helpers": [],
+      "scope": "Every target source line is retained, including proof-local definitions, imports, namespaces, attributes, scoped option and final end."
+    },
+    {
+      "module": "QuantumBlockEncoding/TensorTrainPrimitivePreparation.lean",
+      "commands": [
+        "namespace QuantumBlockEncoding.TensorTrainPrimitivePreparation",
+        "open scoped BigOperators",
+        "open TensorTrainCanonical TensorTrainSchedule SequentialBondPreparation",
+        "set_option backward.isDefEq.respectTransparency false in",
+        "end QuantumBlockEncoding.TensorTrainPrimitivePreparation"
+      ],
+      "additional_named_instances": [],
+      "private_helpers": [],
+      "scope": "Every target source line is retained, including proof-local definitions, imports, namespaces, attributes, scoped option and final end."
+    }
+  ],
+  "full_target_source_context_sha256": "6a056581661325754ed0a72e6fa8e092b2fd265df034ec97471f4c1738753232",
+  "logical_input_policy": "All old author-private logical inputs are preserved as SOURCE individually. Encoded positive length, scalar boundaries and finite carriers are recorded with full target scope; no produced canonicality/normalization/local columns are added as root assumptions.",
+  "source_explanation_note": "Provider mathematics and explanatory consequences are NODE/context, not additional independently named target roots. Later fresh full-context review must check them; no missing-c25-bridge label erases c26's constructed ideal gates, word/wire order or scalar terminal cleanup.",
+  "independent_source_topology_ground": {
+    "notes_path": "reviews/publication/finite-real-tt-physical/reviewer-c26/source-only-notes.md",
+    "notes_sha256": "e2199273168047fe6c62fa0ba858911c94ff5604100ad66694be9712d4429023",
+    "phase1_seal_path": "reviews/publication/finite-real-tt-physical/reviewer-c26/phase1-seal.json",
+    "phase1_seal_sha256": "0e6c0bedcc98ae6ba2f8089bbd96e29e79b1da3b646458bc85bd093805304359",
+    "author_read_after_freeze": true,
+    "exposure_qualification": "The actual reviewer was FORMAL_CONTENT_UNSEEN, not absolute byte-file-unread; its full exposure seal is retained. Author does not inherit that independent identity."
+  },
+  "open_source_gap_ids": [
+    "SOURCE_GAP-C26-INPUT-TARGET",
+    "SOURCE_GAP-C26-DETERMINISTIC-PARAMETERS",
+    "SOURCE_GAP-C26-FINITE-PRECISION",
+    "SOURCE_GAP-C26-HARDWARE-RESOURCES",
+    "SOURCE_GAP-C26-ORACLE-BE-TRANSPORT",
+    "SOURCE_GAP-C26-SCIENTIFIC-SCALING"
+  ],
+  "source_seal_timing": "RETROSPECTIVE_LOCAL_AFTER_PREEXISTING_PROOFS; historical formalizer UNKNOWN; no pre-proof, historical-independence or novelty claim",
+  "procedural_status": "Source-to-formal comparison and admission remain pending; no independent evidence is authored here."
+}

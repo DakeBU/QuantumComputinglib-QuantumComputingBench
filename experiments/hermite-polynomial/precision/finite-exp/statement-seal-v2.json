@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "level": "C_INTERNAL_PROVIDER_ADDITIVE_DELTA",
+  "parent": "experiments/hermite-polynomial/precision/finite-exp/statement-seal-v1.json",
+  "parent_sha256": "3cb46335cfd9db262fd1b8208cb9093d084029250a54cd9506e77647d2fa4308",
+  "status": "SEALED_BEFORE_ADDITIONAL_IMPLEMENTATION",
+  "definition": "tailCutoff(epsilon:Rat):Nat = Nat.clog 2 (max 1 (Nat.ceil (1/epsilon)))",
+  "signatures": [
+    "tailCutoff_budget(epsilon:Rat)(h:0<epsilon): tailRadius(tailCutoff epsilon)<=epsilon",
+    "tailCutoff_size(epsilon:Rat): tailCutoff epsilon<=Nat.size(max 1 (Nat.ceil(1/epsilon)))",
+    "checked_tail(q epsilon:Rat,n:Nat)(he:0<epsilon)(hq:q<=-(tailCutoff epsilon:Rat)): checked q epsilon (tailCutoff epsilon) n = some(0,tailRadius(tailCutoff epsilon))"
+  ],
+  "consumer_signatures": [
+    "hermite_left(k:Nat,p:Rat,T n:Nat)(hp:(p:Real)<-1): smoothInitial k (p:Real) in Icc(bounds p T n)",
+    "hermite_right(k:Nat,p:Rat,T n:Nat)(hp:0<(p:Real)): smoothInitial k (p:Real) in Icc(bounds (-p) T n)",
+    "endpoint_scalar(T n:Nat): Real.exp(-1) in Icc(bounds (-1) T n)"
+  ],
+  "boundary": "These consumers are literal rational coordinates, not a proof that original irrational grid/scalar-to-stored cores or middle polynomial refinement closes. Tail degree is ignored only on the genuinely clipped branch; active branch may fail width check. Full runtime and input-size translation remain open."
+}

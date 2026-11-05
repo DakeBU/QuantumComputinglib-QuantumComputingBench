@@ -1,0 +1,40 @@
+import QuantumBlockEncoding.TensorTrainWord
+set_option pp.explicit true
+set_option pp.fullNames true
+set_option pp.universes true
+
+#check QuantumBlockEncoding.TensorTrainWord.toBasis
+#print axioms QuantumBlockEncoding.TensorTrainWord.toBasis
+
+#check QuantumBlockEncoding.TensorTrainWord.toBasis_wordOfBasis
+#print axioms QuantumBlockEncoding.TensorTrainWord.toBasis_wordOfBasis
+
+#check QuantumBlockEncoding.TensorTrainWord.wordOfBasis_toBasis
+#print axioms QuantumBlockEncoding.TensorTrainWord.wordOfBasis_toBasis
+
+#check QuantumBlockEncoding.TensorTrainWord.basisEquiv
+#print axioms QuantumBlockEncoding.TensorTrainWord.basisEquiv
+
+#check QuantumBlockEncoding.TensorTrainWord.reverseBasis
+#print axioms QuantumBlockEncoding.TensorTrainWord.reverseBasis
+
+#check QuantumBlockEncoding.TensorTrainWord.sampleEquiv
+#print axioms QuantumBlockEncoding.TensorTrainWord.sampleEquiv
+
+#check QuantumBlockEncoding.TensorTrainWord.toBits
+#print axioms QuantumBlockEncoding.TensorTrainWord.toBits
+
+#check QuantumBlockEncoding.TensorTrainWord.toBits_length
+#print axioms QuantumBlockEncoding.TensorTrainWord.toBits_length
+
+#check QuantumBlockEncoding.TensorTrainWord.primitive_snoc_value
+#print axioms QuantumBlockEncoding.TensorTrainWord.primitive_snoc_value
+
+#check QuantumBlockEncoding.TensorTrainWord.sampleEquiv_value
+#print axioms QuantumBlockEncoding.TensorTrainWord.sampleEquiv_value
+
+#check QuantumBlockEncoding.TensorTrainWord.wordSampleIndex_eq
+#print axioms QuantumBlockEncoding.TensorTrainWord.wordSampleIndex_eq
+
+#check QuantumBlockEncoding.TensorTrainWord.sampleEquiv_public
+#print axioms QuantumBlockEncoding.TensorTrainWord.sampleEquiv_public

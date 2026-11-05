@@ -43,9 +43,9 @@ noncomputable def mottonenDenseUcryCircuit : PrimitiveCircuit 2 :=
 noncomputable def mottonenDensePrimitiveCircuit : PrimitiveCircuit 2 :=
   [PrimitiveGate.ry (1 : Fin 2) ryAngle513] ++ mottonenDenseUcryCircuit
 
-noncomputable def mottonenRootState : StateVector (gridSize 2) ℂ :=
-  (5 / 13 : ℂ) • basisKet (gridSize 2) (0 : Fin 4) +
-    (12 / 13 : ℂ) • basisKet (gridSize 2) (2 : Fin 4)
+noncomputable def mottonenRootState : StateVector 4 ℂ :=
+  (5 / 13 : ℂ) • basisKet 4 (0 : Fin 4) +
+    (12 / 13 : ℂ) • basisKet 4 (2 : Fin 4)
 
 private theorem mottonenRootState_0 :
     mottonenRootState (0 : Fin 4) = (5 : ℂ) / 13 := by
@@ -72,24 +72,36 @@ theorem mottonenRootRy_col_zero :
       evalPrimitiveCircuitLE [PrimitiveGate.ry (1 : Fin 2) ryAngle513]
           (0 : Fin 4) (0 : Fin 4) = mottonenRootState (0 : Fin 4)
     rw [mottonenRootState_0]
+    change evalPrimitiveCircuitLE _
+      (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 2))
+      (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 2)) = (5 : ℂ) / 13
     norm_num [evalPrimitiveCircuitLE_singleton_ry_apply, primitiveLEBits,
       standardRyMatrix_ryAngle513_explicit_paper, realOrthogonalRotation]
   · change
       evalPrimitiveCircuitLE [PrimitiveGate.ry (1 : Fin 2) ryAngle513]
           (1 : Fin 4) (0 : Fin 4) = mottonenRootState (1 : Fin 4)
     rw [mottonenRootState_1]
+    change evalPrimitiveCircuitLE _
+      (⟨1, by norm_num [gridSize]⟩ : Fin (gridSize 2))
+      (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 2)) = 0
     norm_num [evalPrimitiveCircuitLE_singleton_ry_apply, primitiveLEBits,
       standardRyMatrix_ryAngle513_explicit_paper, realOrthogonalRotation]
   · change
       evalPrimitiveCircuitLE [PrimitiveGate.ry (1 : Fin 2) ryAngle513]
           (2 : Fin 4) (0 : Fin 4) = mottonenRootState (2 : Fin 4)
     rw [mottonenRootState_2]
+    change evalPrimitiveCircuitLE _
+      (⟨2, by norm_num [gridSize]⟩ : Fin (gridSize 2))
+      (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 2)) = (12 : ℂ) / 13
     norm_num [evalPrimitiveCircuitLE_singleton_ry_apply, primitiveLEBits,
       standardRyMatrix_ryAngle513_explicit_paper, realOrthogonalRotation]
   · change
       evalPrimitiveCircuitLE [PrimitiveGate.ry (1 : Fin 2) ryAngle513]
           (3 : Fin 4) (0 : Fin 4) = mottonenRootState (3 : Fin 4)
     rw [mottonenRootState_3]
+    change evalPrimitiveCircuitLE _
+      (⟨3, by norm_num [gridSize]⟩ : Fin (gridSize 2))
+      (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 2)) = 0
     norm_num [evalPrimitiveCircuitLE_singleton_ry_apply, primitiveLEBits,
       standardRyMatrix_ryAngle513_explicit_paper, realOrthogonalRotation]
 
@@ -301,9 +313,9 @@ noncomputable def sparsePrunedUcryCircuit : PrimitiveCircuit 3 :=
 noncomputable def sparsePrunedCircuit : PrimitiveCircuit 3 :=
   [PrimitiveGate.ry (2 : Fin 3) ryAngle513] ++ sparsePrunedUcryCircuit
 
-noncomputable def sparseRootState : StateVector (gridSize 3) ℂ :=
-  (5 / 13 : ℂ) • basisKet (gridSize 3) (0 : Fin 8) +
-    (12 / 13 : ℂ) • basisKet (gridSize 3) (4 : Fin 8)
+noncomputable def sparseRootState : StateVector 8 ℂ :=
+  (5 / 13 : ℂ) • basisKet 8 (0 : Fin 8) +
+    (12 / 13 : ℂ) • basisKet 8 (4 : Fin 8)
 
 private theorem sparseRootState_0 : sparseRootState (0 : Fin 8) = (5 : ℂ) / 13 := by
   simp [sparseRootState, basisKet]
@@ -330,41 +342,65 @@ theorem sparseRootRy_col_zero :
   · change evalPrimitiveCircuitLE [PrimitiveGate.ry (2 : Fin 3) ryAngle513]
       (0 : Fin 8) (0 : Fin 8) = sparseRootState (0 : Fin 8)
     rw [sparseRootState_0]
+    change evalPrimitiveCircuitLE _
+      (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 3))
+      (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 3)) = (5 : ℂ) / 13
     norm_num [evalPrimitiveCircuitLE_singleton_ry_apply, primitiveLEBits,
       standardRyMatrix_ryAngle513_explicit_paper, realOrthogonalRotation]
   · change evalPrimitiveCircuitLE [PrimitiveGate.ry (2 : Fin 3) ryAngle513]
       (1 : Fin 8) (0 : Fin 8) = sparseRootState (1 : Fin 8)
     rw [sparseRootState_1]
+    change evalPrimitiveCircuitLE _
+      (⟨1, by norm_num [gridSize]⟩ : Fin (gridSize 3))
+      (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 3)) = 0
     norm_num [evalPrimitiveCircuitLE_singleton_ry_apply, primitiveLEBits,
       standardRyMatrix_ryAngle513_explicit_paper, realOrthogonalRotation]
   · change evalPrimitiveCircuitLE [PrimitiveGate.ry (2 : Fin 3) ryAngle513]
       (2 : Fin 8) (0 : Fin 8) = sparseRootState (2 : Fin 8)
     rw [sparseRootState_2]
+    change evalPrimitiveCircuitLE _
+      (⟨2, by norm_num [gridSize]⟩ : Fin (gridSize 3))
+      (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 3)) = 0
     norm_num [evalPrimitiveCircuitLE_singleton_ry_apply, primitiveLEBits,
       standardRyMatrix_ryAngle513_explicit_paper, realOrthogonalRotation]
   · change evalPrimitiveCircuitLE [PrimitiveGate.ry (2 : Fin 3) ryAngle513]
       (3 : Fin 8) (0 : Fin 8) = sparseRootState (3 : Fin 8)
     rw [sparseRootState_3]
+    change evalPrimitiveCircuitLE _
+      (⟨3, by norm_num [gridSize]⟩ : Fin (gridSize 3))
+      (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 3)) = 0
     norm_num [evalPrimitiveCircuitLE_singleton_ry_apply, primitiveLEBits,
       standardRyMatrix_ryAngle513_explicit_paper, realOrthogonalRotation]
   · change evalPrimitiveCircuitLE [PrimitiveGate.ry (2 : Fin 3) ryAngle513]
       (4 : Fin 8) (0 : Fin 8) = sparseRootState (4 : Fin 8)
     rw [sparseRootState_4]
+    change evalPrimitiveCircuitLE _
+      (⟨4, by norm_num [gridSize]⟩ : Fin (gridSize 3))
+      (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 3)) = (12 : ℂ) / 13
     norm_num [evalPrimitiveCircuitLE_singleton_ry_apply, primitiveLEBits,
       standardRyMatrix_ryAngle513_explicit_paper, realOrthogonalRotation]
   · change evalPrimitiveCircuitLE [PrimitiveGate.ry (2 : Fin 3) ryAngle513]
       (5 : Fin 8) (0 : Fin 8) = sparseRootState (5 : Fin 8)
     rw [sparseRootState_5]
+    change evalPrimitiveCircuitLE _
+      (⟨5, by norm_num [gridSize]⟩ : Fin (gridSize 3))
+      (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 3)) = 0
     norm_num [evalPrimitiveCircuitLE_singleton_ry_apply, primitiveLEBits,
       standardRyMatrix_ryAngle513_explicit_paper, realOrthogonalRotation]
   · change evalPrimitiveCircuitLE [PrimitiveGate.ry (2 : Fin 3) ryAngle513]
       (6 : Fin 8) (0 : Fin 8) = sparseRootState (6 : Fin 8)
     rw [sparseRootState_6]
+    change evalPrimitiveCircuitLE _
+      (⟨6, by norm_num [gridSize]⟩ : Fin (gridSize 3))
+      (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 3)) = 0
     norm_num [evalPrimitiveCircuitLE_singleton_ry_apply, primitiveLEBits,
       standardRyMatrix_ryAngle513_explicit_paper, realOrthogonalRotation]
   · change evalPrimitiveCircuitLE [PrimitiveGate.ry (2 : Fin 3) ryAngle513]
       (7 : Fin 8) (0 : Fin 8) = sparseRootState (7 : Fin 8)
     rw [sparseRootState_7]
+    change evalPrimitiveCircuitLE _
+      (⟨7, by norm_num [gridSize]⟩ : Fin (gridSize 3))
+      (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 3)) = 0
     norm_num [evalPrimitiveCircuitLE_singleton_ry_apply, primitiveLEBits,
       standardRyMatrix_ryAngle513_explicit_paper, realOrthogonalRotation]
 

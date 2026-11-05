@@ -1,0 +1,62 @@
+warning: verso: repository '<repo>\.lake/packages\verso' has local changes
+experiments/hermite-polynomial/precision/nominal-stage-transport/NominalStageTransport.lean:38:49: error: Ambiguous term
+  flip_flip
+Possible interpretations:
+  _root_.flip_flip : _root_.flip (_root_.flip ?m.87) = ?m.87
+  
+  HermiteSavedStageInterpreter.flip_flip : ∀ (q : Fin ?m.84) (i : Basis ?m.84),
+    HermiteSavedStageInterpreter.flip q (HermiteSavedStageInterpreter.flip q i) = i
+experiments/hermite-polynomial/precision/nominal-stage-transport/NominalStageTransport.lean:38:6: error: Type mismatch: After simplification, term
+  ry_pair_square theta (x i) (x (HermiteSavedStageInterpreter.flip q i))
+ has type
+  (realRyRow theta (x i, x (HermiteSavedStageInterpreter.flip q i))).1 ^ 2 +
+      (realRyRow theta (x i, x (HermiteSavedStageInterpreter.flip q i))).2 ^ 2 =
+    x i ^ 2 + x (HermiteSavedStageInterpreter.flip q i) ^ 2
+but is expected to have type
+  (realRyRow theta (x i, x (HermiteSavedStageInterpreter.flip q i))).1 ^ 2 +
+      (realRyRow theta
+            (x (HermiteSavedStageInterpreter.flip q (HermiteSavedStageInterpreter.flip q i)),
+              x (HermiteSavedStageInterpreter.flip q i))).2 ^
+        2 =
+    x i ^ 2 + x (HermiteSavedStageInterpreter.flip q i) ^ 2
+experiments/hermite-polynomial/precision/nominal-stage-transport/NominalStageTransport.lean:41:49: error: Ambiguous term
+  flip_flip
+Possible interpretations:
+  _root_.flip_flip : _root_.flip (_root_.flip ?m.104) = ?m.104
+  
+  HermiteSavedStageInterpreter.flip_flip : ∀ (q : Fin ?m.101) (i : Basis ?m.101),
+    HermiteSavedStageInterpreter.flip q (HermiteSavedStageInterpreter.flip q i) = i
+experiments/hermite-polynomial/precision/nominal-stage-transport/NominalStageTransport.lean:41:6: error: Type mismatch: After simplification, term
+  ry_pair_square theta (x (HermiteSavedStageInterpreter.flip q i)) (x i)
+ has type
+  (realRyRow theta (x (HermiteSavedStageInterpreter.flip q i), x i)).1 ^ 2 +
+      (realRyRow theta (x (HermiteSavedStageInterpreter.flip q i), x i)).2 ^ 2 =
+    x i ^ 2 + x (HermiteSavedStageInterpreter.flip q i) ^ 2
+but is expected to have type
+  (realRyRow theta (x (HermiteSavedStageInterpreter.flip q i), x i)).2 ^ 2 +
+      (realRyRow theta
+            (x (HermiteSavedStageInterpreter.flip q i),
+              x (HermiteSavedStageInterpreter.flip q (HermiteSavedStageInterpreter.flip q i)))).1 ^
+        2 =
+    x i ^ 2 + x (HermiteSavedStageInterpreter.flip q i) ^ 2
+experiments/hermite-polynomial/precision/nominal-stage-transport/NominalStageTransport.lean:52:10: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∑ i, ?v (HermiteSavedStageInterpreter.flip q i)
+in the target expression
+  ∑ x_1, vectorStep (Instruction.ry theta q) x x_1 ^ 2 +
+      ∑ x_1, vectorStep (Instruction.ry theta q) x (HermiteSavedStageInterpreter.flip q x_1) ^ 2 =
+    ∑ x_1, x x_1 ^ 2 + ∑ x_1, x (HermiteSavedStageInterpreter.flip q x_1) ^ 2
+
+case ry
+width : ℕ
+x : Basis width → ℝ
+theta : ℚ
+q : Fin width
+hp :
+  ∑ x_1, vectorStep (Instruction.ry theta q) x x_1 ^ 2 +
+      ∑ x_1, vectorStep (Instruction.ry theta q) x (HermiteSavedStageInterpreter.flip q x_1) ^ 2 =
+    ∑ x_1, x x_1 ^ 2 + ∑ x_1, x (HermiteSavedStageInterpreter.flip q x_1) ^ 2
+⊢ ∑ i, vectorStep (Instruction.ry theta q) x i ^ 2 = ∑ i, x i ^ 2
+experiments/hermite-polynomial/precision/nominal-stage-transport/NominalStageTransport.lean:129:4: error: mod_cast has type
+  (0 : ℚ) ≤ stageEta word degree bits
+but is expected to have type
+  (0 : ℝ) ≤ (actualStage word degree bits).error

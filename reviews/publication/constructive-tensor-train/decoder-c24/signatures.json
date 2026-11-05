@@ -1,0 +1,82 @@
+{
+  "kind": "exact source signatures corroborated by fresh-target #check output",
+  "namespace": "QuantumBlockEncoding.ConstructiveTensorTrain",
+  "ambient_namespace": "QuantumBlockEncoding.TensorTrainCanonical",
+  "declarations": [
+    {
+      "name": "QuantumBlockEncoding.ConstructiveTensorTrain.CoreFactorization",
+      "line_start": 21,
+      "statement_source": "structure CoreFactorization {l r : ℕ} (A : Core l r) where\n  R : _root_.Matrix (Fin l) (Fin (min l (2 * r))) ℝ\n  Q : Core (min l (2 * r)) r\n  factorization : A = R * Q\n  orthogonal : Q * Q.transpose = 1"
+    },
+    {
+      "name": "QuantumBlockEncoding.ConstructiveTensorTrain.factorCore",
+      "line_start": 28,
+      "statement_source": "noncomputable def factorCore {l r : ℕ} (A : Core l r) : CoreFactorization A"
+    },
+    {
+      "name": "QuantumBlockEncoding.ConstructiveTensorTrain.Result",
+      "line_start": 42,
+      "statement_source": "structure Result {n l r : ℕ} (C : Chain n l r) where\n  rank : ℕ\n  residual : _root_.Matrix (Fin l) (Fin rank) ℝ\n  canonical : Chain n rank r\n  rightCanonical : RightCanonical canonical\n  rankReduced : RankReduced C canonical\n  action : ∀ x, contract C x = residual * contract canonical x"
+    },
+    {
+      "name": "QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize",
+      "line_start": 51,
+      "statement_source": "noncomputable def canonicalize : {n l r : ℕ} → (C : Chain n l r) → Result C"
+    },
+    {
+      "name": "QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_rightCanonical",
+      "line_start": 74,
+      "statement_source": "theorem canonicalize_rightCanonical {n l r : ℕ} (C : Chain n l r) :\n    RightCanonical (canonicalize C).canonical"
+    },
+    {
+      "name": "QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_rankReduced",
+      "line_start": 77,
+      "statement_source": "theorem canonicalize_rankReduced {n l r : ℕ} (C : Chain n l r) :\n    RankReduced C (canonicalize C).canonical"
+    },
+    {
+      "name": "QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_action",
+      "line_start": 80,
+      "statement_source": "theorem canonicalize_action {n l r : ℕ} (C : Chain n l r) (x : Word n) :\n    contract C x = (canonicalize C).residual * contract (canonicalize C).canonical x"
+    },
+    {
+      "name": "QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_maxBond_le",
+      "line_start": 84,
+      "statement_source": "theorem canonicalize_maxBond_le {n l r : ℕ} (C : Chain n l r) :\n    maxBond (canonicalize C).canonical ≤ maxBond C"
+    },
+    {
+      "name": "QuantumBlockEncoding.ConstructiveTensorTrain.boundary",
+      "line_start": 89,
+      "statement_source": "noncomputable def boundary {n l r : ℕ} (C : Chain n l r) (v : Fin l → ℝ) :\n    Fin (canonicalize C).rank → ℝ"
+    },
+    {
+      "name": "QuantumBlockEncoding.ConstructiveTensorTrain.boundary_action",
+      "line_start": 92,
+      "statement_source": "theorem boundary_action {n l r : ℕ} (C : Chain n l r) (v : Fin l → ℝ) (x : Word n) :\n    _root_.Matrix.vecMul v (contract C x) =\n      _root_.Matrix.vecMul (boundary C v) (contract (canonicalize C).canonical x)"
+    },
+    {
+      "name": "QuantumBlockEncoding.ConstructiveTensorTrain.boundary_mass",
+      "line_start": 99,
+      "statement_source": "theorem boundary_mass {n l r : ℕ} (C : Chain n l r) (v : Fin l → ℝ) :\n    chainMass C v = mass (boundary C v)"
+    },
+    {
+      "name": "QuantumBlockEncoding.ConstructiveTensorTrain.boundary_normalized",
+      "line_start": 104,
+      "statement_source": "theorem boundary_normalized {n l r : ℕ} (C : Chain n l r) (v : Fin l → ℝ)\n    (normalized : chainMass C v = 1) : mass (boundary C v) = 1"
+    },
+    {
+      "name": "QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary",
+      "line_start": 109,
+      "statement_source": "noncomputable def stateBoundary {n : ℕ} (C : Chain n 1 1) :\n    Fin (canonicalize C).rank → ℝ"
+    },
+    {
+      "name": "QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary_action",
+      "line_start": 112,
+      "statement_source": "theorem stateBoundary_action {n : ℕ} (C : Chain n 1 1) (x : Word n) :\n    contract C x 0 0 = ∑ a, stateBoundary C a * contract (canonicalize C).canonical x a 0"
+    },
+    {
+      "name": "QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary_normalized",
+      "line_start": 118,
+      "statement_source": "theorem stateBoundary_normalized {n : ℕ} (C : Chain n 1 1)\n    (normalized : (∑ x : Word n, (contract C x 0 0) ^ 2) = 1) :\n    mass (stateBoundary C) = 1"
+    }
+  ]
+}

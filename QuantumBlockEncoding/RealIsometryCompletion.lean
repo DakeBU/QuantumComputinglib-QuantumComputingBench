@@ -42,7 +42,10 @@ theorem exists_orthogonal_completion {N r : ℕ}
   have ho : Orthonormal ℝ ((Set.range e).restrict f) := by
     rw [orthonormal_iff_ite]
     rintro ⟨i, a, rfl⟩ ⟨j, b, rfl⟩
-    simpa [Set.restrict_apply, hf, e.injective.eq_iff] using
+    change ⟪f (e a), f (e b)⟫_ℝ =
+      if (⟨e a, ⟨a, rfl⟩⟩ : Set.range e) = ⟨e b, ⟨b, rfl⟩⟩ then 1 else 0
+    rw [hf, hf]
+    simpa [Subtype.ext_iff, e.injective.eq_iff] using
       (orthonormal_iff_ite.mp hc a b)
   have hd : Module.finrank ℝ (EuclideanSpace ℝ (Fin N)) = Fintype.card (Fin N) := by simp
   obtain ⟨basis, hb⟩ := ho.exists_orthonormalBasis_extension_of_card_eq hd
@@ -51,9 +54,9 @@ theorem exists_orthogonal_completion {N r : ℕ}
   · ext a b
     have h := basis.inner_eq_ite a b
     simp only [PiLp.inner_apply] at h
-    change (∑ i, basis b i * basis a i) = if a = b then (1 : ℝ) else 0 at h
-    simpa [U, _root_.Matrix.mul_apply,
-      _root_.Matrix.transpose_apply, _root_.Matrix.one_apply, mul_comm] using h
+    rw [_root_.Matrix.mul_apply]
+    change (∑ i, basis a i * basis b i) = if a = b then (1 : ℝ) else 0
+    simpa [mul_comm] using h
   · intro i a
     change basis (e a) i = V i a
     rw [hb (e a) ⟨a, rfl⟩, hf]

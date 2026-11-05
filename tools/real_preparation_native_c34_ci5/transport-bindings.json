@@ -1,0 +1,97 @@
+{
+  "schema": "C38_C34_CI5_PARENT_REVIEWED_GATED_ENVELOPE_TRANSPORT",
+  "archive_sha256": "97bfea091bf49cc17790aa52a3dab0f5e1d8316f2cef129e1989e5159ec35578",
+  "approved_seal_sha256": "27e4809bb7ec98fe0d3872ae314353f11e6dc1f75dda4f6a4d9d4b460edc8e24",
+  "launcher_sha256": "022f200caa52ece2f1fdf49d6904f52db419baa5552a2d63615aaabc7e642f03",
+  "launcher_exact5identity_replacements": [
+    {
+      "before": "058990f8d6ea9a4ffc18696d81a56f40fd16cb4a9a3102dc2bff43e1f3a1afd9",
+      "after": "97bfea091bf49cc17790aa52a3dab0f5e1d8316f2cef129e1989e5159ec35578"
+    },
+    {
+      "before": "7bf39b09d1720039016864c40d56ad05fef221dae45e633a0ee2cbd22d288439",
+      "after": "27e4809bb7ec98fe0d3872ae314353f11e6dc1f75dda4f6a4d9d4b460edc8e24"
+    },
+    {
+      "before": "len(names)!=24",
+      "after": "len(names)!=31"
+    },
+    {
+      "before": "_out/c34-native-ci4",
+      "after": "_out/c34-native-ci5"
+    },
+    {
+      "before": "C34_PARENT_SAME_CAP_SERIAL_CI4_LAUNCH_RECEIPT",
+      "after": "C34_PARENT_GATED_5120_CI5_LAUNCH_RECEIPT"
+    }
+  ],
+  "changed_existing": [
+    "bindings.py",
+    "compile-policy.json",
+    "discovery.py",
+    "package-bindings.json",
+    "packet-seal.json",
+    "profile.json",
+    "runner.py",
+    "test_discovery.py",
+    "test_serial_policy.py"
+  ],
+  "added": [
+    "resource-chain.json",
+    "resource-vendor/callback_v2.py",
+    "resource-vendor/resource_common.py",
+    "resource-vendor/resource_gate_v4.py",
+    "resource_adapter.py",
+    "resource_fixtures.py",
+    "test_resource_gate.py"
+  ],
+  "resource_source_chain_sha256": "318e5391bec2a22d6f16b37fad12ecc0d5583f1bb6b35189e0379585e2591736",
+  "memory_mib": 5120,
+  "reserve_mib": 2048,
+  "required_current_effective_headroom_mib": 7168,
+  "threads": 1,
+  "whole_seconds": 2100,
+  "automatic_retries": 0,
+  "automatic_escalation": false,
+  "argv_profile_budget_consistent": true,
+  "capacity_from_this_job_only": true,
+  "source_roots": 57,
+  "candidates": 220,
+  "source_collector_parser_validator_unchanged": true,
+  "old_native_failures_preserved": true,
+  "actual_CI5_Lean": "NOT_RUN",
+  "nativeAccepted": false,
+  "scientific_ROOT": false,
+  "workflow_before_sha256": "0c00a08a73f2ecfc64d2ae9587ac3204b21b2ac5c214f5556fd4e9281729d3d1",
+  "workflow_after_sha256": "1776c73a88701f0b1334af05e6fe624b61241cb9cdce317361cf9e2569eafffb",
+  "workflow_changes": [
+    {
+      "before": "      - 'tools/real_preparation_native_c34_ci4/**'",
+      "after": "      - 'tools/real_preparation_native_c34_ci4/**'\n      - 'tools/real_preparation_native_c34_ci5/**'"
+    },
+    {
+      "before": "      - name: Exact portable transport and 29 Python-only guards",
+      "after": "      - name: Exact portable transport and 35 Python-only resource guards"
+    },
+    {
+      "before": "        run: python3 -B tools/real_preparation_native_c34_ci4/launch.py --python-tests",
+      "after": "        run: python3 -B tools/real_preparation_native_c34_ci5/launch.py --python-tests"
+    },
+    {
+      "before": "        run: lake env python3 -B tools/real_preparation_native_c34_ci4/launch.py --ci",
+      "after": "        run: lake env python3 -B tools/real_preparation_native_c34_ci5/launch.py --ci"
+    },
+    {
+      "before": "            _out/c34-native-ci4/public/",
+      "after": "            _out/c34-native-ci5/public/"
+    }
+  ],
+  "parent_read": "Full handoff/runner/resource adapter/bindings/test discovery/serial/resource tests/chain read; exact non-envelope profile and discovery inverse budget transform verified; previous unchanged runtime suppliers retain prior provenance.",
+  "caveat": "Non-atomic observations are not memory reservation or kernel attestation. Windows synthetic fixtures and another job cannot authorize actual CI capacity.",
+  "verifier_changed": false,
+  "required_workflows_changed": false,
+  "production_changed": false,
+  "target_changed": false,
+  "scoring_changed": false,
+  "rollback": "Select retained CI4 launcher in this optional workflow and restore current-version assertions; preserve all exact packages and failure artifacts."
+}

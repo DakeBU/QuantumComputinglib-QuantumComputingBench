@@ -1,0 +1,40 @@
+name: Cubic C29 kernel-only candidate diagnostic WIP
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/c29-kernel-only-diagnostic.yml'
+      - 'tools/cubic_c29_kernel_ci1/**'
+permissions:
+  contents: read
+concurrency:
+  group: c29-kernel-only-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  c29-kernel-candidate-independent:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v5
+      - name: Exact transport and 31 Python-only guards
+        run: python3 -B tools/cubic_c29_kernel_ci1/launch.py --python-tests
+      - name: Prepare pinned Lean and inherited dependency providers
+        uses: leanprover/lean-action@v1
+        with:
+          auto-config: false
+          use-github-cache: true
+          use-mathlib-cache: true
+      - name: Build only the five inherited local providers
+        run: lake build QuantumBlockEncoding.Core QuantumBlockEncoding.Resources QuantumBlockEncoding.Circuit QuantumBlockEncoding.BlockEncoding QuantumBlockEncoding.BlockEncodingClassics
+      - name: One fresh kernel candidate and full axiom/signature diagnostic
+        run: lake env python3 -B tools/cubic_c29_kernel_ci1/launch.py --execute-reviewed-candidate
+      - name: Preserve sanitized diagnostics even after bounded failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: c29-kernel-only-${{ github.sha }}
+          path: |
+            _out/cubic-c29-kernel-only-v1/public/
+            _out/cubic-c29-kernel-ci1/public/
+          if-no-files-found: warn
+          retention-days: 7

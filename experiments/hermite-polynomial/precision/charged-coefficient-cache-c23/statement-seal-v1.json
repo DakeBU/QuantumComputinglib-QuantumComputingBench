@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "direction_fingerprint": "C23_ACTUAL_CHARGED_SOURCE_COEFFICIENT_CACHE",
+  "state": "STATEMENT_SEALED_BEFORE_PROOF_SEARCH",
+  "scope": "Stored source coefficients only, not middleCoeffQ, all-entry evaluation, full runtime, finite-bit synthesis, or source admission",
+  "definition_kind": "literal",
+  "final_signatures": [
+    "def produceSourceCache (k : Nat) : QuantumBlockEncoding.StoredGivens.Run (Vector Rat (k+1))",
+    "theorem produceSourceCache_entry (k : Nat) (i : Fin (k+1)) : (produceSourceCache k).value[i.val] = HermitePiecewiseAssembly.sourceCoefficientQ k i.val",
+    "theorem produceSourceCache_cost_le (k : Nat) (op : QuantumBlockEncoding.StoredGivens.Op) : (produceSourceCache k).cost op <= sourceCacheBudget k"
+  ],
+  "sourceCacheBudget": "7*(2*k+1)^2*(k+1)+4*(2*k+1)+(k+1)*(2*k+4)+(k+1)*(5*(k+1)+4)",
+  "binder_audit": {"k": "TYPING", "i": "TYPING", "op": "TYPING", "logical_inputs": [], "EXCESS": []},
+  "construction": "Materialize rational Pascal rows n=0..2k, width k+1. Each row uses a stored previous row with two charged reads and one charged add per nonzero column; base literals 0/1. Materialize factorials r=0..k using charged successor-index embedding and multiplication. Each source entry reads cached row k+i-r, binomial column k, factorial r; charged division and accumulated addition. No Nat.choose or factorial computation appears in executable producer bodies; they occur only in correctness specifications.",
+  "operation_model": "Inherited StoredGivens Run, tick and collect. Rational field add/multiply/divide and Nat-to-Rat successor embedding cost one field tick. Reads and two-pass collect traffic charged. Natural index arithmetic, index branches, recursion control and counter bookkeeping outside this scalar/word model. Every nonconstant rational arithmetic operation in the producer is charged. Integer bitlength, GCD reduction, allocation internals, physical runtime and finite-bit circuit compilation are NOT bounded.",
+  "coverage": [
+    {"source": "piecewise-kernel-assembly-c21/ActualCoefficients.lean: sourceCoefficientQ", "disposition": "NODE", "identity": "C23-source-coefficient-formula", "formula": "sum r in range(i+1), choose(k+i-r,k)/r!"},
+    {"source": "piecewise-kernel-assembly-c21/ActualCoefficients.lean: sourceCoefficientQ_eq", "disposition": "NODE", "identity": "C21-actual-coefficient-bridge", "note": "Existing source bridge inherited, not independently admitted here"},
+    {"source": "piecewise-kernel-assembly-c21/ActualCoefficients.lean: middleCoeffQ and expandedMiddle", "disposition": "EXCLUDED", "reason": "Next consumer of source cache, not this bounded prerequisite"},
+    {"source": "piecewise-kernel-stored-c22/RationalBlocks.lean: middleQ and actualBlocksQ", "disposition": "EXCLUDED", "reason": "Consumer context, no C22 mutation or full boundary cost claim"},
+    {"source": "piecewise-kernel-stored-c22/StoredProducer.lean: produceQData", "disposition": "EXCLUDED", "reason": "Full local-table route remains beyond this slice"},
+    {"source": "piecewise-kernel-stored-c22/AccountedTraffic.lean", "disposition": "EXCLUDED", "reason": "Traffic-only ledger not recast as scalar runtime"}
+  ],
+  "conventions": "Exact rationals, signed full source and q0LSB unchanged; cache has no quantum registers, normalizer, approximation or oracle hypotheses",
+  "independent_review": "PENDING; formalizer does not claim independence or source admission",
+  "expected_information_gain": "Remove repeated nonconstant sourceCoefficientQ evaluation from the C22 scalar-cost prerequisite by a stored polynomially bounded producer on the same returned vector"
+}

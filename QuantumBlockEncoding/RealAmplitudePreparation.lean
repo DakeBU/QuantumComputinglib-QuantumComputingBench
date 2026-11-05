@@ -184,21 +184,25 @@ theorem splitAngle_firstColumn (a b : ℝ) (v : Fin 2) :
       ring
     simp only [splitAngle, if_neg hz, ExactAngle.eval, standardRyMatrix]
     rw [hangle]
-    fin_cases v <;> by_cases hb : b < 0
-    · simpa only [if_pos hb, realRotation, realOrthogonalRotation, Fin.val_zero,
-        Real.cos_neg, if_pos rfl, Complex.ofReal_mul] using congrArg Complex.ofReal hc
-    · simpa only [if_neg hb, realRotation, realOrthogonalRotation, Fin.val_zero,
-        if_pos rfl, Complex.ofReal_mul] using congrArg Complex.ofReal hc
-    · have he : -(Real.sin (Real.arccos (a / pairNorm a b)) * pairNorm a b) = b := by
-        nlinarith
-      simpa only [if_pos hb, realRotation, realOrthogonalRotation, Fin.val_zero,
-        Fin.val_one, Real.sin_neg, Complex.ofReal_neg, Complex.ofReal_mul,
-        neg_mul, show (1 : Fin 2) ≠ 0 from by decide, if_false] using congrArg Complex.ofReal he
-    · have he : Real.sin (Real.arccos (a / pairNorm a b)) * pairNorm a b = b := by
-        nlinarith
-      simpa only [if_neg hb, realRotation, realOrthogonalRotation, Fin.val_zero,
-        Fin.val_one, Complex.ofReal_mul,
-        show (1 : Fin 2) ≠ 0 from by decide, if_false] using congrArg Complex.ofReal he
+    fin_cases v
+    · change realRotation (if b < 0 then -Real.arccos (a / pairNorm a b)
+          else Real.arccos (a / pairNorm a b)) 0 0 * (pairNorm a b : ℂ) = (a : ℂ)
+      rw [realRotation_zero_zero]
+      by_cases hb : b < 0
+      · simpa only [if_pos hb, Real.cos_neg, Complex.ofReal_mul] using
+          congrArg Complex.ofReal hc
+      · simpa only [if_neg hb, Complex.ofReal_mul] using congrArg Complex.ofReal hc
+    · change realRotation (if b < 0 then -Real.arccos (a / pairNorm a b)
+          else Real.arccos (a / pairNorm a b)) 1 0 * (pairNorm a b : ℂ) = (b : ℂ)
+      rw [realRotation_one_zero]
+      by_cases hb : b < 0
+      · have he : -(Real.sin (Real.arccos (a / pairNorm a b)) * pairNorm a b) = b := by
+          nlinarith
+        simpa only [if_pos hb, Real.sin_neg, Complex.ofReal_neg, Complex.ofReal_mul,
+          neg_mul] using congrArg Complex.ofReal he
+      · have he : Real.sin (Real.arccos (a / pairNorm a b)) * pairNorm a b = b := by
+          nlinarith
+        simpa only [if_neg hb, Complex.ofReal_mul] using congrArg Complex.ofReal he
 
 /-- Marginal amplitudes on all but the highest wire. -/
 noncomputable def marginal {n : Nat} (f : PrimitiveBasis (n + 1) → ℝ) :
@@ -369,7 +373,9 @@ theorem prepareCircuit_oracleCalls {n : Nat} (f : PrimitiveBasis n → ℝ) :
   | zero => rfl
   | succ n ih =>
     change 0 + 2 * (primitiveBasisLEEquiv n (fun _ => 0)).val = 0
-    simpa using congrArg (fun x : Nat => 2 * x) ih
+    have ihVal : (primitiveBasisLEEquiv n (fun _ => 0)).val = 0 := by
+      simpa [zeroBasisIndex] using ih
+    simp [ihVal]
 
 @[simp] theorem primitiveBasisLE_zero_symm (n : Nat) :
     (primitiveBasisLEEquiv n).symm (zeroBasisIndex n) = (fun _ => 0) := by

@@ -1,0 +1,28 @@
+SourceSuffixBindingProof.lean:16:66: error: unsolved goals
+k : ℕ
+i : Fin (k + 1)
+r : Fin (↑i + 1)
+⊢ ↑((k + ↑i - ↑r).choose k) / (actualFactorials k)[↑r] = ↑((k + ↑i - ↑r).choose k) / ↑(↑r).factorial
+SourceSuffixBindingProof.lean:20:34: warning: This simp argument is unused:
+  actualFactorials_entry
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [actualSourceTerm, bind, Run.bind, QuantumBlockEncoding.StoredGivens.read,
+    HermiteChargedSourceCache.qDiv, charge,
+    HermiteChargedSourceCache.chooseFrom_value (actualFactorials k) (actualFactorials_entry k)]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+SourceSuffixBindingProof.lean:58:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∑ i, ?f ↑i
+in the target expression
+  ∑ x, ↑((k + ↑i - (↑s + (↑x + 1))).choose k) / ↑(↑s + (↑x + 1)).factorial =
+    ∑ x ∈ Finset.range (↑i - ↑s), ↑((k + ↑i - (↑s + 1 + x)).choose k) / ↑(↑s + 1 + x).factorial
+
+k : ℕ
+i : Fin (k + 1)
+s : Fin (↑i + 2)
+h : ↑s < ↑i + 1
+hlen : ↑i + 1 - (↑s + 1) = ↑i - ↑s
+⊢ ∑ x, ↑((k + ↑i - (↑s + (↑x + 1))).choose k) / ↑(↑s + (↑x + 1)).factorial =
+    ∑ x ∈ Finset.range (↑i - ↑s), ↑((k + ↑i - (↑s + 1 + x)).choose k) / ↑(↑s + 1 + x).factorial
+'HermiteSourceSuffix.actualSuffix' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]

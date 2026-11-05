@@ -1,0 +1,94 @@
+{
+  "schema": "aspbe-experimental-statement-seal-v1",
+  "status": "PROVED_LOCAL",
+  "scope": "Local staging only; not PROOF_SEALED, published, merged, or purified",
+  "source_revision": [
+    {"url": "https://arxiv.org/pdf/2307.08384v3", "anchor": "main text equations (1)-(5), Figure 1", "inspected": "PDF extracted text, equations and Figure 1 caption only; screenshot call returned a text reference, not inspected figure pixels"},
+    {"url": "https://arxiv.org/html/2502.05193v1", "anchor": "II.2 equation (11); Figure 2; II.3 constant phase paragraph", "inspected": "version-pinned HTML"}
+  ],
+  "statement_version": 1,
+  "ambient": {
+    "scalar": "Complex",
+    "carrier": "alpha × Fin 2; alpha arbitrary finite decidable carrier",
+    "order": "data first, ancilla second; no packed integer identification or Walsh parity wire map",
+    "input": "s : alpha -> Complex, initially ancilla 0; no normalization required for the linear identity",
+    "action": "lift existing hadamardMatrix, controlled diagonal diag(1,z(x)), lift existing hadamardMatrix, lift existing phaseMatrix(-pi/2)",
+    "sampled_phase": "z(x)=Complex.exp(((-tau*f(x) : Real) : Complex)*Complex.I)",
+    "output": "anc0=(1+z(x))*s(x)/2; anc1=-I*(1-z(x))*s(x)/2",
+    "relative_phase": "No global-phase quotient; every output amplitude is exact",
+    "success": "accepted ancilla 1; branch mass is finite sum of Complex.normSq amplitudes",
+    "resource_tier": "ideal exact-real matrix semantics only; no circuit compiler, finite-bit, query, depth or asymptotic claim"
+  },
+  "binder_audit": [
+    {"binder": "alpha : Type; Fintype alpha; DecidableEq alpha", "classification": "TYPING"},
+    {"binder": "f : alpha -> Real; tau : Real", "classification": "SOURCE", "difference": "generalization: exact identity holds for all real tau, not only positive"},
+    {"binder": "s : alpha -> Complex", "classification": "SOURCE", "difference": "generalization: arbitrary input amplitudes; source uniform input is a specialization"},
+    {"binder": "z : alpha -> Complex in generic reusable lemma", "classification": "TYPING", "difference": "internal algebraic generalization; no unitary claim for arbitrary z"}
+  ],
+  "definition_audit": {
+    "ancillaMatrix": "literal block diagonal lift, entry if data labels agree then G(rowAnc,colAnc) else 0",
+    "controlledDiagonal": "literal diagonal matrix with eigenvalue 1 on anc0 and z(x) on anc1",
+    "initialState": "literal amplitudes s(x) on anc0, zero on anc1",
+    "interferenceOutput": "literal nested Matrix.mulVec composition P(H(C_z(H(input))))",
+    "sampledOutput": "literal specialization z(x)=exp(-i*tau*f(x))",
+    "quotient_or_choice": "none"
+  },
+  "sealed_signatures": [
+    "theorem interference_branches {alpha : Type*} [Fintype alpha] [DecidableEq alpha] (z s : alpha -> Complex) (x : alpha) : interferenceOutput z s (x, 0) = (1 + z x) * s x / 2 ∧ interferenceOutput z s (x, 1) = -Complex.I * (1 - z x) * s x / 2",
+    "theorem sampled_branches {alpha : Type*} [Fintype alpha] [DecidableEq alpha] (f : alpha -> Real) (tau : Real) (s : alpha -> Complex) (x : alpha) : sampledOutput f tau s (x, 0) = (1 + sampledPhase f tau x) * s x / 2 ∧ sampledOutput f tau s (x, 1) = -Complex.I * (1 - sampledPhase f tau x) * s x / 2",
+    "theorem constant_branches {alpha : Type*} [Fintype alpha] [DecidableEq alpha] (c tau : Real) (s : alpha -> Complex) (x : alpha) : sampledOutput (fun _ => c) tau s (x, 0) = (1 + Complex.exp((((-tau*c : Real) : Complex)*Complex.I))) * s x / 2 ∧ sampledOutput (fun _ => c) tau s (x, 1) = -Complex.I * (1 - Complex.exp((((-tau*c : Real) : Complex)*Complex.I))) * s x / 2",
+    "theorem omitted_constant_zero {alpha : Type*} [Fintype alpha] [DecidableEq alpha] (s : alpha -> Complex) (x : alpha) : interferenceOutput (fun _ => 1) s (x, 1) = 0"
+  ],
+  "source_coverage": {
+    "nodes": ["initial uniform input is a specialization of s", "first ancilla H", "controlled sampled diagonal phase", "second ancilla H", "P=diag(1,-i)", "exact two-sector equation (3)", "constant-mode phase becomes relative under control"],
+    "excluded": ["Walsh finite expansion and synthesis: separate frontier", "Eq(4) normalized approximate target: not this bounded exact identity", "Eq(5) asymptotic scaling: excluded", "all complexity/error theorems and experiments: excluded"],
+    "source_gaps": ["wire/order convention to physical parity circuit", "controlled Walsh-product realization including a0", "nonzero accepted branch and normalized output", "error bounds", "resources"],
+    "independent_review": "pending; implementation worker is neither source-blind decoder nor independent topology reviewer"
+  },
+  "reuse": {"required_import": "QuantumBlockEncoding.PrimitiveMacros", "existing": ["QuantumBlockEncoding.hadamardMatrix", "QuantumBlockEncoding.hadamardMatrix_apply", "QuantumBlockEncoding.phaseMatrix", "QuantumBlockEncoding.phaseMatrix_apply", "Matrix.mulVec", "Matrix.diagonal", "Complex.normSq_mul", "Complex.normSq_div", "Real.sin_sq_add_cos_sq", "Real.cos_two_mul"], "new": "bounded controlled-diagonal interference composition, not new gate foundations"},
+  "preproof_signature_binding": {
+    "encoding": "UTF-8; sealed_signatures followed by extension signatures, LF between strings, no trailing LF",
+    "sha256": "cbc4cc1cca07afe560926581fb47c9de53813bf2283c89a264420bd6f27879f0"
+  },
+  "proof_context_binding": {
+    "repository_head": "8c341b099e21ca98c264076837f10787a80d0c8f",
+    "lean_toolchain": "leanprover/lean4:v4.33.0",
+    "toolchain_file_sha256": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "lake_manifest_sha256": "510171e8214a2ac5e00f16c1bf92ad474d2de42c4cd2dc2b3d411272f7b58763",
+    "PrimitiveMacros_source_sha256": "ce91b3a541f07d34eb3166f86a88a8a3bff48b99510fc8ac757fbf98fe8160c1",
+    "whole_repository_gate": "NOT_RUN: bounded experiment assignment prohibits full builds; root integration gate remains pending"
+  },
+  "extension_seal_v1_before_extension_proof_search": {
+    "definition_kind": "literal",
+    "acceptedMass": "sum x : alpha, Complex.normSq (sampledOutput f tau s (x,1)); a probability only for normalized input",
+    "signatures": [
+      "theorem accepted_mass_exact (f : alpha -> Real) (tau : Real) (s : alpha -> Complex) : acceptedMass f tau s = sum x, Complex.normSq (s x) * Real.sin (tau * f x / 2)^2",
+      "theorem uniform_accepted_mass (n : Nat) (f : Fin (2^n) -> Real) (tau : Real) : acceptedMass f tau (fun _ => ((1 / Real.sqrt ((2^n : Nat) : Real) : Real) : Complex)) = (sum x : Fin (2^n), Real.sin (tau*f x/2)^2) / ((2^n : Nat) : Real)",
+      "theorem constant_pi_accepted (s : alpha -> Complex) (x : alpha) : sampledOutput (fun _ => 1) Real.pi s (x,1) = -Complex.I * s x"
+    ],
+    "binder_audit": "same carrier/input/source binders as main seal; n is TYPING; no normalized-state or success premises supplied",
+    "claim_boundary": "Exact raw branch mass; no asymptotic identification with f, no epsilon or performance claim"
+  },
+  "local_gate": {
+    "command": "lake env lean experiments/walsh-loader/WalshInterference.lean",
+    "exit_code": 0,
+    "module_sha256": "23c558e275eb95e0b15ff2b9e95f83c0d208008e30d806c216ae564eab9a5f1a",
+    "checked_roots": ["QuantumBlockEncoding.WalshInterference.interference_branches", "QuantumBlockEncoding.WalshInterference.sampled_branches", "QuantumBlockEncoding.WalshInterference.controlled_constant_phase", "QuantumBlockEncoding.WalshInterference.accepted_mass_exact", "QuantumBlockEncoding.WalshInterference.uniform_accepted_mass", "QuantumBlockEncoding.WalshInterference.constant_pi_accepted"],
+    "axiom_checks": "#print axioms on all six checked roots reports only propext, Classical.choice, Quot.sound; no sorryAx or custom axiom",
+    "regression_examples": ["Fin 1 omitted phase accepted branch zero", "Fin 1 constant 1 at tau=pi accepted amplitude -I", "exact non-equality with omitted phase", "zero sampled f accepted branch zero", "tau=0 accepted branch zero", "Fin 1 accepted mass equals sin squared"],
+    "warning": "Existing dirty verso dependency warning; no staging Lean errors or staging linter warnings in final gate",
+    "whole_repository_and_publication_gates": "Pending root integration; local staging compilation is not PROOF_SEALED or production admission"
+  },
+  "handoff": {
+    "direction_fingerprint": "existing primitive full matrix composition -> exact sector amplitudes -> branch norm -> constant-phase discriminator",
+    "expected_information_gain": "Distinguish actual exact interference and relative-phase dependence from falsely assuming finite-tau exact f loading",
+    "process_memory_ids_consulted": [],
+    "parallel_admission": "Explicit parent/user authorization; implementation-informed proof worker, independent source/decoder roles excluded",
+    "common_blind_spot_review": "Pending independent review; no competing mathematical route authored here",
+    "salvage": "No rejected mathematical route; ordinary namespace/cast/simplification elaboration errors repaired",
+    "default_route": "Existing H/P matrices composed literally; no replacement quantum foundations",
+    "remaining": ["independent source topology and source-blind decoder review", "actual Walsh parity wire/order map", "Walsh expansion synthesis and controlled term composition", "uniform Hadamard tower preparation", "normalization of accepted branch when nonzero", "approximation/error and finite-bit/resource results", "repository integration and publication gates", "post-integration purification and Exposition Seal"]
+  },
+  "failure_class": "NONE",
+  "purification": "pending integration; experimental route only"
+}

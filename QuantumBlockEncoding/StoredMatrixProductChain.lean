@@ -104,7 +104,7 @@ theorem tailChain_value {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))
       rw [h0, ih (tailTable tables).value (start + 1)]
       intro i
       rw [tailTable_value, h i.succ]
-      simp [Fin.val_succ, Nat.add_comm, Nat.add_left_comm]
+      simp [Fin.val_succ, Nat.add_comm, Nat.add_left_comm] <;> rfl
 
 theorem closeLeft_value {n D : ℕ} (left : Vector ℝ D) (C : StoredChain (n + 1) D 1) :
     denoteChain (closeLeft left C).value =

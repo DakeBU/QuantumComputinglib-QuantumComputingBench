@@ -1,0 +1,968 @@
+{
+  "module": "QuantumBlockEncoding/StoredGivens.lean",
+  "source_id": "aspbe-local-stored-rectangular-elimination-v1",
+  "source_statement": "For arbitrary stored real N-by-M matrices, literal cached-angle persistent row updates refine the supplied exact elimination, and the legal fused adjacent sweep returns one coherent chronological log/residual satisfying action and exact length/emission; its eight annotation counters are at most count*(6M+8,1,1,2,2,10M+2N+6,6M+2N,1), with materialization callback/storage costs separate. Whole60 named declarations and anonymous instance preserved.",
+  "source_anchor": "docs/lessons/stored-rectangular-elimination-v1.md sections S1-S7",
+  "lesson_path": "docs/lessons/stored-rectangular-elimination-v1.md",
+  "declarations": [
+    "QuantumBlockEncoding.StoredGivens.Op",
+    "QuantumBlockEncoding.StoredGivens.Cost",
+    "QuantumBlockEncoding.StoredGivens.tick",
+    "QuantumBlockEncoding.StoredGivens.Run",
+    "QuantumBlockEncoding.StoredGivens.Run.pure",
+    "QuantumBlockEncoding.StoredGivens.Run.bind",
+    "QuantumBlockEncoding.StoredGivens.charge",
+    "QuantumBlockEncoding.StoredGivens.add",
+    "QuantumBlockEncoding.StoredGivens.sub",
+    "QuantumBlockEncoding.StoredGivens.mul",
+    "QuantumBlockEncoding.StoredGivens.div",
+    "QuantumBlockEncoding.StoredGivens.sqrt",
+    "QuantumBlockEncoding.StoredGivens.arccos",
+    "QuantumBlockEncoding.StoredGivens.cos",
+    "QuantumBlockEncoding.StoredGivens.sin",
+    "QuantumBlockEncoding.StoredGivens.zeroTest",
+    "QuantumBlockEncoding.StoredGivens.signTest",
+    "QuantumBlockEncoding.StoredGivens.read",
+    "QuantumBlockEncoding.StoredGivens.collect",
+    "QuantumBlockEncoding.StoredGivens.replace",
+    "QuantumBlockEncoding.StoredGivens.StoredMatrix",
+    "QuantumBlockEncoding.StoredGivens.denote",
+    "QuantumBlockEncoding.StoredGivens.materialize",
+    "QuantumBlockEncoding.StoredGivens.collect_value",
+    "QuantumBlockEncoding.StoredGivens.collect_cost",
+    "QuantumBlockEncoding.StoredGivens.angle",
+    "QuantumBlockEncoding.StoredGivens.angle_value",
+    "QuantumBlockEncoding.StoredGivens.coefficients",
+    "QuantumBlockEncoding.StoredGivens.coefficients_value",
+    "QuantumBlockEncoding.StoredGivens.entryPair",
+    "QuantumBlockEncoding.StoredGivens.entryPair_value",
+    "QuantumBlockEncoding.StoredGivens.entryPair_cost",
+    "QuantumBlockEncoding.StoredGivens.rowPair",
+    "QuantumBlockEncoding.StoredGivens.rowPair_value",
+    "QuantumBlockEncoding.StoredGivens.rotate",
+    "QuantumBlockEncoding.StoredGivens.rotate_value",
+    "QuantumBlockEncoding.StoredGivens.Elimination",
+    "QuantumBlockEncoding.StoredGivens.eliminate",
+    "QuantumBlockEncoding.StoredGivens.eliminate_angle",
+    "QuantumBlockEncoding.StoredGivens.eliminate_matrix",
+    "QuantumBlockEncoding.StoredGivens.Sweep",
+    "QuantumBlockEncoding.StoredGivens.columnSweep",
+    "QuantumBlockEncoding.StoredGivens.columnSweep_matrix",
+    "QuantumBlockEncoding.StoredGivens.columnSweep_steps",
+    "QuantumBlockEncoding.StoredGivens.angleBudget",
+    "QuantumBlockEncoding.StoredGivens.angle_cost_le",
+    "QuantumBlockEncoding.StoredGivens.coefficientBudget",
+    "QuantumBlockEncoding.StoredGivens.coefficients_cost_le",
+    "QuantumBlockEncoding.StoredGivens.rowPair_cost",
+    "QuantumBlockEncoding.StoredGivens.rotate_cost",
+    "QuantumBlockEncoding.StoredGivens.eliminationBudget",
+    "QuantumBlockEncoding.StoredGivens.eliminate_cost_le",
+    "QuantumBlockEncoding.StoredGivens.stepBudget",
+    "QuantumBlockEncoding.StoredGivens.columnSweep_cost_succ",
+    "QuantumBlockEncoding.StoredGivens.columnSweep_cost_le",
+    "QuantumBlockEncoding.StoredGivens.stepBudget_fields",
+    "QuantumBlockEncoding.StoredGivens.columnSweep_emit",
+    "QuantumBlockEncoding.StoredGivens.columnSweep_steps_length",
+    "QuantumBlockEncoding.StoredGivens.columnSweep_action",
+    "QuantumBlockEncoding.StoredGivens.materialize_cost"
+  ],
+  "obligation_map": [
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S1",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.Op"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S1",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.Cost"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S1",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.tick"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S1",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.Run"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S1",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.Run.pure"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S1",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.Run.bind"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S1",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.charge"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S1",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.add"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S1",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.sub"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S1",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.mul"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S1",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.div"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S1",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.sqrt"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S1",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.arccos"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S1",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.cos"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S1",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.sin"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S1",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.zeroTest"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S1",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.signTest"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S2",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.read"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S2",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.collect"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S2",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.replace"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S2",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.StoredMatrix"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S2",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.denote"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S2",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.materialize"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S2",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.collect_value"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S2",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.collect_cost"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S3",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.angle"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S3",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.angle_value"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S3",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.coefficients"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S3",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.coefficients_value"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S3",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.entryPair"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S3",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.entryPair_value"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S3",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.entryPair_cost"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S3",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.rowPair"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S3",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.rowPair_value"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S4",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.rotate"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S4",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.rotate_value"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S4",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.Elimination"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S4",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.eliminate"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S4",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.eliminate_angle"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S4",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.eliminate_matrix"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S5",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.Sweep"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S5",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.columnSweep"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S5",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.columnSweep_matrix"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S5",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.columnSweep_steps"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S6",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.angleBudget"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S6",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.angle_cost_le"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S6",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.coefficientBudget"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S6",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.coefficients_cost_le"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S3",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.rowPair_cost"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S4",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.rotate_cost"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S6",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.eliminationBudget"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S6",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.eliminate_cost_le"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S6",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.stepBudget"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S6",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.columnSweep_cost_succ"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S6",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.columnSweep_cost_le"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S6",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.stepBudget_fields"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S6",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.columnSweep_emit"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S5",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.columnSweep_steps_length"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S5",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.columnSweep_action"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "docs/lessons/stored-rectangular-elimination-v1.md:S2",
+      "declarations": [
+        "QuantumBlockEncoding.StoredGivens.materialize_cost"
+      ]
+    }
+  ],
+  "assumption_deltas": [
+    {
+      "classification": "same",
+      "source": "S1-S7 arbitrary real/stored carriers and unrestricted Run-valued callbacks; strict lo+count<N including zero and actual finite column index.",
+      "formal": "Exact named declarations and data-only Run/Elimination/Sweep; general rotate/eliminate have no distinctness/rank/nonzero/orthogonality premise; sweep adjacency is produced internally.",
+      "explanation": "All conclusions stay dependency edges. Literal counter annotations do not enforce callback honesty or machine runtime; no hidden premise is silently added."
+    },
+    {
+      "classification": "same",
+      "source": "S1/S6 explicitly exclude finite-bit, physical gates, accuracy, memory space and polynomial-in-qubits interpretation.",
+      "formal": "Exact total-real operations and natural annotation counters, with scalar branch tests; no finite-bit realization or Hermite root theorem.",
+      "explanation": "A bound polynomial in matrix dimensions is not automatically polynomial in register width. Input materialization is additive only if explicitly composed."
+    }
+  ],
+  "graph_contribution": {
+    "baseline": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+    "classes": [
+      "reorganisation"
+    ],
+    "node_ids": [
+      "module:QuantumBlockEncoding.StoredGivens",
+      "declaration:QuantumBlockEncoding.StoredGivens.Op",
+      "declaration:QuantumBlockEncoding.StoredGivens.Cost",
+      "declaration:QuantumBlockEncoding.StoredGivens.tick",
+      "declaration:QuantumBlockEncoding.StoredGivens.Run",
+      "declaration:QuantumBlockEncoding.StoredGivens.Run.pure",
+      "declaration:QuantumBlockEncoding.StoredGivens.Run.bind",
+      "declaration:QuantumBlockEncoding.StoredGivens.charge",
+      "declaration:QuantumBlockEncoding.StoredGivens.add",
+      "declaration:QuantumBlockEncoding.StoredGivens.sub",
+      "declaration:QuantumBlockEncoding.StoredGivens.mul",
+      "declaration:QuantumBlockEncoding.StoredGivens.div",
+      "declaration:QuantumBlockEncoding.StoredGivens.sqrt",
+      "declaration:QuantumBlockEncoding.StoredGivens.arccos",
+      "declaration:QuantumBlockEncoding.StoredGivens.cos",
+      "declaration:QuantumBlockEncoding.StoredGivens.sin",
+      "declaration:QuantumBlockEncoding.StoredGivens.zeroTest",
+      "declaration:QuantumBlockEncoding.StoredGivens.signTest",
+      "declaration:QuantumBlockEncoding.StoredGivens.read",
+      "declaration:QuantumBlockEncoding.StoredGivens.collect",
+      "declaration:QuantumBlockEncoding.StoredGivens.replace",
+      "declaration:QuantumBlockEncoding.StoredGivens.StoredMatrix",
+      "declaration:QuantumBlockEncoding.StoredGivens.denote",
+      "declaration:QuantumBlockEncoding.StoredGivens.materialize",
+      "declaration:QuantumBlockEncoding.StoredGivens.collect_value",
+      "declaration:QuantumBlockEncoding.StoredGivens.collect_cost",
+      "declaration:QuantumBlockEncoding.StoredGivens.angle",
+      "declaration:QuantumBlockEncoding.StoredGivens.angle_value",
+      "declaration:QuantumBlockEncoding.StoredGivens.coefficients",
+      "declaration:QuantumBlockEncoding.StoredGivens.coefficients_value",
+      "declaration:QuantumBlockEncoding.StoredGivens.entryPair",
+      "declaration:QuantumBlockEncoding.StoredGivens.entryPair_value",
+      "declaration:QuantumBlockEncoding.StoredGivens.entryPair_cost",
+      "declaration:QuantumBlockEncoding.StoredGivens.rowPair",
+      "declaration:QuantumBlockEncoding.StoredGivens.rowPair_value",
+      "declaration:QuantumBlockEncoding.StoredGivens.rotate",
+      "declaration:QuantumBlockEncoding.StoredGivens.rotate_value",
+      "declaration:QuantumBlockEncoding.StoredGivens.Elimination",
+      "declaration:QuantumBlockEncoding.StoredGivens.eliminate",
+      "declaration:QuantumBlockEncoding.StoredGivens.eliminate_angle",
+      "declaration:QuantumBlockEncoding.StoredGivens.eliminate_matrix",
+      "declaration:QuantumBlockEncoding.StoredGivens.Sweep",
+      "declaration:QuantumBlockEncoding.StoredGivens.columnSweep",
+      "declaration:QuantumBlockEncoding.StoredGivens.columnSweep_matrix",
+      "declaration:QuantumBlockEncoding.StoredGivens.columnSweep_steps",
+      "declaration:QuantumBlockEncoding.StoredGivens.angleBudget",
+      "declaration:QuantumBlockEncoding.StoredGivens.angle_cost_le",
+      "declaration:QuantumBlockEncoding.StoredGivens.coefficientBudget",
+      "declaration:QuantumBlockEncoding.StoredGivens.coefficients_cost_le",
+      "declaration:QuantumBlockEncoding.StoredGivens.rowPair_cost",
+      "declaration:QuantumBlockEncoding.StoredGivens.rotate_cost",
+      "declaration:QuantumBlockEncoding.StoredGivens.eliminationBudget",
+      "declaration:QuantumBlockEncoding.StoredGivens.eliminate_cost_le",
+      "declaration:QuantumBlockEncoding.StoredGivens.stepBudget",
+      "declaration:QuantumBlockEncoding.StoredGivens.columnSweep_cost_succ",
+      "declaration:QuantumBlockEncoding.StoredGivens.columnSweep_cost_le",
+      "declaration:QuantumBlockEncoding.StoredGivens.stepBudget_fields",
+      "declaration:QuantumBlockEncoding.StoredGivens.columnSweep_emit",
+      "declaration:QuantumBlockEncoding.StoredGivens.columnSweep_steps_length",
+      "declaration:QuantumBlockEncoding.StoredGivens.columnSweep_action",
+      "declaration:QuantumBlockEncoding.StoredGivens.materialize_cost",
+      "concept:stored-givens/actual-fused-sweep-recursion",
+      "concept:stored-givens/all-three-collect-costs",
+      "concept:stored-givens/angle-value",
+      "concept:stored-givens/both-original-row-reads",
+      "concept:stored-givens/both-projection-collects-reading-same-stored-pair",
+      "concept:stored-givens/both-rowpair-values",
+      "concept:stored-givens/chronological-applysteps-recursion",
+      "concept:stored-givens/coefficients-cost-le",
+      "concept:stored-givens/coefficients-value",
+      "concept:stored-givens/collect-value-cost-literal-formulas",
+      "concept:stored-givens/columnsweep-action",
+      "concept:stored-givens/columnsweep-cost-le",
+      "concept:stored-givens/columnsweep-cost-succ",
+      "concept:stored-givens/columnsweep-emit",
+      "concept:stored-givens/columnsweep-matrix",
+      "concept:stored-givens/columnsweep-matrix-and-columnsweep-steps",
+      "concept:stored-givens/columnsweep-steps",
+      "concept:stored-givens/columnsweep-steps-length",
+      "concept:stored-givens/cos-sin-primitive-values",
+      "concept:stored-givens/eliminate-angle",
+      "concept:stored-givens/eliminate-angle-and-matrix-refinements",
+      "concept:stored-givens/eliminate-cost-le",
+      "concept:stored-givens/eliminate-cost-le-at-emit",
+      "concept:stored-givens/eliminate-emit-0",
+      "concept:stored-givens/eliminate-matrix",
+      "concept:stored-givens/eliminateentry-definition",
+      "concept:stored-givens/eliminationbudget-emit-0",
+      "concept:stored-givens/entrypair-cost",
+      "concept:stored-givens/entrypair-value",
+      "concept:stored-givens/finite-sum-natural-distributivity",
+      "concept:stored-givens/first-collect-value",
+      "concept:stored-givens/four-earlier-pivot-reads",
+      "concept:stored-givens/four-pivot-read-identities",
+      "concept:stored-givens/induction-on-actual-updated-matrix-and-legal-tail-bound",
+      "concept:stored-givens/literal-fused-updated-data-recursion",
+      "concept:stored-givens/literal-run-bind-cost-addition",
+      "concept:stored-givens/materialize-cost-and-denotation",
+      "concept:stored-givens/natural-cost-nonnegativity",
+      "concept:stored-givens/nested-collect-definition",
+      "concept:stored-givens/one-emit-charge",
+      "concept:stored-givens/one-half-angle-division",
+      "concept:stored-givens/ordered-j-then-i-replacement-semantics",
+      "concept:stored-givens/pair-norm-literal-identity",
+      "concept:stored-givens/plane-matrix-product-equals-priority-rotaterows",
+      "concept:stored-givens/pure-final-packaging",
+      "concept:stored-givens/rotate-cost",
+      "concept:stored-givens/rotate-value",
+      "concept:stored-givens/rotaterows-branch-priority",
+      "concept:stored-givens/rowpair-cost",
+      "concept:stored-givens/rowpair-value-conjunction",
+      "concept:stored-givens/signed-arccos-eliminationangle-evaluation",
+      "concept:stored-givens/stepbudget-definition",
+      "concept:stored-givens/stored-log-refinement",
+      "concept:stored-givens/supplier-changing-data-recursion",
+      "concept:stored-givens/supplier-columnsweepsteps-action",
+      "concept:stored-givens/supplier-recursive-cons-length-theorem",
+      "concept:stored-givens/two-input-reads-per-column",
+      "concept:stored-givens/two-n-word-full-copy-costs",
+      "concept:stored-givens/two-outer-row-reference-reads",
+      "concept:stored-givens/two-projection-reads-per-column",
+      "concept:stored-givens/uniform-updated-matrix-induction-with-legal-tail-bound",
+      "concept:stored-givens/updated-matrix-induction",
+      "concept:stored-givens/updated-matrix-induction-and-zero-base",
+      "concept:stored-givens/zero-base",
+      "concept:stored-givens/zero-cost-base",
+      "concept:stored-givens/zero-nonzero-and-sign-branch-definitions"
+    ],
+    "views": [
+      "source-construction",
+      "lean-dependency",
+      "compressed-quantum-spine",
+      "functor-hypergraph"
+    ],
+    "preserved_contract": "Exact existing source/theorem bytes; whole literal carriers/binders, priority aliasing, updated-data chronology, AND supplier tails and annotation-cost boundary preserved.",
+    "remaining_boundary": "Stipulated exact-real annotation counters only; arbitrary Run.pure/callback work is not enforced or charged automatically. No evaluator/finite-bit runtime, memory-space/stability, synthesis/gates, global SO factorization, qubit-polynomial or full Hermite root certificate. Empty dimensions and strict zero-count sweep bound remain explicit. Retrospective, not historical/pre-proof/novelty. Integration/reader/PURIFIED pending.",
+    "source_AND_hyperedges": [
+      {
+        "id": "concept:stored-givens/materialize",
+        "tails": [
+          "concept:stored-givens/collect-value-cost-literal-formulas",
+          "concept:stored-givens/nested-collect-definition",
+          "concept:stored-givens/finite-sum-natural-distributivity"
+        ],
+        "head": "concept:stored-givens/materialize-cost-and-denotation",
+        "tail_labels": [
+          "collect_value/cost literal formulas",
+          "nested collect definition",
+          "finite sum/natural distributivity"
+        ],
+        "head_label": "materialize cost and denotation",
+        "all_tails_required": true
+      },
+      {
+        "id": "concept:stored-givens/angle-value",
+        "tails": [
+          "concept:stored-givens/pair-norm-literal-identity",
+          "concept:stored-givens/zero-nonzero-and-sign-branch-definitions",
+          "concept:stored-givens/signed-arccos-eliminationangle-evaluation"
+        ],
+        "head": "concept:stored-givens/angle-value",
+        "tail_labels": [
+          "pair norm literal identity",
+          "zero/nonzero and sign branch definitions",
+          "signed arccos eliminationAngle evaluation"
+        ],
+        "head_label": "angle_value",
+        "all_tails_required": true
+      },
+      {
+        "id": "concept:stored-givens/coefficients",
+        "tails": [
+          "concept:stored-givens/angle-value",
+          "concept:stored-givens/one-half-angle-division",
+          "concept:stored-givens/cos-sin-primitive-values"
+        ],
+        "head": "concept:stored-givens/coefficients-value",
+        "tail_labels": [
+          "angle_value",
+          "one half-angle division",
+          "cos/sin primitive values"
+        ],
+        "head_label": "coefficients_value",
+        "all_tails_required": true
+      },
+      {
+        "id": "concept:stored-givens/rowPair-values",
+        "tails": [
+          "concept:stored-givens/entrypair-value",
+          "concept:stored-givens/first-collect-value",
+          "concept:stored-givens/both-projection-collects-reading-same-stored-pair"
+        ],
+        "head": "concept:stored-givens/rowpair-value-conjunction",
+        "tail_labels": [
+          "entryPair_value",
+          "first collect value",
+          "both projection collects reading same stored pair"
+        ],
+        "head_label": "rowPair_value conjunction",
+        "all_tails_required": true
+      },
+      {
+        "id": "concept:stored-givens/rowPair-cost",
+        "tails": [
+          "concept:stored-givens/entrypair-cost",
+          "concept:stored-givens/two-input-reads-per-column",
+          "concept:stored-givens/all-three-collect-costs",
+          "concept:stored-givens/two-projection-reads-per-column"
+        ],
+        "head": "concept:stored-givens/rowpair-cost",
+        "tail_labels": [
+          "entryPair_cost",
+          "two input reads per column",
+          "all three collect costs",
+          "two projection reads per column"
+        ],
+        "head_label": "rowPair_cost",
+        "all_tails_required": true
+      },
+      {
+        "id": "concept:stored-givens/rotation",
+        "tails": [
+          "concept:stored-givens/both-rowpair-values",
+          "concept:stored-givens/both-original-row-reads",
+          "concept:stored-givens/ordered-j-then-i-replacement-semantics",
+          "concept:stored-givens/rotaterows-branch-priority"
+        ],
+        "head": "concept:stored-givens/rotate-value",
+        "tail_labels": [
+          "both rowPair values",
+          "both original row reads",
+          "ordered j-then-i replacement semantics",
+          "rotateRows branch priority"
+        ],
+        "head_label": "rotate_value",
+        "all_tails_required": true
+      },
+      {
+        "id": "concept:stored-givens/rotation-cost",
+        "tails": [
+          "concept:stored-givens/rowpair-cost",
+          "concept:stored-givens/two-outer-row-reference-reads",
+          "concept:stored-givens/two-n-word-full-copy-costs"
+        ],
+        "head": "concept:stored-givens/rotate-cost",
+        "tail_labels": [
+          "rowPair_cost",
+          "two outer row-reference reads",
+          "two N-word full-copy costs"
+        ],
+        "head_label": "rotate_cost",
+        "all_tails_required": true
+      },
+      {
+        "id": "concept:stored-givens/eliminate-refinement",
+        "tails": [
+          "concept:stored-givens/four-pivot-read-identities",
+          "concept:stored-givens/coefficients-value",
+          "concept:stored-givens/rotate-value",
+          "concept:stored-givens/eliminateentry-definition"
+        ],
+        "head": "concept:stored-givens/eliminate-angle-and-matrix-refinements",
+        "tail_labels": [
+          "four pivot read identities",
+          "coefficients_value",
+          "rotate_value",
+          "eliminateEntry definition"
+        ],
+        "head_label": "eliminate angle and matrix refinements",
+        "all_tails_required": true
+      },
+      {
+        "id": "concept:stored-givens/sweep-refinement",
+        "tails": [
+          "concept:stored-givens/literal-fused-updated-data-recursion",
+          "concept:stored-givens/eliminate-matrix",
+          "concept:stored-givens/eliminate-angle",
+          "concept:stored-givens/induction-on-actual-updated-matrix-and-legal-tail-bound",
+          "concept:stored-givens/zero-base"
+        ],
+        "head": "concept:stored-givens/columnsweep-matrix-and-columnsweep-steps",
+        "tail_labels": [
+          "literal fused updated-data recursion",
+          "eliminate_matrix",
+          "eliminate_angle",
+          "induction on actual updated matrix and legal tail bound",
+          "zero base"
+        ],
+        "head_label": "columnSweep_matrix AND columnSweep_steps",
+        "all_tails_required": true
+      },
+      {
+        "id": "concept:stored-givens/length",
+        "tails": [
+          "concept:stored-givens/stored-log-refinement",
+          "concept:stored-givens/supplier-recursive-cons-length-theorem"
+        ],
+        "head": "concept:stored-givens/columnsweep-steps-length",
+        "tail_labels": [
+          "stored log refinement",
+          "supplier recursive cons length theorem"
+        ],
+        "head_label": "columnSweep_steps_length",
+        "all_tails_required": true
+      },
+      {
+        "id": "concept:stored-givens/supplier-action",
+        "tails": [
+          "concept:stored-givens/plane-matrix-product-equals-priority-rotaterows",
+          "concept:stored-givens/chronological-applysteps-recursion",
+          "concept:stored-givens/supplier-changing-data-recursion",
+          "concept:stored-givens/updated-matrix-induction-and-zero-base"
+        ],
+        "head": "concept:stored-givens/supplier-columnsweepsteps-action",
+        "tail_labels": [
+          "plane-matrix product equals priority rotateRows",
+          "chronological applySteps recursion",
+          "supplier changing-data recursion",
+          "updated-matrix induction and zero base"
+        ],
+        "head_label": "supplier columnSweepSteps_action",
+        "all_tails_required": true
+      },
+      {
+        "id": "concept:stored-givens/stored-action",
+        "tails": [
+          "concept:stored-givens/columnsweep-matrix",
+          "concept:stored-givens/columnsweep-steps",
+          "concept:stored-givens/supplier-columnsweepsteps-action"
+        ],
+        "head": "concept:stored-givens/columnsweep-action",
+        "tail_labels": [
+          "columnSweep_matrix",
+          "columnSweep_steps",
+          "supplier columnSweepSteps_action"
+        ],
+        "head_label": "columnSweep_action",
+        "all_tails_required": true
+      },
+      {
+        "id": "concept:stored-givens/elimination-bound",
+        "tails": [
+          "concept:stored-givens/coefficients-cost-le",
+          "concept:stored-givens/rotate-cost",
+          "concept:stored-givens/four-earlier-pivot-reads"
+        ],
+        "head": "concept:stored-givens/eliminate-cost-le",
+        "tail_labels": [
+          "coefficients_cost_le",
+          "rotate_cost",
+          "four earlier pivot reads"
+        ],
+        "head_label": "eliminate_cost_le",
+        "all_tails_required": true
+      },
+      {
+        "id": "concept:stored-givens/cost-recurrence",
+        "tails": [
+          "concept:stored-givens/literal-run-bind-cost-addition",
+          "concept:stored-givens/actual-fused-sweep-recursion",
+          "concept:stored-givens/one-emit-charge",
+          "concept:stored-givens/pure-final-packaging"
+        ],
+        "head": "concept:stored-givens/columnsweep-cost-succ",
+        "tail_labels": [
+          "literal Run.bind cost addition",
+          "actual fused sweep recursion",
+          "one emit charge",
+          "pure final packaging"
+        ],
+        "head_label": "columnSweep_cost_succ",
+        "all_tails_required": true
+      },
+      {
+        "id": "concept:stored-givens/sweep-bound",
+        "tails": [
+          "concept:stored-givens/columnsweep-cost-succ",
+          "concept:stored-givens/eliminate-cost-le",
+          "concept:stored-givens/stepbudget-definition",
+          "concept:stored-givens/uniform-updated-matrix-induction-with-legal-tail-bound",
+          "concept:stored-givens/zero-cost-base"
+        ],
+        "head": "concept:stored-givens/columnsweep-cost-le",
+        "tail_labels": [
+          "columnSweep_cost_succ",
+          "eliminate_cost_le",
+          "stepBudget definition",
+          "uniform updated-matrix induction with legal tail bound",
+          "zero-cost base"
+        ],
+        "head_label": "columnSweep_cost_le",
+        "all_tails_required": true
+      },
+      {
+        "id": "concept:stored-givens/emit-zero",
+        "tails": [
+          "concept:stored-givens/eliminate-cost-le-at-emit",
+          "concept:stored-givens/eliminationbudget-emit-0",
+          "concept:stored-givens/natural-cost-nonnegativity"
+        ],
+        "head": "concept:stored-givens/eliminate-emit-0",
+        "tail_labels": [
+          "eliminate_cost_le at emit",
+          "eliminationBudget emit=0",
+          "natural cost nonnegativity"
+        ],
+        "head_label": "eliminate emit=0",
+        "all_tails_required": true
+      },
+      {
+        "id": "concept:stored-givens/exact-emit",
+        "tails": [
+          "concept:stored-givens/columnsweep-cost-succ",
+          "concept:stored-givens/eliminate-emit-0",
+          "concept:stored-givens/updated-matrix-induction",
+          "concept:stored-givens/zero-cost-base"
+        ],
+        "head": "concept:stored-givens/columnsweep-emit",
+        "tail_labels": [
+          "columnSweep_cost_succ",
+          "eliminate emit=0",
+          "updated-matrix induction",
+          "zero-cost base"
+        ],
+        "head_label": "columnSweep_emit",
+        "all_tails_required": true
+      }
+    ],
+    "topology_provenance": "Proposed exact transport of independently source-first phase1 17 AND edges; same reviewer must compare this prospective metadata before final acceptance. Not elaborated Lean dependencies or certified functors."
+  },
+  "formalizer": "UNKNOWN (historical); retrospective source author /root/stored_givens_source_author_c38",
+  "residual_boundary": "Stipulated exact-real annotation counters only; arbitrary Run.pure/callback work is not enforced or charged automatically. No evaluator/finite-bit runtime, memory-space/stability, synthesis/gates, global SO factorization, qubit-polynomial or full Hermite root certificate. Empty dimensions and strict zero-count sweep bound remain explicit. Retrospective, not historical/pre-proof/novelty. Integration/reader/PURIFIED pending.",
+  "statement_seal": {
+    "evidence_class": "RETROSPECTIVE_IMPLEMENTATION_INFORMED",
+    "source_sha256": "1bcf9ba72fca92df7773cd1d8b8195d306b123f0f700307d9e4cb535f84a0143",
+    "module_raw_sha256": "c2a524772adb32a4ccad236dab347633dc865b0befb16adcbf6dc08fbdf3301d",
+    "formal_packet_hashmap_sha256": "0a3d855f944374a1053693a012a01af6e4268b2ee92d4eba45b4aad8df07b53a",
+    "preproof": false,
+    "definition_kind": "literal",
+    "binder_audit": "reviews/publication/stored-givens-c39/author-frozen-public.zip#metadata.json",
+    "no_EXCESS_claim": "Author classification, independently checked in the separate comparison; no parent verdict fabricated."
+  },
+  "source_proof_coverage": "Independent source-first phase1/phase2 derivative pending exact public transport",
+  "proof_digestion": {
+    "existing": "AdjacentGivens chronological action and exact signed-angle supplier; existing stored vectors.",
+    "bookkeeping": "Literal counted Run/storage/cached rows and updated-data refinement.",
+    "new_reusable": "No new theorem invented by this metadata; existing actual producer/counter interface exposed.",
+    "new_topology": "Retrospective construction graph only."
+  },
+  "purification": {
+    "status": "PENDING",
+    "reason": "No merged/reader/Exposition Seal or dead-code canonicality pass claimed."
+  },
+  "status": "INDEPENDENT_COMPARISON_IN_PROGRESS_FINAL_BINDING_PENDING",
+  "decoder_evidence": "reviews/publication/stored-givens-c39/final-evidence/decoder.json",
+  "reviewer_evidence": "reviews/publication/stored-givens-c39/final-evidence/reviewer.json",
+  "binding_sha256": "b0137dc7e66daff11dbee5504b46035ab4a09bb8558444c8997102a46b5ded45"
+}

@@ -1,0 +1,404 @@
+{
+  "module": "QuantumBlockEncoding/TensorTrainCanonical.lean",
+  "source_id": "aspbe-local-finite-real-tt-canonicalization-and-gram",
+  "source_statement": "Pinned retrospective local source S1-S8 in full; exhaustive paragraph and whole-module author mapping retained in shared artifacts. No independent verdict authored here.",
+  "source_anchor": "docs/lessons/finite-real-tensor-train-canonicalization-and-gram.md sections S1-S8",
+  "lesson_path": "docs/lessons/finite-real-tensor-train-canonicalization-and-gram.md",
+  "declarations": [
+    "QuantumBlockEncoding.TensorTrainCanonical.Core",
+    "QuantumBlockEncoding.TensorTrainCanonical.slice",
+    "QuantumBlockEncoding.TensorTrainCanonical.Chain",
+    "QuantumBlockEncoding.TensorTrainCanonical.Word",
+    "QuantumBlockEncoding.TensorTrainCanonical.contract",
+    "QuantumBlockEncoding.TensorTrainCanonical.RightCanonical",
+    "QuantumBlockEncoding.TensorTrainCanonical.RankReduced",
+    "QuantumBlockEncoding.TensorTrainCanonical.absorb",
+    "QuantumBlockEncoding.TensorTrainCanonical.absorb_slice",
+    "QuantumBlockEncoding.TensorTrainCanonical.exists_core_lq",
+    "QuantumBlockEncoding.TensorTrainCanonical.exists_rightCanonical",
+    "QuantumBlockEncoding.TensorTrainCanonical.RankReduced.head_bound",
+    "QuantumBlockEncoding.TensorTrainCanonical.RankReduced.last_bond_le_two",
+    "QuantumBlockEncoding.TensorTrainCanonical.mass",
+    "QuantumBlockEncoding.TensorTrainCanonical.mass_vecMul",
+    "QuantumBlockEncoding.TensorTrainCanonical.chainMass",
+    "QuantumBlockEncoding.TensorTrainCanonical.chainMass_eq",
+    "QuantumBlockEncoding.TensorTrainCanonical.residual_mass",
+    "QuantumBlockEncoding.TensorTrainCanonical.exists_rightCanonical_normalized",
+    "QuantumBlockEncoding.TensorTrainCanonical.exists_normalized_state",
+    "QuantumBlockEncoding.TensorTrainCanonical.maxBond",
+    "QuantumBlockEncoding.TensorTrainCanonical.RankReduced.maxBond_le",
+    "QuantumBlockEncoding.TensorTrainCanonical.complexCore",
+    "QuantumBlockEncoding.TensorTrainCanonical.complexCore_isometry",
+    "QuantumBlockEncoding.TensorTrainCanonical.sequentialCore",
+    "QuantumBlockEncoding.TensorTrainCanonical.sequential_step",
+    "QuantumBlockEncoding.TensorTrainCanonical.padVector",
+    "QuantumBlockEncoding.TensorTrainCanonical.padVector_active",
+    "QuantumBlockEncoding.TensorTrainCanonical.paddedCore",
+    "QuantumBlockEncoding.TensorTrainCanonical.paddedCore_inactive_output",
+    "QuantumBlockEncoding.TensorTrainCanonical.sum_padVector",
+    "QuantumBlockEncoding.TensorTrainCanonical.sequential_step_padded",
+    "QuantumBlockEncoding.TensorTrainCanonical.paddedCore_active_isometry"
+  ],
+  "obligation_map": [
+    {
+      "kind": "prerequisite",
+      "source_obligation": "TC-01",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.Core"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "TC-02",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.slice"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "TC-03",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.Chain"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "TC-04",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.Word"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "TC-05",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.contract"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "TC-06",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.RightCanonical"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "TC-07",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.RankReduced"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "TC-08",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.absorb"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "TC-09",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.absorb_slice"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "TC-10",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.exists_core_lq"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "TC-11",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.exists_rightCanonical"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "TC-12",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.RankReduced.head_bound"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "TC-13",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.RankReduced.last_bond_le_two"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "TC-14",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.mass"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "TC-15",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.mass_vecMul"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "TC-16",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.chainMass"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "TC-17",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.chainMass_eq"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "TC-18",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.residual_mass"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "TC-19",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.exists_rightCanonical_normalized"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "TC-20",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.exists_normalized_state"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "TC-21",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.maxBond"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "TC-22",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.RankReduced.maxBond_le"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "TC-23",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.complexCore"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "TC-24",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.complexCore_isometry"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "TC-25",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.sequentialCore"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "TC-26",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.sequential_step"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "TC-27",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.padVector"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "TC-28",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.padVector_active"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "TC-29",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.paddedCore"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "TC-30",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.paddedCore_inactive_output"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "TC-31",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.sum_padVector"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "TC-32",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.sequential_step_padded"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "TC-33",
+      "declarations": [
+        "QuantumBlockEncoding.TensorTrainCanonical.paddedCore_active_isometry"
+      ]
+    }
+  ],
+  "assumption_deltas": [
+    {
+      "classification": "same",
+      "source": "Explicit logical premises in the pinned source, including canonicality, normalization, row orthogonality, factorization, active clean-column equality, label/dimension bounds, nonzero amplitude and max-bond bounds where applicable.",
+      "formal": "Every target logical input is recorded individually as SOURCE in author-source-coverage.json; constructor RankReduced.tail is included. No such input is classified TYPING or moved to a claimed output.",
+      "explanation": "Author comparison only, pending independent source/formal review. sequential_step_padded has hl but no hr; paddedCore_active_isometry has hl AND hr AND hA. Scalar norm conclusions only specialize Chain n 1 1."
+    },
+    {
+      "classification": "source-implicit",
+      "source": "Finite carriers and their enumerations, real/complex fields and recursive singleton/product words; chosen dimension-indexed core tables.",
+      "formal": "Data/type and instance binders are supplied by the full exact source. wordFintype is an extra named ambient instance, not one of the canonical 33 roots.",
+      "explanation": "Finite sums require the enumerations. No exact word-cardinality theorem, efficient enumeration, or physical wire ordering follows merely from the instance."
+    }
+  ],
+  "graph_contribution": {
+    "baseline": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+    "head": "cf77fde090fff00fcb829d1684b85596eec4949f",
+    "classes": [
+      "bridge"
+    ],
+    "node_ids": [
+      "module:QuantumBlockEncoding.TensorTrainCanonical",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.Core",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.slice",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.Chain",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.Word",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.contract",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.RightCanonical",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.RankReduced",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.absorb",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.absorb_slice",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.exists_core_lq",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.exists_rightCanonical",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.RankReduced.head_bound",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.RankReduced.last_bond_le_two",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.mass",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.mass_vecMul",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.chainMass",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.chainMass_eq",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.residual_mass",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.exists_rightCanonical_normalized",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.exists_normalized_state",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.maxBond",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.RankReduced.maxBond_le",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.complexCore",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.complexCore_isometry",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.sequentialCore",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.sequential_step",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.padVector",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.padVector_active",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.paddedCore",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.paddedCore_inactive_output",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.sum_padVector",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.sequential_step_padded",
+      "declaration:QuantumBlockEncoding.TensorTrainCanonical.paddedCore_active_isometry",
+      "source:TC-01",
+      "source:TC-02",
+      "source:TC-03",
+      "source:TC-04",
+      "source:TC-05",
+      "source:TC-06",
+      "source:TC-07",
+      "source:TC-08",
+      "source:TC-09",
+      "source:TC-10",
+      "source:TC-11",
+      "source:TC-12",
+      "source:TC-13",
+      "source:TC-14",
+      "source:TC-15",
+      "source:TC-16",
+      "source:TC-17",
+      "source:TC-18",
+      "source:TC-19",
+      "source:TC-20",
+      "source:TC-21",
+      "source:TC-22",
+      "source:TC-23",
+      "source:TC-24",
+      "source:TC-25",
+      "source:TC-26",
+      "source:TC-27",
+      "source:TC-28",
+      "source:TC-29",
+      "source:TC-30",
+      "source:TC-31",
+      "source:TC-32",
+      "source:TC-33",
+      "SOURCE_GAP-DETERMINISTIC-FACTORS",
+      "SOURCE_GAP-WORD-WIRE",
+      "SOURCE_GAP-UNITARY-GATES",
+      "SOURCE_GAP-CLEAN-COMPOSITION",
+      "SOURCE_GAP-INPUT-RUNTIME",
+      "SOURCE_GAP-FINITE-BIT",
+      "SOURCE_GAP-SP-BE-TRANSPORT",
+      "SOURCE_GAP-AUTHOR-STANDALONE-EXPLANATIONS"
+    ],
+    "views": [
+      "source-construction-graph",
+      "lean-graph",
+      "compressed-quantum-spine",
+      "functor-hypergraph"
+    ],
+    "source_graph_sha256": "0988e137230e956a0072a8a7ea6de872d1f30cc65b16a4123c1fdeb5c43f1d7d",
+    "coverage_sha256": "782d80b69190774198c97b984f3e584b2ed79972accac8d544e69960c61190ef",
+    "preserved_contract": "All production and test sources unchanged. Author metadata and immutable local exposition only; no source-review exemption from signature sameness or lexical diff size.",
+    "remaining_boundary": "Exact finite real algebra and conditional local complex-matrix adapters only. No source-preproof/novelty claim; no efficient factor-selection, full-run word/wire bridge, circuit completion/cleanup, input/caching/runtime/peak-memory, finite-bit/error/synthesis or total gate/depth/success certificate. Source explanations without standalone roots remain explicitly audited boundaries."
+  },
+  "formalizer": "migration_minimal_delta_audit_c24 retrospective author-curator; historical formalizer UNKNOWN",
+  "historical_formalizer": "UNKNOWN",
+  "residual_boundary": "Exact finite real algebra and conditional local complex-matrix adapters only. No source-preproof/novelty claim; no efficient factor-selection, full-run word/wire bridge, circuit completion/cleanup, input/caching/runtime/peak-memory, finite-bit/error/synthesis or total gate/depth/success certificate. Source explanations without standalone roots remain explicitly audited boundaries.",
+  "decoder_evidence": "reviews/publication/finite-real-tensor-train/decoder-c25/canonical-evidence.json",
+  "reviewer_evidence": "reviews/publication/finite-real-tensor-train/reviewer-c25/canonical-evidence.json",
+  "status": "AUTHOR_WIP_NOT_ADMITTED",
+  "evidence_paths_status": "PROPOSED_FUTURE_PATHS_NOT_ASSERTED_PRESENT_OR_ACCEPTED",
+  "statement_seal": {
+    "timing": "RETROSPECTIVE_LOCAL_AFTER_EXISTING_PROOFS",
+    "pre_proof_seal_claim": false
+  },
+  "source_proof_coverage": "reviews/publication/finite-real-tensor-train/author-source-coverage.json",
+  "graph_views": "reviews/publication/finite-real-tensor-train/author-graph-views.json",
+  "formal_context": "reviews/publication/finite-real-tensor-train/author-formal-context.json",
+  "purification": {
+    "status": "PENDING",
+    "Exposition_Seal": "PENDING"
+  },
+  "main_admission": false,
+  "scientific_ROOT": false,
+  "binding_sha256": "98bafeedc584e7ef69fbe6e980a1d5ab558367d63ab3dfb01bee2f727788ffcf"
+}

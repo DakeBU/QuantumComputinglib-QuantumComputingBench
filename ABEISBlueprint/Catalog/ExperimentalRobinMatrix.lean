@@ -759,7 +759,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:1076](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:1174](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-derivativeboundarycontractmap). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:1176](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-derivativeboundarycontractmap). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_odtsKetZeroEntry" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_odtsKetZeroEntry")
@@ -773,7 +773,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:1174](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:1320](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-odtsketzeroentry). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:1322](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-odtsketzeroentry). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_boundaryKetZeroEntry" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_boundaryKetZeroEntry")
@@ -787,7 +787,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:1320](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:1439](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-boundaryketzeroentry). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:1441](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-boundaryketzeroentry). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_odbsActiveGlobalSlotBlockers" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_odbsActiveGlobalSlotBlockers")
@@ -801,7 +801,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:1439](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:1612](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-odbsactiveglobalslotblockers). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:1614](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-odbsactiveglobalslotblockers). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_activeOdbsGatePairBlocked" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_activeOdbsGatePairBlocked")
@@ -815,7 +815,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:1612](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:1672](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-activeodbsgatepairblocked). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:1674](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-activeodbsgatepairblocked). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_odbsActiveScopeKeepsFinalFlagsFalse" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_odbsActiveScopeKeepsFinalFlagsFalse")
@@ -829,7 +829,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:1672](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:1697](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-odbsactivescopekeepsfinalflagsfalse). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:1699](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-odbsactivescopekeepsfinalflagsfalse). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_activeOdbsGatePairWiring" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_activeOdbsGatePairWiring")
@@ -843,7 +843,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:1697](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:1732](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-activeodbsgatepairwiring). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:1734](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-activeodbsgatepairwiring). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_activeOdbsGatePairPublicSources" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_activeOdbsGatePairPublicSources")
@@ -857,7 +857,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:1732](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:1770](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-activeodbsgatepairpublicsources). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:1772](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-activeodbsgatepairpublicsources). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_odbsActiveGlobalSlotGateFreeze" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_odbsActiveGlobalSlotGateFreeze")
@@ -871,7 +871,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:1770](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:1786](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-odbsactiveglobalslotgatefreeze). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:1788](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-odbsactiveglobalslotgatefreeze). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_projectionSourceFreeze" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_projectionSourceFreeze")
@@ -885,7 +885,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:1786](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:1838](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-projectionsourcefreeze). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:1840](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-projectionsourcefreeze). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_rejectedRowDependentCollisionRegression_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_rejectedRowDependentCollisionRegression_n3")
@@ -899,7 +899,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:1838](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:1870](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-rejectedrowdependentcollisionregression-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:1872](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-rejectedrowdependentcollisionregression-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_encodedOutOfRangeSparseSlot_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_encodedOutOfRangeSparseSlot_n3")
@@ -913,7 +913,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:1870](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:1901](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-encodedoutofrangesparseslot-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:1903](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-encodedoutofrangesparseslot-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_contractDriftColumn8Blocked_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_contractDriftColumn8Blocked_n3")
@@ -927,7 +927,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:1901](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:1929](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-contractdriftcolumn8blocked-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:1931](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-contractdriftcolumn8blocked-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_sparseAccessContractIdentity" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_sparseAccessContractIdentity")
@@ -941,7 +941,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:1929](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:1959](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-sparseaccesscontractidentity). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:1961](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-sparseaccesscontractidentity). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_odbsPaperContractTranscript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_odbsPaperContractTranscript")
@@ -955,7 +955,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:1959](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:1983](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-odbspapercontracttranscript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:1985](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-odbspapercontracttranscript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_odbsRestrictedDaggerColumnIndicator" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_odbsRestrictedDaggerColumnIndicator")
@@ -969,7 +969,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:1983](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:2032](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-odbsrestricteddaggercolumnindicator). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:2034](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-odbsrestricteddaggercolumnindicator). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_odbsCleanupScopeDecision" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_odbsCleanupScopeDecision")
@@ -983,7 +983,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:2032](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:2116](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-odbscleanupscopedecision). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:2118](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-odbscleanupscopedecision). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_odbsFullCleanDomainImageRuleBlocked" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_odbsFullCleanDomainImageRuleBlocked")
@@ -997,7 +997,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:2116](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:2173](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-odbsfullcleandomainimageruleblocked). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:2175](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-odbsfullcleandomainimageruleblocked). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_odbsActiveGlobalSourceCleanupInterface" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_odbsActiveGlobalSourceCleanupInterface")
@@ -1011,7 +1011,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:2173](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:2233](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-odbsactiveglobalsourcecleanupinterface). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:2235](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-odbsactiveglobalsourcecleanupinterface). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_odbsActiveGlobalSourceCleanupContractMap" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_odbsActiveGlobalSourceCleanupContractMap")
@@ -1025,7 +1025,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:2233](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:2323](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-odbsactiveglobalsourcecleanupcontractmap). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:2325](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-odbsactiveglobalsourcecleanupcontractmap). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_theoremTranscriptDependencies" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_theoremTranscriptDependencies")
@@ -1039,7 +1039,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:2323](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:2420](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-theoremtranscriptdependencies). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:2422](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-theoremtranscriptdependencies). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_theoremTranscriptActiveCleanupMap" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_theoremTranscriptActiveCleanupMap")
@@ -1053,7 +1053,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:2420](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:2525](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-theoremtranscriptactivecleanupmap). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:2527](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-theoremtranscriptactivecleanupmap). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_robinClarifiedGammaTranscript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_robinClarifiedGammaTranscript")
@@ -1067,7 +1067,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:2525](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:2615](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-robinclarifiedgammatranscript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:2617](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-robinclarifiedgammatranscript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_blockProjectionDependencyMap" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_blockProjectionDependencyMap")
@@ -1081,7 +1081,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:2615](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:2709](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-blockprojectiondependencymap). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:2711](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-blockprojectiondependencymap). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_fullGateContractLedger" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_fullGateContractLedger")
@@ -1095,7 +1095,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:2709](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:2827](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-fullgatecontractledger). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:2829](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-fullgatecontractledger). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_theoremTranscriptClosurePacket" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_theoremTranscriptClosurePacket")
@@ -1109,7 +1109,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:2827](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:3041](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-theoremtranscriptclosurepacket). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:3043](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-theoremtranscriptclosurepacket). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_finiteBlockCompositionContractMap" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_finiteBlockCompositionContractMap")
@@ -1123,7 +1123,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:3041](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:3195](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-finiteblockcompositioncontractmap). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:3197](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-finiteblockcompositioncontractmap). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_finiteCompositionExactTheoremInterface" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_finiteCompositionExactTheoremInterface")
@@ -1137,7 +1137,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:3195](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:3281](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-finitecompositionexacttheoreminterface). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:3283](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-finitecompositionexacttheoreminterface). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3SignalBlockEntryObligation" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3SignalBlockEntryObligation")
@@ -1151,7 +1151,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:3281](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:3420](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3signalblockentryobligation). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:3422](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3signalblockentryobligation). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3SignalBlockEntryObligation_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3SignalBlockEntryObligation_transcript")
@@ -1165,7 +1165,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:3420](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:3428](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3signalblockentryobligation-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:3430](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3signalblockentryobligation-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3SignalBlockEntryObligationMap" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3SignalBlockEntryObligationMap")
@@ -1179,7 +1179,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:3428](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:3445](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3signalblockentryobligationmap). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:3447](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3signalblockentryobligationmap). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3TargetEntryData" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3TargetEntryData")
@@ -1193,7 +1193,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:3445](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:3538](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3targetentrydata). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:3540](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3targetentrydata). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3FactorEntryLedger" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3FactorEntryLedger")
@@ -1207,7 +1207,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:3538](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:3620](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3factorentryledger). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:3622](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3factorentryledger). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3SignalBlockProductEntry" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3SignalBlockProductEntry")
@@ -1221,7 +1221,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:3620](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:3843](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3signalblockproductentry). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:3845](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3signalblockproductentry). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3AkCoefficientEntryContract" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3AkCoefficientEntryContract")
@@ -1235,7 +1235,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:3843](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:3980](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3akcoefficiententrycontract). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:3982](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3akcoefficiententrycontract). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3ProductToCoefficientObligation" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3ProductToCoefficientObligation")
@@ -1249,7 +1249,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:3980](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:4218](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3producttocoefficientobligation). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:4220](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3producttocoefficientobligation). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3ProductToCoefficientObligation_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3ProductToCoefficientObligation_transcript")
@@ -1263,7 +1263,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:4218](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:4226](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3producttocoefficientobligation-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:4228](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3producttocoefficientobligation-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3ProductToCoefficientInterface" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3ProductToCoefficientInterface")
@@ -1277,7 +1277,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:4226](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:4243](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3producttocoefficientinterface). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:4245](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3producttocoefficientinterface). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3ProjectionPathAudit_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3ProjectionPathAudit_n3")
@@ -1291,7 +1291,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:4243](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:4415](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3projectionpathaudit-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:4417](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3projectionpathaudit-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3PaperBasisIndex" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3PaperBasisIndex")
@@ -1305,7 +1305,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:4415](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:4490](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3paperbasisindex). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:4492](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3paperbasisindex). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3PaperBasisLayout_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3PaperBasisLayout_n3")
@@ -1319,7 +1319,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:4490](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:4505](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3paperbasislayout-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:4507](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3paperbasislayout-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3PaperBasisPathAudit_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3PaperBasisPathAudit_n3")
@@ -1333,7 +1333,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:4505](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:4563](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3paperbasispathaudit-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:4565](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3paperbasispathaudit-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3SparseSlotAlignment_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3SparseSlotAlignment_n3")
@@ -1347,7 +1347,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:4563](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:4646](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3sparseslotalignment-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:4648](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3sparseslotalignment-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3ProjectionSlotConventionObligation" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3ProjectionSlotConventionObligation")
@@ -1361,7 +1361,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:4646](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:4715](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3projectionslotconventionobligation). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:4717](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3projectionslotconventionobligation). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3ProjectionSlotConventionObligation_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3ProjectionSlotConventionObligation_transcript")
@@ -1375,7 +1375,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:4715](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:4723](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3projectionslotconventionobligation-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:4725](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3projectionslotconventionobligation-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3ProjectionSlotConventionMap_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3ProjectionSlotConventionMap_n3")
@@ -1389,7 +1389,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:4723](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:4740](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3projectionslotconventionmap-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:4742](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3projectionslotconventionmap-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3Slot5PathAudit_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3Slot5PathAudit_n3")
@@ -1403,7 +1403,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:4740](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:4809](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3slot5pathaudit-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:4811](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3slot5pathaudit-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3Slot5ProjectionRegisterAuditCheck_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3Slot5ProjectionRegisterAuditCheck_n3")
@@ -1417,7 +1417,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:4809](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:4923](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3slot5projectionregisterauditcheck-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:4925](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3slot5projectionregisterauditcheck-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3Slot5ProjectionRegisterAudit_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3Slot5ProjectionRegisterAudit_n3")
@@ -1431,7 +1431,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:4923](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:5066](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3slot5projectionregisteraudit-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:5068](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3slot5projectionregisteraudit-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3ProjectionRegisterConventionDecision" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3ProjectionRegisterConventionDecision")
@@ -1445,7 +1445,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:5066](../../../../library/modules
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:5098](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3projectionregisterconventiondecision). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:5100](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3projectionregisterconventiondecision). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3ProjectionRegisterConventionDecision_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3ProjectionRegisterConventionDecision_n3")
@@ -1459,7 +1459,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:5098](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:5119](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3projectionregisterconventiondecision-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:5121](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3projectionregisterconventiondecision-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3ProjectionRegisterConventionDecision_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3ProjectionRegisterConventionDecision_n3_transcript")
@@ -1473,7 +1473,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:5119](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:5160](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3projectionregisterconventiondecision-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:5162](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3projectionregisterconventiondecision-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3SparseRegisterSummationConvention" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3SparseRegisterSummationConvention")
@@ -1487,7 +1487,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:5160](../../../../library/modules
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:5193](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3sparseregistersummationconvention). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:5195](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3sparseregistersummationconvention). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3SparseRegisterSummationConvention_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3SparseRegisterSummationConvention_n3")
@@ -1501,7 +1501,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:5193](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:5226](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3sparseregistersummationconvention-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:5228](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3sparseregistersummationconvention-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3SparseRegisterSummationConvention_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3SparseRegisterSummationConvention_n3_transcript")
@@ -1515,7 +1515,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:5226](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:5290](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3sparseregistersummationconvention-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:5292](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3sparseregistersummationconvention-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3SparseRegisterSummation_indicatorGap_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3SparseRegisterSummation_indicatorGap_n3")
@@ -1529,7 +1529,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:5290](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:5330](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3sparseregistersummation-indicatorgap-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:5332](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3sparseregistersummation-indicatorgap-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3IndicatorProjectionConvention" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3IndicatorProjectionConvention")
@@ -1543,7 +1543,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:5330](../../../../library/modules
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:5378](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3indicatorprojectionconvention). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:5380](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3indicatorprojectionconvention). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3IndicatorProjectionConvention_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3IndicatorProjectionConvention_n3")
@@ -1557,7 +1557,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:5378](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:5406](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3indicatorprojectionconvention-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:5408](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3indicatorprojectionconvention-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3IndicatorProjectionConvention_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3IndicatorProjectionConvention_n3_transcript")
@@ -1571,7 +1571,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:5406](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:5456](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3indicatorprojectionconvention-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:5458](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3indicatorprojectionconvention-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BulkIndicatorSourceAudit" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BulkIndicatorSourceAudit")
@@ -1585,7 +1585,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:5456](../../../../library/modules
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:5512](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3bulkindicatorsourceaudit). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:5514](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3bulkindicatorsourceaudit). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BulkIndicatorSourceAudit_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BulkIndicatorSourceAudit_n3")
@@ -1599,7 +1599,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:5512](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:5542](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3bulkindicatorsourceaudit-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:5544](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3bulkindicatorsourceaudit-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BulkIndicatorSourceAudit_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BulkIndicatorSourceAudit_n3_transcript")
@@ -1613,7 +1613,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:5542](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:5579](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3bulkindicatorsourceaudit-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:5581](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3bulkindicatorsourceaudit-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BranchCorrectSourceMap" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BranchCorrectSourceMap")
@@ -1627,7 +1627,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:5579](../../../../library/modules
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:5630](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3branchcorrectsourcemap). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:5632](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3branchcorrectsourcemap). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BranchCorrectSourceMap_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BranchCorrectSourceMap_n3")
@@ -1641,7 +1641,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:5630](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:5668](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3branchcorrectsourcemap-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:5670](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3branchcorrectsourcemap-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BranchCorrectSourceMap_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BranchCorrectSourceMap_n3_transcript")
@@ -1655,7 +1655,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:5668](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:5729](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3branchcorrectsourcemap-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:5731](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3branchcorrectsourcemap-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3BoundaryBranchPathAudit_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3BoundaryBranchPathAudit_n3")
@@ -1669,7 +1669,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:5729](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:5790](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3boundarybranchpathaudit-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:5792](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3boundarybranchpathaudit-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BulkProductInterface" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BulkProductInterface")
@@ -1683,7 +1683,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:5790](../../../../library/modules
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:5906](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3bulkproductinterface). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:5908](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3bulkproductinterface). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3BulkProductToCoefficientInterface_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3BulkProductToCoefficientInterface_n3")
@@ -1697,7 +1697,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:5906](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:5955](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3bulkproducttocoefficientinterface-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:5957](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3bulkproducttocoefficientinterface-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3BulkProductToCoefficientInterface_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3BulkProductToCoefficientInterface_n3_transcript")
@@ -1711,7 +1711,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:5955](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:6052](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3bulkproducttocoefficientinterface-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:6054](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3bulkproducttocoefficientinterface-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryProductInterface" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryProductInterface")
@@ -1725,7 +1725,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:6052](../../../../library/modules
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:6176](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryproductinterface). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:6178](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryproductinterface). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3BoundaryProductToCoefficientInterface_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3BoundaryProductToCoefficientInterface_n3")
@@ -1739,7 +1739,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:6176](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:6216](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3boundaryproducttocoefficientinterface-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:6218](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3boundaryproducttocoefficientinterface-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3BoundaryProductToCoefficientInterface_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3BoundaryProductToCoefficientInterface_n3_transcript")
@@ -1753,7 +1753,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:6216](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:6302](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3boundaryproducttocoefficientinterface-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:6304](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3boundaryproducttocoefficientinterface-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryUniquePathSupportAudit" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryUniquePathSupportAudit")
@@ -1767,7 +1767,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:6302](../../../../library/modules
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:6408](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryuniquepathsupportaudit). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:6410](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryuniquepathsupportaudit). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3BoundaryUniquePathSupportAudit_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3BoundaryUniquePathSupportAudit_n3")
@@ -1781,7 +1781,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:6408](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:6447](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3boundaryuniquepathsupportaudit-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:6449](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3boundaryuniquepathsupportaudit-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3BoundaryUniquePathSupport_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3BoundaryUniquePathSupport_n3")
@@ -1795,7 +1795,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:6447](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:6519](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3boundaryuniquepathsupport-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:6521](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3boundaryuniquepathsupport-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPrefixParameters_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPrefixParameters_n3")
@@ -1809,7 +1809,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:6519](../../../../library/modules
 
 *Declaration kind.* abbrev.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:6576](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprefixparameters-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:6578](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprefixparameters-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPrefixDim_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPrefixDim_n3")
@@ -1823,7 +1823,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:6576](../../../../library/modules
 
 *Declaration kind.* abbrev.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:6581](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprefixdim-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:6583](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprefixdim-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPrefixSource_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPrefixSource_n3")
@@ -1837,7 +1837,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:6581](../../../../library/modules
 
 *Declaration kind.* abbrev.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:6586](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprefixsource-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:6588](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprefixsource-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPrefixRow0_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPrefixRow0_n3")
@@ -1851,7 +1851,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:6586](../../../../library/modules
 
 *Declaration kind.* abbrev.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:6591](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprefixrow0-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:6593](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprefixrow0-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPrefixRow1_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPrefixRow1_n3")
@@ -1865,7 +1865,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:6591](../../../../library/modules
 
 *Declaration kind.* abbrev.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:6596](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprefixrow1-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:6598](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprefixrow1-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryDUPrefixMatrix_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryDUPrefixMatrix_n3")
@@ -1879,7 +1879,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:6596](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:6605](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryduprefixmatrix-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:6607](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryduprefixmatrix-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryRDUPrefixMatrix_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryRDUPrefixMatrix_n3")
@@ -1893,7 +1893,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:6605](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:6613](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrduprefixmatrix-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:6615](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrduprefixmatrix-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPrefixMatrix_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPrefixMatrix_n3")
@@ -1907,7 +1907,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:6613](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:6621](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprefixmatrix-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:6623](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprefixmatrix-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryDUPrefixSupport_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryDUPrefixSupport_n3")
@@ -1921,7 +1921,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:6621](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:6744](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryduprefixsupport-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:6746](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryduprefixsupport-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryRDUPrefixSupport_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryRDUPrefixSupport_n3")
@@ -1935,7 +1935,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:6744](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:6762](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrduprefixsupport-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:6764](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrduprefixsupport-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3BoundaryPrefixSupport_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3BoundaryPrefixSupport_n3")
@@ -1949,7 +1949,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:6762](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:6787](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3boundaryprefixsupport-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:6789](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3boundaryprefixsupport-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryOfSwapMatrix_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryOfSwapMatrix_n3")
@@ -1963,7 +1963,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:6787](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:6807](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryofswapmatrix-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:6809](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryofswapmatrix-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundarySuffixMatrix_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundarySuffixMatrix_n3")
@@ -1977,7 +1977,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:6807](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:6814](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysuffixmatrix-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:6816](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysuffixmatrix-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundarySevenGateMatrix_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundarySevenGateMatrix_n3")
@@ -1991,7 +1991,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:6814](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:6828](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysevengatematrix-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:6830](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysevengatematrix-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryOfSwapRow0Col1_zero_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryOfSwapRow0Col1_zero_n3")
@@ -2005,7 +2005,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:6828](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:6897](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryofswaprow0col1-zero-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:6899](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryofswaprow0col1-zero-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundarySuffixRow32Col1_zero_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundarySuffixRow32Col1_zero_n3")
@@ -2019,7 +2019,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:6897](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:6921](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysuffixrow32col1-zero-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:6923](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysuffixrow32col1-zero-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3BoundarySevenGateSupport_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3BoundarySevenGateSupport_n3")
@@ -2033,7 +2033,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:6921](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:6945](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3boundarysevengatesupport-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:6947](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3boundarysevengatesupport-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3BoundarySevenGateUniquePath_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3BoundarySevenGateUniquePath_n3")
@@ -2047,7 +2047,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:6945](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:6970](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3boundarysevengateuniquepath-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:6972](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3boundarysevengateuniquepath-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryDUPrefixEntryEval_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryDUPrefixEntryEval_n3")
@@ -2061,7 +2061,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:6970](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:6995](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryduprefixentryeval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:6997](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryduprefixentryeval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryRDUPrefixEntryEval_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryRDUPrefixEntryEval_n3")
@@ -2075,7 +2075,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:6995](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:7045](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrduprefixentryeval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:7047](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrduprefixentryeval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPrefixEntryEval_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPrefixEntryEval_n3")
@@ -2089,7 +2089,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:7045](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:7087](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprefixentryeval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:7089](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprefixentryeval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryOfSwapEntryEval_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryOfSwapEntryEval_n3")
@@ -2103,7 +2103,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:7087](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:7140](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryofswapentryeval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:7142](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryofswapentryeval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundarySuffixEntryEval_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundarySuffixEntryEval_n3")
@@ -2117,7 +2117,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:7140](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:7191](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysuffixentryeval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:7193](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysuffixentryeval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3BoundaryProductEntryEval_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3BoundaryProductEntryEval_n3")
@@ -2131,7 +2131,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:7191](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:7238](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3boundaryproductentryeval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:7240](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3boundaryproductentryeval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryDUPrefixCol0Support_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryDUPrefixCol0Support_n3")
@@ -2145,7 +2145,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:7238](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:7322](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryduprefixcol0support-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:7324](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryduprefixcol0support-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryRDUPrefixCol0Support_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryRDUPrefixCol0Support_n3")
@@ -2159,7 +2159,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:7322](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:7422](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrduprefixcol0support-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:7424](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrduprefixcol0support-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPrefixCol0Support_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPrefixCol0Support_n3")
@@ -2173,7 +2173,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:7422](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:7445](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprefixcol0support-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:7447](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprefixcol0support-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryDUPrefixCol0EntryEval_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryDUPrefixCol0EntryEval_n3")
@@ -2187,7 +2187,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:7445](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:7471](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryduprefixcol0entryeval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:7473](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryduprefixcol0entryeval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryRDUPrefixRow0Col0_eval_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryRDUPrefixRow0Col0_eval_n3")
@@ -2201,7 +2201,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:7471](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:7518](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrduprefixrow0col0-eval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:7520](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrduprefixrow0col0-eval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryRDUPrefixRow1Col0_eval_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryRDUPrefixRow1Col0_eval_n3")
@@ -2215,7 +2215,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:7518](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:7557](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrduprefixrow1col0-eval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:7559](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrduprefixrow1col0-eval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPrefixRow96Col0_eval_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPrefixRow96Col0_eval_n3")
@@ -2229,7 +2229,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:7557](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:7602](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprefixrow96col0-eval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:7604](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprefixrow96col0-eval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPrefixRow97Col0_eval_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPrefixRow97Col0_eval_n3")
@@ -2243,7 +2243,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:7602](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:7659](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprefixrow97col0-eval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:7661](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprefixrow97col0-eval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryCol0SupportAnalysis" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryCol0SupportAnalysis")
@@ -2257,7 +2257,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:7659](../../../../library/modules
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:7741](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarycol0supportanalysis). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:7743](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarycol0supportanalysis). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryCol0SupportAnalysis_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryCol0SupportAnalysis_n3")
@@ -2271,7 +2271,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:7741](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:7765](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarycol0supportanalysis-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:7767](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarycol0supportanalysis-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3BoundarySevenGateTwoPath_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3BoundarySevenGateTwoPath_n3")
@@ -2285,7 +2285,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:7765](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:7838](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3boundarysevengatetwopath-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:7840](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3boundarysevengatetwopath-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryRyCoefficientBridge" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryRyCoefficientBridge")
@@ -2299,7 +2299,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:7838](../../../../library/modules
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:8564](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrycoefficientbridge). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:8567](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrycoefficientbridge). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryRyCoefficientBridge_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryRyCoefficientBridge_n3")
@@ -2313,7 +2313,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:8564](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:8597](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrycoefficientbridge-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:8600](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrycoefficientbridge-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryRyCoefficientBridge_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryRyCoefficientBridge_n3_transcript")
@@ -2327,7 +2327,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:8597](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:8651](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrycoefficientbridge-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:8654](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrycoefficientbridge-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryRyAngleConventionDecision" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryRyAngleConventionDecision")
@@ -2341,7 +2341,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:8651](../../../../library/modules
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:8717](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryryangleconventiondecision). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:8720](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryryangleconventiondecision). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryRyAngleConventionDecision_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryRyAngleConventionDecision_n3")
@@ -2355,7 +2355,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:8717](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:8744](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryryangleconventiondecision-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:8747](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryryangleconventiondecision-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryRyAngleConventionDecision_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryRyAngleConventionDecision_n3_transcript")
@@ -2369,7 +2369,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:8744](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:8790](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryryangleconventiondecision-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:8793](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryryangleconventiondecision-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryRyLowerPacketGuard" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryRyLowerPacketGuard")
@@ -2383,7 +2383,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:8790](../../../../library/modules
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:8843](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrylowerpacketguard). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:8846](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrylowerpacketguard). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryRyLowerPacketGuard_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryRyLowerPacketGuard_n3")
@@ -2397,7 +2397,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:8843](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:8867](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrylowerpacketguard-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:8870](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrylowerpacketguard-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryRyLowerPacketGuard_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryRyLowerPacketGuard_n3_transcript")
@@ -2411,7 +2411,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:8867](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:8903](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrylowerpacketguard-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:8906](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrylowerpacketguard-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryRyCorrectedAngleSourceDecision" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryRyCorrectedAngleSourceDecision")
@@ -2425,7 +2425,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:8903](../../../../library/modules
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:8951](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrycorrectedanglesourcedecision). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:8954](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrycorrectedanglesourcedecision). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryRyCorrectedAngleSourceDecision_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryRyCorrectedAngleSourceDecision_n3")
@@ -2439,7 +2439,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:8951](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:8983](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrycorrectedanglesourcedecision-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:8986](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrycorrectedanglesourcedecision-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryRyCorrectedAngleSourceDecision_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryRyCorrectedAngleSourceDecision_n3_transcript")
@@ -2453,7 +2453,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:8983](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:9029](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrycorrectedanglesourcedecision-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:9032](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrycorrectedanglesourcedecision-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryCorrectedCoefficientInterface" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryCorrectedCoefficientInterface")
@@ -2467,7 +2467,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:9029](../../../../library/modules
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:9070](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarycorrectedcoefficientinterface). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:9073](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarycorrectedcoefficientinterface). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryCorrectedCoefficientInterface_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryCorrectedCoefficientInterface_n3")
@@ -2481,7 +2481,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:9070](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:9090](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarycorrectedcoefficientinterface-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:9093](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarycorrectedcoefficientinterface-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryCorrectedCoefficientInterface_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryCorrectedCoefficientInterface_n3_transcript")
@@ -2495,7 +2495,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:9090](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:9130](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarycorrectedcoefficientinterface-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:9133](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarycorrectedcoefficientinterface-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3BoundaryProductEntryEval_correctedAngle_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3BoundaryProductEntryEval_correctedAngle_n3")
@@ -2509,7 +2509,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:9130](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:9164](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3boundaryproductentryeval-correctedangle-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:9167](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3boundaryproductentryeval-correctedangle-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3BoundaryProductEntryEval_correctedCoefficientExpanded_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinBlockEncodingProofRoute_gamma3BoundaryProductEntryEval_correctedCoefficientExpanded_n3")
@@ -2523,7 +2523,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:9164](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:9192](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3boundaryproductentryeval-correctedcoefficientexpanded-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:9195](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobinblockencodingproofroute-gamma3boundaryproductentryeval-correctedcoefficientexpanded-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryAkEntry_matches_globalSlot2_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryAkEntry_matches_globalSlot2_n3")
@@ -2537,7 +2537,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:9192](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:9225](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryakentry-matches-globalslot2-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:9228](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryakentry-matches-globalslot2-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryProductToCoefficientObstruction" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryProductToCoefficientObstruction")
@@ -2551,7 +2551,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:9225](../../../../library/modules
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:9245](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryproducttocoefficientobstruction). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:9248](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryproducttocoefficientobstruction). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProductToCoefficientObstruction_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProductToCoefficientObstruction_n3")
@@ -2565,7 +2565,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:9245](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:9266](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryproducttocoefficientobstruction-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:9269](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryproducttocoefficientobstruction-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProductToCoefficientObstruction_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProductToCoefficientObstruction_n3_transcript")
@@ -2579,7 +2579,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:9266](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:9316](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryproducttocoefficientobstruction-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:9319](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryproducttocoefficientobstruction-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryNormalizerProjectionConvention" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryNormalizerProjectionConvention")
@@ -2593,7 +2593,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:9316](../../../../library/modules
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:9360](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarynormalizerprojectionconvention). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:9363](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarynormalizerprojectionconvention). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryNormalizerProjectionConvention_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryNormalizerProjectionConvention_n3")
@@ -2607,7 +2607,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:9360](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:9395](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarynormalizerprojectionconvention-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:9398](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarynormalizerprojectionconvention-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryNormalizerProjectionConvention_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryNormalizerProjectionConvention_n3_transcript")
@@ -2621,7 +2621,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:9395](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:9446](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarynormalizerprojectionconvention-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:9449](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarynormalizerprojectionconvention-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryNormalizerSplitTarget" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryNormalizerSplitTarget")
@@ -2635,7 +2635,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:9446](../../../../library/modules
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:9530](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarynormalizersplittarget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:9533](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarynormalizersplittarget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryNormalizerSplitTarget_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryNormalizerSplitTarget_n3")
@@ -2649,7 +2649,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:9530](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:9562](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarynormalizersplittarget-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:9565](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarynormalizersplittarget-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryNormalizerSplitTarget_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryNormalizerSplitTarget_n3_transcript")
@@ -2663,7 +2663,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:9562](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:9597](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarynormalizersplittarget-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:9600](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarynormalizersplittarget-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundarySymbolicInverseEval_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundarySymbolicInverseEval_n3")
@@ -2677,7 +2677,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:9597](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:9647](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysymbolicinverseeval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:9650](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysymbolicinverseeval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundarySymbolicInverseSemantics" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundarySymbolicInverseSemantics")
@@ -2691,7 +2691,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:9647](../../../../library/modules
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:9711](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysymbolicinversesemantics). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:9714](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysymbolicinversesemantics). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundarySymbolicInverseSemantics_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundarySymbolicInverseSemantics_n3")
@@ -2705,7 +2705,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:9711](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:9741](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysymbolicinversesemantics-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:9744](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysymbolicinversesemantics-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundarySymbolicInverseSemantics_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundarySymbolicInverseSemantics_n3_transcript")
@@ -2719,7 +2719,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:9741](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:9777](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysymbolicinversesemantics-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:9780](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysymbolicinversesemantics-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryUniformSparseRegisterPreparationObligation_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryUniformSparseRegisterPreparationObligation_n3")
@@ -2733,7 +2733,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:9777](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:9825](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryuniformsparseregisterpreparationobligation-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:9828](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryuniformsparseregisterpreparationobligation-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryKappaProjectionTarget" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryKappaProjectionTarget")
@@ -2747,7 +2747,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:9825](../../../../library/modules
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:9843](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarykappaprojectiontarget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:9846](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarykappaprojectiontarget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryKappaProjectionTarget_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryKappaProjectionTarget_n3")
@@ -2761,7 +2761,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:9843](../../../../library/modules
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:9886](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarykappaprojectiontarget-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:9889](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarykappaprojectiontarget-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryKappaProjectionTarget_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryKappaProjectionTarget_n3_transcript")
@@ -2775,7 +2775,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:9886](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:9938](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarykappaprojectiontarget-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:9941](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarykappaprojectiontarget-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryKappaProjectionEval_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryKappaProjectionEval_n3")
@@ -2789,7 +2789,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:9938](../../../../library/modules
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:10000](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarykappaprojectioneval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:10003](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarykappaprojectioneval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryKappaProjectionSemantics" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryKappaProjectionSemantics")
@@ -2803,7 +2803,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:10000](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:10079](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarykappaprojectionsemantics). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:10082](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarykappaprojectionsemantics). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryKappaProjectionSemantics_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryKappaProjectionSemantics_n3")
@@ -2817,7 +2817,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:10079](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:10110](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarykappaprojectionsemantics-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:10113](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarykappaprojectionsemantics-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryKappaProjectionSemantics_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryKappaProjectionSemantics_n3_transcript")
@@ -2831,7 +2831,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:10110](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:10148](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarykappaprojectionsemantics-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:10151](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarykappaprojectionsemantics-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryProjectionSourceContract" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryProjectionSourceContract")
@@ -2845,7 +2845,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:10148](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:10198](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionsourcecontract). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:10201](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionsourcecontract). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionSourceContract_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionSourceContract_n3")
@@ -2859,7 +2859,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:10198](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:10238](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionsourcecontract-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:10241](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionsourcecontract-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionSourceContract_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionSourceContract_n3_transcript")
@@ -2873,7 +2873,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:10238](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:10289](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionsourcecontract-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:10292](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionsourcecontract-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionFactorIndex_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionFactorIndex_n3")
@@ -2887,7 +2887,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:10289](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:10347](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionfactorindex-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:10350](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionfactorindex-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryProjectionFactorSemantics" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryProjectionFactorSemantics")
@@ -2901,7 +2901,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:10347](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:10379](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionfactorsemantics). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:10382](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionfactorsemantics). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionFactorSemantics_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionFactorSemantics_n3")
@@ -2915,7 +2915,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:10379](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:10422](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionfactorsemantics-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:10425](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionfactorsemantics-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionFactorSemantics_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionFactorSemantics_n3_transcript")
@@ -2929,7 +2929,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:10422](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:10472](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionfactorsemantics-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:10475](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionfactorsemantics-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryProjectionFactorObstruction" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryProjectionFactorObstruction")
@@ -2943,7 +2943,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:10472](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:10536](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionfactorobstruction). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:10539](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionfactorobstruction). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionFactorObstruction_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionFactorObstruction_n3")
@@ -2957,7 +2957,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:10536](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:10573](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionfactorobstruction-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:10576](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionfactorobstruction-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionFactorObstruction_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionFactorObstruction_n3_transcript")
@@ -2971,7 +2971,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:10573](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:10618](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionfactorobstruction-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:10621](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionfactorobstruction-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryMatchingProjectionConvention" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryMatchingProjectionConvention")
@@ -2985,7 +2985,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:10618](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:10677](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarymatchingprojectionconvention). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:10680](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarymatchingprojectionconvention). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryMatchingProjectionConvention_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryMatchingProjectionConvention_n3")
@@ -2999,7 +2999,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:10677](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:10717](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarymatchingprojectionconvention-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:10720](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarymatchingprojectionconvention-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryMatchingProjectionConvention_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryMatchingProjectionConvention_n3_transcript")
@@ -3013,7 +3013,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:10717](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:10765](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarymatchingprojectionconvention-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:10768](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarymatchingprojectionconvention-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionFactorProductEval_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionFactorProductEval_n3")
@@ -3027,7 +3027,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:10765](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:10832](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionfactorproducteval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:10835](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionfactorproducteval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryMatchingProjectionAmplitudeObstruction" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryMatchingProjectionAmplitudeObstruction")
@@ -3041,7 +3041,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:10832](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:10854](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarymatchingprojectionamplitudeobstruction). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:10857](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarymatchingprojectionamplitudeobstruction). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryMatchingProjectionAmplitudeObstruction_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryMatchingProjectionAmplitudeObstruction_n3")
@@ -3055,7 +3055,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:10854](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:10898](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarymatchingprojectionamplitudeobstruction-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:10901](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarymatchingprojectionamplitudeobstruction-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryMatchingProjectionAmplitudeObstruction_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryMatchingProjectionAmplitudeObstruction_n3_transcript")
@@ -3069,7 +3069,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:10898](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:10956](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarymatchingprojectionamplitudeobstruction-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:10959](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarymatchingprojectionamplitudeobstruction-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryMatchingProjectionAmplitudeContract" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryMatchingProjectionAmplitudeContract")
@@ -3083,7 +3083,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:10956](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:11028](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarymatchingprojectionamplitudecontract). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:11031](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarymatchingprojectionamplitudecontract). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryMatchingProjectionAmplitudeContract_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryMatchingProjectionAmplitudeContract_n3")
@@ -3097,7 +3097,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:11028](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:11069](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarymatchingprojectionamplitudecontract-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:11072](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarymatchingprojectionamplitudecontract-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryMatchingProjectionAmplitudeContract_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryMatchingProjectionAmplitudeContract_n3_transcript")
@@ -3111,7 +3111,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:11069](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:11125](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarymatchingprojectionamplitudecontract-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:11128](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarymatchingprojectionamplitudecontract-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryProjectionAmplitudeSemantics" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryProjectionAmplitudeSemantics")
@@ -3125,7 +3125,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:11125](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:11190](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionamplitudesemantics). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:11193](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionamplitudesemantics). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionAmplitudeSemantics_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionAmplitudeSemantics_n3")
@@ -3139,7 +3139,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:11190](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:11237](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionamplitudesemantics-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:11240](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionamplitudesemantics-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionAmplitudeContractProductEval_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionAmplitudeContractProductEval_n3")
@@ -3153,7 +3153,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:11237](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:11298](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionamplitudecontractproducteval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:11301](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionamplitudecontractproducteval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionAmplitudeSemantics_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionAmplitudeSemantics_n3_transcript")
@@ -3167,7 +3167,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:11298](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:11318](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionamplitudesemantics-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:11321](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionamplitudesemantics-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionAmplitudeFactorEval_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionAmplitudeFactorEval_n3")
@@ -3181,7 +3181,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:11318](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:11394](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionamplitudefactoreval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:11397](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionamplitudefactoreval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryProjectionAmplitudeFactorSemantics" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryProjectionAmplitudeFactorSemantics")
@@ -3195,7 +3195,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:11394](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:11457](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionamplitudefactorsemantics). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:11460](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionamplitudefactorsemantics). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionAmplitudeFactorSemantics_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionAmplitudeFactorSemantics_n3")
@@ -3209,7 +3209,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:11457](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:11498](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionamplitudefactorsemantics-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:11501](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionamplitudefactorsemantics-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionAmplitudeFactorSemantics_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionAmplitudeFactorSemantics_n3_transcript")
@@ -3223,7 +3223,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:11498](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:11554](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionamplitudefactorsemantics-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:11557](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionamplitudefactorsemantics-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryFactorSemanticsContractMap" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryFactorSemanticsContractMap")
@@ -3237,7 +3237,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:11554](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:11623](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryfactorsemanticscontractmap). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:11626](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryfactorsemanticscontractmap). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryFactorSemanticsContractMap_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryFactorSemanticsContractMap_n3")
@@ -3251,7 +3251,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:11623](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:11664](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryfactorsemanticscontractmap-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:11667](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryfactorsemanticscontractmap-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryFactorSemanticsContractMapEval_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryFactorSemanticsContractMapEval_n3")
@@ -3265,7 +3265,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:11664](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:11719](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryfactorsemanticscontractmapeval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:11722](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryfactorsemanticscontractmapeval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryFactorSemanticsContractMap_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryFactorSemanticsContractMap_n3_transcript")
@@ -3279,7 +3279,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:11719](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:11744](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryfactorsemanticscontractmap-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:11747](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryfactorsemanticscontractmap-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryBraProjectionAmplitudeSourceMap" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryBraProjectionAmplitudeSourceMap")
@@ -3293,7 +3293,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:11744](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:11816](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybraprojectionamplitudesourcemap). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:11819](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybraprojectionamplitudesourcemap). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBraProjectionAmplitudeSourceMap_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBraProjectionAmplitudeSourceMap_n3")
@@ -3307,7 +3307,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:11816](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:11855](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybraprojectionamplitudesourcemap-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:11858](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybraprojectionamplitudesourcemap-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBraProjectionAmplitudeSourceMap_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBraProjectionAmplitudeSourceMap_n3_transcript")
@@ -3321,7 +3321,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:11855](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:11914](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybraprojectionamplitudesourcemap-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:11917](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybraprojectionamplitudesourcemap-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryHWKappaDaggerProjectionEntryContract" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryHWKappaDaggerProjectionEntryContract")
@@ -3335,7 +3335,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:11914](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:11980](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappadaggerprojectionentrycontract). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:11983](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappadaggerprojectionentrycontract). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryHWKappaDaggerProjectionEntryContract_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryHWKappaDaggerProjectionEntryContract_n3")
@@ -3349,7 +3349,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:11980](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:12024](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappadaggerprojectionentrycontract-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:12027](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappadaggerprojectionentrycontract-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryHWKappaDaggerProjectionEntryContract_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryHWKappaDaggerProjectionEntryContract_n3_transcript")
@@ -3363,7 +3363,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:12024](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:12087](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappadaggerprojectionentrycontract-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:12090](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappadaggerprojectionentrycontract-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryHWKappaDaggerEmbeddedEntryInterface" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryHWKappaDaggerEmbeddedEntryInterface")
@@ -3377,7 +3377,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:12087](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:12159](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappadaggerembeddedentryinterface). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:12162](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappadaggerembeddedentryinterface). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryHWKappaDaggerEmbeddedEntryInterface_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryHWKappaDaggerEmbeddedEntryInterface_n3")
@@ -3391,7 +3391,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:12159](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:12208](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappadaggerembeddedentryinterface-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:12211](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappadaggerembeddedentryinterface-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryHWKappaDaggerEmbeddedEntryInterface_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryHWKappaDaggerEmbeddedEntryInterface_n3_transcript")
@@ -3405,7 +3405,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:12208](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:12269](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappadaggerembeddedentryinterface-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:12272](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappadaggerembeddedentryinterface-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryHWKappaDaggerEntryFromUniformColumn_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryHWKappaDaggerEntryFromUniformColumn_n3")
@@ -3419,7 +3419,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:12269](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:12345](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappadaggerentryfromuniformcolumn-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:12348](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappadaggerentryfromuniformcolumn-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryHWKappaDaggerUniformColumnContract" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryHWKappaDaggerUniformColumnContract")
@@ -3433,7 +3433,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:12345](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:12367](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappadaggeruniformcolumncontract). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:12370](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappadaggeruniformcolumncontract). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryHWKappaDaggerUniformColumnContract_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryHWKappaDaggerUniformColumnContract_n3")
@@ -3447,7 +3447,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:12367](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:12421](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappadaggeruniformcolumncontract-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:12424](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappadaggeruniformcolumncontract-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryHWKappaDaggerUniformColumnContract_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryHWKappaDaggerUniformColumnContract_n3_transcript")
@@ -3461,7 +3461,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:12421](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:12502](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappadaggeruniformcolumncontract-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:12505](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappadaggeruniformcolumncontract-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryHWKappaDaggerTransposeMatrix_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryHWKappaDaggerTransposeMatrix_n3")
@@ -3475,7 +3475,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:12502](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:12589](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappadaggertransposematrix-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:12592](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappadaggertransposematrix-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryHWKappaDaggerTransposeEntryConvention_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryHWKappaDaggerTransposeEntryConvention_n3")
@@ -3489,7 +3489,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:12589](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:12600](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappadaggertransposeentryconvention-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:12603](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappadaggertransposeentryconvention-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryHWKappaDaggerEntryFromTransposeUniformColumn_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryHWKappaDaggerEntryFromTransposeUniformColumn_n3")
@@ -3503,7 +3503,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:12600](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:12614](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappadaggerentryfromtransposeuniformcolumn-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:12617](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappadaggerentryfromtransposeuniformcolumn-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryHWKappaDaggerAdjointEntryConvention" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryHWKappaDaggerAdjointEntryConvention")
@@ -3517,7 +3517,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:12614](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:12636](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappadaggeradjointentryconvention). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:12639](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappadaggeradjointentryconvention). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryHWKappaDaggerAdjointEntryConvention_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryHWKappaDaggerAdjointEntryConvention_n3")
@@ -3531,7 +3531,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:12636](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:12688](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappadaggeradjointentryconvention-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:12691](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappadaggeradjointentryconvention-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryHWKappaDaggerAdjointEntryConvention_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryHWKappaDaggerAdjointEntryConvention_n3_transcript")
@@ -3545,7 +3545,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:12688](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:12762](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappadaggeradjointentryconvention-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:12765](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappadaggeradjointentryconvention-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryHWKappaCleanColumnContract" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryHWKappaCleanColumnContract")
@@ -3559,7 +3559,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:12762](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:12853](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappacleancolumncontract). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:12856](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappacleancolumncontract). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryHWKappaCleanColumnContract_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryHWKappaCleanColumnContract_n3")
@@ -3573,7 +3573,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:12853](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:12906](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappacleancolumncontract-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:12909](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappacleancolumncontract-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryHWKappaCleanColumnContract_feedsTransposeBridge_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryHWKappaCleanColumnContract_feedsTransposeBridge_n3")
@@ -3587,7 +3587,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:12906](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:12976](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappacleancolumncontract-feedstransposebridge-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:12979](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappacleancolumncontract-feedstransposebridge-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryHWKappaCleanColumnContract_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryHWKappaCleanColumnContract_n3_transcript")
@@ -3601,7 +3601,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:12976](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:13002](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappacleancolumncontract-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:13007](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappacleancolumncontract-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryCleanColumnBraRouteContract" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryCleanColumnBraRouteContract")
@@ -3615,7 +3615,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:13002](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:13097](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarycleancolumnbraroutecontract). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:13102](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarycleancolumnbraroutecontract). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryCleanColumnBraRouteContract_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryCleanColumnBraRouteContract_n3")
@@ -3629,7 +3629,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:13097](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:13154](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarycleancolumnbraroutecontract-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:13159](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarycleancolumnbraroutecontract-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryCleanColumnBraRouteContract_feedsBraAmplitude_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryCleanColumnBraRouteContract_feedsBraAmplitude_n3")
@@ -3643,7 +3643,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:13154](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:13226](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarycleancolumnbraroutecontract-feedsbraamplitude-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:13231](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarycleancolumnbraroutecontract-feedsbraamplitude-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryCleanColumnBraRouteContract_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryCleanColumnBraRouteContract_n3_transcript")
@@ -3657,7 +3657,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:13226](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:13252](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarycleancolumnbraroutecontract-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:13259](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarycleancolumnbraroutecontract-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryCleanColumnFactorSemanticsRoute" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryCleanColumnFactorSemanticsRoute")
@@ -3671,7 +3671,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:13252](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:13362](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarycleancolumnfactorsemanticsroute). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:13369](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarycleancolumnfactorsemanticsroute). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryCleanColumnFactorSemanticsRoute_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryCleanColumnFactorSemanticsRoute_n3")
@@ -3685,7 +3685,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:13362](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:13417](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarycleancolumnfactorsemanticsroute-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:13424](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarycleancolumnfactorsemanticsroute-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryCleanColumnFactorSemanticsRouteEval_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryCleanColumnFactorSemanticsRouteEval_n3")
@@ -3699,7 +3699,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:13417](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:13488](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarycleancolumnfactorsemanticsrouteeval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:13495](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarycleancolumnfactorsemanticsrouteeval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryCleanColumnFactorSemanticsRoute_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryCleanColumnFactorSemanticsRoute_n3_transcript")
@@ -3713,7 +3713,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:13488](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:13532](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarycleancolumnfactorsemanticsroute-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:13539](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarycleancolumnfactorsemanticsroute-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryProductUnderContractsRoute" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryProductUnderContractsRoute")
@@ -3727,7 +3727,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:13532](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:13630](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryproductundercontractsroute). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:13637](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryproductundercontractsroute). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProductUnderContractsRoute_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProductUnderContractsRoute_n3")
@@ -3741,7 +3741,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:13630](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:13682](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryproductundercontractsroute-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:13689](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryproductundercontractsroute-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProductUnderContractsEval_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProductUnderContractsEval_n3")
@@ -3755,7 +3755,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:13682](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:13749](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryproductundercontractseval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:13756](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryproductundercontractseval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProductUnderContractsRoute_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProductUnderContractsRoute_n3_transcript")
@@ -3769,7 +3769,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:13749](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:13788](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryproductundercontractsroute-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:13795](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryproductundercontractsroute-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryFiniteProjectionBlockEntryIndex_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryFiniteProjectionBlockEntryIndex_n3")
@@ -3783,7 +3783,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:13788](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:13877](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryfiniteprojectionblockentryindex-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:13884](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryfiniteprojectionblockentryindex-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryFiniteProjectionProductBridge" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryFiniteProjectionProductBridge")
@@ -3797,7 +3797,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:13877](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:13917](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryfiniteprojectionproductbridge). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:13924](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryfiniteprojectionproductbridge). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryFiniteProjectionProductBridge_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryFiniteProjectionProductBridge_n3")
@@ -3811,7 +3811,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:13917](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:13963](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryfiniteprojectionproductbridge-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:13970](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryfiniteprojectionproductbridge-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryFiniteProjectionProductBridge_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryFiniteProjectionProductBridge_n3_transcript")
@@ -3825,7 +3825,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:13963](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:14036](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryfiniteprojectionproductbridge-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:14043](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryfiniteprojectionproductbridge-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryBranchDecompositionSlot2" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryBranchDecompositionSlot2")
@@ -3839,7 +3839,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:14036](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:14112](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybranchdecompositionslot2). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:14119](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybranchdecompositionslot2). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBranchDecompositionSlot2_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBranchDecompositionSlot2_n3")
@@ -3853,7 +3853,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:14112](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:14164](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybranchdecompositionslot2-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:14171](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybranchdecompositionslot2-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBranchDecompositionSlot2_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBranchDecompositionSlot2_n3_transcript")
@@ -3867,7 +3867,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:14164](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:14231](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybranchdecompositionslot2-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:14238](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybranchdecompositionslot2-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryProjectionSummationTarget" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryProjectionSummationTarget")
@@ -3881,7 +3881,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:14231](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:14308](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionsummationtarget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:14315](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionsummationtarget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionSummationTarget_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionSummationTarget_n3")
@@ -3895,7 +3895,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:14308](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:14360](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionsummationtarget-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:14367](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionsummationtarget-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionSummationTarget_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionSummationTarget_n3_transcript")
@@ -3909,7 +3909,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:14360](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:14467](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionsummationtarget-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:14474](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionsummationtarget-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryBranchEntrySelection" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryBranchEntrySelection")
@@ -3923,7 +3923,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:14467](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:14537](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybranchentryselection). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:14544](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybranchentryselection). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBranchEntrySelection_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBranchEntrySelection_n3")
@@ -3937,7 +3937,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:14537](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:14576](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybranchentryselection-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:14583](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybranchentryselection-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBranchEntrySelectionEval_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBranchEntrySelectionEval_n3")
@@ -3951,7 +3951,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:14576](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:14626](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybranchentryselectioneval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:14633](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybranchentryselectioneval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBranchEntrySelection_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBranchEntrySelection_n3_transcript")
@@ -3965,7 +3965,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:14626](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:14666](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybranchentryselection-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:14673](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybranchentryselection-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryProjectionSummationObstruction" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryProjectionSummationObstruction")
@@ -3979,7 +3979,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:14666](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:14739](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionsummationobstruction). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:14746](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionsummationobstruction). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionSummationObstruction_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionSummationObstruction_n3")
@@ -3993,7 +3993,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:14739](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:14792](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionsummationobstruction-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:14799](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionsummationobstruction-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionSummationObstruction_selectedSlotEval_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionSummationObstruction_selectedSlotEval_n3")
@@ -4007,7 +4007,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:14792](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:14863](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionsummationobstruction-selectedsloteval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:14870](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionsummationobstruction-selectedsloteval-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionSummationObstruction_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryProjectionSummationObstruction_n3_transcript")
@@ -4021,7 +4021,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:14863](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:14892](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionsummationobstruction-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:14899](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryprojectionsummationobstruction-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBranchContributionFocusedSlot" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBranchContributionFocusedSlot")
@@ -4035,7 +4035,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:14892](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:14978](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybranchcontributionfocusedslot). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:14985](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybranchcontributionfocusedslot). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBranchContributionSum" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBranchContributionSum")
@@ -4049,7 +4049,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:14978](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:14989](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybranchcontributionsum). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:14996](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybranchcontributionsum). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBranchContributionPlaceholder_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBranchContributionPlaceholder_n3")
@@ -4063,7 +4063,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:14989](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:15001](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybranchcontributionplaceholder-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:15008](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybranchcontributionplaceholder-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryBranchContributionFamily" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryBranchContributionFamily")
@@ -4077,7 +4077,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:15001](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:15019](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybranchcontributionfamily). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:15026](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybranchcontributionfamily). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBranchContributionFamily_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBranchContributionFamily_n3")
@@ -4091,7 +4091,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:15019](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:15052](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybranchcontributionfamily-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:15059](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybranchcontributionfamily-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBranchContribution_selectedSlot_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBranchContribution_selectedSlot_n3")
@@ -4105,7 +4105,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:15052](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:15101](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybranchcontribution-selectedslot-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:15108](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybranchcontribution-selectedslot-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryBranchContributionObstruction" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryBranchContributionObstruction")
@@ -4119,7 +4119,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:15101](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:15114](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybranchcontributionobstruction). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:15121](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybranchcontributionobstruction). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBranchContributionObstruction_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBranchContributionObstruction_n3")
@@ -4133,7 +4133,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:15114](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:15139](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybranchcontributionobstruction-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:15146](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybranchcontributionobstruction-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBranchContributionObstruction_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBranchContributionObstruction_n3_transcript")
@@ -4147,7 +4147,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:15139](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:15174](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybranchcontributionobstruction-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:15181](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybranchcontributionobstruction-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchContributionPredicate_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchContributionPredicate_n3")
@@ -4161,7 +4161,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:15174](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:15233](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchcontributionpredicate-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:15240](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchcontributionpredicate-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryBackendProjectionSummationFieldTarget" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryBackendProjectionSummationFieldTarget")
@@ -4175,7 +4175,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:15233](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:15250](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendprojectionsummationfieldtarget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:15257](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendprojectionsummationfieldtarget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendProjectionSummationFieldTarget_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendProjectionSummationFieldTarget_n3")
@@ -4189,7 +4189,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:15250](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:15284](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendprojectionsummationfieldtarget-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:15291](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendprojectionsummationfieldtarget-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBlockExtractionBranchContributionTarget_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBlockExtractionBranchContributionTarget_n3")
@@ -4203,7 +4203,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:15284](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:15385](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryblockextractionbranchcontributiontarget-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:15392](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryblockextractionbranchcontributiontarget-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryBlockExtractionBackendGap" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryBlockExtractionBackendGap")
@@ -4217,7 +4217,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:15385](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:15467](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryblockextractionbackendgap). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:15474](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryblockextractionbackendgap). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBlockExtractionBackendGap_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBlockExtractionBackendGap_n3")
@@ -4231,7 +4231,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:15467](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:15517](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryblockextractionbackendgap-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:15524](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryblockextractionbackendgap-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBlockExtractionBackendGap_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBlockExtractionBackendGap_n3_transcript")
@@ -4245,7 +4245,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:15517](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:15572](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryblockextractionbackendgap-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:15579](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryblockextractionbackendgap-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchFullIndex_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchFullIndex_n3")
@@ -4259,7 +4259,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:15572](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:15644](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchfullindex-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:15651](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchfullindex-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchFullIndex_selected_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchFullIndex_selected_n3")
@@ -4273,7 +4273,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:15644](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:15668](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchfullindex-selected-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:15675](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchfullindex-selected-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchFullIndex_slotZero_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchFullIndex_slotZero_n3")
@@ -4287,7 +4287,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:15668](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:15683](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchfullindex-slotzero-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:15690](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchfullindex-slotzero-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchFullIndex_value_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchFullIndex_value_n3")
@@ -4301,7 +4301,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:15683](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:15698](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchfullindex-value-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:15705](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchfullindex-value-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchFullIndex_injective_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchFullIndex_injective_n3")
@@ -4315,7 +4315,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:15698](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:15715](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchfullindex-injective-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:15722](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchfullindex-injective-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendSlotOneDaggerAfterSwap_zero_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendSlotOneDaggerAfterSwap_zero_n3")
@@ -4329,7 +4329,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:15715](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:15734](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendslotonedaggerafterswap-zero-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:15741](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendslotonedaggerafterswap-zero-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendSelectedBranchSummandFormula_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendSelectedBranchSummandFormula_n3")
@@ -4343,7 +4343,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:15734](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:15830](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendselectedbranchsummandformula-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:15837](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendselectedbranchsummandformula-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryBackendBranchIndexMapObstruction" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryBackendBranchIndexMapObstruction")
@@ -4357,7 +4357,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:15830](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:15859](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchindexmapobstruction). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:15866](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchindexmapobstruction). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchIndexMapObstruction_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchIndexMapObstruction_n3")
@@ -4371,7 +4371,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:15859](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:15905](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchindexmapobstruction-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:15912](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchindexmapobstruction-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchContribution_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchContribution_n3")
@@ -4385,7 +4385,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:15905](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:16028](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchcontribution-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:16035](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchcontribution-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchContribution_selected_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchContribution_selected_n3")
@@ -4399,7 +4399,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:16028](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:16044](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchcontribution-selected-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:16051](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchcontribution-selected-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchContribution_slotZero_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchContribution_slotZero_n3")
@@ -4413,7 +4413,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:16044](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:16064](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchcontribution-slotzero-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:16071](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchcontribution-slotzero-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchContribution_slotZeroEval_zero_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchContribution_slotZeroEval_zero_n3")
@@ -4427,7 +4427,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:16064](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:16085](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchcontribution-slotzeroeval-zero-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:16092](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchcontribution-slotzeroeval-zero-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchContribution_slotOneEval_zero_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchContribution_slotOneEval_zero_n3")
@@ -4441,7 +4441,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:16085](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:16427](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchcontribution-slotoneeval-zero-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:16434](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchcontribution-slotoneeval-zero-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchContribution_slotThreeEval_zero_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchContribution_slotThreeEval_zero_n3")
@@ -4455,7 +4455,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:16427](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:16757](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchcontribution-slotthreeeval-zero-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:16764](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchcontribution-slotthreeeval-zero-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchContribution_slotFourEval_zero_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchContribution_slotFourEval_zero_n3")
@@ -4469,7 +4469,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:16757](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:17086](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchcontribution-slotfoureval-zero-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:17093](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchcontribution-slotfoureval-zero-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchContribution_slotFiveEval_zero_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchContribution_slotFiveEval_zero_n3")
@@ -4483,7 +4483,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:17086](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:17416](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchcontribution-slotfiveeval-zero-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:17423](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchcontribution-slotfiveeval-zero-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchContribution_slotSixEval_zero_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchContribution_slotSixEval_zero_n3")
@@ -4497,7 +4497,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:17416](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:17746](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchcontribution-slotsixeval-zero-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:17753](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchcontribution-slotsixeval-zero-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchFoldEval_eq_selectedSlotContribution_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchFoldEval_eq_selectedSlotContribution_n3")
@@ -4511,7 +4511,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:17746](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:17783](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchfoldeval-eq-selectedslotcontribution-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:17790](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchfoldeval-eq-selectedslotcontribution-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchFold_expandedSlotZero_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchFold_expandedSlotZero_n3")
@@ -4525,7 +4525,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:17783](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:17834](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchfold-expandedslotzero-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:17841](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchfold-expandedslotzero-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchFold_expandedAllSlots_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchFold_expandedAllSlots_n3")
@@ -4539,7 +4539,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:17834](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:17865](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchfold-expandedallslots-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:17872](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchfold-expandedallslots-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchContributionTarget_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchContributionTarget_n3")
@@ -4553,7 +4553,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:17865](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:18012](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchcontributiontarget-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:18019](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchcontributiontarget-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryBackendAllSlotSummandFormula" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryBackendAllSlotSummandFormula")
@@ -4567,7 +4567,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:18012](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:18090](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendallslotsummandformula). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:18097](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendallslotsummandformula). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendAllSlotSummandFormula_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendAllSlotSummandFormula_n3")
@@ -4581,7 +4581,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:18090](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:18136](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendallslotsummandformula-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:18143](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendallslotsummandformula-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryBackendBranchSumClosure" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryBackendBranchSumClosure")
@@ -4595,7 +4595,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:18136](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:18301](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchsumclosure). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:18308](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchsumclosure). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchSumClosure_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchSumClosure_n3")
@@ -4609,7 +4609,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:18301](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:18341](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchsumclosure-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:18348](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchsumclosure-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchSumClosure_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendBranchSumClosure_n3_transcript")
@@ -4623,7 +4623,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:18341](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:18398](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchsumclosure-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:18405](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendbranchsumclosure-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendProjectionStatement_signalEntry_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendProjectionStatement_signalEntry_n3")
@@ -4637,7 +4637,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:18398](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:18476](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendprojectionstatement-signalentry-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:18483](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendprojectionstatement-signalentry-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryBackendProjectionStatementObstruction" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryBackendProjectionStatementObstruction")
@@ -4651,7 +4651,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:18476](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:18566](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendprojectionstatementobstruction). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:18573](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendprojectionstatementobstruction). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendProjectionStatementObstruction_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendProjectionStatementObstruction_n3")
@@ -4665,7 +4665,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:18566](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:18605](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendprojectionstatementobstruction-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:18612](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendprojectionstatementobstruction-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryBackendExpansionBridge" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryBackendExpansionBridge")
@@ -4679,7 +4679,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:18605](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:18785](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendexpansionbridge). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:18792](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendexpansionbridge). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendExpansionBridge_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendExpansionBridge_n3")
@@ -4693,7 +4693,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:18785](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:18826](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendexpansionbridge-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:18833](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendexpansionbridge-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendExpansionBridge_n3_transcript" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendExpansionBridge_n3_transcript")
@@ -4707,7 +4707,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:18826](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:18879](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendexpansionbridge-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:18886](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendexpansionbridge-n3-transcript). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryBackendUnitaryEntryFoldTarget" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryBackendUnitaryEntryFoldTarget")
@@ -4721,7 +4721,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:18879](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:19020](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendunitaryentryfoldtarget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:19027](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendunitaryentryfoldtarget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendUnitaryEntryFoldTarget_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendUnitaryEntryFoldTarget_n3")
@@ -4735,7 +4735,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:19020](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:19060](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendunitaryentryfoldtarget-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:19067](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendunitaryentryfoldtarget-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryBackendUnitaryEntryFoldSupportTarget" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryBackendUnitaryEntryFoldSupportTarget")
@@ -4749,7 +4749,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:19060](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:19190](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendunitaryentryfoldsupporttarget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:19197](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendunitaryentryfoldsupporttarget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendUnitaryEntryFoldSupportTarget_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendUnitaryEntryFoldSupportTarget_n3")
@@ -4763,7 +4763,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:19190](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:19237](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendunitaryentryfoldsupporttarget-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:19244](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendunitaryentryfoldsupporttarget-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPreparedBranchContribution_formula_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPreparedBranchContribution_formula_n3")
@@ -4777,7 +4777,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:19237](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:19361](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarypreparedbranchcontribution-formula-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:19368](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarypreparedbranchcontribution-formula-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryPreparedBranchExpansionTarget" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryPreparedBranchExpansionTarget")
@@ -4791,7 +4791,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:19361](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:19383](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarypreparedbranchexpansiontarget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:19390](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarypreparedbranchexpansiontarget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPreparedBranchExpansionTarget_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPreparedBranchExpansionTarget_n3")
@@ -4805,7 +4805,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:19383](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:19438](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarypreparedbranchexpansiontarget-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:19445](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarypreparedbranchexpansiontarget-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundarySparseCleanIndex_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundarySparseCleanIndex_n3")
@@ -4819,7 +4819,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:19438](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:19582](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysparsecleanindex-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:19589](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysparsecleanindex-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundarySparseSlotIndex_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundarySparseSlotIndex_n3")
@@ -4833,7 +4833,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:19582](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:19586](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysparseslotindex-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:19593](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysparseslotindex-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryHWKappaUniformColumnAllSlotsStatement_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryHWKappaUniformColumnAllSlotsStatement_n3")
@@ -4847,7 +4847,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:19586](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:19596](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappauniformcolumnallslotsstatement-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:19603](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryhwkappauniformcolumnallslotsstatement-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPreparedProjectionSandwichContribution_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPreparedProjectionSandwichContribution_n3")
@@ -4861,7 +4861,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:19596](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:19611](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarypreparedprojectionsandwichcontribution-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:19618](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarypreparedprojectionsandwichcontribution-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPreparedProjectionSandwichSum_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPreparedProjectionSandwichSum_n3")
@@ -4875,7 +4875,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:19611](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:19625](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarypreparedprojectionsandwichsum-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:19632](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarypreparedprojectionsandwichsum-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryPreparedProjectionSandwichBackendTarget" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryPreparedProjectionSandwichBackendTarget")
@@ -4889,7 +4889,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:19625](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:19712](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarypreparedprojectionsandwichbackendtarget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:19719](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarypreparedprojectionsandwichbackendtarget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPreparedProjectionSandwichBackendTarget_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPreparedProjectionSandwichBackendTarget_n3")
@@ -4903,7 +4903,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:19712](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:19753](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarypreparedprojectionsandwichbackendtarget-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:19760](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarypreparedprojectionsandwichbackendtarget-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryRawEntryPreparedSandwichCircuitField" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryRawEntryPreparedSandwichCircuitField")
@@ -4917,7 +4917,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:19753](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:19884](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrawentrypreparedsandwichcircuitfield). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:19891](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrawentrypreparedsandwichcircuitfield). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryRawEntryPreparedSandwichCircuitField_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryRawEntryPreparedSandwichCircuitField_n3")
@@ -4931,7 +4931,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:19884](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:19918](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrawentrypreparedsandwichcircuitfield-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:19925](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrawentrypreparedsandwichcircuitfield-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryRawUnitaryEntry_contractMatrix_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryRawUnitaryEntry_contractMatrix_n3")
@@ -4945,7 +4945,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:19918](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:20119](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrawunitaryentry-contractmatrix-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:20126](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryrawunitaryentry-contractmatrix-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundarySparsePreparationGates_absent_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundarySparsePreparationGates_absent_n3")
@@ -4959,7 +4959,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:20119](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:20135](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysparsepreparationgates-absent-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:20142](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysparsepreparationgates-absent-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryPreparedCircuitSemanticsGap" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryPreparedCircuitSemanticsGap")
@@ -4973,7 +4973,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:20135](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:20154](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarypreparedcircuitsemanticsgap). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:20161](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarypreparedcircuitsemanticsgap). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPreparedCircuitSemanticsGap_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPreparedCircuitSemanticsGap_n3")
@@ -4987,7 +4987,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:20154](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:20188](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarypreparedcircuitsemanticsgap-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:20195](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarypreparedcircuitsemanticsgap-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPreparedCircuitSparseMatrix_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPreparedCircuitSparseMatrix_n3")
@@ -5001,7 +5001,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:20188](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:20287](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarypreparedcircuitsparsematrix-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:20294](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarypreparedcircuitsparsematrix-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPreparedCompositeGate_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPreparedCompositeGate_n3")
@@ -5015,7 +5015,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:20287](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:20369](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarypreparedcompositegate-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:20376](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarypreparedcompositegate-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPreparedCompositeCircuit_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPreparedCompositeCircuit_n3")
@@ -5029,7 +5029,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:20369](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:20384](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarypreparedcompositecircuit-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:20391](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarypreparedcompositecircuit-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPreparedCompositeGateMatchesCircuit_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPreparedCompositeGateMatchesCircuit_n3")
@@ -5043,7 +5043,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:20384](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:20389](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarypreparedcompositegatematchescircuit-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:20396](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarypreparedcompositegatematchescircuit-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPreparedCompositeCircuitSemantics_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPreparedCompositeCircuitSemantics_n3")
@@ -5057,7 +5057,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:20389](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:20404](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarypreparedcompositecircuitsemantics-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:20411](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarypreparedcompositecircuitsemantics-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryPreparedCircuitMatrixInterface" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryPreparedCircuitMatrixInterface")
@@ -5071,7 +5071,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:20404](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:20486](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarypreparedcircuitmatrixinterface). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:20493](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarypreparedcircuitmatrixinterface). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPreparedCircuitMatrixInterface_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryPreparedCircuitMatrixInterface_n3")
@@ -5085,7 +5085,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:20486](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:20526](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarypreparedcircuitmatrixinterface-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:20533](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarypreparedcircuitmatrixinterface-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryActiveFullDim_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryActiveFullDim_n3")
@@ -5099,7 +5099,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:20526](../../../../library/module
 
 *Declaration kind.* abbrev.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:20680](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryactivefulldim-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:20687](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryactivefulldim-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryActiveCleanIndex_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryActiveCleanIndex_n3")
@@ -5113,7 +5113,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:20680](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:20685](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryactivecleanindex-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:20692](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryactivecleanindex-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryActivePreparedEntryTarget_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryActivePreparedEntryTarget_n3")
@@ -5127,7 +5127,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:20685](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:20912](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryactivepreparedentrytarget-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:20919](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryactivepreparedentrytarget-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryActivePreparedCompositionFieldTarget" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryActivePreparedCompositionFieldTarget")
@@ -5141,7 +5141,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:20912](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:21087](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryactivepreparedcompositionfieldtarget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:21094](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryactivepreparedcompositionfieldtarget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryActivePreparedCompositionFieldTarget_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryActivePreparedCompositionFieldTarget_n3")
@@ -5155,7 +5155,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:21087](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:21124](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryactivepreparedcompositionfieldtarget-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:21131](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryactivepreparedcompositionfieldtarget-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryActivePreparedCompositeEvalStatement_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryActivePreparedCompositeEvalStatement_n3")
@@ -5169,7 +5169,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:21124](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:21540](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryactivepreparedcompositeevalstatement-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:21547](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryactivepreparedcompositeevalstatement-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryUncastActivePreparedCompositeEvalStatement_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryUncastActivePreparedCompositeEvalStatement_n3")
@@ -5183,7 +5183,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:21540](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:21557](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryuncastactivepreparedcompositeevalstatement-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:21564](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryuncastactivepreparedcompositeevalstatement-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryActivePreparedSparseEvalStatement_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryActivePreparedSparseEvalStatement_n3")
@@ -5197,7 +5197,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:21557](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:21652](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryactivepreparedsparseevalstatement-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:21659](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryactivepreparedsparseevalstatement-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryUncastPreparedSandwichEvalStatement_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryUncastPreparedSandwichEvalStatement_n3")
@@ -5211,7 +5211,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:21652](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:21785](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryuncastpreparedsandwichevalstatement-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:21792](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryuncastpreparedsandwichevalstatement-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryActivePreparedCircuitLabels_distinct_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryActivePreparedCircuitLabels_distinct_n3")
@@ -5225,7 +5225,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:21785](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:21890](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryactivepreparedcircuitlabels-distinct-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:21897](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryactivepreparedcircuitlabels-distinct-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryActivePreparedCircuitFieldTarget" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryActivePreparedCircuitFieldTarget")
@@ -5239,7 +5239,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:21890](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:21910](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryactivepreparedcircuitfieldtarget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:21917](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryactivepreparedcircuitfieldtarget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryActivePreparedCircuitFieldTarget_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryActivePreparedCircuitFieldTarget_n3")
@@ -5253,7 +5253,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:21910](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:21956](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryactivepreparedcircuitfieldtarget-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:21963](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryactivepreparedcircuitfieldtarget-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundarySourcePreparedProjectionTarget" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundarySourcePreparedProjectionTarget")
@@ -5267,7 +5267,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:21956](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:22207](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysourcepreparedprojectiontarget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:22214](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysourcepreparedprojectiontarget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundarySourcePreparedProjectionTarget_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundarySourcePreparedProjectionTarget_n3")
@@ -5281,7 +5281,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:22207](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:22250](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysourcepreparedprojectiontarget-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:22257](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysourcepreparedprojectiontarget-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundarySourcePreparedProjection_to_backendFold_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundarySourcePreparedProjection_to_backendFold_n3")
@@ -5295,7 +5295,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:22250](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:22491](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysourcepreparedprojection-to-backendfold-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:22498](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysourcepreparedprojection-to-backendfold-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendFold_to_slot2ProjectedProduct_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendFold_to_slot2ProjectedProduct_n3")
@@ -5309,7 +5309,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:22491](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:22514](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendfold-to-slot2projectedproduct-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:22521](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendfold-to-slot2projectedproduct-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundarySourcePreparedProjection_slot2_to_projectedBranchProduct_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundarySourcePreparedProjection_slot2_to_projectedBranchProduct_n3")
@@ -5323,7 +5323,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:22514](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:22549](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysourcepreparedprojection-slot2-to-projectedbranchproduct-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:22556](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysourcepreparedprojection-slot2-to-projectedbranchproduct-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryEvaluatedBackendFoldStatement_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryEvaluatedBackendFoldStatement_n3")
@@ -5337,7 +5337,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:22549](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:22956](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryevaluatedbackendfoldstatement-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:22963](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryevaluatedbackendfoldstatement-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundarySelectedSlotContribution_allOne_nonzero_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundarySelectedSlotContribution_allOne_nonzero_n3")
@@ -5351,7 +5351,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:22956](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:23196](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryselectedslotcontribution-allone-nonzero-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:23203](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryselectedslotcontribution-allone-nonzero-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryActiveSelectedSlotIndexSplit_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryActiveSelectedSlotIndexSplit_n3")
@@ -5365,7 +5365,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:23196](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:23247](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryactiveselectedslotindexsplit-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:23254](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryactiveselectedslotindexsplit-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendExpansionStatement_not_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendExpansionStatement_not_n3")
@@ -5379,7 +5379,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:23247](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:23637](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendexpansionstatement-not-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:23644](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendexpansionstatement-not-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::theorem "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendProjectionSummationStatement_not_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryBackendProjectionSummationStatement_not_n3")
@@ -5393,7 +5393,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:23637](../../../../library/module
 
 *Declaration kind.* theorem.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:23681](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendprojectionsummationstatement-not-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:23688](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarybackendprojectionsummationstatement-not-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryEvaluatedBackendFoldTarget" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundaryEvaluatedBackendFoldTarget")
@@ -5407,7 +5407,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:23681](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:24126](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryevaluatedbackendfoldtarget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:24133](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryevaluatedbackendfoldtarget). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryEvaluatedBackendFoldTarget_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundaryEvaluatedBackendFoldTarget_n3")
@@ -5421,7 +5421,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:24126](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:24158](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryevaluatedbackendfoldtarget-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:24165](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundaryevaluatedbackendfoldtarget-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundarySourcePreparedProductProjectionObligation" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundarySourcePreparedProductProjectionObligation")
@@ -5435,7 +5435,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:24158](../../../../library/module
 
 *Declaration kind.* structure.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:24931](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysourcepreparedproductprojectionobligation). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:24938](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysourcepreparedproductprojectionobligation). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundarySourcePreparedProductProjectionObligation_n3" (lean := "QuantumBlockEncoding.Examples.RobinHeat.oneTermRobinGamma3BoundarySourcePreparedProductProjectionObligation_n3")
@@ -5449,7 +5449,7 @@ Source: [QuantumBlockEncoding/RobinMatrix.lean:24931](../../../../library/module
 
 *Declaration kind.* def.
 
-Source: [QuantumBlockEncoding/RobinMatrix.lean:24955](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysourcepreparedproductprojectionobligation-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
+Source: [QuantumBlockEncoding/RobinMatrix.lean:24962](../../../../library/modules/robinmatrix/#decl-quantumblockencoding-examples-robinheat-onetermrobingamma3boundarysourcepreparedproductprojectionobligation-n3). A commit-pinned external link is added by the publication build when the source exists at the published ref.
 :::
 
 :::definition "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundarySourcePreparedNormalizedProjectionBridge" (lean := "QuantumBlockEncoding.Examples.RobinHeat.OneTermRobinGamma3BoundarySourcePreparedNormalizedProjectionBridge")

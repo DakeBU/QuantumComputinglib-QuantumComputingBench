@@ -1,0 +1,140 @@
+FORMAL-ONLY MATHEMATICAL RECONSTRUCTION — phase1formal
+
+Identity: /root/ghl_formal_blind_decoder_c30. This is an independent source-level reconstruction from the actual target and necessary formal providers after deterministic comment masking. No natural source, author plan, acceptance registry, publication binding, prior mathematical decoder output or other reviewer verdict was used. The c29 Python helper was read only as tokenization/format reference. Formal source string literals that mention sources are merely data and are not independent evidence of their contents.
+
+Pin: QuantumBlockEncoding/GHL2025.lean, raw SHA256 2dba31e056b134107b34c7e41c6a5c3a2130c22a2634372d1e9ce794961a4fd4, 383342 bytes, 8474 lines. Entire target lexical processing and all 405 explicit declaration contracts are covered: 114 defs, 252 theorems, 38 structures, one inductive; 403 nonprivate and two private. Source-level signatures are NOT elaborated compiler signatures. Declarations 366-368 contain proof terms inside Fin constructors; these are preserved. SourceAgreement=null; publicationBinding=null.
+
+1. Ambient objects and interpretation
+
+Let N=2^n, l=clog2(kappa), u=n-l using truncated natural subtraction, m=clog2(n)+clog2(functionPieces)+3. The default low-to-high width partition is: bit0 ancilla (1); system n; odPure u; sparse l; indicator (1); MF m. Total T=m+1+l+u+n+1. Indicator position h=1+n+u+l. Without l<=n, the concatenated u+l width need not equal n. The code still uses an n-bit od block, which is why width assumptions must not be silently erased.
+
+For a natural basis index j, write row(j)=floor(j/2) mod N, od(j)=floor(j/2^(1+n)) mod N, zero(j)=od(j) mod 2^u, sparse(j)=floor(od(j)/2^u) mod 2^l. Clean(j) means zero(j)=0. G(j) means Clean(j) AND sparse(j)<kappa. Row-valid and G are different predicates: the n=3 example j=48 is in G but not row-valid.
+
+All matrices in target are functions Fin(2^T)->Fin(2^T)->Coeff unless otherwise shown. Row is output index, column is input index. Coeff is freely generated arithmetic syntax, not real/complex numbers. Symbols ND, ND_inv, NF, NF_inv, sqrt(kappa), kappa, c/s and f labels are independent; their spellings do not impose relationships. An equality of Coeff is structural. Only the normalizer evaluation theorem in this module explicitly quantifies an arbitrary rational-valued symbol environment. Parent-imported evaluation lemmas do not insert missing analytic constraints.
+
+2. Static layouts/resources/specifications
+
+Resource.ofCounts(a,b,c) sets oneQubit=a,cnot=b,pureAncilla=c,depth=a+b,oracleCalls=0. Assigned resource has a=Q*n*clog2(n)+kappa*n,b=0,c=2n. Layout has system=clog2(N)=n, signal=clog2(n)+clog2(Gf)+clog2(kappa)+4 and pure=2n. TotalPureAncillas on the partition instead equals u+1. Effective signal T-clog2(N) equals layout.signal+u+1. The arithmetic equalities are proved in source; no equality identifies assigned resource with synthesis of all oracle bodies. Circuit.resource for the active list gives oneQubit=0,cnot=3,oracleCalls=6,pureAncilla=0,depth=9.
+
+The symbolic normalizer is ((ND*NF)*kappa); evaluation is env(ND)*env(NF)*env(kappa). A spec may contain any supplied N-by-N Coeff matrix, error rat0, the layout, active list and assigned resource. This does not assert block encoding. Three ConstructionClaim values (one term, one dimensional, multidimensional) contain strings and cost syntax only. AsymptoticResource trees do not denote certified Big-O bounds.
+
+The active list is U_indic, O_DT^S, Ry_boundary, O_D^BS, O_f, swap(0,0), (O_D^BS)^†. The second list is H_W^(kappa), U_indic, O_DT^S, Ry_boundary, O_DT^BS, U_indic^dagger, O_f, swap(0,0), (O_D^BS)^dagger, (H_W^(kappa))^dagger. The module proves each list identity, not their semantic equivalence. Gate.swap(0,0) is only an AST descriptor here; its supplied custom matrix exchanges entire n-bit blocks. No default positional gate interpreter is used to justify that correspondence.
+
+3. Row-local and global addresses
+
+The row-local map C(n,s,i), with branch priority exactly as below, is:
+bulk 2<=i<=N-3: i-2+s for s<5, otherwise i;
+else row0: s for s<3, otherwise i;
+else row1: s for s<4, otherwise i;
+else row N-2: N-4+s for s<4, otherwise i;
+else row N-1: N-3+s for s<3, otherwise i;
+otherwise i. All minus signs here are natural subtraction. Row-local validity uses the same case priority with cutoffs 5,3,4,4,3 and false otherwise. Reverse R(n,target,row) is target at row0/1, target+2-row in bulk, target-(N-4) at row N-2, target-(N-3) at row N-1, else target. Source asserts C(n,R(n,i,C(n,s,i)),C(n,s,i))=i and R(n,i,C(n,s,i))<8 for n>=3,s<8,i<N.
+
+The global offset table delta(s) is [N-2,N-1,0,1,2,N-3,3] for slots0..6, else0. A(n,s,i)=(delta(s)+i) mod N. tau(s)=[4,3,2,1,0,6,5] for slots0..6, else2. For n>=3,s<8,i<N, A(n,tau(s),A(n,s,i))=i. For n>=3 and slots s,t<7, A(n,s,i)=A(n,t,i) with i<N implies s=t. The zero offset-sum uniquely identifies t=tau(s) on that seven-slot domain. These restrictions are not universal slot injectivity; slot7 falls back to offset0 like slot2.
+
+4. Register splice and sparse matrices
+
+Let L=2^(1+n), H=2^(1+2n), S(j,v)=(j mod L)+v*L+floor(j/H)*H. Active image I(j)=S(j,A(n,sparse(j),row(j))); row-dependent image replaces A by C. Modulo gives A<N on every natural input. Thus I preserves low prefix/row, writes od=A, preserves high tail and stays below 2^T for finite j (source often retains address bound or n>=2). ImageFin explicitly packages that bound. NoSpill is the computable Bool equality of high tails.
+
+B(i,j)=rat1 if i=I(j), else rat0. Bd(i,j)=rat1 if j=I(i), else rat0. Thus Bd is a literal transpose, not a separately certified inverse/adjoin­t. The active forward/dagger GateMatrices use B/Bd and both unitary flags are false. The older bandedSparseAccessMatrix rewrites the system block using C and leaves other bits; its dagger helper is the analogous transpose. These are distinct from active B/Bd.
+
+For p=(n=3,kappa=7,Gf=1,Q=1), I(8)=40; active B(40,8)=1 and B(4,8)=0 while the older helper has entry(4,8)=1. Row-local images of j0 and j48 coincide, whereas global I(0)=96 and I(48)=16. j112 has sparse=7: it is clean but not in G.
+
+Independent exact arithmetic consequence (not a Lean-run certificate): at the same p, j32 has row0,slot2 and j112 has row0,slot7; both are clean, distinct, and I(32)=I(112)=0. Thus B has equal full columns32 and112. Over any faithful numeric interpretation of rat0/rat1 this full B cannot be a unitary/permutation on the whole space. This does not refute the restricted G results, since112 is excluded. No natural-source or repair judgement is made.
+
+5. Stencil syntax and analytic boundary
+
+Bulk coefficients for slots0..4 are [-1/12,4/3,-5/2,4/3,-1/12], others0. For the local table, row0 slots0..2 are [-5/2+(7/3)*symbol(A1*dx),8/3,-1/6]; row1 slots0..3 are [4/3-(1/6)*symbol(A1*dx),-31/12,4/3,-1/12]; rowN-2 slots0..3 are [-1/12,4/3,-31/12,4/3+(1/6)*symbol(B1*dx)]; rowN-1 slots0..2 are [-1/6,8/3,-5/2-(7/3)*symbol(B1*dx)]; other entries0. The global table changes row0 nonzeros to slots2,3,4 and row1 nonzeros to slots1,2,3,4, retaining the same coefficient order; right rows unchanged. Bulk branch is tested first, so at small n it can take priority over coinciding nominal boundary indices. Names containing A1*dx or B1*dx are single symbols, not products of independently interpreted A1 and dx.
+
+DerivativeNormalizer records store D=the global coefficient, ND=symbol(N_D), and D*symbol(N_D_inv). Nonzero ND, true inverse semantics, coefficient bound, abs-square/sqrt/arccos semantics, 2x2 unitary are all ObligationRecord flags false. A bound formula string is not an inequality. The two rotation routes share copied D, ND and obligation data, not a derived real-valued normalization theorem.
+
+6. Indicator and two controlled rotations
+
+J(j)=j XOR (bulk(row(j))*2^h), with bulk 1 for2<=row<=N-3 and0 otherwise. For arbitrary p,j, source proves preservation of decoded row and bulk, J(J(j))=j, injectivity, h>=1+n and h<T, and range for j<2^T. Therefore the 0/1 indicator matrix is combinatorially a permutation of Fin(2^T), with unique rat1 per row/column. Indicator dagger descriptor uses the same matrix and source includes the self-inverse bridge. The two indicator flags are assigned true; these Bool assignments are not analytic unitarity proof fields.
+
+The DT active matrix is identity for indicatorBit=0. For indicatorBit=1 it preserves j>>>1 and acts on bit0 by the row-output/column-input matrix [[c,-s],[s,c]], where c=symbol(odts_cos_half_row_sparse), s=symbol(odts_sin_half_row_sparse). Boundary active matrix is identity for indicatorBit=1 and acts by the same block form for indicatorBit=0, using distinct boundary_cos_half/boundary_sin_half symbols. No theorem identifies these free symbols with cosine/sine, arccos or a unit circle. The older sparseAmplitudeOracleDTMatrix is diagonal and unnormalized; it is not the active DT gate matrix. Both active rotation flags remain false.
+
+7. Function matrix
+
+f(n,i)=symbol(f_n_i), and normalized value is f(n,i)*symbol(N_f_inv). Let MF be the m-bit block above indicator, nonMF(j) its clearing, and cleanMF mean this block=0. Function image stores cleanBranchBasisIndex=nonMF(j), system=row(j), workspace0, normalized amplitude, cleanMF Bool, and metadata/false obligations.
+
+For cleanMF input j, F(i,j) is the normalized amplitude at i=nonMF(j); it is rat0 for all other output indices with clean MF workspace; for output dirty MF workspace it is symbol(orth_f_entry_n_system_i_j). For nonclean input j, every entry is such an independent symbol. No support or orthogonality identity on those symbols is proved. Active O_f uses F; the old functionOracleMatrix is simply diagonal unnormalized f. Source/external theorem/citation strings and copied route records do not establish a source theorem, polynomial family, inverse normalizer, norm bound, orthogonal remainder or unitary completion. All those Bool flags are false.
+
+8. Swap and actual proof-bearing cleanup
+
+Write b1=row(j), b2=od(j), d=b1 XOR b2. W(j)=j XOR (d<<1) XOR (d<<(1+n)). Source proves d<2^n, all bit-clearing identities, W exchanges the two blocks, W(W(j))=j, injectivity on Nat, finite range and bijection, plus exactly one rat1 in each row/column of the supplied swap matrix. The swap unitary flag is true data; the permutation results are genuine propositions.
+
+For any source j, post=W(I(j)). Candidate K(j)=S(post, cleanOD(tau(sparse(j)))) with cleanOD(s)=s<<u. Checks Bool means I(K(j))=post AND Clean(K(j)) AND A(K(j))<2^n. Under n>=3,kappa=7,clog2(kappa)=3,j<2^T,Clean(j), source proves Checks=true and K(j)<2^T. The noRange cleanup signatures package the range proofs internally; they are not missing external premises.
+
+The cleanup structure contains eleven logical fields: post=W(I(source)); post=I(pre); Clean(pre); A(pre)<2^n; Bd(pre,post)=rat1; pre rowPreserved/addressWritten/addressInRange/noSpill booleans true; decoded post row equals decoded pre row; decoded post od equals A(pre). Constructor from_preimage assumes post relation, preimage relation, pre clean and address range and derives the rest. This should not be paraphrased as an unconditional existence theorem.
+
+Under n>=3,kappa=7,clog2(kappa)=3, finite j and G(j), I is injective restricted to finite G. K(j) is finite, in G, maps to post and is the unique finite G-preimage of post. Hence there exist finite post,pre with all cleanup fields, pre=K(j), post=W(I(j)), G(pre), and for every other finite x with G(x), Bd(x,post)=if x=pre then rat1 else rat0. All AND-tail hypotheses, finite ranges and G restrictions are essential to the exact statement. No theorem here controls Bd rows outside G, asserts Bd*B=I on all inputs, or constructs a globally unitary extension.
+
+9. Flags, scope and highest represented frontier
+
+The inverse-on-range contract still has false flags inverseOnRange,uniquePreimage,imageInjectiveOnGlobalSource,daggerCleanup,unitaryExtension even though source has restricted mathematical proofs. Such flags are independent assigned data and are not a logical negation of the corresponding propositions. Conversely, a true flag cannot establish its description. ScopeDecision selects activeGlobalSource and keeps fullCleanDomainSelected,fullSpaceSelected,semanticCleanupPromotionAllowed=false. Module theorem-data circuitUnitary and blockExtraction flags remain false.
+
+The module contains no use of Matrix.mul, evalGateMatrices, CircuitMatrixSemantics, VerifiedBlockEncoding or BlockExtractionTarget, apart from their possible existence in imported providers. It therefore supplies no composed circuit-matrix product or final extracted-block equality through those APIs. This is a statement about the inspected whole formal module, not a natural-source discrepancy judgement. The whole-file final source theorem is indicator-matrix permutation for arbitrary p. The strongest sparse-family statements are the restricted G-column and cleanup results described above.
+
+10. Evidence layer and residual work
+
+All 405 explicit declarations have individual source-level types and complete masked regions in declaration-mathematics.json; each is assigned one exhaustive mathematical family below. All structures preserve every field and default; all private lemmas and ambient commands are retained. This pass read every source-level statement and every defining body, with machine lexical processing of all target proof text. It did not claim a separate line-by-line human proof audit of each tactic body. The complete source remains available for replay.
+
+No Lean process was invoked. There is no new compiler exit0, compiled signature dump, axiom closure, target build, repository test or publication acceptance result. Syntax/type correctness and theorem trust are pending, not inferred from source readability or existing files. Lexical absence of sorry/admit/axiom in target is weaker than an axiom audit. native_decide occurrences are recorded for later trust inspection.
+
+Pending replay: first verify target/toolchain/manifest/providers equal frozen pins, then compile actual target in a functioning environment, collect complete public+private+generated elaborated signatures and recursive axioms, run the generated public probe and required lake build / lake build Tests. Parent owns resource/CI work; this worker must not poll resources or start heavy Lean. SourceAgreement and publicationBinding remain null for a distinct later anti-anchored comparison. This packet is phase1formal freeze, not accepted publication, Proof Seal or Exposition Seal.
+
+
+EXHAUSTIVE DECLARATION FAMILY INDEX
+
+1-4: Parameter carriers and row predicates. Four unrestricted natural parameters; bulk is K1<=i<=K2, boundary is j<K1 or K2<j, with gridSize argument ignored. Six register widths are natural-valued data, not well-formedness proofs.
+
+5-14: Explicit arithmetic definitions for widths/resources. Natural subtraction is truncated. Total widths sum all six registers; pure count sums odPure and the low ancilla. The resource formula is assigned data, not a gate-synthesis bound. The example computes the deviating-index expression as five.
+
+15-28: Circuit lists, symbolic normalizer and specification/claim records. The two gate lists are distinct: seven active gates versus ten gates in the second list. The spec accepts an arbitrary Coeff matrix and attaches circuit/layout/resource/error data without correctness proof. Theorems are list, evaluation, or record-field equalities. Claim prose and CostExpr syntax are data.
+
+29-49: Thirty-one through forty-seven contain register/wavefunction/oracle/angle/theorem-data carriers. ObligationRecord has strings and a Bool defaulting to false. Gamma fields and remainder Bool do not supply vectors or orthogonality proofs. DerivativeOracleContract alone has a genuine bandwidth=stencil.width proof field. The constructors assign the stated counts/symbols; importedClaims is a list of three string-based claim records.
+
+50-57: Total/effective signal-width arithmetic. Theorem data, layout and resource pure-ancilla fields agree. Effective signal width equals layout signal width plus the visible odPure register plus one; indicator position is the low-ancilla/system/odPure/sparse total.
+
+58-62: Two different address mechanisms: row-local piecewise column map C, and global modular offset address A. The global slot inverse tau is the explicit finite case table, with fallback 2.
+
+63-74: Global sparse-offset arithmetic: tau<8 always, tau<7/involution/injectivity on slots<7; modular inverse address for n>=3,s<8,i<N; offsets<N for slots<7; composition equals modular offset sum; zero-sum and inverse-slot uniqueness plus same-row slot injectivity require n>=3 and both slots<7. Private lemmas 68/69 are modular arithmetic, not quantum assumptions.
+
+75-91: Row-local validity and reverse-index arithmetic. Validity cutoffs are 5/3/4/4/3. Under n>=2 and row<N the column lies<N; right-boundary simplifications require n>=3. Under n>=3,s<8,i<N the reverse map restores the row-local column and its reverse index<8. The Bool checker enumerates a finite List.range, not a theorem by itself.
+
+92-106: Decode the middle n-bit od register, low system row, padded-zero bits and sparse high bits; global address A uses decoded row/slot. The two image functions splice different addresses into the od block while retaining low prefix and high tail. Global address range is unconditional modulo N (the source theorem retains n>=2).
+
+107-122: Bit/arithmetic splice invariants: shift/mask equals division/modulo; 1+2n<=total; low prefix+bounded address fits the middle block; low prefix preserved unconditionally; decoded middle block and total range require address<2^n; row preserved; high tail/no-spill preserved under the same address bound. Fin image carries an explicit proof of range.
+
+123-139: Domain predicates: clean padded bits; sparse<kappa; global=clean AND sparse-range; row-valid; valid-clean=clean AND row-valid; unused=clean AND NOT row-valid. Global slot inverse/address injectivity assumptions are explicit. Clean splits into valid-clean OR unused and the split is disjoint. The n=3 example distinguishes collision of the row-local image from the two unequal global images.
+
+140-170: Extension/source-decision records are data. Proposed unused image is none; obligation Bool fields are false; closure/search flags are false; one zero-inclusion Bool is true. Theorems return these assigned flags, copied objects, strings or the fixed finite example; they do not verify a natural source, extension theorem, or resource bound.
+
+171-191: Clean-input iff paddedZeroValue=0; column-contract fields compute input/image/register safety booleans. Safety theorems require address<2^n where necessary. B is the 0/1 image matrix and Bd is its literal transpose; both one-entry theorems need the Fin image bound. No inverse-product/unitarity result follows merely from transposition.
+
+192-207: Two explicit Coeff-valued stencil tables (row-local/global-slot). The fixed n=3,s=2,row=0 equalities and syntactic inequality distinguish them. ND records store global coefficient, ND, coefficient*ND_inv and unproved Bool obligations. BoundFormula is a string, not an inequality. Projection/reuse theorems are equalities of stored data and false flags.
+
+208-231: Indicator image toggles one bit controlled by decoded bulk row. Indicator GateMatrix flags are true data. The old sparse helper is diagonal with local stencil values. Active DT matrix is identity when indicator=0, otherwise a 2x2 low-bit rotation with independently named Coeff symbols c,s. Contract/route objects connect stored coefficient/normalizer labels, not analytic cosine or norm identities. Active DT unitary flag is false.
+
+232-252: Boundary uses the same register decode but rotates on indicator=0 and is identity on indicator=1. The c,s names are distinct from DT c,s. ND_inv product, arccos/half-angle formulas and shared obligations are records; all relevant Bool flags remain false. The large conjunctions retain every copied-field equality and every false flag.
+
+253-260: The old sparse helper overwrites the system block using C; the active O_D_BS gate instead uses B from the global image. Explicit n=3 columns witness their difference, row-local collision vs global noncollision, and exclusion of encoded slot7 by sparse<7. This is finite exact data, not full-space injectivity.
+
+261-287: Function values f_n_i and inverse normalizer are independent symbols. MF decode clears the MF workspace to define clean-branch index; route/contract fields retain symbolic amplitude f*NF_inv, flags and strings. No polynomial property, bound, orthogonal-completion identity or analytic normalization is imposed. All theorem/external-source names are literal record data.
+
+288-304: Function matrix gives specified amplitude on the clean branch, zero on other clean-workspace output rows for clean input, and unconstrained named orthogonal entries elsewhere; it is the active O_f matrix. Old helper is diagonal unnormalized f. Swap exchanges the two n-bit blocks above bit0. Active dagger gate uses Bd, not the old row-overwriting transpose helper. The post-swap entry lemma assumes the preimage relation; it does not produce a preimage.
+
+305-312: Cleanup structure genuinely contains proof fields for postSwap, preimage, clean pre-state, address range, dagger entry, safety booleans, and decoded row/address equalities. Constructor 306 assumes postSwap/preimage/clean/address and derives all fields. Image-entry safety follows from address bound; global-source version retains n>=2 and explicit source membership. Seven GateMatrix descriptors match the active list; flags are [true,false,false,false,false,true,false].
+
+313-338: Indicator image definition and fixed-size checks; bitmask lemmas; swap bounds, exchanged-block equalities, involution and injectivity on Nat. Swap is bijective on Fin(2^total), with exactly one syntactic rat1 in every row/column. These are combinatorial permutation-matrix results, not analytic gate synthesis.
+
+339-357: Post-swap decoded row is prior address and od is prior row. Range requires bounded prior address. Splice replacement and preservation/range identities are explicit, using odValue<2^n where necessary. cleanOD(s)=s*2^(n-clog2kappa); bounds require width<=n and sparse<2^width; recovering clean od requires width<=n and clean input.
+
+358-374: On finite global-source domain G, n>=3,kappa=7,clog2kappa=3 imply image injectivity. Candidate preimage replaces post-swap od with encoded inverse slot. Candidate checks (image=post, clean, address bound) hold for every finite clean source under those parameters, including sources outside G; uniqueness is only asserted with both source and preimage in G. Cleanup variants retain the same parameter hypotheses; range proof arguments are inside the source-level type, not missing hypotheses.
+
+375-384: Inverse-on-range contract stores candidate/post/checks and false obligation flags. Theorems produce the actual candidate checks, unique preimage in G, cleanup witnesses and a restricted dagger column: for every other in G, Bd(other,post)=rat1 iff other=pre and rat0 otherwise. They retain G membership, n>=3,kappa=7,clog2kappa=3 and finite indices. No conclusion controls rows outside G; the attached Bool flags remain false even while mathematical restricted results hold.
+
+385-391: Scope enum and decision record select activeGlobalSource; fullClean/fullSpace/promotion flags remain false. Theorems state those data, copied false obligations and source strings. The fixed n=3 source48 example is global-valid but row-local-invalid and receives a unique G-preimage/cleanup witness; it is not an all-clean-domain extension.
+
+392-405: For arbitrary p and natural j: indicator position lies above the system block and below total; toggling preserves system/bulk, is involutive/injective and range-preserving. On Fin(2^total) it is bijective; indicator matrix has exactly one rat1 per row and column. Dagger descriptor equals indicator matrix, with explicit natural-index involution bridge. Whole-file final theorem is the permutation characterization, not a block-encoding theorem.

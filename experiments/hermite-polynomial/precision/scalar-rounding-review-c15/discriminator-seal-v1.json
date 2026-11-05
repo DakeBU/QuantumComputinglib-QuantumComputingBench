@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "reviewer": "root/scalar_rounding_review_c15",
+  "status": "SEALED_BEFORE_PROBE_IMPLEMENTATION",
+  "evidence_class": "C_INTERNAL_PROVIDER_REVIEW",
+  "frozen_degree_result": "a3a0bf796ab229e65a5bc85acc58a5f92c505793a318162bc278df010d9c1f54",
+  "frozen_rounding_result": "96980fbe0707c80c463bf5a0b9c3649a1edc46ec190500e7a9e036a49e7eabbb",
+  "kernel_contracts": [
+    "q=-20, epsilon=1/8, T=3, degree=43 retains clipped interval [0,1/8] not [0,0]",
+    "q=0, epsilon=2 has T=0 degree=1 and interval [0,1]; invalid epsilon<=0 rejected",
+    "degree 80 80=25761; theorem valid without evaluating huge Taylor sum",
+    "signed outward singleton -1/10 at bits=0 yields [-1,0], not truncation [0,0]",
+    "mixed-sign four-corner product [-2,3]*[-4,5]=[-12,15]",
+    "negative theta RY singleton first column yields negative second sine interval",
+    "empty same-pair trace returns literal original intervals"
+  ],
+  "finite_contracts": [
+    "Independent Fraction factorial formula and clipped checked model; invalid q/epsilon, zero T, huge clipped q",
+    "Independent signed floor/ceil, strict widening, corner extrema and midpoint-product mismatch",
+    "Independent exact Taylor at halfangle and RY signs; no intermediate midpoint; exact chronological rounded trace can differ under reversal",
+    "Scalar error e repeated across N=4 coordinates has Euclidean norm 2e, not e",
+    "A 4x4 CX-interleaved saved stage comparison is finite only; same-pair theorem does not cover routing"
+  ],
+  "gate_scope": "Rebuild entire original FiniteExp, FiniteExpDegree, actual Hermite ConsumerChecks, FiniteTrig, SavedRounding, actual ConsumerChecks in own ignored .cache. Re-run immutable author four test methods. Compile whole own kernel probe and own exact finite tests.",
+  "failure_policy": "Retain failing outputs with typed failure; additive version for corrections; no failed composite green",
+  "boundary": "No source-blind publication, scientific ROOT, public Anchor, global normalized state epsilon, Python refinement, full variable-target/CX symbolic stage, opnorm supplier, bit/runtime/storage/QR/physical cost, production or Git mutation"
+}

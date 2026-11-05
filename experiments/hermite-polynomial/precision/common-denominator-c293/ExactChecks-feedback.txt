@@ -1,0 +1,14 @@
+OWN\ExactChecks.lean:5:0: warning: Definition `commonDenominatorExpandedCheck` is a proposition; use `theorem` instead of `def`
+
+Note: This linter can be disabled with `set_option linter.defProp false`
+HermiteRationalHeight.commonDenominator : HermiteRationalHeight.CommonDenominatorSpec
+C293ExactChecks.commonDenominatorExpandedCheck (q : ℚ) (Q M : ℕ) :
+  0 < Q →
+    q.den ∣ Q →
+      |q| ≤ ↑M →
+        0 < Q ∧
+          ↑(q.num * ↑(Q / q.den)) / ↑Q = q ∧
+            (q.num * ↑(Q / q.den)).natAbs ≤ M * Q ∧
+              max 1 (max q.num.natAbs.size q.den.size) ≤ max 1 (max (M * Q).size Q.size)
+'HermiteRationalHeight.commonDenominator' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C293ExactChecks.commonDenominatorExpandedCheck' depends on axioms: [propext, Classical.choice, Quot.sound]

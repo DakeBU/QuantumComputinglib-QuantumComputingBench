@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "cycle": 11,
+  "objective": "computable-safe-dyadic-angle-from-rational-enclosures",
+  "status": "FOCUSED_INTERNAL_PROVIDER_PASS_PENDING_ROOT_REVIEW",
+  "scientific_success": false,
+  "unconditional_hermite_producer_closure": false,
+  "verified_memory_digest": "5a8f47f8d0afd1d4f957e55babde52a9e9c01babf05c481b988e99ebca2f7758",
+  "files": {
+    "statement-seal.json": "9e311cccf60942ce4676e72671e3544ef6a8a834a9211947b911370004a75b16",
+    "SafeEnclosure.lean": "959d39bcea8150db22be07560a5f12ab7055bbc6e2594cf2f923f88133db8d6a"
+  },
+  "dependency_hashes_rechecked": {
+    "experiments/hermite-polynomial/precision/dyadic-supplier/DyadicSupplier.lean": "da741bb844d8ee809ab95e40ebdc3c3f003f4138cec6ebe67e3447ebebf69968",
+    "experiments/hermite-polynomial/stored/GlobalAssembly.lean": "ad6d6ebca61a27c6c7e89dd305cc9be161ea0f8bb326ecb9af9ebddc15172624",
+    "QuantumBlockEncoding/PrimitiveCircuitPerturbation.lean": "624109564cd82b0584fad717283e7b9116b36f1ef10d60b43a063c0ef2a1fbae",
+    "QuantumBlockEncoding/PrimitiveRyPerturbation.lean": "57ad888af7a81ac5067f6655160fecf1f197a91b0414bc5e510786b9eed27e32"
+  },
+  "gate": {
+    "lean_version": "4.33.0",
+    "commit": "d8b18978322de05a8f3dba51ef03cf5461676c17",
+    "lean_path_prefix": ".lake/safe-enclosure-cache;.lake/global-assembly-cache;_out/goal-20261008-staging-imports",
+    "fresh_dependency_command": "lake env lean -o .lake/safe-enclosure-cache/DyadicSupplier.olean experiments/hermite-polynomial/precision/dyadic-supplier/DyadicSupplier.lean",
+    "fresh_dependency_exit_code": 0,
+    "dependency_cache_sha256": "51070e38ffad9a578dad2531eaa943b29dbd75d6d47b14c54959e783d8c46283",
+    "dependency_boundary": "Frozen source compiled in full to an ignored reproducibility cache; no dependency theorem rewrite and no tracked experiment binary.",
+    "focused_command": "lake env lean experiments/hermite-polynomial/precision/safe-enclosure/SafeEnclosure.lean",
+    "final_focused_session": 69561,
+    "final_exit_code": 0,
+    "printed_axiom_roots": 11,
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "sorryAx": false,
+    "native_decide_axiom": false,
+    "aggregate_build": "Root responsibility; not run or claimed by this worker.",
+    "warning": "Existing verso dependency local-change warning; no worker modification to it."
+  },
+  "mathematical_delta": {
+    "algorithm": "Strict rational endpoint order/width validation, then rational midpoint nearest-grid rounding by computable Rat FloorRing; m is integer floor(midpoint*2^b+1/2), angle is rational m/2^b. No Real floor or exact-real evaluator computes the output.",
+    "scalar_error": "A successful return and lo<=theta<=hi imply absolute error<=2^-b. Midpoint uncertainty and nearest rounding each contribute at most 2^(-b-1).",
+    "termination": "Finite rational operations and structurally recursive list traversal. No search for a unique exact-real floor bin; intervals crossing boundaries are valid inputs and terminate.",
+    "actual_return_root": "QuantumBlockEncoding.SafeEnclosure.hermite_internal_supplier",
+    "actual_return_signature": "Given actual GlobalAssembly full input, finite interval arity and validity at logarithmic bitsFor, and explicitly INTERNAL real-angle interval Sound, returns existence of an actual Some circuit with identical full Resource, identical chronological constructor/wire/non-RY list after erasing RY payload only, and full Euclidean Hermite target error<=epsilon. Successful return is obtained internally, not assumed in this combined root.",
+    "allocation": "A=24*(n+1)*(2*k+6)^3; b=Nat.clog 2 (max 1 (Nat.ceil (A/epsilon))); epsilon>0. Reuses frozen bitsFor_error; no inefficient linear default.",
+    "resources": "supplyCircuit_resource and supplyCircuit_length hold for every successful return, without Sound. Full Resource includes one/two-qubit counts and wire depth. Exact source gate-count polynomial and literal source target are reused.",
+    "chronology": "supplyCircuit_chronology erases only RY angle payloads. It preserves each constructor, chronological position, ordered physical wire arguments, and the full non-RY instruction including any RZ angle. This is not inferred merely from footprint equality.",
+    "alignment": "supplyCircuit_aligned constructs Forall2 GateAligned from scalar success and Sound; callers supply no alignment or uniform perturbation theorem.",
+    "target": "Same signed normalized literal Hermite target, little-endian data and zero terminal bond, including every garbage coordinate. No conditional amplitude or postselection substitute.",
+    "ideal_floor_identity": "Not required or claimed. The approximation can differ from cycle10 exact-real floor while meeting the same scientific error target."
+  },
+  "executable_regressions": {
+    "scalar_outputs": [
+      {"bits": 3, "lo": "-1/10", "hi": "-1/10", "output": "some (-1)"},
+      {"bits": 3, "lo": "1/10", "hi": "1/10", "output": "some 1"},
+      {"bits": 2, "lo": "-1/8", "hi": "-1/8", "output": "some 0", "case": "negative tie toward positive infinity"},
+      {"bits": 2, "lo": "1/8", "hi": "1/8", "output": "some 1", "case": "positive tie"},
+      {"bits": 3, "lo": "-1/32", "hi": "1/32", "output": "some 0", "case": "straddles zero"},
+      {"bits": 3, "lo": "7/32", "hi": "9/32", "output": "some 2", "case": "straddles another literal floor boundary"},
+      {"bits": 3, "lo": "1", "hi": "0", "output": "none", "case": "reversed"},
+      {"bits": 3, "lo": "0", "hi": "1", "output": "none", "case": "too wide"}
+    ],
+    "scalar_eval_decide": "Eight executable equality checks returned true; eight corresponding ordinary kernel-checked norm_num examples also passed.",
+    "physical_primitive_list": "Input RY(1,1/10), CX(1,0), RY(0,-1/10); output some [(ry,1,1/8),(cx,1,0),(ry,0,-1/8)].",
+    "list_rejection": "Missing intervals, extra intervals and too-wide first interval each returned isNone=true.",
+    "scope": "These are genuine executable rational and concrete primitive-list tests, not an executed actual Hermite source/QR pipeline."
+  },
+  "bit_and_cost_boundary": {
+    "proved_numerator_magnitude": "natAbs(m)<=(natAbs(lo.num)+natAbs(hi.num)+1)*2^b",
+    "proved_numerator_bits": "Nat.size(natAbs(m))<=Nat.size(natAbs(lo.num)+natAbs(hi.num)+1)+b",
+    "proved_unreduced_grid_denominator_bits": "Nat.size(2^b)=b+1",
+    "input_dependence": "The integer-output bound depends on endpoint numerator sizes; it does not bound endpoint denominators, reduced rational arithmetic intermediates, exponentiation cost, normalization/GCD work, or enclosure generation.",
+    "operation_count": "No formal machine operation-count or bit-complexity certificate. Inspection shows finite rational scalar operations and one structural list traversal; power evaluation is not free and may be repeated per RY.",
+    "not_a_runtime_certificate": "Output fractional grid bits are not finite preprocessing cost, and a Nat bitsFor parameter derived from an arbitrary real epsilon is not itself a finite input/runtime representation."
+  },
+  "remaining_obligation": {
+    "class": "SOURCE_SPECIFIC_ENCLOSURE_PRODUCER_UNPROVED",
+    "required_api": "A computable finite-representation provider returning rational endpoint pairs in exactly the actual GlobalAssembly RY chronology, proving interval count, ValidIntervals b, and Sound for the emitted exact angles, plus finite input representation and operand-bit/runtime bounds.",
+    "required_operations": "Source exp/sqrt/arccos/trig/field evaluation and QR/rank/compare/sign operations, with zero pivots, rank deficiency and cancellation branches accounted for, including actual list generation/refinement.",
+    "boundary": "The exact GlobalAssembly input is still noncomputable and no executable Hermite pipeline is produced here. Sound and finite-data validity are explicitly INTERNAL provider conditions, not new public Hermite Source Anchor assumptions.",
+    "serialization": "No Python-to-Lean parser bridge or saved-byte scientific acceptance claimed; root owns separate serialization work."
+  },
+  "handoff": {
+    "failure_class": "NONE for sealed internal finite-input provider; public scientific source closure remains pending",
+    "salvage_audit": "Promote rational-safe rounding, completeness, exact chronology/resource preservation, scalar/magnitude/bit lemmas and full-state internal composition; discard no completed fragments; source enclosure producer and runtime proof remain pending.",
+    "direction_information_gain": "Removes exact-floor-bin selection from the executable interval-to-angle API without weakening the scientific target.",
+    "parallel_admission": "Worker is author, not independent reviewer. Root aggregate gates and independent source/type/implementation review still required. No whole-root, admission or publication claim.",
+    "process_memory": "Current verified-memory digest above; mandatory substantive-worker/master and publication/digestion/evidence-routed protocols reread. No new process-memory promotion by worker.",
+    "purification": "Experimental internal provider, not Exposition-Sealed or publicly admitted. Root owns reader-facing integration and purification.",
+    "expansion_nodes": "Source target -> cached exact GlobalAssembly action/count; rational endpoint provider [UNPROVED] -> strict rational validator/nearest rounding -> returned chronological list -> internally derived primitive alignment -> canonical perturbation bound -> full Euclidean target and epsilon allocation.",
+    "default_route": "Rational midpoint nearest rounding; exact real-floor-bin identity route is deliberately unnecessary, not asserted impossible.",
+    "residual_risk": "High confidence in focused finite-data theorem; source enclosure soundness/refinement and full finite-bit cost remain unproved and must not be masked by local success.",
+    "recommended_next": "Independent root compile/review, then genuine source-specific rational enclosure generation and finite-input cost analysis, without silently exporting internal conditions to public source theorem.",
+    "live_handles": [],
+    "next_review": "Available for separately authorized source-first ConstructiveThinLQ review. Its lesson/formal/candidate/decoder have not been read in this cycle; wait for root packet and disclose prior provider/formal exposure."
+  }
+}

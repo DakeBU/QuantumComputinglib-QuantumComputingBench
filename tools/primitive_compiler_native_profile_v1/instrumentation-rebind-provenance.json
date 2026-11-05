@@ -1,0 +1,32 @@
+{
+  "status": "UNSEALED_PROPOSAL_ONLY_AUTHORIZED_REBIND_AFTER_REAL_FAIL_CLOSED",
+  "originalSourceOnlySealChanged": false,
+  "sharedInstrumentationPath": "tools/cubic_c29_diagnostic/runner.py",
+  "initialDraftPin": "26805891fbc00840ba64e0566d29049f4a381d622215432f5a98ebf1ce033d81",
+  "observedAndAuthorizedCurrentPin": "61733fc92f5e99672e0ce0260ff397e07c94a349e98e12c48dd6a3171d5a75d9",
+  "actualFailure": {
+    "kind": "ACTUAL_LOCAL_PYTHON_UNITTEST_FAILURE_NOT_LEAN_EVIDENCE",
+    "command": "python -m unittest discover -s $PROFILE_PACKAGE -p test*.py -v",
+    "exitCode": 1,
+    "ranTests": 13,
+    "errors": 1,
+    "failureLocation": "PythonRuntimeTests.setUpClass -> runner.load_shared",
+    "exceptionType": "ValueError",
+    "exceptionText": "shared instrumentation SHA drift",
+    "cause": "Shared runner changed concurrently after the draft profile was rendered; the frozen whole-file pin rejected it before loading the new code."
+  },
+  "parentAuthorization": "Parent confirmed the current pin stable for this delivery and authorized rebinding only this unsealed proposal after independent comparison of reused APIs. Parent described changes outside the reused helpers, in run().",
+  "independentTechnicalComparison": {
+    "method": "Re-read current allowed runner.py lines 1-228 and manually compared the complete reused helper implementations with the full previously read technical source. Reused helper bodies and constants are unchanged. No parent mathematical results or review evidence were consulted.",
+    "functions": ["utc", "sha", "safe_child", "write_json", "verify_pins", "verify_lean_help", "NativeFailure", "native_call", "artifact_file", "inventory_providers", "partition_search_roots", "redact", "redact_tree", "export_public"],
+    "constants": ["SIDECARS", "SECRET", "ABSOLUTE", "NO_ACCEPT"],
+    "c29RunFunctionInvoked": false,
+    "c29ValidatorInvoked": false
+  },
+  "correction": "Only the unsealed native profile's sharedInstrumentation SHA field was changed. The final Python-only receipt records a separate real rerun, not a relabeling of the failed run.",
+  "leanInvocationCount": 0,
+  "sourceAgreement": null,
+  "axiomPolicyPass": null,
+  "scientificAcceptance": false,
+  "nativeAccepted": false
+}

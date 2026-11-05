@@ -71,10 +71,10 @@ theorem exists_factor_of_le {m n : ℕ} (hmn : m ≤ n)
   · ext i j
     have hb := b.inner_eq_ite (Fin.castLE hmn i) (Fin.castLE hmn j)
     simp only [PiLp.inner_apply] at hb
-    change (∑ k, b (Fin.castLE hmn j) k * b (Fin.castLE hmn i) k) =
-      (if Fin.castLE hmn i = Fin.castLE hmn j then (1 : ℝ) else 0) at hb
-    simpa [Q, _root_.Matrix.mul_apply, _root_.Matrix.transpose_apply,
-      _root_.Matrix.one_apply, mul_comm] using hb
+    rw [_root_.Matrix.mul_apply]
+    change (∑ k, b (Fin.castLE hmn i) k * b (Fin.castLE hmn j) k) =
+      (if i = j then (1 : ℝ) else 0)
+    simpa [mul_comm] using hb
 
 /-- Every finite real matrix admits a thin factorization with exactly
 `min m n` orthonormal rows. This includes rank-deficient and empty matrices. -/

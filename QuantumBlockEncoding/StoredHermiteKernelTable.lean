@@ -73,7 +73,7 @@ theorem storedBlock_value {k : ℕ} (f : Fields k) (a b : HermiteFiniteBond k) :
   rcases a with a | (a | a) <;> rcases b with b | (b | b)
   all_goals cases a <;> cases b <;>
     simp [storedBlock, blockView, bind, pure, Run.bind, Run.pure,
-      charge, StoredGivens.read, StoredThinLQ.entry, denote]
+      charge, StoredGivens.read, StoredThinLQ.entry, denote] <;> rfl
 
 /-- The production explicit equivalence is executable, not a cardinality
 choice. A fixed overcharge covers its sum and option comparisons. -/

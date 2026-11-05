@@ -1,0 +1,38 @@
+{
+  "schema": "C40_METADATA_AUTHOR_ATTEMPT_HISTORY",
+  "attempts": [
+    {
+      "attempt": 1,
+      "script": "packet_v3.py",
+      "script_sha256": "a331ed67e1ae997e4c9fae8d1abb3237591aaecb50ce66179882f09c6919f582",
+      "stage": "Python parser; no script body executed, no generated artifacts written",
+      "failure_class": "IMPLEMENTATION_FAILED",
+      "error": "SyntaxError: closing parenthesis '}' does not match opening parenthesis '[' at dependency_pins comprehension",
+      "repair": "Insert the missing list-comprehension closing ] before the dictionary/emitter closing }) on the dependency_pins line",
+      "mathematical_or_source_change": false,
+      "superseded_by": "Final script and separate test-receipt.json; this failed attempt is not a passing receipt"
+    },
+    {
+      "attempt": 2,
+      "script": "packet_v3.py",
+      "script_sha256": "92e09cd7532d2f4d23fe0da7d233f2cf5b4aa5bdd50dc00db9b2acb2095deff6",
+      "stage": "Integrity test: every source block exact span and disposition",
+      "failure_class": "IMPLEMENTATION_FAILED",
+      "error": "Test expected excluded regions to have a separate reason field; inherited schema encodes the explicit reason in EXCLUDED(reason)",
+      "repair": "Require exact NODE or full EXCLUDED(nonempty reason) disposition using the existing schema; all span and complete inherited-graph checks retained",
+      "mathematical_or_source_change": false,
+      "superseded_by": "Separate final test-receipt.json; this failed expectation is not a passing receipt"
+    },
+    {
+      "attempt": 3,
+      "script": "packet_v3.py",
+      "script_sha256": "ae1f460ac47d71b4b94e39e19d8328578f364fc7d1699ae893360ee9ff510d37",
+      "stage": "Pre-freeze safe-text scan; no freeze or manifest created",
+      "failure_class": "IMPLEMENTATION_FAILED",
+      "error": "Overbroad drive-path regex misidentified mathematical e-colon-backslash-set and the final letter of unchanged-colon before escaped JSON newline",
+      "repair": "Require a standalone drive letter and a word/dot path-segment start; retain all exact source and quote bytes. No path was removed or redacted",
+      "mathematical_or_source_change": false,
+      "superseded_by": "Final corrected safety scan; no false passing freeze receipt substituted"
+    }
+  ]
+}

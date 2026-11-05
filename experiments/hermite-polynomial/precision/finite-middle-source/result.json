@@ -1,0 +1,215 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "cycle": 16,
+  "status": "PROVED_LOCALLY_PENDING_DISTINCT_REVIEW",
+  "freeze": "IMMUTABLE_FINAL_INTERNAL_PACKAGE",
+  "declaration_level": "C_INTERNAL_PROVIDER",
+  "author": "root/finite_middle_source_c16",
+  "direction_fingerprint": "rational-middle-cast-and-amplification",
+  "verified_memory_digest": "5a8f47f8d0afd1d4f957e55babde52a9e9c01babf05c481b988e99ebca2f7758",
+  "expected_information_gain": "Close the finite-source middle leaf by exactly casting literal coefficients, proving endpoint-factor amplification, and consuming the actual complete exp(-1) enclosure. Disjoint from saved whole-stage matrix interpretation.",
+  "mathematical_delta": "A finite rational coefficient polynomial and literal finite rational evaluator now exactly reconstruct the existing Hermite middle formula with its sole transcendental scalar replaced by the actual exp(-1) enclosure midpoint. For every natural k, positive rational delta and real p in [-1,0], absolute error against original smoothInitial is at most delta/2 * (k+1)^2 * 2^(2k). At p=0 the rational evaluator is exactly1 for every delta, and at p=-1 it equals the actual midpoint.",
+  "frozen_contract": "Original signed function-value amplitudes, piL domain/grid, original normalization, physical n_p>=1, q0 LSB, full final garbage, no phase quotient or new/free oracle unchanged. No state or circuit is redefined.",
+  "roots": [
+    "HermiteFiniteMiddleSource.coefficientQ_cast",
+    "HermiteFiniteMiddleSource.coefficientQ_formula",
+    "HermiteFiniteMiddleSource.coefficientPolynomialQ_eval",
+    "HermiteFiniteMiddleSource.endpointPolynomialQ_eval",
+    "HermiteFiniteMiddleSource.middlePolynomialQ_eval",
+    "HermiteFiniteMiddleSource.coefficientPolynomial_bound",
+    "HermiteFiniteMiddleSource.endpointFactor_bound",
+    "HermiteFiniteMiddleSource.expMidpoint_error",
+    "HermiteFiniteMiddleSource.middle_error",
+    "HermiteFiniteMiddleSource.middle_central",
+    "HermiteFiniteMiddleSource.coefficientValueQ_eq",
+    "HermiteFiniteMiddleSource.middleValueQ_eq",
+    "HermiteFiniteMiddleSource.rational_middle_error",
+    "HermiteFiniteMiddleSource.rational_central",
+    "HermiteFiniteMiddleSource.literal_left_endpoint"
+  ],
+  "mathematical_proof": {
+    "coefficients": "For 0<=i<=k, a_ki=sum_m<=i choose(k+i-m,k)/m!. Each m! divides k!, so existing sourceNumerator_value proves a_ki=N_ki/k!. coefficientQ uses these exact integers; cast and rational finite-sum equality are proved, not assumed.",
+    "polynomial": "Aq=sum_i<=k monomial(i,N_ki/k!). Evaluation through Rat.castHom equals existing coefficientPolynomial at every real t. EndpointQ=(1-X)^(k+1)*Aq; middleQ(e)=C(e)*EndpointQ(X+1)+EndpointQ(-X). Its eval₂ is the literal existing sourceInterpolant_eval formula with e substituted.",
+    "amplification": "For t in [0,1], a_ki<= (k+1)*2^(2k) by existing sourceCoefficient_upper and 0<=t^i<=1. Summing k+1 terms gives 0<=A(t)<=Bq(k), Bq=(k+1)^2*2^(2k). The nonnegative endpoint power is <=1, so 0<=E(t)<=Bq. No endpoint-factor bound is supplied as a hypothesis.",
+    "midpoint": "Existing complete_enclosure(-1,delta) produces actual rational I containing exp(-1) with width<=delta. e=(I.lo+I.hi)/2 has |e-exp(-1)|<=delta/2. Clipped I is retained and its midpoint is used, not zeroed.",
+    "error": "For t=p+1, approximate minus original middle equals (e-exp(-1))*E(t). Exact algebra plus E bound yields delta/2*Bq; smoothInitial_middle ties conclusion to unchanged original source.",
+    "central_and_left": "At p=0 first factor is0^(k+1)=0 and reflected term equals A(0)=a_k0=1. At p=-1 the reflected term vanishes and left endpoint equals e. Invalid delta still has exact central1 but no positive-budget error guarantee.",
+    "evaluator": "The Polynomial Rat representation is noncomputable in current library. A direct finite rational scalar evaluator coefficientValueQ/middleValueQ is computable, runs in Lean, and is proved exactly equal to the polynomial evaluation. This is not a stored TT compiler or bit-runtime analysis."
+  },
+  "statement_audit": {
+    "preproof_seals": [
+      "statement-seal-v1.json",
+      "consumer-seal-v1.json"
+    ],
+    "exact_signature_binding": "Whole immutable pre-proof seal SHA256 plus final full provider/consumer source bindings below. Exact signature matching remains subject to distinct review.",
+    "definition_kind": "Literal finite rational sums, integer factorial denominator, literal original-coordinate polynomial composition, actual bounds midpoint. No default/zero fallback or phase representative.",
+    "TYPING": [
+      "natural k,i",
+      "finite rational e,delta,p where stated",
+      "real t,p for exact scalar evaluation"
+    ],
+    "SOURCE": [
+      "valid coefficient index i<=k",
+      "middle locus p in [-1,0]",
+      "coefficient locus t in [0,1]",
+      "positive delta only where error is guaranteed"
+    ],
+    "EXCESS": [],
+    "dependencies_not_binders": [
+      "sourceNumerator_value",
+      "sourceCoefficient_upper",
+      "coefficientPolynomial_eval",
+      "sourceInterpolant_eval",
+      "complete_enclosure"
+    ],
+    "contract_change": false,
+    "definition_implementation_marker": "Polynomial definitions require noncomputable markers only because of existing library representation; no formula or sealed theorem changed."
+  },
+  "source_topology": {
+    "internal_construction": [
+      "Literal coefficient series -> factorial-cleared rational polynomial -> real-evaluation cast equality",
+      "Actual complete exp(-1) enclosure -> midpoint halfwidth",
+      "Coefficient range plus unit-interval power -> endpoint amplification",
+      "Exact difference factorization -> original smoothInitial middle error",
+      "Endpoint evaluation -> exact central1"
+    ],
+    "source_credit": "Internal supplier construction only, not independent source proof credit or Source Anchor",
+    "excluded": [
+      "Original irrational-grid storage",
+      "tail source composition",
+      "normalization/vector aggregation",
+      "stored TT cores/QR/circuit",
+      "physical gate-synthesis/runtime"
+    ],
+    "source_gaps": [
+      "Full normalized-state tolerance",
+      "Original piL grid to rational storage",
+      "All other allocated error stages",
+      "Stored rational TT and exact producer/refinement costs"
+    ]
+  },
+  "focused_gate": {
+    "session": 81603,
+    "exit_code": 0,
+    "command": "powershell -NoProfile -ExecutionPolicy Bypass -File experiments/hermite-polynomial/precision/finite-middle-source/replay.ps1",
+    "complete_sources": 6,
+    "scope": [
+      "QuantumBlockEncoding/HermitePolynomial.lean",
+      "experiments/hermite-polynomial/precision/coefficient-range/CoefficientRange.lean",
+      "experiments/hermite-polynomial/precision/finite-exp/FiniteExp.lean",
+      "experiments/hermite-polynomial/precision/finite-exp-degree/FiniteExpDegree.lean",
+      "experiments/hermite-polynomial/precision/finite-middle-source/FiniteMiddleSource.lean",
+      "experiments/hermite-polynomial/precision/finite-middle-source/ConsumerChecks.lean"
+    ],
+    "new_printed_roots": 15,
+    "axioms_union": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "sorryAx": false,
+    "forbidden_scan": "Final both Lean sources scanned: sorry/admit/new axiom/native_decide/unsafe/ofReduceBool no matches. #eval is diagnostic only.",
+    "cache": "All five imported target source artifacts regenerated before consumer, under own ignored .cache. Other pinned Mathlib/production transitive substrate reused, not recompiled wholesale.",
+    "warnings": "Existing local Verso changes, original Hermite deprecated finset_sum_coeff, original finite-exp simpa and finite-degree lints retained. No new provider/consumer warnings.",
+    "log_sanitization": "Actual captured complete gate output has literal absolute repository root replaced with [REPOSITORY] before apply_patch persistence.",
+    "aggregate_repository_gate": "Parent-owned lake build/Tests and publication gates; not run or claimed by this worker."
+  },
+  "discriminators": {
+    "kernel": 6,
+    "parametric_endpoint_roots": 2,
+    "interpreter_commands": 7,
+    "outputs": [
+      "[1,1,1,1,1] for central(delta1/1000,k0,1,3,10,20)",
+      "[true,true,true,true,true] for left(delta2,k0,1,3,10,20)=midpoint",
+      "[1,1,1,1,1] for invalid delta0 central only",
+      "coefficients(k3)=(1,5,29/2,193/6)",
+      "clipped midpoint(delta2)=1/2; k0 interior(-1/2)=3/4",
+      "k0 interior(delta1/1000)=affine(e,1):true",
+      "0<midpoint(delta1/1000)<1:(true,true)"
+    ],
+    "finite_not_symbolic": "Interpreter outputs do not supply any theorem premise. Error/endpoint claims are kernel-checked parametric roots."
+  },
+  "artifact_hashes": {
+    ".gitignore": "70a213afeabe5ac38ae4c88b2c7002ce5068b91a3e57a032245ab809dc6fa460",
+    "statement-seal-v1.json": "b95bfd9bc74f551dfcada1f255511dfe73cd7f5e3058dd8577ab6dbfcbce6f99",
+    "consumer-seal-v1.json": "f865c7fbdcc87d04410fcbd4987bc6435631cd0f4d902cf3fc6eeb41396bf4c3",
+    "FiniteMiddleSource.lean": "84758df46e2fe7aebecb5e85f11b9378492515f6ed7d5604e8b1847aa3a7341d",
+    "ConsumerChecks.lean": "742f4d450bf406b727ed37f7d59da45c31547296109fe4db7e1f1eef17afe8fe",
+    "replay.ps1": "e0c9018bd4a5e20d4115e3cab4acba5f40af9722069d1ec5e6ed8cdeda53729c",
+    "focused-gate.log": "fe1073ee6e3c9738440dcc2d71a415b20d3cd5e519c6227ac1f799c785576a0a",
+    "negative-evidence-v1.json": "a8bd07a5b0046fd2936c22be81780b5bd39c2f653bf0f93a0c2e417dc9f12dd0",
+    "negative-evidence-v2-consumer.json": "7eee78227bc0ec0de544033b2a63b59be93156786a467859836021ca925dc3dc"
+  },
+  "dependency_hashes": {
+    "QuantumBlockEncoding/HermitePolynomial.lean": "f8a3e1d5f29aed1228b6ede3577a9af1e76301559172ee67a266fcb0d56fee1e",
+    "experiments/hermite-polynomial/precision/coefficient-range/CoefficientRange.lean": "e9ab95bb972ba742339a70dca1e5f1a302978092a1ca2a3cb42cd32b7faa4888",
+    "experiments/hermite-polynomial/precision/finite-exp/FiniteExp.lean": "7bb399fdb135a17791d821388b217fad9ad7d4bd53d9bfb896409ac632fb813c",
+    "experiments/hermite-polynomial/precision/finite-exp-degree/FiniteExpDegree.lean": "021f4e3cfc786221d773069a633108db0c32e5e4f0b4e694986b722487944cf5",
+    "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "lake-manifest.json": "510171e8214a2ac5e00f16c1bf92ad474d2de42c4cd2dc2b3d411272f7b58763"
+  },
+  "ignored_cache_hashes": {
+    "QuantumBlockEncoding/HermitePolynomial.olean": "f23350acc2ece04b47198459bf73a63939afb553aece0dcca3c179c2dc12eaa3",
+    "CoefficientRange.olean": "45bf5622506f79e02427071ec304075aae40c842023889596b708d235e1f7db4",
+    "FiniteExp.olean": "11f58fe09ab4a1aa2c6e80761d84a2f4fb321867219842000e18f77bba688064",
+    "FiniteExpDegree.olean": "91bc6aa5fb4f74742f7a641b87a61f12db08bcabc78293c5f9acfe7aec82f91f",
+    "FiniteMiddleSource.olean": "b2100ce59dd47295f02eceb302f555b6a35ce1ddf45a4a53d9f86f29150e29e4"
+  },
+  "attempts": [
+    {
+      "session": 96697,
+      "exit": 1,
+      "class": "IMPLEMENTATION_FAILED",
+      "evidence": "negative-evidence-v1.json"
+    },
+    {
+      "session": 16457,
+      "exit": 0,
+      "scope": "Complete new provider all10 roots"
+    },
+    {
+      "session": 71188,
+      "exit": 1,
+      "class": "IMPLEMENTATION_FAILED",
+      "evidence": "negative-evidence-v2-consumer.json"
+    },
+    {
+      "session": 52516,
+      "exit": 0,
+      "scope": "Complete actual scalar consumer all5 roots and finite diagnostics"
+    },
+    {
+      "session": 81603,
+      "exit": 0,
+      "scope": "Final complete six-source gate"
+    }
+  ],
+  "failure_class": "NONE_FOR_FINAL_FROZEN_PROVIDER",
+  "salvage": "Two distinct ordinary implementation/API failures retained additively. Corrected fragments passed final complete gate; no mathematical route retired.",
+  "process_memory_ids": [
+    "QBE-PM-LOW-TOKEN-CONTROL-PLANE",
+    "QBE-PM-DENSE-CHECK-SMALL-INSTANCE",
+    "QBE-PM-VERIFIER-SEMANTIC-LEVEL"
+  ],
+  "parallel_admission": "Parent authorized distinct rational-middle coefficient/cast/amplification uncertainty; worker did not spawn agents.",
+  "common_blindspot_review": "PENDING_PARENT_DISTINCT_REVIEW",
+  "default_verified_route": "Existing factorial denominator and complete exponential enclosure, then exact midpoint difference factorization. No competing exact source construction replaced.",
+  "purification": "Internal C provider, local no-placeholder/dead-wrapper scan; all introduced definitions reach actual scalar consumer. Public PURIFIED/Exposition Seal/Source Anchor review not claimed.",
+  "independent_review": "PENDING",
+  "scientific_ROOT": false,
+  "new_resource_winner": false,
+  "source_anchor_approved": false,
+  "C2_C3_X2": "OPEN",
+  "still_open": [
+    "Full finite rational piecewise source with tails and original-radius grid",
+    "Dimension-dependent aggregation and normalization against original signed target",
+    "All other global error stages",
+    "Actual stored rational TT core construction and rank refinement",
+    "Input/intermediate integers, denominators, reduction/GCD/comparison/copy/storage/runtime",
+    "Saved stage compiler and physical finite-bit synthesis"
+  ],
+  "scope": "Only new finite-middle-source subtree written, including own ignored artifacts; no Git mutation, production/test/historical edit, exports or public ledgers changed.",
+  "recommended_next": "Parent checkpoint exact package and run distinct review. Next independent dependency-ready work can combine this all-k middle supplier with existing complete negative-exp tails and the exact central norm floor, then seal a dimension-aware full-source error allocation separately. Do not identify scalar delta with state epsilon.",
+  "token_usage": "unknown"
+}

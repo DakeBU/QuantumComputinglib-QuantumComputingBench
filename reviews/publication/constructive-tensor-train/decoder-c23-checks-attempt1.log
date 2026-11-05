@@ -1,0 +1,156 @@
+reviews/publication/constructive-tensor-train/decoder-c23-checks.lean:2:0: error: Unknown option `pp.width`
+@QuantumBlockEncoding.ConstructiveTensorTrain.CoreFactorization : {l r : ℕ} →
+  QuantumBlockEncoding.TensorTrainCanonical.Core l r → Type
+'QuantumBlockEncoding.ConstructiveTensorTrain.CoreFactorization' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@QuantumBlockEncoding.ConstructiveTensorTrain.factorCore : {l r : ℕ} →
+  (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r) →
+    QuantumBlockEncoding.ConstructiveTensorTrain.CoreFactorization A
+'QuantumBlockEncoding.ConstructiveTensorTrain.factorCore' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@QuantumBlockEncoding.ConstructiveTensorTrain.Result : {n l r : ℕ} →
+  QuantumBlockEncoding.TensorTrainCanonical.Chain n l r → Type
+'QuantumBlockEncoding.ConstructiveTensorTrain.Result' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+@QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize : {n l r : ℕ} →
+  (C : QuantumBlockEncoding.TensorTrainCanonical.Chain n l r) → QuantumBlockEncoding.ConstructiveTensorTrain.Result C
+'QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_rightCanonical : ∀ {n l r : ℕ}
+  (C : QuantumBlockEncoding.TensorTrainCanonical.Chain n l r),
+  QuantumBlockEncoding.TensorTrainCanonical.RightCanonical
+    (QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize C).canonical
+'QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_rightCanonical' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_rankReduced : ∀ {n l r : ℕ}
+  (C : QuantumBlockEncoding.TensorTrainCanonical.Chain n l r),
+  QuantumBlockEncoding.TensorTrainCanonical.RankReduced C
+    (QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize C).canonical
+'QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_rankReduced' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_action : ∀ {n l r : ℕ}
+  (C : QuantumBlockEncoding.TensorTrainCanonical.Chain n l r) (x : QuantumBlockEncoding.TensorTrainCanonical.Word n),
+  Eq.{1} (QuantumBlockEncoding.TensorTrainCanonical.contract C x)
+    (HMul.hMul.{0, 0, 0} (QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize C).residual
+      (QuantumBlockEncoding.TensorTrainCanonical.contract
+        (QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize C).canonical x))
+'QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_action' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_maxBond_le : ∀ {n l r : ℕ}
+  (C : QuantumBlockEncoding.TensorTrainCanonical.Chain n l r),
+  LE.le.{0}
+    (QuantumBlockEncoding.TensorTrainCanonical.maxBond
+      (QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize C).canonical)
+    (QuantumBlockEncoding.TensorTrainCanonical.maxBond C)
+'QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_maxBond_le' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@QuantumBlockEncoding.ConstructiveTensorTrain.boundary : {n l r : ℕ} →
+  (C : QuantumBlockEncoding.TensorTrainCanonical.Chain n l r) →
+    (Fin l → ℝ) → Fin (QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize C).rank → ℝ
+'QuantumBlockEncoding.ConstructiveTensorTrain.boundary' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@QuantumBlockEncoding.ConstructiveTensorTrain.boundary_action : ∀ {n l r : ℕ}
+  (C : QuantumBlockEncoding.TensorTrainCanonical.Chain n l r) (v : Fin l → ℝ)
+  (x : QuantumBlockEncoding.TensorTrainCanonical.Word n),
+  Eq.{1} (Matrix.vecMul.{0, 0, 0} v (QuantumBlockEncoding.TensorTrainCanonical.contract C x))
+    (Matrix.vecMul.{0, 0, 0} (QuantumBlockEncoding.ConstructiveTensorTrain.boundary C v)
+      (QuantumBlockEncoding.TensorTrainCanonical.contract
+        (QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize C).canonical x))
+'QuantumBlockEncoding.ConstructiveTensorTrain.boundary_action' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@QuantumBlockEncoding.ConstructiveTensorTrain.boundary_mass : ∀ {n l r : ℕ}
+  (C : QuantumBlockEncoding.TensorTrainCanonical.Chain n l r) (v : Fin l → ℝ),
+  Eq.{1} (QuantumBlockEncoding.TensorTrainCanonical.chainMass C v)
+    (QuantumBlockEncoding.TensorTrainCanonical.mass.{0} (QuantumBlockEncoding.ConstructiveTensorTrain.boundary C v))
+'QuantumBlockEncoding.ConstructiveTensorTrain.boundary_mass' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@QuantumBlockEncoding.ConstructiveTensorTrain.boundary_normalized : ∀ {n l r : ℕ}
+  (C : QuantumBlockEncoding.TensorTrainCanonical.Chain n l r) (v : Fin l → ℝ),
+  Eq.{1} (QuantumBlockEncoding.TensorTrainCanonical.chainMass C v) 1 →
+    Eq.{1}
+      (QuantumBlockEncoding.TensorTrainCanonical.mass.{0} (QuantumBlockEncoding.ConstructiveTensorTrain.boundary C v)) 1
+'QuantumBlockEncoding.ConstructiveTensorTrain.boundary_normalized' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary : {n : ℕ} →
+  (C : QuantumBlockEncoding.TensorTrainCanonical.Chain n 1 1) →
+    Fin (QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize C).rank → ℝ
+'QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary_action : ∀ {n : ℕ}
+  (C : QuantumBlockEncoding.TensorTrainCanonical.Chain n 1 1) (x : QuantumBlockEncoding.TensorTrainCanonical.Word n),
+  Eq.{1} (QuantumBlockEncoding.TensorTrainCanonical.contract C x 0 0)
+    (∑ a,
+      HMul.hMul.{0, 0, 0} (QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary C a)
+        (QuantumBlockEncoding.TensorTrainCanonical.contract
+          (QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize C).canonical x a 0))
+'QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary_action' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+@QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary_normalized : ∀ {n : ℕ}
+  (C : QuantumBlockEncoding.TensorTrainCanonical.Chain n 1 1),
+  Eq.{1} (∑ x, HPow.hPow.{0, 0, 0} (QuantumBlockEncoding.TensorTrainCanonical.contract C x 0 0) 2) 1 →
+    Eq.{1}
+      (QuantumBlockEncoding.TensorTrainCanonical.mass.{0}
+        (QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary C))
+      1
+'QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary_normalized' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+structure QuantumBlockEncoding.ConstructiveTensorTrain.CoreFactorization {l r : ℕ}
+  (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r) : Type
+number of parameters: 3
+fields:
+  QuantumBlockEncoding.ConstructiveTensorTrain.CoreFactorization.R : Matrix.{0, 0, 0} (Fin l)
+      (Fin (min.{0} l (HMul.hMul.{0, 0, 0} 2 r))) ℝ
+  QuantumBlockEncoding.ConstructiveTensorTrain.CoreFactorization.Q : QuantumBlockEncoding.TensorTrainCanonical.Core
+      (min.{0} l (HMul.hMul.{0, 0, 0} 2 r)) r
+  QuantumBlockEncoding.ConstructiveTensorTrain.CoreFactorization.factorization : Eq.{1} A
+      (HMul.hMul.{0, 0, 0} self.R self.Q)
+  QuantumBlockEncoding.ConstructiveTensorTrain.CoreFactorization.orthogonal : Eq.{1}
+      (HMul.hMul.{0, 0, 0} self.Q (Matrix.transpose.{0, 0, 0} self.Q)) 1
+constructor:
+  QuantumBlockEncoding.ConstructiveTensorTrain.CoreFactorization.mk {l r : ℕ}
+    {A : QuantumBlockEncoding.TensorTrainCanonical.Core l r}
+    (R : Matrix.{0, 0, 0} (Fin l) (Fin (min.{0} l (HMul.hMul.{0, 0, 0} 2 r))) ℝ)
+    (Q : QuantumBlockEncoding.TensorTrainCanonical.Core (min.{0} l (HMul.hMul.{0, 0, 0} 2 r)) r)
+    (factorization : Eq.{1} A (HMul.hMul.{0, 0, 0} R Q))
+    (orthogonal : Eq.{1} (HMul.hMul.{0, 0, 0} Q (Matrix.transpose.{0, 0, 0} Q)) 1) :
+    QuantumBlockEncoding.ConstructiveTensorTrain.CoreFactorization A
+structure QuantumBlockEncoding.ConstructiveTensorTrain.Result {n l r : ℕ}
+  (C : QuantumBlockEncoding.TensorTrainCanonical.Chain n l r) : Type
+number of parameters: 4
+fields:
+  QuantumBlockEncoding.ConstructiveTensorTrain.Result.rank : ℕ
+  QuantumBlockEncoding.ConstructiveTensorTrain.Result.residual : Matrix.{0, 0, 0} (Fin l) (Fin self.rank) ℝ
+  QuantumBlockEncoding.ConstructiveTensorTrain.Result.canonical : QuantumBlockEncoding.TensorTrainCanonical.Chain n
+      self.rank r
+  QuantumBlockEncoding.ConstructiveTensorTrain.Result.rightCanonical : QuantumBlockEncoding.TensorTrainCanonical.RightCanonical
+      self.canonical
+  QuantumBlockEncoding.ConstructiveTensorTrain.Result.rankReduced : QuantumBlockEncoding.TensorTrainCanonical.RankReduced
+      C self.canonical
+  QuantumBlockEncoding.ConstructiveTensorTrain.Result.action : ∀ (x : QuantumBlockEncoding.TensorTrainCanonical.Word n),
+      Eq.{1} (QuantumBlockEncoding.TensorTrainCanonical.contract C x)
+        (HMul.hMul.{0, 0, 0} self.residual (QuantumBlockEncoding.TensorTrainCanonical.contract self.canonical x))
+constructor:
+  QuantumBlockEncoding.ConstructiveTensorTrain.Result.mk {n l r : ℕ}
+    {C : QuantumBlockEncoding.TensorTrainCanonical.Chain n l r} (rank : ℕ)
+    (residual : Matrix.{0, 0, 0} (Fin l) (Fin rank) ℝ)
+    (canonical : QuantumBlockEncoding.TensorTrainCanonical.Chain n rank r)
+    (rightCanonical : QuantumBlockEncoding.TensorTrainCanonical.RightCanonical canonical)
+    (rankReduced : QuantumBlockEncoding.TensorTrainCanonical.RankReduced C canonical)
+    (action :
+      ∀ (x : QuantumBlockEncoding.TensorTrainCanonical.Word n),
+        Eq.{1} (QuantumBlockEncoding.TensorTrainCanonical.contract C x)
+          (HMul.hMul.{0, 0, 0} residual (QuantumBlockEncoding.TensorTrainCanonical.contract canonical x))) :
+    QuantumBlockEncoding.ConstructiveTensorTrain.Result C

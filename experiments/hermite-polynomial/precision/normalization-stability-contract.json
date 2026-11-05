@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "status": "STATEMENT_SEALED_BEFORE_PROOF",
+  "version": 1,
+  "direction_fingerprint": "computed-input-normalization-to-finite-bit-error",
+  "declaration_level": "C_INTERNAL_PROVIDER; no new source Anchor premises",
+  "toolchain": "leanprover/lean4:v4.33.0",
+  "target": "Existing literal signed sampledAmplitude/sampleNorm, complex EuclideanSpace over Fin(gridSize(n+1)); finite sample integer order is existing public little-endian order. No phase quotient.",
+  "definition_kind": "literal adapters to existing target; Mathlib NormedSpace.normalize reused",
+  "statements": {
+    "normalization_stability": "For any real normed vector space and x != 0, ||normalize y - normalize x|| <= 2*||y-x||/||x||. No dimension factor and no computed error claim.",
+    "hermite_norm_floor": "For all natural k,n and real L, sampleNorm k (n+1) L >= 1, reusing HermiteIntervalMass.sampled_mass_ge_one, not a new assumed floor.",
+    "hermite_scaled_error": "For F>0, exact x=F^(-1) smul literal complex sample vector and ||y-x||<=delta, ||normalize y - literal normalized target||<=2*F*delta. Also F*delta<1 implies y!=0. Positive scaling preserves signed complex action, not merely probabilities.",
+    "normalizer_relative_error": "For b>0, 0<=eta<1 and |s-b|<=eta*b, s>0 and |b/s-1|<=eta/(1-eta). Internal scalar stability theorem, not a numerical hypot certificate.",
+    "serialized_output_error": "With y!=0, s>0, | ||y||/s-1 |<=tau and ||w-s^(-1) smul y||<=zeta, ||w-normalize x||<=2*||y-x||/||x||+tau+zeta. Combined Hermite instance <=2*F*delta+tau+zeta; zeta may include already-proved circuit/synthesis/replay error, never assumed from a saved syntax file."
+  },
+  "binder_audit": {
+    "TYPING": ["normed vector carriers", "natural k,n", "real L"],
+    "INTERNAL_CALLER_OBLIGATION": ["positive scaling factor F", "unnormalized Euclidean error delta", "computed normalizer relative eta or inverse-factor tau", "serialized/synthesized full-action Euclidean error zeta"],
+    "SOURCE": ["No extra public source premises. Physical producer still requires L>0; floor/conditioning adapter happens to hold for all real L."],
+    "EXCESS_PUBLIC_BINDERS": []
+  },
+  "source_proof_topology": "Literal samples -> central p=0 sample equals1 -> squared norm>=1 -> norm floor; triangle inequality and reverse norm inequality -> normalization stability; positive scale -> same normalized target; scalar quotient error -> output triangle budget. QR/rounding implementation is not used to reconstruct this topology.",
+  "reuse_search": ["HermiteIntervalMass.centralIndex/gridPoint_central/sampled_mass_ge_one", "HermiteStatePreparation.sampleNorm/normalizedAmplitude", "Mathlib NormedSpace.normalize", "Mathlib EuclideanSpace.norm_sq_eq"],
+  "computed_boundary": ["L must have a charged finite representation and source-input approximation bound", "Decimal/pi/coefficient/exponential/float conversion require errors", "per-core max scaling may underflow even for finite nonzero trains", "QR/einsum backward error and conditioning must be supplied", "mantissa/exponent product and hypot errors must be supplied", "circuit angle serialization/synthesis/replay must be tied to actual full action"],
+  "diagnostic_seal": "Test a two-core finite positive-entry TT with max/min dynamic range beyond binary64 ratio; exact rational contracted vector nonzero but initial max scaling removes the only terminal-supported branch. This falsifies generic all-nonzero-TT coverage only, not the reachable Hermite source route.",
+  "independent_review": "Pending; no self decoder or publication admission claimed"
+}

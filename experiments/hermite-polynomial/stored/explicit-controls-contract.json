@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "kind": "internal-provider-pre-proof-contract",
+  "version": 2,
+  "revision_reason": "Pattern construction now consumes the cached control vector and charges its reads rather than recomputing Fin.succAbove.",
+  "frontier": "C2 costed local primitive emission",
+  "classification": "canonical adapter candidate, not a new paper Source Anchor",
+  "parameters": "q : Nat, target : Fin(q+1), stored bits : Vector (Fin 2) (q+1), angle : ExactAngle",
+  "contract": "Compute strictly increasing non-target physical wires using Fin.succAbove, read the matching stored bits, and consume StoredSelectedRyTrace.selected. The actual returned rational trace, once instantiated at angle, evaluates to the selected real plane at that same target and complete non-target assignment.",
+  "binder_scope": "Stored assignment and target are typing/input to this internal supplier. Their source/Gray-index production and angle evaluation remain dependencies of the scientific root, not new root premises.",
+  "reuse": ["Mathlib finSuccAboveEquiv", "Fin.succAbove", "StoredGivens.collect/read/charge", "StoredSelectedRyTrace.selected", "compileSelectedRy_eval_plane"],
+  "cost_model": "Existing eight-counter exact-real/stored-word model. Charge q comparisons for skip enumeration and stored-word traffic; integer/address arithmetic remains outside this model.",
+  "expected_budget": "existing selected_total_cost_le + 11*q for stored control and pattern construction; prove from actual returned run rather than assume",
+  "not_claimed": ["stored Gray target discovery", "angle evaluation or bit precision", "complete SO emitter", "physical whole-pipeline placement", "family root closure", "source-blind publication review"]
+}

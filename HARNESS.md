@@ -238,6 +238,35 @@ To prevent the Master from becoming the next bottleneck:
 An anchor is temporary and objective-scoped. It is not a return to permanent
 Upper/Middle/Lower castes.
 
+## 8a. Asynchronous proof / experiment decisions
+
+Use the existing [bounded asynchronous evaluation policy](paper-notes/system-comparisons/uncompute-async-spbe-evaluation-design.md),
+especially its user-choice boundary and matched three-arm comparison. This is
+an app-coordinated policy, not a newly implemented production event scheduler.
+
+- Choose ordinary tactics, retrieval and bounded finite diagnostics autonomously
+  inside the frozen contract and authorized resource envelope. Prefer the
+  cheapest useful discriminator; do not ask the user to schedule every leaf.
+- Ask asynchronously before materially changing the target, error/success
+  convention, oracle access or budget, or selecting incomparable application
+  trade-offs. Continue only unaffected authorized work while awaiting an answer;
+  silence never authorizes the change.
+- Admit concurrent symbolic proof and finite screening only for distinct
+  uncertainty with exact contract/candidate/workflow bindings. Process useful
+  completion events without waiting for unrelated lanes. Preserve source-first
+  and source-blind release barriers; stale revisions cannot advance the frontier.
+- Record evidence strength separately from speed. Compare proof-first,
+  screen-then-proof and dual-lane methods at the SAME acceptance endpoint with
+  pre-frozen budgets, failed/censored arms and total-work accounting. Finite pass
+  is not family proof; quicker observation is not quicker total solution.
+- Keep heavy compiler/simulator launches within measured aggregate memory and
+  reserves. Parallel reasoning does not require simultaneous heavy builds.
+
+The isolated C93 timing pilot measures observation latency only. Current
+Hermite proof/screen runs are useful execution evidence, not a matched
+three-arm efficiency experiment or a demonstrated superior strategy. Do not
+rewrite historical timings or change verifier/scoring/acceptance for this policy.
+
 ## 9. Efficiency measurements
 
 The current harness records quantities tied to scientific output:
@@ -427,6 +456,29 @@ Use small local Lean and executable gates during search. At integration, run
 the full required repository gates. Generate public documentation only when
 there is a stable, accurately classified frontier to publish; repeated site
 renders are not part of each inner mutation.
+
+### Safe synchronization and contribution checkpoints
+
+Before starting work, claiming a new substantive objective, or integrating a
+completed packet, fetch and reconcile remote updates without overwriting
+uncommitted changes. Keep user-owned changes and live worker outputs out of
+unrelated checkpoints. The parent coordinates shared-checkout Git writes;
+workers do not race to stage, commit, switch branches or push the same tree.
+
+After a substantive package passes focused compilation, or a recoverable
+stage checkpoint is ready, commit and push it promptly to the contribution
+branch rather than waiting for the entire goal. Mark unreviewed results
+`proved_locally` or `WIP`, retain exact evidence bindings, and verify the remote
+commit before calling the checkpoint delivered. If synchronization or push
+fails, report the cause immediately; local completion is not remote delivery.
+Do not force-push, reset user changes, silently amend frozen evidence, or
+substitute a checkpoint for the full integration gates.
+
+Only complete required source, Lean, semantic, executable, publication and
+reader gates permit main admission. A pushed checkpoint is not a certified
+population winner, root closure, deployment or mathematical progress by itself.
+Branch cleanup remains salvage-first and must preserve unique work, protected
+PR/worktree branches and recoverable history.
 
 ### Algorithm and cost refinement packets
 

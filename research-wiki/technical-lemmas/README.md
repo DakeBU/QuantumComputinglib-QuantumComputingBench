@@ -42,3 +42,21 @@ For block-encoding construction templates, use
 `research-wiki/block-encoding-library/` first.  Technical-lemma cards should
 record dependencies that a chosen construction card needs, not replace the
 route selector.
+
+## Planned source cards shared with the reader atlas
+
+The Walsh phase supplier (`tl-walsh-diagonal-phase`) and diagonal-filter
+consumer (`tl-diagonal-postselection`) are authored once as `technical_card`
+objects in `website/research/atlas.json`. They have `lean_status: obligation`
+and an empty `lean_decl`: they are **not** entries in the build-checked
+declaration registry. The generated mechanism pages expose the same cards,
+including failure modes and downloadable JSON. Retrieve them with:
+
+```bash
+python3 website/scripts/research_atlas.py context --route spw-walsh
+python3 website/scripts/research_atlas.py context --route spw-diagonal
+```
+
+The packets carry pinned primary-source records, shared graph nodes and the
+next acceptance step. The existing UCRY compiler, a fixed cubic diagonal
+example or a Python Walsh/Gray backend does not close either source route.

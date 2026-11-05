@@ -1,0 +1,66 @@
+warning: verso: repository '<repo>\.lake/packages\verso' has local changes
+experiments/hermite-polynomial/precision/literal-complex-adapter/ConsumerChecks.lean:67:43: error: unsolved goals
+theta : ℚ
+⊢ ↑(List.foldl
+        (fun m g =>
+          match g with
+          | Instruction.ry theta q => fun i j =>
+            if ↑i % 2 = 1 then
+              Real.sin (↑theta / 2) * m (if ↑i % 2 = 1 then ⟨↑i ^^^ 1, ⋯⟩ else i) j +
+                Real.cos (↑theta / 2) * m (if ↑i % 2 = 1 then i else ⟨↑i ^^^ 1, ⋯⟩) j
+            else
+              Real.cos (↑theta / 2) * m (if ↑i % 2 = 1 then ⟨↑i ^^^ 1, ⋯⟩ else i) j -
+                Real.sin (↑theta / 2) * m (if ↑i % 2 = 1 then i else ⟨↑i ^^^ 1, ⋯⟩) j
+          | Instruction.cx c t distinct => fun i j => m (cxRow c t i) j)
+        (fun i j =>
+          if ↑i % 2 = 1 then
+            (if (if ↑i % 2 = 1 then ⟨↑i ^^^ 1, ⋯⟩ else i) = j then Real.sin (↑theta / 2) else 0) +
+              if (if ↑i % 2 = 1 then i else ⟨↑i ^^^ 1, ⋯⟩) = j then Real.cos (↑theta / 2) else 0
+          else
+            (if (if ↑i % 2 = 1 then ⟨↑i ^^^ 1, ⋯⟩ else i) = j then Real.cos (↑theta / 2) else 0) -
+              if (if ↑i % 2 = 1 then i else ⟨↑i ^^^ 1, ⋯⟩) = j then Real.sin (↑theta / 2) else 0)
+        [] 0 1) =
+    -Complex.sin (↑theta / 2)
+experiments/hermite-polynomial/precision/literal-complex-adapter/ConsumerChecks.lean:68:47: warning: This simp argument is unused:
+  List.foldl_nil
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [castMatrix, realWord, List.foldl_cons, realStep, realIdentity, low, high, bit,
+    HermiteSavedStageInterpreter.flip, realRyRow]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+experiments/hermite-polynomial/precision/literal-complex-adapter/ConsumerChecks.lean:73:42: error: unsolved goals
+theta : ℚ
+⊢ ↑(List.foldl
+        (fun m g =>
+          match g with
+          | Instruction.ry theta q => fun i j =>
+            if ↑i % 2 = 1 then
+              Real.sin (↑theta / 2) * m (if ↑i % 2 = 1 then ⟨↑i ^^^ 1, ⋯⟩ else i) j +
+                Real.cos (↑theta / 2) * m (if ↑i % 2 = 1 then i else ⟨↑i ^^^ 1, ⋯⟩) j
+            else
+              Real.cos (↑theta / 2) * m (if ↑i % 2 = 1 then ⟨↑i ^^^ 1, ⋯⟩ else i) j -
+                Real.sin (↑theta / 2) * m (if ↑i % 2 = 1 then i else ⟨↑i ^^^ 1, ⋯⟩) j
+          | Instruction.cx c t distinct => fun i j => m (cxRow c t i) j)
+        (fun i j =>
+          if ↑i % 2 = 1 then
+            (if (if ↑i % 2 = 1 then ⟨↑i ^^^ 1, ⋯⟩ else i) = j then Real.sin (↑theta / 2) else 0) +
+              if (if ↑i % 2 = 1 then i else ⟨↑i ^^^ 1, ⋯⟩) = j then Real.cos (↑theta / 2) else 0
+          else
+            (if (if ↑i % 2 = 1 then ⟨↑i ^^^ 1, ⋯⟩ else i) = j then Real.cos (↑theta / 2) else 0) -
+              if (if ↑i % 2 = 1 then i else ⟨↑i ^^^ 1, ⋯⟩) = j then Real.sin (↑theta / 2) else 0)
+        [] 1 0) =
+    Complex.sin (↑theta / 2)
+experiments/hermite-polynomial/precision/literal-complex-adapter/ConsumerChecks.lean:74:47: warning: This simp argument is unused:
+  List.foldl_nil
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [castMatrix, realWord, List.foldl_cons, realStep, realIdentity, low, high, bit,
+    HermiteSavedStageInterpreter.flip, realRyRow]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+'HermiteLiteralComplexAdapter.realWord_eq_primitive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteLiteralComplexAdapter.primitive_entry_enclosure' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteLiteralComplexAdapter.arbitrary_complex_input_consumer' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

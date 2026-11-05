@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "status": "SEALED_BEFORE_CONSUMER_PROOF",
+  "classification": "C_INTERNAL_PROVIDER_CONSUMERS",
+  "signatures": [
+    "hermite_left_complete (k : Nat) (p epsilon : Rat) (hp : (p : Real) < -1) (he : 0 < epsilon) : smoothInitial k (p : Real) in Icc(bounds p (tailCutoff epsilon) (sourceDegree epsilon)) and width(bounds p (tailCutoff epsilon) (sourceDegree epsilon)) <= epsilon",
+    "hermite_right_complete (k : Nat) (p epsilon : Rat) (hp : 0 < (p : Real)) (he : 0 < epsilon) : smoothInitial k (p : Real) in Icc(bounds (-p) (tailCutoff epsilon) (sourceDegree epsilon)) and width(bounds (-p) (tailCutoff epsilon) (sourceDegree epsilon)) <= epsilon",
+    "endpoint_complete (epsilon : Rat) (he : 0 < epsilon) : Real.exp (-1) in Icc(bounds (-1) (tailCutoff epsilon) (sourceDegree epsilon)) and width(bounds (-1) (tailCutoff epsilon) (sourceDegree epsilon)) <= epsilon"
+  ],
+  "fixtures": ["q=-1 epsilon=1/1000", "q=-1 epsilon=2^-80", "enormous negative q clipped at allocated degree", "T=0 epsilon=2", "invalid positive q", "zero and negative epsilon", "insufficient old degree rejected"],
+  "boundary": "Literal original Hermite rational-coordinate tails and exp(-1). Uniform k does not supply global normalized state error. No numeric max-degree cap or assumed width binder."
+}

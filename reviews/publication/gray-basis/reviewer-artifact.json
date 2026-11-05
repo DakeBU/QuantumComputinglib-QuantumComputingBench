@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "role": "independent-source-formal-comparison",
+  "identity": "hermite_source_numeric",
+  "run_id": "gray-source-first-d60a6648-563d-426f-a8e3-9e2f62b14320",
+  "recorded_at_utc": "2026-10-08 10:58:11 UTC",
+  "binding_sha256": "f5cb8ba0cd715bcd9cee90de68237ffce6931087b9b955897fa3743f60c1e9e0",
+  "module": "QuantumBlockEncoding/GrayBasis.lean",
+  "module_sha256": "c77348ac8e29bcbcdaee8ac2728f86263c17a131fc23fdb5d0e98b0bfa79080e",
+  "source": "docs/lessons/gray-little-endian-order.md",
+  "source_sha256": "7863fe47a35093bdeb9b3364a47be5099bd7b4ce001596410d2c08bd18b512c3",
+  "source_first_reconstruction_sha256": "f598375567881c8995c5e25a6708f22d7162742927cdba58a2fbeea183f11d9e",
+  "decoder_artifact_sha256": "ce0b78921a666e0449f9b724515907e286798f8251f2edeea3b87ddb37f35d13",
+  "decoder_evidence_sha256": "3af101ed03c015037a32e31def48f20c4abc8f1a5d761b70e223bbf87330b034",
+  "verdict": "accepted",
+  "verdict_scope": "Exactly the existing eight-declaration local mathematical convention: arbitrary-natural-width recursively defined little-endian Gray coordinate bijection, total natural head formula, parity transitions and strictly non-wrapping existential single-coordinate adjacency. No wider approval.",
+  "context_provenance": {
+    "context_reused": true,
+    "fresh_agent_or_context_reset": false,
+    "prior_context": "Independent Hermite source-reachable precision work; only Gray filenames were listed, no target Gray implementation or source lesson was read before preflight.",
+    "review_order": "Read the complete source lesson and sealed an independent reconstruction before seeing formal module, providers or decoder. Root later supplied an exact final decoder-bound packet. The preflight remains byte-for-byte unchanged.",
+    "comparison_phase": "Read whole decoder artifact/evidence, whole actual GrayBasis source, whole PrimitiveBasisLE provider source, relevant PrimitiveSemantics/Core definitions, relevant Mathlib equivalence definitions, toolchain/manifest and evidence-checker schema only.",
+    "not_read": ["root-authored candidate classifications", "source-contract classifications", "publication/source registry classifications", "previous Gray reviews", "alternative Gray implementations"],
+    "identity_independence": "Same actual reviewer agent as the immutable source preflight; distinct from root's author and hermite-cached-global-independent-gray-decoder. Context reuse is disclosed; no fresh-fork independence claimed.",
+    "decoder_qualification": "Decoder's earlier formal Gray compiler familiarity is disclosed. Its blindness was to this newly authored local lesson and classifications, not to Gray mathematics generally. This scoped qualification is retained rather than upgraded to a fresh-agent claim."
+  },
+  "definition_and_binder_audit": {
+    "source_objects": "Literal T_n parity twist, literal recursive G_n, and literal total-natural h. The inverse is explicitly composed/constructed, not postulated.",
+    "carrier_providers": "PrimitiveBasis n expands to Fin n->Fin2; Fin(2^n) carries label bounds; flipBit exchanges the two values; xBasisAction is Function.update at one coordinate; gridSize n=2^n. No project-owned Prop bundle or logical typeclass premise hides an additional assumption.",
+    "typing": "Natural dimensions, natural head-formula input, finite labels, finite wires, and quotient-legality proof terms are typing data.",
+    "source_conditions": "Only index parity for the two head transition lemmas and first.val+1=second.val for adjacent. These are the source's stated case/adjacency conditions, not imported circuit proof ingredients.",
+    "excess": [],
+    "definition_kind": "literal",
+    "empty_width": "primitiveBasisLEEquiv0 inverse yields the unique empty function. Fin.elim0 implements the function on an empty coordinate domain; it is not an off-source zero/default register fallback.",
+    "choice_and_representatives": "No uniqueness-characterized choice or quotient/global-phase representative is introduced. Equiv inverse laws are proved fields of the constructed data, not scientific theorem assumptions."
+  },
+  "declaration_comparisons": [
+    {
+      "name": "QuantumBlockEncoding.GrayBasis.twist",
+      "source_obligation": "S1_TWIST_INVOLUTION",
+      "signature": "(n:Nat)->Equiv.Perm(Fin(2^n)*Fin2)",
+      "binder_audit": "n TYPING; no logical premise",
+      "comparison": "toFun and invFun both preserve q and conditionally flip b when q parity is nonzero. Since q mod2 is0 or1, this is exactly b xor(q mod2). Both inverse laws use the same parity case and flip involution.",
+      "proof_topology": "Parity involution, including width0",
+      "result": "same"
+    },
+    {
+      "name": "QuantumBlockEncoding.GrayBasis.equiv",
+      "source_obligation": "S2_RECURSIVE_BIJECTION",
+      "signature": "(n:Nat)->Fin(2^n) equiv PrimitiveBasis n",
+      "binder_audit": "n TYPING; no existence, rank or nonzero-width premise",
+      "comparison": "Width0 is the inverse singleton LE encoding. Successor casts2^(n+1)=2^n*2, splits via finProdFinEquiv.symm into quotient and remainder, applies twist, recursively transforms q, swaps the pair and conses head/tail. Fin.consEquiv places the new bit at wire0 and previous coordinates at successors, exactly the source recursion and explicit inverse.",
+      "proof_topology": "Composition of explicitly invertible providers and recursive tail equivalence, not classical selection of a bijection",
+      "result": "same"
+    },
+    {
+      "name": "QuantumBlockEncoding.GrayBasis.headBit",
+      "source_obligation": "S3_TOTAL_HEAD_FORMULA",
+      "signature": "Nat->Fin2",
+      "binder_audit": "index TYPING/input value; no finite-range condition",
+      "comparison": "Returns index mod2 when quotient parity is0, otherwise its binary flip. This equals the two-lowest-digits xor formula for every natural, without defining an off-range Gray register.",
+      "proof_topology": "Literal arithmetic formula with derived modulo bounds",
+      "result": "same"
+    },
+    {
+      "name": "QuantumBlockEncoding.GrayBasis.equiv_head",
+      "source_obligation": "S4_HEAD_RECURSION",
+      "signature": "forall n,index:Fin(2^(n+1)), equiv(n+1,index)(0)=headBit(index.val)",
+      "binder_audit": "n,index TYPING; finite bound is in index type",
+      "comparison": "Literal definitional head identity, proved by rfl. No parity side condition or changed order.",
+      "proof_topology": "Definition expansion of recursive equivalence",
+      "result": "same"
+    },
+    {
+      "name": "QuantumBlockEncoding.GrayBasis.equiv_tail",
+      "source_obligation": "S5_TAIL_RECURSION",
+      "signature": "forall n,index:Fin(2^(n+1)),wire:Fin n, equiv(n+1,index)(wire.succ)=equiv(n,index.val/2)(wire)",
+      "binder_audit": "n,index,wire TYPING; quotient legality derived from index.isLt and pow_succ, not an extra premise",
+      "comparison": "Definitional tail identity, proved by rfl, with a derived Fin-bound proof for the quotient. Coordinate shift is successor, not reversed-wire indexing.",
+      "proof_topology": "Definition expansion with finite-carrier arithmetic",
+      "result": "same"
+    },
+    {
+      "name": "QuantumBlockEncoding.GrayBasis.headBit_even",
+      "source_obligation": "S6_EVEN_HEAD_TRANSITION",
+      "signature": "forall index:Nat,index mod2=0 -> headBit(index+1)=flipBit(headBit index)",
+      "binder_audit": "index input; even condition SOURCE; no width/range premise",
+      "comparison": "Proves unchanged quotient and new remainder1, then both quotient-parity cases. Exactly the source's head toggle for an even step, on all naturals.",
+      "proof_topology": "Even remainder transition plus parity cases",
+      "result": "same"
+    },
+    {
+      "name": "QuantumBlockEncoding.GrayBasis.headBit_odd",
+      "source_obligation": "S7_ODD_HEAD_TRANSITION",
+      "signature": "forall index:Nat,index mod2=1 -> headBit(index+1)=headBit index",
+      "binder_audit": "index input; odd condition SOURCE; no width/range premise",
+      "comparison": "Proves quotient increment and new remainder0; each parity branch proves the opposite next quotient parity. The xor changes cancel exactly as reconstructed before formal exposure.",
+      "proof_topology": "Odd remainder transition and quotient-parity toggle",
+      "result": "same"
+    },
+    {
+      "name": "QuantumBlockEncoding.GrayBasis.adjacent",
+      "source_obligation": "S8_LEGAL_ADJACENCY",
+      "signature": "forall {n:Nat},first second:Fin(2^n),first.val+1=second.val -> exists target:Fin n,equiv n second=xBasisAction target(equiv n first)",
+      "binder_audit": "Implicit n and finite labels TYPING; next SOURCE; no nonzero-width, chosen-wire, oracle or gate premise",
+      "comparison": "Width0 derives contradiction from Fin1 bounds. Successor creates legal quotient labels from the finite bounds. Even first label gives equal tails and target0; odd first label gives adjacent tails, applies induction and shifts target to target.succ while preserving head. Equality of bit functions after Function.update means exactly one coordinate changes because no binary value equals its flip. It is existential, not a separately certified named-target algorithm or unique-existence declaration.",
+      "proof_topology": "Same width induction and both parity branches as preflight; no cyclic last-to-first extension",
+      "result": "same"
+    }
+  ],
+  "semantic_slots": {
+    "target": "Same finite-label-to-bit-register bijection and one-coordinate adjacency; no vector or operator target",
+    "normalization": "Not applicable to bit coordinate convention; source explicitly excludes state normalization and formal signatures add none",
+    "registers": "Fin n named wires; wire0 least significant; head0 and tail successors; singleton empty register; legal labels preserved",
+    "oracles": "None assumed or produced; natural quotient/remainder are literal arithmetic, not coherent-oracle claims",
+    "ancillas_phases": "No ancilla/workspace or scalar phase carrier, premise or conclusion; no cleanup/phase claim inferred",
+    "error_success": "Exact finite-coordinate equalities; no approximate tolerance, probability, accepted sector or postselection claim",
+    "resources": "No circuit, gate count, depth, runtime, finite-bit, saved exporter or migration/ROOT resource acceptance"
+  },
+  "four_graph_comparison": {
+    "source_proof_construction": "Immutable preflight topology covers carriers, quotient/remainder, parity involution, recursive equivalence/inverse, head/tail formulas, both parity arithmetic branches and legal-bounds width induction. Actual construction matches it. No substantive source step is omitted from the bounded scope.",
+    "lean_dependency": "GrayBasis imports PrimitiveBasisLE. The actual declarations call the expected definitions/providers; the import is not treated as every-declaration dependency. Root-specific transitive axiom output was independently obtained. This is source/proof inspection and axiom trust evidence, not an exhaustive exported elaborated proof-term graph.",
+    "compressed_quantum_spine": "Parity twist on the low bit and recursive tail gives the coordinate bijection; parity induction gives one-wire adjacency. Expanding this move recovers finite bounds, empty width and both cases. The word quantum does not upgrade this finite-coordinate mechanism into circuit semantics.",
+    "functor_hypergraph": "Only a proposed conceptual association of integer Gray labels with named-wire registers, carrying width and LE order. No formal categorical functor, inverse-circuit, matrix action or cost/resource transport is certified.",
+    "and_or_audit": "Both parity cases are necessary case coverage for the arbitrary adjacent-label theorem, not independently sufficient OR routes for all labels. Involution, quotient decomposition and tail bijection jointly produce the successor equivalence."
+  },
+  "decoder_comparison": {
+    "whole_artifact_and_evidence_read": true,
+    "all8_decoded_signatures": "Matched actual fresh compiler output, including implicit n in adjacent, all-natural headBit and derived quotient bound in equiv_tail",
+    "definitions_and_providers": "Decoder's conditional parity, Fin product ordering and Fin.cons head/tail interpretation agree with independently inspected providers",
+    "topology": "Decoder's width induction and even/odd branches agree with the source-first preflight and actual proof body",
+    "boundaries": "Decoder correctly preserves width0 vacuity, nonwrap adjacency, existential target, bit-function-only semantics and absence of quantum/resources claims",
+    "discrepancies": []
+  },
+  "independent_checks": {
+    "final_packet_content_hashes": "All five bound paths independently hashed and matched: lesson, formal module, immutable preflight, decoder artifact, decoder evidence",
+    "provider_hashes": "All measured decoder input hashes independently matched actual current providers/toolchain/manifest; Mathlib checkout matches manifest rev db584cd6d46c92f209a44c0f1c829460d327499d",
+    "fresh_source_elaboration": "Read the actual complete GrayBasis.lean body and pipe it unchanged, followed by inspection commands, to lake env lean --stdin. Its own declarations were elaborated; no GrayBasis target olean import was used. No probe file was written.",
+    "fresh_exit_code": 0,
+    "fresh_types": "#check @ for all8 declarations",
+    "fresh_axioms": "#print axioms for all8 and primitiveBasisLEEquiv,flipBit_flipBit,xBasisAction",
+    "all8_axiom_union": ["propext", "Classical.choice", "Quot.sound"],
+    "forbidden_root_axioms_absent": ["sorryAx", "Lean.ofReduceBool"],
+    "native_decide_scope": "PrimitiveBasisLE has unrelated native_decide fixed-width declarations, but they do not occur in the freshly printed transitive axioms of these eight roots. No global imported-environment purity claim.",
+    "independent_finite_eval": {"width0": [0], "width1": [0, 1], "width2": [0, 1, 3, 2], "width3": [0, 1, 3, 2, 6, 7, 5, 4]},
+    "finite_eval_strength": "Diagnostics of the literal definition only; not substituted for the compiled arbitrary-width proof",
+    "aggregate_gate": "Not run or asserted by reviewer; root owns whole-repository/publication gates"
+  },
+  "nonblocking_wording": "The adjacent docstring says physical X action, but the actual conclusion is only xBasisAction on named bits. The lesson and decoder explicitly delimit this. Acceptance uses that precise bit-function reading; no physical gate/operator approval is implied.",
+  "remaining_boundary": ["root's publication binding/schema and integrated gates", "any unrelated migration/source-debt closure", "any matrix/circuit refinement and chosen target algorithm", "any cost/finite-bit/exporter certificate", "any scientific SP ROOT acceptance"],
+  "failure_class": "NONE",
+  "no_root_authored_content_edits": true,
+  "no_fresh_context_claim": true
+}
