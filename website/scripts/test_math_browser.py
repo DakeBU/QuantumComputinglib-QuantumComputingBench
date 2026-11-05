@@ -126,6 +126,18 @@ def main():
                     page.goto(base + '/' + route, wait_until='domcontentloaded')
                     page.wait_for_function('Boolean(window.MathJax?.typesetPromise)', timeout=30000)
                     page.evaluate('async () => { await MathJax.startup.promise; }')
+                    # A task directory can contain only folded previews. Test
+                    # the real reader action rather than requiring hidden
+                    # mathematics to be eagerly typeset on a listing page.
+                    if not page.locator('mjx-container').count():
+                        preview = page.locator('details.qcb-disclosure').filter(
+                            has=page.locator('[data-qcb-math-source]')).first
+                        if preview.count():
+                            preview.locator(':scope > summary').focus()
+                            page.keyboard.press('Enter')
+                            page.wait_for_function(
+                                'p => p.querySelector("[data-qcb-math-deferred]")?.dataset.qcbMathState === "ready"',
+                                arg=preview.element_handle(), timeout=30000)
                     if not page.locator('mjx-container').count():
                         failures.append({'path': route, 'error': 'No rendered formulas'})
                     if page.locator('mjx-merror, [data-mjx-error]').count():
