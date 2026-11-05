@@ -658,7 +658,8 @@ def publish(root):
     benchmark_center = publish_center(write, intro, catalog, registry, context["commit"], runtime_environment)
     from qcb_assessment_bank import public_status as assessment_public_status
     from website.scripts.qcb_assessment_reader import publish_assessment, training_package as assessment_training_package
-    assessment_record = {**assessment_public_status(), 'source_commit': context['commit']}
+    from qcb_assessment_reader import publication_record
+    assessment_record = publication_record(assessment_public_status(), context['commit'])
     write_json(data_dir / 'assessment-v2.json', assessment_record)
     assessment_report = publish_assessment(write, intro, assessment_record, context['commit'])
     combined_training = assessment_training_package(registry, read_json(data_dir / 'lean-course/train-references.json'), context['commit'])
@@ -788,7 +789,8 @@ def check_site(root):
     verify_workbook_downloads(root / 'data/quantumcomputingbench/nonlean-workbook', workbook)
     from qcb_assessment_bank import public_status as assessment_public_status
     assessment_record = read_json(root / 'data/quantumcomputingbench/assessment-v2.json')
-    if assessment_record != {**assessment_public_status(), 'source_commit': manifest['source_commit']}:
+    from qcb_assessment_reader import publication_record
+    if assessment_record != publication_record(assessment_public_status(), manifest['source_commit']):
         raise ValueError('assessment public metadata or software qualification is stale')
     assessment_routes = manifest.get('sealed_assessment', {}).get('routes', [])
     if len(assessment_routes) != 3 or not set(assessment_routes) <= set(manifest['routes']):

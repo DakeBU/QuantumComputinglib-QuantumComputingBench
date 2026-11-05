@@ -3,10 +3,29 @@ from __future__ import annotations
 
 import html
 import hashlib
+from copy import deepcopy
 from pathlib import Path
 from urllib.parse import quote
 
 BASE = 'quantumcomputingbench/run/assessment/'
+
+
+def publication_record(status, commit):
+    """Encode review role identifiers without changing qualified evidence.
+
+    Agent role IDs may look like Unix filesystem paths. Keep exact original
+    IDs in the committed qualification; the site exposes stable hashes and
+    commits to the unprojected record instead of publishing path-shaped IDs.
+    """
+    from qcb_core import digest
+    record = deepcopy(status)
+    record['source_commit'] = commit
+    record['qualification_unprojected_digest'] = digest(status['qualification'])
+    record['qualification_identity_encoding'] = 'sha256_utf8_of_exact_review_role_id'
+    for field in ('decoder_identity', 'source_comparer_identity'):
+        identity = record['qualification']['review'][field]
+        record['qualification']['review'][field] = 'sha256:' + hashlib.sha256(identity.encode('utf-8')).hexdigest()
+    return record
 
 
 def training_package(registry, lean_export, commit):
@@ -52,7 +71,7 @@ def publish_assessment(write, intro, record, commit):
         'Train on declared examples, then test mathematical decisions, arguments and tool-assisted proofs separately.')
     body += '<p class="qcb-breadcrumb"><a href="../index.html">Run a benchmark</a> / Assessment</p>'
     body += '<ol class="qcb-ladder" data-qcb-assessment-stages>'
-    body += '<li><strong>Study and train</strong><p>Use train-only exports: 74 existing cores, 86 language/semantic views and 12 Lean proof views. Multiple views do not add independent questions.</p><a download href="../../../data/quantumcomputingbench/assessment-train.json">Download train-only package · contains answers</a> · <a href="../training/index.html">Training guide →</a></li>'
+    body += '<li><strong>Study and train</strong><p>Use train-only exports: 74 existing cores, 86 language/semantic views and 12 Lean proof views. Multiple views do not add independent questions.</p><p><a download href="../../../data/quantumcomputingbench/assessment-train.json">Download train-only package · contains answers</a></p><a href="../training/index.html">Training guide →</a></li>'
     body += '<li><strong>Calibrate in public</strong><p>Read the public questions, workbook and solutions. These are useful study material; their public-test labels do not make their answers secret.</p><a href="../../diagnostics/index.html">Try public semantic contrasts →</a></li>'
     body += '<li><strong>Assess on a sealed set</strong><p>' + str(len(rows)) + ' additional propositions form ' + str(pairs) + ' balanced contrasts, anchored to ' + str(coverage['sealed_parent_core_count']) + ' existing evaluation cores. Their questions, answers and reviewer records stay outside the website repository.</p><a href="protocol/index.html">Prepare a controlled assessment →</a></li></ol>'
     body += '<p class="qcb-status-line" data-qcb-assessment-claim="bounded">A passing result supports the capabilities exercised by these cases under the stated access and budget. It does not certify mastery of the whole graph or reveal internal understanding.</p>'

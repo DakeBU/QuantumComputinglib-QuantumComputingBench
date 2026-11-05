@@ -1,5 +1,7 @@
 """Public reader stays useful without exposing sealed questions or answers."""
 import unittest
+import hashlib
+from copy import deepcopy
 from urllib.parse import urljoin
 from unittest.mock import patch
 from pathlib import Path
@@ -7,7 +9,7 @@ import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'benchmarks/quantumcomputingbench/src'))
 
-from website.scripts.qcb_assessment_reader import BASE, publish_assessment, training_package
+from website.scripts.qcb_assessment_reader import BASE, publish_assessment, publication_record, training_package
 
 
 def record():
@@ -27,6 +29,23 @@ def record():
 
 
 class AssessmentReaderTests(unittest.TestCase):
+    def test_role_identifier_projection_preserves_original_qualification_and_other_fields(self):
+        from qcb_core import digest
+        status = {'qualification': {'review': {
+            'decoder_identity': '/root/decoder', 'source_comparer_identity': '/root/comparer',
+            'decoder_digest': 'review-binding'}}, 'runtime_note': '/home/example/not-an-identity'}
+        original = deepcopy(status)
+        projected = publication_record(status, 'a' * 40)
+        self.assertEqual(status, original)
+        self.assertEqual(projected['qualification_unprojected_digest'], digest(original['qualification']))
+        for field in ('decoder_identity', 'source_comparer_identity'):
+            expected = 'sha256:' + hashlib.sha256(original['qualification']['review'][field].encode()).hexdigest()
+            self.assertEqual(projected['qualification']['review'][field], expected)
+        self.assertNotEqual(projected['qualification']['review']['decoder_identity'],
+                            projected['qualification']['review']['source_comparer_identity'])
+        self.assertEqual(projected['qualification']['review']['decoder_digest'], 'review-binding')
+        self.assertEqual(projected['runtime_note'], original['runtime_note'])
+
     def setUp(self):
         self.pages = {}
         def write(route, title, body, description):
