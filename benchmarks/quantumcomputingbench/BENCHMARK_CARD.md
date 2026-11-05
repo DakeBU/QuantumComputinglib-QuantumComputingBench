@@ -35,6 +35,14 @@ teacher data; report that exposure in any model study. The current public test
 split does not become a private or proof-disjoint holdout through prompt hiding.
 New evaluation families need separate admission and split reconciliation.
 
+The [sealed assessment v3](tracks/lean/ASSESSMENT_V3.md) is a separate study
+cohort: 8 development and 10 test questions in 9 contrasts. Its four additional
+study contracts do not change the canonical catalog or the public splits. The
+optional family profile withholds all views of 13 train cores containing relevant
+templates. This supports a transfer test relative to the selected export; the
+library is public and checkpoint pretraining exposure is unknown. The sealed
+bank is not part of either training download or the open task registry.
+
 ## Task and environment contract
 
 Each task binds an instruction, response schema, source contract, graph anchors,

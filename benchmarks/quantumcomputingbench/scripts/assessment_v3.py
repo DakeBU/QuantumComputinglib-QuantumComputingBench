@@ -11,6 +11,7 @@ import asyncio
 from copy import deepcopy
 import json
 from pathlib import Path
+import re
 import subprocess
 import sys
 
@@ -47,7 +48,19 @@ def _sealed(value, field):
 def _study_design(name):
     if name not in PROFILES:
         raise ValueError('unknown training profile')
-    return {'training_profile': name, 'declared_only': True,
+    from qcb_assessment_training import PROFILES as profile_manifest
+    manifest = _read(profile_manifest)
+    profile = manifest.get('profile')
+    if (manifest.get('schema_version') != 'qcb.study_training_profiles.v1'
+            or not isinstance(profile, dict) or profile.get('profile_id') != PROFILES[1]):
+        raise ValueError('invalid public training profile manifest')
+    fingerprint = profile.get('baseline_training_fingerprint')
+    if not isinstance(fingerprint, str) or re.fullmatch('[0-9a-f]{64}', fingerprint) is None:
+        raise ValueError('invalid baseline training fingerprint')
+    definition = ({'profile_id': name, 'baseline_training_fingerprint': fingerprint}
+                  if name == 'baseline' else profile)
+    return {'training_profile': name, 'profile_definition_digest': digest(definition),
+            'declared_only': True,
             'actual_model_exposure_authenticated': False}
 
 
@@ -95,6 +108,25 @@ def _unwrap_first_answers(envelope, controller_envelope):
     return envelope['common_lock']
 
 
+def _preflight_outputs(*paths, inputs=(), bank=None):
+    """Check the whole output layout without creating directories or files."""
+    targets = tuple(path.resolve() for path in paths)
+    input_paths = tuple(path.resolve() for path in inputs)
+    for index, (path, target) in enumerate(zip(paths, targets)):
+        if path.is_symlink() or target.exists():
+            raise FileExistsError('preserve previous evidence; choose fresh output names')
+        if any(not _separate(target, other) for other in targets[:index]):
+            raise ValueError('output paths must be distinct and non-nested')
+        if any(not _separate(target, other) for other in input_paths):
+            raise ValueError('output paths cannot overlap input files')
+        if bank is not None and bank.is_relative_to(target):
+            raise ValueError('output paths cannot replace the private bank directory or its ancestors')
+        ancestor = next((parent for parent in target.parents if parent.exists()), None)
+        if ancestor is None or not ancestor.is_dir():
+            raise NotADirectoryError('output ancestors must be directories')
+    return targets
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest='command', required=True)
@@ -122,52 +154,57 @@ def main(argv=None):
     args = parser.parse_args(argv)
     try:
         if args.command == 'export-training':
+            output, = _preflight_outputs(args.output)
             record = _export_profile(args.training_profile)
-            _write(args.output, record, private=False)
+            _write(output, record, private=False)
             print(json.dumps({'training_counts': record['counts'], 'training_profile': args.training_profile,
                               'training_launched': False})); return 0
         if args.command == 'audit':
+            bank = _private(args.bank) if args.bank else None
+            output = _preflight_outputs(args.output, bank=bank)[0] if args.output else None
             record = public_status()
-            if args.bank:
-                packet, _ = load_private_bank(args.bank)
+            if bank is not None:
+                packet, _ = load_private_bank(bank)
                 record['private_bundle_verified'] = True; record['private_probe_count'] = len(packet['probes'])
-            if args.output:
-                _write(args.output, record, private=False)
+            if output is not None:
+                _write(output, record, private=False)
             print(json.dumps({'qualified': True, 'understanding_established': False})); return 0
         if args.command == 'check-references':
             if not args.trusted_local_reference:
                 raise ValueError('authored replay requires the explicit trusted-reference flag')
             bank = _private(args.bank)
-            outputs = [_private(args.output), _private(args.raw_output)]
-            progress_path = _private(outputs[1].with_suffix(outputs[1].suffix + '.progress.jsonl'))
-            targets = [*outputs, progress_path]
+            raw_output = _private(args.raw_output)
+            progress_output = raw_output.with_suffix(raw_output.suffix + '.progress.jsonl')
+            targets = (_private(args.output), raw_output, _private(progress_output))
             if any(not p.is_relative_to(bank) for p in targets):
                 raise ValueError('authored receipts and raw transcripts stay inside the private bank')
-            if any(not _separate(a, b) for i, a in enumerate(targets) for b in targets[i + 1:]):
-                raise ValueError('receipt, raw transcript and progress paths must be distinct and non-nested')
-            if any(p.exists() for p in targets):
-                raise FileExistsError('preserve previous evidence; choose fresh output names')
+            output, raw_output, progress_path = _preflight_outputs(args.output, args.raw_output, progress_output, bank=bank)
             from qcb_assessment_v3_reference import replay_references
             def progress(row):
                 progress_path.parent.mkdir(parents=True, exist_ok=True)
                 with progress_path.open('a', encoding='utf-8') as handle:
                     handle.write(json.dumps(row, ensure_ascii=False) + '\n')
             result, raw = asyncio.run(replay_references(bank, args.build_root, progress=progress))
-            _write(outputs[0], result); _write(outputs[1], raw)
+            _write(output, result); _write(raw_output, raw)
             print(json.dumps({'passed': result['passed'], 'private_receipt_digest': digest(result)})); return 0
         # This is deliberately the normal qualified v3 path, with no global
         # substitution of v2 loaders or monkeypatching of common protocol code.
-        packet, _ = load_private_bank(args.bank)
         bank, student_path, controller_path = _layout(args.bank, args.student, args.controller)
         if args.command == 'prepare':
-            if any(p.exists() for p in (student_path, controller_path)):
-                raise FileExistsError('preserve earlier runs; choose fresh artifact paths')
+            _preflight_outputs(args.student, args.controller, bank=bank)
+            packet, _ = load_private_bank(bank)
             student, controller = prepare_evaluation(packet, split=args.split)
-            _write(student_path, student)
-            _write(controller_path, _controller_envelope(controller, args.training_profile))
+            controller_envelope = _controller_envelope(controller, args.training_profile)
+            artifacts = [(student_path, student), (controller_path, controller_envelope)]
             for row in student:
-                _write(student_path.parent / row['task_id'] / 'task.json', row)
-                _write(student_path.parent / row['task_id'] / 'messages.json', model_messages(row))
+                messages = model_messages(row)
+                leaf = student_path.parent / row['task_id']
+                if leaf.exists() or leaf.is_symlink():
+                    raise FileExistsError('student task leaf already exists; choose a fresh student mount')
+                artifacts.extend([(leaf / 'task.json', row), (leaf / 'messages.json', messages)])
+            _preflight_outputs(*(path for path, _ in artifacts))
+            for path, value in artifacts:
+                _write(path, value)
             print(json.dumps({'prepared_tasks': len(student), 'model_calls': 0})); return 0
         output = _private(args.output)
         if args.command == 'formal-challenges':
@@ -175,6 +212,10 @@ def main(argv=None):
                 raise ValueError('formal challenges need a separate second-stage student mount')
         elif not output.is_relative_to(controller_path.parent):
             raise ValueError('first-answer locks, rubric reviews and scores stay inside the private grader directory')
+        inputs = (student_path, controller_path, getattr(args, 'responses', None),
+                  getattr(args, 'locked', None), getattr(args, 'reviews', None))
+        _preflight_outputs(args.output, inputs=(path for path in inputs if path is not None), bank=bank)
+        packet, _ = load_private_bank(bank)
         student, controller_envelope = _read(student_path), _read(controller_path)
         controller, declared = _unwrap_controller(controller_envelope)
         if args.command == 'freeze':

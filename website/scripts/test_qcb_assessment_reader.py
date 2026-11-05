@@ -109,6 +109,41 @@ class AssessmentReaderTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'leaked'):
                 training_package({'tasks': tasks}, {}, 'a' * 40)
 
+    def test_v3_study_core_links_and_training_profiles_do_not_inflate_public_catalog(self):
+        from uuid import uuid4
+        r = record(); r['study_core_index'] = []
+        for i in range(4):
+            probe = str(uuid4()); core = 'candidate:' + probe
+            r['study_core_index'].append({'core_id': core, 'probe_id': probe, 'contract_hash': 'b' * 64})
+            r['seal']['probe_index'].append({'probe_id': probe, 'pair_id': 'new-pair-' + str(i // 2),
+                 'cluster_id': 'promise_register_protocols', 'parent_core_ids': [core],
+                 'source_nodes': ['declaration:QuantumBlockEncoding.example']})
+        r['coverage'].update(existing_catalog_parent_core_count=6, study_core_count=4, sealed_parent_core_count=10)
+        pages={}
+        summary=publish_assessment(lambda route,title,body,description: pages.__setitem__(route,body),
+                                   lambda title,description: '<div>',r,'a'*40)
+        self.assertEqual(len(pages),4)
+        self.assertEqual(summary['sealed_probes'],18)
+        self.assertEqual(summary['existing_catalog_parent_cores'],6)
+        self.assertEqual(summary['additional_study_cores'],4)
+        self.assertIn('61 cores · 77 views',pages[BASE+'training-profiles/'])
+        self.assertIn('does not alter the public catalog',pages[BASE+'coverage/'].replace('do not alter','does not alter'))
+        self.assertNotIn('/cores/candidate:',pages[BASE+'coverage/'])
+        for c in r['study_core_index']:
+            self.assertIn('#study-'+c['probe_id'],pages[BASE+'coverage/'])
+        self.assertNotIn('SECRET', ''.join(pages.values()))
+
+    def test_v3_conditions_keep_operator_declaration_separate_from_model_exposure(self):
+        r=record();r['study_core_index']=[{'core_id':'candidate:x','probe_id':'x','contract_hash':'c'*64}]
+        pages={}
+        publish_assessment(lambda route,title,body,description: pages.__setitem__(route,body),
+                           lambda title,description:'<div>',r,'a'*40)
+        page=pages[BASE+'training-profiles/']
+        self.assertIn('operator declaration',page)
+        self.assertIn('excluded baseline examples',page)
+        self.assertIn('Different package sizes',page)
+        self.assertIn('Original split labels',page)
+
 
 if __name__ == '__main__':
     unittest.main()

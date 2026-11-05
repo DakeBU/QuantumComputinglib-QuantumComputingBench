@@ -262,6 +262,96 @@ class TransportTests(unittest.TestCase):
 
 
 class CliTests(unittest.TestCase):
+    def test_explicit_output_failures_precede_bank_load_and_other_work(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            bank = root / 'missing-bank'
+            student = root / 'student/tasks.json'
+            grader = root / 'grader'
+            controller = grader / 'controller.json'
+            previous = grader / 'previous.json'
+            previous.parent.mkdir()
+            previous.write_text('preserve me', encoding='utf-8')
+            previous_formal = root / 'stage-b/prior.json'
+            previous_formal.parent.mkdir()
+            previous_formal.write_text('preserve prior formal challenge', encoding='utf-8')
+            nested_bank = grader / 'missing-bank'
+            common = ['--bank', str(bank), '--student', str(student), '--controller', str(controller)]
+            prepare = ['prepare', '--split', 'test_public']
+            freeze = ['freeze', *common, '--responses', str(grader / 'responses.json')]
+            review = ['review-template', *common, '--locked', str(grader / 'lock.json')]
+            score = ['score', *common, '--locked', str(grader / 'lock.json'), '--evidence-kind', 'synthetic_fixture']
+            formal = ['formal-challenges', *common, '--locked', str(grader / 'lock.json')]
+            cases = [
+                (prepare + ['--bank', str(bank), '--student', str(bank / 'tasks.json'), '--controller', str(controller)],
+                 'must occupy disjoint directories'),
+                (prepare + ['--bank', str(bank), '--student', str(student), '--controller', str(previous)],
+                 'preserve previous evidence'),
+                (prepare + ['--bank', str(nested_bank), '--student', str(student), '--controller', str(nested_bank)],
+                 'cannot replace the private bank directory'),
+                (freeze + ['--output', str(student.parent / 'lock.json')], 'inside the private grader directory'),
+                (freeze + ['--output', str(previous)], 'preserve previous evidence'),
+                (freeze + ['--output', str(previous / 'lock.json')], 'output ancestors must be directories'),
+                (freeze + ['--output', str(grader / 'responses.json/lock.json')], 'cannot overlap input files'),
+                (review + ['--output', str(previous)], 'preserve previous evidence'),
+                (score + ['--output', str(previous)], 'preserve previous evidence'),
+                (formal + ['--output', str(student.parent / 'stage-b/challenges.json')], 'separate second-stage student mount'),
+                (formal + ['--output', str(previous_formal)], 'preserve previous evidence'),
+                (['export-training', '--output', str(previous)], 'preserve previous evidence'),
+                (['audit', '--bank', str(bank), '--output', str(previous)], 'preserve previous evidence'),
+            ]
+            with patch.object(cli, 'load_private_bank', side_effect=AssertionError('must not load')) as loader, \
+                 patch.object(cli, '_read', side_effect=AssertionError('must not read')), \
+                 patch.object(cli, '_export_profile', side_effect=AssertionError('must not build registry')), \
+                 patch.object(cli, 'public_status', side_effect=AssertionError('must not check status')), \
+                 patch.object(cli, 'grade_assessment', side_effect=AssertionError('must not grade')), \
+                 patch.object(cli, '_write', side_effect=AssertionError('must not write')):
+                for arguments, message in cases:
+                    with self.subTest(command=arguments[0], gate=message), redirect_stderr(io.StringIO()) as errors:
+                        self.assertEqual(cli.main(arguments), 1)
+                        self.assertIn(message, errors.getvalue())
+                loader.assert_not_called()
+            self.assertEqual(previous.read_text(encoding='utf-8'), 'preserve me')
+            self.assertFalse(bank.exists())
+
+    def test_existing_reference_progress_fails_before_replay(self):
+        with tempfile.TemporaryDirectory() as directory:
+            bank = Path(directory) / 'bank'
+            bank.mkdir()
+            progress = bank / 'raw.json.progress.jsonl'
+            progress.write_text('prior progress', encoding='utf-8')
+            with patch.object(ref, 'replay_references', side_effect=AssertionError('must not execute')) as replay, \
+                 redirect_stderr(io.StringIO()) as errors:
+                self.assertEqual(cli.main(['check-references', '--bank', str(bank), '--build-root', str(bank / 'build'),
+                    '--trusted-local-reference', '--output', str(bank / 'receipt.json'),
+                    '--raw-output', str(bank / 'raw.json')]), 1)
+                self.assertIn('preserve previous evidence', errors.getvalue())
+                replay.assert_not_called()
+            self.assertEqual(progress.read_text(encoding='utf-8'), 'prior progress')
+
+    def test_prepare_preflights_all_derived_leaves_before_first_write(self):
+        packet = cohort()
+        rows, controller = cli.prepare_evaluation(packet, split='test_public')
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            student_path = root / 'student/tasks.json'
+            controller_path = root / 'grader/controller.json'
+            occupied_leaf = student_path.parent / rows[-1]['task_id']
+            occupied_leaf.mkdir(parents=True)
+            prior = occupied_leaf / 'messages.json'
+            prior.write_text('preserve this task', encoding='utf-8')
+            with patch.object(cli, 'load_private_bank', return_value=(packet, {})), \
+                 patch.object(cli, 'prepare_evaluation', return_value=(rows, controller)), \
+                 patch.object(cli, '_write', side_effect=AssertionError('must not write')), \
+                 redirect_stderr(io.StringIO()) as errors:
+                self.assertEqual(cli.main(['prepare', '--bank', str(root / 'bank'),
+                    '--student', str(student_path), '--controller', str(controller_path), '--split', 'test_public']), 1)
+                self.assertIn('student task leaf already exists', errors.getvalue())
+            self.assertFalse(student_path.exists())
+            self.assertFalse(controller_path.exists())
+            self.assertEqual(list(student_path.parent.iterdir()), [occupied_leaf])
+            self.assertEqual(prior.read_text(encoding='utf-8'), 'preserve this task')
+
     def test_prepare_keeps_profile_metadata_in_private_grader_and_projects_leaf_messages(self):
         external = B.parents[1].parent / 'synthetic-v3-never-created'
         with patch.object(cli, 'load_private_bank', return_value=(cohort(), {})), \
@@ -281,6 +371,7 @@ class CliTests(unittest.TestCase):
             path, value = call.args
             self.assertIn(path.name, {'task.json', 'messages.json'})
             self.assertNotIn('training_profile', json.dumps(value))
+            self.assertNotIn('profile_definition_digest', json.dumps(value))
             self.assertNotIn('SECRET_', json.dumps(value))
 
     def test_unknown_profile_is_not_fabricated_and_envelope_does_not_authenticate_exposure(self):
@@ -314,14 +405,39 @@ class CliTests(unittest.TestCase):
             result = json.loads(score.read_text())
             self.assertEqual(result['v3_lock_digest'], first['lock_digest'])
             self.assertEqual(result['declared_training_profile'], 'baseline')
-            prepared['study_design']['training_profile'] = 'promise_register_family_holdout'
+            prepared['study_design'] = cli._study_design('promise_register_family_holdout')
             prepared['controller_digest'] = digest({k: v for k, v in prepared.items() if k != 'controller_digest'})
+            self.assertEqual(cli._unwrap_controller(prepared)[1], 'promise_register_family_holdout')
             controller.write_text(json.dumps(prepared))
             refused = root / 'grader/MUST-NOT-EXIST-score.json'
             self.assertEqual(cli.main(['score', *common, '--locked', str(locked), '--output', str(refused),
                                       '--evidence-kind', 'synthetic_fixture']), 1)
             self.assertFalse(refused.exists())
             self.assertEqual(json.loads(locked.read_text()), first)
+
+    def test_same_name_profile_definition_change_rejects_existing_controller(self):
+        from qcb_assessment_training import PROFILES as public_manifest
+        original = cli._read(public_manifest)
+        common = {'run_id': 'fixture', 'controller_digest': '0' * 64}
+        with tempfile.TemporaryDirectory() as directory:
+            manifest = Path(directory) / 'training-profiles.json'
+            with patch('qcb_assessment_training.PROFILES', manifest):
+                for name, changed_field in [('baseline', 'baseline_training_fingerprint'),
+                                            ('promise_register_family_holdout', 'review_digest')]:
+                    with self.subTest(profile=name):
+                        manifest.write_text(json.dumps(original), encoding='utf-8')
+                        controller = cli._controller_envelope(common, name)
+                        profile = original['profile']
+                        expected = ({'profile_id': 'baseline',
+                                     'baseline_training_fingerprint': profile['baseline_training_fingerprint']}
+                                    if name == 'baseline' else profile)
+                        self.assertEqual(controller['study_design']['profile_definition_digest'], digest(expected))
+                        self.assertEqual(cli._unwrap_controller(controller)[1], name)
+                        changed = deepcopy(original)
+                        changed['profile'][changed_field] = '0' * 64
+                        manifest.write_text(json.dumps(changed), encoding='utf-8')
+                        with self.assertRaisesRegex(ValueError, 'invalid declared study design'):
+                            cli._unwrap_controller(controller)
 
     def test_rubric_reviews_stay_bound_to_common_lock_with_v3_envelopes(self):
         packet = cohort()
