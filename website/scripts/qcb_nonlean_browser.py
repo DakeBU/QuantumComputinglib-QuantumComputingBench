@@ -49,12 +49,22 @@ def check_workbook(page, base, root, manifest, output):
                 if ' '.join(actual.split()) != ' '.join(entry['packet']['question'].split()):
                     raise AssertionError('Typesetting changed the actual student question.')
                 notation = page.locator('#given-notation')
+                if notation.locator('mjx-container').count():
+                    raise AssertionError('Deferred notation was typeset before its panel opened: ' + entry['slot'])
                 if entry['notation']['equations']:
                     notation.locator(':scope > summary').focus()
                     page.keyboard.press('Enter')
                     settle_math(page)
                 if notation.locator('mjx-container').count() != len(entry['notation']['equations']):
                     raise AssertionError('Given notation did not compile on ' + entry['slot'])
+                # Startup and disclosure rendering must not both typeset the
+                # same MathML; reopening must preserve exactly one output.
+                if entry['notation']['equations']:
+                    notation.locator(':scope > summary').click()
+                    notation.locator(':scope > summary').click()
+                    settle_math(page)
+                    if notation.locator('mjx-container').count() != len(entry['notation']['equations']):
+                        raise AssertionError('Reopening duplicated a rendered formula: ' + entry['slot'])
                 if not page.locator('[data-qcb-workbook-graph]').count():
                     raise AssertionError('No exact graph anchor on a supplemental exercise.')
                 for panel in ('solution', 'rubric', 'reasoning', 'boundaries'):

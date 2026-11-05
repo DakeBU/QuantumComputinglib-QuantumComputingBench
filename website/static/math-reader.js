@@ -1,7 +1,7 @@
 /* Shared reader contract: explicit inline math, local assets, async typesetting. */
 (() => {
   "use strict";
-  const skipped = "pre, textarea, script, style, noscript, svg, mjx-container, mjx-assistive-mml, [data-math-source]";
+  const skipped = "pre, textarea, script, style, noscript, svg, mjx-container, mjx-assistive-mml, [data-math-source], [data-qcb-math-deferred]";
   const hasMath = (text) => /\\\(|\\\[|\$[^$\n]+\$/.test(text || "");
 
   // Old metadata exports escaped the delimiters twice. Recover paired
@@ -61,6 +61,9 @@
   };
   config.options = {
     ...config.options,
+    // The vendored 3.2 engine defaults to mathjax_ignore. QCB's deferred
+    // panels use the legacy name; declare it so there is one rendering owner.
+    ignoreHtmlClass: [config.options?.ignoreHtmlClass, "mathjax_ignore", "tex2jax_ignore"].filter(Boolean).join("|"),
     skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"],
   };
   let chain = Promise.resolve();

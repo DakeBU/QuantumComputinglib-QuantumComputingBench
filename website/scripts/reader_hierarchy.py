@@ -6,6 +6,7 @@ disclosures. It neither rewrites lesson content nor changes evidence records.
 from __future__ import annotations
 
 from dataclasses import dataclass
+import hashlib
 from html.parser import HTMLParser
 from pathlib import Path
 import re
@@ -14,6 +15,8 @@ import re
 VOID_TAGS = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"}
 MARKER = 'data-reader-hierarchy="1"'
 PANEL = re.compile(r'<!-- qcb-textbook:start -->.*?<!-- qcb-textbook:end -->', re.S)
+MATH_READER_VERSION = hashlib.sha256((Path(__file__).parents[1] / 'static/math-reader.js').read_bytes()).hexdigest()[:16]
+MATH_READER_SCRIPT = re.compile(r'(<script\b[^>]*\bsrc="[^"<>]*static/math-reader\.js)(?:\?[^"<>]*)?("[^>]*>)')
 NO_SCRIPT = '''<noscript data-reader-mobile-navigation="1"><style>
 @media (max-width: 820px) {
   .site-sidebar { position: static; width: 100%; padding-top: 0; transform: none; box-shadow: none; }
@@ -195,6 +198,10 @@ def _learning(text: str) -> str:
 
 def transform_page(text: str, current: str) -> str:
     """Idempotent final output transformation; the frozen renderer stays intact."""
+    # The frozen renderer retains its historical query. Bind the emitted URL
+    # to these actual bytes so a previous browser/CDN cache cannot retain the
+    # broken deferral behavior after a new deployment.
+    text = MATH_READER_SCRIPT.sub(lambda m: m[1] + '?v=' + MATH_READER_VERSION + m[2], text)
     if 'data-reader-mobile-navigation="1"' not in text:
         if "</body>" not in text:
             raise ValueError("reader page has no body end")

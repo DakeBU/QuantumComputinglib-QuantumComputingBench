@@ -127,6 +127,15 @@ class SidebarNavigationTests(unittest.TestCase):
 
 
 class ReaderHierarchyTests(unittest.TestCase):
+    def test_math_asset_version_binds_actual_script_bytes_without_rewriting_code_samples(self):
+        import hashlib
+        version = hashlib.sha256((ROOT / 'website/static/math-reader.js').read_bytes()).hexdigest()[:16]
+        text = '<html><body><script src="../../static/math-reader.js?v=old"></script><pre>&lt;script src="static/math-reader.js"&gt;</pre></body></html>'
+        result = reader_hierarchy.transform_page(text, 'library/modules/fixture/index.html')
+        self.assertIn('src="../../static/math-reader.js?v=' + version + '"', result)
+        self.assertIn('&lt;script src="static/math-reader.js"&gt;', result)
+        self.assertEqual(reader_hierarchy.transform_page(result, 'library/modules/fixture/index.html'), result)
+
     def page(self, route='index.html'):
         coverage, gate, context = {'publicDeclarationCount': 0, 'sourceDocstringCount': 0}, {'passed': True}, {'shortCommit': 'test'}
         if route == 'index.html':
