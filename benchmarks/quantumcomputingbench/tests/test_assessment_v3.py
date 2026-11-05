@@ -15,7 +15,9 @@ from qcb_integrity import text_sha
 
 class StudyCoreGates(unittest.TestCase):
     def setUp(self):
-        self.tmp = tempfile.TemporaryDirectory(); self.root = Path(self.tmp.name)
+        self.tmp = tempfile.TemporaryDirectory()
+        # Match the resolved production root even when Windows TEMP is a junction.
+        self.root = Path(self.tmp.name).resolve()
         self.source = self.root / 'QuantumBlockEncoding/Fixture.lean'
         self.source.parent.mkdir(); self.source.write_text('def fixture := True\n')
         self.old = {'cohort_digest': 'a' * 64, 'proof_inputs_sha256': 'b' * 64,
