@@ -347,7 +347,7 @@ class CurriculumTests(unittest.TestCase):
         papers = read_json(reader.ROOT / "website/papers.json")
         parsed = NavigationParser(render_navigation("../../", "quantumcomputingbench/lean/index.html", papers, []))
         self.assertEqual(len(parsed.parts), 4)
-        self.assertEqual(parsed.open_sections, ["quantumcomputingbench"])
+        self.assertEqual(parsed.open_sections, ["quantumcomputingbench", "bench-study"])
         self.assertEqual(sum(a.get("aria-current") == "page" for a in parsed.links), 1)
         self.assertEqual(len(parsed.links), len({a["href"] for a in parsed.links}))
 
@@ -368,7 +368,13 @@ class CurriculumTests(unittest.TestCase):
             write_json(root / "search-index.json", {"entries": [], "entryCount": 0, "pageEntryCount": 0})
             write_json(root / "data/example-cases.json", {"cases": []})
             write_json(root / "data/papers.json", read_json(reader.ROOT / "website/papers.json"))
-            (root / "index.html").write_text(build_site.site_header("./", "") + '<main id="main-content"></main>', encoding="utf-8")
+            # The final hierarchy pass deliberately rejects incomplete home HTML.
+            # Use the real renderer so publication/idempotence tests cover its
+            # actual section structure and preserve every historical anchor.
+            home = build_site.render_home({'declarations': []},
+                {'publicDeclarationCount': 1, 'sourceDocstringCount': 0},
+                {'passed': True}, {'shortCommit': 'fixture'})
+            (root / "index.html").write_text(home, encoding="utf-8")
             with patch.object(build_site, "git_context", return_value={"commit": "UNIT-TEST-FIXTURE-NOT-EXECUTION", "shortCommit": "fixture"}), \
                     patch('qcb_nonlean_workbook.check_publication_sources'):
                 first = reader.publish(root)
