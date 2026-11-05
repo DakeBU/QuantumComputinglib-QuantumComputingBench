@@ -55,7 +55,7 @@ LAZY_DIAGRAMS = '''
       readerDiagramQueue = readerDiagramQueue.then(async () => {
         await new Promise(requestAnimationFrame);
         const nodes = [...document.querySelectorAll('.mermaid:not([data-processed])')]
-          .filter(node => node.getClientRects().length);
+          .filter(node => !node.closest('details:not([open])') && node.getClientRects().length);
         if (nodes.length) await mermaid.run({nodes});
       });
     }
