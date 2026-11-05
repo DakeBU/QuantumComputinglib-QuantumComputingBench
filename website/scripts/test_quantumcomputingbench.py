@@ -226,7 +226,8 @@ class CurriculumTests(unittest.TestCase):
                    'all_core_mobile_checks': len(self.catalog['cores']),
                    'checks': {key: True for key in ('mobile_no_overflow', 'desktop_no_overflow', 'themes',
                        'solution_disclosure', 'graph_links', 'search_excludes_answers', 'native_formal_panels',
-                       'quarantined_content_excluded', 'question_revision_lineage')}}
+                       'quarantined_content_excluded', 'question_revision_lineage',
+                       'assumption_revision_lineage')}}
         actual_read = shared.read_json
         actual_is_file = Path.is_file
         with patch.object(shared, 'read_json', side_effect=lambda path:
@@ -239,6 +240,43 @@ class CurriculumTests(unittest.TestCase):
             self.assertTrue(result['gates']['rendered_browser_checks'])
             self.assertFalse(result['stable'])
             self.assertFalse(result['gates']['cross_cohort_semantic_reconciliation'])
+
+    def test_actual_assumption_successor_has_separate_current_and_historical_lists(self):
+        from benchmarks.quantumcomputingbench.tests.test_assumption_successor import PremisesParser
+        core = next(c for c in self.catalog['cores'] if c['core_id'] == 'qcb-core-plan-208')
+        item = self.items[core['core_id']]
+        lineage = core['question_successor']
+        self.assertEqual(lineage['changed_contract_fields'], ['question', 'assumptions'])
+        body = reader.core_body(core, item, self.catalog, self.graph, set(self.graph), '../../../')
+        parser = PremisesParser()
+        parser.feed(body)
+        self.assertEqual(parser.lists['data-qcb-active-assumptions'], item['assumptions'])
+        self.assertEqual(parser.lists['data-qcb-active-conventions'], item['conventions'])
+        self.assertEqual(parser.lists['data-qcb-original_assumptions'], lineage['original_assumptions'])
+        self.assertEqual(parser.lists['data-qcb-current_assumptions'], item['assumptions'])
+        self.assertLess(body.index('data-qcb-active-assumptions'), body.index('id="question"'))
+        self.assertGreater(body.index('data-qcb-original_assumptions'), body.index('id="revision"'))
+        self.assertNotIn('<details open', body)
+
+    def test_actual_assumption_successor_requires_its_browser_flag(self):
+        self.assertTrue(any('assumptions' in (c.get('question_successor') or {}).get('changed_contract_fields', [])
+                            for c in self.catalog['cores']))
+        browser = {'catalog_hash': self.catalog['catalog_hash'],
+                   'reader_source_digest': shared.reader_source_digest(), 'failures': [],
+                   'all_core_mobile_checks': len(self.catalog['cores']),
+                   'checks': {key: True for key in ('mobile_no_overflow', 'desktop_no_overflow', 'themes',
+                       'solution_disclosure', 'graph_links', 'search_excludes_answers', 'native_formal_panels',
+                       'quarantined_content_excluded', 'question_revision_lineage', 'convention_revision_lineage')}}
+        actual_read, actual_is_file = shared.read_json, Path.is_file
+        with patch.object(shared, 'read_json', side_effect=lambda path:
+                browser if Path(path).name == 'browser-report.json' else actual_read(path)), \
+                patch.object(Path, 'is_file', lambda path:
+                    path.name == 'browser-report.json' or actual_is_file(path)):
+            self.assertFalse(shared.stable_readiness(self.catalog)['gates']['rendered_browser_checks'])
+            browser['checks']['assumption_revision_lineage'] = True
+            result = shared.stable_readiness(self.catalog)
+            self.assertTrue(result['gates']['rendered_browser_checks'])
+            self.assertFalse(result['stable'])
 
     def test_candidate_never_self_admits_or_allocates_permanent_core(self):
         p = self.proposal()

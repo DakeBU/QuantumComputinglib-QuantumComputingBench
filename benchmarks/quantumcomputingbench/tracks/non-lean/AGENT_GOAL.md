@@ -5,6 +5,17 @@ current main. Read AGENTS.md, HARNESS.md and the shared contribution contract
 before changes. Preserve existing work, historical reports, frozen releases and
 other contributors' branches. Keep all published prose in English.
 
+Read the latest representation/phase-domain checkpoint in `docs/` before
+continuing. Plan117/118/119 retain their question contracts but replace the
+reviewed answer; plan120 and plan208 have explicit question version 2 contracts.
+Use current registry output, not a frozen predecessor. Preserve continuity,
+dimension/field, coefficient normalization, basis/metric and phase/domain
+boundaries. The V3 plan208 correction replaces only its magnitude-stage premise
+and retains precision literally; further premise changes require maintainer
+reconciliation, not a contributor override. Current assumptions belong before
+the question; predecessor premises belong only in disclosed history. Shared
+subproofs are not independent split evidence or additional questions.
+
 Build substantive quantum-computing QA across the actual library graph, with
 breadth and multi-step mathematical reasoning, not a declaration-name quiz.
 Start with State Preparation and its reusable linear-algebra, normalization,

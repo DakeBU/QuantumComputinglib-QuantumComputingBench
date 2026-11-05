@@ -46,7 +46,15 @@ downloads do not change canonical counts or train/evaluation pools.
 Current distribution: **v0.1.0-preview.1**. This is a working public preview,
 not complete whole-graph coverage or a newly certified mathematical teacher.
 See the [integration/release notes](docs/integration-release-2026-10-22.md).
-The [latest field/tensor/entry-ledger checkpoint](docs/textbook-field-tensor-and-entry-ledgers-2026-10-23.md)
+The [latest representation/phase-domain checkpoint](docs/textbook-representation-and-phase-domains-2026-10-23.md)
+separates continuous from abstract compact-group actions, division-ring from
+scalar Schur conclusions, normalized matrix coefficients from raw coefficients,
+and general duality from basis-dependent formulas. It also restores the
+phase-aware amplitude-domain exercise through an explicitly reviewed premise
+revision, not a silent reinterpretation. The current reader retains 203 active
+core IDs and 10 reserved corrections in the original 213-obligation scope.
+These are editorial counts, not a globally deduplicated benchmark-size claim.
+The preceding [field/tensor/entry-ledger checkpoint](docs/textbook-field-tensor-and-entry-ledgers-2026-10-23.md)
 clarifies abelian-irrep dimension, field-valued characters, algebraic versus
 metric swap decompositions, universal tensor-square reducibility and the full
 original-entry-query cost of amplitude loading.

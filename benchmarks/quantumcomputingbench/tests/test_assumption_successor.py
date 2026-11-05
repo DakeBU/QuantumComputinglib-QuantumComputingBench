@@ -61,8 +61,12 @@ class AssumptionSuccessorTests(unittest.TestCase):
 
     def fixture(self):
         old = deepcopy(self.original)
-        withdrawal = next(r for r in read_json(B / 'shared/current-policy.json')['withdrawals']
-                          if r['core_id'] == old['core_id'])
+        current_policy = read_json(B / 'shared/current-policy.json')
+        # The historical withdrawal remains the fixture's original binder even
+        # after an independently admitted current successor restores this core.
+        prior_withdrawals = current_policy['withdrawals'] + [
+            r['prior_withdrawal'] for r in current_policy['question_successors']]
+        withdrawal = next(r for r in prior_withdrawals if r['core_id'] == old['core_id'])
         row = {'core_id': old['core_id'], 'predecessor_key': old['key'],
                'predecessor_item_digest': digest(old), 'prior_withdrawal': withdrawal,
                'repair': 'shared/repairs/fixture-assumptions.json',
@@ -142,7 +146,8 @@ class AssumptionSuccessorTests(unittest.TestCase):
     def test_actual_prompt_download_reader_search_grading_and_formal_consumers(self):
         row, old, candidate, review = self.fixture()
         current, _ = self.execute(row, old, candidate, review)
-        core = {**next(c for c in self.catalog['withheld_cores'] if c['core_id'] == old['core_id']),
+        core = {**next(c for c in self.catalog['withheld_cores'] + self.catalog['cores']
+                      if c['core_id'] == old['core_id']),
                 'part': next(p['id'] for p in self.catalog['parts'] if old['topic'] in p['topics']),
                 'title': current['native_nl']['core_summary'], 'question_version': 2,
                 'question_successor': current['question_successor'], 'item_digest': digest(current),
@@ -220,7 +225,8 @@ class AssumptionSuccessorTests(unittest.TestCase):
         from website.scripts import build_site, research_atlas
         row, old, candidate, review = self.fixture()
         current, _ = self.execute(row, old, candidate, review)
-        core = {**next(c for c in self.catalog['withheld_cores'] if c['core_id'] == old['core_id']),
+        core = {**next(c for c in self.catalog['withheld_cores'] + self.catalog['cores']
+                      if c['core_id'] == old['core_id']),
             'part': next(p['id'] for p in self.catalog['parts'] if old['topic'] in p['topics']),
             'title': current['native_nl']['core_summary'], 'question_version': 2,
             'question_successor': current['question_successor'], 'item_digest': digest(current),

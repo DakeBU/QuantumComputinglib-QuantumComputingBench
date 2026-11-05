@@ -58,7 +58,15 @@ class FieldTensorCheckpointTests(unittest.TestCase):
             self.assertEqual(core_contract(old), core_contract(new))
             self.assertIn('textbook_successor', new)
             self.assertNotIn('question_successor', new)
-        self.assertNotIn('qcb-core-plan-208', self.by_id)
+        # A later, separately reviewed assumption migration restores this core;
+        # this earlier five-target checkpoint did not authorize that migration.
+        old208, new208 = self.originals['qcb-core-plan-208'], self.by_id['qcb-core-plan-208']
+        self.assertEqual(new208['question_successor']['changed_contract_fields'],
+                         ['question', 'assumptions'])
+        self.assertNotEqual(old208['assumptions'][0], new208['assumptions'][0])
+        self.assertEqual(old208['assumptions'][1], new208['assumptions'][1])
+        self.assertEqual(new208['verification_receipts'], [])
+        self.assertNotIn(old208['reviews'][0], new208['reviews'])
 
     def test_missing_exact_review_never_reuses_an_old_approval(self):
         current_policy = read_json(B / 'shared/current-policy.json')

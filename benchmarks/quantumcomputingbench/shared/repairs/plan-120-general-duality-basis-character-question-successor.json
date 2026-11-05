@@ -1,0 +1,249 @@
+{
+  "schema_version": "qcb.textbook_question_successor.v1",
+  "core_id": "qcb-core-plan-120",
+  "supersedes_key": "qcb-core-plan-120-dual-representation-conjugate-boundary",
+  "supersedes_item_digest": "c4c3e55cfc17e2cd0d8984618558bdea620de9ea2410140f1652fe489fd27ea4",
+  "supersedes_contract_hash": "eacbd76ed79dc8a3e508d5adf03c7ecd7047480bba7ad05b3908abad19f89f8b",
+  "author": "/root/qcb_formal_view_audit",
+  "key": "qcb-core-plan-120-textbook-question-v2-general-duality-basis-character",
+  "question_version": 2,
+  "admission": "pending_distinct_review",
+  "change_scope": "Explicit first question-version correction, not automatic finite/complex/semisimple narrowing. Part(a)'s unqualified unitary conjugate-matrix identity after 'in a basis' is false in a nonorthonormal basis; the prepared empty conventions do not select orthonormal coordinates or a scalar involution. Preserve and assess that raw claim with an exact finite C2 witness, then state its correct complex orthonormal regime. Preserve arbitrary G and finite-dimensional algebraic duality over a field, give a genuinely general self-duality pairing criterion, and explicitly distinguish the valid unitary character test from false broad real/equal-character claims. Do not call old and new questions equivalent. Only question changes among nine fields: eacbd76ed79dc8a3e508d5adf03c7ecd7047480bba7ad05b3908abad19f89f8b -> b499d0a284e81272c5836f36e8223635ded3a2c6f0d6a0e714b9437fca109237. Retain qit-tensor-representations/test_public, empty assumptions/conventions, graph/source_refs and exact FIVE ordered step-node lists. Prior rejection is audit-only; new bytes require a distinct review.",
+  "question": "Let G be an arbitrary group and let phi:G->GL_F(V) be a finite-dimensional linear representation over a field F; no semisimplicity, compactness or unitarity is assumed unless a subcase explicitly says so. Use the ALGEBRAIC dual V^*=Hom_F(V,F), with phi^*(g)L=L composed with phi(g)^{-1}.\n\n(a) Prove that this is a representation and that, in any basis of V and its dual basis, phi^*(g)=phi(g^{-1})^T. Assess the unqualified claim that a unitary representation has phi^*(g)=conj(phi(g)) in an arbitrary basis. Give an explicit finite-group counterexample to that arbitrary-basis formulation, then prove the correct statement for a complex Hermitian space in an ORTHONORMAL basis and its dual basis. State the real orthogonal subcase rather than silently making conjugation meaningful over an arbitrary field.\n\n(b) Derive chi_{V^*}(g)=chi_V(g^{-1}) generally and the conjugate-character identity in the complex unitary subcase. Give and prove an exact self-duality criterion valid for the general finite-dimensional algebraic representation, using a nondegenerate G-invariant F-bilinear pairing. Separately prove the real-valued-character criterion for finite-dimensional complex UNITARY representations, including arbitrary G, with any Haar/external theorem use explicit; do not assume G finite in that subcase or promote that criterion to all representations. Refute the general claims that real characters or all-real matrices imply self-duality, and that equality of characters alone always proves isomorphism, using explicit witnesses with their inequivalence proved. Give a genuinely non-self-dual irreducible representation of C_3 and identify its dual.\n\n(c) Prove that V^* is irreducible iff V is by the finite-dimensional invariant-annihilator correspondence, regardless of self-duality. Handle the zero space and clarify the finite-dimensional, field, basis and irreducibility conventions. Do not replace the algebraic dual by a conjugate-linear/Riesz identification, or claim an infinite-dimensional/topological dual theorem, a real structure from a real character, or a circuit/resource result.",
+  "reference_answer": "Use the algebraic dual, not the conjugate-linear dual. The general assertions are over the given field F and finite-dimensional V; complex conjugation is used only in the explicitly complex Hermitian subcase, and in the real orthogonal subcase it is trivial. No invariant positive metric is presumed for an arbitrary group representation. Empty assumptions/conventions remain empty: the revised question itself identifies and tests the relevant regimes rather than silently restricting G or all carriers to a unitary class.\n\n(a) Each phi^*(g) is F-linear and invertible. For g,h in G, phi^*(g)phi^*(h)L=(L composed with phi(h)^(-1)) composed with phi(g)^(-1)=L composed with (phi(g)phi(h))^(-1)=phi^*(gh)L; the identity acts identically. Write M_g for phi(g) in a basis e_i, and L=sum_i ell_i e^i in the dual basis. Then (phi^*(g)L)(e_j)=sum_i ell_i (M_g^(-1))_(i,j), so the COLUMN of dual coefficients is (M_g^(-1))^T ell. This proves M_g^*=M_(g^(-1))^T in ANY basis and its dual basis. It does not use an inner product.\n\nFor a unitary action on a complex Hermitian space, choose an ORTHONORMAL basis first. Then M_g^(-1)=M_g^dagger and (M_g^(-1))^T=conjugate(M_g). This is an equality of these coordinate matrices, not a canonical F-linear identification V=V^*. Riesz gives a conjugate-linear identification in the complex case, which is not an arbitrary complex-linear intertwiner. In a real orthonormal basis of an orthogonal action, M_g^*=M_g instead. For a general field with no specified involution/Hermitian structure there is no conjugate-matrix assertion to make.\n\nThe unqualified arbitrary-basis formulation is false even for C_2. Start with the unitary action of its generator D=diag(1,-1) on C^2 with the standard Hermitian metric. Take new basis columns P=[[1,1],[0,1]]. Its action matrix is M=P^(-1)DP=[[1,2],[0,-1]], while the dual-basis action matrix is M^(-T)=[[1,0],[2,-1]], unequal to conjugate(M)=M. The action remains unitary for the same geometric metric, whose new coordinate Gram matrix is H=P^dagger P=[[1,1],[1,2]]; indeed M^dagger H M=H. Confusing geometric unitarity with a unitary MATRIX in a nonorthonormal coordinate basis caused the false statement. The transpose-inverse identity survives unchanged.\n\n(b) Transposition preserves trace, so over every field chi_(V^*)(g)=tr(M_g^(-T))=chi_V(g^(-1)). In the complex unitary subcase this becomes conjugate(chi_V(g)); the trace identity itself is basis-independent even though the raw matrix conjugation formula requires orthonormal coordinates. If V is self-dual, its characters must satisfy chi_V(g)=chi_V(g^(-1)). This necessary equality is not a complete criterion for arbitrary nonsemisimple representations.\n\nThe exact general criterion is: V is G-isomorphic to V^* iff there exists a NONDEGENERATE G-invariant F-bilinear pairing B:V x V->F. If T:V->V^* is an equivariant isomorphism, define B(v,w)=T(v)(w). Then B(phi(g)v,phi(g)w)=(phi^*(g)T(v))(phi(g)w)=T(v)(w). The finite-dimensional isomorphism makes B nondegenerate in both variables. Conversely, B defines the F-linear map T(v)=B(v,·). Nondegeneracy makes it injective, hence bijective by finite dimension. Invariance gives T(phi(g)v)(w)=B(v,phi(g)^(-1)w)=(phi^*(g)T(v))(w), so T is equivariant. In coordinates B(v,w)=v^T S w this is precisely existence of an invertible S with M_g^T S M_g=S for every g. No symmetry, alternation, positivity, division by2, compactness or semisimplicity of B is required. Thus it remains valid in characteristic2. A bilinear invariant form must not be replaced by an invariant Hermitian form: the latter gives unitarity, not automatically complex-linear self-duality.\n\nFor finite-dimensional complex UNITARY representations of ANY group, real-valued character is an exact self-duality test. Necessity follows from the conjugate-character formula and invariance of trace under equivalence. For sufficiency, let K be the matrix-norm closure of phi(G) in U(dim V). It is a compact Hausdorff group, since multiplication/inversion are continuous and U(dim V) is compact. The inclusion action and its algebraic dual extend to K. The character equality on the dense image extends to K by continuity. Every finite-dimensional unitary K-action decomposes into finitely many irreducibles by invariant orthogonal complements and induction. To compare multiplicities, use normalized Haar existence as an EXPLICIT EXTERNAL_THEOREM, not a claimed proof of Haar. For irreducible finite-dimensional unitary rho,sigma, the average integral rho(k)X sigma(k)^dagger dk is an intertwiner; Schur's kernel/image plus complex-eigenvalue argument makes it0 if inequivalent and (tr X/d_rho)I for the same irrep. Matrix units and diagonal sums give integral conjugate(chi_rho)chi_sigma=delta_(rho,sigma). Hence an irreducible's multiplicity in either finite decomposition is its character inner product. Equal characters of V and V^* on K give identical multiplicities and an intertwining isomorphism, and restriction to G proves the result. This finite-dimensional argument does NOT use Peter-Weyl completeness or silently assume G itself compact or continuous.\n\nTherefore the same real-character criterion applies to finite complex group representations (unitarize by the finite averaged positive metric) and to continuous finite-dimensional complex compact-group representations (unitarize by Haar). Complete reducibility alone does not supply the conjugate-character formula: the one-dimensional complex action of Z with generator2 is already semisimple and all its matrices and characters2^n are real, but its dual has generator1/2 and no nonzero scalar intertwiner can conjugate2 to1/2. Conversely, self-duality need not force a real character outside the unitary class: the Z-generator diag(2i,-i/2) is similar to its inverse by the swap matrix, so is self-dual, but its trace at the generator is3i/2. In a class with a valid semisimple character-separation theorem the relevant equality is chi(g)=chi(g^(-1)), not bare real-valuedness without unitarity; no such separation theorem is assumed for all modules here. The pairing criterion is the fully proved general replacement.\n\nEven equality with the dual's character does not suffice without an appropriate separation hypothesis. On V=C^3 let the two Z^2 generators act by A=I+E12 and B=I+E13. The matrix units square to0 and both products E12 E13 and E13 E12 vanish, so this is a representation with phi(m,n)=I+mE12+nE13 for ALL integers m,n. Every character value is3. The dual is I-mE21-nE31 and also has constant character3. Nevertheless V^G=Ce1 has dimension1, whereas (V^*)^G=span(e^2,e^3) has dimension2: the former equations require coordinates2,3 zero and the latter coordinate1 zero. An intertwining isomorphism would carry fixed subspaces isomorphically, contradicting these dimensions. These matrices are real, so the example also refutes the general all-real-matrix claim. It is genuinely nonsemisimple: Ce1 has no invariant complement, since any complement would project isomorphically onto span of the classes of e2,e3, while A moves every lift of e2 by e1.\n\nA NON-self-dual irreducible example in the positive unitary class is the C_3 line over C with generator omega=exp(2pi i/3). It is a representation because omega^3=1, and is nonzero one-dimensional, hence irreducible. Its dual generator is omega^(-1)=omega^2. A nonzero intertwiner between two lines is scalar and would force omega=omega^2, impossible for this primitive root. Thus it is genuinely non-self-dual; this is not a reducible higher-dimensional example. Real-valued character in the unitary criterion means complex-linear self-duality, not necessarily a real matrix realization: an invariant nondegenerate bilinear form can be alternating rather than a symmetric real structure.\n\n(c) For any subspace W of finite-dimensional V, let W^0={L in V^*:L|W=0}. If W is invariant, then for w in W, (phi^*(g)L)(w)=L(phi(g)^(-1)w)=0, so W^0 is invariant. A basis of W extended to V proves dim W^0=dim V-dim W. Similarly an invariant U in V^* has invariant annihilator U^0 in V: for v in U^0 and L in U, L(phi(g)v)=(phi^*(g^(-1))L)(v)=0. The same basis argument gives double-annihilator identities and an inclusion-reversing bijection; in particular a nonzero proper invariant subspace on either side gives a nonzero proper invariant annihilator on the other. Equivalently, the canonical evaluation V->V** is an equivariant isomorphism in finite dimension. Thus V^* is irreducible iff V is, independently of self-duality and over every field.\n\nFor V=0 the dual is0 and self-duality holds via the unique isomorphism; the zero-dimensional pairing is nondegenerate in the sense of an injective evaluation map. If irreducible is defined to exclude0, both fail that convention; if it only forbids nonzero proper invariant subspaces, both satisfy that weaker predicate. No nonzero eigenvector, line or C_3 witness is asserted there. Finite dimension is essential to the stated algebraic annihilator bijection/double-dual isomorphism argument; this answer does not upgrade it to full algebraic duals in infinite dimension or to closed/topological duals. The matrix, character, invariant-pairing, compact-closure character and irreducibility arguments have distinct hypotheses. There is no formal/kernel, source-paper, global alias/split or circuit/finite-bit resource conclusion.",
+  "rubric": [
+    {
+      "id": "r1",
+      "weight": 1,
+      "criterion": "Proves algebraic dual representation/matrix transpose-inverse formula in arbitrary dual bases, refutes arbitrary-basis unitary conjugation by an exact finite-group witness, and proves the properly typed complex orthonormal and real orthogonal cases without a hidden Riesz/linear identification."
+    },
+    {
+      "id": "r2",
+      "weight": 1,
+      "criterion": "Derives the general inverse-character identity and its unitary conjugate form, proves the general invariant nondegenerate bilinear-pairing self-duality criterion in both directions, and separately proves the finite-dimensional complex unitary real-character criterion for arbitrary G with explicit compact-closure/Haar dependencies."
+    },
+    {
+      "id": "r3",
+      "weight": 1,
+      "criterion": "Correctly separates nonunitary/semisimple and nonsemisimple boundaries: real/all-real matrices do not suffice generally, equality with dual characters can fail to distinguish modules, and explicit line/commuting-nilpotent witnesses have inequivalence proved. Does not infer real structure from a unitary real character or silently import finite-group classification."
+    },
+    {
+      "id": "r4",
+      "weight": 1,
+      "criterion": "Gives a genuinely non-self-dual irreducible C3 line, computes its dual and proves inequivalence rather than merely exhibiting a complex number."
+    },
+    {
+      "id": "r5",
+      "weight": 1,
+      "criterion": "Proves invariant-annihilator and finite-dimensional double-annihilator correspondences and irreducibility equivalence over the general field, handling zero conventions/characteristic2 and excluding unsupported infinite-dimensional/topological/formal/resource conclusions."
+    }
+  ],
+  "exposition": {
+    "core_summary": "Algebraic duality and finite-dimensional irreducibility preservation hold generally. Coordinate conjugation needs complex orthonormal unitary matrices; general self-duality is equivalent to an invariant nondegenerate bilinear pairing, while the real-character test needs the complex unitary regime and arbitrary-group equal-character shortcuts can fail.",
+    "semantic_steps": [
+      {
+        "claim": "The dual action is transpose-inverse in any dual bases; unitary conjugation is an orthonormal complex-coordinate statement, with an explicit arbitrary-basis finite-group counterexample.",
+        "supporting_nodes": [
+          "concept:operator-theory"
+        ]
+      },
+      {
+        "claim": "The dual character is chi(g^(-1)) over any field and becomes conjugate(chi(g)) in the complex unitary subcase; this trace identity is basis-independent.",
+        "supporting_nodes": [
+          "concept:harmonic-analysis"
+        ]
+      },
+      {
+        "claim": "General self-duality is characterized by an invariant nondegenerate bilinear pairing. The unitary complex real-character test is proved separately, and nonunitary/nonequivalent equal-character examples prevent a broader hidden classification.",
+        "supporting_nodes": [
+          "concept:harmonic-analysis"
+        ]
+      },
+      {
+        "claim": "The C3 line with generator omega has inequivalent dual omega^2, furnishing a genuinely non-self-dual nonzero irreducible representation.",
+        "supporting_nodes": [
+          "concept:harmonic-analysis"
+        ]
+      },
+      {
+        "claim": "Finite-dimensional invariant annihilators/double annihilators prove duality preserves irreducibility, with explicit zero/field and algebraic-versus-topological boundaries.",
+        "supporting_nodes": [
+          "concept:operator-theory"
+        ]
+      }
+    ]
+  },
+  "source_checks": [
+    {
+      "path": "website/research/sources.json",
+      "sha256_lf": "9f85f45f20ed5a46931ad0dec3b94ee09748bc56e39fae29b0aefe910440b0ae",
+      "anchor": "Complete leditzky-2025-repth-qit entry219-228 personally reread. URL/edition/historical pin metadata only; operative primary text access and proof gaps are recorded separately. No executable policy/curriculum file is a mathematical dependency."
+    }
+  ],
+  "execution": {
+    "status": "private_question_successor_authorship_pending_distinct_exact_content_review",
+    "actual_author": "/root/qcb_formal_view_audit",
+    "authored_at_head": "5102ace73b7bf3e11c9997c25391e7d383116ba4",
+    "private_origin": "_review_tmp/plan-120-general-duality-basis-character-question-successor.json",
+    "intended_canonical_locator": "benchmarks/quantumcomputingbench/shared/repairs/plan-120-general-duality-basis-character-question-successor.json",
+    "transport_or_admission_claimed": false,
+    "prior_exposure": "Actual author /root/qcb_formal_view_audit also authored the exact historical representation-qit-111-120 reader report, so this is informed repair authorship, not independent review of my own work or blindness. Full current historical prepared original, exact withdrawal/finding and operative primary text were read. No previous verdict or parent execution is successor approval.",
+    "contract_binding": {
+      "original_item_digest": "c4c3e55cfc17e2cd0d8984618558bdea620de9ea2410140f1652fe489fd27ea4",
+      "original_contract_hash": "eacbd76ed79dc8a3e508d5adf03c7ecd7047480bba7ad05b3908abad19f89f8b",
+      "successor_contract_hash": "b499d0a284e81272c5836f36e8223635ded3a2c6f0d6a0e714b9437fca109237",
+      "changed_contract_fields": [
+        "question"
+      ],
+      "original_contract_values": {
+        "question": "For a finite-dimensional representation (phi, V) of a group G, the dual representation (phi^*, V^*) is defined by phi^*(g)(L) = L . phi(g)^{-1}. (a) Prove that in a basis phi^*(g) = phi(g^{-1})^T, and that if (phi, V) is unitary then phi^*(g) = conj(phi(g)) (the entrywise complex conjugate). (b) Delineate the boundary between a representation and its dual: give the character relation chi_{V^*}(g) = conj(chi_V(g)) for unitary representations, and explain precisely when V is isomorphic to its dual (self-dual) versus not, giving an explicit example of a NON-self-dual irreducible representation. (c) State what remains true regardless: (phi^*, V^*) is irreducible iff (phi, V) is.",
+        "assumptions": [],
+        "conventions": [],
+        "family": "qit-tensor-representations",
+        "split": "test_public",
+        "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "target_nodes": [
+          "concept:operator-theory",
+          "concept:harmonic-analysis"
+        ],
+        "supporting_nodes": [],
+        "source_refs": [
+          {
+            "anchor": "leditzky-2025-repth-qit",
+            "license": "MIT metadata only",
+            "path": "website/research/sources.json",
+            "sha256": "9f85f45f20ed5a46931ad0dec3b94ee09748bc56e39fae29b0aefe910440b0ae"
+          }
+        ]
+      },
+      "successor_contract_values": {
+        "question": "Let G be an arbitrary group and let phi:G->GL_F(V) be a finite-dimensional linear representation over a field F; no semisimplicity, compactness or unitarity is assumed unless a subcase explicitly says so. Use the ALGEBRAIC dual V^*=Hom_F(V,F), with phi^*(g)L=L composed with phi(g)^{-1}.\n\n(a) Prove that this is a representation and that, in any basis of V and its dual basis, phi^*(g)=phi(g^{-1})^T. Assess the unqualified claim that a unitary representation has phi^*(g)=conj(phi(g)) in an arbitrary basis. Give an explicit finite-group counterexample to that arbitrary-basis formulation, then prove the correct statement for a complex Hermitian space in an ORTHONORMAL basis and its dual basis. State the real orthogonal subcase rather than silently making conjugation meaningful over an arbitrary field.\n\n(b) Derive chi_{V^*}(g)=chi_V(g^{-1}) generally and the conjugate-character identity in the complex unitary subcase. Give and prove an exact self-duality criterion valid for the general finite-dimensional algebraic representation, using a nondegenerate G-invariant F-bilinear pairing. Separately prove the real-valued-character criterion for finite-dimensional complex UNITARY representations, including arbitrary G, with any Haar/external theorem use explicit; do not assume G finite in that subcase or promote that criterion to all representations. Refute the general claims that real characters or all-real matrices imply self-duality, and that equality of characters alone always proves isomorphism, using explicit witnesses with their inequivalence proved. Give a genuinely non-self-dual irreducible representation of C_3 and identify its dual.\n\n(c) Prove that V^* is irreducible iff V is by the finite-dimensional invariant-annihilator correspondence, regardless of self-duality. Handle the zero space and clarify the finite-dimensional, field, basis and irreducibility conventions. Do not replace the algebraic dual by a conjugate-linear/Riesz identification, or claim an infinite-dimensional/topological dual theorem, a real structure from a real character, or a circuit/resource result.",
+        "assumptions": [],
+        "conventions": [],
+        "family": "qit-tensor-representations",
+        "split": "test_public",
+        "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "target_nodes": [
+          "concept:operator-theory",
+          "concept:harmonic-analysis"
+        ],
+        "supporting_nodes": [],
+        "source_refs": [
+          {
+            "anchor": "leditzky-2025-repth-qit",
+            "license": "MIT metadata only",
+            "path": "website/research/sources.json",
+            "sha256": "9f85f45f20ed5a46931ad0dec3b94ee09748bc56e39fae29b0aefe910440b0ae"
+          }
+        ]
+      },
+      "semantic_step_count": 5,
+      "original_ordered_step_nodes": [
+        [
+          "concept:operator-theory"
+        ],
+        [
+          "concept:harmonic-analysis"
+        ],
+        [
+          "concept:harmonic-analysis"
+        ],
+        [
+          "concept:harmonic-analysis"
+        ],
+        [
+          "concept:operator-theory"
+        ]
+      ],
+      "successor_ordered_step_nodes": [
+        [
+          "concept:operator-theory"
+        ],
+        [
+          "concept:harmonic-analysis"
+        ],
+        [
+          "concept:harmonic-analysis"
+        ],
+        [
+          "concept:harmonic-analysis"
+        ],
+        [
+          "concept:operator-theory"
+        ]
+      ],
+      "other_contract_fields_literal_equality": true,
+      "additional_core_count": 0
+    },
+    "literal_contract_assessment": "Although part(b)'s request 'explain precisely when' could be answered generally without repeating the old false criterion, part(a) literally seeks a matrix conjugation identity without selecting an orthonormal basis after 'in a basis'. Under the allowed geometric meaning of unitary representation, the exact C2/P basis example refutes it. I therefore do not claim answer-only full literal satisfaction or silently force a unitary-matrix coordinate interpretation. This explicit question-only successor keeps the raw assertion as a diagnostic and proves the correctly scoped positive identity while preserving general algebraic duality and arbitrary G. Conjugation/field regimes and character tests are disclosed, not added as standing assumptions or an easier global restriction.",
+    "withdrawal": {
+      "core_id": "qcb-core-plan-120",
+      "predecessor_key": "qcb-core-plan-120-dual-representation-conjugate-boundary",
+      "predecessor_item_digest": "c4c3e55cfc17e2cd0d8984618558bdea620de9ea2410140f1652fe489fd27ea4",
+      "reason": "Equal real characters do not classify self-duality for arbitrary nonsemisimple group representations.",
+      "review": "reports/textbook-v1/reader-reviews/representation-qit-111-120-review.json",
+      "review_digest": "0f4c7b6c3ec84dee97d0bc5e71554075c03e8c7f5f12173976d01b1e134495c2",
+      "finding_digest": "7e2cd44822bf18d5861c1bc37db7bbf7c3d2df0cfae784f50e15b0d8ce8f9811"
+    },
+    "withdrawal_row_digest": "66d7c558ce075ff90bc347b3496a4cd25b569542eb2ec676a84f1babd7898c3a",
+    "previous_reader_evidence": {
+      "path": "benchmarks/quantumcomputingbench/reports/textbook-v1/reader-reviews/representation-qit-111-120-review.json",
+      "report_digest": "0f4c7b6c3ec84dee97d0bc5e71554075c03e8c7f5f12173976d01b1e134495c2",
+      "sha256_lf": "ef0bc651dc21af694af12dc1f653fe94bf849ef97389b2b147d7f5b67be97f72",
+      "finding_digest": "7e2cd44822bf18d5861c1bc37db7bbf7c3d2df0cfae784f50e15b0d8ce8f9811",
+      "reviewer": "/root/qcb_formal_view_audit",
+      "actual_exposure": "I authored the historical finding; its rejection remains on the original. This new exact candidate is not independently reviewed by me."
+    },
+    "content_provenance_checks": [
+      {
+        "path": "benchmarks/quantumcomputingbench/data/public/nl-v12/release.json",
+        "sha256_lf": "6a98f9aa81e0b77ba1530f6f2e8cba69e4564f03a3d41b4d7ea883d67bbce0af",
+        "anchor": "Complete actual original from release.checked()[2]; item digest separately bound. Frozen QA provenance, not primary theorem proof."
+      },
+      {
+        "path": "benchmarks/quantumcomputingbench/data/native_nl/batch2_representation_qit.json",
+        "sha256_lf": "efe3edde9226d4c9d30f8336a2e1231935ae443670fa98ed576f91171b3c2f89",
+        "anchor": "Full authored predecessor record beginning1978; exact mathematical/grading fields compared with prepared original. Provenance only."
+      }
+    ],
+    "primary_source_checks": [
+      {
+        "url": "https://www.felixleditzky.info/teaching/FT25/math595-repth-qit.pdf",
+        "recorded_edition": "10 April2026;79pages;FT25 directory",
+        "recorded_historical_binary_sha256": "90784b02b568b8c7bb6a1ec20588d801541d047779333bd2b2b8e63749dc0fe3",
+        "current_binary_sha256": null,
+        "current_binary_hash_verified": false,
+        "actual_access": "In this authorship objective I personally retrieved the author-hosted web PDF text, read the edition header and complete operative passages. A separate in-memory urllib byte fetch failed WinError10013; no bytes saved or fresh raw hash claimed. My web screenshots of zero-based pages34 and27 failed internal errors; no operative pixels were inspected.",
+        "operative_regions": "3.6/standing finite-dimensional convention; complete3.14-3.17 averaging/Schur proofs; full3.26/Eq3.79-3.80 and Exercise3.10;3.28-3.31/Eq3.85-3.86; complete3.37-3.42 compact/Haar/Peter-Weyl passage.",
+        "source_proof_limits": "The notes state Haar existence without a full proof, and3.42 refers to Knapp Thm1.12 rather than printing its proof. Knapp was not accessed. Those external theorem dependencies are explicitly typed, not claimed independently proved. The3.42 raw-coefficient ON wording omits dimension normalization; it is not accepted as mathematical authority for that wording.",
+        "exposure": "I authored the bound historical111-120 reader report and have substantial prior representation/source exposure. Its previous byte/render claims are historical executions, not current ones. Parent leads are not a source proof or independent approval."
+      }
+    ],
+    "source_proof_coverage": {
+      "source_nodes": "Complete algebraic dual definition/Eq3.79-3.80/Exercise3.10, general representation/finite-dimensional standing context, Schur proof, character3.29/finite-theory context and Haar statement personally inspected.",
+      "independently_derived_nodes": "Arbitrary-basis C2 witness, coordinate and pairing equivalence, zero/field/annihilator proofs, C3 inequivalence, Z/Z2 witnesses and arbitrary-G unitary character criterion via compact matrix closure and finite-dimensional Haar/Schur orthogonality.",
+      "external_theorem_nodes": "Only Haar existence for the compact matrix closure is invoked as an external theorem. No Peter-Weyl completeness or general semisimple character-separation proof is needed or claimed; source3.29/3.30 omit their own proofs, and the needed finite-dimensional orthogonality is derived explicitly.",
+      "excluded": "Infinite-dimensional/topological dual classification, uninspected external proof completion, local Lean/kernel, resource algorithms and global aliases/splits."
+    },
+    "instructions": "AGENTS/HARNESS/master-worker/publication/digestion/evidence protocols, shared CONTRACT/ACCEPTANCE and PDF skill personally read/refreshed. No build/source or admission request is inferred from private authorship.",
+    "execution_limits": "Only read-only original/source/digest inspection and this new private JSON. No canonical/source/policy or old-artifact edits, builds/tests/kernel/simulator, commits/push, additional agents, GPU/admin or public release.",
+    "self_approval": false,
+    "new_kernel_execution": false,
+    "source_blind_claim": false,
+    "human_or_expert_claim": false,
+    "worker_handoff": {
+      "objective": "Exact first question correction for reserved qcb-core-plan-120",
+      "mathematical_delta": "Refute the literal arbitrary-basis conjugation claim, preserve general duality with invariant-pairing self-duality, and prove only the correctly scoped unitary character test; all other contract values and five ordered nodes unchanged.",
+      "failure_class": "SOURCE_INVALID",
+      "salvage": "Transpose-inverse, inverse-character, C3 and finite-dimensional annihilator mechanisms retained; unqualified coordinate/character-classification routes rejected.",
+      "process_memory": "Mandatory process protocols and exact bound current withdrawal/finding only; no unrelated curated mathematical memories imported.",
+      "direction_fingerprint": "dual-basis-invariant-pairing-character-boundary",
+      "expected_information_gain": "Separate literally valid target and independently derived bridges from source gaps/false generalizations.",
+      "parallel_and_common_blind_spot_audit": "No extra agents. Author and historical reviewer are the same actual identity; a genuinely distinct reviewer must assess these entire new bytes. Parent reconciliation is still required.",
+      "default_route": "Direct finite-dimensional linear algebra/averaging with explicitly typed external Haar/Peter-Weyl dependencies where invoked; no uninspected proof is called complete.",
+      "purification": "Private unadmitted candidate, no PURIFIED/Exposition-Seal/source-paper/kernel/native-formal claim.",
+      "remaining_boundaries": "Distinct whole-candidate question-change review and parent reconciliation required; no admission or approval transfer. Haar existence remains an explicit external dependency.",
+      "recommended_next_step": "Parent inspect this entire exact candidate and assign a distinct content-bound reviewer; do not reuse the historical verdict as approval."
+    }
+  }
+}

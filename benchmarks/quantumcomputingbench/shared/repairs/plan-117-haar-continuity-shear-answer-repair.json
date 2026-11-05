@@ -1,0 +1,189 @@
+{
+  "schema_version": "qcb.textbook_answer_successor.v1",
+  "author": "/root/qcb_native_comparison",
+  "admission": "pending_distinct_review",
+  "core_id": "qcb-core-plan-117",
+  "supersedes_key": "qcb-core-plan-117-non-unitarizable-infinite-group-counterexample",
+  "supersedes_item_digest": "eec0cb51404622c0e85a513a847761fd901179fb2ae5383757106e295d0c690f",
+  "key": "qcb-core-plan-117-textbook-v1-haar-continuity-shear-repair",
+  "change_scope": "Private unchanged-question answer/rubric/exposition successor. The question explicitly asks to refute a student's universal averaging claim and explain the averaging boundary, not to prove a guarantee for every abstract compact-group homomorphism. Answer that diagnostic request by explicitly assessing the compact/Haar parenthetical, proving the properly conditional continuous compact result and refuting compactness alone; do not install continuity as a standing assumption or assert an iff classification. Retain the requested continuous R-shear counterexample and prove all conclusions. All nine CONTRACT_FIELDS, original four steps and exact ordered node lists unchanged; no field/graph/family/split/source override or new core. Distinct exact-content review still required.",
+  "reference_answer": "The student's universal claim is false. The parenthetical 'compact, with Haar measure' also needs an explicit qualification: compactness does not make an arbitrary abstract representation continuous or its coefficient functions Haar-integrable. I am assessing that omitted qualification, not assuming continuity for every representation in the question. The requested counterexample can even be continuous and two-dimensional over C.\n\nFor a finite group acting linearly on a finite-dimensional complex V, start with any positive-definite Hermitian form h and put h_G(v,w)=|G|^(-1) sum_g h(rho(g)v,rho(g)w). It is sesquilinear and Hermitian, and positive definite because every term at nonzero v is positive. Right reindexing g->gk proves h_G(rho(k)v,rho(k)w)=h_G(v,w). Thus every action map is unitary for h_G. If W is invariant, then for u in W-perp and w in W, h_G(rho(k)u,w)=h_G(u,rho(k)^(-1)w)=0, so W-perp is invariant too. In finite dimension V=W direct_sum W-perp. Induction on dimension gives complete reducibility. Over arbitrary fields the algebraic finite-group complement theorem instead needs the group order invertible in the field; the positive Hermitian/unitary argument is not a modular-characteristic theorem.\n\nThe corresponding positive compact statement is conditional: let G be a compact topological group in the usual Haar setting and let rho:G->GL_C(V) be a CONTINUOUS finite-dimensional representation. With normalized bi-invariant Haar probability m, define h_G(v,w)=integral_G h(rho(g)v,rho(g)w) dm(g). The coefficient functions are continuous and bounded, hence integrable. For fixed v!=0, the positive continuous function h(rho(g)v,rho(g)v) has a strictly positive minimum on the compact group, because each rho(g) is invertible, so its integral is positive. Right invariance proves action invariance as above. Orthogonal complements and the same finite-dimensional induction supply the conclusion. Haar existence is an external mathematical input stated by the cited source, not proved here. Source Definition3.38 explicitly includes continuity; that convention was not present among this QA's empty standing fields, and is not silently imported here.\n\nA general infinite group has no finite uniform sum. For the specific noncompact group(R,+), there is no translation-invariant Borel probability measure: all half-open intervals[n,n+1) have the same mass c. If c>0 their disjoint union has infinite mass; if c=0 their countable union R has mass0, contradicting probability1. In other settings one must specify topology, measure and coefficient integrability rather than write1/|G|. These are conditions of this particular normalized sum/Haar construction, not necessary conditions for each representation to be unitarizable. A trivial representation of R is already unitary, for example. No statement here excludes other averaging methods under additional hypotheses.\n\nFor the explicit counterexample let N=[[0,1],[0,0]], G=(R,+) and rho(t)=I+tN on C². Since N²=0, rho(s)rho(t)=I+(s+t)N=rho(s+t), rho(0)=I and rho(t)^(-1)=rho(-t); the entries depend continuously on t. The line W=C e1 is invariant. Any vector-space complement in dimension2 must be a line C(a,b) with b!=0. If it were invariant, rho(t)(a,b)=(a+t b,b)=lambda_t(a,b). The second coordinate gives lambda_t=1, and t=1 in the first gives b=0, a contradiction. Indeed W is the only invariant line: the same calculation excludes every line with b!=0. Thus the representation is not irreducible, yet cannot be a direct sum of two invariant lines, so it is not completely reducible. If an invariant positive-definite Hermitian form existed, its W-perp would give the forbidden invariant complement. Hence rho is not unitarizable. Equivalently as a separate check, the squared norm of rho(t)e2=t e1+e2 in any fixed positive form has a positive quadratic t² coefficient, so cannot be constant for all real t.\n\nCompactness ALONE can also fail for abstract representations, without contradicting the continuous compact theorem. Choose irrational alpha and a Q-linear map L:R->R with L(1)=0 and L(alpha)=1 by extending the independent set{1,alpha} to a Hamel basis. It induces an additive well-defined ell:R/Z->R by ell([x])=L(x), since L vanishes on integers. The circle R/Z is compact with its usual topology. Set sigma([x])=I+ell([x])N on C². This is a linear group representation; at[alpha] it has the same nontrivial shear and the preceding complement obstruction, so it is neither completely reducible nor unitarizable. It is not continuous: ell([n alpha])=n is unbounded on a compact domain, whereas a continuous matrix coefficient would be bounded. The algebraic construction uses basis choice and is not an effective algorithm. Nor may its coefficients be integrated by fiat: if ell were Haar-L1, translation by[alpha] and invariance would imply integral ell=integral(ell+1)=integral ell+1, impossible. I make no unproved assertion here about automatic continuity of merely measurable homomorphisms; continuity is a sufficient explicit hypothesis for the positive averaging proof, and other regularity/integrability variants need their own theorem.\n\nFinally, 'not completely reducible' and 'not unitarizable' are two separately proved properties of these shears, not generally equivalent predicates. The one-dimensional representation of Z with n acting by2^n is irreducible and completely reducible, but cannot preserve any positive norm because its generator multiplies every norm by2. The examples above concern finite-dimensional spaces, where subspaces are closed and all positive norms are equivalent. In an infinite-dimensional Hilbert formulation, orthogonal-complement decompositions concern CLOSED invariant subspaces; the algebraic versus closed-subspace notions and bounded/continuous action must be distinguished. No infinite-dimensional Hilbert decomposition, measurable-representation theorem, circuit/resource certificate or local Lean result is supplied by this answer.",
+  "rubric": [
+    {
+      "id": "r1",
+      "weight": 1,
+      "criterion": "Explains the finite average and the explicitly conditional continuous finite-dimensional compact/Haar proof, including integrability, positivity and invariance; assesses compactness alone and avoids calling finite/compact group conditions an iff classification of individual unitarizability."
+    },
+    {
+      "id": "r2",
+      "weight": 1,
+      "criterion": "Verifies the continuous complex R-shear rho(t)=I+tE12 is an invertible group representation and identifies its invariant first-coordinate line."
+    },
+    {
+      "id": "r3",
+      "weight": 1,
+      "criterion": "Proves every putative complement line has b!=0 but invariance forces lambda=1 and b=0; derives both non-complete-reducibility and non-unitarizability with the invariant metric/complement argument, not an unjustified general equivalence."
+    },
+    {
+      "id": "r4",
+      "weight": 1,
+      "criterion": "Preserves the exact infinite-group counterexample while making compact continuity/integrability, field and finite-dimensional/closed-subspace qualifications explicit; no silent continuity promise or unsupported universal averaging claim. A discontinuous compact shear may witness that boundary; it is not needed to invent an efficient construction."
+    }
+  ],
+  "exposition": {
+    "core_summary": "The R-shear has an invariant line with no invariant complement, so it is neither completely reducible nor unitarizable. Finite averaging and continuous finite-dimensional compact Haar averaging work; compactness alone for an abstract representation and complete reducibility alone do not imply unitarizability.",
+    "semantic_steps": [
+      {
+        "claim": "The normalized finite average and compact Haar construction have distinct scope; the compact positive proof needs explicit continuous coefficient access/integrability, not compactness alone, and none of this is an iff classification of individual representations.",
+        "supporting_nodes": [
+          "concept:operator-theory"
+        ]
+      },
+      {
+        "claim": "rho(t)=I+tE12 is a continuous invertible representation of(R,+), since E12²=0 and rho(s)rho(t)=rho(s+t).",
+        "supporting_nodes": [
+          "concept:matrix-analysis"
+        ]
+      },
+      {
+        "claim": "W=C e1 is invariant; every complement line is C(a,b) with b!=0, and its invariance would require(a+t b,b)=lambda_t(a,b).",
+        "supporting_nodes": [
+          "concept:matrix-analysis"
+        ]
+      },
+      {
+        "claim": "The coordinate equations force lambda_t=1 and b=0, so no invariant complement exists. An invariant positive metric would yield such a complement, hence the shear is not unitarizable; compact abstract and infinite-Hilbert scope require separate qualifications.",
+        "supporting_nodes": [
+          "concept:matrix-analysis"
+        ]
+      }
+    ]
+  },
+  "source_checks": [
+    {
+      "path": "website/research/sources.json",
+      "sha256_lf": "9f85f45f20ed5a46931ad0dec3b94ee09748bc56e39fae29b0aefe910440b0ae",
+      "anchor": "Complete leditzky-2025-repth-qit entry personally read in continuous context and LF checked for this authorship. Local URL/edition/pin metadata only, not matching primary bytes or a mathematical proof. Full external operative text and access limits are separately recorded."
+    }
+  ],
+  "execution": {
+    "status": "private_authorship_pending_distinct_review",
+    "actual_author": "/root/qcb_native_comparison",
+    "observed_head": "5102ace73b7bf3e11c9997c25391e7d383116ba4",
+    "private_origin": "_review_tmp/plan-117-haar-continuity-shear-answer-repair.json",
+    "intended_canonical_locator": "benchmarks/quantumcomputingbench/shared/repairs/plan-117-haar-continuity-shear-answer-repair.json",
+    "self_approval": false,
+    "transport_or_admission_claimed": false,
+    "literal_contract_assessment": "The preserved question is explicitly an error-diagnosis/counterexample task. The answer does not prove the quoted universal student claim or a new blanket compact theorem. It assesses the question's Haar parenthetical directly, supplies the complete requested continuous infinite-group/no-complement example, and explains the actual hypotheses under which the positive averaging argument works. The retained empty standing assumptions/conventions do not gain continuity. On this literal diagnostic reading an answer-only repair suffices; this is not an automatic finite-complex narrowing. A distinct reviewer must decide this exact question-fit, not transfer an old verdict.",
+    "prior_exposure": "Actual author /root/qcb_native_comparison. Informed correction authorship, not independent approval: I have prior representation/source/cohort exposure, authored related104/105 private repairs and distinctly reviewed formal-authored106/115. I read these actual full historical117/118 records, exact current withdrawals/full findings and operative primary regions myself. I did not author their originals or the historical representation-qit-111-120 findings. The familiar C(t)/C4 mechanisms are disclosed prior exposure, not blind rediscovery or approval inherited from another target.",
+    "contract_binding": {
+      "original_item_digest": "eec0cb51404622c0e85a513a847761fd901179fb2ae5383757106e295d0c690f",
+      "original_contract_hash": "303befeae98f58f299b6f0bf178841e4458b95561458fd93db3ad22b09dd9884",
+      "successor_contract_hash": "303befeae98f58f299b6f0bf178841e4458b95561458fd93db3ad22b09dd9884",
+      "changed_contract_fields": [],
+      "unchanged_contract_values": {
+        "question": "A student claims: 'every finite-dimensional representation of every group can be made unitary by averaging an inner product over the group, so every invariant subspace has an invariant complement.' Explain why the averaging argument requires the group to be finite (or compact, with Haar measure), and give a counterexample: a finite-dimensional representation of an infinite group that has an invariant subspace with NO invariant complement (hence is not unitarizable and not completely reducible).",
+        "assumptions": [],
+        "conventions": [],
+        "family": "qit-representation-foundations",
+        "split": "test_public",
+        "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "target_nodes": [
+          "concept:operator-theory",
+          "concept:matrix-analysis"
+        ],
+        "supporting_nodes": [],
+        "source_refs": [
+          {
+            "anchor": "leditzky-2025-repth-qit",
+            "license": "MIT metadata only",
+            "path": "website/research/sources.json",
+            "sha256": "9f85f45f20ed5a46931ad0dec3b94ee09748bc56e39fae29b0aefe910440b0ae"
+          }
+        ]
+      },
+      "semantic_step_count": 4,
+      "original_ordered_step_nodes": [
+        [
+          "concept:operator-theory"
+        ],
+        [
+          "concept:matrix-analysis"
+        ],
+        [
+          "concept:matrix-analysis"
+        ],
+        [
+          "concept:matrix-analysis"
+        ]
+      ],
+      "successor_ordered_step_nodes": [
+        [
+          "concept:operator-theory"
+        ],
+        [
+          "concept:matrix-analysis"
+        ],
+        [
+          "concept:matrix-analysis"
+        ],
+        [
+          "concept:matrix-analysis"
+        ]
+      ],
+      "additional_core_count": 0
+    },
+    "previous_reader_evidence": {
+      "withdrawal": {
+        "core_id": "qcb-core-plan-117",
+        "predecessor_key": "qcb-core-plan-117-non-unitarizable-infinite-group-counterexample",
+        "predecessor_item_digest": "eec0cb51404622c0e85a513a847761fd901179fb2ae5383757106e295d0c690f",
+        "reason": "The compact-group extension omits continuity; Haar averaging does not apply to every abstract representation.",
+        "review": "reports/textbook-v1/reader-reviews/representation-qit-111-120-review.json",
+        "review_digest": "0f4c7b6c3ec84dee97d0bc5e71554075c03e8c7f5f12173976d01b1e134495c2",
+        "finding_digest": "cd00b1e9cde5d2705dcbc1c70b64a14fbf0768fbeb207129c9043c197ea77163"
+      },
+      "full_finding_digest": "cd00b1e9cde5d2705dcbc1c70b64a14fbf0768fbeb207129c9043c197ea77163",
+      "historical_report_sha256_lf": "ef0bc651dc21af694af12dc1f653fe94bf849ef97389b2b147d7f5b67be97f72",
+      "actual_historical_reviewer": "/root/qcb_formal_view_audit",
+      "role": "Exposed exact-content prior uncertainty, not approval of a new artifact. Its raw-byte source claims belong to that historical reviewer, not this author."
+    },
+    "primary_source_checks": [
+      {
+        "url": "https://www.felixleditzky.info/teaching/FT25/math595-repth-qit.pdf",
+        "recorded_edition": "April10,2026;79 pages",
+        "recorded_historical_binary_sha256": "90784b02b568b8c7bb6a1ec20588d801541d047779333bd2b2b8e63749dc0fe3",
+        "actual_access": "Personally reopened author-hosted PDF text in this objective and read complete Definition3.6/course finite-dimensional convention, invariant-subspace/irrep Definition3.10/3.12, Proposition3.14 full printed sketch and alternate averaged-inner-product argument, Definition3.15/Proposition3.16 proof, complete Proposition3.17(i)/(ii) statements and both proofs plus Corollary3.18 proof, Exercise3.5/3.6 complete statements, and Section3.8 Definitions3.37/3.38, Proposition3.39 Haar statement/normalization/invariance and finite-dimensional compact consequences. Relevant source locations: printed17-20 and34-35, PDF16-19 and33-34; exercise statements printed37/PDF36.",
+        "binary_hash_independently_verified": false,
+        "operative_pixels_inspected": false,
+        "limits": "Own screenshotsPDF18,19,33 cache-missed. Operative text was accessible; no fresh raw-byte SHA match or rendered-page/geometry verification. Historical findings' or root's matching-byte/render claims are not mine. No source saved, copied or redistributed and no paper/human/expert/visual/kernel seal.",
+        "source_proof_limits": "The primary supplies the finite averaging sketch/alternate argument and complete linear Schur proof. Haar measure existence is stated as a standard primary theorem without an in-place proof; I use that external mathematical input, not claim to prove Haar existence, Peter-Weyl or all of Section3.8. The shear/Hamel/real commutant/rational-function counterexamples and expanded algebraic proofs below are independent derivations, not newly attributed printed theorems."
+      }
+    ],
+    "proof_scope": "Full finite Hermitian average, conditional continuous compact average, R-shear/no-complement/nonunitary proof, abstract compact Hamel shear and explicit nonintegrability discriminator, plus non-equivalence of complete reducibility/unitarizability. No claim that any arbitrary compact-group homomorphism is continuous/measurable or that an infinite Hilbert invariant subspace is automatically closed.",
+    "source_proof_coverage": {
+      "operative_primary": "Full printed finite averaging/Schur constructions and proofs plus compact continuity/Haar statement inspected, with the external-existence scope in primary_source_checks. Named proof ingredients are mathematical dependencies, not newly added standing assumptions.",
+      "independent_reconstruction": "Full finite Hermitian average, conditional continuous compact average, R-shear/no-complement/nonunitary proof, abstract compact Hamel shear and explicit nonintegrability discriminator, plus non-equivalence of complete reducibility/unitarizability. No claim that any arbitrary compact-group homomorphism is continuous/measurable or that an infinite Hilbert invariant subspace is automatically closed.",
+      "excluded": "Haar existence proof, general measurable-homomorphism automatic continuity, Peter-Weyl, Frobenius real division-algebra classification, all infinite-Hilbert operator-Schur variants, finite-bit circuit/compiler/resource claims and production Lean closure are not supplied or silently claimed."
+    },
+    "artifact_inventory": "Initial scoped private inventory found the unrelated frozen SP117 rank candidate/review, not existing plan117/118 candidates at these new names. All older artifacts and root's committed PR112 content are preserved.",
+    "mechanical_context": "Mandatory AGENTS/HARNESS/worker/publication/digestion/evidence and shared CONTRACT/ACCEPTANCE were read personally in continuous context and their current Git content checked unchanged. PDF skill used with honest text/byte/pixel layers. Exact predecessor/current withdrawal/full finding, source LF and original node order inspected; these static bindings do not certify mathematics or admission. Policy/curriculum code is not a mathematical source.",
+    "execution_limits": "No canonical/source/code/policy edits, admission, old private/candidate/report rewrites, builds/tests/kernel/native-formal proof, commits/push, new agents, GPU/admin, source-paper seal, blind/human/expert/model/novelty or global alias/split closure claim.",
+    "worker_handoff": {
+      "objective": "Private true-scope repair for qcb-core-plan-117, not current-reader restoration",
+      "mathematical_delta": "Full finite Hermitian average, conditional continuous compact average, R-shear/no-complement/nonunitary proof, abstract compact Hamel shear and explicit nonintegrability discriminator, plus non-equivalence of complete reducibility/unitarizability. No claim that any arbitrary compact-group homomorphism is continuous/measurable or that an infinite Hilbert invariant subspace is automatically closed.",
+      "assumptions_and_conventions": "All nine historical contract fields retained literally; extra conditions occur only in explicitly conditional positive theorems being assessed, not as promises about every input.",
+      "failure_class": "NONE",
+      "rejected_routes": "Blanket unitarizability for all groups/abstract compact homomorphisms, unqualified Haar integrability, and equivalence of complete reducibility with unitarizability.",
+      "salvage": "Correct original concrete counterexample retained with full derivation; incomplete universal summaries replaced by explicit theorem boundaries, not imported approval.",
+      "process_memory": "Exact existing withdrawal/full historical finding plus required process protocols; no unrelated memory or old verdict transplant.",
+      "direction_fingerprint": "finite-average-versus-compact-continuity-and-shear-complements",
+      "expected_information_gain": "Resolve whether the actual diagnostic question admits a complete true answer without narrowing its standing scope; expose any residual question-fit ambiguity to a distinct reviewer.",
+      "parallel_work": "None; no additional agents or parallel routes.",
+      "common_blind_spot": "Distinct future exact-content/source review required; author does not approve self. Source context and current question remain separate.",
+      "bounded_relations": "Related104/105/106 share kernel/eigenvalue, C(t) or realC4 mechanisms, not whole targets.117's averaging/no-complement target and118's irreducible commutant/division-ring boundary are different; no global target alias, cross-split clearance or count increase is asserted.",
+      "purification": "Private authored mathematics/exposition pending review only; no PROOF_SEALED, PURIFIED, formal or public-completion claim.",
+      "recommended_next_step": "Root to inspect exact candidate/question-fit and request distinct mathematical/source review. If that review finds a frozen question literally demands an omitted blanket guarantee, withhold this answer repair and request an explicit question successor; do not silently add a premise."
+    }
+  }
+}
