@@ -625,7 +625,8 @@ def publish(root):
                             "summary": description, "url": route + "index.html"})
 
     def intro(title, subtitle):
-        return '<div class="qcb-reader"><p class="eyebrow">QuantumComputingBench</p><h1>' + esc(title) + '</h1><div class="qcb-deck">' + prose(subtitle) + '</div>'
+        heading = 'QuantumComputing<wbr>Bench' if title == 'QuantumComputingBench' else esc(title)
+        return '<div class="qcb-reader"><p class="eyebrow">QuantumComputingBench</p><h1>' + heading + '</h1><div class="qcb-deck">' + prose(subtitle) + '</div>'
 
     write(HUB, "QuantumComputingBench", overview(intro, catalog, native_lean_count),
           "Graph-grounded evaluation of quantum-computing knowledge, mathematical reasoning and Lean proof skills.")
