@@ -2,10 +2,14 @@
 from copy import deepcopy
 from html.parser import HTMLParser
 from pathlib import PurePosixPath
+from pathlib import Path
+import tempfile
 import unittest
+from unittest.mock import patch
 
 from website.scripts import quantumcomputingbench as reader
 from website.scripts.qcb_lean_reader import publish_lean_route
+from website.scripts import qcb_lean_downloads as downloads
 
 
 class Links(HTMLParser):
@@ -83,6 +87,42 @@ class LeanReaderTests(unittest.TestCase):
         entry = {'core_id': 'same-core', 'split': 'train', 'difficulty': {'construction_band': 'D2'}}
         with self.assertRaisesRegex(ValueError, 'unique shared course cores'):
             self.render({'course_id': 'fixture', 'entries': [entry, deepcopy(entry)]}, {'cores': []})
+
+    def test_downloads_reject_changed_bytes_and_unexpected_files(self):
+        qualification = {'suite_id': 'software-fixture', 'registry_digest': 'f' * 64}
+        artifacts = {'train-references.json': {'software_fixture_only': True},
+                     'dev-inputs.json': {'reference_answers_projected': False}}
+        with tempfile.TemporaryDirectory() as temporary, patch.object(downloads, 'payloads', return_value=(qualification, artifacts)):
+            root = Path(temporary)
+            summary = downloads.write_downloads(root)
+            downloads.check_downloads(root, summary)
+            self.assertTrue(summary['artifacts']['train-references.json']['contains_references'])
+            self.assertFalse(summary['artifacts']['dev-inputs.json']['contains_references'])
+            path = root / 'dev-inputs.json'
+            original = path.read_bytes()
+            path.write_bytes(original + b' ')
+            with self.assertRaises(ValueError):
+                downloads.check_downloads(root, summary)
+            path.write_bytes(original)
+            (root / 'unexpected.json').write_text('{}')
+            with self.assertRaises(ValueError):
+                downloads.check_downloads(root, summary)
+
+    def test_actual_download_splits_separate_train_proofs_from_evaluation_inputs(self):
+        qualification, artifacts = downloads.payloads()
+        training = artifacts['train-references.json']
+        train_ids = {row['core_id'] for row in training['examples']}
+        by_split = {split: {row['input']['task']['core_id'] for row in artifacts[split + '-inputs.json']['tasks']}
+                    for split in ('train', 'dev', 'test_public')}
+        self.assertEqual(train_ids, by_split['train'])
+        self.assertFalse(train_ids & (by_split['dev'] | by_split['test_public']))
+        self.assertFalse(by_split['dev'] & by_split['test_public'])
+        self.assertEqual(len(set.union(*by_split.values())), qualification['distinct_shared_core_ids'])
+        self.assertTrue(all(row['split'] == 'train' and row['target']['proof'].startswith('by') for row in training['examples']))
+        for split in by_split:
+            self.assertFalse(artifacts[split + '-inputs.json']['reference_answers_projected'])
+            self.assertTrue(all('target' not in row and 'reference_lineage' not in row
+                                for row in artifacts[split + '-inputs.json']['tasks']))
 
 
 if __name__ == '__main__':

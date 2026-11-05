@@ -64,6 +64,8 @@ See the [public-claims protocol](docs/math-2-0-positioning.md).
 
 Reverse chronological order; audited milestones, explicit research intakes and minimum project-history anchors. An intake is not a completion claim.
 
+- **5 November 2026 — staged Lean proof curriculum.** [QuantumComputingBench's Lean route](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/lean/) now organizes 21 existing shared mathematical cores from contract understanding to local proofs, interface composition and parameterized reasoning. Three new companions pass 30 authored-reference checks; two prepared companions remain diagnostic after source-scope/inventory gates. [Train-only formal supervision and answer-free course inputs](benchmarks/quantumcomputingbench/tracks/lean/COURSE_V4.md) complement the NL track without duplicate core counting, new canonical formal admissions or model-performance claims.
+
 - **22 October 2026 — QuantumComputingBench preview.** The [integrated preview](benchmarks/quantumcomputingbench/docs/integration-release-2026-10-22.md) retains 213 native-NL core IDs after quarantining four of the 217 imported admissions, plus a separate 26-record legacy diagnostic cohort. It provides source/review provenance, checksum-bearing exports and explicit formal-verification boundaries, not complete whole-graph coverage or a newly Lean-certified NL corpus.
 
 - **21 October 2026 — QuantumComputingBench starts.** We are launching [QuantumComputingBench](benchmarks/quantumcomputingbench/) to build graph-grounded QA for training and evaluating specialized quantum-computing models across knowledge, mathematical reasoning and Lean skills, with planned topics clearly separated from verified library evidence.

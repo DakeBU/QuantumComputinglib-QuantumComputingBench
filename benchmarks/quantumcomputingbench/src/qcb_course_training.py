@@ -52,6 +52,7 @@ def reference_records():
             if not isinstance(proof, str) or not proof.startswith("by"):
                 raise ValueError("training needs a standalone checked whole-root reference")
             rows[core] = {"proof": proof, "route": "constructed_whole_root" if constructed is not None else "library_application",
+                          "method_disclosure": case.get("shortcut_disclosure", "A standalone control packages the proof; it does not enforce a proof method. Imported facts and root shortcuts remain callable."),
                           "target": next(n["target"] for n in nodes if n["id"] == root),
                           "imports": task["imports"], "source": path.relative_to(B).as_posix(),
                           "source_digest": digest(raw_by_core[core]), "task_digest": digest(task)}
@@ -76,7 +77,8 @@ def export_training(views, qualification, records):
                          "task_hash": digest(task), "registry_digest": qualification["registry_digest"],
                          "input": ProofSession(task, mode="root_only", exposure="approved_interface").agent_input(),
                          "target": {"node_id": task["root_id"], "proof": source["proof"],
-                                    "proof_sha256": proof_sha(source["proof"]), "route": source["route"]},
+                                    "proof_sha256": proof_sha(source["proof"]), "route": source["route"],
+                                    "method_disclosure": source["method_disclosure"]},
                          "provenance": {"source": source["source"], "source_digest": source["source_digest"],
                                         "recorded_reference_lineage": deepcopy(view["reference_lineage"])},
                          "reference_public": True, "whole_question_prose_kernel_certified": False,

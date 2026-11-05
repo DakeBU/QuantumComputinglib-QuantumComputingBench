@@ -24,6 +24,7 @@ def context():
         records[t["core_id"]] = {"proof": "by exact " + split.upper() + "_PROOF_SENTINEL",
             "target": next(n["target"] for n in t["nodes"] if n["id"] == t["root_id"]),
             "imports": t["imports"], "task_digest": digest(t), "route": "constructed_whole_root",
+            "method_disclosure": "SOFTWARE FIXTURE ONLY; route label does not enforce a proof method.",
             "source": "software_mock", "source_digest": "a" * 64}
     return views, {"registry_digest": "e" * 64, "suite_id": "software-mock-course"}, records
 
@@ -105,6 +106,7 @@ class CourseTrainingTests(unittest.TestCase):
         self.assertNotIn("TEST_PUBLIC_PROOF_SENTINEL", str(result))
         example = result["examples"][0]
         self.assertIn("TRAIN_PROOF_SENTINEL", example["target"]["proof"])
+        self.assertIn("does not enforce a proof method", example["target"]["method_disclosure"])
         self.assertNotIn("TRAIN_PROOF_SENTINEL", str(example["input"]))
         self.assertIsNone(example["process_reward_labels"])
         self.assertFalse(result["training_launched"])

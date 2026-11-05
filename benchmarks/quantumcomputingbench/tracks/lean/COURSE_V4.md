@@ -138,3 +138,21 @@ validation nor a reference replay establishes that a model learned quantum
 computing, that intermediate actions were useful, or that the benchmark is a
 stable whole-graph release. Producing this question/reference corpus does not
 require collecting real-model responses.
+
+## Actual authored checkpoint
+
+The [reference receipt](../../reports/lean-course-v4/reference-checks.json)
+records 30 actual checks at code commit
+`cc2725b08ef39457e42f33f6917f0fe433148d08`: 15 supplied positive obligations,
+six standalone controls and three distinct final-root replays verified, while
+three wrong-type attempts and three `sorryAx` dependencies were rejected.
+All positive transitive axiom sets stay within `propext`, `Classical.choice`
+and `Quot.sound`. The batch took 1,023.844 seconds; this is authored-development
+time, not model latency or measured model performance.
+
+The matching pinned library checkout at
+`f2cba045611a0d11c5995c29607569726bf1d6c5` then passed actual `lake build`,
+`lake build Tests` and all 202 inventoried module targets, using existing
+caches and retaining existing linter warnings. The reader checkout has the
+identical exhaustive proof-input digest; this is not a clean dependency rebuild
+or a new production theorem. Historical and deferred receipts remain separate.

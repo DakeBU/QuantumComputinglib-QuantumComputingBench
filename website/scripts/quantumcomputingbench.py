@@ -64,6 +64,8 @@ def presentation_contract():
              "website/scripts/qcb_benchmark_center.py", "benchmarks/quantumcomputingbench/src/qcb_bench_runtime.py",
              "website/scripts/qcb_navigation.py", "website/static/quantumcomputingbench.css", "website/static/quantumcomputingbench.js",
              "website/scripts/qcb_lean_reader.py",
+             "website/scripts/qcb_lean_downloads.py", "benchmarks/quantumcomputingbench/src/qcb_course_training.py",
+             "benchmarks/quantumcomputingbench/src/qcb_course_registry.py", "benchmarks/quantumcomputingbench/scripts/lean_training.py",
              "website/scripts/reader_hierarchy.py", "website/scripts/qcb_hierarchy_browser.py",
              "website/scripts/qcb_workbook_reader.py", "benchmarks/quantumcomputingbench/src/qcb_nonlean_workbook.py",
              "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/reader-comparison.json",
@@ -574,6 +576,7 @@ def publish(root):
     from website.scripts.qcb_benchmark_center import publish_center
     from website.scripts.qcb_navigation import local_nav, overview, publish_navigation
     from website.scripts.qcb_lean_reader import publish_lean_route
+    from website.scripts.qcb_lean_downloads import write_downloads as write_lean_downloads
     from website.scripts.qcb_expert import build_expert_index, publish_expert
     from website.scripts.qcb_workbook_reader import publish_workbook
     from website.scripts.research_atlas import patch_navigation
@@ -593,6 +596,7 @@ def publish(root):
     graph_hash = hashlib.sha256(graph_path.read_bytes()).hexdigest()
     live_ids = {n["id"] for n in read_json(graph_path)["nodes"]}
     data_dir = root / "data/quantumcomputingbench"
+    lean_downloads = write_lean_downloads(data_dir / 'lean-course')
     registry = build_registry()
     workbook = load_workbook()
     check_publication_sources(workbook, context['commit'])
@@ -735,6 +739,7 @@ def publish(root):
                 "reader_source_digest": reader_sources(), "routes": routes,
                 "native_core_ids": len(catalog["cores"]), "admitted_native_lean_views": native_lean_count,
                 "experimental_course": {"course_id": course_plan["course_id"], "course_digest": course_report["course_digest"], "distinct_shared_cores": course_report["distinct_shared_cores"], "new_mathematical_cores": 0, "canonical_admissions_changed": False, "by_construction_band": course_report["by_construction_band"]},
+                "lean_course_downloads": lean_downloads,
                 "public_semantic_diagnostics": diagnostic_report,
                 "expert_atlas": expert_report,
                 "benchmark_center": benchmark_center,
@@ -784,6 +789,8 @@ def check_site(root):
     if manifest.get("runtime_registry_hash") != registry["registry_hash"]:
         raise ValueError("runtime registry is stale")
     verify_downloads(root / "data/quantumcomputingbench/runtime", registry)
+    from website.scripts.qcb_lean_downloads import check_downloads as check_lean_downloads
+    check_lean_downloads(root / 'data/quantumcomputingbench/lean-course', manifest.get('lean_course_downloads'))
     if (manifest.get("benchmark_environment") != environment_record(registry)
             or read_json(root / "data/quantumcomputingbench/environment-smoke.json") != environment_record(registry)):
         raise ValueError("published environment report lost its execution/source binding")
