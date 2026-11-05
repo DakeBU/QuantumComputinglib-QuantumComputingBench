@@ -63,7 +63,8 @@ def publish_lean_route(write, intro, catalog, plan, label, native_cards, subject
     body += '<ol class="qcb-ladder" data-qcb-lean-stages>'
     for key, title, levels, description, band in STAGES:
         count = len(_entries(plan, key, band))
-        counting = 'D0 reading facet across all ' + str(count) + ' cores; ' + str(by_band['D1']) + ' D1 routes' if key == 'understand' else str(count) + ' shared cores'
+        counting = ('D0 reading facet across all ' + str(count) + ' cores; ' + str(by_band['D1'])
+                    + (' D1 route' if by_band['D1'] == 1 else ' D1 routes')) if key == 'understand' else str(count) + ' shared cores'
         body += '<li><a href="' + key + '/index.html"><span class="qcb-level">' + levels + '</span><strong>' + title + '</strong></a><p>' + description + '</p><small>' + counting + '</small></li>'
     body += '</ol><p class="qcb-status-line">D0 studies these same questions; it adds no core. D1–D4 describe provisional construction routes, not measured model difficulty.</p>'
     body += '<p>Each question offers a mathematical statement and optional formal obligations on one page. Attempt it before opening the hint, solution or reference proof.</p>'

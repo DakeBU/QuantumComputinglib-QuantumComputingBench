@@ -53,6 +53,7 @@ def run(root, output, channel=None):
               HUB + "course/d4/index.html", HUB + "reasoning/index.html"]
     routes += manifest["public_semantic_diagnostics"]["routes"]
     routes += manifest["benchmark_center"]["routes"] + manifest["expert_atlas"]["routes"]
+    routes += manifest.get('sealed_assessment', {}).get('routes', [])
     routes += manifest.get('reader_hierarchy', {}).get('routes', [])
     routes += [route for route in manifest.get('lean_learning_route', {}).get('routes', []) if route not in routes]
     routes += [HUB + 'non-lean/workbook/index.html', HUB + 'non-lean/workbook/normalization/index.html',

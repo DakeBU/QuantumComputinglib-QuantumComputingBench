@@ -12,6 +12,13 @@ question contracts and scored evidence remain explicit.
 
 ## Use the benchmark
 
+For training versus assessment, start with the
+[sealed-assessment protocol](tracks/lean/ASSESSMENT_V2.md). Public solutions
+support study and calibration; train-only supervision, first-answer reasoning,
+reviewed arguments and isolated formal completion have separate contracts.
+The additional sealed question/reference bundle stays outside this public
+repository. No published result establishes whole-graph model mastery.
+
 ```sh
 python -m pip install -r benchmarks/quantumcomputingbench/requirements.txt
 python benchmarks/quantumcomputingbench/scripts/bench.py doctor

@@ -64,6 +64,11 @@ def presentation_contract():
              "website/scripts/qcb_benchmark_center.py", "benchmarks/quantumcomputingbench/src/qcb_bench_runtime.py",
              "website/scripts/qcb_navigation.py", "website/static/quantumcomputingbench.css", "website/static/quantumcomputingbench.js",
              "website/scripts/qcb_lean_reader.py",
+             "website/scripts/qcb_assessment_reader.py", "benchmarks/quantumcomputingbench/src/qcb_assessment_bank.py",
+             "benchmarks/quantumcomputingbench/src/qcb_assessment_protocol.py", "benchmarks/quantumcomputingbench/scripts/assessment.py",
+             "benchmarks/quantumcomputingbench/tracks/lean/assessment-v2/seal.json",
+             "benchmarks/quantumcomputingbench/reports/assessment-v2/qualification.json",
+             "benchmarks/quantumcomputingbench/reports/assessment-v2/software-checks.json",
              "website/scripts/qcb_lean_downloads.py", "benchmarks/quantumcomputingbench/src/qcb_course_training.py",
              "benchmarks/quantumcomputingbench/src/qcb_course_registry.py", "benchmarks/quantumcomputingbench/scripts/lean_training.py",
              "website/scripts/reader_hierarchy.py", "website/scripts/qcb_hierarchy_browser.py",
@@ -643,7 +648,7 @@ def publish(root):
         return '<div class="qcb-reader"><p class="eyebrow">QuantumComputingBench</p><h1>' + heading + '</h1><div class="qcb-deck">' + prose(subtitle) + '</div>'
 
     overview_body = overview(intro, catalog, native_lean_count)
-    overview_body = overview_body.replace('<p class="qcb-inventory-line">', '<p class="qcb-reading-options"><a href="lean/index.html">Learn the Lean proof route: understand → construct → compose → generalize</a></p><p class="qcb-inventory-line">', 1)
+    overview_body = overview_body.replace('<p class="qcb-inventory-line">', '<p class="qcb-reading-options"><a href="run/assessment/index.html">Train and assess a model →</a> · <a href="lean/index.html">Follow the Lean proof course</a></p><p class="qcb-inventory-line">', 1)
     write(HUB, "QuantumComputingBench", overview_body,
           "Graph-grounded evaluation of quantum-computing knowledge, mathematical reasoning and Lean proof skills.")
     hierarchy_report = publish_navigation(write, intro, catalog, items, registry, course_plan)
@@ -651,6 +656,15 @@ def publish(root):
     diagnostic_report = publish_diagnostics(write, intro, diagnostic_packet, diagnostic_qualification, context["commit"], expert_index)
     expert_report = publish_expert(write, intro, expert_index)
     benchmark_center = publish_center(write, intro, catalog, registry, context["commit"], runtime_environment)
+    from qcb_assessment_bank import public_status as assessment_public_status
+    from website.scripts.qcb_assessment_reader import publish_assessment, training_package as assessment_training_package
+    from qcb_assessment_reader import publication_record
+    assessment_record = publication_record(assessment_public_status(), context['commit'])
+    write_json(data_dir / 'assessment-v2.json', assessment_record)
+    assessment_report = publish_assessment(write, intro, assessment_record, context['commit'])
+    combined_training = assessment_training_package(registry, read_json(data_dir / 'lean-course/train-references.json'), context['commit'])
+    write_json(data_dir / 'assessment-train.json', combined_training)
+    assessment_report['training_download_sha256'] = hashlib.sha256((data_dir / 'assessment-train.json').read_bytes()).hexdigest()
     admitted = [core for core in catalog["cores"] if "lean" in core["views"]]
     lean_subjects = '<div class="qcb-grid">' + ''.join('<article class="qcb-card"><h2><a href="' + part['id'] + '/index.html">' + esc(part['title']) + '</a></h2>' + prose(part['summary']) + '</article>' for part in catalog['parts']) + '</div>'
     lean_route = publish_lean_route(write, intro, catalog, course_plan, course_label,
@@ -743,6 +757,7 @@ def publish(root):
                 "public_semantic_diagnostics": diagnostic_report,
                 "expert_atlas": expert_report,
                 "benchmark_center": benchmark_center,
+                "sealed_assessment": assessment_report,
                 "lean_learning_route": lean_route,
                 "reader_hierarchy": hierarchy_report,
                 "site_hierarchy": site_hierarchy_report,
@@ -772,6 +787,22 @@ def check_site(root):
     catalog, items, graph = load_catalog()
     workbook = load_workbook()
     verify_workbook_downloads(root / 'data/quantumcomputingbench/nonlean-workbook', workbook)
+    from qcb_assessment_bank import public_status as assessment_public_status
+    assessment_record = read_json(root / 'data/quantumcomputingbench/assessment-v2.json')
+    from qcb_assessment_reader import publication_record
+    if assessment_record != publication_record(assessment_public_status(), manifest['source_commit']):
+        raise ValueError('assessment public metadata or software qualification is stale')
+    assessment_routes = manifest.get('sealed_assessment', {}).get('routes', [])
+    if len(assessment_routes) != 3 or not set(assessment_routes) <= set(manifest['routes']):
+        raise ValueError('assessment hierarchy is incomplete')
+    from website.scripts.qcb_assessment_reader import training_package as assessment_training_package
+    from qcb_bench_runtime import build_registry as assessment_runtime_registry
+    train_path = root / 'data/quantumcomputingbench/assessment-train.json'
+    expected_training = assessment_training_package(assessment_runtime_registry(),
+        read_json(root / 'data/quantumcomputingbench/lean-course/train-references.json'), manifest['source_commit'])
+    if (read_json(train_path) != expected_training
+            or hashlib.sha256(train_path.read_bytes()).hexdigest() != manifest['sealed_assessment'].get('training_download_sha256')):
+        raise ValueError('combined training download is stale or leaked another split')
     if manifest.get('supplementary_workbook', {}).get('workbook_digest') != workbook['workbook_digest']:
         raise ValueError('supplementary workbook projection is stale')
     plan, views, course_report = course_reader()
