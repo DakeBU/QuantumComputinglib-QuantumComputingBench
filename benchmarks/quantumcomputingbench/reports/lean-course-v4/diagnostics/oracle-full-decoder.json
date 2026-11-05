@@ -1,0 +1,276 @@
+{
+  "schema_version": "qcb.curriculum_blind_decode.v1",
+  "source_blind": true,
+  "decoder_identity": "/root/course_fourth_blind_decode",
+  "packet_digest": "da469f98bad854416d3dce5396fec69e99e48a742b7f74ed0fb08d4979eda845",
+  "views": [
+    {
+      "anonymous_id": "O4A",
+      "root_id": "N4",
+      "reconstructed_statement": "Let S={0,...,7} and define L:S->S by L(s)=(s XOR 3) mod 8, where 3 is the fixed three-bit mask 011. The root is the conjunction of: (1) for every s in S, L(L(s))=s; (2) in increasing input order 0,...,7, its eight outputs are exactly [3,2,1,0,7,6,5,4]; and (3) for every seven-bit assignment z:{0,...,6}->{0,1}, the program X on wire 0 followed chronologically by X on wire 1 produces a state z' whose little-endian address value z'(0)+2z'(1)+4z'(2) is ((z(0)+2z(1)+4z(2)) XOR 3) mod 8, and applying that same two-gate program twice returns the entire seven-bit assignment z. The third conjunct contains both the address equation AND equality of the full state after two applications. There are no assumptions about the address, row bits, or work bit: all 128 basis assignments are quantified over. By the supplied X action, one application changes bits 0 and 1 to their complements and preserves every other wire. This toggles the two low address bits and preserves address bit 2. The operation is bitwise XOR with the mask, not addition of three modulo eight: for example input 1 maps to 2.",
+      "semantic_slots": {
+        "domain": "Fin 8 for L; PrimitiveBasis 7 = Fin 7 -> Fin 2 for states",
+        "quantifiers": "All eight inputs and all seven-bit basis states; no external parameter or premise",
+        "register_order": {
+          "address": "wires 0,1,2, weights 1,2,4 respectively",
+          "row": "wires 3,4,5",
+          "work": "wire 6"
+        },
+        "program_order": "X0 is applied first, then X1",
+        "one_application": "z0 -> 1-z0, z1 -> 1-z1; z2,z3,z4,z5,z6 preserved",
+        "all_root_conjuncts": [
+          "L is involutive",
+          "Its complete ordered output list is the specified eight-element list",
+          "For every basis state: the address-value XOR equation AND the full-state involution equation"
+        ],
+        "obligation_nodes": [
+          {
+            "id": "N1",
+            "meaning": "All Fin 8 inputs satisfy L squared = identity."
+          },
+          {
+            "id": "N2",
+            "meaning": "List.ofFn enumerates the full function on Fin 8 in index order."
+          },
+          {
+            "id": "N3",
+            "meaning": "Every seven-bit basis input satisfies both the address equation and full-state return after two prefix applications."
+          },
+          {
+            "id": "N4",
+            "meaning": "AND of N1,N2,N3, retaining the AND inside N3."
+          }
+        ],
+        "boundaries": [
+          "No empty domain is involved: |Fin 8|=8 and there are 2^7=128 seven-bit assignments.",
+          "The work wire may initially be either value; no clean-zero premise is present.",
+          "The little-endian address already belongs to [0,7], and XOR with 3 remains in [0,7], so the explicit remainder by 8 does not change the value."
+        ],
+        "phase_normalization": "This is a bijection on classical basis labels. No amplitude normalization or complex phase convention is part of the target.",
+        "exact_asserted_scope": "A fixed three-address-bit, seven-wire basis-map statement for a two-X prefix, reconstructed without executing Lean."
+      },
+      "ambiguities": [
+        "No definition needed to interpret these displayed basis equations remains missing: XOR, little-endian weights, X action, and chronological order are all supplied.",
+        "A complex linear extension, if desired, would require its own interpretation; it is not implicit in a bare basis-label equality."
+      ],
+      "dependency_audit": [
+        "N4 is the conjunction of N1,N2,N3. The supplied edges are consistent as conjunction packaging; they do not turn a basis statement into a full sparse-access oracle claim.",
+        "From the supplied definitions the prefix address map agrees with L, but the root does not assert an implementation of the rest of any longer sparse-access circuit."
+      ],
+      "limitations": [
+        "No arbitrary address width or variable offset is quantified over.",
+        "No row-dependent sparse-neighbor map, value oracle, banded-matrix access contract, quantum amplitude action, phase-correct circuit matrix, or clean-ancilla construction is certified by this root.",
+        "The literal prefix has two X gates, but no gate-cost model, T-count, depth, hardware resource theorem, or asymptotic bound is asserted.",
+        "No proof body, source question, current Lean check, or human approval was supplied."
+      ]
+    },
+    {
+      "anonymous_id": "O4B",
+      "root_id": "N6",
+      "reconstructed_statement": "For any natural number q of wires and every well-formed finite reversible program p made of X, controlled-X on distinct wires, and doubly-controlled-X on pairwise distinct wires, write E(p) for its chronological basis permutation and P(E(p))[r,c]=1 when r=E(p)(c), and 0 otherwise. Its compiled primitive program has a bare circuit C_p and a stored exact real angle theta_p. The full evaluation is D_p=exp(i theta_p) C_p, with chronological circuit multiplication C(g::rest)=C(rest)C(g). The root asserts all five statements simultaneously: (1) universally over q,p, D_p=P(E(p)) as exact complex matrices; (2) the specific compiled seven-wire primitiveAccess3Program has the stored, unreduced angle theta_star=45*pi/8, where 45/8 is real division; (3) universally over q,p, C_p=exp(i theta_p)^(-1) P(E(p)); (4) exp(i theta_star) is not 1; and (5) the bare circuit of that specific seven-wire program is not equal as a matrix to P(e_star), where e_star is the separately named primitiveAccess3BasisEquiv. The named e_star is not unfolded in this packet. The specific source program applies X0,X1, then CCX(3,0;6),CCX(6,1;2),CCX(3,0;6),CCX(3,0;1),CX(3;0),CCX(4,1;2),CX(4;1),CX(5;2), in that order. It has five CCX gates. Each supplied CCX macro accumulates two H angle fields (total pi) and four T minus three Tdagger angle fields (net pi/8), hence stores 9*pi/8; X and CX store zero. The five copies therefore store 45*pi/8. As a complex scalar, exp(i theta_star)=exp(-3*pi*i/8), while its inverse is exp(3*pi*i/8). Thus the generic bare-circuit formula applied to the displayed source program gives a nontrivial scalar multiple of that program's ideal basis permutation. The last conjunct is an exact matrix inequality, and does not say that the phase-correct full compiler output is incorrect.",
+      "semantic_slots": {
+        "domains_and_quantifiers": "The first and third conjuncts range over every q in Nat, including q=0, and all programs of the stated well-formed reversible-gate type. The remaining conjuncts are closed claims about the single named seven-wire program.",
+        "hypotheses": "No extra root premises. Wire-distinctness obligations are built into admissible reversible gates, not arbitrary duplicate-wire instructions.",
+        "program_and_matrix_conventions": {
+          "source_order": "head gate first, then tail",
+          "bare_matrix_order": "tail matrix multiplies head matrix on the left",
+          "matrix_entries": "row is output basis index; column is input basis index",
+          "full_program": "multiply the entire bare circuit matrix by exp(i times stored exact angle)",
+          "sequence": "append circuits and add stored angles, without automatic modulo-2*pi reduction"
+        },
+        "fixed_registers": "Seven wires: address 0,1,2; row 3,4,5; work 6. No initial-zero hypothesis is stated.",
+        "all_root_conjuncts": [
+          "Universal exact correctness of the full phase-correct compiler output",
+          "Concrete stored angle exactly 45*pi/8",
+          "Universal inverse-phase relation for bare compiled circuits",
+          "Concrete phase scalar different from 1",
+          "Concrete bare-circuit matrix different from the named permutation matrix"
+        ],
+        "obligation_nodes": [
+          {
+            "id": "N1",
+            "meaning": "For every admissible q,p, exp(i theta_p)C_p=P(E(p))."
+          },
+          {
+            "id": "N2",
+            "meaning": "The specific exact angle evaluates to 45*pi/8 as a real number, not merely a congruence class."
+          },
+          {
+            "id": "N3",
+            "meaning": "For every admissible q,p, C_p=exp(i theta_p)^(-1)P(E(p))."
+          },
+          {
+            "id": "N4",
+            "meaning": "The specific unit-modulus phase scalar is not the complex number one."
+          },
+          {
+            "id": "N5",
+            "meaning": "The specific bare circuit matrix differs from P(e_star)."
+          },
+          {
+            "id": "N6",
+            "meaning": "Conjunction of all five obligations; none is an extra premise assumed in order to state another."
+          }
+        ],
+        "phase_arithmetic": {
+          "H": "stored pi/2",
+          "T": "stored pi/8",
+          "Tdagger": "stored -pi/8",
+          "CCX": "2*(pi/2)+(4-3)*(pi/8)=9*pi/8",
+          "five_CCX": "45*pi/8",
+          "phase_modulo_2pi": "45*pi/8 is congruent to -3*pi/8 modulo 2*pi, but the stored-angle equality remains unreduced"
+        },
+        "boundary_cases": [
+          "q=0 is included; its zero-wire basis still has one basis string and its identity circuit matrix is 1 by 1. No positive-wire premise may be inserted.",
+          "An empty source program compiles to the identity primitive program and satisfies the universal statements.",
+          "The seven-wire program is interpreted on the whole basis space; no work-bit initialization is asserted by these matrix equalities."
+        ],
+        "exact_asserted_scope": "An exact complex matrix compiler contract together with precise global-phase bookkeeping and a concrete bare-circuit inequality. The decoder has not independently run the compiler, checked proof terms, or executed Lean."
+      },
+      "ambiguities": [
+        "The named e_star is not given an explicit action or equation identifying it with E of the displayed source program. The last conjunct is interpretable as an inequality against its named permutation matrix, but its complete basis action cannot be reconstructed from this packet alone.",
+        "Entrywise RY/RZ matrices and every compileGate implementation equation are not included. This does not prevent interpreting the stated compiler identity and the supplied angle arithmetic; it limits an independent mechanism/proof verification, which was not requested of this source-blind decoder."
+      ],
+      "dependency_audit": [
+        "The displayed depends_on lists are conceptual and nonexhaustive, not an exhaustive proof-term graph. No theorem is labeled false merely because an imported proof bridge is absent.",
+        "N1 -> N3 uses the full-program definition and the nonzero complex exponential scalar.",
+        "N2 -> N4 uses nontriviality of exp(i*45*pi/8); an unreduced real angle being nonzero alone would not be sufficient, since integer multiples of 2*pi have phase one.",
+        "N4 alone does not logically entail N5 for arbitrary unrelated circuit and permutation symbols. One sufficient additional bridge is full concrete equality exp(i theta_star)C_star=P(e_star), plus a nonzero permutation entry. Another route uses N1 and the supplied compiler definition to get C_star=lambda*P(E(source)), lambda!=0,1, and observes that on a nonempty basis such a matrix cannot equal any 0/1 permutation matrix, including P(e_star). The latter route does not require e_star=E(source).",
+        "Exact bare matrix equality cannot be inferred by simply dropping the stored global phase from N1. N3 and N5 expressly distinguish these two evaluations."
+      ],
+      "limitations": [
+        "Universal quantification concerns this reversible gate language and its given compiler; it is not an arbitrary-unitary synthesis theorem.",
+        "No circuit-depth, T-count, approximation error, device realization, finite-angle approximation, clean-work contract, or query-complexity conclusion occurs in the root.",
+        "A scalar phase that is unobservable under some standalone phase-insensitive uses is still material to exact matrix equality; the target supplies no theorem about controlled use or other contexts.",
+        "Neither correctness of the named basis-equivalence definition nor source-question equivalence, independent current Lean acceptance, or human approval is claimed."
+      ]
+    },
+    {
+      "anonymous_id": "O4C",
+      "root_id": "N5",
+      "reconstructed_statement": "Fix the one record p=warmRobinParameters with n=3,kappa=7,functionPieces=1,polynomialDegreeCost=1. From the supplied natural-valued formulas, clog2(3)=2, clog2(1)=0, clog2(7)=3, so its six register-group widths (mf,indicator,sparseIndex,odPureAncilla,system,ancilla) are (5,1,3,0,3,1), the total width is 13, and the basis dimension is D=2^13=8192. Its indicator-bit position is ancilla+system+odPureAncilla+sparseIndex=1+3+0+3=7. For every natural number j, define s(j)=(j shifted right by 1) AND 7, define b(j)=1 if 2<=s(j)<=5 and 0 otherwise, and define f(j)=j XOR (b(j) shifted left by 7). Thus f toggles bit 7 exactly when the three system bits 1,2,3 encode one of 2,3,4,5, and preserves every other bit. The root asserts the conjunction of four conclusions: (1) f(f(j))=j for EVERY natural j, with no j<D restriction; (2) the finite self-map F of {0,...,8191}, obtained by F(j)=f(j) with the supplied image-bound proof, is injective and surjective; (3) there exists an equivalence e of {0,1,2} for which e(e(x))=x fails for at least one x; and (4) the two separately named stored matrices U_indic_dagger(p).matrix and U_indic(p).matrix are equal. Both stored arrays are literally the same 8192-by-8192 function M(i,j), equal to the symbolic constructor Coeff.rat(1) when i=f(j), and Coeff.rat(0) otherwise. Their equality is therefore an equality of the supplied symbolic arrays by their definitions. Coeff is an inductively generated expression syntax, and no complex evaluation, matrix-multiplication law, actual conjugate transpose, or physical realization theorem is asserted by this equality. A witness illustrating the independent third conjunct is the cycle e(x)=x+1 modulo 3 with inverse x+2 modulo 3: e(e(0))=2, so this equivalence is not an involution.",
+      "semantic_slots": {
+        "parameter_scope": "The closed target uses one fixed record, not every Robin parameter record and not arbitrary n.",
+        "parameters": {
+          "n": 3,
+          "kappa": 7,
+          "functionPieces": 1,
+          "polynomialDegreeCost": 1
+        },
+        "derived_sizes": {
+          "mfQubits": 5,
+          "indicatorQubit": 1,
+          "sparseIndexQubits": 3,
+          "odPureAncillaQubits": 0,
+          "systemQubits": 3,
+          "ancillaQubit": 1,
+          "totalQubits": 13,
+          "basis_dimension": 8192,
+          "indicator_bit_position": 7
+        },
+        "natural_operations": "All bit shifts, masks, XOR, comparisons, and register-width subtractions are on Nat. In particular odPureAncilla=3-3=0 and gridSize(3)-3=8-3=5; no signed subtraction is used.",
+        "domain_and_quantifiers": [
+          "N1: every j in Nat, including arbitrarily large j",
+          "N2: every input in Fin 8192 for injectivity and surjectivity of the finite map",
+          "N3: existential equivalence on Fin 3 together with negated involutivity",
+          "N4: equality of two closed finite matrix-valued expressions"
+        ],
+        "hypotheses": "No external root premises. The bound API in the Fin constructor is an already supplied proof ingredient, not a new assumption on inputs.",
+        "bit_order": "System value reads precisely bits 1,2,3 with the least significant of those bits contributing 1. The toggled bit is 7, outside that system mask; all other bits are preserved. No additional register-allocation equations need be assumed.",
+        "oracle_action": "If system value is 2,3,4,or 5, XOR with 128; if it is 0,1,6,or 7, leave j unchanged.",
+        "coefficient_and_matrix_meaning": "Coeff has rat,symbol,add,mul,neg constructors. A matrix is a finite function into this syntax. The stored oracle and dagger-slot matrices share exactly the same defining array, whose column j has rat(1) in row f(j) and rat(0) elsewhere.",
+        "all_root_conjuncts": [
+          "Global Nat involutivity of this fixed f",
+          "Finite bijectivity of its bounded restriction",
+          "Existence of a noninvolutive Fin 3 equivalence",
+          "Equality of the two stored symbolic array fields"
+        ],
+        "obligation_nodes": [
+          {
+            "id": "N1",
+            "meaning": "f composed with itself is the identity on Nat."
+          },
+          {
+            "id": "N2",
+            "meaning": "The proof-bounded Fin 8192 self-map is both injective and surjective."
+          },
+          {
+            "id": "N3",
+            "meaning": "Some bijection on a three-element set is not its own inverse."
+          },
+          {
+            "id": "N4",
+            "meaning": "The named stored dagger and oracle matrix fields are equal as Coeff-valued arrays."
+          },
+          {
+            "id": "N5",
+            "meaning": "AND of N1,N2,N3,N4; none is an input premise."
+          }
+        ],
+        "boundaries": [
+          "The pure-ancilla group has width zero and is admitted; no positivity hypothesis for that group may be added.",
+          "The finite register is nonempty and has 8192 basis labels.",
+          "The Nat function is not reduced modulo 8192; high bits remain unchanged, and the involution statement still includes those inputs.",
+          "The indicator test includes system endpoints 2 and 5 and excludes 1 and 6.",
+          "No zero-initialized indicator bit is assumed: XOR works for both old indicator-bit values."
+        ],
+        "phase_normalization_resources": "No quantum-state normalization, amplitude phase, circuit construction, gate cost, query count, or hardware theorem is present. The symbolic constructor rat(1) is not itself an asserted complex interpretation.",
+        "exact_asserted_scope": "The exact closed combinatorial statements and symbolic array equality above, decoded after the final ambient clarification; no Lean execution or source/proof equivalence review was performed."
+      },
+      "ambiguities": [
+        "The final ambient expansion resolves the previously missing grid size, width, indicator position, coefficient syntax, and stored array equations.",
+        "No evaluation map from Coeff to complex numbers and no actual adjoint operation is supplied. Consequently dagger is a stored label in this packet; interpreting it as a conjugate transpose would require an additional semantic bridge.",
+        "The full register-partition allocation is not needed for the decoded function: only system bits 1..3, indicator bit 7, and the total width are used explicitly. Other group positions are not independently invented here."
+      ],
+      "dependency_audit": [
+        "N1 -> N2 is justified at the level of meaning by restriction of an involution to an invariant finite domain; the bound API supplies domain preservation. The bijection has itself as inverse.",
+        "Involutivity requires that toggling bit 7 leave the system predicate unchanged. The final position/mask equations establish precisely that separation. A generic XOR of a state-dependent bit is not automatically involutive.",
+        "Bijectivity alone does not imply involutivity, even on a finite set. N3 gives a concrete counterexample; treating N2 as a replacement proof of N1 would be an invalid inferred dependency.",
+        "N4 has no dependency on N1 in the supplied signatures, and its literal definitions already make the arrays equal. It is not a derived actual-adjoint or unitarity theorem.",
+        "The depends_on arrays are nonexhaustive conceptual edges; no absence of a proof lemma is treated as a false statement."
+      ],
+      "limitations": [
+        "The fixed-parameter root does not quantify over other n,kappa,piece counts, or polynomial costs, even if the underlying definitions do.",
+        "A bijective basis-label map and a symbolic permutation array do not by themselves constitute a verified gate-level or physical oracle implementation.",
+        "The stored dagger-array equality does not alone assert U*=U, U*U=I, reversibility of an actual compiled circuit, or any Hilbert-space channel property. Those require an interpretation and the appropriate algebraic bridge.",
+        "No complexity, approximation error, probability, normalized state, or source-question equivalence follows from these root conjuncts.",
+        "No human approval, proof-body audit, or current Lean-check result is claimed."
+      ]
+    }
+  ],
+  "exposure": {
+    "mathematical_inputs_read": [
+      "benchmarks/quantumcomputingbench/reports/lean-course-v4/analytic-decoder-input.json",
+      "benchmarks/quantumcomputingbench/reports/lean-course-v4/oracle-decoder-input.json"
+    ],
+    "workflow_files_read": [
+      "AGENTS.md",
+      "HARNESS.md"
+    ],
+    "workflow_note": "The workflow files incidentally contain comparator examples; those were not used to identify these roots.",
+    "revision_history": "Parent first notified a fully qualified qubitDim spelling correction before my first oracle-packet read. I read that initial current packet, reported missing O4C ambient semantics, and preserved an explicitly nonqualifying preliminary draft. After parent announced the frozen ambient expansion, I reread the entire current oracle input. No targets changed in that ambient expansion. This final output binds only the final parsed packet.",
+    "final_input_raw_sha256": "0f294979c77773c9a3748878d9ed68a181532d7e584ac68c09fef038712d3834",
+    "nonqualifying_draft": "benchmarks/quantumcomputingbench/reports/lean-course-v4/_out/oracle-decoder-pre-ambient-draft.json",
+    "not_read_or_executed": [
+      "reference questions",
+      "source QA",
+      "source/proof/library Lean files",
+      "author packets",
+      "old reviews",
+      "proof bodies",
+      "Lean execution",
+      "external browsing"
+    ],
+    "coordination_disclosure": "Parent supplied packet revision/status notices and workflow instructions distinguishing semantics from independent proof verification. No intended reference answer, source QA, or proof body was supplied. All equations used above came from the two allowed literal input packets.",
+    "digest_method": "SHA256 of UTF-8 json.dumps(parsed_input, ensure_ascii=False, sort_keys=True, separators=(comma,colon)); no qcb_core source read was necessary."
+  },
+  "disclosure": {
+    "reconstruction_only": true,
+    "independent_lean_check": false,
+    "proof_body_exposure": false,
+    "reference_question_exposure": false,
+    "human_approval_claimed": false,
+    "source_equivalence_claimed": false,
+    "dependency_graph_scope": "The depends_on arrays are treated as nonexhaustive conceptual dependencies; missing proof bodies are not evidence of false mathematics. Semantic opacity is distinguished from absent imported lemmas."
+  }
+}

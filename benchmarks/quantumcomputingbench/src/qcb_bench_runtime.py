@@ -77,7 +77,7 @@ def build_registry():
     from qcb_proof_session import ProofSession
 
     sys.path.insert(0, str(B / "scripts"))
-    from lean_course_v3 import load_course
+    from lean_course_v4 import load_course
 
     catalog, items, _ = load_catalog()
     course, views, _, _, course_evidence = load_course()
@@ -103,7 +103,7 @@ def build_registry():
                             "supporting_nodes": [], "evidence_relation": "supplied_obligation_graph_not_proof_term_depth"},
                            {"recorded_reference_lineage": view["reference_lineage"], "rubric": [],
                             "proof_export_available": False,
-                            "source": "Use the fixed authored course fixtures through scripts/lean_course_v3.py."},
+                            "source": "Use the fixed authored course fixtures through scripts/lean_course_v4.py."},
                            contract_hashes={entry["core_id"]: view["task"]["contract_hash"]}, difficulty=entry["difficulty"],
                            admission="experimental_companion_no_new_core", formal_execution="ENV_BLOCKED"))
     for probe in packet["probes"]:

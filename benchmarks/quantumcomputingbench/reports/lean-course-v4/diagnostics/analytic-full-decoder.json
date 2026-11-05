@@ -1,0 +1,192 @@
+{
+  "schema_version": "qcb.curriculum_blind_decode.v1",
+  "source_blind": true,
+  "decoder_identity": "/root/course_fourth_blind_decode",
+  "packet_digest": "8a20c0a8dda92c3212ade8f7e23f12ba9dfc02a07e1feaa8dd5caf1ce000f8da",
+  "views": [
+    {
+      "anonymous_id": "A1",
+      "root_id": "sp110_root",
+      "reconstructed_statement": "For every nonnegative integer degree d, every infinite real coefficient sequence c, and every real u,v,lo,hi, assume 0<=u<v<=1 and lo<=c(r)<=hi for each integer r with 0<=r<=d. Then for every integer i with 0<=i<=d, the coefficient R(i) obtained by the following two subdivisions lies in the same closed interval [lo,hi]. Write D_t(c)(j)=(1-t)c(j)+t c(j+1); casteljau(m,c,t,j) means D_t iterated m times and evaluated at j. Set L_t(c)(i)=D_t^i(c)(0), set Q(i)=L_(1-u)(r -> c(d-r))(d-i), using natural subtraction max(d-i,0), and set R(i)=L_s(Q)(i), where s=(v-u)/(1-u). These are exact real equalities, with no rounding or tolerance. Equivalently Q(i)=sum over j=0,...,max(d-i,0) of c(d-j) B(max(d-i,0),j,1-u); for i<=d all accessed original indices are between i and d. For i>d, Q(i)=c(d), explaining why the supplied right-restriction node legitimately quantifies over all natural i. The root itself quantifies only over i<=d. The assumptions imply u<1, so the denominator 1-u is strictly positive and s belongs to (0,1]. The asserted range preservation is a closed-interval coefficient bound, not a statement about normalized quantum amplitudes.",
+      "semantic_slots": {
+        "domains_and_quantifiers": {
+          "d": "all natural numbers, including zero",
+          "c": "all functions Nat -> Real; no finite-support requirement",
+          "u_v_lo_hi": "all real numbers",
+          "output_index": "all natural i<=d"
+        },
+        "hypotheses": [
+          "0<=u",
+          "u<v",
+          "v<=1",
+          "for every natural r<=d, lo<=c(r) and c(r)<=hi"
+        ],
+        "closed_interval_meaning": "membership in Set.Icc lo hi means the conjunction lo<=value and value<=hi",
+        "basis": "B(d,r,t)=binomial(d,r)t^r(1-t)^(d-r), with natural subtraction and binomial(d,r)=0 when r>d; only r<=d occurs in the finite sums used here",
+        "normalization": "Bernstein weights sum to one for every real t; they are nonnegative on [0,1]. This is affine weight normalization only.",
+        "boundary_cases": [
+          "d=0: the sole admitted coefficient and the output R(0) both equal c(0).",
+          "u=0 and v=1 are admitted jointly; u=v and u=1 are excluded.",
+          "v=1 gives s=1 and remains admitted.",
+          "No lo<=hi premise is written separately. The coefficient premise implies it through c(0); if lo>hi the implication has no satisfying coefficient premise.",
+          "There is no empty degree-d coefficient range: it always contains index zero. Coefficients beyond d have no effect on the claimed output indices."
+        ],
+        "obligation_nodes": [
+          {
+            "id": "sp110_partition",
+            "meaning": "For every d>=0 and every real t, sum_(r=0)^d B(d,r,t)=1; no restriction t in [0,1] is needed for this identity."
+          },
+          {
+            "id": "sp110_convex",
+            "meaning": "For every d,c,t,lo,hi, if 0<=t<=1 and all first d+1 coefficients lie in [lo,hi], their Bernstein-weighted sum lies in [lo,hi]. Both premises are required."
+          },
+          {
+            "id": "sp110_right",
+            "meaning": "For every d,c,u,lo,hi, if 0<=u<=1 and all first d+1 coefficients lie in [lo,hi], then Q(i) lies there for every natural i, including i>d via truncated subtraction."
+          },
+          {
+            "id": "sp110_parameter",
+            "meaning": "For all real u,v satisfying all three inequalities 0<=u, u<v, v<=1, the exact-real quotient (v-u)/(1-u) belongs to [0,1]."
+          },
+          {
+            "id": "sp110_root",
+            "meaning": "Under every original premise, all admitted restricted coefficients belong to the same interval."
+          }
+        ],
+        "registers_phase_oracles_resources": "No register, basis-state phase, oracle, state preparation, success probability, runtime, gate-count, or bit-complexity object occurs in the target.",
+        "exact_asserted_scope": "A conditional exact-real range-preservation proposition over every natural degree and all admissible data; no checked Lean execution is reported by this decoder."
+      },
+      "ambiguities": [
+        "The literal casteljauStep declaration is not included, but its row-update equation and the casteljau_eq_sum interface are supplied, so the needed mathematical update is identifiable.",
+        "The packet supplies signatures and definitions, not proof terms or an independent compilation result."
+      ],
+      "dependency_audit": [
+        "sp110_partition alone is insufficient for sp110_convex: a sum of weights equal to one need not be nonnegative. The separately supplied basis_nonneg interface and the interval premise are essential. For example, d=1,c(0)=0,c(1)=1,t=2 has sum of weights one but weighted value 2.",
+        "The stated graph edges are not exhaustive standalone implications. Connecting convex sums to rightRestriction/root also uses the casteljau_eq_sum interface, definitions, and bounds on the natural indices.",
+        "sp110_right does not need an added i<=d premise: natural subtraction saturates, giving c(d) beyond d. Treating d-i as signed subtraction would invalidate that reading."
+      ],
+      "limitations": [
+        "The root does not assert a polynomial identity for the reparameterized function, even though its coefficient construction is the supplied de Casteljau construction.",
+        "It supplies no approximation error, positive lower bound, finite-bit algorithm, resource estimate, normalized state, circuit, or optimality claim.",
+        "No claim of equivalence to an external source question, human approval, proof-body audit, or current Lean certification is made."
+      ]
+    },
+    {
+      "anonymous_id": "A2",
+      "root_id": "sp116_root",
+      "reconstructed_statement": "For every pair of types alpha,beta (with arbitrary row type alpha and a finite, possibly empty column type beta), every natural k,M, every real a,h with h>0, and every pair of functions u:alpha->Nat and v:beta->Nat satisfying v(y)<M for every y, form the real matrix F(x,y)=f_k(a+h n(x,y)), where n(x,y)=M u(x)+v(y) is computed in Nat and then cast to Real. The datum is f_k(p)=exp(p) for p<-1, the specified Hermite bridge polynomial P_k(p) for -1<=p<=0, and exp(-p) for p>0. The packet characterizes P_k as degree at most 2k+1 with bridge value P_k(0)=1 and matching endpoint jets. The root asserts the conjunction of three conclusions: (1) there exist real matrices A:alpha x I_k and B:I_k x beta such that, for every x,y, F(x,y)=sum_(z in I_k) A(x,z)B(z,y); (2) the finite intermediate type I_k=(((Fin 2 x Unit) disjoint-union ((Fin 2 disjoint-union Fin 2) x Fin(2k+2))) disjoint-union (Fin 2 x Unit)) has exactly 8k+12 elements; and (3) the real algebraic rank of F is at most 8k+12. Both factor witnesses are part of the existential conclusion; no witness is an extra input assumption. No finite-row, injectivity, monotonicity, or distinct-sample hypothesis is present.",
+      "semantic_slots": {
+        "domains_and_quantifiers": {
+          "alpha": "arbitrary Type u, not required finite or inhabited",
+          "beta": "arbitrary Type v with a Fintype instance, not required inhabited",
+          "k_M": "arbitrary natural numbers",
+          "a_h": "arbitrary real numbers, h strictly positive",
+          "u_v": "arbitrary natural-valued functions on rows and columns"
+        },
+        "hypotheses": [
+          "h>0",
+          "for every column y, v(y)<M"
+        ],
+        "datum_branches": [
+          "p<-1: exp(p)",
+          "-1<=p<=0: P_k(p)",
+          "p>0: exp(-p)"
+        ],
+        "factorization_and_rank": "F=A*B is finite-width exact real matrix multiplication, i.e. a finite sum through I_k; rank is the supplied real algebraic matrix rank, bounded without requiring a finite row set.",
+        "bond_cardinality": "2 + (2+2)*(2*k+2) + 2 = 8*k+12",
+        "all_root_conjuncts": [
+          "Existence of both factor matrices through the specified finite type",
+          "Exact cardinality of that intermediate type",
+          "Rank upper bound for the same sampled matrix"
+        ],
+        "boundary_cases": [
+          "k=0 is admitted and yields width 12; no positive-k premise is available.",
+          "M=0 is not globally excluded. If beta is inhabited the condition v(y)<M forces M>0. If beta is empty the condition is vacuous even at M=0, the matrix has no columns, its rank is zero, and the factorization is vacuous on entries.",
+          "An empty alpha is also admitted and gives an empty row matrix.",
+          "h=0 and negative h are excluded; a is unrestricted.",
+          "At p=-1 the polynomial branch is selected; at p=0 it is also selected. The supplied value P_k(0)=1 makes replacement by the right exponential at that one boundary legitimate.",
+          "Natural ceiling used by a possible threshold construction saturates negative inputs to zero; it is not an integer ceiling taking negative values."
+        ],
+        "obligation_nodes": [
+          {
+            "id": "sp116_separator",
+            "meaning": "For all natural M,x,y,T with y<M, M*x+y<T iff x<T div M or (x=T div M and y<T mod M). At M=0 the premise cannot hold for any natural y."
+          },
+          {
+            "id": "sp116_threshold",
+            "meaning": "For arbitrary row/column types and functions with v(y)<M, both the threshold indicator matrix 1_[M*u(x)+v(y)<T] and its pointwise complement factor through Fin 2. The conclusion is an AND of two factorization existences."
+          },
+          {
+            "id": "sp116_factorization",
+            "meaning": "Under h>0 AND the column-digit bound, the particular three-branch exponential-polynomial-exponential sample matrix has an I_k factorization."
+          },
+          {
+            "id": "sp116_card",
+            "meaning": "For every k, the exact cardinality of I_k is 8*k+12."
+          },
+          {
+            "id": "sp116_root",
+            "meaning": "The same assumptions entail the factorization AND exact bond cardinality AND rank upper bound."
+          }
+        ],
+        "provided_auxiliary_interfaces": [
+          "A degree-at-most-d polynomial evaluated at row-real plus column-real admits a factorization through Fin(d+1).",
+          "The exponential of a row-real plus column-real admits a factorization through Unit."
+        ],
+        "normalization_phase_registers_resources": "No vector or state normalization, amplitude phase, physical register ordering, oracle/query implementation, circuit, sampling probability, or computational cost is defined by this target.",
+        "exact_asserted_scope": "An exact algebraic width/rank existence statement for this family of sampled real functions, not a circuit or runtime certificate; this decoder has not run Lean."
+      },
+      "ambiguities": [
+        "sourceInterpolant is characterized rather than literally defined. Its coefficients and the derivative orders included in the endpoint jets are not supplied; I do not infer a unique explicit polynomial formula or a particular smoothness order.",
+        "Matrix.rank is described as real algebraic rank rather than unfolded into a specific library implementation; the target requires finite columns but no finite rows.",
+        "The threshold construction is not supplied as a proof body; the ambient Nat.ceil note identifies its boundary convention but not a concrete factor algorithm."
+      ],
+      "dependency_audit": [
+        "The separator alone can justify threshold indicator decompositions with the supplied definitions. It does not by itself give the Hermite matrix factorization.",
+        "The edge sp116_threshold -> sp116_factorization omits necessary mathematical ingredients if read as an exhaustive implication: polynomial and exponential addition factorizations, the bridge degree/value data, threshold conversion using h>0, and finite-product/direct-sum factorization closure are also needed.",
+        "The root rank conclusion needs the general principle that an F=A*B factorization through a finite I bounds rank by |I|, in addition to the displayed factorization and cardinality nodes. Merely counting a type unrelated to a factorization cannot bound matrix rank.",
+        "No actual Lean import/ownership or proof-dependency claim can be recovered from these conceptual depends_on arrays alone."
+      ],
+      "limitations": [
+        "The value 8k+12 is an upper bound, not equality with rank or a minimal/optimal bond dimension. Repeated rows/columns and empty dimensions may have much smaller rank.",
+        "Existence of algebraic factors gives neither a uniform executable producer nor polynomial runtime, stable finite-bit computation, input-query cost, a tensor-network compiler, or a quantum gate/query bound.",
+        "There is no asserted approximation error for replacing another target by f_k, and no conclusion about a normalized quantum state or block encoding.",
+        "The root does not establish all derivative endpoint conditions from an explicit polynomial, because that polynomial is a supplied characterized ambient object.",
+        "No source-question equivalence, human approval, independent proof-body audit, or current Lean acceptance is claimed."
+      ]
+    }
+  ],
+  "exposure": {
+    "mathematical_inputs_read": [
+      "benchmarks/quantumcomputingbench/reports/lean-course-v4/analytic-decoder-input.json",
+      "benchmarks/quantumcomputingbench/reports/lean-course-v4/oracle-decoder-input.json"
+    ],
+    "workflow_files_read": [
+      "AGENTS.md",
+      "HARNESS.md"
+    ],
+    "workflow_note": "AGENTS.md/HARNESS.md were read for workflow; they incidentally contain comparator examples, which were not used as evidence for any decoded root.",
+    "not_read_or_executed": [
+      "reference questions",
+      "source QA",
+      "source/proof/library Lean files",
+      "author packets",
+      "old reviews",
+      "proof bodies",
+      "Lean execution",
+      "external browsing"
+    ],
+    "coordination_disclosure": "Parent notified the oracle qubitDim spelling correction before my first oracle-packet read. I later reported missing O4C ambient definitions and reread the final expanded oracle packet after parent notice. Parent also clarified that dependency arrays are nonexhaustive conceptual edges. No intended reference answer or proof body was supplied. Analytic input remained unchanged.",
+    "digest_method": "SHA256 of UTF-8 json.dumps(parsed_input, ensure_ascii=False, sort_keys=True, separators=(comma,colon)); no qcb_core source read was necessary."
+  },
+  "disclosure": {
+    "reconstruction_only": true,
+    "independent_lean_check": false,
+    "proof_body_exposure": false,
+    "reference_question_exposure": false,
+    "human_approval_claimed": false,
+    "source_equivalence_claimed": false,
+    "scope": "Literal types plus supplied ambient definitions/interfaces only; graph arrays are audited as conceptual dependencies, not verified proof graphs.",
+    "dependency_graph_scope": "The depends_on arrays are nonexhaustive conceptual edges. Missing proof ingredients are not evidence a node is false; dependency notes identify ingredients needed only if an edge is read as a self-contained implication."
+  }
+}

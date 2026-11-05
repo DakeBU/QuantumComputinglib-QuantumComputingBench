@@ -28,7 +28,8 @@ distinct comparison and fixed references. They remain experimental proposals.
 coverage, complete canonical explanation rubrics and evaluator-owned marks;
 they never turn a valid proof into an automatic NL or model score.
 
-The [registered evaluator](EVALUATOR.md) unifies four experimental task views,
+The [registered evaluator](EVALUATOR.md) preserves its four-view pilot and now
+offers the [qualified course suite](COURSE_V4.md) through `--suite course-v4`. It
 checks their recorded reference lineage and exports answer-free inputs. Its
 bounded provider-neutral loop has zero-call plans, synthetic protocol smokes
 and an explicitly authorized NL-only adapter boundary. Real model-generated
@@ -40,12 +41,16 @@ The subsequent [operator-profile and CI checkpoint](../../reports/lean-agentic-n
 records offline configuration validation and updated software checks; earlier
 execution/review records retain their original source identities and scope.
 
-The [staged Lean course](COURSE.md) now assembles 18 existing cores across
+The [staged Lean course](COURSE_V4.md) now assembles 21 existing cores across
 provisional construction bands D1--D4, with D0 knowledge facets attached to the
-same questions. It adds reviewed normalization/domain, block/tensor/LCU, anchored-mass
+same questions. It adds Bernstein restriction, finite XOR and phase-aware
+compiler companions to the normalization/domain, block/tensor/LCU, anchored-mass
 counterexample, cutoff-ledger and Taylor/rank companions, while preserving all canonical splits and
 formal-admission boundaries. Its audit checks actual recorded authored proofs;
 its topology counts describe supplied obligations rather than proof-term depth.
+Separate commands export answer-free evaluation inputs and train-only complete
+Lean references. The [four-stage website route](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/lean/)
+keeps mathematical reading, formal targets and evidence in progressively opened pages.
 
 Prioritize exact formal views of admitted source-supported NL targets. Record
 the literal imports, assumptions, target, readable correspondence, source hashes,

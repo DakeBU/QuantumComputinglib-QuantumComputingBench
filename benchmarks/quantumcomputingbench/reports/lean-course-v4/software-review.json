@@ -1,0 +1,174 @@
+{
+  "commands": [
+    {
+      "command": "python -m unittest discover -s benchmarks/quantumcomputingbench/tests -p test_course_registry.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "tests_run": 6
+    },
+    {
+      "command": "python -m unittest discover -s benchmarks/quantumcomputingbench/tests -p test_course_training.py",
+      "exit_code": 0,
+      "result": "PASS after remediation",
+      "tests_run": 7
+    },
+    {
+      "command": "python -m unittest discover -s benchmarks/quantumcomputingbench/tests -p test_operator_profile.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "tests_run": 7
+    },
+    {
+      "command": "git diff --check -- benchmarks/quantumcomputingbench/src/qcb_course_training.py benchmarks/quantumcomputingbench/tests/test_course_training.py",
+      "exit_code": 0,
+      "result": "No whitespace errors reported"
+    },
+    {
+      "command": "git diff --check -- benchmarks/quantumcomputingbench/scripts/evaluate_agentic.py",
+      "exit_code": 0,
+      "result": "No whitespace errors reported"
+    },
+    {
+      "actual_checks": {
+        "course_plan_pre_provider_gate": true,
+        "course_run_pre_provider_gate": true,
+        "offline_profile-template_zero_registries": true,
+        "offline_schema_zero_registries": true,
+        "offline_validate-config_zero_registries": true
+      },
+      "command": "python -",
+      "exit_code": 0,
+      "kind": "Synthetic CLI audit with both registry loaders and adapter imports replaced by rejecting sentinels",
+      "shell_transport": "PowerShell single-quoted here-string supplied as stdin",
+      "stdin_python": "import io\nimport json\nimport sys\nimport tempfile\nfrom contextlib import redirect_stdout, redirect_stderr\nfrom pathlib import Path\nfrom unittest.mock import patch\nsys.path[:0] = ['benchmarks/quantumcomputingbench/src', 'benchmarks/quantumcomputingbench/tests', 'benchmarks/quantumcomputingbench/scripts']\nfrom test_course_registry import CourseRegistryTests, cli\nfrom test_operator_profile import completed_profile\nfrom qcb_core import write_json\n\ndef invoke(arguments):\n    out, err = io.StringIO(), io.StringIO()\n    with patch.object(sys, 'argv', ['evaluate_agentic.py', *map(str, arguments)]), redirect_stdout(out), redirect_stderr(err):\n        code = cli.main()\n    return code, out.getvalue(), err.getvalue()\n\nchecks = {}\nwith tempfile.TemporaryDirectory(prefix='qcb-software-review-') as temp:\n    root = Path(temp)\n    config = root / 'operator.json'\n    write_json(config, completed_profile())\n    with patch.object(cli, 'load_registry', side_effect=AssertionError('offline pilot registry read')), patch.object(cli, 'load_course_registry', side_effect=AssertionError('offline course registry read')), patch.object(cli, 'run_episode', side_effect=AssertionError('offline episode attempt')):\n        for command in ('schema', 'profile-template', 'validate-config'):\n            flags = ['--output', root / 'template.json'] if command == 'profile-template' else ['--config', config] if command == 'validate-config' else []\n            code, _, _ = invoke([command, *flags])\n            checks['offline_' + command + '_zero_registries'] = code == 0\n    views, qualification = CourseRegistryTests().registered()\n    for command, flags, expected_code, expected_state in [('plan', [], 0, 'dry_run'), ('run', ['--authorize-model'], 2, 'ENV_BLOCKED')]:\n        destination = root / (command + '-never-created')\n        with patch.object(cli, 'load_course_registry', return_value=(views, qualification)), patch.object(cli, 'load_registry', side_effect=AssertionError('course selection read pilot')), patch.object(cli.importlib, 'import_module', side_effect=AssertionError('provider imported before formal gate')):\n            code, out, _ = invoke([command, '--suite', 'course-v4', '--view', 'software-course-view', '--config', config, '--episode-dir', destination, '--adapter', 'qcb_nonexistent_adapter:create', *flags])\n        result = json.loads(out)\n        checks['course_' + command + '_pre_provider_gate'] = code == expected_code and result['status'] == expected_state and result['provider_calls'] == 0 and not result['provider_constructed'] and not destination.exists()\nprint(json.dumps({'synthetic_fixtures_only': True, 'checks': checks, 'passed': all(checks.values()), 'model_calls': 0, 'lean_calls': 0, 'container_calls': 0}, indent=2))\nif not all(checks.values()):\n    raise SystemExit(1)\n",
+      "stdin_sha256_lf": "eb340be68698a03c7e68a51ed8c9223ade4ed32fc7e424f03d2549311dbd536a"
+    },
+    {
+      "actual_checks": {
+        "fresh_output_enforced_before_registry": true,
+        "no_training_or_prm_claim": true,
+        "only_train_reference_exported": true,
+        "training_cli_succeeds_with_qualified_software_fixture": true
+      },
+      "command": "python -",
+      "exit_code": 0,
+      "kind": "Synthetic lean_training.py CLI audit using test_course_training.context; no real corpus",
+      "shell_transport": "PowerShell single-quoted here-string supplied as stdin",
+      "stdin_python": "import importlib.util\nimport io\nimport json\nimport sys\nimport tempfile\nfrom contextlib import redirect_stdout, redirect_stderr\nfrom pathlib import Path\nfrom unittest.mock import patch\nsys.path[:0] = ['benchmarks/quantumcomputingbench/src', 'benchmarks/quantumcomputingbench/tests']\nfrom test_course_training import context\nspec = importlib.util.spec_from_file_location('software_review_training_cli', 'benchmarks/quantumcomputingbench/scripts/lean_training.py')\ncli = importlib.util.module_from_spec(spec)\nspec.loader.exec_module(cli)\nviews, qualification, records = context()\nchecks = {}\nwith tempfile.TemporaryDirectory(prefix='qcb-software-training-cli-') as temp:\n    output = Path(temp) / 'train.json'\n    with patch.object(cli, 'load_course_registry', return_value=(views, qualification)), patch.object(cli, 'reference_records', return_value=records), patch.object(sys, 'argv', ['lean_training.py', '--output', str(output)]), redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()):\n        checks['training_cli_succeeds_with_qualified_software_fixture'] = cli.main() == 0\n    result = json.loads(output.read_text())\n    checks['only_train_reference_exported'] = result['distinct_shared_cores'] == 1 and 'DEV_PROOF_SENTINEL' not in str(result) and 'TEST_PUBLIC_PROOF_SENTINEL' not in str(result)\n    checks['no_training_or_prm_claim'] = result['training_launched'] is False and all(e['process_reward_labels'] is None and e['model_performance_measured'] is False for e in result['examples'])\n    before = output.read_bytes()\n    with patch.object(cli, 'load_course_registry', side_effect=AssertionError('reused output loaded registry')), patch.object(sys, 'argv', ['lean_training.py', '--output', str(output)]), redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()):\n        checks['fresh_output_enforced_before_registry'] = cli.main() == 1 and output.read_bytes() == before\nprint(json.dumps({'synthetic_fixtures_only': True, 'checks': checks, 'passed': all(checks.values()), 'model_calls': 0, 'lean_calls': 0, 'container_calls': 0}, indent=2))\nif not all(checks.values()):\n    raise SystemExit(1)\n",
+      "stdin_sha256_lf": "bc8ae0e1a1ce6cdbcb3b5015b4ca79492fdf9561c3c4c16226a6fbf353ad7a97"
+    }
+  ],
+  "execution_accounting": {
+    "container_calls": 0,
+    "lean_calls": 0,
+    "model_calls": 0,
+    "system_or_admin_changes": 0,
+    "training_launches": 0
+  },
+  "findings": [
+    {
+      "id": "COURSE-SW-001",
+      "observed_before_fix": "The reader selected independent_root_reference directly from raw legacy fixtures while qualified loaders normalize authored helper names. Legacy records also had a null task_digest, bypassing full task matching during export.",
+      "regression_evidence": [
+        "Every one of the six fixed source versions has a synthetic reader case.",
+        "Raw authored helper sentinels are absent from normalized output.",
+        "Changed legacy source digest, changed bound core coverage and failed bound loader are rejected.",
+        "Null or stale task digest, changed root target or imports and relabelled task are rejected."
+      ],
+      "remaining_requirement": "A separate parent review of the remediation and real qualified-corpus integration remain pending.",
+      "remediation": "Both legacy versions now use their bound loaders, require exact raw-packet fixture digest and core coverage, select normalized constructed/control bodies, preserve raw-case provenance digests and bind the reconstructed task digest. Every exported training source now requires a non-null exact task digest.",
+      "reproduction_scope": "A mocked legacy case with an authored helper sentinel was accepted and exported unchanged; no real mathematical proof was inspected and actual-corpus incidence was not measured.",
+      "severity": "P2",
+      "status": "REMEDIATED_IN_CODE_AND_SYNTHETIC_REGRESSIONS",
+      "title": "Legacy training records bypassed normalized proof/task binding"
+    }
+  ],
+  "hash_convention": "SHA-256 of file bytes after CRLF-to-LF replacement; no other normalization",
+  "independence_disclosure": {
+    "human_approval_claimed": false,
+    "independent_review_of_reviewer_authored_remediation_claimed": false,
+    "initial_software_review_performed_separately_from_parent": true,
+    "reviewer_authored_only": [
+      "src/qcb_course_training.py",
+      "tests/test_course_training.py"
+    ],
+    "reviewer_authored_training_remediation_after_parent_authorization": true,
+    "semantic_review_claimed": false
+  },
+  "inspected_scope": [
+    "Course registry selection, task/source identity binding and reference-only evidence claims.",
+    "evaluate_agentic.py suite routing, preserved default pilot and lazy provider construction.",
+    "All three offline operator-profile commands and their no-registry/no-episode boundary.",
+    "Formal plan/run refusal before adapter import, provider construction, calls or episode creation.",
+    "Fixed-source whole-root training reader across two legacy pilots and four graph-course versions.",
+    "Train-only projection, exact task/root/import binding, reference provenance and absent PRM labels.",
+    "lean_training.py CLI export and preservation of an existing output.",
+    "Supporting loader/validator code paths only; no mathematical or semantic review of their data."
+  ],
+  "limitations": [
+    "The supplied fixtures and added regressions validate software routing and boundaries, not mathematical correctness.",
+    "No real fourth-cohort receipt or cumulative registry/training integration was consumed by this review.",
+    "The training API assumes evaluator-owned views and records; this review does not authenticate external callers or reviewer identities.",
+    "Source-bound reference evidence is distinct from live model performance and an accepted isolated verifier.",
+    "No full Lean build, website build, endpoint call, candidate proof execution, commit or push was performed."
+  ],
+  "not_inspected": [
+    "Source-blind decoder packets or decoder responses.",
+    "Actual authored mathematical proof strings or mathematical reference answers.",
+    "Mathematical correctness, source fidelity, semantic coverage or the new curriculum difficulty assessments.",
+    "Actual new-cohort reference replay output or any accepted isolated model verifier."
+  ],
+  "other_material_findings_in_inspected_scope": [],
+  "primary_source_sha256_lf": {
+    "benchmarks/quantumcomputingbench/scripts/evaluate_agentic.py": "7737a5196c5f7bdf4207ab830ffba5884eea8f4822f7d4c04d3a6e113fe0fd50",
+    "benchmarks/quantumcomputingbench/scripts/lean_training.py": "bf2859d10df772fe177e0a594038b2cf32aa6660b0f35d8754a8927c3d165a26",
+    "benchmarks/quantumcomputingbench/src/qcb_course_registry.py": "ccd01aa9dc92c2cec4eb00f82ef0f68effa88c35c8f21b51cdf3c729f9eb7f1e",
+    "benchmarks/quantumcomputingbench/src/qcb_course_training.py": "f1b9bd7f0797cd92fe398b8c9caaeab381c4d0e2b5c0a97d504021f1cc89f0f8",
+    "benchmarks/quantumcomputingbench/tests/test_course_registry.py": "2a5cbe85b5156c991f9ce678835d4795d8d5d08bbc4c5b2cd6245c0ea9f67004",
+    "benchmarks/quantumcomputingbench/tests/test_course_training.py": "bd68d3f430c4b9f67bdb07510d99f22900f97062aa9c853537c5b17e31eb72b8"
+  },
+  "recorded_at_utc": "2026-11-05T11:38:06.169400+00:00",
+  "reference_integration": {
+    "actual_reference_records_reader_run_against_real_mathematical_corpus": false,
+    "fourth_cohort_receipt_path": "benchmarks/quantumcomputingbench/reports/lean-course-v4/reference-checks.json",
+    "real_course_registry_load_attempted": false,
+    "real_training_export_attempted": false,
+    "receipt_present_at_report_write": false,
+    "status": "PENDING_SEPARATE_REAL_REFERENCE_QUALIFICATION_AND_INTEGRATION"
+  },
+  "review_class": "Bounded software and data-boundary review; synthetic fixtures only",
+  "reviewer_identity": "codex:/root/benchmark_runtime_audit",
+  "schema_version": "qcb.software_review.v1",
+  "source_commit": "c1cf5796881d57152c0d0cfc00c3abc274e28760",
+  "source_tree_contains_uncommitted_work": true,
+  "status": "SOFTWARE_CHECKS_PASS_REAL_REFERENCE_INTEGRATION_PENDING",
+  "supporting_code_sha256_lf": {
+    "benchmarks/quantumcomputingbench/scripts/lean_course.py": "144f0d47463ee149f0f8a1b27e236dbe9e6b8e626cadc0c5735e40f97410b4a6",
+    "benchmarks/quantumcomputingbench/scripts/lean_course_v4.py": "a916676f6321771117138ef67e1d006d79a926bf7a614975c436329aeb87a029",
+    "benchmarks/quantumcomputingbench/src/qcb_course_expansion.py": "00657f0f7b1c46ebfbd80cc376b77933d8a08f530bd33972e49c35d3f82875ae",
+    "benchmarks/quantumcomputingbench/src/qcb_course_third.py": "e971cf3e782888fb95e9337fcc7d5ef3d4730ac7e42d7e8b75327e4650d5e26c",
+    "benchmarks/quantumcomputingbench/src/qcb_evaluation_registry.py": "35b5e7f497148e14d514fe760c63c0ee207e48a6846130fb18725e6997c564d6",
+    "benchmarks/quantumcomputingbench/src/qcb_graph_course_pilot.py": "424c273a7e89841953c693aa7d44b1d79da79857dcf18164ebef4153a5d3ebb4",
+    "benchmarks/quantumcomputingbench/src/qcb_lean_course.py": "78546767e9ff0f92e8314895686031b932def5ae04894ce7f17e72ce94a376af",
+    "benchmarks/quantumcomputingbench/src/qcb_model_loop.py": "7f02b226afb8089c34441d721f94934a3cb3986aee1f94fa194aa91b30c246bc",
+    "benchmarks/quantumcomputingbench/src/qcb_obligation_pilot.py": "6dfeb2080f67ead5aa8c123d3da4990426b7b40406b8d9ec2f74e052a8e7e5b9",
+    "benchmarks/quantumcomputingbench/src/qcb_operator_profile.py": "8e9a30bcd87c30fca3e288e57b50c7ead6261f6400cecc5551ab106bf389011a",
+    "benchmarks/quantumcomputingbench/src/qcb_sequential_pilot.py": "e75a89484814f097a108074398dc98bc02115061c32b4e637ea2650786a8e69d",
+    "benchmarks/quantumcomputingbench/tests/test_operator_profile.py": "6ac7ab5fd677c4c5aaa3ec4635740436df5182178bd6f1e5c0f598dcd5dafa98",
+    "benchmarks/quantumcomputingbench/tests/test_proof_session.py": "2da08e9867f63fe0f80a29ca569a1321e74934ce50a6b941735661f260c3c8ca"
+  },
+  "verified_behavior_within_scope": {
+    "default_pilot_preserved": true,
+    "dev_test_proof_sentinels_absent_from_training_export": true,
+    "every_training_reference_requires_exact_task_digest": true,
+    "explicit_course_suite_calls_course_qualification_loader": true,
+    "formal_execution_blocks_before_provider_import_construction_and_calls": true,
+    "inherited_splits_preserved": true,
+    "offline_profile_commands_load_zero_registries": true,
+    "process_reward_labels_remain_null": true,
+    "student_export_has_no_reference_lineage_or_answers": true,
+    "training_or_model_performance_claims_not_promoted": true,
+    "training_projection_is_train_only": true,
+    "training_reader_uses_bound_legacy_cases": true
+  }
+}

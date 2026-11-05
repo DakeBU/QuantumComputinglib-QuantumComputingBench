@@ -1,5 +1,13 @@
 # Registered agentic evaluation pilot
 
+The four-view default below is preserved. The optional
+[`--suite course-v4`](COURSE_V4.md) now selects the entire qualified Lean course
+for list, export, plan and bounded episode commands, preserving each view's
+task and recorded reference lineage. The same real-formal isolation gate
+applies before provider initialization. Synthetic course fixtures remain
+protocol tests; they do not run Lean or a model. Offline profile commands do
+not accept a suite or load a task registry.
+
 The evaluator registers four public, reference-qualified task views over existing
 shared cores. It supplies a bounded action loop and exports answer-free inputs.
 It does not enable execution of model-generated Lean, establish a stable release,

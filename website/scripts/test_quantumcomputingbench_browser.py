@@ -54,6 +54,7 @@ def run(root, output, channel=None):
     routes += manifest["public_semantic_diagnostics"]["routes"]
     routes += manifest["benchmark_center"]["routes"] + manifest["expert_atlas"]["routes"]
     routes += manifest.get('reader_hierarchy', {}).get('routes', [])
+    routes += [route for route in manifest.get('lean_learning_route', {}).get('routes', []) if route not in routes]
     routes += [HUB + 'non-lean/workbook/index.html', HUB + 'non-lean/workbook/normalization/index.html',
                HUB + 'non-lean/workbook/levels/d3/index.html', HUB + 'non-lean/workbook/graph/index.html']
     try:

@@ -1,0 +1,454 @@
+{
+  "author": "/root",
+  "cases": [
+    {
+      "assumptions_added": false,
+      "controls": {
+        "constructed_whole_root": "by\n  have lemma_sp110_partition : ∀ (d : ℕ) (t : ℝ), (∑ r ∈ Finset.range (d + 1), QuantumBlockEncoding.HermiteBernstein.basis d r t) = 1 := by\n    intro d t\n    exact QuantumBlockEncoding.HermiteBernstein.basis_sum d t\n  have lemma_sp110_convex : ∀ (d : ℕ) (c : ℕ → ℝ) (t lo hi : ℝ), t ∈ Set.Icc 0 1 → (∀ r ≤ d, c r ∈ Set.Icc lo hi) → (∑ r ∈ Finset.range (d + 1), c r * QuantumBlockEncoding.HermiteBernstein.basis d r t) ∈ Set.Icc lo hi := by\n    intro d c t lo hi ht hc\n    constructor\n    · calc\n        lo = ∑ r ∈ Finset.range (d + 1), lo * QuantumBlockEncoding.HermiteBernstein.basis d r t := by\n          rw [← Finset.mul_sum, lemma_sp110_partition, mul_one]\n        _ ≤ _ := Finset.sum_le_sum fun r hr =>\n          mul_le_mul_of_nonneg_right (hc r (by simpa using hr)).1 (QuantumBlockEncoding.HermiteBernstein.basis_nonneg d r t ht)\n    · calc\n        _ ≤ ∑ r ∈ Finset.range (d + 1), hi * QuantumBlockEncoding.HermiteBernstein.basis d r t :=\n          Finset.sum_le_sum fun r hr =>\n            mul_le_mul_of_nonneg_right (hc r (by simpa using hr)).2 (QuantumBlockEncoding.HermiteBernstein.basis_nonneg d r t ht)\n        _ = hi := by rw [← Finset.mul_sum, lemma_sp110_partition, mul_one]\n  have lemma_sp110_right : ∀ (d : ℕ) (c : ℕ → ℝ) (u lo hi : ℝ), u ∈ Set.Icc 0 1 → (∀ r ≤ d, c r ∈ Set.Icc lo hi) → ∀ i : ℕ, QuantumBlockEncoding.HermiteBernstein.rightRestriction d u c i ∈ Set.Icc lo hi := by\n    intro d c u lo hi hu hc i\n    have ht : 1 - u ∈ Set.Icc (0 : ℝ) 1 := by\n      constructor <;> linarith [hu.1, hu.2]\n    have hb : ∀ r ≤ d - i, c (d - r) ∈ Set.Icc lo hi := by\n      intro r hr\n      exact hc (d - r) (Nat.sub_le _ _)\n    simpa only [QuantumBlockEncoding.HermiteBernstein.rightRestriction, QuantumBlockEncoding.HermiteBernstein.leftRestriction, QuantumBlockEncoding.HermiteBernstein.casteljau_eq_sum, zero_add] using\n      lemma_sp110_convex (d - i) (fun r => c (d - r)) (1 - u) lo hi ht hb\n  have lemma_sp110_parameter : ∀ (u v : ℝ), 0 ≤ u → u < v → v ≤ 1 → (v - u) / (1 - u) ∈ Set.Icc 0 1 := by\n    intro u v hu huv hv\n    have hden : 0 < 1 - u := by linarith\n    constructor\n    · exact div_nonneg (by linarith) hden.le\n    · exact (div_le_one hden).mpr (by linarith)\n  intro d c u v lo hi hu huv hv hc i hi'\n  have ht := lemma_sp110_parameter u v hu huv hv\n  have hb : ∀ r ≤ i, QuantumBlockEncoding.HermiteBernstein.rightRestriction d u c r ∈ Set.Icc lo hi := by\n    intro r hr\n    exact lemma_sp110_right d c u lo hi ⟨hu, by linarith⟩ hc r\n  simpa only [QuantumBlockEncoding.HermiteBernstein.restrictCoefficients, QuantumBlockEncoding.HermiteBernstein.leftRestriction, QuantumBlockEncoding.HermiteBernstein.casteljau_eq_sum, zero_add] using\n    lemma_sp110_convex i (QuantumBlockEncoding.HermiteBernstein.rightRestriction d u c) ((v - u) / (1 - u)) lo hi ht hb",
+        "library_control": "by\n  intro d c u v lo hi hu huv hv hc i hi'\n  exact QuantumBlockEncoding.HermiteBernstein.restrictCoefficients_bounds d c u v lo hi hu huv hv hc i hi'"
+      },
+      "library_control_one_call": true,
+      "negative_controls": {
+        "sorry_axiom": "by\n  sorry",
+        "wrong_target": "by\n  exact True.intro"
+      },
+      "references": {
+        "sp110_convex": "by\n  intro d c t lo hi ht hc\n  constructor\n  · calc\n      lo = ∑ r ∈ Finset.range (d + 1), lo * QuantumBlockEncoding.HermiteBernstein.basis d r t := by\n        rw [← Finset.mul_sum, qcb_step_sp110_partition, mul_one]\n      _ ≤ _ := Finset.sum_le_sum fun r hr =>\n        mul_le_mul_of_nonneg_right (hc r (by simpa using hr)).1 (QuantumBlockEncoding.HermiteBernstein.basis_nonneg d r t ht)\n  · calc\n      _ ≤ ∑ r ∈ Finset.range (d + 1), hi * QuantumBlockEncoding.HermiteBernstein.basis d r t :=\n        Finset.sum_le_sum fun r hr =>\n          mul_le_mul_of_nonneg_right (hc r (by simpa using hr)).2 (QuantumBlockEncoding.HermiteBernstein.basis_nonneg d r t ht)\n      _ = hi := by rw [← Finset.mul_sum, qcb_step_sp110_partition, mul_one]",
+        "sp110_parameter": "by\n  intro u v hu huv hv\n  have hden : 0 < 1 - u := by linarith\n  constructor\n  · exact div_nonneg (by linarith) hden.le\n  · exact (div_le_one hden).mpr (by linarith)",
+        "sp110_partition": "by\n  intro d t\n  exact QuantumBlockEncoding.HermiteBernstein.basis_sum d t",
+        "sp110_right": "by\n  intro d c u lo hi hu hc i\n  have ht : 1 - u ∈ Set.Icc (0 : ℝ) 1 := by\n    constructor <;> linarith [hu.1, hu.2]\n  have hb : ∀ r ≤ d - i, c (d - r) ∈ Set.Icc lo hi := by\n    intro r hr\n    exact hc (d - r) (Nat.sub_le _ _)\n  simpa only [QuantumBlockEncoding.HermiteBernstein.rightRestriction, QuantumBlockEncoding.HermiteBernstein.leftRestriction, QuantumBlockEncoding.HermiteBernstein.casteljau_eq_sum, zero_add] using\n    qcb_step_sp110_convex (d - i) (fun r => c (d - r)) (1 - u) lo hi ht hb",
+        "sp110_root": "by\n  intro d c u v lo hi hu huv hv hc i hi'\n  have ht := qcb_step_sp110_parameter u v hu huv hv\n  have hb : ∀ r ≤ i, QuantumBlockEncoding.HermiteBernstein.rightRestriction d u c r ∈ Set.Icc lo hi := by\n    intro r hr\n    exact qcb_step_sp110_right d c u lo hi ⟨hu, by linarith⟩ hc r\n  simpa only [QuantumBlockEncoding.HermiteBernstein.restrictCoefficients, QuantumBlockEncoding.HermiteBernstein.leftRestriction, QuantumBlockEncoding.HermiteBernstein.casteljau_eq_sum, zero_add] using\n    qcb_step_sp110_convex i (QuantumBlockEncoding.HermiteBernstein.rightRestriction d u c) ((v - u) / (1 - u)) lo hi ht hb"
+      },
+      "retrieval_scope": {
+        "direct_route_interfaces": [
+          "QuantumBlockEncoding.HermiteBernstein.basis_sum",
+          "QuantumBlockEncoding.HermiteBernstein.basis_nonneg",
+          "QuantumBlockEncoding.HermiteBernstein.casteljau_eq_sum",
+          "QuantumBlockEncoding.HermiteBernstein.restrictCoefficients_bounds"
+        ],
+        "note": "All imported declarations remain callable. No import firewall or hidden-reference claim."
+      },
+      "semantic_coverage": "PARTIAL_WHOLE_QUESTION: exact bound on each restricted coefficient under the literal two-step restriction and original hypotheses. Partition of unity is an executed provider; basis nonnegativity is called in the convex construction. The root does not certify identification/explanatory prose, an optimal stability constant, floating-point error, or a quantum circuit.",
+      "semantic_evidence": {
+        "anonymous_id": "A1",
+        "group": "analytic",
+        "kind": "new_roundtrip"
+      },
+      "shortcut_disclosure": "restrictCoefficients_bounds is a one-call exact root shortcut. The constructed route separately uses basis_sum and basis_nonneg plus explicit convex sums and reversed-row/left-edge formulas; these library facts are public and callable in both modes. Mathematical construction band describes that route, not unrestricted-import difficulty.",
+      "source_binder_audit": [
+        {
+          "binder": "d : ℕ; c : ℕ → ℝ; u v lo hi : ℝ; i : ℕ with i ≤ d",
+          "class": "SOURCE",
+          "meaning": "Finite Bernstein coefficients represented by an infinite row; only indices up to d are bounded or used."
+        },
+        {
+          "binder": "0 ≤ u, u < v, v ≤ 1",
+          "class": "SOURCE",
+          "meaning": "Literal nondegenerate restricted subinterval, allowing u=0 and v=1."
+        },
+        {
+          "binder": "∀ r ≤ d, c r ∈ Set.Icc lo hi",
+          "class": "SOURCE",
+          "meaning": "Given common coefficient interval; no extra lo≤hi hypothesis, which already follows from the coefficient at zero."
+        }
+      ],
+      "source_bindings": [
+        {
+          "path": "QuantumBlockEncoding/HermiteBernstein.lean",
+          "sha256_lf": "661618d9c10826491ee293c7c411ac2d55056426739f4bbfd3e7c410c05e4bff"
+        }
+      ],
+      "source_item_digest": "19291aabce76c1930159c1330905a8a44784b80535f3d33e1810e220eb3aa5ec",
+      "source_node_ids": [
+        "declaration:QuantumBlockEncoding.HermiteBernstein.basis_sum",
+        "declaration:QuantumBlockEncoding.HermiteBernstein.bernstein_sum_bounds",
+        "declaration:QuantumBlockEncoding.HermiteBernstein.restrictCoefficients_bounds"
+      ],
+      "task": {
+        "alignment_status": "author_sealed_candidate; independent_decode_and_source_comparison_pending; not_current_gold",
+        "assumptions": [],
+        "contract_hash": "c5283bcf00ecd69dfd00de82a822875dc87c7da90c35b71678fe5dc8f992259a",
+        "conventions": [],
+        "core_id": "qcb-core-sp-110",
+        "family": "hermite-bernstein-subdivision",
+        "imports": [
+          "QuantumBlockEncoding.HermiteBernstein"
+        ],
+        "interfaces": [
+          {
+            "module": "QuantumBlockEncoding.HermiteBernstein",
+            "name": "QuantumBlockEncoding.HermiteBernstein.basis_sum",
+            "source_node_id": "declaration:QuantumBlockEncoding.HermiteBernstein.basis_sum",
+            "type": "∀ (d : ℕ) (t : ℝ), (∑ r ∈ Finset.range (d + 1), QuantumBlockEncoding.HermiteBernstein.basis d r t) = 1"
+          },
+          {
+            "module": "QuantumBlockEncoding.HermiteBernstein",
+            "name": "QuantumBlockEncoding.HermiteBernstein.basis_nonneg",
+            "source_node_id": "declaration:QuantumBlockEncoding.HermiteBernstein.basis_nonneg",
+            "type": "∀ (d r : ℕ) (t : ℝ), t ∈ Set.Icc 0 1 → 0 ≤ QuantumBlockEncoding.HermiteBernstein.basis d r t"
+          },
+          {
+            "module": "QuantumBlockEncoding.HermiteBernstein",
+            "name": "QuantumBlockEncoding.HermiteBernstein.casteljau_eq_sum",
+            "source_node_id": "declaration:QuantumBlockEncoding.HermiteBernstein.casteljau_eq_sum",
+            "type": "∀ (d : ℕ) (c : ℕ → ℝ) (t : ℝ) (i : ℕ), QuantumBlockEncoding.HermiteBernstein.casteljau d c t i = ∑ j ∈ Finset.range (d + 1), c (i + j) * QuantumBlockEncoding.HermiteBernstein.basis d j t"
+          },
+          {
+            "module": "QuantumBlockEncoding.HermiteBernstein",
+            "name": "QuantumBlockEncoding.HermiteBernstein.restrictCoefficients_bounds",
+            "source_node_id": "declaration:QuantumBlockEncoding.HermiteBernstein.restrictCoefficients_bounds",
+            "type": "∀ (d : ℕ) (c : ℕ → ℝ) (u v lo hi : ℝ), 0 ≤ u → u < v → v ≤ 1 → (∀ r ≤ d, c r ∈ Set.Icc lo hi) → ∀ i ≤ d, QuantumBlockEncoding.HermiteBernstein.restrictCoefficients d u v c i ∈ Set.Icc lo hi"
+          }
+        ],
+        "library_revision": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+        "nodes": [
+          {
+            "depends_on": [],
+            "id": "sp110_partition",
+            "target": "∀ (d : ℕ) (t : ℝ), (∑ r ∈ Finset.range (d + 1), QuantumBlockEncoding.HermiteBernstein.basis d r t) = 1"
+          },
+          {
+            "depends_on": [
+              "sp110_partition"
+            ],
+            "id": "sp110_convex",
+            "target": "∀ (d : ℕ) (c : ℕ → ℝ) (t lo hi : ℝ), t ∈ Set.Icc 0 1 → (∀ r ≤ d, c r ∈ Set.Icc lo hi) → (∑ r ∈ Finset.range (d + 1), c r * QuantumBlockEncoding.HermiteBernstein.basis d r t) ∈ Set.Icc lo hi"
+          },
+          {
+            "depends_on": [
+              "sp110_convex"
+            ],
+            "id": "sp110_right",
+            "target": "∀ (d : ℕ) (c : ℕ → ℝ) (u lo hi : ℝ), u ∈ Set.Icc 0 1 → (∀ r ≤ d, c r ∈ Set.Icc lo hi) → ∀ i : ℕ, QuantumBlockEncoding.HermiteBernstein.rightRestriction d u c i ∈ Set.Icc lo hi"
+          },
+          {
+            "depends_on": [],
+            "id": "sp110_parameter",
+            "target": "∀ (u v : ℝ), 0 ≤ u → u < v → v ≤ 1 → (v - u) / (1 - u) ∈ Set.Icc 0 1"
+          },
+          {
+            "depends_on": [
+              "sp110_convex",
+              "sp110_right",
+              "sp110_parameter"
+            ],
+            "id": "sp110_root",
+            "target": "∀ (d : ℕ) (c : ℕ → ℝ) (u v lo hi : ℝ), 0 ≤ u → u < v → v ≤ 1 → (∀ r ≤ d, c r ∈ Set.Icc lo hi) → ∀ i ≤ d, QuantumBlockEncoding.HermiteBernstein.restrictCoefficients d u v c i ∈ Set.Icc lo hi"
+          }
+        ],
+        "question": "Let a degree-d polynomial be given by Bernstein coefficients c(0),...,c(d), all lying in a common interval [lo, hi]. Suppose we restrict the polynomial to a subinterval [u, v] with 0 <= u < v <= 1 by two successive de Casteljau subdivisions, producing new Bernstein coefficients c'(0),...,c'(d) for the restricted piece. Prove that every restricted coefficient c'(i) still lies in [lo, hi]. Identify the two structural facts about the Bernstein basis that make this true.",
+        "root_id": "sp110_root",
+        "schema_version": "qcb.proof_obligation_task.v1",
+        "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "split": "train"
+      },
+      "view_id": "qcb-course-sp-110-v1"
+    },
+    {
+      "assumptions_added": false,
+      "controls": {
+        "constructed_whole_root": "by\n  have local_be101_involutive : ∀ s : Fin 8, QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 (QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 s) = s :=\n    by decide\n  have local_be101_table : List.ofFn QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 = [3,2,1,0,7,6,5,4] :=\n    by decide\n  have local_be101_gate : ∀ state : QuantumBlockEncoding.PrimitiveBasis 7, (QuantumBlockEncoding.littleEndian3Value (QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) state) 0 1 2 = ((QuantumBlockEncoding.littleEndian3Value state 0 1 2) ^^^ 3) % 8) ∧ QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) (QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) state) = state :=\n    by\n      set_option maxRecDepth 4096 in\n        decide\n  have local_be101_root : (∀ s : Fin 8, QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 (QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 s) = s) ∧ (List.ofFn QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 = [3,2,1,0,7,6,5,4]) ∧ (∀ state : QuantumBlockEncoding.PrimitiveBasis 7, (QuantumBlockEncoding.littleEndian3Value (QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) state) 0 1 2 = ((QuantumBlockEncoding.littleEndian3Value state 0 1 2) ^^^ 3) % 8) ∧ QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) (QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) state) = state) :=\n    by\n      exact ⟨local_be101_involutive, local_be101_table, local_be101_gate⟩\n  exact local_be101_root",
+        "library_control": "by\n  set_option maxRecDepth 4096 in\n    decide"
+      },
+      "library_control_one_call": false,
+      "negative_controls": {
+        "sorry_axiom": "by\n  sorry",
+        "wrong_target": "by\n  exact True.intro"
+      },
+      "references": {
+        "be101_gate": "by\n  set_option maxRecDepth 4096 in\n    decide",
+        "be101_involutive": "by decide",
+        "be101_root": "by\n  exact ⟨qcb_step_be101_involutive, qcb_step_be101_table, qcb_step_be101_gate⟩",
+        "be101_table": "by decide"
+      },
+      "retrieval_scope": {
+        "direct_route_interfaces": [
+          "QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3",
+          "QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3ReversibleProgram"
+        ],
+        "note": "Scoped type search is not an import firewall; all source declarations reachable from these imports remain callable. Exact shortcuts and finite decision procedures are disclosed."
+      },
+      "semantic_coverage": "PARTIAL_WHOLE_QUESTION: exact Fin 8 involution, ordered image list, literal two-X seven-wire prefix action on the low three-bit value, and same-prefix twice restoring every seven-wire state. The XOR-law explanatory route, gate commutation explanation and rubric prose are not certified by kernel finite decision. No modular-adder action, physical synthesis or resource theorem is claimed.",
+      "semantic_evidence": {
+        "anonymous_id": "O4A",
+        "group": "oracle",
+        "kind": "new_roundtrip"
+      },
+      "shortcut_disclosure": "Finite kernel decide proves the entire fixed conjunction, including all 128 seven-wire basis states. This is an honest finite decision/calibration warmup, not deep proof synthesis. The imported primitiveOffset3_table uses a native-generated axiom outside the benchmark policy and is not used in any authored positive proof or approved retrieval result. Rechecking its actual equality with kernel decide does not clear the source theorem or module trust debt.",
+      "source_binder_audit": [
+        {
+          "binder": "s : Fin 8",
+          "class": "SOURCE",
+          "meaning": "Exactly the eight stipulated source slots."
+        },
+        {
+          "binder": "state : PrimitiveBasis 7",
+          "class": "SOURCE",
+          "meaning": "All seven-bit basis labels; only the literal two-X prefix is assessed, without a clean-work premise."
+        }
+      ],
+      "source_bindings": [
+        {
+          "path": "QuantumBlockEncoding/BandedSparseAccessPrimitive.lean",
+          "sha256_lf": "e4f35bfdd690445de12d5a7e6692b9ab86d1a096b9ed3f4d1a41e07b99181ca7"
+        },
+        {
+          "path": "QuantumBlockEncoding/ReversibleClassical.lean",
+          "sha256_lf": "01ea24f54500974985702a0f968e28d93b2bd04a1aefaf05da848c9b7fe64711"
+        },
+        {
+          "path": "QuantumBlockEncoding/ModularAdder3.lean",
+          "sha256_lf": "3995a7d9068322d7116e6d3852111574c3c94acc09b9927231be931d33d17002"
+        }
+      ],
+      "source_item_digest": "c121d5a0d54af38e9206a89b7e5c8acbab4eca77fe5c2e3ef5dad9fc0267a2a1",
+      "source_node_ids": [
+        "declaration:QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3",
+        "declaration:QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3_table",
+        "declaration:QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3ReversibleProgram"
+      ],
+      "task": {
+        "alignment_status": "author_sealed_candidate; independent_decode_and_source_comparison_pending; not_current_gold",
+        "assumptions": [
+          "Slot values range over {0,...,7}, so the outer mod 8 never fires",
+          "The loader is XOR with the fixed mask 3"
+        ],
+        "contract_hash": "40e56f9aa65e5d4bbd165e35277a54b73c72e6dd2aa637fa7ee32c995fef3444",
+        "conventions": [
+          "XOR with a constant mask toggles exactly the bits set in the mask",
+          "The loader is realized by two X gates on the two low wires"
+        ],
+        "core_id": "qcb-core-be-101",
+        "family": "be-xor-loader-involution",
+        "imports": [
+          "QuantumBlockEncoding.BandedSparseAccessPrimitive"
+        ],
+        "interfaces": [
+          {
+            "module": "QuantumBlockEncoding.BandedSparseAccessPrimitive",
+            "name": "QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3",
+            "source_node_id": "declaration:QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3",
+            "type": "Fin 8 → Fin 8"
+          },
+          {
+            "module": "QuantumBlockEncoding.BandedSparseAccessPrimitive",
+            "name": "QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3ReversibleProgram",
+            "source_node_id": "declaration:QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3ReversibleProgram",
+            "type": "QuantumBlockEncoding.ReversibleProgram 7"
+          }
+        ],
+        "library_revision": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+        "nodes": [
+          {
+            "depends_on": [],
+            "id": "be101_involutive",
+            "target": "∀ s : Fin 8, QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 (QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 s) = s"
+          },
+          {
+            "depends_on": [],
+            "id": "be101_table",
+            "target": "List.ofFn QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 = [3,2,1,0,7,6,5,4]"
+          },
+          {
+            "depends_on": [],
+            "id": "be101_gate",
+            "target": "∀ state : QuantumBlockEncoding.PrimitiveBasis 7, (QuantumBlockEncoding.littleEndian3Value (QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) state) 0 1 2 = ((QuantumBlockEncoding.littleEndian3Value state 0 1 2) ^^^ 3) % 8) ∧ QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) (QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) state) = state"
+          },
+          {
+            "depends_on": [
+              "be101_involutive",
+              "be101_table",
+              "be101_gate"
+            ],
+            "id": "be101_root",
+            "target": "(∀ s : Fin 8, QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 (QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 s) = s) ∧ (List.ofFn QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 = [3,2,1,0,7,6,5,4]) ∧ (∀ state : QuantumBlockEncoding.PrimitiveBasis 7, (QuantumBlockEncoding.littleEndian3Value (QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) state) 0 1 2 = ((QuantumBlockEncoding.littleEndian3Value state 0 1 2) ^^^ 3) % 8) ∧ QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) (QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) state) = state)"
+          }
+        ],
+        "question": "A reversible source-loader on three little-endian bits is defined by the rule that maps each slot value s in {0,...,7} to (s XOR 3) mod 8, i.e. it flips the two low-order bits of s. Prove that this loader is its own inverse (an involution) as a permutation of {0,...,7}, and give the explicit image list obtained by applying it to 0,1,2,3,4,5,6,7 in order. Explain why the involution property is exactly what lets the two bit-flip gates that realize it also undo it when applied a second time.",
+        "root_id": "be101_root",
+        "schema_version": "qcb.proof_obligation_task.v1",
+        "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "split": "train"
+      },
+      "view_id": "qcb-course-be-101-v1"
+    },
+    {
+      "assumptions_added": false,
+      "controls": {
+        "constructed_whole_root": "by\n  have local_be104_compiler : ∀ {qubits : Nat} (program : QuantumBlockEncoding.ReversibleProgram qubits), QuantumBlockEncoding.evalPrimitiveProgram (QuantumBlockEncoding.compileReversibleProgram program) = QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.evalReversibleProgram program) :=\n    by\n      intro qubits program\n      induction program with\n      | nil =>\n          rw [QuantumBlockEncoding.compileReversibleProgram, QuantumBlockEncoding.evalPrimitiveProgram_identity]\n          ext row column\n          simp [QuantumBlockEncoding.evalReversibleProgram, QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix, Matrix.one_apply]\n      | cons gate rest ih =>\n          rw [QuantumBlockEncoding.compileReversibleProgram, QuantumBlockEncoding.evalPrimitiveProgram_seq, ih,\n            QuantumBlockEncoding.compileReversibleGate_eval, QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul]\n          rfl\n  have local_be104_phase : QuantumBlockEncoding.ExactAngle.eval QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.globalPhase = Real.pi * (45 / 8) :=\n    by\n      norm_num [QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program, QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3ReversibleProgram,\n        QuantumBlockEncoding.modularAdd3ReversibleProgram, QuantumBlockEncoding.compileReversibleProgram, QuantumBlockEncoding.compileReversibleGate,\n        QuantumBlockEncoding.primitiveXProgram, QuantumBlockEncoding.primitiveCxProgram, QuantumBlockEncoding.primitiveCCXProgram, QuantumBlockEncoding.primitiveCCXMiddle,\n        QuantumBlockEncoding.MonomialProgram.seq, QuantumBlockEncoding.MonomialProgram.cx, QuantumBlockEncoding.MonomialProgram.t, QuantumBlockEncoding.MonomialProgram.tdg,\n        QuantumBlockEncoding.primitiveHProgram, QuantumBlockEncoding.primitiveTProgram, QuantumBlockEncoding.primitiveTdgProgram,\n        QuantumBlockEncoding.PrimitiveProgram.seq, QuantumBlockEncoding.PrimitiveProgram.identity, QuantumBlockEncoding.ExactAngle.eval]\n      <;> ring\n  have local_be104_bare : ∀ {qubits : Nat} (program : QuantumBlockEncoding.ReversibleProgram qubits), QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.compileReversibleProgram program).circuit = (QuantumBlockEncoding.evalGlobalPhase (QuantumBlockEncoding.compileReversibleProgram program).globalPhase)⁻¹ • QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.evalReversibleProgram program) :=\n    by\n      intro qubits program\n      have h := local_be104_compiler program\n      unfold QuantumBlockEncoding.evalPrimitiveProgram at h\n      have nonzero : QuantumBlockEncoding.evalGlobalPhase (QuantumBlockEncoding.compileReversibleProgram program).globalPhase ≠ 0 := by\n        exact Complex.exp_ne_zero _\n      rw [← h, inv_smul_smul₀ nonzero]\n  have local_be104_nontrivial : QuantumBlockEncoding.evalGlobalPhase QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.globalPhase ≠ 1 :=\n    by\n      intro one\n      have he : Complex.exp (((Real.pi * (45 / 8) : Real) : ℂ) * Complex.I) = 1 := by\n        simpa only [QuantumBlockEncoding.evalGlobalPhase, local_be104_phase] using one\n      obtain ⟨n, hn⟩ := Complex.exp_eq_one_iff.mp he\n      have hi := congrArg Complex.im hn\n      simp only [Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im, Complex.I_im,\n        Complex.I_re, Complex.intCast_re, Complex.intCast_im] at hi\n      norm_num at hi\n      have relation : (45 / 8 : Real) = (n : Real) * 2 := by\n        apply (mul_right_cancel₀ Real.pi_ne_zero)\n        nlinarith [hi]\n      have lower : (2 : Real) < n := by linarith\n      have upper : (n : Real) < 3 := by linarith\n      have low_int : (2 : Int) < n := by exact_mod_cast lower\n      have up_int : n < (3 : Int) := by exact_mod_cast upper\n      omega\n  have local_be104_bare_ne : QuantumBlockEncoding.evalPrimitiveCircuit QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.circuit ≠ QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv :=\n    by\n      intro equal\n      have h := QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program_eval\n      unfold QuantumBlockEncoding.evalPrimitiveProgram at h\n      rw [equal] at h\n      let c : QuantumBlockEncoding.PrimitiveBasis 7 := fun _ => 0\n      have he := congrArg (fun m : Matrix (QuantumBlockEncoding.PrimitiveBasis 7) (QuantumBlockEncoding.PrimitiveBasis 7) ℂ => m (QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv c) c) h\n      have entry : QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv (QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv c) c = 1 := by\n        simp [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix]\n      simp only [Matrix.smul_apply, entry, smul_eq_mul, mul_one] at he\n      exact local_be104_nontrivial he\n  have local_be104_root : (∀ {qubits : Nat} (program : QuantumBlockEncoding.ReversibleProgram qubits), QuantumBlockEncoding.evalPrimitiveProgram (QuantumBlockEncoding.compileReversibleProgram program) = QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.evalReversibleProgram program)) ∧ (QuantumBlockEncoding.ExactAngle.eval QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.globalPhase = Real.pi * (45 / 8)) ∧ (∀ {qubits : Nat} (program : QuantumBlockEncoding.ReversibleProgram qubits), QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.compileReversibleProgram program).circuit = (QuantumBlockEncoding.evalGlobalPhase (QuantumBlockEncoding.compileReversibleProgram program).globalPhase)⁻¹ • QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.evalReversibleProgram program)) ∧ (QuantumBlockEncoding.evalGlobalPhase QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.globalPhase ≠ 1) ∧ (QuantumBlockEncoding.evalPrimitiveCircuit QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.circuit ≠ QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv) :=\n    by\n      exact ⟨local_be104_compiler, local_be104_phase, local_be104_bare, local_be104_nontrivial, local_be104_bare_ne⟩\n  exact local_be104_root",
+        "library_control": "by\n  have local_be104_compiler : ∀ {qubits : Nat} (program : QuantumBlockEncoding.ReversibleProgram qubits), QuantumBlockEncoding.evalPrimitiveProgram (QuantumBlockEncoding.compileReversibleProgram program) = QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.evalReversibleProgram program) :=\n    by\n      exact @QuantumBlockEncoding.compileReversibleProgram_eval\n  have local_be104_phase : QuantumBlockEncoding.ExactAngle.eval QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.globalPhase = Real.pi * (45 / 8) :=\n    by\n      norm_num [QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program, QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3ReversibleProgram,\n        QuantumBlockEncoding.modularAdd3ReversibleProgram, QuantumBlockEncoding.compileReversibleProgram, QuantumBlockEncoding.compileReversibleGate,\n        QuantumBlockEncoding.primitiveXProgram, QuantumBlockEncoding.primitiveCxProgram, QuantumBlockEncoding.primitiveCCXProgram, QuantumBlockEncoding.primitiveCCXMiddle,\n        QuantumBlockEncoding.MonomialProgram.seq, QuantumBlockEncoding.MonomialProgram.cx, QuantumBlockEncoding.MonomialProgram.t, QuantumBlockEncoding.MonomialProgram.tdg,\n        QuantumBlockEncoding.primitiveHProgram, QuantumBlockEncoding.primitiveTProgram, QuantumBlockEncoding.primitiveTdgProgram,\n        QuantumBlockEncoding.PrimitiveProgram.seq, QuantumBlockEncoding.PrimitiveProgram.identity, QuantumBlockEncoding.ExactAngle.eval]\n      <;> ring\n  have local_be104_bare : ∀ {qubits : Nat} (program : QuantumBlockEncoding.ReversibleProgram qubits), QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.compileReversibleProgram program).circuit = (QuantumBlockEncoding.evalGlobalPhase (QuantumBlockEncoding.compileReversibleProgram program).globalPhase)⁻¹ • QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.evalReversibleProgram program) :=\n    by\n      intro qubits program\n      have h := local_be104_compiler program\n      unfold QuantumBlockEncoding.evalPrimitiveProgram at h\n      have nonzero : QuantumBlockEncoding.evalGlobalPhase (QuantumBlockEncoding.compileReversibleProgram program).globalPhase ≠ 0 := by\n        exact Complex.exp_ne_zero _\n      rw [← h, inv_smul_smul₀ nonzero]\n  have local_be104_nontrivial : QuantumBlockEncoding.evalGlobalPhase QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.globalPhase ≠ 1 :=\n    by\n      intro one\n      have he : Complex.exp (((Real.pi * (45 / 8) : Real) : ℂ) * Complex.I) = 1 := by\n        simpa only [QuantumBlockEncoding.evalGlobalPhase, local_be104_phase] using one\n      obtain ⟨n, hn⟩ := Complex.exp_eq_one_iff.mp he\n      have hi := congrArg Complex.im hn\n      simp only [Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im, Complex.I_im,\n        Complex.I_re, Complex.intCast_re, Complex.intCast_im] at hi\n      norm_num at hi\n      have relation : (45 / 8 : Real) = (n : Real) * 2 := by\n        apply (mul_right_cancel₀ Real.pi_ne_zero)\n        nlinarith [hi]\n      have lower : (2 : Real) < n := by linarith\n      have upper : (n : Real) < 3 := by linarith\n      have low_int : (2 : Int) < n := by exact_mod_cast lower\n      have up_int : n < (3 : Int) := by exact_mod_cast upper\n      omega\n  have local_be104_bare_ne : QuantumBlockEncoding.evalPrimitiveCircuit QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.circuit ≠ QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv :=\n    by\n      intro equal\n      have h := QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program_eval\n      unfold QuantumBlockEncoding.evalPrimitiveProgram at h\n      rw [equal] at h\n      let c : QuantumBlockEncoding.PrimitiveBasis 7 := fun _ => 0\n      have he := congrArg (fun m : Matrix (QuantumBlockEncoding.PrimitiveBasis 7) (QuantumBlockEncoding.PrimitiveBasis 7) ℂ => m (QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv c) c) h\n      have entry : QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv (QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv c) c = 1 := by\n        simp [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix]\n      simp only [Matrix.smul_apply, entry, smul_eq_mul, mul_one] at he\n      exact local_be104_nontrivial he\n  have local_be104_root : (∀ {qubits : Nat} (program : QuantumBlockEncoding.ReversibleProgram qubits), QuantumBlockEncoding.evalPrimitiveProgram (QuantumBlockEncoding.compileReversibleProgram program) = QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.evalReversibleProgram program)) ∧ (QuantumBlockEncoding.ExactAngle.eval QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.globalPhase = Real.pi * (45 / 8)) ∧ (∀ {qubits : Nat} (program : QuantumBlockEncoding.ReversibleProgram qubits), QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.compileReversibleProgram program).circuit = (QuantumBlockEncoding.evalGlobalPhase (QuantumBlockEncoding.compileReversibleProgram program).globalPhase)⁻¹ • QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.evalReversibleProgram program)) ∧ (QuantumBlockEncoding.evalGlobalPhase QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.globalPhase ≠ 1) ∧ (QuantumBlockEncoding.evalPrimitiveCircuit QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.circuit ≠ QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv) :=\n    by\n      exact ⟨local_be104_compiler, local_be104_phase, local_be104_bare, local_be104_nontrivial, local_be104_bare_ne⟩\n  exact local_be104_root"
+      },
+      "library_control_one_call": false,
+      "negative_controls": {
+        "sorry_axiom": "by\n  sorry",
+        "wrong_target": "by\n  exact True.intro"
+      },
+      "references": {
+        "be104_bare": "by\n  intro qubits program\n  have h := qcb_step_be104_compiler program\n  unfold QuantumBlockEncoding.evalPrimitiveProgram at h\n  have nonzero : QuantumBlockEncoding.evalGlobalPhase (QuantumBlockEncoding.compileReversibleProgram program).globalPhase ≠ 0 := by\n    exact Complex.exp_ne_zero _\n  rw [← h, inv_smul_smul₀ nonzero]",
+        "be104_bare_ne": "by\n  intro equal\n  have h := QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program_eval\n  unfold QuantumBlockEncoding.evalPrimitiveProgram at h\n  rw [equal] at h\n  let c : QuantumBlockEncoding.PrimitiveBasis 7 := fun _ => 0\n  have he := congrArg (fun m : Matrix (QuantumBlockEncoding.PrimitiveBasis 7) (QuantumBlockEncoding.PrimitiveBasis 7) ℂ => m (QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv c) c) h\n  have entry : QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv (QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv c) c = 1 := by\n    simp [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix]\n  simp only [Matrix.smul_apply, entry, smul_eq_mul, mul_one] at he\n  exact qcb_step_be104_nontrivial he",
+        "be104_compiler": "by\n  intro qubits program\n  induction program with\n  | nil =>\n      rw [QuantumBlockEncoding.compileReversibleProgram, QuantumBlockEncoding.evalPrimitiveProgram_identity]\n      ext row column\n      simp [QuantumBlockEncoding.evalReversibleProgram, QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix, Matrix.one_apply]\n  | cons gate rest ih =>\n      rw [QuantumBlockEncoding.compileReversibleProgram, QuantumBlockEncoding.evalPrimitiveProgram_seq, ih,\n        QuantumBlockEncoding.compileReversibleGate_eval, QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul]\n      rfl",
+        "be104_nontrivial": "by\n  intro one\n  have he : Complex.exp (((Real.pi * (45 / 8) : Real) : ℂ) * Complex.I) = 1 := by\n    simpa only [QuantumBlockEncoding.evalGlobalPhase, qcb_step_be104_phase] using one\n  obtain ⟨n, hn⟩ := Complex.exp_eq_one_iff.mp he\n  have hi := congrArg Complex.im hn\n  simp only [Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im, Complex.I_im,\n    Complex.I_re, Complex.intCast_re, Complex.intCast_im] at hi\n  norm_num at hi\n  have relation : (45 / 8 : Real) = (n : Real) * 2 := by\n    apply (mul_right_cancel₀ Real.pi_ne_zero)\n    nlinarith [hi]\n  have lower : (2 : Real) < n := by linarith\n  have upper : (n : Real) < 3 := by linarith\n  have low_int : (2 : Int) < n := by exact_mod_cast lower\n  have up_int : n < (3 : Int) := by exact_mod_cast upper\n  omega",
+        "be104_phase": "by\n  norm_num [QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program, QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3ReversibleProgram,\n    QuantumBlockEncoding.modularAdd3ReversibleProgram, QuantumBlockEncoding.compileReversibleProgram, QuantumBlockEncoding.compileReversibleGate,\n    QuantumBlockEncoding.primitiveXProgram, QuantumBlockEncoding.primitiveCxProgram, QuantumBlockEncoding.primitiveCCXProgram, QuantumBlockEncoding.primitiveCCXMiddle,\n    QuantumBlockEncoding.MonomialProgram.seq, QuantumBlockEncoding.MonomialProgram.cx, QuantumBlockEncoding.MonomialProgram.t, QuantumBlockEncoding.MonomialProgram.tdg,\n    QuantumBlockEncoding.primitiveHProgram, QuantumBlockEncoding.primitiveTProgram, QuantumBlockEncoding.primitiveTdgProgram,\n    QuantumBlockEncoding.PrimitiveProgram.seq, QuantumBlockEncoding.PrimitiveProgram.identity, QuantumBlockEncoding.ExactAngle.eval]\n  <;> ring",
+        "be104_root": "by\n  exact ⟨qcb_step_be104_compiler, qcb_step_be104_phase, qcb_step_be104_bare, qcb_step_be104_nontrivial, qcb_step_be104_bare_ne⟩"
+      },
+      "retrieval_scope": {
+        "direct_route_interfaces": [
+          "QuantumBlockEncoding.compileReversibleProgram_eval",
+          "QuantumBlockEncoding.compileReversibleGate_eval",
+          "QuantumBlockEncoding.evalPrimitiveProgram_seq"
+        ],
+        "note": "Scoped type search is not an import firewall; all source declarations reachable from these imports remain callable. Exact shortcuts and finite decision procedures are disclosed."
+      },
+      "semantic_coverage": "PARTIAL_WHOLE_QUESTION: full phase-aware compiler refinement for arbitrary finite reversible gate lists and widths; inverse-phase formula for the separately defined bare list denotation; actual seven-wire stored angle 45π/8; its exponential is not one; actual bare list matrix differs from the exact source permutation. The supplied construction explicitly uses list induction and source gate-correctness interfaces, but kernel acceptance alone does not enforce a model proof method. The normalized exponential exp(3πi/8), per-macro H/T/Tdagger count explanation, source macro correctness proof, physical-ray interpretation, controlled implementation and cost/clean-work conclusions remain separate semantic rubric obligations.",
+      "semantic_evidence": {
+        "anonymous_id": "O4B",
+        "group": "oracle",
+        "kind": "new_roundtrip"
+      },
+      "shortcut_disclosure": "compileReversibleProgram_eval is a callable exact shortcut for the general phase-aware refinement. evalPrimitiveProgram_seq and gate compiler soundness are callable source interfaces. No exact source theorem for the entire conjunction or 45π/8 ledger/nontrivial-phase refutation was identified. The library control calls the existing compiler theorem then performs the exact angle and nontrivial-phase arguments; the standalone construction reconstructs list induction. Reachable imports are not hidden, so route difficulty must not be inferred from the supplied six obligations.",
+      "source_binder_audit": [
+        {
+          "binder": "qubits : Nat; program : ReversibleProgram qubits",
+          "class": "SOURCE",
+          "meaning": "General independently defined reversible and compiled primitive denotations; no gate-correctness theorem is added to the public root premises."
+        },
+        {
+          "binder": "The concrete primitiveAccess3Program / primitiveAccess3BasisEquiv",
+          "class": "SOURCE",
+          "meaning": "The literal seven-wire source witness, with exact stored phase and chronological matrix order. No clean-work hypothesis is added to full-space refinement."
+        }
+      ],
+      "source_bindings": [
+        {
+          "path": "QuantumBlockEncoding/BandedSparseAccessPrimitive.lean",
+          "sha256_lf": "e4f35bfdd690445de12d5a7e6692b9ab86d1a096b9ed3f4d1a41e07b99181ca7"
+        },
+        {
+          "path": "QuantumBlockEncoding/ModularAdder3.lean",
+          "sha256_lf": "3995a7d9068322d7116e6d3852111574c3c94acc09b9927231be931d33d17002"
+        },
+        {
+          "path": "QuantumBlockEncoding/PrimitiveMacros.lean",
+          "sha256_lf": "c1cea784608c9bc1533a0a026368f63f2f5b3606e34463149b73fad9f7221f63"
+        },
+        {
+          "path": "QuantumBlockEncoding/PrimitiveCircuit.lean",
+          "sha256_lf": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c"
+        },
+        {
+          "path": "QuantumBlockEncoding/PrimitiveSemantics.lean",
+          "sha256_lf": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62"
+        }
+      ],
+      "source_item_digest": "518f0b0d1146a394be4521469ab17c605fa7c91f8fd2e898e927552dd039d065",
+      "source_node_ids": [
+        "declaration:QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program_eval",
+        "declaration:QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv",
+        "declaration:QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program",
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix"
+      ],
+      "task": {
+        "alignment_status": "author_sealed_candidate; independent_decode_and_source_comparison_pending; not_current_gold",
+        "assumptions": [
+          "The reversible program induces a bijection of basis strings",
+          "The compiled matrix is the ordered product of emitted primitive-gate matrices"
+        ],
+        "contract_hash": "789bf7e634c8ba45459366388155594cf11cf3822154020f0970064ebf0f43e8",
+        "conventions": [
+          "The permutation matrix sends column c to the single row E(c)",
+          "Compilation is a separate pipeline from the combinatorial bijection"
+        ],
+        "core_id": "qcb-core-be-104",
+        "family": "be-compile-eval-refinement",
+        "imports": [
+          "QuantumBlockEncoding.BandedSparseAccessPrimitive"
+        ],
+        "interfaces": [
+          {
+            "module": "QuantumBlockEncoding.ModularAdder3",
+            "name": "QuantumBlockEncoding.compileReversibleProgram_eval",
+            "source_node_id": "declaration:QuantumBlockEncoding.compileReversibleProgram_eval",
+            "type": "∀ {qubits : Nat} (program : QuantumBlockEncoding.ReversibleProgram qubits), QuantumBlockEncoding.evalPrimitiveProgram (QuantumBlockEncoding.compileReversibleProgram program) = QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.evalReversibleProgram program)"
+          },
+          {
+            "module": "QuantumBlockEncoding.ModularAdder3",
+            "name": "QuantumBlockEncoding.compileReversibleGate_eval",
+            "source_node_id": "declaration:QuantumBlockEncoding.compileReversibleGate_eval",
+            "type": "∀ {qubits : Nat} (gate : QuantumBlockEncoding.ReversibleGate qubits), QuantumBlockEncoding.evalPrimitiveProgram (QuantumBlockEncoding.compileReversibleGate gate) = QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.evalReversibleGate gate)"
+          },
+          {
+            "module": "QuantumBlockEncoding.PrimitiveSemantics",
+            "name": "QuantumBlockEncoding.evalPrimitiveProgram_seq",
+            "source_node_id": "declaration:QuantumBlockEncoding.evalPrimitiveProgram_seq",
+            "type": "∀ {qubits : Nat} (left right : QuantumBlockEncoding.PrimitiveProgram qubits), QuantumBlockEncoding.evalPrimitiveProgram (left.seq right) = QuantumBlockEncoding.evalPrimitiveProgram right * QuantumBlockEncoding.evalPrimitiveProgram left"
+          }
+        ],
+        "library_revision": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+        "nodes": [
+          {
+            "depends_on": [],
+            "id": "be104_compiler",
+            "target": "∀ {qubits : Nat} (program : QuantumBlockEncoding.ReversibleProgram qubits), QuantumBlockEncoding.evalPrimitiveProgram (QuantumBlockEncoding.compileReversibleProgram program) = QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.evalReversibleProgram program)"
+          },
+          {
+            "depends_on": [],
+            "id": "be104_phase",
+            "target": "QuantumBlockEncoding.ExactAngle.eval QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.globalPhase = Real.pi * (45 / 8)"
+          },
+          {
+            "depends_on": [
+              "be104_compiler"
+            ],
+            "id": "be104_bare",
+            "target": "∀ {qubits : Nat} (program : QuantumBlockEncoding.ReversibleProgram qubits), QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.compileReversibleProgram program).circuit = (QuantumBlockEncoding.evalGlobalPhase (QuantumBlockEncoding.compileReversibleProgram program).globalPhase)⁻¹ • QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.evalReversibleProgram program)"
+          },
+          {
+            "depends_on": [
+              "be104_phase"
+            ],
+            "id": "be104_nontrivial",
+            "target": "QuantumBlockEncoding.evalGlobalPhase QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.globalPhase ≠ 1"
+          },
+          {
+            "depends_on": [
+              "be104_nontrivial"
+            ],
+            "id": "be104_bare_ne",
+            "target": "QuantumBlockEncoding.evalPrimitiveCircuit QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.circuit ≠ QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv"
+          },
+          {
+            "depends_on": [
+              "be104_compiler",
+              "be104_phase",
+              "be104_bare",
+              "be104_nontrivial",
+              "be104_bare_ne"
+            ],
+            "id": "be104_root",
+            "target": "(∀ {qubits : Nat} (program : QuantumBlockEncoding.ReversibleProgram qubits), QuantumBlockEncoding.evalPrimitiveProgram (QuantumBlockEncoding.compileReversibleProgram program) = QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.evalReversibleProgram program)) ∧ (QuantumBlockEncoding.ExactAngle.eval QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.globalPhase = Real.pi * (45 / 8)) ∧ (∀ {qubits : Nat} (program : QuantumBlockEncoding.ReversibleProgram qubits), QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.compileReversibleProgram program).circuit = (QuantumBlockEncoding.evalGlobalPhase (QuantumBlockEncoding.compileReversibleProgram program).globalPhase)⁻¹ • QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.evalReversibleProgram program)) ∧ (QuantumBlockEncoding.evalGlobalPhase QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.globalPhase ≠ 1) ∧ (QuantumBlockEncoding.evalPrimitiveCircuit QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.circuit ≠ QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv)"
+          }
+        ],
+        "question": "Keep seven wires, a reversible program inducing a computational-basis bijection E, and the inherited definition C as the chronological ordered product of emitted primitive-gate matrices (later gates multiply on the LEFT). The historical request is exact C=P(E), hence a0/1 matrix. Assess and refute that request for the actual source compiler if it omits the program's stored phase; do not redefine the inherited bare C or silently quotient by physical global phase. A PrimitiveProgram consists of its primitive list and an exact globalPhase phi, with full denotation D=exp(i phi) C. Prove the correct compiler refinement for D using gate cases and list composition, and state the precise resulting formula for C. For the concrete primitiveAccess3ReversibleProgram (two initial X gates followed by modularAdd3ReversibleProgram, wire order address[0..2],row[0..2],work), derive the exact stored phase ledger from H,T,Tdagger and the five CCX macros, and decide whether its bare C is a0/1 permutation. Explain refinement versus definition and which full-space/basis-action, physical-global-phase and cost/cleanup conclusions follow or remain separate.",
+        "root_id": "be104_root",
+        "schema_version": "qcb.proof_obligation_task.v1",
+        "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "split": "train"
+      },
+      "view_id": "qcb-course-be-104-v1"
+    }
+  ],
+  "catalog_hash": "5269b9f2521e3bf14db293fea34895f6e44a387c2479c164407b4d16dd9a2247",
+  "isolated": false,
+  "lean_toolchain": "leanprover/lean4:v4.29.1",
+  "library_revision": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+  "model_predictions_executed": false,
+  "new_canonical_formal_admissions": 0,
+  "new_mathematical_cores": 0,
+  "policy": "Fourth experimental cohort; exact sanitized semantic roundtrip and actual central authored replay required. No new cores, canonical admissions or model results.",
+  "proof_inputs_sha256": "1e65e7d2984e4542ca2747837d71c516847e4e987d3bbd6c48b8a803eb36806e",
+  "schema_version": "qcb.graph_course_candidates.v1",
+  "source_author_packet_digests": {
+    "analytic": "9122e4f97dfc147294c7a5f7e6658ba5f28551b2cb48ddac51e36b9685303f17",
+    "oracle": "62ee16ec0b3b89635594305bcb6a6e549c8225353ac0a618925523e12d83f4aa"
+  }
+}

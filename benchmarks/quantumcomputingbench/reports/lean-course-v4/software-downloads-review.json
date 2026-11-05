@@ -1,0 +1,144 @@
+{
+  "actual_split_test_not_run": "website.scripts.test_qcb_lean_reader.LeanReaderTests.test_actual_download_splits_separate_train_proofs_from_evaluation_inputs",
+  "actual_test_commands": [
+    {
+      "command": "python -m unittest website.scripts.test_qcb_lean_reader.LeanReaderTests.test_downloads_reject_changed_bytes_and_unexpected_files",
+      "exit_code": 0,
+      "result": "PASS",
+      "tests_run": 1
+    },
+    {
+      "command": "python -m unittest discover -s benchmarks/quantumcomputingbench/tests -p test_course_training.py",
+      "exit_code": 0,
+      "result": "PASS",
+      "tests_run": 7
+    },
+    {
+      "actual_checks": {
+        "all_input_splits_are_disjoint": true,
+        "authored_shortcut_disclosure_preserved_exactly": true,
+        "evaluation_inputs_exclude_all_proof_sentinels": true,
+        "fallback_discloses_no_method_enforcement": true,
+        "idempotent_bytes_and_manifest": true,
+        "manifest_exact_byte_sizes_and_checksums": true,
+        "method_disclosure_copied_into_training_target": true,
+        "only_training_artifact_marked_reference_bearing": true,
+        "outer_manifest_presentation_binds_current_code_bytes": true,
+        "payloads_retains_exact_qualification": true,
+        "same_json_with_changed_line_endings_rejected": true,
+        "stale_summary_identity_rejected": true,
+        "train_reference_ids_equal_train_input_ids": true,
+        "training_excludes_dev_test_proof_sentinels": true,
+        "unexpected_directory_rejected": true,
+        "unexpected_private_file_rejected": true
+      },
+      "checks_run": 16,
+      "command": "python -",
+      "exit_code": 0,
+      "kind": "Independent synthetic payload/serialization/disclosure/source-binding audit",
+      "shell_transport": "PowerShell single-quoted here-string supplied on stdin"
+    },
+    {
+      "actual_checks": {
+        "all_five_producer_source_hashes_exact_lf": true,
+        "checksums_and_sizes_match_encoded_bytes": true,
+        "forged_producer_source_binding_rejected": true,
+        "repeated_write_remains_byte_idempotent": true,
+        "standalone_source_commit_is_actual_head": true
+      },
+      "checks_run": 5,
+      "command": "python -",
+      "exit_code": 0,
+      "kind": "Post-review standalone source-binding/checksum/idempotence delta check",
+      "shell_transport": "PowerShell single-quoted here-string supplied on stdin"
+    },
+    {
+      "command": "python -m unittest website.scripts.test_qcb_lean_reader.LeanReaderTests.test_downloads_reject_changed_bytes_and_unexpected_files",
+      "exit_code": 0,
+      "result": "PASS after standalone manifest source-binding delta",
+      "tests_run": 1
+    }
+  ],
+  "documented_boundaries": [
+    "write_downloads overwrites its known files and is byte-idempotent. It does not itself remove or reject unexpected existing siblings; check_downloads/check-site is the fail-closed acceptance gate. Both inspected website build wrappers invoke that gate.",
+    "The standalone downloadable manifest now binds actual Git HEAD, registry identity, five producer code hashes normalized only from CRLF to LF and exact artifact bytes. The outer reader presentation contract also binds source hashes. Neither field set is a new Lean replay or model-performance certificate.",
+    "constructed_whole_root is a packaging/route label, not a guarantee of deep reasoning or enforced proof method. Authored method disclosures are copied, and the fallback explicitly states imported facts/root shortcuts remain callable."
+  ],
+  "execution_accounting": {
+    "container_calls": 0,
+    "lean_calls": 0,
+    "model_calls": 0,
+    "system_or_admin_changes": 0,
+    "training_launches": 0
+  },
+  "findings": [],
+  "hash_convention": "SHA-256 of exact file bytes after CRLF-to-LF replacement only",
+  "independence_disclosure": {
+    "earlier_training_remediation_authored_by_same_reviewer_and_disclosed_in_prior_report": true,
+    "human_approval_claimed": false,
+    "implementation_files_edited_during_this_supplement": [],
+    "independent_review_of_that_earlier_fix_not_claimed": true,
+    "semantic_review_claimed": false
+  },
+  "inspected_scope": [
+    "Fixed download payload construction: train-only reference artifact and separate answer-free train/dev/test_public inputs.",
+    "Deterministic UTF-8 JSON bytes, artifact checksums/sizes and exact-projection validation.",
+    "Unexpected sibling names, private files, directories, altered bytes and stale summary identities at the checker gate.",
+    "Repeated writes with unchanged source payloads produce identical bytes and summaries.",
+    "Publisher storage of lean_course_downloads and invocation of the matching check-site gate.",
+    "Download links and labels distinguishing reference-bearing training data from proof-free task inputs.",
+    "Outer reader presentation manifest binding download/training/registry/CLI code hashes.",
+    "Training target.method_disclosure copying, authored shortcut disclosure preservation and conservative fallback language.",
+    "Post-review delta: standalone download manifest actual source_commit plus five exact producer_sources_sha256_lf bindings."
+  ],
+  "no_material_findings_in_inspected_publication_path": true,
+  "not_inspected_or_claimed": [
+    "No actual mathematical proofs, source answers, source-blind packets or decoder files were inspected.",
+    "No semantic correctness or completeness of actual authored shortcut disclosures was assessed.",
+    "No actual new-cohort reference receipt or cumulative qualified mathematical corpus was consumed.",
+    "The full publisher and check-site gate were reviewed as code, not executed against a real generated site.",
+    "No Lean/model/container execution, training launch, admin/system change, commit or push was performed."
+  ],
+  "post_review_delta": {
+    "files_edited_by_reviewer": [],
+    "implementation_changed_by_parent": "Standalone download manifest source_commit and producer_sources_sha256_lf fields.",
+    "real_mathematical_payloads_not_recomputed": true,
+    "source_commit_checks_run_locally": true,
+    "source_hashes_recomputed_from_current_bytes": true
+  },
+  "primary_source_sha256_lf": {
+    "benchmarks/quantumcomputingbench/src/qcb_course_training.py": "b6b87145de00add594d14113497e7422f6d17c8ee6ca5656880103971b86f1cb",
+    "benchmarks/quantumcomputingbench/tests/test_course_training.py": "697d4690c79bd85e69a4f360a3987069677793d99a278e05be30676dbd1c6d84",
+    "website/scripts/qcb_benchmark_center.py": "f8c99d9f5ad472f5e9a4a9022692a4585dfbca8b49a535c686ea3bb51e70ac35",
+    "website/scripts/qcb_lean_downloads.py": "984d550a7af5c78f16f7e7edcb876236df8c2e3df7d2ae79e0b5a5358fd897cf",
+    "website/scripts/quantumcomputingbench.py": "e0168ba494f3050673cd96194a8ba28caef47df50739bf27f9aacd080e48258a",
+    "website/scripts/test_qcb_lean_reader.py": "a65f0889d504f8e8faa96d35f4d070db731b751ddb8b572c8f3ac9e65c71d899"
+  },
+  "prior_report": {
+    "modified_by_this_supplement": false,
+    "path": "benchmarks/quantumcomputingbench/reports/lean-course-v4/software-review.json",
+    "sha256_lf": "21957d2c4a1846d5edb81ba69c7e52b9539db8cc80c59f9143fc7eddaac2d346"
+  },
+  "recorded_at_utc": "2026-11-05T12:16:50.354111+00:00",
+  "reference_integration": {
+    "real_download_payload_generation_attempted": false,
+    "receipt_content_not_consumed_by_this_reviewer": true,
+    "receipt_path": "benchmarks/quantumcomputingbench/reports/lean-course-v4/reference-checks.json",
+    "receipt_present_at_report_write": true,
+    "status": "PENDING_PARENT_REAL_REFERENCE_QUALIFICATION_AND_DOWNLOAD_INTEGRATION"
+  },
+  "review_class": "Supplemental bounded software/data-boundary review; no mathematical review",
+  "reviewer_identity": "codex:/root/benchmark_runtime_audit",
+  "schema_version": "qcb.software_downloads_review.v1",
+  "source_commit": "cc2725b08ef39457e42f33f6917f0fe433148d08",
+  "source_tree_contains_uncommitted_work": true,
+  "status": "SOFTWARE_CHECKS_PASS_REAL_QUALIFIED_DOWNLOAD_INTEGRATION_PENDING",
+  "supporting_code_sha256_lf": {
+    "benchmarks/quantumcomputingbench/src/qcb_course_registry.py": "ccd01aa9dc92c2cec4eb00f82ef0f68effa88c35c8f21b51cdf3c729f9eb7f1e",
+    "benchmarks/quantumcomputingbench/src/qcb_curriculum.py": "fabd3001bda982df2a6e9757d89dfaf04599fd676a371e64e3b55bf7ebfb726c",
+    "benchmarks/quantumcomputingbench/src/qcb_evaluation_registry.py": "35b5e7f497148e14d514fe760c63c0ee207e48a6846130fb18725e6997c564d6",
+    "scripts/build-website.ps1": "6275eb315ab94a5de9b3927b5fe6779d4b28aefa214f0c22e521b0be2b35d8ac",
+    "scripts/build-website.sh": "634c6557297f473804aba00c0b1cd3dd5a9c61697b3bbbc610e49b372e316846",
+    "website/scripts/qcb_lean_reader.py": "d6c40fced4e53bae4b9880e09be747c3b58b9ffa375004bd27be2d46fef73206"
+  }
+}

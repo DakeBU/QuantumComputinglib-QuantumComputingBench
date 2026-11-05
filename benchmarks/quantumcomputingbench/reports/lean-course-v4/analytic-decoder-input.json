@@ -1,0 +1,126 @@
+{
+  "schema_version": "qcb.curriculum_blind_input.v1",
+  "views": [
+    {
+      "anonymous_id": "A1",
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.HermiteBernstein"
+        ],
+        "preamble": "open scoped BigOperators",
+        "target": "∀ (d : ℕ) (c : ℕ → ℝ) (u v lo hi : ℝ), 0 ≤ u → u < v → v ≤ 1 → (∀ r ≤ d, c r ∈ Set.Icc lo hi) → ∀ i ≤ d, QuantumBlockEncoding.HermiteBernstein.restrictCoefficients d u v c i ∈ Set.Icc lo hi",
+        "universe_parameters": []
+      },
+      "ambient_definitions": {
+        "QuantumBlockEncoding.HermiteBernstein.basis": {
+          "kind": "literal",
+          "literal": "def basis (d r : ℕ) (t : ℝ) : ℝ := (bernsteinPolynomial ℝ d r).eval t",
+          "normalized": "degree-d real Bernstein basis; B(d,r,t)=choose(d,r)*t^r*(1-t)^(d-r)"
+        },
+        "QuantumBlockEncoding.HermiteBernstein.casteljau": {
+          "kind": "literal",
+          "literal": "def casteljau (d : ℕ) (c : ℕ → ℝ) (t : ℝ) (i : ℕ) : ℝ := (casteljauStep t ^ d) c i",
+          "normalized": "d iterations of the coefficient-row update c_i -> (1-t)c_i+t*c_(i+1), read at index i"
+        },
+        "QuantumBlockEncoding.HermiteBernstein.leftRestriction": {
+          "kind": "literal",
+          "literal": "def leftRestriction (u : ℝ) (c : ℕ → ℝ) (i : ℕ) : ℝ := casteljau i c u 0",
+          "normalized": "left edge of the exact de Casteljau triangle"
+        },
+        "QuantumBlockEncoding.HermiteBernstein.rightRestriction": {
+          "kind": "literal",
+          "literal": "def rightRestriction (d : ℕ) (u : ℝ) (c : ℕ → ℝ) (i : ℕ) : ℝ := leftRestriction (1-u) (fun r => c (d-r)) (d-i)",
+          "normalized": "right edge, with natural truncated subtraction and coefficient order reversal"
+        },
+        "QuantumBlockEncoding.HermiteBernstein.restrictCoefficients": {
+          "kind": "literal",
+          "literal": "def restrictCoefficients (d : ℕ) (u v : ℝ) (c : ℕ → ℝ) : ℕ → ℝ := leftRestriction ((v-u)/(1-u)) (rightRestriction d u c)",
+          "normalized": "the two successive exact-real subdivisions at u and (v-u)/(1-u)"
+        }
+      },
+      "interfaces": [
+        {
+          "name": "QuantumBlockEncoding.HermiteBernstein.basis_sum",
+          "signature": "∀ (d : ℕ) (t : ℝ), (∑ r ∈ Finset.range (d + 1), QuantumBlockEncoding.HermiteBernstein.basis d r t) = 1"
+        },
+        {
+          "name": "QuantumBlockEncoding.HermiteBernstein.basis_nonneg",
+          "signature": "∀ (d r : ℕ) (t : ℝ), t ∈ Set.Icc 0 1 → 0 ≤ QuantumBlockEncoding.HermiteBernstein.basis d r t"
+        },
+        {
+          "name": "QuantumBlockEncoding.HermiteBernstein.casteljau_eq_sum",
+          "signature": "∀ (d : ℕ) (c : ℕ → ℝ) (t : ℝ) (i : ℕ), QuantumBlockEncoding.HermiteBernstein.casteljau d c t i = ∑ j ∈ Finset.range (d + 1), c (i + j) * QuantumBlockEncoding.HermiteBernstein.basis d j t"
+        },
+        {
+          "name": "QuantumBlockEncoding.HermiteBernstein.restrictCoefficients_bounds",
+          "signature": "∀ (d : ℕ) (c : ℕ → ℝ) (u v lo hi : ℝ), 0 ≤ u → u < v → v ≤ 1 → (∀ r ≤ d, c r ∈ Set.Icc lo hi) → ∀ i ≤ d, QuantumBlockEncoding.HermiteBernstein.restrictCoefficients d u v c i ∈ Set.Icc lo hi"
+        }
+      ],
+      "nodes": [
+        {
+          "id": "sp110_partition",
+          "target": "∀ (d : ℕ) (t : ℝ), (∑ r ∈ Finset.range (d + 1), QuantumBlockEncoding.HermiteBernstein.basis d r t) = 1",
+          "depends_on": []
+        },
+        {
+          "id": "sp110_convex",
+          "target": "∀ (d : ℕ) (c : ℕ → ℝ) (t lo hi : ℝ), t ∈ Set.Icc 0 1 → (∀ r ≤ d, c r ∈ Set.Icc lo hi) → (∑ r ∈ Finset.range (d + 1), c r * QuantumBlockEncoding.HermiteBernstein.basis d r t) ∈ Set.Icc lo hi",
+          "depends_on": [
+            "sp110_partition"
+          ]
+        },
+        {
+          "id": "sp110_right",
+          "target": "∀ (d : ℕ) (c : ℕ → ℝ) (u lo hi : ℝ), u ∈ Set.Icc 0 1 → (∀ r ≤ d, c r ∈ Set.Icc lo hi) → ∀ i : ℕ, QuantumBlockEncoding.HermiteBernstein.rightRestriction d u c i ∈ Set.Icc lo hi",
+          "depends_on": [
+            "sp110_convex"
+          ]
+        },
+        {
+          "id": "sp110_parameter",
+          "target": "∀ (u v : ℝ), 0 ≤ u → u < v → v ≤ 1 → (v - u) / (1 - u) ∈ Set.Icc 0 1",
+          "depends_on": []
+        },
+        {
+          "id": "sp110_root",
+          "target": "∀ (d : ℕ) (c : ℕ → ℝ) (u v lo hi : ℝ), 0 ≤ u → u < v → v ≤ 1 → (∀ r ≤ d, c r ∈ Set.Icc lo hi) → ∀ i ≤ d, QuantumBlockEncoding.HermiteBernstein.restrictCoefficients d u v c i ∈ Set.Icc lo hi",
+          "depends_on": [
+            "sp110_convex",
+            "sp110_right",
+            "sp110_parameter"
+          ]
+        }
+      ],
+      "root_id": "sp110_root"
+    }
+  ],
+  "projection": {
+    "kind": "selected_projection_of_same_formal_only_reconstruction",
+    "new_blind_review": false,
+    "compiler_evidence": false,
+    "selected_anonymous_ids": [
+      "A1"
+    ],
+    "excluded_anonymous_ids": [
+      "A2"
+    ],
+    "original_anonymous_ids": [
+      "A1",
+      "A2"
+    ],
+    "reason": "Admission-only selection reported by parent: a distinct source comparison rejects A2/SP116 for source-contract fidelity because its positive-affine/sourceInterpolant specialization is narrower than the current source QA. This is not a mathematical refutation of the decoded A2 statement. A2 remains diagnostic, and only A1 from this analytic packet qualifies. This decoder has not read or independently verified the source comparison, source question, or proof.",
+    "selection_exposure": "No new mathematical inputs, proofs, reference questions, source files, source-comparison artifacts, or prior reviews were read for this projection. Only the existing completed analytic input/output bytes and the parent admission instruction were used.",
+    "substantive_reconstructions": "The selected A1 input view and output view object are unchanged from the full packet; only view selection and documented provenance metadata change.",
+    "full_input": {
+      "path": "benchmarks/quantumcomputingbench/reports/lean-course-v4/diagnostics/analytic-full-decoder-input.json",
+      "raw_sha256": "dcf54b4c802f46e0e201d9cba67f98e41eb307be5535be759618bc12ee3d6a1b",
+      "canonical_sha256": "8a20c0a8dda92c3212ade8f7e23f12ba9dfc02a07e1feaa8dd5caf1ce000f8da"
+    },
+    "full_output": {
+      "path": "benchmarks/quantumcomputingbench/reports/lean-course-v4/diagnostics/analytic-full-decoder.json",
+      "raw_sha256": "c37875279f126ef29ae94d3e0dd0b4c71b82a1dd73edb5e215f0f486b98c1c36",
+      "canonical_sha256": "f1011996581cc02bacdfe02ef6ff4e75b69700a570b3d6f5c1eb8c38c12dd9d4"
+    },
+    "canonical_hash_convention": "SHA256 of UTF-8 json.dumps(parsed_json, ensure_ascii=False, sort_keys=True, separators=(comma,colon))"
+  }
+}

@@ -5,6 +5,7 @@ import html
 from collections import Counter
 
 from website.scripts.qcb_navigation import card
+from website.scripts.qcb_lean_reader import fold
 
 HUB = 'quantumcomputingbench/'
 CLI = 'python benchmarks/quantumcomputingbench/scripts/bench.py '
@@ -46,6 +47,7 @@ def publish_center(write, intro, catalog, registry, publication_commit, environm
     content += card('2. Evaluate a model', 'Prepare answer-free tasks, collect responses and review the actual mathematical argument.', 'evaluation/index.html')
     content += card('3. Evaluate Agentic Lean', 'Compare proof workflows with a pinned library and an accepted isolated verifier.', 'agentic-lean/index.html')
     content += '</div><p><a href="training/index.html">Training data</a> · <a href="downloads/index.html">Data downloads</a> · <a href="protocol/index.html">Task and scoring contract</a></p>'
+    content += '<p><a href="../lean/index.html">New to formal proof? Follow the four-stage Lean route →</a></p>'
     content += '<p class="qcb-status-line">' + ('CPU container workflow verified; model results are a separate experiment.' if (environment or {}).get('passed') is True else 'This build has not executed the CPU container gate.') + ' <a href="../../data/quantumcomputingbench/environment-smoke.json">Environment record</a>.</p>'
     page('', 'Run QuantumComputingBench', 'Choose a workflow. Each run keeps its question contract, source revision, exposure mode and evidence.', content)
 
@@ -66,6 +68,7 @@ def publish_center(write, intro, catalog, registry, publication_commit, environm
 
     content = section('What is available now?', '<ul><li>' + str(counts['lean']) + ' registered formal task views with authored reference evidence, overlapping existing mathematical cores.</li><li>Approved-interface task exports retain exact roots and supplied obligations.</li><li>The live agent harness covers its original pilot registry; additional course companions are not automatically live model tasks.</li></ul>', 'availability')
     content += section('Inspect and prepare a formal task', commands(CLI + 'list --track lean\n' + CLI + 'prepare-run --track lean --exposure approved_interface --output _out/qcb-lean-run-001') + '<p>This prepares tasks only. It does not run a model or execute submitted proofs. The generic CPU bundle has no Lean compiler and rejects Lean tasks.</p>', 'prepare')
+    content += fold('Inspect the course Agentic-proof suite', commands('python benchmarks/quantumcomputingbench/scripts/evaluate_agentic.py list --suite course-v4\npython benchmarks/quantumcomputingbench/scripts/evaluate_agentic.py export --suite course-v4 --mode proof_dag --exposure approved_interface --output _out/qcb-course-proof-tasks-001.json') + '<p>The explicit suite selects qualified course companions; omitting it preserves the pilot default. Listing and exporting do not run a model. A synthetic fixture does not execute real Lean, and isolated generated-proof execution remains blocked until an accepted verifier is connected.</p><p><a href="../../lean/index.html">Follow the staged Lean route</a></p>', 'course-suite')
     content += section('Run a controlled experiment', '<ol><li>Choose the same root, permitted imports/interfaces, model and budget for every method.</li><li>Compare a complete-proof attempt, incremental tactic feedback and an NL-led shadow workflow only where the harness supports them. Record actual feedback timing, state reuse and all input/output costs.</li><li>Use the accepted isolated verifier. Success needs a fresh replay of the unchanged root and permitted transitive axioms; a legal tactic or an empty goal list alone is insufficient.</li><li>Report completion, failed attempts, timeouts, verifier calls, tokens and elapsed time separately. Until connected to accepted verifier receipts, formal model scores stay ungraded.</li></ol>', 'experiment')
     content += '<p class="qcb-status-line">Reference proof acceptance is not evidence that an arbitrary generated proof was isolated or that every NL sentence is correct.</p><p><a href="../../lean/index.html">Explore formal targets</a> · <a href="../../course/index.html">Inspect supplied proof routes</a> · ' + docs + '</p>'
     page('agentic-lean/', 'Evaluate Agentic Lean', 'Measure formal completion and tool use under an explicit library-access and verifier contract.', content)
@@ -76,6 +79,7 @@ def publish_center(write, intro, catalog, registry, publication_commit, environm
     page('results/', 'Results & reporting', 'Comparable results need reproducible task bindings and explicit scoring evidence.', content)
 
     content = section('Export train-only supervision', commands(CLI + 'export --purpose training --split train --output _out/qcb-train-001.jsonl') + '<p>Includes inherited train questions, assumptions, answers and rubrics. Preserve family/split identity across views; keep public-test data outside supervised training. A teacher-data export is not a training launch.</p><p><a download href="../../../data/quantumcomputingbench/runtime/train.jsonl">Download train-only JSONL</a>.</p>', 'export')
+    content += fold('Export whole-root Lean references', commands('python benchmarks/quantumcomputingbench/scripts/lean_training.py --output _out/qcb-lean-train-001.json') + '<p>Choose a fresh output path. This exports train-only complete standalone root references from qualified course companions; dev and public-test cores remain excluded. It does not launch training or certify isolation for arbitrary model-generated proofs.</p><p><a download href="../../../data/quantumcomputingbench/lean-course/train-references.json">Download train-only Lean references · contains answers</a> · <a href="../../lean/index.html">Read the corresponding targets</a></p>', 'lean-supervision')
     content += '<p>Keep tokenizer, chat template, matched SFT-to-RL gate and isolated verifier configuration in the training project. Public solutions require contamination-aware reporting in subsequent studies.</p>'
     page('training/', 'Prepare training data', 'Export reviewed supervision while preserving the benchmark split contract.', content)
 
@@ -89,6 +93,7 @@ def publish_center(write, intro, catalog, registry, publication_commit, environm
         ('download-manifest.json', 'Manifest · content hashes')):
         content += '<li><a download href="../../../data/quantumcomputingbench/runtime/' + filename + '">' + label + '</a></li>'
     content += '</ul><p>' + str(len(catalog['cores'])) + ' canonical cores, ' + str(len(tasks)) + ' task views. View split totals: ' + ', '.join(esc(k) + ' ' + str(v) for k, v in sorted(splits.items())) + '.</p>'
+    content += fold('Lean course artifacts', '<ul class="qcb-download-list"><li><a download href="../../../data/quantumcomputingbench/lean-course/train-references.json">Train-only complete Lean references · contains answers</a></li><li><a download href="../../../data/quantumcomputingbench/lean-course/train-inputs.json">Train task inputs · no reference bodies</a></li><li><a download href="../../../data/quantumcomputingbench/lean-course/dev-inputs.json">Dev task inputs · no reference bodies</a></li><li><a download href="../../../data/quantumcomputingbench/lean-course/test_public-inputs.json">Public-test task inputs · no reference bodies</a></li><li><a download href="../../../data/quantumcomputingbench/lean-course/manifest.json">Content hashes and evidence boundary</a></li></ul><p>These experimental companions reuse existing core identities. References are public elsewhere; the public-test inputs are not a hidden holdout.</p>', 'lean-downloads')
     content += '<p>The <a href="../../non-lean/workbook/index.html">supplementary workbook</a> has separate downloads and unassigned candidates; it does not add scored holdouts.</p>'
     page('downloads/', 'Data downloads', 'Choose question-only evaluation input or train-only supervision. References have a separate role.', content)
 

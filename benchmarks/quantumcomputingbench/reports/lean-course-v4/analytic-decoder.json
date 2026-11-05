@@ -1,0 +1,171 @@
+{
+  "schema_version": "qcb.curriculum_blind_decode.v1",
+  "source_blind": true,
+  "decoder_identity": "/root/course_fourth_blind_decode",
+  "packet_digest": "8c305d55b0e66bbf9f250ff20493bd5c917204ef7abc16b8984fe6454b1acf6b",
+  "views": [
+    {
+      "anonymous_id": "A1",
+      "root_id": "sp110_root",
+      "reconstructed_statement": "For every nonnegative integer degree d, every infinite real coefficient sequence c, and every real u,v,lo,hi, assume 0<=u<v<=1 and lo<=c(r)<=hi for each integer r with 0<=r<=d. Then for every integer i with 0<=i<=d, the coefficient R(i) obtained by the following two subdivisions lies in the same closed interval [lo,hi]. Write D_t(c)(j)=(1-t)c(j)+t c(j+1); casteljau(m,c,t,j) means D_t iterated m times and evaluated at j. Set L_t(c)(i)=D_t^i(c)(0), set Q(i)=L_(1-u)(r -> c(d-r))(d-i), using natural subtraction max(d-i,0), and set R(i)=L_s(Q)(i), where s=(v-u)/(1-u). These are exact real equalities, with no rounding or tolerance. Equivalently Q(i)=sum over j=0,...,max(d-i,0) of c(d-j) B(max(d-i,0),j,1-u); for i<=d all accessed original indices are between i and d. For i>d, Q(i)=c(d), explaining why the supplied right-restriction node legitimately quantifies over all natural i. The root itself quantifies only over i<=d. The assumptions imply u<1, so the denominator 1-u is strictly positive and s belongs to (0,1]. The asserted range preservation is a closed-interval coefficient bound, not a statement about normalized quantum amplitudes.",
+      "semantic_slots": {
+        "domains_and_quantifiers": {
+          "d": "all natural numbers, including zero",
+          "c": "all functions Nat -> Real; no finite-support requirement",
+          "u_v_lo_hi": "all real numbers",
+          "output_index": "all natural i<=d"
+        },
+        "hypotheses": [
+          "0<=u",
+          "u<v",
+          "v<=1",
+          "for every natural r<=d, lo<=c(r) and c(r)<=hi"
+        ],
+        "closed_interval_meaning": "membership in Set.Icc lo hi means the conjunction lo<=value and value<=hi",
+        "basis": "B(d,r,t)=binomial(d,r)t^r(1-t)^(d-r), with natural subtraction and binomial(d,r)=0 when r>d; only r<=d occurs in the finite sums used here",
+        "normalization": "Bernstein weights sum to one for every real t; they are nonnegative on [0,1]. This is affine weight normalization only.",
+        "boundary_cases": [
+          "d=0: the sole admitted coefficient and the output R(0) both equal c(0).",
+          "u=0 and v=1 are admitted jointly; u=v and u=1 are excluded.",
+          "v=1 gives s=1 and remains admitted.",
+          "No lo<=hi premise is written separately. The coefficient premise implies it through c(0); if lo>hi the implication has no satisfying coefficient premise.",
+          "There is no empty degree-d coefficient range: it always contains index zero. Coefficients beyond d have no effect on the claimed output indices."
+        ],
+        "obligation_nodes": [
+          {
+            "id": "sp110_partition",
+            "meaning": "For every d>=0 and every real t, sum_(r=0)^d B(d,r,t)=1; no restriction t in [0,1] is needed for this identity."
+          },
+          {
+            "id": "sp110_convex",
+            "meaning": "For every d,c,t,lo,hi, if 0<=t<=1 and all first d+1 coefficients lie in [lo,hi], their Bernstein-weighted sum lies in [lo,hi]. Both premises are required."
+          },
+          {
+            "id": "sp110_right",
+            "meaning": "For every d,c,u,lo,hi, if 0<=u<=1 and all first d+1 coefficients lie in [lo,hi], then Q(i) lies there for every natural i, including i>d via truncated subtraction."
+          },
+          {
+            "id": "sp110_parameter",
+            "meaning": "For all real u,v satisfying all three inequalities 0<=u, u<v, v<=1, the exact-real quotient (v-u)/(1-u) belongs to [0,1]."
+          },
+          {
+            "id": "sp110_root",
+            "meaning": "Under every original premise, all admitted restricted coefficients belong to the same interval."
+          }
+        ],
+        "registers_phase_oracles_resources": "No register, basis-state phase, oracle, state preparation, success probability, runtime, gate-count, or bit-complexity object occurs in the target.",
+        "exact_asserted_scope": "A conditional exact-real range-preservation proposition over every natural degree and all admissible data; no checked Lean execution is reported by this decoder."
+      },
+      "ambiguities": [
+        "The literal casteljauStep declaration is not included, but its row-update equation and the casteljau_eq_sum interface are supplied, so the needed mathematical update is identifiable.",
+        "The packet supplies signatures and definitions, not proof terms or an independent compilation result."
+      ],
+      "dependency_audit": [
+        "sp110_partition alone is insufficient for sp110_convex: a sum of weights equal to one need not be nonnegative. The separately supplied basis_nonneg interface and the interval premise are essential. For example, d=1,c(0)=0,c(1)=1,t=2 has sum of weights one but weighted value 2.",
+        "The stated graph edges are not exhaustive standalone implications. Connecting convex sums to rightRestriction/root also uses the casteljau_eq_sum interface, definitions, and bounds on the natural indices.",
+        "sp110_right does not need an added i<=d premise: natural subtraction saturates, giving c(d) beyond d. Treating d-i as signed subtraction would invalidate that reading."
+      ],
+      "limitations": [
+        "The root does not assert a polynomial identity for the reparameterized function, even though its coefficient construction is the supplied de Casteljau construction.",
+        "It supplies no approximation error, positive lower bound, finite-bit algorithm, resource estimate, normalized state, circuit, or optimality claim.",
+        "No claim of equivalence to an external source question, human approval, proof-body audit, or current Lean certification is made."
+      ]
+    }
+  ],
+  "exposure": {
+    "mathematical_inputs_read": [
+      "benchmarks/quantumcomputingbench/reports/lean-course-v4/analytic-decoder-input.json",
+      "benchmarks/quantumcomputingbench/reports/lean-course-v4/oracle-decoder-input.json"
+    ],
+    "workflow_files_read": [
+      "AGENTS.md",
+      "HARNESS.md"
+    ],
+    "workflow_note": "AGENTS.md/HARNESS.md were read for workflow; they incidentally contain comparator examples, which were not used as evidence for any decoded root.",
+    "not_read_or_executed": [
+      "reference questions",
+      "source QA",
+      "source/proof/library Lean files",
+      "author packets",
+      "old reviews",
+      "proof bodies",
+      "Lean execution",
+      "external browsing"
+    ],
+    "coordination_disclosure": "Parent notified the oracle qubitDim spelling correction before my first oracle-packet read. I later reported missing O4C ambient definitions and reread the final expanded oracle packet after parent notice. Parent also clarified that dependency arrays are nonexhaustive conceptual edges. No intended reference answer or proof body was supplied. Analytic input remained unchanged. Subsequently parent requested this admission-only A1 projection. The reported source-fidelity reason is recorded without reading the source comparison, source question, or proof.",
+    "digest_method": "SHA256 of UTF-8 json.dumps(parsed_input, ensure_ascii=False, sort_keys=True, separators=(comma,colon)); no qcb_core source read was necessary.",
+    "admission_projection": {
+      "kind": "selected_projection_of_same_formal_only_reconstruction",
+      "new_blind_review": false,
+      "compiler_evidence": false,
+      "selected_anonymous_ids": [
+        "A1"
+      ],
+      "excluded_anonymous_ids": [
+        "A2"
+      ],
+      "original_anonymous_ids": [
+        "A1",
+        "A2"
+      ],
+      "reason": "Admission-only selection reported by parent: a distinct source comparison rejects A2/SP116 for source-contract fidelity because its positive-affine/sourceInterpolant specialization is narrower than the current source QA. This is not a mathematical refutation of the decoded A2 statement. A2 remains diagnostic, and only A1 from this analytic packet qualifies. This decoder has not read or independently verified the source comparison, source question, or proof.",
+      "selection_exposure": "No new mathematical inputs, proofs, reference questions, source files, source-comparison artifacts, or prior reviews were read for this projection. Only the existing completed analytic input/output bytes and the parent admission instruction were used.",
+      "substantive_reconstructions": "The selected A1 input view and output view object are unchanged from the full packet; only view selection and documented provenance metadata change.",
+      "full_input": {
+        "path": "benchmarks/quantumcomputingbench/reports/lean-course-v4/diagnostics/analytic-full-decoder-input.json",
+        "raw_sha256": "dcf54b4c802f46e0e201d9cba67f98e41eb307be5535be759618bc12ee3d6a1b",
+        "canonical_sha256": "8a20c0a8dda92c3212ade8f7e23f12ba9dfc02a07e1feaa8dd5caf1ce000f8da"
+      },
+      "full_output": {
+        "path": "benchmarks/quantumcomputingbench/reports/lean-course-v4/diagnostics/analytic-full-decoder.json",
+        "raw_sha256": "c37875279f126ef29ae94d3e0dd0b4c71b82a1dd73edb5e215f0f486b98c1c36",
+        "canonical_sha256": "f1011996581cc02bacdfe02ef6ff4e75b69700a570b3d6f5c1eb8c38c12dd9d4"
+      },
+      "canonical_hash_convention": "SHA256 of UTF-8 json.dumps(parsed_json, ensure_ascii=False, sort_keys=True, separators=(comma,colon))"
+    },
+    "final_input_raw_sha256": "df3a510868fc55c7d04bab23ad8b7e9ae7ad8b7825b5790967aa96b3071fc32b",
+    "final_input_raw_sha256_scope": "Raw hash of the selected A1 input packet. The exact original two-view input hashes are recorded in projection.full_input."
+  },
+  "disclosure": {
+    "reconstruction_only": true,
+    "independent_lean_check": false,
+    "proof_body_exposure": false,
+    "reference_question_exposure": false,
+    "human_approval_claimed": false,
+    "source_equivalence_claimed": false,
+    "scope": "Literal types plus supplied ambient definitions/interfaces only; graph arrays are audited as conceptual dependencies, not verified proof graphs.",
+    "dependency_graph_scope": "The depends_on arrays are nonexhaustive conceptual edges. Missing proof ingredients are not evidence a node is false; dependency notes identify ingredients needed only if an edge is read as a self-contained implication.",
+    "selected_projection_only": true,
+    "new_blind_review": false,
+    "compiler_evidence": false
+  },
+  "projection": {
+    "kind": "selected_projection_of_same_formal_only_reconstruction",
+    "new_blind_review": false,
+    "compiler_evidence": false,
+    "selected_anonymous_ids": [
+      "A1"
+    ],
+    "excluded_anonymous_ids": [
+      "A2"
+    ],
+    "original_anonymous_ids": [
+      "A1",
+      "A2"
+    ],
+    "reason": "Admission-only selection reported by parent: a distinct source comparison rejects A2/SP116 for source-contract fidelity because its positive-affine/sourceInterpolant specialization is narrower than the current source QA. This is not a mathematical refutation of the decoded A2 statement. A2 remains diagnostic, and only A1 from this analytic packet qualifies. This decoder has not read or independently verified the source comparison, source question, or proof.",
+    "selection_exposure": "No new mathematical inputs, proofs, reference questions, source files, source-comparison artifacts, or prior reviews were read for this projection. Only the existing completed analytic input/output bytes and the parent admission instruction were used.",
+    "substantive_reconstructions": "The selected A1 input view and output view object are unchanged from the full packet; only view selection and documented provenance metadata change.",
+    "full_input": {
+      "path": "benchmarks/quantumcomputingbench/reports/lean-course-v4/diagnostics/analytic-full-decoder-input.json",
+      "raw_sha256": "dcf54b4c802f46e0e201d9cba67f98e41eb307be5535be759618bc12ee3d6a1b",
+      "canonical_sha256": "8a20c0a8dda92c3212ade8f7e23f12ba9dfc02a07e1feaa8dd5caf1ce000f8da"
+    },
+    "full_output": {
+      "path": "benchmarks/quantumcomputingbench/reports/lean-course-v4/diagnostics/analytic-full-decoder.json",
+      "raw_sha256": "c37875279f126ef29ae94d3e0dd0b4c71b82a1dd73edb5e215f0f486b98c1c36",
+      "canonical_sha256": "f1011996581cc02bacdfe02ef6ff4e75b69700a570b3d6f5c1eb8c38c12dd9d4"
+    },
+    "canonical_hash_convention": "SHA256 of UTF-8 json.dumps(parsed_json, ensure_ascii=False, sort_keys=True, separators=(comma,colon))"
+  }
+}

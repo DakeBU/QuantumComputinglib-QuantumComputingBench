@@ -1,0 +1,169 @@
+{
+  "schema_version": "qcb.curriculum_blind_input.v1",
+  "source_blind": true,
+  "views": [
+    {
+      "anonymous_id": "O4A",
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.BandedSparseAccessPrimitive"
+        ],
+        "preamble": "open scoped BigOperators",
+        "target": "(∀ s : Fin 8, QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 (QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 s) = s) ∧ (List.ofFn QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 = [3,2,1,0,7,6,5,4]) ∧ (∀ state : QuantumBlockEncoding.PrimitiveBasis 7, (QuantumBlockEncoding.littleEndian3Value (QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) state) 0 1 2 = ((QuantumBlockEncoding.littleEndian3Value state 0 1 2) ^^^ 3) % 8) ∧ QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) (QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) state) = state)"
+      },
+      "formal_signatures": [
+        {
+          "id": "N1",
+          "target": "∀ s : Fin 8, QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 (QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 s) = s",
+          "depends_on": []
+        },
+        {
+          "id": "N2",
+          "target": "List.ofFn QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 = [3,2,1,0,7,6,5,4]",
+          "depends_on": []
+        },
+        {
+          "id": "N3",
+          "target": "∀ state : QuantumBlockEncoding.PrimitiveBasis 7, (QuantumBlockEncoding.littleEndian3Value (QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) state) 0 1 2 = ((QuantumBlockEncoding.littleEndian3Value state 0 1 2) ^^^ 3) % 8) ∧ QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) (QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) state) = state",
+          "depends_on": []
+        },
+        {
+          "id": "N4",
+          "target": "(∀ s : Fin 8, QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 (QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 s) = s) ∧ (List.ofFn QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 = [3,2,1,0,7,6,5,4]) ∧ (∀ state : QuantumBlockEncoding.PrimitiveBasis 7, (QuantumBlockEncoding.littleEndian3Value (QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) state) 0 1 2 = ((QuantumBlockEncoding.littleEndian3Value state 0 1 2) ^^^ 3) % 8) ∧ QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) (QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) state) = state)",
+          "depends_on": [
+            "N1",
+            "N2",
+            "N3"
+          ]
+        }
+      ],
+      "root_id": "N4",
+      "ambient": [
+        {
+          "signature": "QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 : Fin 8 → Fin 8",
+          "equation": "L(s).val = (Nat.xor s.val 3) % 8; 3 is the fixed mask binary011."
+        },
+        {
+          "signature": "PrimitiveBasis 7 = Fin 7 → Fin 2",
+          "equation": "Wire indices are address0,1,2; row3,4,5; work6. The literal prefix consists only of X on0 then X on1. X toggles its target bit, leaving every other bit unchanged."
+        },
+        {
+          "signature": "littleEndian3Value state i j k : Nat",
+          "equation": "value=state(i).val +2*state(j).val +4*state(k).val. evalReversibleProgram composes the listed basis bijections in chronological order."
+        }
+      ],
+      "provenance_boundary": "Literal signatures and defining equations only; no source QA, reference proof, prior verdict, author binder classification or desired conclusion supplied.",
+      "request": "Reconstruct precisely the mathematics of the displayed formal targets from the literal types/equations. State domain, quantifiers, hypotheses, register/phase convention and conclusion; expose all boundaries and do not infer additional physical/resource claims."
+    },
+    {
+      "anonymous_id": "O4B",
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.BandedSparseAccessPrimitive"
+        ],
+        "preamble": "open scoped BigOperators",
+        "target": "(∀ {qubits : Nat} (program : QuantumBlockEncoding.ReversibleProgram qubits), QuantumBlockEncoding.evalPrimitiveProgram (QuantumBlockEncoding.compileReversibleProgram program) = QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.evalReversibleProgram program)) ∧ (QuantumBlockEncoding.ExactAngle.eval QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.globalPhase = Real.pi * (45 / 8)) ∧ (∀ {qubits : Nat} (program : QuantumBlockEncoding.ReversibleProgram qubits), QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.compileReversibleProgram program).circuit = (QuantumBlockEncoding.evalGlobalPhase (QuantumBlockEncoding.compileReversibleProgram program).globalPhase)⁻¹ • QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.evalReversibleProgram program)) ∧ (QuantumBlockEncoding.evalGlobalPhase QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.globalPhase ≠ 1) ∧ (QuantumBlockEncoding.evalPrimitiveCircuit QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.circuit ≠ QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv)"
+      },
+      "formal_signatures": [
+        {
+          "id": "N1",
+          "target": "∀ {qubits : Nat} (program : QuantumBlockEncoding.ReversibleProgram qubits), QuantumBlockEncoding.evalPrimitiveProgram (QuantumBlockEncoding.compileReversibleProgram program) = QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.evalReversibleProgram program)",
+          "depends_on": []
+        },
+        {
+          "id": "N2",
+          "target": "QuantumBlockEncoding.ExactAngle.eval QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.globalPhase = Real.pi * (45 / 8)",
+          "depends_on": []
+        },
+        {
+          "id": "N3",
+          "target": "∀ {qubits : Nat} (program : QuantumBlockEncoding.ReversibleProgram qubits), QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.compileReversibleProgram program).circuit = (QuantumBlockEncoding.evalGlobalPhase (QuantumBlockEncoding.compileReversibleProgram program).globalPhase)⁻¹ • QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.evalReversibleProgram program)",
+          "depends_on": [
+            "N1"
+          ]
+        },
+        {
+          "id": "N4",
+          "target": "QuantumBlockEncoding.evalGlobalPhase QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.globalPhase ≠ 1",
+          "depends_on": [
+            "N2"
+          ]
+        },
+        {
+          "id": "N5",
+          "target": "QuantumBlockEncoding.evalPrimitiveCircuit QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.circuit ≠ QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv",
+          "depends_on": [
+            "N4"
+          ]
+        },
+        {
+          "id": "N6",
+          "target": "(∀ {qubits : Nat} (program : QuantumBlockEncoding.ReversibleProgram qubits), QuantumBlockEncoding.evalPrimitiveProgram (QuantumBlockEncoding.compileReversibleProgram program) = QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.evalReversibleProgram program)) ∧ (QuantumBlockEncoding.ExactAngle.eval QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.globalPhase = Real.pi * (45 / 8)) ∧ (∀ {qubits : Nat} (program : QuantumBlockEncoding.ReversibleProgram qubits), QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.compileReversibleProgram program).circuit = (QuantumBlockEncoding.evalGlobalPhase (QuantumBlockEncoding.compileReversibleProgram program).globalPhase)⁻¹ • QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.evalReversibleProgram program)) ∧ (QuantumBlockEncoding.evalGlobalPhase QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.globalPhase ≠ 1) ∧ (QuantumBlockEncoding.evalPrimitiveCircuit QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.circuit ≠ QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv)",
+          "depends_on": [
+            "N1",
+            "N2",
+            "N3",
+            "N4",
+            "N5"
+          ]
+        }
+      ],
+      "root_id": "N6",
+      "ambient": [
+        {
+          "signature": "ReversibleProgram q = List (ReversibleGate q)",
+          "equation": "ReversibleGate cases are X, controlled-X with distinct controls/targets and controlled-controlled-X with pairwise distinct wires. E([])=identity; E(g::rest) applies g first then rest."
+        },
+        {
+          "signature": "PrimitiveProgram q = {circuit : List (PrimitiveGate q), globalPhase : ExactAngle}",
+          "equation": "PrimitiveGate cases are X, RY, RZ, CX. Bare C([])=I and C(g::rest)=C(rest)*C(g). Full D(p)=exp(i*angle(p.globalPhase))*C(p.circuit). P(e)[r,c]=if r=e(c) then1 else0."
+        },
+        {
+          "signature": "compileReversibleProgram",
+          "equation": "Compiles empty lists to the identity PrimitiveProgram; compiles g::rest by sequencing compileGate(g) then compile(rest). PrimitiveProgram.seq appends the two circuits and adds the exact stored angles."
+        },
+        {
+          "signature": "primitiveAccess3Program",
+          "equation": "Compiler applied to seven-wire prefix X0,X1 then CCX(3,0;6),CCX(6,1;2),CCX(3,0;6),CCX(3,0;1),CX(3;0),CCX(4,1;2),CX(4;1),CX(5;2). Wire order address0..2,row3..5,work6."
+        },
+        {
+          "signature": "compiled macro angle fields",
+          "equation": "X,CX have stored angle0. H is RZ(pi) then RY(pi/2) with stored angle pi/2. T is RZ(pi/4) with stored angle pi/8. Tdagger is RZ(-pi/4) with stored angle -pi/8. CCX is H(target), then CX(b,t),Tdagger(t),CX(a,t),T(t),CX(b,t),Tdagger(t),CX(a,t),T(b),T(t),CX(a,b),T(a),Tdagger(b),CX(a,b), then H(target). Angles add under chronology and are not automatically reduced modulo2pi."
+        }
+      ],
+      "provenance_boundary": "Literal signatures and defining equations only; no source QA, reference proof, prior verdict, author binder classification or desired conclusion supplied.",
+      "request": "Reconstruct precisely the mathematics of the displayed formal targets from the literal types/equations. State domain, quantifiers, hypotheses, register/phase convention and conclusion; expose all boundaries and do not infer additional physical/resource claims."
+    }
+  ],
+  "projection": {
+    "kind": "selected_projection_of_same_formal_only_reconstruction",
+    "new_blind_review": false,
+    "compiler_evidence": false,
+    "selected_anonymous_ids": [
+      "O4A",
+      "O4B"
+    ],
+    "excluded_anonymous_ids": [
+      "O4C"
+    ],
+    "original_anonymous_ids": [
+      "O4A",
+      "O4B",
+      "O4C"
+    ],
+    "reason": "Admission-only selection reported by parent: O4C frozen graph anchors have inventory_status Partial route, while the unchanged course admission gate requires Compiled. O4C is retained as diagnostic; only O4A/O4B from this oracle packet qualify. This projection supplies no independent graph-inventory verification or compiler evidence.",
+    "selection_exposure": "No new mathematical inputs, proofs, reference questions, source files, or prior reviews were read for this projection. Only the existing completed oracle input/output bytes and the parent admission instruction were used.",
+    "substantive_reconstructions": "Selected O4A/O4B input views and output view objects are unchanged from the full packet; only the view selection and documented provenance metadata change.",
+    "full_input": {
+      "path": "benchmarks/quantumcomputingbench/reports/lean-course-v4/diagnostics/oracle-full-decoder-input.json",
+      "raw_sha256": "0f294979c77773c9a3748878d9ed68a181532d7e584ac68c09fef038712d3834",
+      "canonical_sha256": "da469f98bad854416d3dce5396fec69e99e48a742b7f74ed0fb08d4979eda845"
+    },
+    "full_output": {
+      "path": "benchmarks/quantumcomputingbench/reports/lean-course-v4/diagnostics/oracle-full-decoder.json",
+      "raw_sha256": "6cb524faab0c9353baf288cdbbe31388fccefafc17db314c43fbbbf793a11d41",
+      "canonical_sha256": "94b1d6bd76add7a9fc8e83ab81edaf9b55e7517437a0d7d8a962bed6cf7047e6"
+    },
+    "canonical_hash_convention": "SHA256 of UTF-8 json.dumps(parsed_json, ensure_ascii=False, sort_keys=True, separators=(comma,colon))"
+  }
+}

@@ -6,7 +6,10 @@ contracts, families and splits. Knowledge, Lean syntax and mixed views of the
 same target remain one question. The non-Lean track and frozen releases remain
 independent of this sidecar's qualification.
 
-The cumulative plan is [course-v3.json](curriculum/course-v3.json): 18 distinct
+The current [fourth-cohort guide](COURSE_V4.md) and
+[course-v4.json](curriculum/course-v4.json) extend this course to 21 existing
+cores, with answer-free evaluation and train-only formal-reference exports.
+The preserved version-3 plan is [course-v3.json](curriculum/course-v3.json): 18 distinct
 existing cores. The preserved [first plan](curriculum/course-v1.json) and
 [second plan](curriculum/course-v2.json) retain their nine-core and 13-core
 scopes and original execution evidence. New companions require content-bound
