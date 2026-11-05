@@ -112,14 +112,14 @@ def page_body(entry, workbook, graph, live_ids, publication_commit):
     for eq in entry['notation']['equations']:
         equations += '<div class="qcb-equation" data-qcb-given-equation data-qcb-math-source="' + esc(eq['source_excerpt']) + '">\\[' + esc(eq['tex']) + '\\]</div>'
     if equations:
-        body += section('Notation already given in the question', equations, 'given-notation')
-    body += section('Location in the Lean graph', graph_location(p, graph, live_ids, prefix), 'graph')
+        body += folded('Notation already given in the question', equations, 'given-notation')
+    body += folded('Location in the Lean graph', graph_location(p, graph, live_ids, prefix), 'graph')
     if entry['slot'] in READING_LINKS:
         connections = '<p>Reading connections preserve the disclosed supplied-result boundary; they do not create extra independent tests of that result.</p><ul>'
         for slot, explanation in READING_LINKS[entry['slot']]:
             peer = next(e for e in workbook['entries'] if e['slot'] == slot)
             connections += '<li><a href="../' + slot.lower() + '/index.html">' + esc(peer['packet']['title']) + '</a> — ' + esc(explanation) + '</li>'
-        body += section('Connect the exercises', connections + '</ul>', 'connections')
+        body += folded('Connect the exercises', connections + '</ul>', 'connections')
     body += folded('Reference solution', render_prose(p['reference_answer']), 'solution')
     rubric = '<ol>' + ''.join('<li>' + render_prose(r['criterion']) + '<p class="qcb-meta">' + esc(r['weight']) + ' / 10 points · ' + esc(r['id']) + '</p></li>' for r in entry['display_rubric']) + '</ol>'
     rubric += '<p>Credit mathematically equivalent complete derivations satisfying the same premises. A displayed proof route is not the only accepted route.</p>'
@@ -154,8 +154,7 @@ def publish_workbook(write, intro, workbook, graph, live_ids, publication_commit
     body += '<p class="qcb-meta">Four exercises offer additional expositions of existing cores; eight develop supplementary candidate targets. The canonical inventory and scored train/test splits are unchanged.</p>'
     body += section('Choose a subject', '<div class="qcb-grid">' + ''.join('<article class="qcb-card"><h2><a href="' + slug + '/index.html">' + title + '</a></h2><p>Four linked mathematical exercises with reference arguments and source anchors.</p></article>' for slug, title in workbook['groups'].values()) + '</div>', 'subjects')
     body += section('Choose a construction level', '<p>' + ' · '.join('<a href="levels/' + band.lower() + '/index.html">' + band + ' (' + str(count) + ')</a>' for band, count in sorted(workbook['counts']['by_band'].items())) + '</p><p>These are provisional reasoning-route bands. D0 is the knowledge-reading facet of each exercise; no extra question is counted for it.</p>', 'levels')
-    body += section('Inspect the graph and data', '<p><a href="graph/index.html">Node-to-exercise map</a> · <a download href="../../../data/quantumcomputingbench/nonlean-workbook/questions.jsonl">Question-only JSONL</a> · <a download href="../../../data/quantumcomputingbench/nonlean-workbook/references.jsonl">References and rubrics</a> · <a download href="../../../data/quantumcomputingbench/nonlean-workbook/index.json">Source and review index</a></p><p>These supplementary files are outside canonical training/evaluation exports. Existing-core expositions retain their original split; candidate split reconciliation remains pending. Public answers do not constitute a hidden holdout.</p>', 'data')
-    body += cards(entries, '../../../')
+    body += folded('Graph, downloads and inventory boundaries', '<p><a href="graph/index.html">Node-to-exercise map</a> · <a download href="../../../data/quantumcomputingbench/nonlean-workbook/questions.jsonl">Question-only JSONL</a> · <a download href="../../../data/quantumcomputingbench/nonlean-workbook/references.jsonl">References and rubrics</a> · <a download href="../../../data/quantumcomputingbench/nonlean-workbook/index.json">Source and review index</a></p><p>These supplementary files are outside canonical training/evaluation exports. Existing-core expositions retain their original split; candidate split reconciliation remains pending. Public answers do not constitute a hidden holdout.</p>', 'data')
     write(BASE, 'Supplementary mathematics workbook', body + '</div>', 'Source-grounded supplementary exercises with disclosed difficulty, reasoning routes and exact graph anchors.')
     for group, (slug, title) in workbook['groups'].items():
         body = intro(title, 'A subject chapter in the supplementary natural-language workbook.')
@@ -181,6 +180,6 @@ def publish_workbook(write, intro, workbook, graph, live_ids, publication_commit
         for row in rows:
             e = next(e for e in entries if e['slot'] == row['slot'])
             content += '<li><a href="../' + row['slot'].lower() + '/index.html">' + esc(e['packet']['title']) + '</a> · ' + ('target' if row['role'] == 'target_nodes' else 'support') + '</li>'
-        body += section(title, content + '</ul>', node_anchor(node))
+        body += folded(title, content + '</ul>', node_anchor(node))
     write(BASE + 'graph/', 'Supplementary node-to-exercise map', body + '</div></div>', 'Exact graph anchors and reverse question links for the supplemental workbook.')
     return {'schema_version': 'qcb.nonlean_workbook_projection.v1', 'workbook_digest': workbook['workbook_digest'], **workbook['counts'], 'distinct_graph_anchors': len(reverse), 'new_canonical_admissions': False}

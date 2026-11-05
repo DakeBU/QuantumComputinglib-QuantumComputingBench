@@ -245,6 +245,7 @@ class AssumptionSuccessorTests(unittest.TestCase):
                     patch('qcb_nonlean_workbook.check_publication_sources'), \
                     patch('qcb_nonlean_workbook.write_downloads'), \
                     patch('website.scripts.qcb_workbook_reader.publish_workbook', return_value={'unit_fixture': True}), \
+                    patch('website.scripts.reader_hierarchy.publish', return_value={'unit_fixture': True}), \
                     patch.object(reader, 'stable_readiness', return_value={'stable': False, 'fixture_only': True}), \
                     patch.object(reader, 'formal_warmups', return_value=[]), \
                     patch.object(build_site, 'git_context', return_value={'commit': commit}), \

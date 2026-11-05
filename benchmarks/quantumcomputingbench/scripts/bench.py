@@ -16,6 +16,7 @@ from qcb_bench_runtime import (
     prepare_run,
     public_index,
     read_jsonl,
+    review_pack,
     review_template,
     score,
     select_tasks,
@@ -28,7 +29,7 @@ from qcb_core import read_json
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("validate", "list", "show", "export", "prepare-run", "score", "review-template", "smoke", "doctor", "bundle", "downloads"))
+    parser.add_argument("command", choices=("validate", "list", "show", "export", "prepare-run", "score", "review-template", "review-pack", "smoke", "doctor", "bundle", "downloads"))
     parser.add_argument("--split", choices=("train", "dev", "test_public"))
     parser.add_argument("--track", choices=("nonlean", "semantic", "lean"))
     parser.add_argument("--task", action="append")
@@ -45,7 +46,7 @@ def main():
             "split": {"list", "show", "export", "prepare-run", "bundle"},
             "track": {"list", "show", "export", "prepare-run", "bundle"},
             "task": {"list", "show", "export", "prepare-run", "bundle"},
-            "manifest": {"score", "review-template"}, "responses": {"score", "review-template"},
+            "manifest": {"score", "review-template", "review-pack"}, "responses": {"score", "review-template", "review-pack"},
             "reviews": {"score"},
         }.items():
             if getattr(args, field) is not None and args.command not in commands:
@@ -82,7 +83,11 @@ def main():
                 if not args.manifest or not args.responses:
                     raise ValueError("scoring/review preparation requires --manifest and --responses")
                 manifest, responses = read_json(args.manifest), read_jsonl(args.responses)
-                if args.command == "review-template":
+                if args.command == "review-pack":
+                    if not args.output:
+                        raise ValueError("review-pack requires a fresh --output directory")
+                    result = review_pack(registry, manifest, responses, args.output, run_directory=args.manifest.parent)
+                elif args.command == "review-template":
                     score(registry, manifest, responses)
                     tasks = _manifest_tasks(registry, manifest)
                     answered = {r["task_id"] for r in responses if r["status"] == "answered"}

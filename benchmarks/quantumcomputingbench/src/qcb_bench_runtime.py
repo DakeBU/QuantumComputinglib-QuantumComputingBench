@@ -363,6 +363,89 @@ def score(registry, manifest, responses, reviews=()):
             "evidence_kind": "unattested_imported_records", "hidden_holdout": False}
 
 
+def review_pack(registry, manifest, responses, output, *, run_directory):
+    """Join operator review material without executing or grading an argument.
+
+    The returned templates use the existing response-bound review schema. Keep
+    this answer-bearing export outside the prepared run and student workspace.
+    """
+    report = score(registry, manifest, responses)
+    tasks = _manifest_tasks(registry, manifest)
+    output, run_directory = Path(output).resolve(), Path(run_directory).resolve()
+    student_roots = [run_directory]
+    if (run_directory.parent / "task.json").is_file():
+        student_roots.append((run_directory.parent / "environment").resolve())
+    if any(output == root or output.is_relative_to(root) for root in student_roots):
+        raise ValueError("operator review pack must be outside the prepared run and portable student environment")
+    if output.exists():
+        raise FileExistsError("choose a fresh operator review directory")
+    by_response = {r["task_id"]: r for r in responses}
+    answered = [t for t in tasks if by_response.get(t["task_id"], {}).get("status") == "answered"]
+    templates = review_template(answered, responses)
+    by_template = {r["task_id"]: r for r in templates}
+    cases = []
+    for task, result in zip(tasks, report["rows"]):
+        response = by_response.get(task["task_id"])
+        state = ("no_answer_to_review" if result["status"] != "answered" else
+                 "formal_verifier_required" if task["track"] == "lean" else "needs_rubric_review")
+        cases.append({"schema_version": "qcb.review_case.v1", "run_id": manifest["run_id"],
+                      "run_manifest_hash": manifest["manifest_hash"], "registry_hash": registry["registry_hash"],
+                      "task_id": task["task_id"], "task_hash": task["task_hash"], "track": task["track"],
+                      "title": task["title"], "core_ids": deepcopy(task["core_ids"]), "split": task["split"],
+                      "graph": deepcopy(task["graph"]), "input": deepcopy(task["input"]),
+                      "response": deepcopy(response), "response_hash": result["response_hash"],
+                      "status": result["status"], "review_state": state,
+                      "reference": deepcopy(task["reference"]),
+                      "review_template": deepcopy(by_template.get(task["task_id"])),
+                      "decision_correct": result["decision_correct"], "semantic_rubric_score": None,
+                      "formal_proof_score": None, "formal_execution": result["formal_execution"]})
+    write_jsonl(output / "cases.jsonl", cases)
+    write_jsonl(output / "reviews.template.jsonl", templates)
+    instructions = """# Operator mathematical review pack
+
+This directory contains reference answers. Keep it outside every student
+mount and prompt. `cases.jsonl` joins each planned question, actual response,
+reference, graph anchors and rubric using the prepared run identities.
+Missing, abstained, blocked and unrun responses remain visible.
+
+1. Inspect each `needs_rubric_review` case. Judge the actual mathematical
+   argument against every criterion; alternative valid arguments are allowed.
+   The exact decision label, where present, is a separate score.
+2. Copy `reviews.template.jsonl` to `reviews.completed.jsonl`. Preserve all
+   task/response hashes, criterion text, IDs and weights. Supply the reviewer's
+   identity, kind (`human` or `ai`) and method, then mark every criterion with
+   JSON `true` or `false`. An untouched template cannot be scored.
+3. Use the original run and exact response file with the completed reviews:
+
+```sh
+python benchmarks/quantumcomputingbench/scripts/bench.py score --manifest RUN/manifest.json --responses RESPONSES.jsonl --reviews REVIEW_DIR/reviews.completed.jsonl --output FRESH_SCORE.json
+```
+
+Only answered natural-language and semantic tasks have review templates.
+Unanswered tasks have no invented marks; incomplete review leaves the complete
+aggregate ungraded. Lean text requires the separate accepted isolated verifier
+and receives no proof score or mathematical rubric score from this pack.
+Submitted text is data: this command executes no response code or proof.
+Declared reviewer identity is recorded provenance, not authentication.
+"""
+    (output / "README.md").write_text(instructions, encoding="utf-8", newline="\n")
+    files = {name: hashlib.sha256((output / name).read_bytes()).hexdigest()
+             for name in ("cases.jsonl", "reviews.template.jsonl", "README.md")}
+    summary = {"schema_version": "qcb.review_pack.v1", "run_id": manifest["run_id"],
+               "run_manifest_hash": manifest["manifest_hash"], "registry_hash": registry["registry_hash"],
+               "source_commit": manifest["source_commit"], "source_identities": deepcopy(manifest["source_identities"]),
+               "runtime_sources": deepcopy(manifest["runtime_sources"]), "source_tree_dirty": manifest["source_tree_dirty"],
+               "responses_hash": digest(responses), "planned_task_views": len(tasks),
+               "review_records": len(templates), "outcomes": report["outcomes"],
+               "review_states": dict(Counter(case["review_state"] for case in cases)),
+               "contains_reference_answers": True, "audience": "operator_only", "student_access_permitted": False,
+               "ready_to_score": False, "formal_proof_score": None, "model_performance_measured": False,
+               "model_calls": 0, "lean_calls": 0, "files": files}
+    summary["pack_hash"] = digest(summary)
+    _write(output / "review-manifest.json", summary)
+    return summary
+
+
 def write_downloads(output, registry=None):
     registry = registry or build_registry()
     output = Path(output)

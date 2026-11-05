@@ -62,6 +62,8 @@ def presentation_contract():
     paths = ("website/scripts/qcb_math.py", "website/static/qcb-math.css",
              "website/scripts/qcb_expert.py", "website/static/qcb-expert.css", "website/static/qcb-expert.js",
              "website/scripts/qcb_benchmark_center.py", "benchmarks/quantumcomputingbench/src/qcb_bench_runtime.py",
+             "website/scripts/qcb_navigation.py", "website/static/quantumcomputingbench.css", "website/static/quantumcomputingbench.js",
+             "website/scripts/reader_hierarchy.py", "website/scripts/qcb_hierarchy_browser.py",
              "website/scripts/qcb_workbook_reader.py", "benchmarks/quantumcomputingbench/src/qcb_nonlean_workbook.py",
              "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/reader-comparison.json",
              "website/scripts/qcb_ecosystem_browser.py",
@@ -459,10 +461,10 @@ def core_body(core, item, catalog, graph, live_ids, prefix, publication_commit=N
     body += course_panel(core, prefix, publication_commit)
     if expert_index is not None:
         from website.scripts.qcb_expert import expert_panel, graph_summary
-        body += section("Location in the Lean graph", graph_summary(core["core_id"], expert_index, prefix), "graph")
+        body += disclosure("Location in the Lean graph", graph_summary(core["core_id"], expert_index, prefix), "graph")
         body += expert_panel(core["core_id"], expert_index, prefix)
     else:
-        body += section("Graph-grounded prerequisites", '<p>Support/source anchors:</p><ul>' + "".join('<li>' + graph_link(n, prefix, graph, live_ids) + '</li>' for n in dict.fromkeys(core["target_nodes"] + core["supporting_nodes"])) + '</ul>', "graph")
+        body += disclosure("Graph-grounded prerequisites", '<p>Support/source anchors:</p><ul>' + "".join('<li>' + graph_link(n, prefix, graph, live_ids) + '</li>' for n in dict.fromkeys(core["target_nodes"] + core["supporting_nodes"])) + '</ul>', "graph")
     formal = core["views"].get("lean")
     if formal:
         formal_body = '<p class="qcb-boundary">Exact formal conclusion: independently decoded and compared with this question, then checked with the fixed reference in Lean. This is a library-lemma application, not a deep proof-search result. The kernel does not certify every sentence of the natural-language explanation.</p>'
@@ -502,9 +504,9 @@ def exercise_cards(cores, prefix, items, track="non-lean"):
         if track == "lean":
             href += "#lean"
         question = items[c["core_id"]]["question"]
-        preview = question if len(question) <= 220 else question[:220] + "…"
         label = (' · aligned Lean reference checked' if "lean" in c["views"] else ' · formal view pending') if track == "lean" else ''
-        content += '<article class="qcb-card" data-qcb-card data-qcb-search="' + esc(c["core_id"] + ' ' + c["topic"] + ' ' + c["evidence_relation"] + ' ' + question) + '"><p class="qcb-meta">' + esc(c["split"]) + ' · ' + esc(items[c["core_id"]]["task_kind"]) + esc(label) + '</p><h3><a href="' + esc(href) + '">Exercise ' + esc(c["core_id"].removeprefix("qcb-core-").upper()) + '</a></h3>' + prose(preview) + '<p>' + esc(c["evidence_relation"].replace("_", " ")) + '</p></article>'
+        preview = disclosure('Preview question', prose(question), 'preview-' + c['core_id'])
+        content += '<article class="qcb-card" data-qcb-card data-qcb-search="' + esc(c["core_id"] + ' ' + c["topic"] + ' ' + c["evidence_relation"] + ' ' + question) + '"><p class="qcb-meta">' + esc(c["split"]) + ' · ' + esc(items[c["core_id"]]["task_kind"]) + esc(label) + '</p><h3><a href="' + esc(href) + '">Exercise ' + esc(c["core_id"].removeprefix("qcb-core-").upper()) + '</a></h3>' + preview + '</article>'
     return content + '</div>'
 
 
@@ -518,10 +520,7 @@ def publish_course(write, intro, plan, views, report):
     body += '<p><a href="../index.html">Exercise book</a> / Guided course · <a href="../reasoning/index.html">How reasoning graphs work</a></p>'
     body += '<p>This course provides ' + str(report["distinct_shared_cores"]) + ' experimental companions to existing questions. Each question has one core ID, one family and one split across its natural-language and formal views. The course does not increase the question count or change canonical Lean admissions.</p>'
     body += '<ol class="qcb-ladder">' + ''.join('<li><a href="' + b.lower() + '/index.html"><span class="qcb-level">' + b + '</span><strong>' + esc(label) + '</strong></a><p>' + esc(description) + '</p></li>' for b, (label, description) in COURSE_BANDS.items()) + '</ol>'
-    body += section("How to use a level", '<ol><li>Read the assumptions and conventions, then attempt the mathematical question.</li><li>Open the hint only when needed. Compare your reasoning with the folded solution and rubric.</li><li>Inspect the optional course companion to see the exact supplied subgoals and their inputs.</li><li>Keep the source relation and shortcut disclosure in view: calling an existing theorem tests a different skill from constructing its proof.</li></ol><p>D1–D4 are provisional assessments of the disclosed construction route, not measured model difficulty. D0 is a reading facet of these same cores. We do not assign course levels to unannotated questions elsewhere in the book.</p>', "method")
-    for band in list(COURSE_BANDS)[1:]:
-        entries = [e for e in plan["entries"] if e["difficulty"]["construction_band"] == band]
-        body += section(band + ' · ' + COURSE_BANDS[band][0], '<p>' + str(len(entries)) + ' existing shared cores</p>' + course_cards(entries, '../../', views), band.lower())
+    body += disclosure("How to use a level", '<ol><li>Read the assumptions and conventions, then attempt the mathematical question.</li><li>Open the hint only when needed. Compare your reasoning with the folded solution and rubric.</li><li>Inspect the optional course companion to see the exact supplied subgoals and their inputs.</li><li>Keep the source relation and shortcut disclosure in view: calling an existing theorem tests a different skill from constructing its proof.</li></ol><p>D1–D4 are provisional assessments of the disclosed construction route, not measured model difficulty. D0 is a reading facet of these same cores. We do not assign course levels to unannotated questions elsewhere in the book.</p>', "method")
     body += '<p class="qcb-boundary">Public authored reference tasks: exact formal roots have bounded reference evidence; whole-question exposition and required proof methods have only partial formal coverage. No model baseline, calibrated process reward or isolated generated-proof execution is claimed. <a href="../evidence/index.html">Read the release boundaries</a>.</p>'
     write(HUB + "course/", "Guided reasoning course", body + '</div>', "A provisional D0–D4 reading and construction course over existing shared quantum-computing questions.")
     for band, (label, description) in COURSE_BANDS.items():
@@ -564,6 +563,7 @@ def publish(root):
 
     from website.scripts import build_site as site
     from website.scripts.qcb_benchmark_center import publish_center
+    from website.scripts.qcb_navigation import local_nav, overview, publish_navigation
     from website.scripts.qcb_expert import build_expert_index, publish_expert
     from website.scripts.qcb_workbook_reader import publish_workbook
     from website.scripts.research_atlas import patch_navigation
@@ -613,6 +613,7 @@ def publish(root):
     entries, routes = [], []
 
     def write(route, title, body, description, searchable=True):
+        body = local_nav(route) + body
         site.write_page(root, route, site.page_template(
             title=title, route=route, current=route, body=body,
             coverage=report["coverage"], gate=report["leanGate"], context=context,
@@ -624,22 +625,12 @@ def publish(root):
                             "summary": description, "url": route + "index.html"})
 
     def intro(title, subtitle):
-        return '<div class="qcb-reader"><p class="eyebrow">QuantumComputingBench · graph-grounded exercise book</p><h1>' + esc(title) + '</h1>' + prose(subtitle)
+        heading = 'QuantumComputing<wbr>Bench' if title == 'QuantumComputingBench' else esc(title)
+        return '<div class="qcb-reader"><p class="eyebrow">QuantumComputingBench</p><h1>' + heading + '</h1><div class="qcb-deck">' + prose(subtitle) + '</div>'
 
-    body = intro("QuantumComputingBench", "Study quantum mathematics, prepare training and evaluation tasks, and inspect the Lean graph behind every question.")
-    body += '<div class="qcb-grid qcb-role-paths"><article class="qcb-card"><p class="eyebrow">For readers</p><h2><a href="non-lean/index.html">Read and solve</a></h2><p>Follow the subject hierarchy or difficulty course. Read compiled mathematics and open solutions when ready.</p></article><article class="qcb-card"><p class="eyebrow">For model builders</p><h2><a href="run/index.html">Train and evaluate</a></h2><p>Get task-bound inputs, train-only supervision, portable environments and scoring tools.</p></article><article class="qcb-card"><p class="eyebrow">For domain experts</p><h2><a href="expert/index.html">Review the graph</a></h2><p>Locate targets and prerequisites, inspect source versions, and review question and proof evidence.</p></article></div>'
-    body += '<nav class="qcb-jump" aria-label="Exercise book contents"><a href="#start">Start reading</a><a href="#library">Why a library graph?</a><a href="#progression">Choose a level</a><a href="#parts">Browse subjects</a></nav>'
-    body += '<div class="qcb-stats" aria-label="Distinct inventories"><div><strong>' + str(len(catalog["cores"])) + '</strong><span>shared mathematical core IDs</span></div><div><strong>' + str(native_lean_count) + '</strong><span>canonical native Lean views</span></div><div><strong>' + str(course_report["distinct_shared_cores"]) + '</strong><span>experimental course companions</span></div></div>'
-    body += '<p class="qcb-meta">The course reuses existing cores, including the canonical formal cores. Natural-language and Lean versions are views of the same question, not extra questions.</p>'
-    body += section("Choose your reading path", '<div class="qcb-grid"><article class="qcb-card"><p class="eyebrow">No Lean needed</p><h3><a href="non-lean/index.html">Explore the mathematics</a></h3><p>Read definitions, attempt a question, then open its hint, solution and rubric. Browse by subject and follow the source anchors.</p></article><article class="qcb-card"><p class="eyebrow">A guided progression</p><h3><a href="course/index.html">Build your reasoning skills</a></h3><p>Move from assumptions and local calculations to interface composition, induction and global arguments.</p></article><article class="qcb-card"><p class="eyebrow">Optional formal companion</p><h3><a href="lean/index.html">Inspect precise proof tasks</a></h3><p>Compare exact formal conclusions and supplied subgoals. Read the mathematics first; no installation is needed to inspect a task.</p></article></div>', "start")
-    body += section("Test the exact assumptions", '<p><a href="diagnostics/index.html">Explore ' + str(len(diagnostic_packet["probes"])) + ' public semantic candidate diagnostics</a> organized by mass and isometry, marginal amplitudes, controlled permutations and endpoint derivatives. Read the ordinary mathematics first; reference answers, rubrics and optional Lean certificates are folded. This separate public reference pilot adds no canonical core, native Lean admission or course companion.</p>', "diagnostics")
-    body += section('Connect the mathematical ingredients', '<p><a href="non-lean/workbook/index.html">Open the supplementary mathematics workbook</a>: twelve reviewed expositions and candidate problems about normalization, coherent implementations, tensor structure and polynomial sampling, organized by subject and D2–D4 routes. Existing-core expositions and unassigned targets remain distinct from canonical counts and scored splits.</p>', 'workbook')
-    body += section("A library makes the questions connect", '<p>QuantumComputinglib supplies shared definitions, reusable lemmas and explicit mathematical interfaces. A state-preparation question and a block-encoding question can therefore use the same conventions for norms, registers, matrices and composition. We can ask about an individual fact, a derivation between facts, or a construction combining several ingredients.</p><div class="qcb-grid"><article class="qcb-card"><h3>Breadth: what do you know?</h3><p>Objects and definitions, assumptions, boundary cases, representations and the meaning of a quantum construction.</p></article><article class="qcb-card"><h3>Depth: what can you connect?</h3><p>Local algebra, dependencies between lemmas, reuse of a common result, and conclusions requiring several premises together.</p></article><article class="qcb-card"><h3>Precision: what is actually checked?</h3><p>Linked sources expose the contract. A qualified Lean root checks one exact proposition; explanatory prose and resource claims still need their own review.</p></article></div><p><a href="reasoning/index.html">See how a graph connection becomes a reasoning question →</a></p><p class="qcb-meta">A graph is a coverage map, not a guarantee of exhaustive questions. Planned nodes are a roadmap; source-backed material and compiled declarations carry different evidence.</p>', "library")
-    body += section("From understanding to construction", '<p>Choose a provisional construction level. These levels describe the guided course route, not measured model performance or the number of graph nodes.</p><ol class="qcb-ladder">' + ''.join('<li><a href="course/' + band.lower() + '/index.html"><span class="qcb-level">' + band + '</span><strong>' + esc(label) + '</strong></a><p>' + esc(description) + '</p></li>' for band, (label, description) in COURSE_BANDS.items()) + '</ol>', "progression")
-    body += section("Shared foundations and four subject areas", "".join('<article class="qcb-part"><p class="eyebrow">' + ('Shared foundations' if p['id'] == 'foundations' else 'Subject area') + '</p><h3><a href="non-lean/' + p["id"] + '/index.html">' + esc(p["title"]) + '</a></h3>' + prose(p["summary"]) + '<p>' + str(sum(c["part"] == p["id"] for c in catalog["cores"])) + ' shared cores · ' + str(len(p["topics"])) + ' topics' + (' · source-backed / planned formal frontier' if p['id'] in ('quantum-information', 'scientific-computing') else '') + '</p></article>' for p in catalog["parts"]), "parts")
-    body += '<p class="qcb-boundary">Open textbook edition in progress, not a stable benchmark release. Global semantic deduplication and fresh editorial review remain incomplete. Public solutions support learning and diagnostics; they are not a hidden evaluation set. <a href="evidence/index.html">Inspect the evidence boundaries</a>.</p>'
-    body += section("Read, solve, then inspect", '<ol><li>Choose a part and topic. Check dimensions, normalization, phase and resource conventions first.</li><li>Attempt the question before opening the hint or solution.</li><li>Follow exact graph/source anchors. Source-backed and planned material are visibly different evidence classes.</li><li>Use the Lean path to contribute a matching formal view, not another copy of the same question.</li></ol><p><a href="contribute/index.html">Contributor tracks and compatibility contract</a> · <a href="evidence/index.html">Release boundaries and current acceptance gates</a></p>', "reading")
-    write(HUB, "QuantumComputingBench exercise book", body + '</div>', "Five-part graph-grounded quantum-computing exercise book with non-Lean and Lean companion paths.")
+    write(HUB, "QuantumComputingBench", overview(intro, catalog, native_lean_count),
+          "Graph-grounded evaluation of quantum-computing knowledge, mathematical reasoning and Lean proof skills.")
+    hierarchy_report = publish_navigation(write, intro, catalog, items, registry, course_plan)
     publish_course(write, intro, course_plan, course_views, course_report)
     diagnostic_report = publish_diagnostics(write, intro, diagnostic_packet, diagnostic_qualification, context["commit"], expert_index)
     expert_report = publish_expert(write, intro, expert_index)
@@ -650,17 +641,15 @@ def publish(root):
     for track in TRACKS:
         prefix = "../../"
         is_lean = track == "lean"
-        body = intro("Lean companion" if is_lean else "Mathematical exercise book", "The same five-part curriculum, with no duplicate mathematical core counting. " + ("A source-supported NL answer is not automatically a verified formal view. Admitted views and remaining formalization work are labeled separately." if is_lean else "Read and solve substantial quantum-computing problems without learning Lean syntax."))
+        body = intro("Lean companion" if is_lean else "Mathematical questions", "Choose a subject and then a topic. " + ("Inspect precise formal targets and their available reference evidence." if is_lean else "Read and solve quantum-computing problems without learning Lean syntax."))
         if is_lean:
-            body += '<p class="qcb-boundary">' + str(native_lean_count) + ' admitted native Lean views in this checkpoint. These check exact conclusions by library-lemma application, not deep proof synthesis or the full NL explanation. The three corrected-v3 reference warmups are separate legacy diagnostics, not additions to the native count. Trusted local checking does not establish isolated model-output evaluation.</p><p><a href="warmups/index.html">Open the three semantic-audited API warmups</a></p>'
-            body += '<p><a href="../course/index.html">Explore the ' + str(course_report["distinct_shared_cores"]) + ' experimental course companions</a> for supplied proof-obligation graphs, construction levels and shortcut disclosures. These overlap existing cores and remain separate from canonical formal admission.</p>'
+            body += '<p><a href="../run/agentic-lean/index.html">Evaluate Agentic Lean</a> · <a href="../course/index.html">Supplied proof routes</a></p>'
             admitted = [c for c in catalog["cores"] if "lean" in c["views"]]
             if admitted:
-                body += section("Aligned native formal views", exercise_cards(admitted, prefix, items, track), "native-views")
-        body += '<p><a href="../course/index.html">Choose a difficulty level</a> · <a href="../reasoning/index.html">Read the reasoning-graph guide</a></p>'
-        if not is_lean:
-            body += '<p><a href="workbook/index.html">Supplementary mathematics workbook</a> · normalization, coherence, tensor structure and polynomial samples; twelve additional expositions/candidates with separate counting and split boundaries.</p>'
-        body += '<p><a href="../diagnostics/index.html">Try the public semantic reference pilot</a>: ' + str(len(diagnostic_packet["probes"])) + ' candidate propositions with folded answers and polarity-only Lean evidence; separate from canonical admissions and course views.</p>'
+                body += disclosure("Admitted native formal views (" + str(native_lean_count) + ")", exercise_cards(admitted, prefix, items, track), "native-views")
+            body += disclosure("What the formal evidence covers", '<p>The admitted native views check exact conclusions by library-lemma application, not deep proof synthesis or every NL sentence. Experimental course companions reuse existing cores and remain separate from canonical admission. Trusted authored reference checks do not establish isolated model-output evaluation.</p><p><a href="warmups/index.html">Three legacy API warmups</a> · <a href="../diagnostics/index.html">Semantic reference pilot</a> · <a href="../evidence/index.html">Evidence details</a></p>', "scope")
+        else:
+            body += '<p><a href="../course/index.html">Choose a difficulty level</a> · <a href="workbook/index.html">Supplementary workbook</a></p>'
         body += '<div class="qcb-grid">' + "".join('<article class="qcb-card"><h2><a href="' + p["id"] + '/index.html">' + esc(p["title"]) + '</a></h2>' + prose(p["summary"]) + '</article>' for p in catalog["parts"]) + '</div>'
         write(HUB + track + "/", "Lean companion" if is_lean else "Non-Lean exercise book", body + '</div>', "Shared curriculum and exact evidence boundaries for the " + track + " track.")
         for part in catalog["parts"]:
@@ -682,7 +671,7 @@ def publish(root):
         content = core_body(core, items[core["core_id"]], catalog, graph, live_ids, "../../../", context["commit"], expert_index)
         extras = [e for e in workbook['entries'] if e['packet']['contribution_type'] == 'existing_core_view' and e['packet']['core_id'] == core['core_id']]
         if extras:
-            more = section('Additional mathematical exposition', '<ul>' + ''.join('<li><a href="../../non-lean/workbook/' + e['slot'].lower() + '/index.html">' + esc(e['packet']['title']) + '</a> · same core and split</li>' for e in extras) + '</ul>', 'supplementary')
+            more = disclosure('Additional mathematical exposition', '<ul>' + ''.join('<li><a href="../../non-lean/workbook/' + e['slot'].lower() + '/index.html">' + esc(e['packet']['title']) + '</a> · same core and split</li>' for e in extras) + '</ul>', 'supplementary')
             content = content.removesuffix('</article>') + more + '</article>'
         write(HUB + "cores/" + core["core_id"] + "/", title, content, items[core["core_id"]]["question"])
     withheld_routes = []
@@ -707,23 +696,25 @@ def publish(root):
     body = intro("Contribute without conflicting datasets", "Two contribution folders, one merge-time semantic contract. Existing mathematical targets keep their core identity, family and split across natural-language, Lean and mixed views.")
     for track in TRACKS:
         body += section(track.title() + " contributor goal", '<p><a href="' + REPO + '/blob/main/benchmarks/quantumcomputingbench/tracks/' + track + '/AGENT_GOAL.md">Open the copyable English agent goal</a></p>', track)
-    body += prose((B / "shared/CONTRACT.md").read_text(encoding="utf-8"))
+    body += disclosure("Full compatibility contract", prose((B / "shared/CONTRACT.md").read_text(encoding="utf-8")), "contract")
     write(HUB + "contribute/", "Contribution contract", body + '</div>', "Shared core IDs, UUID proposals, exact contracts, compatible views and split-safe collaboration.")
     body = intro("Evidence and release readiness", "An inspectable textbook is not automatically a fully validated benchmark. These are the current acceptance boundaries, not claimed completions.")
     body += '<pre><code>' + esc(json.dumps(stable_readiness(catalog), indent=2)) + '</code></pre>'
     body += '<p>A bounded historical cross-cohort review is available as <a href="' + REPO + '/blob/' + context["commit"] + '/benchmarks/quantumcomputingbench/reports/textbook-v1/cohort-reconciliation/review-at-8533b9b.json">an exact snapshot audit</a>. It identifies an equivalent target and cross-split mechanism overlap, not exhaustive global deduplication. Its inventory predates current withdrawals and later answer repairs; it does not authorize pooling.</p>'
     body += '<p>Historical integration quarantines, current rejected/ambiguous records and inherited provisional material are excluded from the normal reader. Historical releases and all source/review records are retained in the repository. Existing AI reviews are fallible, content-bound provenance, not newly invented expert approval. No model baseline or isolated arbitrary-Lean prediction evaluation is claimed.</p><p>The frozen benchmark graph is not the current whole-library inventory. Exact live node links are offered only when identities exist; planned/source-only anchors remain graph metadata. An import edge is not theorem entailment and a curated AND hyperedge is not a completed proof.</p>'
-    body += section("Versioned reader decisions", '<pre><code>' + esc(json.dumps(catalog["reader_decisions"], indent=2)) + '</code></pre><p>The frozen preview contains historical predecessor questions and answers. Do not treat their bytes as current gold after a withdrawal. Answer-only repairs preserve the question contract. Explicit question successors bind both old and new contract hashes and require a distinct contract-change review; old acceptance and Lean views do not transfer. Neither kind creates another mathematical core.</p><p><a href="../../data/quantumcomputingbench/reader-items.json">Download current open reader views (not a stable training release)</a></p>', "answer-decisions")
+    body += disclosure("Versioned reader decisions", '<pre><code>' + esc(json.dumps(catalog["reader_decisions"], indent=2)) + '</code></pre><p>The frozen preview contains historical predecessor questions and answers. Do not treat their bytes as current gold after a withdrawal. Answer-only repairs preserve the question contract. Explicit question successors bind both old and new contract hashes and require a distinct contract-change review; old acceptance and Lean views do not transfer. Neither kind creates another mathematical core.</p><p><a href="../../data/quantumcomputingbench/reader-items.json">Download current open reader views (not a stable training release)</a></p>', "answer-decisions")
     write(HUB + "evidence/", "Evidence and release readiness", body + '</div>', "Current second-pass review, split/dedup, formal-view, isolation and publication boundaries.")
     home = root / "index.html"
     text = home.read_text(encoding="utf-8")
     text = re.sub(r'<!-- qcb-textbook:start -->.*?<!-- qcb-textbook:end -->', '', text, flags=re.DOTALL)
-    panel = '<!-- qcb-textbook:start --><section class="qcb-home" id="quantumcomputingbench"><p class="eyebrow">QuantumComputingBench · open exercise book</p><h2><a href="quantumcomputingbench/index.html">A graph-grounded quantum-computing exercise book</a></h2><p>Five parts. ' + str(len(catalog["cores"])) + ' retained native core IDs. Read substantial mathematics without Lean, then inspect the formal companion and exact evidence boundaries.</p><p><a href="quantumcomputingbench/non-lean/index.html">Read the mathematical exercises</a> · <a href="quantumcomputingbench/course/index.html">Follow the difficulty course</a> · <a href="quantumcomputingbench/reasoning/index.html">Understand reasoning graphs</a> · <a href="quantumcomputingbench/lean/index.html">Explore the Lean companion</a></p><p><small>Textbook edition in progress; semantic review and formal-view expansion remain explicit gates.</small></p></section><!-- qcb-textbook:end -->'
+    panel = '<!-- qcb-textbook:start --><section class="qcb-home" id="quantumcomputingbench"><p class="eyebrow">QuantumComputingBench</p><h2><a href="quantumcomputingbench/index.html">How well does an AI understand quantum computing?</a></h2><p>Graph-grounded tasks for mathematical knowledge, reasoning and formal proof.</p><p><a class="button" href="quantumcomputingbench/run/index.html">Run the benchmark →</a> <a href="quantumcomputingbench/tasks/index.html">Explore tasks</a></p></section><!-- qcb-textbook:end -->'
     text = text.replace('<main id="main-content">', '<main id="main-content">' + panel, 1)
     if 'static/quantumcomputingbench.css' not in text:
         text = text.replace('</head>', '<link rel="stylesheet" href="./static/quantumcomputingbench.css"></head>', 1)
     home.write_text(text, encoding="utf-8")
     patch_navigation(root)
+    from website.scripts.reader_hierarchy import publish as publish_site_hierarchy
+    site_hierarchy_report = publish_site_hierarchy(root)
     search_path = root / "search-index.json"
     search = read_json(search_path)
     search["entries"] = [e for e in search["entries"] if e.get("kind") != "quantumcomputingbench"] + entries
@@ -737,6 +728,8 @@ def publish(root):
                 "public_semantic_diagnostics": diagnostic_report,
                 "expert_atlas": expert_report,
                 "benchmark_center": benchmark_center,
+                "reader_hierarchy": hierarchy_report,
+                "site_hierarchy": site_hierarchy_report,
                 "supplementary_workbook": workbook_report,
                 "runtime_registry_hash": registry["registry_hash"],
                 "presentation": presentation_contract(),

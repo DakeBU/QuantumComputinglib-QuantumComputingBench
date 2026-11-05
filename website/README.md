@@ -9,6 +9,10 @@ the repository's current Lean inventory; it is not a second theorem database.
 The desktop layout uses a persistent book navigation on the left. Mobile
 readers receive the same navigation as a drawer. Stable existing URLs are
 preserved, including `library/`, `blueprint/html-multi/`, and `task-builder/`.
+Lean Graph and Functor Hypergraph are primary navigation entries. The
+**LEAN LIBS & TEXTBOOKS** disclosure contains the library and four book maps.
+Landing pages offer a small number of choices; detailed explanations and
+evidence remain available through subpages and native disclosures.
 
 | Route | Purpose |
 | --- | --- |
@@ -17,6 +21,12 @@ preserved, including `library/`, `blueprint/html-multi/`, and `task-builder/`.
 | `/learning/` | Book map and reading order |
 | `/chapters/<slug>/` | Formula, natural-language reading, proof idea, Lean statement, and source |
 | `/library/` | Exhaustive generated ASPBE declaration inventory |
+| `/lean-graph/` | Generated library modules, imports and declaration ownership |
+| `/functor-hypergraph/` | Curated conceptual transports with explicit conditions |
+| `/quantumcomputingbench/` | Model benchmark overview |
+| `/quantumcomputingbench/tasks/` | Subject hierarchy, levels and filtered task search |
+| `/quantumcomputingbench/run/` | CPU smoke, evaluation, expert review and Agentic Lean workflows |
+| `/quantumcomputingbench/study/` | Mathematical reading, course and expert inspection routes |
 | `/implementation-map/` | Mathematical goal → declaration → source → status → missing work |
 | `/ecosystem/` | Honest atlas of local, imported, and reference-only quantum Lean libraries |
 | `/ide/` | LaTeX/Lean workspace and local compiler client |

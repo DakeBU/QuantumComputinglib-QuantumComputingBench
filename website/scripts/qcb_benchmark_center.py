@@ -1,10 +1,13 @@
-"""Human-facing benchmark entry points backed by the executable QCB runtime."""
+"""Short benchmark workflow pages backed by the executable QCB runtime."""
 from __future__ import annotations
 
 import html
 from collections import Counter
 
+from website.scripts.qcb_navigation import card
+
 HUB = 'quantumcomputingbench/'
+CLI = 'python benchmarks/quantumcomputingbench/scripts/bench.py '
 
 
 def esc(value):
@@ -29,68 +32,68 @@ def source_link(commit, path, label):
 def publish_center(write, intro, catalog, registry, publication_commit, environment=None):
     tasks = registry['tasks']
     splits = Counter(t['split'] for t in tasks)
-    ncores = len(catalog['cores'])
-    breadcrumbs = '<p class="qcb-breadcrumb"><a href="../index.html">QuantumComputingBench</a> / Run the benchmark</p>'
-    deck = ('Use the same versioned questions for mathematical study, train-only supervision, '
-            'answer-free evaluation and expert review. Begin on a CPU; choose an isolated Lean '
-            'backend when you need to execute a model-generated proof.')
-    body = intro('Run QuantumComputingBench', deck) + breadcrumbs
-    environment = environment or {'execution_status': 'not_run', 'passed': None}
-    status = ('CPU containers and separate grading verified with oracle, wrong-label, not-run and tampered-task controls.'
-              if environment.get('passed') is True else 'Portable CPU environment available; this build did not execute its Docker gate.')
-    body += '<p class="qcb-status-line">' + status + ' <a href="../../data/quantumcomputingbench/environment-smoke.json">Inspect the environment record</a>.</p>'
-    body += '<nav class="qcb-jump" aria-label="Benchmark workflow"><a href="#quickstart">Quick start</a><a href="training/index.html">Training data</a><a href="evaluation/index.html">Evaluation</a><a href="../expert/index.html">Expert graph review</a><a href="#downloads">Downloads</a></nav>'
-    body += section('Choose the capability you want to measure', '<div class="qcb-grid">'
-        '<article class="qcb-card"><h3>Mathematical knowledge and explanation</h3><p>Read the assumptions, answer in natural language, and assess the argument against a versioned rubric. Expert marks are separate from an automatically checked binary decision.</p></article>'
-        '<article class="qcb-card"><h3>Semantic distinctions and counterexamples</h3><p>Decide whether a precisely stated claim holds, explain the distinction and give a proof or counterexample. Balanced contrasts expose always-one-label strategies.</p></article>'
-        '<article class="qcb-card"><h3>Formal construction and repair</h3><p>Inspect the fixed formal target and supplied obligations. Open-library tasks preserve source and proof receipts; model proof execution requires the accepted verifier boundary.</p></article></div>'
-        '<p>The registry contains ' + str(ncores) + ' canonical mathematical cores and ' + str(len(tasks)) + ' task views. Natural-language, diagnostic and Lean views are separately labeled; view count is not a count of new mathematical cores.</p>', 'capabilities')
-    quick = ('python -m pip install -r benchmarks/quantumcomputingbench/requirements.txt\n'
-             'python benchmarks/quantumcomputingbench/scripts/bench.py doctor\n'
-             'python benchmarks/quantumcomputingbench/scripts/bench.py validate\n'
-             'python benchmarks/quantumcomputingbench/scripts/bench.py list\n'
-             'python benchmarks/quantumcomputingbench/scripts/bench.py smoke --output _out/qcb-smoke-001')
-    body += section('Start with a reproducible CPU check', '<p>Run these commands from a full repository checkout. The smoke uses fixed reference fixtures and deliberately wrong or missing responses. Its result checks the workflow; it is labeled synthetic.</p>' + commands(quick)
-        + '<p>Next: <a href="evaluation/index.html">prepare an answer-free run</a>, <a href="training/index.html">export train-only examples</a>, or <a href="../expert/index.html">review where the questions sit in the graph</a>.</p>', 'quickstart')
-    downloads = '<p>These files are generated from the current checked registry. Prompts, supervision and result templates have distinct purposes.</p><ul>'
-    for filename, label in (
-        ('task-index.json', 'Task index: identities, splits, views and graph anchors'),
-        ('train.jsonl', 'Training examples: inherited train split only, with reference answers'),
-        ('eval-prompts.jsonl', 'Public-test evaluation prompts: no reference answers'),
-        ('dev-prompts.jsonl', 'Development prompts: no reference answers'),
-        ('response-template.jsonl', 'Response schema and task-bound template'),
-        ('download-manifest.json', 'Download manifest and content hashes')):
-        downloads += '<li><a download href="../../data/quantumcomputingbench/runtime/' + filename + '">' + label + '</a></li>'
-    body += section('Download the current task views', downloads + '</ul><p>Task-view split totals: ' + ', '.join(esc(k) + ': ' + str(v) for k, v in sorted(splits.items())) + '. Shared source aliases retain their existing split.</p>', 'downloads')
-    body += section('A task is more than a question', '<ol><li><strong>Instruction:</strong> an explicit target, assumptions, conventions and response contract.</li><li><strong>Environment:</strong> the disclosed library access and bounded workspace.</li><li><strong>Reference:</strong> a reviewed answer or checked authored proof, outside the student input.</li><li><strong>Verification:</strong> decision checks, bound expert marks and formal evidence as distinct dimensions.</li><li><strong>Trace:</strong> graph anchors, source revision, task hashes and run artifacts.</li></ol><p>Our task packaging follows the useful instruction/environment/solution/verifier separation described by <a href="https://docs.harborframework.com/tasks/overview">Harbor</a>. Runtime support and actual execution evidence are recorded for each export.</p>', 'task-contract')
+    counts = Counter(t['track'] for t in tasks)
+    routes = []
     docs = source_link(publication_commit, 'benchmarks/quantumcomputingbench/docs/runtime.md', 'Runtime manual')
-    card = source_link(publication_commit, 'benchmarks/quantumcomputingbench/BENCHMARK_CARD.md', 'Benchmark card')
-    body += section('Supplementary practice and contribution review', '<p><a href="../non-lean/workbook/index.html">The supplementary mathematics workbook</a> has four existing-core expositions and eight unassigned candidate targets. Its question-only and reference downloads are separate from the canonical training/evaluation files above. Study and review these source-grounded problems without treating them as additional scored holdouts.</p>', 'supplementary')
-    body += section('Review and contribute', '<p>' + docs + ' · ' + card + ' · <a href="../expert/index.html">Expert graph atlas</a> · <a href="../contribute/index.html">Contributor protocol</a>.</p><p>Review the mathematical target and scoring contract first. Report a questionable answer, missing premise, graph mismatch or verifier loophole with its task ID and source revision.</p>', 'contribute')
-    write(HUB + 'run/', 'Run QuantumComputingBench', body + '</div>', deck)
+    benchcard = source_link(publication_commit, 'benchmarks/quantumcomputingbench/BENCHMARK_CARD.md', 'Benchmark card')
 
-    body = intro('Prepare training data', 'Export reviewed supervision from the inherited train split and retain the source identity of every example.')
-    body += '<p><a href="../index.html">Run the benchmark</a> / Training</p>'
-    body += section('Train-only supervision', '<p>The training export contains questions, assumptions, reference answers, rubrics and task bindings from train aliases. Use the evaluation export for development or public-test prompts. A teacher-data export is not a training launch.</p>'
-        + commands('python benchmarks/quantumcomputingbench/scripts/bench.py export --purpose training --split train --output _out/qcb-train-001.jsonl')
-        + '<p><a download href="../../../data/quantumcomputingbench/runtime/train.jsonl">Download the current train-only JSONL</a>.</p>', 'export')
-    body += section('Keep examples and evaluations traceable', '<ol><li>Record the registry and task hashes with your training data.</li><li>Keep inherited source families and cross-view aliases in their original split.</li><li>Separate natural-language supervision from formal completion examples and process-reward labels.</li><li>Preserve the model-specific matched SFT-to-RL gate and verifier isolation in the training project.</li></ol><p>Open reference answers support teacher training. Public solutions and repeated source theorems require contamination-aware reporting in subsequent model studies.</p>', 'provenance')
-    write(HUB + 'run/training/', 'Training data · QuantumComputingBench', body + '</div>', 'Train-only exports with source, graph and task bindings.')
+    def page(path, title, deck, content):
+        write(HUB + 'run/' + path, title, intro(title, deck) + content + '</div>', deck)
+        routes.append(HUB + 'run/' + path + 'index.html')
 
-    body = intro('Prepare and score an evaluation', 'Create a reproducible run, provide task-bound responses, then apply the appropriate verification and review steps.')
-    body += '<p><a href="../index.html">Run the benchmark</a> / Evaluation</p>'
-    body += section('A prepared run', '<p>Use a fresh output directory. The student receives the input payload; operator manifests and review materials stay outside that mount. Record the model, harness, exposure mode and budget before collecting responses.</p>'
-        + commands('python benchmarks/quantumcomputingbench/scripts/bench.py prepare-run --track semantic --output _out/qcb-run-001')
-        + '<p>The runtime manual specifies the response-file schema and scoring command. The same preparation flow supports a later external model service or a collaborator-operated agent.</p>', 'prepare')
-    body += section('Read each result dimension separately', '<table class="qcb-table"><thead><tr><th>Dimension</th><th>Evidence</th></tr></thead><tbody>'
-        '<tr><td>Decision</td><td>Exact holds/refuted label on the semantic tasks, plus complete-contrast accuracy.</td></tr>'
-        '<tr><td>Explanation</td><td>A reviewer grades the actual response against the bound mathematical criteria. Unreviewed remains ungraded.</td></tr>'
-        '<tr><td>Formal completion</td><td>An accepted isolated verifier checks the exact root; local author proofs are reference evidence.</td></tr>'
-        '<tr><td>Resources</td><td>Observed tokens, calls, elapsed time and the declared runtime configuration.</td></tr>'
-        '<tr><td>Coverage</td><td>Source-bound subjects, graph anchors and task views, with missing and excluded cases visible.</td></tr></tbody></table>'
-        '<p>Missing, abstained, blocked and incorrect responses remain different outcomes. Explanation and formal scores stay ungraded until their evidence exists.</p>', 'scores')
-    body += section('Use the required environment', '<p>Closed-book natural-language runs use question-only input. Formal companion exports retain their approved-interface contract and pinned library. The portable task bundle provides an agent workspace and separate grading entry point; the environment report states whether it was actually executed on your machine.</p>'
-        + '<p>' + docs + ' · <a href="../../expert/index.html">Inspect task locations and graph coverage</a> · <a download href="../../../data/quantumcomputingbench/runtime/response-template.jsonl">Download a response template</a>.</p>', 'environment')
-    write(HUB + 'run/evaluation/', 'Evaluation workflow · QuantumComputingBench', body + '</div>', 'Question-only inputs, task-bound responses and separate scoring dimensions.')
-    return {'schema_version': 'qcb.benchmark_center.v1', 'task_views': len(tasks), 'canonical_cores': ncores,
-            'routes': [HUB + 'run/index.html', HUB + 'run/training/index.html', HUB + 'run/evaluation/index.html']}
+    content = '<div class="qcb-grid">'
+    content += card('1. Check the environment', 'A CPU-only smoke verifies task binding and grading, without a model or Lean installation.', 'quickstart/index.html')
+    content += card('2. Evaluate a model', 'Prepare answer-free tasks, collect responses and review the actual mathematical argument.', 'evaluation/index.html')
+    content += card('3. Evaluate Agentic Lean', 'Compare proof workflows with a pinned library and an accepted isolated verifier.', 'agentic-lean/index.html')
+    content += '</div><p><a href="training/index.html">Training data</a> · <a href="downloads/index.html">Data downloads</a> · <a href="protocol/index.html">Task and scoring contract</a></p>'
+    content += '<p class="qcb-status-line">' + ('CPU container workflow verified; model results are a separate experiment.' if (environment or {}).get('passed') is True else 'This build has not executed the CPU container gate.') + ' <a href="../../data/quantumcomputingbench/environment-smoke.json">Environment record</a>.</p>'
+    page('', 'Run QuantumComputingBench', 'Choose a workflow. Each run keeps its question contract, source revision, exposure mode and evidence.', content)
+
+    content = section('Run from a full checkout', '<p>Python 3.11 or newer. Keep full Git history so recorded source evidence can be checked.</p>' + commands('python -m pip install -r benchmarks/quantumcomputingbench/requirements.txt\n' + CLI + 'doctor\n' + CLI + 'validate\n' + CLI + 'smoke --output _out/qcb-smoke-001'), 'quickstart')
+    content += '<p>The smoke uses synthetic oracle, incorrect and missing responses. It checks the workflow; it is not a model score.</p><p>Next: <a href="../evaluation/index.html">prepare your first evaluation →</a></p>'
+    page('quickstart/', 'First CPU check', 'Verify the task and grading pipeline before using a model service.', content)
+
+    content = '<ol class="qcb-workflow"><li><h2>Choose a capability</h2><p><strong>Knowledge and mathematical reasoning:</strong> use <code>--track nonlean</code>; grade explanations against the bound rubric. <strong>Semantic distinctions:</strong> use <code>--track semantic</code>; the decision label can be checked automatically, while the argument still needs review.</p></li>'
+    content += '<li><h2>Prepare answer-free input</h2>' + commands(CLI + 'prepare-run --split test_public --track nonlean --output _out/qcb-nl-run-001') + '<p>Give the student only <code>input/tasks.jsonl</code>. Copy <code>output/responses.template.jsonl</code> for the response schema. Keep the source repository and operator files outside a closed-book student workspace.</p></li>'
+    content += '<li><h2>Collect and score responses</h2><p>Use your model or agent to fill the bound response records. Record model/checkpoint, prompt template, thinking mode, decoding and token/call/time budgets. This command does not call a model:</p>' + commands(CLI + 'score --manifest _out/qcb-nl-run-001/manifest.json --responses PATH_TO_RESPONSES.jsonl --output _out/qcb-nl-score-001.json') + '</li></ol>'
+    content += '<p><a href="review/index.html">Review mathematical explanations →</a> · <a href="../protocol/index.html">Understand the score dimensions</a></p><p class="qcb-status-line">Public answers exist. Report exposure and contamination limits; an answer-free export is not a hidden test set.</p>'
+    page('evaluation/', 'Evaluate knowledge & reasoning', 'A complete evaluation needs the model response and a defensible score for the requested mathematical capability.', content)
+
+    content = section('Create an operator-only review pack', commands(CLI + 'review-pack --manifest _out/qcb-nl-run-001/manifest.json --responses PATH_TO_RESPONSES.jsonl --output _out/qcb-nl-review-001') + '<p>The pack joins the exact question, actual response, reference, weighted rubric and graph anchors. Missing, abstained and blocked responses remain visible. Never give this pack to the student.</p>', 'review-pack')
+    content += section('Grade the reasoning, then rescore', '<p>A human or disclosed AI reviewer completes <code>reviews.template.jsonl</code> using the unchanged criteria and saves <code>reviews.completed.jsonl</code>. Accept valid alternative arguments; matching the reference wording is not the criterion.</p>' + commands(CLI + 'score --manifest _out/qcb-nl-run-001/manifest.json --responses PATH_TO_RESPONSES.jsonl --reviews _out/qcb-nl-review-001/reviews.completed.jsonl --output _out/qcb-nl-reviewed-score-001.json'), 'score')
+    content += '<p>Each review binds the exact response hash. Unreviewed explanations stay ungraded; reviewer identity is recorded provenance, not independently authenticated expert approval.</p>'
+    page('evaluation/review/', 'Review the mathematical argument', 'Judge the response against the target and premises, not just a final label.', content)
+
+    content = section('What is available now?', '<ul><li>' + str(counts['lean']) + ' registered formal task views with authored reference evidence, overlapping existing mathematical cores.</li><li>Approved-interface task exports retain exact roots and supplied obligations.</li><li>The live agent harness covers its original pilot registry; additional course companions are not automatically live model tasks.</li></ul>', 'availability')
+    content += section('Inspect and prepare a formal task', commands(CLI + 'list --track lean\n' + CLI + 'prepare-run --track lean --exposure approved_interface --output _out/qcb-lean-run-001') + '<p>This prepares tasks only. It does not run a model or execute submitted proofs. The generic CPU bundle has no Lean compiler and rejects Lean tasks.</p>', 'prepare')
+    content += section('Run a controlled experiment', '<ol><li>Choose the same root, permitted imports/interfaces, model and budget for every method.</li><li>Compare a complete-proof attempt, incremental tactic feedback and an NL-led shadow workflow only where the harness supports them. Record actual feedback timing, state reuse and all input/output costs.</li><li>Use the accepted isolated verifier. Success needs a fresh replay of the unchanged root and permitted transitive axioms; a legal tactic or an empty goal list alone is insufficient.</li><li>Report completion, failed attempts, timeouts, verifier calls, tokens and elapsed time separately. Until connected to accepted verifier receipts, formal model scores stay ungraded.</li></ol>', 'experiment')
+    content += '<p class="qcb-status-line">Reference proof acceptance is not evidence that an arbitrary generated proof was isolated or that every NL sentence is correct.</p><p><a href="../../lean/index.html">Explore formal targets</a> · <a href="../../course/index.html">Inspect supplied proof routes</a> · ' + docs + '</p>'
+    page('agentic-lean/', 'Evaluate Agentic Lean', 'Measure formal completion and tool use under an explicit library-access and verifier contract.', content)
+
+    content = '<p class="qcb-status-line" data-qcb-results-status="no_model_results">No measured model leaderboard has been published. Synthetic workflow checks are labeled separately.</p>'
+    content += section('What a publishable result should contain', '<ul><li>Model, checkpoint, harness revision, exposure mode and source/task hashes.</li><li>Planned-task counts, missing and blocked outcomes, plus subject and task-mode breakdowns.</li><li>Semantic decision accuracy, reviewed mathematical argument scores and isolated formal completion as separate dimensions.</li><li>Tokens, tool calls, elapsed time and run artifacts under a declared budget.</li></ul>', 'report')
+    content += '<p><a href="../evaluation/index.html">Prepare an evaluation →</a> · <a href="../../../data/quantumcomputingbench/environment-smoke.json">Inspect the synthetic environment check</a></p>'
+    page('results/', 'Results & reporting', 'Comparable results need reproducible task bindings and explicit scoring evidence.', content)
+
+    content = section('Export train-only supervision', commands(CLI + 'export --purpose training --split train --output _out/qcb-train-001.jsonl') + '<p>Includes inherited train questions, assumptions, answers and rubrics. Preserve family/split identity across views; keep public-test data outside supervised training. A teacher-data export is not a training launch.</p><p><a download href="../../../data/quantumcomputingbench/runtime/train.jsonl">Download train-only JSONL</a>.</p>', 'export')
+    content += '<p>Keep tokenizer, chat template, matched SFT-to-RL gate and isolated verifier configuration in the training project. Public solutions require contamination-aware reporting in subsequent studies.</p>'
+    page('training/', 'Prepare training data', 'Export reviewed supervision while preserving the benchmark split contract.', content)
+
+    content = '<ul class="qcb-download-list">'
+    for filename, label in (
+        ('task-index.json', 'Task index · identities, modes, splits and graph anchors'),
+        ('train.jsonl', 'Training examples · train-only supervision'),
+        ('eval-prompts.jsonl', 'Public-test prompts · no reference answers'),
+        ('dev-prompts.jsonl', 'Development prompts · no reference answers'),
+        ('response-template.jsonl', 'Response template · task-bound schema'),
+        ('download-manifest.json', 'Manifest · content hashes')):
+        content += '<li><a download href="../../../data/quantumcomputingbench/runtime/' + filename + '">' + label + '</a></li>'
+    content += '</ul><p>' + str(len(catalog['cores'])) + ' canonical cores, ' + str(len(tasks)) + ' task views. View split totals: ' + ', '.join(esc(k) + ' ' + str(v) for k, v in sorted(splits.items())) + '.</p>'
+    content += '<p>The <a href="../../non-lean/workbook/index.html">supplementary workbook</a> has separate downloads and unassigned candidates; it does not add scored holdouts.</p>'
+    page('downloads/', 'Data downloads', 'Choose question-only evaluation input or train-only supervision. References have a separate role.', content)
+
+    content = section('Three dimensions, separate evidence', '<dl class="qcb-legend"><dt>Knowledge and explanation</dt><dd>Grade the actual response against the weighted mathematical rubric. No review means ungraded.</dd><dt>Semantic decision</dt><dd>Check holds/refuted labels, planned-task accuracy and complete-contrast accuracy. A correct label does not establish a correct argument.</dd><dt>Formal completion</dt><dd>An accepted isolated verifier checks a fixed root and allowed axioms. Authored reference replay is not a model score.</dd></dl>', 'scores')
+    content += section('Why the library graph matters', '<p>Exact source and graph anchors let experts see which definitions, premises and interfaces a task uses. Connected tasks can examine composition and reuse; a larger graph distance is not automatically a harder mathematical problem.</p><p><a href="../../expert/index.html">Open the expert graph atlas</a> · <a href="../../reasoning/index.html">Read task topology examples</a></p>', 'coverage')
+    content += section('Portable and inspectable tasks', '<p>Each task separates instruction, environment, reference and verification, following the useful packaging model in <a href="https://docs.harborframework.com/tasks/overview">Harbor</a>. QCB keeps mathematical review, decision checks and formal verification distinct.</p><p>' + docs + ' · ' + benchcard + ' · <a href="../../evidence/index.html">Release boundaries</a></p>', 'contract')
+    page('protocol/', 'Task & scoring contract', 'Understand what a result demonstrates before comparing models.', content)
+    return {'schema_version': 'qcb.benchmark_center.v2', 'task_views': len(tasks), 'canonical_cores': len(catalog['cores']), 'routes': routes}

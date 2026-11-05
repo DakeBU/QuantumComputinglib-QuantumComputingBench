@@ -56,6 +56,7 @@ def check_blueprint_search(page, base: str) -> None:
 def check_curriculum_explorer(page, base: str) -> None:
     """Exercise filters and disclosures on real rendered chapter cards."""
     page.goto(f"{base}/learning/index.html", wait_until="networkidle", timeout=90000)
+    page.locator('[data-reader-group="textbook-explorer"] > summary').click()
     cards = page.locator('[data-curriculum-card]')
     total = cards.count()
     if total < 4 or not page.locator('[data-curriculum-controls]').is_visible():
@@ -95,6 +96,10 @@ def check_compact_sidebar(page, base: str) -> None:
     hrefs = nav.locator('a').evaluate_all('(links) => links.map(a => a.href)')
     if len(hrefs) != len(set(hrefs)) or nav.locator('details[open]').count():
         raise AssertionError("Home sidebar duplicated a destination or expanded all content")
+    for route in ('lean-graph/', 'functor-hypergraph/'):
+        if not nav.locator(f'.sidebar-primary a[href="./{route}index.html"]').is_visible():
+            raise AssertionError('Graph entry is hidden in a secondary collection')
+    nav.locator('[data-nav-section="research"] > summary').click()
     summary = nav.locator('[data-nav-section="examples"] > summary')
     summary.focus()
     summary.press('Enter')
@@ -108,13 +113,14 @@ def check_compact_sidebar(page, base: str) -> None:
         raise AssertionError("Mobile sidebar did not announce its open state")
     page.keyboard.press('Escape')
     page.goto(f"{base}/library/index.html", wait_until="networkidle", timeout=90000)
-    if not page.locator('[data-nav-section="tools"][open]').count():
+    if not page.locator('[data-nav-section="textbooks"][open]').count():
         raise AssertionError("Current library page did not open its navigation group")
 
 
 def check_curriculum_diagram(page, base: str, output: Path) -> None:
     """Check the rendered legend, sparse links and disclosures at both widths."""
     page.goto(f"{base}/index.html", wait_until="networkidle", timeout=90000)
+    page.locator('[data-reader-group="textbooks"] > summary').click()
     figure = page.locator('#diagram-quantum-domain-roadmap')
     figure.locator('[data-curriculum-layout="stacked"]').wait_for(state='attached', timeout=30000)
     if figure.locator('[data-curriculum-node="CORE"] h3').text_content() != 'Shared Lean foundations':
