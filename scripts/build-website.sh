@@ -63,6 +63,7 @@ python3 -m unittest \
   website.scripts.test_qcb_publication_contract \
   website.scripts.test_qcb_hierarchy \
   website.scripts.test_qcb_lean_reader \
+  website.scripts.test_qcb_assessment_reader \
   website.scripts.test_qcb_nonlean_workbook \
   website.scripts.test_teaching_enrichment \
   website.scripts.test_casebook_enrichment \

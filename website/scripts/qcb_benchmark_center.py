@@ -42,7 +42,7 @@ def publish_center(write, intro, catalog, registry, publication_commit, environm
         write(HUB + 'run/' + path, title, intro(title, deck) + content + '</div>', deck)
         routes.append(HUB + 'run/' + path + 'index.html')
 
-    content = '<div class="qcb-grid">'
+    content = '<p><a class="button" href="assessment/index.html">Train, calibrate and assess a model →</a></p><div class="qcb-grid">'
     content += card('1. Check the environment', 'A CPU-only smoke verifies task binding and grading, without a model or Lean installation.', 'quickstart/index.html')
     content += card('2. Evaluate a model', 'Prepare answer-free tasks, collect responses and review the actual mathematical argument.', 'evaluation/index.html')
     content += card('3. Evaluate Agentic Lean', 'Compare proof workflows with a pinned library and an accepted isolated verifier.', 'agentic-lean/index.html')
