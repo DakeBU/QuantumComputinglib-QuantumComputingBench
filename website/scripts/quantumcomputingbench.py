@@ -504,9 +504,9 @@ def exercise_cards(cores, prefix, items, track="non-lean"):
         if track == "lean":
             href += "#lean"
         question = items[c["core_id"]]["question"]
-        preview = question if len(question) <= 220 else question[:220] + "…"
         label = (' · aligned Lean reference checked' if "lean" in c["views"] else ' · formal view pending') if track == "lean" else ''
-        content += '<article class="qcb-card" data-qcb-card data-qcb-search="' + esc(c["core_id"] + ' ' + c["topic"] + ' ' + c["evidence_relation"] + ' ' + question) + '"><p class="qcb-meta">' + esc(c["split"]) + ' · ' + esc(items[c["core_id"]]["task_kind"]) + esc(label) + '</p><h3><a href="' + esc(href) + '">Exercise ' + esc(c["core_id"].removeprefix("qcb-core-").upper()) + '</a></h3>' + prose(preview) + '<p>' + esc(c["evidence_relation"].replace("_", " ")) + '</p></article>'
+        preview = disclosure('Preview question', prose(question), 'preview-' + c['core_id'])
+        content += '<article class="qcb-card" data-qcb-card data-qcb-search="' + esc(c["core_id"] + ' ' + c["topic"] + ' ' + c["evidence_relation"] + ' ' + question) + '"><p class="qcb-meta">' + esc(c["split"]) + ' · ' + esc(items[c["core_id"]]["task_kind"]) + esc(label) + '</p><h3><a href="' + esc(href) + '">Exercise ' + esc(c["core_id"].removeprefix("qcb-core-").upper()) + '</a></h3>' + preview + '</article>'
     return content + '</div>'
 
 
