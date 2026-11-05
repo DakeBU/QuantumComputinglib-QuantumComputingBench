@@ -1,0 +1,864 @@
+{
+  "candidate_batch_digest": "8632689efcb2b87f5a6f39f8444c8124c4c4419aebe305de55a075653b7c61b9",
+  "decoder_digests": {
+    "analytic": "f1011996581cc02bacdfe02ef6ff4e75b69700a570b3d6f5c1eb8c38c12dd9d4",
+    "oracle": "7fabdcba419f63f0de20513296d7887a9d8dd9f37c33778f9f92acbab8be1430"
+  },
+  "packet_digests": {
+    "analytic": "8a20c0a8dda92c3212ade8f7e23f12ba9dfc02a07e1feaa8dd5caf1ce000f8da",
+    "oracle": "014bfeeb259f906bf80977a481a2026b393a0136c73d018b10ba99836660a105"
+  },
+  "schema_version": "qcb.course_semantic_comparison_input.v2",
+  "views": [
+    {
+      "ambient_context": {
+        "schema_version": "qcb.curriculum_blind_input.v1"
+      },
+      "core_id": "qcb-core-sp-110",
+      "formal_context_digest": "3e8b4d059ef5cf4cf4878b85a32f307746434b2509e06610308579095e257a8e",
+      "formal_view": {
+        "ambient_definitions": {
+          "QuantumBlockEncoding.HermiteBernstein.basis": {
+            "kind": "literal",
+            "literal": "def basis (d r : ℕ) (t : ℝ) : ℝ := (bernsteinPolynomial ℝ d r).eval t",
+            "normalized": "degree-d real Bernstein basis; B(d,r,t)=choose(d,r)*t^r*(1-t)^(d-r)"
+          },
+          "QuantumBlockEncoding.HermiteBernstein.casteljau": {
+            "kind": "literal",
+            "literal": "def casteljau (d : ℕ) (c : ℕ → ℝ) (t : ℝ) (i : ℕ) : ℝ := (casteljauStep t ^ d) c i",
+            "normalized": "d iterations of the coefficient-row update c_i -> (1-t)c_i+t*c_(i+1), read at index i"
+          },
+          "QuantumBlockEncoding.HermiteBernstein.leftRestriction": {
+            "kind": "literal",
+            "literal": "def leftRestriction (u : ℝ) (c : ℕ → ℝ) (i : ℕ) : ℝ := casteljau i c u 0",
+            "normalized": "left edge of the exact de Casteljau triangle"
+          },
+          "QuantumBlockEncoding.HermiteBernstein.restrictCoefficients": {
+            "kind": "literal",
+            "literal": "def restrictCoefficients (d : ℕ) (u v : ℝ) (c : ℕ → ℝ) : ℕ → ℝ := leftRestriction ((v-u)/(1-u)) (rightRestriction d u c)",
+            "normalized": "the two successive exact-real subdivisions at u and (v-u)/(1-u)"
+          },
+          "QuantumBlockEncoding.HermiteBernstein.rightRestriction": {
+            "kind": "literal",
+            "literal": "def rightRestriction (d : ℕ) (u : ℝ) (c : ℕ → ℝ) (i : ℕ) : ℝ := leftRestriction (1-u) (fun r => c (d-r)) (d-i)",
+            "normalized": "right edge, with natural truncated subtraction and coefficient order reversal"
+          }
+        },
+        "anonymous_id": "A1",
+        "formal_context": {
+          "imports": [
+            "QuantumBlockEncoding.HermiteBernstein"
+          ],
+          "preamble": "open scoped BigOperators",
+          "target": "∀ (d : ℕ) (c : ℕ → ℝ) (u v lo hi : ℝ), 0 ≤ u → u < v → v ≤ 1 → (∀ r ≤ d, c r ∈ Set.Icc lo hi) → ∀ i ≤ d, QuantumBlockEncoding.HermiteBernstein.restrictCoefficients d u v c i ∈ Set.Icc lo hi",
+          "universe_parameters": []
+        },
+        "interfaces": [
+          {
+            "name": "QuantumBlockEncoding.HermiteBernstein.basis_sum",
+            "signature": "∀ (d : ℕ) (t : ℝ), (∑ r ∈ Finset.range (d + 1), QuantumBlockEncoding.HermiteBernstein.basis d r t) = 1"
+          },
+          {
+            "name": "QuantumBlockEncoding.HermiteBernstein.basis_nonneg",
+            "signature": "∀ (d r : ℕ) (t : ℝ), t ∈ Set.Icc 0 1 → 0 ≤ QuantumBlockEncoding.HermiteBernstein.basis d r t"
+          },
+          {
+            "name": "QuantumBlockEncoding.HermiteBernstein.casteljau_eq_sum",
+            "signature": "∀ (d : ℕ) (c : ℕ → ℝ) (t : ℝ) (i : ℕ), QuantumBlockEncoding.HermiteBernstein.casteljau d c t i = ∑ j ∈ Finset.range (d + 1), c (i + j) * QuantumBlockEncoding.HermiteBernstein.basis d j t"
+          },
+          {
+            "name": "QuantumBlockEncoding.HermiteBernstein.restrictCoefficients_bounds",
+            "signature": "∀ (d : ℕ) (c : ℕ → ℝ) (u v lo hi : ℝ), 0 ≤ u → u < v → v ≤ 1 → (∀ r ≤ d, c r ∈ Set.Icc lo hi) → ∀ i ≤ d, QuantumBlockEncoding.HermiteBernstein.restrictCoefficients d u v c i ∈ Set.Icc lo hi"
+          }
+        ],
+        "nodes": [
+          {
+            "depends_on": [],
+            "id": "sp110_partition",
+            "target": "∀ (d : ℕ) (t : ℝ), (∑ r ∈ Finset.range (d + 1), QuantumBlockEncoding.HermiteBernstein.basis d r t) = 1"
+          },
+          {
+            "depends_on": [
+              "sp110_partition"
+            ],
+            "id": "sp110_convex",
+            "target": "∀ (d : ℕ) (c : ℕ → ℝ) (t lo hi : ℝ), t ∈ Set.Icc 0 1 → (∀ r ≤ d, c r ∈ Set.Icc lo hi) → (∑ r ∈ Finset.range (d + 1), c r * QuantumBlockEncoding.HermiteBernstein.basis d r t) ∈ Set.Icc lo hi"
+          },
+          {
+            "depends_on": [
+              "sp110_convex"
+            ],
+            "id": "sp110_right",
+            "target": "∀ (d : ℕ) (c : ℕ → ℝ) (u lo hi : ℝ), u ∈ Set.Icc 0 1 → (∀ r ≤ d, c r ∈ Set.Icc lo hi) → ∀ i : ℕ, QuantumBlockEncoding.HermiteBernstein.rightRestriction d u c i ∈ Set.Icc lo hi"
+          },
+          {
+            "depends_on": [],
+            "id": "sp110_parameter",
+            "target": "∀ (u v : ℝ), 0 ≤ u → u < v → v ≤ 1 → (v - u) / (1 - u) ∈ Set.Icc 0 1"
+          },
+          {
+            "depends_on": [
+              "sp110_convex",
+              "sp110_right",
+              "sp110_parameter"
+            ],
+            "id": "sp110_root",
+            "target": "∀ (d : ℕ) (c : ℕ → ℝ) (u v lo hi : ℝ), 0 ≤ u → u < v → v ≤ 1 → (∀ r ≤ d, c r ∈ Set.Icc lo hi) → ∀ i ≤ d, QuantumBlockEncoding.HermiteBernstein.restrictCoefficients d u v c i ∈ Set.Icc lo hi"
+          }
+        ],
+        "root_id": "sp110_root"
+      },
+      "retrieval_interfaces": [
+        {
+          "module": "QuantumBlockEncoding.HermiteBernstein",
+          "name": "QuantumBlockEncoding.HermiteBernstein.basis_sum",
+          "source_node_id": "declaration:QuantumBlockEncoding.HermiteBernstein.basis_sum",
+          "type": "∀ (d : ℕ) (t : ℝ), (∑ r ∈ Finset.range (d + 1), QuantumBlockEncoding.HermiteBernstein.basis d r t) = 1"
+        },
+        {
+          "module": "QuantumBlockEncoding.HermiteBernstein",
+          "name": "QuantumBlockEncoding.HermiteBernstein.basis_nonneg",
+          "source_node_id": "declaration:QuantumBlockEncoding.HermiteBernstein.basis_nonneg",
+          "type": "∀ (d r : ℕ) (t : ℝ), t ∈ Set.Icc 0 1 → 0 ≤ QuantumBlockEncoding.HermiteBernstein.basis d r t"
+        },
+        {
+          "module": "QuantumBlockEncoding.HermiteBernstein",
+          "name": "QuantumBlockEncoding.HermiteBernstein.casteljau_eq_sum",
+          "source_node_id": "declaration:QuantumBlockEncoding.HermiteBernstein.casteljau_eq_sum",
+          "type": "∀ (d : ℕ) (c : ℕ → ℝ) (t : ℝ) (i : ℕ), QuantumBlockEncoding.HermiteBernstein.casteljau d c t i = ∑ j ∈ Finset.range (d + 1), c (i + j) * QuantumBlockEncoding.HermiteBernstein.basis d j t"
+        },
+        {
+          "module": "QuantumBlockEncoding.HermiteBernstein",
+          "name": "QuantumBlockEncoding.HermiteBernstein.restrictCoefficients_bounds",
+          "source_node_id": "declaration:QuantumBlockEncoding.HermiteBernstein.restrictCoefficients_bounds",
+          "type": "∀ (d : ℕ) (c : ℕ → ℝ) (u v lo hi : ℝ), 0 ≤ u → u < v → v ≤ 1 → (∀ r ≤ d, c r ∈ Set.Icc lo hi) → ∀ i ≤ d, QuantumBlockEncoding.HermiteBernstein.restrictCoefficients d u v c i ∈ Set.Icc lo hi"
+        }
+      ],
+      "source_blind_decode": {
+        "ambiguities": [
+          "The literal casteljauStep declaration is not included, but its row-update equation and the casteljau_eq_sum interface are supplied, so the needed mathematical update is identifiable.",
+          "The packet supplies signatures and definitions, not proof terms or an independent compilation result."
+        ],
+        "anonymous_id": "A1",
+        "dependency_audit": [
+          "sp110_partition alone is insufficient for sp110_convex: a sum of weights equal to one need not be nonnegative. The separately supplied basis_nonneg interface and the interval premise are essential. For example, d=1,c(0)=0,c(1)=1,t=2 has sum of weights one but weighted value 2.",
+          "The stated graph edges are not exhaustive standalone implications. Connecting convex sums to rightRestriction/root also uses the casteljau_eq_sum interface, definitions, and bounds on the natural indices.",
+          "sp110_right does not need an added i<=d premise: natural subtraction saturates, giving c(d) beyond d. Treating d-i as signed subtraction would invalidate that reading."
+        ],
+        "limitations": [
+          "The root does not assert a polynomial identity for the reparameterized function, even though its coefficient construction is the supplied de Casteljau construction.",
+          "It supplies no approximation error, positive lower bound, finite-bit algorithm, resource estimate, normalized state, circuit, or optimality claim.",
+          "No claim of equivalence to an external source question, human approval, proof-body audit, or current Lean certification is made."
+        ],
+        "reconstructed_statement": "For every nonnegative integer degree d, every infinite real coefficient sequence c, and every real u,v,lo,hi, assume 0<=u<v<=1 and lo<=c(r)<=hi for each integer r with 0<=r<=d. Then for every integer i with 0<=i<=d, the coefficient R(i) obtained by the following two subdivisions lies in the same closed interval [lo,hi]. Write D_t(c)(j)=(1-t)c(j)+t c(j+1); casteljau(m,c,t,j) means D_t iterated m times and evaluated at j. Set L_t(c)(i)=D_t^i(c)(0), set Q(i)=L_(1-u)(r -> c(d-r))(d-i), using natural subtraction max(d-i,0), and set R(i)=L_s(Q)(i), where s=(v-u)/(1-u). These are exact real equalities, with no rounding or tolerance. Equivalently Q(i)=sum over j=0,...,max(d-i,0) of c(d-j) B(max(d-i,0),j,1-u); for i<=d all accessed original indices are between i and d. For i>d, Q(i)=c(d), explaining why the supplied right-restriction node legitimately quantifies over all natural i. The root itself quantifies only over i<=d. The assumptions imply u<1, so the denominator 1-u is strictly positive and s belongs to (0,1]. The asserted range preservation is a closed-interval coefficient bound, not a statement about normalized quantum amplitudes.",
+        "root_id": "sp110_root",
+        "semantic_slots": {
+          "basis": "B(d,r,t)=binomial(d,r)t^r(1-t)^(d-r), with natural subtraction and binomial(d,r)=0 when r>d; only r<=d occurs in the finite sums used here",
+          "boundary_cases": [
+            "d=0: the sole admitted coefficient and the output R(0) both equal c(0).",
+            "u=0 and v=1 are admitted jointly; u=v and u=1 are excluded.",
+            "v=1 gives s=1 and remains admitted.",
+            "No lo<=hi premise is written separately. The coefficient premise implies it through c(0); if lo>hi the implication has no satisfying coefficient premise.",
+            "There is no empty degree-d coefficient range: it always contains index zero. Coefficients beyond d have no effect on the claimed output indices."
+          ],
+          "closed_interval_meaning": "membership in Set.Icc lo hi means the conjunction lo<=value and value<=hi",
+          "domains_and_quantifiers": {
+            "c": "all functions Nat -> Real; no finite-support requirement",
+            "d": "all natural numbers, including zero",
+            "output_index": "all natural i<=d",
+            "u_v_lo_hi": "all real numbers"
+          },
+          "exact_asserted_scope": "A conditional exact-real range-preservation proposition over every natural degree and all admissible data; no checked Lean execution is reported by this decoder.",
+          "hypotheses": [
+            "0<=u",
+            "u<v",
+            "v<=1",
+            "for every natural r<=d, lo<=c(r) and c(r)<=hi"
+          ],
+          "normalization": "Bernstein weights sum to one for every real t; they are nonnegative on [0,1]. This is affine weight normalization only.",
+          "obligation_nodes": [
+            {
+              "id": "sp110_partition",
+              "meaning": "For every d>=0 and every real t, sum_(r=0)^d B(d,r,t)=1; no restriction t in [0,1] is needed for this identity."
+            },
+            {
+              "id": "sp110_convex",
+              "meaning": "For every d,c,t,lo,hi, if 0<=t<=1 and all first d+1 coefficients lie in [lo,hi], their Bernstein-weighted sum lies in [lo,hi]. Both premises are required."
+            },
+            {
+              "id": "sp110_right",
+              "meaning": "For every d,c,u,lo,hi, if 0<=u<=1 and all first d+1 coefficients lie in [lo,hi], then Q(i) lies there for every natural i, including i>d via truncated subtraction."
+            },
+            {
+              "id": "sp110_parameter",
+              "meaning": "For all real u,v satisfying all three inequalities 0<=u, u<v, v<=1, the exact-real quotient (v-u)/(1-u) belongs to [0,1]."
+            },
+            {
+              "id": "sp110_root",
+              "meaning": "Under every original premise, all admitted restricted coefficients belong to the same interval."
+            }
+          ],
+          "registers_phase_oracles_resources": "No register, basis-state phase, oracle, state preparation, success probability, runtime, gate-count, or bit-complexity object occurs in the target."
+        }
+      },
+      "source_item_digest": "19291aabce76c1930159c1330905a8a44784b80535f3d33e1810e220eb3aa5ec",
+      "source_semantics": {
+        "assumptions": [],
+        "conventions": [],
+        "question": "Let a degree-d polynomial be given by Bernstein coefficients c(0),...,c(d), all lying in a common interval [lo, hi]. Suppose we restrict the polynomial to a subinterval [u, v] with 0 <= u < v <= 1 by two successive de Casteljau subdivisions, producing new Bernstein coefficients c'(0),...,c'(d) for the restricted piece. Prove that every restricted coefficient c'(i) still lies in [lo, hi]. Identify the two structural facts about the Bernstein basis that make this true.",
+        "reference_answer": "Two facts drive the proof. Fact A (partition of unity): the Bernstein basis functions of a fixed degree sum to 1 at every t, i.e. sum_{r=0}^{d} B_{d,r}(t) = 1. Fact B (nonnegativity on [0,1]): each B_{d,r}(t) >= 0 for t in [0,1]. Together they say that any Bernstein sum sum_r c(r) B_{d,r}(t) with t in [0,1] is a convex combination of the c(r), hence lies between min and max of the coefficients; in particular if all c(r) in [lo,hi] the value lies in [lo,hi]. Step 1 (one subdivision preserves bounds): each new coefficient produced by a single de Casteljau subdivision at a parameter in [0,1] is itself a Bernstein sum of a sub-row of the original coefficients evaluated at that parameter. By Facts A and B it is a convex combination of coefficients from [lo,hi], hence in [lo,hi]. This applies to the right-edge (upper) subdivision at u in [0,1]: all its outputs stay in [lo,hi]. Step 2 (second subdivision): the left-edge (lower) subdivision is applied at the parameter (v-u)/(1-u). Because 0 <= u < v <= 1 we have 0 <= (v-u)/(1-u) <= 1 (the numerator is nonnegative and at most the positive denominator 1-u). So the second subdivision is again evaluated at a parameter in [0,1], and by the same convex-combination argument its outputs — the restricted coefficients c'(i) — remain in [lo,hi]. Step 3 (conclusion): composing the two bound-preserving subdivisions keeps every c'(i) in [lo,hi]. This is the exact numerical-stability property of de Casteljau subdivision: restricting to a subinterval never amplifies coefficients beyond the original range, in contrast to monomial-basis restriction which can."
+      },
+      "task_hash": "5236f6cd5b9c376804f8746e0ae6a0663e2911cb209fc06559ee6e18c99c3d1e"
+    },
+    {
+      "ambient_context": {
+        "schema_version": "qcb.curriculum_blind_input.v1"
+      },
+      "core_id": "qcb-core-sp-116",
+      "formal_context_digest": "faa6a5ea758b6acd77caf02e119e687c4f1869b5c485e3584c319f8009778f2d",
+      "formal_view": {
+        "ambient_definitions": {
+          "Matrix.rank": {
+            "kind": "ambient",
+            "literal": "Matrix.rank F",
+            "normalized": "rank of the real matrix, used with finite column type; exact algebraic width bound only"
+          },
+          "Nat.ceil": {
+            "kind": "ambient",
+            "literal": "Nat.ceil ((t-a)/h)",
+            "normalized": "natural-valued ceiling; negative real inputs saturate to zero"
+          },
+          "QuantumBlockEncoding.HermiteCutRank.FactorsThrough": {
+            "kind": "literal",
+            "literal": "def FactorsThrough [Fintype ι] (F : Matrix α β ℝ) : Prop := ∃ A : Matrix α ι ℝ, ∃ B : Matrix ι β ℝ, F = A * B",
+            "normalized": "finite-width matrix factorization, retaining both factor witnesses"
+          },
+          "QuantumBlockEncoding.HermiteCutRank.HermiteBond": {
+            "kind": "literal",
+            "literal": "abbrev HermiteBond (k : ℕ) := Sum (Sum (Fin 2 × Unit) ((Sum (Fin 2) (Fin 2)) × Fin (2*k+2))) (Fin 2 × Unit)",
+            "normalized": "left width 2*1, middle width (2+2)*(2k+2), right width 2*1, joined by direct sums"
+          },
+          "QuantumBlockEncoding.HermitePolynomial.smoothInitial": {
+            "kind": "literal",
+            "literal": "def smoothInitial (k : ℕ) (p : ℝ) : ℝ := if p < -1 then Real.exp p else if p ≤ 0 then (sourceInterpolant k).eval p else Real.exp (-p)",
+            "normalized": "the actual library exponential-polynomial-exponential datum, with bridge value 1 at zero; an equal strict-middle form uses p<0 and the right exponential at zero"
+          },
+          "QuantumBlockEncoding.HermitePolynomial.sourceInterpolant": {
+            "kind": "characterized",
+            "literal": "sourceInterpolant k : Polynomial ℝ",
+            "normalized": "the specific source Hermite bridge of degree at most 2*k+1, matching the derivative jets of exp at -1 and exp(-x) at 0; only the existing degree theorem and value at zero enter this construction"
+          }
+        },
+        "anonymous_id": "A2",
+        "formal_context": {
+          "imports": [
+            "QuantumBlockEncoding.HermiteCutRank"
+          ],
+          "preamble": "universe u v\nopen scoped BigOperators",
+          "target": "∀ {α : Type u} {β : Type v} [Fintype β] (k M : ℕ) (a h : ℝ), 0 < h → ∀ (u : α → ℕ) (v : β → ℕ), (∀ y, v y < M) → (@QuantumBlockEncoding.HermiteCutRank.FactorsThrough α β (QuantumBlockEncoding.HermiteCutRank.HermiteBond k) inferInstance (fun x y => QuantumBlockEncoding.HermitePolynomial.smoothInitial k (a + h * ((M * u x + v y : ℕ) : ℝ)))) ∧ (Fintype.card (QuantumBlockEncoding.HermiteCutRank.HermiteBond k) = 8 * k + 12) ∧ (Matrix.rank (fun x y => QuantumBlockEncoding.HermitePolynomial.smoothInitial k (a + h * ((M * u x + v y : ℕ) : ℝ))) ≤ 8 * k + 12)",
+          "universe_parameters": [
+            "u",
+            "v"
+          ]
+        },
+        "interfaces": [
+          {
+            "name": "QuantumBlockEncoding.HermiteCutRank.polynomial_add_factorization",
+            "signature": "∀ {α : Type u} {β : Type v} (p : Polynomial ℝ) (d : ℕ), p.natDegree ≤ d → ∀ (u : α → ℝ) (v : β → ℝ), @QuantumBlockEncoding.HermiteCutRank.FactorsThrough α β (Fin (d + 1)) inferInstance (fun x y => p.eval (u x + v y))"
+          },
+          {
+            "name": "QuantumBlockEncoding.HermiteCutRank.exponential_add_factorization",
+            "signature": "∀ {α : Type u} {β : Type v} (u : α → ℝ) (v : β → ℝ), @QuantumBlockEncoding.HermiteCutRank.FactorsThrough α β Unit inferInstance (fun x y => Real.exp (u x + v y))"
+          },
+          {
+            "name": "QuantumBlockEncoding.HermiteCutRank.hermite_affine_factorization",
+            "signature": "∀ {α : Type u} {β : Type v} (k M : ℕ) (a h : ℝ), 0 < h → ∀ (u : α → ℕ) (v : β → ℕ), (∀ y, v y < M) → @QuantumBlockEncoding.HermiteCutRank.FactorsThrough α β (QuantumBlockEncoding.HermiteCutRank.HermiteBond k) inferInstance (fun x y => QuantumBlockEncoding.HermitePolynomial.smoothInitial k (a + h * ((M * u x + v y : ℕ) : ℝ)))"
+          },
+          {
+            "name": "QuantumBlockEncoding.HermiteCutRank.hermiteBond_card",
+            "signature": "∀ k : ℕ, Fintype.card (QuantumBlockEncoding.HermiteCutRank.HermiteBond k) = 8 * k + 12"
+          },
+          {
+            "name": "QuantumBlockEncoding.HermiteCutRank.hermite_affine_cut_rank_le",
+            "signature": "∀ {α : Type u} {β : Type v} [Fintype β] (k M : ℕ) (a h : ℝ), 0 < h → ∀ (u : α → ℕ) (v : β → ℕ), (∀ y, v y < M) → Matrix.rank (fun x y => QuantumBlockEncoding.HermitePolynomial.smoothInitial k (a + h * ((M * u x + v y : ℕ) : ℝ))) ≤ 8 * k + 12"
+          }
+        ],
+        "nodes": [
+          {
+            "depends_on": [],
+            "id": "sp116_separator",
+            "target": "∀ (M x y T : ℕ), y < M → (M * x + y < T ↔ x < T / M ∨ (x = T / M ∧ y < T % M))"
+          },
+          {
+            "depends_on": [
+              "sp116_separator"
+            ],
+            "id": "sp116_threshold",
+            "target": "∀ {α : Type u} {β : Type v} (M T : ℕ) (u : α → ℕ) (v : β → ℕ), (∀ y, v y < M) → (@QuantumBlockEncoding.HermiteCutRank.FactorsThrough α β (Fin 2) inferInstance (fun x y => if M * u x + v y < T then (1 : ℝ) else 0)) ∧ (@QuantumBlockEncoding.HermiteCutRank.FactorsThrough α β (Fin 2) inferInstance (fun x y => 1 - if M * u x + v y < T then (1 : ℝ) else 0))"
+          },
+          {
+            "depends_on": [
+              "sp116_threshold"
+            ],
+            "id": "sp116_factorization",
+            "target": "∀ {α : Type u} {β : Type v} (k M : ℕ) (a h : ℝ), 0 < h → ∀ (u : α → ℕ) (v : β → ℕ), (∀ y, v y < M) → @QuantumBlockEncoding.HermiteCutRank.FactorsThrough α β (QuantumBlockEncoding.HermiteCutRank.HermiteBond k) inferInstance (fun x y => QuantumBlockEncoding.HermitePolynomial.smoothInitial k (a + h * ((M * u x + v y : ℕ) : ℝ)))"
+          },
+          {
+            "depends_on": [],
+            "id": "sp116_card",
+            "target": "∀ k : ℕ, Fintype.card (QuantumBlockEncoding.HermiteCutRank.HermiteBond k) = 8 * k + 12"
+          },
+          {
+            "depends_on": [
+              "sp116_factorization",
+              "sp116_card"
+            ],
+            "id": "sp116_root",
+            "target": "∀ {α : Type u} {β : Type v} [Fintype β] (k M : ℕ) (a h : ℝ), 0 < h → ∀ (u : α → ℕ) (v : β → ℕ), (∀ y, v y < M) → (@QuantumBlockEncoding.HermiteCutRank.FactorsThrough α β (QuantumBlockEncoding.HermiteCutRank.HermiteBond k) inferInstance (fun x y => QuantumBlockEncoding.HermitePolynomial.smoothInitial k (a + h * ((M * u x + v y : ℕ) : ℝ)))) ∧ (Fintype.card (QuantumBlockEncoding.HermiteCutRank.HermiteBond k) = 8 * k + 12) ∧ (Matrix.rank (fun x y => QuantumBlockEncoding.HermitePolynomial.smoothInitial k (a + h * ((M * u x + v y : ℕ) : ℝ))) ≤ 8 * k + 12)"
+          }
+        ],
+        "root_id": "sp116_root"
+      },
+      "retrieval_interfaces": [
+        {
+          "module": "QuantumBlockEncoding.HermiteCutRank",
+          "name": "QuantumBlockEncoding.HermiteCutRank.polynomial_add_factorization",
+          "source_node_id": "declaration:QuantumBlockEncoding.HermiteCutRank.polynomial_add_factorization",
+          "type": "∀ {α : Type u} {β : Type v} (p : Polynomial ℝ) (d : ℕ), p.natDegree ≤ d → ∀ (u : α → ℝ) (v : β → ℝ), @QuantumBlockEncoding.HermiteCutRank.FactorsThrough α β (Fin (d + 1)) inferInstance (fun x y => p.eval (u x + v y))"
+        },
+        {
+          "module": "QuantumBlockEncoding.HermiteCutRank",
+          "name": "QuantumBlockEncoding.HermiteCutRank.exponential_add_factorization",
+          "source_node_id": "declaration:QuantumBlockEncoding.HermiteCutRank.exponential_add_factorization",
+          "type": "∀ {α : Type u} {β : Type v} (u : α → ℝ) (v : β → ℝ), @QuantumBlockEncoding.HermiteCutRank.FactorsThrough α β Unit inferInstance (fun x y => Real.exp (u x + v y))"
+        },
+        {
+          "module": "QuantumBlockEncoding.HermiteCutRank",
+          "name": "QuantumBlockEncoding.HermiteCutRank.hermite_affine_factorization",
+          "source_node_id": "declaration:QuantumBlockEncoding.HermiteCutRank.hermite_affine_factorization",
+          "type": "∀ {α : Type u} {β : Type v} (k M : ℕ) (a h : ℝ), 0 < h → ∀ (u : α → ℕ) (v : β → ℕ), (∀ y, v y < M) → @QuantumBlockEncoding.HermiteCutRank.FactorsThrough α β (QuantumBlockEncoding.HermiteCutRank.HermiteBond k) inferInstance (fun x y => QuantumBlockEncoding.HermitePolynomial.smoothInitial k (a + h * ((M * u x + v y : ℕ) : ℝ)))"
+        },
+        {
+          "module": "QuantumBlockEncoding.HermiteCutRank",
+          "name": "QuantumBlockEncoding.HermiteCutRank.hermiteBond_card",
+          "source_node_id": "declaration:QuantumBlockEncoding.HermiteCutRank.hermiteBond_card",
+          "type": "∀ k : ℕ, Fintype.card (QuantumBlockEncoding.HermiteCutRank.HermiteBond k) = 8 * k + 12"
+        },
+        {
+          "module": "QuantumBlockEncoding.HermiteCutRank",
+          "name": "QuantumBlockEncoding.HermiteCutRank.hermite_affine_cut_rank_le",
+          "source_node_id": "declaration:QuantumBlockEncoding.HermiteCutRank.hermite_affine_cut_rank_le",
+          "type": "∀ {α : Type u} {β : Type v} [Fintype β] (k M : ℕ) (a h : ℝ), 0 < h → ∀ (u : α → ℕ) (v : β → ℕ), (∀ y, v y < M) → Matrix.rank (fun x y => QuantumBlockEncoding.HermitePolynomial.smoothInitial k (a + h * ((M * u x + v y : ℕ) : ℝ))) ≤ 8 * k + 12"
+        }
+      ],
+      "source_blind_decode": {
+        "ambiguities": [
+          "sourceInterpolant is characterized rather than literally defined. Its coefficients and the derivative orders included in the endpoint jets are not supplied; I do not infer a unique explicit polynomial formula or a particular smoothness order.",
+          "Matrix.rank is described as real algebraic rank rather than unfolded into a specific library implementation; the target requires finite columns but no finite rows.",
+          "The threshold construction is not supplied as a proof body; the ambient Nat.ceil note identifies its boundary convention but not a concrete factor algorithm."
+        ],
+        "anonymous_id": "A2",
+        "dependency_audit": [
+          "The separator alone can justify threshold indicator decompositions with the supplied definitions. It does not by itself give the Hermite matrix factorization.",
+          "The edge sp116_threshold -> sp116_factorization omits necessary mathematical ingredients if read as an exhaustive implication: polynomial and exponential addition factorizations, the bridge degree/value data, threshold conversion using h>0, and finite-product/direct-sum factorization closure are also needed.",
+          "The root rank conclusion needs the general principle that an F=A*B factorization through a finite I bounds rank by |I|, in addition to the displayed factorization and cardinality nodes. Merely counting a type unrelated to a factorization cannot bound matrix rank.",
+          "No actual Lean import/ownership or proof-dependency claim can be recovered from these conceptual depends_on arrays alone."
+        ],
+        "limitations": [
+          "The value 8k+12 is an upper bound, not equality with rank or a minimal/optimal bond dimension. Repeated rows/columns and empty dimensions may have much smaller rank.",
+          "Existence of algebraic factors gives neither a uniform executable producer nor polynomial runtime, stable finite-bit computation, input-query cost, a tensor-network compiler, or a quantum gate/query bound.",
+          "There is no asserted approximation error for replacing another target by f_k, and no conclusion about a normalized quantum state or block encoding.",
+          "The root does not establish all derivative endpoint conditions from an explicit polynomial, because that polynomial is a supplied characterized ambient object.",
+          "No source-question equivalence, human approval, independent proof-body audit, or current Lean acceptance is claimed."
+        ],
+        "reconstructed_statement": "For every pair of types alpha,beta (with arbitrary row type alpha and a finite, possibly empty column type beta), every natural k,M, every real a,h with h>0, and every pair of functions u:alpha->Nat and v:beta->Nat satisfying v(y)<M for every y, form the real matrix F(x,y)=f_k(a+h n(x,y)), where n(x,y)=M u(x)+v(y) is computed in Nat and then cast to Real. The datum is f_k(p)=exp(p) for p<-1, the specified Hermite bridge polynomial P_k(p) for -1<=p<=0, and exp(-p) for p>0. The packet characterizes P_k as degree at most 2k+1 with bridge value P_k(0)=1 and matching endpoint jets. The root asserts the conjunction of three conclusions: (1) there exist real matrices A:alpha x I_k and B:I_k x beta such that, for every x,y, F(x,y)=sum_(z in I_k) A(x,z)B(z,y); (2) the finite intermediate type I_k=(((Fin 2 x Unit) disjoint-union ((Fin 2 disjoint-union Fin 2) x Fin(2k+2))) disjoint-union (Fin 2 x Unit)) has exactly 8k+12 elements; and (3) the real algebraic rank of F is at most 8k+12. Both factor witnesses are part of the existential conclusion; no witness is an extra input assumption. No finite-row, injectivity, monotonicity, or distinct-sample hypothesis is present.",
+        "root_id": "sp116_root",
+        "semantic_slots": {
+          "all_root_conjuncts": [
+            "Existence of both factor matrices through the specified finite type",
+            "Exact cardinality of that intermediate type",
+            "Rank upper bound for the same sampled matrix"
+          ],
+          "bond_cardinality": "2 + (2+2)*(2*k+2) + 2 = 8*k+12",
+          "boundary_cases": [
+            "k=0 is admitted and yields width 12; no positive-k premise is available.",
+            "M=0 is not globally excluded. If beta is inhabited the condition v(y)<M forces M>0. If beta is empty the condition is vacuous even at M=0, the matrix has no columns, its rank is zero, and the factorization is vacuous on entries.",
+            "An empty alpha is also admitted and gives an empty row matrix.",
+            "h=0 and negative h are excluded; a is unrestricted.",
+            "At p=-1 the polynomial branch is selected; at p=0 it is also selected. The supplied value P_k(0)=1 makes replacement by the right exponential at that one boundary legitimate.",
+            "Natural ceiling used by a possible threshold construction saturates negative inputs to zero; it is not an integer ceiling taking negative values."
+          ],
+          "datum_branches": [
+            "p<-1: exp(p)",
+            "-1<=p<=0: P_k(p)",
+            "p>0: exp(-p)"
+          ],
+          "domains_and_quantifiers": {
+            "a_h": "arbitrary real numbers, h strictly positive",
+            "alpha": "arbitrary Type u, not required finite or inhabited",
+            "beta": "arbitrary Type v with a Fintype instance, not required inhabited",
+            "k_M": "arbitrary natural numbers",
+            "u_v": "arbitrary natural-valued functions on rows and columns"
+          },
+          "exact_asserted_scope": "An exact algebraic width/rank existence statement for this family of sampled real functions, not a circuit or runtime certificate; this decoder has not run Lean.",
+          "factorization_and_rank": "F=A*B is finite-width exact real matrix multiplication, i.e. a finite sum through I_k; rank is the supplied real algebraic matrix rank, bounded without requiring a finite row set.",
+          "hypotheses": [
+            "h>0",
+            "for every column y, v(y)<M"
+          ],
+          "normalization_phase_registers_resources": "No vector or state normalization, amplitude phase, physical register ordering, oracle/query implementation, circuit, sampling probability, or computational cost is defined by this target.",
+          "obligation_nodes": [
+            {
+              "id": "sp116_separator",
+              "meaning": "For all natural M,x,y,T with y<M, M*x+y<T iff x<T div M or (x=T div M and y<T mod M). At M=0 the premise cannot hold for any natural y."
+            },
+            {
+              "id": "sp116_threshold",
+              "meaning": "For arbitrary row/column types and functions with v(y)<M, both the threshold indicator matrix 1_[M*u(x)+v(y)<T] and its pointwise complement factor through Fin 2. The conclusion is an AND of two factorization existences."
+            },
+            {
+              "id": "sp116_factorization",
+              "meaning": "Under h>0 AND the column-digit bound, the particular three-branch exponential-polynomial-exponential sample matrix has an I_k factorization."
+            },
+            {
+              "id": "sp116_card",
+              "meaning": "For every k, the exact cardinality of I_k is 8*k+12."
+            },
+            {
+              "id": "sp116_root",
+              "meaning": "The same assumptions entail the factorization AND exact bond cardinality AND rank upper bound."
+            }
+          ],
+          "provided_auxiliary_interfaces": [
+            "A degree-at-most-d polynomial evaluated at row-real plus column-real admits a factorization through Fin(d+1).",
+            "The exponential of a row-real plus column-real admits a factorization through Unit."
+          ]
+        }
+      },
+      "source_item_digest": "5a48d2fbfdcd90638dbcba8d09119755740f0e5606aae50d25be30c0d2c43380",
+      "source_semantics": {
+        "assumptions": [
+          "the suffix index satisfies v(y) < M so each threshold reduces to a two-state separation across the cut",
+          "the bound is a rank/separation certificate and asserts no circuit compiler"
+        ],
+        "conventions": [],
+        "question": "The full target initial datum is a piecewise function: an exponential left tail for p < -1, a degree-<=2k+1 polynomial bridge for -1 <= p < 0, and an exponential right tail for p >= 0. Sample it on an integer-indexed grid and split the index as M*u(x) + v(y) across a binary cut, where v(y) < M. Prove that the resulting bivariate sample array has rank at most 8k+12, uniformly over the cut location, by exhibiting an explicit finite-width factorization. Account for every additive piece and the exact width it contributes.",
+        "reference_answer": "Write the sampled datum as a sum of three terms selected by threshold indicators of the integer index n(x,y) = M u(x) + v(y). Let A, B be the integer cutoffs for the thresholds p < -1 and p < 0 respectively (obtained by a ceiling of an affine expression; across the cut each threshold indicator factors through width 2). Term 1 (left tail): 1[n < A] * exp(grid), width 2 * 1 = 2 (indicator times exponential). Term 2 (middle): (1[n < B] - 1[n < A]) * q(grid), where q is the source polynomial of degree <= 2k+1. The band indicator is a difference of two width-2 indicators, so by the sum/negation laws it factors through width 2 + 2 = 4; multiplied entrywise by the polynomial of width (2k+1)+1 = 2k+2 gives width 4 * (2k+2) = 8k+8. Term 3 (right tail): (1 - 1[n < B]) * exp(-grid), the complement indicator times an exponential; the complement factors through width 2 and the exponential through width 1, so width 2 * 1 = 2. Summing the three terms adds widths: 2 + (8k+8) + 2 = 8k+12. Each threshold indicator truly separates across the binary cut because 'M u(x) + v(y) < T' reduces, using v(y) < M, to a two-row condition (u(x) < T/M, or u(x) = T/M together with v(y) < T mod M) — exactly a two-state separation. The exponential separations use exp(a+b) = exp(a) exp(b) (width 1), and the polynomial separation uses the shifted-Taylor factorization (width deg+1). The combined explicit width is a finite index set of cardinality 8k+12, so the rank of the sample array is at most 8k+12, independent of the register width and of where the cut is placed. This is a separation certificate only; it does not by itself furnish a gate compiler or a finite-precision algorithm."
+      },
+      "task_hash": "10df8d98f85a97940941948eaa4b1868f8406a3216b40ff3ccc46bfdd04e569b"
+    },
+    {
+      "ambient_context": {
+        "projection": {
+          "canonical_hash_convention": "SHA256 of UTF-8 json.dumps(parsed_json, ensure_ascii=False, sort_keys=True, separators=(comma,colon))",
+          "compiler_evidence": false,
+          "excluded_anonymous_ids": [
+            "O4C"
+          ],
+          "full_input": {
+            "canonical_sha256": "da469f98bad854416d3dce5396fec69e99e48a742b7f74ed0fb08d4979eda845",
+            "path": "benchmarks/quantumcomputingbench/reports/lean-course-v4/diagnostics/oracle-full-decoder-input.json",
+            "raw_sha256": "0f294979c77773c9a3748878d9ed68a181532d7e584ac68c09fef038712d3834"
+          },
+          "full_output": {
+            "canonical_sha256": "94b1d6bd76add7a9fc8e83ab81edaf9b55e7517437a0d7d8a962bed6cf7047e6",
+            "path": "benchmarks/quantumcomputingbench/reports/lean-course-v4/diagnostics/oracle-full-decoder.json",
+            "raw_sha256": "6cb524faab0c9353baf288cdbbe31388fccefafc17db314c43fbbbf793a11d41"
+          },
+          "kind": "selected_projection_of_same_formal_only_reconstruction",
+          "new_blind_review": false,
+          "original_anonymous_ids": [
+            "O4A",
+            "O4B",
+            "O4C"
+          ],
+          "reason": "Admission-only selection reported by parent: O4C frozen graph anchors have inventory_status Partial route, while the unchanged course admission gate requires Compiled. O4C is retained as diagnostic; only O4A/O4B from this oracle packet qualify. This projection supplies no independent graph-inventory verification or compiler evidence.",
+          "selected_anonymous_ids": [
+            "O4A",
+            "O4B"
+          ],
+          "selection_exposure": "No new mathematical inputs, proofs, reference questions, source files, or prior reviews were read for this projection. Only the existing completed oracle input/output bytes and the parent admission instruction were used.",
+          "substantive_reconstructions": "Selected O4A/O4B input views and output view objects are unchanged from the full packet; only the view selection and documented provenance metadata change."
+        },
+        "schema_version": "qcb.curriculum_blind_input.v1",
+        "source_blind": true
+      },
+      "core_id": "qcb-core-be-101",
+      "formal_context_digest": "d2d66c801f13dad9771fe71db5e5c26064e23c3a795952605094bdf28d368606",
+      "formal_view": {
+        "ambient": [
+          {
+            "equation": "L(s).val = (Nat.xor s.val 3) % 8; 3 is the fixed mask binary011.",
+            "signature": "QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 : Fin 8 → Fin 8"
+          },
+          {
+            "equation": "Wire indices are address0,1,2; row3,4,5; work6. The literal prefix consists only of X on0 then X on1. X toggles its target bit, leaving every other bit unchanged.",
+            "signature": "PrimitiveBasis 7 = Fin 7 → Fin 2"
+          },
+          {
+            "equation": "value=state(i).val +2*state(j).val +4*state(k).val. evalReversibleProgram composes the listed basis bijections in chronological order.",
+            "signature": "littleEndian3Value state i j k : Nat"
+          }
+        ],
+        "anonymous_id": "O4A",
+        "formal_context": {
+          "imports": [
+            "QuantumBlockEncoding.BandedSparseAccessPrimitive"
+          ],
+          "preamble": "open scoped BigOperators",
+          "target": "(∀ s : Fin 8, QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 (QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 s) = s) ∧ (List.ofFn QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 = [3,2,1,0,7,6,5,4]) ∧ (∀ state : QuantumBlockEncoding.PrimitiveBasis 7, (QuantumBlockEncoding.littleEndian3Value (QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) state) 0 1 2 = ((QuantumBlockEncoding.littleEndian3Value state 0 1 2) ^^^ 3) % 8) ∧ QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) (QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) state) = state)"
+        },
+        "formal_signatures": [
+          {
+            "depends_on": [],
+            "id": "N1",
+            "target": "∀ s : Fin 8, QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 (QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 s) = s"
+          },
+          {
+            "depends_on": [],
+            "id": "N2",
+            "target": "List.ofFn QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 = [3,2,1,0,7,6,5,4]"
+          },
+          {
+            "depends_on": [],
+            "id": "N3",
+            "target": "∀ state : QuantumBlockEncoding.PrimitiveBasis 7, (QuantumBlockEncoding.littleEndian3Value (QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) state) 0 1 2 = ((QuantumBlockEncoding.littleEndian3Value state 0 1 2) ^^^ 3) % 8) ∧ QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) (QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) state) = state"
+          },
+          {
+            "depends_on": [
+              "N1",
+              "N2",
+              "N3"
+            ],
+            "id": "N4",
+            "target": "(∀ s : Fin 8, QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 (QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 s) = s) ∧ (List.ofFn QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 = [3,2,1,0,7,6,5,4]) ∧ (∀ state : QuantumBlockEncoding.PrimitiveBasis 7, (QuantumBlockEncoding.littleEndian3Value (QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) state) 0 1 2 = ((QuantumBlockEncoding.littleEndian3Value state 0 1 2) ^^^ 3) % 8) ∧ QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) (QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) state) = state)"
+          }
+        ],
+        "provenance_boundary": "Literal signatures and defining equations only; no source QA, reference proof, prior verdict, author binder classification or desired conclusion supplied.",
+        "request": "Reconstruct precisely the mathematics of the displayed formal targets from the literal types/equations. State domain, quantifiers, hypotheses, register/phase convention and conclusion; expose all boundaries and do not infer additional physical/resource claims.",
+        "root_id": "N4"
+      },
+      "retrieval_interfaces": [
+        {
+          "module": "QuantumBlockEncoding.BandedSparseAccessPrimitive",
+          "name": "QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3",
+          "source_node_id": "declaration:QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3",
+          "type": "Fin 8 → Fin 8"
+        },
+        {
+          "module": "QuantumBlockEncoding.BandedSparseAccessPrimitive",
+          "name": "QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3ReversibleProgram",
+          "source_node_id": "declaration:QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3ReversibleProgram",
+          "type": "QuantumBlockEncoding.ReversibleProgram 7"
+        }
+      ],
+      "source_blind_decode": {
+        "ambiguities": [
+          "No definition needed to interpret these displayed basis equations remains missing: XOR, little-endian weights, X action, and chronological order are all supplied.",
+          "A complex linear extension, if desired, would require its own interpretation; it is not implicit in a bare basis-label equality."
+        ],
+        "anonymous_id": "O4A",
+        "dependency_audit": [
+          "N4 is the conjunction of N1,N2,N3. The supplied edges are consistent as conjunction packaging; they do not turn a basis statement into a full sparse-access oracle claim.",
+          "From the supplied definitions the prefix address map agrees with L, but the root does not assert an implementation of the rest of any longer sparse-access circuit."
+        ],
+        "limitations": [
+          "No arbitrary address width or variable offset is quantified over.",
+          "No row-dependent sparse-neighbor map, value oracle, banded-matrix access contract, quantum amplitude action, phase-correct circuit matrix, or clean-ancilla construction is certified by this root.",
+          "The literal prefix has two X gates, but no gate-cost model, T-count, depth, hardware resource theorem, or asymptotic bound is asserted.",
+          "No proof body, source question, current Lean check, or human approval was supplied."
+        ],
+        "reconstructed_statement": "Let S={0,...,7} and define L:S->S by L(s)=(s XOR 3) mod 8, where 3 is the fixed three-bit mask 011. The root is the conjunction of: (1) for every s in S, L(L(s))=s; (2) in increasing input order 0,...,7, its eight outputs are exactly [3,2,1,0,7,6,5,4]; and (3) for every seven-bit assignment z:{0,...,6}->{0,1}, the program X on wire 0 followed chronologically by X on wire 1 produces a state z' whose little-endian address value z'(0)+2z'(1)+4z'(2) is ((z(0)+2z(1)+4z(2)) XOR 3) mod 8, and applying that same two-gate program twice returns the entire seven-bit assignment z. The third conjunct contains both the address equation AND equality of the full state after two applications. There are no assumptions about the address, row bits, or work bit: all 128 basis assignments are quantified over. By the supplied X action, one application changes bits 0 and 1 to their complements and preserves every other wire. This toggles the two low address bits and preserves address bit 2. The operation is bitwise XOR with the mask, not addition of three modulo eight: for example input 1 maps to 2.",
+        "root_id": "N4",
+        "semantic_slots": {
+          "all_root_conjuncts": [
+            "L is involutive",
+            "Its complete ordered output list is the specified eight-element list",
+            "For every basis state: the address-value XOR equation AND the full-state involution equation"
+          ],
+          "boundaries": [
+            "No empty domain is involved: |Fin 8|=8 and there are 2^7=128 seven-bit assignments.",
+            "The work wire may initially be either value; no clean-zero premise is present.",
+            "The little-endian address already belongs to [0,7], and XOR with 3 remains in [0,7], so the explicit remainder by 8 does not change the value."
+          ],
+          "domain": "Fin 8 for L; PrimitiveBasis 7 = Fin 7 -> Fin 2 for states",
+          "exact_asserted_scope": "A fixed three-address-bit, seven-wire basis-map statement for a two-X prefix, reconstructed without executing Lean.",
+          "obligation_nodes": [
+            {
+              "id": "N1",
+              "meaning": "All Fin 8 inputs satisfy L squared = identity."
+            },
+            {
+              "id": "N2",
+              "meaning": "List.ofFn enumerates the full function on Fin 8 in index order."
+            },
+            {
+              "id": "N3",
+              "meaning": "Every seven-bit basis input satisfies both the address equation and full-state return after two prefix applications."
+            },
+            {
+              "id": "N4",
+              "meaning": "AND of N1,N2,N3, retaining the AND inside N3."
+            }
+          ],
+          "one_application": "z0 -> 1-z0, z1 -> 1-z1; z2,z3,z4,z5,z6 preserved",
+          "phase_normalization": "This is a bijection on classical basis labels. No amplitude normalization or complex phase convention is part of the target.",
+          "program_order": "X0 is applied first, then X1",
+          "quantifiers": "All eight inputs and all seven-bit basis states; no external parameter or premise",
+          "register_order": {
+            "address": "wires 0,1,2, weights 1,2,4 respectively",
+            "row": "wires 3,4,5",
+            "work": "wire 6"
+          }
+        }
+      },
+      "source_item_digest": "c121d5a0d54af38e9206a89b7e5c8acbab4eca77fe5c2e3ef5dad9fc0267a2a1",
+      "source_semantics": {
+        "assumptions": [
+          "Slot values range over {0,...,7}, so the outer mod 8 never fires",
+          "The loader is XOR with the fixed mask 3"
+        ],
+        "conventions": [
+          "XOR with a constant mask toggles exactly the bits set in the mask",
+          "The loader is realized by two X gates on the two low wires"
+        ],
+        "question": "A reversible source-loader on three little-endian bits is defined by the rule that maps each slot value s in {0,...,7} to (s XOR 3) mod 8, i.e. it flips the two low-order bits of s. Prove that this loader is its own inverse (an involution) as a permutation of {0,...,7}, and give the explicit image list obtained by applying it to 0,1,2,3,4,5,6,7 in order. Explain why the involution property is exactly what lets the two bit-flip gates that realize it also undo it when applied a second time.",
+        "reference_answer": "The loader is L(s) = (s XOR 3) mod 8. Since every s in {0,...,7} is below 8, the outer mod 8 is inert and L(s) = s XOR 3. Bitwise XOR with the fixed mask 3 (binary 011) toggles bit 0 and bit 1 and leaves bit 2 untouched. XOR with a fixed mask is self-inverse because XOR is associative and commutative with x XOR x = 0: L(L(s)) = (s XOR 3) XOR 3 = s XOR (3 XOR 3) = s XOR 0 = s, so L is an involution and in particular a bijection of the 8-element set. Applying L to 0..7 in order gives [3, 2, 1, 0, 7, 6, 5, 4]: 0->3, 1->2, 2->1, 3->0, 4->7, 5->6, 6->5, 7->4. Operationally the loader is implemented by two X (bit-flip) gates on wires 0 and 1; because each X is self-inverse and the two flips commute, running the same two gates again applies 3 XOR 3 = 0, returning every slot to its original value, which is the circuit-level statement of the involution."
+      },
+      "task_hash": "53d62244b99f328cf251768a389e0874c1c781d1053ca116610acefa778e6391"
+    },
+    {
+      "ambient_context": {
+        "projection": {
+          "canonical_hash_convention": "SHA256 of UTF-8 json.dumps(parsed_json, ensure_ascii=False, sort_keys=True, separators=(comma,colon))",
+          "compiler_evidence": false,
+          "excluded_anonymous_ids": [
+            "O4C"
+          ],
+          "full_input": {
+            "canonical_sha256": "da469f98bad854416d3dce5396fec69e99e48a742b7f74ed0fb08d4979eda845",
+            "path": "benchmarks/quantumcomputingbench/reports/lean-course-v4/diagnostics/oracle-full-decoder-input.json",
+            "raw_sha256": "0f294979c77773c9a3748878d9ed68a181532d7e584ac68c09fef038712d3834"
+          },
+          "full_output": {
+            "canonical_sha256": "94b1d6bd76add7a9fc8e83ab81edaf9b55e7517437a0d7d8a962bed6cf7047e6",
+            "path": "benchmarks/quantumcomputingbench/reports/lean-course-v4/diagnostics/oracle-full-decoder.json",
+            "raw_sha256": "6cb524faab0c9353baf288cdbbe31388fccefafc17db314c43fbbbf793a11d41"
+          },
+          "kind": "selected_projection_of_same_formal_only_reconstruction",
+          "new_blind_review": false,
+          "original_anonymous_ids": [
+            "O4A",
+            "O4B",
+            "O4C"
+          ],
+          "reason": "Admission-only selection reported by parent: O4C frozen graph anchors have inventory_status Partial route, while the unchanged course admission gate requires Compiled. O4C is retained as diagnostic; only O4A/O4B from this oracle packet qualify. This projection supplies no independent graph-inventory verification or compiler evidence.",
+          "selected_anonymous_ids": [
+            "O4A",
+            "O4B"
+          ],
+          "selection_exposure": "No new mathematical inputs, proofs, reference questions, source files, or prior reviews were read for this projection. Only the existing completed oracle input/output bytes and the parent admission instruction were used.",
+          "substantive_reconstructions": "Selected O4A/O4B input views and output view objects are unchanged from the full packet; only the view selection and documented provenance metadata change."
+        },
+        "schema_version": "qcb.curriculum_blind_input.v1",
+        "source_blind": true
+      },
+      "core_id": "qcb-core-be-104",
+      "formal_context_digest": "5eb5123017c9c89b167c5568b161d27b7ceb9de115be2abd872aadb8722f0e5e",
+      "formal_view": {
+        "ambient": [
+          {
+            "equation": "ReversibleGate cases are X, controlled-X with distinct controls/targets and controlled-controlled-X with pairwise distinct wires. E([])=identity; E(g::rest) applies g first then rest.",
+            "signature": "ReversibleProgram q = List (ReversibleGate q)"
+          },
+          {
+            "equation": "PrimitiveGate cases are X, RY, RZ, CX. Bare C([])=I and C(g::rest)=C(rest)*C(g). Full D(p)=exp(i*angle(p.globalPhase))*C(p.circuit). P(e)[r,c]=if r=e(c) then1 else0.",
+            "signature": "PrimitiveProgram q = {circuit : List (PrimitiveGate q), globalPhase : ExactAngle}"
+          },
+          {
+            "equation": "Compiles empty lists to the identity PrimitiveProgram; compiles g::rest by sequencing compileGate(g) then compile(rest). PrimitiveProgram.seq appends the two circuits and adds the exact stored angles.",
+            "signature": "compileReversibleProgram"
+          },
+          {
+            "equation": "Compiler applied to seven-wire prefix X0,X1 then CCX(3,0;6),CCX(6,1;2),CCX(3,0;6),CCX(3,0;1),CX(3;0),CCX(4,1;2),CX(4;1),CX(5;2). Wire order address0..2,row3..5,work6.",
+            "signature": "primitiveAccess3Program"
+          },
+          {
+            "equation": "X,CX have stored angle0. H is RZ(pi) then RY(pi/2) with stored angle pi/2. T is RZ(pi/4) with stored angle pi/8. Tdagger is RZ(-pi/4) with stored angle -pi/8. CCX is H(target), then CX(b,t),Tdagger(t),CX(a,t),T(t),CX(b,t),Tdagger(t),CX(a,t),T(b),T(t),CX(a,b),T(a),Tdagger(b),CX(a,b), then H(target). Angles add under chronology and are not automatically reduced modulo2pi.",
+            "signature": "compiled macro angle fields"
+          }
+        ],
+        "anonymous_id": "O4B",
+        "formal_context": {
+          "imports": [
+            "QuantumBlockEncoding.BandedSparseAccessPrimitive"
+          ],
+          "preamble": "open scoped BigOperators",
+          "target": "(∀ {qubits : Nat} (program : QuantumBlockEncoding.ReversibleProgram qubits), QuantumBlockEncoding.evalPrimitiveProgram (QuantumBlockEncoding.compileReversibleProgram program) = QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.evalReversibleProgram program)) ∧ (QuantumBlockEncoding.ExactAngle.eval QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.globalPhase = Real.pi * (45 / 8)) ∧ (∀ {qubits : Nat} (program : QuantumBlockEncoding.ReversibleProgram qubits), QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.compileReversibleProgram program).circuit = (QuantumBlockEncoding.evalGlobalPhase (QuantumBlockEncoding.compileReversibleProgram program).globalPhase)⁻¹ • QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.evalReversibleProgram program)) ∧ (QuantumBlockEncoding.evalGlobalPhase QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.globalPhase ≠ 1) ∧ (QuantumBlockEncoding.evalPrimitiveCircuit QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.circuit ≠ QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv)"
+        },
+        "formal_signatures": [
+          {
+            "depends_on": [],
+            "id": "N1",
+            "target": "∀ {qubits : Nat} (program : QuantumBlockEncoding.ReversibleProgram qubits), QuantumBlockEncoding.evalPrimitiveProgram (QuantumBlockEncoding.compileReversibleProgram program) = QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.evalReversibleProgram program)"
+          },
+          {
+            "depends_on": [],
+            "id": "N2",
+            "target": "QuantumBlockEncoding.ExactAngle.eval QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.globalPhase = Real.pi * (45 / 8)"
+          },
+          {
+            "depends_on": [
+              "N1"
+            ],
+            "id": "N3",
+            "target": "∀ {qubits : Nat} (program : QuantumBlockEncoding.ReversibleProgram qubits), QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.compileReversibleProgram program).circuit = (QuantumBlockEncoding.evalGlobalPhase (QuantumBlockEncoding.compileReversibleProgram program).globalPhase)⁻¹ • QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.evalReversibleProgram program)"
+          },
+          {
+            "depends_on": [
+              "N2"
+            ],
+            "id": "N4",
+            "target": "QuantumBlockEncoding.evalGlobalPhase QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.globalPhase ≠ 1"
+          },
+          {
+            "depends_on": [
+              "N4"
+            ],
+            "id": "N5",
+            "target": "QuantumBlockEncoding.evalPrimitiveCircuit QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.circuit ≠ QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv"
+          },
+          {
+            "depends_on": [
+              "N1",
+              "N2",
+              "N3",
+              "N4",
+              "N5"
+            ],
+            "id": "N6",
+            "target": "(∀ {qubits : Nat} (program : QuantumBlockEncoding.ReversibleProgram qubits), QuantumBlockEncoding.evalPrimitiveProgram (QuantumBlockEncoding.compileReversibleProgram program) = QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.evalReversibleProgram program)) ∧ (QuantumBlockEncoding.ExactAngle.eval QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.globalPhase = Real.pi * (45 / 8)) ∧ (∀ {qubits : Nat} (program : QuantumBlockEncoding.ReversibleProgram qubits), QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.compileReversibleProgram program).circuit = (QuantumBlockEncoding.evalGlobalPhase (QuantumBlockEncoding.compileReversibleProgram program).globalPhase)⁻¹ • QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.evalReversibleProgram program)) ∧ (QuantumBlockEncoding.evalGlobalPhase QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.globalPhase ≠ 1) ∧ (QuantumBlockEncoding.evalPrimitiveCircuit QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.circuit ≠ QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv)"
+          }
+        ],
+        "provenance_boundary": "Literal signatures and defining equations only; no source QA, reference proof, prior verdict, author binder classification or desired conclusion supplied.",
+        "request": "Reconstruct precisely the mathematics of the displayed formal targets from the literal types/equations. State domain, quantifiers, hypotheses, register/phase convention and conclusion; expose all boundaries and do not infer additional physical/resource claims.",
+        "root_id": "N6"
+      },
+      "retrieval_interfaces": [
+        {
+          "module": "QuantumBlockEncoding.ModularAdder3",
+          "name": "QuantumBlockEncoding.compileReversibleProgram_eval",
+          "source_node_id": "declaration:QuantumBlockEncoding.compileReversibleProgram_eval",
+          "type": "∀ {qubits : Nat} (program : QuantumBlockEncoding.ReversibleProgram qubits), QuantumBlockEncoding.evalPrimitiveProgram (QuantumBlockEncoding.compileReversibleProgram program) = QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.evalReversibleProgram program)"
+        },
+        {
+          "module": "QuantumBlockEncoding.ModularAdder3",
+          "name": "QuantumBlockEncoding.compileReversibleGate_eval",
+          "source_node_id": "declaration:QuantumBlockEncoding.compileReversibleGate_eval",
+          "type": "∀ {qubits : Nat} (gate : QuantumBlockEncoding.ReversibleGate qubits), QuantumBlockEncoding.evalPrimitiveProgram (QuantumBlockEncoding.compileReversibleGate gate) = QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.evalReversibleGate gate)"
+        },
+        {
+          "module": "QuantumBlockEncoding.PrimitiveSemantics",
+          "name": "QuantumBlockEncoding.evalPrimitiveProgram_seq",
+          "source_node_id": "declaration:QuantumBlockEncoding.evalPrimitiveProgram_seq",
+          "type": "∀ {qubits : Nat} (left right : QuantumBlockEncoding.PrimitiveProgram qubits), QuantumBlockEncoding.evalPrimitiveProgram (left.seq right) = QuantumBlockEncoding.evalPrimitiveProgram right * QuantumBlockEncoding.evalPrimitiveProgram left"
+        }
+      ],
+      "source_blind_decode": {
+        "ambiguities": [
+          "The named e_star is not given an explicit action or equation identifying it with E of the displayed source program. The last conjunct is interpretable as an inequality against its named permutation matrix, but its complete basis action cannot be reconstructed from this packet alone.",
+          "Entrywise RY/RZ matrices and every compileGate implementation equation are not included. This does not prevent interpreting the stated compiler identity and the supplied angle arithmetic; it limits an independent mechanism/proof verification, which was not requested of this source-blind decoder."
+        ],
+        "anonymous_id": "O4B",
+        "dependency_audit": [
+          "The displayed depends_on lists are conceptual and nonexhaustive, not an exhaustive proof-term graph. No theorem is labeled false merely because an imported proof bridge is absent.",
+          "N1 -> N3 uses the full-program definition and the nonzero complex exponential scalar.",
+          "N2 -> N4 uses nontriviality of exp(i*45*pi/8); an unreduced real angle being nonzero alone would not be sufficient, since integer multiples of 2*pi have phase one.",
+          "N4 alone does not logically entail N5 for arbitrary unrelated circuit and permutation symbols. One sufficient additional bridge is full concrete equality exp(i theta_star)C_star=P(e_star), plus a nonzero permutation entry. Another route uses N1 and the supplied compiler definition to get C_star=lambda*P(E(source)), lambda!=0,1, and observes that on a nonempty basis such a matrix cannot equal any 0/1 permutation matrix, including P(e_star). The latter route does not require e_star=E(source).",
+          "Exact bare matrix equality cannot be inferred by simply dropping the stored global phase from N1. N3 and N5 expressly distinguish these two evaluations."
+        ],
+        "limitations": [
+          "Universal quantification concerns this reversible gate language and its given compiler; it is not an arbitrary-unitary synthesis theorem.",
+          "No circuit-depth, T-count, approximation error, device realization, finite-angle approximation, clean-work contract, or query-complexity conclusion occurs in the root.",
+          "A scalar phase that is unobservable under some standalone phase-insensitive uses is still material to exact matrix equality; the target supplies no theorem about controlled use or other contexts.",
+          "Neither correctness of the named basis-equivalence definition nor source-question equivalence, independent current Lean acceptance, or human approval is claimed."
+        ],
+        "reconstructed_statement": "For any natural number q of wires and every well-formed finite reversible program p made of X, controlled-X on distinct wires, and doubly-controlled-X on pairwise distinct wires, write E(p) for its chronological basis permutation and P(E(p))[r,c]=1 when r=E(p)(c), and 0 otherwise. Its compiled primitive program has a bare circuit C_p and a stored exact real angle theta_p. The full evaluation is D_p=exp(i theta_p) C_p, with chronological circuit multiplication C(g::rest)=C(rest)C(g). The root asserts all five statements simultaneously: (1) universally over q,p, D_p=P(E(p)) as exact complex matrices; (2) the specific compiled seven-wire primitiveAccess3Program has the stored, unreduced angle theta_star=45*pi/8, where 45/8 is real division; (3) universally over q,p, C_p=exp(i theta_p)^(-1) P(E(p)); (4) exp(i theta_star) is not 1; and (5) the bare circuit of that specific seven-wire program is not equal as a matrix to P(e_star), where e_star is the separately named primitiveAccess3BasisEquiv. The named e_star is not unfolded in this packet. The specific source program applies X0,X1, then CCX(3,0;6),CCX(6,1;2),CCX(3,0;6),CCX(3,0;1),CX(3;0),CCX(4,1;2),CX(4;1),CX(5;2), in that order. It has five CCX gates. Each supplied CCX macro accumulates two H angle fields (total pi) and four T minus three Tdagger angle fields (net pi/8), hence stores 9*pi/8; X and CX store zero. The five copies therefore store 45*pi/8. As a complex scalar, exp(i theta_star)=exp(-3*pi*i/8), while its inverse is exp(3*pi*i/8). Thus the generic bare-circuit formula applied to the displayed source program gives a nontrivial scalar multiple of that program's ideal basis permutation. The last conjunct is an exact matrix inequality, and does not say that the phase-correct full compiler output is incorrect.",
+        "root_id": "N6",
+        "semantic_slots": {
+          "all_root_conjuncts": [
+            "Universal exact correctness of the full phase-correct compiler output",
+            "Concrete stored angle exactly 45*pi/8",
+            "Universal inverse-phase relation for bare compiled circuits",
+            "Concrete phase scalar different from 1",
+            "Concrete bare-circuit matrix different from the named permutation matrix"
+          ],
+          "boundary_cases": [
+            "q=0 is included; its zero-wire basis still has one basis string and its identity circuit matrix is 1 by 1. No positive-wire premise may be inserted.",
+            "An empty source program compiles to the identity primitive program and satisfies the universal statements.",
+            "The seven-wire program is interpreted on the whole basis space; no work-bit initialization is asserted by these matrix equalities."
+          ],
+          "domains_and_quantifiers": "The first and third conjuncts range over every q in Nat, including q=0, and all programs of the stated well-formed reversible-gate type. The remaining conjuncts are closed claims about the single named seven-wire program.",
+          "exact_asserted_scope": "An exact complex matrix compiler contract together with precise global-phase bookkeeping and a concrete bare-circuit inequality. The decoder has not independently run the compiler, checked proof terms, or executed Lean.",
+          "fixed_registers": "Seven wires: address 0,1,2; row 3,4,5; work 6. No initial-zero hypothesis is stated.",
+          "hypotheses": "No extra root premises. Wire-distinctness obligations are built into admissible reversible gates, not arbitrary duplicate-wire instructions.",
+          "obligation_nodes": [
+            {
+              "id": "N1",
+              "meaning": "For every admissible q,p, exp(i theta_p)C_p=P(E(p))."
+            },
+            {
+              "id": "N2",
+              "meaning": "The specific exact angle evaluates to 45*pi/8 as a real number, not merely a congruence class."
+            },
+            {
+              "id": "N3",
+              "meaning": "For every admissible q,p, C_p=exp(i theta_p)^(-1)P(E(p))."
+            },
+            {
+              "id": "N4",
+              "meaning": "The specific unit-modulus phase scalar is not the complex number one."
+            },
+            {
+              "id": "N5",
+              "meaning": "The specific bare circuit matrix differs from P(e_star)."
+            },
+            {
+              "id": "N6",
+              "meaning": "Conjunction of all five obligations; none is an extra premise assumed in order to state another."
+            }
+          ],
+          "phase_arithmetic": {
+            "CCX": "2*(pi/2)+(4-3)*(pi/8)=9*pi/8",
+            "H": "stored pi/2",
+            "T": "stored pi/8",
+            "Tdagger": "stored -pi/8",
+            "five_CCX": "45*pi/8",
+            "phase_modulo_2pi": "45*pi/8 is congruent to -3*pi/8 modulo 2*pi, but the stored-angle equality remains unreduced"
+          },
+          "program_and_matrix_conventions": {
+            "bare_matrix_order": "tail matrix multiplies head matrix on the left",
+            "full_program": "multiply the entire bare circuit matrix by exp(i times stored exact angle)",
+            "matrix_entries": "row is output basis index; column is input basis index",
+            "sequence": "append circuits and add stored angles, without automatic modulo-2*pi reduction",
+            "source_order": "head gate first, then tail"
+          }
+        }
+      },
+      "source_item_digest": "518f0b0d1146a394be4521469ab17c605fa7c91f8fd2e898e927552dd039d065",
+      "source_semantics": {
+        "assumptions": [
+          "The reversible program induces a bijection of basis strings",
+          "The compiled matrix is the ordered product of emitted primitive-gate matrices"
+        ],
+        "conventions": [
+          "The permutation matrix sends column c to the single row E(c)",
+          "Compilation is a separate pipeline from the combinatorial bijection"
+        ],
+        "question": "Keep seven wires, a reversible program inducing a computational-basis bijection E, and the inherited definition C as the chronological ordered product of emitted primitive-gate matrices (later gates multiply on the LEFT). The historical request is exact C=P(E), hence a0/1 matrix. Assess and refute that request for the actual source compiler if it omits the program's stored phase; do not redefine the inherited bare C or silently quotient by physical global phase. A PrimitiveProgram consists of its primitive list and an exact globalPhase phi, with full denotation D=exp(i phi) C. Prove the correct compiler refinement for D using gate cases and list composition, and state the precise resulting formula for C. For the concrete primitiveAccess3ReversibleProgram (two initial X gates followed by modularAdd3ReversibleProgram, wire order address[0..2],row[0..2],work), derive the exact stored phase ledger from H,T,Tdagger and the five CCX macros, and decide whether its bare C is a0/1 permutation. Explain refinement versus definition and which full-space/basis-action, physical-global-phase and cost/cleanup conclusions follow or remain separate.",
+        "reference_answer": "Let P(E)[r,c]=1 if r=E(c), else0. C remains the bare list denotation as the inherited assumption requires: evalCircuit([])=I and evalCircuit(g::rest)=evalCircuit(rest) evalGate(g). A PrimitiveProgram additionally stores exact phi; evalProgram(program)=exp(i phi) C. The correct refinement is D=evalProgram(compile(program))=P(E), hence C=exp(-i phi)P(E). Exact C=P(E) holds only when exp(i phi)=1 (on the nonempty seven-wire basis), not automatically for every compiled program.\n\nThe compiler uses X,CX,CCX gate cases. X and CX compile with phase0 and their literal basis-permutation matrices. For CCX, the full H/T/Tdagger/CX macro is proved exactly: its monomial middle network restores every basis bit and gives phase-1 precisely on the111 triple (CCZ), and conjugating on the target by H gives controlled-controlled X. The source proves the bit cases, phase product, block-diagonal HZH=X and H²=I, not merely a name-based claim. Each gate case therefore satisfies evalProgram(compileGate(g))=P(E_g).\n\nFor chronology first then second, evalProgram(first.seq(second))=evalProgram(second)evalProgram(first), since lists append in chronology and stored phases add. Also P(E_second)P(E_first)=P(E_second∘E_first). Empty list givesI; induction on head/rest using these two composition identities proves the full compiler theorem. This is a refinement between independently defined primitive matrix and reversible-bijection semantics, not the definition of either one. In particular it applies to the full2^7 space, without needing a work-clean premise for the matrix equality. The separate advertised modular-address action/cleanup theorem DOES require initial work=0; refinement alone must not erase that hypothesis.\n\nFor the actual phase ledger, primitiveHProgram is chronological RZ(pi) then RY(pi/2), with stored phase pi/2, so its full denotation is H. T uses RZ(pi/4) with stored phase pi/8; Tdagger uses RZ(-pi/4) with stored phase-pi/8. A CCX macro contains two H blocks, four T blocks and three Tdagger blocks, plus phase-zero CX blocks. Thus phi_CCX=2(pi/2)+4(pi/8)-3(pi/8)=9pi/8. modularAdd3ReversibleProgram lists CCX(3,0;6),CCX(6,1;2),CCX(3,0;6),CCX(3,0;1),CX(3;0),CCX(4,1;2),CX(4;1),CX(5;2): exactly five CCX. primitiveAccess3 prepends X0,X1, both phase0. Therefore the stored exact angle evaluates to phi=45pi/8, not0; phases are accumulated exactly, not automatically reduced modulo2pi.\n\nThe complete phase-aware source theorem yields exp(i45pi/8) C=P(E), so C=exp(-i45pi/8)P(E)=exp(i3pi/8)P(E). The nonzero bare entries all equal exp(i3pi/8), which is nonreal and not1; its zeros and one-supported-position-per-row/column pattern match P(E), and it is unitary, but it is NOT an exact0/1 or real permutation matrix. The old requested equality is concretely false. The full program D IS the exact0/1 permutation and maps each basis ket to |E(c)>; bare C maps it to exp(i3pi/8)|E(c)>.\n\nA common global phase leaves outcome probabilities and isolated pure-state rays unchanged, so the bare circuit is physically equivalent in that limited projective sense. This question instead asks exact matrix equality, where the scalar matters, especially before forming controlled operations or phase-sensitive compositions. Recording the ledger does not by itself claim a physical global-phase gate, free controlled implementation, finite-bit synthesis or a new resource bound. The seven-wire type is the concrete witness space, not an arbitrary-width gate theorem. Static proof reading is not a fresh kernel or circuit execution; separate program resource/clean-action receipts are not transferred to a different phase-omitting object."
+      },
+      "task_hash": "67bd0b5ee8cdee1d1507499de6d4f6c3d65baa49917518fd287b24a8404c8c30"
+    }
+  ]
+}

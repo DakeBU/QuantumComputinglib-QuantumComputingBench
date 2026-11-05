@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Inspect pilot tasks, prepare offline operator profiles or run bounded episodes."""
+"""Inspect qualified pilot/course tasks or prepare bounded evaluation episodes."""
 import argparse
 import asyncio
 import importlib
@@ -13,6 +13,7 @@ B = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(B / "src"))
 from qcb_core import write_json
 from qcb_evaluation_registry import export_views, load_registry
+from qcb_course_registry import load_course_registry
 from qcb_model_loop import fixture_config, run_episode
 from qcb_operator_profile import (
     profile_schema,
@@ -39,6 +40,8 @@ def main():
     parser.add_argument("command", choices=("validate", "list", "export", "plan", "run", "run-fixture",
                                            "schema", "profile-template", "validate-config"))
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--suite", choices=("pilot", "course-v4"),
+                        help="pilot is the preserved default; course-v4 selects qualified course companions")
     parser.add_argument("--mode", choices=("root_only", "proof_dag"))
     parser.add_argument("--exposure", choices=("closed_book", "approved_interface"))
     parser.add_argument("--purpose", choices=("formal_proof", "explanation_only"))
@@ -55,7 +58,7 @@ def main():
         if args.command in {"export", "profile-template"} and not args.output:
             raise ValueError(args.command + " requires --output")
         if args.command in {"schema", "profile-template", "validate-config"}:
-            if args.view or args.split or args.episode_dir or args.adapter or args.authorize_model:
+            if args.suite or args.view or args.split or args.episode_dir or args.adapter or args.authorize_model:
                 raise ValueError("offline profile commands accept no task, adapter or generation options")
             if args.command != "profile-template" and (args.mode or args.exposure or args.purpose):
                 raise ValueError("profile condition flags apply only to profile-template")
@@ -85,7 +88,7 @@ def main():
             raise ValueError("--authorize-model applies only to run")
         if args.command not in {"export", "plan", "run", "run-fixture"} and (args.split or args.view):
             raise ValueError("selection filters apply only to export")
-        views, qualification = load_registry()
+        views, qualification = load_course_registry() if args.suite == "course-v4" else load_registry()
         if episode:
             if args.output or args.split or not args.episode_dir or not args.view or len(args.view) != 1:
                 raise ValueError("episodes require exactly one --view and a fresh private --episode-dir; no --output/--split")

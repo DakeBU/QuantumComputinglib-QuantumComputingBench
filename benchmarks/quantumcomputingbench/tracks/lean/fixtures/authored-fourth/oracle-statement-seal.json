@@ -1,0 +1,149 @@
+{
+  "schema_version": "qcb.course_author_statement_seal.v1",
+  "author": "/root/lean_course_oracle_fourth",
+  "canonical_contracts_unchanged": true,
+  "production_lean_changed": false,
+  "views": [
+    {
+      "view_id": "qcb-course-be-101-v1",
+      "source_item_digest": "c121d5a0d54af38e9206a89b7e5c8acbab4eca77fe5c2e3ef5dad9fc0267a2a1",
+      "source_bindings": [
+        {
+          "path": "QuantumBlockEncoding/BandedSparseAccessPrimitive.lean",
+          "sha256_lf": "e4f35bfdd690445de12d5a7e6692b9ab86d1a096b9ed3f4d1a41e07b99181ca7"
+        },
+        {
+          "path": "QuantumBlockEncoding/ReversibleClassical.lean",
+          "sha256_lf": "01ea24f54500974985702a0f968e28d93b2bd04a1aefaf05da848c9b7fe64711"
+        },
+        {
+          "path": "QuantumBlockEncoding/ModularAdder3.lean",
+          "sha256_lf": "3995a7d9068322d7116e6d3852111574c3c94acc09b9927231be931d33d17002"
+        }
+      ],
+      "source_binder_audit": [
+        {
+          "binder": "s : Fin 8",
+          "class": "SOURCE",
+          "meaning": "Exactly the eight stipulated source slots."
+        },
+        {
+          "binder": "state : PrimitiveBasis 7",
+          "class": "SOURCE",
+          "meaning": "All seven-bit basis labels; only the literal two-X prefix is assessed, without a clean-work premise."
+        }
+      ],
+      "semantic_coverage": "PARTIAL_WHOLE_QUESTION: exact Fin 8 involution, ordered image list, literal two-X seven-wire prefix action on the low three-bit value, and same-prefix twice restoring every seven-wire state. The XOR-law explanatory route, gate commutation explanation and rubric prose are not certified by kernel finite decision. No modular-adder action, physical synthesis or resource theorem is claimed.",
+      "task_hash": "53d62244b99f328cf251768a389e0874c1c781d1053ca116610acefa778e6391",
+      "root": {
+        "id": "be101_root",
+        "target": "(∀ s : Fin 8, QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 (QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 s) = s) ∧ (List.ofFn QuantumBlockEncoding.BandedSparseAccess.primitiveOffset3 = [3,2,1,0,7,6,5,4]) ∧ (∀ state : QuantumBlockEncoding.PrimitiveBasis 7, (QuantumBlockEncoding.littleEndian3Value (QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) state) 0 1 2 = ((QuantumBlockEncoding.littleEndian3Value state 0 1 2) ^^^ 3) % 8) ∧ QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) (QuantumBlockEncoding.evalReversibleProgram ([.x 0, .x 1] : QuantumBlockEncoding.ReversibleProgram 7) state) = state)",
+        "depends_on": [
+          "be101_involutive",
+          "be101_table",
+          "be101_gate"
+        ]
+      }
+    },
+    {
+      "view_id": "qcb-course-be-104-v1",
+      "source_item_digest": "518f0b0d1146a394be4521469ab17c605fa7c91f8fd2e898e927552dd039d065",
+      "source_bindings": [
+        {
+          "path": "QuantumBlockEncoding/BandedSparseAccessPrimitive.lean",
+          "sha256_lf": "e4f35bfdd690445de12d5a7e6692b9ab86d1a096b9ed3f4d1a41e07b99181ca7"
+        },
+        {
+          "path": "QuantumBlockEncoding/ModularAdder3.lean",
+          "sha256_lf": "3995a7d9068322d7116e6d3852111574c3c94acc09b9927231be931d33d17002"
+        },
+        {
+          "path": "QuantumBlockEncoding/PrimitiveMacros.lean",
+          "sha256_lf": "c1cea784608c9bc1533a0a026368f63f2f5b3606e34463149b73fad9f7221f63"
+        },
+        {
+          "path": "QuantumBlockEncoding/PrimitiveCircuit.lean",
+          "sha256_lf": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c"
+        },
+        {
+          "path": "QuantumBlockEncoding/PrimitiveSemantics.lean",
+          "sha256_lf": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62"
+        }
+      ],
+      "source_binder_audit": [
+        {
+          "binder": "qubits : Nat; program : ReversibleProgram qubits",
+          "class": "SOURCE",
+          "meaning": "General independently defined reversible and compiled primitive denotations; no gate-correctness theorem is added to the public root premises."
+        },
+        {
+          "binder": "The concrete primitiveAccess3Program / primitiveAccess3BasisEquiv",
+          "class": "SOURCE",
+          "meaning": "The literal seven-wire source witness, with exact stored phase and chronological matrix order. No clean-work hypothesis is added to full-space refinement."
+        }
+      ],
+      "semantic_coverage": "PARTIAL_WHOLE_QUESTION: full phase-aware compiler refinement for arbitrary finite reversible gate lists and widths; inverse-phase formula for the separately defined bare list denotation; actual seven-wire stored angle 45π/8; its exponential is not one; actual bare list matrix differs from the exact source permutation. The supplied construction explicitly uses list induction and source gate-correctness interfaces, but kernel acceptance alone does not enforce a model proof method. The normalized exponential exp(3πi/8), per-macro H/T/Tdagger count explanation, source macro correctness proof, physical-ray interpretation, controlled implementation and cost/clean-work conclusions remain separate semantic rubric obligations.",
+      "task_hash": "67bd0b5ee8cdee1d1507499de6d4f6c3d65baa49917518fd287b24a8404c8c30",
+      "root": {
+        "id": "be104_root",
+        "target": "(∀ {qubits : Nat} (program : QuantumBlockEncoding.ReversibleProgram qubits), QuantumBlockEncoding.evalPrimitiveProgram (QuantumBlockEncoding.compileReversibleProgram program) = QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.evalReversibleProgram program)) ∧ (QuantumBlockEncoding.ExactAngle.eval QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.globalPhase = Real.pi * (45 / 8)) ∧ (∀ {qubits : Nat} (program : QuantumBlockEncoding.ReversibleProgram qubits), QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.compileReversibleProgram program).circuit = (QuantumBlockEncoding.evalGlobalPhase (QuantumBlockEncoding.compileReversibleProgram program).globalPhase)⁻¹ • QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.evalReversibleProgram program)) ∧ (QuantumBlockEncoding.evalGlobalPhase QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.globalPhase ≠ 1) ∧ (QuantumBlockEncoding.evalPrimitiveCircuit QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program.circuit ≠ QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv)",
+        "depends_on": [
+          "be104_compiler",
+          "be104_phase",
+          "be104_bare",
+          "be104_nontrivial",
+          "be104_bare_ne"
+        ]
+      }
+    },
+    {
+      "view_id": "qcb-course-be-120-v1",
+      "source_item_digest": "e5fce40032b6c3cf22a772b67ac145bb32118f946cb8534d087744848f82c38b",
+      "source_bindings": [
+        {
+          "path": "QuantumBlockEncoding/RobinEvolution.lean",
+          "sha256_lf": "8673572458ff260cf35d6cfce60ffcc52b5b2be721671b3171919e32d0b73a37"
+        },
+        {
+          "path": "QuantumBlockEncoding/GHL2025.lean",
+          "sha256_lf": "75aa9e6b508e31fe70db050c58899d9c62560b838810d65c98e3879c9b58e5c4"
+        }
+      ],
+      "source_binder_audit": [
+        {
+          "binder": "j : Nat",
+          "class": "SOURCE",
+          "meaning": "The source self-inverse image statement ranges over all natural labels, not only the bounded register."
+        },
+        {
+          "binder": "x : Fin (qubitDim (oneTermRobinTotalQubits warmRobinParameters))",
+          "class": "TYPING",
+          "meaning": "The finite source register restriction is well typed using a proved image bound, not a new assumption."
+        },
+        {
+          "binder": "e : Fin 3 ≃ Fin 3 in an existential negative example",
+          "class": "SOURCE",
+          "meaning": "Concrete counterexample to the general permutation-to-involution inference, kept separate from the warm register."
+        }
+      ],
+      "semantic_coverage": "PARTIAL_WHOLE_QUESTION: exact warm indicator image involution on every natural label, its well-typed finite-basis bijection, the stored symbolic dagger-matrix equality, and an explicit cyclic Fin 3 equivalence that is not involutive. The matrix carrier here is the library symbolic Coeff language; this root does not prove complex-matrix multiplication U²=I, a Hilbert-space unitarity adapter, arbitrary ancillary-state factorization or resource/physical cleanup. The finite counterexample refutes the general inference permutation implies involution at label level, not the source warm instance.",
+      "task_hash": "310912ef8bea570f9b372c6aa4bdfc776d31767ed9fe0920dcf59d3300f6e63f",
+      "root": {
+        "id": "be120_root",
+        "target": "(Function.Involutive (QuantumBlockEncoding.GHL2025.indicatorOracleImage QuantumBlockEncoding.RobinEvolution.warmRobinParameters)) ∧ (Function.Bijective (fun x : Fin (QuantumBlockEncoding.qubitDim (QuantumBlockEncoding.GHL2025.oneTermRobinTotalQubits QuantumBlockEncoding.RobinEvolution.warmRobinParameters)) => (⟨QuantumBlockEncoding.GHL2025.indicatorOracleImage QuantumBlockEncoding.RobinEvolution.warmRobinParameters x.val, QuantumBlockEncoding.GHL2025.indicatorOracleImage_lt _ x.isLt⟩ : Fin (QuantumBlockEncoding.qubitDim (QuantumBlockEncoding.GHL2025.oneTermRobinTotalQubits QuantumBlockEncoding.RobinEvolution.warmRobinParameters))))) ∧ (∃ e : Fin 3 ≃ Fin 3, ¬ Function.Involutive e) ∧ ((QuantumBlockEncoding.GHL2025.oneTermRobinGate_U_indic_dagger QuantumBlockEncoding.RobinEvolution.warmRobinParameters).matrix = (QuantumBlockEncoding.GHL2025.oneTermRobinGate_U_indic QuantumBlockEncoding.RobinEvolution.warmRobinParameters).matrix)",
+        "depends_on": [
+          "be120_invol",
+          "be120_finite",
+          "be120_counterexample",
+          "be120_stored_dagger"
+        ]
+      }
+    }
+  ],
+  "qualification": "independent_decode_source_comparison_and_central_authored_reference_replay_pending",
+  "diagnostic_history": [
+    "Probes1-2 failed only the finite3 numeral contradiction; repaired by exact kernel-decided inequality.",
+    "Probe3 exposed that littleEndian3Value is fixed to seven wires. The ill-typed three-wire extension was retired; literal source seven-wire prefix sealed instead. No source QA premise or conclusion was changed.",
+    "Probe2 phase-period contradiction lacked nested complex-numeral simplification; norm_num normalization corrected that implementation failure without altering the target."
+  ]
+}

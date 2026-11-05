@@ -1,0 +1,200 @@
+{
+  "schema_version": "qcb.curriculum_blind_input.v1",
+  "views": [
+    {
+      "anonymous_id": "A1",
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.HermiteBernstein"
+        ],
+        "preamble": "open scoped BigOperators",
+        "target": "∀ (d : ℕ) (c : ℕ → ℝ) (u v lo hi : ℝ), 0 ≤ u → u < v → v ≤ 1 → (∀ r ≤ d, c r ∈ Set.Icc lo hi) → ∀ i ≤ d, QuantumBlockEncoding.HermiteBernstein.restrictCoefficients d u v c i ∈ Set.Icc lo hi",
+        "universe_parameters": []
+      },
+      "ambient_definitions": {
+        "QuantumBlockEncoding.HermiteBernstein.basis": {
+          "kind": "literal",
+          "literal": "def basis (d r : ℕ) (t : ℝ) : ℝ := (bernsteinPolynomial ℝ d r).eval t",
+          "normalized": "degree-d real Bernstein basis; B(d,r,t)=choose(d,r)*t^r*(1-t)^(d-r)"
+        },
+        "QuantumBlockEncoding.HermiteBernstein.casteljau": {
+          "kind": "literal",
+          "literal": "def casteljau (d : ℕ) (c : ℕ → ℝ) (t : ℝ) (i : ℕ) : ℝ := (casteljauStep t ^ d) c i",
+          "normalized": "d iterations of the coefficient-row update c_i -> (1-t)c_i+t*c_(i+1), read at index i"
+        },
+        "QuantumBlockEncoding.HermiteBernstein.leftRestriction": {
+          "kind": "literal",
+          "literal": "def leftRestriction (u : ℝ) (c : ℕ → ℝ) (i : ℕ) : ℝ := casteljau i c u 0",
+          "normalized": "left edge of the exact de Casteljau triangle"
+        },
+        "QuantumBlockEncoding.HermiteBernstein.rightRestriction": {
+          "kind": "literal",
+          "literal": "def rightRestriction (d : ℕ) (u : ℝ) (c : ℕ → ℝ) (i : ℕ) : ℝ := leftRestriction (1-u) (fun r => c (d-r)) (d-i)",
+          "normalized": "right edge, with natural truncated subtraction and coefficient order reversal"
+        },
+        "QuantumBlockEncoding.HermiteBernstein.restrictCoefficients": {
+          "kind": "literal",
+          "literal": "def restrictCoefficients (d : ℕ) (u v : ℝ) (c : ℕ → ℝ) : ℕ → ℝ := leftRestriction ((v-u)/(1-u)) (rightRestriction d u c)",
+          "normalized": "the two successive exact-real subdivisions at u and (v-u)/(1-u)"
+        }
+      },
+      "interfaces": [
+        {
+          "name": "QuantumBlockEncoding.HermiteBernstein.basis_sum",
+          "signature": "∀ (d : ℕ) (t : ℝ), (∑ r ∈ Finset.range (d + 1), QuantumBlockEncoding.HermiteBernstein.basis d r t) = 1"
+        },
+        {
+          "name": "QuantumBlockEncoding.HermiteBernstein.basis_nonneg",
+          "signature": "∀ (d r : ℕ) (t : ℝ), t ∈ Set.Icc 0 1 → 0 ≤ QuantumBlockEncoding.HermiteBernstein.basis d r t"
+        },
+        {
+          "name": "QuantumBlockEncoding.HermiteBernstein.casteljau_eq_sum",
+          "signature": "∀ (d : ℕ) (c : ℕ → ℝ) (t : ℝ) (i : ℕ), QuantumBlockEncoding.HermiteBernstein.casteljau d c t i = ∑ j ∈ Finset.range (d + 1), c (i + j) * QuantumBlockEncoding.HermiteBernstein.basis d j t"
+        },
+        {
+          "name": "QuantumBlockEncoding.HermiteBernstein.restrictCoefficients_bounds",
+          "signature": "∀ (d : ℕ) (c : ℕ → ℝ) (u v lo hi : ℝ), 0 ≤ u → u < v → v ≤ 1 → (∀ r ≤ d, c r ∈ Set.Icc lo hi) → ∀ i ≤ d, QuantumBlockEncoding.HermiteBernstein.restrictCoefficients d u v c i ∈ Set.Icc lo hi"
+        }
+      ],
+      "nodes": [
+        {
+          "id": "sp110_partition",
+          "target": "∀ (d : ℕ) (t : ℝ), (∑ r ∈ Finset.range (d + 1), QuantumBlockEncoding.HermiteBernstein.basis d r t) = 1",
+          "depends_on": []
+        },
+        {
+          "id": "sp110_convex",
+          "target": "∀ (d : ℕ) (c : ℕ → ℝ) (t lo hi : ℝ), t ∈ Set.Icc 0 1 → (∀ r ≤ d, c r ∈ Set.Icc lo hi) → (∑ r ∈ Finset.range (d + 1), c r * QuantumBlockEncoding.HermiteBernstein.basis d r t) ∈ Set.Icc lo hi",
+          "depends_on": [
+            "sp110_partition"
+          ]
+        },
+        {
+          "id": "sp110_right",
+          "target": "∀ (d : ℕ) (c : ℕ → ℝ) (u lo hi : ℝ), u ∈ Set.Icc 0 1 → (∀ r ≤ d, c r ∈ Set.Icc lo hi) → ∀ i : ℕ, QuantumBlockEncoding.HermiteBernstein.rightRestriction d u c i ∈ Set.Icc lo hi",
+          "depends_on": [
+            "sp110_convex"
+          ]
+        },
+        {
+          "id": "sp110_parameter",
+          "target": "∀ (u v : ℝ), 0 ≤ u → u < v → v ≤ 1 → (v - u) / (1 - u) ∈ Set.Icc 0 1",
+          "depends_on": []
+        },
+        {
+          "id": "sp110_root",
+          "target": "∀ (d : ℕ) (c : ℕ → ℝ) (u v lo hi : ℝ), 0 ≤ u → u < v → v ≤ 1 → (∀ r ≤ d, c r ∈ Set.Icc lo hi) → ∀ i ≤ d, QuantumBlockEncoding.HermiteBernstein.restrictCoefficients d u v c i ∈ Set.Icc lo hi",
+          "depends_on": [
+            "sp110_convex",
+            "sp110_right",
+            "sp110_parameter"
+          ]
+        }
+      ],
+      "root_id": "sp110_root"
+    },
+    {
+      "anonymous_id": "A2",
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.HermiteCutRank"
+        ],
+        "preamble": "universe u v\nopen scoped BigOperators",
+        "target": "∀ {α : Type u} {β : Type v} [Fintype β] (k M : ℕ) (a h : ℝ), 0 < h → ∀ (u : α → ℕ) (v : β → ℕ), (∀ y, v y < M) → (@QuantumBlockEncoding.HermiteCutRank.FactorsThrough α β (QuantumBlockEncoding.HermiteCutRank.HermiteBond k) inferInstance (fun x y => QuantumBlockEncoding.HermitePolynomial.smoothInitial k (a + h * ((M * u x + v y : ℕ) : ℝ)))) ∧ (Fintype.card (QuantumBlockEncoding.HermiteCutRank.HermiteBond k) = 8 * k + 12) ∧ (Matrix.rank (fun x y => QuantumBlockEncoding.HermitePolynomial.smoothInitial k (a + h * ((M * u x + v y : ℕ) : ℝ))) ≤ 8 * k + 12)",
+        "universe_parameters": [
+          "u",
+          "v"
+        ]
+      },
+      "ambient_definitions": {
+        "QuantumBlockEncoding.HermiteCutRank.FactorsThrough": {
+          "kind": "literal",
+          "literal": "def FactorsThrough [Fintype ι] (F : Matrix α β ℝ) : Prop := ∃ A : Matrix α ι ℝ, ∃ B : Matrix ι β ℝ, F = A * B",
+          "normalized": "finite-width matrix factorization, retaining both factor witnesses"
+        },
+        "QuantumBlockEncoding.HermiteCutRank.HermiteBond": {
+          "kind": "literal",
+          "literal": "abbrev HermiteBond (k : ℕ) := Sum (Sum (Fin 2 × Unit) ((Sum (Fin 2) (Fin 2)) × Fin (2*k+2))) (Fin 2 × Unit)",
+          "normalized": "left width 2*1, middle width (2+2)*(2k+2), right width 2*1, joined by direct sums"
+        },
+        "QuantumBlockEncoding.HermitePolynomial.sourceInterpolant": {
+          "kind": "characterized",
+          "literal": "sourceInterpolant k : Polynomial ℝ",
+          "normalized": "the specific source Hermite bridge of degree at most 2*k+1, matching the derivative jets of exp at -1 and exp(-x) at 0; only the existing degree theorem and value at zero enter this construction"
+        },
+        "QuantumBlockEncoding.HermitePolynomial.smoothInitial": {
+          "kind": "literal",
+          "literal": "def smoothInitial (k : ℕ) (p : ℝ) : ℝ := if p < -1 then Real.exp p else if p ≤ 0 then (sourceInterpolant k).eval p else Real.exp (-p)",
+          "normalized": "the actual library exponential-polynomial-exponential datum, with bridge value 1 at zero; an equal strict-middle form uses p<0 and the right exponential at zero"
+        },
+        "Matrix.rank": {
+          "kind": "ambient",
+          "literal": "Matrix.rank F",
+          "normalized": "rank of the real matrix, used with finite column type; exact algebraic width bound only"
+        },
+        "Nat.ceil": {
+          "kind": "ambient",
+          "literal": "Nat.ceil ((t-a)/h)",
+          "normalized": "natural-valued ceiling; negative real inputs saturate to zero"
+        }
+      },
+      "interfaces": [
+        {
+          "name": "QuantumBlockEncoding.HermiteCutRank.polynomial_add_factorization",
+          "signature": "∀ {α : Type u} {β : Type v} (p : Polynomial ℝ) (d : ℕ), p.natDegree ≤ d → ∀ (u : α → ℝ) (v : β → ℝ), @QuantumBlockEncoding.HermiteCutRank.FactorsThrough α β (Fin (d + 1)) inferInstance (fun x y => p.eval (u x + v y))"
+        },
+        {
+          "name": "QuantumBlockEncoding.HermiteCutRank.exponential_add_factorization",
+          "signature": "∀ {α : Type u} {β : Type v} (u : α → ℝ) (v : β → ℝ), @QuantumBlockEncoding.HermiteCutRank.FactorsThrough α β Unit inferInstance (fun x y => Real.exp (u x + v y))"
+        },
+        {
+          "name": "QuantumBlockEncoding.HermiteCutRank.hermite_affine_factorization",
+          "signature": "∀ {α : Type u} {β : Type v} (k M : ℕ) (a h : ℝ), 0 < h → ∀ (u : α → ℕ) (v : β → ℕ), (∀ y, v y < M) → @QuantumBlockEncoding.HermiteCutRank.FactorsThrough α β (QuantumBlockEncoding.HermiteCutRank.HermiteBond k) inferInstance (fun x y => QuantumBlockEncoding.HermitePolynomial.smoothInitial k (a + h * ((M * u x + v y : ℕ) : ℝ)))"
+        },
+        {
+          "name": "QuantumBlockEncoding.HermiteCutRank.hermiteBond_card",
+          "signature": "∀ k : ℕ, Fintype.card (QuantumBlockEncoding.HermiteCutRank.HermiteBond k) = 8 * k + 12"
+        },
+        {
+          "name": "QuantumBlockEncoding.HermiteCutRank.hermite_affine_cut_rank_le",
+          "signature": "∀ {α : Type u} {β : Type v} [Fintype β] (k M : ℕ) (a h : ℝ), 0 < h → ∀ (u : α → ℕ) (v : β → ℕ), (∀ y, v y < M) → Matrix.rank (fun x y => QuantumBlockEncoding.HermitePolynomial.smoothInitial k (a + h * ((M * u x + v y : ℕ) : ℝ))) ≤ 8 * k + 12"
+        }
+      ],
+      "nodes": [
+        {
+          "id": "sp116_separator",
+          "target": "∀ (M x y T : ℕ), y < M → (M * x + y < T ↔ x < T / M ∨ (x = T / M ∧ y < T % M))",
+          "depends_on": []
+        },
+        {
+          "id": "sp116_threshold",
+          "target": "∀ {α : Type u} {β : Type v} (M T : ℕ) (u : α → ℕ) (v : β → ℕ), (∀ y, v y < M) → (@QuantumBlockEncoding.HermiteCutRank.FactorsThrough α β (Fin 2) inferInstance (fun x y => if M * u x + v y < T then (1 : ℝ) else 0)) ∧ (@QuantumBlockEncoding.HermiteCutRank.FactorsThrough α β (Fin 2) inferInstance (fun x y => 1 - if M * u x + v y < T then (1 : ℝ) else 0))",
+          "depends_on": [
+            "sp116_separator"
+          ]
+        },
+        {
+          "id": "sp116_factorization",
+          "target": "∀ {α : Type u} {β : Type v} (k M : ℕ) (a h : ℝ), 0 < h → ∀ (u : α → ℕ) (v : β → ℕ), (∀ y, v y < M) → @QuantumBlockEncoding.HermiteCutRank.FactorsThrough α β (QuantumBlockEncoding.HermiteCutRank.HermiteBond k) inferInstance (fun x y => QuantumBlockEncoding.HermitePolynomial.smoothInitial k (a + h * ((M * u x + v y : ℕ) : ℝ)))",
+          "depends_on": [
+            "sp116_threshold"
+          ]
+        },
+        {
+          "id": "sp116_card",
+          "target": "∀ k : ℕ, Fintype.card (QuantumBlockEncoding.HermiteCutRank.HermiteBond k) = 8 * k + 12",
+          "depends_on": []
+        },
+        {
+          "id": "sp116_root",
+          "target": "∀ {α : Type u} {β : Type v} [Fintype β] (k M : ℕ) (a h : ℝ), 0 < h → ∀ (u : α → ℕ) (v : β → ℕ), (∀ y, v y < M) → (@QuantumBlockEncoding.HermiteCutRank.FactorsThrough α β (QuantumBlockEncoding.HermiteCutRank.HermiteBond k) inferInstance (fun x y => QuantumBlockEncoding.HermitePolynomial.smoothInitial k (a + h * ((M * u x + v y : ℕ) : ℝ)))) ∧ (Fintype.card (QuantumBlockEncoding.HermiteCutRank.HermiteBond k) = 8 * k + 12) ∧ (Matrix.rank (fun x y => QuantumBlockEncoding.HermitePolynomial.smoothInitial k (a + h * ((M * u x + v y : ℕ) : ℝ))) ≤ 8 * k + 12)",
+          "depends_on": [
+            "sp116_factorization",
+            "sp116_card"
+          ]
+        }
+      ],
+      "root_id": "sp116_root"
+    }
+  ]
+}

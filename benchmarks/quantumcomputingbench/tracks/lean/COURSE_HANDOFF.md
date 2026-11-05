@@ -5,6 +5,17 @@ It does not increase the mathematical question count, change canonical formal
 admissions, create a hidden test set or promote the public preview to stable.
 Use [COURSE.md](COURSE.md) for the versioned mathematical scope and commands.
 
+## Current continuation
+
+The [version-4 guide](COURSE_V4.md) extends the preserved version-3 slice below
+to 21 existing cores, adding Bernstein restriction, finite
+XOR cancellation and phase-aware compiler reasoning. It provides the explicit
+`evaluate_agentic.py --suite course-v4` selection and a separate train-only
+whole-root reference exporter. BE120 author work remains deferred because its
+frozen source anchors are `Partial route`; no inventory/admission gate is
+relaxed. SP116's correct specialized theorem remains diagnostic after source-scope
+rejection. Version-3 counts and execution identities below are historical.
+
 ## Readiness and evidence
 
 Authoring and review are AI-assisted. Reported zero model calls refer to

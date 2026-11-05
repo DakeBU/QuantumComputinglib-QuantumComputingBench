@@ -35,6 +35,15 @@ Question authoring, reference validation and workflow smoke tests can run
 without a model endpoint. Actual model responses can be collected later under
 the same run and scoring contracts.
 
+The [Lean curriculum](tracks/lean/COURSE_V4.md) complements the NL track with
+21 existing shared cores: contract understanding, local proofs, interface
+composition and parameterized arguments. Use the
+[staged Lean route](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/lean/)
+to browse, `evaluate_agentic.py --suite course-v4` to select qualified proof
+tasks, and `lean_training.py` for train-only whole-root supervision. Recorded
+authored proofs, independently reviewed explanations and future isolated model
+execution retain separate evidence boundaries.
+
 The [supplementary NL workbook](docs/nonlean-workbook.md) has twelve
 source-grounded expositions/candidates across three chapters and D2–D4 routes.
 Four reuse existing cores; eight remain unassigned candidates. Its separate
