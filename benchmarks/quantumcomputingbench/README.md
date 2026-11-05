@@ -1,5 +1,11 @@
 # QuantumComputingBench
 
+The [v3 assessment protocol](tracks/lean/ASSESSMENT_V3.md) distinguishes the
+baseline training export from an explicitly filtered family-withholding
+profile. It preserves the frozen v2 questions, source evidence and public
+catalog while adding separately identified study contracts; qualification does
+not establish whole-domain model mastery.
+
 Graph-grounded quantum-computing QA for training and evaluating specialized
 mathematical models: knowledge, reasoning and library-aware Lean proof skills.
 QuantumComputinglib supplies the mathematical sources and graph anchors;

@@ -88,6 +88,10 @@ jobs:
           python benchmarks/quantumcomputingbench/scripts/learning_validity.py run-fixture --output "${{ runner.temp }}/qcb-semantic-fixture.json"
         env:
           PYTHONUTF8: '1'
+      - name: Check sealed assessment metadata and source-bound qualification
+        run: python benchmarks/quantumcomputingbench/scripts/assessment_v3.py audit
+        env:
+          PYTHONUTF8: '1'
       - name: Validate the executable registry and run CPU reference controls
         run: |
           python benchmarks/quantumcomputingbench/scripts/bench.py validate

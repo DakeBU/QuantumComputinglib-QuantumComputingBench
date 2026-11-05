@@ -69,6 +69,14 @@ def presentation_contract():
              "benchmarks/quantumcomputingbench/tracks/lean/assessment-v2/seal.json",
              "benchmarks/quantumcomputingbench/reports/assessment-v2/qualification.json",
              "benchmarks/quantumcomputingbench/reports/assessment-v2/software-checks.json",
+             "benchmarks/quantumcomputingbench/src/qcb_assessment_v3.py",
+             "benchmarks/quantumcomputingbench/src/qcb_assessment_v3_reference.py",
+             "benchmarks/quantumcomputingbench/src/qcb_assessment_training.py",
+             "benchmarks/quantumcomputingbench/scripts/assessment_v3.py",
+             "benchmarks/quantumcomputingbench/tracks/lean/assessment-v3/seal.json",
+             "benchmarks/quantumcomputingbench/tracks/lean/assessment-v3/training-profiles.json",
+             "benchmarks/quantumcomputingbench/reports/assessment-v3/qualification.json",
+             "benchmarks/quantumcomputingbench/reports/assessment-v3/software-checks.json",
              "website/scripts/qcb_lean_downloads.py", "benchmarks/quantumcomputingbench/src/qcb_course_training.py",
              "benchmarks/quantumcomputingbench/src/qcb_course_registry.py", "benchmarks/quantumcomputingbench/scripts/lean_training.py",
              "website/scripts/reader_hierarchy.py", "website/scripts/qcb_hierarchy_browser.py",
@@ -657,14 +665,24 @@ def publish(root):
     expert_report = publish_expert(write, intro, expert_index)
     benchmark_center = publish_center(write, intro, catalog, registry, context["commit"], runtime_environment)
     from qcb_assessment_bank import public_status as assessment_public_status
+    from qcb_assessment_v3 import public_status as assessment_v3_status
     from website.scripts.qcb_assessment_reader import publish_assessment, training_package as assessment_training_package
     from qcb_assessment_reader import publication_record
-    assessment_record = publication_record(assessment_public_status(), context['commit'])
-    write_json(data_dir / 'assessment-v2.json', assessment_record)
+    write_json(data_dir / 'assessment-v2.json', publication_record(assessment_public_status(), context['commit']))
+    assessment_record = publication_record(assessment_v3_status(), context['commit'])
+    write_json(data_dir / 'assessment-v3.json', assessment_record)
     assessment_report = publish_assessment(write, intro, assessment_record, context['commit'])
     combined_training = assessment_training_package(registry, read_json(data_dir / 'lean-course/train-references.json'), context['commit'])
     write_json(data_dir / 'assessment-train.json', combined_training)
     assessment_report['training_download_sha256'] = hashlib.sha256((data_dir / 'assessment-train.json').read_bytes()).hexdigest()
+    from qcb_assessment_training import apply_profile, core_bindings, PROFILES
+    profile_registry = read_json(PROFILES)
+    family_training = apply_profile(combined_training, core_bindings(registry), profile_registry['profile'])
+    write_json(data_dir / 'assessment-train-family-holdout.json', family_training)
+    write_json(data_dir / 'assessment-training-profiles.json', profile_registry)
+    assessment_report['family_training_download_sha256'] = hashlib.sha256((data_dir / 'assessment-train-family-holdout.json').read_bytes()).hexdigest()
+    assessment_report['family_training_counts'] = family_training['counts']
+    assessment_report['training_profile_digest'] = digest(profile_registry['profile'])
     admitted = [core for core in catalog["cores"] if "lean" in core["views"]]
     lean_subjects = '<div class="qcb-grid">' + ''.join('<article class="qcb-card"><h2><a href="' + part['id'] + '/index.html">' + esc(part['title']) + '</a></h2>' + prose(part['summary']) + '</article>' for part in catalog['parts']) + '</div>'
     lean_route = publish_lean_route(write, intro, catalog, course_plan, course_label,
@@ -788,21 +806,35 @@ def check_site(root):
     workbook = load_workbook()
     verify_workbook_downloads(root / 'data/quantumcomputingbench/nonlean-workbook', workbook)
     from qcb_assessment_bank import public_status as assessment_public_status
-    assessment_record = read_json(root / 'data/quantumcomputingbench/assessment-v2.json')
+    from qcb_assessment_v3 import public_status as assessment_v3_status
+    assessment_record = read_json(root / 'data/quantumcomputingbench/assessment-v3.json')
     from qcb_assessment_reader import publication_record
-    if assessment_record != publication_record(assessment_public_status(), manifest['source_commit']):
+    if (assessment_record != publication_record(assessment_v3_status(), manifest['source_commit'])
+            or read_json(root / 'data/quantumcomputingbench/assessment-v2.json') !=
+            publication_record(assessment_public_status(), manifest['source_commit'])):
         raise ValueError('assessment public metadata or software qualification is stale')
     assessment_routes = manifest.get('sealed_assessment', {}).get('routes', [])
-    if len(assessment_routes) != 3 or not set(assessment_routes) <= set(manifest['routes']):
+    if len(assessment_routes) != 4 or not set(assessment_routes) <= set(manifest['routes']):
         raise ValueError('assessment hierarchy is incomplete')
     from website.scripts.qcb_assessment_reader import training_package as assessment_training_package
     from qcb_bench_runtime import build_registry as assessment_runtime_registry
     train_path = root / 'data/quantumcomputingbench/assessment-train.json'
-    expected_training = assessment_training_package(assessment_runtime_registry(),
+    assessment_registry = assessment_runtime_registry()
+    expected_training = assessment_training_package(assessment_registry,
         read_json(root / 'data/quantumcomputingbench/lean-course/train-references.json'), manifest['source_commit'])
     if (read_json(train_path) != expected_training
             or hashlib.sha256(train_path.read_bytes()).hexdigest() != manifest['sealed_assessment'].get('training_download_sha256')):
         raise ValueError('combined training download is stale or leaked another split')
+    from qcb_assessment_training import apply_profile, core_bindings, PROFILES
+    profile_registry = read_json(PROFILES)
+    family_path = root / 'data/quantumcomputingbench/assessment-train-family-holdout.json'
+    expected_family = apply_profile(expected_training, core_bindings(assessment_registry), profile_registry['profile'])
+    if (read_json(family_path) != expected_family
+            or read_json(root / 'data/quantumcomputingbench/assessment-training-profiles.json') != profile_registry
+            or hashlib.sha256(family_path.read_bytes()).hexdigest() != manifest['sealed_assessment'].get('family_training_download_sha256')
+            or manifest['sealed_assessment'].get('family_training_counts') != expected_family['counts']
+            or manifest['sealed_assessment'].get('training_profile_digest') != digest(profile_registry['profile'])):
+        raise ValueError('family profile download/whole-core selection changed')
     if manifest.get('supplementary_workbook', {}).get('workbook_digest') != workbook['workbook_digest']:
         raise ValueError('supplementary workbook projection is stale')
     plan, views, course_report = course_reader()

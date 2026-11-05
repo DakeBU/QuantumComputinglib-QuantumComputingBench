@@ -67,13 +67,19 @@ def publish_assessment(write, intro, record, commit):
     seal, coverage = record['seal'], record['coverage']
     rows = seal['probe_index']
     pairs = len({r['pair_id'] for r in rows})
+    study = {c['core_id']: c for c in record.get('study_core_index', [])}
+    existing_parents = coverage.get('existing_catalog_parent_core_count', coverage['sealed_parent_core_count'])
+    parent_scope = str(existing_parents) + ' existing evaluation cores'
+    if study:
+        parent_scope += ' and ' + str(len(study)) + ' additional study core contracts'
     body = intro('Assess what a model can do',
         'Train on declared examples, then test mathematical decisions, arguments and tool-assisted proofs separately.')
     body += '<p class="qcb-breadcrumb"><a href="../index.html">Run a benchmark</a> / Assessment</p>'
     body += '<ol class="qcb-ladder" data-qcb-assessment-stages>'
-    body += '<li><strong>Study and train</strong><p>Use train-only exports: 74 existing cores, 86 language/semantic views and 12 Lean proof views. Multiple views do not add independent questions.</p><p><a download href="../../../data/quantumcomputingbench/assessment-train.json">Download train-only package · contains answers</a></p><a href="../training/index.html">Training guide →</a></li>'
+    body += '<li><strong>Study and train</strong><p>The baseline has 74 existing cores, 86 language/semantic views and 12 Lean proof views. Multiple views do not add independent questions.</p><p><a download href="../../../data/quantumcomputingbench/assessment-train.json">Download baseline · contains answers</a></p><a href="' + ('training-profiles/index.html' if study else '../training/index.html') + '">' + ('Choose a training profile →' if study else 'Training guide →') + '</a></li>'
     body += '<li><strong>Calibrate in public</strong><p>Read the public questions, workbook and solutions. These are useful study material; their public-test labels do not make their answers secret.</p><a href="../../diagnostics/index.html">Try public semantic contrasts →</a></li>'
-    body += '<li><strong>Assess on a sealed set</strong><p>' + str(len(rows)) + ' additional propositions form ' + str(pairs) + ' balanced contrasts, anchored to ' + str(coverage['sealed_parent_core_count']) + ' existing evaluation cores. Their questions, answers and reviewer records stay outside the website repository.</p><a href="protocol/index.html">Prepare a controlled assessment →</a></li></ol>'
+    split_scope = (' Eight are for development and ten for held-out testing.' if study else '')
+    body += '<li><strong>Assess on a sealed set</strong><p>' + str(len(rows)) + ' propositions form ' + str(pairs) + ' balanced contrasts, anchored to ' + parent_scope + '.' + split_scope + ' Questions, answers and full review records stay outside the website repository.</p><a href="protocol/index.html">Prepare a controlled assessment →</a></li></ol>'
     body += '<p class="qcb-status-line" data-qcb-assessment-claim="bounded">A passing result supports the capabilities exercised by these cases under the stated access and budget. It does not certify mastery of the whole graph or reveal internal understanding.</p>'
     body += '<p><a class="button" href="coverage/index.html">Inspect graph coverage</a> <a href="protocol/index.html">Read the scoring contract</a></p>'
     body += fold('What must be reported?', '<p>Report first-answer label accuracy over every planned item; independently reviewed arguments and complete-contrast success; then isolated formal completion and tool costs as separate results. Missing answers remain in the denominator. Unreviewed explanations remain ungraded.</p><p>No real-model results or empirically calibrated difficulty are published here. A library-lemma application can establish a formal conclusion while leaving the unaided knowledge question unanswered.</p>', 'claims')
@@ -83,7 +89,7 @@ def publish_assessment(write, intro, record, commit):
     body = intro('Where the assessment reaches',
                  'Inspect exact library anchors and visible gaps before interpreting a score.')
     body += '<p class="qcb-breadcrumb"><a href="../index.html">Assessment</a> / Coverage</p>'
-    body += '<p>' + str(len(rows)) + ' sealed propositions reuse ' + str(coverage['sealed_parent_core_count']) + ' existing evaluation cores. The 21-core public Lean course and the sealed set are bounded slices of the library.</p>'
+    body += '<p>' + str(len(rows)) + ' sealed propositions use ' + parent_scope + '. The 21-core public Lean course and the sealed set are bounded slices of the library.</p>'
     body += '<dl class="qcb-legend"><dt>Frozen inventory</dt><dd>' + str(coverage['declaration_inventory']) + ' declarations; ' + str(coverage['compiled_inventory']) + ' carry Compiled inventory status. These counts include helper and implementation facts.</dd><dt>Assessment anchors</dt><dd>' + str(coverage['course_anchors']) + ' public-course anchors and ' + str(coverage['sealed_assessment_anchors']) + ' sealed-set anchors. An anchor identifies evidence; it does not mean all knowledge at that node has been tested.</dd><dt>Uncovered formal inventory</dt><dd>' + str(coverage['compiled_not_anchored_by_these_formal_suites']) + ' compiled-inventory declarations have no anchor in these two formal suites. Question capacity and mastery coverage cannot be obtained by dividing these counts.</dd></dl>'
     body += '<p>Sealed parents are disjoint from the 74 canonical train cores. Primitive lemmas, source nodes and related mathematical mechanisms can still recur; the scorer merges shared exposure groups and makes no independence claim.</p>'
     groups = {}
@@ -93,13 +99,21 @@ def publish_assessment(write, intro, record, commit):
         anchors = sorted({n for r in group for n in r['source_nodes']})
         parents = sorted({n for r in group for n in r['parent_core_ids']})
         links = '<ul>' + ''.join('<li><a href="../../../../lean-graph/index.html?focus=' + quote(n, safe='') + '">' + esc(n.removeprefix('declaration:')) + '</a></li>' for n in anchors) + '</ul>'
-        links += '<p>Existing parent cores: ' + ', '.join('<a href="../../../cores/' + esc(p) + '/index.html#expert">' + esc(p) + '</a>' for p in parents) + '.</p>'
+        links += '<p>Question identities: ' + ', '.join(
+            '<a href="#study-' + esc(study[p]['probe_id']) + '">Study contract ' + esc(study[p]['probe_id'][:8]) + '</a>'
+            if p in study else '<a href="../../../cores/' + esc(p) + '/index.html#expert">' + esc(p) + '</a>'
+            for p in parents) + '.</p>'
         body += fold(name.replace('_', ' ').capitalize() + ' · ' + str(len(group)) + ' propositions', links, 'mechanism-' + str(i))
     modules = '<div class="table-scroll"><table class="qcb-table"><thead><tr><th>Source module</th><th>Compiled inventory</th><th>Course anchors</th><th>Sealed anchors</th></tr></thead><tbody>'
     for row in coverage['all_modules']:
         url = 'https://github.com/DakeBU/QuantumComputinglib-QuantumComputingBench/blob/' + commit + '/' + row['source']
         modules += '<tr><td><a href="' + esc(url) + '">' + esc(row['source'].removeprefix('QuantumBlockEncoding/')) + '</a></td><td>' + str(row['compiled_inventory_declarations']) + '</td><td>' + str(row['course_anchor_count']) + '</td><td>' + str(row['sealed_assessment_anchor_count']) + '</td></tr>'
     body += fold('Inspect every inventoried source module', modules + '</tbody></table></div>', 'modules')
+    if study:
+        contracts = '<p>These are four new study-local mathematical contracts, shared by the natural-language and Lean stages. They do not alter the public catalog or relabel a training question. Both Promise contrasts share one source group.</p><ul>'
+        for c in study.values():
+            contracts += '<li id="study-' + esc(c['probe_id']) + '">' + esc(c['core_id']) + '<br><span style="overflow-wrap:anywhere">Contract SHA-256: ' + esc(c['contract_hash']) + '</span></li>'
+        body += fold('Additional study contracts and shared source group', contracts + '</ul><p>The baseline already teaches key subproof and witness templates. Its score tests new compositions. A separately filtered training profile withholds those templates; pretraining exposure is unknown under either profile.</p>', 'study-contracts')
     body += '<p><a href="../../../../lean-graph/index.html">Lean Graph</a> · <a href="../../../../functor-hypergraph/index.html">Functor Hypergraph</a> · <a href="../protocol/index.html">Assessment protocol</a></p>'
     write(BASE + 'coverage/', 'Assessment coverage and gaps', body + '</div>',
           'Source-bound assessment locations and untested inventory, with no whole-graph mastery claim.')
@@ -109,15 +123,30 @@ def publish_assessment(write, intro, record, commit):
     body += '<p class="qcb-breadcrumb"><a href="../index.html">Assessment</a> / Protocol</p>'
     body += '<ol><li><strong>Freeze the experiment.</strong> Record model/checkpoint, training material, public-source exposure, prompt template, tool permissions and resource ceilings. Inspect overlap groups.</li><li><strong>Collect the first answer.</strong> Present one question in a fresh context without tools or feedback. Each task has fresh aliases and natural-language fields, with no graph IDs, gold labels or formal statements. Preserve the first-response seal.</li><li><strong>Review the mathematics.</strong> Grade every exact response against its bound rubric. A correct label with a false or unreviewed argument cannot pass the argument gate. Complete contrasts require both items.</li><li><strong>Challenge the locked belief in Lean.</strong> The requested root follows the model’s original decision, not the reference label. Use an accepted isolated verifier and a fresh fixed-root replay. Record proof completion, lookup, search and costs separately.</li></ol>'
     body += '<p class="qcb-status-line">Generated-proof execution remains ENV_BLOCKED until an accepted isolated verifier is connected. Dataset preparation and trusted authored reference checking do not remove that boundary.</p>'
-    commands = ('python benchmarks/quantumcomputingbench/scripts/assessment.py audit\n'
-                'python benchmarks/quantumcomputingbench/scripts/assessment.py export-training --output TRAIN.json\n'
-                'python benchmarks/quantumcomputingbench/scripts/assessment.py prepare --bank PRIVATE_BANK --split test_public --student RUN/student/tasks.json --controller RUN/grader/controller.json')
+    cli = 'assessment_v3.py' if study else 'assessment.py'
+    commands = ('python benchmarks/quantumcomputingbench/scripts/' + cli + ' audit\n'
+                'python benchmarks/quantumcomputingbench/scripts/' + cli + ' export-training --output TRAIN.json\n'
+                'python benchmarks/quantumcomputingbench/scripts/' + cli + ' prepare --bank PRIVATE_BANK --split test_public --student RUN/student/tasks.json --controller RUN/grader/controller.json')
     body += fold('Commands and packaging', '<pre><code>' + esc(commands) + '</code></pre><p>RUN and PRIVATE_BANK must be outside the public checkout. The student batch file is for the controller; deliver only the current row to a model. Per-task directories contain one task.json each. An agent environment receives only that leaf directory, not the batch root, grader, bank or rubrics. CLI files are created once rather than overwritten.</p><p>The sealed bundle is held locally for the study owner. Public metadata commits to its exact content; public CI cannot replay undisclosed questions. Authorized experts can inspect the complete private question-to-source map and execution evidence.</p>', 'commands')
-    body += fold('Interpret results carefully', '<p>Label accuracy, reviewed argument success and isolated proof success are different outcomes. The program uses planned denominators; missing, abstained, blocked and wrong responses remain visible. Reviewer and model identity are operator declarations, not authenticated by JSON hashes.</p><p>The new items retain their parent dev/test_public split labels; visibility is a separate policy. Sharing the sealed bank with a participant makes it source-exposed. Public references may already be in pretraining, and fresh aliases alone do not prevent memorization.</p><p>The formal decoder receives P without the reference-selected sign. This is a specific information boundary, not a claim that question wording has been statistically balanced or is free of linguistic cues. Label accuracy alone is weak evidence; the response must also meet the exact mathematical argument criteria.</p><p>New mechanisms and compositions help probe transfer, but seven contrast groups are not seven independent statistical samples. The scorer merges common parents, mechanisms and source nodes. Whole-domain learning and causal training gain require a separate, matched experiment.</p>', 'interpretation')
+    body += fold('Interpret results carefully', '<p>Label accuracy, reviewed argument success and isolated proof success are different outcomes. The program uses planned denominators; missing, abstained, blocked and wrong responses remain visible. Reviewer and model identity are operator declarations, not authenticated by JSON hashes.</p><p>The inherited items retain their split labels. The four study contracts belong to the owner-sealed test set; visibility and split labels are separate policies. Sharing the sealed bank with a participant makes it source-exposed. Public references may already be in pretraining, and fresh aliases alone do not prevent memorization.</p><p>The formal decoder receives P without the reference-selected sign. This is a specific information boundary, not a claim that question wording has been statistically balanced or is free of linguistic cues. Label accuracy alone is weak evidence; the response must also meet the exact mathematical argument criteria.</p><p>New mechanisms and compositions help probe transfer, but contrast counts are not counts of independent statistical samples. The scorer merges common parents, mechanisms and source nodes. Whole-domain learning and causal training gain require a separate, matched experiment.</p>', 'interpretation')
     body += '<p><a href="../coverage/index.html">Inspect scope before running →</a></p>'
     write(BASE + 'protocol/', 'Sealed assessment protocol', body + '</div>',
           'First-answer, rubric and isolated proof evidence under a controlled exposure and resource contract.')
-    return {'schema_version': 'qcb.assessment_reader.v2', 'sealed_probes': len(rows),
+    routes = [BASE + 'index.html', BASE + 'coverage/index.html', BASE + 'protocol/index.html']
+    if study:
+        body = intro('Choose the training boundary',
+                     'Declare what a model may study before interpreting transfer.')
+        body += '<p class="qcb-breadcrumb"><a href="../index.html">Assessment</a> / Training profiles</p>'
+        body += '<ol class="qcb-ladder"><li><strong>Baseline: 74 cores · 98 views</strong><p>Use the complete train-only package for domain study. The Promise assessment then tests new compositions of already taught subproofs and witness patterns.</p><a download href="../../../../data/quantumcomputingbench/assessment-train.json">Download baseline</a></li><li><strong>Family profile: 61 cores · 77 views</strong><p>Omit 13 complete training cores and their 21 views. The remaining package has 61 language, 8 semantic and 8 Lean views. Original split labels and retained examples are unchanged.</p><a download href="../../../../data/quantumcomputingbench/assessment-train-family-holdout.json">Download family profile</a></li></ol>'
+        body += '<p class="qcb-status-line">This is a controlled task-family withholding policy under declared generic mathematical foundations. It does not establish that a checkpoint has never seen the source, theorem or problem family.</p>'
+        body += fold('Conditions for interpreting a family-profile result', '<p>Use only the selected training package as study supervision; do not add excluded baseline examples, public evaluation solutions, the workbook or full library proofs. Collect the first answer without tools. Record all other source exposure and the exact checkpoint. A selected CLI profile is an operator declaration, not authenticated proof of training history.</p><p>Keep the same profile and declared training/inference budgets across matched SFT and RL comparisons. Different package sizes alone do not give a causal learning comparison. Formal library-assisted success is a separate result.</p>', 'exposure-conditions')
+        body += fold('Why whole cores are omitted', '<p>The independent audit found involution/double-use failures, restored-work/intermediate-read behavior, preserved-control inverse proofs, target-H/CCZ/target-H and wrong-selector X witnesses in baseline training. The profile removes each affected core across every response modality. Elementary permutation, matrix, sector, placement and state-support foundations remain declared prerequisites.</p><p><a href="../../../../data/quantumcomputingbench/assessment-training-profiles.json">Inspect exact profile identities, exclusions and commitments</a></p>', 'profile-boundary')
+        body += '<p><a href="../protocol/index.html">Run with an explicit profile →</a></p>'
+        write(BASE + 'training-profiles/', 'Assessment training profiles', body + '</div>',
+              'Separate baseline compositional transfer from an explicit whole-core family-withholding study.')
+        routes.append(BASE + 'training-profiles/index.html')
+    return {'schema_version': 'qcb.assessment_reader.v3' if study else 'qcb.assessment_reader.v2', 'sealed_probes': len(rows),
             'contrast_pairs': pairs, 'parent_cores': coverage['sealed_parent_core_count'],
+            'existing_catalog_parent_cores': existing_parents, 'additional_study_cores': len(study),
             'model_results': False, 'hidden_questions_published': False,
-            'routes': [BASE + 'index.html', BASE + 'coverage/index.html', BASE + 'protocol/index.html']}
+            'routes': routes}

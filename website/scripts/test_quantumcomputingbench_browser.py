@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import functools
+import hashlib
 import http.server
 import json
 import sys
@@ -268,6 +269,31 @@ def run(root, output, channel=None):
                 graph.click()
                 page.wait_for_load_state("networkidle")
                 page.wait_for_function("document.body.textContent.includes('Focused exact shared identity:')")
+            if manifest.get('sealed_assessment', {}).get('schema_version') == 'qcb.assessment_reader.v3':
+                assessment = HUB + 'run/assessment/'
+                page.goto(base + assessment, wait_until="networkidle")
+                page.get_by_role('link', name='Choose a training profile').click()
+                page.wait_for_url(base + assessment + 'training-profiles/index.html')
+                for label, hash_key in (
+                    ('Download baseline', 'training_download_sha256'),
+                    ('Download family profile', 'family_training_download_sha256'),
+                ):
+                    with page.expect_download() as event:
+                        page.get_by_role('link', name=label, exact=True).click()
+                    actual = hashlib.sha256(event.value.path().read_bytes()).hexdigest()
+                    if actual != manifest['sealed_assessment'][hash_key]:
+                        failures.append('assessment training download mismatch: ' + label)
+                page.goto(base + assessment + 'coverage/index.html', wait_until="networkidle")
+                panel = page.locator('#study-contracts')
+                if panel.get_attribute('open') is not None:
+                    failures.append('assessment study metadata unfolded by default')
+                panel.locator(':scope > summary').focus()
+                page.keyboard.press('Enter')
+                if panel.get_attribute('open') is None or panel.locator('[id^="study-"]').count() != 4:
+                    failures.append('assessment coverage cannot disclose four study contracts')
+                if page.evaluate("document.documentElement.scrollWidth > innerWidth + 2"):
+                    failures.append('expanded assessment study contract overflow')
+                page.screenshot(path=str(output / 'assessment-study-contracts-mobile.png'))
             ecosystem_checks = check_ecosystem(page, base, root, manifest, output)
             workbook_checks = check_workbook(page, base, root, manifest, output)
             hierarchy_checks = check_hierarchy(page, base, root, manifest, output)
