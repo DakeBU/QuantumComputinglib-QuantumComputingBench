@@ -100,9 +100,45 @@ views, and no automatic claim about model identity, learning or transfer.
 
 ## Review mathematical explanations
 
+Prepare a self-contained operator review pack to inspect the actual argument
+alongside its mathematical contract and reference:
+
+```sh
+python benchmarks/quantumcomputingbench/scripts/bench.py review-pack --manifest _out/qcb-run-001/manifest.json --responses PATH_TO_RESPONSES.jsonl --output _out/qcb-review-pack-001
+```
+
+The fresh directory contains:
+
+```text
+cases.jsonl                  # question, actual response, reference, graph, rubric
+reviews.template.jsonl       # exact response-bound review records to complete
+review-manifest.json         # run/source identities, coverage and file hashes
+README.md                    # reviewer instructions and scoring command
+```
+
+Each `qcb.review_case.v1` row retains the planned task's status and exact
+task/response hashes. `needs_rubric_review` cases have the unchanged review
+template; unanswered cases remain `no_answer_to_review` with no invented marks.
+Missing responses are explicit rows with a null response. Submitted Lean text
+is `formal_verifier_required` and has no rubric template or proof score.
+All submitted text remains JSON data; creating the pack executes no code,
+proof, model or reviewer.
+
+This export contains reference answers. The command rejects output inside the
+prepared run and, for a portable bundle, its sibling `environment/` student
+build context. Keep it outside any additional student mounts and prompts.
+Copy `reviews.template.jsonl` to `reviews.completed.jsonl`, inspect each actual
+argument, and fill the reviewer fields and all Boolean marks before scoring:
+
+```sh
+python benchmarks/quantumcomputingbench/scripts/bench.py score --manifest _out/qcb-run-001/manifest.json --responses PATH_TO_RESPONSES.jsonl --reviews _out/qcb-review-pack-001/reviews.completed.jsonl --output _out/qcb-reviewed-score-001.json
+```
+
+An untouched template is deliberately not accepted as completed review. To
+export only the compact review template, the existing command remains available:
+
 ```sh
 python benchmarks/quantumcomputingbench/scripts/bench.py review-template --manifest _out/qcb-run-001/manifest.json --responses PATH_TO_RESPONSES.jsonl --output _out/qcb-review-001.jsonl
-python benchmarks/quantumcomputingbench/scripts/bench.py score --manifest _out/qcb-run-001/manifest.json --responses PATH_TO_RESPONSES.jsonl --reviews PATH_TO_COMPLETED_REVIEWS.jsonl --output _out/qcb-reviewed-score-001.json
 ```
 
 An actual reviewer supplies their identity, human/AI kind, method and Boolean

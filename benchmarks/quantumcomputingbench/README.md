@@ -1,17 +1,13 @@
 # QuantumComputingBench
 
-The [supplementary NL workbook](docs/nonlean-workbook.md) integrates one
-collaborator cohort delivered in two overlapping ZIPs: twelve source-grounded
-expositions/candidate problems, subject chapters, D2–D4 routes, separate
-question/reference downloads and node-to-exercise inspection. Four expositions
-reuse existing cores; eight targets remain unassigned candidates. Canonical
-counts and train/evaluation pools are unchanged.
-
 Graph-grounded quantum-computing QA for training and evaluating specialized
-mathematical models, backed by QuantumComputinglib's sources and graph.
+mathematical models: knowledge, reasoning and library-aware Lean proof skills.
+QuantumComputinglib supplies the mathematical sources and graph anchors;
+question contracts and scored evidence remain explicit.
 
-[**Read and solve**](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/) ·
-[**Train and evaluate**](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/run/) ·
+[**Run the benchmark**](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/run/) ·
+[**Explore tasks**](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/tasks/) ·
+[**Study by subject or level**](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/study/) ·
 [**Expert graph atlas**](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/expert/)
 
 ## Use the benchmark
@@ -30,9 +26,19 @@ measurement scope, split/exposure rules and result dimensions. The expert atlas
 connects each core and view to its exact graph anchors, source version and
 available proof evidence.
 
+Use `bench.py review-pack` to join the exact question, actual response,
+reference, rubric and source graph for an operator reviewer. Completed reviews
+bind the response hash. Decision labels, reviewed mathematical arguments and
+isolated formal completion stay separate; unreviewed work is not auto-scored.
+
 Question authoring, reference validation and workflow smoke tests can run
 without a model endpoint. Actual model responses can be collected later under
 the same run and scoring contracts.
+
+The [supplementary NL workbook](docs/nonlean-workbook.md) has twelve
+source-grounded expositions/candidates across three chapters and D2–D4 routes.
+Four reuse existing cores; eight remain unassigned candidates. Its separate
+downloads do not change canonical counts or train/evaluation pools.
 
 <details>
 <summary>Distribution status and retained editorial checkpoints</summary>

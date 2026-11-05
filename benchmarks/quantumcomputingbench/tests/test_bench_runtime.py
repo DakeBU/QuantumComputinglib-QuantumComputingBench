@@ -1,11 +1,16 @@
 """Offline task/response boundaries; fixtures are not model or Lean runs."""
+import hashlib
 import json
+import runpy
 import subprocess
 import sys
 import tempfile
 import unittest
+from contextlib import redirect_stdout
 from copy import deepcopy
+from io import StringIO
 from pathlib import Path, PurePosixPath
+from unittest.mock import patch
 
 B = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(B / "src"))
@@ -18,11 +23,13 @@ from qcb_bench_runtime import (
     public_index,
     read_jsonl,
     response_template,
+    review_pack,
     review_template,
     score,
     smoke,
     verify_downloads,
     write_downloads,
+    write_jsonl,
 )
 from qcb_core import digest
 
@@ -141,7 +148,8 @@ class BenchRuntimeTests(unittest.TestCase):
             score(changed, manifest, rows)
 
     def test_irrelevant_cli_flags_are_rejected_before_registry_loading(self):
-        for args in (("doctor", "--purpose", "reference"), ("validate", "--reviews", "unused")):
+        for args in (("doctor", "--purpose", "reference"), ("validate", "--reviews", "unused"),
+                     ("review-pack", "--reviews", "unused")):
             result = subprocess.run([sys.executable, str(B / "scripts/bench.py"), *args], capture_output=True, check=False)
             self.assertEqual(result.returncode, 1)
             self.assertIn(b"does not apply", result.stderr)
@@ -200,6 +208,133 @@ class BenchRuntimeTests(unittest.TestCase):
             with self.subTest(key=key, value=value), self.assertRaises(ValueError):
                 score(self.registry, manifest, rows, reviews)
         self.assertIsNone(score(self.registry, manifest, rows, original[:1])["aggregate_semantic_score"])
+
+    def test_review_pack_joins_actual_argument_and_reference_without_changing_student_input(self):
+        manifest = self.prepare()
+        responses = self.oracle(manifest)
+        responses[0]["answer"]["explanation"] = '<script>alert("data only")</script> Alternative argument.'
+        student_path = self.root / "run/input/tasks.jsonl"
+        student_bytes = student_path.read_bytes()
+        output = self.root / "review"
+        summary = review_pack(self.registry, manifest, responses, output, run_directory=self.root / "run")
+        cases = read_jsonl(output / "cases.jsonl")
+        reviews = read_jsonl(output / "reviews.template.jsonl")
+        self.assertEqual(summary["review_records"], 2)
+        self.assertEqual(summary["review_states"], {"needs_rubric_review": 2})
+        self.assertFalse(summary["ready_to_score"])
+        self.assertTrue(summary["contains_reference_answers"])
+        self.assertEqual(cases[0]["input"], self.registry["tasks"][0]["input"])
+        self.assertEqual(cases[0]["response"], responses[0])
+        self.assertEqual(cases[0]["reference"], self.registry["tasks"][0]["reference"])
+        self.assertEqual(cases[0]["response_hash"], digest(responses[0]))
+        self.assertEqual(cases[0]["review_template"], reviews[0])
+        self.assertIsNone(cases[0]["semantic_rubric_score"])
+        self.assertEqual(student_path.read_bytes(), student_bytes)
+        self.assertNotIn("REFERENCE_NOT_A_PROMPT", student_path.read_text())
+        self.assertNotIn("<script>", (output / "README.md").read_text())
+        for filename, expected in summary["files"].items():
+            self.assertEqual(hashlib.sha256((output / filename).read_bytes()).hexdigest(), expected)
+        with self.assertRaises(ValueError):
+            score(self.registry, manifest, responses, reviews)
+        for review in reviews:
+            review["reviewer"] = {"identity": "reviewer", "kind": "human", "method": "Inspected each case."}
+            for criterion in review["criteria"]:
+                criterion["met"] = True
+        self.assertEqual(score(self.registry, manifest, responses, reviews)["aggregate_semantic_score"], 1)
+        with self.assertRaises(FileExistsError):
+            review_pack(self.registry, manifest, responses, output, run_directory=self.root / "run")
+
+    def test_review_pack_retains_unanswered_cases_and_has_no_invented_reviews(self):
+        manifest = self.prepare(split=None, track=None, task_ids=[t["task_id"] for t in self.registry["tasks"][:3]])
+        responses = self.oracle(manifest)
+        responses[0].update(status="abstained", answer=None)
+        responses[1].update(status="env_blocked", answer=None)
+        summary = review_pack(self.registry, manifest, responses, self.root / "review", run_directory=self.root / "run")
+        cases = read_jsonl(self.root / "review/cases.jsonl")
+        self.assertEqual([c["status"] for c in cases], ["abstained", "env_blocked", "missing"])
+        self.assertEqual(summary["outcomes"], {"abstained": 1, "env_blocked": 1, "missing": 1})
+        self.assertEqual(summary["review_records"], 0)
+        self.assertTrue(all(c["review_state"] == "no_answer_to_review" and c["review_template"] is None for c in cases))
+        self.assertIsNone(cases[-1]["response"])
+        self.assertIsNone(cases[-1]["response_hash"])
+        self.assertEqual(read_jsonl(self.root / "review/reviews.template.jsonl"), [])
+
+    def test_nonlean_review_pack_scores_only_completed_argument_review(self):
+        manifest = self.prepare(split="train", track="nonlean")
+        responses = response_template(self.registry["tasks"][2:3], manifest["run_id"])
+        responses[0].update(status="answered", answer={"explanation": "A derivation using a different valid route."})
+        review_pack(self.registry, manifest, responses, self.root / "review", run_directory=self.root / "run")
+        case = read_jsonl(self.root / "review/cases.jsonl")[0]
+        self.assertEqual(case["track"], "nonlean")
+        self.assertEqual(case["review_state"], "needs_rubric_review")
+        self.assertIsNone(case["decision_correct"])
+        self.assertIsNone(score(self.registry, manifest, responses)["aggregate_semantic_score"])
+        reviews = read_jsonl(self.root / "review/reviews.template.jsonl")
+        reviews[0]["reviewer"] = {"identity": "r", "kind": "human", "method": "Checked the alternative derivation."}
+        reviews[0]["criteria"][0]["met"] = True
+        result = score(self.registry, manifest, responses, reviews)
+        self.assertEqual(result["semantic_scores_by_track"], {"nonlean": 1})
+        self.assertIsNone(result["decision_accuracy_over_planned"])
+        self.assertIsNone(result["formal_proof_score"])
+
+    def test_review_pack_rejects_bad_bindings_and_student_output_paths_before_writing(self):
+        manifest = self.prepare()
+        responses = self.oracle(manifest)
+        for relative in ("input/review", "output/review", "operator/review"):
+            output = self.root / "run" / relative
+            with self.subTest(relative=relative), self.assertRaisesRegex(ValueError, "outside"):
+                review_pack(self.registry, manifest, responses, output, run_directory=self.root / "run")
+            self.assertFalse(output.exists())
+        # A portable bundle exposes the sibling environment directory as a
+        # student build context, so it cannot receive operator review material.
+        (self.root / "task.json").write_text('{}')
+        output = self.root / "environment/workspace/review"
+        with self.assertRaisesRegex(ValueError, "outside"):
+            review_pack(self.registry, manifest, responses, output, run_directory=self.root / "run")
+        self.assertFalse(output.exists())
+        responses[0]["task_hash"] = "0" * 64
+        with self.assertRaises(ValueError):
+            review_pack(self.registry, manifest, responses, self.root / "bad-review", run_directory=self.root / "run")
+        self.assertFalse((self.root / "bad-review").exists())
+
+    def test_review_pack_keeps_submitted_lean_text_ungraded(self):
+        manifest = self.prepare(split="train", track="lean", exposure="approved_interface")
+        responses = response_template(self.registry["tasks"][-1:], manifest["run_id"])
+        responses[0].update(status="answered", answer={"proof": "by run_tac IO.println \"UNTRUSTED\""})
+        summary = review_pack(self.registry, manifest, responses, self.root / "review", run_directory=self.root / "run")
+        case = read_jsonl(self.root / "review/cases.jsonl")[0]
+        self.assertEqual(summary["review_records"], 0)
+        self.assertEqual(case["response"], responses[0])
+        self.assertEqual(case["review_state"], "formal_verifier_required")
+        self.assertEqual(case["formal_execution"], "ENV_BLOCKED")
+        self.assertIsNone(case["formal_proof_score"])
+        self.assertIsNone(case["semantic_rubric_score"])
+
+    def test_review_pack_cli_and_completed_review_scoring_round_trip(self):
+        manifest = self.prepare()
+        response_path = self.root / "responses.jsonl"
+        write_jsonl(response_path, self.oracle(manifest))
+        cli = runpy.run_path(str(B / "scripts/bench.py"))["main"]
+        common = ["--manifest", str(self.root / "run/manifest.json"), "--responses", str(response_path)]
+        with patch.dict(cli.__globals__, {"build_registry": lambda: self.registry}):
+            stdout = StringIO()
+            with patch.object(sys, "argv", ["bench.py", "review-pack", *common, "--output", str(self.root / "review")]), redirect_stdout(stdout):
+                self.assertEqual(cli(), 0)
+            self.assertEqual(json.loads(stdout.getvalue())["review_records"], 2)
+            reviews = read_jsonl(self.root / "review/reviews.template.jsonl")
+            for review in reviews:
+                review["reviewer"] = {"identity": "reviewer", "kind": "human", "method": "Checked mathematical criteria."}
+                for criterion in review["criteria"]:
+                    criterion["met"] = True
+            completed_path = self.root / "review/reviews.completed.jsonl"
+            write_jsonl(completed_path, reviews)
+            stdout = StringIO()
+            with patch.object(sys, "argv", ["bench.py", "score", *common, "--reviews", str(completed_path)]), redirect_stdout(stdout):
+                self.assertEqual(cli(), 0)
+            scored = json.loads(stdout.getvalue())
+            self.assertEqual(scored["aggregate_semantic_score"], 1)
+            self.assertEqual(scored["semantic_review_coverage"], 2)
+            self.assertFalse(scored["model_performance_measured"])
 
     def test_formal_text_is_never_executed_or_promoted(self):
         manifest = self.prepare(split="train", track="lean", exposure="approved_interface")

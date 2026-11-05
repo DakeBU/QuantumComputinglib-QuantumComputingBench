@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 from website.scripts.qcb_ecosystem_browser import check_ecosystem, settle_math
 from website.scripts.qcb_nonlean_browser import check_workbook
+from website.scripts.qcb_hierarchy_browser import check_hierarchy
 from website.scripts.qcb_render_test_support import recover_prose_source
 from website.scripts.quantumcomputingbench import HUB, check_site
 from website.scripts.research_browser_contract import THEMES
@@ -39,7 +40,7 @@ def run(root, output, channel=None):
     thread.start()
     base = f"http://127.0.0.1:{server.server_port}/"
     rows, formal_rows, withdrawal_rows, revision_rows, course_rows, diagnostic_rows, failures = [], [], [], [], [], [], []
-    ecosystem_checks, workbook_checks = {}, {}
+    ecosystem_checks, workbook_checks, hierarchy_checks = {}, {}, {}
     checks = {k: False for k in ("mobile_no_overflow", "desktop_no_overflow", "themes", "solution_disclosure", "graph_links", "search_excludes_answers", "native_formal_panels", "quarantined_content_excluded", "question_revision_lineage", "convention_revision_lineage", "assumption_revision_lineage")}
     checks.update(semantic_diagnostics_closed=False, semantic_diagnostic_panels=False)
     checks.update(actual_corpus_math_compilation=False, expert_graph_workflow=False, benchmark_entry_points=False)
@@ -52,6 +53,7 @@ def run(root, output, channel=None):
               HUB + "course/d4/index.html", HUB + "reasoning/index.html"]
     routes += manifest["public_semantic_diagnostics"]["routes"]
     routes += manifest["benchmark_center"]["routes"] + manifest["expert_atlas"]["routes"]
+    routes += manifest.get('reader_hierarchy', {}).get('routes', [])
     routes += [HUB + 'non-lean/workbook/index.html', HUB + 'non-lean/workbook/normalization/index.html',
                HUB + 'non-lean/workbook/levels/d3/index.html', HUB + 'non-lean/workbook/graph/index.html']
     try:
@@ -256,7 +258,7 @@ def run(root, output, channel=None):
             page.locator('[data-qcb-query]').fill('')
             if page.locator('[data-qcb-card]:visible').count() != total:
                 failures.append("search reset lost questions")
-            page.goto(base + core_route, wait_until="networkidle")
+            page.goto(base + core_route + '#graph', wait_until="networkidle")
             graph = page.locator('[data-qcb-graph]').first
             if not graph.count():
                 failures.append("no actual graph link")
@@ -266,6 +268,7 @@ def run(root, output, channel=None):
                 page.wait_for_function("document.body.textContent.includes('Focused exact shared identity:')")
             ecosystem_checks = check_ecosystem(page, base, root, manifest, output)
             workbook_checks = check_workbook(page, base, root, manifest, output)
+            hierarchy_checks = check_hierarchy(page, base, root, manifest, output)
             browser.close()
         if not failures:
             checks = {key: True for key in checks}
@@ -285,6 +288,7 @@ def run(root, output, channel=None):
               "semantic_diagnostic_panel_checks": diagnostic_rows,
               "ecosystem": ecosystem_checks,
               "supplementary_workbook": workbook_checks,
+              "hierarchy": hierarchy_checks,
               "presentation_digest": manifest["presentation"]["digest"],
               "runtime_registry_hash": manifest["runtime_registry_hash"],
               "failures": failures, "manual_visual_review": "not asserted by this script",

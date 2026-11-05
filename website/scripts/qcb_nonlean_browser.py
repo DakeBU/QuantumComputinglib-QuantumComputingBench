@@ -48,7 +48,12 @@ def check_workbook(page, base, root, manifest, output):
                 actual = recover_prose_source(page.locator('#question').inner_html(), entry['packet']['question'])
                 if ' '.join(actual.split()) != ' '.join(entry['packet']['question'].split()):
                     raise AssertionError('Typesetting changed the actual student question.')
-                if page.locator('#given-notation mjx-container').count() != len(entry['notation']['equations']):
+                notation = page.locator('#given-notation')
+                if entry['notation']['equations']:
+                    notation.locator(':scope > summary').focus()
+                    page.keyboard.press('Enter')
+                    settle_math(page)
+                if notation.locator('mjx-container').count() != len(entry['notation']['equations']):
                     raise AssertionError('Given notation did not compile on ' + entry['slot'])
                 if not page.locator('[data-qcb-workbook-graph]').count():
                     raise AssertionError('No exact graph anchor on a supplemental exercise.')

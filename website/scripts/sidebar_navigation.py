@@ -6,8 +6,6 @@ import re
 
 
 TOOLS = (
-    ("Lean library", "library/"),
-    ("Underlying Lean Graph of Libraries", "lean-graph/"),
     ("Implementation map", "implementation-map/"),
     ("Live workspace", "ide/"),
     ("Run with your API", "task-builder/"),
@@ -34,9 +32,10 @@ def render_navigation(prefix: str, current: str, papers: dict, cases: list[dict]
 
     route = current.removesuffix("index.html")
 
-    def link(label: str, target: str) -> str:
+    def link(label: str, target: str, title: str = "") -> str:
         active = ' aria-current="page"' if route == target else ""
-        return f'<a href="{html.escape(build_site.page_url(prefix, target))}"{active}>{html.escape(label)}</a>'
+        description = f' title="{html.escape(title)}"' if title else ""
+        return f'<a href="{html.escape(build_site.page_url(prefix, target))}"{active}{description}>{html.escape(label)}</a>'
 
     def section(key: str, title: str, content: str, selected: bool) -> str:
         opened = " open" if selected else ""
@@ -56,10 +55,15 @@ def render_navigation(prefix: str, current: str, papers: dict, cases: list[dict]
             raise ValueError(f"missing canonical {title} navigation heading")
         return section(key, title, content[len(heading):], route.startswith(target))
 
-    research = links_section("research", "Structure & research", VIEWS)
-    bench = links_section("quantumcomputingbench", "QuantumComputingBench", (
-        ("Exercise book", "quantumcomputingbench/"),
-        ("Train and evaluate", "quantumcomputingbench/run/"),
+    # The graph destinations remain visible on every page. Their views are
+    # different, so neither is hidden inside a generic tools collection.
+    research_views = tuple((label, target) for label, target in VIEWS if target != "functor-hypergraph/")
+    research = section("research", "Research & examples",
+        "".join(link(label, target) for label, target in research_views)
+        + collection("papers", "Papers", render_papers_navigation(prefix, current, papers), "papers/")
+        + collection("examples", "Example Cases", render_examples_navigation(prefix, current, cases), "example-cases/"),
+        any(route.startswith(target) for _, target in research_views) or route.startswith(("papers/", "example-cases/")))
+    study = links_section("bench-study", "Study & review", (
         ("Expert graph atlas", "quantumcomputingbench/expert/"),
         ("Mathematical exercises", "quantumcomputingbench/non-lean/"),
         ("Supplementary NL workbook", "quantumcomputingbench/non-lean/workbook/"),
@@ -70,18 +74,33 @@ def render_navigation(prefix: str, current: str, papers: dict, cases: list[dict]
         ("Contribution contract", "quantumcomputingbench/contribute/"),
         ("Evidence and release gates", "quantumcomputingbench/evidence/"),
     ))
+    bench = section("quantumcomputingbench", "QuantumComputingBench",
+        "".join(link(label, target) for label, target in (
+            ("Overview", "quantumcomputingbench/"),
+            ("Tasks", "quantumcomputingbench/tasks/"),
+            ("Run", "quantumcomputingbench/run/"),
+            ("Results", "quantumcomputingbench/run/results/"),
+        )) + study, route.startswith("quantumcomputingbench/"))
+    textbook_routes = tuple(str(part["route"]) for part in
+        build_site.load_json(build_site.WEBSITE_ROOT / "curriculum-parts.json")["parts"])
+    textbooks = section("textbooks", "LEAN LIBS & TEXTBOOKS",
+        link("Book map", "learning/") + link("Lean library", "library/")
+        + build_site.render_book_navigation(prefix, route),
+        route.startswith(("learning/", "library/", "chapters/") + textbook_routes))
+    tools = section("tools", "Tools & community",
+        "".join(link(label, target) for label, target in TOOLS)
+        + links_section("project", "About & community", PROJECT),
+        any(route.startswith(target) for _, target in TOOLS + PROJECT))
     return (
-        '<nav class="book-nav" data-compact-navigation="1">'
-        '<strong class="nav-group-label">Explore</strong>'
-        + link("Home", "") + link("Book map", "learning/")
-        + '<strong class="nav-group-label">Textbooks</strong>'
-        + build_site.render_book_navigation(prefix, route)
+        '<nav class="book-nav" data-compact-navigation="1" aria-label="Main navigation">'
+        '<div class="sidebar-primary" aria-label="Start here">'
+        + link("Home", "")
+        + link("Lean Graph", "lean-graph/", "Underlying Lean Graph of Libraries")
+        + link("Functor Hypergraph", "functor-hypergraph/") + '</div>'
+        + textbooks
         + bench
         + '<!-- research-nav:start -->' + research + '<!-- research-nav:end -->'
-        + collection("papers", "Papers", render_papers_navigation(prefix, current, papers), "papers/")
-        + collection("examples", "Example Cases", render_examples_navigation(prefix, current, cases), "example-cases/")
-        + links_section("tools", "Library & tools", TOOLS)
-        + links_section("project", "About & community", PROJECT)
+        + tools
         + '</nav>'
     )
 

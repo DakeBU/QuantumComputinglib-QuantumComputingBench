@@ -444,6 +444,88 @@ dd {
   max-width: 44ch;
 }
 
+.home-graph-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  max-width: 850px;
+}
+
+.home-graph-links > a {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  color: var(--ink);
+  background: var(--surface);
+  text-decoration: none;
+}
+
+.home-graph-links > a:hover,
+.home-graph-links > a:focus-visible {
+  border-color: var(--state);
+  background: var(--state-soft);
+}
+
+.home-graph-links strong {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-family: var(--ui-font);
+  font-size: 18px;
+}
+
+.home-graph-links > a > span {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.home-books { margin-top: 24px; }
+.home-books > summary {
+  color: var(--muted);
+  cursor: pointer;
+  font-family: var(--ui-font);
+  font-size: 14px;
+}
+
+.reader-disclosure {
+  min-width: 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.reader-disclosure > summary {
+  padding: 20px 8px;
+  color: var(--ink);
+  font-family: var(--ui-font);
+  font-size: 16px;
+  line-height: 1.5;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+
+.reader-disclosure[open] > summary {
+  border-bottom: 1px solid var(--line);
+  background: var(--paper);
+}
+
+.reader-disclosure > summary:focus-visible,
+.home-books > summary:focus-visible {
+  outline: 2px solid var(--state);
+  outline-offset: 2px;
+}
+
+.reader-disclosure-content { min-width: 0; padding: 0 8px 20px; }
+.reader-disclosure-content > .content-section { padding: 32px 0; }
+.home-explore > .hint { margin-bottom: 8px; }
+
+@media (max-width: 620px) {
+  .home-graph-links { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .home-graph-links > a { padding: 16px; }
+}
+
 .hero-scope {
   max-width: 65ch;
   margin-bottom: 0;
@@ -2869,7 +2951,7 @@ body {
 }
 
 .sidebar-head {
-  padding: 26px 24px 20px;
+  padding: 22px 24px 16px;
   border-bottom: 1px solid var(--line);
 }
 
@@ -2932,6 +3014,7 @@ body {
 }
 
 .book-nav > a,
+.sidebar-primary > a,
 .sidebar-section-links > a,
 .chapter-nav a {
   display: grid;
@@ -3078,6 +3161,12 @@ body {
 
 .sidebar-section[open] > summary { color: var(--ink); }
 .sidebar-section-links { display: grid; gap: 2px; padding-bottom: 8px; }
+.sidebar-primary { display: grid; gap: 3px; margin-bottom: 4px; }
+.sidebar-primary > a { min-height: 38px; align-content: center; color: var(--ink); font-size: 13px; font-weight: 650; }
+.sidebar-section .sidebar-section { margin: 4px 0 0 10px; border-top: 0; border-left: 1px solid var(--line); }
+.sidebar-section .sidebar-section > summary { padding-top: 9px; padding-bottom: 9px; font-weight: 500; }
+.sidebar-section .book-part-navigation { margin-left: 10px; }
+.sidebar-section .book-part-nav { border-bottom: 0; border-left: 1px solid var(--line); }
 .sidebar-section summary:focus-visible,
 .book-part-nav summary:focus-visible { outline: 2px solid var(--state); outline-offset: -2px; }
 
