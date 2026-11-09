@@ -1,0 +1,59 @@
+{
+  "schema_version": "qcb.cohort_question_first_packet.v1",
+  "slot": "E2",
+  "base_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "proposal_id": "9764902a-a66f-47ae-b06e-dde6081f91d5",
+  "core_id": "candidate:9764902a-a66f-47ae-b06e-dde6081f91d5",
+  "title": "Two-sided LCU from approximate clean columns",
+  "question": "Let K=C^r with r≥1 and distinguished basis vector |0⟩, and let H=C^d with d≥1. Fix the order K⊗H. For j=1,...,r let U_j:H→H be unitary and c_j∈C, not all zero. Put α=Σ_j|c_j|>0, A=Σ_j c_jU_j, ω_j=c_j/|c_j| when c_j≠0 and ω_j=1 when c_j=0, and define l_j=√(|c_j|/α), r_j=ω_j√(|c_j|/α). Here the symbol r_j is a vector coordinate, while r is the selector dimension. Let S=Σ_j|j⟩⟨j|⊗U_j.\n\nAvailable unitaries Q_L,Q_R on K have clean columns l̃=Q_L|0⟩ and r̃=Q_R|0⟩ satisfying the exact-representative bounds ||l̃−l||≤δ_L and ||r̃−r||≤δ_R, with δ_L,δ_R≥0. An available unitary S̃ on K⊗H satisfies ||S̃−S||≤η, η≥0, in induced Euclidean operator norm; S̃ need not preserve the selector. The specified composite uses the actual adjoint Q_L† exactly:\nW̃=(Q_L†⊗I)S̃(Q_R⊗I),   Jv=|0⟩⊗v,   B̃=J†W̃J.\nAll work of this mathematical interface is in K⊗H.\n\nDerive the clean-column sandwich formula for B̃. Prove the exact target formula (⟨l|⊗I)S(|r⟩⊗I)=A/α and derive the approximate block-encoding guarantee\n||A−αB̃||≤α min{2, δ_L+δ_R+η}.\nYour proof must explain why no operator-norm approximation of Q_L or Q_R to a chosen full PREPARE unitary is required, and must justify unitarity and contraction facts used in the estimate. For ideal S in the middle, explicitly compute the implemented coefficients conj(l̃_j)r̃_j and prove their ℓ¹ deviation from c_j/α is at most δ_L+δ_R. Explain whether this coefficient route and the direct sandwich-norm route are alternative proofs or jointly necessary assumptions.\n\nSuppose instead that one only knows ||l̃−e^{iθ_L}l||≤δ_L and ||r̃−e^{iθ_R}r||≤δ_R for real phases θ_L,θ_R. Derive the corresponding phase-shifted target and an explicit bound on ||A−αB̃|| that includes the phase mismatch. Give a concrete unitary example with perfect separate state fidelities but wrong exact block, and state a sufficient phase relation that restores the previous guarantee. The question concerns exact block representatives, even if an isolated prepared state is physically unchanged by its global phase.\n\nProve that changing the off-clean columns of Q_L or Q_R while retaining unitarity and their clean columns cannot change B̃ for fixed S̃; give an explicit pair of unitary completions at operator distance 2 with the same clean column. Discuss zero coefficients, r=1, δ_L=δ_R=η=0, and the excluded all-zero coefficient case. Explain why the mathematical availability of prepared state vectors alone does not supply an executable adjoint, coherent SELECT, clean-work implementation or finite-bit resource guarantee. A successful clean projection need not occur deterministically.",
+  "assumptions": [
+    "Finite complex selector and system spaces of dimensions r≥1 and d≥1, with a fixed distinguished clean selector basis vector and tensor order K⊗H.",
+    "Every U_j is unitary; coefficients c_j are not all zero so α=Σ_j|c_j|>0.",
+    "Q_L,Q_R,S̃ are actual unitaries and the specified composite uses the actual Q_L†; clean-column errors and SELECT error are certified in Euclidean/induced operator norms.",
+    "The principal branch compares exact clean-column representatives. The later phase branch replaces those estimates by phase-referenced estimates with real θ_L,θ_R."
+  ],
+  "conventions": [
+    "Complex inner products are conjugate-linear in the first argument; a bra ⟨l| therefore has coefficients conj(l_j).",
+    "Matrix products act on column vectors from the rightmost factor first. No transpose replaces the complex adjoint.",
+    "The clean block projects the selector at both ends; a nonclean rejected sector may remain in the full output.",
+    "The coefficient ℓ¹ route and direct sandwich route may be used as alternative sufficient derivations; neither is an extra hypothesis on the inputs.",
+    "No approximate inverse is substituted for Q_L†. State-generation access alone is weaker than the available-unitary interface assumed in the main branch."
+  ],
+  "target_nodes": [
+    "declaration:QuantumBlockEncoding.Robin.ComplexLCU.prepareAmplitudeSelectUnprepare_cleanEntry",
+    "declaration:QuantumBlockEncoding.ApproximateOperatorBlockEncodingCandidate"
+  ],
+  "supporting_nodes": [
+    "declaration:QuantumBlockEncoding.Robin.ComplexLCU.selectorLift_cleanColumn_apply",
+    "declaration:QuantumBlockEncoding.Robin.ComplexLCU.star_selectorLift_cleanRow_apply",
+    "declaration:QuantumBlockEncoding.Robin.ComplexLCU.star_selectorLift_mul_clean",
+    "declaration:QuantumBlockEncoding.Robin.ComplexLCU.selectorLift_unitary",
+    "declaration:QuantumBlockEncoding.Robin.ComplexLCU.blockDiagonal_unitary",
+    "declaration:QuantumBlockEncoding.Robin.ComplexLCU.prepareAmplitudeSelectUnprepare_unitary"
+  ],
+  "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "source_refs": [
+    {
+      "path": "QuantumBlockEncoding/Robin/ComplexLCUProjection.lean",
+      "anchor": "selectorLift_cleanColumn_apply:43-60; star_selectorLift_cleanRow_apply:63-80; star_selectorLift_mul_clean:147-169; prepareAmplitudeSelectUnprepare_cleanEntry:172-219",
+      "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+      "sha256": "fa0b84ce5c819184f190b81b4d259e12f725e6196cd37147984fab76fe4ec340",
+      "license": "MIT (repository LICENSE)"
+    },
+    {
+      "path": "QuantumBlockEncoding/Robin/ComplexLCU.lean",
+      "anchor": "blockDiagonal_unitary:122-145; selectorLift:254-264; selectorLift_unitary:267-281; prepareAmplitudeSelectUnprepare:352-367; prepareAmplitudeSelectUnprepare_unitary:370-399",
+      "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+      "sha256": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843",
+      "license": "MIT (repository LICENSE)"
+    },
+    {
+      "path": "QuantumBlockEncoding/BlockEncoding.lean",
+      "anchor": "ApproximateOperatorBlockEncodingCandidate:148-152; scaled norm interpretation:136-146",
+      "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+      "sha256": "fe06f75a29822e28ccdbfedfb0b0e87f90872620fae7aed359085fad8fae64b4",
+      "license": "MIT (repository LICENSE)"
+    }
+  ]
+}

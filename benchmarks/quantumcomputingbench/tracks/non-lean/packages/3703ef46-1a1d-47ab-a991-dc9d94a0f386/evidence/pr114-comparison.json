@@ -1,0 +1,122 @@
+{
+  "pr": 114,
+  "head": "ff361a6ee91352f9692b3716c03b677ead9918be",
+  "source_path": "benchmarks/quantumcomputingbench/shared/repairs/plan-208-phase-aware-domain-assumption-successor-precision-clarified.json",
+  "source_blob_sha": "a790dd3a2a1e5bf67ae5862bb8a717daf746adaf",
+  "status": "open_branch_only_not_current_gold",
+  "inspection_actor": "/root",
+  "inspected_content": "Complete mathematical question, assumptions, answer, rubric and exposition; remaining execution metadata sampled, not reviewed as new approval.",
+  "question": "For a finite real or complex matrix A with finite row and column index sets (including possible empty sets), consider the target entry action O_A|0>|i>|j>=(A_ij|0>+sqrt(1-|A_ij|^2)|1>)|i>|j>, with the retained convention that the square root is real and nonnegative. Assess the predecessor's claim that a real Ry(2 arccos|A_ij|) alone produces this full signed/complex target; it is now a proposed magnitude stage, not an assumed correct oracle. Do not restrict entries to nonnegative reals or silently exclude zero entries.\n\nFor each existing entry z=A_ij, prove the sharp normalized-state domain and give an explicit two-by-two unitary completion when it is valid. Separate z=0,0<|z|<1,|z|=1 and |z|>1, with exact angles, signed/complex counterexamples and a phase-aware correction. Distinguish correctness on input |0> from equality of full unitary extensions and inverse actions; retain phases across coherent index superpositions. Explain what the strict max-norm inequality does and does not guarantee.\n\nAssess empty rows or columns separately: with the unchanged ordinary-maximum convention, do not assign max(empty)=0. Distinguish vacuous entry-wise conditions and zero-space unitary equations from existence of a normalized label input. For a nonempty matrix derive preprocessing by a known M>0 dominating its entry max norm, including the all-zero case and loose upper bounds.\n\nOnly under a supplied nonempty square matching/permutation plus clean entry-access interface, with integer slot budget s>=1 and an exact decomposition of A, derive the projected block and its positive scale. Specify register order, PREP, SELECT and unprepare. Explain why an entry bound alone does not supply that interface, why duplicated nonzero pieces are invalid, why rectangular embedding/padding is additional work, and when postselected normalization is undefined.\n\nSeparate ideal existence from stored finite-precision parameters, reversible arithmetic/inverses/scratch and elementary gate synthesis. Give a quantitative endpoint-error witness at z=1,w=1-delta; state which column or whole-unitary error it controls. Account for phase/control/preparation costs and clean uncomputation rather than treating them as free or asserting a generic efficient compiler.",
+  "assumptions": [
+    "For |A_ij|<=1, the proposed magnitude-loading stage is the real controlled Y-rotation Ry(2 arccos(|A_ij|)); whether this stage alone realizes the signed/complex target, and what phase correction is needed, are questions to assess rather than assumed correctness.",
+    "Finite-precision arithmetic may round A~_ij slightly off A_ij"
+  ],
+  "overlap_assessment": {
+    "P1": "Shares the need for finite coherent phase data and full compute/uncompute accounting. Its digit-controlled signal phases differ from the proposed modular phase-gradient catalyst.",
+    "P2": "Single prepared-column accuracy does not bound arbitrary completion error; proposed P2 uses promises on every basis column and derives sharp square-root dimension loss under unitarity.",
+    "E2": "Shares exact relative phase and conditional PREP/SELECT clean projection. Proposed two-sided LCU coefficient/error interface is not this reserved amplitude-domain correction."
+  },
+  "changed_files": [
+    {
+      "path": "benchmarks/quantumcomputingbench/README.md",
+      "sha": "18e257b4f1d81dc2e952d32ed18293d7064babb4",
+      "status": "modified"
+    },
+    {
+      "path": "benchmarks/quantumcomputingbench/docs/textbook-representation-and-phase-domains-2026-10-23.md",
+      "sha": "35390b861eb068e48a5b0cfc6d52af022feea261",
+      "status": "added"
+    },
+    {
+      "path": "benchmarks/quantumcomputingbench/reports/textbook-v1/repairs/plan-117-haar-continuity-shear-answer-repair-public-review.json",
+      "sha": "521a39ae0e3570e754cf5748d033a01c397e5563",
+      "status": "added"
+    },
+    {
+      "path": "benchmarks/quantumcomputingbench/reports/textbook-v1/repairs/plan-118-algebraic-division-ring-scope-answer-repair-public-review.json",
+      "sha": "5105352442dbfd83ef00b0d3fb6c7139726ff9f3",
+      "status": "added"
+    },
+    {
+      "path": "benchmarks/quantumcomputingbench/reports/textbook-v1/repairs/plan-119-haar-continuity-normalized-coefficients-answer-repair-review.json",
+      "sha": "f219e75bb234b75b21d2d07cd24d7d95feea3613",
+      "status": "added"
+    },
+    {
+      "path": "benchmarks/quantumcomputingbench/reports/textbook-v1/repairs/plan-120-general-duality-basis-character-question-successor-review.json",
+      "sha": "b6d83f2c575835cbdecbc15643ff38218f569315",
+      "status": "added"
+    },
+    {
+      "path": "benchmarks/quantumcomputingbench/reports/textbook-v1/repairs/plan-208-phase-aware-domain-assumption-successor-precision-clarified-review.json",
+      "sha": "6eb7cc1954eaf65c7bfda036bc9dec44682faad2",
+      "status": "added"
+    },
+    {
+      "path": "benchmarks/quantumcomputingbench/shared/current-policy.json",
+      "sha": "fe05c46e59a0436000f04720183f54c6d93c11ae",
+      "status": "modified"
+    },
+    {
+      "path": "benchmarks/quantumcomputingbench/shared/repairs/plan-117-haar-continuity-shear-answer-repair.json",
+      "sha": "3e95cb7a7522011c0730d94376a3433c14d30903",
+      "status": "added"
+    },
+    {
+      "path": "benchmarks/quantumcomputingbench/shared/repairs/plan-118-algebraic-division-ring-scope-answer-repair.json",
+      "sha": "56712a012e26db823a53f967daba0ac0b469568b",
+      "status": "added"
+    },
+    {
+      "path": "benchmarks/quantumcomputingbench/shared/repairs/plan-119-haar-continuity-normalized-coefficients-answer-repair.json",
+      "sha": "e525ebf75a567f017a8a3555b511081cbc3cea8d",
+      "status": "added"
+    },
+    {
+      "path": "benchmarks/quantumcomputingbench/shared/repairs/plan-120-general-duality-basis-character-question-successor.json",
+      "sha": "67fae22ac56c38aac0e5b501e8de20aa5f3584a4",
+      "status": "added"
+    },
+    {
+      "path": "benchmarks/quantumcomputingbench/shared/repairs/plan-208-phase-aware-domain-assumption-successor-precision-clarified.json",
+      "sha": "a790dd3a2a1e5bf67ae5862bb8a717daf746adaf",
+      "status": "added"
+    },
+    {
+      "path": "benchmarks/quantumcomputingbench/tests/test_assumption_successor.py",
+      "sha": "ecb5e02524eb17598c6c85aac317fa03a228b58b",
+      "status": "modified"
+    },
+    {
+      "path": "benchmarks/quantumcomputingbench/tests/test_field_tensor_checkpoint.py",
+      "sha": "da425f0c3dcc28e657f0396681124ef60533e05a",
+      "status": "modified"
+    },
+    {
+      "path": "benchmarks/quantumcomputingbench/tests/test_representation_assumption_checkpoint.py",
+      "sha": "28e501a397be5f2894eafa97f4b9f5ca3c31434b",
+      "status": "added"
+    },
+    {
+      "path": "benchmarks/quantumcomputingbench/tracks/lean/AGENT_GOAL.md",
+      "sha": "def31c0776ae5433cb416ae98becdb95f3c0557b",
+      "status": "modified"
+    },
+    {
+      "path": "benchmarks/quantumcomputingbench/tracks/non-lean/AGENT_GOAL.md",
+      "sha": "8b7b395aa1d1c32a7e0e545383e756e33dcdb38d",
+      "status": "modified"
+    },
+    {
+      "path": "website/scripts/test_quantumcomputingbench.py",
+      "sha": "bfee3378c01b3182ad166842db2824fd4eefa3e3",
+      "status": "modified"
+    }
+  ],
+  "not_claimed": [
+    "PR merged",
+    "reserved Plan208 restored",
+    "whole-PR mathematical review",
+    "candidate admission"
+  ]
+}

@@ -1,0 +1,653 @@
+{
+  "slot": "P1",
+  "title": "A reversible finite-bit phase supplier with a reusable gradient catalyst",
+  "author": "/root/batch2_phase",
+  "proposal_id": "a6e10b70-258b-447f-87ed-0317406255f5",
+  "core_id": "candidate:a6e10b70-258b-447f-87ed-0317406255f5",
+  "admission": "candidate_not_counted",
+  "dedup_review_required": true,
+  "split": "unassigned_pending_reconciliation",
+  "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "target_nodes": [
+    "concept:operator-theory",
+    "concept:complexity"
+  ],
+  "supporting_nodes": [
+    "declaration:QuantumBlockEncoding.modularAdd3_cleanAction",
+    "declaration:QuantumBlockEncoding.evalPrimitiveProgram_dagger"
+  ],
+  "question": "Let \\(m\\geq1\\), \\(M=2^m\\), and let \\(X\\) be an \\(n\\)-qubit input register. Integer registers use little-endian bits: \\(z=\\sum_{j=0}^{m-1}2^jz_j\\). An explicitly supplied reversible circuit \\(B\\), built from \\(X\\), CNOT and Toffoli gates, acts on \\((X,Q,W)\\), where \\(Q\\) has \\(m\\) bits and \\(W\\) has \\(w\\) bits. Its clean-input action is\n\\[\nB|x,0^m,0^w\\rangle=|x,q_x,\\gamma_x\\rangle,\n\\qquad q_x\\in\\{0,\\ldots,M-1\\}.\n\\]\nThe entire gate list is supplied, with gate-count vector \\(g_B=(b_X,b_{\\mathrm{CX}},b_{\\mathrm{CCX}})\\); neither \\(\\gamma_x=0\\) nor a cost bound polynomial in \\(n,m\\) is promised. All supplier work is included in \\(W\\). Define\n\\[\n|G_m\\rangle=M^{-1/2}\\sum_{y=0}^{M-1}e^{2\\pi i y/M}|y\\rangle,\n\\qquad D_q|x\\rangle=e^{-2\\pi i q_x/M}|x\\rangle.\n\\]\nUse a separate \\(m\\)-qubit register \\(Y\\) for this phase-gradient state and clean scratch \\(A\\). The permitted logical gate set additionally contains Hadamard \\(H\\) and the exactly specified phase gates \\(P(\\theta)=\\operatorname{diag}(1,e^{i\\theta})\\) at dyadic multiples of \\(\\pi\\); this is an ideal logical model, not an assumed fixed-finite-gate compilation.\n\nConstruct a coherent implementation of \\(D_q\\) from \\(B\\), modular addition \\(|q,y\\rangle\\mapsto|q,y+q\\bmod M\\rangle\\), and an actual inverse of \\(B\\). Prove the full register action, including arbitrary superpositions of \\(x\\), the sign of the phase despite modular wrapping, restoration of both \\(Q,W\\), and return of \\(Y\\) as a separable reusable \\(|G_m\\rangle\\). Explain precisely why tracing the supplier record is not the advertised clean implementation.\n\nThe modular adder itself must be supplied, not treated as a unit-cost oracle. Use this explicit route: for each \\(j=0,\\ldots,m-1\\), conditionally increment the suffix \\(Y_j,\\ldots,Y_{m-1}\\) when \\(Q_j=1\\); within an increment visit target bits from highest to lowest. Derive each controlled flip from the binary carry rule. Implement a NOT with \\(k\\geq2\\) distinct controls by computing their conjunction along a clean chain, flipping the target, and reversing the chain; a one-control NOT is CNOT. Derive a closed expression for the resulting Toffoli count, the CNOT count, and the maximum simultaneously needed clean scratch. Prove that all scratch is restored and the arithmetic is correct for every word, rather than giving only a small-width example.\n\nConstruct a product-gate preparation \\(F_m|0^m\\rangle=|G_m\\rangle\\). For \\(L\\geq1\\) uses with the same supplied \\(B\\), give the complete gate-count and live-qubit ledger both when the catalyst is returned for reuse and when it is finally reset coherently by \\(F_m^\\dagger\\). Charge the supplied computation and its inverse on every use; distinguish these costs from the one-time catalyst preparation. Do not assume any of these registers can be erased or inverses obtained from mere forward black-box access.\n\nAs a stability test, replace \\(F_m\\) by an actual unitary preparation \\(\\widetilde F_m\\) whose prepared vector has Euclidean error at most \\(\\eta\\). Keep every supplier and adder exact, permit arbitrary interleaved unitaries acting only on the data registers, and reuse the same catalyst for \\(L\\) coherent uses. Bound the full output error relative to the ideal data output tensored with \\(|G_m\\rangle\\), and separately bound the full clean-zero output error after applying the actual \\(\\widetilde F_m^\\dagger\\). Determine whether an unavoidable factor \\(L\\) follows from catalyst preparation error alone, and whether exact catalyst factorization still follows. Keep Euclidean vector error, clean-zero return, and a gate-synthesis guarantee distinct; treat \\(m=1\\) and the optional zero-bit extension explicitly.",
+  "assumptions": [
+    "The complete reversible supplier gate list B and its exact clean-input action are given; its data-dependent garbage is explicitly retained in W.",
+    "The modular-adder circuit and catalyst preparation are to be constructed in the stated logical gate model.",
+    "The approximate-catalyst subproblem assumes an actual unitary preparation and its actual inverse; all intervening suppliers/adders are exact."
+  ],
+  "conventions": [
+    "Register order is X,Q,W,Y,A, with little-endian integer words; the adder overwrites Y and preserves Q.",
+    "The gradient has positive Fourier exponent, so addition kicks back a negative phase.",
+    "Logical gate counts and finite-word storage are distinguished from fixed-finite-gate synthesis, connectivity, depth and supplier construction costs."
+  ],
+  "source_refs": [
+    {
+      "path": "QuantumBlockEncoding/ModularAdder3.lean",
+      "anchor": "Lines 31-73 reversible-program compiler and exact phase-aware refinement; 75-163 three-control clean-chain action; 197-246 fixed three-bit little-endian modular-adder action, cleanup and resources.",
+      "declarations": [
+        "compileReversibleProgram",
+        "compileReversibleProgram_eval",
+        "cleanC3XReversibleProgram",
+        "cleanC3XBasisAction",
+        "cleanC3XWorkspaceClean",
+        "littleEndian3Value",
+        "modularAdd3ReversibleProgram",
+        "modularAdd3_cleanAction"
+      ],
+      "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+      "sha256": "3995a7d9068322d7116e6d3852111574c3c94acc09b9927231be931d33d17002",
+      "raw_sha256": "3995a7d9068322d7116e6d3852111574c3c94acc09b9927231be931d33d17002",
+      "hash_policy": "sha256-lf-text-v1",
+      "raw_equals_lf": true,
+      "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "matches_frozen_snapshot_input_hash": true,
+      "evidence_relation": "Inspected fixed-width and compiler substrate only; arbitrary-width adder, Fourier catalyst, supplier construction and stability theorem are original natural-language derivations.",
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+    },
+    {
+      "path": "QuantumBlockEncoding/PrimitiveSemantics.lean",
+      "anchor": "Lines 400-410 chronological reverse-adjoint circuit; 412-478 exact global phase, program composition, unitarity and dagger.",
+      "declarations": [
+        "evalPrimitiveCircuit_dagger",
+        "evalGlobalPhase",
+        "evalPrimitiveProgram",
+        "evalPrimitiveProgram_seq",
+        "evalPrimitiveProgram_unitary",
+        "evalPrimitiveProgram_dagger"
+      ],
+      "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+      "sha256": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+      "raw_sha256": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+      "hash_policy": "sha256-lf-text-v1",
+      "raw_equals_lf": true,
+      "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "matches_frozen_snapshot_input_hash": true,
+      "evidence_relation": "Exact phase/order/inverse conventions only; this source has no general phase-gradient supplier theorem.",
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+    },
+    {
+      "path": "QuantumBlockEncoding/PrimitiveCircuit.lean",
+      "anchor": "Lines 17-55 ExactAngle data/evaluation and exact-real export warning; 94-106 primitive gate/program declarations.",
+      "declarations": [
+        "ExactAngle",
+        "ExactAngle.eval",
+        "PrimitiveGate",
+        "PrimitiveProgram"
+      ],
+      "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+      "sha256": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c",
+      "raw_sha256": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c",
+      "hash_policy": "sha256-lf-text-v1",
+      "raw_equals_lf": true,
+      "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "matches_frozen_snapshot_input_hash": true,
+      "evidence_relation": "Resource-tier boundary only: the question explicitly chooses a different logical macro gate set; no silent equality with repository primitive counts.",
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+    }
+  ],
+  "schema_version": "qcb.nonlean_cohort_payload.v1",
+  "contribution_type": "new_candidate",
+  "mathematical_target": "Uniform arbitrary-width modular phase-gradient construction from a supplied reversible finite-word producer, exact macro resources and full garbage cleanup, with an independent-of-use-count initial-catalyst error guarantee.",
+  "family": "candidate-finite-word-phase-gradient-supplier",
+  "reference_answer": "Write \\(T_q|y\\rangle=|y+q\\bmod M\\rangle\\). Relabel the finite Fourier sum by \\(z=y+q\\bmod M\\). For the unique representative \\(y\\in\\{0,\\ldots,M-1\\}\\), the integers \\(y\\) and \\(z-q\\) differ by a multiple of \\(M\\), so their exponential factors agree. Therefore\n\\[\nT_q|G_m\\rangle\n=M^{-1/2}\\sum_z e^{2\\pi i(z-q)/M}|z\\rangle\n=e^{-2\\pi iq/M}|G_m\\rangle.\n\\]\nThe sign is negative for the positive Fourier exponent specified in the question. A negative Fourier exponent, or subtraction instead of addition, reverses it. This is an exact modular identity, including wrapped additions.\n\nFirst construct the promised adder. For a fixed bit \\(Q_j\\), adding \\(2^j\\) to \\(Y\\) when \\(Q_j=1\\) is a conditional increment of the suffix beginning at \\(j\\). The target bit \\(Y_i\\), for \\(i\\geq j\\), flips exactly when\n\\[\nQ_j\\prod_{r=j}^{i-1}Y_r=1,\n\\]\nwhere the empty product for \\(i=j\\) is one. These are the OLD suffix bits. Visiting \\(i=m-1,m-2,\\ldots,j\\) preserves every lower controlling bit until all targets that need it have been processed. Thus the stated multi-controlled flips implement the binary carry rule, discard overflow modulo \\(2^m\\), and preserve \\(Q\\). In contrast, flipping from the low bit upward with these same controls would inspect changed bits and implement the wrong rule. Applying the increments for all \\(j\\) adds \\(\\sum_j2^jQ_j=q\\) modulo \\(M\\), because each increment has the proved action on the word presented to it.\n\nA NOT with two controls is one Toffoli. For \\(k\\geq3\\) controls \\(c_1,\\ldots,c_k\\), use \\(k-2\\) fresh-zero scratch bits. Compute \\(a_1=c_1c_2\\), then \\(a_2=a_1c_3\\), up to \\(a_{k-2}=c_1\\cdots c_{k-1}\\), by \\(k-2\\) Toffolis. Flip the designated target with controls \\(a_{k-2},c_k\\), then reverse those \\(k-2\\) computations. None of the original controls has changed. The scratch returns exactly to zero, and the total is \\(2k-3\\) Toffolis. All targets, controls and scratch in this construction are distinct. The \\(k=2\\) formula gives one Toffoli and zero scratch; the one-control case is CNOT.\n\nThe suffix increment contains one CNOT at its lowest target. Its target \\(i=j+d\\), \\(d\\geq1\\), has \\(k=d+1\\) controls and therefore costs \\(2d-1\\) Toffolis. Reuse the clean chain after each flip. The whole adder has\n\\[\nC_{\\mathrm{CX}}(m)=m,\\qquad\nT(m)=\\sum_{d=1}^{m-1}(m-d)(2d-1)\n=\\frac{m(m-1)(2m-1)}6,\n\\qquad a_m=\\max(m-2,0)\n\\]\nToffolis and simultaneously live scratch bits, respectively. The polynomial follows from the elementary sums of \\(d\\) and \\(d^2\\); it is also \\(\\sum_{r=1}^{m-1}r^2\\). There are no X, H or phase gates in this adder. The result is a deliberately simple exact construction, not an optimality claim. Since each elementary gate is reversible and each scratch chain is uncomputed on every basis input, linearity gives the clean action on arbitrary entangled inputs as well.\n\nNow let \\(K\\) denote chronological application of \\(B\\), this adder on \\((Q,Y,A)\\), and \\(B^\\dagger\\) on \\((X,Q,W)\\). In the fixed order \\((X,Q,W,Y,A)\\), the basis-state transcript is\n\\[\n\\begin{aligned}\n|x,0,0\\rangle|G_m\\rangle|0\\rangle\n&\\xrightarrow{B}|x,q_x,\\gamma_x\\rangle|G_m\\rangle|0\\rangle\\\\\n&\\xrightarrow{\\mathrm{ADD}}\ne^{-2\\pi iq_x/M}|x,q_x,\\gamma_x\\rangle|G_m\\rangle|0\\rangle\\\\\n&\\xrightarrow{B^\\dagger}\ne^{-2\\pi iq_x/M}|x,0,0\\rangle|G_m\\rangle|0\\rangle.\n\\end{aligned}\n\\]\nThe adder preserves both \\(Q\\) and \\(W\\), so the supplied full inverse really applies to the same \\((q_x,\\gamma_x)\\) record that \\(B\\) produced. It is not enough to clear only \\(Q\\). The inverse is available here because the entire circuit list was supplied: reverse its order, since X, CNOT and Toffoli are all self-inverse. No controlled inverse of a black box has been assumed. For every normalized coherent input \\(\\sum_xc_x|x\\rangle\\), linearity gives\n\\[\nK\\left(\\sum_xc_x|x\\rangle|0_Q0_W\\rangle|G_m\\rangle|0_A\\rangle\\right)\n=\\left(\\sum_xc_xe^{-2\\pi iq_x/M}|x\\rangle\\right)\n |0_Q0_W\\rangle|G_m\\rangle|0_A\\rangle.\n\\]\nThe catalyst factorizes exactly and all other ancillary registers are zero. The same argument holds with an untouched reference entangled with the data. Tracing out the supplier record instead would multiply data coherences by \\(\\langle q_{x'},\\gamma_{x'}|q_x,\\gamma_x\\rangle\\), generally deleting coherence between unequal records; it would also not return the promised workspace. Equal-record or single-input exceptions do not certify the arbitrary-input clean interface. Neither a measurement nor amplification is needed here.\n\nThe binary expansion of \\(y\\) factorizes the gradient:\n\\[\n|G_m\\rangle=\n\\bigotimes_{r=0}^{m-1}\n\\frac{|0\\rangle+e^{i\\theta_r}|1\\rangle}{\\sqrt2},\n\\qquad \\theta_r=\\frac{2\\pi2^r}{2^m}.\n\\]\nThus apply H and then \\(P(\\theta_r)\\) on each physical bit \\(Y_r\\). This preparation \\(F_m\\) costs \\(m\\) H and \\(m\\) P gates in the declared logical model. Its inverse applies \\(P(-\\theta_r)\\) and then H on each bit. The physical ordering is little-endian; no bit reversal or hidden quantum Fourier transform is required.\n\nFor \\(L\\) uses of the same supplier, the exact total gate counts, starting with all ancillary registers zero, are\n\\[\n\\begin{array}{c|cc}\n\\text{gate class}&\\text{catalyst returned}&\\text{final coherent reset}\\\\\\hline\nX&2Lb_X&2Lb_X\\\\\n\\mathrm{CX}&2Lb_{\\mathrm{CX}}+Lm&2Lb_{\\mathrm{CX}}+Lm\\\\\n\\mathrm{CCX}&2Lb_{\\mathrm{CCX}}+LT(m)&2Lb_{\\mathrm{CCX}}+LT(m)\\\\\nH&m&2m\\\\\nP\\text{ or }P^\\dagger&m&2m\n\\end{array}\n\\]\nThere are \\(L\\) forward and \\(L\\) inverse supplier executions and \\(L\\) adders. Any separately chosen data-only unitaries are additional and must be charged separately. The maximum live width of the displayed implementation is\n\\[\nn+2m+w+a_m.\n\\]\nIt includes the output word, all supplier garbage, the catalyst and the adder scratch; reusing zero scratch after each gate does not remove its peak-width cost. The same width suffices for final reset. In the first column \\(Y\\) returns as the specified nonzero catalyst, not as a clean-zero ancilla. In the second, \\(F_m^\\dagger\\) restores it to zero after the last use. If a ready catalyst is already supplied, the initial \\(m\\) H and \\(m\\) P charge is an external preparation cost rather than a repeated per-use cost.\n\nFor the stability question, include every supplier, adder and interleaved data-only unitary in one unitary \\(\\mathcal C_L\\). On the exact gradient sector it satisfies\n\\[\n\\mathcal C_L(|\\psi\\rangle|0_{QWA}\\rangle|G_m\\rangle)\n=|\\Phi_\\psi\\rangle|0_{QWA}\\rangle|G_m\\rangle,\n\\]\nwhere \\(|\\Phi_\\psi\\rangle\\) is the ideal data output for that entire sequence. Register notation here merely groups the already fixed wires. Put \\(|\\widetilde G_m\\rangle=\\widetilde F_m|0\\rangle\\). Unitarity of the WHOLE sequence yields\n\\[\n\\left\\|\\mathcal C_L(|\\psi\\rangle|0\\rangle|\\widetilde G_m\\rangle)\n-|\\Phi_\\psi\\rangle|0\\rangle|G_m\\rangle\\right\\|_2\n=\\|\\widetilde G_m-G_m\\|_2\\leq\\eta.\n\\]\nThere is no factor \\(L\\): the sole error was in the initial vector, and exact unitary evolution preserves its norm. Q, W and A are in fact still restored exactly even for a non-eigenstate catalyst, because ADD preserves the supplier record and returns its own scratch on every Y basis state. Y can become entangled with the data; exact gradient return or exact factorization does not follow for \\(\\widetilde G_m\\).\n\nAfter the actual inverse \\(\\widetilde F_m^\\dagger\\), a triangle decomposition gives full clean-zero error at most\n\\[\n\\eta+\\left\\|\\widetilde F_m^\\dagger|G_m\\rangle-|0^m\\rangle\\right\\|_2\n=\\eta+\\left\\||G_m\\rangle-\\widetilde F_m|0^m\\rangle\\right\\|_2\\leq2\\eta.\n\\]\nBoth outputs are unit vectors, so this bound can also be capped at 2. It is a bound, not an assertion of exact reset or an optimal constant. Errors in every adder or supplier would be a different model, where repeated-operation bounds can accumulate. Actual preparation/inverse gate costs must replace the ideal \\(m\\)-gate counts when \\(\\widetilde F_m\\) is used; a vector-error certificate alone gives no synthesis cost.\n\nAt \\(m=1\\), \\(|G_1\\rangle=(|0\\rangle-|1\\rangle)/\\sqrt2\\), the adder is one CNOT, and \\(T(1)=a_1=0\\). This is the Boolean kickback special case. If one explicitly extends to \\(m=0\\), then \\(M=1\\), Q and Y are trivial, \\(q_x=0\\), and \\(D_q=I\\). No adder, catalyst preparation or scratch is needed; one can omit B entirely. If the redundant B-then-inverse route is nevertheless retained, its actual \\(2L g_B\\) cost and any W width remain. There is no division by a nonexistent bit index.\n\nThe finite-word supplier, exact reversible arithmetic, logical phase gates and optional approximate catalyst have separate contracts. No arbitrary real phase is claimed to have an efficient supplier, no accuracy to any unspecified real target phase is proved, and the supplied list length need not be polynomial. Exact dyadic P gates are allowed by the declared logical model; a fixed finite gate set, its approximation error, connectivity/depth, and any classical compiler require their own analysis. The source's phase-aware primitive program conventions do not identify its primitive-gate counts with these macro counts.",
+  "rubric": [
+    {
+      "id": "r1",
+      "weight": 1.5,
+      "criterion": "Derives the negative kickback eigenvalue by a modular change of variable and proves full coherent B/ADD/B-dagger action, including all supplier garbage and clean scratch; an untracked phase or omitted garbage cleanup loses credit."
+    },
+    {
+      "id": "r2",
+      "weight": 2.0,
+      "criterion": "Proves the arbitrary-width descending carry-controlled increment and clean conjunction-chain implementation; derives m CNOT, m(m-1)(2m-1)/6 Toffoli and max(m-2,0) scratch. Equivalent exact count expressions earn full credit; finite examples alone do not."
+    },
+    {
+      "id": "r3",
+      "weight": 1.0,
+      "criterion": "Constructs the little-endian product preparation and actual inverse using H then P on each bit, with exact phase convention and m+m preparation counts."
+    },
+    {
+      "id": "r4",
+      "weight": 2.0,
+      "criterion": "Gives the complete L-use supplier/inverse/adder/preparation ledger and live width, distinguishing reusable nonzero catalyst return from final clean-zero reset; separately charges any interleaved data gates and does not infer supplier efficiency from m output bits."
+    },
+    {
+      "id": "r5",
+      "weight": 2.0,
+      "criterion": "Uses one global unitary to prove <=eta full-output error independent of L from initial catalyst error alone, proves <=2eta after the actual approximate-preparation inverse, and explains why exact catalyst factorization/reset need not hold."
+    },
+    {
+      "id": "r6",
+      "weight": 1.5,
+      "criterion": "Explains trace-out versus coherent cleanup, actual inverse availability, m=1 and optional m=0, and the distinction between the logical dyadic-phase model, finite words and unproved fixed-finite-gate synthesis/resource guarantees."
+    }
+  ],
+  "common_errors": [
+    "Using a positive kickback phase with the specified positive Fourier exponent and addition.",
+    "Incrementing low bits first while testing changed lower bits as if they were original carry bits.",
+    "Charging a multi-controlled NOT as one Toffoli, or leaving its conjunction-chain scratch dirty.",
+    "Applying inverse computation only to the output word while ignoring supplier garbage.",
+    "Treating a returned gradient state as a clean-zero register, or charging preparation on every reuse without explanation.",
+    "Obtaining B-dagger from unsupported forward-only black-box access instead of the supplied reversible gate list.",
+    "Multiplying a single initial catalyst state error by L without analyzing the exact global unitary, or conversely claiming the approximate catalyst factorizes exactly.",
+    "Promoting finite-word arithmetic and ideal dyadic phase gates to an unproved fixed-finite-gate synthesis or polynomial supplier theorem."
+  ],
+  "boundary_cases": [
+    {
+      "case": "m=1",
+      "consequence": "The catalyst is the minus state; one CNOT and zero Toffoli/scratch implement the adder."
+    },
+    {
+      "case": "Explicit m=0 extension",
+      "consequence": "Target is identity, so all supplier calls can be omitted; a deliberately retained redundant B/B-dagger must still be charged."
+    },
+    {
+      "case": "Supplier garbage nonzero or colliding records",
+      "consequence": "B-dagger restores the exact full record; tracing only happens to preserve coherence within equal-record classes and does not satisfy the general clean interface."
+    },
+    {
+      "case": "Approximate catalyst",
+      "consequence": "QWA still return clean under exact reversible arithmetic, but Y may entangle with data; eta and 2eta are vector-error bounds, not exact resets."
+    },
+    {
+      "case": "Approximate gates on every use",
+      "consequence": "Outside the initial-catalyst-only error model; the no-L factor cannot be transferred without further analysis."
+    },
+    {
+      "case": "Gate model",
+      "consequence": "Dyadic phases are ideal declared logical gates; no optimality, fixed-finite-gate synthesis, connectivity or depth theorem is asserted."
+    }
+  ],
+  "difficulty": {
+    "D0_facet": "Fourier sign, modular wrap, clean-zero versus reusable catalyst, finite words versus ideal phase gates.",
+    "provisional_route_band": "D4",
+    "rationale": "Joins an arbitrary-width Boolean construction, coherent supplier cleanup, a Fourier eigenstate, exact resource amortization and global-unitary error propagation.",
+    "shortcut_disclosure": "The reversible supplier action is supplied; its algorithmic efficiency is not an assessed target. A supplied unit-cost adder would remove a central requested derivation.",
+    "measured_model_difficulty": false
+  },
+  "reasoning_map": {
+    "kind": "author_supplied_natural_language",
+    "not_extracted_lean_dependencies": true,
+    "inputs": [
+      {
+        "id": "I1",
+        "statement": "m >= 1, M=2^m; register order and little-endian binary convention.",
+        "kind": "typing_and_convention"
+      },
+      {
+        "id": "I2",
+        "statement": "The actual reversible gate list B, exact full clean-input action including gamma_x, and gate counts g_B.",
+        "kind": "assumption"
+      },
+      {
+        "id": "I3",
+        "statement": "The positive-exponent normalized Fourier gradient and negative-phase target D_q.",
+        "kind": "definition"
+      },
+      {
+        "id": "I4",
+        "statement": "Declared logical X/CNOT/Toffoli/H/dyadic-P gates and clean zero scratch.",
+        "kind": "resource_model"
+      },
+      {
+        "id": "I5",
+        "statement": "L >= 1; coherent uses may be interleaved with data-only unitaries.",
+        "kind": "assumption"
+      },
+      {
+        "id": "I6",
+        "statement": "For the stability branch only, actual unitary F_tilde, actual inverse, initial vector error <= eta, and otherwise exact circuits.",
+        "kind": "conditional_assumption"
+      },
+      {
+        "id": "I7",
+        "statement": "Separate optional boundary replacing I1: m=0, M=1, Q/Y trivial and q_x=0. If a redundant supplier is retained, its entire X/W reversible list and count are still supplied.",
+        "kind": "replacement_case_assumption"
+      }
+    ],
+    "steps": [
+      {
+        "id": "S1",
+        "claim": "Descending controlled flips realize a suffix increment on every word.",
+        "assumptions": [],
+        "required_inputs": [
+          "I1",
+          "I4"
+        ],
+        "conclusion": "For target i >= j the OLD lower-bit carry is Q_j product_{r=j}^{i-1}Y_r; descending order preserves those controls.",
+        "justification": "The binary carry rule AND descending order give addition modulo 2^m; overflow is dropped."
+      },
+      {
+        "id": "S2",
+        "claim": "Conjunction chains realize each multi-controlled NOT and clean scratch.",
+        "assumptions": [],
+        "required_inputs": [
+          "I4"
+        ],
+        "conclusion": "k controls cost 2k-3 Toffolis and k-2 scratch for k>=2; k=1 costs one CNOT.",
+        "justification": "Compute k-1-control conjunction, apply target flip, then reverse the unchanged-control computation."
+      },
+      {
+        "id": "S3",
+        "claim": "The complete adder has an arbitrary-width correctness and cost proof.",
+        "assumptions": [],
+        "required_inputs": [
+          "I1",
+          "S1",
+          "S2"
+        ],
+        "conclusion": "ADD preserves Q, adds q to Y modulo M, and restores A; counts m CNOT, m(m-1)(2m-1)/6 Toffoli, max(m-2,0) scratch.",
+        "justification": "Compose all weighted increments AND sum all controlled-flip costs; scratch is reused only after its return to zero."
+      },
+      {
+        "id": "S4",
+        "claim": "Fourier translation gives the exact kickback eigenvalue, including wrap.",
+        "assumptions": [],
+        "required_inputs": [
+          "I1",
+          "I3",
+          "S3"
+        ],
+        "conclusion": "T_q G_m=exp(-2pi i q/M) G_m.",
+        "justification": "Relabel by z=y+q modulo M; changes by integer multiples of M do not change the exponential."
+      },
+      {
+        "id": "S5",
+        "claim": "The supplied list provides the actual inverse and complete coherent cleanup.",
+        "assumptions": [],
+        "required_inputs": [
+          "I2",
+          "S3",
+          "S4"
+        ],
+        "conclusion": "B;ADD;B-dagger implements D_q, returns QWA to zero and factorizes the gradient on every coherent input.",
+        "justification": "B-dagger is the reversed self-inverse gate list; ADD preserves both q and gamma, so inverse cancellation AND the eigenvalue identity apply."
+      },
+      {
+        "id": "S6",
+        "claim": "The gradient has a concrete product preparation and inverse.",
+        "assumptions": [],
+        "required_inputs": [
+          "I1",
+          "I3",
+          "I4"
+        ],
+        "conclusion": "F_m uses m H and m dyadic P gates; F_m-dagger uses their reversed inverses.",
+        "justification": "Factor the phase using the little-endian binary expansion of y."
+      },
+      {
+        "id": "S7",
+        "claim": "Every use and initialization/reset have separate exact ledger entries.",
+        "assumptions": [],
+        "required_inputs": [
+          "I1",
+          "I2",
+          "I4",
+          "I5",
+          "S3",
+          "S5",
+          "S6"
+        ],
+        "conclusion": "L times the supplier/inverse/adder counts plus one F_m, and optionally one F_m-dagger; width n+2m+w+max(m-2,0).",
+        "justification": "Clean per-use registers can be reused; the nonzero catalyst is not a clean-zero ancilla until its final inverse preparation."
+      },
+      {
+        "id": "S8",
+        "claim": "A single approximate initial catalyst has a norm-preserved error through all uses.",
+        "assumptions": [],
+        "required_inputs": [
+          "I5",
+          "I6",
+          "S3",
+          "S5"
+        ],
+        "conclusion": "Full error relative to ideal data tensor exact G_m is <= eta independent of L; QWA still clean, Y need not factorize.",
+        "justification": "All operations form one unitary AND the exact-gradient sector has the required invariant action."
+      },
+      {
+        "id": "S9",
+        "claim": "Actual approximate-preparation inverse gives a bounded, not exact, clean reset.",
+        "assumptions": [],
+        "required_inputs": [
+          "I6",
+          "S8"
+        ],
+        "conclusion": "Full error relative to ideal data tensor all zeros is <= 2 eta (also <=2).",
+        "justification": "Triangle inequality combines propagated initial error with norm(F_tilde-dagger G_m - zero)=norm(G_m-F_tilde zero)."
+      },
+      {
+        "id": "S10",
+        "claim": "One-bit and resource-model boundaries preserve the advertised meaning.",
+        "assumptions": [],
+        "required_inputs": [
+          "I1",
+          "I2",
+          "I4",
+          "S3",
+          "S6",
+          "S7"
+        ],
+        "conclusion": "m=1 is one-CNOT Boolean kickback; no supplier efficiency or fixed-finite-gate synthesis follows.",
+        "justification": "Evaluate the nonnegative-width formulas at m=1; distinguish the declared ideal gate model and supplied list from additional compilation promises."
+      },
+      {
+        "id": "S11",
+        "claim": "The explicitly separate zero-bit extension is an identity route.",
+        "assumptions": [
+          "Use I7 in place of I1; none of S1-S10 is a premise for this boundary."
+        ],
+        "required_inputs": [
+          "I4",
+          "I5",
+          "I7"
+        ],
+        "conclusion": "No catalyst or adder gates are needed and B may be omitted; retaining B and its reverse still costs 2L g_B and any supplier work width.",
+        "justification": "The only word has q=0, so its phase is 1. The optional redundant supplied reversible list cancels with its reverse independently of any positive-width carry proof."
+      }
+    ],
+    "reused_results": [
+      {
+        "result": "Source fixed three-bit modular addition and three-control clean-chain pattern.",
+        "consumers": [
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "status": "Inspected finite-width substrate only; arbitrary-width proof and counts are derived explicitly here."
+      },
+      {
+        "result": "Exact phase-aware program composition and dagger semantics.",
+        "consumers": [
+          "S4",
+          "S5"
+        ],
+        "status": "Inspected convention, not a compiled phase-gradient theorem."
+      },
+      {
+        "result": "Boolean one-bit phase kickback (qcb-core-plan-519).",
+        "consumers": [
+          "S10"
+        ],
+        "status": "Disclosed strict m=1 special case; not counted as the new assessed target."
+      }
+    ],
+    "reconvergent_branches": [
+      {
+        "branches": [
+          "S3",
+          "S4",
+          "I2"
+        ],
+        "join": "S5",
+        "meaning": "Correct/clean arithmetic AND Fourier eigenstate AND full reversible supplier are all needed."
+      },
+      {
+        "branches": [
+          "S5",
+          "S6"
+        ],
+        "join": "S7",
+        "meaning": "Reusable action and actual initial preparation jointly justify amortized costs."
+      },
+      {
+        "branches": [
+          "I6",
+          "S8"
+        ],
+        "join": "S9",
+        "meaning": "Actual inverse access and initial-state propagation jointly justify the final reset bound."
+      }
+    ],
+    "case_scopes": {
+      "exact_main": {
+        "steps": [
+          "S1",
+          "S2",
+          "S3",
+          "S4",
+          "S5",
+          "S6",
+          "S7",
+          "S10"
+        ]
+      },
+      "approximate_preparation": {
+        "premise": "I6",
+        "steps": [
+          "S8",
+          "S9"
+        ]
+      },
+      "zero_bit_extension": {
+        "replacement_premise": "I7",
+        "excluded_main_premise": "I1",
+        "steps": [
+          "S11"
+        ],
+        "note": "The identity route may omit B; retaining a redundant B/B-dagger still costs its gates."
+      }
+    }
+  },
+  "overlap": {
+    "global_semantic_reconciliation": "pending",
+    "assessed_delta": "Uniform arbitrary-width modular phase-gradient construction from a supplied reversible finite-word producer, exact macro resources and full garbage cleanup, with an independent-of-use-count initial-catalyst error guarantee.",
+    "related_targets": [
+      {
+        "id": "prior-package-99e830bd/B2; candidate:06369e40-07df-4a8c-9105-ac09ebc9b41c",
+        "split": "unassigned candidate",
+        "relation": "B2 specifies abstract negative diagonal correction and explicitly lacks an effective phase supplier. P1's assessed delta is the actual reversible finite-word/gradient construction, arbitrary-width gate ledger and catalyst stability, not the B2 phase iff theorem."
+      },
+      {
+        "id": "prior-package-99e830bd/B3",
+        "split": "unassigned candidate",
+        "relation": "B3 optimizes precision under an assumed supplier cost law; P1 supplies a different explicit modular computation/catalyst mechanism and does not re-solve that allocation."
+      },
+      {
+        "id": "qcb-core-plan-519",
+        "split": "test_public",
+        "relation": "Boolean one-bit kickback is exactly the disclosed m=1 boundary, not new credit. P1 derives general m, supplier garbage cleanup, a constructive adder and preparation/reuse/reset costs."
+      },
+      {
+        "id": "qcb-core-plan-207",
+        "split": "test_public",
+        "relation": "Compute-rotate-uncompute and trace-out boundaries are reused context. P1 changes the actual target and mechanism to a finite-word diagonal phase via a reusable translation eigenstate; amplitude-oracle loading is not retasked."
+      },
+      {
+        "id": "qcb-core-plan-209",
+        "split": "test_public",
+        "relation": "Original-entry query/compute/uncompute accounting overlaps as a discipline, but does not supply P1's explicit adder, Fourier catalyst or nonaccumulating initial-catalyst error argument."
+      },
+      {
+        "id": "qcb-core-plan-208",
+        "split": "test_public (reserved; withheld)",
+        "relation": "Not repaired or reassigned. Current main withholds this reserved maxnorm/amplitude-completion target. Root inspected PR114 at ff361a6 and reported its additional single-prepared-column completion boundary; this worker has not independently inspected that branch object."
+      },
+      {
+        "id": "assessment-v2/coherent_control_global_relative_phase; assessment-v3/promise_register_protocols",
+        "split": "sealed/public metadata only",
+        "relation": "Root's bounded reservation screen reports coherent-control/global-relative-phase and dirty-control/controlled-conjugation clusters. Full sealed questions are not available in this public workspace, so no complete semantic clearance is claimed."
+      }
+    ],
+    "split_action": "Unassigned pending reconciliation; overlaps with public-test/dev and unresolved candidates forbid a clean training or independence claim.",
+    "bounded_review_scope": "Current resolved public core/reader exports, prior B2/B3 and current intake addenda were read. Root-reported open/sealed reservations are marked as such; unavailable sealed questions were not inferred from metadata.",
+    "dedup_review_required": true
+  },
+  "unverified": [
+    "Original natural-language derivation only; no Lean execution, kernel replay, axiom audit or production-source change was performed.",
+    "Author freeze is awaiting distinct answer-blind derivation and comparison. This author claims no independent review or approval.",
+    "Source inspection grounds conventions and explicitly limited formal substrate, not the complete new mathematical target.",
+    "Frozen graph identities represent declared source ownership and navigation, not extracted theorem-proof dependencies or new formal theorem closure.",
+    "Global semantic deduplication, split assignment, release admission and measured model difficulty/performance remain unresolved.",
+    "No paid model run, training, inference experiment, system installation, commit or push was performed by this worker."
+  ],
+  "provenance": {
+    "author_identity": "/root/batch2_phase",
+    "baseline_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+    "frozen_graph_snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+    "frozen_graph_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+    "question_only_path": "questions/P1.json",
+    "question_only_sha256": "1c384256a5d201da125452732e73daa99a3656d1028d455b5039a12b956f1e90",
+    "question_text_sha256": "9076c3d5e8d11e22287c5bedc360890064e408279f3ab1d9ae7068967b6d1399",
+    "question_first_record": "evidence/phase-question-freeze.json",
+    "evidence_class": "original_nl_construction_using_inspected_formal_substrate",
+    "source_inspection": [
+      {
+        "path": "QuantumBlockEncoding/ModularAdder3.lean",
+        "anchor": "Lines 31-73 reversible-program compiler and exact phase-aware refinement; 75-163 three-control clean-chain action; 197-246 fixed three-bit little-endian modular-adder action, cleanup and resources.",
+        "declarations": [
+          "compileReversibleProgram",
+          "compileReversibleProgram_eval",
+          "cleanC3XReversibleProgram",
+          "cleanC3XBasisAction",
+          "cleanC3XWorkspaceClean",
+          "littleEndian3Value",
+          "modularAdd3ReversibleProgram",
+          "modularAdd3_cleanAction"
+        ],
+        "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+        "sha256": "3995a7d9068322d7116e6d3852111574c3c94acc09b9927231be931d33d17002",
+        "raw_sha256": "3995a7d9068322d7116e6d3852111574c3c94acc09b9927231be931d33d17002",
+        "hash_policy": "sha256-lf-text-v1",
+        "raw_equals_lf": true,
+        "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "matches_frozen_snapshot_input_hash": true,
+        "evidence_relation": "Inspected fixed-width and compiler substrate only; arbitrary-width adder, Fourier catalyst, supplier construction and stability theorem are original natural-language derivations.",
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+      },
+      {
+        "path": "QuantumBlockEncoding/PrimitiveSemantics.lean",
+        "anchor": "Lines 400-410 chronological reverse-adjoint circuit; 412-478 exact global phase, program composition, unitarity and dagger.",
+        "declarations": [
+          "evalPrimitiveCircuit_dagger",
+          "evalGlobalPhase",
+          "evalPrimitiveProgram",
+          "evalPrimitiveProgram_seq",
+          "evalPrimitiveProgram_unitary",
+          "evalPrimitiveProgram_dagger"
+        ],
+        "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+        "sha256": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+        "raw_sha256": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+        "hash_policy": "sha256-lf-text-v1",
+        "raw_equals_lf": true,
+        "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "matches_frozen_snapshot_input_hash": true,
+        "evidence_relation": "Exact phase/order/inverse conventions only; this source has no general phase-gradient supplier theorem.",
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+      },
+      {
+        "path": "QuantumBlockEncoding/PrimitiveCircuit.lean",
+        "anchor": "Lines 17-55 ExactAngle data/evaluation and exact-real export warning; 94-106 primitive gate/program declarations.",
+        "declarations": [
+          "ExactAngle",
+          "ExactAngle.eval",
+          "PrimitiveGate",
+          "PrimitiveProgram"
+        ],
+        "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+        "sha256": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c",
+        "raw_sha256": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c",
+        "hash_policy": "sha256-lf-text-v1",
+        "raw_equals_lf": true,
+        "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "matches_frozen_snapshot_input_hash": true,
+        "evidence_relation": "Resource-tier boundary only: the question explicitly chooses a different logical macro gate set; no silent equality with repository primitive counts.",
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+      }
+    ],
+    "imports_and_declaration_availability": {
+      "source_imports": "ModularAdder3 imports PrimitiveMacros; PrimitiveSemantics supplies phase-aware program/dagger conventions. The chosen P/H/Toffoli logical model is explicitly separate from repository primitive counts.",
+      "availability": "All active target/support nodes were checked in the frozen release-v3 snapshot. Current source file bytes match the snapshot input hashes; no snapshot refresh is needed for these limited anchors."
+    },
+    "conceptual_graph_relationships": [
+      {
+        "from": "Finite reversible word supplier + exact modular translation + Fourier eigenstate + full inverse",
+        "to": "Coherent diagonal phase and resource/cleanup guarantee",
+        "relation": "Author-supplied conceptual AND transport; not a formal implication edge."
+      }
+    ],
+    "justified_mathematical_dependencies": [
+      [
+        "I1",
+        "I4"
+      ],
+      [
+        "I4"
+      ],
+      [
+        "I1",
+        "S1",
+        "S2"
+      ],
+      [
+        "I1",
+        "I3",
+        "S3"
+      ],
+      [
+        "I2",
+        "S3",
+        "S4"
+      ],
+      [
+        "I1",
+        "I3",
+        "I4"
+      ],
+      [
+        "I1",
+        "I2",
+        "I4",
+        "I5",
+        "S3",
+        "S5",
+        "S6"
+      ],
+      [
+        "I5",
+        "I6",
+        "S3",
+        "S5"
+      ],
+      [
+        "I6",
+        "S8"
+      ],
+      [
+        "I1",
+        "I2",
+        "I4",
+        "S3",
+        "S6",
+        "S7"
+      ],
+      [
+        "I4",
+        "I5",
+        "I7"
+      ]
+    ],
+    "graph_anchor_relation": "Formal substrate and conventions only. New arbitrary-width/catalyst/sharpness conclusions have no compiled root claimed here.",
+    "review_state": "authored_awaiting_independent_review",
+    "external_sources": {
+      "inspected": [],
+      "paper_fidelity_claim": false
+    },
+    "license_attribution": "Original English mathematical exposition; source substrate MIT, Copyright (c) 2026 Quantum Block Encoding contributors. Repository LICENSE inspected.",
+    "generation": "No model evaluation, paid API, installation, training or Lean execution."
+  }
+}

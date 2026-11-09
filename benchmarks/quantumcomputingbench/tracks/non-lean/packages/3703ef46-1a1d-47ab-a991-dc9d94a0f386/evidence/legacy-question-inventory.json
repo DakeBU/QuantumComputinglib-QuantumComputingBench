@@ -1,0 +1,578 @@
+{
+  "source_path": "benchmarks/quantumcomputingbench/data/public/release-v3/release.json",
+  "source_sha256": "066842c0d2a0dfabaa83125b1e0acec240400025f02bf7a7cd6d5c3772155462",
+  "use": "Separate historical diagnostics, not current native gold or pooled evaluation. Question-only collision inventory.",
+  "items": [
+    {
+      "id": "qcb-93a09f278c059a57a12e",
+      "key": "breadth-cubic-unnormalized-operator",
+      "question": "For n=1, let v_j=(j/2)^3 for j=0,1. Can a unitary map |0> exactly to this v? Compute its squared norm and state the action of the library rank-one cubicOperator on both basis vectors. Distinguish this operator target from a normalized state-preparation target.",
+      "assumptions": [
+        "n=1 for the numerical witness",
+        "Column-vector basis action; rational coefficients embedded into a real/complex vector"
+      ],
+      "conventions": [
+        "j runs from 0 to 2^n-1",
+        "Operator normalization is not state normalization"
+      ],
+      "family": "breadth-cubic-unnormalized-operator",
+      "split": "train",
+      "target_nodes": [
+        "declaration:QuantumBlockEncoding.CubicStatePreparation.cubicOperator"
+      ],
+      "supporting_nodes": [
+        "declaration:QuantumBlockEncoding.CubicStatePreparation.cubicAmplitude",
+        "declaration:QuantumBlockEncoding.CubicStatePreparation.cubicNormSq"
+      ]
+    },
+    {
+      "id": "qcb-50319d5f3f55c7b54564",
+      "key": "breadth-banded-inverse-register",
+      "question": "Let L be a permutation of Z/(2^n). The banded access map loads the address first and then adds the preserved row: F(a,r)=(L(a)+r,r). Derive F inverse, explain why row preservation alone is not a loader specification, and identify the extra premise needed to get F(slot,r)=(offset(slot)+r,r). Does this semantic permutation certify the printed gate-count bounds?",
+      "assumptions": [
+        "n is a natural number",
+        "L is an actual permutation of Word n",
+        "Arithmetic is modulo 2^n"
+      ],
+      "conventions": [
+        "First register overwritten, second register preserved",
+        "Inverse composition reverses operation order"
+      ],
+      "family": "breadth-banded-inverse-register",
+      "split": "test_public",
+      "target_nodes": [
+        "declaration:QuantumBlockEncoding.BandedSparseAccess.accessEquiv_clean_slot"
+      ],
+      "supporting_nodes": [
+        "declaration:QuantumBlockEncoding.BandedSparseAccess.accessEquiv",
+        "declaration:QuantumBlockEncoding.BandedSparseAccess.modularSumEquiv",
+        "declaration:QuantumBlockEncoding.BandedSparseAccess.accessMatrix_unitary"
+      ]
+    },
+    {
+      "id": "qcb-c48492565a0aca0bbf44",
+      "key": "breadth-ghl-hermitian-pieces",
+      "question": "For an arbitrary finite complex matrix A define H=(A+A dagger)/2 and K=(A-A dagger)/(2i). Is K anti-Hermitian or Hermitian? Prove the correct claim and reconstruct A. Then apply the identity to S=[[A,B],[0,0]] without assuming A or B Hermitian.",
+      "assumptions": [
+        "Finite complex matrix with matching row/column index type",
+        "2i is nonzero in C"
+      ],
+      "conventions": [
+        "dagger is conjugate transpose",
+        "The antiHermitianPart identifier denotes division by 2i, yielding a Hermitian matrix"
+      ],
+      "family": "breadth-ghl-hermitian-pieces",
+      "split": "dev",
+      "target_nodes": [
+        "declaration:QuantumBlockEncoding.GHL2025.Hamiltonian.hermitian_decomposition"
+      ],
+      "supporting_nodes": [
+        "declaration:QuantumBlockEncoding.GHL2025.Hamiltonian.hermitianPart_isHermitian",
+        "declaration:QuantumBlockEncoding.GHL2025.Hamiltonian.antiHermitianPart_isHermitian",
+        "declaration:QuantumBlockEncoding.GHL2025.Hamiltonian.homogenizedS_eq_S1_add_iS2"
+      ]
+    },
+    {
+      "id": "qcb-e146e2a572a3f5879482",
+      "key": "breadth-robin-norm-convention-counterexample",
+      "question": "The implementation matrixOneNorm takes the maximum absolute ROW sum. For M=[[1,2],[0,0]], compute this quantity and the standard induced column-vector l1 operator norm. Explain the convention mismatch and whether a definition docstring can certify their equality.",
+      "assumptions": [
+        "Numeric real/rational matrix M with the stated entries",
+        "Standard column-vector l1 norm convention"
+      ],
+      "conventions": [
+        "Library definition is authoritative for computation, its norm label is separately audited",
+        "No change to the production definition"
+      ],
+      "family": "breadth-robin-norm-convention-counterexample",
+      "split": "train",
+      "target_nodes": [
+        "declaration:QuantumBlockEncoding.matrixOneNorm"
+      ],
+      "supporting_nodes": [
+        "declaration:QuantumBlockEncoding.matrixRowAbsSum"
+      ]
+    },
+    {
+      "id": "qcb-0114312eb64b6d738216",
+      "key": "breadth-hermite-resource-scope",
+      "question": "For k,n natural and L>0, unpack exists_polynomial_resources: how many wires does its circuit use, what are the gate/depth/oracle bounds, and what happens for a nonzero bond output b on the all-zero input? Does the result supply a finite-bit Clifford+T implementation?",
+      "assumptions": [
+        "k,n natural; L strictly positive",
+        "Exact primitive real-angle gate model"
+      ],
+      "conventions": [
+        "Data register first, clean bond appended",
+        "Zero oracle calls is a circuit metadata result, not universal free input construction"
+      ],
+      "family": "breadth-hermite-resource-scope",
+      "split": "train",
+      "target_nodes": [
+        "declaration:QuantumBlockEncoding.HermitePolynomialPreparation.exists_polynomial_resources"
+      ],
+      "supporting_nodes": []
+    },
+    {
+      "id": "qcb-5f21f62723a5d87ab091",
+      "key": "breadth-hermite-angle-budget",
+      "question": "An exact Hermite circuit has at most G=48(n+1)(2k+6)^3 primitive instructions. Assuming positional alignment with only RY angles changed on the same targets by at most delta>=0, derive a sufficient delta for operator error <=epsilon, epsilon>=0. Explain why a small gate-count difference or basis-state probability match alone cannot replace alignment.",
+      "assumptions": [
+        "epsilon>=0; k,n natural",
+        "Aligned approximate circuit supplied with same physical targets and only permitted RY changes"
+      ],
+      "conventions": [
+        "Chronological eval(g::rest)=eval(rest)*eval(g)",
+        "Induced Euclidean L2 operator norm, not entrywise norm or output-distribution distance"
+      ],
+      "family": "breadth-hermite-angle-budget",
+      "split": "dev",
+      "target_nodes": [
+        "declaration:QuantumBlockEncoding.PrimitiveCircuitPerturbation.prepare_conditional_distance_le"
+      ],
+      "supporting_nodes": [
+        "declaration:QuantumBlockEncoding.PrimitiveCircuitPerturbation.aligned_eval_distance_le",
+        "declaration:QuantumBlockEncoding.PrimitiveCircuitPerturbation.GateAligned.distance_le",
+        "declaration:QuantumBlockEncoding.PrimitiveCircuitPerturbation.hermiteAngleBudget"
+      ]
+    },
+    {
+      "id": "qcb-dd4d719e69bf777883b6",
+      "key": "breadth-stored-projection-cost",
+      "question": "For m stored StageRun values f(i), collectStages_total_cost states ordinary(collectStages f)=sum_i ordinary(f(i))+6m. Explain the 6m, evaluate total ordinary work for m=3 when each stage has ordinary work 10, and distinguish these counts from arbitrary-precision bit complexity.",
+      "assumptions": [
+        "m=3 for numerical example; arbitrary m for stated collection identity",
+        "Cost records use the defined eight-operation model"
+      ],
+      "conventions": [
+        "Stored reads/writes charged explicitly",
+        "Exact-real operation counts kept separate from finite-bit implementation costs"
+      ],
+      "family": "breadth-stored-projection-cost",
+      "split": "dev",
+      "target_nodes": [
+        "declaration:QuantumBlockEncoding.StoredHermiteRawCost.collectStages_total_cost"
+      ],
+      "supporting_nodes": [
+        "declaration:QuantumBlockEncoding.StoredHermiteRawCost.collectStages_cost",
+        "declaration:QuantumBlockEncoding.StoredHermiteRawCost.ordinary_eq_total"
+      ]
+    },
+    {
+      "id": "qcb-8c3fa22bd6ad10255484",
+      "key": "breadth-bell-chronological-wires",
+      "question": "Using the library little-endian q0 convention, apply RY(pi/2) on q0 to |00>, then CX(q0,q1). Give the nonzero basis labels after each operation and the final resource tuple. Why is it wrong to describe the intermediate label1 as the big-endian q0=0,q1=1 convention without an adapter?",
+      "assumptions": [
+        "Initial two-qubit all-zero state",
+        "Exact angle pi/2; control wire0 distinct from target wire1"
+      ],
+      "conventions": [
+        "Little-endian label=sum_j bit_j 2^j",
+        "Chronological RY then CX; positive Bell amplitudes"
+      ],
+      "family": "breadth-bell-chronological-wires",
+      "split": "dev",
+      "target_nodes": [
+        "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.bellVerified_cost"
+      ],
+      "supporting_nodes": [
+        "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.bellRy_col_zero",
+        "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.bellPrimitive_prepares_target"
+      ]
+    },
+    {
+      "id": "qcb-b9a7b2a73ff0963c1320",
+      "key": "qcb-authored-0001",
+      "question": "In QuantumBlockEncoding.ThinLQ, the theorem exists_thin_lq asserts that every finite real matrix A : Matrix (Fin m) (Fin n) R admits R and Q with A = R * Q and Q * Q.transpose = 1. (a) What is the exact inner dimension of this factorization (the number of rows of Q and columns of R)? (b) Does the theorem require A to have full rank or to have nonzero rows? (c) What does the equation Q * Q.transpose = 1 say about Q geometrically?",
+      "assumptions": [
+        "A is a finite real matrix over Fin m x Fin n."
+      ],
+      "conventions": [
+        "Q * Q.transpose = 1 encodes orthonormal rows (right-isometry).",
+        "Inner dimension is min m n in all shapes, including rank-deficient."
+      ],
+      "family": "thin-lq",
+      "split": "test_public",
+      "target_nodes": [
+        "declaration:QuantumBlockEncoding.ThinLQ.exists_thin_lq"
+      ],
+      "supporting_nodes": [
+        "declaration:QuantumBlockEncoding.ThinLQ.exists_factor_of_le"
+      ]
+    },
+    {
+      "id": "qcb-40a4882e33e6dd73800f",
+      "key": "qcb-authored-0002",
+      "question": "In QuantumBlockEncoding.ThinLQ, exactly what does the lemma sum_prefix_of_zero state, and explain precisely how it is used in exists_factor_of_le so that the factor Q ends up with exactly m rows (for m <= n) rather than n rows.",
+      "assumptions": [
+        "m <= n for the wide case; Gram-Schmidt orthonormal basis of n vectors is used."
+      ],
+      "conventions": [
+        "Fin.castLE embeds Fin m into Fin n as the first m indices."
+      ],
+      "family": "thin-lq",
+      "split": "test_public",
+      "target_nodes": [
+        "declaration:QuantumBlockEncoding.ThinLQ.sum_prefix_of_zero"
+      ],
+      "supporting_nodes": [
+        "declaration:QuantumBlockEncoding.ThinLQ.exists_factor_of_le"
+      ]
+    },
+    {
+      "id": "qcb-f5b1f9df507f6ac9283d",
+      "key": "qcb-authored-0005",
+      "question": "In QuantumBlockEncoding.TensorTrainCanonical, describe the types Core, Chain, Word and the function contract. In particular: what are the three dimensions of a Core, how are bond dimensions represented, in what order are physical bits emitted, and what does the matrix contract C x represent? For a scalar-boundary chain C : Chain n 1 1, what is contract C x 0 0?",
+      "assumptions": [
+        "Real tensor-train cores; amplitudes are real entries of the slice product."
+      ],
+      "conventions": [
+        "Physical bit index is Fin 2; first core emits first bit; bond dims are dependent, not padded.",
+        "contract on nil is the identity matrix 1."
+      ],
+      "family": "tensor-train",
+      "split": "train",
+      "target_nodes": [
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.contract"
+      ],
+      "supporting_nodes": [
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.Chain",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.Word",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.slice"
+      ]
+    },
+    {
+      "id": "qcb-2cdd78eeb72fde677022",
+      "key": "qcb-authored-0006",
+      "question": "QuantumBlockEncoding.TensorTrainCanonical.chainMass_eq states that if a chain C is RightCanonical then chainMass C v = mass v for every left boundary v. Give the honest inductive derivation, naming each sublemma or structural fact used.",
+      "assumptions": [
+        "C is RightCanonical: every core has orthonormal rows A * A.transpose = 1."
+      ],
+      "conventions": [
+        "mass is the squared Euclidean norm; vecMul is row-vector times matrix; the two bit-slices tile A's (bit, bond) index."
+      ],
+      "family": "tensor-train",
+      "split": "train",
+      "target_nodes": [
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.chainMass_eq"
+      ],
+      "supporting_nodes": [
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.mass_vecMul",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.chainMass",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.RightCanonical",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.slice",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.contract"
+      ]
+    },
+    {
+      "id": "qcb-486b9aec70c569866488",
+      "key": "qcb-authored-0007",
+      "question": "QuantumBlockEncoding.TensorTrainCanonical.complexCore embeds a real core A into a complex matrix. (a) What is the index order of complexCore A, and how does it differ from the mathematical Core orientation? (b) State what complexCore_isometry proves and explain the circuit meaning: how does a right-canonical real core (A * A.transpose = 1) become a valid circuit stage?",
+      "assumptions": [
+        "A is a right-canonical real core: A * A.transpose = 1."
+      ],
+      "conventions": [
+        "Circuit orientation: output rows = (emitted bit, new right bond); input columns = old left bond. Real amplitudes embed with zero imaginary part."
+      ],
+      "family": "tensor-train",
+      "split": "train",
+      "target_nodes": [
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.complexCore_isometry"
+      ],
+      "supporting_nodes": [
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.complexCore"
+      ]
+    },
+    {
+      "id": "qcb-8f9946a41726f8015d5a",
+      "key": "k-ry-half-angle-convention",
+      "question": "In this library's exact matrix semantics, `standardRyMatrix theta` is defined as `realRotation (theta / 2)` and is documented as the Qiskit / OpenQASM 3 convention. State precisely what the four matrix entries of `standardRyMatrix theta` are in terms of `theta`, explain why the half angle appears, and give the value of the first computational-basis column (the image of the |0> basis vector).",
+      "assumptions": [
+        "theta is a real angle; entries are promoted to the complex field via Complex.ofReal"
+      ],
+      "conventions": [
+        "RY uses the half-angle convention theta/2 (Qiskit / OpenQASM 3)",
+        "basis order: index 0 is |0>, index 1 is |1>"
+      ],
+      "family": "primitive-semantics-convention",
+      "split": "train",
+      "target_nodes": [
+        "declaration:QuantumBlockEncoding.standardRyMatrix"
+      ],
+      "supporting_nodes": [
+        "declaration:QuantumBlockEncoding.standardRyMatrix_zero",
+        "declaration:QuantumBlockEncoding.standardRyMatrix_two_arccos_eq_amplitudeRotation"
+      ]
+    },
+    {
+      "id": "qcb-09248f41459defbf7817",
+      "key": "k-clog2-gridsize-identity",
+      "question": "`gridSize n` and `clog2 m` are defined in the Core vocabulary. Give both definitions, state the identity `clog2_gridSize`, and explain in words why it holds, including the boundary behaviour of `clog2` at inputs 0 and 1.",
+      "assumptions": [
+        "All quantities are natural numbers; Nat.log2 is the floor base-2 logarithm with Nat.log2 0 = 0"
+      ],
+      "conventions": [
+        "clog2 counts bits needed to address m alternatives, zero for m<=1"
+      ],
+      "family": "core-vocabulary",
+      "split": "train",
+      "target_nodes": [
+        "declaration:QuantumBlockEncoding.clog2_gridSize"
+      ],
+      "supporting_nodes": [
+        "declaration:QuantumBlockEncoding.gridSize",
+        "declaration:QuantumBlockEncoding.clog2",
+        "declaration:QuantumBlockEncoding.log2_pred_two_pow_succ",
+        "declaration:QuantumBlockEncoding.clog2_zero",
+        "declaration:QuantumBlockEncoding.clog2_one"
+      ]
+    },
+    {
+      "id": "qcb-06abc9602b94fbaa9b7f",
+      "key": "k-firstcolumn-prepares-target",
+      "question": "A `StatePreparationCandidate` certifies `preparesTarget`, defined through `FirstColumnMatches`. State exactly what `FirstColumnMatches unitary target` requires, which column of the unitary it constrains, and why a candidate cannot escape its obligation by flipping a boolean flag. What does `zeroBasisIndex qubits` denote?",
+      "assumptions": [
+        "amplitudes is a function Fin (gridSize qubits) -> alpha; equality is in the coefficient type alpha"
+      ],
+      "conventions": [
+        "The prepared state is the image of the all-zero computational-basis input, read off the first column"
+      ],
+      "family": "state-preparation-certificate",
+      "split": "train",
+      "target_nodes": [
+        "declaration:QuantumBlockEncoding.FirstColumnMatches"
+      ],
+      "supporting_nodes": [
+        "declaration:QuantumBlockEncoding.StatePreparationCandidate.preparesTarget",
+        "declaration:QuantumBlockEncoding.zeroBasisIndex",
+        "declaration:QuantumBlockEncoding.VerifiedStatePreparation"
+      ]
+    },
+    {
+      "id": "qcb-bfb9e6dcbff5e726ec0e",
+      "key": "r-decomposeSO-count-identity",
+      "question": "`decomposeSO A` returns a list of adjacent RY plane rotations whose length is `N*(N-1)/2` (theorem decomposeSO_length). Explain how this count is established from the sweep structure, why the identity holds even when A has zero pivots, and how `decomposeSO_action` guarantees the list exactly reconstructs any A with A.transpose*A=1 and det A = 1.",
+      "assumptions": [
+        "A is real NxN with A.transpose*A = 1 and det A = 1 for the reconstruction claim; the length claim needs no hypothesis on A"
+      ],
+      "conventions": [
+        "Steps are chronological: first listed matrix acts first; angle zero is a genuine identity step that is still counted"
+      ],
+      "family": "givens-decomposition",
+      "split": "test_public",
+      "target_nodes": [
+        "declaration:QuantumBlockEncoding.AdjacentGivens.decomposeSO_length",
+        "declaration:QuantumBlockEncoding.AdjacentGivens.decomposeSO_action"
+      ],
+      "supporting_nodes": [
+        "declaration:QuantumBlockEncoding.AdjacentGivens.fullSweepSteps_length",
+        "declaration:QuantumBlockEncoding.AdjacentGivens.fullSweepSteps_length_twice",
+        "declaration:QuantumBlockEncoding.AdjacentGivens.columnSweepSteps_length",
+        "declaration:QuantumBlockEncoding.AdjacentGivens.eliminationAngle_zero",
+        "declaration:QuantumBlockEncoding.AdjacentGivens.eliminateEntry_zero_pair",
+        "declaration:QuantumBlockEncoding.AdjacentGivens.fullSweep_eq_one",
+        "declaration:QuantumBlockEncoding.AdjacentGivens.applySteps_reverse_inverse",
+        "declaration:QuantumBlockEncoding.AdjacentGivens.matrix_eq_one_of_last_prefix"
+      ]
+    },
+    {
+      "id": "qcb-f9c0c2fcf9cbae389111",
+      "key": "r-preparecircuit-firstcolumn-normalization",
+      "question": "`prepareCircuit_firstColumn` states that the compiled recursive loader produces first-column entries f(b)/sqrt(normSq f) for a nonnegative, nonzero-norm amplitude table. Reconstruct the inductive argument: how the base case (0 qubits) and the inductive step (controlled RY on the top wire times the lifted marginal circuit) combine, and which lemma supplies the marginal norm-preservation that makes the recursion well-founded.",
+      "assumptions": [
+        "f is pointwise nonnegative and has strictly positive normSq (hypotheses nonneg and positive)",
+        "wires are little-endian; the recursion splits off the highest wire"
+      ],
+      "conventions": [
+        "Chronological circuit list; marginal defined by pairNorm of the two last-bit children"
+      ],
+      "family": "real-amplitude-preparation",
+      "split": "test_public",
+      "target_nodes": [
+        "declaration:QuantumBlockEncoding.RealAmplitudePreparation.prepareCircuit_firstColumn"
+      ],
+      "supporting_nodes": [
+        "declaration:QuantumBlockEncoding.RealAmplitudePreparation.normSq_marginal",
+        "declaration:QuantumBlockEncoding.RealAmplitudePreparation.pairNorm_sq",
+        "declaration:QuantumBlockEncoding.RealAmplitudePreparation.splitAngle_firstColumn",
+        "declaration:QuantumBlockEncoding.RealAmplitudePreparation.controlledLast_mul_lift",
+        "declaration:QuantumBlockEncoding.RealAmplitudePreparation.eval_liftCircuit",
+        "declaration:QuantumBlockEncoding.RealAmplitudePreparation.normalized_sum_sq"
+      ]
+    },
+    {
+      "id": "qcb-237d731d8a44aaf4afb4",
+      "key": "r-eval-circuit-order-dagger",
+      "question": "`evalPrimitiveCircuit` is defined so that for a cons `gate :: rest` the result is `evalPrimitiveCircuit rest * evalPrimitiveGate gate`. Using this convention, prove `evalPrimitiveCircuit_append` (eval of left++right = eval right * eval left) and explain how it combines with `evalPrimitiveGate_dagger` to yield `evalPrimitiveCircuit_dagger` (eval of the reversed, per-gate-daggered circuit equals the adjoint). Why does the reverse appear?",
+      "assumptions": [
+        "Matrices form a star-ring where star is an anti-multiplicative involution",
+        "PrimitiveGate.dagger negates angles for ry/rz and is identity on x/cx"
+      ],
+      "conventions": [
+        "Chronological list with first gate acting first; evaluation multiplies later gates on the left"
+      ],
+      "family": "primitive-semantics-composition",
+      "split": "train",
+      "target_nodes": [
+        "declaration:QuantumBlockEncoding.evalPrimitiveCircuit_dagger"
+      ],
+      "supporting_nodes": [
+        "declaration:QuantumBlockEncoding.evalPrimitiveCircuit_append",
+        "declaration:QuantumBlockEncoding.evalPrimitiveGate_dagger",
+        "declaration:QuantumBlockEncoding.standardRyMatrix_neg",
+        "declaration:QuantumBlockEncoding.standardRzMatrix_neg",
+        "declaration:QuantumBlockEncoding.evalPrimitiveCircuit"
+      ]
+    },
+    {
+      "id": "qcb-c90c7afcd009e812ae4f",
+      "key": "qs-global-phase-program-semantics",
+      "question": "A `PrimitiveProgram` carries both a circuit and an `ExactAngle` global phase, and `evalPrimitiveProgram` is `evalGlobalPhase program.globalPhase • evalPrimitiveCircuit program.circuit`, with `evalGlobalPhase angle = Complex.exp(i·angle)`. Explain the physical and mathematical status of this global phase: is it observable; why does `PrimitiveRefinement` demand exact equality `evalPrimitiveCircuit circuit = target` rather than equality up to phase; and how do global phases compose under `seq`?",
+      "assumptions": [
+        "State vectors are compared up to measurement statistics for the observability claim; the IR itself keeps the exact scalar"
+      ],
+      "conventions": [
+        "Global phase convention exp(i·phase) matching Qiskit / OpenQASM 3; phases add under sequential composition"
+      ],
+      "family": "primitive-semantics-phase",
+      "split": "train",
+      "target_nodes": [
+        "declaration:QuantumBlockEncoding.evalPrimitiveProgram"
+      ],
+      "supporting_nodes": [
+        "declaration:QuantumBlockEncoding.evalGlobalPhase",
+        "declaration:QuantumBlockEncoding.evalGlobalPhase_unitary",
+        "declaration:QuantumBlockEncoding.evalPrimitiveProgram_seq",
+        "declaration:QuantumBlockEncoding.PrimitiveRefinement",
+        "declaration:QuantumBlockEncoding.PrimitiveProgram.seq"
+      ]
+    },
+    {
+      "id": "qcb-c1e0219d1dc24b615295",
+      "key": "qs-prepare-ry-cx-counts",
+      "question": "For the unoptimized reference loader, `prepareCircuit_ryCount` gives RY count 2^n - 1 and `prepareCircuit_cxCount` gives CX count 2*(2^n - 1 - n). Interpret both counts in terms of the binary-tree / uniformly-controlled-rotation structure, verify them on small n (n=1 and n=2), and state what the oracleCalls count is and why.",
+      "assumptions": [
+        "n is the number of qubits; counts are for the reference tree without Gray-code CX optimization"
+      ],
+      "conventions": [
+        "Little-endian wires; one uniformly controlled RY per tree level on the newly added highest wire"
+      ],
+      "family": "real-amplitude-preparation",
+      "split": "test_public",
+      "target_nodes": [
+        "declaration:QuantumBlockEncoding.RealAmplitudePreparation.prepareCircuit_ryCount",
+        "declaration:QuantumBlockEncoding.RealAmplitudePreparation.prepareCircuit_cxCount"
+      ],
+      "supporting_nodes": [
+        "declaration:QuantumBlockEncoding.RealAmplitudePreparation.prepareCircuit_oracleCalls",
+        "declaration:QuantumBlockEncoding.PrimitiveCircuit.resource_oracleCalls_eq_zero",
+        "declaration:QuantumBlockEncoding.RealAmplitudePreparation.prepareCircuit"
+      ]
+    },
+    {
+      "id": "qcb-6d839eb906836883ccdb",
+      "key": "neg-givens-count-needs-SO-not-O",
+      "question": "A learner claims: 'decomposeSO reconstructs ANY orthogonal matrix A (A.transpose*A=1) as a product of adjacent RY planes, because planeMatrix is orthogonal and the sweep zeroes out the subdiagonal.' Identify the missing hypothesis, give a 2x2 counterexample, and explain precisely where the reconstruction proof would fail without it.",
+      "assumptions": [
+        "A is real NxN and orthogonal; the counterexample is 2x2 with det -1"
+      ],
+      "conventions": [
+        "planeMatrix always has determinant 1; adjacent RY planes generate the special orthogonal group"
+      ],
+      "family": "givens-decomposition",
+      "split": "test_public",
+      "target_nodes": [
+        "declaration:QuantumBlockEncoding.AdjacentGivens.decomposeSO_action"
+      ],
+      "supporting_nodes": [
+        "declaration:QuantumBlockEncoding.AdjacentGivens.planeMatrix_det",
+        "declaration:QuantumBlockEncoding.AdjacentGivens.matrix_eq_one_of_last_prefix",
+        "declaration:QuantumBlockEncoding.AdjacentGivens.orthogonal_supported_column_sq",
+        "declaration:QuantumBlockEncoding.AdjacentGivens.columnSweep_preserves_det"
+      ]
+    },
+    {
+      "id": "qcb-07aec2c5f00e7d131782",
+      "key": "qit-pure-state-projector-density-001-corrected-v2",
+      "question": "Let H = C^d with the standard inner product of Eq. (2.4), and let |psi> in H be a unit vector, <psi|psi> = 1. Define rho := |psi><psi|. Starting only from Definition 2.1 (a quantum state is a density operator with rho >= 0 and tr rho = 1), prove that rho is a legitimate quantum state, that it is a rank-one orthogonal projector (rho^2 = rho = rho^dagger), and explain in what precise sense this makes rho an extreme point (pure state) of the convex set of density operators. State explicitly which step uses normalization of |psi> and why dropping it breaks the trace condition.",
+      "assumptions": [
+        "Finite-dimensional H = C^d with the standard inner product of Eq. (2.4).",
+        "|psi> is a fixed unit vector; density-operator conditions are exactly Definition 2.1."
+      ],
+      "conventions": [
+        "Inner product conjugate-linear in the first argument per Eq. (2.4): <psi|phi> = sum_i psi_i^* phi_i.",
+        "Pure state = extreme point of the convex set of density operators."
+      ],
+      "family": "qit-state-foundations",
+      "split": "test_public",
+      "target_nodes": [
+        "concept:operator-theory",
+        "concept:matrix-analysis"
+      ],
+      "supporting_nodes": []
+    },
+    {
+      "id": "qcb-6702a446193a42a15b47",
+      "key": "qasc-lcu-sum-additive-error-prop910-001-corrected-v2",
+      "question": "Proposition 9.10 (Lin-Wiebe, p.149) states that given block encodings U_{A_j} in BE_{alpha_j,a}(A_j, eps_j), j in [M], M=2^m, alpha_j >= 0, with select oracle U_SEL = sum_j |j><j| tensor U_{A_j} and prepare oracle V_PREP|0^m> = (1/sqrt gamma) sum_j sqrt(alpha_j)|j>, gamma = sum_j alpha_j > 0, the operator W = (V_PREP^dagger tensor I) U_SEL (V_PREP tensor I) satisfies W in BE_{gamma, a+m}(sum_j A_j, sum_j eps_j). Derive (i) the subnormalization factor of the sum and (ii) the total block-encoding error, prove the error bound, and explain why the errors add (not the max) and why gamma = sum_j alpha_j rather than something smaller.",
+      "assumptions": [
+        "Each U_{A_j} is a genuine (alpha_j, a, eps_j)-block encoding with shared ancilla size a; M=2^m summands on an m-qubit control register.",
+        "Spectral-norm error convention for ||A_j - alpha_j B_j||.",
+        "gamma=sum alpha_j is strictly positive; eps_j>=0; normalization optimality refers only to these fixed prepare amplitudes, not arbitrary constructions."
+      ],
+      "conventions": [
+        "BE_{alpha,a}(A,eps): ||A - alpha<0^a|U|0^a>|| <= eps, ||<0^a|U|0^a>|| <= 1.",
+        "V_PREP|0^m> = (1/sqrt gamma) sum_j sqrt(alpha_j)|j>; W = (V_PREP^dagger tensor I)U_SEL(V_PREP tensor I)."
+      ],
+      "family": "qsc-block-encoding-composition",
+      "split": "test_public",
+      "target_nodes": [
+        "concept:block-encoding",
+        "family:prepare-select",
+        "family:matrix-contract"
+      ],
+      "supporting_nodes": []
+    },
+    {
+      "id": "qcb-4392f9ee285000ca498d",
+      "key": "qasc-product-block-encoding-error-prop912-001-corrected-v2",
+      "question": "Proposition 9.12 (Lin-Wiebe, p.150) block-encodes a product A_{M-1}...A_0 by applying U_{A_j} in BE_{alpha_j, a_j}(A_j, eps_j) sequentially on disjoint ancilla registers and a common system register, yielding U in BE_{prod_j alpha_j, sum_j a_j}(A_{M-1}...A_0, prod_j (alpha_j+eps_j) - prod_j alpha_j). Prove the error bound by induction on M, using ||B_j|| <= 1 and ||A_j|| <= alpha_j+eps_j. Then contrast this multiplicative error growth with the additive error of the sum construction (Prop. 9.10) and explain the resource meaning of disjoint ancilla registers. Assume alpha_j>0, eps_j>=0; when using a first-order relative-error approximation, explicitly require all eps_j/alpha_j small (fixed M).",
+      "assumptions": [
+        "Each U_{A_j} is an (alpha_j, a_j, eps_j)-block encoding; registers a_0,...,a_{M-1} disjoint, system register shared.",
+        "Spectral-norm error convention; compatible dimensions for the product A_{M-1}...A_0.",
+        "alpha_j>0 and eps_j>=0. The relative-error asymptotic is only for max_j eps_j/alpha_j small at fixed M; the displayed polynomial bound is exact without asymptotics."
+      ],
+      "conventions": [
+        "BE_{alpha,a}(A,eps): ||A - alpha<0^a|U|0^a>|| <= eps, ||<0^a|U|0^a>|| <= 1.",
+        "Product ordering A_{M-1}...A_0 reflects applying U_{A_0} first; subnormalization multiplies to prod_j alpha_j."
+      ],
+      "family": "qsc-block-encoding-composition",
+      "split": "test_public",
+      "target_nodes": [
+        "concept:block-encoding",
+        "concept:matrix-analysis",
+        "family:spectral-filter"
+      ],
+      "supporting_nodes": []
+    },
+    {
+      "id": "qcb-a950db1fdcd9d482cc2e",
+      "key": "qit-bell-partial-trace-maximally-mixed-001",
+      "question": "Consider the two-qubit EPR/Bell state |Phi+>_AB = (1/sqrt 2)(|0>_A|0>_B + |1>_A|1>_B) with density matrix Phi+_AB = |Phi+><Phi+| as in Eqs. (2.17)-(2.18). Using the defining relation Eq. (2.14), tr(rho_AB (X_A tensor 1_B)) = tr(rho_A X_A) for all X_A, and/or the basis formula Eq. (2.15), compute the marginal rho_A = tr_B Phi+_AB and show rho_A = (1/2) 1 (Eq. (2.22)). Explain why this maximally mixed marginal shows Phi+ is not a product state, and why the partial trace is independent of the orthonormal basis chosen in Eq. (2.15).",
+      "assumptions": [
+        "Two-qubit system C^2 tensor C^2 with computational basis {|0>,|1>}.",
+        "Partial trace defined by Eq. (2.14) and computed via Eq. (2.15); tensor order A then B fixed."
+      ],
+      "conventions": [
+        "tr_B = id_A tensor tr; rho_A is the unique operator satisfying Eq. (2.14) for all X_A.",
+        "'Maximally mixed' means proportional to identity, (1/2)1 on a qubit."
+      ],
+      "family": "qit-composite-entanglement",
+      "split": "test_public",
+      "target_nodes": [
+        "concept:tensor-networks",
+        "concept:operator-theory"
+      ],
+      "supporting_nodes": []
+    }
+  ]
+}

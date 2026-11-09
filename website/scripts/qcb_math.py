@@ -453,10 +453,10 @@ def render_prose(value):
             ordered = bool(re.match(r'^\s*\d', line))
             tag, items = ('ol' if ordered else 'ul'), []
             while i < len(lines):
-                match = re.match(r'^\s*\d+[.)]\s+(.+)$' if ordered else r'^\s*[-*]\s+(.+)$', lines[i])
+                match = re.match(r'^\s*(\d+[.)])\s+(.+)$' if ordered else r'^\s*([-*])\s+(.+)$', lines[i])
                 if match is None:
                     break
-                items.append('<li>' + _inline(match[1]) + '</li>')
+                items.append('<li data-qcb-list-marker="' + _esc(match[1]) + '">' + _inline(match[2]) + '</li>')
                 i += 1
             blocks.append('<' + tag + '>' + ''.join(items) + '</' + tag + '>')
             continue
@@ -468,7 +468,7 @@ def render_prose(value):
             paragraph.append(lines[i])
             i += 1
         blocks.append('<p>' + _inline('\n'.join(paragraph)) + '</p>')
-    return '<div class="qcb-prose qcb-math-prose" data-qcb-text-sha256="' + text_hash(value) + '">' + ''.join(blocks) + '</div>'
+    return '<div class="qcb-prose qcb-math-prose" data-qcb-text-sha256="' + text_hash(value) + '">' + '\n'.join(blocks) + '</div>'
 
 
 def question_equations(record_id, question):

@@ -1,0 +1,1120 @@
+{
+  "schema_version": "qcb.reader_review.v1",
+  "method": "independent-mathematical-reader-review",
+  "reviewer": "/root/batch2_review_phase",
+  "reviewer_type": "AI_agent",
+  "review_revision": 1,
+  "reviewed_at_utc": "2026-11-06T10:09:47.259653+00:00",
+  "package_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/3703ef46-1a1d-47ab-a991-dc9d94a0f386",
+  "base_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+  "review_status": "P1_accepted_P2_revision_required",
+  "scope": "Exact full P1/P2 authored payloads after a sealed question-first source-aware derivation. Answers, rubric, maps, joins, boundaries, source/evidence and bounded overlaps all checked.",
+  "phase1": {
+    "immutable_artifacts": {
+      "reviews/P-question-first.md": "ec0c64df91168fed5efbb0eae035e9b44f30e7e83f6b1034fcb75a9c0e032ad2",
+      "reviews/P-phase1-bindings.json": "6ecaec4677ba25b24a76bd801a62f79236d952701c58b4e81e9628f473ce0482"
+    },
+    "unchanged_rechecked_before_report": true,
+    "source_blind": false,
+    "source_aware": true,
+    "authored_answers_seen_before_seal": false,
+    "actual_source_proofs_visible": true,
+    "prior_exposure_record": "reviews/P-phase1-bindings.json"
+  },
+  "phase2_authorization": {
+    "path": "evidence/P-phase2-authorization.json",
+    "raw_sha256": "37b2a0a6360d0b54353d5e843b578caa2eecaf5467aca5a71d72c7a9e5a1e397",
+    "authorization_observed_before_answer_access": true,
+    "exact_authorized_payload_hashes": {
+      "P1": "90a30634876468651ddd1163678297c3a3c389e88a64cb7caf9e778bb7b2a00d",
+      "P2": "a23e7e63046c085ab3620ead98a78964e775d9edf6455b1bb7d60975d317ec70"
+    }
+  },
+  "full_payload_digest_policy": {
+    "function": "qcb_core.digest(full parsed QA object)",
+    "implementation_path": "benchmarks/quantumcomputingbench/src/qcb_core.py",
+    "implementation_sha256_raw": "c16da97e4e5ad2f29393e53a248ea1a65395070646b876bad957b507cbcd0ab0",
+    "canonicalization": "json.dumps(sort_keys=True, ensure_ascii=False, separators=(comma,colon)), UTF-8, no trailing newline"
+  },
+  "items": [
+    {
+      "core_id": "candidate:a6e10b70-258b-447f-87ed-0317406255f5",
+      "slot": "P1",
+      "item_digest": "b5d7d2632cc0e41d3eb9ae8e9e4524bbd4ade8b3f65a35111fb4cdc6749661c0",
+      "payload_sha256_raw": "90a30634876468651ddd1163678297c3a3c389e88a64cb7caf9e778bb7b2a00d",
+      "payload_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/3703ef46-1a1d-47ab-a991-dc9d94a0f386/qa/P1.json",
+      "verdict": "accept",
+      "semantic_core_verdict": "distinct_or_explicit_alias",
+      "semantic_core_scope": "Bounded comparison with the explicitly inspected public neighbor questions and prior B2/B3 question fields. This verdict does not complete global deduplication, assign a split, admit a core, or establish novelty.",
+      "reasoning": "The entire P1 payload agrees with the sealed independent derivation. The descending carry circuit has exact macro counts m CNOT and m(m-1)(2m-1)/6 Toffoli, clean reusable scratch max(m-2,0), and the full B/ADD/B-dagger circuit restores both supplier output and garbage while producing the negative Fourier phase. Product preparation, complete repeated-use and final-reset ledgers, initial-catalyst eta propagation, actual-inverse 2eta cleanup bound, and one/zero-bit limits are correct. Every rubric criterion, map step, join and listed boundary was checked. No required revision was found.",
+      "question_contract_checks": {
+        "frozen_question_unchanged": true,
+        "assumptions_unchanged": true,
+        "conventions_unchanged": true,
+        "source_refs_unchanged": true,
+        "full_common_metadata_unchanged": true,
+        "no_hidden_hypothesis_change": true
+      },
+      "source_checks": [
+        {
+          "file": "QuantumBlockEncoding/ModularAdder3.lean",
+          "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+          "sha256_lf": "3995a7d9068322d7116e6d3852111574c3c94acc09b9927231be931d33d17002",
+          "sha256_raw": "3995a7d9068322d7116e6d3852111574c3c94acc09b9927231be931d33d17002",
+          "actual_access": "Complete pinned source text and proofs read during phase 1; exact hash rechecked during phase 2.",
+          "anchors": "Lines 31-73 reversible-program compiler and exact phase-aware refinement; 75-163 three-control clean-chain action; 197-246 fixed three-bit little-endian modular-adder action, cleanup and resources.",
+          "declarations": [
+            "compileReversibleProgram",
+            "compileReversibleProgram_eval",
+            "cleanC3XReversibleProgram",
+            "cleanC3XBasisAction",
+            "cleanC3XWorkspaceClean",
+            "littleEndian3Value",
+            "modularAdd3ReversibleProgram",
+            "modularAdd3_cleanAction"
+          ],
+          "assessment": "Read the complete pinned file, including proof bodies. The clean three-control chain uses three Toffolis and one clean bit. The fixed three-bit program overwrites a and preserves b, so a=Y and b=Q in the reviewed construction. Its five-Toffoli/three-CNOT macro list matches the m=3 specialization; it does not itself prove the arbitrary-width theorem. The compiler preserves exact phases and emits a different primitive gate basis.",
+          "matches_frozen_snapshot_input_hash": true,
+          "compiled_this_review": false,
+          "source_scope_verdict": "supports_declared_limited_substrate_and_conventions"
+        },
+        {
+          "file": "QuantumBlockEncoding/PrimitiveSemantics.lean",
+          "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+          "sha256_lf": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+          "sha256_raw": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+          "actual_access": "Complete pinned source text and proofs read during phase 1; exact hash rechecked during phase 2.",
+          "anchors": "Lines 400-410 chronological reverse-adjoint circuit; 412-478 exact global phase, program composition, unitarity and dagger.",
+          "declarations": [
+            "evalPrimitiveCircuit_dagger",
+            "evalGlobalPhase",
+            "evalPrimitiveProgram",
+            "evalPrimitiveProgram_seq",
+            "evalPrimitiveProgram_unitary",
+            "evalPrimitiveProgram_dagger"
+          ],
+          "assessment": "Read the complete pinned file. Chronological composition places later gates on the left, dagger reverses and adjoints the actual list, and program semantics retain exp(i phase). These conventions agree with the negative translation eigenphase and actual supplier inverse. The new catalyst theorem is not asserted to be a compiled declaration in this file.",
+          "matches_frozen_snapshot_input_hash": true,
+          "compiled_this_review": false,
+          "source_scope_verdict": "supports_declared_limited_substrate_and_conventions"
+        },
+        {
+          "file": "QuantumBlockEncoding/PrimitiveCircuit.lean",
+          "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+          "sha256_lf": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c",
+          "sha256_raw": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c",
+          "actual_access": "Complete pinned source text and proofs read during phase 1; exact hash rechecked during phase 2.",
+          "anchors": "Lines 17-55 ExactAngle data/evaluation and exact-real export warning; 94-106 primitive gate/program declarations.",
+          "declarations": [
+            "ExactAngle",
+            "ExactAngle.eval",
+            "PrimitiveGate",
+            "PrimitiveProgram"
+          ],
+          "assessment": "Read the complete pinned file. ExactAngle and its real-angle warning distinguish exact logical semantics from effective numerical export; PrimitiveGate has X/RY/RZ/CX. The payload explicitly uses its separately declared X/CNOT/Toffoli/H/P model, so its logical counts are not silently identified with the source primitive counts.",
+          "matches_frozen_snapshot_input_hash": true,
+          "compiled_this_review": false,
+          "source_scope_verdict": "supports_declared_limited_substrate_and_conventions"
+        }
+      ],
+      "rubric_checks": [
+        {
+          "criterion_id": "r1",
+          "weight": 1.5,
+          "verdict": "accept",
+          "reasoning": "The criterion matches modular sign, complete B/ADD/B-dagger action, garbage retention and coherent cleanup. It does not accept basis probabilities or equality only modulo an untracked phase."
+        },
+        {
+          "criterion_id": "r2",
+          "weight": 2.0,
+          "verdict": "accept",
+          "reasoning": "The question explicitly requires this adder route. The criterion checks the arbitrary-width carry proof, clean-chain expansion and all three resource expressions, and expressly allows equivalent exact count expressions while rejecting finite examples as a universal proof."
+        },
+        {
+          "criterion_id": "r3",
+          "weight": 1.0,
+          "verdict": "accept",
+          "reasoning": "The reference spells out chronological H then P for preparation and P(-theta) then H for the actual inverse. Read together with that explicit inverse, the criterion assesses the correct product construction and m+m preparation counts, not applying H then P again as an inverse."
+        },
+        {
+          "criterion_id": "r4",
+          "weight": 2.0,
+          "verdict": "accept",
+          "reasoning": "The six resource categories are present: repeated supplier, actual inverse, adder, once-only preparation, optional reset, and live width. No polynomial supplier claim is inferred, and unspecified interleavings are charged separately."
+        },
+        {
+          "criterion_id": "r5",
+          "weight": 2.0,
+          "verdict": "accept",
+          "reasoning": "The requested eta and 2eta bounds and nonfactorization distinction are correct. An equivalent stepwise unitary-norm proof or a stronger justified bound meets the same mathematical criterion; the criterion is not a requirement for one displayed operator name."
+        },
+        {
+          "criterion_id": "r6",
+          "weight": 1.5,
+          "verdict": "accept",
+          "reasoning": "The trace-out explanation includes equal-record exceptions; the actual-list inverse, m=1, separate m=0 case and logical-versus-compiled cost boundaries all receive credit. These are requested obligations, not added premises."
+        }
+      ],
+      "rubric_total_weight": 10.0,
+      "reasoning_map_checks": [
+        {
+          "step_id": "S1",
+          "verdict": "accept",
+          "required_inputs_checked": [
+            "I1",
+            "I4"
+          ],
+          "local_assumptions_checked": [],
+          "reasoning": "I1 supplies the word convention and positive width; I4 supplies exact gates and clean scratch. Descending targets preserve the old lower carry bits. The arbitrary-word increment argument is valid, including the all-ones overflow case."
+        },
+        {
+          "step_id": "S2",
+          "verdict": "accept",
+          "required_inputs_checked": [
+            "I4"
+          ],
+          "local_assumptions_checked": [],
+          "reasoning": "The k-2-work conjunction chain has a prefix-product invariant, one final target Toffoli and the reversed prefix. Distinct controls/target/scratch are explicit in the answer. For k=2 the empty chain yields one Toffoli; k=1 is CNOT."
+        },
+        {
+          "step_id": "S3",
+          "verdict": "accept",
+          "required_inputs_checked": [
+            "I1",
+            "S1",
+            "S2"
+          ],
+          "local_assumptions_checked": [],
+          "reasoning": "The required S1/S2 conjunction supplies arithmetic and implementation cleanup, while I1 supplies the width. Weighted increments compose to addition and the odd-cost sums give m(m-1)(2m-1)/6; each cleaned chain permits scratch reuse."
+        },
+        {
+          "step_id": "S4",
+          "verdict": "accept",
+          "required_inputs_checked": [
+            "I1",
+            "I3",
+            "S3"
+          ],
+          "local_assumptions_checked": [],
+          "reasoning": "I1/I3 fix M and the positive Fourier exponent; S3 identifies the actual adder with translation. Modular relabeling produces exp(-2pi i q/M) exactly, with multiples of M contributing phase one."
+        },
+        {
+          "step_id": "S5",
+          "verdict": "accept",
+          "required_inputs_checked": [
+            "I2",
+            "S3",
+            "S4"
+          ],
+          "local_assumptions_checked": [],
+          "reasoning": "I2 supplies the entire reversible list and full q/gamma record. S3 preserves that record and cleans A; S4 supplies the eigenvalue. These AND inputs permit B-dagger cancellation and coherent factorization without assuming gamma=0."
+        },
+        {
+          "step_id": "S6",
+          "verdict": "accept",
+          "required_inputs_checked": [
+            "I1",
+            "I3",
+            "I4"
+          ],
+          "local_assumptions_checked": [],
+          "reasoning": "The little-endian expansion and positive phase definition, together with the permitted dyadic P gates, yield the product of P(theta_j)H. The actual inverse is H P(-theta_j), meaning chronological P(-theta_j) then H."
+        },
+        {
+          "step_id": "S7",
+          "verdict": "accept",
+          "required_inputs_checked": [
+            "I1",
+            "I2",
+            "I4",
+            "I5",
+            "S3",
+            "S5",
+            "S6"
+          ],
+          "local_assumptions_checked": [],
+          "reasoning": "The full required-input list includes L, supplier counts, the constructed adder, reusable action and actual preparation. It charges every B and inverse, once-only initialization, optional final reset, and peak Q/W/Y/A allocation. Arbitrary interleaving gates are explicitly additional."
+        },
+        {
+          "step_id": "S8",
+          "verdict": "accept",
+          "required_inputs_checked": [
+            "I5",
+            "I6",
+            "S3",
+            "S5"
+          ],
+          "local_assumptions_checked": [],
+          "reasoning": "I5/I6 supply exact intervening unitaries and one actual initial state perturbation. S3/S5 identify both the invariant exact-gradient sector and exact cleanup for every Y basis input. One common unitary preserves the initial error norm, with no obligatory factor L."
+        },
+        {
+          "step_id": "S9",
+          "verdict": "accept",
+          "required_inputs_checked": [
+            "I6",
+            "S8"
+          ],
+          "local_assumptions_checked": [],
+          "reasoning": "I6 gives the actual inverse, not a merely nominal inverse. S8 and norm preservation under that inverse give the two-term triangle bound 2eta, capped at 2; exact clean-zero Y return is not inferred."
+        },
+        {
+          "step_id": "S10",
+          "verdict": "accept",
+          "required_inputs_checked": [
+            "I1",
+            "I2",
+            "I4",
+            "S3",
+            "S6",
+            "S7"
+          ],
+          "local_assumptions_checked": [],
+          "reasoning": "The positive-width formulas specialize correctly to one CNOT and no chain scratch at m=1. The listed supplier and model inputs support the stated limits on efficiency and compilation claims."
+        },
+        {
+          "step_id": "S11",
+          "verdict": "accept",
+          "required_inputs_checked": [
+            "I4",
+            "I5",
+            "I7"
+          ],
+          "local_assumptions_checked": [
+            "Use I7 in place of I1; none of S1-S10 is a premise for this boundary."
+          ],
+          "reasoning": "I7 explicitly replaces I1. This branch does not use any positive-width carry step. Q/Y are trivial and q=0, so identity can omit B; if the redundant circuit is retained, its supplied list and inverse remain charged."
+        }
+      ],
+      "common_error_checks": [
+        {
+          "index": 1,
+          "verdict": "correct_with_scope",
+          "reasoning": "The wrong positive phase is excluded by the modular reindexing sign calculation."
+        },
+        {
+          "index": 2,
+          "verdict": "correct_with_scope",
+          "reasoning": "Ascending carry targets are actually wrong for these controls; the sealed m=2,q=1,y=1 counterexample gives zero rather than two."
+        },
+        {
+          "index": 3,
+          "verdict": "correct_with_scope",
+          "reasoning": "Multiple controls require the stated clean-chain gates and cannot be charged as one Toffoli."
+        },
+        {
+          "index": 4,
+          "verdict": "correct_with_scope",
+          "reasoning": "Clearing Q alone leaves a potentially distinguishing gamma record; full B-dagger cleanup is essential for the advertised route."
+        },
+        {
+          "index": 5,
+          "verdict": "correct_with_scope",
+          "reasoning": "A nonzero returned catalyst is not clean zero; per-use re-preparation is not the described reuse ledger."
+        },
+        {
+          "index": 6,
+          "verdict": "correct_with_scope",
+          "reasoning": "Actual inverse access follows from the supplied full list, not generic forward-only oracle access."
+        },
+        {
+          "index": 7,
+          "verdict": "correct_with_scope",
+          "reasoning": "A loose L eta upper bound alone misses the requested no-unavoidable-L conclusion; exact factorization also cannot be inferred for an approximate input catalyst."
+        },
+        {
+          "index": 8,
+          "verdict": "correct_with_scope",
+          "reasoning": "Logical dyadic phases and finite output words do not imply a fixed-gate compiler or efficient construction of B."
+        }
+      ],
+      "boundary_checks": [
+        {
+          "case": "m=1",
+          "verdict": "accept",
+          "reasoning": "G_1 is the minus state, with one adder CNOT and no Toffoli/scratch; all count formulas agree."
+        },
+        {
+          "case": "Explicit m=0 extension",
+          "verdict": "accept",
+          "reasoning": "The identity route is separated from m>=1. Omitting B is permitted, while executing B/B-dagger still incurs its gate and W costs."
+        },
+        {
+          "case": "Supplier garbage nonzero or colliding records",
+          "verdict": "accept",
+          "reasoning": "The full inverse resets the exact record. Trace-out preserves only coherences with equal records in general, and the payload does not claim every basis input necessarily decoheres."
+        },
+        {
+          "case": "Approximate catalyst",
+          "verdict": "accept",
+          "reasoning": "QWA stay exactly clean because the controlled shifts preserve the supplier record for every Y state. Y can entangle; the stated norms do not imply exact factorization or reset."
+        },
+        {
+          "case": "Approximate gates on every use",
+          "verdict": "accept",
+          "reasoning": "Explicitly outside the error model; no-L propagation is confined to one initial-vector error under exact later operations."
+        },
+        {
+          "case": "Gate model",
+          "verdict": "accept",
+          "reasoning": "The logical gate set, supplied count vector, width, synthesis, depth, connectivity and optimality boundaries stay distinct."
+        }
+      ],
+      "substantive_findings": [],
+      "reference_answer_mathematics": "correct",
+      "all_payload_top_level_fields_read": [
+        "slot",
+        "title",
+        "author",
+        "proposal_id",
+        "core_id",
+        "admission",
+        "dedup_review_required",
+        "split",
+        "graph_version",
+        "snapshot_id",
+        "target_nodes",
+        "supporting_nodes",
+        "question",
+        "assumptions",
+        "conventions",
+        "source_refs",
+        "schema_version",
+        "contribution_type",
+        "mathematical_target",
+        "family",
+        "reference_answer",
+        "rubric",
+        "common_errors",
+        "boundary_cases",
+        "difficulty",
+        "reasoning_map",
+        "overlap",
+        "unverified",
+        "provenance"
+      ],
+      "coverage_claim": "All supplied QA fields were read, including the full reference, every rubric row, all reasoning-map inputs/steps/reused results/joins/case scopes, overlaps, unverified limitations and provenance. This inventory is not itself the substantive mathematical assessment.",
+      "difficulty_assessment": {
+        "provisional_route_band": "D4",
+        "measured_model_difficulty": false,
+        "assessment": "The band is a provisional editorial judgment. The route genuinely combines the stated obligations; no model run or measured hardness evidence is supplied or inferred."
+      },
+      "source_graph_assessment": {
+        "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "all_target_and_support_ids_present": true,
+        "source_file_hashes_match_snapshot_inputs": true,
+        "concept_status": "curated_proposal_review_pending",
+        "support_declaration_status": "legacy_source_semantic_debt; inventory says Compiled, compiled_this_run false",
+        "assessment": "These identifiers and source ownership/conventions are valid limited anchors. The reviewed NL theorem is not inferred from import depth, declaration inventory, graph topology, or an inherited compiled label."
+      },
+      "evidence_assessment": {
+        "question_freeze_hashes_match": true,
+        "question_text_hash_matches": true,
+        "author_freeze_chronology": "The author record claims creation before QA. The reviewer does not infer an externally authenticated timestamp from that field. The actual reviewer sequence is separately witnessed by its phase-1 seal and root phase-2 authorization.",
+        "author_unverified_scope": "The payload truthfully leaves independent review, formal replay, global deduplication, split assignment, admission and measured difficulty unresolved at author freeze. This report is a separate later AI review; it does not silently rewrite those author-time records.",
+        "finite_diagnostics": "Only the scoped reviewer diagnostics in P-question-first.md are used; they corroborate finite instances and do not establish the quantified claims."
+      },
+      "uncertainty": [
+        "No Lean execution, kernel replay or new formal theorem closure occurred.",
+        "Global semantic deduplication and split/admission decisions remain unresolved; the public registry explicitly says global_semantic_dedup_complete=false.",
+        "PR114 and sealed/private reservation questions were not independently read; the payload labels those comparisons as root-reported metadata, so no full semantic clearance is inherited."
+      ],
+      "human_approval": false,
+      "admission_claim": false,
+      "failure_class": "NONE",
+      "failure_class_scope": "No defect found in the exact reviewed payload.",
+      "answer_comparison": [
+        {
+          "obligation": "Phase/catalyst/garbage/inverse",
+          "assessment": "The full clean-basis transcript, modular phase sign and arbitrary-superposition equality match phase 1. The reverse list is genuinely available and W is not discarded. Equal-record exceptions are correctly preserved in the trace-out discussion."
+        },
+        {
+          "obligation": "Adder arithmetic and resources",
+          "assessment": "The binary carry rule, descending target order, exact conjunction invariant, full uncomputation, resource sum and scratch reuse all match the independent proof. The source three-bit circuit is a specialization, not the general proof."
+        },
+        {
+          "obligation": "Preparation, reuse and final reset ledger",
+          "assessment": "H then dyadic P on each named little-endian bit prepares the positive gradient. The ledger charges 2L supplier gate vectors, L adders, one preparation and optionally one actual inverse preparation, with peak n+2m+w+max(m-2,0). Extra data registers/interleaving gates, if introduced, retain their own cost."
+        },
+        {
+          "obligation": "Approximate catalyst",
+          "assessment": "The one common exact unitary preserves the actual initial Euclidean difference. Actual inverse preparation yields the correct 2eta bound, capped at two. QWA remain exactly clean for arbitrary Y. The claim that Y need not factorize is independently witnessed by m=1, q_x=x, g=cos(theta)|->+sin(theta)|+> on data |+>, giving a two-term Schmidt decomposition."
+        },
+        {
+          "obligation": "Endpoints and model boundary",
+          "assessment": "m=1 and optional m=0 are correct, with the zero-bit route independently justified and the redundant supplier charged if executed. No arbitrary real supplier, finite-gate compiler, optimality, depth or connectivity theorem is asserted."
+        }
+      ],
+      "reconvergent_join_checks": [
+        {
+          "join": "S5",
+          "verdict": "accept",
+          "reasoning": "The actual supplier and preserved full record, arithmetic cleanup and translation eigenphase are all required. The full required_inputs list and transitive inputs contain them; none is treated as sufficient alone."
+        },
+        {
+          "join": "S7",
+          "verdict": "accept",
+          "reasoning": "The named reconvergent branches S5 and S6 identify reusable action and actual preparation; the complete step also explicitly retains L, B counts, gate model and adder resources. The join is not misread as discarding those other AND premises."
+        },
+        {
+          "join": "S9",
+          "verdict": "accept",
+          "reasoning": "The I6 actual preparation/inverse promise and S8 propagated error are both required; a state-quality certificate alone does not provide an implementable inverse."
+        }
+      ],
+      "case_scope_assessment": "Exact-main steps depend on m>=1; approximate steps are conditional on I6; zero-bit S11 replaces I1 with I7 and has no positive-width step as a premise. This avoids using a contradictory m=0 and m>=1 conjunction.",
+      "reused_result_checks": [
+        {
+          "result": "Fixed three-bit adder and clean-chain pattern",
+          "assessment": "Correctly disclosed as finite substrate; arbitrary-width proof and counts are provided separately."
+        },
+        {
+          "result": "Exact program phase/dagger semantics",
+          "assessment": "Correct conventions, with no claim that they alone prove the Fourier construction."
+        },
+        {
+          "result": "plan-519 Boolean kickback",
+          "assessment": "The inspected current neighbor confirms this is a genuine m=1 reused boundary, not new assessed credit."
+        }
+      ],
+      "overlap_checks": [
+        {
+          "neighbor": "prior B2",
+          "relation": "Shared negative correction phase and retained-label coherence context; P1 adds a specified finite-word reversible supplier, explicit arbitrary-width adder, catalyst preparation/reuse/reset ledger and stability theorem. B2 expressly does not supply an effective phase compiler.",
+          "assessment": "Distinct assessed target with disclosed shared subproofs."
+        },
+        {
+          "neighbor": "prior B3",
+          "relation": "B3 optimizes precision under an assumed log-cost law and supplied telescoping certificate. P1 constructs a different exact arithmetic/catalyst mechanism and treats one initial-vector error.",
+          "assessment": "Not a rewording or alternate view of the allocation target."
+        },
+        {
+          "neighbor": "plan-519",
+          "relation": "Boolean minus-state kickback and catalyst reuse are exactly the m=1 boundary.",
+          "assessment": "Strict special case disclosed; do not count that boundary as new."
+        },
+        {
+          "neighbor": "plan-207",
+          "relation": "Compute/use/uncompute, full workspace and equal-record trace-out classes overlap as mechanisms. The existing task targets rounded-angle amplitude loading and projected blocks; P1 targets finite-word diagonal phase via a translation eigenstate.",
+          "assessment": "Shared cleanup subproof is retained; target and required construction are different."
+        },
+        {
+          "neighbor": "plan-209",
+          "relation": "Original-entry query and inverse accounting is reused resource discipline. It does not provide P1 arbitrary-width adder, gradient product preparation or initial-catalyst-only stability.",
+          "assessment": "Shared accounting does not establish complete target equivalence."
+        }
+      ]
+    },
+    {
+      "core_id": "candidate:52f89572-2174-4964-acb8-62fe8925f084",
+      "slot": "P2",
+      "item_digest": "b6cf8dbc3881a894ff5c803d7cc8ee0ba581b178190038b421e4ed6146669447",
+      "payload_sha256_raw": "a23e7e63046c085ab3620ead98a78964e775d9edf6455b1bb7d60975d317ec70",
+      "payload_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/3703ef46-1a1d-47ab-a991-dc9d94a0f386/qa/P2.json",
+      "verdict": "revise",
+      "semantic_core_verdict": "distinct_or_explicit_alias",
+      "semantic_core_scope": "Bounded comparison with the explicitly inspected public neighbor questions and prior B2/B3 question fields. This verdict does not complete global deduplication, assign a split, admit a core, or establish novelty.",
+      "reasoning": "The P2 question and reference answer agree with the sealed independent solution: the Gram formula and min(2,sqrt(sum epsilon_j^2)) bound are correct and sharp for every tolerance vector using genuine square unitaries, including zero and cap cases. The operational reflection witness correctly separates representative distance from physical-state trace distance. The full payload requires revision because r4 overrestricts valid witness constructions and S7 drops b>=0 from a general norm-order equivalence. These do not refute the main answer or require changing the frozen question.",
+      "question_contract_checks": {
+        "frozen_question_unchanged": true,
+        "assumptions_unchanged": true,
+        "conventions_unchanged": true,
+        "source_refs_unchanged": true,
+        "full_common_metadata_unchanged": true,
+        "no_hidden_hypothesis_change": true
+      },
+      "source_checks": [
+        {
+          "file": "QuantumBlockEncoding/PrimitiveCircuitPerturbation.lean",
+          "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+          "sha256_lf": "624109564cd82b0584fad717283e7b9116b36f1ef10d60b43a063c0ef2a1fbae",
+          "sha256_raw": "624109564cd82b0584fad717283e7b9116b36f1ef10d60b43a063c0ef2a1fbae",
+          "actual_access": "Complete pinned source text and proofs read during phase 1; exact hash rechecked during phase 2.",
+          "anchors": "Lines 1-14 norm/order scope; 49-85 aligned circuit operator-norm and Euclidean-CLM bounds.",
+          "declarations": [
+            "aligned_eval_distance_le",
+            "aligned_eval_clm_distance_le"
+          ],
+          "assessment": "Read the complete pinned file. It opens Matrix.Norms.L2Operator and states the Euclidean-CLM bridge. Its result is an aligned-circuit operator perturbation bound with positional/angle premises. It supplies a norm/convention anchor, not the new Gram theorem, sharp all-tolerance unitary construction, or operational counterexample.",
+          "matches_frozen_snapshot_input_hash": true,
+          "compiled_this_review": false,
+          "source_scope_verdict": "supports_declared_limited_substrate_and_conventions"
+        }
+      ],
+      "rubric_checks": [
+        {
+          "criterion_id": "r1",
+          "weight": 1.5,
+          "verdict": "accept",
+          "reasoning": "Correctly requires the Gram form, PSD/eigenvalue characterization and error cross terms. Equivalent spectral or Rayleigh-quotient derivations meet the criterion."
+        },
+        {
+          "criterion_id": "r2",
+          "weight": 1.5,
+          "verdict": "accept",
+          "reasoning": "Both the nonuniform bound and the independent isometry cap are needed; either the trace-Gram proof or triangle/Cauchy-Schwarz proof is valid. The uniform threshold is correct."
+        },
+        {
+          "criterion_id": "r3",
+          "weight": 3.0,
+          "verdict": "accept",
+          "reasoning": "The criterion correctly requires a legal square-unitary witness for every tolerance vector and handles zero and cap regimes. It does not insist on the reference phase-projector formula; any construction satisfying those quantified obligations qualifies."
+        },
+        {
+          "criterion_id": "r4",
+          "weight": 2.0,
+          "verdict": "revise",
+          "reasoning": "This criterion specifically requires the uniform rank-one reflection. The frozen question asks for an explicit family satisfying asymptotic column error, maximal operator distance and an operational witness, without fixing that family. A valid nonuniform rank-one family below meets every requested property but not the literal uniform requirement. Full credit must explicitly cover equivalent families and witnesses."
+        },
+        {
+          "criterion_id": "r5",
+          "weight": 1.0,
+          "verdict": "accept",
+          "reasoning": "The phrase such as permits other sufficient geometries. The Gram justification and genuinely retained label are necessary, and no extra output label is manufactured from linearity."
+        },
+        {
+          "criterion_id": "r6",
+          "weight": 1.0,
+          "verdict": "accept",
+          "reasoning": "Zero tolerances, N=1, complete output, representative conventions and absence of a circuit-resource conclusion are all preserved. The reference additionally handles the larger-output N=1 isometry distinction correctly."
+        }
+      ],
+      "rubric_total_weight": 10.0,
+      "reasoning_map_checks": [
+        {
+          "step_id": "S1",
+          "verdict": "accept",
+          "required_inputs_checked": [
+            "I1",
+            "I3"
+          ],
+          "local_assumptions_checked": [],
+          "reasoning": "The conjugate-linear-first convention gives c-dagger G c with G=E-dagger E positive semidefinite. Maximization over unit coefficients gives the largest eigenvalue, including nontrivial cross-column correlations."
+        },
+        {
+          "step_id": "S2",
+          "verdict": "accept",
+          "required_inputs_checked": [
+            "I1",
+            "I2",
+            "I3",
+            "S1"
+          ],
+          "local_assumptions_checked": [],
+          "reasoning": "All column promises supply the l2 aggregate bound, and both isometries supply the cap 2. The needed conjunction is preserved; neither column orthogonality nor probabilistic cancellation is added."
+        },
+        {
+          "step_id": "S3",
+          "verdict": "accept",
+          "required_inputs_checked": [
+            "I1",
+            "I2",
+            "I3",
+            "S2"
+          ],
+          "local_assumptions_checked": [],
+          "reasoning": "The r=0 branch is separated before normalization. In r>0, the orthogonal P and I-P sectors prove actual square unitarity, and each column norm is kappa epsilon_j/r. This verifies every tolerance promise and sharpness both below and above the cap."
+        },
+        {
+          "step_id": "S4",
+          "verdict": "accept",
+          "required_inputs_checked": [
+            "I2",
+            "S2",
+            "S3"
+          ],
+          "local_assumptions_checked": [],
+          "reasoning": "The universal upper bound and legal achieving construction are both included, so the uniform specialization is sharp, with threshold epsilon=2/sqrt(N)."
+        },
+        {
+          "step_id": "S5",
+          "verdict": "accept",
+          "required_inputs_checked": [
+            "I1",
+            "I3",
+            "S3"
+          ],
+          "local_assumptions_checked": [
+            "Use N>=2 for the subsequent interference example."
+          ],
+          "reasoning": "The reflection is the theta=pi rank-one phase construction. Uniform s gives each column error 2/sqrt(N), while s attains operator distance 2. The N>=2 scope needed by the next step is explicit."
+        },
+        {
+          "step_id": "S6",
+          "verdict": "accept",
+          "required_inputs_checked": [
+            "I1",
+            "I4",
+            "S5"
+          ],
+          "local_assumptions_checked": [
+            "N>=2 as in S5; do not apply this construction at N=1."
+          ],
+          "reasoning": "N>=2 permits the explicit orthogonal t. The reflection action and half-trace-norm convention jointly yield the sign-only witness with trace distance zero and the interference witness with vector distance sqrt(2), trace distance one, and a distinguishing projection."
+        },
+        {
+          "step_id": "S7",
+          "verdict": "revise",
+          "required_inputs_checked": [
+            "I2",
+            "I3",
+            "S1"
+          ],
+          "local_assumptions_checked": [],
+          "reasoning": "The diagonal-Gram sufficient condition is correct. The added general iff claim drops the b>=0 restriction that appears in the reference answer. No listed input or local assumption supplies that restriction. For E=0 and b=-1, G<=b^2 I holds but ||E||<=b fails. Add b>=0 explicitly to this step or qualify the iff conclusion."
+        },
+        {
+          "step_id": "S8",
+          "verdict": "accept",
+          "required_inputs_checked": [
+            "I1",
+            "I2",
+            "I3",
+            "I4",
+            "S1",
+            "S2"
+          ],
+          "local_assumptions_checked": [
+            "The r=0 branch excludes division by r in S3; the N=1 branch excludes the N>=2 witness S5-S6."
+          ],
+          "reasoning": "The zero-tolerance branch uses exact columns and no division. The N=1 branch excludes the N>=2 interference construction and distinguishes scalar square unitaries from isometries into a larger output. The scalar-phase sharpness claim is valid."
+        }
+      ],
+      "common_error_checks": [
+        {
+          "index": 1,
+          "verdict": "correct_with_scope",
+          "reasoning": "Max-column error is invalid without cross-error control; the reflection family refutes the universal implication."
+        },
+        {
+          "index": 2,
+          "verdict": "correct_with_scope",
+          "reasoning": "Orthogonality within the U and V columns separately does not imply orthogonality of their differences."
+        },
+        {
+          "index": 3,
+          "verdict": "correct_with_scope",
+          "reasoning": "Unconstrained matrices cannot establish sharpness under unitary premises; the reference verifies actual square unitaries."
+        },
+        {
+          "index": 4,
+          "verdict": "correct_with_scope",
+          "reasoning": "The norm-two cap and r=0 branch are required; neither is omitted."
+        },
+        {
+          "index": 5,
+          "verdict": "correct_with_scope",
+          "reasoning": "A sign-only input has identical density operators and cannot be the only operational witness."
+        },
+        {
+          "index": 6,
+          "verdict": "correct_with_scope",
+          "reasoning": "The reported values correctly distinguish representative distance two, interference vector distance sqrt(2), trace norm two, and trace distance one."
+        },
+        {
+          "index": 7,
+          "verdict": "correct_with_scope",
+          "reasoning": "Probability or separate ray agreement does not imply the promised complete representative-wise column guarantee."
+        },
+        {
+          "index": 8,
+          "verdict": "correct_with_scope",
+          "reasoning": "Retained-label comparison and existing entrywise reasoning are disclosed reuse, not sufficient justification for counting a new phase-correction or entrywise target."
+        }
+      ],
+      "boundary_checks": [
+        {
+          "case": "r=0",
+          "verdict": "accept",
+          "reasoning": "No normalization of an absent rank-one direction; U=V=I attains zero."
+        },
+        {
+          "case": "Some epsilon_j=0",
+          "verdict": "accept",
+          "reasoning": "Only those columns are forced exact; corresponding witness components are zero."
+        },
+        {
+          "case": "r>2",
+          "verdict": "accept",
+          "reasoning": "The cap is attained without requiring all loose column tolerances to be equalities. The answer separately identifies the equality threshold r=2."
+        },
+        {
+          "case": "N=1",
+          "verdict": "accept",
+          "reasoning": "Scalar unitary phases attain the numerical bound, but the two-sector orthogonal-output example is excluded in the square one-dimensional case."
+        },
+        {
+          "case": "Retained orthogonal labels",
+          "verdict": "accept",
+          "reasoning": "This adds a real output interface supplying orthogonality of error vectors, rather than assuming it from linearity."
+        },
+        {
+          "case": "Phase-quotiented or probability promise",
+          "verdict": "accept",
+          "reasoning": "The payload keeps full-output representative-wise Euclidean error and does not silently adopt either weaker premise."
+        }
+      ],
+      "substantive_findings": [
+        {
+          "finding_id": "P2-R4-EQUIVALENT-ROUTES",
+          "severity": "medium",
+          "status": "requires_revision",
+          "location": "rubric[r4].criterion",
+          "category": "grading_contract_overrestriction",
+          "claim_under_review": "Provides the uniform rank-one reflection and an explicit orthogonal complement t.",
+          "reasoning": "The frozen question allows any explicit unitary family with every basis-column error tending to zero, maximal operator distance, and an orthogonal-output operational witness. The rubric fixes the reference family without an equivalent-route allowance, so a mathematically valid response can fail the literal full-credit criterion.",
+          "counterexample_or_valid_alternative": {
+            "dimensions": "Every integer N>=2",
+            "definitions": "Z_N=sqrt(sum_{k=1}^N k^2); v_N=sum_{j=0}^{N-1}((j+1)/Z_N)e_j; U_N=I; V_N=I-2|v_N><v_N|; t_N=(2e_0-e_1)/sqrt(5).",
+            "unitarity": "V_N is a reflection because |v_N><v_N| is an orthogonal projection.",
+            "basis_errors": "||(V_N-I)e_j||=2(j+1)/Z_N, so the maximum is 2N/Z_N and tends to zero, since Z_N^2=N(N+1)(2N+1)/6.",
+            "operator_error": "||(V_N-I)||=2, attained on v_N, whose physical state changes only by sign.",
+            "operational_witness": "<v_N,t_N>=0 and both are unit vectors. h_N=(v_N+t_N)/sqrt(2) maps to k_N=(-v_N+t_N)/sqrt(2), orthogonal to h_N.",
+            "metrics_and_measurement": "Vector distance sqrt(2), trace distance one; measure {|h_N><h_N|, I-|h_N><h_N|}.",
+            "why_rubric_misses_it": "v_N is nonuniform on the computational basis, so this satisfies the question without using the specifically required uniform vector."
+          },
+          "minimal_requested_revision": "Revise r4 to grant full credit to any valid family and interference/measurement witness satisfying the question, with the uniform rank-one reflection as one accepted example.",
+          "question_contract_change_needed": false,
+          "reference_answer_change_needed": false
+        },
+        {
+          "finding_id": "P2-S7-NONNEGATIVE-THRESHOLD",
+          "severity": "medium",
+          "status": "requires_revision",
+          "location": "reasoning_map.steps[S7].assumptions/conclusion",
+          "category": "missing_scope_condition_in_map",
+          "claim_under_review": "generally G<=b^2 I iff ||E||<=b",
+          "reasoning": "The reference answer correctly introduces b>=0, but the standalone S7 statement has no such assumption, required input or qualification. Squaring loses the sign of b, so the displayed iff is false for negative b. The diagonal-Gram max-column conclusion remains correct.",
+          "counterexample_or_valid_alternative": {
+            "N": 1,
+            "U": "[1]",
+            "V": "[1]",
+            "epsilon_0": 0,
+            "E": "[0]",
+            "G": "[0]",
+            "b": -1,
+            "left_side": "G<=b^2 I is 0<=1, true.",
+            "right_side": "||E||<=b is 0<=-1, false.",
+            "named_inputs": "I2, I3 and S1 all hold in this instance."
+          },
+          "minimal_requested_revision": "Put b>=0 explicitly in the S7 assumptions or qualify its general iff conclusion; retain the reference answer and question unchanged.",
+          "question_contract_change_needed": false,
+          "reference_answer_change_needed": false
+        }
+      ],
+      "reference_answer_mathematics": "correct",
+      "all_payload_top_level_fields_read": [
+        "slot",
+        "title",
+        "author",
+        "proposal_id",
+        "core_id",
+        "admission",
+        "dedup_review_required",
+        "split",
+        "graph_version",
+        "snapshot_id",
+        "target_nodes",
+        "supporting_nodes",
+        "question",
+        "assumptions",
+        "conventions",
+        "source_refs",
+        "schema_version",
+        "contribution_type",
+        "mathematical_target",
+        "family",
+        "reference_answer",
+        "rubric",
+        "common_errors",
+        "boundary_cases",
+        "difficulty",
+        "reasoning_map",
+        "overlap",
+        "unverified",
+        "provenance"
+      ],
+      "coverage_claim": "All supplied QA fields were read, including the full reference, every rubric row, all reasoning-map inputs/steps/reused results/joins/case scopes, overlaps, unverified limitations and provenance. This inventory is not itself the substantive mathematical assessment.",
+      "difficulty_assessment": {
+        "provisional_route_band": "D3",
+        "measured_model_difficulty": false,
+        "assessment": "The band is a provisional editorial judgment. The route genuinely combines the stated obligations; no model run or measured hardness evidence is supplied or inferred."
+      },
+      "source_graph_assessment": {
+        "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "all_target_and_support_ids_present": true,
+        "source_file_hashes_match_snapshot_inputs": true,
+        "concept_status": "curated_proposal_review_pending",
+        "support_declaration_status": "legacy_source_semantic_debt; inventory says Compiled, compiled_this_run false",
+        "assessment": "These identifiers and source ownership/conventions are valid limited anchors. The reviewed NL theorem is not inferred from import depth, declaration inventory, graph topology, or an inherited compiled label."
+      },
+      "evidence_assessment": {
+        "question_freeze_hashes_match": true,
+        "question_text_hash_matches": true,
+        "author_freeze_chronology": "The author record claims creation before QA. The reviewer does not infer an externally authenticated timestamp from that field. The actual reviewer sequence is separately witnessed by its phase-1 seal and root phase-2 authorization.",
+        "author_unverified_scope": "The payload truthfully leaves independent review, formal replay, global deduplication, split assignment, admission and measured difficulty unresolved at author freeze. This report is a separate later AI review; it does not silently rewrite those author-time records.",
+        "finite_diagnostics": "Only the scoped reviewer diagnostics in P-question-first.md are used; they corroborate finite instances and do not establish the quantified claims."
+      },
+      "uncertainty": [
+        "No Lean execution, kernel replay or new formal theorem closure occurred.",
+        "Global semantic deduplication and split/admission decisions remain unresolved; the public registry explicitly says global_semantic_dedup_complete=false.",
+        "PR114 and sealed/private reservation questions were not independently read; the payload labels those comparisons as root-reported metadata, so no full semantic clearance is inherited."
+      ],
+      "human_approval": false,
+      "admission_claim": false,
+      "failure_class": "REFUTED",
+      "failure_class_scope": "Only the unqualified S7 iff is refuted. The main reference answer is correct; r4 is a grading-contract defect.",
+      "answer_comparison": [
+        {
+          "obligation": "Gram form and cap",
+          "assessment": "c-dagger G c has the correct conjugations; PSD spectral theory and the isometry cap jointly give the exact universal bound."
+        },
+        {
+          "obligation": "Every-tolerance sharpness",
+          "assessment": "The reference independently matches the sealed rank-one phase construction. It checks actual unitarity and every column, uses identity for r=0, and permits loose inequalities above the cap. Zero coordinates and N=1 are retained."
+        },
+        {
+          "obligation": "Operational failure",
+          "assessment": "Uniform reflection has column errors 2/sqrt(N) and operator distance two. Its sign-only eigenvector has trace distance zero. Interference with the explicit orthogonal t gives orthogonal outputs, vector distance sqrt(2), trace distance one and a concrete measurement."
+        },
+        {
+          "obligation": "Dimension-free geometry",
+          "assessment": "Orthogonal full error columns make G diagonal, while retained labels can force that geometry. The reference also states the more general G<=b^2 I equivalence with b>=0 correctly; only its map transcription drops the guard."
+        },
+        {
+          "obligation": "Metric and interface boundary",
+          "assessment": "Complete output, phase representatives, entrywise error and probability promises remain distinct. The answer correctly notes that N=1 larger-output isometries need not share scalar-unitary physical equivalence."
+        }
+      ],
+      "reconvergent_join_checks": [
+        {
+          "join": "S2",
+          "verdict": "accept",
+          "reasoning": "Isometry normalization and all full-column error bounds are both present along with the Gram/norm definitions. The cap is not inferred from column promises alone."
+        },
+        {
+          "join": "S4",
+          "verdict": "accept",
+          "reasoning": "Both the upper bound and a legal attaining unitary are retained for the sharp uniform corollary."
+        },
+        {
+          "join": "S6",
+          "verdict": "accept",
+          "reasoning": "Reflection action, the explicit N>=2 branch and trace-distance normalization are retained; the eigenvector sign change is not promoted to operational discrimination."
+        }
+      ],
+      "case_scope_assessment": "r=0 is split before normalization; the reflection/interference construction is scoped to N>=2 and excluded at N=1. These scopes are correct. S7 separately requires the b>=0 scope revision identified above.",
+      "reused_result_checks": [
+        {
+          "result": "Finite Hermitian spectral theorem and Cauchy-Schwarz",
+          "assessment": "Standard mathematical dependencies applied under their actual finite-dimensional complex hypotheses; no new formal compilation claimed."
+        },
+        {
+          "result": "B2 retained-label orthogonality",
+          "assessment": "The inspected prior question confirms this is a boundary comparison. P2 neither re-proves the controlled phase-correction iff theorem as its new target nor claims the extra output label comes for free."
+        }
+      ],
+      "overlap_checks": [
+        {
+          "neighbor": "plan-010",
+          "relation": "The current question addresses entrywise block-encoding error and operator error. P2 uses every full-column Euclidean promise, nonuniform l2 aggregation, sharp square-unitary realizability for every vector, and an operational witness.",
+          "assessment": "Different input contract and assessed quantified sharpness; entrywise intuition is disclosed reuse."
+        },
+        {
+          "neighbor": "prior B2",
+          "relation": "B2 has a retained label and exact branch phases. P2 examines unrestricted complete isometries; retained-label orthogonality is only a contrasting sufficient geometry.",
+          "assessment": "No new credit for the earlier phase-correction theorem."
+        },
+        {
+          "neighbor": "la-007",
+          "relation": "Exact two-column linearity is an elementary shared ingredient.",
+          "assessment": "It does not establish approximate coherent error, sharp aggregation, or a unitary counterexample."
+        },
+        {
+          "neighbor": "plan-207",
+          "relation": "It studies a trace-out channel versus coherent cleanup; P2 has no trace-out and compares full isometries.",
+          "assessment": "Distinct interface; no cleanup or channel claim is imported."
+        }
+      ]
+    }
+  ],
+  "additional_source_and_evidence_access": {
+    "snapshot": {
+      "path": "benchmarks/quantumcomputingbench/manifests/release-v3/snapshot.json",
+      "raw_sha256": "71a08777e01af1b6e5bd3dd88ba6443efe9aea41240c09303d4bcc0a7cd8058b",
+      "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+      "commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "inspection_scope": "Only the named target/support nodes, matching source input hashes and graph evidence-boundary metadata; no other review approvals consulted."
+    },
+    "author_question_freeze": {
+      "path": "evidence/phase-question-freeze.json",
+      "raw_sha256": "65421494b3d5e4cfa0094691825af68eb8ca989fe95a2f65fb674ea333f9e41f",
+      "assessment": "Question raw/text hashes and proposal identities agree with the frozen files; author chronology fields remain author assertions, separately supplemented by actual reviewer sequencing."
+    },
+    "current_reader_export": {
+      "path": "_out/qcb-reader.json",
+      "raw_sha256": "e5fc1a5673670168eaa2d980612cb38e3aa6277fe71f4a095ebc03fa4b8d1923",
+      "scope": "Selected neighbor question, assumption, convention and identity fields only."
+    },
+    "current_core_export": {
+      "path": "_out/qcb-cores.json",
+      "raw_sha256": "04bd3535f58758587ee742c54caa7af45481340634991cc2079a994898ed3096",
+      "scope": "Selected core identities/family/split/contracts, snapshot/evidence metadata, global-dedup flag and plan-208 withheld identity only."
+    },
+    "neighbor_question_fields": [
+      {
+        "core_id": "qcb-core-plan-519",
+        "source_path": "_out/qcb-reader.json",
+        "selected_fields": [
+          "core_id",
+          "id",
+          "question",
+          "assumptions",
+          "conventions",
+          "split",
+          "family"
+        ],
+        "selected_fields_digest": "adec0e08904e63172835316c02c67441e006cb35d1e8d2c871372dbce119dd51",
+        "split": "test_public"
+      },
+      {
+        "core_id": "qcb-core-la-007",
+        "source_path": "_out/qcb-reader.json",
+        "selected_fields": [
+          "core_id",
+          "id",
+          "question",
+          "assumptions",
+          "conventions",
+          "split",
+          "family"
+        ],
+        "selected_fields_digest": "f73bf6ac16ddbc43e2df8454fc151b543fee7133163ae72126f1a85385fe708a",
+        "split": "dev"
+      },
+      {
+        "core_id": "qcb-core-plan-010",
+        "source_path": "_out/qcb-reader.json",
+        "selected_fields": [
+          "core_id",
+          "id",
+          "question",
+          "assumptions",
+          "conventions",
+          "split",
+          "family"
+        ],
+        "selected_fields_digest": "f4fd3528f6cd3eea461647d06c1a297bccd11ff877655f0d88aa9b45804e0f95",
+        "split": "test_public"
+      },
+      {
+        "core_id": "qcb-core-plan-209",
+        "source_path": "_out/qcb-reader.json",
+        "selected_fields": [
+          "core_id",
+          "id",
+          "question",
+          "assumptions",
+          "conventions",
+          "split",
+          "family"
+        ],
+        "selected_fields_digest": "d59ebb535399d99a104bf015ba9469cd1e12973785d009df7069929fa2217635",
+        "split": "test_public"
+      },
+      {
+        "core_id": "qcb-core-plan-207",
+        "source_path": "_out/qcb-reader.json",
+        "selected_fields": [
+          "core_id",
+          "id",
+          "question",
+          "assumptions",
+          "conventions",
+          "split",
+          "family"
+        ],
+        "selected_fields_digest": "a8cfa0fbb9f7e5abaec7b24a4ee40d451f9db3388fffc018b38c27c0f4ea0405",
+        "split": "test_public"
+      },
+      {
+        "core_id": "candidate:06369e40-07df-4a8c-9105-ac09ebc9b41c",
+        "source_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/qa/B2.json",
+        "selected_fields": [
+          "slot",
+          "title",
+          "proposal_id",
+          "core_id",
+          "admission",
+          "split",
+          "question",
+          "assumptions",
+          "conventions"
+        ],
+        "selected_fields_digest": "def2062f8ce5c30784702b18cc21abfbd74ca35639b30e56f35e5137bae1a492",
+        "split": "unassigned_pending_reconciliation"
+      },
+      {
+        "core_id": "candidate:cfa3fb2e-9733-4c13-8309-11f7d0541747",
+        "source_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/qa/B3.json",
+        "selected_fields": [
+          "slot",
+          "title",
+          "proposal_id",
+          "core_id",
+          "admission",
+          "split",
+          "question",
+          "assumptions",
+          "conventions"
+        ],
+        "selected_fields_digest": "1ba59eaa38e7f8f50e2ef2b64b49d64f6c7452d6467832e2f30a63bd32038963",
+        "split": "unassigned_pending_reconciliation"
+      }
+    ]
+  },
+  "overlap_limits": {
+    "plan208": "Current registry confirms withheld_not_current_gold and reserved test_public identity. No reserved target is repaired or reassigned here.",
+    "PR114": "Not independently inspected. The author expressly labels this as root-reported proposed branch content, and this review does not inherit approval or semantic clearance from it.",
+    "sealed_reservations": "Full sealed questions were not available/read; metadata is not used as a complete equivalence check.",
+    "global_semantic_dedup_complete": false,
+    "split_assignment": "Both new candidate payloads remain unassigned_pending_reconciliation."
+  },
+  "actual_exposure_after_seal": {
+    "authored_P1_P2_complete_QA": true,
+    "other_review_contents_read": false,
+    "neighbor_answers_or_rubrics_exposed_to_reviewer": false,
+    "neighbor_extraction_note": "Whole public JSON files were machine-parsed only to emit the authorized selected question/convention/identity fields. Other fields were not displayed or used for the mathematical comparison.",
+    "prior_review_approval_inherited": false,
+    "coverage_plan_read": false,
+    "question_or_QA_edits": false
+  },
+  "validation": {
+    "source_binding_checker": "qcb_textbook_policy.check_source_bindings passed for each item source_checks.",
+    "frozen_contract_fields_equal": true,
+    "rubric_weights_sum_to_ten_each": true,
+    "provenance_dependency_mirror_matches_steps": true,
+    "finite_diagnostics": "Sealed phase-1 diagnostics only; no additional model evaluation or proof certification.",
+    "lean_executed": false,
+    "installations": false,
+    "paid_APIs_or_model_runs": false,
+    "staging_or_commit": false
+  },
+  "required_revision": {
+    "item": "P2",
+    "finding_ids": [
+      "P2-R4-EQUIVALENT-ROUTES",
+      "P2-S7-NONNEGATIVE-THRESHOLD"
+    ],
+    "scope": "Rubric r4 equivalent-witness allowance and S7 nonnegative b scope only; no question or reference-answer change required.",
+    "preserve_this_adverse_record": true,
+    "followup_policy": "Any revised payload requires a new complete-content digest and explicit comparison. Do not overwrite or reinterpret this exact-payload adverse review as approval."
+  },
+  "claims": {
+    "human_approval": false,
+    "new_Lean_certificate": false,
+    "global_dedup_clearance": false,
+    "core_admission": false,
+    "stable_release": false,
+    "measured_model_performance": false
+  }
+}

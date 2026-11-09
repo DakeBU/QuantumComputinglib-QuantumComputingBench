@@ -82,6 +82,7 @@ def presentation_contract():
              "website/scripts/reader_hierarchy.py", "website/scripts/qcb_hierarchy_browser.py",
              "website/scripts/qcb_workbook_reader.py", "benchmarks/quantumcomputingbench/src/qcb_nonlean_workbook.py",
              "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/reader-comparison.json",
+             "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261109/intake.json",
              "website/scripts/qcb_ecosystem_browser.py",
              "benchmarks/quantumcomputingbench/scripts/bench.py",
              "benchmarks/quantumcomputingbench/reports/ecosystem-v1/math-notation-review.json")

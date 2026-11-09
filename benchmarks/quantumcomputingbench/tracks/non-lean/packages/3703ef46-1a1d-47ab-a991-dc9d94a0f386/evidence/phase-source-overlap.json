@@ -1,0 +1,160 @@
+{
+  "schema_version": "qcb.bounded_overlap_screen.v1",
+  "author": "/root/batch2_phase",
+  "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+  "catalog_hash": "5269b9f2521e3bf14db293fea34895f6e44a387c2479c164407b4d16dd9a2247",
+  "catalog_file_sha256": "04bd3535f58758587ee742c54caa7af45481340634991cc2079a994898ed3096",
+  "reader_file_sha256": "e5fc1a5673670168eaa2d980612cb38e3aa6277fe71f4a095ebc03fa4b8d1923",
+  "public_current_targets": [
+    {
+      "core_id": "qcb-core-plan-519",
+      "key": "qcb-core-plan-519-phase-kickback-bit-to-phase-oracle",
+      "split": "test_public",
+      "task_hash": "e85be00402c7ccadd739f8f88c5357a11e16d0934ccd53400ce4e4a34f3e0558",
+      "source_item_digest": "afb80c476b2ea2e3b90eb6c6150ac9bab08f06123950b5cbfebb94a581d1d088",
+      "question": "The marking information for search is first given as a bit oracle that adds the function value into an answer qubit modulo two. Prove that running this bit oracle with the answer qubit prepared in the minus state converts it into a phase oracle that multiplies each input basis state by minus one exactly when it is marked, leaving the answer qubit unchanged. Make explicit why this is a clean conversion (the answer qubit factorizes out and can be reused), and explain the resource consequence: that one phase-oracle reflection costs one bit-oracle query plus state preparation of the answer qubit, with no measurement or amplification required.",
+      "target_nodes": [
+        "concept:operator-theory",
+        "concept:block-encoding"
+      ],
+      "supporting_nodes": []
+    },
+    {
+      "core_id": "qcb-core-la-016",
+      "key": "qcb-core-la-016",
+      "split": "test_public",
+      "task_hash": "5486b84e77ad663eb57a30b4d49c7de5cf3f19d6fd86e3afd6c081a666ab9d3e",
+      "source_item_digest": "9c8a04ca1889fb0a56d3f452b52f5640741fb20e9f1d4e4962b89aef5642bc12",
+      "question": "For the real rotation R(theta)=[[cos(theta/2),-sin(theta/2)],[sin(theta/2),cos(theta/2)]], compare R(theta+2pi) and R(theta). A colleague claims the two full operators have distance0 because every output probability agrees. Refute or prove that claim, and distinguish bare-system global-phase equivalence from coherent branch use.",
+      "target_nodes": [
+        "declaration:QuantumBlockEncoding.PrimitiveRyPerturbation.liftedRy_distance"
+      ],
+      "supporting_nodes": [
+        "declaration:QuantumBlockEncoding.PrimitiveRyPerturbation.standardRy_difference_factor"
+      ]
+    },
+    {
+      "core_id": "qcb-core-la-007",
+      "key": "qcb-core-la-007",
+      "split": "dev",
+      "task_hash": "86fb24816a0a438a3c334176690b6c6d4bb7b33db4d5b14e54219fc4412f8772",
+      "source_item_digest": "f10f3a23733971a2aa0b150a90124936ed6d12d8b403eff4b77380607f85064c",
+      "question": "In a finite complex matrix backend, acting with an operator on a computational-basis state (a vector with a single 1 at one position and 0 elsewhere) returns the corresponding column of the operator. Using only this fact and the linearity of matrix-vector multiplication, prove that acting with an operator A on the two-term superposition a*|left> + b*|right>, where |left> and |right> are two basis states, gives a*(column left of A) + b*(column right of A), and that the amplitude read at output row k equals a*A[k,left] + b*A[k,right]. Explain why this means a block-encoding or state-preparation witness never needs to reconstruct the whole matrix-vector product: only two named columns, or two named entries, are ever required.",
+      "target_nodes": [
+        "declaration:QuantumBlockEncoding.ConcreteSemantics.applyVec_twoBasisSuperposition",
+        "declaration:QuantumBlockEncoding.ConcreteSemantics.applyVec_twoBasisSuperposition_apply"
+      ],
+      "supporting_nodes": [
+        "declaration:QuantumBlockEncoding.ConcreteSemantics.applyVec_basisKet",
+        "declaration:QuantumBlockEncoding.ConcreteSemantics.basisKet",
+        "declaration:QuantumBlockEncoding.ConcreteSemantics.applyVec"
+      ]
+    },
+    {
+      "core_id": "qcb-core-plan-010",
+      "key": "qcb-core-plan-010-entry-vs-operator-norm-verification",
+      "split": "test_public",
+      "task_hash": "f385cf9ed4eb9d76b0b53de72cf3aa5588094a2f71f4c0f82743bff23b59ca56",
+      "source_item_digest": "13ff4d7410b8c1c651c0e8a652cb201ded626374ddf50a7f712d2a82784b3abf",
+      "question": "To certify that an (m+n)-qubit unitary U exactly embeds an n-qubit matrix A as its all-zeros block with unit factor, one checks the entrywise identities <0^m, i| U |0^m, j> = A_{ij} for all computational-basis indices i, j. (a) Explain operationally how each such entry can be read off by preparing the ancilla in all-zeros and the system in basis state j, applying U, and overlapping with the all-zeros-ancilla basis state i, and how a composed unitary U = U_B U_C lets one evaluate the two halves independently before overlapping. (b) Explain why checking all entries equal to A_{ij} is equivalent to the exact operator identity (all-zeros block of U equals A), but why for an APPROXIMATE embedding entrywise closeness of each A_{ij} is NOT the right accuracy notion: give the quantity that the definition of approximate embedding actually controls and explain how it can be large even when every entry error is tiny.",
+      "target_nodes": [
+        "concept:block-encoding",
+        "concept:verification"
+      ],
+      "supporting_nodes": [
+        "concept:matrix-analysis"
+      ]
+    },
+    {
+      "core_id": "qcb-core-plan-209",
+      "key": "qcb-core-plan-209-textbook-v1-original-entry-query-ledger-repair",
+      "split": "test_public",
+      "task_hash": "78d0d9f6938ea220a577c339dd1f7a57671ab5a9b26eb022b763f330238c760c",
+      "source_item_digest": "6857bd12f50ecc5dd4d6573d1ddba061e0d187b3053669baf5fca1173049c092",
+      "question": "Two input models for the entries of a matrix A appear in the sparse block-encoding discussion: the BIT oracle O~_A |0^{d'}>|i>|j> = |A~_ij>|i>|j>, which writes a classical fixed-point string into a register, and the AMPLITUDE oracle O_A |0>|i>|j> = (A_ij|0> + sqrt(1-|A_ij|^2)|1>)|i>|j>, which encodes the entry as the amplitude of an ancilla qubit. Explain conceptually (i) what distinguishes the two as computational resources -- which is a 'digital/query' interface and which is an 'analog/amplitude' interface; (ii) why building the amplitude oracle from the bit oracle requires both controlled rotations (gate work) and uncomputation (query work), i.e. the amplitude oracle is strictly derived, not primitive; and (iii) in a resource count for the overall block encoding, why it is natural to charge the construction one forward and one inverse bit-oracle query plus the gates of a controlled rotation, and why the work register must be counted as borrowed (returned clean), not consumed.",
+      "target_nodes": [
+        "concept:block-encoding",
+        "concept:complexity",
+        "concept:operator-theory"
+      ],
+      "supporting_nodes": []
+    },
+    {
+      "core_id": "qcb-core-be-104",
+      "key": "qcb-core-be-104-textbook-question-v2-phase-aware-refinement-question-successor",
+      "split": "train",
+      "task_hash": null,
+      "source_item_digest": "518f0b0d1146a394be4521469ab17c605fa7c91f8fd2e898e927552dd039d065",
+      "question": "Keep seven wires, a reversible program inducing a computational-basis bijection E, and the inherited definition C as the chronological ordered product of emitted primitive-gate matrices (later gates multiply on the LEFT). The historical request is exact C=P(E), hence a0/1 matrix. Assess and refute that request for the actual source compiler if it omits the program's stored phase; do not redefine the inherited bare C or silently quotient by physical global phase. A PrimitiveProgram consists of its primitive list and an exact globalPhase phi, with full denotation D=exp(i phi) C. Prove the correct compiler refinement for D using gate cases and list composition, and state the precise resulting formula for C. For the concrete primitiveAccess3ReversibleProgram (two initial X gates followed by modularAdd3ReversibleProgram, wire order address[0..2],row[0..2],work), derive the exact stored phase ledger from H,T,Tdagger and the five CCX macros, and decide whether its bare C is a0/1 permutation. Explain refinement versus definition and which full-space/basis-action, physical-global-phase and cost/cleanup conclusions follow or remain separate.",
+      "target_nodes": [
+        "declaration:QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program_eval"
+      ],
+      "supporting_nodes": [
+        "declaration:QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3BasisEquiv",
+        "declaration:QuantumBlockEncoding.BandedSparseAccess.primitiveAccess3Program",
+        "declaration:QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix"
+      ]
+    },
+    {
+      "core_id": "qcb-core-plan-207",
+      "key": "qcb-core-plan-207-textbook-question-v2-rounded-angle-joint-coherence",
+      "split": "test_public",
+      "task_hash": null,
+      "source_item_digest": "abd4e555dca2b13af8188d3475ae5858a8b7503b4ecf137abd698c38bd5d5246",
+      "question": "Keep the original real-matrix, reversible arithmetic and controlled-rotation assumptions, and the declared convention A~_ij=cos(pi theta~_ij). Let t=(i,j) denote the combined retained index, q_t=theta~_ij be the ACTUALLY STORED d-bit angle in[0,1), B=O'_A satisfy B|0^d,t>=|q_t,t>, and v_t=cos(pi q_t)|0>+sin(pi q_t)|1>. Assess the predecessor's literal identification of an arbitrary real arccos(A_ij)/pi with a finite-d-bit value: state exactly which rounded-entry law can be proved without adding exact representability of arbitrary A. Distinguish the original d'-bit matrix datum from the angle-redefined A~.\n\nIn register order(signal S,work W,index T), prove the full basis and arbitrary coherent-input action of (I_S tensor B-dagger) CR (I_S tensor B), including the work-zero output, both signal branches, selected block and success probability. Derive CR from its bit-controlled rotations and do not uncompute the intended signal output.\n\nFor a general input density matrix on T, derive the full state if the inverse is omitted, the reduced joint S,T state after discarding W, and the signal-only marginal. State precisely what an additional index dephasing/tracing can and cannot change. Explain whether a single basis input loses its signal coherence, and which populated equal/different rounded-angle classes retain joint coherence. Give an exact allowed coherent-input counterexample, including a relative sign, that distinguishes the desired clean oracle from discarding the angle record even though the signal marginal is unchanged.\n\nCompare the clean S=0,W=0 projected block, the block obtained by omitting the inverse but postselecting the SAME clean flag, and the trace-out channel. Explain the exact sense in which coherent cleanup is needed for the clean reusable arbitrary-input interface, rather than claiming B-dagger is the unique possible cleanup or every basis-input signal decoheres. Keep precision, full arithmetic workspace, inverse access, ideal rotations and finite-bit/gate/resource costs explicit; do not claim a unitary can erase all distinct work records by acting on W alone.",
+      "target_nodes": [
+        "concept:block-encoding",
+        "concept:operator-theory",
+        "concept:approximation"
+      ],
+      "supporting_nodes": []
+    }
+  ],
+  "prior_package_inputs": [
+    {
+      "path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/qa/B2.json",
+      "sha256": "ca574f8df055f45d7c5efd939405394326ab634c2a3ca13559c0e375cc09ac8e",
+      "core_id": "candidate:06369e40-07df-4a8c-9105-ac09ebc9b41c",
+      "question_sha256": "74661287957a3aebfdb76e251de9bd74003ce9066014e95267f9eba00b431d8d",
+      "mathematical_target": "Derive the exact retained-label norm formula, supportwise global-phase criterion and coherent diagonal correction for a finite family of branch preparations."
+    },
+    {
+      "path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/qa/B3.json",
+      "sha256": "1bba561e05fb7566c4f30f375fa8222cce90658350ef7f3a87efb89e9025f17b",
+      "core_id": "candidate:cfa3fb2e-9733-4c13-8309-11f7d0541747",
+      "question_sha256": "aca742e0e218eba2a536fd412c46e879473851f2164b337b4d2c6d18c067fe18",
+      "mathematical_target": "Find and prove the unique optimum of a weighted continuous precision cost under a multiplicity-weighted rotation-error budget; round to integer bits with a strict additive cost bound and compose the resulting circuit error with input/target errors."
+    }
+  ],
+  "intake_addenda_read": [
+    "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/B-notation.json",
+    "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/B-proposed-addendum.json",
+    "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/B-rubric-addendum.json",
+    "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/B-current-catalog-comparison.json"
+  ],
+  "reserved_plan208": {
+    "contract_hash": "7d1a0a2e1c3fcc3a21e1af340a7092f54edaa232bbcaad58c4cbdfca7fb64d16",
+    "core_id": "qcb-core-plan-208",
+    "family": "qsc-matrix-access",
+    "item_digest": "1433ecfb6610132671b67d490e1d21b1d9dae433bb26badca61bce12b62e0347",
+    "key": "qcb-core-plan-208-amplitude-oracle-maxnorm-normalization-boundary",
+    "proposal_only": true,
+    "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+    "source_key": "qcb-core-plan-208-amplitude-oracle-maxnorm-normalization-boundary",
+    "source_record": "data/public/nl-v12/release.json",
+    "split": "test_public",
+    "status": "withheld_not_current_gold",
+    "supporting_nodes": [],
+    "target_nodes": [
+      "concept:block-encoding",
+      "concept:approximation",
+      "concept:matrix-analysis"
+    ],
+    "topic": "planned_scientific_algorithms"
+  },
+  "root_reported_only": [
+    "PR114 unchanged ff361a6 head: proposed Plan208 single-column completion distinction, not current gold. This worker did not independently inspect the branch object.",
+    "assessment-v2 coherent_control_global_relative_phase and assessment-v3 promise_register_protocols public cluster metadata. Full sealed questions unavailable; no target-level no-overlap finding is possible."
+  ],
+  "conclusion": "P1 and P2 are locally assessed as distinct candidate deltas, with related targets disclosed in each QA payload. Global deduplication and split reconciliation remain required. This record creates no release admission or new-core count."
+}

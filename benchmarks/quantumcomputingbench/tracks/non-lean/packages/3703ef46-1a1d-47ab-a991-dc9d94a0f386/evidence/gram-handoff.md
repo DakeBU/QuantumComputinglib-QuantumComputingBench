@@ -1,0 +1,35 @@
+# Gram and sequential-isometry author handoff
+
+Objective / frontier node: author two new non-Lean candidate packets grounded in the frozen exact Gram and sequential-state interfaces, with distinct numerical versus map-stability uncertainties. The relevant graph remains `qcb-snapshot-ffa644f0da3031a1ce754b9a`, source commit `86b9e677566498da04faebcf4e5ed57f177c6bb1`; current checkout baseline is `bb260f4e27360a0d3791b40cb22638af4b086fc9`.
+
+Mathematical delta: G1 analyzes a fully specified finite-grid two-pass Gram schedule, derives its local residual and backwards error/range envelopes, and makes a sufficient bit condition establish its own positive-mass and rounded-normalizer premises. G2 derives multiplicative mass bounds for sequential approximate isometries on arbitrary prefix/bond vectors, proves scalar sharpness, separates target fidelity from Gram tests, and derives the correctly ordered growth-weighted target bound with a counterexample to naive additive composition.
+
+Effect on the root frontier: these are reviewable candidate assessment contracts, not new admitted cores, benchmark rows or formal library results. G1 addresses the prior next-cohort numerical Gram gap. Its elementary recurrence unrolling overlaps E1 and cannot be treated as independently held-out evidence. G2 extends the exact mass interface quantitatively; exact Gram/isometry checks alone do not certify the intended target.
+
+Named evidence: the frozen questions are `questions/G1.json` and `questions/G2.json`; original G2 source-metadata bytes are preserved in `questions/history/G2-v1.json`. `evidence/gram-question-freeze.json` records canonical question hashes and the source-span-only correction. `qa/G1.json` and `qa/G2.json` include all original NL derivations, source-file/declaration hashes, ten-point rubrics and scoped maps. `evidence/gram-author-integrity.json` binds final QA bytes and passes structural/source checks. `evidence/gram-finite-diagnostics.json` records nine exact-rational Gram cases and the exact two-stage 5/4 amplification witness. These finite checks are supporting examples, not arbitrary-length proof certificates.
+
+Assumptions and conventions: G1 uses exact supplied dyadic cores, entrywise maximum matrix norms, a nearest-grid operation model, and an independent positive true-norm bound only on its normalization branch. Its rescaled numerator remains exact and output-coordinate rounding is excluded. G2 uses complex rectangular column maps, induced Euclidean norms, chronological emitted bits and the terminal bond retained. Ideal target isometries and local alignment errors are separate comparison premises. Excluded zero-mass, zero-input and defect-one regimes are explicitly scoped.
+
+Files changed: only the two owned question files, their explicitly requested G2 history artifact, the two owned QA files, and `evidence/gram-*.json` / this handoff. No source module, production registry, other track, prior packet, staged index or commit was changed by this author.
+
+Reusable cross-layer insights: exact stored arithmetic semantics and historical Compiled inventory status do not supply a roundoff theorem. Gram invariants certify norm geometry but omit target alignment. Forward error propagation weights later actual maps; backward Gram residual propagation weights earlier contractions. Range bounds must cover both materialized passes and every accumulator, not only the final norm scalar.
+
+Failure class: NONE for packet authoring. The naive claims that fixed positive mass alone guarantees a nonzero rounded norm, or that nonisometric stage errors always add without growth, are refuted by explicit exact examples within their correctly stated comparison regimes. No environment failure is promoted to a mathematical obstruction.
+
+Salvage audit: the source exact identities are reused as supplied interfaces/context; no formal fragment is promoted. The original G2 source-span metadata is retained with its recorded byte hash and canonical question unchanged. No prior question or solution is regenerated.
+
+Process-memory IDs consulted: `QBE-PM-DENSE-CHECK-SMALL-INSTANCE` and `QBE-PM-VERIFIER-SEMANTIC-LEVEL` (the environment preflight entry was also observed but no simulator route was attempted).
+
+Direction fingerprint / expected information gain: finite-grid Gram schedule with explicit range and mass margin; separately, arbitrary-length approximate-isometry growth with sharp scalar diagnostics. The intended information gain is to distinguish exact substrate from an actual numerical certificate, and norm stability from target fidelity.
+
+Parallel admission and common-blind-spot audit: work was delegated by the root under the user's batch instructions; the two distinct target summaries were approved before question authoring. Independent question-first review and exact-content comparison are owned by the root/reviewer. This author neither self-approves nor claims that a common-blind-spot review has passed. The principal shared risks to inspect are norm conventions, recurrence index direction, strictness before division, and target/terminal-register assumptions.
+
+Default verified route / comparator rationale: no new formally verified route is claimed. The author chooses the displayed elementary finite-sum/rationalization route for G1 and the orthogonal-prefix/quadratic-form route for G2 because they expose all premises and give exact counterexamples. Equivalent tighter fixed-grid rounding accounting and equivalent operator proofs are accepted by the rubrics.
+
+Purification / Exposition-Seal state: pending independent review and maintainer decisions. The packets are standalone readable English/LaTeX; source anchors, AND joins, comparison branches and excluded-domain diagnostics are explicitly separated. No `PURIFIED`, publication acceptance or Lean Proof Seal is claimed.
+
+Source/Lean expansion nodes; boundary preserved: G1 expands to `TensorTrainNormEnvironment.gram`, `gram_scalar`, `norm`, `norm_pos_of_nonzero` and the stored two-pass schedule. G2 expands to `SequentialBondPreparation.step_apply`, `run`, `transfer`, `amplitudeMass_freshZero`, `amplitudeMass_step`, `amplitudeMass_run` and `TensorTrainCanonical.RightCanonical`. The new perturbative statements are original NL derivations, not those compiled theorem signatures. Graph ownership/inventory links are not elaborated theorem-dependency edges.
+
+Residual risk / confidence: structural checks and finite witnesses pass. The derivations remain natural-language mathematics requiring distinct exact-content review. Deduplication, split reconciliation, human approval, formal execution and admission are not done by this author. The author has frozen the final QA hashes announced to the root and will change them only in response to a reviewed finding, preserving reviewed prior bytes.
+
+Recommended next action: complete the independent content comparison, reconcile the shared E1 recurrence and prior exact/normalization fragments, and include these candidates in the root's reviewable six-packet batch if accepted at that evidence level. Run no Lean or paid/model evaluation under this task's restrictions.

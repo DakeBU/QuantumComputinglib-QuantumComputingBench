@@ -1,0 +1,85 @@
+{
+  "proposal_id": "52f89572-2174-4964-acb8-62fe8925f084",
+  "track": "non-lean",
+  "author": "/root/batch2_phase",
+  "core_id": "candidate:52f89572-2174-4964-acb8-62fe8925f084",
+  "admission": "candidate_not_counted",
+  "dedup_review_required": true,
+  "source_nodes": [
+    "concept:matrix-analysis",
+    "concept:approximation",
+    "declaration:QuantumBlockEncoding.PrimitiveCircuitPerturbation.aligned_eval_clm_distance_le"
+  ],
+  "view_kind": "derivation",
+  "family": "candidate-sharp-columnwise-coherent-error",
+  "split": "unassigned_pending_reconciliation",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "contract_hash": "b8397712bf5e9f2a6db7f0b5f2074fa34e0838d4a7a069018add16e3296b0356",
+  "base_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+  "package_id": "3703ef46-1a1d-47ab-a991-dc9d94a0f386",
+  "slot": "P2",
+  "payload_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/3703ef46-1a1d-47ab-a991-dc9d94a0f386/qa/P2.json",
+  "payload_sha256": "73a29c92409060bb7848ad45fce8ff39307568f8585d1e18b55aa0360c428e84",
+  "item_digest": "86046735e35767abb5d51d21d1d0d0358443d7010c0775297aaee9a2d6403d3e",
+  "title": "Sharp coherent error from approximate basis-column guarantees",
+  "mathematical_target": "Sharp nonuniform full-basis-column-to-operator error theorem, attained by legal square unitaries for every tolerance vector, plus an orthogonal-output interference witness.",
+  "review_records": [
+    {
+      "slot": "P2",
+      "core_id": "candidate:52f89572-2174-4964-acb8-62fe8925f084",
+      "reviewer": "/root/batch2_review_phase",
+      "report_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/3703ef46-1a1d-47ab-a991-dc9d94a0f386/reviews/P-review.json",
+      "report_sha256": "55fbcf6afd229fc52a0088464570cfea88b0ef545c515beb72190505033e6b2d",
+      "item_digest": "86046735e35767abb5d51d21d1d0d0358443d7010c0775297aaee9a2d6403d3e",
+      "payload_sha256": "73a29c92409060bb7848ad45fce8ff39307568f8585d1e18b55aa0360c428e84",
+      "verdict": "accept",
+      "semantic_core_verdict": "distinct_or_explicit_alias",
+      "human_approval": false,
+      "admission": "candidate_not_counted"
+    }
+  ],
+  "status": "authored_with_content_bound_AI_review_pending_maintainer_decision",
+  "count_effect": "zero_until_explicit_admission",
+  "usage": "public_supplementary_diagnostic_only; no training or independent-held-out clearance",
+  "proposed_contract": {
+    "question": "Let \\(N\\geq1\\), let \\(\\mathcal H\\) be a finite-dimensional complex Hilbert space, and let \\(U,V:\\mathbb C^N\\to\\mathcal H\\) be isometries: \\(U^\\dagger U=V^\\dagger V=I_N\\). Their columns include the complete output, including all work registers; no measurement, postselection, or trace-out occurs. Let \\(e_0,\\ldots,e_{N-1}\\) be the standard input basis and suppose exact representative-wise guarantees\n\\[\n\\|(V-U)e_j\\|_2\\leq\\varepsilon_j,\\qquad \\varepsilon_j\\geq0,\n\\]\nare known separately for every basis input. All operator norms below are induced Euclidean norms; no minimization over global phase is built into this promise.\n\nPut \\(E=V-U\\) and \\(G_{jk}=\\langle Ee_j,Ee_k\\rangle\\), using an inner product conjugate-linear in its first argument. Derive the exact quadratic form for the error on an arbitrary coherent unit input and the resulting characterization of \\(\\|E\\|\\) in terms of \\(G\\). Decide whether the column guarantees alone imply the dimension-free bound \\(\\|E\\|\\leq\\max_j\\varepsilon_j\\). Find the sharp universal bound obtainable from the whole vector \\((\\varepsilon_j)_j\\), including the isometry cap, and prove sharpness for EVERY choice of these nonnegative tolerances by constructing square unitaries on \\(\\mathbb C^N\\). An arbitrary unconstrained error matrix is not a sufficient sharpness witness. Derive the uniform-tolerance corollary and identify when the cap takes over.\n\nFor \\(N\\geq2\\), give an explicit family of unitaries whose error on every computational-basis input tends to zero as \\(N\\) grows while their operator distance stays maximal. A saturating input that changes only by an overall sign does not by itself demonstrate operational distinguishability: also give a normalized superposition on which the intended and actual output states are orthogonal, with a specified distinguishing measurement. Report both the Euclidean vector distance and the trace distance \\(\\tfrac12\\|\\rho-\\sigma\\|_1\\) for this latter input, and explain why the first saturating input has different physical-state behavior.\n\nFinally state what additional error-geometry condition WOULD yield a dimension-free bound from the same column norms, and justify it using \\(G\\). Explain briefly why an explicitly retained orthogonal branch label can supply that condition for controlled branch outputs, whereas linearity by itself does not. This comparison is only a boundary explanation, not a request to re-prove general controlled-family phase correction. Cover zero tolerances, \\(N=1\\), and exact column agreement. Do not replace full-output Euclidean promises by per-input probability agreement, phase-quotiented agreement, or entrywise matrix error.",
+    "assumptions": [
+      "U and V are isometries on a common N-dimensional input and a common finite complex output space.",
+      "Every epsilon_j is nonnegative and bounds the Euclidean difference of the specified full-output column representatives."
+    ],
+    "conventions": [
+      "The inner product is conjugate-linear in its first argument, G=E-dagger E, and coherent input coefficients are column vectors.",
+      "Operator error is the induced Euclidean norm without a global-phase quotient; trace distance uses one-half the trace norm."
+    ],
+    "family": "candidate-sharp-columnwise-coherent-error",
+    "split": "unassigned_pending_reconciliation",
+    "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+    "target_nodes": [
+      "concept:matrix-analysis",
+      "concept:approximation"
+    ],
+    "supporting_nodes": [
+      "declaration:QuantumBlockEncoding.PrimitiveCircuitPerturbation.aligned_eval_clm_distance_le"
+    ],
+    "source_refs": [
+      {
+        "path": "QuantumBlockEncoding/PrimitiveCircuitPerturbation.lean",
+        "anchor": "Lines 1-14 norm/order scope; 49-85 aligned circuit operator-norm and Euclidean-CLM bounds.",
+        "declarations": [
+          "aligned_eval_distance_le",
+          "aligned_eval_clm_distance_le"
+        ],
+        "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+        "sha256": "624109564cd82b0584fad717283e7b9116b36f1ef10d60b43a063c0ef2a1fbae",
+        "raw_sha256": "624109564cd82b0584fad717283e7b9116b36f1ef10d60b43a063c0ef2a1fbae",
+        "hash_policy": "sha256-lf-text-v1",
+        "raw_equals_lf": true,
+        "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "matches_frozen_snapshot_input_hash": true,
+        "evidence_relation": "Inspected induced-Euclidean-norm substrate and a distinct uniform operator certificate; the column Gram theorem, sharp nonuniform bound and unitary counterexample are original natural-language derivations.",
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+      }
+    ]
+  }
+}

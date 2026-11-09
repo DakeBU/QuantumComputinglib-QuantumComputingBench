@@ -1,0 +1,492 @@
+{
+  "slot": "P2",
+  "title": "Sharp coherent error from approximate basis-column guarantees",
+  "author": "/root/batch2_phase",
+  "proposal_id": "52f89572-2174-4964-acb8-62fe8925f084",
+  "core_id": "candidate:52f89572-2174-4964-acb8-62fe8925f084",
+  "admission": "candidate_not_counted",
+  "dedup_review_required": true,
+  "split": "unassigned_pending_reconciliation",
+  "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "target_nodes": [
+    "concept:matrix-analysis",
+    "concept:approximation"
+  ],
+  "supporting_nodes": [
+    "declaration:QuantumBlockEncoding.PrimitiveCircuitPerturbation.aligned_eval_clm_distance_le"
+  ],
+  "question": "Let \\(N\\geq1\\), let \\(\\mathcal H\\) be a finite-dimensional complex Hilbert space, and let \\(U,V:\\mathbb C^N\\to\\mathcal H\\) be isometries: \\(U^\\dagger U=V^\\dagger V=I_N\\). Their columns include the complete output, including all work registers; no measurement, postselection, or trace-out occurs. Let \\(e_0,\\ldots,e_{N-1}\\) be the standard input basis and suppose exact representative-wise guarantees\n\\[\n\\|(V-U)e_j\\|_2\\leq\\varepsilon_j,\\qquad \\varepsilon_j\\geq0,\n\\]\nare known separately for every basis input. All operator norms below are induced Euclidean norms; no minimization over global phase is built into this promise.\n\nPut \\(E=V-U\\) and \\(G_{jk}=\\langle Ee_j,Ee_k\\rangle\\), using an inner product conjugate-linear in its first argument. Derive the exact quadratic form for the error on an arbitrary coherent unit input and the resulting characterization of \\(\\|E\\|\\) in terms of \\(G\\). Decide whether the column guarantees alone imply the dimension-free bound \\(\\|E\\|\\leq\\max_j\\varepsilon_j\\). Find the sharp universal bound obtainable from the whole vector \\((\\varepsilon_j)_j\\), including the isometry cap, and prove sharpness for EVERY choice of these nonnegative tolerances by constructing square unitaries on \\(\\mathbb C^N\\). An arbitrary unconstrained error matrix is not a sufficient sharpness witness. Derive the uniform-tolerance corollary and identify when the cap takes over.\n\nFor \\(N\\geq2\\), give an explicit family of unitaries whose error on every computational-basis input tends to zero as \\(N\\) grows while their operator distance stays maximal. A saturating input that changes only by an overall sign does not by itself demonstrate operational distinguishability: also give a normalized superposition on which the intended and actual output states are orthogonal, with a specified distinguishing measurement. Report both the Euclidean vector distance and the trace distance \\(\\tfrac12\\|\\rho-\\sigma\\|_1\\) for this latter input, and explain why the first saturating input has different physical-state behavior.\n\nFinally state what additional error-geometry condition WOULD yield a dimension-free bound from the same column norms, and justify it using \\(G\\). Explain briefly why an explicitly retained orthogonal branch label can supply that condition for controlled branch outputs, whereas linearity by itself does not. This comparison is only a boundary explanation, not a request to re-prove general controlled-family phase correction. Cover zero tolerances, \\(N=1\\), and exact column agreement. Do not replace full-output Euclidean promises by per-input probability agreement, phase-quotiented agreement, or entrywise matrix error.",
+  "assumptions": [
+    "U and V are isometries on a common N-dimensional input and a common finite complex output space.",
+    "Every epsilon_j is nonnegative and bounds the Euclidean difference of the specified full-output column representatives."
+  ],
+  "conventions": [
+    "The inner product is conjugate-linear in its first argument, G=E-dagger E, and coherent input coefficients are column vectors.",
+    "Operator error is the induced Euclidean norm without a global-phase quotient; trace distance uses one-half the trace norm."
+  ],
+  "source_refs": [
+    {
+      "path": "QuantumBlockEncoding/PrimitiveCircuitPerturbation.lean",
+      "anchor": "Lines 1-14 norm/order scope; 49-85 aligned circuit operator-norm and Euclidean-CLM bounds.",
+      "declarations": [
+        "aligned_eval_distance_le",
+        "aligned_eval_clm_distance_le"
+      ],
+      "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+      "sha256": "624109564cd82b0584fad717283e7b9116b36f1ef10d60b43a063c0ef2a1fbae",
+      "raw_sha256": "624109564cd82b0584fad717283e7b9116b36f1ef10d60b43a063c0ef2a1fbae",
+      "hash_policy": "sha256-lf-text-v1",
+      "raw_equals_lf": true,
+      "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "matches_frozen_snapshot_input_hash": true,
+      "evidence_relation": "Inspected induced-Euclidean-norm substrate and a distinct uniform operator certificate; the column Gram theorem, sharp nonuniform bound and unitary counterexample are original natural-language derivations.",
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+    }
+  ],
+  "schema_version": "qcb.nonlean_cohort_payload.v1",
+  "contribution_type": "new_candidate",
+  "mathematical_target": "Sharp nonuniform full-basis-column-to-operator error theorem, attained by legal square unitaries for every tolerance vector, plus an orthogonal-output interference witness.",
+  "family": "candidate-sharp-columnwise-coherent-error",
+  "reference_answer": "For a column coefficient vector \\(c\\in\\mathbb C^N\\), linearity gives \\(Ec=\\sum_j c_jEe_j\\). With the stated inner-product convention,\n\\[\n\\|Ec\\|_2^2=\\sum_{j,k}\\overline{c_j}c_k\\langle Ee_j,Ee_k\\rangle\n=c^\\dagger Gc,\n\\qquad G=E^\\dagger E.\n\\]\nThus G is Hermitian positive semidefinite, its diagonal is \\(G_{jj}=\\|Ee_j\\|_2^2\\), and finite-dimensional spectral theory gives\n\\[\n\\|E\\|^2=\\max_{\\|c\\|_2=1}c^\\dagger Gc=\\lambda_{\\max}(G).\n\\]\nOne may also expand the isometry identities to obtain \\(G=2I-U^\\dagger V-V^\\dagger U\\). The off-diagonal entries record coherent correlations of error vectors. Orthogonality of the columns of U and of V separately does not force the columns of their difference to be orthogonal.\n\nPut \\(r=(\\sum_j\\varepsilon_j^2)^{1/2}\\). For every unit c, triangle inequality and scalar Cauchy-Schwarz give\n\\[\n\\|Ec\\|_2\\leq\\sum_j|c_j|\\|Ee_j\\|_2\n\\leq\\sum_j|c_j|\\varepsilon_j\\leq r.\n\\]\nEquivalently \\(\\lambda_{\\max}(G)\\leq\\operatorname{tr}G\\leq r^2\\). Since U and V are isometries, \\(\\|Uc\\|_2=\\|Vc\\|_2=1\\), so \\(\\|Ec\\|_2\\leq2\\). Hence the universal bound is\n\\[\n\\boxed{\\ \\|V-U\\|\\leq\\min\\!\\left\\{2,\\sqrt{\\sum_j\\varepsilon_j^2}\\right\\}.\\ }\n\\]\nThere is no statistical-independence assumption or cancellation premise in this estimate.\n\nHere is sharpness even among square unitaries, for each fixed nonnegative tolerance vector. If \\(r=0\\), choose \\(U=V=I\\); the zero upper bound is attained. If \\(r>0\\), define the real nonnegative unit vector \\(s=\\sum_j(\\varepsilon_j/r)e_j\\), its rank-one orthogonal projector \\(P=|s\\rangle\\langle s|\\), and \\(\\kappa=\\min(2,r)\\). Choose a real \\(\\theta\\in[0,\\pi]\\) such that \\(|e^{i\\theta}-1|=\\kappa\\), for example \\(\\theta=2\\arcsin(\\kappa/2)\\). Set\n\\[\nU=I,\\qquad V=I+(e^{i\\theta}-1)P=(I-P)+e^{i\\theta}P.\n\\]\nThe two orthogonal sectors \\(\\operatorname{ran}P\\) and \\(\\ker P\\) receive unit-modulus eigenvalues, so \\(V^\\dagger V=I\\). More explicitly, the mixed products vanish because \\(P(I-P)=0\\), and both sector products sum to I. Moreover\n\\[\n\\|(V-I)e_j\\|_2\n=\\kappa|\\langle s,e_j\\rangle|\n=\\kappa\\frac{\\varepsilon_j}{r}\\leq\\varepsilon_j,\n\\qquad \\|V-I\\|=\\kappa\\|P\\|=\\kappa.\n\\]\nThe inequality uses \\(\\kappa\\leq r\\). Thus the claimed bound cannot be decreased using only those column tolerances, even with full unitarity imposed. For \\(r\\leq2\\), all specified column bounds are attained simultaneously; for \\(r>2\\), they remain valid upper bounds while the unitary cap is attained. Zero components of the tolerance vector create zero components of s and exactly zero corresponding column errors.\n\nFor a uniform tolerance \\(\\varepsilon_j=\\varepsilon\\), this reduces to\n\\[\n\\|V-U\\|\\leq\\min\\{2,\\sqrt N\\,\\varepsilon\\},\n\\]\nwith transition at \\(\\varepsilon=2/\\sqrt N\\). For \\(N>1\\) the dimension-free assertion \\(\\|E\\|\\leq\\max_j\\varepsilon_j\\) is false in general. It is sometimes true for particular error geometry or loose tolerances; the counterexample refutes the universal implication, not every instance.\n\nFor a concrete operational witness, take \\(N\\geq2\\),\n\\[\ns=N^{-1/2}\\sum_{j=0}^{N-1}e_j,\\qquad\nU=I,\\qquad V=I-2|s\\rangle\\langle s|.\n\\]\nThen \\(V^\\dagger V=I\\), every column error is exactly \\(2/\\sqrt N\\), and \\(\\|V-I\\|=2\\). The column errors tend to zero as N increases, including along qubit dimensions \\(N=2^n\\). On the saturating input s, the actual output is \\(-s\\). The vector distance is 2 but the two density matrices are identical, so their trace distance is 0: this input alone detects the chosen representative convention, not an operationally distinguishable physical state.\n\nNow define \\(t=(e_0-e_1)/\\sqrt2\\); it is a unit vector orthogonal to s. For the normalized input \\(h=(s+t)/\\sqrt2\\),\n\\[\nUh=h=\\frac{s+t}{\\sqrt2},\\qquad\nVh=k=\\frac{-s+t}{\\sqrt2},\\qquad\n\\langle h,k\\rangle=0.\n\\]\nThe vector difference is \\(-\\sqrt2s\\), of norm \\(\\sqrt2\\). With \\(\\rho=|h\\rangle\\langle h|\\) and \\(\\sigma=|k\\rangle\\langle k|\\), the difference has eigenvalue +1 on h, -1 on k and zero on their orthogonal complement. Therefore \\(\\|\\rho-\\sigma\\|_1=2\\) and the stipulated trace distance is 1. The projective measurement \\(\\{|h\\rangle\\langle h|,I-|h\\rangle\\langle h|\\}\\) returns its first outcome with probabilities 1 and 0. This establishes a fully distinguishable coherent-output failure despite small errors on every basis input.\n\nThe exact additional condition for a desired bound \\(\\|E\\|\\leq b\\), \\(b\\geq0\\), is \\(G\\preceq b^2I\\). A concrete sufficient geometry for \\(b=\\max_j\\varepsilon_j\\) is pairwise orthogonality of the error columns: then G is diagonal and\n\\[\n\\|E\\|=\\max_j\\|Ee_j\\|_2\\leq\\max_j\\varepsilon_j.\n\\]\nIn an explicitly label-preserving controlled comparison, differences of the form \\(|j\\rangle\\otimes(v_j-u_j)\\) are orthogonal for distinct j because the labels are orthogonal. That is an additional output interface. It does not follow merely by writing a coherent input as a linear combination. In the present reflection witness all error columns point in the same direction s, which is precisely the opposite geometry. The controlled-label comparison therefore does not contradict the sharp square-unitary result and supplies no free extra label or workspace cleanup.\n\nIf every tolerance is zero, exact equality on the entire input basis gives E=0 by linearity. Individual zero tolerances force only their own columns to agree. At \\(N=1\\), \\(\\min(2,\\varepsilon_0)\\) is still sharp for square unitaries, using a scalar phase. The reflection-interference example requires \\(N\\geq2\\); in the one-dimensional square case all unitary output vectors differ only by global phase, although the representative-wise operator distance can be nonzero. Isometries into a larger output space remain covered by the bound but need not share that one-dimensional physical equivalence. No output phase is independently optimized for each input in this problem, and probability agreement is not the stated hypothesis. The proof concerns full columns, not scalar entrywise errors, and derives no circuit realization or oracle cost.",
+  "rubric": [
+    {
+      "id": "r1",
+      "weight": 1.5,
+      "criterion": "Derives the conjugation-correct quadratic form, PSD Gram matrix and largest-eigenvalue characterization; identifies off-diagonal error correlations rather than assuming errors orthogonal."
+    },
+    {
+      "id": "r2",
+      "weight": 1.5,
+      "criterion": "Proves min(2,sqrt(sum epsilon_j^2)) using all column promises and the isometry cap, and states the sharp uniform sqrt(N) consequence and cap threshold."
+    },
+    {
+      "id": "r3",
+      "weight": 3.0,
+      "criterion": "Constructs and verifies square unitaries attaining the bound for EVERY nonnegative tolerance vector, with r=0 separated, each column promise checked, and both r<=2 and r>2 handled. An arbitrary unconstrained matrix or only a uniform example earns partial credit."
+    },
+    {
+      "id": "r4",
+      "weight": 2.0,
+      "criterion": "Provides and verifies any valid unitary family with all basis-column errors tending to zero and maximal operator distance, plus an explicit normalized interference input with orthogonal outputs and a distinguishing measurement. Computes vector distance sqrt2 and half-trace-norm distance 1 for that input, and correctly separates a saturating global-sign input with physical trace distance 0. The uniform rank-one reflection is one sufficient route; equivalent valid constructions receive the same credit."
+    },
+    {
+      "id": "r5",
+      "weight": 1.0,
+      "criterion": "Gives a sufficient error-geometry condition such as orthogonal error columns, justified by the Gram matrix, and explains the retained-label boundary without pretending linearity supplies the extra output label."
+    },
+    {
+      "id": "r6",
+      "weight": 1.0,
+      "criterion": "Handles zero tolerances and N=1, preserves complete-output/representative-wise assumptions and the distinction from entrywise or probability promises; no circuit or cleanup resource claim is inferred."
+    }
+  ],
+  "common_errors": [
+    "Using max_j epsilon_j without controlling cross-column error correlations.",
+    "Assuming orthonormal columns of U and V make the difference columns orthogonal.",
+    "Using an arbitrary error matrix to claim sharpness while failing the unitary/isometry premises.",
+    "Omitting the norm-two isometry cap or dividing by r when all tolerances vanish.",
+    "Offering only an overall-sign input as a physical distinguishability witness.",
+    "Confusing vector distance 2, vector distance sqrt2, trace norm 2 and trace distance 1.",
+    "Silently weakening the full-output Euclidean guarantee to measurement probabilities or independently chosen column phases.",
+    "Counting the retained-label orthogonality comparison or the existing entrywise N-epsilon example as the new assessed result."
+  ],
+  "boundary_cases": [
+    {
+      "case": "r=0",
+      "consequence": "Every error column is zero, so E=0; choose identical unitaries without normalizing an absent direction."
+    },
+    {
+      "case": "Some epsilon_j=0",
+      "consequence": "Those columns agree exactly; the rank-one saturating vector has zero corresponding components."
+    },
+    {
+      "case": "r>2",
+      "consequence": "The norm-two isometry cap is active; sharpness need only satisfy, not saturate, each loose column tolerance."
+    },
+    {
+      "case": "N=1",
+      "consequence": "The numerical bound is still sharp by scalar phases; the square one-dimensional case has no two-sector interference witness."
+    },
+    {
+      "case": "Retained orthogonal labels",
+      "consequence": "They can force orthogonal error columns, an additional interface absent from general square-unitary comparisons."
+    },
+    {
+      "case": "Phase-quotiented or probability promise",
+      "consequence": "A different hypothesis; the reference-wise Gram argument cannot silently adopt it."
+    }
+  ],
+  "difficulty": {
+    "D0_facet": "Full-output vectors versus physical states; columnwise versus operator error; exact representative and trace-distance normalization.",
+    "provisional_route_band": "D3",
+    "rationale": "Requires a Gram characterization, sharp nonuniform upper bound, legal unitary saturation for all tolerances, and a separate physical interference witness.",
+    "shortcut_disclosure": "The rank-one phase construction is not supplied in the question. A generic unconstrained error matrix would evade the unitary sharpness obligation.",
+    "measured_model_difficulty": false
+  },
+  "reasoning_map": {
+    "kind": "author_supplied_natural_language",
+    "not_extracted_lean_dependencies": true,
+    "inputs": [
+      {
+        "id": "I1",
+        "statement": "N>=1; U,V are isometries with common finite complex input/output carriers.",
+        "kind": "assumption"
+      },
+      {
+        "id": "I2",
+        "statement": "Every epsilon_j>=0 bounds the exact full-output column error norm.",
+        "kind": "assumption"
+      },
+      {
+        "id": "I3",
+        "statement": "E=V-U; G_jk=<Ee_j,Ee_k>; inner product conjugate-linear first, induced Euclidean operator norm.",
+        "kind": "definition_and_convention"
+      },
+      {
+        "id": "I4",
+        "statement": "Trace distance means one-half the trace norm, with no phase quotient in the vector/operator promise.",
+        "kind": "convention"
+      }
+    ],
+    "steps": [
+      {
+        "id": "S1",
+        "claim": "The complete coherent error is a Gram quadratic form.",
+        "assumptions": [],
+        "required_inputs": [
+          "I1",
+          "I3"
+        ],
+        "conclusion": "||Ec||^2=c-dagger G c, G=E-dagger E>=0, ||E||^2=lambda_max(G).",
+        "justification": "Expand linearity with conjugation in the first argument; maximize the Hermitian quadratic form."
+      },
+      {
+        "id": "S2",
+        "claim": "Column data give an l2 aggregate bound while isometry gives the cap.",
+        "assumptions": [],
+        "required_inputs": [
+          "I1",
+          "I2",
+          "I3",
+          "S1"
+        ],
+        "conclusion": "||E||<=min(2,r), r=sqrt(sum epsilon_j^2).",
+        "justification": "Triangle plus Cauchy-Schwarz gives r; both outputs of a unit input have norm one, giving 2."
+      },
+      {
+        "id": "S3",
+        "claim": "Legal square unitaries saturate every tolerance vector by a case split.",
+        "assumptions": [],
+        "required_inputs": [
+          "I1",
+          "I2",
+          "I3",
+          "S2"
+        ],
+        "conclusion": "At r=0 use U=V=I. For r>0, P=|s><s| with s_j=epsilon_j/r and V=I+(exp(i theta)-1)P, |exp(i theta)-1|=min(2,r), attain the bound.",
+        "justification": "First separate r=0. In the r>0 branch, orthogonal P/I-P sectors prove unitarity AND individual column calculations prove each promised inequality; division occurs only there."
+      },
+      {
+        "id": "S4",
+        "claim": "Uniform promises incur the sharp square-root-dimension factor.",
+        "assumptions": [],
+        "required_inputs": [
+          "I2",
+          "S2",
+          "S3"
+        ],
+        "conclusion": "Uniform bound min(2,sqrt(N) epsilon), sharp; cap threshold 2/sqrt(N).",
+        "justification": "Specialize the nonuniform theorem, with the zero case handled separately."
+      },
+      {
+        "id": "S5",
+        "claim": "A reflection has vanishing basis-column errors and maximal operator distance.",
+        "assumptions": [
+          "Use N>=2 for the subsequent interference example."
+        ],
+        "required_inputs": [
+          "I1",
+          "I3",
+          "S3"
+        ],
+        "conclusion": "For uniform s, V=I-2|s><s| has column errors 2/sqrt(N), operator norm difference 2.",
+        "justification": "Apply the rank-one projector formula at theta=pi."
+      },
+      {
+        "id": "S6",
+        "claim": "The operational counterexample is not merely a global-sign witness.",
+        "assumptions": [
+          "N>=2 as in S5; do not apply this construction at N=1."
+        ],
+        "required_inputs": [
+          "I1",
+          "I4",
+          "S5"
+        ],
+        "conclusion": "s maps to -s with trace distance 0; h=(s+t)/sqrt2 maps to k=(-s+t)/sqrt2 orthogonal to h, vector distance sqrt2 and trace distance 1.",
+        "justification": "t=(e0-e1)/sqrt2 is unit and orthogonal to s; compute inner products AND eigenvalues of |h><h|-|k><k|; a projection onto h distinguishes perfectly."
+      },
+      {
+        "id": "S7",
+        "claim": "Orthogonal error columns are a sufficient additional geometry.",
+        "assumptions": [
+          "For the general norm-order equivalence, the scalar threshold b is real and nonnegative. The diagonal-Gram assertion does not need an additional threshold."
+        ],
+        "required_inputs": [
+          "I2",
+          "I3",
+          "S1"
+        ],
+        "conclusion": "Diagonal G gives ||E||=max_j||Ee_j||; for every real b>=0, G<=b^2 I iff ||E||<=b.",
+        "justification": "Spectral order bounds the quadratic form; an explicit retained label forces cross-error inner products to vanish."
+      },
+      {
+        "id": "S8",
+        "claim": "Zero and one-dimensional cases preserve the exact quantifiers.",
+        "assumptions": [
+          "The r=0 branch excludes division by r in S3; the N=1 branch excludes the N>=2 witness S5-S6."
+        ],
+        "required_inputs": [
+          "I1",
+          "I2",
+          "I3",
+          "I4",
+          "S1",
+          "S2"
+        ],
+        "conclusion": "r=0 implies E=0 and is attained by U=V=I; N=1 still has the scalar-phase sharp cap, but no orthogonal t in the square one-dimensional output.",
+        "justification": "Linearity extends zero columns; for N=1 the unitary is a scalar phase, distinct from larger-output isometries."
+      }
+    ],
+    "reused_results": [
+      {
+        "result": "Finite Hermitian spectral theorem, Cauchy-Schwarz and unitary norm preservation.",
+        "consumers": [
+          "S1",
+          "S2",
+          "S3",
+          "S7"
+        ],
+        "status": "Standard finite-dimensional mathematical tools; no new formal verification is claimed."
+      },
+      {
+        "result": "Prior B2 retained-label orthogonality mechanism.",
+        "consumers": [
+          "S7"
+        ],
+        "status": "Disclosed boundary comparison only; no phase-correction problem is recounted as new."
+      }
+    ],
+    "reconvergent_branches": [
+      {
+        "branches": [
+          "I1",
+          "I2",
+          "S1"
+        ],
+        "join": "S2",
+        "meaning": "The isometry cap AND all individual column promises enter the sharp upper bound."
+      },
+      {
+        "branches": [
+          "S2",
+          "S3"
+        ],
+        "join": "S4",
+        "meaning": "An upper bound and a legal unitary attaining it are both required for sharpness."
+      },
+      {
+        "branches": [
+          "S5",
+          "I4"
+        ],
+        "join": "S6",
+        "meaning": "The reflection action and precise physical-state metric give an operational witness distinct from global sign."
+      }
+    ],
+    "case_scopes": {
+      "sharpness_case_split": {
+        "steps": [
+          "S3"
+        ],
+        "branches": [
+          "r=0: identical unitaries, no division",
+          "r>0: normalized rank-one phase construction"
+        ]
+      },
+      "zero_tolerance_boundary": {
+        "premise": "r=0",
+        "steps": [
+          "S8"
+        ]
+      },
+      "operational_witness": {
+        "premise": "N>=2",
+        "steps": [
+          "S5",
+          "S6"
+        ]
+      },
+      "one_dimension": {
+        "premise": "N=1",
+        "steps": [
+          "S8"
+        ],
+        "excluded_steps": [
+          "S5",
+          "S6"
+        ]
+      }
+    }
+  },
+  "overlap": {
+    "global_semantic_reconciliation": "pending",
+    "assessed_delta": "Sharp nonuniform full-basis-column-to-operator error theorem, attained by legal square unitaries for every tolerance vector, plus an orthogonal-output interference witness.",
+    "related_targets": [
+      {
+        "id": "qcb-core-plan-010",
+        "split": "test_public",
+        "relation": "Already assesses entrywise scalar error and an N-times-entry-error matrix example. P2 assesses full-column Euclidean promises, sharp nonuniform l2 aggregation/sqrt(N) scaling under actual unitarity, and an operationally distinguishable coherent input."
+      },
+      {
+        "id": "prior-package-99e830bd/B2; candidate:06369e40-07df-4a8c-9105-ac09ebc9b41c",
+        "split": "unassigned candidate",
+        "relation": "Retained-label orthogonality is used only to explain a contrasting sufficient condition. No phase-correction theorem or weighted phase-error formula is counted anew."
+      },
+      {
+        "id": "qcb-core-la-007",
+        "split": "dev",
+        "relation": "Two-column exact linearity is a basic reused ingredient. It does not supply a sharp global error bound or unitary constrained counterexample."
+      },
+      {
+        "id": "qcb-core-plan-207",
+        "split": "test_public",
+        "relation": "Discarded-record dephasing is a different channel/cleanup boundary; P2 performs no trace-out and compares complete isometries."
+      },
+      {
+        "id": "PR114/plan208 single-column completion boundary",
+        "split": "test_public reserved branch proposal",
+        "relation": "Root reports C_epsilon versus C_-epsilon with first-column error 2epsilon and operator error 2. P2 promises every basis column and proves the sharp sqrt(N) conversion; it neither repairs the reserved core nor re-counts that one-column failure. Branch content remains proposed, not current gold."
+      },
+      {
+        "id": "qcb-core-plan-208",
+        "split": "test_public (reserved; withheld)",
+        "relation": "Not repaired or reassigned. Current main withholds this reserved maxnorm/amplitude-completion target. Root inspected PR114 at ff361a6 and reported its additional single-prepared-column completion boundary; this worker has not independently inspected that branch object."
+      },
+      {
+        "id": "assessment-v2/coherent_control_global_relative_phase; assessment-v3/promise_register_protocols",
+        "split": "sealed/public metadata only",
+        "relation": "Root's bounded reservation screen reports coherent-control/global-relative-phase and dirty-control/controlled-conjugation clusters. Full sealed questions are not available in this public workspace, so no complete semantic clearance is claimed."
+      }
+    ],
+    "split_action": "Unassigned pending reconciliation; overlaps with public-test/dev and unresolved candidates forbid a clean training or independence claim.",
+    "bounded_review_scope": "Current resolved public core/reader exports, prior B2/B3 and current intake addenda were read. Root-reported open/sealed reservations are marked as such; unavailable sealed questions were not inferred from metadata.",
+    "dedup_review_required": true
+  },
+  "unverified": [
+    "Original natural-language derivation only; no Lean execution, kernel replay, axiom audit or production-source change was performed.",
+    "Author freeze is awaiting distinct answer-blind derivation and comparison. This author claims no independent review or approval.",
+    "Source inspection grounds conventions and explicitly limited formal substrate, not the complete new mathematical target.",
+    "Frozen graph identities represent declared source ownership and navigation, not extracted theorem-proof dependencies or new formal theorem closure.",
+    "Global semantic deduplication, split assignment, release admission and measured model difficulty/performance remain unresolved.",
+    "No paid model run, training, inference experiment, system installation, commit or push was performed by this worker."
+  ],
+  "provenance": {
+    "author_identity": "/root/batch2_phase",
+    "baseline_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+    "frozen_graph_snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+    "frozen_graph_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+    "question_only_path": "questions/P2.json",
+    "question_only_sha256": "ad8ceca7fd82101ed63468510dabdb420444569862044ac92fbd7b297fea669e",
+    "question_text_sha256": "b03b80178070895ac18d4ff1e82b9c46274cf3d749113b93f345df5f8a761712",
+    "question_first_record": "evidence/phase-question-freeze.json",
+    "evidence_class": "original_nl_sharp_bound_and_unitary_counterexample_using_inspected_norm_conventions",
+    "source_inspection": [
+      {
+        "path": "QuantumBlockEncoding/PrimitiveCircuitPerturbation.lean",
+        "anchor": "Lines 1-14 norm/order scope; 49-85 aligned circuit operator-norm and Euclidean-CLM bounds.",
+        "declarations": [
+          "aligned_eval_distance_le",
+          "aligned_eval_clm_distance_le"
+        ],
+        "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+        "sha256": "624109564cd82b0584fad717283e7b9116b36f1ef10d60b43a063c0ef2a1fbae",
+        "raw_sha256": "624109564cd82b0584fad717283e7b9116b36f1ef10d60b43a063c0ef2a1fbae",
+        "hash_policy": "sha256-lf-text-v1",
+        "raw_equals_lf": true,
+        "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "matches_frozen_snapshot_input_hash": true,
+        "evidence_relation": "Inspected induced-Euclidean-norm substrate and a distinct uniform operator certificate; the column Gram theorem, sharp nonuniform bound and unitary counterexample are original natural-language derivations.",
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+      }
+    ],
+    "imports_and_declaration_availability": {
+      "source_imports": "PrimitiveCircuitPerturbation imports PrimitiveRyPerturbation and ConstructiveHermitePreparation and opens Matrix.Norms.L2Operator; this is a convention anchor, not a columnwise-error implementation.",
+      "availability": "All active target/support nodes were checked in the frozen release-v3 snapshot. Current source file bytes match the snapshot input hashes; no snapshot refresh is needed for these limited anchors."
+    },
+    "conceptual_graph_relationships": [
+      {
+        "from": "Complete column error geometry + isometry constraints",
+        "to": "Sharp coherent operator error and observable interference boundary",
+        "relation": "Author-supplied conceptual AND transport; not a formal implication edge."
+      }
+    ],
+    "justified_mathematical_dependencies": [
+      [
+        "I1",
+        "I3"
+      ],
+      [
+        "I1",
+        "I2",
+        "I3",
+        "S1"
+      ],
+      [
+        "I1",
+        "I2",
+        "I3",
+        "S2"
+      ],
+      [
+        "I2",
+        "S2",
+        "S3"
+      ],
+      [
+        "I1",
+        "I3",
+        "S3"
+      ],
+      [
+        "I1",
+        "I4",
+        "S5"
+      ],
+      [
+        "I2",
+        "I3",
+        "S1"
+      ],
+      [
+        "I1",
+        "I2",
+        "I3",
+        "I4",
+        "S1",
+        "S2"
+      ]
+    ],
+    "graph_anchor_relation": "Formal substrate and conventions only. New arbitrary-width/catalyst/sharpness conclusions have no compiled root claimed here.",
+    "review_state": "authored_awaiting_independent_review",
+    "external_sources": {
+      "inspected": [],
+      "paper_fidelity_claim": false
+    },
+    "license_attribution": "Original English mathematical exposition; source substrate MIT, Copyright (c) 2026 Quantum Block Encoding contributors. Repository LICENSE inspected.",
+    "generation": "No model evaluation, paid API, installation, training or Lean execution."
+  }
+}
