@@ -1,0 +1,286 @@
+{
+  "proposal_id": "72867d6e-2eaf-4ce8-8e9d-8744184236bd",
+  "track": "non-lean",
+  "author": "/root/batch2_gram",
+  "core_id": "candidate:72867d6e-2eaf-4ce8-8e9d-8744184236bd",
+  "admission": "candidate_not_counted",
+  "dedup_review_required": true,
+  "source_nodes": [
+    "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.gram",
+    "declaration:QuantumBlockEncoding.StoredTensorTrainNorm.update",
+    "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.gram_scalar",
+    "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.norm",
+    "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.norm_pos_of_nonzero",
+    "declaration:QuantumBlockEncoding.StoredTensorTrainNorm.gram",
+    "declaration:QuantumBlockEncoding.StoredTensorTrainNorm.norm"
+  ],
+  "view_kind": "derivation",
+  "family": "finite-grid-gram-normalizer-stability",
+  "split": "unassigned_pending_reconciliation",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "contract_hash": "f65bb05957e5ba9fef4433e3fac167c9836fd2a250de2081b4ca4f17b20c1040",
+  "base_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+  "package_id": "3703ef46-1a1d-47ab-a991-dc9d94a0f386",
+  "slot": "G1",
+  "payload_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/3703ef46-1a1d-47ab-a991-dc9d94a0f386/qa/G1.json",
+  "payload_sha256": "4afd408258090c4fd87e1ea92b9c379c567e0bba8f29d550883dcd9c759372e8",
+  "item_digest": "1cc03a65d80fb4e8ea96493257678031b8295804b474f365e7ac28ef55fba098",
+  "title": "Finite-grid Gram contraction: roundoff, range and a certified normalizer",
+  "mathematical_target": "Derive a finite-grid two-pass Gram error and range certificate, then establish a positive rounded normalizer and an explicit precision guarantee from an independent mass margin; exhibit a legal small-mass failure.",
+  "review_records": [
+    {
+      "slot": "G1",
+      "core_id": "candidate:72867d6e-2eaf-4ce8-8e9d-8744184236bd",
+      "reviewer": "/root/batch2_review_gram",
+      "report_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/3703ef46-1a1d-47ab-a991-dc9d94a0f386/reviews/G-review.json",
+      "report_sha256": "1bf0aef929f54f5384b6cc2aad5ad149f635b39a49e3885f8bc18a6f7c840bc0",
+      "item_digest": "1cc03a65d80fb4e8ea96493257678031b8295804b474f365e7ac28ef55fba098",
+      "payload_sha256": "4afd408258090c4fd87e1ea92b9c379c567e0bba8f29d550883dcd9c759372e8",
+      "verdict": "accept",
+      "semantic_core_verdict": "distinct_or_explicit_alias",
+      "human_approval": false,
+      "admission": "candidate_not_counted"
+    }
+  ],
+  "status": "authored_with_content_bound_AI_review_pending_maintainer_decision",
+  "count_effect": "zero_until_explicit_admission",
+  "usage": "public_supplementary_diagnostic_only; no training or independent-held-out clearance",
+  "proposed_contract": {
+    "question": "Work over the real numbers. Let \\(n\\ge0\\), let \\(d_0=d_n=1\\) and \\(d_j\\ge1\\), and let the two slices \\(A_j^0,A_j^1\\in\\mathbb R^{d_{j-1}\\times d_j}\\) of core \\(j\\) be supplied dyadic rationals. Their denominators divide \\(2^{b_{\\rm in}}\\), and every entry has magnitude at most a supplied \\(M_j\\ge0\\). For an ordered bit word \\(s\\in\\{0,1\\}^n\\), put \\(x_s=A_1^{s_1}\\cdots A_n^{s_n}\\), a scalar. An empty product is 1 and there is one empty word. You may use, without re-proving, the exact Gram identity\n\\[\nE_n=[1],\\qquad E_{j-1}=\\sum_{t=0}^1 A_j^t E_j(A_j^t)^T,\n\\qquad (E_0)_{11}=\\sum_s x_s^2=\\|x\\|_2^2.\n\\]\n\nHere is a particular finite-grid algorithm, not a floating-point black box. Choose an integer \\(b\\ge b_{\\rm in}\\), use the grid \\(h\\mathbb Z\\) with \\(h=2^{-b}\\), and let \\(Q_b\\) round to a nearest grid point with any fixed tie convention; hence \\(|Q_b(z)-z|\\le u=h/2\\). Inputs, 0 and 1 are represented exactly. Set \\(\\widehat E_n=[1]\\). At step \\(j\\), with \\(m=d_j\\), compute, separately for each \\(t\\), \\(\\widehat T^t\\) by multiplying \\(A_j^t\\widehat E_j\\) with the following dot-product schedule: start the accumulator at 0, round each scalar product with \\(Q_b\\), then round every addition into the accumulator. In the same way compute \\(\\widehat S^t\\) from \\(\\widehat T^t(A_j^t)^T\\), and set each entry of \\(\\widehat E_{j-1}\\) to \\(Q_b(\\widehat S^0+\\widehat S^1)\\). Do not impose symmetry or positivity on the rounded environment. Initially reason on the unbounded grid; a finite signed range will be chosen from your intermediate-value bounds.\n\n1. With \\(\\|F\\|_{\\max}=\\max_{a,c}|F_{ac}|\\), derive a uniform error certificate for this schedule. In particular, prove that the safe constants\n\\[\nL_j=2d_j^2M_j^2,\\qquad R_j=4d_j^2M_j+4d_j+1\n\\]\npermit \\(e_n=0\\) and \\(e_{j-1}\\le L_j e_j+uR_j\\), where \\(e_j=\\|\\widehat E_j-E_j\\|_{\\max}\\). Derive an explicit unrolled bound \\(e_0\\le uC_0\\), and specify a backwards recurrence for all \\(C_j\\). Tighter constants from exact grid additions are also acceptable if every later bound is updated consistently. Bound the magnitudes of stored environments, both kinds of scalar products and all partial sums, and explain how finitely many integer bits can be chosen to prevent overflow. A range bound for only the final scalar is insufficient.\n\n2. Let an independent certificate supply \\(\\|x\\|_2\\ge\\mu>0\\). When the rounded scalar \\(\\widehat s=(\\widehat E_0)_{11}\\) is positive, take one correctly rounded square root \\(\\widehat r=Q_b(\\sqrt{\\widehat s})\\). Derive explicit sufficient conditions for \\(\\widehat s>0\\) and \\(\\widehat r>0\\), and a quantitative bound on\n\\[\n\\left\\|\\frac{x}{\\widehat r}-\\frac{x}{\\|x\\|_2}\\right\\|_2.\n\\]\nThe numerator \\(x\\) and the displayed divisions are exact mathematical quantities here; output-coordinate rounding and a circuit implementation are not included. For any requested \\(\\varepsilon>0\\), give a sufficient inequality on \\(u\\), and therefore an integer choice of \\(b\\ge b_{\\rm in}\\), that establishes both positivity facts and error at most \\(\\varepsilon\\), without first assuming those positivity facts. State why \\(x/\\widehat r\\) need not have norm exactly one.\n\n3. Check \\(n=0\\), zero cores and zero mass with correctly scoped premises. For any fixed \\(b\\ge2\\), give a legal one-core grid input with nonzero exact mass whose computed \\(\\widehat s\\) is zero. Explain what this says about a guarantee without a lower-mass/precision margin, and why the exact-real Gram identity or an exact-real operation count alone is not the finite-grid certificate proved here. No claim about optimal constants, bit-operation runtime, core-generation error or quantum gate synthesis is requested.",
+    "assumptions": [
+      "Finite real scalar-boundary train with strictly positive bond dimensions and exact supplied dyadic core entries.",
+      "A known finite magnitude bound M_j for each core and an integer input precision b_in; working b is at least b_in.",
+      "The precise Q_b multiplication/addition schedule in the question; nearest-grid rounding has absolute error at most u=2^(-b-1).",
+      "The normalization branch separately receives an independent true-norm lower bound mu>0; the raw-error branch does not assume positive mass.",
+      "The correctly rounded square root is invoked only after positivity of its input has been established."
+    ],
+    "conventions": [
+      "Core products are ordered left-to-right by emitted bit; real transpose, entrywise maximum matrix norm and Euclidean vector norm are distinct.",
+      "There is one empty word; an empty product is one. All environment matrices have positive dimensions.",
+      "Q_b has a fixed tie rule; all stored grid additions are actually exact on an unbounded grid, but charging u for them yields the requested conservative certificate.",
+      "x/r_hat is an exactly divided mathematical vector; no output amplitude rounding, input-core generation error, circuit or bit-runtime claim is included."
+    ],
+    "family": "finite-grid-gram-normalizer-stability",
+    "split": "unassigned_pending_reconciliation",
+    "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+    "target_nodes": [
+      "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.gram",
+      "declaration:QuantumBlockEncoding.StoredTensorTrainNorm.update"
+    ],
+    "supporting_nodes": [
+      "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.gram_scalar",
+      "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.norm",
+      "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.norm_pos_of_nonzero",
+      "declaration:QuantumBlockEncoding.StoredTensorTrainNorm.gram",
+      "declaration:QuantumBlockEncoding.StoredTensorTrainNorm.norm"
+    ],
+    "source_refs": [
+      {
+        "path": "QuantumBlockEncoding/TensorTrainNormEnvironment.lean",
+        "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "anchor": "gram lines 19-24; gram_eq_sum lines 27-37; gram_scalar lines 40-43; norm lines 51-51; norm_pos_of_nonzero lines 61-65",
+        "sha256": "e684550c248817ac77e03a23e0af86d3b2c7f3d8b09bcdb2385702624f5ebe6c",
+        "sha256_lf": "e684550c248817ac77e03a23e0af86d3b2c7f3d8b09bcdb2385702624f5ebe6c",
+        "sha256_raw": "e684550c248817ac77e03a23e0af86d3b2c7f3d8b09bcdb2385702624f5ebe6c",
+        "source_matches_frozen_snapshot": true,
+        "hash_policy": "sha256-lf-text-v1",
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+        "read_status": "Named complete declarations and bodies plus adjacent conventions inspected as local source text; no Lean execution.",
+        "source_role": "Exact real Gram recursion, supplied scalar norm identity and nonzero domain; no rounding theorem.",
+        "declarations": [
+          "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.gram",
+          "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.gram_eq_sum",
+          "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.gram_scalar",
+          "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.norm",
+          "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.norm_pos_of_nonzero"
+        ],
+        "declaration_spans": [
+          {
+            "name": "QuantumBlockEncoding.TensorTrainNormEnvironment.gram",
+            "line_start": 19,
+            "line_end": 24,
+            "sha256_lf": "fb87286c3a6cf3f40cc9d3320caf08328d18424f23d67257d02750107ea97cfa",
+            "hash_span": "Inclusive complete declaration source lines, with final newline."
+          },
+          {
+            "name": "QuantumBlockEncoding.TensorTrainNormEnvironment.gram_eq_sum",
+            "line_start": 27,
+            "line_end": 37,
+            "sha256_lf": "2b8c9f20f2b1b493ed0cff40833506a91c16a8345568b2a302663ab80e3203dc",
+            "hash_span": "Inclusive complete declaration source lines, with final newline."
+          },
+          {
+            "name": "QuantumBlockEncoding.TensorTrainNormEnvironment.gram_scalar",
+            "line_start": 40,
+            "line_end": 43,
+            "sha256_lf": "9072877c265ebd16e19bf5efcff8cbf2c25f5870f5642385d8a59fb2f38bd9d6",
+            "hash_span": "Inclusive complete declaration source lines, with final newline."
+          },
+          {
+            "name": "QuantumBlockEncoding.TensorTrainNormEnvironment.norm",
+            "line_start": 51,
+            "line_end": 51,
+            "sha256_lf": "e24695d85ae04d9c642038730fc2ba94bd34f988fecd9b0edcc371600aea4f55",
+            "hash_span": "Inclusive complete declaration source lines, with final newline."
+          },
+          {
+            "name": "QuantumBlockEncoding.TensorTrainNormEnvironment.norm_pos_of_nonzero",
+            "line_start": 61,
+            "line_end": 65,
+            "sha256_lf": "5df4802730358a49110d70c987c3c5bb613b840c3fad8b622a589f32a90aea8f",
+            "hash_span": "Inclusive complete declaration source lines, with final newline."
+          }
+        ]
+      },
+      {
+        "path": "QuantumBlockEncoding/StoredTensorTrainNorm.lean",
+        "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "anchor": "firstEntry lines 27-32; firstPass lines 34-36; secondEntry lines 47-52; secondPass lines 54-56; update lines 80-86; gram lines 103-108; norm lines 118-121; norm_eq_sum lines 129-131",
+        "sha256": "60fa71fc821f7598f5df739b231f5b25cf1927824d2b028ef723f9ee04074011",
+        "sha256_lf": "60fa71fc821f7598f5df739b231f5b25cf1927824d2b028ef723f9ee04074011",
+        "sha256_raw": "60fa71fc821f7598f5df739b231f5b25cf1927824d2b028ef723f9ee04074011",
+        "source_matches_frozen_snapshot": true,
+        "hash_policy": "sha256-lf-text-v1",
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+        "read_status": "Named complete declarations and bodies plus adjacent conventions inspected as local source text; no Lean execution.",
+        "source_role": "Exact-real two-pass materialization schedule motivating the independently specified finite-grid schedule; no claimed formal finite-grid refinement.",
+        "declarations": [
+          "declaration:QuantumBlockEncoding.StoredTensorTrainNorm.firstEntry",
+          "declaration:QuantumBlockEncoding.StoredTensorTrainNorm.firstPass",
+          "declaration:QuantumBlockEncoding.StoredTensorTrainNorm.secondEntry",
+          "declaration:QuantumBlockEncoding.StoredTensorTrainNorm.secondPass",
+          "declaration:QuantumBlockEncoding.StoredTensorTrainNorm.update",
+          "declaration:QuantumBlockEncoding.StoredTensorTrainNorm.gram",
+          "declaration:QuantumBlockEncoding.StoredTensorTrainNorm.norm",
+          "declaration:QuantumBlockEncoding.StoredTensorTrainNorm.norm_eq_sum"
+        ],
+        "declaration_spans": [
+          {
+            "name": "QuantumBlockEncoding.StoredTensorTrainNorm.firstEntry",
+            "line_start": 27,
+            "line_end": 32,
+            "sha256_lf": "d17a4e04b00d5b4a21538aa65a8011b8e8113dbc5846b688929e714b9df87fd4",
+            "hash_span": "Inclusive complete declaration source lines, with final newline."
+          },
+          {
+            "name": "QuantumBlockEncoding.StoredTensorTrainNorm.firstPass",
+            "line_start": 34,
+            "line_end": 36,
+            "sha256_lf": "9d91396af6f827a14834108389a54949d895da5ff3b71537020cd23b80dd769b",
+            "hash_span": "Inclusive complete declaration source lines, with final newline."
+          },
+          {
+            "name": "QuantumBlockEncoding.StoredTensorTrainNorm.secondEntry",
+            "line_start": 47,
+            "line_end": 52,
+            "sha256_lf": "38a54bdb68cea1703384fa975e33759308725e7b68f88d6c592b2d7a3ebe76bd",
+            "hash_span": "Inclusive complete declaration source lines, with final newline."
+          },
+          {
+            "name": "QuantumBlockEncoding.StoredTensorTrainNorm.secondPass",
+            "line_start": 54,
+            "line_end": 56,
+            "sha256_lf": "d3f5586e9e4b3bc92d4b801e82f3c964bcf298015c061f26799df73ba32b1d69",
+            "hash_span": "Inclusive complete declaration source lines, with final newline."
+          },
+          {
+            "name": "QuantumBlockEncoding.StoredTensorTrainNorm.update",
+            "line_start": 80,
+            "line_end": 86,
+            "sha256_lf": "631cf9b9e2a0fd48c1704514af5a4e7bb3d101d93946121623494f5360acd479",
+            "hash_span": "Inclusive complete declaration source lines, with final newline."
+          },
+          {
+            "name": "QuantumBlockEncoding.StoredTensorTrainNorm.gram",
+            "line_start": 103,
+            "line_end": 108,
+            "sha256_lf": "80be7bd55b367cf22e1f29cf5d61d552f0fe697b8e2d24bc05ee9ba075ee5f5c",
+            "hash_span": "Inclusive complete declaration source lines, with final newline."
+          },
+          {
+            "name": "QuantumBlockEncoding.StoredTensorTrainNorm.norm",
+            "line_start": 118,
+            "line_end": 121,
+            "sha256_lf": "e39cd907c0b40191726f086e2d611efbb74981eb2873ee85805195df8a8f8ccb",
+            "hash_span": "Inclusive complete declaration source lines, with final newline."
+          },
+          {
+            "name": "QuantumBlockEncoding.StoredTensorTrainNorm.norm_eq_sum",
+            "line_start": 129,
+            "line_end": 131,
+            "sha256_lf": "851abd64c5ec25dc1abf9aef581d0e608430085741b90a507a3207fb2bde0dc4",
+            "hash_span": "Inclusive complete declaration source lines, with final newline."
+          }
+        ]
+      },
+      {
+        "path": "QuantumBlockEncoding/TensorTrainCanonical.lean",
+        "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "anchor": "Core lines 18-18; slice lines 20-21; Chain lines 24-26; Word lines 29-31; contract lines 39-42; RightCanonical lines 45-47",
+        "sha256": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+        "sha256_lf": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+        "sha256_raw": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+        "source_matches_frozen_snapshot": true,
+        "hash_policy": "sha256-lf-text-v1",
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+        "read_status": "Named complete declarations and bodies plus adjacent conventions inspected as local source text; no Lean execution.",
+        "source_role": "Real row-core and canonicality conventions; transposing a real row core gives the column-map convention of G2. No complex approximate-isometry result asserted.",
+        "declarations": [
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.Core",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.slice",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.Chain",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.Word",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.contract",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.RightCanonical"
+        ],
+        "declaration_spans": [
+          {
+            "name": "QuantumBlockEncoding.TensorTrainCanonical.Core",
+            "line_start": 18,
+            "line_end": 18,
+            "sha256_lf": "e5ac940620ce7736ec16c388dfbd24f0d464026cc3a04c5e648ba9fa62ff5ab6",
+            "hash_span": "Inclusive complete declaration source lines, with final newline."
+          },
+          {
+            "name": "QuantumBlockEncoding.TensorTrainCanonical.slice",
+            "line_start": 20,
+            "line_end": 21,
+            "sha256_lf": "8e6f9549981c3e1468241e0412728ecd747d8f0971e559ce6ecd9912b8c73933",
+            "hash_span": "Inclusive complete declaration source lines, with final newline."
+          },
+          {
+            "name": "QuantumBlockEncoding.TensorTrainCanonical.Chain",
+            "line_start": 24,
+            "line_end": 26,
+            "sha256_lf": "77d9d7c89d2595cbe6c8dc2d3a4d39ffa5bed34716c0c5b15be7d321f9ba6e49",
+            "hash_span": "Inclusive complete declaration source lines, with final newline."
+          },
+          {
+            "name": "QuantumBlockEncoding.TensorTrainCanonical.Word",
+            "line_start": 29,
+            "line_end": 31,
+            "sha256_lf": "62b90d51a0f78725cf7151904431608a9a1b538a5f25334cb767c6ce8c6dbd8d",
+            "hash_span": "Inclusive complete declaration source lines, with final newline."
+          },
+          {
+            "name": "QuantumBlockEncoding.TensorTrainCanonical.contract",
+            "line_start": 39,
+            "line_end": 42,
+            "sha256_lf": "c832bdce28868d3f447e0b67ffd34ca823339f9ee6032b1954eb22ec5569acc3",
+            "hash_span": "Inclusive complete declaration source lines, with final newline."
+          },
+          {
+            "name": "QuantumBlockEncoding.TensorTrainCanonical.RightCanonical",
+            "line_start": 45,
+            "line_end": 47,
+            "sha256_lf": "82d094ad8acbbe219d3370fa247bf1af75c59d93f3ce298f94c09fdad2862fea",
+            "hash_span": "Inclusive complete declaration source lines, with final newline."
+          }
+        ]
+      }
+    ]
+  }
+}

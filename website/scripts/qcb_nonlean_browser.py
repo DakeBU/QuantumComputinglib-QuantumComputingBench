@@ -5,7 +5,7 @@ from pathlib import Path
 from website.scripts.qcb_ecosystem_browser import settle_math
 from website.scripts.qcb_math import algebra_spans
 from website.scripts.qcb_render_test_support import recover_prose_source
-from website.scripts.qcb_workbook_reader import route
+from website.scripts.qcb_workbook_reader import common_error_texts, route
 
 
 def check_workbook(page, base, root, manifest, output):
@@ -19,12 +19,13 @@ def check_workbook(page, base, root, manifest, output):
         p = entry['packet']
         texts = [p['question'], p['reference_answer']] + p['assumptions'] + p['conventions']
         texts += [r['criterion'] for r in entry['display_rubric']]
-        texts += p['common_errors']
+        texts += common_error_texts(p)
         texts += [str(v) for row in p['boundary_cases'] for v in row.values()]
         m = entry['display_reasoning_map']
         texts += [n['statement'] for n in m['inputs']]
         for n in m['steps']:
-            texts += [n['conclusion'], n['justification']] + n.get('assumptions', [])
+            texts += [n['conclusion'], n['justification'], n.get('scope', '')] + n.get('assumptions', [])
+        texts += list(entry['clarifications'].get('step_notes', {}).values())
         expressions.update(s.tex for text in texts for s in algebra_spans(text))
         expressions.update(eq['tex'] for eq in entry['notation']['equations'])
     page.goto(base + 'quantumcomputingbench/non-lean/workbook/index.html', wait_until='networkidle')

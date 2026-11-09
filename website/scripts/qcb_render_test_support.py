@@ -30,6 +30,8 @@ def recover_prose_source(page, original):
             elif 'data-qcb-math-source' in attrs:
                 self.parts.append(attrs['data-qcb-math-source'])
                 self.math_depth = 1
+            elif tag == 'li' and 'data-qcb-list-marker' in attrs:
+                self.parts.append('\n' + attrs['data-qcb-list-marker'] + ' ')
             elif tag == 'p' and self.parts:
                 self.parts.append('\n\n')
             self.depth += 1

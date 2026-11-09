@@ -1,0 +1,843 @@
+{
+  "schema_version": "qcb.nonlean_cohort_payload.v1",
+  "slot": "G2",
+  "title": "Sequential approximate isometries: multiplicative mass and target-error growth",
+  "proposal_id": "56cbd91d-8cae-46ba-aab9-91c941bd34d2",
+  "core_id": "candidate:56cbd91d-8cae-46ba-aab9-91c941bd34d2",
+  "contribution_type": "new_candidate",
+  "admission": "candidate_not_counted",
+  "family": "sequential-approximate-isometry-growth",
+  "split": "unassigned_pending_reconciliation",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "question": "Let \\(n\\ge0\\) and let \\(H_j=\\mathbb C^{d_j}\\) with finite \\(d_j\\ge1\\). Core \\(j\\) is a linear map\n\\[\nV_j:H_{j-1}\\longrightarrow\\mathbb C^2\\otimes H_j\\qquad(1\\le j\\le n).\n\\]\nAll spaces carry their standard Euclidean inner products; \\(\\dagger\\) means conjugate transpose and \\(\\|\\cdot\\|_{\\rm op}\\) is the induced operator norm. Rows label outputs and columns label inputs. A new bit is appended after all previously emitted bits, and the bond remains the final tensor factor. Put \\(T_0=I_{H_0}\\) and, using only the corresponding norm-preserving regrouping,\n\\[\nT_j=(I_{(\\mathbb C^2)^{\\otimes(j-1)}}\\otimes V_j)T_{j-1}.\n\\]\nAssume the local Gram defects satisfy\n\\[\n\\|V_j^\\dagger V_j-I_{H_{j-1}}\\|_{\\rm op}\\le\\eta_j,\n\\qquad 0\\le\\eta_j<1.\n\\]\nThese are approximate linear maps; neither full unitary completions nor a physical channel realization is assumed.\n\n1. Prove a one-step norm-squared inequality valid for every vector on passive emitted bits and the incoming bond, including vectors entangled between those factors. Use it to derive, for every \\(v\\in H_0\\) and every length \\(n\\),\n\\[\n\\prod_{j=1}^n(1-\\eta_j)\\|v\\|_2^2\n\\le\\|T_n v\\|_2^2\\le\n\\prod_{j=1}^n(1+\\eta_j)\\|v\\|_2^2.\n\\]\nGive the resulting bound on \\(\\|T_n^\\dagger T_n-I\\|_{\\rm op}\\). Show that the two mass endpoints can each be attained by legal bond-dimension-one trains. Do not replace the product by \\(1\\pm\\sum_j\\eta_j\\) as an exact general inequality without justification.\n\n2. Does zero defect at every stage imply fidelity to a specified target train? Give two legal one-stage, bond-dimension-one trains with zero defects whose outputs from initial scalar 1 are orthogonal. State exactly what Gram/mass control therefore certifies and what target information it lacks.\n\n3. In this separate comparison branch, suppose additional maps \\(W_j:H_{j-1}\\to\\mathbb C^2\\otimes H_j\\) are exact isometries, \\(W_j^\\dagger W_j=I\\), and \\(\\|V_j-W_j\\|_{\\rm op}\\le\\epsilon_j\\) with \\(\\epsilon_j\\ge0\\). Let \\(S_n\\) be their sequential composition in the same order as \\(T_n\\). For a unit vector \\(v\\), prove the growth-weighted target bound\n\\[\n\\|T_n v-S_n v\\|_2\n\\le\\sum_{k=1}^n\\epsilon_k\\prod_{j=k+1}^n\\sqrt{1+\\eta_j}.\n\\]\nExplain why the product weights involve stages later than the inserted discrepancy. Give a two-stage, bond-dimension-one example satisfying all stated premises for which the simpler claim \\(\\|T_2v-S_2v\\|_2\\le\\epsilon_1+\\epsilon_2\\) fails. This is an unnormalized vector bound; no normalization or postselection is implicit.\n\n4. Check the empty chain, zero input, and the exact-isometry specialization. Separately replace the strict local condition by \\(\\eta_j=1\\) and show why a positive lower mass is then not guaranteed. Explain why these conclusions alone give neither a unitary-circuit synthesis theorem nor terminal-bond cleanup. Each diagnostic must state which premises it retains or replaces.",
+  "question_sha256": "9dfe758cbd6e4ff91725905f08a72bde22b06162b108ca9789f5dc499470872d",
+  "target_nodes": [
+    "declaration:QuantumBlockEncoding.SequentialBondPreparation.step_apply",
+    "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_run"
+  ],
+  "supporting_nodes": [
+    "declaration:QuantumBlockEncoding.SequentialBondPreparation.Core",
+    "declaration:QuantumBlockEncoding.SequentialBondPreparation.run",
+    "declaration:QuantumBlockEncoding.SequentialBondPreparation.transfer",
+    "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_freshZero",
+    "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_step",
+    "declaration:QuantumBlockEncoding.TensorTrainCanonical.RightCanonical"
+  ],
+  "evidence_boundary": "These frozen nodes ground exact source definitions and conventions only. The requested perturbative/numerical statements are original natural-language targets, not claimed existing compiled theorem statements.",
+  "assumptions": [
+    "Finite nonzero complex bond spaces with standard Euclidean inner products and dimension-compatible core maps.",
+    "For the main mass branch, each local operator Gram defect is bounded by 0<=eta_j<1.",
+    "Only the comparison branch receives exact ideal isometries W_j and operator differences bounded by epsilon_j; unit input is required only for its displayed absolute error budget.",
+    "The eta_j=1 diagnostic replaces the strict defect premise; the zero-input diagnostic does not retain the comparison branch unit-input premise."
+  ],
+  "conventions": [
+    "Each core maps an incoming column vector to a new-bit and outgoing-bond column vector; emitted bits are ordered chronologically and the bond is last.",
+    "Adjoint is conjugate transpose; all norms are induced Euclidean norms and the tensor regrouping is norm-preserving.",
+    "Gram control concerns unnormalized linear maps; it does not by itself define a physical probability-preserving channel or clean terminal register.",
+    "All empty products equal one and empty sums equal zero."
+  ],
+  "source_refs": [
+    {
+      "path": "QuantumBlockEncoding/SequentialBondPreparation.lean",
+      "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "anchor": "Core lines 29-29; step_apply lines 64-68; transfer lines 86-89; run lines 93-96; amplitudeMass_freshZero lines 304-306; amplitudeMass_step lines 316-324; amplitudeMass_run lines 327-332",
+      "sha256": "ad4542b108d44f196f2a02f78e59b58f43d45b1e890709cf4c22e1222805d5c5",
+      "sha256_lf": "ad4542b108d44f196f2a02f78e59b58f43d45b1e890709cf4c22e1222805d5c5",
+      "sha256_raw": "ad4542b108d44f196f2a02f78e59b58f43d45b1e890709cf4c22e1222805d5c5",
+      "source_matches_frozen_snapshot": true,
+      "hash_policy": "sha256-lf-text-v1",
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+      "read_status": "Named complete declarations and bodies plus adjacent conventions inspected as local source text; no Lean execution.",
+      "source_role": "Complex column-input/output-row semantics, passive prefixes and chronological exact mass preservation; rectangular approximate maps are an original NL generalization.",
+      "declarations": [
+        "declaration:QuantumBlockEncoding.SequentialBondPreparation.Core",
+        "declaration:QuantumBlockEncoding.SequentialBondPreparation.step_apply",
+        "declaration:QuantumBlockEncoding.SequentialBondPreparation.transfer",
+        "declaration:QuantumBlockEncoding.SequentialBondPreparation.run",
+        "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_freshZero",
+        "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_step",
+        "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_run"
+      ],
+      "declaration_spans": [
+        {
+          "name": "QuantumBlockEncoding.SequentialBondPreparation.Core",
+          "line_start": 29,
+          "line_end": 29,
+          "sha256_lf": "578ac4b1cc3fd282e921094f035b396d015890bdd62838f6e0af2276df2b5302",
+          "hash_span": "Inclusive complete declaration source lines, with final newline."
+        },
+        {
+          "name": "QuantumBlockEncoding.SequentialBondPreparation.step_apply",
+          "line_start": 64,
+          "line_end": 68,
+          "sha256_lf": "4422cd060d7eb91dec0715ebc884546e24a7d919a3e9b95ce0b78b5e6e15e8aa",
+          "hash_span": "Inclusive complete declaration source lines, with final newline."
+        },
+        {
+          "name": "QuantumBlockEncoding.SequentialBondPreparation.transfer",
+          "line_start": 86,
+          "line_end": 89,
+          "sha256_lf": "a24840cad40858a8f420e076f103e1bf08af9eea889cd4b98fcc2e35a6c40105",
+          "hash_span": "Inclusive complete declaration source lines, with final newline."
+        },
+        {
+          "name": "QuantumBlockEncoding.SequentialBondPreparation.run",
+          "line_start": 93,
+          "line_end": 96,
+          "sha256_lf": "40e7e87d4605d35d28f61aa0441ad23b1a0b5f611737b2555db6d6b7433e3fac",
+          "hash_span": "Inclusive complete declaration source lines, with final newline."
+        },
+        {
+          "name": "QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_freshZero",
+          "line_start": 304,
+          "line_end": 306,
+          "sha256_lf": "43e67ca41012b651faad3eb1250f62216449ffed0b5b27d9aa2d35e813809631",
+          "hash_span": "Inclusive complete declaration source lines, with final newline."
+        },
+        {
+          "name": "QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_step",
+          "line_start": 316,
+          "line_end": 324,
+          "sha256_lf": "6d6c7bf1be03381149bf3b436299c3e54ca7174771a7a3bd575efd27c738e076",
+          "hash_span": "Inclusive complete declaration source lines, with final newline."
+        },
+        {
+          "name": "QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_run",
+          "line_start": 327,
+          "line_end": 332,
+          "sha256_lf": "12e4ffb6e9536b605c4b3eeea7c21e32e643de1bb96935513d2b8e641e0cdb01",
+          "hash_span": "Inclusive complete declaration source lines, with final newline."
+        }
+      ]
+    },
+    {
+      "path": "QuantumBlockEncoding/TensorTrainCanonical.lean",
+      "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "anchor": "Core lines 18-18; slice lines 20-21; Chain lines 24-26; Word lines 29-31; contract lines 39-42; RightCanonical lines 45-47",
+      "sha256": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+      "sha256_lf": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+      "sha256_raw": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+      "source_matches_frozen_snapshot": true,
+      "hash_policy": "sha256-lf-text-v1",
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+      "read_status": "Named complete declarations and bodies plus adjacent conventions inspected as local source text; no Lean execution.",
+      "source_role": "Real row-core and canonicality conventions; transposing a real row core gives the column-map convention of G2. No complex approximate-isometry result asserted.",
+      "declarations": [
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.Core",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.slice",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.Chain",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.Word",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.contract",
+        "declaration:QuantumBlockEncoding.TensorTrainCanonical.RightCanonical"
+      ],
+      "declaration_spans": [
+        {
+          "name": "QuantumBlockEncoding.TensorTrainCanonical.Core",
+          "line_start": 18,
+          "line_end": 18,
+          "sha256_lf": "e5ac940620ce7736ec16c388dfbd24f0d464026cc3a04c5e648ba9fa62ff5ab6",
+          "hash_span": "Inclusive complete declaration source lines, with final newline."
+        },
+        {
+          "name": "QuantumBlockEncoding.TensorTrainCanonical.slice",
+          "line_start": 20,
+          "line_end": 21,
+          "sha256_lf": "8e6f9549981c3e1468241e0412728ecd747d8f0971e559ce6ecd9912b8c73933",
+          "hash_span": "Inclusive complete declaration source lines, with final newline."
+        },
+        {
+          "name": "QuantumBlockEncoding.TensorTrainCanonical.Chain",
+          "line_start": 24,
+          "line_end": 26,
+          "sha256_lf": "77d9d7c89d2595cbe6c8dc2d3a4d39ffa5bed34716c0c5b15be7d321f9ba6e49",
+          "hash_span": "Inclusive complete declaration source lines, with final newline."
+        },
+        {
+          "name": "QuantumBlockEncoding.TensorTrainCanonical.Word",
+          "line_start": 29,
+          "line_end": 31,
+          "sha256_lf": "62b90d51a0f78725cf7151904431608a9a1b538a5f25334cb767c6ce8c6dbd8d",
+          "hash_span": "Inclusive complete declaration source lines, with final newline."
+        },
+        {
+          "name": "QuantumBlockEncoding.TensorTrainCanonical.contract",
+          "line_start": 39,
+          "line_end": 42,
+          "sha256_lf": "c832bdce28868d3f447e0b67ffd34ca823339f9ee6032b1954eb22ec5569acc3",
+          "hash_span": "Inclusive complete declaration source lines, with final newline."
+        },
+        {
+          "name": "QuantumBlockEncoding.TensorTrainCanonical.RightCanonical",
+          "line_start": 45,
+          "line_end": 47,
+          "sha256_lf": "82d094ad8acbbe219d3370fa247bf1af75c59d93f3ce298f94c09fdad2862fea",
+          "hash_span": "Inclusive complete declaration source lines, with final newline."
+        }
+      ]
+    }
+  ],
+  "frozen_node_roles": [
+    {
+      "id": "declaration:QuantumBlockEncoding.SequentialBondPreparation.step_apply",
+      "role": "target_context_anchor_not_formal_numerical_theorem",
+      "inventory_status": "Compiled",
+      "compiled_this_run": false,
+      "source_review": "not inferred from compilation"
+    },
+    {
+      "id": "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_run",
+      "role": "target_context_anchor_not_formal_numerical_theorem",
+      "inventory_status": "Compiled",
+      "compiled_this_run": false,
+      "source_review": "not inferred from compilation"
+    },
+    {
+      "id": "declaration:QuantumBlockEncoding.SequentialBondPreparation.Core",
+      "role": "supporting_definition_or_exact_case",
+      "inventory_status": "Compiled",
+      "compiled_this_run": false,
+      "source_review": "not inferred from compilation"
+    },
+    {
+      "id": "declaration:QuantumBlockEncoding.SequentialBondPreparation.run",
+      "role": "supporting_definition_or_exact_case",
+      "inventory_status": "Compiled",
+      "compiled_this_run": false,
+      "source_review": "not inferred from compilation"
+    },
+    {
+      "id": "declaration:QuantumBlockEncoding.SequentialBondPreparation.transfer",
+      "role": "supporting_definition_or_exact_case",
+      "inventory_status": "Compiled",
+      "compiled_this_run": false,
+      "source_review": "not inferred from compilation"
+    },
+    {
+      "id": "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_freshZero",
+      "role": "supporting_definition_or_exact_case",
+      "inventory_status": "Compiled",
+      "compiled_this_run": false,
+      "source_review": "not inferred from compilation"
+    },
+    {
+      "id": "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_step",
+      "role": "supporting_definition_or_exact_case",
+      "inventory_status": "Compiled",
+      "compiled_this_run": false,
+      "source_review": "not inferred from compilation"
+    },
+    {
+      "id": "declaration:QuantumBlockEncoding.TensorTrainCanonical.RightCanonical",
+      "role": "supporting_definition_or_exact_case",
+      "inventory_status": "Compiled",
+      "compiled_this_run": false,
+      "source_review": "not inferred from compilation"
+    }
+  ],
+  "author": "/root/batch2_gram",
+  "mathematical_target": "Prove all-length multiplicative mass control and sharpness for sequential approximately isometric cores; separate target fidelity, derive its growth-weighted comparison bound under additional local alignment premises, and refute the naive additive bound.",
+  "dedup_review_required": true,
+  "reference_answer": "Let \\(D_j=V_j^\\dagger V_j-I\\). This operator is Hermitian, and for every incoming bond vector \\(z\\), Cauchy–Schwarz and the induced norm give\n\\[\n\\big|\\|V_jz\\|_2^2-\\|z\\|_2^2\\big|\n=|\\langle z,D_jz\\rangle|\n\\le\\eta_j\\|z\\|_2^2.\n\\]\nThus \\((1-\\eta_j)\\|z\\|^2\\le\\|V_jz\\|^2\\le(1+\\eta_j)\\|z\\|^2\\). To retain entangled prefixes, choose an orthonormal basis \\(\\{e_p\\}\\) of the already-emitted-bit space and write an arbitrary vector as \\(y=\\sum_pe_p\\otimes z_p\\). The vectors \\(z_p\\) need not be proportional or normalized. Orthogonality of the prefix labels gives\n\\[\n\\|y\\|^2=\\sum_p\\|z_p\\|^2,\n\\qquad\\|(I\\otimes V_j)y\\|^2=\\sum_p\\|V_jz_p\\|^2.\n\\]\nSum the bond inequalities to obtain the same factors \\(1\\pm\\eta_j\\) for every such \\(y\\). The basis regrouping in the question changes no norm. This proof does not assume the state factors between prefix and bond.\n\nApply that one-step bound to \\(y=T_{j-1}v\\). Since every \\(1-\\eta_j\\) is positive, forward induction from \\(T_0=I\\) gives\n\\[\na_n\\|v\\|^2\\le\\|T_nv\\|^2\\le b_n\\|v\\|^2,\n\\quad a_n=\\prod_{j=1}^n(1-\\eta_j),\\quad b_n=\\prod_{j=1}^n(1+\\eta_j).\n\\]\nEquivalently \\(a_nI\\preceq T_n^\\dagger T_n\\preceq b_nI\\). Diagonalize the finite-dimensional Hermitian operator \\(T_n^\\dagger T_n-I\\): its eigenvalues belong to \\([a_n-1,b_n-1]\\). Therefore\n\\[\n\\|T_n^\\dagger T_n-I\\|_{\\rm op}\n\\le\\max\\{1-a_n,b_n-1\\}.\n\\]\nOne may simplify the maximum to \\(b_n-1\\): expansion of \\(\\prod(1+\\eta_j)+\\prod(1-\\eta_j)\\) contains twice the nonnegative even-degree elementary terms, including 1, so it is at least 2. The maximum form already proves the requested certificate. No replacement of \\(b_n\\) by \\(1+\\sum\\eta_j\\) is valid in general, because the positive cross terms are then lost. A weaker lower estimate \\(a_n\\ge1-\\sum\\eta_j\\) is valid for \\(0\\le\\eta_j\\le1\\), but may be nonpositive and is not needed.\n\nFor endpoint sharpness take every bond dimension one and let \\(V_j^\\pm z=\\sqrt{1\\pm\\eta_j}\\,z|0\\rangle\\), retaining the one-dimensional bond. Its local Gram operator is \\((1\\pm\\eta_j)I\\), so its defect is exactly \\(\\eta_j\\). On initial scalar 1 the complete output is \\(\\prod_j\\sqrt{1\\pm\\eta_j}\\,|0\\cdots0\\rangle\\), whose squared norm is exactly \\(b_n\\) for the plus train or \\(a_n\\) for the minus train. These are two legal trains, each attaining the corresponding endpoint; no claim is made that a single scalar train simultaneously attains unequal endpoints. In particular the upper global Gram bound can be attained.\n\nMass preservation does not identify a target. For \\(n=1\\) with one-dimensional input and terminal bonds, take \\(V_1z=z|0\\rangle\\) and \\(W_1z=z|1\\rangle\\). Both have Gram operator \\([1]\\), yet their outputs from 1 have inner product zero and Euclidean distance \\(\\sqrt2\\), even after an arbitrary global phase is attached to either output. Their pure-state overlap fidelity is zero. Gram checks control how the map distorts input norms and inner products; they contain no alignment information with a specified emitted target vector or train. This obstruction uses no nonzero defect at all.\n\nNow retain the additional hypotheses in the comparison branch. Write the lifted, regrouped maps as \\(A_j=I\\otimes V_j\\) and \\(B_j=I\\otimes W_j\\). The same prefix decomposition proves \\(\\|A_j\\|_{\\rm op}\\le\\sqrt{1+\\eta_j}\\), that \\(B_j\\) is an exact isometry, and that \\(\\|A_j-B_j\\|_{\\rm op}\\le\\epsilon_j\\). The last assertion follows by applying \\(\\|(V_j-W_j)z_p\\|\\le\\epsilon_j\\|z_p\\|\\), squaring and summing; it is valid on entangled inputs as well. Hence \\(\\|S_{j-1}v\\|=1\\) when \\(\\|v\\|=1\\).\n\nSet \\(q_j=\\|T_jv-S_jv\\|\\). Then \\(q_0=0\\), and the exact difference identity is\n\\[\nT_jv-S_jv=A_j(T_{j-1}v-S_{j-1}v)+(A_j-B_j)S_{j-1}v.\n\\]\nThe triangle inequality yields\n\\[\nq_j\\le\\sqrt{1+\\eta_j}\\,q_{j-1}+\\epsilon_j.\n\\]\nInduction unrolls this forward recurrence as\n\\[\nq_n\\le\\sum_{k=1}^n\\epsilon_k\\prod_{j=k+1}^n\\sqrt{1+\\eta_j}.\n\\]\nThe discrepancy inserted at stage \\(k\\) is applied to an exact ideal prefix of norm one. It is subsequently propagated through the actual later maps \\(V_{k+1},\\ldots,V_n\\), explaining precisely the later-stage weights. A telescoping expansion with ideal later maps would use different, earlier-stage growth factors; it must not be mixed with this recurrence.\n\nThe simple additive replacement fails even in dimension one. Use two stages, \\(v=1\\), \\(W_jz=z|0\\rangle\\), and \\(V_jz=(5/4)z|0\\rangle\\). Then\n\\[\n\\epsilon_1=\\epsilon_2=1/4,\\qquad\n\\eta_1=\\eta_2=(5/4)^2-1=9/16<1.\n\\]\nThese are exact local operator differences and Gram defects. The output difference is\n\\[\n\\|(25/16)|00\\rangle-|00\\rangle\\|=9/16>1/2=\\epsilon_1+\\epsilon_2.\n\\]\nThe stated weighted bound is \\((1/4)(5/4)+1/4=9/16\\), so it is attained in this example. The norm of the actual output is \\(25/16\\); this is exactly why ordinary unitary telescoping cannot be imported unchanged. Nothing here identifies an unnormalized linear action with a physical channel.\n\nFor \\(n=0\\), \\(T_0=S_0=I\\), both products are one, the global Gram defect is zero and the comparison sum is zero. For the zero input \\(v=0\\), linearity makes both outputs zero and the mass inequalities hold with equality; this replaces the comparison branch's unit-input premise rather than asserting that zero is a unit vector. When all \\(\\eta_j=0\\), every \\(V_j\\) is an exact isometry, the mass is preserved and the weighted comparison bound reduces to \\(\\sum_j\\epsilon_j\\); target fidelity still needs the comparison hypotheses, as the orthogonal example shows.\n\nFor the requested strictness diagnostic replace one local restriction by \\(\\eta_j=1\\). With one-dimensional bonds and \\(n=1\\), take \\(V_1=0\\); then \\(\\|V_1^\\dagger V_1-I\\|=1\\) but the output from 1 has zero mass. The nonnegative lower factor becomes zero, so the positive lower-mass conclusion is lost. This witness is outside the original strict \\(\\eta_j<1\\) regime. Under that original regime a supplied map is injective, which already forces \\(d_{j-1}\\le2d_j\\); the proof does not assert existence of such maps for incompatible dimensions.\n\nFinally, rectangular approximate maps with norm gain are not themselves unitary gates. A unitary realization, a finite gate set and its approximation cost, and a physical preparation mechanism would need separate constructions. Nor does norm preservation force a chosen terminal bond label: an exact one-stage isometry may output \\(|0\\rangle\\otimes|1\\rangle\\) in a two-dimensional terminal bond while the desired clean label is \\(|0\\rangle\\). Thus the theorem retains the entire terminal bond and proves neither its cleanup nor a synthesis result.",
+  "rubric": [
+    {
+      "id": "G2-r1",
+      "weight": 2,
+      "criterion": "Derives the local quadratic-form bounds from the Hermitian Gram defect (1), and extends them to all passive-prefix inputs by a valid orthogonal-block, spectral or tensor-operator argument without assuming a product state (1)."
+    },
+    {
+      "id": "G2-r2",
+      "weight": 2,
+      "criterion": "Proves the all-length lower/upper mass products, including the empty base and positivity of the lower factors (1); deduces the global operator Gram norm bound from all-vector/Hermitian control (0.5); gives legal scalar trains attaining each endpoint (0.5). An unsupported replacement by an additive upper mass bound loses the affected credit."
+    },
+    {
+      "id": "G2-r3",
+      "weight": 1,
+      "criterion": "Provides and computes a defect-zero pair with orthogonal outputs (0.5), and clearly distinguishes norm/inner-product control from target alignment (0.5). A mere global-phase example is insufficient for the expressly requested orthogonal witness."
+    },
+    {
+      "id": "G2-r4",
+      "weight": 2.5,
+      "criterion": "In the separate comparison branch, justifies spectator-stable bounds for V_j-W_j and exact ideal-prefix norm one (0.5), derives the ordered difference recurrence (1), and proves the requested sum with later-stage growth products (1). May use an equivalent telescoping proof if it produces the stated bound and preserves all additional hypotheses."
+    },
+    {
+      "id": "G2-r5",
+      "weight": 1,
+      "criterion": "Supplies an actual two-stage example satisfying eta_j<1 and the local epsilon bounds, computes an output error greater than epsilon_1+epsilon_2, and explains the nonisometric growth. The rational 5/4 example is not required specifically."
+    },
+    {
+      "id": "G2-r6",
+      "weight": 1.5,
+      "criterion": "Handles n=0, v=0 and eta=0 in their proper scopes (0.5); gives a legal eta=1 zero-output diagnostic while explicitly replacing the strict premise (0.5); and distinguishes the retained terminal bond and approximate linear maps from physical unitary synthesis/cleanup claims (0.5)."
+    }
+  ],
+  "common_errors": [
+    "Assuming prefix/bond product structure and omitting entangled inputs.",
+    "Replacing the multiplicative upper mass bound by 1+sum eta without its positive cross terms.",
+    "Inferring target fidelity from exact local orthogonality or normalization.",
+    "Applying unitary telescoping to V_j while its norm can exceed one.",
+    "Placing earlier-stage rather than later-stage growth weights in the stated recurrence proof.",
+    "Using the comparison result without an ideal isometry supplier and local target alignment.",
+    "Treating eta=1 or v=0 counterexamples as satisfying strict-defect or unit-input premises.",
+    "Identifying an unnormalized linear action with a physical deterministic channel or asserting terminal cleanup from mass alone."
+  ],
+  "boundary_cases": [
+    {
+      "case": "Empty chain",
+      "resolution": "Both compositions are identities, mass factors are one and comparison error is zero."
+    },
+    {
+      "case": "Zero input",
+      "resolution": "Mass equality and zero outputs hold by linearity; this does not satisfy the comparison branch unit-input premise."
+    },
+    {
+      "case": "Exact local isometries",
+      "resolution": "Mass is exact and target-error weights are one, but target alignment remains a separate condition."
+    },
+    {
+      "case": "Defect bound equals one",
+      "resolution": "Replace eta<1 by eta=1; the zero map can annihilate a nonzero input, so positive lower mass fails."
+    },
+    {
+      "case": "Incompatible dimensions",
+      "resolution": "Eta<1 implies injectivity and therefore d_{j-1}<=2d_j; supplied-map premises have no realization otherwise."
+    },
+    {
+      "case": "Nontrivial terminal bond",
+      "resolution": "The entire terminal bond remains part of the output; norm control does not select a clean label."
+    }
+  ],
+  "difficulty": {
+    "D0": {
+      "facet": "The exact source interface, numerical/perturbative contract and physical synthesis conclusion are distinct evidence layers.",
+      "adds_core": false
+    },
+    "construction_band": "D4",
+    "status": "provisional_mathematical_route_annotation_not_measured_difficulty",
+    "rationale": "All-length invariant with quantitative propagation and separately scoped nonzero/target premises; band is not inferred from graph distance or packet length.",
+    "model_calibration": "unmeasured"
+  },
+  "unverified": [
+    "No Lean invocation, toolchain installation, formal proof admission, model evaluation or paid API was performed.",
+    "The finite-grid and approximate-isometry results are original natural-language derivations; exact frozen source anchors do not establish their formal compilation.",
+    "Independent exact-content review, semantic deduplication, split reconciliation and maintainer admission are pending at authoring time.",
+    "No bit-operation complexity, physical circuit implementation or whole-graph coverage is claimed."
+  ],
+  "provenance": {
+    "author_identity": "/root/batch2_gram",
+    "authored_at_utc": "2026-11-06T09:47:25.985917+00:00",
+    "baseline_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+    "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+    "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+    "coverage_plan_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/3703ef46-1a1d-47ab-a991-dc9d94a0f386/COVERAGE_PLAN.md",
+    "coverage_plan_sha256_raw": "f19b145920a6abd6fa2bb634fa43fe98a848396d136e9bc4573d57801c9eb442",
+    "question_freeze_path": "evidence/gram-question-freeze.json",
+    "question_sha256": "9dfe758cbd6e4ff91725905f08a72bde22b06162b108ca9789f5dc499470872d",
+    "evidence_class": "local_source_text_inspection_and_original_natural_language_derivation",
+    "formal_verification_this_run": false,
+    "review_status": "authored_pending_distinct_exact_content_review",
+    "independent_review_performed": false,
+    "process_memory_ids_consulted": [
+      "QBE-PM-DENSE-CHECK-SMALL-INSTANCE",
+      "QBE-PM-VERIFIER-SEMANTIC-LEVEL"
+    ],
+    "license": {
+      "path": "LICENSE",
+      "sha256_raw": "dff0cc0f36b869fa146c79c0de10d15a04259351e011e63c42c2ececb57fb1e3",
+      "attribution": "MIT; Copyright (c) 2026 Quantum Block Encoding contributors"
+    },
+    "frozen_graph_binding": {
+      "path": "benchmarks/quantumcomputingbench/manifests/release-v3/snapshot.json",
+      "sha256_raw": "71a08777e01af1b6e5bd3dd88ba6443efe9aea41240c09303d4bcc0a7cd8058b",
+      "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "compiled_this_run": false,
+      "binding_meaning": "Frozen ownership/inventory identity and source scope; not proof-term dependency extraction or numerical theorem compilation."
+    },
+    "original_derivation_scope": "Prove all-length multiplicative mass control and sharpness for sequential approximately isometric cores; separate target fidelity, derive its growth-weighted comparison bound under additional local alignment premises, and refute the naive additive bound.",
+    "source_inspection": [
+      {
+        "path": "QuantumBlockEncoding/SequentialBondPreparation.lean",
+        "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "anchor": "Core lines 29-29; step_apply lines 64-68; transfer lines 86-89; run lines 93-96; amplitudeMass_freshZero lines 304-306; amplitudeMass_step lines 316-324; amplitudeMass_run lines 327-332",
+        "sha256": "ad4542b108d44f196f2a02f78e59b58f43d45b1e890709cf4c22e1222805d5c5",
+        "sha256_lf": "ad4542b108d44f196f2a02f78e59b58f43d45b1e890709cf4c22e1222805d5c5",
+        "sha256_raw": "ad4542b108d44f196f2a02f78e59b58f43d45b1e890709cf4c22e1222805d5c5",
+        "source_matches_frozen_snapshot": true,
+        "hash_policy": "sha256-lf-text-v1",
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+        "read_status": "Named complete declarations and bodies plus adjacent conventions inspected as local source text; no Lean execution.",
+        "source_role": "Complex column-input/output-row semantics, passive prefixes and chronological exact mass preservation; rectangular approximate maps are an original NL generalization.",
+        "declarations": [
+          "declaration:QuantumBlockEncoding.SequentialBondPreparation.Core",
+          "declaration:QuantumBlockEncoding.SequentialBondPreparation.step_apply",
+          "declaration:QuantumBlockEncoding.SequentialBondPreparation.transfer",
+          "declaration:QuantumBlockEncoding.SequentialBondPreparation.run",
+          "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_freshZero",
+          "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_step",
+          "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_run"
+        ],
+        "declaration_spans": [
+          {
+            "name": "QuantumBlockEncoding.SequentialBondPreparation.Core",
+            "line_start": 29,
+            "line_end": 29,
+            "sha256_lf": "578ac4b1cc3fd282e921094f035b396d015890bdd62838f6e0af2276df2b5302",
+            "hash_span": "Inclusive complete declaration source lines, with final newline."
+          },
+          {
+            "name": "QuantumBlockEncoding.SequentialBondPreparation.step_apply",
+            "line_start": 64,
+            "line_end": 68,
+            "sha256_lf": "4422cd060d7eb91dec0715ebc884546e24a7d919a3e9b95ce0b78b5e6e15e8aa",
+            "hash_span": "Inclusive complete declaration source lines, with final newline."
+          },
+          {
+            "name": "QuantumBlockEncoding.SequentialBondPreparation.transfer",
+            "line_start": 86,
+            "line_end": 89,
+            "sha256_lf": "a24840cad40858a8f420e076f103e1bf08af9eea889cd4b98fcc2e35a6c40105",
+            "hash_span": "Inclusive complete declaration source lines, with final newline."
+          },
+          {
+            "name": "QuantumBlockEncoding.SequentialBondPreparation.run",
+            "line_start": 93,
+            "line_end": 96,
+            "sha256_lf": "40e7e87d4605d35d28f61aa0441ad23b1a0b5f611737b2555db6d6b7433e3fac",
+            "hash_span": "Inclusive complete declaration source lines, with final newline."
+          },
+          {
+            "name": "QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_freshZero",
+            "line_start": 304,
+            "line_end": 306,
+            "sha256_lf": "43e67ca41012b651faad3eb1250f62216449ffed0b5b27d9aa2d35e813809631",
+            "hash_span": "Inclusive complete declaration source lines, with final newline."
+          },
+          {
+            "name": "QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_step",
+            "line_start": 316,
+            "line_end": 324,
+            "sha256_lf": "6d6c7bf1be03381149bf3b436299c3e54ca7174771a7a3bd575efd27c738e076",
+            "hash_span": "Inclusive complete declaration source lines, with final newline."
+          },
+          {
+            "name": "QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_run",
+            "line_start": 327,
+            "line_end": 332,
+            "sha256_lf": "12e4ffb6e9536b605c4b3eeea7c21e32e643de1bb96935513d2b8e641e0cdb01",
+            "hash_span": "Inclusive complete declaration source lines, with final newline."
+          }
+        ]
+      },
+      {
+        "path": "QuantumBlockEncoding/TensorTrainCanonical.lean",
+        "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "anchor": "Core lines 18-18; slice lines 20-21; Chain lines 24-26; Word lines 29-31; contract lines 39-42; RightCanonical lines 45-47",
+        "sha256": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+        "sha256_lf": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+        "sha256_raw": "b8d1eb0651708ac2496be306e2d4b6f3025f7ea4d35a8c6907de02b89d1d981f",
+        "source_matches_frozen_snapshot": true,
+        "hash_policy": "sha256-lf-text-v1",
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+        "read_status": "Named complete declarations and bodies plus adjacent conventions inspected as local source text; no Lean execution.",
+        "source_role": "Real row-core and canonicality conventions; transposing a real row core gives the column-map convention of G2. No complex approximate-isometry result asserted.",
+        "declarations": [
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.Core",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.slice",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.Chain",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.Word",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.contract",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.RightCanonical"
+        ],
+        "declaration_spans": [
+          {
+            "name": "QuantumBlockEncoding.TensorTrainCanonical.Core",
+            "line_start": 18,
+            "line_end": 18,
+            "sha256_lf": "e5ac940620ce7736ec16c388dfbd24f0d464026cc3a04c5e648ba9fa62ff5ab6",
+            "hash_span": "Inclusive complete declaration source lines, with final newline."
+          },
+          {
+            "name": "QuantumBlockEncoding.TensorTrainCanonical.slice",
+            "line_start": 20,
+            "line_end": 21,
+            "sha256_lf": "8e6f9549981c3e1468241e0412728ecd747d8f0971e559ce6ecd9912b8c73933",
+            "hash_span": "Inclusive complete declaration source lines, with final newline."
+          },
+          {
+            "name": "QuantumBlockEncoding.TensorTrainCanonical.Chain",
+            "line_start": 24,
+            "line_end": 26,
+            "sha256_lf": "77d9d7c89d2595cbe6c8dc2d3a4d39ffa5bed34716c0c5b15be7d321f9ba6e49",
+            "hash_span": "Inclusive complete declaration source lines, with final newline."
+          },
+          {
+            "name": "QuantumBlockEncoding.TensorTrainCanonical.Word",
+            "line_start": 29,
+            "line_end": 31,
+            "sha256_lf": "62b90d51a0f78725cf7151904431608a9a1b538a5f25334cb767c6ce8c6dbd8d",
+            "hash_span": "Inclusive complete declaration source lines, with final newline."
+          },
+          {
+            "name": "QuantumBlockEncoding.TensorTrainCanonical.contract",
+            "line_start": 39,
+            "line_end": 42,
+            "sha256_lf": "c832bdce28868d3f447e0b67ffd34ca823339f9ee6032b1954eb22ec5569acc3",
+            "hash_span": "Inclusive complete declaration source lines, with final newline."
+          },
+          {
+            "name": "QuantumBlockEncoding.TensorTrainCanonical.RightCanonical",
+            "line_start": 45,
+            "line_end": 47,
+            "sha256_lf": "82d094ad8acbbe219d3370fa247bf1af75c59d93f3ce298f94c09fdad2862fea",
+            "hash_span": "Inclusive complete declaration source lines, with final newline."
+          }
+        ]
+      }
+    ],
+    "source_coverage_boundary": "Named definitions, semantic declarations and schedule/convention comments are the bounded source scope. Unrelated construction, storage-cost and circuit synthesis declarations are excluded from assessed conclusions.",
+    "source_vs_compiled_substrate": "Frozen nodes have historical Compiled inventory entries and visible source-semantic debt. Their exact contracts are distinguished from the original NL target in each source_role and frozen_node_roles record. No new formal availability is asserted.",
+    "justified_mathematical_dependencies": [
+      "Cauchy-Schwarz, finite orthogonal tensor-coordinate expansion and the finite-dimensional Hermitian spectral theorem.",
+      "The source exact interface is supplied or used only to fix notation; all new perturbative conclusions are derived in this answer."
+    ],
+    "conceptual_graph_relationships": [
+      {
+        "nodes": [
+          "declaration:QuantumBlockEncoding.SequentialBondPreparation.step_apply",
+          "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_run",
+          "declaration:QuantumBlockEncoding.SequentialBondPreparation.Core",
+          "declaration:QuantumBlockEncoding.SequentialBondPreparation.run",
+          "declaration:QuantumBlockEncoding.SequentialBondPreparation.transfer",
+          "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_freshZero",
+          "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_step",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.RightCanonical"
+        ],
+        "relation": "Source-grounded extension proposed for natural-language assessment. These links are contextual source/definition relationships, not extracted Lean proof implications.",
+        "proof_arrow": false
+      }
+    ],
+    "imports_and_declaration_availability": [
+      {
+        "module": "SequentialBondPreparation",
+        "declarations": [
+          "declaration:QuantumBlockEncoding.SequentialBondPreparation.Core",
+          "declaration:QuantumBlockEncoding.SequentialBondPreparation.step_apply",
+          "declaration:QuantumBlockEncoding.SequentialBondPreparation.transfer",
+          "declaration:QuantumBlockEncoding.SequentialBondPreparation.run",
+          "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_freshZero",
+          "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_step",
+          "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_run"
+        ],
+        "status": "Present in frozen historical inventory; no execution in this run; requested new numerical theorem is not among them."
+      },
+      {
+        "module": "TensorTrainCanonical",
+        "declarations": [
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.Core",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.slice",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.Chain",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.Word",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.contract",
+          "declaration:QuantumBlockEncoding.TensorTrainCanonical.RightCanonical"
+        ],
+        "status": "Present in frozen historical inventory; no execution in this run; requested new numerical theorem is not among them."
+      }
+    ],
+    "overlap_inspection": "Read current qcb-cores/qcb-reader entries, prior 12-packet cohort inventory and the relevant complete answers, plus A/C reader scope and B rubric addenda. Scope is local repository reconciliation, not exhaustive external-literature novelty."
+  },
+  "reasoning_map": {
+    "kind": "author_supplied_natural_language",
+    "not_extracted_lean_dependencies": true,
+    "inputs": [
+      {
+        "id": "G2-I1",
+        "statement": "Finite complex bond spaces, column-map convention, standard product metric and chronological norm-preserving regrouping.",
+        "kind": "assumption"
+      },
+      {
+        "id": "G2-I2",
+        "statement": "Main branch: ||V_j^dagger V_j-I||_op<=eta_j with 0<=eta_j<1.",
+        "kind": "assumption"
+      },
+      {
+        "id": "G2-I3",
+        "statement": "Arbitrary initial vector v for the mass theorem.",
+        "kind": "assumption"
+      },
+      {
+        "id": "G2-I4",
+        "statement": "Comparison branch only: W_j exact isometries and ||V_j-W_j||_op<=epsilon_j, epsilon_j>=0.",
+        "kind": "conditional_branch_assumption"
+      },
+      {
+        "id": "G2-I5",
+        "statement": "Comparison branch only: ||v||=1.",
+        "kind": "conditional_branch_assumption"
+      },
+      {
+        "id": "G2-I6",
+        "statement": "Strictness diagnostic only: replace the relevant eta_j<1 condition by eta_j=1.",
+        "kind": "premise_replacement"
+      }
+    ],
+    "steps": [
+      {
+        "id": "G2-S1",
+        "claim": "Obtain local quadratic-form bounds.",
+        "required_inputs": [
+          "G2-I1",
+          "G2-I2"
+        ],
+        "assumptions": [],
+        "scope": "main",
+        "conclusion": "(1-eta_j)||z||^2<=||V_jz||^2<=(1+eta_j)||z||^2 for every incoming z.",
+        "justification": "D=V^dagger V-I is Hermitian; Cauchy-Schwarz bounds |<z,Dz>| by eta||z||^2."
+      },
+      {
+        "id": "G2-S2",
+        "claim": "Preserve the inequalities under passive prefixes, including entangled states.",
+        "required_inputs": [
+          "G2-I1",
+          "G2-S1"
+        ],
+        "assumptions": [],
+        "scope": "main",
+        "conclusion": "The same bounds hold for I_prefix tensor V_j on every prefix/bond vector; its norm is <=sqrt(1+eta_j).",
+        "justification": "Expand y=sum_p e_p tensor z_p in an orthonormal prefix basis and sum squared norms. No factorization of y is assumed."
+      },
+      {
+        "id": "G2-S3",
+        "claim": "Establish the all-length multiplicative invariant.",
+        "required_inputs": [
+          "G2-I1",
+          "G2-I2",
+          "G2-I3",
+          "G2-S2"
+        ],
+        "assumptions": [],
+        "scope": "main",
+        "conclusion": "a_n||v||^2<=||T_nv||^2<=b_n||v||^2, a_n=product(1-eta), b_n=product(1+eta).",
+        "justification": "Forward induction from T_0=I, multiplying nonnegative local factors."
+      },
+      {
+        "id": "G2-S4",
+        "claim": "Convert all-vector mass control to global operator Gram control.",
+        "required_inputs": [
+          "G2-I1",
+          "G2-S3"
+        ],
+        "assumptions": [],
+        "scope": "main",
+        "conclusion": "||T_n^dagger T_n-I||<=max(1-a_n,b_n-1), and optionally <=b_n-1.",
+        "justification": "The Hermitian quadratic-form bounds locate every eigenvalue; the optional simplification uses the nonnegative even-degree expansion."
+      },
+      {
+        "id": "G2-S5",
+        "claim": "Demonstrate sharp mass endpoints with actual trains.",
+        "required_inputs": [
+          "G2-I1",
+          "G2-I2"
+        ],
+        "assumptions": [],
+        "scope": "sharpness_witness",
+        "conclusion": "Dimension-one maps V_j^plus/minus z=sqrt(1 plus/minus eta_j) z|0> attain b_n/a_n respectively.",
+        "justification": "Compute each scalar Gram defect and the product amplitude. These are separate witnesses, not simultaneous endpoints of one scalar map."
+      },
+      {
+        "id": "G2-S6",
+        "claim": "Refute target fidelity from Gram tests.",
+        "required_inputs": [
+          "G2-I1"
+        ],
+        "assumptions": [],
+        "scope": "counterexample",
+        "conclusion": "V z=z|0> and W z=z|1> both have zero defect and orthogonal outputs from 1.",
+        "justification": "Direct inner product and norm computation. The exact-isometry property is checked for this witness; no zero local-target difference is assumed."
+      },
+      {
+        "id": "G2-S7",
+        "claim": "Supply all comparison operator bounds on the actual spaces.",
+        "required_inputs": [
+          "G2-I1",
+          "G2-I2",
+          "G2-I4",
+          "G2-I5",
+          "G2-S2"
+        ],
+        "assumptions": [],
+        "scope": "comparison_branch",
+        "conclusion": "Lifted actual maps have norm <=sqrt(1+eta_j), lifted differences have norm <=epsilon_j, and ||S_jv||=1.",
+        "justification": "Repeat the orthogonal-prefix argument for V_j-W_j; exact ideal isometries preserve the unit initial norm."
+      },
+      {
+        "id": "G2-S8",
+        "claim": "Derive and unroll the ordered comparison recurrence.",
+        "required_inputs": [
+          "G2-I1",
+          "G2-I4",
+          "G2-I5",
+          "G2-S7"
+        ],
+        "assumptions": [],
+        "scope": "comparison_branch",
+        "conclusion": "q_j<=sqrt(1+eta_j)q_{j-1}+epsilon_j, q_0=0, hence q_n<=sum_k epsilon_k product_{j>k}sqrt(1+eta_j).",
+        "justification": "Insert A_j(T_{j-1}-S_{j-1})+(A_j-B_j)S_{j-1}; the actual later maps propagate each inserted discrepancy."
+      },
+      {
+        "id": "G2-S9",
+        "claim": "Refute a naive additive comparison with legal nonisometric growth.",
+        "required_inputs": [
+          "G2-I1"
+        ],
+        "assumptions": [],
+        "scope": "counterexample",
+        "conclusion": "Two scalar stages V=(5/4)|0>, W=|0>, eta=9/16, epsilon=1/4 have error 9/16>1/2; the weighted bound equals 9/16.",
+        "justification": "Compute both Grams, local differences and the two-stage output explicitly. All comparison premises are verified for this example."
+      },
+      {
+        "id": "G2-S10",
+        "claim": "Check empty-chain and zero-input mass boundaries.",
+        "required_inputs": [
+          "G2-I1",
+          "G2-I3"
+        ],
+        "assumptions": [],
+        "scope": "raw_boundary",
+        "conclusion": "At n=0 T_0=I and mass factors are one; at v=0 all actual outputs vanish.",
+        "justification": "Definitions and linearity; this node does not retain the comparison unit-input premise."
+      },
+      {
+        "id": "G2-S11",
+        "claim": "Check comparison empty-chain and exact-isometry specializations.",
+        "required_inputs": [
+          "G2-I1",
+          "G2-I2",
+          "G2-I4",
+          "G2-I5",
+          "G2-S8"
+        ],
+        "assumptions": [],
+        "scope": "comparison_boundary",
+        "conclusion": "For n=0 the comparison error is zero; if every eta_j=0 then growth factors are one and the comparison bound is sum epsilon_j.",
+        "justification": "Empty sum or substitution in the already proved bound; alignment hypotheses remain present."
+      },
+      {
+        "id": "G2-S12",
+        "claim": "Demonstrate loss of strict lower mass at defect one.",
+        "required_inputs": [
+          "G2-I1",
+          "G2-I6"
+        ],
+        "assumptions": [
+          "G2-I6 replaces G2-I2 for this witness; do not assume eta<1."
+        ],
+        "scope": "excluded_domain_diagnostic",
+        "conclusion": "With n=1 and scalar bonds V=0 has defect one and sends initial 1 to zero.",
+        "justification": "Compute V^dagger V-I=-I; the lower factor is zero."
+      },
+      {
+        "id": "G2-S13",
+        "claim": "Keep physical synthesis and cleanup separate.",
+        "required_inputs": [
+          "G2-I1",
+          "G2-I2"
+        ],
+        "assumptions": [],
+        "scope": "scope_boundary",
+        "conclusion": "The mathematics is a bound on full emitted vectors retaining the terminal bond; neither unitary synthesis nor a chosen clean label follows.",
+        "justification": "The expanding scalar witness is not a unitary column; even an exact isometry can put terminal amplitude on a non-clean label. Under eta<1 supplied maps must be injective, so incompatible dimensions are unrealizable."
+      }
+    ],
+    "AND_join_policy": "Comparison steps require both ideal-isometry/local-alignment premises and the approximate-map growth control. Mass-only, orthogonality, zero-input and eta=1 diagnostics do not inherit irrelevant comparison premises. The eta=1 witness explicitly replaces strictness.",
+    "reused_results": [
+      {
+        "id": "spectator-stable-local-operator-bounds",
+        "producer_step": "G2-S2",
+        "consumer_steps": [
+          "G2-S3",
+          "G2-S7"
+        ],
+        "assessment": "Derived for all prefix/bond vectors, not inferred from product inputs."
+      },
+      {
+        "id": "exact-sequential-mass",
+        "source_nodes": [
+          "declaration:QuantumBlockEncoding.SequentialBondPreparation.amplitudeMass_run"
+        ],
+        "relationship": "Exact source theorem is context and eta=0 special setting; no new approximate theorem is asserted compiled."
+      }
+    ],
+    "reconvergent_branches": [
+      {
+        "join": "G2-S8",
+        "branches": [
+          "G2-S2",
+          "G2-I4",
+          "G2-I5",
+          "G2-S7"
+        ],
+        "why": "Target alignment must be joined with controlled actual growth and a unit ideal prefix; norm control alone is insufficient."
+      }
+    ]
+  },
+  "overlap": {
+    "relation": "new_perturbative_sequential_invariant_candidate_not_adjudicated_core",
+    "assessed_delta": "Multiplicative all-length mass control for approximate rectangular isometries, sharpness, fidelity obstruction, and ordered target-error growth under a separate alignment interface.",
+    "existing_core_comparisons": [
+      {
+        "core_id": "qcb-core-sp-008",
+        "known_split": "train",
+        "relation": "Exact-unitary mass preservation is the eta=0 neighboring case; G2 introduces local Gram defects and sharp multiplicative bounds for rectangular maps."
+      },
+      {
+        "core_id": "qcb-core-sp-007",
+        "known_split": "test_public",
+        "relation": "Chronological transfer conventions are reused; exact clean-column contraction induction is not re-assessed."
+      },
+      {
+        "core_id": "qcb-core-sp-004",
+        "known_split": "train",
+        "relation": "Exact canonical cores preserve boundary mass. G2 measures noncanonical norm distortion and does not prove canonicalization existence."
+      },
+      {
+        "core_id": "qcb-core-sp-012",
+        "known_split": "train",
+        "relation": "Exact active-support semantics are neighboring context; G2 requires full stated bond-map bounds and supplies no leakage/support theorem."
+      }
+    ],
+    "prior_cohort_comparisons": [
+      {
+        "slot": "B1",
+        "relation": "Shares chronological prefix/bond interpretation only; no clean-column equality proof is repeated."
+      },
+      {
+        "slot": "B3",
+        "relation": "Generic exact-unitary telescoping is supplied in B3. G2 derives amplification factors for nonisometric maps, and gives a strict counterexample to dropping them; precision optimization is absent."
+      },
+      {
+        "slot": "C2",
+        "relation": "Canonicality versus representation invariance is neighboring motivation; no gauge transformation is assessed."
+      },
+      {
+        "slot": "C3",
+        "relation": "Both concern Gram information; G2 is a forward sequential norm-distortion invariant and cannot be reduced to the supplied exact suffix cross-Gram identity."
+      }
+    ],
+    "current_batch_comparisons": [
+      {
+        "slot": "G1",
+        "relation": "Both use error propagation but G1 certifies a classical arithmetic normalizer; G2 assumes local map certificates and derives quantum-vector linear-algebra bounds."
+      },
+      {
+        "slot": "E1",
+        "relation": "Both require explicit local/target interfaces for composition; shared elementary telescoping does not authorize independent scoring."
+      }
+    ],
+    "split_policy": "Unassigned pending shared-fragment and whole-target reconciliation; no held-out independence or training admission claimed.",
+    "dedup_review_required": true
+  }
+}

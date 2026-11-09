@@ -1,0 +1,65 @@
+{
+  "schema_version": "qcb.cohort_question_first_packet.v1",
+  "slot": "E1",
+  "base_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "proposal_id": "061ff522-9138-442e-a89b-8d546bf0d050",
+  "core_id": "candidate:061ff522-9138-442e-a89b-8d546bf0d050",
+  "title": "Residual-certified mass through preparation and clean projection",
+  "question": "Let n≥0 and let r_0,...,r_n be finite nonnegative bond dimensions with r_0=r_n=1. For j=1,...,n and t∈{0,1}, let A_j^t be a real r_{j−1} by r_j matrix. The raw vector x∈R^{2^n} has coordinates x_s=(A_1^{s_1}...A_n^{s_n})_{1,1}, with one empty word and empty product I_1 when n=0. Use Euclidean vector norms and their induced operator norms. Write T_j(Z)=Σ_{t=0}^1 A_j^t Z(A_j^t)^T and define E_n=I_1, E_{j−1}=T_j(E_j). You may use the exact Gram identity E_0(1,1)=||x||².\n\nSuppose supplied real matrices Ē_j of size r_j by r_j satisfy Ē_n=I_1, and supplied nonnegative certificates ε_j,L_j obey\n||Ē_{j−1}−T_j(Ē_j)||≤ε_j,   Σ_t||A_j^t||²≤L_j.\nNo positivity or canonicality of the Ē_j or the cores is assumed. Derive an explicit a posteriori number β, in terms of the ε_j,L_j, with |Ē_0(1,1)−||x||²|≤β. Give the n=0 convention. Explain why propagation factors from preceding cores cannot in general be omitted; exhibit a scalar-bond example in which replacing β by Σ_j ε_j would falsely certify positive mass for the zero raw vector.\n\nFor the remainder use your certified m:=Ē_0(1,1)−β and assume m>0. A second raw vector y∈R^{2^n} satisfies ||x−y||≤δ, where 0≤δ<√m. Prove x and y nonzero before defining ψ=x/||x|| and φ=y/||y||. You may use the supplied normalization inequality ||u/||u||−v/||v||||≤2||u−v||/||u|| for nonzero finite real or complex vectors u,v.\n\nLet H=C^{2^n}, K=C^{2^a} with a≥0, Jv=|0^a⟩⊗v, and P=JJ†, in the fixed order K⊗H. All workspace is included in K. Two actual unitary gate lists U and V have the same length, instruction types and physical targets in every position; only Y-rotation angles differ. A rotation is R(θ)=[[cos(θ/2),−sin(θ/2)],[sin(θ/2),cos(θ/2)]], and the supplied angle error at rotation occurrence k is d_k≥0. All other gates agree exactly, including phases. Chronological products place the first gate rightmost. You may use the supplied aligned-circuit bound ||V−U||≤γ:=(1/2)Σ_k d_k. The exact preparation action is U|0^{a+n}⟩=Jφ.\n\nFor Ω=V|0^{a+n}⟩ and τ:=2δ/√m+γ, derive a full-output bound relative to Jψ. Assume τ<1 before conditioning. Decompose Ω into clean and rejected branches, prove the clean branch is nonzero, and prove that its success probability p and normalized accepted system vector ψ_acc satisfy\np≥(1−τ²/2)²,    ||ψ_acc−ψ||≤τ.\nIn particular justify the conditional-vector bound from the unit norm of the full output; do not silently replace it by a phase-minimized distance. Explain why τ<1 is a sufficient rather than a claimed sharp threshold, and give a unitary example with zero clean success and full-output distance √2 from a clean target.\n\nCheck zero residuals, zero data/gate errors, n=0, a=0, and an internal zero bond dimension. Keep cases that contradict m>0 separate from the active normalization theorem. State exactly which conclusions depend on the certified residuals, raw-data error, and actual circuit action/alignment; no floating-point residual certifier, angle supplier, state-loading algorithm, finite-gate-set compiler, or runtime bound is supplied.",
+  "assumptions": [
+    "Finite real scalar-boundary tensor train with fixed bit order; approximate Gram environments have exact terminal I_1 and certified local operator-norm residuals ε_j and transfer bounds L_j.",
+    "For the normalization/circuit branch only: m=Ē_0(1,1)−β>0 and ||x−y||≤δ<√m with δ≥0.",
+    "The actual unitary lists are positionally aligned, differing only in same-target half-angle Y rotations with certified errors d_k; all other instructions and exact phases agree.",
+    "After φ is proved well-defined, the exact list has complete output U|0^{a+n}⟩=Jφ, including clean workspace; τ=2δ/√m+γ<1 is imposed before conditional normalization.",
+    "Exact Gram, normalization stability and aligned-circuit norm bounds are supplied interfaces; residual propagation, margin checks and downstream projection estimates are to be derived."
+  ],
+  "conventions": [
+    "All vector distances compare exact representatives. Complex inner products are conjugate-linear in the first argument; real vectors embed componentwise in H.",
+    "Registers are ordered ancilla/workspace K then system H; J is the clean isometry and success projects every qubit of K onto zero.",
+    "Empty products equal 1 and empty sums 0; a zero-qubit system is one-dimensional. Zero-dimensional internal bonds are allowed and force the raw contraction to vanish.",
+    "The false-certificate example and vanishing-mass cases are diagnostics outside the active m>0 branch. No normalization of a zero vector is defined."
+  ],
+  "target_nodes": [
+    "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.gram_scalar",
+    "declaration:QuantumBlockEncoding.PrimitiveCircuitPerturbation.aligned_eval_distance_le"
+  ],
+  "supporting_nodes": [
+    "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.gram",
+    "declaration:QuantumBlockEncoding.TensorTrainNormEnvironment.gram_eq_sum",
+    "declaration:QuantumBlockEncoding.StoredTensorTrainNorm.gram_value",
+    "declaration:QuantumBlockEncoding.StoredTensorTrainNorm.norm_eq_sum",
+    "declaration:QuantumBlockEncoding.ConcreteSemantics.productRegisterBlockProjection"
+  ],
+  "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "source_refs": [
+    {
+      "path": "QuantumBlockEncoding/TensorTrainNormEnvironment.lean",
+      "anchor": "gram:19-23; gram_eq_sum:27-37; gram_scalar:40-43",
+      "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+      "sha256": "e684550c248817ac77e03a23e0af86d3b2c7f3d8b09bcdb2385702624f5ebe6c",
+      "license": "MIT (repository LICENSE)"
+    },
+    {
+      "path": "QuantumBlockEncoding/StoredTensorTrainNorm.lean",
+      "anchor": "gram_value:109-115; norm_eq_sum:129-131",
+      "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+      "sha256": "60fa71fc821f7598f5df739b231f5b25cf1927824d2b028ef723f9ee04074011",
+      "license": "MIT (repository LICENSE)"
+    },
+    {
+      "path": "QuantumBlockEncoding/PrimitiveCircuitPerturbation.lean",
+      "anchor": "GateAligned:16-19; Aligned:22-23; aligned_eval_distance_le:49-76",
+      "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+      "sha256": "624109564cd82b0584fad717283e7b9116b36f1ef10d60b43a063c0ef2a1fbae",
+      "license": "MIT (repository LICENSE)"
+    },
+    {
+      "path": "QuantumBlockEncoding/ConcreteSemantics.lean",
+      "anchor": "productRegisterBlockProjection:201-204; cleanBasisActionAmplitude:249-256; pointwiseProjection_iff_cleanBasisAction:277-294",
+      "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+      "sha256": "454c0c5e215ca197c5883bedf74882f392d259c7afeadc63912230437698ebe5",
+      "license": "MIT (repository LICENSE)"
+    }
+  ]
+}

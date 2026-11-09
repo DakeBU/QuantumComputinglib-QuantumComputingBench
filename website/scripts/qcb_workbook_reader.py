@@ -4,7 +4,7 @@ from __future__ import annotations
 import hashlib
 import html
 import re
-from collections import defaultdict
+from collections import Counter, defaultdict
 from pathlib import PurePosixPath
 from urllib.parse import quote
 
@@ -20,6 +20,9 @@ READING_LINKS = {
     'A4': (('B3', 'Use this rotation-distance interface, supplied in B3, in a precision-allocation problem.'),),
     'B3': (('A4', 'The exact rotation-distance result is supplied here; A4 asks for its derivation.'),),
     'C4': (('A2', 'The stability result is supplied here; A2 derives it independently of polynomial sampling.'),),
+    'E1': (('G1', 'Both propagate Gram errors. G1 analyzes rounded contraction. E1 starts from certified residuals and carries the mass margin through clean projection.'),
+           ('A2', 'E1 uses the normalization stability result supplied in the question.'),),
+    'E2': (('P2', 'Compare the two clean-column bounds with P2, which asks how column errors accumulate coherently on an entire subspace.'),),
 }
 
 
@@ -38,6 +41,11 @@ def folded(title, content, anchor):
 
 def prose_list(values):
     return '<ul>' + ''.join('<li>' + render_prose(v) + '</li>' for v in values) + '</ul>'
+
+
+def common_error_texts(packet):
+    return [text for error in packet['common_errors']
+            for text in ((error['error'], error['why_wrong']) if isinstance(error, dict) else (error,))]
 
 
 def route(entry):
@@ -86,12 +94,19 @@ def reasoning_map(entry):
     for n in m['steps']:
         out += '<li id="step-' + esc(n['id']) + '"><h4>' + esc(n['id']) + ': ' + esc(n['claim']) + '</h4>'
         out += '<p class="qcb-meta">All required inputs: ' + esc(', '.join(n['required_inputs'])) + '</p>'
+        if entry['slot'][0] in 'GPE' and n.get('scope'):
+            out += '<p class="qcb-meta">Scope</p>' + render_prose(n['scope'])
         out += prose_list(n.get('assumptions', [])) + render_prose(n['conclusion']) + render_prose(n['justification'])
         note = entry['clarifications'].get('step_notes', {}).get(n['id'])
         if note:
             out += '<aside class="qcb-boundary">' + render_prose(note) + '</aside>'
         out += '</li>'
-    return out + '</ol>'
+    out += '</ol>'
+    for alternative in m.get('alternative_routes', []):
+        out += '<h3>Alternative derivations</h3>' + render_prose(alternative['conclusion'])
+        out += prose_list([' → '.join(path) for path in alternative['routes']])
+        out += render_prose(alternative['relationship'])
+    return out
 
 
 def page_body(entry, workbook, graph, live_ids, publication_commit):
@@ -129,7 +144,7 @@ def page_body(entry, workbook, graph, live_ids, publication_commit):
     cases = '<dl>'
     for c in p['boundary_cases']:
         cases += '<dt>' + esc(c['case']) + '</dt><dd>' + ''.join(render_prose(v) for k, v in c.items() if k != 'case') + '</dd>'
-    body += folded('Boundary cases and common errors', cases + '</dl><h3>Common errors</h3>' + prose_list(p['common_errors']), 'boundaries')
+    body += folded('Boundary cases and common errors', cases + '</dl><h3>Common errors</h3>' + prose_list(common_error_texts(p)), 'boundaries')
     reasoning = reasoning_map(entry)
     if entry['clarifications'].get('changes'):
         reasoning = '<h3>Reader scope clarifications</h3>' + prose_list(entry['clarifications']['changes']) + reasoning
@@ -140,8 +155,10 @@ def page_body(entry, workbook, graph, live_ids, publication_commit):
     body += folded('Knowledge facets and difficulty', render_prose(facet) + render_prose(rationale) + '<p>The band describes the supplied construction route. It is not calibrated model difficulty or graph distance.</p>', 'difficulty')
     sources = '<p>Source-grounded mathematical exposition, separately reviewed by AI agents. No human expert approval or new Lean proof execution is claimed.</p><ul>'
     for ref in p['source_refs']:
-        revision = publication_commit if ref['path'].startswith('benchmarks/') else workbook['source_commit']
-        sources += '<li><a href="' + REPO + '/blob/' + revision + '/' + esc(ref['path']) + '">' + esc(ref['path']) + '</a>' + render_prose(ref['anchor']) + '</li>'
+        revision = (publication_commit if ref['path'].startswith('benchmarks/') else
+                    ref.get('source_commit', workbook['source_commit']))
+        anchor = entry['clarifications'].get('source_anchor_overrides', {}).get(ref['path'], ref['anchor'])
+        sources += '<li><a href="' + REPO + '/blob/' + esc(revision) + '/' + esc(ref['path']) + '">' + esc(ref['path']) + '</a>' + render_prose(anchor) + '</li>'
     sources += '</ul><p><a href="' + REPO + '/blob/' + publication_commit + '/' + esc(entry['payload_path']) + '">Original contribution</a> · <a href="' + REPO + '/blob/' + publication_commit + '/' + esc(entry['review']['report_path']) + '">Intake mathematical review</a></p>'
     sources += prose_list(entry['review']['limitations'])
     body += folded('Sources, review and exact identities', sources + '<p>Question SHA-256: <code>' + entry['question_sha256'] + '</code>. Original payload SHA-256: <code>' + entry['payload_sha256'] + '</code>.</p>', 'sources')
@@ -150,10 +167,11 @@ def page_body(entry, workbook, graph, live_ids, publication_commit):
 
 def publish_workbook(write, intro, workbook, graph, live_ids, publication_commit):
     entries = workbook['entries']
-    body = intro('Supplementary mathematics workbook', 'Twelve source-grounded exercises connect normalization, coherent implementations, tensor structure and polynomial sampling. Read the mathematics, inspect its reasoning route, then follow the exact library anchors.')
+    body = intro('Supplementary mathematics workbook', 'Explore six subjects through natural-language exercises. Follow each reasoning route to the library definitions and results it uses.')
     body += '<p class="qcb-status-line" data-qcb-workbook-exposure="public_study">Public study material, including explanations of existing dev/test cores. Use the train-only export for training and a separately controlled set for assessment. <a href="../../run/assessment/index.html">Choose the appropriate workflow →</a></p>'
-    body += '<p class="qcb-meta">Four exercises offer additional expositions of existing cores; eight develop supplementary candidate targets. The canonical inventory and scored train/test splits are unchanged.</p>'
-    body += section('Choose a subject', '<div class="qcb-grid">' + ''.join('<article class="qcb-card"><h2><a href="' + slug + '/index.html">' + title + '</a></h2><p>Four linked mathematical exercises with reference arguments and source anchors.</p></article>' for slug, title in workbook['groups'].values()) + '</div>', 'subjects')
+    body += '<p class="qcb-meta">' + str(workbook['counts']['existing_core_expositions']) + ' additional expositions of existing cores and ' + str(workbook['counts']['unassigned_candidates']) + ' unassigned candidates.</p>'
+    subject_counts = Counter(e['slot'][0] for e in entries)
+    body += section('Choose a subject', '<div class="qcb-grid">' + ''.join('<article class="qcb-card"><h2><a href="' + slug + '/index.html">' + title + '</a></h2><p>' + str(subject_counts[group]) + ' exercises with reference arguments and source anchors.</p></article>' for group, (slug, title) in workbook['groups'].items()) + '</div>', 'subjects')
     body += section('Choose a construction level', '<p>' + ' · '.join('<a href="levels/' + band.lower() + '/index.html">' + band + ' (' + str(count) + ')</a>' for band, count in sorted(workbook['counts']['by_band'].items())) + '</p><p>These are provisional reasoning-route bands. D0 is the knowledge-reading facet of each exercise; no extra question is counted for it.</p>', 'levels')
     body += folded('Graph, downloads and inventory boundaries', '<p><a href="graph/index.html">Node-to-exercise map</a> · <a download href="../../../data/quantumcomputingbench/nonlean-workbook/questions.jsonl">Question-only JSONL</a> · <a download href="../../../data/quantumcomputingbench/nonlean-workbook/references.jsonl">References and rubrics</a> · <a download href="../../../data/quantumcomputingbench/nonlean-workbook/index.json">Source and review index</a></p><p>These supplementary files are outside canonical training/evaluation exports. Existing-core expositions retain their original split; candidate split reconciliation remains pending. Public answers do not constitute a hidden holdout.</p>', 'data')
     write(BASE, 'Supplementary mathematics workbook', body + '</div>', 'Source-grounded supplementary exercises with disclosed difficulty, reasoning routes and exact graph anchors.')

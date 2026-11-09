@@ -1,0 +1,806 @@
+{
+  "schema_version": "qcb.nonlean_cohort_payload.v1",
+  "slot": "E2",
+  "title": "Two-sided LCU from approximate clean columns",
+  "author": "/root/batch2_composition",
+  "contribution_type": "new_candidate",
+  "proposal_id": "9764902a-a66f-47ae-b06e-dde6081f91d5",
+  "core_id": "candidate:9764902a-a66f-47ae-b06e-dde6081f91d5",
+  "admission": "candidate_not_counted",
+  "dedup_review_required": true,
+  "split": "unassigned_pending_reconciliation",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "question": "Let \\(K=\\mathbb C^r\\) with \\(r\\ge1\\) and distinguished basis vector \\(|0\\rangle\\), and let \\(H=\\mathbb C^d\\) with \\(d\\ge1\\). Fix the order \\(K\\otimes H\\). For \\(j=1,\\ldots,r\\) let \\(U_j:H\\to H\\) be unitary and \\(c_j\\in\\mathbb C\\), not all zero. Put\n\\[\n\\alpha=\\sum_j|c_j|>0,\\qquad A=\\sum_j c_jU_j,\n\\]\n\\[\n\\omega_j=\\begin{cases}c_j/|c_j|,&c_j\\ne0,\\\\1,&c_j=0,\\end{cases}\n\\qquad l_j=\\sqrt{|c_j|/\\alpha},\\qquad r_j=\\omega_j\\sqrt{|c_j|/\\alpha}.\n\\]\nHere the symbol \\(r_j\\) is a vector coordinate, while \\(r\\) is the selector dimension. Let\n\\[\nS=\\sum_j|j\\rangle\\langle j|\\otimes U_j.\n\\]\n\nAvailable unitaries \\(Q_L,Q_R\\) on \\(K\\) have clean columns \\(\\widetilde l=Q_L|0\\rangle\\) and \\(\\widetilde r=Q_R|0\\rangle\\) satisfying the exact-representative bounds\n\\[\n\\lVert\\widetilde l-l\\rVert\\le\\delta_L,\\qquad\n\\lVert\\widetilde r-r\\rVert\\le\\delta_R,\n\\qquad\\delta_L,\\delta_R\\ge0.\n\\]\nAn available unitary \\(\\widetilde S\\) on \\(K\\otimes H\\) satisfies \\(\\lVert\\widetilde S-S\\rVert\\le\\eta\\), \\(\\eta\\ge0\\), in induced Euclidean operator norm; \\(\\widetilde S\\) need not preserve the selector. The specified composite uses the actual adjoint \\(Q_L^\\dagger\\) exactly:\n\\[\n\\widetilde W=(Q_L^\\dagger\\otimes I)\\widetilde S(Q_R\\otimes I),\\qquad\nJv=|0\\rangle\\otimes v,\\qquad\n\\widetilde B=J^\\dagger\\widetilde WJ.\n\\]\nAll work of this mathematical interface is in \\(K\\otimes H\\).\n\nDerive the clean-column sandwich formula for \\(\\widetilde B\\). Prove the exact target formula\n\\[\n(\\langle l|\\otimes I)S(|r\\rangle\\otimes I)=A/\\alpha\n\\]\nand derive the approximate block-encoding guarantee\n\\[\n\\lVert A-\\alpha\\widetilde B\\rVert\\le\\alpha\\min\\{2,\\delta_L+\\delta_R+\\eta\\}.\n\\]\nYour proof must explain why no operator-norm approximation of \\(Q_L\\) or \\(Q_R\\) to a chosen full PREPARE unitary is required, and must justify unitarity and contraction facts used in the estimate. For ideal \\(S\\) in the middle, explicitly compute the implemented coefficients \\(\\overline{\\widetilde l_j}\\,\\widetilde r_j\\) and prove their \\(\\ell^1\\) deviation from \\(c_j/\\alpha\\) is at most \\(\\delta_L+\\delta_R\\). Explain whether this coefficient route and the direct sandwich-norm route are alternative proofs or jointly necessary assumptions.\n\nSuppose instead that one only knows\n\\[\n\\lVert\\widetilde l-e^{i\\theta_L}l\\rVert\\le\\delta_L,\\qquad\n\\lVert\\widetilde r-e^{i\\theta_R}r\\rVert\\le\\delta_R\n\\]\nfor real phases \\(\\theta_L,\\theta_R\\). Derive the corresponding phase-shifted target and an explicit bound on \\(\\lVert A-\\alpha\\widetilde B\\rVert\\) that includes the phase mismatch. Give a concrete unitary example with perfect separate state fidelities but wrong exact block, and state a sufficient phase relation that restores the previous guarantee. The question concerns exact block representatives, even if an isolated prepared state is physically unchanged by its global phase.\n\nProve that changing the off-clean columns of \\(Q_L\\) or \\(Q_R\\) while retaining unitarity and their clean columns cannot change \\(\\widetilde B\\) for fixed \\(\\widetilde S\\); give an explicit pair of unitary completions at operator distance \\(2\\) with the same clean column. Discuss zero coefficients, \\(r=1\\), \\(\\delta_L=\\delta_R=\\eta=0\\), and the excluded all-zero coefficient case. Explain why the mathematical availability of prepared state vectors alone does not supply an executable adjoint, coherent SELECT, clean-work implementation or finite-bit resource guarantee. A successful clean projection need not occur deterministically.",
+  "assumptions": [
+    "Finite complex selector and system spaces of dimensions r≥1 and d≥1, with a fixed distinguished clean selector basis vector and tensor order K⊗H.",
+    "Every U_j is unitary; coefficients c_j are not all zero so α=Σ_j|c_j|>0.",
+    "Q_L,Q_R,S̃ are actual unitaries and the specified composite uses the actual Q_L†; clean-column errors and SELECT error are certified in Euclidean/induced operator norms.",
+    "The principal branch compares exact clean-column representatives. The later phase branch replaces those estimates by phase-referenced estimates with real θ_L,θ_R."
+  ],
+  "conventions": [
+    "Complex inner products are conjugate-linear in the first argument; a bra ⟨l| therefore has coefficients conj(l_j).",
+    "Matrix products act on column vectors from the rightmost factor first. No transpose replaces the complex adjoint.",
+    "The clean block projects the selector at both ends; a nonclean rejected sector may remain in the full output.",
+    "The coefficient ℓ¹ route and direct sandwich route may be used as alternative sufficient derivations; neither is an extra hypothesis on the inputs.",
+    "No approximate inverse is substituted for Q_L†. State-generation access alone is weaker than the available-unitary interface assumed in the main branch."
+  ],
+  "target_nodes": [
+    "declaration:QuantumBlockEncoding.Robin.ComplexLCU.prepareAmplitudeSelectUnprepare_cleanEntry",
+    "declaration:QuantumBlockEncoding.ApproximateOperatorBlockEncodingCandidate"
+  ],
+  "supporting_nodes": [
+    "declaration:QuantumBlockEncoding.Robin.ComplexLCU.selectorLift_cleanColumn_apply",
+    "declaration:QuantumBlockEncoding.Robin.ComplexLCU.star_selectorLift_cleanRow_apply",
+    "declaration:QuantumBlockEncoding.Robin.ComplexLCU.star_selectorLift_mul_clean",
+    "declaration:QuantumBlockEncoding.Robin.ComplexLCU.selectorLift_unitary",
+    "declaration:QuantumBlockEncoding.Robin.ComplexLCU.blockDiagonal_unitary",
+    "declaration:QuantumBlockEncoding.Robin.ComplexLCU.prepareAmplitudeSelectUnprepare_unitary"
+  ],
+  "source_refs": [
+    {
+      "path": "QuantumBlockEncoding/Robin/ComplexLCUProjection.lean",
+      "anchor": "selectorLift_cleanColumn_apply:43-60; star_selectorLift_cleanRow_apply:63-80; star_selectorLift_mul_clean:147-169; prepareAmplitudeSelectUnprepare_cleanEntry:172-219",
+      "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+      "sha256": "fa0b84ce5c819184f190b81b4d259e12f725e6196cd37147984fab76fe4ec340",
+      "license": "MIT (repository LICENSE)"
+    },
+    {
+      "path": "QuantumBlockEncoding/Robin/ComplexLCU.lean",
+      "anchor": "blockDiagonal_unitary:122-145; selectorLift:254-264; selectorLift_unitary:267-281; prepareAmplitudeSelectUnprepare:352-367; prepareAmplitudeSelectUnprepare_unitary:370-399",
+      "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+      "sha256": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843",
+      "license": "MIT (repository LICENSE)"
+    },
+    {
+      "path": "QuantumBlockEncoding/BlockEncoding.lean",
+      "anchor": "ApproximateOperatorBlockEncodingCandidate:148-152; scaled norm interpretation:136-146",
+      "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+      "sha256": "fe06f75a29822e28ccdbfedfb0b0e87f90872620fae7aed359085fad8fae64b4",
+      "license": "MIT (repository LICENSE)"
+    }
+  ],
+  "provenance": {
+    "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+    "frozen_graph_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+    "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+    "coverage_plan_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/3703ef46-1a1d-47ab-a991-dc9d94a0f386/COVERAGE_PLAN.md",
+    "coverage_plan_sha256_raw": "f19b145920a6abd6fa2bb634fa43fe98a848396d136e9bc4573d57801c9eb442",
+    "question_first_freeze": {
+      "original_question_packet_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/3703ef46-1a1d-47ab-a991-dc9d94a0f386/questions/history/E2-v1.json",
+      "original_question_packet_sha256_raw": "49f685453f40c908f0c671af19482e6d317ab21ff1fa5404168b66055971479a",
+      "original_question_sha256_utf8": "2d4778b244d4972ee553e3fc6be4e19d4b386791e7e6082d69cdac31bfef29df",
+      "current_notation_packet_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/3703ef46-1a1d-47ab-a991-dc9d94a0f386/questions/E2.json",
+      "current_notation_packet_sha256_raw": "f6f2ecc3014d420bea2f17f431b3c3c56d95ec7d7c9606512057de0bf4c7eb4f",
+      "current_question_sha256_utf8": "c1d0549a8ce213d2b29a665375c7ace37414b77fa4d18b9d82688e90aff9f2b7",
+      "solution_authorship_started_after_original_freeze": true,
+      "notation_revision_only": true,
+      "new_blind_freeze_claimed": false,
+      "author_is_not_question_blind": true
+    },
+    "evidence_class": "local_source_text_inspection_and_original_natural_language_derivation",
+    "formal_verification_this_run": false,
+    "review_status": "authored_pending_distinct_exact_content_review",
+    "review_status_scope": "This immutable author packet does not claim independent review, human approval, canonical admission or benchmark stability; later review belongs to separate exact-content records.",
+    "license": {
+      "path": "LICENSE",
+      "sha256_raw": "dff0cc0f36b869fa146c79c0de10d15a04259351e011e63c42c2ececb57fb1e3",
+      "attribution": "MIT; Copyright (c) 2026 Quantum Block Encoding contributors"
+    },
+    "source_inspection": [
+      {
+        "path": "QuantumBlockEncoding/Robin/ComplexLCUProjection.lean",
+        "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+        "sha256": "fa0b84ce5c819184f190b81b4d259e12f725e6196cd37147984fab76fe4ec340",
+        "sha256_raw": "fa0b84ce5c819184f190b81b4d259e12f725e6196cd37147984fab76fe4ec340",
+        "sha256_lf": "fa0b84ce5c819184f190b81b4d259e12f725e6196cd37147984fab76fe4ec340",
+        "matches_base_source_bytes": true,
+        "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "frozen_snapshot_sha256_raw": "fa0b84ce5c819184f190b81b4d259e12f725e6196cd37147984fab76fe4ec340",
+        "matches_frozen_source_bytes": true,
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+        "declarations": [
+          {
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.selectorLift_cleanColumn_apply",
+            "line_start": 43,
+            "line_end": 60,
+            "sha256_lf": "4b134dbb88e89919d0ce5a92a417790aefdb9fc4973fca36f401f562f2b4081f",
+            "hash_span": "Complete declaration including body, inclusive LF-normalized source lines; no following declaration or end-namespace line."
+          },
+          {
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.star_selectorLift_cleanRow_apply",
+            "line_start": 63,
+            "line_end": 80,
+            "sha256_lf": "a9f95f26f769b1577c7545efb8e17133d8db32e6809ea9d2e56fe35e396856b9",
+            "hash_span": "Complete declaration including body, inclusive LF-normalized source lines; no following declaration or end-namespace line."
+          },
+          {
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.star_selectorLift_mul_clean",
+            "line_start": 147,
+            "line_end": 169,
+            "sha256_lf": "6155bd174dde619ef9fd82b521ed292050c43bd28feb35e826b8723f72aad108",
+            "hash_span": "Complete declaration including body, inclusive LF-normalized source lines; no following declaration or end-namespace line."
+          },
+          {
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.prepareAmplitudeSelectUnprepare_cleanEntry",
+            "line_start": 172,
+            "line_end": 220,
+            "sha256_lf": "ee7cc6984431cdc61cefc8f1a6a7a52263393484c2a88b41805e75528ce21635",
+            "hash_span": "Complete declaration including body, inclusive LF-normalized source lines; no following declaration or end-namespace line."
+          }
+        ],
+        "direct_imports": [
+          "QuantumBlockEncoding.Robin.ComplexLCU",
+          "Mathlib.Tactic"
+        ],
+        "inspection_scope": "Named declarations and complete proof bodies, local definitions and register/norm comments read as source text. Exact-error or architecture source semantics only; no execution or new analytic theorem certification."
+      },
+      {
+        "path": "QuantumBlockEncoding/Robin/ComplexLCU.lean",
+        "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+        "sha256": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843",
+        "sha256_raw": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843",
+        "sha256_lf": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843",
+        "matches_base_source_bytes": true,
+        "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "frozen_snapshot_sha256_raw": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843",
+        "matches_frozen_source_bytes": true,
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+        "declarations": [
+          {
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.blockDiagonal_unitary",
+            "line_start": 122,
+            "line_end": 145,
+            "sha256_lf": "9770ccd73b548bacb0227afaf3419bd43b492293091a8c021ea12b3cfb047afc",
+            "hash_span": "Complete declaration including body, inclusive LF-normalized source lines; no following declaration or end-namespace line."
+          },
+          {
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.selectorLift",
+            "line_start": 254,
+            "line_end": 264,
+            "sha256_lf": "1ecc67d2c5fd9505cc4865bbac345c8ef27126a930127e4c96d5a01668d6b259",
+            "hash_span": "Complete declaration including body, inclusive LF-normalized source lines; no following declaration or end-namespace line."
+          },
+          {
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.selectorLift_unitary",
+            "line_start": 267,
+            "line_end": 281,
+            "sha256_lf": "e7f6b4712bb5c7d1b175d76b37fa9df3d0bb23b71c85c6cd4d9ff318f6107164",
+            "hash_span": "Complete declaration including body, inclusive LF-normalized source lines; no following declaration or end-namespace line."
+          },
+          {
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.prepareAmplitudeSelectUnprepare",
+            "line_start": 352,
+            "line_end": 367,
+            "sha256_lf": "97d323293b47caf379a872967cdaa9d625e7840acf45565d5c577a670af45948",
+            "hash_span": "Complete declaration including body, inclusive LF-normalized source lines; no following declaration or end-namespace line."
+          },
+          {
+            "name": "QuantumBlockEncoding.Robin.ComplexLCU.prepareAmplitudeSelectUnprepare_unitary",
+            "line_start": 370,
+            "line_end": 399,
+            "sha256_lf": "015583ccea2aee4125eb6550d3dfbe2b68355f1cd48171b3a787d6a82631b76a",
+            "hash_span": "Complete declaration including body, inclusive LF-normalized source lines; no following declaration or end-namespace line."
+          }
+        ],
+        "direct_imports": [
+          "QuantumBlockEncoding.ConcreteSemantics",
+          "Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic",
+          "Mathlib.Data.Matrix.Block",
+          "Mathlib.LinearAlgebra.Matrix.Kronecker",
+          "Mathlib.LinearAlgebra.Matrix.Reindex",
+          "Mathlib.Tactic"
+        ],
+        "inspection_scope": "Named declarations and complete proof bodies, local definitions and register/norm comments read as source text. Exact-error or architecture source semantics only; no execution or new analytic theorem certification."
+      },
+      {
+        "path": "QuantumBlockEncoding/BlockEncoding.lean",
+        "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+        "sha256": "fe06f75a29822e28ccdbfedfb0b0e87f90872620fae7aed359085fad8fae64b4",
+        "sha256_raw": "fe06f75a29822e28ccdbfedfb0b0e87f90872620fae7aed359085fad8fae64b4",
+        "sha256_lf": "fe06f75a29822e28ccdbfedfb0b0e87f90872620fae7aed359085fad8fae64b4",
+        "matches_base_source_bytes": true,
+        "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "frozen_snapshot_sha256_raw": "fe06f75a29822e28ccdbfedfb0b0e87f90872620fae7aed359085fad8fae64b4",
+        "matches_frozen_source_bytes": true,
+        "license": "MIT (repository LICENSE)",
+        "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors",
+        "declarations": [
+          {
+            "name": "QuantumBlockEncoding.ApproximateOperatorBlockEncodingCandidate",
+            "line_start": 148,
+            "line_end": 152,
+            "sha256_lf": "9f7596115bd89a10883b7132751b3adf0527e6bf5a8823642a9047c6afd7013b",
+            "hash_span": "Complete declaration including body, inclusive LF-normalized source lines; no following declaration or end-namespace line."
+          }
+        ],
+        "direct_imports": [
+          "QuantumBlockEncoding.Circuit"
+        ],
+        "inspection_scope": "Named declarations and complete proof bodies, local definitions and register/norm comments read as source text. Exact-error or architecture source semantics only; no execution or new analytic theorem certification."
+      }
+    ],
+    "frozen_graph_binding": {
+      "path": "benchmarks/quantumcomputingbench/manifests/release-v3/snapshot.json",
+      "sha256_raw": "71a08777e01af1b6e5bd3dd88ba6443efe9aea41240c09303d4bcc0a7cd8058b",
+      "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "binding_meaning": "Frozen graph identity and source scope, not new theorem-dependency extraction or fresh compilation. All target/supporting IDs were checked present.",
+      "compiled_this_run": false
+    },
+    "compiled_substrate_boundary": "Existing named declarations are source-inspected repository substrate. No Lean/kernel/build was run; the new residual, asymmetric-LCU and composed analytic statements are original NL derivations, not inferred from declaration existence or graph proximity.",
+    "source_locator_note": "Location anchors in source_refs are not complete-declaration hash spans; source_inspection supplies full declarations. E2 cleanEntry complete proof ends at line 220.",
+    "original_derivation_scope": "The two-sided complex-coefficient representation, column-only perturbation bound, coefficient ℓ¹ bound and quantitative relative-phase transfer are original NL derivations. The inspected source is a same-PREPARE, coefficient×(selector×system), amplitude/permutation architecture. Its clean-column/conjugate-row semantics motivate the bridge; it does not directly certify the general two-sided arbitrary-unitary SELECT theorem or its errors. Completion and phase diagnostics reuse acknowledged existing mathematical fragments.",
+    "justified_mathematical_dependencies": [
+      "Finite Euclidean tensor norm and conjugate adjoint identity for a rank-one input isometry.",
+      "SELECT block-diagonal unitarity and tensor/adjoint/product closure, proved in the answer for the stated arbitrary U_j interface.",
+      "Complex coefficient magnitude normalization with an explicit zero-coefficient phase branch.",
+      "Operator triangle/submultiplicativity and Cauchy–Schwarz; no assumption about full preparation-operator proximity.",
+      "Relative left/right phase subtraction from the conjugated left column."
+    ],
+    "abstract_interface_boundary": "ApproximateOperatorBlockEncodingCandidate.approximationBound is a Prop field. The nearby source comment specifies the intended scaled operator-norm contract; neither the field nor the comment proves that analytic inequality. The inequality for this packet is derived in the original NL answer from its explicit unitary/column/SELECT assumptions."
+  },
+  "unverified": [
+    "No Lean, kernel, test-module, complete repository build, model response collection, inference experiment or training was performed by this author.",
+    "Independent exact-content mathematical/source review and semantic deduplication remain pending; no author self-approval or transfer of prior workbook review is claimed.",
+    "No global novelty, split independence, hidden-holdout status, model difficulty, benchmark stability or finite-bit supplier guarantee is claimed."
+  ],
+  "graph_roles": {
+    "target_nodes": "Frozen source anchor interfaces motivating the new mathematical target; none is represented as a pre-existing theorem of the full new NL statement.",
+    "supporting_nodes": "Source-inspected definition/architecture/semantic anchors with roles specified in provenance; source adjacency is not proof support.",
+    "source_construction_graph": "Bounded local source regions only. The packet does not claim whole-paper source topology reconstruction or source-paper theorem closure.",
+    "lean_dependency_graph": "Only module ownership and direct imports are recorded. No elaborated proof-term dependency extraction is claimed.",
+    "compressed_quantum_spine": "Normalization/preparation/projection or PREPARE–SELECT–unprepare concepts organize this packet but do not add theorem nodes.",
+    "functor_hypergraph": "Any conceptual SP/BE relationship retains all stated premises; not a certified functor or new formal transport.",
+    "authored_reasoning_map": "Mathematical dependencies authored below, with explicit AND tails, alternative sufficient routes and separately scoped excluded-domain diagnostics."
+  },
+  "mathematical_target": "Derive a two-sided complex-coefficient LCU contract whose approximation depends only on phase-aligned prepared clean columns and SELECT operator error, with explicit phase-mismatched and unitary-completion boundaries.",
+  "family": "two-sided-lcu-clean-column-stability",
+  "reference_answer": "The coefficient assumptions give \\(\\alpha>0\\), and \\(|\\omega_j|=1\\), including the chosen value for zero coefficients. Therefore\n\\[\n\\lVert l\\rVert^2=\\lVert r\\rVert^2=\\sum_j\\frac{|c_j|}{\\alpha}=1,\n\\qquad \\overline{l_j}r_j=\\frac{c_j}{\\alpha}.\n\\]\nFor a zero coefficient both coordinates are zero; the choice of its phase does not affect them. The actual clean columns \\(\\widetilde l,\\widetilde r\\) also have norm one because their preparation operators are unitary.\n\nFor a vector \\(v\\in K\\), define \\(K_v:H\\to K\\otimes H\\) by \\(K_vu=v\\otimes u\\). Its operator norm is \\(\\lVert K_v\\rVert=\\lVert v\\rVert\\), since \\(H\\) is nonzero and \\(\\lVert v\\otimes u\\rVert=\\lVert v\\rVert\\lVert u\\rVert\\). Its adjoint is \\(K_v^\\dagger=\\langle v|\\otimes I\\), with the same norm. In particular these maps are isometries, or adjoint contractions, when \\(v\\) is unit.\n\nThe SELECT operator is unitary: its orthogonal selector blocks obey\n\\[\nS^\\dagger S=\\sum_j|j\\rangle\\langle j|\\otimes U_j^\\dagger U_j=I,\n\\]\nand the reverse product is likewise the identity. Tensoring each actual preparation with the identity preserves unitarity, and their adjoints and products are unitary. Hence the specified \\(\\widetilde W\\) is unitary. Since \\(J=K_{|0\\rangle}\\) is an isometry, \\(\\widetilde B=J^\\dagger\\widetilde WJ\\) is a contraction. Also\n\\[\n\\lVert A/\\alpha\\rVert\\le\\sum_j\\frac{|c_j|}{\\alpha}\\lVert U_j\\rVert=1.\n\\]\nThese statements do not assert that the full output remains in the clean selector sector.\n\nThe clean input and output factors depend only on their specified columns:\n\\[\n(Q_R\\otimes I)J=K_{\\widetilde r},\\qquad\nJ^\\dagger(Q_L^\\dagger\\otimes I)=K_{\\widetilde l}^\\dagger.\n\\]\nConsequently\n\\[\n\\boxed{\\widetilde B=K_{\\widetilde l}^\\dagger\\widetilde S K_{\\widetilde r}\n=(\\langle\\widetilde l|\\otimes I)\\widetilde S(|\\widetilde r\\rangle\\otimes I).}\n\\]\nThis formula holds even when \\(\\widetilde S\\) mixes selector labels. With ideal \\(S\\), expanding the orthogonal selector blocks gives\n\\[\nK_l^\\dagger S K_r=\\sum_j\\overline{l_j}r_jU_j\n=\\frac1\\alpha\\sum_jc_jU_j=A/\\alpha.\n\\]\nThe conjugation on the left column is essential.\n\nOne direct norm proof inserts the two ideal columns and ideal SELECT in three steps:\n\\[\n\\begin{aligned}\n\\widetilde B-A/\\alpha\n={}&K_{\\widetilde l-l}^\\dagger\\widetilde S K_{\\widetilde r}\\\\\n&+K_l^\\dagger(\\widetilde S-S)K_{\\widetilde r}\\\\\n&+K_l^\\dagger S K_{\\widetilde r-r}.\n\\end{aligned}\n\\]\nThe norms of the three terms are at most \\(\\delta_L\\), \\(\\eta\\), and \\(\\delta_R\\), respectively. Here the actual right column, ideal left column and both SELECT operators have norm one. Thus no extra product \\(\\delta_L\\delta_R\\) or dimension factor is needed:\n\\[\n\\lVert\\widetilde B-A/\\alpha\\rVert\\le\\delta_L+\\delta_R+\\eta.\n\\]\nIndependently the two contraction estimates give \\(\\lVert\\widetilde B-A/\\alpha\\rVert\\le2\\). Multiplying the better bound by positive \\(\\alpha\\) proves\n\\[\n\\boxed{\\lVert A-\\alpha\\widetilde B\\rVert\n\\le\\alpha\\min\\{2,\\delta_L+\\delta_R+\\eta\\}.}\n\\]\nAt no point was either complete preparation operator compared to an ideal unitary completion. Only its clean column and actual unitarity were used.\n\nFor the explicitly requested coefficient route, hold ideal \\(S\\) in the middle and set \\(B_S=K_{\\widetilde l}^\\dagger S K_{\\widetilde r}\\). Its exact coefficients are\n\\[\nB_S=\\sum_j\\overline{\\widetilde l_j}\\,\\widetilde r_jU_j.\n\\]\nFor each index, write\n\\[\n\\overline{\\widetilde l_j}\\widetilde r_j-\\overline{l_j}r_j\n=\\overline{(\\widetilde l_j-l_j)}\\widetilde r_j\n+\\overline{l_j}(\\widetilde r_j-r_j).\n\\]\nSumming absolute values and applying Cauchy–Schwarz twice gives\n\\[\n\\begin{aligned}\n\\sum_j\\left|\\overline{\\widetilde l_j}\\widetilde r_j-\\frac{c_j}{\\alpha}\\right|\n&\\le\\lVert\\widetilde l-l\\rVert\\lVert\\widetilde r\\rVert\n+\\lVert l\\rVert\\lVert\\widetilde r-r\\rVert\\\\\n&\\le\\delta_L+\\delta_R.\n\\end{aligned}\n\\]\nSince each \\(U_j\\) has operator norm one, this bounds \\(\\lVert B_S-A/\\alpha\\rVert\\). Moreover,\n\\[\n\\lVert\\widetilde B-B_S\\rVert\n=\\lVert K_{\\widetilde l}^\\dagger(\\widetilde S-S)K_{\\widetilde r}\\rVert\\le\\eta.\n\\]\nTriangle inequality recovers the same approximate-block estimate and its contraction cap. These are two alternative proofs of the error bound. The problem requests the coefficient calculation as well, but neither proof is an additional assumption that the other must consume.\n\nIn the phase-referenced branch, replace the two reference vectors by \\(l'=e^{i\\theta_L}l\\) and \\(r'=e^{i\\theta_R}r\\). They are still unit. Put \\(\\Delta=\\theta_R-\\theta_L\\) and \\(e=\\delta_L+\\delta_R+\\eta\\). The exact ideal sandwich is now\n\\[\nK_{l'}^\\dagger S K_{r'}=e^{i\\Delta}A/\\alpha.\n\\]\nRepeating the three-term norm estimate under the replaced hypotheses gives\n\\[\n\\lVert\\alpha\\widetilde B-e^{i\\Delta}A\\rVert\\le\\alpha e.\n\\]\nFor the originally requested exact representative, one obtains\n\\[\n\\boxed{\\lVert A-\\alpha\\widetilde B\\rVert\n\\le\\min\\left\\{2\\alpha,\\ \\alpha e+|1-e^{i\\Delta}|\\lVert A\\rVert\\right\\}.}\n\\]\nIn particular this is at most\n\\[\n\\alpha\\min\\left\\{2,\\ e+2|\\sin(\\Delta/2)|\\right\\}.\n\\]\nThe universal cap still holds because the two block contractions are unchanged. The sufficient phase relation \\(e^{i(\\theta_R-\\theta_L)}=1\\) restores the previous bound; a common left/right phase cancels. This is not claimed necessary for every special target: \\(A\\) can vanish through cancellation even though \\(\\alpha>0\\).\n\nSeparate fidelities alone do not control this relative phase. For example take selector dimension \\(r=1\\), any nonzero \\(H\\), \\(c_1=1\\), \\(U_1=I\\), \\(Q_L=1\\), \\(Q_R=-1\\), and \\(\\widetilde S=S=I\\). Then \\(l=r=1\\), \\(\\widetilde l=1\\), \\(\\widetilde r=-1\\). Both separate squared fidelities equal \\(1\\), but \\(\\widetilde B=-I\\) while \\(A=I\\), so\n\\[\n\\lVert A-\\alpha\\widetilde B\\rVert=2.\n\\]\nThis realizes the phase branch with \\(\\theta_L=0\\), \\(\\theta_R=\\pi\\) and zero phase-referenced errors. It does not satisfy zero exact-representative right-column error; that error is \\(2\\). The counterexample therefore does not contradict the main theorem.\n\nFor fixed \\(\\widetilde S\\), the sandwich formula shows that unitary completions with the same two clean columns have exactly the same clean block, independently of every off-clean column. An explicit pair on \\(\\mathbb C^2\\), with first coordinate clean, is\n\\[\nQ=I_2,\\qquad Q'=\\operatorname{diag}(1,-1).\n\\]\nThey share the first column and \\(\\lVert Q-Q'\\rVert=2\\). Either can replace a preparation having that clean column without changing the sandwich. This particular pair has no nontrivial one-dimensional analogue, because a one-dimensional unitary is determined by its only column; the phase-fidelity counterexample nevertheless already works in that dimension.\n\nZero coefficients cause no division by zero in the phase definition because they use the stated separate branch, and their ideal coordinates vanish. Approximate columns can have weight on those coordinates, which is included in the same error bound. If \\(\\delta_L=\\delta_R=\\eta=0\\) in the exact-representative branch, then \\(\\widetilde B=A/\\alpha\\) exactly. This still does not imply deterministic clean success. For example take two selector labels, \\(c=(1,-1)\\), \\(U_1=U_2=I\\), and exact columns \\(l=(1,1)/\\sqrt2\\), \\(r=(1,-1)/\\sqrt2\\). Then \\(A=0\\) and the ideal clean block is zero, although all components are unitary and \\(\\alpha=2\\). The all-zero coefficient case is different: it has \\(\\alpha=0\\), so the displayed normalization formulas are undefined and the active construction does not apply. The zero operator can be realized by other specified constructions, but dividing by this \\(\\alpha\\) is not one.\n\nThe proof assumes actual coherent unitaries and the actual adjoint in the displayed composite. A source of prepared state samples alone does not provide an executable adjoint, a coherent SELECT implementation, an inverse of an unknown preparation procedure, or a certificate that unmentioned workspace is clean. All work here is explicitly in the given registers. No finite-bit precision supplier, gate synthesis or resource bound is derived. Clean projection defines an accepted branch; it is not a promise that the entire output is clean.",
+  "rubric": [
+    {
+      "id": "E2-r1",
+      "weight": 1,
+      "criterion": "Checks \\(\\alpha>0\\), unit norms of ideal and actual columns, the identity \\(\\overline{l_j}r_j=c_j/\\alpha\\), and SELECT/product unitarity plus the contraction facts used later."
+    },
+    {
+      "id": "E2-r2",
+      "weight": 1.5,
+      "criterion": "Derives the clean-column sandwich and the exact target \\(A/\\alpha\\), with conjugation, register order and the actual left adjoint correct. Explains why only clean columns enter."
+    },
+    {
+      "id": "E2-r3",
+      "weight": 2,
+      "criterion": "Proves the additive \\(\\delta_L+\\delta_R+\\eta\\) operator bound and independent cap \\(2\\), with no unneeded product or dimension factor, obtaining the scaled minimum. A valid direct or coefficient route suffices for this criterion."
+    },
+    {
+      "id": "E2-r4",
+      "weight": 1.5,
+      "criterion": "Computes the ideal-SELECT coefficients \\(\\overline{\\widetilde l_j}\\widetilde r_j\\), derives their \\(\\ell^1\\) deviation by Cauchy–Schwarz, and identifies the coefficient and direct sandwich routes as alternative sufficient proofs, not additional input assumptions."
+    },
+    {
+      "id": "E2-r5",
+      "weight": 2,
+      "criterion": "In the replaced phase branch, obtains \\(e^{i(\\theta_R-\\theta_L)}A\\), gives a correct explicit phase-mismatch error bound and sufficient cancellation condition, and verifies a unitary perfect-fidelity/wrong-block witness without incorrectly assigning zero exact-vector errors."
+    },
+    {
+      "id": "E2-r6",
+      "weight": 1,
+      "criterion": "Proves invariance under changes to off-clean columns for fixed \\(\\widetilde S\\), and verifies a pair of unitary completions at distance \\(2\\) with the same clean column. This diagnostic overlaps known completion examples and is not a separate new core."
+    },
+    {
+      "id": "E2-r7",
+      "weight": 1,
+      "criterion": "Handles zero coefficients, \\(r=1\\), zero errors and the excluded \\(\\alpha=0\\) case; distinguishes exact clean block from deterministic cleanup and available coherent unitaries/adjoints from mere state preparation access and finite-bit costs."
+    }
+  ],
+  "common_errors": [
+    {
+      "error": "Use \\(l_jr_j\\) in general or \\(\\widetilde l_j\\widetilde r_j\\) without conjugating the left column.",
+      "why_wrong": "The left factor is a bra supplied by the actual adjoint; complex conjugation determines both coefficients and phase difference."
+    },
+    {
+      "error": "Assume the same PREPARE must appear on both sides for every LCU.",
+      "why_wrong": "Squared selector weights are the same-column architecture. The explicitly specified two-sided interface uses conjugate left amplitudes times right amplitudes to encode complex coefficients."
+    },
+    {
+      "error": "Require full preparation-unitary operator closeness to an ideal completion.",
+      "why_wrong": "The projected sandwich depends only on the clean columns and actual unitarity. The unused columns may differ maximally."
+    },
+    {
+      "error": "Add a mandatory \\(\\delta_L\\delta_R\\) term or a dimension factor.",
+      "why_wrong": "The three-term decomposition uses actual unit vectors on the untouched sides; its bounds are additive without those losses."
+    },
+    {
+      "error": "Use the ideal coefficient formula for a general selector-mixing middle operator.",
+      "why_wrong": "The sum \\(\\sum_j\\overline{\\widetilde l_j}\\widetilde r_jU_j\\) applies to ideal block-diagonal SELECT. General \\(\\widetilde S\\) is handled by an independent operator perturbation bound."
+    },
+    {
+      "error": "Treat independent phase-optimized column errors or perfect fidelities as zero exact block error.",
+      "why_wrong": "Left and right global phases leave a relative scalar phase on the block; it cancels only under the stated sufficient relation or a special target."
+    },
+    {
+      "error": "Infer nonzero target or positive success from nonzero coefficient normalization.",
+      "why_wrong": "Nonzero coefficients may cancel to \\(A=0\\), even with \\(\\alpha>0\\). Unitarity only gives contraction, not deterministic clean success."
+    }
+  ],
+  "boundary_cases": [
+    {
+      "case": "Some coefficients zero",
+      "scope": "valid main branch",
+      "conclusion": "Their ideal columns vanish and phase is explicitly set to 1. Approximate leakage into them is covered by the same norm bound."
+    },
+    {
+      "case": "Selector dimension one",
+      "scope": "valid main and phase branches",
+      "conclusion": "No unused completion columns, but independent left/right phase remains relevant to the exact scalar block."
+    },
+    {
+      "case": "Exact-representative errors all zero",
+      "scope": "valid main branch",
+      "conclusion": "Exact \\(\\widetilde B=A/\\alpha\\); still no deterministic-success guarantee."
+    },
+    {
+      "case": "Perfect separate fidelity",
+      "scope": "replace exact representative estimates by the phase-referenced estimates",
+      "conclusion": "The one-label sign witness gives exact block error \\(2\\), while zero phase-referenced errors hold."
+    },
+    {
+      "case": "All coefficients zero",
+      "scope": "excluded diagnostic; replace the not-all-zero premise",
+      "conclusion": "\\(A=0\\) and \\(\\alpha=0\\); normalized selector formulas are undefined and must not be evaluated."
+    },
+    {
+      "case": "Coefficient cancellation with positive normalizer",
+      "scope": "valid main branch",
+      "conclusion": "Coefficients \\((1,-1)\\) and identical system unitaries give \\(A=0\\), \\(\\alpha=2\\), and zero clean success in the exact construction."
+    }
+  ],
+  "shared_results_produced": [
+    {
+      "id": "two-sided-lcu-clean-column-error",
+      "statement": "The specified unitary sandwich with phase-aligned unit columns and SELECT error obeys \\(\\lVert A-\\alpha\\widetilde B\\rVert\\le\\alpha\\min\\{2,\\delta_L+\\delta_R+\\eta\\}\\).",
+      "evidence": "Original NL asymmetric and perturbative extension; not the same-P source clean-entry theorem."
+    },
+    {
+      "id": "two-sided-lcu-relative-phase-transfer",
+      "statement": "Phase-referenced column approximations target \\(e^{i(\\theta_R-\\theta_L)}A\\), and exact-representative error additionally contains \\(|1-e^{i(\\theta_R-\\theta_L)}|\\lVert A\\rVert\\).",
+      "evidence": "Original quantitative NL transport; phase sign witness shares earlier phase material."
+    }
+  ],
+  "difficulty": {
+    "D0_facet": "Bra conjugation, exact-vector phase, clean columns versus full operators, actual adjoint access, scaled block error and accepted versus full output. No extra D0 question.",
+    "provisional_route_band": "D3",
+    "rationale": "Constructs complex two-sided selector weights, joins column-only and SELECT errors, compares alternative norm/coefficient routes and diagnoses phase transfer. The band describes mathematical construction, not graph distance or measured model difficulty.",
+    "shortcut_disclosure": "Given the sandwich identity and its three-term norm estimate, the main result becomes immediate; this question asks the solver to derive both. Completion and sign witnesses are disclosed shared diagnostics.",
+    "measured_model_difficulty": false
+  },
+  "reasoning_map": {
+    "kind": "author_supplied_natural_language",
+    "not_extracted_lean_dependencies": true,
+    "inputs": [
+      {
+        "id": "E2-I1",
+        "statement": "Nonzero finite complex spaces \\(K,H\\), fixed clean selector, order \\(K\\otimes H\\), unitary system operators \\(U_j\\).",
+        "kind": "assumption"
+      },
+      {
+        "id": "E2-I2",
+        "statement": "Coefficients are not all zero; \\(\\alpha=\\sum|c_j|\\), with the displayed zero-safe phase and ideal column definitions.",
+        "kind": "assumption"
+      },
+      {
+        "id": "E2-I3",
+        "statement": "Actual \\(Q_L,Q_R,\\widetilde S\\) are unitary; \\(\\widetilde W\\) uses the actual \\(Q_L^\\dagger\\); \\(\\widetilde l,\\widetilde r\\) are their clean columns and \\(\\widetilde B=J^\\dagger\\widetilde WJ\\).",
+        "kind": "assumption"
+      },
+      {
+        "id": "E2-I4",
+        "statement": "Main branch: exact-representative errors \\(\\lVert\\widetilde l-l\\rVert\\le\\delta_L\\), \\(\\lVert\\widetilde r-r\\rVert\\le\\delta_R\\); all error parameters nonnegative.",
+        "kind": "assumption"
+      },
+      {
+        "id": "E2-I5",
+        "statement": "\\(\\lVert\\widetilde S-S\\rVert\\le\\eta\\), where \\(S=\\sum_j|j\\rangle\\langle j|\\otimes U_j\\) and \\(\\eta\\ge0\\).",
+        "kind": "assumption"
+      },
+      {
+        "id": "E2-I6",
+        "statement": "Euclidean norms, conjugate-first complex inner product, induced operator norm, tensor product norm and rightmost-first action.",
+        "kind": "convention"
+      },
+      {
+        "id": "E2-I7",
+        "statement": "Phase branch REPLACES I4 by \\(\\lVert\\widetilde l-e^{i\\theta_L}l\\rVert\\le\\delta_L\\), \\(\\lVert\\widetilde r-e^{i\\theta_R}r\\rVert\\le\\delta_R\\), with real phases; retains I1,I2,I3,I5,I6.",
+        "kind": "assumption"
+      }
+    ],
+    "steps": [
+      {
+        "id": "E2-S1",
+        "claim": "Normalize the ideal coefficient columns.",
+        "required_inputs": [
+          "E2-I1",
+          "E2-I2",
+          "E2-I6"
+        ],
+        "conclusion": "\\(\\alpha>0\\), \\(\\lVert l\\rVert=\\lVert r\\rVert=1\\), and \\(\\overline{l_j}r_j=c_j/\\alpha\\), including zero coefficients.",
+        "justification": "Sum coefficient magnitudes and use the specified zero-safe phase branch.",
+        "scope": "main_or_structural_as_named"
+      },
+      {
+        "id": "E2-S2",
+        "claim": "Supply unitary and contraction interfaces.",
+        "required_inputs": [
+          "E2-I1",
+          "E2-I2",
+          "E2-I3",
+          "E2-I5",
+          "E2-I6",
+          "E2-S1"
+        ],
+        "conclusion": "\\(S,\\widetilde W\\) are unitary; actual columns are unit; \\(J\\) is an isometry; \\(\\lVert\\widetilde B\\rVert,\\lVert A/\\alpha\\rVert\\le1\\).",
+        "justification": "Orthogonal SELECT blocks, adjoint/tensor/product closure, clean compression, and coefficient triangle bound.",
+        "scope": "main_or_structural_as_named"
+      },
+      {
+        "id": "E2-S3",
+        "claim": "Derive the clean-column-only sandwich.",
+        "required_inputs": [
+          "E2-I1",
+          "E2-I3",
+          "E2-I6"
+        ],
+        "conclusion": "\\(\\widetilde B=K_{\\widetilde l}^\\dagger\\widetilde S K_{\\widetilde r}\\), where \\(K_vu=v\\otimes u\\) and \\(\\lVert K_v\\rVert=\\lVert v\\rVert\\).",
+        "justification": "Apply the actual preparation to the clean input and take the adjoint of the analogous left-column identity. No error estimates required.",
+        "scope": "main_or_structural_as_named"
+      },
+      {
+        "id": "E2-S4",
+        "claim": "Recover the exact target from the ideal sandwich.",
+        "required_inputs": [
+          "E2-I1",
+          "E2-I2",
+          "E2-I5",
+          "E2-I6",
+          "E2-S1",
+          "E2-S3"
+        ],
+        "conclusion": "\\(K_l^\\dagger S K_r=\\sum_j\\overline{l_j}r_jU_j=A/\\alpha\\).",
+        "justification": "Expand the block-diagonal SELECT on orthogonal labels.",
+        "scope": "main_or_structural_as_named"
+      },
+      {
+        "id": "E2-S5",
+        "claim": "Prove the direct sandwich error estimate.",
+        "required_inputs": [
+          "E2-I1",
+          "E2-I3",
+          "E2-I4",
+          "E2-I5",
+          "E2-I6",
+          "E2-S1",
+          "E2-S2",
+          "E2-S3",
+          "E2-S4"
+        ],
+        "conclusion": "\\(\\lVert\\widetilde B-A/\\alpha\\rVert\\le\\delta_L+\\eta+\\delta_R\\).",
+        "justification": "Three-term decomposition changes the left column, middle unitary and right column, using unit norms on untouched sides.",
+        "scope": "main exact-representative branch"
+      },
+      {
+        "id": "E2-S6",
+        "claim": "Identify the exact coefficients for ideal SELECT.",
+        "required_inputs": [
+          "E2-I1",
+          "E2-I3",
+          "E2-I5",
+          "E2-I6",
+          "E2-S3"
+        ],
+        "conclusion": "\\(B_S=K_{\\widetilde l}^\\dagger S K_{\\widetilde r}=\\sum_j\\overline{\\widetilde l_j}\\widetilde r_jU_j\\).",
+        "justification": "Expand the ideal SELECT. Do not substitute a selector-mixing middle operator into this coefficient formula.",
+        "scope": "main_or_structural_as_named"
+      },
+      {
+        "id": "E2-S7",
+        "claim": "Prove the coefficient error alternative.",
+        "required_inputs": [
+          "E2-I1",
+          "E2-I2",
+          "E2-I3",
+          "E2-I4",
+          "E2-I5",
+          "E2-I6",
+          "E2-S1",
+          "E2-S2",
+          "E2-S3",
+          "E2-S6"
+        ],
+        "conclusion": "The coefficient \\(\\ell^1\\) deviation is at most \\(\\delta_L+\\delta_R\\), and \\(\\lVert\\widetilde B-A/\\alpha\\rVert\\le\\delta_L+\\delta_R+\\eta\\).",
+        "justification": "Split each conjugated product difference, apply Cauchy–Schwarz twice, use unit system operators and add the middle-operator perturbation.",
+        "scope": "alternative main proof, no dependency on E2-S5"
+      },
+      {
+        "id": "E2-S8",
+        "claim": "Obtain the independent universal cap.",
+        "required_inputs": [
+          "E2-I1",
+          "E2-I2",
+          "E2-I3",
+          "E2-I6",
+          "E2-S2"
+        ],
+        "conclusion": "\\(\\lVert A-\\alpha\\widetilde B\\rVert\\le2\\alpha\\).",
+        "justification": "Triangle inequality for two contractions followed by positive scaling.",
+        "scope": "main_or_structural_as_named"
+      },
+      {
+        "id": "E2-S9a",
+        "claim": "Conclude the requested estimate by the direct route.",
+        "required_inputs": [
+          "E2-I2",
+          "E2-S1",
+          "E2-S5",
+          "E2-S8"
+        ],
+        "conclusion": "\\(\\lVert A-\\alpha\\widetilde B\\rVert\\le\\alpha\\min\\{2,\\delta_L+\\delta_R+\\eta\\}\\).",
+        "justification": "Scale the direct bound and take its minimum with the independent cap.",
+        "scope": "OR route A"
+      },
+      {
+        "id": "E2-S9b",
+        "claim": "Conclude the same estimate by the coefficient route.",
+        "required_inputs": [
+          "E2-I2",
+          "E2-S1",
+          "E2-S7",
+          "E2-S8"
+        ],
+        "conclusion": "\\(\\lVert A-\\alpha\\widetilde B\\rVert\\le\\alpha\\min\\{2,\\delta_L+\\delta_R+\\eta\\}\\).",
+        "justification": "Scale the coefficient-route bound and take its minimum with the independent cap.",
+        "scope": "OR route B; E2-S5 is not a premise"
+      },
+      {
+        "id": "E2-S10",
+        "claim": "Transport the phase-referenced column estimates.",
+        "required_inputs": [
+          "E2-I1",
+          "E2-I2",
+          "E2-I3",
+          "E2-I5",
+          "E2-I6",
+          "E2-I7",
+          "E2-S1",
+          "E2-S2",
+          "E2-S3",
+          "E2-S4",
+          "E2-S8"
+        ],
+        "conclusion": "For \\(\\Delta=\\theta_R-\\theta_L\\), the target is \\(e^{i\\Delta}A\\). Error relative to \\(A\\) is at most \\(\\min\\{2\\alpha,\\alpha(\\delta_L+\\delta_R+\\eta)+|1-e^{i\\Delta}|\\lVert A\\rVert\\}\\).",
+        "justification": "Reapply the three-term algebra to unit phase-shifted ideal columns, then triangle inequality to the target phase.",
+        "scope": "phase branch replaces E2-I4; exact-error conclusions E2-S5/E2-S7/E2-S9 are not imported"
+      },
+      {
+        "id": "E2-S11",
+        "claim": "Exhibit the fidelity-versus-block obstruction.",
+        "required_inputs": [
+          "E2-I1",
+          "E2-I2",
+          "E2-I3",
+          "E2-I5",
+          "E2-I6",
+          "E2-I7",
+          "E2-S3",
+          "E2-S10"
+        ],
+        "conclusion": "One selector label with \\(c_1=1,U_1=I,Q_L=1,Q_R=-1\\) has both fidelities 1 but exact block error 2.",
+        "justification": "Compute the scalar sandwich; the right exact-vector error is 2, while phase-referenced error is 0.",
+        "scope": "phase diagnostic; do not assume zero errors under E2-I4"
+      },
+      {
+        "id": "E2-S12",
+        "claim": "Show completion invariance and maximal off-column difference.",
+        "required_inputs": [
+          "E2-I1",
+          "E2-I3",
+          "E2-I6",
+          "E2-S3"
+        ],
+        "conclusion": "Identical clean columns give identical blocks for fixed \\(\\widetilde S\\); \\(I_2\\) and \\(\\operatorname{diag}(1,-1)\\) share a clean column at distance 2.",
+        "justification": "Only the two columns occur in the sandwich; diagonal unitarity and norm computation verify the witness.",
+        "scope": "main_or_structural_as_named"
+      },
+      {
+        "id": "E2-S13",
+        "claim": "Analyze valid coefficient and dimension boundaries.",
+        "required_inputs": [
+          "E2-I1",
+          "E2-I2",
+          "E2-I3",
+          "E2-I4",
+          "E2-I5",
+          "E2-I6",
+          "E2-S1",
+          "E2-S2",
+          "E2-S3",
+          "E2-S4",
+          "E2-S9a"
+        ],
+        "conclusion": "Zero coefficients and selector dimension 1 are legal. Zero errors give the exact block, but coefficient cancellation may give \\(A=0\\), \\(\\alpha>0\\) and success probability 0.",
+        "justification": "Apply the same definitions and use exact two-label coefficients (1,−1) with identical system unitaries.",
+        "scope": "main_or_structural_as_named"
+      },
+      {
+        "id": "E2-S14",
+        "claim": "Diagnose the all-zero coefficient regime.",
+        "required_inputs": [
+          "E2-I1",
+          "E2-I6"
+        ],
+        "conclusion": "With all \\(c_j=0\\), both \\(A\\) and \\(\\alpha\\) are zero; the normalized column formulas are undefined.",
+        "justification": "Compute the unnormalized sums without dividing.",
+        "scope": "replace E2-I2 by all-zero coefficients; do not import S1 or any normalized-column consequence"
+      },
+      {
+        "id": "E2-S15",
+        "claim": "Separate the conditional operator interface from an implementation supplier.",
+        "required_inputs": [
+          "E2-I1",
+          "E2-I3",
+          "E2-I5",
+          "E2-I6",
+          "E2-S2",
+          "E2-S3",
+          "E2-S13"
+        ],
+        "conclusion": "A prepared-state source alone does not supply actual adjoints, coherent SELECT, unmentioned workspace cleanup or finite-bit resources.",
+        "justification": "The mathematical proof consumes actual unitary interfaces; compression does not prove full-output cleanup.",
+        "scope": "main_or_structural_as_named"
+      }
+    ],
+    "AND_join_policy": "Each required_inputs list is conjunctive within its stated scope. The two error proofs are explicit OR alternatives. The phase branch replaces, rather than adds to, the exact-representative column premises. The all-zero diagnostic excludes the nonzero-normalizer premise.",
+    "reused_results": [
+      {
+        "result": "Tensor clean-column/adjoint-row interface",
+        "producer": "E2-S3",
+        "consumers": [
+          "E2-S4",
+          "E2-S5",
+          "E2-S6",
+          "E2-S10",
+          "E2-S12"
+        ],
+        "status": "Original two-sided derivation grounded in source clean-column/row formulas, which use one PREPARE and an additional coefficient register."
+      },
+      {
+        "result": "Cauchy–Schwarz for two product vectors",
+        "producer": "E2-S7",
+        "consumers": [
+          "E2-S9b"
+        ],
+        "status": "Derived coefficient ℓ¹ route; no source theorem claim."
+      },
+      {
+        "result": "Exact block completion freedom",
+        "producer": "E2-S12",
+        "consumers": [],
+        "status": "Shares the completion diagnostic with current BE004/BE112; not counted as a separate new target."
+      }
+    ],
+    "reconvergent_branches": [
+      {
+        "branches": [
+          "complex coefficient normalization: E2-S1",
+          "clean-column sandwich: E2-S3",
+          "ideal SELECT action: E2-I5"
+        ],
+        "join": "E2-S4",
+        "why": "Both selector columns and a correctly typed SELECT are required to recover the target operator."
+      },
+      {
+        "branches": [
+          "two exact-representative column certificates: E2-I4",
+          "middle operator certificate: E2-I5",
+          "unitary and sandwich facts: E2-S2/E2-S3/E2-S4"
+        ],
+        "join": "E2-S5",
+        "why": "The additive block estimate requires all three error interfaces, not only a prepared state."
+      }
+    ],
+    "alternative_routes": [
+      {
+        "conclusion": "Requested scaled minimum block-error bound",
+        "routes": [
+          [
+            "E2-S5",
+            "E2-S8",
+            "E2-S9a"
+          ],
+          [
+            "E2-S6",
+            "E2-S7",
+            "E2-S8",
+            "E2-S9b"
+          ]
+        ],
+        "relationship": "OR: either proof route is sufficient. The question also requests the coefficient identity, but that pedagogical request does not turn the proofs into jointly necessary assumptions."
+      }
+    ]
+  },
+  "overlap": {
+    "relation": "candidate_asymmetric_perturbation_interface_not_adjudicated_new_core",
+    "assessed_delta": "Only clean-column vector approximations, actual unitarity and SELECT error are needed for two-sided complex LCU; exact relative phase controls the target representative.",
+    "existing_core_comparisons": [
+      {
+        "core_id": "qcb-core-be-004",
+        "known_split": "train",
+        "relation": "Shares clean projection, conjugate selector row, completion freedom and cleanup caveat. Those diagnostics are not new. Its assessed architecture uses one P and coefficient-register controlled amplitude/permutations; this target derives asymmetric arbitrary-unitary SELECT coefficients plus approximation."
+      },
+      {
+        "core_id": "qcb-core-be-006",
+        "known_split": "train",
+        "relation": "Its exact same-P weight is conjugate-times-itself with a coefficient rotation. E2 specifies a different two-sided clean-column contract and does not reinterpret that fixed architecture."
+      },
+      {
+        "core_id": "qcb-core-be-112",
+        "known_split": "dev",
+        "relation": "Shares tensor/adjoint/product unitarity and completion boundaries; full product-unitarity proof is prerequisite, while column-only error composition and asymmetric coefficients are the new assessed interface."
+      },
+      {
+        "core_id": "qcb-core-la-016",
+        "known_split": "test_public",
+        "relation": "The distance-2 global-sign counterexample is a shared phase diagnostic, not a separately novel E2 target."
+      },
+      {
+        "core_id": "qcb-core-plan-010",
+        "known_split": "test_public",
+        "relation": "Shares induced operator rather than entrywise error convention; E2 does not assess dimensional accumulation."
+      }
+    ],
+    "prior_cohort_comparisons": [
+      {
+        "slot": "B2",
+        "relation": "Perfect branch fidelity versus coherent/exact phase is shared background. E2 quantitatively transfers the left/right preparation phase difference to an operator target; it does not reauthor B2 retained-label norm formula or label correction."
+      },
+      {
+        "slot": "A3",
+        "relation": "Accepted branch/cost/error composition not assessed here; E2 supplies a block contract and notes the non-deterministic projection boundary."
+      }
+    ],
+    "assessment_v2_metadata_comparison": [
+      {
+        "cluster": "lcu_prepare_unprepare_normalizer",
+        "public_parent": "qcb-core-be-112",
+        "known_split": "dev",
+        "scope": "Public seal source-node and parent-contract metadata read. Exact sealed assessment questions unavailable. Shared LCU/normalizer content acknowledged; not a full-equivalence or split-independence clearance."
+      },
+      {
+        "cluster": "coherent_control_global_relative_phase",
+        "public_parent": "qcb-core-be-112",
+        "known_split": "dev",
+        "scope": "Public metadata only. Phase foundation overlap disclosed; no claim to have inspected unavailable private questions."
+      },
+      {
+        "cluster": "shared_signal_projection_composition",
+        "public_parent": "qcb-core-be-109",
+        "known_split": "dev",
+        "scope": "Public metadata only; clean-projection primitives overlap."
+      }
+    ],
+    "assessment_v3_metadata_comparison": "The four publicly indexed new probes concern dirty-flag involution and target-only control hoisting in promise_register_protocols. This identifies their advertised scope only, without inspecting sealed questions.",
+    "same_cohort_comparisons": [
+      {
+        "slot": "P1",
+        "relation": "May supply a coherent phase implementation. E2 assumes actual unitary interfaces and derives block-error semantics; it does not claim a phase supplier or its cost."
+      },
+      {
+        "slot": "P2",
+        "relation": "Both compare column and operator errors, but P2 addresses all basis columns for an entire operator. E2 uses one clean column per preparation within a specified sandwich and therefore needs no dimension factor."
+      }
+    ],
+    "semantic_deduplication": "Related current-reader exact questions/answers and earlier cohort phase material inspected. Bounded assessment metadata comparison remains incomplete for private contracts. Independent semantic reconciliation required.",
+    "split_policy": "Fresh UUID candidate, uncounted and unassigned; no global novelty, held-out independence or train-only clearance claim."
+  }
+}

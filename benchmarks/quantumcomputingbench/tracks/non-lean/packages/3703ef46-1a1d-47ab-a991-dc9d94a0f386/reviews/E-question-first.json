@@ -1,0 +1,506 @@
+{
+  "schema_version": "qcb.question_first_mathematical_review.v1",
+  "reviewer_actual_identity": "/root/batch2_review_composition",
+  "phase": "phase1",
+  "state": "sealed_before_author_answer_or_rubric_exposure",
+  "sealed_at_utc": "2026-11-06T09:55:24.468995+00:00",
+  "base_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+  "package_id": "3703ef46-1a1d-47ab-a991-dc9d94a0f386",
+  "scope": [
+    "E1",
+    "E2"
+  ],
+  "question_contract_verdict": "no mathematical blocker found under the complete stated premises",
+  "slots": {
+    "E1": {
+      "slot": "E1",
+      "question_versions": {
+        "original": {
+          "path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/3703ef46-1a1d-47ab-a991-dc9d94a0f386/questions/history/E1-v1.json",
+          "sha256_raw": "4a2f447820b547fc89aac476000987d8ae33d0ca2e9f5e7f4e0fee7dd17e25ed",
+          "byte_length": 7271,
+          "sha256_canonical_json": "59374489f27a80afd5371d7bcc665c81fc935b4cfcc6f564c77a3ae7e694aec9",
+          "question_field_sha256_utf8": "a263e74ad183e0398021af75536fb3ac032bfcc0eef3075f63fd02b2789715af"
+        },
+        "final_notation": {
+          "path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/3703ef46-1a1d-47ab-a991-dc9d94a0f386/questions/E1.json",
+          "sha256_raw": "414aa3d3510886f7821c4c2a9b69c4605822f49e4469ed41cc1d4a90adf8cc91",
+          "byte_length": 8315,
+          "sha256_canonical_json": "141de95e91a9c05092aefdb0dcb2d2eb79ebb312aa5f00539d196b9cd3c045f7",
+          "question_field_sha256_utf8": "5f0150634f6bac4d801d663eb422cb4732abd17a24bae39366333c09ff27c21d"
+        },
+        "changed_fields": [
+          "question"
+        ],
+        "semantic_equivalence_review": {
+          "reviewer_actual_identity": "/root/batch2_review_composition",
+          "verdict": "notation_only_no_mathematical_drift_found",
+          "examined": "Full original and final question text and field-by-field JSON comparison after independent derivation, before any author answer/rubric exposure.",
+          "preserved": [
+            "dimensions and quantifiers",
+            "normalization and nonzero conditions",
+            "exact representatives and conjugate/transpose conventions",
+            "tensor/register and gate order",
+            "all supplied norm/error interfaces",
+            "strict margin and conditional success premises",
+            "target formulas and bounds",
+            "zero and degenerate cases",
+            "actual unitary/adjoint availability",
+            "resource and implementation exclusions"
+          ],
+          "E1_symbol_rename": "Original Ē, final widehat E, and derivation bar E denote the same supplied approximate environments.",
+          "new_blind_freeze_claimed": false
+        }
+      },
+      "question_contract_assessment": "all requested conclusions derived under complete stated premises; no mathematical counterexample found",
+      "complete_independent_derivation_markdown": "\n### Residual propagation and certified raw mass\n\nSet\n\n\\[\nD_j=\\bar E_j-E_j,\\qquad\nR_j=\\bar E_{j-1}-T_j(\\bar E_j).\n\\]\n\nThen \\(D_n=0\\), and linearity gives\n\n\\[\nD_{j-1}=R_j+T_j(D_j).\n\\]\n\nFor an arbitrary real square matrix \\(Z\\), without a symmetry or positivity\nassumption,\n\n\\[\n\\begin{aligned}\n\\|T_j(Z)\\|\n&\\le\\sum_{t=0}^1\\|A_j^t Z(A_j^t)^T\\|\\\\\n&\\le\\sum_t\\|A_j^t\\|^2\\|Z\\|\n\\le L_j\\|Z\\|.\n\\end{aligned}\n\\]\n\nHere the transpose has the same induced Euclidean norm, including the\nzero-dimensional cases. Therefore\n\n\\[\n\\|D_{j-1}\\|\\le\\varepsilon_j+L_j\\|D_j\\|,\n\\qquad\n\\boxed{\\beta=\\sum_{j=1}^n\\varepsilon_j\\prod_{i=1}^{j-1}L_i}.\n\\]\n\nUnrolling the recurrence from \\(D_n=0\\) proves \\(\\|D_0\\|\\le\\beta\\).\nThe boundary space is one-dimensional, so the supplied Gram identity yields\n\n\\[\n\\boxed{\\left|\\bar E_0(1,1)-\\|x\\|^2\\right|\\le\\beta},\n\\qquad m=\\bar E_0(1,1)-\\beta\\le\\|x\\|^2.\n\\]\n\nFor \\(n=0\\), there are no transfers or residuals: the empty sum is\n\\(\\beta=0\\), \\(\\bar E_0=E_0=I_1\\), and \\(x=(1)\\), so \\(m=1\\).\nThe propagation uses **preceding**, not following, cores because an error\ninserted at level \\(j-1\\) passes through \\(T_{j-1},\\ldots,T_1\\) to reach\nlevel zero. No contractivity of those maps was assumed.\n\nAn explicit scalar-bond witness is \\(n=2\\), with every bond dimension equal\nto one, \\(A_1^0=2\\), \\(A_1^1=0\\), and \\(A_2^0=A_2^1=0\\). The raw vector is\nzero. Choose\n\n\\[\n(\\bar E_0,\\bar E_1,\\bar E_2)=(4,1,1),\\quad\n(\\varepsilon_1,\\varepsilon_2)=(0,1),\\quad (L_1,L_2)=(4,0).\n\\]\n\nThese are valid residual and transfer certificates. The correct bound is\n\\(\\beta=4\\) and gives \\(m=0\\). Replacing it by\n\\(\\varepsilon_1+\\varepsilon_2=1\\) gives the false positive lower bound\n\\(4-1=3\\) on the mass of the zero vector. This witness belongs outside the\nsubsequent \\(m>0\\) branch.\n\n### Nonzero vectors before normalization\n\nNow impose the question's additional premises \\(m>0\\) and\n\\(0\\le\\delta<\\sqrt m\\). The already established lower bound gives\n\n\\[\n\\|x\\|\\ge\\sqrt m>0,\\qquad\n\\|y\\|\\ge\\|x\\|-\\|x-y\\|\\ge\\sqrt m-\\delta>0.\n\\]\n\nOnly now define \\(\\psi=x/\\|x\\|\\) and \\(\\phi=y/\\|y\\|\\). They are unit\nvectors, and the supplied inequality implies\n\n\\[\n\\|\\psi-\\phi\\|\\le\\frac{2\\|x-y\\|}{\\|x\\|}\n\\le\\frac{2\\delta}{\\sqrt m}.\n\\]\n\nThe strict margin is substantive: at the excluded endpoint\n\\(x=(1),m=1,\\delta=1,y=0\\), the raw error bound holds but \\(\\phi\\) cannot\nbe defined. A positive mass for \\(x\\) alone is not a substitute for the\nseparate nonzero guarantee for \\(y\\).\n\n### Actual circuit action and full-output estimate\n\nWrite \\(z=|0^{a+n}\\rangle\\). The given isometry has \\(J^\\dagger J=I\\),\nand \\(P=JJ^\\dagger\\) is the orthogonal projector onto the complete clean\nworkspace subspace in the stated order \\(K\\otimes H\\). The exact preparation\naction and the supplied actual-list bound give\n\n\\[\n\\begin{aligned}\n\\|\\Omega-J\\psi\\|\n&=\\|Vz-J\\psi\\|\\\\\n&\\le\\|(V-U)z\\|+\\|J\\phi-J\\psi\\|\\\\\n&\\le\\gamma+2\\delta/\\sqrt m=\\tau.\n\\end{aligned}\n\\]\n\nThis compares the complete outputs and their exact representatives, including\nworkspace and phase. The gate bound is conditional on positional alignment,\nphysical targets, actual half-angle rotations and their supplied angle-error\ncertificates; it is not a consequence of a gate count alone. Unitarity of\n\\(V\\) gives \\(\\|\\Omega\\|=1\\), while \\(\\|J\\psi\\|=1\\).\n\n### Accepted branch and the exact-representative estimate\n\nLet\n\n\\[\nb=J^\\dagger\\Omega,\\qquad\n\\chi=(I-P)\\Omega,\\qquad\n\\Omega=Jb+\\chi.\n\\]\n\nThe terms are orthogonal, \\(J^\\dagger\\chi=0\\), and\n\n\\[\np=\\|b\\|^2,\\quad 1-p=\\|\\chi\\|^2,\\quad 0\\le p\\le1.\n\\]\n\nSet \\(s=\\|\\Omega-J\\psi\\|\\) and\n\\(c=\\operatorname{Re}\\langle\\psi,b\\rangle\\). Using both unit norms,\n\n\\[\ns^2=2-2c,\\qquad\nc=1-s^2/2\\ge1-\\tau^2/2>0\n\\]\n\nunder the stated \\(\\tau<1\\). Cauchy–Schwarz gives\n\\(c\\le|\\langle\\psi,b\\rangle|\\le\\|b\\|\\). Thus \\(b\\ne0\\), and squaring\nnonnegative quantities proves\n\n\\[\n\\boxed{p\\ge(1-\\tau^2/2)^2}.\n\\]\n\nDefine \\(q=\\|b\\|\\in(0,1]\\) and \\(\\psi_{\\rm acc}=b/q\\). Then\n\n\\[\n\\begin{aligned}\n\\|\\psi_{\\rm acc}-\\psi\\|^2\n&=2-2\\operatorname{Re}\\langle\\psi,b\\rangle/q\\\\\n&\\le2-2c=s^2\\le\\tau^2,\n\\end{aligned}\n\\]\n\nbecause \\(c>0\\) and \\(q\\le1\\). Hence\n\\(\\boxed{\\|\\psi_{\\rm acc}-\\psi\\|\\le\\tau}\\). No phase is optimized or\ndiscarded: the proof uses the real part of the inner product of the exact\nrepresentatives. If \\(p<1\\), one may additionally write\n\n\\[\n\\Omega=\\sqrt p\\,J\\psi_{\\rm acc}+\\sqrt{1-p}\\,\\chi_{\\rm rej},\n\\qquad \\chi_{\\rm rej}=\\chi/\\sqrt{1-p}.\n\\]\n\nFor \\(p=1\\), the rejected vector is zero and no normalized rejected vector\nneeds to be defined.\n\nThe proof actually works for the larger sufficient range \\(\\tau<\\sqrt2\\).\nThus \\(\\tau<1\\) is a convenient sufficient threshold, not a sharp claim.\nAt full-output distance \\(\\sqrt2\\), zero clean success is possible: use\n\\(n=0,a=1,x=y=(1)\\), \\(U=R(0)=I\\), and \\(V=R(\\pi)\\) on the workspace.\nThen the target is \\(|0\\rangle\\), the actual output is \\(|1\\rangle\\),\nand \\(p=0\\). These are even aligned one-rotation lists, with the valid\nbudget \\(\\gamma=\\pi/2\\); this diagnostic does not satisfy \\(\\tau<1\\).\n\nThe full-output unit norm is essential for the stronger conditional bound.\nIf one drops it, take a clean target \\((1,0)\\) and an unnormalized full\noutput \\((1/2,1/2)\\). Its squared distance is \\(1/2\\), whereas the squared\ndistance after normalizing its accepted branch is \\(2-\\sqrt2>1/2\\). This is\na counterexample to the weakened premise set, not to the unitary question.\n\n### E1 boundary cases and complete AND inputs\n\n- Zero certified residual budgets give \\(\\beta=0\\) and exact Gram mass.\n  Actual residuals being zero also imply exact environments by backward\n  induction, though unnecessarily positive supplied budgets may produce a\n  conservative \\(\\beta>0\\).\n- Zero data and gate budgets give \\(x=y\\), \\(\\gamma=\\tau=0\\),\n  \\(\\Omega=J\\psi\\), \\(p=1\\), and exact accepted output whenever the\n  normalization branch is active.\n- For \\(n=0\\), \\(x=(1),m=1\\). Since \\(y\\) is a real scalar and\n  \\(|1-y|\\le\\delta<1\\), it is positive, so in fact \\(\\phi=\\psi=(1)\\).\n  The general estimates remain valid and may be conservative.\n- For \\(a=0\\), \\(J=I\\) and \\(P=I\\): there is no rejected sector,\n  \\(p=1\\), and the conditional vector is the full output.\n- Any internal zero bond forces every word contraction through a zero\n  intermediate space to vanish. Therefore \\(x=0\\), and a valid residual\n  certificate always has \\(m\\le0\\). This case tests the raw theorem and is\n  incompatible with the active \\(m>0\\) normalization theorem. In\n  particular, a zero transfer factor kills downstream error contributions.\n- The mass estimate uses the TT definition, exact terminal environment,\n  Gram identity, certified local residuals, certified transfer bounds and\n  the chosen induced norm. It does not use \\(y,U,V\\).\n- Nonzero normalized vectors and their distance additionally require the\n  positive certified mass and the raw-data error with its strict margin.\n- The full-output estimate additionally requires actual aligned unitary\n  lists, their angle budgets, exact phases/physical targets, and the exact\n  complete preparation action. A prepared abstract vector is insufficient.\n- Conditional success and the stated conditional-vector estimate additionally\n  use the complete-workspace orthogonal projection, full-output unit norm,\n  and the imposed small-error threshold. These are AND inputs to the\n  composition, not independently sufficient alternative arrows.\n\nThe result is conditional analytic error propagation. It supplies no\nfloating-point residual certifier, numerical angle supplier, data loader,\nunitary-preparation algorithm, finite-gate-set compiler, finite-bit rounding\nanalysis, or runtime bound. The existence of an exact Gram identity or of a\nstored exact-real denotation theorem does not supply those missing layers.\n",
+      "derivation_text_sha256_utf8": "85129cff370225cb23a7704eb0cfa3be55b2e49bc903bb0c49d98cf1312a45fe",
+      "derivation_text_sha256_canonical_text": "85129cff370225cb23a7704eb0cfa3be55b2e49bc903bb0c49d98cf1312a45fe",
+      "complete_and_input_audit": [
+        {
+          "inputs": [
+            "finite scalar-boundary TT",
+            "exact terminal approximate environment",
+            "exact Gram identity",
+            "certified local operator-norm residuals",
+            "certified transfer gains"
+          ],
+          "conclusion": "absolute mass error beta=sum_j epsilon_j product_{i<j} L_i; m<=norm(x)^2"
+        },
+        {
+          "inputs": [
+            "certified lower mass m>0",
+            "raw data error norm(x-y)<=delta",
+            "0<=delta<sqrt(m)"
+          ],
+          "conclusion": "x and y are nonzero before normalization; normalized error <=2delta/sqrt(m)"
+        },
+        {
+          "inputs": [
+            "preceding normalized-vector result",
+            "actual unitary lists U,V",
+            "position/target/type alignment with exact other phases",
+            "supplied actual angle/circuit bound",
+            "exact complete clean preparation action",
+            "fixed clean-work tensor order"
+          ],
+          "conclusion": "full output error <=tau"
+        },
+        {
+          "inputs": [
+            "unit-norm full output",
+            "unit-norm clean target",
+            "orthogonal projection of all workspace",
+            "full-output bound",
+            "tau<1 before normalization"
+          ],
+          "conclusion": "nonzero accepted branch, success lower bound, exact-representative conditional-vector error <=tau"
+        }
+      ],
+      "boundary_assessment": "All explicitly requested zero/degenerate, phase, normalization, success and implementation/resource boundaries addressed in derivation.",
+      "answer_or_rubric_compared": false
+    },
+    "E2": {
+      "slot": "E2",
+      "question_versions": {
+        "original": {
+          "path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/3703ef46-1a1d-47ab-a991-dc9d94a0f386/questions/history/E2-v1.json",
+          "sha256_raw": "49f685453f40c908f0c671af19482e6d317ab21ff1fa5404168b66055971479a",
+          "byte_length": 6589,
+          "sha256_canonical_json": "813d8b514ee1c5a3540803c6da6af9e0f3d2ddb64656e2ea24e52d15a1f34bfb",
+          "question_field_sha256_utf8": "2d4778b244d4972ee553e3fc6be4e19d4b386791e7e6082d69cdac31bfef29df"
+        },
+        "final_notation": {
+          "path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/3703ef46-1a1d-47ab-a991-dc9d94a0f386/questions/E2.json",
+          "sha256_raw": "f6f2ecc3014d420bea2f17f431b3c3c56d95ec7d7c9606512057de0bf4c7eb4f",
+          "byte_length": 7552,
+          "sha256_canonical_json": "288fe8c31ca9653295d8a0065cd0d80f6c6f21ec2f287fa2964382bba34412c4",
+          "question_field_sha256_utf8": "c1d0549a8ce213d2b29a665375c7ace37414b77fa4d18b9d82688e90aff9f2b7"
+        },
+        "changed_fields": [
+          "question"
+        ],
+        "semantic_equivalence_review": {
+          "reviewer_actual_identity": "/root/batch2_review_composition",
+          "verdict": "notation_only_no_mathematical_drift_found",
+          "examined": "Full original and final question text and field-by-field JSON comparison after independent derivation, before any author answer/rubric exposure.",
+          "preserved": [
+            "dimensions and quantifiers",
+            "normalization and nonzero conditions",
+            "exact representatives and conjugate/transpose conventions",
+            "tensor/register and gate order",
+            "all supplied norm/error interfaces",
+            "strict margin and conditional success premises",
+            "target formulas and bounds",
+            "zero and degenerate cases",
+            "actual unitary/adjoint availability",
+            "resource and implementation exclusions"
+          ],
+          "E1_symbol_rename": null,
+          "new_blind_freeze_claimed": false
+        }
+      },
+      "question_contract_assessment": "all requested conclusions derived under complete stated premises; no mathematical counterexample found",
+      "complete_independent_derivation_markdown": "\n### Clean-column sandwich and ideal coefficients\n\nThe nonzero coefficient assumption implies \\(\\alpha>0\\). From the stated\ndefinitions, including the zero-coefficient convention,\n\n\\[\n\\|l\\|^2=\\|r\\|^2=\\sum_j|c_j|/\\alpha=1,\n\\quad \\overline{l_j}r_j=c_j/\\alpha.\n\\]\n\nUnitarity of \\(Q_L,Q_R\\) gives \\(\\|\\widetilde l\\|=\\|\\widetilde r\\|=1\\).\nFor any selector vector \\(z\\), let \\(C_z:H\\to K\\otimes H\\) be\n\\(C_zv=z\\otimes v\\). Then \\(\\|C_z\\|=\\|z\\|\\),\n\\(C_z^\\dagger=\\langle z|\\otimes I\\), and a unit \\(z\\) makes \\(C_z\\)\nan isometry. In particular,\n\n\\[\n(Q_R\\otimes I)J=C_{\\widetilde r},\\qquad\nJ^\\dagger(Q_L^\\dagger\\otimes I)=C_{\\widetilde l}^\\dagger.\n\\]\n\nThus the actual block is exactly\n\n\\[\n\\boxed{\\widetilde B\n=(\\langle\\widetilde l|\\otimes I)\\widetilde S\n (|\\widetilde r\\rangle\\otimes I)\n=C_{\\widetilde l}^\\dagger\\widetilde S C_{\\widetilde r}}.\n\\]\n\nNo approximation of any off-clean column occurs in this identity. The actual\nadjoint in the question is essential: its clean row is exactly the adjoint\nof the actual clean column, not an independently prepared vector or a\ntranspose.\n\nThe orthogonal selector projectors \\(P_j=|j\\rangle\\langle j|\\) satisfy\n\\(P_jP_k=0\\) for \\(j\\ne k\\) and \\(\\sum_jP_j=I\\). Hence\n\n\\[\nS^\\dagger S=\\sum_jP_j\\otimes U_j^\\dagger U_j=I,\n\\qquad SS^\\dagger=I.\n\\]\n\nSo \\(S\\) is unitary. The ideal sandwich is\n\n\\[\nC_l^\\dagger SC_r\n=\\sum_j\\overline{l_j}r_jU_j\n=\\sum_j(c_j/\\alpha)U_j=A/\\alpha=:T.\n\\]\n\nThe tensor lifts of \\(Q_L^\\dagger,Q_R\\) and the supplied\n\\(\\widetilde S\\) are unitary, so their product \\(\\widetilde W\\) is\nunitary. Consequently \\(\\|\\widetilde W\\|=1\\), \\(\\|J\\|=\\|J^\\dagger\\|=1\\),\nand \\(\\|\\widetilde B\\|\\le1\\). Also \\(\\|T\\|\\le1\\) by the ideal isometry\nsandwich; equivalently, \\(\\|A\\|\\le\\sum_j|c_j|\\|U_j\\|=\\alpha\\).\nNone of these conclusions requires \\(\\widetilde S\\) to preserve the selector.\n\n### Direct perturbation proof and the cap at two\n\nUse the exact telescoping identity\n\n\\[\n\\begin{aligned}\n\\widetilde B-T\n={}&(C_{\\widetilde l}^\\dagger-C_l^\\dagger)\n       \\widetilde S C_{\\widetilde r}\\\\\n&+C_l^\\dagger(\\widetilde S-S)C_{\\widetilde r}\\\\\n&+C_l^\\dagger S(C_{\\widetilde r}-C_r).\n\\end{aligned}\n\\]\n\nAll unchanged isometry/coisometry or unitary factors have norm one. The three\nterms therefore have norms at most \\(\\delta_L,\\eta,\\delta_R\\), respectively.\nWriting \\(e=\\delta_L+\\delta_R+\\eta\\),\n\n\\[\n\\|\\widetilde B-T\\|\\le e,\n\\qquad\n\\|\\widetilde B-T\\|\\le\\|\\widetilde B\\|+\\|T\\|\\le2.\n\\]\n\nSince \\(\\alpha>0\\), this proves the requested guarantee\n\n\\[\n\\boxed{\\|A-\\alpha\\widetilde B\\|\n\\le\\alpha\\min\\{2,\\delta_L+\\delta_R+\\eta\\}}.\n\\]\n\nThere is no need to select ideal full PREPARE unitaries or compare actual\nones to them in operator norm. Only their clean columns enter the sandwich.\n\n### Coefficient route as an alternative proof\n\nWith ideal \\(S\\) in the middle, the implemented coefficient of \\(U_j\\) is\n\\(a_j=\\overline{\\widetilde l_j}\\widetilde r_j\\). Split its deviation as\n\n\\[\na_j-c_j/\\alpha\n=\\overline{(\\widetilde l_j-l_j)}\\widetilde r_j\n +\\overline{l_j}(\\widetilde r_j-r_j).\n\\]\n\nThe triangle inequality followed by scalar Cauchy–Schwarz gives\n\n\\[\n\\begin{aligned}\n\\sum_j|a_j-c_j/\\alpha|\n&\\le\\|\\widetilde l-l\\|\\,\\|\\widetilde r\\|\n +\\|l\\|\\,\\|\\widetilde r-r\\|\\\\\n&\\le\\delta_L+\\delta_R.\n\\end{aligned}\n\\]\n\nThus the norm of the corresponding linear combination error is at most that\nsame quantity, because every \\(U_j\\) has norm one. Replacing \\(S\\) by\n\\(\\widetilde S\\) contributes at most \\(\\eta\\) through the unit-column\nsandwich; the contraction cap is unchanged. The coefficient proof and direct\nsandwich proof are alternative sufficient derivations from the same premises.\nThey are not two jointly necessary hypotheses and do not introduce an\nadditional promise on the supplied data.\n\n### Separate preparation phases\n\nUnder the replacement assumptions, let\n\n\\[\nl_\\theta=e^{i\\theta_L}l,\\quad r_\\theta=e^{i\\theta_R}r,\n\\quad\\Delta=\\theta_R-\\theta_L,\\quad\\zeta=e^{i\\Delta}.\n\\]\n\nThe conjugate-linear bra produces the target\n\n\\[\nC_{l_\\theta}^\\dagger SC_{r_\\theta}=\\zeta A/\\alpha.\n\\]\n\nRepeating the preceding proof around those unit representatives gives\n\n\\[\n\\|\\alpha\\widetilde B-\\zeta A\\|\\le\\alpha\\min\\{2,e\\}.\n\\]\n\nA bound relative to the original exact target, including the phase mismatch,\nis\n\n\\[\n\\boxed{\n\\|A-\\alpha\\widetilde B\\|\n\\le\\alpha\\min\\left\\{2,\ne+|1-\\zeta|\\frac{\\|A\\|}{\\alpha}\\right\\}\n\\le\\alpha\\min\\{2,e+2|\\sin(\\Delta/2)|\\}.}\n\\]\n\nThe outer cap at two follows independently from contraction, so it remains\nvalid even when the phase contribution and error budgets are large. A\nsufficient relation restoring the previous guarantee is\n\\(\\theta_R-\\theta_L\\in2\\pi\\mathbb Z\\). If \\(A=0\\), phase mismatch has no\neffect on the target; phase agreement is sufficient rather than necessary\nfor every individual instance.\n\nFor a concrete perfect-fidelity failure, take \\(r=d=1,c_1=1,U_1=1\\),\n\\(Q_L=1,Q_R=-1\\), and \\(\\widetilde S=S=1\\). Both prepared state fidelities\nwith their desired one-dimensional unit states equal one. Nevertheless\n\\(\\widetilde B=-1\\), while \\(A/\\alpha=1\\), giving exact block error two.\nThe phase-referenced errors vanish with \\(\\theta_L=0,\\theta_R=\\pi\\).\nThis is not a counterexample to the exact-representative hypothesis: there,\nthe right-column distance is two rather than zero.\n\n### Completion invariance and boundary cases\n\nIf another unitary \\(Q_L'\\) has the same clean column, then its projected\nadjoint row is also the same. If \\(Q_R'\\) has the same clean column, its\nclean-input action is the same. The sandwich formula therefore makes\n\\(\\widetilde B\\) invariant under either completion change for every fixed\n\\(\\widetilde S\\), even one that mixes selector sectors.\n\nFor an explicit pair in dimension two, take\n\n\\[\nQ=I_2,\\qquad Q'=\\operatorname{diag}(1,-1).\n\\]\n\nThey have clean column \\((1,0)^T\\), yet \\(\\|Q-Q'\\|=2\\). More generally,\nright-multiplying any completion by \\(\\operatorname{diag}(1,-1,1,\\ldots)\\)\npreserves its clean column and produces a completion at operator distance two. Thus even\nzero column error places no small-distance requirement on the completion.\n\n- Zero coefficients give \\(l_j=r_j=0\\), so their chosen \\(\\omega_j=1\\)\n  makes no contribution. Actual approximate columns can leak into such\n  coordinates; the proved coefficient and sandwich bounds cover that leakage.\n- For \\(r=1\\), both preparation unitaries are scalar phases, there are no\n  off-clean columns, and the same formulas hold. Selector projection is then\n  the identity and succeeds deterministically. Its exact block can still\n  have the phase failure displayed above.\n- If \\(\\delta_L=\\delta_R=\\eta=0\\) in the exact-representative branch, then\n  \\(\\widetilde B=A/\\alpha\\) exactly. The completions need not be close to\n  any chosen ideal completions.\n- If all coefficients vanish, then \\(\\alpha=0\\) and the stated definitions\n  of \\(l,r,A/\\alpha\\) are unavailable. That case is excluded; no zero\n  normalization fallback is introduced.\n- For any unit system input \\(v\\), the complete output decomposes into\n  \\(J\\widetilde Bv\\) and an orthogonal rejected component, so the clean\n  success probability is \\(\\|\\widetilde Bv\\|^2\\), not automatically one.\n  For example, take \\(r=2,d=1,c_1=c_2=1,U_1=1,U_2=-1\\), both PREPAREs\n  equal to the Hadamard matrix, and ideal SELECT \\(S=\\operatorname{diag}(1,-1)\\).\n  Then \\(\\alpha=2\\), \\(A=0\\), the full composite is the selector Pauli X,\n  and its clean block and success probability are zero, despite exact inputs.\n\nThe analytic implication requires all of: nonzero coefficient mass; the\nunitary \\(U_j\\); actual \\(Q_L,Q_R,\\widetilde S\\); their exact column/error\ncertificates; the actual adjoint \\(Q_L^\\dagger\\); fixed tensor order; and\ncomplete clean-work semantics. Abstract availability of normalized vectors\ndoes not supply an executable adjoint or a controlled, coherent SELECT. An\nexistential unitary completion is not a construction or cost theorem.\nUnmodelled garbage can change the projected block. No gate counts, inverse\naccess costs, state-loading costs, residual/angle precision supplier,\nfinite-gate-set synthesis, finite-bit bound, or runtime follows from this\nmathematical interface. A nonzero accepted branch would be an additional\npremise before normalizing an output state; E2 does not assert one.\n",
+      "derivation_text_sha256_utf8": "e2b2b58b1dda2e84ff91759bb5134e4ce8b0f51d43639cf88b507d8a3fb655a9",
+      "derivation_text_sha256_canonical_text": "e2b2b58b1dda2e84ff91759bb5134e4ce8b0f51d43639cf88b507d8a3fb655a9",
+      "complete_and_input_audit": [
+        {
+          "inputs": [
+            "finite r,d>=1",
+            "coefficients not all zero",
+            "unitary system U_j",
+            "coefficient phases and unit l,r",
+            "fixed tensor order"
+          ],
+          "conclusion": "unitary SELECT and exact ideal clean sandwich A/alpha"
+        },
+        {
+          "inputs": [
+            "actual unitary Q_L,Q_R",
+            "their clean columns",
+            "actual Q_L adjoint",
+            "actual unitary S_tilde",
+            "no work outside declared carrier"
+          ],
+          "conclusion": "actual clean-column sandwich and contraction"
+        },
+        {
+          "inputs": [
+            "exact-representative column norm certificates",
+            "induced operator SELECT norm certificate",
+            "unit/contraction facts"
+          ],
+          "conclusion": "scaled error alpha min(2,delta_L+delta_R+eta)"
+        },
+        {
+          "inputs": [
+            "replacement phase-referenced column bounds",
+            "same actual unitary/adjoint interface"
+          ],
+          "conclusion": "phase-shifted target exp(i(theta_R-theta_L)) A/alpha and explicit phase-mismatch error"
+        },
+        {
+          "inputs": [
+            "same clean columns",
+            "unitary completions",
+            "fixed S_tilde",
+            "actual adjoint relation"
+          ],
+          "conclusion": "completion invariance; no off-clean approximation needed"
+        }
+      ],
+      "boundary_assessment": "All explicitly requested zero/degenerate, phase, normalization, success and implementation/resource boundaries addressed in derivation.",
+      "answer_or_rubric_compared": false
+    }
+  },
+  "source_scope_and_review_notes_markdown": "\nAfter completing these independent derivations and diagnostics, I compared\nthe byte-preserved original packets with the final notation packets. Only\nthe `question` field changed in each. I checked the dimensions, quantifiers,\nmatrix order, transpose/adjoint, terminal condition, nonnegative error bounds,\nstrict margins, supplied interfaces, phase directions, requested bounds,\nboundary cases, and resource exclusions. The revisions only convert the\nsame mathematics to inline/display LaTeX; no semantic drift was found.\nE1's original approximate-environment symbol is written as\n\\(\\widehat E\\) in the revised question and \\(\\bar E\\) in this derivation;\nboth denote exactly the same supplied matrices. This is an explicit\npre-comparison notation review, not a new blind-review claim. Both question\nversions and the timing are bound separately.\n\nAll seven cited whole-file SHA-256 digests were checked and match the question\npackets. The E1 Gram recurrence and scalar identity are the exact cited\ninterfaces. `StoredTensorTrainNorm.gram_value` and `norm_eq_sum` connect a\nstored exact-real producer's denotation to that identity; they do not certify\nfloating-point residual estimates. `ConcreteSemantics` defines clean product\nregister projection and its basis-action equivalence; it does not by itself\nprove the new conditional-state estimate.\n\nThe cited `PrimitiveCircuitPerturbation.aligned_eval_distance_le` is stated\nwith a uniform \\(\\delta\\) and all-list-length budget\n\\(\\mathrm{length}\\cdot\\delta/2\\), whereas E1 explicitly supplies the sharper\nper-rotation sum \\(\\gamma=\\frac12\\sum_kd_k\\). The latter is a valid\ntelescoping variant in the question's given interface; it must not be reported\nas the literal signature of that existing declaration. The residual,\npositive-margin, and conditional-projection chain is independently derived\nhere, not attributed wholesale to one cited theorem.\n\nThe E2 clean-entry source uses one PREPARE, a coefficient register, controlled\namplitude matrices, and permutation SELECT. Its clean-column and adjoint-row\nidentities support the sandwich mechanism. E2's two different preparations,\narbitrary system unitaries, selector-mixing approximate middle, and analytic\nnorm estimate are a separately derived extension of that mechanism, not a\nliteral restatement of the existing source theorem. The named source theorem\nat lines 172–219 actually ends at line 220; the complete declaration through\nline 220 was inspected after a coordinator locator-only notice. The question\npacket's whole-file digest is exact, and no mathematical premise changed.\n\n`ApproximateOperatorBlockEncodingCandidate` has an\n`approximationBound : Prop` field. The surrounding comment gives the intended\nscaled norm interpretation. Merely constructing or locating that record type\ndoes not establish the inequality, supply its proof, certify arbitrary\nnon-qubit dimensions, or construct a runtime/finite-bit implementation.\nThese source-scope distinctions are provenance boundaries, not defects in the\nexplicitly posed analytic questions.\n\nThe independent script `E-finite-diagnostics.py` performed 14,400 exact\nrational scalar residual checks for chains of lengths two and three. It found\nthe unweighted false-positive examples and no violation of the weighted\nbound. It also checked 11,025 finite vector geometries, including 4,600 with\nfull distance below \\(\\sqrt2\\), and 180 small complex LCU instances\n(selector dimensions one through three, system dimensions one and two,\nlargest matrix six by six), including selector-mixing unitary perturbations,\nzero coefficients, completion changes and phase changes. Every LCU instance\nhad an uncapped error budget below two. Matrix/vector checks used ordinary\nfloating point; the largest measured unitarity defect was below\n\\(7.1\\times10^{-15}\\). These checks are diagnostics only. They are not\ncertified residual computation, an arbitrary-dimension proof, a benchmark\nevaluation, or Lean compilation.\n\nThe symbolic proofs and explicit witnesses above found no mathematical\ncounterexample to either original question under its complete stated\npremises. The strongest issues to preserve in later answer/rubric review are\nthe preceding-core residual factors; both nonzero raw-vector proofs; the\nfull-output unit norm and real-part argument; actual adjoint and phase\ndirection; contraction cap; alternative rather than jointly assumed proof\nroutes; and honest source/resource boundaries. Author answer and rubric\ncorrectness remain unassessed until separately authorized phase 2.\n",
+  "source_bindings": [
+    {
+      "path": "QuantumBlockEncoding/TensorTrainNormEnvironment.lean",
+      "sha256_raw": "e684550c248817ac77e03a23e0af86d3b2c7f3d8b09bcdb2385702624f5ebe6c",
+      "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+      "expected_sha256": "e684550c248817ac77e03a23e0af86d3b2c7f3d8b09bcdb2385702624f5ebe6c",
+      "hash_match": true,
+      "question_anchors": [
+        {
+          "slot": "E1",
+          "anchor": "gram:19-23; gram_eq_sum:27-37; gram_scalar:40-43"
+        }
+      ]
+    },
+    {
+      "path": "QuantumBlockEncoding/StoredTensorTrainNorm.lean",
+      "sha256_raw": "60fa71fc821f7598f5df739b231f5b25cf1927824d2b028ef723f9ee04074011",
+      "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+      "expected_sha256": "60fa71fc821f7598f5df739b231f5b25cf1927824d2b028ef723f9ee04074011",
+      "hash_match": true,
+      "question_anchors": [
+        {
+          "slot": "E1",
+          "anchor": "gram_value:109-115; norm_eq_sum:129-131"
+        }
+      ]
+    },
+    {
+      "path": "QuantumBlockEncoding/PrimitiveCircuitPerturbation.lean",
+      "sha256_raw": "624109564cd82b0584fad717283e7b9116b36f1ef10d60b43a063c0ef2a1fbae",
+      "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+      "expected_sha256": "624109564cd82b0584fad717283e7b9116b36f1ef10d60b43a063c0ef2a1fbae",
+      "hash_match": true,
+      "question_anchors": [
+        {
+          "slot": "E1",
+          "anchor": "GateAligned:16-19; Aligned:22-23; aligned_eval_distance_le:49-76"
+        }
+      ]
+    },
+    {
+      "path": "QuantumBlockEncoding/ConcreteSemantics.lean",
+      "sha256_raw": "454c0c5e215ca197c5883bedf74882f392d259c7afeadc63912230437698ebe5",
+      "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+      "expected_sha256": "454c0c5e215ca197c5883bedf74882f392d259c7afeadc63912230437698ebe5",
+      "hash_match": true,
+      "question_anchors": [
+        {
+          "slot": "E1",
+          "anchor": "productRegisterBlockProjection:201-204; cleanBasisActionAmplitude:249-256; pointwiseProjection_iff_cleanBasisAction:277-294"
+        }
+      ]
+    },
+    {
+      "path": "QuantumBlockEncoding/Robin/ComplexLCUProjection.lean",
+      "sha256_raw": "fa0b84ce5c819184f190b81b4d259e12f725e6196cd37147984fab76fe4ec340",
+      "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+      "expected_sha256": "fa0b84ce5c819184f190b81b4d259e12f725e6196cd37147984fab76fe4ec340",
+      "hash_match": true,
+      "question_anchors": [
+        {
+          "slot": "E2",
+          "anchor": "selectorLift_cleanColumn_apply:43-60; star_selectorLift_cleanRow_apply:63-80; star_selectorLift_mul_clean:147-169; prepareAmplitudeSelectUnprepare_cleanEntry:172-219"
+        }
+      ]
+    },
+    {
+      "path": "QuantumBlockEncoding/Robin/ComplexLCU.lean",
+      "sha256_raw": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843",
+      "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+      "expected_sha256": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843",
+      "hash_match": true,
+      "question_anchors": [
+        {
+          "slot": "E2",
+          "anchor": "blockDiagonal_unitary:122-145; selectorLift:254-264; selectorLift_unitary:267-281; prepareAmplitudeSelectUnprepare:352-367; prepareAmplitudeSelectUnprepare_unitary:370-399"
+        }
+      ]
+    },
+    {
+      "path": "QuantumBlockEncoding/BlockEncoding.lean",
+      "sha256_raw": "fe06f75a29822e28ccdbfedfb0b0e87f90872620fae7aed359085fad8fae64b4",
+      "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+      "expected_sha256": "fe06f75a29822e28ccdbfedfb0b0e87f90872620fae7aed359085fad8fae64b4",
+      "hash_match": true,
+      "question_anchors": [
+        {
+          "slot": "E2",
+          "anchor": "ApproximateOperatorBlockEncodingCandidate:148-152; scaled norm interpretation:136-146"
+        }
+      ]
+    }
+  ],
+  "exposure": {
+    "reviewer_actual_identity": "/root/batch2_review_composition",
+    "kind": "AI question-first source-aware independent derivation",
+    "fresh_task_context": true,
+    "source_blind": false,
+    "human_reviewer_or_approval": false,
+    "author_answer_exposed_before_seal": false,
+    "rubric_exposed_before_seal": false,
+    "qa_contents_read": false,
+    "coverage_plan_read": false,
+    "author_mathematical_notes_read": false,
+    "previous_review_contents_read": false,
+    "author_contacted": false,
+    "no_phase2_started": true,
+    "metadata_disclosures": [
+      "An initial broad rg --files filename inventory displayed unrelated review/report filenames only; none of those files were opened. This is disclosed metadata exposure, not answer-content exposure.",
+      "Coordinator supplied original question raw hashes, the E2 declaration-end locator correction, required guidance paths, and final notation hash/path notices.",
+      "Only the explicitly authorized evidence/E-notation-revision.json revision metadata was read; it contains before/after identities and formatting claims, not author solutions or rubrics."
+    ],
+    "guidance_read": [
+      "AGENTS.md",
+      "HARNESS.md",
+      "benchmarks/quantumcomputingbench/shared/CONTRACT.md",
+      ".agents/skills/qbe-substantive-worker/SKILL.md",
+      ".agents/skills/qbe-frontier-master/SKILL.md",
+      "docs/theorem-publication-protocol.md",
+      "docs/proof-digestion-protocol.md",
+      "docs/evidence-routed-memory-protocol.md"
+    ],
+    "source_reads": [
+      {
+        "path": "QuantumBlockEncoding/TensorTrainNormEnvironment.lean",
+        "line_spans": [
+          [
+            1,
+            45
+          ]
+        ]
+      },
+      {
+        "path": "QuantumBlockEncoding/StoredTensorTrainNorm.lean",
+        "line_spans": [
+          [
+            90,
+            135
+          ]
+        ]
+      },
+      {
+        "path": "QuantumBlockEncoding/PrimitiveCircuitPerturbation.lean",
+        "line_spans": [
+          [
+            1,
+            90
+          ]
+        ]
+      },
+      {
+        "path": "QuantumBlockEncoding/ConcreteSemantics.lean",
+        "line_spans": [
+          [
+            188,
+            208
+          ],
+          [
+            235,
+            298
+          ]
+        ]
+      },
+      {
+        "path": "QuantumBlockEncoding/Robin/ComplexLCUProjection.lean",
+        "line_spans": [
+          [
+            1,
+            84
+          ],
+          [
+            135,
+            223
+          ]
+        ],
+        "complete_target_declaration": [
+          172,
+          220
+        ]
+      },
+      {
+        "path": "QuantumBlockEncoding/Robin/ComplexLCU.lean",
+        "line_spans": [
+          [
+            111,
+            147
+          ],
+          [
+            247,
+            284
+          ],
+          [
+            345,
+            402
+          ]
+        ]
+      },
+      {
+        "path": "QuantumBlockEncoding/BlockEncoding.lean",
+        "line_spans": [
+          [
+            120,
+            156
+          ]
+        ]
+      }
+    ],
+    "source_hashing": "Whole cited files were read as bytes to compute SHA-256; only the listed source intervals were displayed for mathematical inspection."
+  },
+  "chronology": [
+    {
+      "order": 1,
+      "event": "Received bounded original-question task and supplied original hashes in fresh agent context."
+    },
+    {
+      "order": 2,
+      "event": "Read repository guidance, original E1/E2 question packets, and exact cited source declarations; no author answers/rubrics."
+    },
+    {
+      "order": 3,
+      "event": "Derived complete E1 and E2 mathematics independently and reported principal formulas/source boundaries to coordinator."
+    },
+    {
+      "order": 4,
+      "event": "Wrote and ran independent finite counterexample/search diagnostics; wrote full answer derivation artifact."
+    },
+    {
+      "order": 5,
+      "event": "Read final notation questions, byte-preserved originals and explicitly authorized notation revision metadata; compared full before/after mathematics and confirmed notation-only changes."
+    },
+    {
+      "order": 6,
+      "event": "Sealed final question/derivation/source bindings before any author answer/rubric exposure.",
+      "timestamp_utc": "2026-11-06T09:55:24.468995+00:00"
+    }
+  ],
+  "uncertainty_and_boundaries": [
+    {
+      "type": "AI_SYMBOLIC_REVIEW_ONLY",
+      "status": "explicit limitation",
+      "detail": "No Lean, model evaluation, installed packages, paid API, GPU, system/admin action, compilation or runtime certification was performed. Source reading is not proof execution."
+    },
+    {
+      "type": "SOURCE_SCOPE",
+      "status": "preserve in later comparison",
+      "detail": "E1 occurrence-dependent gamma is a supplied telescoping variant, not the literal uniform-delta/list-length signature of the cited theorem."
+    },
+    {
+      "type": "SOURCE_SCOPE",
+      "status": "preserve in later comparison",
+      "detail": "E2 is a derived two-sided arbitrary-unitary analytic extension; its exact source clean-entry theorem uses one PREPARE plus coefficient/amplitude/permutation machinery."
+    },
+    {
+      "type": "DECLARATION_LOCATOR",
+      "status": "resolved by complete source inspection; metadata still disclosed",
+      "detail": "E2 final cited cleanEntry declaration extends from line 172 through line 220, not only 219. Original/final question bytes were not modified by this reviewer."
+    },
+    {
+      "type": "APPROXIMATE_RECORD",
+      "status": "explicit limitation",
+      "detail": "ApproximateOperatorBlockEncodingCandidate contains approximationBound: Prop; its existence is not a proof of the requested norm inequality or an executable construction."
+    },
+    {
+      "type": "FINITE_DIAGNOSTICS",
+      "status": "supporting only",
+      "detail": "Scalar search used exact Fraction arithmetic. Geometry/matrix checks used ordinary floating point and are not universal proofs or a validated residual supplier."
+    },
+    {
+      "type": "AUTHOR_COMPARISON",
+      "status": "pending authorized phase 2",
+      "detail": "No author answer, rubric, qa file, coverage plan, author mathematical notes, or previous review record contents were read."
+    }
+  ],
+  "finite_diagnostics": {
+    "script": {
+      "path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/3703ef46-1a1d-47ab-a991-dc9d94a0f386/reviews/E-finite-diagnostics.py",
+      "sha256_raw": "713e8feebe1335fbac4f42f88704f3364916371726c44ac21d09d037dc0f61df",
+      "byte_length": 8763,
+      "sha256_canonical_text": "713e8feebe1335fbac4f42f88704f3364916371726c44ac21d09d037dc0f61df"
+    },
+    "report": {
+      "path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/3703ef46-1a1d-47ab-a991-dc9d94a0f386/reviews/E-finite-diagnostics.json",
+      "sha256_raw": "30ed67447a93e002056ee188434bad0ffe26b16e7ca85bda906741048a25ba3e",
+      "byte_length": 4774,
+      "sha256_canonical_json": "4ab788a11c5d5b42b6e01df80a3120db56911ec123753120cbdd9be9baec3e59"
+    },
+    "exact_rational_scalar_cases": 14400,
+    "finite_vector_cases": 11025,
+    "small_complex_matrix_cases": 180,
+    "counterexamples": [
+      "unweighted residual bound falsely certifies positive mass for raw zero",
+      "delta at sqrt(m) can permit y=0",
+      "dropping full-output unit norm can enlarge conditional-vector distance",
+      "full distance sqrt(2) can have zero clean success",
+      "perfect separate state fidelities can produce exact block error two",
+      "same clean column permits completions at operator distance two",
+      "exact LCU with nonzero coefficient mass can have zero success"
+    ]
+  },
+  "author_answer_or_rubric_verdict": "not_assessed_phase2_not_authorized",
+  "files_owned": [
+    "benchmarks/quantumcomputingbench/tracks/non-lean/packages/3703ef46-1a1d-47ab-a991-dc9d94a0f386/reviews/E-question-first.md",
+    "benchmarks/quantumcomputingbench/tracks/non-lean/packages/3703ef46-1a1d-47ab-a991-dc9d94a0f386/reviews/E-question-first.json",
+    "benchmarks/quantumcomputingbench/tracks/non-lean/packages/3703ef46-1a1d-47ab-a991-dc9d94a0f386/reviews/E-phase1-bindings.json",
+    "benchmarks/quantumcomputingbench/tracks/non-lean/packages/3703ef46-1a1d-47ab-a991-dc9d94a0f386/reviews/E-finite-diagnostics.py",
+    "benchmarks/quantumcomputingbench/tracks/non-lean/packages/3703ef46-1a1d-47ab-a991-dc9d94a0f386/reviews/E-finite-diagnostics.json"
+  ],
+  "no_staging_or_commit_performed": true
+}

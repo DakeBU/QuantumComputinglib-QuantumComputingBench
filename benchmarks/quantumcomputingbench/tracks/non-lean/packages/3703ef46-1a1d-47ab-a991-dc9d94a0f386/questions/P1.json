@@ -1,0 +1,102 @@
+{
+  "schema_version": "qcb.nonlean_question_freeze.v1",
+  "slot": "P1",
+  "title": "A reversible finite-bit phase supplier with a reusable gradient catalyst",
+  "author": "/root/batch2_phase",
+  "proposal_id": "a6e10b70-258b-447f-87ed-0317406255f5",
+  "core_id": "candidate:a6e10b70-258b-447f-87ed-0317406255f5",
+  "admission": "candidate_not_counted",
+  "dedup_review_required": true,
+  "split": "unassigned_pending_reconciliation",
+  "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "target_nodes": [
+    "concept:operator-theory",
+    "concept:complexity"
+  ],
+  "supporting_nodes": [
+    "declaration:QuantumBlockEncoding.modularAdd3_cleanAction",
+    "declaration:QuantumBlockEncoding.evalPrimitiveProgram_dagger"
+  ],
+  "question": "Let \\(m\\geq1\\), \\(M=2^m\\), and let \\(X\\) be an \\(n\\)-qubit input register. Integer registers use little-endian bits: \\(z=\\sum_{j=0}^{m-1}2^jz_j\\). An explicitly supplied reversible circuit \\(B\\), built from \\(X\\), CNOT and Toffoli gates, acts on \\((X,Q,W)\\), where \\(Q\\) has \\(m\\) bits and \\(W\\) has \\(w\\) bits. Its clean-input action is\n\\[\nB|x,0^m,0^w\\rangle=|x,q_x,\\gamma_x\\rangle,\n\\qquad q_x\\in\\{0,\\ldots,M-1\\}.\n\\]\nThe entire gate list is supplied, with gate-count vector \\(g_B=(b_X,b_{\\mathrm{CX}},b_{\\mathrm{CCX}})\\); neither \\(\\gamma_x=0\\) nor a cost bound polynomial in \\(n,m\\) is promised. All supplier work is included in \\(W\\). Define\n\\[\n|G_m\\rangle=M^{-1/2}\\sum_{y=0}^{M-1}e^{2\\pi i y/M}|y\\rangle,\n\\qquad D_q|x\\rangle=e^{-2\\pi i q_x/M}|x\\rangle.\n\\]\nUse a separate \\(m\\)-qubit register \\(Y\\) for this phase-gradient state and clean scratch \\(A\\). The permitted logical gate set additionally contains Hadamard \\(H\\) and the exactly specified phase gates \\(P(\\theta)=\\operatorname{diag}(1,e^{i\\theta})\\) at dyadic multiples of \\(\\pi\\); this is an ideal logical model, not an assumed fixed-finite-gate compilation.\n\nConstruct a coherent implementation of \\(D_q\\) from \\(B\\), modular addition \\(|q,y\\rangle\\mapsto|q,y+q\\bmod M\\rangle\\), and an actual inverse of \\(B\\). Prove the full register action, including arbitrary superpositions of \\(x\\), the sign of the phase despite modular wrapping, restoration of both \\(Q,W\\), and return of \\(Y\\) as a separable reusable \\(|G_m\\rangle\\). Explain precisely why tracing the supplier record is not the advertised clean implementation.\n\nThe modular adder itself must be supplied, not treated as a unit-cost oracle. Use this explicit route: for each \\(j=0,\\ldots,m-1\\), conditionally increment the suffix \\(Y_j,\\ldots,Y_{m-1}\\) when \\(Q_j=1\\); within an increment visit target bits from highest to lowest. Derive each controlled flip from the binary carry rule. Implement a NOT with \\(k\\geq2\\) distinct controls by computing their conjunction along a clean chain, flipping the target, and reversing the chain; a one-control NOT is CNOT. Derive a closed expression for the resulting Toffoli count, the CNOT count, and the maximum simultaneously needed clean scratch. Prove that all scratch is restored and the arithmetic is correct for every word, rather than giving only a small-width example.\n\nConstruct a product-gate preparation \\(F_m|0^m\\rangle=|G_m\\rangle\\). For \\(L\\geq1\\) uses with the same supplied \\(B\\), give the complete gate-count and live-qubit ledger both when the catalyst is returned for reuse and when it is finally reset coherently by \\(F_m^\\dagger\\). Charge the supplied computation and its inverse on every use; distinguish these costs from the one-time catalyst preparation. Do not assume any of these registers can be erased or inverses obtained from mere forward black-box access.\n\nAs a stability test, replace \\(F_m\\) by an actual unitary preparation \\(\\widetilde F_m\\) whose prepared vector has Euclidean error at most \\(\\eta\\). Keep every supplier and adder exact, permit arbitrary interleaved unitaries acting only on the data registers, and reuse the same catalyst for \\(L\\) coherent uses. Bound the full output error relative to the ideal data output tensored with \\(|G_m\\rangle\\), and separately bound the full clean-zero output error after applying the actual \\(\\widetilde F_m^\\dagger\\). Determine whether an unavoidable factor \\(L\\) follows from catalyst preparation error alone, and whether exact catalyst factorization still follows. Keep Euclidean vector error, clean-zero return, and a gate-synthesis guarantee distinct; treat \\(m=1\\) and the optional zero-bit extension explicitly.",
+  "assumptions": [
+    "The complete reversible supplier gate list B and its exact clean-input action are given; its data-dependent garbage is explicitly retained in W.",
+    "The modular-adder circuit and catalyst preparation are to be constructed in the stated logical gate model.",
+    "The approximate-catalyst subproblem assumes an actual unitary preparation and its actual inverse; all intervening suppliers/adders are exact."
+  ],
+  "conventions": [
+    "Register order is X,Q,W,Y,A, with little-endian integer words; the adder overwrites Y and preserves Q.",
+    "The gradient has positive Fourier exponent, so addition kicks back a negative phase.",
+    "Logical gate counts and finite-word storage are distinguished from fixed-finite-gate synthesis, connectivity, depth and supplier construction costs."
+  ],
+  "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+  "freeze_stage": "question_only_before_reference_answer",
+  "source_refs": [
+    {
+      "path": "QuantumBlockEncoding/ModularAdder3.lean",
+      "anchor": "Lines 31-73 reversible-program compiler and exact phase-aware refinement; 75-163 three-control clean-chain action; 197-246 fixed three-bit little-endian modular-adder action, cleanup and resources.",
+      "declarations": [
+        "compileReversibleProgram",
+        "compileReversibleProgram_eval",
+        "cleanC3XReversibleProgram",
+        "cleanC3XBasisAction",
+        "cleanC3XWorkspaceClean",
+        "littleEndian3Value",
+        "modularAdd3ReversibleProgram",
+        "modularAdd3_cleanAction"
+      ],
+      "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+      "sha256": "3995a7d9068322d7116e6d3852111574c3c94acc09b9927231be931d33d17002",
+      "raw_sha256": "3995a7d9068322d7116e6d3852111574c3c94acc09b9927231be931d33d17002",
+      "hash_policy": "sha256-lf-text-v1",
+      "raw_equals_lf": true,
+      "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "matches_frozen_snapshot_input_hash": true,
+      "evidence_relation": "Inspected fixed-width and compiler substrate only; arbitrary-width adder, Fourier catalyst, supplier construction and stability theorem are original natural-language derivations.",
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+    },
+    {
+      "path": "QuantumBlockEncoding/PrimitiveSemantics.lean",
+      "anchor": "Lines 400-410 chronological reverse-adjoint circuit; 412-478 exact global phase, program composition, unitarity and dagger.",
+      "declarations": [
+        "evalPrimitiveCircuit_dagger",
+        "evalGlobalPhase",
+        "evalPrimitiveProgram",
+        "evalPrimitiveProgram_seq",
+        "evalPrimitiveProgram_unitary",
+        "evalPrimitiveProgram_dagger"
+      ],
+      "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+      "sha256": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+      "raw_sha256": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+      "hash_policy": "sha256-lf-text-v1",
+      "raw_equals_lf": true,
+      "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "matches_frozen_snapshot_input_hash": true,
+      "evidence_relation": "Exact phase/order/inverse conventions only; this source has no general phase-gradient supplier theorem.",
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+    },
+    {
+      "path": "QuantumBlockEncoding/PrimitiveCircuit.lean",
+      "anchor": "Lines 17-55 ExactAngle data/evaluation and exact-real export warning; 94-106 primitive gate/program declarations.",
+      "declarations": [
+        "ExactAngle",
+        "ExactAngle.eval",
+        "PrimitiveGate",
+        "PrimitiveProgram"
+      ],
+      "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+      "sha256": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c",
+      "raw_sha256": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c",
+      "hash_policy": "sha256-lf-text-v1",
+      "raw_equals_lf": true,
+      "frozen_snapshot_source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "matches_frozen_snapshot_input_hash": true,
+      "evidence_relation": "Resource-tier boundary only: the question explicitly chooses a different logical macro gate set; no silent equality with repository primitive counts.",
+      "license": "MIT (repository LICENSE)",
+      "attribution": "Copyright (c) 2026 Quantum Block Encoding contributors"
+    }
+  ]
+}

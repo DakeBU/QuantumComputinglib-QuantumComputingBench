@@ -1,0 +1,103 @@
+{
+  "proposal_id": "9764902a-a66f-47ae-b06e-dde6081f91d5",
+  "track": "non-lean",
+  "author": "/root/batch2_composition",
+  "core_id": "candidate:9764902a-a66f-47ae-b06e-dde6081f91d5",
+  "admission": "candidate_not_counted",
+  "dedup_review_required": true,
+  "source_nodes": [
+    "declaration:QuantumBlockEncoding.Robin.ComplexLCU.prepareAmplitudeSelectUnprepare_cleanEntry",
+    "declaration:QuantumBlockEncoding.ApproximateOperatorBlockEncodingCandidate",
+    "declaration:QuantumBlockEncoding.Robin.ComplexLCU.selectorLift_cleanColumn_apply",
+    "declaration:QuantumBlockEncoding.Robin.ComplexLCU.star_selectorLift_cleanRow_apply",
+    "declaration:QuantumBlockEncoding.Robin.ComplexLCU.star_selectorLift_mul_clean",
+    "declaration:QuantumBlockEncoding.Robin.ComplexLCU.selectorLift_unitary",
+    "declaration:QuantumBlockEncoding.Robin.ComplexLCU.blockDiagonal_unitary",
+    "declaration:QuantumBlockEncoding.Robin.ComplexLCU.prepareAmplitudeSelectUnprepare_unitary"
+  ],
+  "view_kind": "derivation",
+  "family": "two-sided-lcu-clean-column-stability",
+  "split": "unassigned_pending_reconciliation",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "contract_hash": "49a94fbf53dbf92fe49360db6a501efb3c6c253312fa1d5ccf5f80a1bfc6d030",
+  "base_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+  "package_id": "3703ef46-1a1d-47ab-a991-dc9d94a0f386",
+  "slot": "E2",
+  "payload_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/3703ef46-1a1d-47ab-a991-dc9d94a0f386/qa/E2.json",
+  "payload_sha256": "632da39e2f136e5699921fca1e3850d6f1f66ceea755297e0bf0dff1eba303e8",
+  "item_digest": "4d794afe8f4f4d9043c03d289a86dfd5bc3ca475ef42a97126d09ef44194d3f7",
+  "title": "Two-sided LCU from approximate clean columns",
+  "mathematical_target": "Derive a two-sided complex-coefficient LCU contract whose approximation depends only on phase-aligned prepared clean columns and SELECT operator error, with explicit phase-mismatched and unitary-completion boundaries.",
+  "review_records": [
+    {
+      "slot": "E2",
+      "core_id": "candidate:9764902a-a66f-47ae-b06e-dde6081f91d5",
+      "reviewer": "/root/batch2_review_composition",
+      "report_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/3703ef46-1a1d-47ab-a991-dc9d94a0f386/reviews/E-review.json",
+      "report_sha256": "dc7145e51cbc03607f028a4e080742179ddd8d86e821c448595f55ff6ff3da67",
+      "item_digest": "4d794afe8f4f4d9043c03d289a86dfd5bc3ca475ef42a97126d09ef44194d3f7",
+      "payload_sha256": "632da39e2f136e5699921fca1e3850d6f1f66ceea755297e0bf0dff1eba303e8",
+      "verdict": "accept",
+      "semantic_core_verdict": "bounded_distinct_global_reconciliation_pending",
+      "human_approval": false,
+      "admission": "candidate_not_counted"
+    }
+  ],
+  "status": "authored_with_content_bound_AI_review_pending_maintainer_decision",
+  "count_effect": "zero_until_explicit_admission",
+  "usage": "public_supplementary_diagnostic_only; no training or independent-held-out clearance",
+  "proposed_contract": {
+    "question": "Let \\(K=\\mathbb C^r\\) with \\(r\\ge1\\) and distinguished basis vector \\(|0\\rangle\\), and let \\(H=\\mathbb C^d\\) with \\(d\\ge1\\). Fix the order \\(K\\otimes H\\). For \\(j=1,\\ldots,r\\) let \\(U_j:H\\to H\\) be unitary and \\(c_j\\in\\mathbb C\\), not all zero. Put\n\\[\n\\alpha=\\sum_j|c_j|>0,\\qquad A=\\sum_j c_jU_j,\n\\]\n\\[\n\\omega_j=\\begin{cases}c_j/|c_j|,&c_j\\ne0,\\\\1,&c_j=0,\\end{cases}\n\\qquad l_j=\\sqrt{|c_j|/\\alpha},\\qquad r_j=\\omega_j\\sqrt{|c_j|/\\alpha}.\n\\]\nHere the symbol \\(r_j\\) is a vector coordinate, while \\(r\\) is the selector dimension. Let\n\\[\nS=\\sum_j|j\\rangle\\langle j|\\otimes U_j.\n\\]\n\nAvailable unitaries \\(Q_L,Q_R\\) on \\(K\\) have clean columns \\(\\widetilde l=Q_L|0\\rangle\\) and \\(\\widetilde r=Q_R|0\\rangle\\) satisfying the exact-representative bounds\n\\[\n\\lVert\\widetilde l-l\\rVert\\le\\delta_L,\\qquad\n\\lVert\\widetilde r-r\\rVert\\le\\delta_R,\n\\qquad\\delta_L,\\delta_R\\ge0.\n\\]\nAn available unitary \\(\\widetilde S\\) on \\(K\\otimes H\\) satisfies \\(\\lVert\\widetilde S-S\\rVert\\le\\eta\\), \\(\\eta\\ge0\\), in induced Euclidean operator norm; \\(\\widetilde S\\) need not preserve the selector. The specified composite uses the actual adjoint \\(Q_L^\\dagger\\) exactly:\n\\[\n\\widetilde W=(Q_L^\\dagger\\otimes I)\\widetilde S(Q_R\\otimes I),\\qquad\nJv=|0\\rangle\\otimes v,\\qquad\n\\widetilde B=J^\\dagger\\widetilde WJ.\n\\]\nAll work of this mathematical interface is in \\(K\\otimes H\\).\n\nDerive the clean-column sandwich formula for \\(\\widetilde B\\). Prove the exact target formula\n\\[\n(\\langle l|\\otimes I)S(|r\\rangle\\otimes I)=A/\\alpha\n\\]\nand derive the approximate block-encoding guarantee\n\\[\n\\lVert A-\\alpha\\widetilde B\\rVert\\le\\alpha\\min\\{2,\\delta_L+\\delta_R+\\eta\\}.\n\\]\nYour proof must explain why no operator-norm approximation of \\(Q_L\\) or \\(Q_R\\) to a chosen full PREPARE unitary is required, and must justify unitarity and contraction facts used in the estimate. For ideal \\(S\\) in the middle, explicitly compute the implemented coefficients \\(\\overline{\\widetilde l_j}\\,\\widetilde r_j\\) and prove their \\(\\ell^1\\) deviation from \\(c_j/\\alpha\\) is at most \\(\\delta_L+\\delta_R\\). Explain whether this coefficient route and the direct sandwich-norm route are alternative proofs or jointly necessary assumptions.\n\nSuppose instead that one only knows\n\\[\n\\lVert\\widetilde l-e^{i\\theta_L}l\\rVert\\le\\delta_L,\\qquad\n\\lVert\\widetilde r-e^{i\\theta_R}r\\rVert\\le\\delta_R\n\\]\nfor real phases \\(\\theta_L,\\theta_R\\). Derive the corresponding phase-shifted target and an explicit bound on \\(\\lVert A-\\alpha\\widetilde B\\rVert\\) that includes the phase mismatch. Give a concrete unitary example with perfect separate state fidelities but wrong exact block, and state a sufficient phase relation that restores the previous guarantee. The question concerns exact block representatives, even if an isolated prepared state is physically unchanged by its global phase.\n\nProve that changing the off-clean columns of \\(Q_L\\) or \\(Q_R\\) while retaining unitarity and their clean columns cannot change \\(\\widetilde B\\) for fixed \\(\\widetilde S\\); give an explicit pair of unitary completions at operator distance \\(2\\) with the same clean column. Discuss zero coefficients, \\(r=1\\), \\(\\delta_L=\\delta_R=\\eta=0\\), and the excluded all-zero coefficient case. Explain why the mathematical availability of prepared state vectors alone does not supply an executable adjoint, coherent SELECT, clean-work implementation or finite-bit resource guarantee. A successful clean projection need not occur deterministically.",
+    "assumptions": [
+      "Finite complex selector and system spaces of dimensions r≥1 and d≥1, with a fixed distinguished clean selector basis vector and tensor order K⊗H.",
+      "Every U_j is unitary; coefficients c_j are not all zero so α=Σ_j|c_j|>0.",
+      "Q_L,Q_R,S̃ are actual unitaries and the specified composite uses the actual Q_L†; clean-column errors and SELECT error are certified in Euclidean/induced operator norms.",
+      "The principal branch compares exact clean-column representatives. The later phase branch replaces those estimates by phase-referenced estimates with real θ_L,θ_R."
+    ],
+    "conventions": [
+      "Complex inner products are conjugate-linear in the first argument; a bra ⟨l| therefore has coefficients conj(l_j).",
+      "Matrix products act on column vectors from the rightmost factor first. No transpose replaces the complex adjoint.",
+      "The clean block projects the selector at both ends; a nonclean rejected sector may remain in the full output.",
+      "The coefficient ℓ¹ route and direct sandwich route may be used as alternative sufficient derivations; neither is an extra hypothesis on the inputs.",
+      "No approximate inverse is substituted for Q_L†. State-generation access alone is weaker than the available-unitary interface assumed in the main branch."
+    ],
+    "family": "two-sided-lcu-clean-column-stability",
+    "split": "unassigned_pending_reconciliation",
+    "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+    "target_nodes": [
+      "declaration:QuantumBlockEncoding.Robin.ComplexLCU.prepareAmplitudeSelectUnprepare_cleanEntry",
+      "declaration:QuantumBlockEncoding.ApproximateOperatorBlockEncodingCandidate"
+    ],
+    "supporting_nodes": [
+      "declaration:QuantumBlockEncoding.Robin.ComplexLCU.selectorLift_cleanColumn_apply",
+      "declaration:QuantumBlockEncoding.Robin.ComplexLCU.star_selectorLift_cleanRow_apply",
+      "declaration:QuantumBlockEncoding.Robin.ComplexLCU.star_selectorLift_mul_clean",
+      "declaration:QuantumBlockEncoding.Robin.ComplexLCU.selectorLift_unitary",
+      "declaration:QuantumBlockEncoding.Robin.ComplexLCU.blockDiagonal_unitary",
+      "declaration:QuantumBlockEncoding.Robin.ComplexLCU.prepareAmplitudeSelectUnprepare_unitary"
+    ],
+    "source_refs": [
+      {
+        "path": "QuantumBlockEncoding/Robin/ComplexLCUProjection.lean",
+        "anchor": "selectorLift_cleanColumn_apply:43-60; star_selectorLift_cleanRow_apply:63-80; star_selectorLift_mul_clean:147-169; prepareAmplitudeSelectUnprepare_cleanEntry:172-219",
+        "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+        "sha256": "fa0b84ce5c819184f190b81b4d259e12f725e6196cd37147984fab76fe4ec340",
+        "license": "MIT (repository LICENSE)"
+      },
+      {
+        "path": "QuantumBlockEncoding/Robin/ComplexLCU.lean",
+        "anchor": "blockDiagonal_unitary:122-145; selectorLift:254-264; selectorLift_unitary:267-281; prepareAmplitudeSelectUnprepare:352-367; prepareAmplitudeSelectUnprepare_unitary:370-399",
+        "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+        "sha256": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843",
+        "license": "MIT (repository LICENSE)"
+      },
+      {
+        "path": "QuantumBlockEncoding/BlockEncoding.lean",
+        "anchor": "ApproximateOperatorBlockEncodingCandidate:148-152; scaled norm interpretation:136-146",
+        "source_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+        "sha256": "fe06f75a29822e28ccdbfedfb0b0e87f90872620fae7aed359085fad8fae64b4",
+        "license": "MIT (repository LICENSE)"
+      }
+    ]
+  }
+}

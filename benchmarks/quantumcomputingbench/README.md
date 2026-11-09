@@ -57,10 +57,11 @@ tasks, and `lean_training.py` for train-only whole-root supervision. Recorded
 authored proofs, independently reviewed explanations and future isolated model
 execution retain separate evidence boundaries.
 
-The [supplementary NL workbook](docs/nonlean-workbook.md) has twelve
-source-grounded expositions/candidates across three chapters and D2–D4 routes.
-Four reuse existing cores; eight remain unassigned candidates. Its separate
-downloads do not change canonical counts or train/evaluation pools.
+The [supplementary NL workbook](docs/nonlean-workbook.md) has eighteen
+source-grounded exercises across six chapters and provisional D2–D4 routes.
+Four offer additional expositions of existing cores. Fourteen are unassigned
+candidates for public study. The workbook has its own question and reference
+downloads, separate from the canonical train/evaluation pools.
 
 <details>
 <summary>Distribution status and retained editorial checkpoints</summary>

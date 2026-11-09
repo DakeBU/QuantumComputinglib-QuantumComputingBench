@@ -1,0 +1,613 @@
+{
+  "schema_version": "qcb.nonlean_finite_diagnostic.v1",
+  "author": "/root/batch2_gram",
+  "created_at_utc": "2026-11-06T09:53:00.909708+00:00",
+  "evidence_class": "exact_rational_finite_diagnostic_not_parametric_proof",
+  "arithmetic": "Python standard-library fractions.Fraction; nearest-grid round ties toward positive infinity; no floating-point matrix computation, Lean, model run or external API.",
+  "reproducibility": {
+    "seed": 61106,
+    "input_cores_recorded": true,
+    "algorithm": "Dot product starts at exact 0; each product and each accumulator sum is rounded by floor(z/h+1/2)*h. Two passes per bit followed by rounded bit sum; exact reference uses Fraction matrix products. At every stage assert actual entrywise error <=u C_j and every recorded product/pre-round/rounded sum lies within the derived range envelope.",
+    "scope": "Nine fixed small chains, not a universal verification."
+  },
+  "gram_cases": [
+    {
+      "label": "empty_chain",
+      "b": 4,
+      "input_cores": [],
+      "exact_mass": "1",
+      "rounded_mass": "1",
+      "error_bound": "0",
+      "stage_checks": [],
+      "all_assertions_passed": true
+    },
+    {
+      "label": "signed_dyadic_chain_1",
+      "b": 3,
+      "input_cores": [
+        [
+          [
+            [
+              "-1/2",
+              "1"
+            ]
+          ],
+          [
+            [
+              "-5/4",
+              "3/4"
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              "1"
+            ],
+            [
+              "0"
+            ]
+          ],
+          [
+            [
+              "1/2"
+            ],
+            [
+              "1/2"
+            ]
+          ]
+        ]
+      ],
+      "exact_mass": "31/16",
+      "rounded_mass": "2",
+      "error_bound": "283/32",
+      "stage_checks": [
+        {
+          "stage": 2,
+          "m": 1,
+          "M": "1",
+          "L": "2",
+          "R": "9",
+          "actual_environment_error": "0",
+          "certified_error": "9/16",
+          "actual_environment_max": "5/4",
+          "environment_envelope": "41/16",
+          "largest_schedule_value": "5/4",
+          "schedule_range_envelope": "41/16"
+        },
+        {
+          "stage": 1,
+          "m": 2,
+          "M": "5/4",
+          "L": "25/2",
+          "R": "29",
+          "actual_environment_error": "1/16",
+          "certified_error": "283/32",
+          "actual_environment_max": "2",
+          "environment_envelope": "1083/32",
+          "largest_schedule_value": "2",
+          "schedule_range_envelope": "1083/32"
+        }
+      ],
+      "all_assertions_passed": true
+    },
+    {
+      "label": "signed_dyadic_chain_2",
+      "b": 4,
+      "input_cores": [
+        [
+          [
+            [
+              "-3/4",
+              "1/2"
+            ]
+          ],
+          [
+            [
+              "-5/4",
+              "1/2"
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              "-1/2",
+              "-1/2",
+              "-5/4"
+            ],
+            [
+              "-1",
+              "1/2",
+              "-3/4"
+            ]
+          ],
+          [
+            [
+              "1",
+              "-1",
+              "1"
+            ],
+            [
+              "3/4",
+              "5/4",
+              "3/4"
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              "-3/4"
+            ],
+            [
+              "5/4"
+            ],
+            [
+              "3/4"
+            ]
+          ],
+          [
+            [
+              "-3/4"
+            ],
+            [
+              "1/4"
+            ],
+            [
+              "-1/4"
+            ]
+          ]
+        ]
+      ],
+      "exact_mass": "16453/1024",
+      "rounded_mass": "127/8",
+      "error_bound": "34157/256",
+      "stage_checks": [
+        {
+          "stage": 3,
+          "m": 1,
+          "M": "5/4",
+          "L": "25/8",
+          "R": "10",
+          "actual_environment_error": "0",
+          "certified_error": "5/16",
+          "actual_environment_max": "13/8",
+          "environment_envelope": "55/16",
+          "largest_schedule_value": "13/8",
+          "schedule_range_envelope": "55/16"
+        },
+        {
+          "stage": 2,
+          "m": 3,
+          "M": "5/4",
+          "L": "225/8",
+          "R": "58",
+          "actual_environment_error": "21/64",
+          "certified_error": "1357/128",
+          "actual_environment_max": "77/16",
+          "environment_envelope": "12607/128",
+          "largest_schedule_value": "77/16",
+          "schedule_range_envelope": "12607/128"
+        },
+        {
+          "stage": 1,
+          "m": 2,
+          "M": "5/4",
+          "L": "25/2",
+          "R": "29",
+          "actual_environment_error": "197/1024",
+          "certified_error": "34157/256",
+          "actual_environment_max": "127/8",
+          "environment_envelope": "315407/256",
+          "largest_schedule_value": "127/8",
+          "schedule_range_envelope": "315407/256"
+        }
+      ],
+      "all_assertions_passed": true
+    },
+    {
+      "label": "signed_dyadic_chain_3",
+      "b": 5,
+      "input_cores": [
+        [
+          [
+            [
+              "3/4",
+              "-5/4",
+              "0"
+            ]
+          ],
+          [
+            [
+              "1",
+              "-1/4",
+              "-1/2"
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              "1/2",
+              "3/4"
+            ],
+            [
+              "-1/4",
+              "-1/4"
+            ],
+            [
+              "-1/2",
+              "5/4"
+            ]
+          ],
+          [
+            [
+              "1/2",
+              "0"
+            ],
+            [
+              "-3/4",
+              "3/4"
+            ],
+            [
+              "-1",
+              "-1/4"
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              "1"
+            ],
+            [
+              "-1"
+            ]
+          ],
+          [
+            [
+              "-1/4"
+            ],
+            [
+              "1/4"
+            ]
+          ]
+        ]
+      ],
+      "exact_mass": "30685/4096",
+      "rounded_mass": "15/2",
+      "error_bound": "64603/1024",
+      "stage_checks": [
+        {
+          "stage": 3,
+          "m": 1,
+          "M": "1",
+          "L": "2",
+          "R": "9",
+          "actual_environment_error": "0",
+          "certified_error": "9/64",
+          "actual_environment_max": "17/16",
+          "environment_envelope": "137/64",
+          "largest_schedule_value": "17/16",
+          "schedule_range_envelope": "137/64"
+        },
+        {
+          "stage": 2,
+          "m": 2,
+          "M": "5/4",
+          "L": "25/2",
+          "R": "29",
+          "actual_environment_error": "5/64",
+          "certified_error": "283/128",
+          "actual_environment_max": "31/8",
+          "environment_envelope": "3483/128",
+          "largest_schedule_value": "31/8",
+          "schedule_range_envelope": "3483/128"
+        },
+        {
+          "stage": 1,
+          "m": 3,
+          "M": "5/4",
+          "L": "225/8",
+          "R": "58",
+          "actual_environment_error": "35/4096",
+          "certified_error": "64603/1024",
+          "actual_environment_max": "15/2",
+          "environment_envelope": "784603/1024",
+          "largest_schedule_value": "15/2",
+          "schedule_range_envelope": "784603/1024"
+        }
+      ],
+      "all_assertions_passed": true
+    },
+    {
+      "label": "signed_dyadic_chain_4",
+      "b": 6,
+      "input_cores": [
+        [
+          [
+            [
+              "1"
+            ]
+          ],
+          [
+            [
+              "1/4"
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              "-1"
+            ]
+          ],
+          [
+            [
+              "3/4"
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              "-1"
+            ]
+          ],
+          [
+            [
+              "-1"
+            ]
+          ]
+        ]
+      ],
+      "exact_mass": "425/128",
+      "rounded_mass": "213/64",
+      "error_bound": "63/128",
+      "stage_checks": [
+        {
+          "stage": 3,
+          "m": 1,
+          "M": "1",
+          "L": "2",
+          "R": "9",
+          "actual_environment_error": "0",
+          "certified_error": "9/128",
+          "actual_environment_max": "2",
+          "environment_envelope": "265/128",
+          "largest_schedule_value": "2",
+          "schedule_range_envelope": "265/128"
+        },
+        {
+          "stage": 2,
+          "m": 1,
+          "M": "1",
+          "L": "2",
+          "R": "9",
+          "actual_environment_error": "0",
+          "certified_error": "27/128",
+          "actual_environment_max": "25/8",
+          "environment_envelope": "539/128",
+          "largest_schedule_value": "25/8",
+          "schedule_range_envelope": "539/128"
+        },
+        {
+          "stage": 1,
+          "m": 1,
+          "M": "1",
+          "L": "2",
+          "R": "9",
+          "actual_environment_error": "1/128",
+          "certified_error": "63/128",
+          "actual_environment_max": "213/64",
+          "environment_envelope": "1087/128",
+          "largest_schedule_value": "213/64",
+          "schedule_range_envelope": "1087/128"
+        }
+      ],
+      "all_assertions_passed": true
+    },
+    {
+      "label": "positive_mass_rounds_to_zero_b2",
+      "b": 2,
+      "input_cores": [
+        [
+          [
+            [
+              "1/4"
+            ]
+          ],
+          [
+            [
+              "0"
+            ]
+          ]
+        ]
+      ],
+      "exact_mass": "1/16",
+      "rounded_mass": "0",
+      "error_bound": "3/4",
+      "stage_checks": [
+        {
+          "stage": 1,
+          "m": 1,
+          "M": "1/4",
+          "L": "1/8",
+          "R": "6",
+          "actual_environment_error": "1/16",
+          "certified_error": "3/4",
+          "actual_environment_max": "0",
+          "environment_envelope": "7/8",
+          "largest_schedule_value": "1/4",
+          "schedule_range_envelope": "1"
+        }
+      ],
+      "all_assertions_passed": true
+    },
+    {
+      "label": "positive_mass_rounds_to_zero_b3",
+      "b": 3,
+      "input_cores": [
+        [
+          [
+            [
+              "1/8"
+            ]
+          ],
+          [
+            [
+              "0"
+            ]
+          ]
+        ]
+      ],
+      "exact_mass": "1/64",
+      "rounded_mass": "0",
+      "error_bound": "11/32",
+      "stage_checks": [
+        {
+          "stage": 1,
+          "m": 1,
+          "M": "1/8",
+          "L": "1/32",
+          "R": "11/2",
+          "actual_environment_error": "1/64",
+          "certified_error": "11/32",
+          "actual_environment_max": "0",
+          "environment_envelope": "3/8",
+          "largest_schedule_value": "1/8",
+          "schedule_range_envelope": "1"
+        }
+      ],
+      "all_assertions_passed": true
+    },
+    {
+      "label": "positive_mass_rounds_to_zero_b6",
+      "b": 6,
+      "input_cores": [
+        [
+          [
+            [
+              "1/64"
+            ]
+          ],
+          [
+            [
+              "0"
+            ]
+          ]
+        ]
+      ],
+      "exact_mass": "1/4096",
+      "rounded_mass": "0",
+      "error_bound": "81/2048",
+      "stage_checks": [
+        {
+          "stage": 1,
+          "m": 1,
+          "M": "1/64",
+          "L": "1/2048",
+          "R": "81/16",
+          "actual_environment_error": "1/4096",
+          "certified_error": "81/2048",
+          "actual_environment_max": "0",
+          "environment_envelope": "41/1024",
+          "largest_schedule_value": "1/64",
+          "schedule_range_envelope": "1"
+        }
+      ],
+      "all_assertions_passed": true
+    },
+    {
+      "label": "zero_core",
+      "b": 3,
+      "input_cores": [
+        [
+          [
+            [
+              "0",
+              "0"
+            ]
+          ],
+          [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              "1"
+            ],
+            [
+              "-1"
+            ]
+          ],
+          [
+            [
+              "1"
+            ],
+            [
+              "1"
+            ]
+          ]
+        ]
+      ],
+      "exact_mass": "0",
+      "rounded_mass": "0",
+      "error_bound": "9/16",
+      "stage_checks": [
+        {
+          "stage": 2,
+          "m": 1,
+          "M": "1",
+          "L": "2",
+          "R": "9",
+          "actual_environment_error": "0",
+          "certified_error": "9/16",
+          "actual_environment_max": "2",
+          "environment_envelope": "41/16",
+          "largest_schedule_value": "2",
+          "schedule_range_envelope": "41/16"
+        },
+        {
+          "stage": 1,
+          "m": 2,
+          "M": "0",
+          "L": "0",
+          "R": "9",
+          "actual_environment_error": "0",
+          "certified_error": "9/16",
+          "actual_environment_max": "0",
+          "environment_envelope": "9/16",
+          "largest_schedule_value": "0",
+          "schedule_range_envelope": "41/16"
+        }
+      ],
+      "all_assertions_passed": true
+    }
+  ],
+  "sequential_scalar_diagnostic": {
+    "actual_stage_amplitude": "5/4",
+    "ideal_stage_amplitude": "1",
+    "epsilon_each": "1/4",
+    "eta_each": "9/16",
+    "stages": 2,
+    "actual_output_amplitude": "25/16",
+    "actual_error": "9/16",
+    "naive_additive_budget": "1/2",
+    "growth_weighted_budget": "9/16",
+    "exact_assertions_passed": true
+  },
+  "claims_not_established": [
+    "The general NL theorems are not certified by these finite examples.",
+    "No runtime, physical channel, circuit synthesis or formal admission claim follows."
+  ],
+  "question_bindings": {
+    "G1": "e45da28a1d20810dad77a70f35a045581e67c5212abef67a273f9614294be66a",
+    "G2": "9dfe758cbd6e4ff91725905f08a72bde22b06162b108ca9789f5dc499470872d"
+  }
+}

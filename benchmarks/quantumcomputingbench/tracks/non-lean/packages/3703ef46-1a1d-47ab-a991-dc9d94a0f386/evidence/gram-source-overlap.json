@@ -1,0 +1,150 @@
+{
+  "schema_version": "qcb.nonlean_source_overlap_audit.v1",
+  "author": "/root/batch2_gram",
+  "created_at_utc": "2026-11-06T09:51:46.116506+00:00",
+  "baseline_commit": "bb260f4e27360a0d3791b40cb22638af4b086fc9",
+  "evidence_class": "author_static_source_and_overlap_inspection",
+  "review_approval": false,
+  "inputs": [
+    {
+      "path": "_out/qcb-cores.json",
+      "sha256_raw": "04bd3535f58758587ee742c54caa7af45481340634991cc2079a994898ed3096"
+    },
+    {
+      "path": "_out/qcb-reader.json",
+      "sha256_raw": "e5fc1a5673670168eaa2d980612cb38e3aa6277fe71f4a095ebc03fa4b8d1923"
+    },
+    {
+      "path": "benchmarks/quantumcomputingbench/docs/nonlean-workbook.md",
+      "sha256_raw": "d02093697657f42426e74f4ed9a3d8716990f9578abb1c62e36dfdd16c4b9440"
+    },
+    {
+      "path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/OVERLAP.md",
+      "sha256_raw": "09951d63447a80d1412fba79721cc7d7f44d32cd61c33a8d8d5a659974acdbd5"
+    },
+    {
+      "path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/99e830bd-e868-4c7c-947c-8187a63ce46a/NEXT_COHORT.md",
+      "sha256_raw": "9063e948d79cfdc134bfb6f180a8629a78c056e30f077a3d9d655445ebe05ec0"
+    },
+    {
+      "path": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/A-reader-addendum.json",
+      "sha256_raw": "2673257e36c6e4acd59e6e812515ef7ab90a211934bba2ce7bacf2321afe3bea"
+    },
+    {
+      "path": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/B-rubric-addendum.json",
+      "sha256_raw": "3c820fb40a2c8270d4f420e6752bff15863726fbf66a8f7e94813ca28df05f24"
+    },
+    {
+      "path": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/C-reader-addendum.json",
+      "sha256_raw": "abe71e214408b35656bfbd6090dbe5d868675e6e4be3e12e68c0f4cf2551712e"
+    },
+    {
+      "path": "benchmarks/quantumcomputingbench/reports/nonlean-intake-20261104/C-review-addendum.json",
+      "sha256_raw": "df806dd502342cf883d41b242da1094f2b33825b0cf1fb142206806636274d49"
+    }
+  ],
+  "overlap": {
+    "G1": {
+      "relation": "new_numerical_contract_candidate_not_adjudicated_core",
+      "assessed_delta": "Specified finite-grid schedule, local roundoff constants, intermediate range certificate and noncircular mass-to-bit-precision guarantee.",
+      "existing_core_comparisons": [
+        {
+          "core_id": "qcb-core-la-209",
+          "known_split": "train",
+          "relation": "Same exact two-pass Gram schedule; existing target proves an exact-real operation count. No rounded-value or range theorem is assessed there."
+        },
+        {
+          "core_id": "qcb-core-la-210",
+          "known_split": "train",
+          "relation": "Exact scalar norm and marginal exact sqrt/read cost are shared context. G1 assesses numerical positivity, rounded sqrt and sufficient finite-grid precision."
+        },
+        {
+          "core_id": "qcb-core-sp-006",
+          "known_split": "test_public",
+          "relation": "Exact normalization domain is shared; the sum-of-squares identity is supplied rather than re-assessed."
+        }
+      ],
+      "prior_cohort_comparisons": [
+        {
+          "slot": "C3",
+          "relation": "The exact scalar Gram identity is explicitly supplied. G1 adds arithmetic-model analysis, not another proof of cross-Gram semantics."
+        },
+        {
+          "slot": "A2",
+          "relation": "Shared need for a positive mass margin. G1 compares the same exact numerator with a rounded scalar normalizer, not perturbation of vector direction."
+        },
+        {
+          "slot": "C4",
+          "relation": "Both propagate a raw numerical error to a normalization condition; C4 uses Bernstein coefficients and an exact norm, while G1 derives error from a local stored arithmetic schedule."
+        }
+      ],
+      "current_batch_comparisons": [
+        {
+          "slot": "E1",
+          "relation": "Shared elementary backwards recurrence/unrolling and norm-margin logic; E1 starts from operator residual certificates and assesses downstream state/circuit/postselection composition. G1 owns finite-grid schedule/range/bit analysis.",
+          "shared_subproof_not_independent": true
+        }
+      ],
+      "split_policy": "Unassigned pending full-target and shared-subproof reconciliation; no independent train/test pooling or novelty clearance.",
+      "dedup_review_required": true
+    },
+    "G2": {
+      "relation": "new_perturbative_sequential_invariant_candidate_not_adjudicated_core",
+      "assessed_delta": "Multiplicative all-length mass control for approximate rectangular isometries, sharpness, fidelity obstruction, and ordered target-error growth under a separate alignment interface.",
+      "existing_core_comparisons": [
+        {
+          "core_id": "qcb-core-sp-008",
+          "known_split": "train",
+          "relation": "Exact-unitary mass preservation is the eta=0 neighboring case; G2 introduces local Gram defects and sharp multiplicative bounds for rectangular maps."
+        },
+        {
+          "core_id": "qcb-core-sp-007",
+          "known_split": "test_public",
+          "relation": "Chronological transfer conventions are reused; exact clean-column contraction induction is not re-assessed."
+        },
+        {
+          "core_id": "qcb-core-sp-004",
+          "known_split": "train",
+          "relation": "Exact canonical cores preserve boundary mass. G2 measures noncanonical norm distortion and does not prove canonicalization existence."
+        },
+        {
+          "core_id": "qcb-core-sp-012",
+          "known_split": "train",
+          "relation": "Exact active-support semantics are neighboring context; G2 requires full stated bond-map bounds and supplies no leakage/support theorem."
+        }
+      ],
+      "prior_cohort_comparisons": [
+        {
+          "slot": "B1",
+          "relation": "Shares chronological prefix/bond interpretation only; no clean-column equality proof is repeated."
+        },
+        {
+          "slot": "B3",
+          "relation": "Generic exact-unitary telescoping is supplied in B3. G2 derives amplification factors for nonisometric maps, and gives a strict counterexample to dropping them; precision optimization is absent."
+        },
+        {
+          "slot": "C2",
+          "relation": "Canonicality versus representation invariance is neighboring motivation; no gauge transformation is assessed."
+        },
+        {
+          "slot": "C3",
+          "relation": "Both concern Gram information; G2 is a forward sequential norm-distortion invariant and cannot be reduced to the supplied exact suffix cross-Gram identity."
+        }
+      ],
+      "current_batch_comparisons": [
+        {
+          "slot": "G1",
+          "relation": "Both use error propagation but G1 certifies a classical arithmetic normalizer; G2 assumes local map certificates and derives quantum-vector linear-algebra bounds."
+        },
+        {
+          "slot": "E1",
+          "relation": "Both require explicit local/target interfaces for composition; shared elementary telescoping does not authorize independent scoring."
+        }
+      ],
+      "split_policy": "Unassigned pending shared-fragment and whole-target reconciliation; no held-out independence or training admission claimed.",
+      "dedup_review_required": true
+    }
+  },
+  "claim_boundary": "Distinct assessed deltas proposed, not global novelty, admission, independence, compiled numerical theorems or new graph proofs.",
+  "source_metadata_revision": "G2 original reviewed question bytes retained under questions/history/G2-v1.json; corrected source spans in current questions/G2.json leave the canonical question unchanged."
+}

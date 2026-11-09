@@ -22,12 +22,12 @@ class WorkbookTests(unittest.TestCase):
         cls.workbook = source.load_workbook()
         _, _, cls.graph = source.load_catalog()
 
-    def test_two_archives_do_not_create_twenty_four_tasks_or_new_splits(self):
+    def test_overlap_and_batch2_candidates_do_not_create_new_scored_splits(self):
         w = self.workbook
-        self.assertEqual(len(w['entries']), 12)
+        self.assertEqual(len(w['entries']), 18)
         self.assertEqual(w['counts']['existing_core_expositions'], 4)
-        self.assertEqual(w['counts']['unassigned_candidates'], 8)
-        self.assertEqual(w['counts']['by_band'], {'D2': 3, 'D3': 5, 'D4': 4})
+        self.assertEqual(w['counts']['unassigned_candidates'], 14)
+        self.assertEqual(w['counts']['by_band'], {'D2': 3, 'D3': 7, 'D4': 8})
         self.assertEqual(w['counts']['scored_training_or_evaluation_rows_added'], 0)
         self.assertFalse(w['human_expert_approval'])
         for entry in w['entries']:
@@ -38,7 +38,7 @@ class WorkbookTests(unittest.TestCase):
         payloads = source.download_payloads(self.workbook)
         questions = [json.loads(line) for line in payloads['questions.jsonl'].splitlines()]
         references = [json.loads(line) for line in payloads['references.jsonl'].splitlines()]
-        self.assertEqual(len(questions), 12)
+        self.assertEqual(len(questions), 18)
         for row, answer, entry in zip(questions, references, self.workbook['entries']):
             self.assertEqual(set(row), {'schema_version', 'view_id', 'question_sha256', 'input'})
             self.assertEqual(set(row['input']), {'question', 'assumptions', 'conventions'})
@@ -137,9 +137,16 @@ class WorkbookTests(unittest.TestCase):
             return '<div class="qcb-reader"><h1>' + title + '</h1><p>' + subtitle + '</p>'
         before = deepcopy(self.workbook)
         report = view.publish_workbook(write, intro, self.workbook, self.graph, set(self.graph), 'a' * 40)
-        self.assertEqual(len(pages), 20)
+        self.assertEqual(len(pages), 29)
         self.assertEqual(report['new_canonical_cores'], 0)
         self.assertIn(view.BASE + 'graph/', pages)
+        for slot in ('g1', 'g2', 'p1', 'p2', 'e1', 'e2'):
+            self.assertIn(view.BASE + slot + '/', pages)
+        composed = pages[view.BASE + 'e2/']
+        self.assertIn('Alternative derivations', composed)
+        self.assertIn('E2-S9a', composed)
+        self.assertIn('E2-S9b', composed)
+        self.assertIn('full prepareAmplitudeSelectUnprepare_cleanEntry declaration', composed)
         self.assertEqual(self.workbook, before)
 
 
