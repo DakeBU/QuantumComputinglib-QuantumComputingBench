@@ -57,6 +57,13 @@ tasks, and `lean_training.py` for train-only whole-root supervision. Recorded
 authored proofs, independently reviewed explanations and future isolated model
 execution retain separate evidence boundaries.
 
+The [Hamiltonian companions and sparse-address study](tracks/lean/LEAN_QA_V5.md)
+extend the course to 23 existing shared cores and add an owner-sealed
+four-proposition assessment. The paired train export includes the new
+Hamiltonian proofs and withholds four overlapping cores across all modalities.
+The [coverage audit](tracks/lean/LEAN_QA_COVERAGE.md) maps the remaining gaps
+by compiled source and graph relationship.
+
 The [supplementary NL workbook](docs/nonlean-workbook.md) has eighteen
 source-grounded exercises across six chapters and provisional D2–D4 routes.
 Four offer additional expositions of existing cores. Fourteen are unassigned

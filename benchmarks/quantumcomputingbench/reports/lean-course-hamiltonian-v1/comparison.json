@@ -1,0 +1,108 @@
+{
+  "schema_version": "qcb.course_semantic_comparison.v1",
+  "reviewer": "/root/leanqa_exposure_audit",
+  "source_blind": false,
+  "comparison_input_digest": "6beb7d4f27d9ef5845398d7c8cfbd854c15f38c1e5ba4b95b63657141d1cb949",
+  "input_file_sha256": "59948025f3fcf7e4d371dae8c43b47931c6cddde31c21736f1fc6aee2c915f25",
+  "candidate_batch_digest": "c4f986f9bff6b185b5ed1f2f0eb671e48d409a1972d5be8bacc61e514b555740",
+  "packet_digests": {
+    "hamiltonian": "8bbbccca6d7a217b129b45f8522522dcc227d5a36bd62a14c4a51c47b7cc042d"
+  },
+  "decoder_digests": {
+    "hamiltonian": "472f2980af43ad7a5939e5965ae22451449248440d6d3cddbd70fee208076975"
+  },
+  "review_method": "Compared the exact sanitized source item and formal statement with the independent decode. Expanded imported matrix operations from the tracked source blob and checked both results entrywise, including premise boundaries and witness scope.",
+  "source_definitions": {
+    "path": "QuantumBlockEncoding/GHLHamiltonian.lean",
+    "git_blob": "7a17648d28969713d48d9abfde1764e98983942b",
+    "be_011": [
+      "CMatrix",
+      "add",
+      "scale",
+      "adjoint",
+      "IsHermitian",
+      "hermitianPart",
+      "homogenizedS",
+      "S1",
+      "scaledControlledPhaseSource",
+      "pauliXTensor",
+      "eq29PrintedClean",
+      "eq29PhaseBalancedClean"
+    ],
+    "la_019": [
+      "CMatrix",
+      "add",
+      "adjoint",
+      "IsHermitian",
+      "identity",
+      "tensor"
+    ]
+  },
+  "limitations": [
+    "Semantic comparison of the two exact public roots. The candidate fixture and its proof bodies were outside the review inputs, and this review did not run Lean.",
+    "Each reviewed task has an empty approved retrieval-interface list. The imported source declarations and their semantic role are visible in the review. This comparison makes no claim about proof-search difficulty or resistance to model familiarity with the public source."
+  ],
+  "views": [
+    {
+      "core_id": "qcb-core-be-011",
+      "task_hash": "b5a63493851d01d273e270533a826471c128bfab1cc56122903263c76d6ec393",
+      "formal_context_digest": "186bdb20b352c5ce195b6c6113426813e10eab1c027e6201fe0a4c26986d25c8",
+      "source_item_digest": "b64c8446192d113eddb6f829ef3cce766d74ac79527a75bec2bebc8674cce7fd",
+      "verdict": "accept",
+      "decoder_comparison": "The independent reconstruction has the same four quantified clauses, including the nonempty and nonzero premises confined to inequality, and Hermiticity of B confined to full equality. Unfolding the imported definitions resolves its explicitly opaque phase and normalization conventions.",
+      "reasoning": "In the imported controlled-phase definition the lower-right block is N times the phase times the identity. Its upper-left block is the supplied matrix independently of the phase, and its off-diagonal blocks vanish. The Pauli-X tensor contributes B to both off-diagonal blocks and zero to the diagonal blocks. With phases (-1,-1) the printed lower-right block is -N times the identity; the intended S1 has lower-right zero. A selected i witnesses the inequality when the index type is nonempty and N is nonzero. Replacing the A source's phase with +1 and keeping the adjoint-A source's phase -1 cancels the entire lower-right block, preserving the other three entrywise. Those blocks are (A+A†)/2, B/2 and B/2. For S1 the corresponding lower-left block is B†/2, so Hermiticity of B gives exact equality. The phase correction and preservation statements require neither Hermiticity of B nor a nonzero normalizer.",
+      "independent_mathematical_checks": [
+        "For an empty index type the two matrices coincide even when N is nonzero. Nonempty is the exact premise needed to turn a diagonal-entry contrast into inequality.",
+        "For N=0 the printed and balanced clean blocks coincide. This case is included in both entrywise assertions and excluded from the mismatch assertion.",
+        "With a one-dimensional non-Hermitian B=[i], the corrected lower-left block is i/2 while S1 has -i/2. The source's Hermitian-B condition is material to whole-matrix equality."
+      ],
+      "whole_question_coverage": {
+        "status": "all_requested_mathematical_outcomes_with_method_and_model_boundaries",
+        "formal_covered": [
+          "The exact printed diagonal value -N and the intended value zero at every lower-right diagonal index.",
+          "The resulting matrix mismatch for a nonempty system and a nonzero N.",
+          "The fixed concrete phase repair (+1,-1) is built into the named source definition. The root covers zero at every corrected lower-right entry, preservation of each of the other three blocks, and full equality to S1 under the source's Hermitian-B condition."
+        ],
+        "scope_differences": [
+          "DecidableEq is used to define identity fillers. Index types are unrestricted by finiteness; the construction is entrywise and includes the intended finite systems.",
+          "Nonempty, implicit for a physical matrix with an entry to inspect, is made explicit only in the inequality conjunct. The other assertions still apply for an empty index.",
+          "The printed full block formula -N times identity follows by unfolding the source, but the root itself states only the printed diagonal value. The corrected all-entry lower-right statement and Hermitian-B full equality are explicit extra checks."
+        ],
+        "source_method_or_prose_boundary": [
+          "The root compares exact imported matrices. A proof of it need not show the three-term direct calculation to a reader; that remains a natural-language rubric requirement.",
+          "The source encodes the phase factors as the complex constants +1 and -1. Separate exponential-angle identities, a general characterization of admissible phase pairs, and circuit or LCU resource semantics are outside this root."
+        ],
+        "acceptance_scope": "The root covers the requested mathematical diagnosis and the specified repair at clean-block level."
+      }
+    },
+    {
+      "core_id": "qcb-core-la-019",
+      "task_hash": "8ca55339946385650fa3c6b503def5f6f68bd2792749af7d66b81747864d1305",
+      "formal_context_digest": "e0d4abe98b07382d1fea96a2e628856f6386d6c773d4c1ade7a1522ea6220ade",
+      "source_item_digest": "2608e997670f03f1d37ccd000716a0a0478826035c40e22316b4639af5704267",
+      "verdict": "accept",
+      "decoder_comparison": "The decoder preserves the two independent clauses, product operand order, and the shared witnesses for the counterexample. The inspected definitions identify the previously opaque predicate and operations as entrywise conjugate-transpose Hermiticity, ordinary addition, ordered Kronecker product and the identity on the second system.",
+      "reasoning": "For row (i,u) and column (j,v), conjugation of the transposed first-term entry gives conjugate(S(j,i)) times conjugate(X(v,u)), which equals S(i,j)X(u,v) under the two Hermiticity premises. The same computation with T and the second-system identity applies to the second term. Conjugation distributes over addition. No multiplication of S with T enters the calculation or appears as a premise. The finite witness S=[1], T=[0], X=[[0,1],[0,0]] gives H=X under the canonical identification of the product with its second coordinate. The two transposed off-diagonal entries differ, so both X and H fail the exact predicate. This supplies the existential statement without hard-coding the reference's particular witness in the target.",
+      "independent_mathematical_checks": [
+        "For S the two-dimensional Pauli X and T=diag(1,-1), S and T do not commute. With X=[1] on a one-dimensional second system, H=S+T is Hermitian, independently confirming the positive scope includes a genuinely noncommuting pair.",
+        "With that same S and T and the one-dimensional complex X=[i], X and H=iS+T are non-Hermitian. The open existential admits this different witness as well as the reference's two-dimensional X."
+      ],
+      "whole_question_coverage": {
+        "status": "all_requested_mathematical_outcomes_with_method_and_model_boundaries",
+        "formal_covered": [
+          "The general finite-dimensional closure statement with S, T and X Hermitian and no commutation premise.",
+          "A finite counterexample with S and T Hermitian and both X and the resulting H non-Hermitian on the same witnesses."
+        ],
+        "scope_differences": [
+          "The positive clause uses separate universes and finite index types, with DecidableEq on the second type to define its identity. The two S/T and X/I dimensions are enforced by types.",
+          "The negative clause uses Fin n and Fin m with unconstrained witness sizes and entries. This representation suffices for an ordinary finite counterexample, and the wording permits any such witness."
+        ],
+        "source_method_or_prose_boundary": [
+          "The root states the closure and existential counterexample. It does not enforce a narrated adjoint-of-tensor derivation, a prescribed counterexample, or a prose explanation of why commutation is unnecessary.",
+          "The source's stencil-offset convention is unused by this algebraic question. Implementation, simulation readout and resources lie outside the root."
+        ],
+        "acceptance_scope": "The root covers both explicit mathematical requests with the stated finite complex conventions."
+      }
+    }
+  ]
+}

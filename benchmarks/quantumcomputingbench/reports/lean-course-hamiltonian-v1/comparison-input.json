@@ -1,0 +1,154 @@
+{
+  "candidate_batch_digest": "c4f986f9bff6b185b5ed1f2f0eb671e48d409a1972d5be8bacc61e514b555740",
+  "decoder_digests": {
+    "hamiltonian": "472f2980af43ad7a5939e5965ae22451449248440d6d3cddbd70fee208076975"
+  },
+  "packet_digests": {
+    "hamiltonian": "8bbbccca6d7a217b129b45f8522522dcc227d5a36bd62a14c4a51c47b7cc042d"
+  },
+  "schema_version": "qcb.course_semantic_comparison_input.v2",
+  "views": [
+    {
+      "ambient_context": {
+        "schema_version": "qcb.formal_decoder_input.v1",
+        "source_blind": true
+      },
+      "core_id": "qcb-core-be-011",
+      "formal_context_digest": "186bdb20b352c5ce195b6c6113426813e10eab1c027e6201fe0a4c26986d25c8",
+      "formal_view": {
+        "anonymous_id": "H1",
+        "formal_context": {
+          "imports": [
+            "QuantumBlockEncoding.GHLHamiltonian"
+          ],
+          "preamble": "universe u",
+          "target": "∀ (ι : Type u) [DecidableEq ι] (A B : QuantumBlockEncoding.GHL2025.Hamiltonian.CMatrix ι ι) (N : ℂ), (∀ i : ι, QuantumBlockEncoding.GHL2025.Hamiltonian.eq29PrintedClean A B N (Sum.inr i) (Sum.inr i) = -N ∧ QuantumBlockEncoding.GHL2025.Hamiltonian.S1 A B (Sum.inr i) (Sum.inr i) = 0) ∧ (Nonempty ι → N ≠ 0 → QuantumBlockEncoding.GHL2025.Hamiltonian.eq29PrintedClean A B N ≠ QuantumBlockEncoding.GHL2025.Hamiltonian.S1 A B) ∧ (∀ i j : ι, QuantumBlockEncoding.GHL2025.Hamiltonian.eq29PhaseBalancedClean A B N (Sum.inr i) (Sum.inr j) = 0 ∧ QuantumBlockEncoding.GHL2025.Hamiltonian.eq29PhaseBalancedClean A B N (Sum.inl i) (Sum.inl j) = QuantumBlockEncoding.GHL2025.Hamiltonian.eq29PrintedClean A B N (Sum.inl i) (Sum.inl j) ∧ QuantumBlockEncoding.GHL2025.Hamiltonian.eq29PhaseBalancedClean A B N (Sum.inl i) (Sum.inr j) = QuantumBlockEncoding.GHL2025.Hamiltonian.eq29PrintedClean A B N (Sum.inl i) (Sum.inr j) ∧ QuantumBlockEncoding.GHL2025.Hamiltonian.eq29PhaseBalancedClean A B N (Sum.inr i) (Sum.inl j) = QuantumBlockEncoding.GHL2025.Hamiltonian.eq29PrintedClean A B N (Sum.inr i) (Sum.inl j)) ∧ (QuantumBlockEncoding.GHL2025.Hamiltonian.IsHermitian B → QuantumBlockEncoding.GHL2025.Hamiltonian.eq29PhaseBalancedClean A B N = QuantumBlockEncoding.GHL2025.Hamiltonian.S1 A B)",
+          "universe_parameters": [
+            "u"
+          ]
+        }
+      },
+      "retrieval_interfaces": [],
+      "source_blind_decode": {
+        "anonymous_id": "H1",
+        "reconstructed_statement": "For every type iota in universe u with decidable equality, every A and B of type CMatrix iota iota, and every complex N, let P = eq29PrintedClean A B N, Q = eq29PhaseBalancedClean A B N, and R = S1 A B. Four assertions hold together. (1) For every i, P(inr i, inr i) = -N and R(inr i, inr i) = 0. (2) If iota is nonempty and N is nonzero, P and R are unequal as matrices. (3) For every i and j, Q(inr i, inr j) = 0, Q(inl i, inl j) = P(inl i, inl j), Q(inl i, inr j) = P(inl i, inr j), and Q(inr i, inl j) = P(inr i, inl j). (4) If IsHermitian B, then Q = R as matrices.",
+        "scope": {
+          "assumptions": [
+            "DecidableEq iota is in scope for the entire conjunction.",
+            "Nonempty iota and N != 0 are successive premises of conjunct 2.",
+            "IsHermitian B is the premise of conjunct 4."
+          ],
+          "conjuncts": [
+            "Two unconditional right-right diagonal equalities for each i, one for P and one for R.",
+            "Conditional whole-matrix inequality between P and R.",
+            "One unconditional zero block for Q and three unconditional entrywise block agreements between Q and P.",
+            "Conditional whole-matrix equality between Q and R."
+          ],
+          "conventions": [
+            "P, Q, and R are notation for the imported operations applied to the exact arguments shown.",
+            "Entry arguments preserve the displayed order. inl and inr are the injections of the two summands.",
+            "The right-right block in conjunct 3 ranges over all i and j, including i = j. Conjunct 1 concerns only the right-right diagonal."
+          ],
+          "external_dependencies": [
+            "The imported definitions of CMatrix, eq29PrintedClean, eq29PhaseBalancedClean, S1, and IsHermitian are absent from the view. Their formulas, phase conventions, and normalization are unspecified by this text beyond the asserted relations."
+          ],
+          "imports": [
+            "QuantumBlockEncoding.GHLHamiltonian"
+          ],
+          "quantifiers": [
+            "Universal over iota : Type u, with a DecidableEq iota instance.",
+            "Universal over A, B : CMatrix iota iota and N : Complex.",
+            "Conjunct 1 separately quantifies every i : iota. Conjunct 3 separately quantifies every ordered pair i, j : iota."
+          ],
+          "universes": [
+            "u"
+          ]
+        }
+      },
+      "source_item_digest": "b64c8446192d113eddb6f829ef3cce766d74ac79527a75bec2bebc8674cce7fd",
+      "source_semantics": {
+        "assumptions": [
+          "Normalizer N (normalizerA) is a complex scalar; the counterexample needs N != 0",
+          "B is Hermitian (as in the PDE theorem) for the corrected block to equal S1"
+        ],
+        "conventions": [
+          "Each term scaled by 1/2; filler is N*e^{i*phi} on the lower-right diagonal",
+          "S1 is the Hermitian part of [[A,B],[0,0]] with lower-right block 0"
+        ],
+        "question": "In an LCU-style assembly of a Hermitian piece, each selected term contributes a scaled controlled-phase source whose upper block carries the intended operator and whose lower-right filler block is normalizer times a phase e^{i*phi}. A source writes both filler phases as e^{i*pi} = -1 and claims the two filler blocks cancel so the clean block equals the intended Hermitian piece S1. Show by direct computation of the lower-right clean entry that the printed all-(-1)-phase choice does NOT cancel, give the exact value of that entry, prove the clean block therefore differs from S1 when the normalizer is nonzero, and exhibit the corrected phase assignment that does make the fillers cancel while preserving the intended operator blocks.",
+        "reference_answer": "The assembly adds three scaled sources (each scaled by 1/2): a controlled-phase source for A with filler phase, one for A-dagger with filler phase, and a Pauli-X-tensor-B term that has zero lower-right block. The lower-right filler of a scaled controlled-phase source with normalizer N and phase e^{i*phi} is (1/2)*N*e^{i*phi} on the diagonal. With BOTH A and A-dagger terms using phase e^{i*pi} = -1, the lower-right diagonal clean entry is (1/2)*N*(-1) + (1/2)*N*(-1) + 0 = -N. So the printed clean lower-right block equals -N (the identity-filler blocks ADD rather than cancel). But the intended Hermitian piece S1 has lower-right block equal to 0 (S1 is the Hermitian part of the homogenized matrix [[A,B],[0,0]], whose lower-right block is 0). Therefore, if N != 0, the printed clean block has lower-right entry -N != 0 = S1's lower-right entry, so the printed-phase clean block is NOT equal to S1 - a genuine counterexample to the all-(-1) cancellation claim. Corrected assignment: give the two filler phases OPPOSITE signs, e.g. keep the A-dagger term at phase -1 but set the A term's filler phase to 0 (i.e. e^{i*0}=+1) while leaving its upper operator block intact. Then the lower-right clean entry becomes (1/2)*N*(+1) + (1/2)*N*(-1) + 0 = 0, matching S1's zero lower-right block, and the upper A, A-dagger and off-diagonal B blocks are unchanged, so the phase-balanced clean block equals S1 exactly (under the paper's Hermitian B). The lesson: filler phases are a real proof obligation - identical phases add, opposite phases cancel; only a phase-balanced choice recovers the intended block."
+      },
+      "task_hash": "b5a63493851d01d273e270533a826471c128bfab1cc56122903263c76d6ec393"
+    },
+    {
+      "ambient_context": {
+        "schema_version": "qcb.formal_decoder_input.v1",
+        "source_blind": true
+      },
+      "core_id": "qcb-core-la-019",
+      "formal_context_digest": "e0d4abe98b07382d1fea96a2e628856f6386d6c773d4c1ade7a1522ea6220ade",
+      "formal_view": {
+        "anonymous_id": "H2",
+        "formal_context": {
+          "imports": [
+            "QuantumBlockEncoding.GHLHamiltonian"
+          ],
+          "preamble": "universe u v",
+          "target": "(∀ (ι : Type u) (κ : Type v) [Fintype ι] [Fintype κ] [DecidableEq κ] (S T : QuantumBlockEncoding.GHL2025.Hamiltonian.CMatrix ι ι) (X : QuantumBlockEncoding.GHL2025.Hamiltonian.CMatrix κ κ), QuantumBlockEncoding.GHL2025.Hamiltonian.IsHermitian S → QuantumBlockEncoding.GHL2025.Hamiltonian.IsHermitian T → QuantumBlockEncoding.GHL2025.Hamiltonian.IsHermitian X → QuantumBlockEncoding.GHL2025.Hamiltonian.IsHermitian (QuantumBlockEncoding.GHL2025.Hamiltonian.add (QuantumBlockEncoding.GHL2025.Hamiltonian.tensor S X) (QuantumBlockEncoding.GHL2025.Hamiltonian.tensor T (QuantumBlockEncoding.GHL2025.Hamiltonian.identity κ)))) ∧ (∃ (n m : ℕ) (S T : QuantumBlockEncoding.GHL2025.Hamiltonian.CMatrix (Fin n) (Fin n)) (X : QuantumBlockEncoding.GHL2025.Hamiltonian.CMatrix (Fin m) (Fin m)), QuantumBlockEncoding.GHL2025.Hamiltonian.IsHermitian S ∧ QuantumBlockEncoding.GHL2025.Hamiltonian.IsHermitian T ∧ ¬ QuantumBlockEncoding.GHL2025.Hamiltonian.IsHermitian X ∧ ¬ QuantumBlockEncoding.GHL2025.Hamiltonian.IsHermitian (QuantumBlockEncoding.GHL2025.Hamiltonian.add (QuantumBlockEncoding.GHL2025.Hamiltonian.tensor S X) (QuantumBlockEncoding.GHL2025.Hamiltonian.tensor T (QuantumBlockEncoding.GHL2025.Hamiltonian.identity (Fin m)))))",
+          "universe_parameters": [
+            "u",
+            "v"
+          ]
+        }
+      },
+      "retrieval_interfaces": [],
+      "source_blind_decode": {
+        "anonymous_id": "H2",
+        "reconstructed_statement": "Both of the following hold. (1) For every iota : Type u and kappa : Type v with Fintype iota, Fintype kappa and DecidableEq kappa, for every S, T : CMatrix iota iota and X : CMatrix kappa kappa, if IsHermitian S, IsHermitian T, and IsHermitian X, then IsHermitian (add (tensor S X) (tensor T (identity kappa))). (2) There exist n and m in the natural numbers, S and T in CMatrix (Fin n) (Fin n), and X in CMatrix (Fin m) (Fin m), such that IsHermitian S, IsHermitian T, not IsHermitian X, and not IsHermitian (add (tensor S X) (tensor T (identity (Fin m)))).",
+        "scope": {
+          "assumptions": [
+            "The universal assertion uses Fintype instances for both index types and a DecidableEq instance for kappa.",
+            "The universal implication has three successive Hermiticity premises, for S, T and X. In the existential assertion, Hermiticity of S and T and non-Hermiticity of X are requirements on the same witnesses as the non-Hermitian result."
+          ],
+          "conjuncts": [
+            "A universal sufficient condition for the sum of the two tensors to satisfy IsHermitian.",
+            "A finite-dimensional instance where S and T satisfy IsHermitian and both X and the sum of the two tensors fail IsHermitian."
+          ],
+          "conventions": [
+            "The first term is tensor S X and the second is tensor T with the identity on the X index type.",
+            "IsHermitian is the imported predicate. add, tensor and identity are the imported matrix operations in the displayed operand order."
+          ],
+          "external_dependencies": [
+            "The imported definitions of CMatrix, IsHermitian, add, tensor, and identity are absent from the view. Their definitions and the tensor indexing convention cannot be recovered from the target alone.",
+            "The existential assertion leaves the dimensions and entries of its witnesses open."
+          ],
+          "imports": [
+            "QuantumBlockEncoding.GHLHamiltonian"
+          ],
+          "quantifiers": [
+            "The left conjunct universally binds iota : Type u, kappa : Type v, the three listed instances, S, T : CMatrix iota iota, and X : CMatrix kappa kappa.",
+            "The right conjunct independently existentially binds n, m : Nat, S, T : CMatrix (Fin n) (Fin n), and X : CMatrix (Fin m) (Fin m). No explicit inequality or positivity premise on n or m is displayed."
+          ],
+          "universes": [
+            "u",
+            "v"
+          ]
+        }
+      },
+      "source_item_digest": "2608e997670f03f1d37ccd000716a0a0478826035c40e22316b4639af5704267",
+      "source_semantics": {
+        "assumptions": [
+          "Finite-dimensional complex matrices; ordinary conjugate transpose",
+          "All declared products have compatible dimensions"
+        ],
+        "conventions": [
+          "Tensor factors ordered as written; stencil offsets are ordinary integers, not modular wrapping",
+          "Original derivation from inspected local source; no fresh Lean verification"
+        ],
+        "question": "Let S and T be Hermitian matrices on one finite system and X a Hermitian matrix on a second system. Prove that H=S tensor X+T tensor I is Hermitian without assuming that S and T commute. Give a counterexample showing that the same conclusion can fail if X is not Hermitian.",
+        "reference_answer": "The adjoint of a tensor product is the tensor product of the adjoints: entrywise, conjugating S(j,i)X(v,u) gives S(i,j)X(u,v) under Hermiticity of both factors. Hence (S tensor X) dagger=S tensor X. Similarly T tensor I is Hermitian because I dagger=I. Adjoint is additive, so H dagger=H. No product S T occurs anywhere in this argument, so S and T need not commute. The premise on X matters: take the first system one-dimensional with S=[1], T=[0], and X=[[0,1],[0,0]]. Then H=X, whereas X dagger=[[0,0],[1,0]] is different. This is an operator-algebra closure result, not a claim that implementing the factors or reading out a simulated evolution is free."
+      },
+      "task_hash": "8ca55339946385650fa3c6b503def5f6f68bd2792749af7d66b81747864d1305"
+    }
+  ]
+}

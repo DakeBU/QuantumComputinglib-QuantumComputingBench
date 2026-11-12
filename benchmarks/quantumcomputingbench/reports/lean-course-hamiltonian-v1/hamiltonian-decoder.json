@@ -1,0 +1,77 @@
+{
+  "schema_version": "qcb.curriculum_blind_decode.v1",
+  "source_blind": true,
+  "decoder_identity": "/root/leanqa_neutral_decoder",
+  "packet_digest": "8bbbccca6d7a217b129b45f8522522dcc227d5a36bd62a14c4a51c47b7cc042d",
+  "views": [
+    {
+      "anonymous_id": "H1",
+      "reconstructed_statement": "For every type iota in universe u with decidable equality, every A and B of type CMatrix iota iota, and every complex N, let P = eq29PrintedClean A B N, Q = eq29PhaseBalancedClean A B N, and R = S1 A B. Four assertions hold together. (1) For every i, P(inr i, inr i) = -N and R(inr i, inr i) = 0. (2) If iota is nonempty and N is nonzero, P and R are unequal as matrices. (3) For every i and j, Q(inr i, inr j) = 0, Q(inl i, inl j) = P(inl i, inl j), Q(inl i, inr j) = P(inl i, inr j), and Q(inr i, inl j) = P(inr i, inl j). (4) If IsHermitian B, then Q = R as matrices.",
+      "scope": {
+        "imports": [
+          "QuantumBlockEncoding.GHLHamiltonian"
+        ],
+        "universes": [
+          "u"
+        ],
+        "quantifiers": [
+          "Universal over iota : Type u, with a DecidableEq iota instance.",
+          "Universal over A, B : CMatrix iota iota and N : Complex.",
+          "Conjunct 1 separately quantifies every i : iota. Conjunct 3 separately quantifies every ordered pair i, j : iota."
+        ],
+        "assumptions": [
+          "DecidableEq iota is in scope for the entire conjunction.",
+          "Nonempty iota and N != 0 are successive premises of conjunct 2.",
+          "IsHermitian B is the premise of conjunct 4."
+        ],
+        "conventions": [
+          "P, Q, and R are notation for the imported operations applied to the exact arguments shown.",
+          "Entry arguments preserve the displayed order. inl and inr are the injections of the two summands.",
+          "The right-right block in conjunct 3 ranges over all i and j, including i = j. Conjunct 1 concerns only the right-right diagonal."
+        ],
+        "conjuncts": [
+          "Two unconditional right-right diagonal equalities for each i, one for P and one for R.",
+          "Conditional whole-matrix inequality between P and R.",
+          "One unconditional zero block for Q and three unconditional entrywise block agreements between Q and P.",
+          "Conditional whole-matrix equality between Q and R."
+        ],
+        "external_dependencies": [
+          "The imported definitions of CMatrix, eq29PrintedClean, eq29PhaseBalancedClean, S1, and IsHermitian are absent from the view. Their formulas, phase conventions, and normalization are unspecified by this text beyond the asserted relations."
+        ]
+      }
+    },
+    {
+      "anonymous_id": "H2",
+      "reconstructed_statement": "Both of the following hold. (1) For every iota : Type u and kappa : Type v with Fintype iota, Fintype kappa and DecidableEq kappa, for every S, T : CMatrix iota iota and X : CMatrix kappa kappa, if IsHermitian S, IsHermitian T, and IsHermitian X, then IsHermitian (add (tensor S X) (tensor T (identity kappa))). (2) There exist n and m in the natural numbers, S and T in CMatrix (Fin n) (Fin n), and X in CMatrix (Fin m) (Fin m), such that IsHermitian S, IsHermitian T, not IsHermitian X, and not IsHermitian (add (tensor S X) (tensor T (identity (Fin m)))).",
+      "scope": {
+        "imports": [
+          "QuantumBlockEncoding.GHLHamiltonian"
+        ],
+        "universes": [
+          "u",
+          "v"
+        ],
+        "quantifiers": [
+          "The left conjunct universally binds iota : Type u, kappa : Type v, the three listed instances, S, T : CMatrix iota iota, and X : CMatrix kappa kappa.",
+          "The right conjunct independently existentially binds n, m : Nat, S, T : CMatrix (Fin n) (Fin n), and X : CMatrix (Fin m) (Fin m). No explicit inequality or positivity premise on n or m is displayed."
+        ],
+        "assumptions": [
+          "The universal assertion uses Fintype instances for both index types and a DecidableEq instance for kappa.",
+          "The universal implication has three successive Hermiticity premises, for S, T and X. In the existential assertion, Hermiticity of S and T and non-Hermiticity of X are requirements on the same witnesses as the non-Hermitian result."
+        ],
+        "conventions": [
+          "The first term is tensor S X and the second is tensor T with the identity on the X index type.",
+          "IsHermitian is the imported predicate. add, tensor and identity are the imported matrix operations in the displayed operand order."
+        ],
+        "conjuncts": [
+          "A universal sufficient condition for the sum of the two tensors to satisfy IsHermitian.",
+          "A finite-dimensional instance where S and T satisfy IsHermitian and both X and the sum of the two tensors fail IsHermitian."
+        ],
+        "external_dependencies": [
+          "The imported definitions of CMatrix, IsHermitian, add, tensor, and identity are absent from the view. Their definitions and the tensor indexing convention cannot be recovered from the target alone.",
+          "The existential assertion leaves the dimensions and entries of its witnesses open."
+        ]
+      }
+    }
+  ]
+}

@@ -63,7 +63,7 @@ def presentation_contract():
              "website/scripts/qcb_expert.py", "website/static/qcb-expert.css", "website/static/qcb-expert.js",
              "website/scripts/qcb_benchmark_center.py", "benchmarks/quantumcomputingbench/src/qcb_bench_runtime.py",
              "website/scripts/qcb_navigation.py", "website/static/quantumcomputingbench.css", "website/static/quantumcomputingbench.js",
-             "website/scripts/qcb_lean_reader.py",
+             "website/scripts/qcb_lean_reader.py", "website/scripts/qcb_lean_qa_reader.py",
              "website/scripts/qcb_assessment_reader.py", "benchmarks/quantumcomputingbench/src/qcb_assessment_bank.py",
              "benchmarks/quantumcomputingbench/src/qcb_assessment_protocol.py", "benchmarks/quantumcomputingbench/scripts/assessment.py",
              "benchmarks/quantumcomputingbench/tracks/lean/assessment-v2/seal.json",
@@ -591,6 +591,7 @@ def publish(root):
     from website.scripts.qcb_navigation import local_nav, overview, publish_navigation
     from website.scripts.qcb_lean_reader import publish_lean_route
     from website.scripts.qcb_lean_downloads import write_downloads as write_lean_downloads
+    from website.scripts import qcb_lean_qa_reader
     from website.scripts.qcb_expert import build_expert_index, publish_expert
     from website.scripts.qcb_workbook_reader import publish_workbook
     from website.scripts.research_atlas import patch_navigation
@@ -606,9 +607,11 @@ def publish(root):
     context = site.git_context()
     if not report["leanGate"].get("passed") or report["leanGate"].get("commit") != context["commit"]:
         raise ValueError("textbook publication requires the current passed repository Lean gate")
+    lean_qa = qcb_lean_qa_reader.publication(context["commit"])
     graph_path = root / "data/lean-graph.json"
     graph_hash = hashlib.sha256(graph_path.read_bytes()).hexdigest()
-    live_ids = {n["id"] for n in read_json(graph_path)["nodes"]}
+    live_nodes = {n["id"]: n for n in read_json(graph_path)["nodes"]}
+    live_ids = set(live_nodes)
     data_dir = root / "data/quantumcomputingbench"
     lean_downloads = write_lean_downloads(data_dir / 'lean-course')
     registry = build_registry()
@@ -641,6 +644,10 @@ def publish(root):
     entries, routes = [], []
 
     def write(route, title, body, description, searchable=True):
+        companion_link = qcb_lean_qa_reader.entry_links(route, lean_qa)
+        if companion_link:
+            marker = '</h1>' if route.startswith(HUB + 'cores/') else '</div>'
+            body = body.replace(marker, marker + companion_link, 1)
         body = local_nav(route) + body
         site.write_page(root, route, site.page_template(
             title=title, route=route, current=route, body=body,
@@ -688,6 +695,11 @@ def publish(root):
     lean_subjects = '<div class="qcb-grid">' + ''.join('<article class="qcb-card"><h2><a href="' + part['id'] + '/index.html">' + esc(part['title']) + '</a></h2>' + prose(part['summary']) + '</article>' for part in catalog['parts']) + '</div>'
     lean_route = publish_lean_route(write, intro, catalog, course_plan, course_label,
                                    exercise_cards(admitted, '../../', items, 'lean') if admitted else '', lean_subjects)
+    def companion_source_url(path, line):
+        return site.external_source_url(path, line, context) if context.get("repository") else None
+
+    lean_qa_report = qcb_lean_qa_reader.publish(
+        write, intro, section, disclosure, companion_source_url, data_dir, lean_qa, live_nodes)
     workbook_start = len(routes)
     workbook_report = publish_workbook(write, intro, workbook, graph, live_ids, context['commit'])
     workbook_report['routes'] = routes[workbook_start:]
@@ -788,6 +800,8 @@ def publish(root):
                 "withheld_routes": withheld_routes, "historical_native_core_count": catalog["historical_native_core_count"],
                 "legacy_reference_warmups": 3, "stable": False,
                 "leanGraphSha256": graph_hash, "source_commit": context["commit"]}
+    if lean_qa_report is not None:
+        manifest["lean_qa_v1"] = lean_qa_report
     write_json(data_dir / "reader.json", manifest)
     for filename in ("site-metadata.json", "build-report.json"):
         value = read_json(root / filename)
@@ -802,7 +816,9 @@ def publish(root):
 def check_site(root):
     from qcb_nonlean_workbook import load_workbook
     from qcb_nonlean_workbook import verify_downloads as verify_workbook_downloads
+    from website.scripts import qcb_lean_qa_reader
     manifest = read_json(root / "data/quantumcomputingbench/reader.json")
+    qcb_lean_qa_reader.check(root, manifest)
     catalog, items, graph = load_catalog()
     workbook = load_workbook()
     verify_workbook_downloads(root / 'data/quantumcomputingbench/nonlean-workbook', workbook)
