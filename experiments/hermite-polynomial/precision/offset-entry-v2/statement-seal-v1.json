@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "version": 2,
+  "kind": "immutable-pre-implementation-executable-entry-contract",
+  "status": "ENTRY_CONTRACT_SEALED_BEFORE_IMPLEMENTATION",
+  "parent": {
+    "source": "experiments/hermite-polynomial/precision/offset-source/offset_source.py",
+    "sha256": "908acb0c17eb0b181d877de95858c8416ca875efe856fe9d649dfddce0d37a81",
+    "finding": "OFFSET-AUDIT-VALIDATION-01"
+  },
+  "scientific_target_changed": false,
+  "scope": "Executable argument validation only; not a new mathematical source Anchor, Lean ROOT, scalar enclosure or global epsilon certificate.",
+  "interface": "offset_hermite_tt_checked(n: int, k: int, length: Fraction, coefficient_tolerance: Fraction=Fraction(1,10**14)) -> exact underlying (TT,metadata) tuple or ValueError",
+  "input_contract": {
+    "n": "type is exactly int and n>=1",
+    "k": "type is exactly int and k>=0",
+    "length": "positive Fraction (including subclasses accepted by isinstance)",
+    "coefficient_tolerance": "positive exact Fraction, uniformly even for zero polynomial injections"
+  },
+  "behavior": {
+    "invalid": "ValueError before invoking the frozen constructor; no returned tuple/certificate",
+    "valid": "Delegate once, unchanged arguments and unchanged returned objects; propagate original constructor exceptions. No copies, fallback, retries or altered numeric behavior.",
+    "local_tolerance": "Only absolute polynomial coefficient tolerance, not global state epsilon"
+  },
+  "tests_sealed": [
+    "Reject zero/negative/float/bool/nonfinite/string local budgets before delegate, including actual large-L zero-injection regime",
+    "Reject boolean/non-integer/invalid n,k and non-Fraction/nonpositive L before delegate",
+    "One valid delegated call returns identical objects and forwards arguments",
+    "Actual n4,k0,L1000 bypass remains reproducible in frozen parent but is rejected by checked entry",
+    "Actual valid n2,k0,L1/10^100 and n3,k1,L1 equal frozen core bytes and metadata",
+    "Unattainable positive local tolerance exceptions propagate unchanged"
+  ],
+  "trusted_boundary": "No verifier/controller/scoring/target/log/production changes. Frozen implementation/reviews/seals retained.",
+  "rollback": "Stop calling optional checked entry; underlying frozen constructor unchanged.",
+  "assumption_classification": {
+    "n_k_types": "TYPING",
+    "positive_L": "SOURCE",
+    "positive_coefficient_tolerance": "finite local diagnostic input, not additional scientific assumption"
+  },
+  "proof_search": "none: deterministic input testing; no new Lean theorem advertised"
+}

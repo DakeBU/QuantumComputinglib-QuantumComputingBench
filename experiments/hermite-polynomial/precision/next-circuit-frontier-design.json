@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "status": "DESIGN_ONLY",
+  "frontier_class": "SOURCE_GAP",
+  "direction_fingerprint": "actual-saved-stage-action-to-full-terminal-bond-TT-residual",
+  "author_identity": "root/hermite_dyadic_supplier:scoped-read-only-frontier-design",
+  "recorded_at_utc": "2026-10-08 13:09:43 UTC",
+  "scope": "Read-only concrete next-cohort design. No new code, lemma, proof, compilation, producer invocation, saved input, controller, mathematical source assumption, external/child agent, commit or push.",
+  "context": "Reused actual source/provider memory and own SafeEnclosure/RationalBudget authorship; fresh file inspection of the actual compiler/export/replay chain. Not fresh whole-chain independence or scientific review.",
+  "scientific_conventions": "Original normalized signed Hermite samples unchanged; physical q0 is LSB. No phase quotient, postselection, discarded terminal garbage or source replacement.",
+  "bindings": [
+    {
+      "path": "experiments/hermite-polynomial/precision/offset-source/offset_source.py",
+      "sha256": "908acb0c17eb0b181d877de95858c8416ca875efe856fe9d649dfddce0d37a81"
+    },
+    {
+      "path": "experiments/hermite-polynomial/precision/offset-source/test_offset_source.py",
+      "sha256": "678e0527e2018cbec09dd47dbf5a185201b799c3602042ef5b41b66f1cd6b3cb"
+    },
+    {
+      "path": "experiments/hermite-polynomial/mps/scaled_canonicalize.py",
+      "sha256": "7154179bd54addf22d8cf365cc29e6b195392bee2d182989c49b5f1fa4bff879"
+    },
+    {
+      "path": "experiments/hermite-polynomial/mps/mps_core_probe.py",
+      "sha256": "1ef28771ee4e4e153cc54fb8247c1e033eea70c137f6fe4506f90fe9ddd0f693"
+    },
+    {
+      "path": "experiments/hermite-polynomial/mps/mps_ry_compiler.py",
+      "sha256": "9f4977ce291f6ef0bf05fc2d558dc8ec80c0c0ccc6dbfc9658cae5d9d0d0bbeb"
+    },
+    {
+      "path": "experiments/hermite-polynomial/mps/replay_mps_qasm.py",
+      "sha256": "3853d93220111ed816c4d7720b38eef18d449cd7a5a24ac262a150060096dd24"
+    },
+    {
+      "path": "experiments/hermite-polynomial/precision/transport/generate_saved_inputs.py",
+      "sha256": "e6efef794ff7fa0fbe5bb70c5009a363437f812b34b1141e2c107bbe935c16e6"
+    },
+    {
+      "path": "experiments/hermite-polynomial/precision/transport/audit_decimal_qasm.py",
+      "sha256": "4ab395c47139c19b8d57110419f74b6b272b8dba1e93051874285acac2f0d2ff"
+    },
+    {
+      "path": "experiments/hermite-polynomial/precision/qr-residual/QRResidual.lean",
+      "sha256": "b0ce233cd5e586fd09c0176a0f5be5284d3110ffda56fc0c06c99e89db393e8f"
+    },
+    {
+      "path": "experiments/hermite-polynomial/precision/qr-residual/qr_residual.py",
+      "sha256": "11b5398a945edeb465eafe3c8339336d7ab49ffb0a32c62637936aa1ec501bba"
+    }
+  ],
+  "actual_routes": [
+    {
+      "location": "experiments/hermite-polynomial/precision/offset-source/test_offset_source.py:80",
+      "route": "actual_pipeline: offset_hermite_tt -> scaled_right_canonicalize -> compile_mps(canonical) -> plan.qiskit_circuit",
+      "limitations": "This OffsetSource path exists as a finite diagnostic. The new QR residual wrapper is not wired into it; adding a separate trace consumer must retain the identical returned D object/bytes. The test's expected source vector is diagnostic, not constructor input."
+    },
+    {
+      "location": "experiments/hermite-polynomial/precision/transport/generate_saved_inputs.py:22",
+      "route": "generate: stable_hermite_tt -> compile_mps(raw) -> list(plan.gates()) + plan.write_qasm2",
+      "limitations": "This frozen transport generator uses the older stable source, NOT OffsetSource or the scaled-return QRResidual entry. Its saved fixtures cannot automatically be relabeled as the new source/QR packet."
+    },
+    {
+      "location": "experiments/hermite-polynomial/mps/mps_ry_compiler.py:142",
+      "route": "qiskit_circuit consumes plan.gates binary64 angles; write_qasm2 at152 regenerates same iterator and prints angles with .17g",
+      "limitations": "Saved decimal semantics, parsed binary64 semantics and original binary64 angle semantics are distinct targets; hash and bind the same actual plan/chronology."
+    }
+  ],
+  "escape_points": [
+    {
+      "location": "experiments/hermite-polynomial/precision/qr-residual/qr_residual.py:246",
+      "finding": "QRResidual only certifies the same scaled_right_canonicalize output D and its literal ScaledNorm against normalized stored raw C. It has no compiler/saved-action consumer."
+    },
+    {
+      "location": "experiments/hermite-polynomial/mps/mps_ry_compiler.py:164",
+      "finding": "compile_mps(D) calls right_canonicalize(prune_zero_paths(D)); it does not preserve D's cores. Exact stored-zero pruning preserves zero paths only by an unproved code-level adapter; repeated QR/absorption/head normalization creates a new stored E."
+    },
+    {
+      "location": "experiments/hermite-polynomial/mps/mps_core_probe.py:235",
+      "finding": "The repeated right_canonicalize uses NumPy reduced QR, einsum absorption, ordinary float norm and head division, not the scaled producer. MPSPlan.norm is this new computed float, not the already-certified ScaledNorm."
+    },
+    {
+      "location": "experiments/hermite-polynomial/mps/mps_ry_compiler.py:38",
+      "finding": "complete_isometry pads each E core to 2B, checks approximate isometry, obtains a complete QR complement, overwrites prescribed columns and may flip determinant sign. Tolerance checks are not exact orthogonality or core-action certificates; completed U is not stored in MPSPlan."
+    },
+    {
+      "location": "experiments/hermite-polynomial/mps/mps_ry_compiler.py:57",
+      "finding": "adjacent_gray_elimination performs rounded hypot/division/row updates and atan2, then reverses rotation order. Its float residual measures elimination-to-identity, not saved primitive action error. MPSPlan.max_completion_error actually aggregates these elimination residuals, not a complete global completion/error proof."
+    },
+    {
+      "location": "experiments/hermite-polynomial/mps/mps_ry_compiler.py:88",
+      "finding": "expand_edge_rotation applies floating sign/scaling to angles and Gray/Walsh RY/CX expansion. gates at131 maps local data highest and low bond bits to global data n-1-offset and ancillas n..n+a-1. Exact backend identities do not by themselves refine this floating implementation."
+    },
+    {
+      "location": "experiments/hermite-polynomial/mps/mps_ry_compiler.py:152",
+      "finding": "write_qasm2 prints real angle tokens .17g. Existing auditor distinguishes exact decimals from actual binary64 reference and records transport bounds, but supplies no full state or Python-to-Lean parser/primitive bridge."
+    }
+  ],
+  "minimal_next_cohort": {
+    "objective": "Construct an exact-rational surrogate TT of the FULL action of the SAME saved RY/CX list, then separately certify its distance to that saved mathematical quantum action and to E(D), with E(D) the literal signed scaled-return D padded by zero ancillas.",
+    "first_case": "n=3,k=1,L=Fraction(1). Obtain actual OffsetSource raw C, one certified scaled return D,s, then one unmodified compile_mps(D) plan and actual saved bytes. This is a proposed NEW tiny fixture; do not claim older stable-source transport fixtures already follow this route.",
+    "bounded_budget": "First n<=3, bond B<=16, <=50000 saved primitives, fixed explicit rational trig enclosure/refinement and text/input limits. Report LIMIT_REACHED/IMPLEMENTATION_FAILED if exceeded. These experiment caps are not source-family restrictions or mathematical impossibility.",
+    "trace_only": "In a future new experimental wrapper, record core bytes/shape hashes for C and D and the exact frozen call return; capture compile_mps's pruning/repeated-QR E, per-stage completed float matrices and plane lists using observer wrappers that forward unchanged calls/returns. Diagnostic trace is optional provenance and localization, not a new compiler, free matrix oracle or trusted ideal action.",
+    "minimum_checks": [
+      "Exact byte/plan identity and chronological gate ranges for all n stages, including empty stages.",
+      "QASM type/wire/order validation against actual source manifest; reject reused-data stages, cross-stage wires, missing/extra instructions and malformed tokens.",
+      "Reference data is D, not freshly normalized D, reconstructed E, independent dense source samples or a phase-aligned vector.",
+      "Retain every final bond label, including padded/unreachable labels; no threshold pruning or zero-garbage assertion.",
+      "Own small dense replay only as diagnostic; primary checker input is local stage matrix/enclosure and TT cores, never 2^n amplitudes.",
+      "Adversaries: one angle/sign/wire/order change, a final ancilla X implemented in RY/CX if desired, active-bond-only truncation, zero/deficient/tall core, empty stage and parser decimal/binary64 mismatch. A valid large residual is not an accuracy-success verdict."
+    ]
+  },
+  "proposed_interfaces": [
+    {
+      "name": "SavedStageWord",
+      "type": "{n:Nat>=1,a:Nat,B=2^a; saved_bytes:bytes; gate_stream:list(RY(theta:Rat,wire:Fin(n+a)) | CX(control,target:Fin(n+a))); stage_spans:Vector n (start,count); byte_hash; manifest_hash}",
+      "contract": "Choose exact textual decimal theta for the primary saved semantics. Validate actual bytes and full chronological partition. Stage i touches only ancillas n..n+a-1 and fresh data n-1-i, with no later reuse of that data. Spans come from the SAME actual plan, including empty stages, and are independently checked; a manifest is provenance, not a primitive-action theorem."
+    },
+    {
+      "name": "FiniteTrigStageEnclosure",
+      "type": "(SavedStageWord, explicit rational precision/refinement budget) -> Result(Vector n MatrixEnclosure(Fin(2B),Fin(2B),Rat) | diagnostic_failure)",
+      "contract": "Produce sound rational sin(theta/2),cos(theta/2) intervals by a concrete finite algorithm, then compose actual local RY/CX matrices in saved order. This supplier and its mathematical soundness remain to be implemented/proved; do not assume a free exact-real evaluator. Explicit finite theta/range/text caps may fail honestly."
+    },
+    {
+      "name": "RationalStageSurrogate",
+      "type": "For each stage i: center Uhat_i:Matrix(Fin(2B),Fin(2B),Rat), entry_error delta_i:Rat>=0, eta_i=(2B)*delta_i",
+      "contract": "Center is selected deterministically from rational matrix intervals. If all entries of the true stage action lie within delta_i, Frobenius/operator error <=(2B)*delta_i is a proposed derivation, not a supplied success assumption. Completed float U_i may be decoded exactly for separate localization but MUST NOT be treated as the true saved action."
+    },
+    {
+      "name": "FullTerminalActionChain",
+      "type": "(Vector n Uhat_i, B=2^a) -> validated rational core chain of n+a physical bits, scalar boundaries",
+      "contract": "For each stage, K_i[incoming,bit,outgoing]=Uhat_i[bit*B+outgoing,incoming], i.e. the input data bit is fresh zero. Initial incoming bond is 0; all subsequent bonds have full size B. Keep the last outgoing B label and append a deterministic a-bit readout chain, NOT projection onto terminal label0."
+    },
+    {
+      "name": "LiteralReturnedTTEmbedding",
+      "type": "actual D float64 TT -> exact rational Dhat + a zero-ancilla product cores -> scalar-boundary chain n+a",
+      "contract": "Decode actual D exactly. Embed E(D)(j,b)=D(j) if b=0 and 0 otherwise, without renormalizing D or discarding residual source/canonicalization error. A mechanically proved decoder still remains a separate missing interface."
+    },
+    {
+      "name": "FullSavedActionResidualPacket",
+      "type": "{hashes, dimensions, stage_spans, rational chains Qhat,E(D), exact G_Qhat,G_D,cross,q, directed r, stage eta, sigma, measured work} -> diagnostic/certificate candidate",
+      "contract": "Compute q=G_Qhat+G_D-2*cross and directed r^2>=q. Reuse QRResidual.residual_identity with s=1 for literal pair distance; DO NOT call certificate_to_normalized in a way that silently replaces D by normalize(D). Three cross-Gram passes apply to scalar-boundary appended chains. Ordinary certify_pair currently requires float64 input and normalizes its raw target, so it is not the desired drop-in consumer for rational surrogate versus literal D."
+    }
+  ],
+  "full_garbage_topology": {
+    "coordinate_map": "Core words are ordered data n-1..0 first, then ancilla a-1..0 readout. Explicit bijection phi(word)=(j,b) maps to physical full-register integer j+2^n*b. This differs from a naive global-MSB-first TT listing and must be proved/checked; both compared chains use the same bijection.",
+    "terminal_readout": "A rational delta routing chain emits the MSB of b at each readout step and carries the remaining low bits, with bonds B,B/2,...,1. For a=0 this is the empty tail. It preserves all B terminal sectors exactly.",
+    "full_residual": "Sum over every data word AND every final ancilla word of (Qhat(j,b)-E(D)(j,b))^2. Cross-Gram over n+a sites captures garbage and signed target mismatch jointly. It is neither postselection nor a zero-garbage-only overlap.",
+    "stage_semantics_gap": "Need an actual local-saved-gate-to-matrix and stage-to-sequential-chain refinement. Chronological fresh-data access is the compactness condition. If it fails, reject this specialized compact adapter; generic circuit contraction may have exponential width."
+  },
+  "prospective_error_accounting": {
+    "stage_surrogate": "The proposed true stage U_i is unitary under exact RY/CX semantics. Uhat_i need not be unitary: ||Uhat_i||<=1+eta_i. A conservative telescope gives sigma=product_i(1+eta_i)-1 for ||actual_saved_state-Qhat||. Do not use sum eta_i with unproved unitary surrogate factors. This inequality and producer enclosure soundness are future proof work, not current assumptions added to the scientific source.",
+    "literal_target": "Then ||actual_saved_state-E(D)||<=sigma+r, where r bounds exact full rational pair residual.",
+    "stored_raw": "If the SAME D already has QRResidual rho=r_QR+tau_QR against normalize(C), triangle composition can add rho. The target remains literal signed normalized stored C, not ideal Hermite.",
+    "source_gap": "To reach scientific Hermite target still need an independently supplied ideal-source-to-stored-C bound and source norm floor, plus decoder/parser/primitive refinement and total finite-data cost. None is closed by this design.",
+    "parser_alternative": "If choosing actual parser's binary64 angles instead of exact decimal semantics, bind that parser interpretation explicitly and add the separately measured decimal/binary64 RY perturbation budget; do not mix semantics or advertise .17g byte transport as strict exact angle identity."
+  },
+  "work_model": {
+    "stage_storage": "Only local 2B by2B matrices and O(nB^2) rational cores plus terminal readout. No 2^n amplitude input/output table. Completed floating matrices are diagnostics, not free arbitrary unitaries.",
+    "stage_cost": "A future primitive row-pair/permutation implementation can charge O(G*(2B)^2) rational interval operations for G primitives; generic dense multiplication would instead charge O(G*(2B)^3). Record the actually implemented schedule. These are design models, not proved current runtime/optimization claims.",
+    "cross_gram": "With T=n+a and M=max(B, actual D max bond,1), the existing declared three-pass model is <=27*T*M^3 rational additions/multiplications after rational-chain embedding. The current Python interpreter bridge and rational-chain validation remain required.",
+    "finite_bit": "Charge rational decoding, interval endpoint numerator/denominator growth, trig range reduction/Taylor or equivalent steps, shifts, GCD/division, sqrt rounding, allocations, output text, stage matrices and QR separately. Measure operand/intermediate bits; no uniform polynomial bit/runtime theorem is inferred.",
+    "not_accepted": "No lower bound, optimality, all-k success, arbitrary-epsilon float64 success, ROOT or publication claim."
+  },
+  "potential_failures": [
+    "Repeated legacy QR may overflow/underflow or change the returned TT beyond desired tolerance; record the exact failure.",
+    "Approximate completion/determinant/Gray elimination checks may fail; max_completion_error alone is not a state certificate.",
+    "Stage interval dependency growth may be wide; midpoint surrogates can be nonunitary and amplify errors.",
+    "Saved instruction grouping, bit endian or ancilla readout mistakes can falsely omit terminal garbage.",
+    "Large residual/certificate cap, missing sound trig producer, decoder or parser bridge must remain SOURCE_GAP rather than conditional scientific success.",
+    "Ideal OffsetSource errors, fixed cutoff cap and float polynomial/exponential errors remain upstream even if saved action matches stored D tightly."
+  ],
+  "handoff": {
+    "implementation_performed": false,
+    "new_lemma_or_proof_performed": false,
+    "compile_or_tests_performed": false,
+    "only_new_file": "experiments/hermite-polynomial/precision/next-circuit-frontier-design.json",
+    "frozen_inputs_changed": false,
+    "external_or_child_agents_called": false,
+    "commit_or_push": false,
+    "live_handles": [],
+    "recommended_priority": "Seal a narrow stage-chronology/full-terminal-readout interface first, then tiny actual OffsetSource n3k1L1 saved-action diagnostic with exact rational surrogate residual. Sound finite trig interval generation/refinement is the first substantive producer-proof boundary; do not silently assume it."
+  }
+}

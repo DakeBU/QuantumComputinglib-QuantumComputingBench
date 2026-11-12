@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "evidence_class": "C_INTERNAL_PROVIDER",
+  "status": "STATEMENT_SEALED_BEFORE_OPERATOR_PROOF",
+  "parent_seal": "statement-seal-v1.json",
+  "definitions": {
+    "entryRadius": "Interval -> Rat; (hi-lo)/2",
+    "maxRadius": "IntervalMatrix width -> Rat; finite supremum over all 2^width by 2^width entries, no projection or excluded sectors",
+    "stageCenter": "word degree bits -> RealMatrix width; cast each final interval midpoint after complete word only",
+    "stageEta": "word degree bits -> Rat; 2^width * maxRadius(intervalWord word degree bits intervalIdentity)"
+  },
+  "frozen_root": "forall {width : Nat} (word : List(Instruction width)) (degree bits : Nat), norm(Matrix.toEuclideanCLM (stageCenter word degree bits - realWord word realIdentity)) <= Rat.cast(stageEta word degree bits)",
+  "binder_audit": "Only TYPING/data width, valid literal word, degree, bits. No entry bound, Valid, contraction or unitarity hypotheses at stage root. General library entry-bound theorem may take entry bounds as its local interface; stage root discharges them by stage_enclosure/midpoint_error.",
+  "definition_audit": "Literal rational finite supremum and stage-end midpoint. Norm is explicit real Euclidean induced operator norm, not global Matrix entrywise norm. No choice/quotient semantics.",
+  "proof_graph_before_Lean": ["unconditional full interval stage enclosure", "stage-end midpoint entry bound", "finite max radius and nonnegativity", "Cauchy-Schwarz bound per real row", "sum over dimension yields squared norm <= size^2 * maxradius^2 * vectornorm^2", "continuous linear map operator bound"],
+  "excluded": ["nominal stage contraction and NonunitaryTransport.Valid integration", "complex extension/PrimitiveSemantics adapter", "runtime/physical stage spans", "scientific ROOT", "finite-bit costs"],
+  "scientific_root": false,
+  "source_anchor": false
+}

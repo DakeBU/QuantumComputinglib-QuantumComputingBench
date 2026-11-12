@@ -1,0 +1,40 @@
+import QuantumBlockEncoding.ConstructiveTensorTrain
+
+set_option pp.universes true
+set_option pp.explicit true
+set_option pp.fullNames true
+
+#check @QuantumBlockEncoding.ConstructiveTensorTrain.CoreFactorization
+#check @QuantumBlockEncoding.ConstructiveTensorTrain.factorCore
+#check @QuantumBlockEncoding.ConstructiveTensorTrain.Result
+#check @QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize
+#check @QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_rightCanonical
+#check @QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_rankReduced
+#check @QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_action
+#check @QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_maxBond_le
+#check @QuantumBlockEncoding.ConstructiveTensorTrain.boundary
+#check @QuantumBlockEncoding.ConstructiveTensorTrain.boundary_action
+#check @QuantumBlockEncoding.ConstructiveTensorTrain.boundary_mass
+#check @QuantumBlockEncoding.ConstructiveTensorTrain.boundary_normalized
+#check @QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary
+#check @QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary_action
+#check @QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary_normalized
+
+#print axioms QuantumBlockEncoding.ConstructiveTensorTrain.CoreFactorization
+#print axioms QuantumBlockEncoding.ConstructiveTensorTrain.factorCore
+#print axioms QuantumBlockEncoding.ConstructiveTensorTrain.Result
+#print axioms QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize
+#print axioms QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_rightCanonical
+#print axioms QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_rankReduced
+#print axioms QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_action
+#print axioms QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_maxBond_le
+#print axioms QuantumBlockEncoding.ConstructiveTensorTrain.boundary
+#print axioms QuantumBlockEncoding.ConstructiveTensorTrain.boundary_action
+#print axioms QuantumBlockEncoding.ConstructiveTensorTrain.boundary_mass
+#print axioms QuantumBlockEncoding.ConstructiveTensorTrain.boundary_normalized
+#print axioms QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary
+#print axioms QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary_action
+#print axioms QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary_normalized
+
+#print QuantumBlockEncoding.ConstructiveTensorTrain.CoreFactorization
+#print QuantumBlockEncoding.ConstructiveTensorTrain.Result

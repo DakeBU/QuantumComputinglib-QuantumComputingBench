@@ -141,6 +141,12 @@ theorem warmRobinUniformSevenPrepare_probability (slot : Fin 8) :
     Fintype.sum_equiv (primitiveBasisLEEquiv 3) f
       (fun index => f ((primitiveBasisLEEquiv 3).symm index))
       (fun _ => by simp)
+  have flattenedEntry (row column : Fin 8) :
+      warmRobinPaperSevenSelectorPrepare row column =
+        warmRobinUniformSevenPrepareMatrix
+          ((primitiveBasisLEEquiv 3).symm row)
+          ((primitiveBasisLEEquiv 3).symm column) := by
+    rfl
   have piQuarter : Real.pi * (2 : Real)⁻¹ / 2 = Real.pi / 4 := by ring
   have complexPiQuarter :
       (↑Real.pi * (2 : ℂ)⁻¹ / 2) =
@@ -244,6 +250,7 @@ theorem warmRobinUniformSevenPrepare_probability (slot : Fin 8) :
         (1 / 7 : Real) := by
     rw [tailSinSquare, highSinSquare]
     norm_num
+  rw [flattenedEntry]
   fin_cases slot <;>
     simp [warmRobinPaperSevenSelectorPrepare,
       warmRobinUniformSevenPrepareMatrix,

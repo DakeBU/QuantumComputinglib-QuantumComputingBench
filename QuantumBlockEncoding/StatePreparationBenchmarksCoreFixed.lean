@@ -38,7 +38,7 @@ theorem bellTarget_normalized : bellTarget.normalization := by
       Complex.normSq_apply]
   norm_num [bellState, Finset.sum_range_succ, hs]
 
-noncomputable def bellMatrix : FiniteMatrix (gridSize 2) (gridSize 2) ℂ :=
+noncomputable def bellMatrix : FiniteMatrix 4 4 ℂ :=
   fun row column =>
     match row.val, column.val with
     | 0, 0 => bellAmplitude
@@ -58,14 +58,15 @@ theorem star_bellMatrix : star bellMatrix = bellMatrix := by
 
 theorem bellMatrix_unitary :
     bellMatrix ∈ _root_.Matrix.unitaryGroup (Fin (gridSize 2)) ℂ := by
+  change bellMatrix ∈ _root_.Matrix.unitaryGroup (Fin 4) ℂ
   have hmul : bellAmplitude * bellAmplitude = (1 : ℂ) / 2 := by
     simpa [bellAmplitude] using TextbookStatePreparation.invSqrtTwo_mul_self
   rw [_root_.Matrix.mem_unitaryGroup_iff, star_bellMatrix]
   ext row column
   fin_cases row <;> fin_cases column <;>
     rw [_root_.Matrix.mul_apply, Finset.sum_fin_eq_sum_range] <;>
-    norm_num [gridSize, bellMatrix, Finset.sum_range_succ] <;>
-    simp [hmul] <;> norm_num
+    norm_num [gridSize, bellMatrix, Finset.sum_range_succ,
+      _root_.Matrix.one_apply, hmul]
 
 noncomputable def bellGate : ComplexUnitaryGate 2 where
   matrix := bellMatrix
@@ -73,10 +74,12 @@ noncomputable def bellGate : ComplexUnitaryGate 2 where
 
 theorem bellMatrix_prepares_target :
     applyVec bellMatrix (zeroKet 2) = bellTarget.amplitudes := by
-  rw [applyVec_zeroKet]
-  change bellMatrix.col (0 : Fin 4) = bellState
+  change applyVec bellMatrix (basisKet 4 (0 : Fin 4)) =
+    (fun index : Fin 4 =>
+      if index.val = 0 ∨ index.val = 3 then bellAmplitude else 0)
+  rw [applyVec_basisKet]
   funext row
-  fin_cases row <;> simp [bellMatrix, bellState, bellAmplitude]
+  fin_cases row <;> simp [bellMatrix, bellAmplitude]
 
 noncomputable def bellCertificate : ComplexStatePreparationCertificate 2 where
   target := bellTarget
@@ -105,7 +108,7 @@ theorem mottonenDenseTarget_normalized : mottonenDenseTarget.normalization := by
 
 /-- Rational quaternion completion with first column `(39,52,60,144)/169`. -/
 noncomputable def mottonenDenseMatrix :
-    FiniteMatrix (gridSize 2) (gridSize 2) ℂ := fun row column =>
+    FiniteMatrix 4 4 ℂ := fun row column =>
   match row.val, column.val with
   | 0, 0 => (39 : ℂ) / 169
   | 0, 1 => -(52 : ℂ) / 169
@@ -124,17 +127,20 @@ noncomputable def mottonenDenseMatrix :
   | 3, 2 => (52 : ℂ) / 169
   | _, _ => (39 : ℂ) / 169
 
+set_option maxHeartbeats 2000000 in
+set_option maxRecDepth 20000 in
 theorem mottonenDenseMatrix_unitary :
     mottonenDenseMatrix ∈
       _root_.Matrix.unitaryGroup (Fin (gridSize 2)) ℂ := by
+  change mottonenDenseMatrix ∈ _root_.Matrix.unitaryGroup (Fin 4) ℂ
   rw [_root_.Matrix.mem_unitaryGroup_iff']
   ext row column
   fin_cases row <;> fin_cases column <;>
     rw [_root_.Matrix.mul_apply, Finset.sum_fin_eq_sum_range] <;>
-    norm_num [mottonenDenseMatrix, Finset.sum_range_succ, gridSize,
-      _root_.Matrix.star_apply] <;>
-    simp only [starRingEnd_apply, star_ofNat] <;>
-    norm_num
+    simp only [Finset.sum_range_succ, Finset.sum_range_zero,
+      mottonenDenseMatrix, _root_.Matrix.star_apply,
+      _root_.Matrix.one_apply] <;>
+    apply Complex.ext <;> norm_num
 
 noncomputable def mottonenDenseGate : ComplexUnitaryGate 2 where
   matrix := mottonenDenseMatrix
@@ -143,10 +149,16 @@ noncomputable def mottonenDenseGate : ComplexUnitaryGate 2 where
 theorem mottonenDenseMatrix_prepares_target :
     applyVec mottonenDenseMatrix (zeroKet 2) =
       mottonenDenseTarget.amplitudes := by
-  rw [applyVec_zeroKet]
-  change mottonenDenseMatrix.col (0 : Fin 4) = mottonenDenseState
+  change applyVec mottonenDenseMatrix (basisKet 4 (0 : Fin 4)) =
+    (fun index : Fin 4 =>
+      match index.val with
+      | 0 => (39 : ℂ) / 169
+      | 1 => (52 : ℂ) / 169
+      | 2 => (60 : ℂ) / 169
+      | _ => (144 : ℂ) / 169)
+  rw [applyVec_basisKet]
   funext row
-  fin_cases row <;> norm_num [mottonenDenseMatrix, mottonenDenseState]
+  fin_cases row <;> norm_num [mottonenDenseMatrix]
 
 noncomputable def mottonenDenseCertificate :
     ComplexStatePreparationCertificate 2 where
@@ -178,7 +190,7 @@ theorem groverRudolphProductTarget_normalized :
     Finset.sum_range_succ]
 
 noncomputable def groverRudolphProductMatrix :
-    FiniteMatrix (gridSize 2) (gridSize 2) ℂ := fun row column =>
+    FiniteMatrix 4 4 ℂ := fun row column =>
   match row.val, column.val with
   | 0, 0 => (9 : ℂ) / 25
   | 0, 1 => -(12 : ℂ) / 25
@@ -197,17 +209,21 @@ noncomputable def groverRudolphProductMatrix :
   | 3, 2 => (12 : ℂ) / 25
   | _, _ => (9 : ℂ) / 25
 
+set_option maxHeartbeats 2000000 in
+set_option maxRecDepth 20000 in
 theorem groverRudolphProductMatrix_unitary :
     groverRudolphProductMatrix ∈
       _root_.Matrix.unitaryGroup (Fin (gridSize 2)) ℂ := by
+  change groverRudolphProductMatrix ∈
+    _root_.Matrix.unitaryGroup (Fin 4) ℂ
   rw [_root_.Matrix.mem_unitaryGroup_iff']
   ext row column
   fin_cases row <;> fin_cases column <;>
     rw [_root_.Matrix.mul_apply, Finset.sum_fin_eq_sum_range] <;>
-    norm_num [groverRudolphProductMatrix, Finset.sum_range_succ, gridSize,
-      _root_.Matrix.star_apply] <;>
-    simp only [starRingEnd_apply, star_ofNat] <;>
-    norm_num
+    simp only [Finset.sum_range_succ, Finset.sum_range_zero,
+      groverRudolphProductMatrix, _root_.Matrix.star_apply,
+      _root_.Matrix.one_apply] <;>
+    apply Complex.ext <;> norm_num
 
 noncomputable def groverRudolphProductGate : ComplexUnitaryGate 2 where
   matrix := groverRudolphProductMatrix
@@ -216,11 +232,16 @@ noncomputable def groverRudolphProductGate : ComplexUnitaryGate 2 where
 theorem groverRudolphProductMatrix_prepares_target :
     applyVec groverRudolphProductMatrix (zeroKet 2) =
       groverRudolphProductTarget.amplitudes := by
-  rw [applyVec_zeroKet]
-  change groverRudolphProductMatrix.col (0 : Fin 4) = groverRudolphProductState
+  change applyVec groverRudolphProductMatrix (basisKet 4 (0 : Fin 4)) =
+    (fun index : Fin 4 =>
+      match index.val with
+      | 0 => (9 : ℂ) / 25
+      | 1 => (12 : ℂ) / 25
+      | 2 => (12 : ℂ) / 25
+      | _ => (16 : ℂ) / 25)
+  rw [applyVec_basisKet]
   funext row
-  fin_cases row <;>
-    norm_num [groverRudolphProductMatrix, groverRudolphProductState]
+  fin_cases row <;> norm_num [groverRudolphProductMatrix]
 
 noncomputable def groverRudolphProductCertificate :
     ComplexStatePreparationCertificate 2 where
@@ -249,7 +270,7 @@ theorem sparseThreeTarget_normalized : sparseThreeTarget.normalization := by
 
 /-- Rational orthogonal completion on rows `0,2,4`, identity on the complement. -/
 noncomputable def sparseThreeMatrix :
-    FiniteMatrix (gridSize 3) (gridSize 3) ℂ := fun row column =>
+    FiniteMatrix 8 8 ℂ := fun row column =>
   match row.val, column.val with
   | 0, 0 => (3 : ℂ) / 13
   | 0, 1 => -(4 : ℂ) / 5
@@ -267,18 +288,20 @@ noncomputable def sparseThreeMatrix :
   | 7, 7 => 1
   | _, _ => 0
 
-set_option maxHeartbeats 1000000 in
+set_option maxHeartbeats 5000000 in
+set_option maxRecDepth 100000 in
 theorem sparseThreeMatrix_unitary :
     sparseThreeMatrix ∈
       _root_.Matrix.unitaryGroup (Fin (gridSize 3)) ℂ := by
+  change sparseThreeMatrix ∈ _root_.Matrix.unitaryGroup (Fin 8) ℂ
   rw [_root_.Matrix.mem_unitaryGroup_iff']
   ext row column
   fin_cases row <;> fin_cases column <;>
     rw [_root_.Matrix.mul_apply, Finset.sum_fin_eq_sum_range] <;>
-    norm_num [sparseThreeMatrix, Finset.sum_range_succ, gridSize,
-      _root_.Matrix.star_apply] <;>
-    simp only [starRingEnd_apply, star_ofNat] <;>
-    norm_num
+    simp only [Finset.sum_range_succ, Finset.sum_range_zero,
+      sparseThreeMatrix, _root_.Matrix.star_apply,
+      _root_.Matrix.one_apply] <;>
+    apply Complex.ext <;> norm_num
 
 noncomputable def sparseThreeGate : ComplexUnitaryGate 3 where
   matrix := sparseThreeMatrix
@@ -286,10 +309,15 @@ noncomputable def sparseThreeGate : ComplexUnitaryGate 3 where
 
 theorem sparseThreeMatrix_prepares_target :
     applyVec sparseThreeMatrix (zeroKet 3) = sparseThreeTarget.amplitudes := by
-  rw [applyVec_zeroKet]
-  change sparseThreeMatrix.col (0 : Fin 8) = sparseThreeState
+  change applyVec sparseThreeMatrix (basisKet 8 (0 : Fin 8)) =
+    (fun index : Fin 8 =>
+      if index.val = 0 then (3 : ℂ) / 13
+      else if index.val = 2 then (4 : ℂ) / 13
+      else if index.val = 4 then (12 : ℂ) / 13
+      else 0)
+  rw [applyVec_basisKet]
   funext row
-  fin_cases row <;> norm_num [sparseThreeMatrix, sparseThreeState]
+  fin_cases row <;> norm_num [sparseThreeMatrix]
 
 noncomputable def sparseThreeCertificate : ComplexStatePreparationCertificate 3 where
   target := sparseThreeTarget

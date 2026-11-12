@@ -1,0 +1,1806 @@
+{
+  "schema": "C43_EXPLICIT_GRAPH_VERSION_SUCCESSOR_NOT_ADMISSION",
+  "records": [
+    {
+      "module": "QuantumBlockEncoding/TextbookStatePreparation.lean",
+      "source_id": "aspbe-local-finite-sp-foundations-v2",
+      "source_statement": "Exact X and H matrices, physical normalization and first-column action; concrete certificates and generic display-circuit/resource wrappers; two literal one-gate cost records.",
+      "source_anchor": "finite-sp-foundations-v2:T; shared F/Q; lesson anchors T,F,Q",
+      "lesson_path": "docs/lessons/finite-sp-foundations-v2.md",
+      "declarations": [
+        "QuantumBlockEncoding.TextbookStatePreparation.hadamard",
+        "QuantumBlockEncoding.TextbookStatePreparation.hadamardCertificate",
+        "QuantumBlockEncoding.TextbookStatePreparation.hadamardCertificate_prepares_plus",
+        "QuantumBlockEncoding.TextbookStatePreparation.hadamardCircuit",
+        "QuantumBlockEncoding.TextbookStatePreparation.hadamardGate",
+        "QuantumBlockEncoding.TextbookStatePreparation.hadamardVerified",
+        "QuantumBlockEncoding.TextbookStatePreparation.hadamardVerified_cost",
+        "QuantumBlockEncoding.TextbookStatePreparation.hadamard_prepares_plus",
+        "QuantumBlockEncoding.TextbookStatePreparation.hadamard_unitary",
+        "QuantumBlockEncoding.TextbookStatePreparation.invSqrtTwo",
+        "QuantumBlockEncoding.TextbookStatePreparation.invSqrtTwo_mul_self",
+        "QuantumBlockEncoding.TextbookStatePreparation.oneIndex",
+        "QuantumBlockEncoding.TextbookStatePreparation.oneState",
+        "QuantumBlockEncoding.TextbookStatePreparation.oneTarget",
+        "QuantumBlockEncoding.TextbookStatePreparation.oneTarget_normalized",
+        "QuantumBlockEncoding.TextbookStatePreparation.pauliX",
+        "QuantumBlockEncoding.TextbookStatePreparation.pauliXCertificate",
+        "QuantumBlockEncoding.TextbookStatePreparation.pauliXCertificate_prepares_one",
+        "QuantumBlockEncoding.TextbookStatePreparation.pauliXCircuit",
+        "QuantumBlockEncoding.TextbookStatePreparation.pauliXGate",
+        "QuantumBlockEncoding.TextbookStatePreparation.pauliXVerified",
+        "QuantumBlockEncoding.TextbookStatePreparation.pauliXVerified_cost",
+        "QuantumBlockEncoding.TextbookStatePreparation.pauliX_prepares_one",
+        "QuantumBlockEncoding.TextbookStatePreparation.pauliX_unitary",
+        "QuantumBlockEncoding.TextbookStatePreparation.plusState",
+        "QuantumBlockEncoding.TextbookStatePreparation.plusTarget",
+        "QuantumBlockEncoding.TextbookStatePreparation.plusTarget_normalized",
+        "QuantumBlockEncoding.TextbookStatePreparation.star_hadamard",
+        "QuantumBlockEncoding.TextbookStatePreparation.zeroIndex"
+      ],
+      "obligation_map": [
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:T:QuantumBlockEncoding.TextbookStatePreparation.zeroIndex",
+          "lesson_anchor": "T",
+          "declarations": [
+            "QuantumBlockEncoding.TextbookStatePreparation.zeroIndex"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:T:QuantumBlockEncoding.TextbookStatePreparation.oneIndex",
+          "lesson_anchor": "T",
+          "declarations": [
+            "QuantumBlockEncoding.TextbookStatePreparation.oneIndex"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:T:QuantumBlockEncoding.TextbookStatePreparation.pauliX",
+          "lesson_anchor": "T",
+          "declarations": [
+            "QuantumBlockEncoding.TextbookStatePreparation.pauliX"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:T:QuantumBlockEncoding.TextbookStatePreparation.pauliX_unitary",
+          "lesson_anchor": "T",
+          "declarations": [
+            "QuantumBlockEncoding.TextbookStatePreparation.pauliX_unitary"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:T:QuantumBlockEncoding.TextbookStatePreparation.oneState",
+          "lesson_anchor": "T",
+          "declarations": [
+            "QuantumBlockEncoding.TextbookStatePreparation.oneState"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:T:QuantumBlockEncoding.TextbookStatePreparation.oneTarget",
+          "lesson_anchor": "T",
+          "declarations": [
+            "QuantumBlockEncoding.TextbookStatePreparation.oneTarget"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:T:QuantumBlockEncoding.TextbookStatePreparation.oneTarget_normalized",
+          "lesson_anchor": "T",
+          "declarations": [
+            "QuantumBlockEncoding.TextbookStatePreparation.oneTarget_normalized"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:T:QuantumBlockEncoding.TextbookStatePreparation.pauliX_prepares_one",
+          "lesson_anchor": "T",
+          "declarations": [
+            "QuantumBlockEncoding.TextbookStatePreparation.pauliX_prepares_one"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:T:QuantumBlockEncoding.TextbookStatePreparation.pauliXGate",
+          "lesson_anchor": "T",
+          "declarations": [
+            "QuantumBlockEncoding.TextbookStatePreparation.pauliXGate"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:T:QuantumBlockEncoding.TextbookStatePreparation.pauliXCertificate",
+          "lesson_anchor": "T",
+          "declarations": [
+            "QuantumBlockEncoding.TextbookStatePreparation.pauliXCertificate"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:T:QuantumBlockEncoding.TextbookStatePreparation.pauliXCircuit",
+          "lesson_anchor": "T",
+          "declarations": [
+            "QuantumBlockEncoding.TextbookStatePreparation.pauliXCircuit"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:T:QuantumBlockEncoding.TextbookStatePreparation.pauliXVerified",
+          "lesson_anchor": "T",
+          "declarations": [
+            "QuantumBlockEncoding.TextbookStatePreparation.pauliXVerified"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:T:QuantumBlockEncoding.TextbookStatePreparation.pauliXVerified_cost",
+          "lesson_anchor": "T",
+          "declarations": [
+            "QuantumBlockEncoding.TextbookStatePreparation.pauliXVerified_cost"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:T:QuantumBlockEncoding.TextbookStatePreparation.invSqrtTwo",
+          "lesson_anchor": "T",
+          "declarations": [
+            "QuantumBlockEncoding.TextbookStatePreparation.invSqrtTwo"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:T:QuantumBlockEncoding.TextbookStatePreparation.invSqrtTwo_mul_self",
+          "lesson_anchor": "T",
+          "declarations": [
+            "QuantumBlockEncoding.TextbookStatePreparation.invSqrtTwo_mul_self"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:T:QuantumBlockEncoding.TextbookStatePreparation.hadamard",
+          "lesson_anchor": "T",
+          "declarations": [
+            "QuantumBlockEncoding.TextbookStatePreparation.hadamard"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:T:QuantumBlockEncoding.TextbookStatePreparation.star_hadamard",
+          "lesson_anchor": "T",
+          "declarations": [
+            "QuantumBlockEncoding.TextbookStatePreparation.star_hadamard"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:T:QuantumBlockEncoding.TextbookStatePreparation.hadamard_unitary",
+          "lesson_anchor": "T",
+          "declarations": [
+            "QuantumBlockEncoding.TextbookStatePreparation.hadamard_unitary"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:T:QuantumBlockEncoding.TextbookStatePreparation.plusState",
+          "lesson_anchor": "T",
+          "declarations": [
+            "QuantumBlockEncoding.TextbookStatePreparation.plusState"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:T:QuantumBlockEncoding.TextbookStatePreparation.plusTarget",
+          "lesson_anchor": "T",
+          "declarations": [
+            "QuantumBlockEncoding.TextbookStatePreparation.plusTarget"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:T:QuantumBlockEncoding.TextbookStatePreparation.plusTarget_normalized",
+          "lesson_anchor": "T",
+          "declarations": [
+            "QuantumBlockEncoding.TextbookStatePreparation.plusTarget_normalized"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:T:QuantumBlockEncoding.TextbookStatePreparation.hadamard_prepares_plus",
+          "lesson_anchor": "T",
+          "declarations": [
+            "QuantumBlockEncoding.TextbookStatePreparation.hadamard_prepares_plus"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:T:QuantumBlockEncoding.TextbookStatePreparation.hadamardGate",
+          "lesson_anchor": "T",
+          "declarations": [
+            "QuantumBlockEncoding.TextbookStatePreparation.hadamardGate"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:T:QuantumBlockEncoding.TextbookStatePreparation.hadamardCertificate",
+          "lesson_anchor": "T",
+          "declarations": [
+            "QuantumBlockEncoding.TextbookStatePreparation.hadamardCertificate"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:T:QuantumBlockEncoding.TextbookStatePreparation.hadamardCircuit",
+          "lesson_anchor": "T",
+          "declarations": [
+            "QuantumBlockEncoding.TextbookStatePreparation.hadamardCircuit"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:T:QuantumBlockEncoding.TextbookStatePreparation.hadamardVerified",
+          "lesson_anchor": "T",
+          "declarations": [
+            "QuantumBlockEncoding.TextbookStatePreparation.hadamardVerified"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:T:QuantumBlockEncoding.TextbookStatePreparation.hadamardVerified_cost",
+          "lesson_anchor": "T",
+          "declarations": [
+            "QuantumBlockEncoding.TextbookStatePreparation.hadamardVerified_cost"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:T:QuantumBlockEncoding.TextbookStatePreparation.pauliXCertificate_prepares_one",
+          "lesson_anchor": "T",
+          "declarations": [
+            "QuantumBlockEncoding.TextbookStatePreparation.pauliXCertificate_prepares_one"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:T:QuantumBlockEncoding.TextbookStatePreparation.hadamardCertificate_prepares_plus",
+          "lesson_anchor": "T",
+          "declarations": [
+            "QuantumBlockEncoding.TextbookStatePreparation.hadamardCertificate_prepares_plus"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        }
+      ],
+      "assumption_deltas": [
+        {
+          "classification": "same",
+          "source": "Lesson F: finite complex matrices, e0 input and exact representative state-action equality.",
+          "formal": "Complex concrete matrix semantics and zeroKet; equality is not modulo global phase.",
+          "explanation": "No scalar, dimension, phase or success/postselection contract is changed."
+        },
+        {
+          "classification": "same",
+          "source": "Lesson F/Q: literal stated normalization Prop in generic targets, instantiated to sum normSq=1 in the six fixed targets.",
+          "formal": "StatePreparationTarget.normalization:Prop and exact target-specific normalization fields; generic route proof field is unchanged.",
+          "explanation": "No arbitrary Prop certificate is promoted to an unconditional physical normalization assertion."
+        },
+        {
+          "classification": "API-limitation",
+          "source": "Lesson F/Q: exact-real resource records, no finite-bit angle producer or hardware-cost theorem.",
+          "formal": "ExactAngle contains exact Real expressions, and Resource/BlockEncodingCost account for the declared IR/primitive instructions only.",
+          "explanation": "Rational matrix entries or arccos expressions do not establish numerical preprocessing, rounding/error, Clifford+T synthesis, routing or readout costs."
+        },
+        {
+          "classification": "API-limitation",
+          "source": "Lesson T/F: X/H matrix certificates with separately supplied string Circuit, schedule and resource arguments.",
+          "formal": "ComplexStatePreparationCertificate.verified takes arbitrary circuit/schedule/resource inputs and default auxiliary count 0.",
+          "explanation": "The displayed X/H wrapper costs are literal records, not a certified evaluator/refinement from the string circuits to the concrete matrices."
+        }
+      ],
+      "graph_contribution": {
+        "baseline": "30fe1d7",
+        "baseline_provenance": "Parent-reported synchronized contribution checkpoint; no Git operation or full-commit resolution by metadata author.",
+        "classes": [
+          "reorganisation"
+        ],
+        "contribution_scope": "Author source/audit successor: exact single editorial census edit, corrected all103 complete header/body drilldown and explicit full AND/OR source topology. No production mathematical/Lean change and no self-approval.",
+        "node_ids": [
+          "module:QuantumBlockEncoding.TextbookStatePreparation",
+          "declaration:QuantumBlockEncoding.TextbookStatePreparation.zeroIndex",
+          "declaration:QuantumBlockEncoding.TextbookStatePreparation.oneIndex",
+          "declaration:QuantumBlockEncoding.TextbookStatePreparation.pauliX",
+          "declaration:QuantumBlockEncoding.TextbookStatePreparation.pauliX_unitary",
+          "declaration:QuantumBlockEncoding.TextbookStatePreparation.oneState",
+          "declaration:QuantumBlockEncoding.TextbookStatePreparation.oneTarget",
+          "declaration:QuantumBlockEncoding.TextbookStatePreparation.oneTarget_normalized",
+          "declaration:QuantumBlockEncoding.TextbookStatePreparation.pauliX_prepares_one",
+          "declaration:QuantumBlockEncoding.TextbookStatePreparation.pauliXGate",
+          "declaration:QuantumBlockEncoding.TextbookStatePreparation.pauliXCertificate",
+          "declaration:QuantumBlockEncoding.TextbookStatePreparation.pauliXCircuit",
+          "declaration:QuantumBlockEncoding.TextbookStatePreparation.pauliXVerified",
+          "declaration:QuantumBlockEncoding.TextbookStatePreparation.pauliXVerified_cost",
+          "declaration:QuantumBlockEncoding.TextbookStatePreparation.invSqrtTwo",
+          "declaration:QuantumBlockEncoding.TextbookStatePreparation.invSqrtTwo_mul_self",
+          "declaration:QuantumBlockEncoding.TextbookStatePreparation.hadamard",
+          "declaration:QuantumBlockEncoding.TextbookStatePreparation.star_hadamard",
+          "declaration:QuantumBlockEncoding.TextbookStatePreparation.hadamard_unitary",
+          "declaration:QuantumBlockEncoding.TextbookStatePreparation.plusState",
+          "declaration:QuantumBlockEncoding.TextbookStatePreparation.plusTarget",
+          "declaration:QuantumBlockEncoding.TextbookStatePreparation.plusTarget_normalized",
+          "declaration:QuantumBlockEncoding.TextbookStatePreparation.hadamard_prepares_plus",
+          "declaration:QuantumBlockEncoding.TextbookStatePreparation.hadamardGate",
+          "declaration:QuantumBlockEncoding.TextbookStatePreparation.hadamardCertificate",
+          "declaration:QuantumBlockEncoding.TextbookStatePreparation.hadamardCircuit",
+          "declaration:QuantumBlockEncoding.TextbookStatePreparation.hadamardVerified",
+          "declaration:QuantumBlockEncoding.TextbookStatePreparation.hadamardVerified_cost",
+          "declaration:QuantumBlockEncoding.TextbookStatePreparation.pauliXCertificate_prepares_one",
+          "declaration:QuantumBlockEncoding.TextbookStatePreparation.hadamardCertificate_prepares_plus",
+          "concept:finite-complex-state-preparation",
+          "concept:shared-little-endian-primitive-semantics"
+        ],
+        "views": {
+          "source_proof_construction": "Version2 author graph retains all16 old edge review responses,37 successor hyperedges and separate B3 norm/unitarity tensor/direct OR proofs plus preparation OR/comparison AND. Same-reviewer exact successor review pending.",
+          "lean_dependency": "Actual import/ownership chain Textbook -> CoreFixed -> PrimitiveRoutes; shared ConcreteSemantics, PrimitiveBasisLE and UniformlyControlledRy. Lexical references are incomplete signals, not proof-term dependencies. B3 tensor proofs are source explanations, not target Lean implementations; actual matrix proofs use finite coordinates/Gram entries.",
+          "compressed_quantum_spine": "Reuse canonical finite complex matrices, first-column preparation, exact rotations, named-wire LE lifts/UCRY and literal resource accounting. No second SP/BE API.",
+          "functor_hypergraph": "Only conditional representation/certificate correspondences; no certified functor or unconditional SP->BE arrow. SELECT, unprepare, coefficient/phase, clean-register and other complete AND-tails would remain required for BE."
+        },
+        "preserved_contract": "Exact X and H matrices, physical normalization and first-column action; concrete certificates and generic display-circuit/resource wrappers; two literal one-gate cost records. Matrix semantics certified by the existing declarations; display string circuits and supplied schedules/resources are NOT linked to those matrices by the generic wrapper.",
+        "remaining_boundary": "Matrix semantics certified by the existing declarations; display string circuits and supplied schedules/resources are NOT linked to those matrices by the generic wrapper. Independent source/formal comparison, actual kernel observation, publication integration and purification remain pending. Exact successor graph/inventory/editorial proposal and metadata require same-reviewer recheck; old CHANGES_REQUIRED verdict remains.",
+        "full_and_or_drilldown": {
+          "logical_reference": "reviews/publication/sp-foundations-c42/source-and-graph-v3.json",
+          "sha256": "017733a2f41c40b07f81a6e5d32d2bcf1cbbd69a77228173d0e55a05a8368c8e"
+        },
+        "author_packet_references": [
+          {
+            "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/binder-audit-v2.md",
+            "sha256": "d2027e00b8bf7ac2b57a6cf715353b6f405fd84bcf33055c0715946ea5d16415"
+          },
+          {
+            "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/declaration-inventory-v2.json",
+            "sha256": "d3254ad6a82050ba770682a619211565eb1d4fba0a67dc4bd2577caf876982cb"
+          },
+          {
+            "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/editorial-proposal.json",
+            "sha256": "4584fa32bee3b18e620f22b1eae151d3351ac4df42aeba74e114510cc581662d"
+          },
+          {
+            "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/inventory-checks.json",
+            "sha256": "41478443a2ba9b17452e862fb46f54eda7edb9d78d8000bc5ec0690ee704f5ee"
+          },
+          {
+            "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/inventory-difference-map.json",
+            "sha256": "40489e577fdb4d3d6c82c87ac8d6390ccc1edbc178ea6e58a030edd4aeace6a9"
+          },
+          {
+            "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/natural-source-v2.md",
+            "sha256": "286c030e78ad180e74335f8c8543da2aad5dcff81a2797c92215f13773466cc0"
+          },
+          {
+            "logical_reference": "reviews/publication/sp-foundations-c42/source-and-graph-v3.json",
+            "sha256": "017733a2f41c40b07f81a6e5d32d2bcf1cbbd69a77228173d0e55a05a8368c8e"
+          },
+          {
+            "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/source-coverage-v2.json",
+            "sha256": "b3547afd08aa55feb61b70a265a7de12366c84903e86c7d922d61d952f9a10a0"
+          },
+          {
+            "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/stage1-seal.json",
+            "sha256": "3e06dc4059b9f7c75fc414a1640ea5a6d34bbee8702f603eb48184521cd5b7d5"
+          }
+        ],
+        "formal_packet_aggregate_sha256": "b131c682350b160859ea33ee8df0a452e08332fd1592ef06f7e262c60bf4d4db",
+        "editorial_successor_proposal": {
+          "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/editorial-proposal.json",
+          "sha256": "4584fa32bee3b18e620f22b1eae151d3351ac4df42aeba74e114510cc581662d"
+        },
+        "legacy_review_reference": {
+          "logical_reference": "hermite-export-work/sp-foundations-c41-source-review-phase3/phase3-seal.json",
+          "sha256": "9cfd2ffdbed27558ce6988ec4fe16f8fb2310af8e2930e86dc9c8556194e0933",
+          "verdict_retained": "WITHHELD_CHANGES_REQUIRED",
+          "successor_status": "PENDING"
+        }
+      },
+      "formalizer": "UNKNOWN",
+      "residual_boundary": "Matrix semantics certified by the existing declarations; display string circuits and supplied schedules/resources are NOT linked to those matrices by the generic wrapper. AUTHOR/WIP; independent comparison and gate acceptance are not claimed.",
+      "binding_sha256": "d5866a518f9a218f828af074aec13f386fd8aadc43b697d7af70e7fdbec0dc0b",
+      "decoder_evidence": "reviews/publication/sp-foundations-c42/final-evidence/TextbookStatePreparation-decoder.json",
+      "reviewer_evidence": "reviews/publication/sp-foundations-c42/final-evidence/TextbookStatePreparation-reviewer.json",
+      "status": "AUTHOR/WIP_SUCCESSOR_PROSPECTIVE",
+      "historical_formalizer": "UNKNOWN",
+      "metadata_author": "sp_foundations_source_author_c40",
+      "provenance": "RETROSPECTIVE_IMPLEMENTATION_INFORMED",
+      "independent_comparison_status": "PENDING_SAME_REVIEWER_EXACT_SUCCESSOR",
+      "independent_source_evidence": null,
+      "independent_topology_evidence": null,
+      "common_blind_spot_evidence": null,
+      "actual_kernel_observation_evidence": null,
+      "exposition_seal_evidence": null,
+      "repair": {
+        "proposal_path": "reviews/publication/sp-foundations-c42/editorial-proposal-v2.json",
+        "independent_review": "reviews/publication/sp-foundations-c42/final-evidence/editorial-minimality-review.json"
+      },
+      "statement_seal": {
+        "status": "RETROSPECTIVE_AUTHOR_CONTRACT_ONLY",
+        "preproof": false,
+        "lesson_sha256": "286c030e78ad180e74335f8c8543da2aad5dcff81a2797c92215f13773466cc0",
+        "binder_definition_audit": {
+          "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/binder-audit-v2.md",
+          "sha256": "d2027e00b8bf7ac2b57a6cf715353b6f405fd84bcf33055c0715946ea5d16415"
+        }
+      },
+      "private_helper_audit": {
+        "count": 0,
+        "source_names": [],
+        "full_frozen_audit": {
+          "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/binder-audit-v2.md",
+          "sha256": "d2027e00b8bf7ac2b57a6cf715353b6f405fd84bcf33055c0715946ea5d16415"
+        },
+        "complete_source_inventory": {
+          "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/declaration-inventory-v2.json",
+          "sha256": "d3254ad6a82050ba770682a619211565eb1d4fba0a67dc4bd2577caf876982cb"
+        }
+      },
+      "source_proof_coverage": {
+        "status": "AUTHOR/WIP; independent review pending",
+        "anchors": [
+          "T",
+          "F",
+          "Q"
+        ],
+        "inventory": {
+          "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/source-coverage-v2.json",
+          "sha256": "b3547afd08aa55feb61b70a265a7de12366c84903e86c7d922d61d952f9a10a0"
+        },
+        "graph": {
+          "logical_reference": "reviews/publication/sp-foundations-c42/source-and-graph-v3.json",
+          "sha256": "017733a2f41c40b07f81a6e5d32d2bcf1cbbd69a77228173d0e55a05a8368c8e"
+        }
+      },
+      "proof_digestion": {
+        "existing_substrate": "ConcreteSemantics/PrimitiveBasisLE/UniformlyControlledRy; canonical shared SP/BE substrate unchanged",
+        "bookkeeping": "Finite matrix entries, register/phase/resource accounting and certificate packaging",
+        "new_reusable": "NONE: production Lean unchanged",
+        "new_topology": "NONE newly claimed; original author's explanatory reorganisation only"
+      },
+      "purification": {
+        "status": "PENDING",
+        "evidence": null
+      },
+      "editorial_successor": {
+        "proposal": {
+          "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/editorial-proposal.json",
+          "sha256": "4584fa32bee3b18e620f22b1eae151d3351ac4df42aeba74e114510cc581662d"
+        },
+        "independent_successor_review": null,
+        "statement_change": "NONE",
+        "only_source_change": "Bell six-core-plus-adjoint census sentence",
+        "prior_minimality_finding": "E-BELL-COUNT; old review is not accepted successor evidence"
+      },
+      "prior_v2_graph_binding_sha256": "1e618ba9b7271605207d78a363184e6220afd16db9dee41ce0e352db73468373"
+    },
+    {
+      "module": "QuantumBlockEncoding/StatePreparationBenchmarksCoreFixed.lean",
+      "source_id": "aspbe-local-finite-sp-foundations-v2",
+      "source_statement": "Four fixed Bell/dense/product/three-sparse target matrices with exact normalization, full unitarity and first-column action; separate total Nat SelectSwap count arithmetic at two parameter values.",
+      "source_anchor": "finite-sp-foundations-v2:B; shared F/Q; lesson anchors B1,B2,B3,B4,B5,F,Q",
+      "lesson_path": "docs/lessons/finite-sp-foundations-v2.md",
+      "declarations": [
+        "QuantumBlockEncoding.StatePreparationBenchmarks.bellAmplitude",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.bellCertificate",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.bellGate",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.bellMatrix",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.bellMatrix_prepares_target",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.bellMatrix_unitary",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.bellState",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.bellTarget",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.bellTarget_normalized",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductCertificate",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductGate",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductMatrix",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductMatrix_prepares_target",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductMatrix_unitary",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductState",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductTarget",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductTarget_normalized",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseCertificate",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseGate",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseMatrix",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseMatrix_prepares_target",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseMatrix_unitary",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseState",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseTarget",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseTarget_normalized",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.selectSwapCleanTCount",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.selectSwapCleanTCount_16_1_1",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.selectSwapCleanTCount_16_1_4",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.selectSwapCleanTCount_lambda4_better_lambda1",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeCertificate",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeGate",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeMatrix",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeMatrix_prepares_target",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeMatrix_unitary",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeState",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeTarget",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeTarget_normalized",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.star_bellMatrix"
+      ],
+      "obligation_map": [
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:B1:QuantumBlockEncoding.StatePreparationBenchmarks.bellAmplitude",
+          "lesson_anchor": "B1",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.bellAmplitude"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:B1:QuantumBlockEncoding.StatePreparationBenchmarks.bellState",
+          "lesson_anchor": "B1",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.bellState"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:B1:QuantumBlockEncoding.StatePreparationBenchmarks.bellTarget",
+          "lesson_anchor": "B1",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.bellTarget"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:B1:QuantumBlockEncoding.StatePreparationBenchmarks.bellTarget_normalized",
+          "lesson_anchor": "B1",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.bellTarget_normalized"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:B1:QuantumBlockEncoding.StatePreparationBenchmarks.bellMatrix",
+          "lesson_anchor": "B1",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.bellMatrix"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:B1:QuantumBlockEncoding.StatePreparationBenchmarks.star_bellMatrix",
+          "lesson_anchor": "B1",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.star_bellMatrix"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:B1:QuantumBlockEncoding.StatePreparationBenchmarks.bellMatrix_unitary",
+          "lesson_anchor": "B1",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.bellMatrix_unitary"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:B1:QuantumBlockEncoding.StatePreparationBenchmarks.bellGate",
+          "lesson_anchor": "B1",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.bellGate"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:B1:QuantumBlockEncoding.StatePreparationBenchmarks.bellMatrix_prepares_target",
+          "lesson_anchor": "B1",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.bellMatrix_prepares_target"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:B1:QuantumBlockEncoding.StatePreparationBenchmarks.bellCertificate",
+          "lesson_anchor": "B1",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.bellCertificate"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:B2:QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseState",
+          "lesson_anchor": "B2",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseState"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:B2:QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseTarget",
+          "lesson_anchor": "B2",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseTarget"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:B2:QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseTarget_normalized",
+          "lesson_anchor": "B2",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseTarget_normalized"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:B2:QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseMatrix",
+          "lesson_anchor": "B2",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseMatrix"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:B2:QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseMatrix_unitary",
+          "lesson_anchor": "B2",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseMatrix_unitary"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:B2:QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseGate",
+          "lesson_anchor": "B2",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseGate"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:B2:QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseMatrix_prepares_target",
+          "lesson_anchor": "B2",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseMatrix_prepares_target"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:B2:QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseCertificate",
+          "lesson_anchor": "B2",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseCertificate"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:B3:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductState",
+          "lesson_anchor": "B3",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductState"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:B3:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductTarget",
+          "lesson_anchor": "B3",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductTarget"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:B3:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductTarget_normalized",
+          "lesson_anchor": "B3",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductTarget_normalized"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:B3:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductMatrix",
+          "lesson_anchor": "B3",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductMatrix"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:B3:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductMatrix_unitary",
+          "lesson_anchor": "B3",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductMatrix_unitary"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:B3:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductGate",
+          "lesson_anchor": "B3",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductGate"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:B3:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductMatrix_prepares_target",
+          "lesson_anchor": "B3",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductMatrix_prepares_target"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:B3:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductCertificate",
+          "lesson_anchor": "B3",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductCertificate"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:B4:QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeState",
+          "lesson_anchor": "B4",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeState"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:B4:QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeTarget",
+          "lesson_anchor": "B4",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeTarget"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:B4:QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeTarget_normalized",
+          "lesson_anchor": "B4",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeTarget_normalized"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:B4:QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeMatrix",
+          "lesson_anchor": "B4",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeMatrix"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:B4:QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeMatrix_unitary",
+          "lesson_anchor": "B4",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeMatrix_unitary"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:B4:QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeGate",
+          "lesson_anchor": "B4",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeGate"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:B4:QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeMatrix_prepares_target",
+          "lesson_anchor": "B4",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeMatrix_prepares_target"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:B4:QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeCertificate",
+          "lesson_anchor": "B4",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeCertificate"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:B5:QuantumBlockEncoding.StatePreparationBenchmarks.selectSwapCleanTCount",
+          "lesson_anchor": "B5",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.selectSwapCleanTCount"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:B5:QuantumBlockEncoding.StatePreparationBenchmarks.selectSwapCleanTCount_16_1_1",
+          "lesson_anchor": "B5",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.selectSwapCleanTCount_16_1_1"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:B5:QuantumBlockEncoding.StatePreparationBenchmarks.selectSwapCleanTCount_16_1_4",
+          "lesson_anchor": "B5",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.selectSwapCleanTCount_16_1_4"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:B5:QuantumBlockEncoding.StatePreparationBenchmarks.selectSwapCleanTCount_lambda4_better_lambda1",
+          "lesson_anchor": "B5",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.selectSwapCleanTCount_lambda4_better_lambda1"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        }
+      ],
+      "assumption_deltas": [
+        {
+          "classification": "same",
+          "source": "Lesson F: finite complex matrices, e0 input and exact representative state-action equality.",
+          "formal": "Complex concrete matrix semantics and zeroKet; equality is not modulo global phase.",
+          "explanation": "No scalar, dimension, phase or success/postselection contract is changed."
+        },
+        {
+          "classification": "same",
+          "source": "Lesson F/Q: literal stated normalization Prop in generic targets, instantiated to sum normSq=1 in the six fixed targets.",
+          "formal": "StatePreparationTarget.normalization:Prop and exact target-specific normalization fields; generic route proof field is unchanged.",
+          "explanation": "No arbitrary Prop certificate is promoted to an unconditional physical normalization assertion."
+        },
+        {
+          "classification": "API-limitation",
+          "source": "Lesson F/Q: exact-real resource records, no finite-bit angle producer or hardware-cost theorem.",
+          "formal": "ExactAngle contains exact Real expressions, and Resource/BlockEncodingCost account for the declared IR/primitive instructions only.",
+          "explanation": "Rational matrix entries or arccos expressions do not establish numerical preprocessing, rounding/error, Clifford+T synthesis, routing or readout costs."
+        },
+        {
+          "classification": "same",
+          "source": "Lesson B4 lists all eight sparse columns, including u3=e1 and u4=e3; B5 uses total Nat division/subtraction.",
+          "formal": "The actual sparseThreeMatrix literal and selectSwapCleanTCount total Nat definition are preserved byte-for-byte.",
+          "explanation": "The identity-on-complement code comment is a disclosed comment mismatch; no repair, positivity hypothesis, general sparse synthesis or SelectSwap T-count theorem is introduced."
+        }
+      ],
+      "graph_contribution": {
+        "baseline": "30fe1d7",
+        "baseline_provenance": "Parent-reported synchronized contribution checkpoint; no Git operation or full-commit resolution by metadata author.",
+        "classes": [
+          "reorganisation"
+        ],
+        "contribution_scope": "Author source/audit successor: exact single editorial census edit, corrected all103 complete header/body drilldown and explicit full AND/OR source topology. No production mathematical/Lean change and no self-approval.",
+        "node_ids": [
+          "module:QuantumBlockEncoding.StatePreparationBenchmarksCoreFixed",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.bellAmplitude",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.bellState",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.bellTarget",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.bellTarget_normalized",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.bellMatrix",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.star_bellMatrix",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.bellMatrix_unitary",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.bellGate",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.bellMatrix_prepares_target",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.bellCertificate",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseState",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseTarget",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseTarget_normalized",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseMatrix",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseMatrix_unitary",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseGate",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseMatrix_prepares_target",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.mottonenDenseCertificate",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductState",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductTarget",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductTarget_normalized",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductMatrix",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductMatrix_unitary",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductGate",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductMatrix_prepares_target",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphProductCertificate",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeState",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeTarget",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeTarget_normalized",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeMatrix",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeMatrix_unitary",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeGate",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeMatrix_prepares_target",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.sparseThreeCertificate",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.selectSwapCleanTCount",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.selectSwapCleanTCount_16_1_1",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.selectSwapCleanTCount_16_1_4",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.selectSwapCleanTCount_lambda4_better_lambda1",
+          "concept:finite-complex-state-preparation",
+          "concept:shared-little-endian-primitive-semantics"
+        ],
+        "views": {
+          "source_proof_construction": "Version2 author graph retains all16 old edge review responses,37 successor hyperedges and separate B3 norm/unitarity tensor/direct OR proofs plus preparation OR/comparison AND. Same-reviewer exact successor review pending.",
+          "lean_dependency": "Actual import/ownership chain Textbook -> CoreFixed -> PrimitiveRoutes; shared ConcreteSemantics, PrimitiveBasisLE and UniformlyControlledRy. Lexical references are incomplete signals, not proof-term dependencies. B3 tensor proofs are source explanations, not target Lean implementations; actual matrix proofs use finite coordinates/Gram entries.",
+          "compressed_quantum_spine": "Reuse canonical finite complex matrices, first-column preparation, exact rotations, named-wire LE lifts/UCRY and literal resource accounting. No second SP/BE API.",
+          "functor_hypergraph": "Only conditional representation/certificate correspondences; no certified functor or unconditional SP->BE arrow. SELECT, unprepare, coefficient/phase, clean-register and other complete AND-tails would remain required for BE."
+        },
+        "preserved_contract": "Four fixed Bell/dense/product/three-sparse target matrices with exact normalization, full unitarity and first-column action; separate total Nat SelectSwap count arithmetic at two parameter values. Sparse completion has columns u3=e1,u4=e3, not literal identity on complementary input columns. Fixed examples and arithmetic do not certify general named-paper circuits, general sparse synthesis, T-count correctness or finite-bit algorithms.",
+        "remaining_boundary": "Sparse completion has columns u3=e1,u4=e3, not literal identity on complementary input columns. Fixed examples and arithmetic do not certify general named-paper circuits, general sparse synthesis, T-count correctness or finite-bit algorithms. Independent source/formal comparison, actual kernel observation, publication integration and purification remain pending. Exact successor graph/inventory/editorial proposal and metadata require same-reviewer recheck; old CHANGES_REQUIRED verdict remains.",
+        "full_and_or_drilldown": {
+          "logical_reference": "reviews/publication/sp-foundations-c42/source-and-graph-v3.json",
+          "sha256": "017733a2f41c40b07f81a6e5d32d2bcf1cbbd69a77228173d0e55a05a8368c8e"
+        },
+        "author_packet_references": [
+          {
+            "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/binder-audit-v2.md",
+            "sha256": "d2027e00b8bf7ac2b57a6cf715353b6f405fd84bcf33055c0715946ea5d16415"
+          },
+          {
+            "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/declaration-inventory-v2.json",
+            "sha256": "d3254ad6a82050ba770682a619211565eb1d4fba0a67dc4bd2577caf876982cb"
+          },
+          {
+            "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/editorial-proposal.json",
+            "sha256": "4584fa32bee3b18e620f22b1eae151d3351ac4df42aeba74e114510cc581662d"
+          },
+          {
+            "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/inventory-checks.json",
+            "sha256": "41478443a2ba9b17452e862fb46f54eda7edb9d78d8000bc5ec0690ee704f5ee"
+          },
+          {
+            "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/inventory-difference-map.json",
+            "sha256": "40489e577fdb4d3d6c82c87ac8d6390ccc1edbc178ea6e58a030edd4aeace6a9"
+          },
+          {
+            "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/natural-source-v2.md",
+            "sha256": "286c030e78ad180e74335f8c8543da2aad5dcff81a2797c92215f13773466cc0"
+          },
+          {
+            "logical_reference": "reviews/publication/sp-foundations-c42/source-and-graph-v3.json",
+            "sha256": "017733a2f41c40b07f81a6e5d32d2bcf1cbbd69a77228173d0e55a05a8368c8e"
+          },
+          {
+            "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/source-coverage-v2.json",
+            "sha256": "b3547afd08aa55feb61b70a265a7de12366c84903e86c7d922d61d952f9a10a0"
+          },
+          {
+            "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/stage1-seal.json",
+            "sha256": "3e06dc4059b9f7c75fc414a1640ea5a6d34bbee8702f603eb48184521cd5b7d5"
+          }
+        ],
+        "formal_packet_aggregate_sha256": "b131c682350b160859ea33ee8df0a452e08332fd1592ef06f7e262c60bf4d4db",
+        "editorial_successor_proposal": {
+          "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/editorial-proposal.json",
+          "sha256": "4584fa32bee3b18e620f22b1eae151d3351ac4df42aeba74e114510cc581662d"
+        },
+        "legacy_review_reference": {
+          "logical_reference": "hermite-export-work/sp-foundations-c41-source-review-phase3/phase3-seal.json",
+          "sha256": "9cfd2ffdbed27558ce6988ec4fe16f8fb2310af8e2930e86dc9c8556194e0933",
+          "verdict_retained": "WITHHELD_CHANGES_REQUIRED",
+          "successor_status": "PENDING"
+        }
+      },
+      "formalizer": "UNKNOWN",
+      "residual_boundary": "Sparse completion has columns u3=e1,u4=e3, not literal identity on complementary input columns. Fixed examples and arithmetic do not certify general named-paper circuits, general sparse synthesis, T-count correctness or finite-bit algorithms. AUTHOR/WIP; independent comparison and gate acceptance are not claimed.",
+      "binding_sha256": "812599cd38cc82424ef2225b6dd99a7d7b484df9cc51b063e796e9d716fa3c8e",
+      "decoder_evidence": "reviews/publication/sp-foundations-c42/final-evidence/StatePreparationBenchmarksCoreFixed-decoder.json",
+      "reviewer_evidence": "reviews/publication/sp-foundations-c42/final-evidence/StatePreparationBenchmarksCoreFixed-reviewer.json",
+      "status": "AUTHOR/WIP_SUCCESSOR_PROSPECTIVE",
+      "historical_formalizer": "UNKNOWN",
+      "metadata_author": "sp_foundations_source_author_c40",
+      "provenance": "RETROSPECTIVE_IMPLEMENTATION_INFORMED",
+      "independent_comparison_status": "PENDING_SAME_REVIEWER_EXACT_SUCCESSOR",
+      "independent_source_evidence": null,
+      "independent_topology_evidence": null,
+      "common_blind_spot_evidence": null,
+      "actual_kernel_observation_evidence": null,
+      "exposition_seal_evidence": null,
+      "repair": {
+        "proposal_path": "reviews/publication/sp-foundations-c42/editorial-proposal-v2.json",
+        "independent_review": "reviews/publication/sp-foundations-c42/final-evidence/editorial-minimality-review.json"
+      },
+      "statement_seal": {
+        "status": "RETROSPECTIVE_AUTHOR_CONTRACT_ONLY",
+        "preproof": false,
+        "lesson_sha256": "286c030e78ad180e74335f8c8543da2aad5dcff81a2797c92215f13773466cc0",
+        "binder_definition_audit": {
+          "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/binder-audit-v2.md",
+          "sha256": "d2027e00b8bf7ac2b57a6cf715353b6f405fd84bcf33055c0715946ea5d16415"
+        }
+      },
+      "private_helper_audit": {
+        "count": 0,
+        "source_names": [],
+        "full_frozen_audit": {
+          "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/binder-audit-v2.md",
+          "sha256": "d2027e00b8bf7ac2b57a6cf715353b6f405fd84bcf33055c0715946ea5d16415"
+        },
+        "complete_source_inventory": {
+          "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/declaration-inventory-v2.json",
+          "sha256": "d3254ad6a82050ba770682a619211565eb1d4fba0a67dc4bd2577caf876982cb"
+        }
+      },
+      "source_proof_coverage": {
+        "status": "AUTHOR/WIP; independent review pending",
+        "anchors": [
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "F",
+          "Q"
+        ],
+        "inventory": {
+          "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/source-coverage-v2.json",
+          "sha256": "b3547afd08aa55feb61b70a265a7de12366c84903e86c7d922d61d952f9a10a0"
+        },
+        "graph": {
+          "logical_reference": "reviews/publication/sp-foundations-c42/source-and-graph-v3.json",
+          "sha256": "017733a2f41c40b07f81a6e5d32d2bcf1cbbd69a77228173d0e55a05a8368c8e"
+        }
+      },
+      "proof_digestion": {
+        "existing_substrate": "ConcreteSemantics/PrimitiveBasisLE/UniformlyControlledRy; canonical shared SP/BE substrate unchanged",
+        "bookkeeping": "Finite matrix entries, register/phase/resource accounting and certificate packaging",
+        "new_reusable": "NONE: production Lean unchanged",
+        "new_topology": "NONE newly claimed; original author's explanatory reorganisation only"
+      },
+      "purification": {
+        "status": "PENDING",
+        "evidence": null
+      },
+      "editorial_successor": {
+        "proposal": {
+          "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/editorial-proposal.json",
+          "sha256": "4584fa32bee3b18e620f22b1eae151d3351ac4df42aeba74e114510cc581662d"
+        },
+        "independent_successor_review": null,
+        "statement_change": "NONE",
+        "only_source_change": "Bell six-core-plus-adjoint census sentence",
+        "prior_minimality_finding": "E-BELL-COUNT; old review is not accepted successor evidence"
+      },
+      "prior_v2_graph_binding_sha256": "f32bf6b16b4b61d42eb016b786196011a6cde9cf1f07937634196f0fc0d80231"
+    },
+    {
+      "module": "QuantumBlockEncoding/StatePreparationPrimitiveRoutes.lean",
+      "source_id": "aspbe-local-finite-sp-foundations-v2",
+      "source_statement": "Shared little-endian primitive reindexing, exact route record preserving target.normalization Prop, exact Pythagorean rotations and UCRY entry semantics, fixed factorized/tree product-state primitive circuits, full operator/state-action equalities and literal cost comparison.",
+      "source_anchor": "finite-sp-foundations-v2:P; shared F/Q; lesson anchors P1,P2,P3,P4,P5,F,B3,Q",
+      "lesson_path": "docs/lessons/finite-sp-foundations-v2.md",
+      "declarations": [
+        "QuantumBlockEncoding.StatePreparationBenchmarks.ExactPrimitiveStatePreparationRoute",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.ExactPrimitiveStatePreparationRoute.cost",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.ExactPrimitiveStatePreparationRoute.unitary",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.evalPrimitiveCircuitLE",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.evalPrimitiveCircuitLE_append",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.evalPrimitiveCircuitLE_compileUniformlyControlledRy_apply",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.evalPrimitiveCircuitLE_singleton_ry_apply",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.evalPrimitiveCircuitLE_unitary",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphConstantAngles",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphConstantUcry_eval",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphControlWire",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphControlWire_ne_target",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphFactorizedCircuit",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphFactorizedRoute",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphFactorizedVerified_cost",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphFactorized_betterThan_tree",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphFactorized_evalLE_eq_matrix",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphFactorized_prepares_target",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphTreeCircuit",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphTreeRoute",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphTreeVerified_cost",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphTree_evalLE_eq_factorized",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphTree_eval_eq_factorized",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphTree_prepares_target",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.primitiveLEBits",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.ryAngle35",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.ryAngle513",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.ryAngleZero",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.standardRyMatrix_ryAngle35",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.standardRyMatrix_ryAngle513",
+        "QuantumBlockEncoding.StatePreparationBenchmarks.standardRyMatrix_ryAngleZero"
+      ],
+      "obligation_map": [
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:P1:QuantumBlockEncoding.StatePreparationBenchmarks.evalPrimitiveCircuitLE",
+          "lesson_anchor": "P1",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.evalPrimitiveCircuitLE"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:P1:QuantumBlockEncoding.StatePreparationBenchmarks.evalPrimitiveCircuitLE_unitary",
+          "lesson_anchor": "P1",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.evalPrimitiveCircuitLE_unitary"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:P1:QuantumBlockEncoding.StatePreparationBenchmarks.ExactPrimitiveStatePreparationRoute",
+          "lesson_anchor": "P1",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.ExactPrimitiveStatePreparationRoute"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:P1:QuantumBlockEncoding.StatePreparationBenchmarks.ExactPrimitiveStatePreparationRoute.cost",
+          "lesson_anchor": "P1",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.ExactPrimitiveStatePreparationRoute.cost"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:P1:QuantumBlockEncoding.StatePreparationBenchmarks.ExactPrimitiveStatePreparationRoute.unitary",
+          "lesson_anchor": "P1",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.ExactPrimitiveStatePreparationRoute.unitary"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:P2:QuantumBlockEncoding.StatePreparationBenchmarks.ryAngle35",
+          "lesson_anchor": "P2",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.ryAngle35"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:P2:QuantumBlockEncoding.StatePreparationBenchmarks.ryAngle513",
+          "lesson_anchor": "P2",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.ryAngle513"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:P2:QuantumBlockEncoding.StatePreparationBenchmarks.ryAngleZero",
+          "lesson_anchor": "P2",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.ryAngleZero"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:P2:QuantumBlockEncoding.StatePreparationBenchmarks.standardRyMatrix_ryAngle35",
+          "lesson_anchor": "P2",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.standardRyMatrix_ryAngle35"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:P2:QuantumBlockEncoding.StatePreparationBenchmarks.standardRyMatrix_ryAngle513",
+          "lesson_anchor": "P2",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.standardRyMatrix_ryAngle513"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:P2:QuantumBlockEncoding.StatePreparationBenchmarks.standardRyMatrix_ryAngleZero",
+          "lesson_anchor": "P2",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.standardRyMatrix_ryAngleZero"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:P3:QuantumBlockEncoding.StatePreparationBenchmarks.primitiveLEBits",
+          "lesson_anchor": "P3",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.primitiveLEBits"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:P3:QuantumBlockEncoding.StatePreparationBenchmarks.evalPrimitiveCircuitLE_append",
+          "lesson_anchor": "P3",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.evalPrimitiveCircuitLE_append"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:P3:QuantumBlockEncoding.StatePreparationBenchmarks.evalPrimitiveCircuitLE_singleton_ry_apply",
+          "lesson_anchor": "P3",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.evalPrimitiveCircuitLE_singleton_ry_apply"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:P3:QuantumBlockEncoding.StatePreparationBenchmarks.evalPrimitiveCircuitLE_compileUniformlyControlledRy_apply",
+          "lesson_anchor": "P3",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.evalPrimitiveCircuitLE_compileUniformlyControlledRy_apply"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:P4:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphControlWire",
+          "lesson_anchor": "P4",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphControlWire"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:P4:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphControlWire_ne_target",
+          "lesson_anchor": "P4",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphControlWire_ne_target"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:P4:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphConstantAngles",
+          "lesson_anchor": "P4",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphConstantAngles"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:P4:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphTreeCircuit",
+          "lesson_anchor": "P4",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphTreeCircuit"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:P4:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphFactorizedCircuit",
+          "lesson_anchor": "P4",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphFactorizedCircuit"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:P4:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphConstantUcry_eval",
+          "lesson_anchor": "P4",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphConstantUcry_eval"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:P4:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphTree_eval_eq_factorized",
+          "lesson_anchor": "P4",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphTree_eval_eq_factorized"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:P4:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphTree_evalLE_eq_factorized",
+          "lesson_anchor": "P4",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphTree_evalLE_eq_factorized"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:P4:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphFactorized_evalLE_eq_matrix",
+          "lesson_anchor": "P4",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphFactorized_evalLE_eq_matrix"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:P4:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphFactorized_prepares_target",
+          "lesson_anchor": "P4",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphFactorized_prepares_target"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:P4:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphTree_prepares_target",
+          "lesson_anchor": "P4",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphTree_prepares_target"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:P4:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphFactorizedRoute",
+          "lesson_anchor": "P4",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphFactorizedRoute"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "prerequisite",
+          "source_obligation": "finite-sp-foundations-v2:P4:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphTreeRoute",
+          "lesson_anchor": "P4",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphTreeRoute"
+          ],
+          "role": "Literal definition/interface or data packaging used by the stated finite construction; not a new assumed oracle."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:P5:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphFactorizedVerified_cost",
+          "lesson_anchor": "P5",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphFactorizedVerified_cost"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:P5:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphTreeVerified_cost",
+          "lesson_anchor": "P5",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphTreeVerified_cost"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        },
+        {
+          "kind": "proof-edge",
+          "source_obligation": "finite-sp-foundations-v2:P5:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphFactorized_betterThan_tree",
+          "lesson_anchor": "P5",
+          "declarations": [
+            "QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphFactorized_betterThan_tree"
+          ],
+          "role": "Exact fixed/general-interface statement explained and proved within its retained scope."
+        }
+      ],
+      "assumption_deltas": [
+        {
+          "classification": "same",
+          "source": "Lesson F: finite complex matrices, e0 input and exact representative state-action equality.",
+          "formal": "Complex concrete matrix semantics and zeroKet; equality is not modulo global phase.",
+          "explanation": "No scalar, dimension, phase or success/postselection contract is changed."
+        },
+        {
+          "classification": "same",
+          "source": "Lesson F/Q: literal stated normalization Prop in generic targets, instantiated to sum normSq=1 in the six fixed targets.",
+          "formal": "StatePreparationTarget.normalization:Prop and exact target-specific normalization fields; generic route proof field is unchanged.",
+          "explanation": "No arbitrary Prop certificate is promoted to an unconditional physical normalization assertion."
+        },
+        {
+          "classification": "API-limitation",
+          "source": "Lesson F/Q: exact-real resource records, no finite-bit angle producer or hardware-cost theorem.",
+          "formal": "ExactAngle contains exact Real expressions, and Resource/BlockEncodingCost account for the declared IR/primitive instructions only.",
+          "explanation": "Rational matrix entries or arccos expressions do not establish numerical preprocessing, rounding/error, Clifford+T synthesis, routing or readout costs."
+        },
+        {
+          "classification": "same",
+          "source": "Lesson P: wire 0 least-significant, chronological list execution, RY half angle; control wires need only avoid target.",
+          "formal": "primitiveBasisLEEquiv reindexing, eval(right)*eval(left), standardRyMatrix(theta)=realRotation(theta/2), forall control,wires control != target.",
+          "explanation": "No injectivity among controls, phase quotient or additional clean ancilla assumption is inserted. Tree costs count the unsimplified actual emitted list."
+        }
+      ],
+      "graph_contribution": {
+        "baseline": "30fe1d7",
+        "baseline_provenance": "Parent-reported synchronized contribution checkpoint; no Git operation or full-commit resolution by metadata author.",
+        "classes": [
+          "reorganisation"
+        ],
+        "contribution_scope": "Author source/audit successor: exact single editorial census edit, corrected all103 complete header/body drilldown and explicit full AND/OR source topology. No production mathematical/Lean change and no self-approval.",
+        "node_ids": [
+          "module:QuantumBlockEncoding.StatePreparationPrimitiveRoutes",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.evalPrimitiveCircuitLE",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.evalPrimitiveCircuitLE_unitary",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.ExactPrimitiveStatePreparationRoute",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.ExactPrimitiveStatePreparationRoute.cost",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.ExactPrimitiveStatePreparationRoute.unitary",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.ryAngle35",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.ryAngle513",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.ryAngleZero",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.standardRyMatrix_ryAngle35",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.standardRyMatrix_ryAngle513",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.standardRyMatrix_ryAngleZero",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.primitiveLEBits",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.evalPrimitiveCircuitLE_append",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.evalPrimitiveCircuitLE_singleton_ry_apply",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.evalPrimitiveCircuitLE_compileUniformlyControlledRy_apply",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphControlWire",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphControlWire_ne_target",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphConstantAngles",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphTreeCircuit",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphFactorizedCircuit",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphConstantUcry_eval",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphTree_eval_eq_factorized",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphTree_evalLE_eq_factorized",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphFactorized_evalLE_eq_matrix",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphFactorized_prepares_target",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphTree_prepares_target",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphFactorizedRoute",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphTreeRoute",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphFactorizedVerified_cost",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphTreeVerified_cost",
+          "declaration:QuantumBlockEncoding.StatePreparationBenchmarks.groverRudolphFactorized_betterThan_tree",
+          "concept:finite-complex-state-preparation",
+          "concept:shared-little-endian-primitive-semantics"
+        ],
+        "views": {
+          "source_proof_construction": "Version2 author graph retains all16 old edge review responses,37 successor hyperedges and separate B3 norm/unitarity tensor/direct OR proofs plus preparation OR/comparison AND. Same-reviewer exact successor review pending.",
+          "lean_dependency": "Actual import/ownership chain Textbook -> CoreFixed -> PrimitiveRoutes; shared ConcreteSemantics, PrimitiveBasisLE and UniformlyControlledRy. Lexical references are incomplete signals, not proof-term dependencies. B3 tensor proofs are source explanations, not target Lean implementations; actual matrix proofs use finite coordinates/Gram entries.",
+          "compressed_quantum_spine": "Reuse canonical finite complex matrices, first-column preparation, exact rotations, named-wire LE lifts/UCRY and literal resource accounting. No second SP/BE API.",
+          "functor_hypergraph": "Only conditional representation/certificate correspondences; no certified functor or unconditional SP->BE arrow. SELECT, unprepare, coefficient/phase, clean-register and other complete AND-tails would remain required for BE."
+        },
+        "preserved_contract": "Shared little-endian primitive reindexing, exact route record preserving target.normalization Prop, exact Pythagorean rotations and UCRY entry semantics, fixed factorized/tree product-state primitive circuits, full operator/state-action equalities and literal cost comparison. Generic target.normalization remains its stored Prop. Constant-table tree retains halfAdd/halfSub angle syntax, zero-evaluating RY and both CX gates. Exact-real ideal-gate counts/depth only, no global optimum or finite-bit/hardware theorem.",
+        "remaining_boundary": "Generic target.normalization remains its stored Prop. Constant-table tree retains halfAdd/halfSub angle syntax, zero-evaluating RY and both CX gates. Exact-real ideal-gate counts/depth only, no global optimum or finite-bit/hardware theorem. Independent source/formal comparison, actual kernel observation, publication integration and purification remain pending. Exact successor graph/inventory/editorial proposal and metadata require same-reviewer recheck; old CHANGES_REQUIRED verdict remains.",
+        "full_and_or_drilldown": {
+          "logical_reference": "reviews/publication/sp-foundations-c42/source-and-graph-v3.json",
+          "sha256": "017733a2f41c40b07f81a6e5d32d2bcf1cbbd69a77228173d0e55a05a8368c8e"
+        },
+        "author_packet_references": [
+          {
+            "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/binder-audit-v2.md",
+            "sha256": "d2027e00b8bf7ac2b57a6cf715353b6f405fd84bcf33055c0715946ea5d16415"
+          },
+          {
+            "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/declaration-inventory-v2.json",
+            "sha256": "d3254ad6a82050ba770682a619211565eb1d4fba0a67dc4bd2577caf876982cb"
+          },
+          {
+            "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/editorial-proposal.json",
+            "sha256": "4584fa32bee3b18e620f22b1eae151d3351ac4df42aeba74e114510cc581662d"
+          },
+          {
+            "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/inventory-checks.json",
+            "sha256": "41478443a2ba9b17452e862fb46f54eda7edb9d78d8000bc5ec0690ee704f5ee"
+          },
+          {
+            "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/inventory-difference-map.json",
+            "sha256": "40489e577fdb4d3d6c82c87ac8d6390ccc1edbc178ea6e58a030edd4aeace6a9"
+          },
+          {
+            "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/natural-source-v2.md",
+            "sha256": "286c030e78ad180e74335f8c8543da2aad5dcff81a2797c92215f13773466cc0"
+          },
+          {
+            "logical_reference": "reviews/publication/sp-foundations-c42/source-and-graph-v3.json",
+            "sha256": "017733a2f41c40b07f81a6e5d32d2bcf1cbbd69a77228173d0e55a05a8368c8e"
+          },
+          {
+            "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/source-coverage-v2.json",
+            "sha256": "b3547afd08aa55feb61b70a265a7de12366c84903e86c7d922d61d952f9a10a0"
+          },
+          {
+            "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/stage1-seal.json",
+            "sha256": "3e06dc4059b9f7c75fc414a1640ea5a6d34bbee8702f603eb48184521cd5b7d5"
+          }
+        ],
+        "formal_packet_aggregate_sha256": "b131c682350b160859ea33ee8df0a452e08332fd1592ef06f7e262c60bf4d4db",
+        "editorial_successor_proposal": {
+          "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/editorial-proposal.json",
+          "sha256": "4584fa32bee3b18e620f22b1eae151d3351ac4df42aeba74e114510cc581662d"
+        },
+        "legacy_review_reference": {
+          "logical_reference": "hermite-export-work/sp-foundations-c41-source-review-phase3/phase3-seal.json",
+          "sha256": "9cfd2ffdbed27558ce6988ec4fe16f8fb2310af8e2930e86dc9c8556194e0933",
+          "verdict_retained": "WITHHELD_CHANGES_REQUIRED",
+          "successor_status": "PENDING"
+        }
+      },
+      "formalizer": "UNKNOWN",
+      "residual_boundary": "Generic target.normalization remains its stored Prop. Constant-table tree retains halfAdd/halfSub angle syntax, zero-evaluating RY and both CX gates. Exact-real ideal-gate counts/depth only, no global optimum or finite-bit/hardware theorem. AUTHOR/WIP; independent comparison and gate acceptance are not claimed.",
+      "binding_sha256": "a8c9a96facf07b1f2d1182ace9fea0c9862fc654dfa4b518db970c112d1780d5",
+      "decoder_evidence": "reviews/publication/sp-foundations-c42/final-evidence/StatePreparationPrimitiveRoutes-decoder.json",
+      "reviewer_evidence": "reviews/publication/sp-foundations-c42/final-evidence/StatePreparationPrimitiveRoutes-reviewer.json",
+      "status": "AUTHOR/WIP_SUCCESSOR_PROSPECTIVE",
+      "historical_formalizer": "UNKNOWN",
+      "metadata_author": "sp_foundations_source_author_c40",
+      "provenance": "RETROSPECTIVE_IMPLEMENTATION_INFORMED",
+      "independent_comparison_status": "PENDING_SAME_REVIEWER_EXACT_SUCCESSOR",
+      "independent_source_evidence": null,
+      "independent_topology_evidence": null,
+      "common_blind_spot_evidence": null,
+      "actual_kernel_observation_evidence": null,
+      "exposition_seal_evidence": null,
+      "repair": {
+        "proposal_path": "reviews/publication/sp-foundations-c42/editorial-proposal-v2.json",
+        "independent_review": "reviews/publication/sp-foundations-c42/final-evidence/editorial-minimality-review.json"
+      },
+      "statement_seal": {
+        "status": "RETROSPECTIVE_AUTHOR_CONTRACT_ONLY",
+        "preproof": false,
+        "lesson_sha256": "286c030e78ad180e74335f8c8543da2aad5dcff81a2797c92215f13773466cc0",
+        "binder_definition_audit": {
+          "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/binder-audit-v2.md",
+          "sha256": "d2027e00b8bf7ac2b57a6cf715353b6f405fd84bcf33055c0715946ea5d16415"
+        }
+      },
+      "private_helper_audit": {
+        "count": 5,
+        "source_names": [
+          "QuantumBlockEncoding.StatePreparationBenchmarks.amplitudeRotation_eq_pythagorean",
+          "QuantumBlockEncoding.StatePreparationBenchmarks.cosine35",
+          "QuantumBlockEncoding.StatePreparationBenchmarks.sine35",
+          "QuantumBlockEncoding.StatePreparationBenchmarks.cosine513",
+          "QuantumBlockEncoding.StatePreparationBenchmarks.sine513"
+        ],
+        "full_frozen_audit": {
+          "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/binder-audit-v2.md",
+          "sha256": "d2027e00b8bf7ac2b57a6cf715353b6f405fd84bcf33055c0715946ea5d16415"
+        },
+        "complete_source_inventory": {
+          "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/declaration-inventory-v2.json",
+          "sha256": "d3254ad6a82050ba770682a619211565eb1d4fba0a67dc4bd2577caf876982cb"
+        }
+      },
+      "source_proof_coverage": {
+        "status": "AUTHOR/WIP; independent review pending",
+        "anchors": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "P5",
+          "F",
+          "B3",
+          "Q"
+        ],
+        "inventory": {
+          "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/source-coverage-v2.json",
+          "sha256": "b3547afd08aa55feb61b70a265a7de12366c84903e86c7d922d61d952f9a10a0"
+        },
+        "graph": {
+          "logical_reference": "reviews/publication/sp-foundations-c42/source-and-graph-v3.json",
+          "sha256": "017733a2f41c40b07f81a6e5d32d2bcf1cbbd69a77228173d0e55a05a8368c8e"
+        }
+      },
+      "proof_digestion": {
+        "existing_substrate": "ConcreteSemantics/PrimitiveBasisLE/UniformlyControlledRy; canonical shared SP/BE substrate unchanged",
+        "bookkeeping": "Finite matrix entries, register/phase/resource accounting and certificate packaging",
+        "new_reusable": "NONE: production Lean unchanged",
+        "new_topology": "NONE newly claimed; original author's explanatory reorganisation only"
+      },
+      "purification": {
+        "status": "PENDING",
+        "evidence": null
+      },
+      "editorial_successor": {
+        "proposal": {
+          "logical_reference": "hermite-export-work/sp-foundations-c42-author-successor/editorial-proposal.json",
+          "sha256": "4584fa32bee3b18e620f22b1eae151d3351ac4df42aeba74e114510cc581662d"
+        },
+        "independent_successor_review": null,
+        "statement_change": "NONE",
+        "only_source_change": "Bell six-core-plus-adjoint census sentence",
+        "prior_minimality_finding": "E-BELL-COUNT; old review is not accepted successor evidence"
+      },
+      "prior_v2_graph_binding_sha256": "d80bceb786e701e26650c7ff04fe7b2702a93927f7f02a05218f02882d33601d"
+    }
+  ],
+  "source_row": {
+    "id": "aspbe-local-finite-sp-foundations-v2",
+    "title": "Finite state preparation: matrices, certificates, and primitive routes",
+    "url": "https://github.com/DakeBU/Quantum-Computing-Block-Encoding",
+    "status": "primary-text-checked",
+    "anchor": "docs/lessons/finite-sp-foundations-v2.md (anchors F, T, B1-B5, P1-P5, Q)",
+    "scope": "Retrospective implementation-informed original teaching contract for exactly TextbookStatePreparation, StatePreparationBenchmarksCoreFixed and StatePreparationPrimitiveRoutes. No general named-paper algorithm formalization, historical source-first claim, new production theorem or alternate quantum foundation. Version2 changes only the independently justified Bell census sentence; complete inventory/graph repairs are versioned evidence, not scientific target changes.",
+    "formal_status": "AUTHOR/WIP exact successor; prior author-evidence review WITHHELD_CHANGES_REQUIRED remains immutable. Same-reviewer exact successor comparison, prospective metadata review, actual trust observation and all final integration/publication gates PENDING. Historical formalizer UNKNOWN.",
+    "provenance": "RETROSPECTIVE_IMPLEMENTATION_INFORMED",
+    "lesson_path": "docs/lessons/finite-sp-foundations-v2.md",
+    "lesson_sha256": "286c030e78ad180e74335f8c8543da2aad5dcff81a2797c92215f13773466cc0",
+    "historical_formalizer": "UNKNOWN"
+  },
+  "author_archive": "reviews/publication/sp-foundations-c42/author-v2-frozen-successor.zip",
+  "author_archive_sha256": "3f3a4b6ef2e81053065bab9aa249347f1bb428f0f2cb7ae040388040bfb9cf65",
+  "logical_artifact_resolver": {
+    "hermite-export-work/sp-foundations-c42-author-successor/allowlist.json": {
+      "archive": "reviews/publication/sp-foundations-c42/author-v2-frozen-successor.zip",
+      "member": "allowlist.json",
+      "member_sha256": "0732b79b40488c07ab5a064bb27bbaffd39d60134cf31d07537dc4f8d54fdf11"
+    },
+    "hermite-export-work/sp-foundations-c42-author-successor/binder-audit-v2.md": {
+      "archive": "reviews/publication/sp-foundations-c42/author-v2-frozen-successor.zip",
+      "member": "binder-audit-v2.md",
+      "member_sha256": "d2027e00b8bf7ac2b57a6cf715353b6f405fd84bcf33055c0715946ea5d16415"
+    },
+    "hermite-export-work/sp-foundations-c42-author-successor/bounded-checks-v2.json": {
+      "archive": "reviews/publication/sp-foundations-c42/author-v2-frozen-successor.zip",
+      "member": "bounded-checks-v2.json",
+      "member_sha256": "a795fb658bc883f4e2fb2c3a3c705b49b8b9a8bf5223a159779f039ffad19a29"
+    },
+    "hermite-export-work/sp-foundations-c42-author-successor/check-stage1.py": {
+      "archive": "reviews/publication/sp-foundations-c42/author-v2-frozen-successor.zip",
+      "member": "check-stage1.py",
+      "member_sha256": "a847aa0e0993a4d27ea062dd987821c9a1f81184011dc00f7ad6a2b2c0a3adea"
+    },
+    "hermite-export-work/sp-foundations-c42-author-successor/compute-prospective-v2.py": {
+      "archive": "reviews/publication/sp-foundations-c42/author-v2-frozen-successor.zip",
+      "member": "compute-prospective-v2.py",
+      "member_sha256": "ebeb9f5434564e83a708587fe020f5eeb4b48eaa02a7bb81fc54b55097594cd6"
+    },
+    "hermite-export-work/sp-foundations-c42-author-successor/declaration-inventory-v2.json": {
+      "archive": "reviews/publication/sp-foundations-c42/author-v2-frozen-successor.zip",
+      "member": "declaration-inventory-v2.json",
+      "member_sha256": "d3254ad6a82050ba770682a619211565eb1d4fba0a67dc4bd2577caf876982cb"
+    },
+    "hermite-export-work/sp-foundations-c42-author-successor/editorial-proposal.json": {
+      "archive": "reviews/publication/sp-foundations-c42/author-v2-frozen-successor.zip",
+      "member": "editorial-proposal.json",
+      "member_sha256": "4584fa32bee3b18e620f22b1eae151d3351ac4df42aeba74e114510cc581662d"
+    },
+    "hermite-export-work/sp-foundations-c42-author-successor/extract-inventory.py": {
+      "archive": "reviews/publication/sp-foundations-c42/author-v2-frozen-successor.zip",
+      "member": "extract-inventory.py",
+      "member_sha256": "9abb77b83022faa1a43bb5123b54ebe68c0bd757bd11b0d7d67a9681e0b39ffd"
+    },
+    "hermite-export-work/sp-foundations-c42-author-successor/final-seal.json": {
+      "archive": "reviews/publication/sp-foundations-c42/author-v2-frozen-successor.zip",
+      "member": "final-seal.json",
+      "member_sha256": "ae171c7e679d3dbbfd2289dbde73c7c1aaa0feda3111b1a9bc80dc1072d2feb9"
+    },
+    "hermite-export-work/sp-foundations-c42-author-successor/handoff.md": {
+      "archive": "reviews/publication/sp-foundations-c42/author-v2-frozen-successor.zip",
+      "member": "handoff.md",
+      "member_sha256": "85e1c15ca0bba2238ff5eb98b961282dda7eb6914b3682d74283186fc7577ea4"
+    },
+    "hermite-export-work/sp-foundations-c42-author-successor/inventory-checks.json": {
+      "archive": "reviews/publication/sp-foundations-c42/author-v2-frozen-successor.zip",
+      "member": "inventory-checks.json",
+      "member_sha256": "41478443a2ba9b17452e862fb46f54eda7edb9d78d8000bc5ec0690ee704f5ee"
+    },
+    "hermite-export-work/sp-foundations-c42-author-successor/inventory-difference-map.json": {
+      "archive": "reviews/publication/sp-foundations-c42/author-v2-frozen-successor.zip",
+      "member": "inventory-difference-map.json",
+      "member_sha256": "40489e577fdb4d3d6c82c87ac8d6390ccc1edbc178ea6e58a030edd4aeace6a9"
+    },
+    "hermite-export-work/sp-foundations-c42-author-successor/natural-source-v2.md": {
+      "archive": "reviews/publication/sp-foundations-c42/author-v2-frozen-successor.zip",
+      "member": "natural-source-v2.md",
+      "member_sha256": "286c030e78ad180e74335f8c8543da2aad5dcff81a2797c92215f13773466cc0"
+    },
+    "hermite-export-work/sp-foundations-c42-author-successor/prospective-records-v2.json": {
+      "archive": "reviews/publication/sp-foundations-c42/author-v2-frozen-successor.zip",
+      "member": "prospective-records-v2.json",
+      "member_sha256": "450ae78ab164486e2fac28a631d69355b1113b6701f0dfbd4b6362d8d782237a"
+    },
+    "hermite-export-work/sp-foundations-c42-author-successor/source-and-graph-v2.json": {
+      "archive": "reviews/publication/sp-foundations-c42/author-v2-frozen-successor.zip",
+      "member": "source-and-graph-v2.json",
+      "member_sha256": "1f02a749ca7e3405d397ed5177b703208ee40fb343f843f862bb3f0160e90f21"
+    },
+    "hermite-export-work/sp-foundations-c42-author-successor/source-coverage-v2.json": {
+      "archive": "reviews/publication/sp-foundations-c42/author-v2-frozen-successor.zip",
+      "member": "source-coverage-v2.json",
+      "member_sha256": "b3547afd08aa55feb61b70a265a7de12366c84903e86c7d922d61d952f9a10a0"
+    },
+    "hermite-export-work/sp-foundations-c42-author-successor/sources-overlay-v2.json": {
+      "archive": "reviews/publication/sp-foundations-c42/author-v2-frozen-successor.zip",
+      "member": "sources-overlay-v2.json",
+      "member_sha256": "ffb017e5e346130b2f847c67f84f5facf382b6cec843719ccd2bcbe816dae09f"
+    },
+    "hermite-export-work/sp-foundations-c42-author-successor/stage1-checks.json": {
+      "archive": "reviews/publication/sp-foundations-c42/author-v2-frozen-successor.zip",
+      "member": "stage1-checks.json",
+      "member_sha256": "f8de472a6138c9398ee7f124e9983695ef35dc73d45b7e2aef1de1e24b8e802e"
+    },
+    "hermite-export-work/sp-foundations-c42-author-successor/stage1-seal.json": {
+      "archive": "reviews/publication/sp-foundations-c42/author-v2-frozen-successor.zip",
+      "member": "stage1-seal.json",
+      "member_sha256": "3e06dc4059b9f7c75fc414a1640ea5a6d34bbee8702f603eb48184521cd5b7d5"
+    }
+  },
+  "logical_references_are_not_filesystem_paths": true,
+  "prior_review_archive": "reviews/publication/sp-foundations-c42/source-first-phase3-changes-required.zip",
+  "bound_fields_unchanged_from_original_prospective": false,
+  "old30_records_unchanged_and_valid": true,
+  "raw207_unchanged": true,
+  "user12_unchanged": true,
+  "registry_admission": false,
+  "sourceAgreement": null,
+  "scientific_ROOT": false,
+  "main_merged": false,
+  "PURIFIED": false,
+  "graph_metadata_successor": {
+    "path": "reviews/publication/sp-foundations-c42/source-and-graph-v3.json",
+    "sha256": "017733a2f41c40b07f81a6e5d32d2bcf1cbbd69a77228173d0e55a05a8368c8e",
+    "prior_sha256": "1f02a749ca7e3405d397ed5177b703208ee40fb343f843f862bb3f0160e90f21",
+    "prior_comparison_object_separation": {
+      "source": "natural-source.md",
+      "actual_formal": "formal/target-01.lean through target-03.lean plus bounded provider context",
+      "discovered_mismatch": "binder-audit.md typed gaps, notably G-SPARSE-COMMENT and G-DISPLAY",
+      "proposed_repair": "NONE; exact code unmodified, scope and comments are explained without creating a new formal claim."
+    },
+    "new_comparison_object_separation": {
+      "source": "natural-source-v2.md",
+      "actual_formal": "formal/target-01.lean through target-03.lean plus bounded provider context",
+      "discovered_mismatch": "binder-audit-v2.md typed gaps, notably G-SPARSE-COMMENT and G-DISPLAY; these boundaries remain explanations, not code repairs.",
+      "proposed_repair": "EDITORIAL_CENSUS_ONLY: editorial-proposal.json replaces exactly the Bell six-core-plus-adjoint count sentence. No mathematical statement, premise, matrix, cost or Lean code changes. Independent exact-proposal minimality review remains required."
+    },
+    "mathematical_edges_changed": false,
+    "new_review_required": true
+  },
+  "prior_context_path": "reviews/publication/sp-foundations-c42/final-context-c43.json",
+  "prior_context_sha256": "12398292798ec3b7258c95b789cac7283bc59e05dae632ffeaafd3678b4bc1a3"
+}

@@ -1,0 +1,143 @@
+﻿lake : warning: verso: repository '.\.lake/packages\verso
+' has local changes
+At .\experiments\hermite-polynomial\precision\charged-coe
+fficient-cache-c23\check.ps1:10 char:3
++   lake env lean -o "$PSScriptRoot/.cache/ChargedSourceCache.olean" "$ ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (warning: verso:...s local changes:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+.\experiments\hermite-polynomial\precision\charged-coefficient-cache-c23/ChargedSourceCache.lean:56:59: error: Invalid simp theorem: Expected a proposition, but found
+  (x_0 : Type) → (x_1 : ℕ) → Vector x_0 x_1 → Fin x_1 → Run x_0
+.\experiments\hermite-polynomial\precision\charged-coefficient-cache-c23/ChargedSourceCache.lean:60:27: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (factorials n).value.values[↑(Fin.last n)]
+in the target expression
+  ↑(n + 1) * (QuantumBlockEncoding.StoredGivens.read (factorials n).value.values (Fin.last n)).value = ↑(↑i).factorial
+
+case neg
+n : ℕ
+ih : ∀ (i : Fin (n + 1)), (factorials n).value.values[↑i] = ↑(↑i).factorial
+i : Fin (n + 1 + 1)
+h : ¬↑i < n + 1
+hi : ↑i = n + 1
+⊢ ↑(n + 1) * (QuantumBlockEncoding.StoredGivens.read (factorials n).value.values (Fin.last n)).value = ↑(↑i).factorial
+.\experiments\hermite-polynomial\precision\charged-coefficient-cache-c23/ChargedSourceCache.lean:75:41: error: Invalid simp theorem: Expected a proposition, but found
+  (x_0 : Type) → (x_1 : ℕ) → Vector x_0 x_1 → Fin x_1 → Run x_0
+.\experiments\hermite-polynomial\precision\charged-coefficient-cache-c23/ChargedSourceCache.lean:76:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  F[↑⟨n, ?m.40⟩]
+in the target expression
+  (QuantumBlockEncoding.StoredGivens.read F ⟨n, ⋯⟩).value /
+      ((QuantumBlockEncoding.StoredGivens.read F ⟨r, ⋯⟩).value *
+        (QuantumBlockEncoding.StoredGivens.read F ⟨n - r, ⋯⟩).value) =
+    ↑(n.choose r)
+
+N : ℕ
+F : Vector ℚ (N + 1)
+correct : ∀ (i : Fin (N + 1)), F[↑i] = ↑(↑i).factorial
+n r : ℕ
+hr : r ≤ n
+hn : n ≤ N
+⊢ (QuantumBlockEncoding.StoredGivens.read F ⟨n, ⋯⟩).value /
+      ((QuantumBlockEncoding.StoredGivens.read F ⟨r, ⋯⟩).value *
+        (QuantumBlockEncoding.StoredGivens.read F ⟨n - r, ⋯⟩).value) =
+    ↑(n.choose r)
+.\experiments\hermite-polynomial\precision\charged-coefficient-cache-c23/ChargedSourceCache.lean:107:29: error: Invalid simp theorem: Expected a proposition, but found
+  (x_0 : Type) → (x_1 : ℕ) → Vector x_0 x_1 → Fin x_1 → Run x_0
+.\experiments\hermite-polynomial\precision\charged-coefficient-cache-c23/ChargedSourceCache.lean:108:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  F[↑⟨↑r, ?m.84⟩]
+in the target expression
+  ↑((k + ↑i - ↑r).choose k) / (QuantumBlockEncoding.StoredGivens.read F ⟨↑r, ⋯⟩).value =
+    ↑((k + ↑i - ↑r).choose k) / ↑(↑r).factorial
+
+k : ℕ
+F : Vector ℚ (2 * k + 2)
+correct : ∀ (i : Fin (2 * k + 2)), F[↑i] = ↑(↑i).factorial
+i : Fin (k + 1)
+r : Fin (↑i + 1)
+a✝ : r ∈ Finset.univ
+⊢ ↑((k + ↑i - ↑r).choose k) / (QuantumBlockEncoding.StoredGivens.read F ⟨↑r, ⋯⟩).value =
+    ↑((k + ↑i - ↑r).choose k) / ↑(↑r).factorial
+.\experiments\hermite-polynomial\precision\charged-coefficient-cache-c23/ChargedSourceCache.lean:141:10: error: Tactic `introN` failed: There are no additional binders or `let` bindings in the goal to introduce
+
+n : ℕ
+xs : Vector ℚ (n + 1)
+last : ℚ
+op : Op
+⊢ (n + 2) * (2 + 4) ≤ 6 * (n + 2)
+.\experiments\hermite-polynomial\precision\charged-coefficient-cache-c23/ChargedSourceCache.lean:146:4: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  a ≥ 3
+where
+ a := ↑((have result := if h : ↑i < n + 1 then QuantumBlockEncoding.StoredGivens.read xs ⟨↑i, h⟩ else pure last;
+      { value := result.value, cost := tick Op.compare + result.cost }).cost
+    op)
+.\experiments\hermite-polynomial\precision\charged-coefficient-cache-c23/ChargedSourceCache.lean:161:59: error: Invalid simp theorem: Expected a proposition, but found
+  (x_0 : Type) → (x_1 : ℕ) → Vector x_0 x_1 → Fin x_1 → Run x_0
+.\experiments\hermite-polynomial\precision\charged-coefficient-cache-c23/ChargedSourceCache.lean:163:4: error: linarith failed to find a contradiction
+case succ
+op : Op
+n : ℕ
+ih : (factorials n).cost op ≤ 10 * (n + 1) ^ 2
+extension :
+  (extend (factorials n).value.values ((factorials n).value.next * (factorials n).value.values[n])).cost op ≤
+    6 * (n + 2)
+hr : tick Op.read op ≤ 1
+hf : tick Op.field op ≤ 1
+a✝ :
+  10 * (n + 1 + 1) ^ 2 <
+    (factorials n).cost op +
+      ((QuantumBlockEncoding.StoredGivens.read (factorials n).value.values (Fin.last n)).cost op +
+        (tick Op.field op +
+          (tick Op.field op +
+            (extend (factorials n).value.values
+                  ((factorials n).value.next *
+                    (QuantumBlockEncoding.StoredGivens.read (factorials n).value.values (Fin.last n)).value)).cost
+              op)))
+⊢ False
+failed
+.\experiments\hermite-polynomial\precision\charged-coefficient-cache-c23/ChargedSourceCache.lean:168:36: error: Invalid simp theorem: Expected a proposition, but found
+  (x_0 : Type) → (x_1 : ℕ) → Vector x_0 x_1 → Fin x_1 → Run x_0
+.\experiments\hermite-polynomial\precision\charged-coefficient-cache-c23/ChargedSourceCache.lean:169:2: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  h ≥ 0
+  g ≥ 0
+  f ≥ 0
+  e ≥ 0
+  d ≥ 0
+  3*d - f - g - h ≥ 1
+  c ≥ 0
+  b ≥ 0
+  a ≥ 0
+  a - b ≥ 0
+  a - c ≤ 0
+where
+ a := ↑n
+ b := ↑r
+ c := ↑N
+ d := ↑(tick Op.read op)
+ e := ↑(tick Op.field op)
+ f := ↑((QuantumBlockEncoding.StoredGivens.read F ⟨n, ⋯⟩).cost op)
+ g := ↑((QuantumBlockEncoding.StoredGivens.read F ⟨r, ⋯⟩).cost op)
+ h := ↑((QuantumBlockEncoding.StoredGivens.read F ⟨n - r, ⋯⟩).cost op)
+.\experiments\hermite-polynomial\precision\charged-coefficient-cache-c23/ChargedSourceCache.lean:193:33: error: Invalid simp theorem: Expected a proposition, but found
+  (x_0 : Type) → (x_1 : ℕ) → Vector x_0 x_1 → Fin x_1 → Run x_0
+.\experiments\hermite-polynomial\precision\charged-coefficient-cache-c23/ChargedSourceCache.lean:194:6: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  c ≥ 0
+  0 ≤ b ≤ 1
+  0 ≤ a ≤ 1
+  3*a + 3*b + c ≥ 8
+where
+ a := ↑(tick Op.read op)
+ b := ↑(tick Op.field op)
+ c := ↑((QuantumBlockEncoding.StoredGivens.read F ⟨↑r, ⋯⟩).cost op)
+'HermiteChargedSourceCache.factorials_value' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HermiteChargedSourceCache.factorials_cost_le' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HermiteChargedSourceCache.chooseFrom_value' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HermiteChargedSourceCache.sourceEntry_value' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HermiteChargedSourceCache.produceSourceCache_entry' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HermiteChargedSourceCache.produceSourceCache_cost_le' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+

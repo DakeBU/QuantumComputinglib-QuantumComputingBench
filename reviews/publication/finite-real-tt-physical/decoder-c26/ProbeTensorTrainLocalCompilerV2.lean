@@ -1,0 +1,34 @@
+import QuantumBlockEncoding.TensorTrainLocalCompiler
+set_option pp.explicit true
+set_option pp.fullNames true
+set_option pp.universes true
+
+#check QuantumBlockEncoding.TensorTrainLocalCompiler.exists_SO_named
+#print axioms QuantumBlockEncoding.TensorTrainLocalCompiler.exists_SO_named
+
+#check QuantumBlockEncoding.TensorTrainLocalCompiler.localIndex
+#print axioms QuantumBlockEncoding.TensorTrainLocalCompiler.localIndex
+
+#check QuantumBlockEncoding.TensorTrainLocalCompiler.localIndex_snoc
+#print axioms QuantumBlockEncoding.TensorTrainLocalCompiler.localIndex_snoc
+
+#check QuantumBlockEncoding.TensorTrainLocalCompiler.paddedAt_real
+#print axioms QuantumBlockEncoding.TensorTrainLocalCompiler.paddedAt_real
+
+#check QuantumBlockEncoding.TensorTrainLocalCompiler.paddedAt_im_zero
+#print axioms QuantumBlockEncoding.TensorTrainLocalCompiler.paddedAt_im_zero
+
+#check QuantumBlockEncoding.TensorTrainLocalCompiler.activePositions
+#print axioms QuantumBlockEncoding.TensorTrainLocalCompiler.activePositions
+
+#check QuantumBlockEncoding.TensorTrainLocalCompiler.activeColumns
+#print axioms QuantumBlockEncoding.TensorTrainLocalCompiler.activeColumns
+
+#check QuantumBlockEncoding.TensorTrainLocalCompiler.activeColumns_isometry
+#print axioms QuantumBlockEncoding.TensorTrainLocalCompiler.activeColumns_isometry
+
+#check QuantumBlockEncoding.TensorTrainLocalCompiler.exists_local_circuit_with_resources
+#print axioms QuantumBlockEncoding.TensorTrainLocalCompiler.exists_local_circuit_with_resources
+
+#check QuantumBlockEncoding.TensorTrainLocalCompiler.exists_local_circuit
+#print axioms QuantumBlockEncoding.TensorTrainLocalCompiler.exists_local_circuit

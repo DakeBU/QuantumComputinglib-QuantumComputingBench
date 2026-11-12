@@ -1,0 +1,243 @@
+{
+  "schema_version": 1,
+  "role": "decoder",
+  "identity": "/root/thin_lq_lf_blind_decoder",
+  "run_id": "thin-lq-lf-decoder-58721954-4fb2-4ead-abf3-bc793e4aab40",
+  "source_blind": true,
+  "packet_path": "reviews/publication/thin-lq-lf/decoder-packet.json",
+  "packet_sha256": "3015b477f373560cecf0d4f18e64018e1c4f0faee090de1d33a59e80f0f3ef19",
+  "artifact_path": "reviews/publication/thin-lq-lf/decoder-artifact.json",
+  "artifact_sha256": "d294fede84ff9ff37147f6850b03ee6ae3a31ae6a73f647a0f70eeef98e093cd",
+  "binding_sha256": "4c90c8bd8de9a7fa7f063704c20959c7f27004d7511008ced0784184e628e78f",
+  "module": "QuantumBlockEncoding/ThinLQ.lean",
+  "module_sha256": "1b5b8434ba90063bb7d14ffe133ca7733a38772d4fe95f24427800d4edc62614",
+  "toolchain": "leanprover/lean4:v4.33.0",
+  "toolchain_sha256": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+  "manifest_sha256": "510171e8214a2ac5e00f16c1bf92ad474d2de42c4cd2dc2b3d411272f7b58763",
+  "binding_verification": "The supplied publication binding is carried from the packet, not independently recomputed. Its algorithm includes withheld lesson/source metadata; recomputing it inside this decoder would violate source blindness. Packet, module and inspected formal-provider byte hashes were checked independently.",
+  "independent_run": "Fresh source-blind decoder invocation for this exact raw-byte packet/module cohort. No previous reconstruction, reviewer verdict, authored source contract or lesson was used.",
+  "reconstruction": {
+    "public_declaration_count": 3,
+    "public_declarations": [
+      {
+        "name": "QuantumBlockEncoding.ThinLQ.sum_prefix_of_zero",
+        "exact_signature": "theorem sum_prefix_of_zero {m n : ℕ} {M : Type*} [AddCommMonoid M] (hmn : m ≤ n) (f : Fin n → M) (hf : ∀ j, m ≤ j.val → f j = 0) : (∑ i : Fin m, f (Fin.castLE hmn i)) = ∑ j : Fin n, f j",
+        "inputs": [
+          "Implicit naturals m,n and arbitrary carrier M.",
+          "An additive commutative monoid structure on M; no scalar multiplication, order, subtraction or cancellation is assumed.",
+          "A proof m≤n and an arbitrary Fin n-indexed family f.",
+          "The tail-zero condition applies to every j with m≤j.val, including the boundary j.val=m."
+        ],
+        "conclusion": "The sum over the embedded length-m prefix equals the full length-n sum. It is not a converse characterizing vanishing tails.",
+        "proof": [
+          "The prefix embedding is injective because equality of its values gives equality of the original Fin values.",
+          "Rewrite the prefix sum as the sum over the image of Fin m in Fin n.",
+          "Extend that image sum to all Fin n: a missing index cannot have value <m, because then it would have a prefix preimage.",
+          "Every omitted index therefore lies in the zero tail; adding it leaves the sum unchanged."
+        ],
+        "dependencies": [
+          "Finset.sum_image",
+          "Finset.sum_subset",
+          "Finset.subset_univ",
+          "Finset.mem_image",
+          "Fin.ext",
+          "congrArg",
+          "omega"
+        ],
+        "edge_cases": [
+          "m=0: every f j must be zero, so the empty sum equals the full zero sum.",
+          "m=n: the tail hypothesis has no satisfying index and the embedding covers all indices.",
+          "n=0 forces m=0; both sums are empty."
+        ],
+        "strength_boundary": []
+      },
+      {
+        "name": "QuantumBlockEncoding.ThinLQ.exists_factor_of_le",
+        "exact_signature": "theorem exists_factor_of_le {m n : ℕ} (hmn : m ≤ n) (A : Matrix (Fin m) (Fin n) ℝ) : ∃ (R : Matrix (Fin m) (Fin m) ℝ) (Q : Matrix (Fin m) (Fin n) ℝ), A = R * Q ∧ Q * Q.transpose = 1",
+        "inputs": [
+          "Arbitrary implicit naturals m,n with m≤n.",
+          "An arbitrary m-by-n real matrix A.",
+          "No linear independence, nonzero rows, positivity, normalization, rank, numerical tolerance or oracle premise."
+        ],
+        "conclusion": "There exist a square m-by-m real coefficient factor R and an m-by-n real row-orthonormal factor Q giving the exact equality A=RQ.",
+        "proof": [
+          "Create n vectors f_i in ℝ^n: f_i is row i of A when i<m, and is the zero vector when i≥m.",
+          "Use dim(ℝ^n)=card(Fin n) to obtain b=gramSchmidtOrthonormalBasis hd f, a complete n-element orthonormal basis.",
+          "This provider normalizes each nonzero Gram-Schmidt residual in its original index slot and completes all zero-residual slots by a classical choice of additional orthonormal vectors. It does not require the input family to be independent.",
+          "For i,k<m set R_ik to the coordinate of f_i along b_k; equivalently R_ik=<b_k,f_i>. Set row k of Q to b_k.",
+          "For i<m and k≥m, i<k, so the provider's inverse-triangular coefficient theorem gives <b_k,f_i>=0.",
+          "The full basis expansion f_i=sum_{k<n}<b_k,f_i>b_k therefore truncates to its first m terms by sum_prefix_of_zero. Evaluating coordinate j gives A_ij=(RQ)_ij.",
+          "The selected first m vectors of an orthonormal basis remain orthonormal; their coordinate dot products are delta_kl, which proves QQ^T=I_m."
+        ],
+        "dependencies": {
+          "local": [
+            "QuantumBlockEncoding.ThinLQ.sum_prefix_of_zero"
+          ],
+          "mathlib": [
+            "InnerProductSpace.gramSchmidtOrthonormalBasis",
+            "InnerProductSpace.gramSchmidtOrthonormalBasis_inv_triangular'",
+            "finrank_euclideanSpace",
+            "OrthonormalBasis.sum_repr",
+            "OrthonormalBasis.inner_eq_ite",
+            "PiLp.inner_apply",
+            "Matrix.mul_apply",
+            "WithLp.ofLp_sum",
+            "WithLp.ofLp_smul",
+            "Finset.sum_apply",
+            "Pi.smul_apply",
+            "smul_eq_mul",
+            "Fin.castLE_inj",
+            "mul_comm",
+            "zero_mul"
+          ],
+          "reasoning": [
+            "classical choice",
+            "matrix extensionality",
+            "coordinate evaluation",
+            "omega on natural index inequalities",
+            "simp for canonical Fin and real instances"
+          ]
+        },
+        "edge_cases": [
+          "m=0: R is 0-by-0 and Q is 0-by-n; both equations are vacuous in row indices.",
+          "n=0: m≤n forces m=0, so no positive number of unit vectors in zero-dimensional space is required.",
+          "A=0 with m>0: the proof chooses completion vectors; Q is still row-orthonormal. Its chosen coefficient R is zero. Returning Q=0 would violate the statement.",
+          "Zero initial rows or linearly dependent rows can produce zero residuals at arbitrary index positions; classical completion fills those positions.",
+          "m=n: the witness Q is square orthogonal, while A and R may remain singular.",
+          "Tall case m>n is outside this particular theorem's premise."
+        ],
+        "strength_boundary": [
+          "The displayed witness actually also has R_ik=0 when i<k, by the same provider theorem applied within the prefix; this property is not included in the public existential conclusion.",
+          "The public theorem does not export the witness choice, a canonical basis, uniqueness, diagonal sign conditions, invertibility of R or a rank equality.",
+          "Orthonormality gives m independent rows of Q even when rank(A)<m. It does not claim the rows of Q form exactly the row space of A."
+        ]
+      },
+      {
+        "name": "QuantumBlockEncoding.ThinLQ.exists_thin_lq",
+        "exact_signature": "theorem exists_thin_lq {m n : ℕ} (A : Matrix (Fin m) (Fin n) ℝ) : ∃ (R : Matrix (Fin m) (Fin (min m n)) ℝ) (Q : Matrix (Fin (min m n)) (Fin n) ℝ), A = R * Q ∧ Q * Q.transpose = 1",
+        "inputs": [
+          "Arbitrary implicit naturals m,n.",
+          "An arbitrary m-by-n real matrix A.",
+          "No additional mathematical premises."
+        ],
+        "conclusion": "With k=min(m,n), there exist R of shape m-by-k and Q of shape k-by-n, exactly satisfying A=RQ and QQ^T=I_k. k is a dimension minimum, not rank(A).",
+        "proof": [
+          "Split on m≤n.",
+          "When m≤n, rewrite min(m,n)=m and invoke exists_factor_of_le.",
+          "When not m≤n, derive n≤m and rewrite min(m,n)=n.",
+          "In this tall branch choose R=A and Q=I_n; A*I_n=A and I_n*I_n^T=I_n by ordinary matrix identities."
+        ],
+        "dependencies": {
+          "local": [
+            "QuantumBlockEncoding.ThinLQ.exists_factor_of_le"
+          ],
+          "mathlib": [
+            "min_eq_left",
+            "min_eq_right",
+            "Matrix.mul_one",
+            "Matrix.transpose_one",
+            "mul_one"
+          ],
+          "reasoning": [
+            "case split on natural dimension comparison",
+            "omega",
+            "simp"
+          ]
+        },
+        "edge_cases": [
+          "Strictly wide m<n: Q has exactly m orthonormal rows, including for rank-deficient A.",
+          "Square m=n: uses the m≤n branch, not the identity shortcut in the written proof.",
+          "Strictly tall m>n: Q=I_n and R=A; no row orthogonalization of A or lower-trapezoidal reduction is performed.",
+          "m=0,n>0: k=0 and both factors have empty row or intermediate indices.",
+          "n=0,m>0: k=0, R=A is m-by-0 and Q is 0-by-0; every required matrix-entry equation is vacuous in a column or row index.",
+          "m=n=0: the empty-wide branch applies; all matrices and equations are empty.",
+          "A=0 with k>0: Q must still have unit mutually perpendicular rows; k does not shrink to zero.",
+          "A of rank r<k: R can be singular or rank-deficient, and Q includes extra orthonormal directions. No promise rank(A)=k is made."
+        ],
+        "strength_boundary": []
+      }
+    ],
+    "conventions": {
+      "dimensions": "m,n are arbitrary natural numbers, with zero allowed. Fin d indexes precisely 0,...,d-1. Fin.castLE hmn preserves numerical index and embeds a prefix.",
+      "matrix": "Matrix (Fin m) (Fin n) ℝ is an m-row, n-column function-valued real matrix. Matrix multiplication contracts the shared finite index: (R*Q) i j = sum_k R i k * Q k j.",
+      "transpose": "Q.transpose j k = Q k j; this is ordinary transpose, not a conjugate-transpose generalization. Scalars are specifically real.",
+      "identity": "1 is the identity matrix on the row index of Q, with entry delta_kl. For Fin 0 it is the unique empty square matrix, and the equations are vacuous.",
+      "orthonormal_rows": "Q*Q.transpose=1 means sum_j Q k j*Q l j = if k=l then 1 else 0. Every actual row has norm 1 and distinct rows are perpendicular. For nonempty row index, Q cannot be the zero matrix.",
+      "ambient_euclidean": "EuclideanSpace ℝ (Fin n) is PiLp 2 of real coordinates, with the Euclidean inner product. WithLp.toLp 2 changes the normed wrapper, not the coordinates.",
+      "quantifier_boundary": "There are no user-supplied typeclass hypotheses on either matrix theorem. Standard ℝ and Fin instances are inferred. The sum lemma alone is universe-polymorphic and assumes AddCommMonoid M."
+    },
+    "completion_dependency": "The wide case uses Mathlib's noncomputable indexed orthonormal-basis extension of nonzero normalized Gram-Schmidt residuals. Zero-residual slots receive orthogonal completion vectors, and the provider proves those vectors orthogonal to every original row. The inverse-triangular coordinate theorem therefore works even for rank-deficient matrices and non-prefix zero residual positions.",
+    "actual_vs_nonconclusions": {
+      "actual": [
+        "Three exact symbolic existence/sum theorems over all stated dimensions.",
+        "Row, not column, orthonormality for Q.",
+        "No positivity or independence assumptions on A.",
+        "No approximation error or success-probability parameter.",
+        "Local wide witness construction via a completed orthonormal basis; trivial tall identity witness."
+      ],
+      "not_exported_or_certified": [
+        "A public lower-triangular or lower-trapezoidal predicate on R.",
+        "A rank-minimal factorization with rank(A) rows.",
+        "A selected deterministic executable factorization procedure.",
+        "Numerically stable Gram-Schmidt, pivoting, rank revealing, finite-precision correctness, runtime, memory or operation counts.",
+        "Uniqueness or canonicality of factors; even square cases permit changes of orthonormal basis.",
+        "Complex-field or arbitrary-field factorization.",
+        "Column orthonormality Q^T Q=I_n for wide matrices. For k<n the latter would have rank n although Q has only k rows.",
+        "Quantum circuit, state preparation, block encoding, gates, ancilla cleanup, oracle access, postselection, phase convention, synthesis or amplification claims."
+      ],
+      "derived_but_not_named_public_claims": [
+        "From A=RQ and QQ^T=I_k one can algebraically derive R=AQ^T. This is not an additional exported theorem in this module.",
+        "Q has full row rank and rank(R)=rank(A); these require further matrix/rank reasoning and are not stated here.",
+        "The particular wide proof witness is lower triangular by the provider coefficient theorem, but the existential statement forgets that property.",
+        "The rows of A lie in the span of rows of Q; equality of these row spaces would require full row rank of A and is not unconditional."
+      ]
+    },
+    "limits": "This is a reconstruction of actual formal meaning, not a judgment of equivalence to withheld source mathematics. Triangularity of the particular wide witness is visible in its construction but is not a conjunct of either public matrix theorem. In the tall branch R=A and Q=I_n, so no general triangular factor is publicly or constructively supplied."
+  },
+  "validation": {
+    "source_inspection": "The exact module has no declared axioms, sorry, admit or exported noncomputable definition.",
+    "axiom_probe": "Lean #print axioms for all three public theorems reported only [propext, Classical.choice, Quot.sound].",
+    "focused_source_check": {
+      "command": "lake env lean QuantumBlockEncoding/ThinLQ.lean",
+      "exit_code": 0
+    },
+    "focused_target_build": {
+      "command": "lake build QuantumBlockEncoding.ThinLQ",
+      "exit_code": 0,
+      "reported_jobs": 2378
+    },
+    "elaborated_probe": {
+      "command": "Lean stdin import and #print of all three public theorems and their axioms",
+      "exit_code": 0,
+      "result": "Printed proofs agree with the inspected source construction and signatures."
+    },
+    "build_warning": "Lake reported local changes in the unrelated verso package. Focused checks nevertheless exited successfully; no package edits were made by this decoder.",
+    "limits": "No full lake build, Tests build, website gate or withheld-source fidelity comparison was performed. Imported provider reasoning was inspected, but this report is not an exhaustive machine-extracted transitive theorem-dependency graph."
+  },
+  "source_blind_boundary": {
+    "read": [
+      "AGENTS.md",
+      "HARNESS.md",
+      ".agents/skills/qbe-substantive-worker/SKILL.md",
+      ".agents/skills/qbe-frontier-master/SKILL.md",
+      "docs/theorem-publication-protocol.md",
+      "docs/proof-digestion-protocol.md",
+      "docs/evidence-routed-memory-protocol.md",
+      "decoder-packet and actual module",
+      "toolchain and manifest",
+      "formal Mathlib providers",
+      "limited checker code for evidence-field and hash-binding mechanics"
+    ],
+    "not_read": [
+      "withheld source",
+      "source registry",
+      "authored lessons",
+      "authored contracts",
+      "publication-candidate.json",
+      "prior reviews or decoder artifacts",
+      "other agents' reconstruction or verdict",
+      "prior task conversations"
+    ],
+    "note": "A directory filename inventory was observed to ensure the assigned output files were new; no candidate or prior evidence content was opened."
+  }
+}

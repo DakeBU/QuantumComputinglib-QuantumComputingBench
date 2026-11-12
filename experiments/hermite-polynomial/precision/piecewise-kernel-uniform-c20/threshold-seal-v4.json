@@ -1,0 +1,12 @@
+{
+  "version": 4,
+  "parent": "translation-seal-v3.json",
+  "exact_signatures": [
+    "stored_strict_grid_mask (n : Nat) (R s : Rational) (hR : 0<R) (x : Word(n+1)) : contract(denoteChain(produceComparison n (strictCut(n+1,R,s))).run.value) x 0 0 = if -R+2*R*wordValue(x)/2^(n+1)<s then 1 else 0",
+    "stored_inclusive_grid_mask (n : Nat) (R s : Rational) (hR : 0<R) (x : Word(n+1)) : contract(denoteChain(produceComparison n (inclusiveCut(n+1,R,s))).run.value) x 0 0 = if -R+2*R*wordValue(x)/2^(n+1)<=s then 1 else 0"
+  ],
+  "binder_audit": {"TYPING": ["natural n,finite LSB word,rational radius/threshold"], "SOURCE": ["positive radius, supplied by actual allocatedRadius_positive when composed"], "EXCESS": [], "not_binders": ["correct cuts", "stored window", "mask oracle", "rank", "T>1"]},
+  "definitions": "Strict cut=min N Nat.ceil((s+R)/step). Inclusive cut=min N(if quotient<0 then0 else Nat.floor(quotient)+1). Guard is literal clipping of a negative inclusive endpoint. CutN retained as Nat, not FinN.",
+  "full_source_remaining": "These masks specialize to A,B,C and complementD for arbitrary T0/T1 without ordering hypotheses. Full piecewise polynomial product/directsum consumer still open.",
+  "scientific_ROOT": false
+}

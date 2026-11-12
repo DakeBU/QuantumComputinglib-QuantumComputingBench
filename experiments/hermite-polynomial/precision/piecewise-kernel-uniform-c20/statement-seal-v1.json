@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "level": "C_INTERNAL_PROVIDER",
+  "direction_fingerprint": "uniform-LSB-comparator-to-actual-integer-cut-and-stored-kernel",
+  "objective": "Continue original actual five-mask/binomial source producer; first certify an integrated arbitrary-width LSB comparison kernel and same-returned stored boundary chain, then rational translation if dependency-ready. No repeated finite checkpoint.",
+  "exact_checkpoint_signatures": [
+    "scan_spec (n cut : Nat) (hcut : cut < 2^n) (x : Word n) (a : Fin3) : scan cut x a = finish a (wordValue x) cut",
+    "readout_scan (cut start n : Nat) (right : Fin3 -> Real) (x : Word n) (a : Fin3) : MatrixProductChain.readout (comparisonKernel cut) right start x a = right (scan (cut/2^start) x a)",
+    "comparison_mask_contract (n cut : Nat) (hcut : cut <= 2^(n+1)) (x : Word(n+1)) : contract (MatrixProductChain.ofKernel(comparisonKernel cut) equalBoundary (acceptBoundary(n+1,cut)) 0 n) x 0 0 = if wordValue x < cut then 1 else 0",
+    "generated_window (n cut : Nat) : StoredMatrixProductChain.Window (comparisonTables n cut).value (comparisonKernel cut) 0",
+    "stored_comparison_contract (n cut : Nat) (hcut : cut <= 2^(n+1)) (x : Word(n+1)) : contract (denoteChain(produceComparison n cut).value) x 0 0 = if wordValue x < cut then 1 else 0"
+  ],
+  "expanded_binder_audit": {"TYPING": ["natural width/cut/start", "finite word and3-state comparison index", "real auxiliary terminal vector"], "SOURCE": ["cut in inclusive0..N, mathematically legal physical threshold"], "EXCESS": [], "not_binders": ["mask correctness", "stored window", "rank", "approximation", "oracle", "source coefficient correctness", "normalization"]},
+  "definition_audit": "All literal: wordValue=sum q0 LSB powers, comparison state0/1/2 less/equal/greater; current more significant unequal digit overrides prior state. Binary cutN is explicitly accepted before truncation. Stored entries are generated0/1 matrices, not supplied callback/oracle inputs.",
+  "source_topology": {"NODE": ["low-bit comparison transition", "higher-bit dominance on Nat binary values", "one-hot finite matrix contraction", "endpoint0/N acceptance", "generated finite window", "same-returned stored chain"], "SOURCE_GAP": ["rational source thresholds to integer cuts", "rational polynomial translation/middle coefficient producer", "product/directsum and entire source contraction", "uniform generation arithmetic/bit/GCD/QR/physical costs"], "EXCLUDED": ["source identity inherited frozen c19", "old finite tests", "original-target normalization/source error inherited c17"]},
+  "inherited_pins": "Record content hashes before fresh focused supplier/consumer gate in own new cache. Old piecewise-kernel-producer source/cache/report remains frozen and untouched.",
+  "resource_model": "No finite-bit/gate success. Stored comparison generation must expose reads/writes/comparisons; integer binary extraction/powers/index and full producer arithmetic omissions stay open.",
+  "scientific_ROOT": false,
+  "public_SourceAnchor": false,
+  "purification": "pending parent review, not PURIFIED"
+}

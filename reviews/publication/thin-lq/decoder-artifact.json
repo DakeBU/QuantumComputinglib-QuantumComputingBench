@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "role": "decoder",
+  "identity": "/root/thin_lq_blind_decoder",
+  "run_id": "thin-lq-blind-20261008",
+  "source_blind": true,
+  "binding_sha256": "608241bcd9d3829a2b9ea60a84db0055dcf4c56bff3d71d36bd63be1d0ba3ae7",
+  "packet_path": "reviews/publication/thin-lq/decoder-packet.json",
+  "packet_sha256": "280961930bfc4c7e73587b16208704a2a875b1c4f66fa081d54cc9ee816def5d",
+  "module_path": "QuantumBlockEncoding/ThinLQ.lean",
+  "module_sha256": "4053889ffc143f953ed1f19898146657f92db2beb764af8754a6709c3983220a",
+  "toolchain": "leanprover/lean4:v4.33.0",
+  "mathlib_manifest_revision": "db584cd6d46c92f209a44c0f1c829460d327499d",
+  "scope": "Independent reconstruction of every public theorem in the named module, using its actual formal statements and relevant imported Mathlib providers. No comparison with a withheld source claim and no reviewer acceptance verdict.",
+  "objects_and_operations": {
+    "indices": "m and n are arbitrary natural numbers, including zero. Fin d consists of integer indices 0 through d-1. Fin.castLE for m <= n includes the first m indices without changing their values.",
+    "matrix_carrier": "Matrix (Fin a) (Fin b) R is the function type Fin a -> Fin b -> R, with row index first. In the factorization the scalar field is specifically the exact real numbers, not a generic field or floating-point representation.",
+    "matrix_multiplication": "(B*C)[i,j] = sum over the shared finite index k of B[i,k]*C[k,j]. Equality is equality of every entry.",
+    "transpose_and_identity": "Q.transpose[j,k] = Q[k,j]. The numeral 1 in a square matrix type is the identity matrix, with entry 1 if its indices agree and 0 otherwise. It is not the all-ones matrix.",
+    "orthonormality": "Q*Q.transpose = I_r expands to sum_{j=0}^{n-1} Q[k,j]*Q[l,j] = delta(k,l) for all k,l < r. Thus rows are orthogonal unit vectors in real Euclidean n-space. This is row orthonormality, not column orthonormality when r < n.",
+    "euclidean_space": "EuclideanSpace R (Fin n) is PiLp 2 with n real coordinates. Its inner product is the sum of coordinate products. WithLp.toLp changes the normed carrier wrapper, not the row coordinates.",
+    "logical_form": "The matrix results are existential propositions: for each input A there exist R and Q satisfying the two equalities. They do not quantify over every R and Q, and introduce no public factor-producing function. Local classical reasoning and imported noncomputable choice are proof mechanisms, not additional hypotheses on A."
+  },
+  "public_declarations": [
+    {
+      "name": "QuantumBlockEncoding.ThinLQ.sum_prefix_of_zero",
+      "quantifiers_and_hypotheses": "For every m,n in N, every type M equipped with AddCommMonoid M, every proof hmn : m <= n, and every f : Fin n -> M, assume for every j : Fin n that m <= j.val implies f(j)=0.",
+      "exact_conclusion": "sum_{i : Fin m} f(Fin.castLE hmn i) = sum_{j : Fin n} f(j).",
+      "typeclass_strength": "Only a commutative additive monoid is assumed for M. No subtraction, multiplication, field, order, inner product, or nonemptiness of either finite index set is required.",
+      "proof_semantics": "The prefix inclusion is injective. Its image is a subset of Fin n; all omitted summands vanish by the supplied hypothesis.",
+      "edge_cases": "For m=0 the prefix sum is zero and the hypothesis forces every summand to be zero. For m=n the hypothesis about remaining indices is vacuous and the sums agree. n=0 forces m=0."
+    },
+    {
+      "name": "QuantumBlockEncoding.ThinLQ.exists_factor_of_le",
+      "quantifiers_and_hypotheses": "For every m,n in N with m <= n and every A : Matrix (Fin m) (Fin n) R, where R here denotes the real field, with no other hypothesis on A.",
+      "witness_dimensions": {"R": "m by m over the real numbers", "Q": "m by n over the real numbers"},
+      "exact_conclusion": "There exist R,Q such that A=R*Q and Q*Q.transpose=I_m. Equivalently A[i,j]=sum_{k<m} R[i,k]*Q[k,j] for all i<m,j<n, and sum_{j<n} Q[k,j]*Q[l,j]=delta(k,l) for all k,l<m.",
+      "absent_input_assumptions": ["positive dimensions", "nonzero rows", "linear independence of rows", "full rank", "rank bound beyond the automatic dimensional bound", "norm bounds", "sparsity", "oracle or quantum access"],
+      "proof_semantics": "Form n vectors f_i in Euclidean n-space by taking A's rows for i<m and zero vectors for i>=m. Choose an orthonormal basis b indexed by Fin n via gramSchmidtOrthonormalBasis, using dim(R^n)=n. Set R[i,k] to the b-coordinate of f_i at k<m; set Q[k,j]=b_k[j] for k<m. The imported coordinate-vanishing theorem gives zero b-coordinates beyond index i, hence in particular at k>=m. The prefix-sum theorem restricts basis reconstruction to the first m vectors; basis inner products give Q*Q.transpose=I_m.",
+      "proof_detail_not_exported_as_conclusion": "The displayed wide-case witness also has R[i,k]=0 for i<k, by the imported inverse-triangular coordinate theorem. However the public existential statement contains no lower-triangular clause, and does not expose that chosen witness as a public definition. This construction detail is not an additional asserted property in the theorem's type."
+    },
+    {
+      "name": "QuantumBlockEncoding.ThinLQ.exists_thin_lq",
+      "quantifiers_and_hypotheses": "For every m,n in N and every real m by n matrix A, with no dimensional inequality or other input hypothesis.",
+      "let_r": "r=min(m,n), a dimension determined by shape, not by rank(A).",
+      "witness_dimensions": {"R": "m by r over the real numbers", "Q": "r by n over the real numbers"},
+      "exact_conclusion": "There exist R,Q such that A=R*Q and Q*Q.transpose=I_r. Entrywise, A[i,j]=sum_{k<r} R[i,k]*Q[k,j] for every i<m,j<n, and sum_{j<n} Q[k,j]*Q[l,j]=delta(k,l) for every k,l<r.",
+      "proof_semantics": "If m<=n then r=m and the previous theorem supplies witnesses. If m>n then r=n and the proof simply takes R=A and Q=I_n; identity multiplication and transpose discharge both equalities. Equality m=n is handled by the first branch.",
+      "tall_case_strength": "The tall branch is a direct, trivial exact factorization with an identity row-orthonormal factor. It does not assert that A itself is lower triangular or lower trapezoidal."
+    }
+  ],
+  "edge_cases": [
+    {"case": "m=0", "finding": "r=0; R has shape 0 by 0 and Q has shape 0 by n. All entries in both equalities are vacuous, including the 0 by 0 identity equation. There are no required unit rows."},
+    {"case": "n=0 and m>0", "finding": "r=0; A and R have shape m by 0 and Q has shape 0 by 0. Matrix equality has no column entries, and the orthonormality equation is empty. The theorem remains meaningful without positive dimensions."},
+    {"case": "m=n=0", "finding": "All matrices are empty; zero and identity on the empty square index type coincide entrywise."},
+    {"case": "A=0 with r>0", "finding": "The result still requires r unit, pairwise orthogonal rows of Q. They cannot all be zero. Algebraically R=A*Q.transpose=0 follows from the asserted equations, so the zero input is represented using zero coefficients and an orthonormal completion."},
+    {"case": "rank(A)<r", "finding": "Q still has exactly r linearly independent rows, not rank(A) rows. Input row space is contained in the span of Q's rows but need not equal it. The chosen imported basis extends nonzero Gram-Schmidt directions with additional orthonormal directions rather than requiring row independence."},
+    {"case": "m<n", "finding": "Q is rectangular; Q*Q.transpose=I_m does not say Q.transpose*Q=I_n. The rows span an m-dimensional subspace of R^n; column orthonormality is not possible for this shape when n>m."},
+    {"case": "m>n", "finding": "r=n, Q is square, and the displayed proof uses Q=I_n and R=A. No rank assumption is needed."}
+  ],
+  "inferred_consequences_not_separate_public_theorems": [
+    "Associativity and Q*Q.transpose=I_r give R=A*Q.transpose for any satisfying witnesses. Thus R is determined by A once Q is fixed.",
+    "Rows of Q are linearly independent and rank(Q)=r. R and A have the same rank, because A=R*Q and R=A*Q.transpose. These are mathematical consequences, not explicit extra clauses or separately proved declarations in this module.",
+    "A's row space lies in the row span of Q. If rank(A)<r this inclusion is strict.",
+    "Q.transpose*Q is the orthogonal projection onto the row span of Q; it is not in general I_n. If r=n, Q is square orthogonal and the reverse identity follows. Neither projection language nor the reverse identity is explicitly exported by these theorem statements."
+  ],
+  "flags": [
+    {"id": "triangularity_not_in_public_contract", "kind": "conclusion-strength", "finding": "The name 'lq' and proof's wide-case coefficient zeros do not add a triangularity predicate to either existential statement. For example at m=n=2, R=A=[[0,1],[1,0]] and Q=I_2 satisfy the two asserted equalities although R[0,1] is nonzero. This illustrates that the asserted conditions do not constrain satisfying witnesses to be lower triangular; it does not deny the existence of other triangular witnesses."},
+    {"id": "thin_is_shape_width_not_rank_width", "kind": "dimension", "finding": "The quantified witness width is min(m,n), including for a zero or rank-deficient input. No minimal/rank-adaptive factor width is asserted."},
+    {"id": "existence_not_algorithm", "kind": "computability", "finding": "The main wide-case provider is a noncomputable definition implemented using choice of an orthonormal-basis extension. The module proves existence in Prop, not an executable factorization API, deterministic numerical method, stability guarantee, or resource bound."},
+    {"id": "no_quantum_or_block_encoding_claim", "kind": "scope", "finding": "Despite the namespace, the theorem types have no circuit, unitary dilation, oracle, ancilla, normalization, success probability, query complexity, gate complexity, or approximation parameters."},
+    {"id": "no_source_comparison", "kind": "uncertainty", "finding": "The withheld source claim was not consulted. This decoding cannot establish that the formal statement matches a publication, lesson, source-contract, or external notion of LQ decomposition."}
+  ],
+  "important_unasserted_properties": [
+    "A lower-triangular or lower-trapezoidal R, diagonal sign convention, nonsingular R, or uniqueness/canonical choice of witnesses.",
+    "An r equal to rank(A), a minimal inner dimension, or equality of A's row space with Q's row space for rank-deficient A.",
+    "Column orthonormality of rectangular Q; square unitarity is not the stated equation in the wide rectangular case.",
+    "A complex-field/general-field version; the inputs and witnesses are real matrices.",
+    "Approximation bounds, rounding-error analysis, numerical stability, singular values, a presented spectral norm estimate, conditioning, sparsity preservation, or an implementation cost.",
+    "An executable procedure, finite arithmetic/bit-complexity model, polynomial time, quantum speedup, or block-encoding construction."
+  ],
+  "formal_dependencies": [
+    {"provider": "Mathlib.Analysis.InnerProductSpace.GramSchmidtOrtho", "description": "Defines gramSchmidtOrthonormalBasis noncomputably using exists_orthonormalBasis_extension_of_card_eq(...).choose. Its hypotheses include a finite ordered index set, finite-dimensional inner-product space over an RCLike field, and equality between space dimension and index cardinality; the specialized Euclidean real Fin n setting supplies them without assumptions on A. gramSchmidtOrthonormalBasis_inv_triangular' gives b.repr(f_i)[k]=0 when i<k, even for dependent/zero input vectors."},
+    {"provider": "Mathlib.Analysis.InnerProductSpace.PiL2", "description": "Defines real Euclidean finite-coordinate carrier/inner product and orthonormal-basis coordinate representation. OrthonormalBasis.sum_repr reconstructs each vector as the finite coefficient sum. OrthonormalBasis.inner_eq_ite gives basis Gram entries; PiLp.inner_apply translates them into coordinate sums."},
+    {"provider": "Mathlib.Data.Matrix.Basic and imported Matrix.Mul, Matrix.Diagonal, LinearAlgebra.Matrix.Defs", "description": "Provide matrix carrier, matrix transpose, finite-index multiplication and square identity semantics. The proof uses Matrix.mul_apply and identity simplification, not a specialized abstract block-encoding multiplication."},
+    {"provider": "Finite sums, Fin index arithmetic, and omega", "description": "Finset.sum_image and sum_subset support prefix restriction; Fin.ext supports inclusion injectivity; natural-number arithmetic proves comparisons and min equalities. These are infrastructure, not extra mathematical assumptions on an input matrix."}
+  ],
+  "consultation_record": {
+    "repository_root": ".",
+    "fully_read": ["reviews/publication/thin-lq/decoder-packet.json", "QuantumBlockEncoding/ThinLQ.lean", "lean-toolchain", "lake-manifest.json"],
+    "selected_formal_provider_excerpts": [
+      ".lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/GramSchmidtOrtho.lean",
+      ".lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/PiL2.lean",
+      ".lake/packages/mathlib/Mathlib/Data/Matrix/Basic.lean",
+      ".lake/packages/mathlib/Mathlib/Data/Matrix/Mul.lean",
+      ".lake/packages/mathlib/Mathlib/Data/Matrix/Diagonal.lean",
+      ".lake/packages/mathlib/Mathlib/LinearAlgebra/Matrix/Defs.lean"
+    ],
+    "search_only": [
+      ".lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/Orthonormal.lean (queried in a multi-file symbol search; no semantic reliance on this file)",
+      ".lake/packages/mathlib/Mathlib/Data/Matrix/DMatrix.lean (symbol-search hits only, not used)",
+      ".lake/packages/mathlib/Mathlib/Data/Matrix/Reflection.lean (symbol-search hits only, not used)"
+    ],
+    "failed_path_probe": ".lake/packages/mathlib/Mathlib/Data/Matrix/Defs.lean does not exist at this revision; the actual carrier and transpose provider was subsequently read at LinearAlgebra/Matrix/Defs.lean.",
+    "excluded": ["authored lessons", "source-contract", "sources registry", "publication candidate", "earlier chat summaries", "source titles or verdicts", "other reviewers' outputs"],
+    "packet_revision_note": "The initial anonymous packet was read before the orchestrator resealed the context. The final anonymous packet was reread and its actual SHA256 computed; all final bindings above refer to that current packet. The Lean module's actual SHA256 was computed both times and stayed unchanged. No withheld source was read during resealing.",
+    "writes": ["reviews/publication/thin-lq/decoder-artifact.json", "reviews/publication/thin-lq/decoder-evidence.json"]
+  },
+  "uncertainty_and_limitations": [
+    "No Lean execution or independent recompilation was performed in this decoder run; this is an independent semantic reconstruction from source and selected formal providers, not a compiler attestation. The orchestrator's compilation information was not used as mathematical evidence.",
+    "Provider inspection was targeted, not a full transitive Mathlib proof or axiom audit. A multi-file symbol search was truncated; the central coordinate, inner-product, matrix-carrier and transpose definitions were then read in focused excerpts. The artifacts do not claim exhaustive provider reading.",
+    "No sorry or custom axiom declaration appears in the fully read target module, but this observation is not a transitive dependency-axiom certificate.",
+    "The decoded existential statement is narrower than a decomposition contract that explicitly requires a triangular coefficient factor. Whether any withheld source actually requires that property is unknown here.",
+    "No acceptance/rejection or source-faithfulness verdict is supplied. Confidence is high for the three public statement reconstructions; broader publication matching is deliberately unassessed."
+  ]
+}

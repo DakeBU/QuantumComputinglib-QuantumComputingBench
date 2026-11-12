@@ -12,6 +12,13 @@ source sparse decomposition.
 
 namespace QuantumBlockEncoding.Robin
 
+private theorem transportInput_eq_encode (slot system : Fin 8)
+    (coefficient indicator : Fin 2) :
+    warmRobinFigure4TransportInput slot system coefficient indicator =
+      warmRobinFigure4EncodeBits coefficient slot (system, (indicator, 0)) := by
+  funext wire
+  fin_cases wire <;> rfl
+
 set_option maxRecDepth 100000
 set_option maxHeartbeats 800000
 
@@ -69,7 +76,8 @@ theorem warmRobinFigure4LogicalMiddle_cleanEntry
         warmRobinFigure4TransportInput leftSlot row coefficientRow 0 := by
     apply warmRobinFigure4BitsEquiv.injective
     rw [Equiv.apply_symm_apply]
-    simpa [warmRobinFigure4EncodeBits, warmRobinFigure4TransportInput] using
+    rw [transportInput_eq_encode]
+    exact
       (warmRobinFigure4BitsEquiv_encode coefficientRow leftSlot
         (row, (0, 0))).symm
   have columnEncode :
@@ -78,7 +86,8 @@ theorem warmRobinFigure4LogicalMiddle_cleanEntry
         warmRobinFigure4TransportInput rightSlot column coefficientColumn 0 := by
     apply warmRobinFigure4BitsEquiv.injective
     rw [Equiv.apply_symm_apply]
-    simpa [warmRobinFigure4EncodeBits, warmRobinFigure4TransportInput] using
+    rw [transportInput_eq_encode]
+    exact
       (warmRobinFigure4BitsEquiv_encode coefficientColumn rightSlot
         (column, (0, 0))).symm
   rw [rowEncode, columnEncode]
@@ -258,7 +267,8 @@ theorem warmRobinFigure4PrimitiveCircuit_cleanEntry (row column : Fin 8) :
       warmRobinFigure4BitsEquiv
           (warmRobinFigure4TransportInput 0 system 0 0) =
         (0, (0, (system, (0, 0)))) := by
-    simpa [warmRobinFigure4EncodeBits, warmRobinFigure4TransportInput] using
+    rw [transportInput_eq_encode]
+    exact
       warmRobinFigure4BitsEquiv_encode (0 : Fin 2) (0 : Fin 8)
         (system, (0, 0))
   rw [encode row, encode column]

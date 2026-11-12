@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "status": "STATEMENT_SEALED",
+  "statement_version": 1,
+  "signature_digest_algorithm": "SHA256 of exact_signatures joined by LF, UTF8, no final LF",
+  "signature_sha256": "dc1e208c72b3c1a88cb35867e92f9bcabcff0a018269552eccddf2a209b826ab",
+  "direction_fingerprint": "literal-diagonal-projected-block-and-success-adapter",
+  "source": {
+    "url": "https://arxiv.org/pdf/2404.02819v4",
+    "sha256": "b1a72d586d59ad81e88008e3680639de2c9fe565d044adcfd5129151efcce93c",
+    "revision": "v4, 21 January 2025",
+    "anchors": ["Figure 3", "V Eqs. (19)-(21)", "V.1 scale alpha*dmax", "IV.1 Eqs. (15)-(16) inspected but excluded"]
+  },
+  "exact_signatures": [
+    "theorem literalDilation_unitary {N : Nat} (d : Fin N → ℝ) (β : ℝ) : literalDilation d β ∈ _root_.Matrix.unitaryGroup (Fin 2 × Fin N) ℂ",
+    "theorem literalDilation_projectedBlock {N : Nat} (d : Fin N → ℝ) (β : ℝ) (hβ : 0 < β) (hd : ∀ j, |d j| ≤ β) (row col : Fin N) : literalDilation d β (1, row) (0, col) = diagonalTarget d row col / (β : ℂ)",
+    "theorem literalDilation_acceptedBranch {N : Nat} (d : Fin N → ℝ) (β : ℝ) (hβ : 0 < β) (hd : ∀ j, |d j| ≤ β) (ψ : Fin N → ℂ) (j : Fin N) : acceptedBranch d β ψ j = (d j : ℂ) * ψ j / (β : ℂ)",
+    "theorem literalDilation_success {N : Nat} (d : Fin N → ℝ) (β : ℝ) (hβ : 0 < β) (hd : ∀ j, |d j| ≤ β) (ψ : Fin N → ℂ) : (∑ j, Complex.normSq (acceptedBranch d β ψ j)) = (∑ j, (d j)^2 * Complex.normSq (ψ j)) / β^2",
+    "theorem literalDilation_normalizedBranch {N : Nat} (d : Fin N → ℝ) (β : ℝ) (hβ : 0 < β) (hd : ∀ j, |d j| ≤ β) (ψ : Fin N → ℂ) (hm : 0 < ∑ j, (d j)^2 * Complex.normSq (ψ j)) (j : Fin N) : acceptedBranch d β ψ j / (Real.sqrt (∑ k, Complex.normSq (acceptedBranch d β ψ k)) : ℂ) = ((d j : ℂ) * ψ j) / (Real.sqrt (∑ k, (d k)^2 * Complex.normSq (ψ k)) : ℂ)",
+    "theorem literalDilation_normalized_mass {N : Nat} (d : Fin N → ℝ) (β : ℝ) (hβ : 0 < β) (hd : ∀ j, |d j| ≤ β) (ψ : Fin N → ℂ) (hm : 0 < ∑ j, (d j)^2 * Complex.normSq (ψ j)) : (∑ j, Complex.normSq (acceptedBranch d β ψ j / (Real.sqrt (∑ k, Complex.normSq (acceptedBranch d β ψ k)) : ℂ))) = 1",
+    "theorem literalDilation_probability_le_one {N : Nat} (d : Fin N → ℝ) (β : ℝ) (hβ : 0 < β) (hd : ∀ j, |d j| ≤ β) (ψ : Fin N → ℂ) (hψ : ∑ j, Complex.normSq (ψ j) = 1) : (∑ j, Complex.normSq (acceptedBranch d β ψ j)) ≤ 1"
+  ],
+  "binder_audit": [
+    {"binder": "N", "class": "TYPING", "note": "Finite dimension. Source N=2^n instances are included; finite-dimension generalization explicit."},
+    {"binder": "d", "class": "SOURCE", "note": "Specified signed real diagonal entries, not modulus-only coefficients."},
+    {"binder": "β,hβ,hd", "class": "STANDING", "expanded": "β : ℝ; 0 < β; ∀ j : Fin N, |d j| ≤ β", "note": "Positive contraction scale; source specialization β=alpha*dmax with alpha≥1 and dmax>0. All-zero diagonal is allowed at any β>0, but β=0 is not assigned fabricated inverse semantics."},
+    {"binder": "ψ", "class": "SOURCE", "note": "Explicit input amplitudes. Action and mass identities hold even without normalization; Born-probability interpretation additionally requires sum normSq ψ=1."},
+    {"binder": "hψ", "class": "STANDING", "expanded": "∑ j : Fin N, Complex.normSq (ψ j) = 1", "note": "The source's normalized qubit-state convention, only needed for the probability upper bound."},
+    {"binder": "hm", "class": "STANDING", "note": "Nonzero output branch required only for conditional normalized-branch theorem, implicit in Eq20's denominator; no supplied projected-block/normalization proof premise."},
+    {"binder": "row,col,j", "class": "TYPING"}
+  ],
+  "definition_audit": {
+    "kind": "literal",
+    "scalar": "P * H * diag(exp(i theta),exp(-i theta)) * H, theta=arcsin(d_j/beta), P=diag(1,-i)",
+    "carrier": "Fin 2 × Fin N, signal first (high order), data second; system label preserved; input signal 0, accepted output signal 1. Eq19's system-first tensor display is transported by Mathlib Matrix.reindexAlgEquiv and Equiv.prodComm, with a literal entry identity and inherited unitarity; no physical-wire compiler assumed.",
+    "dilation": "Mathlib Matrix.blockDiagonal family of literal scalar circuits; no assumed block premise or chosen unitary completion",
+    "normalization": "Complex normSq finite sum, Euclidean square root; no zero-branch normalized state is claimed",
+    "phase_boundary": "Fig3 literally yields cos(theta)|0>+sin(theta)|1>; Eqs19/20 print -i cos(theta)|0>+sin(theta)|1>. Accepted branch agrees, rejected phase does not. No Eq19 full-state equality claim.",
+    "clean_block_boundary": "Accepted projection is 1<-0, not Eq18's 0<-0. X relabeling/standard-clean-block adapter is not silently included. Fig4 caption's success 0 differs and is excluded."
+  },
+  "source_proof_coverage": {
+    "independent_review": "PENDING; extractor not self-approved",
+    "inventory": [
+      {"id": "diag:fig3-H", "disposition": "NODE", "content": "Prepare signal (0+1)/sqrt2; H is existing textbook matrix."},
+      {"id": "diag:eq19-register-order", "disposition": "NODE", "content": "Explicit Equiv.prodComm matrix reindex from Eq19's system-first ket notation to local signal-first indexing; no bit-order or physical-synthesis claim."},
+      {"id": "diag:eq17-schematic", "disposition": "EXCLUDED", "reason": "Schematic generic unitary block display; the literal Fig3 acceptance is 1<-0 and does not close this same-sector display."},
+      {"id": "diag:fig3-controls", "disposition": "NODE", "content": "Control on 1 e^-iθ and anti-control on 0 e^iθ; block per preserved system label."},
+      {"id": "diag:fig3-HP", "disposition": "NODE", "content": "H then P=diag(1,-i); literal scalar product, no global-phase substitution."},
+      {"id": "diag:eq19-rejected-phase", "disposition": "SOURCE_GAP", "content": "Printed -i factor on signal 0 is not produced by literal P."},
+      {"id": "diag:eq20-accepted", "disposition": "NODE", "content": "sin(arcsin(d/beta))=d/beta, normalize only positive accepted mass."},
+      {"id": "diag:eq21-mass", "disposition": "NODE", "content": "sum d_j² normSq ψ_j / beta²; source beta=dmax (or alpha*dmax in V.1)."},
+      {"id": "diag:eq18-clean-sector", "disposition": "SOURCE_GAP", "content": "0<-0 standard clean block not equal to accepted 1<-0; need explicit relabeling and review."},
+      {"id": "diag:fig4-V1", "disposition": "EXCLUDED", "reason": "Parallel copied registers, controlled supplier synthesis and approximate theorem beyond bounded literal Fig3 slice."},
+      {"id": "diag:eq22-23", "disposition": "EXCLUDED", "reason": "Asymptotic success assumptions and limits not needed for finite exact identity."},
+      {"id": "diag:complex-extension", "disposition": "EXCLUDED", "reason": "Modulus-phase factorization and zero-entry argument convention separate supplier."},
+      {"id": "diag:IV1-eq15-16", "disposition": "EXCLUDED", "reason": "Coarse-grid Walsh approximation, tensor bit order and spectral norm error separate theorem."},
+      {"id": "diag:resources-VI-VIII", "disposition": "EXCLUDED", "reason": "No scalable synthesis, gate/depth/width, finite-bit, RUS or amplification claim."}
+    ],
+    "edges": [["diag:fig3-H", "diag:fig3-controls"], ["diag:fig3-controls", "diag:fig3-HP"], ["diag:fig3-HP", "diag:eq20-accepted"], ["diag:eq20-accepted", "diag:eq21-mass"]]
+  },
+  "reuse": ["TextbookStatePreparation.hadamard", "TextbookStatePreparation.hadamard_unitary", "Robin.ComplexLCU.blockDiagonal_unitary", "ConcreteSemantics.ProductRegisterMatrix convention", "Mathlib Matrix.mulVec and Complex.normSq"],
+  "alternative_routes": [{"route": "generic contraction dilation", "status": "DEPRIORITIZED", "reason": "Not the literal Fig3 H-controlled-phase-H-P source construction."}],
+  "proof_digestion": {"existing": "finite complex matrix/unity/projected-register substrate", "bookkeeping": "accepted 1<-0 branch and normalization scale", "new_reusable": "literal diagonal supplier-to-postselection adapter", "new_topology": "None claimed"},
+  "purification": "PENDING integration, independent decoder/reviewer, full gates and exposition seal",
+  "baseline": {"commit": "8c341b099e21ca98c264076837f10787a80d0c8f", "production_digest": "5a8f47f8d0afd1d4f957e55babde52a9e9c01babf05c481b988e99ebca2f7758"}
+}

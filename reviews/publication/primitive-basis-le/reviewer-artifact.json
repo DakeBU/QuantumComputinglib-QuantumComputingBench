@@ -1,0 +1,736 @@
+{
+  "schema_version": 1,
+  "role": "reviewer",
+  "identity": "/root/basis_le_source_reviewer",
+  "run_id": "ad972d6b-7c8c-4cdd-b636-17d162c426a8",
+  "anti_anchored": true,
+  "binding_sha256": "2b99914b6c377c847baebcc4e132e7fdeaa65630e29e8df71f067c7433d17e83",
+  "packet_path": "reviews/publication/primitive-basis-le/reviewer-packet.json",
+  "packet_sha256": "36d8e5cdd9a0d3d66c941c1ce77d1c264094150ad25a13ccf5abb91ccaeae523",
+  "source_first_reconstruction": {
+    "path": "reviews/publication/primitive-basis-le/source-first-reconstruction.json",
+    "sha256": "15055fa2e8d94d2c1b87b7231cc5e618067af53c67bf58ba0f4138991834b5d3",
+    "unchanged": true,
+    "read_order": "Whole authored lesson independently reconstructed before formal module/decoder; preflight completed and held until final decoder-bound packet."
+  },
+  "source": {
+    "path": "docs/lessons/little-endian-basis-indexing.md",
+    "sha256": "742b96c6f729a421740f18b81b6dafb9e7fbc6221227e739d381e10dd9f90d6d",
+    "coverage": "Every section, all mathematical claims/proofs/topology/assumptions/boundaries and 33 source-named nodes."
+  },
+  "module": {
+    "path": "QuantumBlockEncoding/PrimitiveBasisLE.lean",
+    "sha256": "00672a2bc6aab0861bf9dfed3eab651d3b649d3c5386d6f6ca8374e012e366ed",
+    "public_declarations": 33,
+    "definitions": 7,
+    "theorems": 26
+  },
+  "decoder": {
+    "identity": "/root/basis_le_blind_decoder",
+    "run_id": "primitive-basis-le-blind-d3b9ba52-f03e-4d74-aa42-a050c5e56cf7",
+    "artifact_path": "reviews/publication/primitive-basis-le/decoder-artifact.json",
+    "artifact_sha256": "afd384c1bf16e542c743c44a12305c769d3513f5a372bbad5bba6b3f301a9336",
+    "evidence_path": "reviews/publication/primitive-basis-le/decoder-evidence.json",
+    "evidence_sha256": "730a1a05c4a50000864ba0e95002f0b811695c4b23a698c49dd5c4f4dfb238d9",
+    "assessment": "Whole artifact/evidence read, including entire signature/axiom transcript. All 33 signatures literally occur in actual module; independently inventoried declaration set/order agree. Every enumerated repository/toolchain file hash measured independently matches. Source-blind protocol belongs to the distinct decoder's record; agreement alone does not prove blindness."
+  },
+  "semantic_slots": {
+    "target": {
+      "source": "Bijection E_q from named bit functions to coordinates below 2^q; exact two-/three-wire inverse formulas, six-wire expansion, and two-/three-wire deleted-context equality certificates.",
+      "formal": "PrimitiveBasis q ≃ Fin(gridSize q), gridSize q=2^q. All exact statements and finite domains coincide; no physical operator or circuit conclusion.",
+      "decoder": "The independently decoded coordinate map, tables and context codes agree with the source-first reconstruction and actual providers.",
+      "comparison": "accepted bounded coordinate contract; no matrix/circuit/exporter bridge inferred"
+    },
+    "normalization": {
+      "source": "No numerical amplitudes, norm assumptions or scale parameter are claimed.",
+      "formal": "Fin-valued bit functions and Nat-valued coordinates/codes; no α or normalized state vector.",
+      "decoder": "Explicitly excludes amplitude/block-encoding normalization and norm premises.",
+      "comparison": "same absence; 2^q is coordinate-cardinality, not normalization"
+    },
+    "registers": {
+      "source": "Named wires 0 through q-1; wire zero least significant. Surviving wires in increasing order receive compact weights. Empty register is legal.",
+      "formal": "Fin q→Fin 2; prodComm before finProdFinEquiv yields 2*tail+head. Context provider restricts to subtype wire≠target. Default branches exhaust legal Fin 2/3 cases.",
+      "decoder": "Recovers exact wire ordering, zero-width single state/index, carrier spellings and target-bit-independent context equality.",
+      "comparison": "exact agreement, including middle deletion reweighting original wire 2 by 2, not 4"
+    },
+    "oracles": {
+      "source": "No oracle or access-model assumptions.",
+      "formal": "No oracle input, call or query-count statement in any 33 declaration.",
+      "decoder": "Explicitly identifies no oracle or callable-exporter contract.",
+      "comparison": "same absence; imported ambient gate semantics does not add an oracle conclusion"
+    },
+    "ancillas_phases": {
+      "source": "No phase/cleanliness assumptions, preparation/uncomputation or physical transformation certified.",
+      "formal": "Target bit and non-target function are exact coordinates, not ancilla/phase behavior; no relevant premise or conclusion.",
+      "decoder": "Explicitly excludes ancilla preparation/postselection/uncomputation and global/relative phase claims.",
+      "comparison": "same absence; deleting a coordinate from the context is not erasing or resetting a physical wire"
+    },
+    "error_success": {
+      "source": "Exact finite identities; no measurement/probability statement.",
+      "formal": "Equality and iff in finite types without ε, precision, failure/success probability or measurement premises.",
+      "decoder": "No approximation, accumulation, precision, conditioning or success claim.",
+      "comparison": "same absence; exhaustive decision is proof verification, not probabilistic success"
+    },
+    "resources": {
+      "source": "No runtime, physical gate synthesis, arbitrary-width context deletion, finite-bit exporter or resource claim.",
+      "formal": "Universal fixed finite theorem domains and arbitrary-width equivalence, but no gate/depth/query/runtime theorem.",
+      "decoder": "Separates enumeration scopes from algorithmic resource certificates.",
+      "comparison": "same absence; 64/32/192 verification sizes do not certify consumer runtime or hardware costs"
+    }
+  },
+  "declaration_comparisons": [
+    {
+      "name": "QuantumBlockEncoding.primitiveBasisLEEquiv",
+      "kind": "def",
+      "actual_surface_signature": "def primitiveBasisLEEquiv : (q : Nat) -> PrimitiveBasis q ≃ Fin (gridSize q)",
+      "signature_verified_in_actual_module": true,
+      "source_line": 15,
+      "source_obligation": "Every-width bijection, including zero width.",
+      "source_mathematical_proof": "Induct on q: unique empty assignment/index, then separate head and tail; quotient/remainder by 2 recover them. Product order (tail,head) is essential.",
+      "actual_formal_proof_or_construction": "structural recursive equivalence composition with inverse laws",
+      "fresh_actual_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "generated_native_axiom_count": 0,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    },
+    {
+      "name": "QuantumBlockEncoding.primitiveBasisLEEquiv_zero_apply",
+      "kind": "theorem",
+      "actual_surface_signature": "@[simp] theorem primitiveBasisLEEquiv_zero_apply (bits : PrimitiveBasis 0) :\n    (primitiveBasisLEEquiv 0 bits).val = 0",
+      "signature_verified_in_actual_module": true,
+      "source_line": 28,
+      "source_obligation": "E_0(b)=0 for every empty function.",
+      "source_mathematical_proof": "Unique empty function maps to the sole index in Fin1.",
+      "actual_formal_proof_or_construction": "rfl",
+      "fresh_actual_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "generated_native_axiom_count": 0,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    },
+    {
+      "name": "QuantumBlockEncoding.primitiveBasisLEEquiv_succ_value",
+      "kind": "theorem",
+      "actual_surface_signature": "theorem primitiveBasisLEEquiv_succ_value (q : Nat)\n    (bits : PrimitiveBasis (q + 1)) :\n    (primitiveBasisLEEquiv (q + 1) bits).val =\n      (bits 0).val + 2 *\n        (primitiveBasisLEEquiv q (fun wire => bits wire.succ)).val",
+      "signature_verified_in_actual_module": true,
+      "source_line": 33,
+      "source_obligation": "E_(q+1)(b)=b_0+2*E_q(tail).",
+      "source_mathematical_proof": "consEquiv.symm splits head/tail, prodCongr converts tail, prodComm swaps, finProdFinEquiv computes head+2*tail.",
+      "actual_formal_proof_or_construction": "rfl",
+      "fresh_actual_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "generated_native_axiom_count": 0,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    },
+    {
+      "name": "QuantumBlockEncoding.primitiveBasisLEEquiv_six_value",
+      "kind": "theorem",
+      "actual_surface_signature": "theorem primitiveBasisLEEquiv_six_value (bits : PrimitiveBasis 6) :\n    (primitiveBasisLEEquiv 6 bits).val =\n      (bits 0).val + 2 * (bits 1).val + 4 * (bits 2).val +\n      8 * (bits 3).val + 16 * (bits 4).val + 32 * (bits 5).val",
+      "signature_verified_in_actual_module": true,
+      "source_line": 41,
+      "source_obligation": "Weights 1,2,4,8,16,32 for every six-bit assignment.",
+      "source_mathematical_proof": "Unroll successor six times with E_0=0. Actual Lean instead exhaustively native decides the same fixed equality, retaining its computational trust.",
+      "actual_formal_proof_or_construction": "native_decide, +revert for input-parametrized universal claims",
+      "fresh_actual_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound",
+        "QuantumBlockEncoding.primitiveBasisLEEquiv_six_value._native.native_decide.ax_1_1"
+      ],
+      "generated_native_axiom_count": 1,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    },
+    {
+      "name": "QuantumBlockEncoding.primitiveBits2LE",
+      "kind": "def",
+      "actual_surface_signature": "def primitiveBits2LE (index : Fin 4) : PrimitiveBasis 2",
+      "signature_verified_in_actual_module": true,
+      "source_line": 48,
+      "source_obligation": "Define B_2(j)=(j mod2,floor(j/2) mod2).",
+      "source_mathematical_proof": "Each residue is a bit; complete wire-zero-first table 00,10,01,11.",
+      "actual_formal_proof_or_construction": "wire match, Nat arithmetic and omega bounds",
+      "fresh_actual_axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "generated_native_axiom_count": 0,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    },
+    {
+      "name": "QuantumBlockEncoding.primitiveBasisLEEquiv_two_symm",
+      "kind": "theorem",
+      "actual_surface_signature": "@[simp] theorem primitiveBasisLEEquiv_two_symm (index : Fin 4) :\n    (primitiveBasisLEEquiv 2).symm index = primitiveBits2LE index",
+      "signature_verified_in_actual_module": true,
+      "source_line": 52,
+      "source_obligation": "Whole-function inverse equals B_2 for all 4 coordinates.",
+      "source_mathematical_proof": "Repeated Euclidean division, or substitute all 4 table rows and every wire, gives the inverse identity.",
+      "actual_formal_proof_or_construction": "fin_cases then native_decide",
+      "fresh_actual_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound",
+        "QuantumBlockEncoding.primitiveBasisLEEquiv_two_symm._native.native_decide.ax_1_1",
+        "QuantumBlockEncoding.primitiveBasisLEEquiv_two_symm._native.native_decide.ax_1_2",
+        "QuantumBlockEncoding.primitiveBasisLEEquiv_two_symm._native.native_decide.ax_1_3",
+        "QuantumBlockEncoding.primitiveBasisLEEquiv_two_symm._native.native_decide.ax_1_4"
+      ],
+      "generated_native_axiom_count": 4,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    },
+    {
+      "name": "QuantumBlockEncoding.primitiveBasisLEEquiv_two_symm_wire_zero",
+      "kind": "theorem",
+      "actual_surface_signature": "@[simp] theorem primitiveBasisLEEquiv_two_symm_wire_zero\n    (index : Fin (gridSize 2)) :\n    ((primitiveBasisLEEquiv 2).symm index) (0 : Fin 2) =\n      ⟨index.val % 2, by omega⟩",
+      "signature_verified_in_actual_module": true,
+      "source_line": 58,
+      "source_obligation": "Wire 0 inverse coordinate on Fin(gridSize 2) is floor(j/1) mod2.",
+      "source_mathematical_proof": "Project wire 0 from all 4 inverse table rows. Carrier reexpression and Fin proof witnesses do not alter values.",
+      "actual_formal_proof_or_construction": "native_decide, +revert for input-parametrized universal claims",
+      "fresh_actual_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound",
+        "QuantumBlockEncoding.primitiveBasisLEEquiv_two_symm_wire_zero._native.native_decide.ax_1_1"
+      ],
+      "generated_native_axiom_count": 1,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    },
+    {
+      "name": "QuantumBlockEncoding.primitiveBasisLEEquiv_two_symm_wire_one",
+      "kind": "theorem",
+      "actual_surface_signature": "@[simp] theorem primitiveBasisLEEquiv_two_symm_wire_one\n    (index : Fin (gridSize 2)) :\n    ((primitiveBasisLEEquiv 2).symm index) (1 : Fin 2) =\n      ⟨(index.val / 2) % 2, by omega⟩",
+      "signature_verified_in_actual_module": true,
+      "source_line": 64,
+      "source_obligation": "Wire 1 inverse coordinate on Fin(gridSize 2) is floor(j/2) mod2.",
+      "source_mathematical_proof": "Project wire 1 from all 4 inverse table rows. Carrier reexpression and Fin proof witnesses do not alter values.",
+      "actual_formal_proof_or_construction": "native_decide, +revert for input-parametrized universal claims",
+      "fresh_actual_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound",
+        "QuantumBlockEncoding.primitiveBasisLEEquiv_two_symm_wire_one._native.native_decide.ax_1_1"
+      ],
+      "generated_native_axiom_count": 1,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    },
+    {
+      "name": "QuantumBlockEncoding.primitiveBasisLEEquiv_two_symm_0",
+      "kind": "theorem",
+      "actual_surface_signature": "@[simp] theorem primitiveBasisLEEquiv_two_symm_0 :\n    (primitiveBasisLEEquiv 2).symm\n        (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 2)) =\n      primitiveBits2LE (0 : Fin 4)",
+      "signature_verified_in_actual_module": true,
+      "source_line": 72,
+      "source_obligation": "Concrete inverse coordinate 0 has tuple (0,0).",
+      "source_mathematical_proof": "Substitute j=0; its weighted E_2 coordinate is 0. Closed whole-function equality, no added assumptions.",
+      "actual_formal_proof_or_construction": "native_decide, +revert for input-parametrized universal claims",
+      "fresh_actual_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound",
+        "QuantumBlockEncoding.primitiveBasisLEEquiv_two_symm_0._native.native_decide.ax_1_1"
+      ],
+      "generated_native_axiom_count": 1,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    },
+    {
+      "name": "QuantumBlockEncoding.primitiveBasisLEEquiv_two_symm_1",
+      "kind": "theorem",
+      "actual_surface_signature": "@[simp] theorem primitiveBasisLEEquiv_two_symm_1 :\n    (primitiveBasisLEEquiv 2).symm\n        (⟨1, by norm_num [gridSize]⟩ : Fin (gridSize 2)) =\n      primitiveBits2LE (1 : Fin 4)",
+      "signature_verified_in_actual_module": true,
+      "source_line": 76,
+      "source_obligation": "Concrete inverse coordinate 1 has tuple (1,0).",
+      "source_mathematical_proof": "Substitute j=1; its weighted E_2 coordinate is 1. Closed whole-function equality, no added assumptions.",
+      "actual_formal_proof_or_construction": "native_decide, +revert for input-parametrized universal claims",
+      "fresh_actual_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound",
+        "QuantumBlockEncoding.primitiveBasisLEEquiv_two_symm_1._native.native_decide.ax_1_1"
+      ],
+      "generated_native_axiom_count": 1,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    },
+    {
+      "name": "QuantumBlockEncoding.primitiveBasisLEEquiv_two_symm_2",
+      "kind": "theorem",
+      "actual_surface_signature": "@[simp] theorem primitiveBasisLEEquiv_two_symm_2 :\n    (primitiveBasisLEEquiv 2).symm\n        (⟨2, by norm_num [gridSize]⟩ : Fin (gridSize 2)) =\n      primitiveBits2LE (2 : Fin 4)",
+      "signature_verified_in_actual_module": true,
+      "source_line": 80,
+      "source_obligation": "Concrete inverse coordinate 2 has tuple (0,1).",
+      "source_mathematical_proof": "Substitute j=2; its weighted E_2 coordinate is 2. Closed whole-function equality, no added assumptions.",
+      "actual_formal_proof_or_construction": "native_decide, +revert for input-parametrized universal claims",
+      "fresh_actual_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound",
+        "QuantumBlockEncoding.primitiveBasisLEEquiv_two_symm_2._native.native_decide.ax_1_1"
+      ],
+      "generated_native_axiom_count": 1,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    },
+    {
+      "name": "QuantumBlockEncoding.primitiveBasisLEEquiv_two_symm_3",
+      "kind": "theorem",
+      "actual_surface_signature": "@[simp] theorem primitiveBasisLEEquiv_two_symm_3 :\n    (primitiveBasisLEEquiv 2).symm\n        (⟨3, by norm_num [gridSize]⟩ : Fin (gridSize 2)) =\n      primitiveBits2LE (3 : Fin 4)",
+      "signature_verified_in_actual_module": true,
+      "source_line": 84,
+      "source_obligation": "Concrete inverse coordinate 3 has tuple (1,1).",
+      "source_mathematical_proof": "Substitute j=3; its weighted E_2 coordinate is 3. Closed whole-function equality, no added assumptions.",
+      "actual_formal_proof_or_construction": "native_decide, +revert for input-parametrized universal claims",
+      "fresh_actual_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound",
+        "QuantumBlockEncoding.primitiveBasisLEEquiv_two_symm_3._native.native_decide.ax_1_1"
+      ],
+      "generated_native_axiom_count": 1,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    },
+    {
+      "name": "QuantumBlockEncoding.primitiveBits2LEWithout",
+      "kind": "def",
+      "actual_surface_signature": "def primitiveBits2LEWithout (target : Fin 2) (index : Fin 4) : Nat",
+      "signature_verified_in_actual_module": true,
+      "source_line": 90,
+      "source_obligation": "Define C_2,t with numeral-sized bounded coordinate carrier.",
+      "source_mathematical_proof": "Legal targets 0,1 respectively give floor(j/2),j mod2: the single surviving bit. Return carrier is Nat.",
+      "actual_formal_proof_or_construction": "Nat-valued target match and arithmetic",
+      "fresh_actual_axioms": [],
+      "generated_native_axiom_count": 0,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    },
+    {
+      "name": "QuantumBlockEncoding.primitiveBits2LEGridWithout",
+      "kind": "def",
+      "actual_surface_signature": "def primitiveBits2LEGridWithout\n    (target : Fin 2) (index : Fin (gridSize 2)) : Nat",
+      "signature_verified_in_actual_module": true,
+      "source_line": 97,
+      "source_obligation": "Define C_2,t with grid-sized bounded coordinate carrier.",
+      "source_mathematical_proof": "Legal targets 0,1 respectively give floor(j/2),j mod2: the single surviving bit. Return carrier is Nat.",
+      "actual_formal_proof_or_construction": "Nat-valued target match and arithmetic",
+      "fresh_actual_axioms": [],
+      "generated_native_axiom_count": 0,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    },
+    {
+      "name": "QuantumBlockEncoding.splitPrimitiveWire_primitiveBits2LE_context_eq",
+      "kind": "theorem",
+      "actual_surface_signature": "@[simp] theorem splitPrimitiveWire_primitiveBits2LE_context_eq\n    (target : Fin 2) (left right : Fin 4) :\n    (splitPrimitiveWire target (primitiveBits2LE left)).2 =\n        (splitPrimitiveWire target (primitiveBits2LE right)).2 ↔\n      primitiveBits2LEWithout target left =\n        primitiveBits2LEWithout target right",
+      "signature_verified_in_actual_module": true,
+      "source_line": 103,
+      "source_obligation": "Non-target restricted function equality iff C_2,t equality, explicit-bits/numeral presentation.",
+      "source_mathematical_proof": "Restriction has one wire; code is exactly its retained bit for each t. Target bits may differ.",
+      "actual_formal_proof_or_construction": "native_decide, +revert for input-parametrized universal claims",
+      "fresh_actual_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound",
+        "QuantumBlockEncoding.splitPrimitiveWire_primitiveBits2LE_context_eq._native.native_decide.ax_1_1"
+      ],
+      "generated_native_axiom_count": 1,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    },
+    {
+      "name": "QuantumBlockEncoding.splitPrimitiveWire_primitiveBasisLEEquiv_two_symm_context_eq",
+      "kind": "theorem",
+      "actual_surface_signature": "@[simp] theorem splitPrimitiveWire_primitiveBasisLEEquiv_two_symm_context_eq\n    (target : Fin 2) (left right : Fin (gridSize 2)) :\n    (splitPrimitiveWire target ((primitiveBasisLEEquiv 2).symm left)).2 =\n        (splitPrimitiveWire target ((primitiveBasisLEEquiv 2).symm right)).2 ↔\n      primitiveBits2LEGridWithout target left =\n        primitiveBits2LEGridWithout target right",
+      "signature_verified_in_actual_module": true,
+      "source_line": 111,
+      "source_obligation": "Non-target restricted function equality iff C_2,t equality, inverse/grid presentation.",
+      "source_mathematical_proof": "Restriction has one wire; code is exactly its retained bit for each t. Target bits may differ.",
+      "actual_formal_proof_or_construction": "native_decide, +revert for input-parametrized universal claims",
+      "fresh_actual_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound",
+        "QuantumBlockEncoding.splitPrimitiveWire_primitiveBasisLEEquiv_two_symm_context_eq._native.native_decide.ax_1_1"
+      ],
+      "generated_native_axiom_count": 1,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    },
+    {
+      "name": "QuantumBlockEncoding.primitiveBits3LE",
+      "kind": "def",
+      "actual_surface_signature": "def primitiveBits3LE (index : Fin 8) : PrimitiveBasis 3",
+      "signature_verified_in_actual_module": true,
+      "source_line": 120,
+      "source_obligation": "Define B_3 using division by 1,2,4 then mod2.",
+      "source_mathematical_proof": "Each residue is a bit; complete wire-zero-first table 000,100,010,110,001,101,011,111.",
+      "actual_formal_proof_or_construction": "wire match, Nat arithmetic and omega bounds",
+      "fresh_actual_axioms": [
+        "propext",
+        "Quot.sound"
+      ],
+      "generated_native_axiom_count": 0,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    },
+    {
+      "name": "QuantumBlockEncoding.primitiveBasisLEEquiv_three_symm",
+      "kind": "theorem",
+      "actual_surface_signature": "@[simp] theorem primitiveBasisLEEquiv_three_symm (index : Fin 8) :\n    (primitiveBasisLEEquiv 3).symm index = primitiveBits3LE index",
+      "signature_verified_in_actual_module": true,
+      "source_line": 125,
+      "source_obligation": "Whole-function inverse equals B_3 for all 8 coordinates.",
+      "source_mathematical_proof": "Repeated Euclidean division, or substitute all 8 table rows and every wire, gives the inverse identity.",
+      "actual_formal_proof_or_construction": "fin_cases then native_decide",
+      "fresh_actual_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound",
+        "QuantumBlockEncoding.primitiveBasisLEEquiv_three_symm._native.native_decide.ax_1_1",
+        "QuantumBlockEncoding.primitiveBasisLEEquiv_three_symm._native.native_decide.ax_1_2",
+        "QuantumBlockEncoding.primitiveBasisLEEquiv_three_symm._native.native_decide.ax_1_3",
+        "QuantumBlockEncoding.primitiveBasisLEEquiv_three_symm._native.native_decide.ax_1_4",
+        "QuantumBlockEncoding.primitiveBasisLEEquiv_three_symm._native.native_decide.ax_1_5",
+        "QuantumBlockEncoding.primitiveBasisLEEquiv_three_symm._native.native_decide.ax_1_6",
+        "QuantumBlockEncoding.primitiveBasisLEEquiv_three_symm._native.native_decide.ax_1_7",
+        "QuantumBlockEncoding.primitiveBasisLEEquiv_three_symm._native.native_decide.ax_1_8"
+      ],
+      "generated_native_axiom_count": 8,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    },
+    {
+      "name": "QuantumBlockEncoding.primitiveBasisLEEquiv_three_symm_wire_zero",
+      "kind": "theorem",
+      "actual_surface_signature": "@[simp] theorem primitiveBasisLEEquiv_three_symm_wire_zero\n    (index : Fin (gridSize 3)) :\n    ((primitiveBasisLEEquiv 3).symm index) (0 : Fin 3) =\n      ⟨index.val % 2, by omega⟩",
+      "signature_verified_in_actual_module": true,
+      "source_line": 129,
+      "source_obligation": "Wire 0 inverse coordinate on Fin(gridSize 3) is floor(j/1) mod2.",
+      "source_mathematical_proof": "Project wire 0 from all 8 inverse table rows. Carrier reexpression and Fin proof witnesses do not alter values.",
+      "actual_formal_proof_or_construction": "native_decide, +revert for input-parametrized universal claims",
+      "fresh_actual_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound",
+        "QuantumBlockEncoding.primitiveBasisLEEquiv_three_symm_wire_zero._native.native_decide.ax_1_1"
+      ],
+      "generated_native_axiom_count": 1,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    },
+    {
+      "name": "QuantumBlockEncoding.primitiveBasisLEEquiv_three_symm_wire_one",
+      "kind": "theorem",
+      "actual_surface_signature": "@[simp] theorem primitiveBasisLEEquiv_three_symm_wire_one\n    (index : Fin (gridSize 3)) :\n    ((primitiveBasisLEEquiv 3).symm index) (1 : Fin 3) =\n      ⟨(index.val / 2) % 2, by omega⟩",
+      "signature_verified_in_actual_module": true,
+      "source_line": 135,
+      "source_obligation": "Wire 1 inverse coordinate on Fin(gridSize 3) is floor(j/2) mod2.",
+      "source_mathematical_proof": "Project wire 1 from all 8 inverse table rows. Carrier reexpression and Fin proof witnesses do not alter values.",
+      "actual_formal_proof_or_construction": "native_decide, +revert for input-parametrized universal claims",
+      "fresh_actual_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound",
+        "QuantumBlockEncoding.primitiveBasisLEEquiv_three_symm_wire_one._native.native_decide.ax_1_1"
+      ],
+      "generated_native_axiom_count": 1,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    },
+    {
+      "name": "QuantumBlockEncoding.primitiveBasisLEEquiv_three_symm_wire_two",
+      "kind": "theorem",
+      "actual_surface_signature": "@[simp] theorem primitiveBasisLEEquiv_three_symm_wire_two\n    (index : Fin (gridSize 3)) :\n    ((primitiveBasisLEEquiv 3).symm index) (2 : Fin 3) =\n      ⟨(index.val / 4) % 2, by omega⟩",
+      "signature_verified_in_actual_module": true,
+      "source_line": 141,
+      "source_obligation": "Wire 2 inverse coordinate on Fin(gridSize 3) is floor(j/4) mod2.",
+      "source_mathematical_proof": "Project wire 2 from all 8 inverse table rows. Carrier reexpression and Fin proof witnesses do not alter values.",
+      "actual_formal_proof_or_construction": "native_decide, +revert for input-parametrized universal claims",
+      "fresh_actual_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound",
+        "QuantumBlockEncoding.primitiveBasisLEEquiv_three_symm_wire_two._native.native_decide.ax_1_1"
+      ],
+      "generated_native_axiom_count": 1,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    },
+    {
+      "name": "QuantumBlockEncoding.primitiveBasisLEEquiv_three_symm_0",
+      "kind": "theorem",
+      "actual_surface_signature": "@[simp] theorem primitiveBasisLEEquiv_three_symm_0 :\n    (primitiveBasisLEEquiv 3).symm\n        (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 3)) =\n      primitiveBits3LE (0 : Fin 8)",
+      "signature_verified_in_actual_module": true,
+      "source_line": 148,
+      "source_obligation": "Concrete inverse coordinate 0 has tuple (0,0,0).",
+      "source_mathematical_proof": "Substitute j=0; its weighted E_3 coordinate is 0. Closed whole-function equality, no added assumptions.",
+      "actual_formal_proof_or_construction": "native_decide, +revert for input-parametrized universal claims",
+      "fresh_actual_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound",
+        "QuantumBlockEncoding.primitiveBasisLEEquiv_three_symm_0._native.native_decide.ax_1_1"
+      ],
+      "generated_native_axiom_count": 1,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    },
+    {
+      "name": "QuantumBlockEncoding.primitiveBasisLEEquiv_three_symm_1",
+      "kind": "theorem",
+      "actual_surface_signature": "@[simp] theorem primitiveBasisLEEquiv_three_symm_1 :\n    (primitiveBasisLEEquiv 3).symm\n        (⟨1, by norm_num [gridSize]⟩ : Fin (gridSize 3)) =\n      primitiveBits3LE (1 : Fin 8)",
+      "signature_verified_in_actual_module": true,
+      "source_line": 152,
+      "source_obligation": "Concrete inverse coordinate 1 has tuple (1,0,0).",
+      "source_mathematical_proof": "Substitute j=1; its weighted E_3 coordinate is 1. Closed whole-function equality, no added assumptions.",
+      "actual_formal_proof_or_construction": "native_decide, +revert for input-parametrized universal claims",
+      "fresh_actual_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound",
+        "QuantumBlockEncoding.primitiveBasisLEEquiv_three_symm_1._native.native_decide.ax_1_1"
+      ],
+      "generated_native_axiom_count": 1,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    },
+    {
+      "name": "QuantumBlockEncoding.primitiveBasisLEEquiv_three_symm_2",
+      "kind": "theorem",
+      "actual_surface_signature": "@[simp] theorem primitiveBasisLEEquiv_three_symm_2 :\n    (primitiveBasisLEEquiv 3).symm\n        (⟨2, by norm_num [gridSize]⟩ : Fin (gridSize 3)) =\n      primitiveBits3LE (2 : Fin 8)",
+      "signature_verified_in_actual_module": true,
+      "source_line": 156,
+      "source_obligation": "Concrete inverse coordinate 2 has tuple (0,1,0).",
+      "source_mathematical_proof": "Substitute j=2; its weighted E_3 coordinate is 2. Closed whole-function equality, no added assumptions.",
+      "actual_formal_proof_or_construction": "native_decide, +revert for input-parametrized universal claims",
+      "fresh_actual_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound",
+        "QuantumBlockEncoding.primitiveBasisLEEquiv_three_symm_2._native.native_decide.ax_1_1"
+      ],
+      "generated_native_axiom_count": 1,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    },
+    {
+      "name": "QuantumBlockEncoding.primitiveBasisLEEquiv_three_symm_3",
+      "kind": "theorem",
+      "actual_surface_signature": "@[simp] theorem primitiveBasisLEEquiv_three_symm_3 :\n    (primitiveBasisLEEquiv 3).symm\n        (⟨3, by norm_num [gridSize]⟩ : Fin (gridSize 3)) =\n      primitiveBits3LE (3 : Fin 8)",
+      "signature_verified_in_actual_module": true,
+      "source_line": 160,
+      "source_obligation": "Concrete inverse coordinate 3 has tuple (1,1,0).",
+      "source_mathematical_proof": "Substitute j=3; its weighted E_3 coordinate is 3. Closed whole-function equality, no added assumptions.",
+      "actual_formal_proof_or_construction": "native_decide, +revert for input-parametrized universal claims",
+      "fresh_actual_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound",
+        "QuantumBlockEncoding.primitiveBasisLEEquiv_three_symm_3._native.native_decide.ax_1_1"
+      ],
+      "generated_native_axiom_count": 1,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    },
+    {
+      "name": "QuantumBlockEncoding.primitiveBasisLEEquiv_three_symm_4",
+      "kind": "theorem",
+      "actual_surface_signature": "@[simp] theorem primitiveBasisLEEquiv_three_symm_4 :\n    (primitiveBasisLEEquiv 3).symm\n        (⟨4, by norm_num [gridSize]⟩ : Fin (gridSize 3)) =\n      primitiveBits3LE (4 : Fin 8)",
+      "signature_verified_in_actual_module": true,
+      "source_line": 164,
+      "source_obligation": "Concrete inverse coordinate 4 has tuple (0,0,1).",
+      "source_mathematical_proof": "Substitute j=4; its weighted E_3 coordinate is 4. Closed whole-function equality, no added assumptions.",
+      "actual_formal_proof_or_construction": "native_decide, +revert for input-parametrized universal claims",
+      "fresh_actual_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound",
+        "QuantumBlockEncoding.primitiveBasisLEEquiv_three_symm_4._native.native_decide.ax_1_1"
+      ],
+      "generated_native_axiom_count": 1,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    },
+    {
+      "name": "QuantumBlockEncoding.primitiveBasisLEEquiv_three_symm_5",
+      "kind": "theorem",
+      "actual_surface_signature": "@[simp] theorem primitiveBasisLEEquiv_three_symm_5 :\n    (primitiveBasisLEEquiv 3).symm\n        (⟨5, by norm_num [gridSize]⟩ : Fin (gridSize 3)) =\n      primitiveBits3LE (5 : Fin 8)",
+      "signature_verified_in_actual_module": true,
+      "source_line": 168,
+      "source_obligation": "Concrete inverse coordinate 5 has tuple (1,0,1).",
+      "source_mathematical_proof": "Substitute j=5; its weighted E_3 coordinate is 5. Closed whole-function equality, no added assumptions.",
+      "actual_formal_proof_or_construction": "native_decide, +revert for input-parametrized universal claims",
+      "fresh_actual_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound",
+        "QuantumBlockEncoding.primitiveBasisLEEquiv_three_symm_5._native.native_decide.ax_1_1"
+      ],
+      "generated_native_axiom_count": 1,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    },
+    {
+      "name": "QuantumBlockEncoding.primitiveBasisLEEquiv_three_symm_6",
+      "kind": "theorem",
+      "actual_surface_signature": "@[simp] theorem primitiveBasisLEEquiv_three_symm_6 :\n    (primitiveBasisLEEquiv 3).symm\n        (⟨6, by norm_num [gridSize]⟩ : Fin (gridSize 3)) =\n      primitiveBits3LE (6 : Fin 8)",
+      "signature_verified_in_actual_module": true,
+      "source_line": 172,
+      "source_obligation": "Concrete inverse coordinate 6 has tuple (0,1,1).",
+      "source_mathematical_proof": "Substitute j=6; its weighted E_3 coordinate is 6. Closed whole-function equality, no added assumptions.",
+      "actual_formal_proof_or_construction": "native_decide, +revert for input-parametrized universal claims",
+      "fresh_actual_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound",
+        "QuantumBlockEncoding.primitiveBasisLEEquiv_three_symm_6._native.native_decide.ax_1_1"
+      ],
+      "generated_native_axiom_count": 1,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    },
+    {
+      "name": "QuantumBlockEncoding.primitiveBasisLEEquiv_three_symm_7",
+      "kind": "theorem",
+      "actual_surface_signature": "@[simp] theorem primitiveBasisLEEquiv_three_symm_7 :\n    (primitiveBasisLEEquiv 3).symm\n        (⟨7, by norm_num [gridSize]⟩ : Fin (gridSize 3)) =\n      primitiveBits3LE (7 : Fin 8)",
+      "signature_verified_in_actual_module": true,
+      "source_line": 176,
+      "source_obligation": "Concrete inverse coordinate 7 has tuple (1,1,1).",
+      "source_mathematical_proof": "Substitute j=7; its weighted E_3 coordinate is 7. Closed whole-function equality, no added assumptions.",
+      "actual_formal_proof_or_construction": "native_decide, +revert for input-parametrized universal claims",
+      "fresh_actual_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound",
+        "QuantumBlockEncoding.primitiveBasisLEEquiv_three_symm_7._native.native_decide.ax_1_1"
+      ],
+      "generated_native_axiom_count": 1,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    },
+    {
+      "name": "QuantumBlockEncoding.primitiveBits3LEWithout",
+      "kind": "def",
+      "actual_surface_signature": "def primitiveBits3LEWithout (target : Fin 3) (index : Fin 8) : Nat",
+      "signature_verified_in_actual_module": true,
+      "source_line": 181,
+      "source_obligation": "Define C_3,t with numeral-sized bounded coordinate carrier.",
+      "source_mathematical_proof": "Legal targets 0,1,2 give floor(j/2),j mod2+2*floor(j/4),j mod4: compact encodings of increasing surviving wires. Return carrier is Nat.",
+      "actual_formal_proof_or_construction": "Nat-valued target match and arithmetic",
+      "fresh_actual_axioms": [],
+      "generated_native_axiom_count": 0,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    },
+    {
+      "name": "QuantumBlockEncoding.primitiveBits3LEGridWithout",
+      "kind": "def",
+      "actual_surface_signature": "def primitiveBits3LEGridWithout\n    (target : Fin 3) (index : Fin (gridSize 3)) : Nat",
+      "signature_verified_in_actual_module": true,
+      "source_line": 189,
+      "source_obligation": "Define C_3,t with grid-sized bounded coordinate carrier.",
+      "source_mathematical_proof": "Legal targets 0,1,2 give floor(j/2),j mod2+2*floor(j/4),j mod4: compact encodings of increasing surviving wires. Return carrier is Nat.",
+      "actual_formal_proof_or_construction": "Nat-valued target match and arithmetic",
+      "fresh_actual_axioms": [],
+      "generated_native_axiom_count": 0,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    },
+    {
+      "name": "QuantumBlockEncoding.splitPrimitiveWire_primitiveBits3LE_context_eq",
+      "kind": "theorem",
+      "actual_surface_signature": "@[simp] theorem splitPrimitiveWire_primitiveBits3LE_context_eq\n    (target : Fin 3) (left right : Fin 8) :\n    (splitPrimitiveWire target (primitiveBits3LE left)).2 =\n        (splitPrimitiveWire target (primitiveBits3LE right)).2 ↔\n      primitiveBits3LEWithout target left =\n        primitiveBits3LEWithout target right",
+      "signature_verified_in_actual_module": true,
+      "source_line": 196,
+      "source_obligation": "Non-target restricted function equality iff C_3,t equality, explicit-bits/numeral presentation.",
+      "source_mathematical_proof": "Restriction has two wires in increasing original order; quotient/remainder recover the pair from its compact code. Middle deletion weights original wire2 by2, not4; target bits may differ.",
+      "actual_formal_proof_or_construction": "native_decide, +revert for input-parametrized universal claims",
+      "fresh_actual_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound",
+        "QuantumBlockEncoding.splitPrimitiveWire_primitiveBits3LE_context_eq._native.native_decide.ax_1_1"
+      ],
+      "generated_native_axiom_count": 1,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    },
+    {
+      "name": "QuantumBlockEncoding.splitPrimitiveWire_primitiveBasisLEEquiv_three_symm_context_eq",
+      "kind": "theorem",
+      "actual_surface_signature": "@[simp] theorem splitPrimitiveWire_primitiveBasisLEEquiv_three_symm_context_eq\n    (target : Fin 3) (left right : Fin (gridSize 3)) :\n    (splitPrimitiveWire target ((primitiveBasisLEEquiv 3).symm left)).2 =\n        (splitPrimitiveWire target ((primitiveBasisLEEquiv 3).symm right)).2 ↔\n      primitiveBits3LEGridWithout target left =\n        primitiveBits3LEGridWithout target right",
+      "signature_verified_in_actual_module": true,
+      "source_line": 204,
+      "source_obligation": "Non-target restricted function equality iff C_3,t equality, inverse/grid presentation.",
+      "source_mathematical_proof": "Restriction has two wires in increasing original order; quotient/remainder recover the pair from its compact code. Middle deletion weights original wire2 by2, not4; target bits may differ.",
+      "actual_formal_proof_or_construction": "native_decide, +revert for input-parametrized universal claims",
+      "fresh_actual_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound",
+        "QuantumBlockEncoding.splitPrimitiveWire_primitiveBasisLEEquiv_three_symm_context_eq._native.native_decide.ax_1_1"
+      ],
+      "generated_native_axiom_count": 1,
+      "comparison": "matches the source obligation and independent decoder; computational trust retained"
+    }
+  ],
+  "provider_assessment": {
+    "PrimitiveBasis": "Actual Fin q→Fin2, not a Hilbert vector.",
+    "gridSize": "Actual Core definition is 2^q.",
+    "splitPrimitiveWire": "Forward pair (state target, fun wire:subtype(wire≠target) => state wire.val), inverse conditional at target. Inverse laws extensional/simp. .2 equality means exactly agreement at non-target named wires.",
+    "Fin_consEquiv": "Actual inverse is (head,tail); forward cons and inverse laws provided.",
+    "finProdFinEquiv": "Actual value is second+n*first, inverse (divNat,modNat), with division/remainder inverse proofs. After swap n=2, so LE is structural, not comment-only.",
+    "prodCongr_prodComm_finCongr": "Map factors, swap, cast equal bounds preserving value; 2^q*2=2^(q+1)."
+  },
+  "topology_comparison": {
+    "source": "Head/tail induction supports fixed inverses; complete inverse tables support projections/cases; injective surviving-bit code supports context iff; grid companions reexpress the same domain.",
+    "formal": "General equivalence structurally composes providers; zero/successor are rfl; fixed claims are separately exhaustively native decided rather than expressing the entire explanatory lemma graph.",
+    "assessment": "Obligations/prerequisites agree. Source explains mathematical proofs and explicitly discloses formal finite evaluation. This is not a claim that every source proof edge was separately formalized as a kernel-only theorem.",
+    "missing_public_obligations": [],
+    "extra_public_obligations": []
+  },
+  "assumption_comparison": {
+    "source": "q nonnegative, finite bit functions, bounded indices, legal targets.",
+    "formal": "Exactly the typed finite carriers; modulo/bound witnesses constructed internally, not user premises.",
+    "empty_register": "No positivity premise: Fin0 has no wires, but gridSize0=1 has one index; no legal target inhabits Fin0.",
+    "target_bits": "No condition of equality at target; no left≠right or other extra fixed-width premise.",
+    "new_mathematical_assumptions": "None in bounded convention.",
+    "trust": "24 fixed theorems require current native evaluator/compiler/runtime axioms, as explicitly retained by lesson and this review."
+  },
+  "proof_trust": {
+    "toolchain": "Lean (version 4.33.0, x86_64-w64-windows-gnu, commit d8b18978322de05a8f3dba51ef03cf5461676c17, Release)",
+    "public_axiom_audits": 33,
+    "native_theorems": 24,
+    "distinct_generated_native_axioms": 34,
+    "sorryAx_detected": false,
+    "fresh_probe": "Own ignored probe pasted actual current module, importing only PrimitiveSemantics, then @-checked and #print-axioms-checked all 33; exit0. Not sole reliance on cached target .olean.",
+    "standard_axioms": "Equivalence and zero/successor: propext, Classical.choice, Quot.sound; explicit bits definitions: propext, Quot.sound; four context arithmetic definitions: none; native theorem declarations add exact fresh declaration-specific axioms.",
+    "native_path": "Read actual Lean4.33 Native.lean and Decide.lean. +revert closes inputs; mkDecide forms Bool; nativeEqTrue compiles it via addAndCompile and evaluates via unsafe evalConst. On true it inserts a safe axiom asserting Bool=true; of_decide_eq_true uses that axiom. Kernel checking does not independently enumerate the Bool.",
+    "generated_axiom_forms": "Fresh prints show decide(∀bits:PrimitiveBasis6, six-weight equality)=true and decide(∀target:Fin3,left right:Fin8, context iff)=true.",
+    "count_reason": "two_symm four generated case axioms; three_symm eight; other22 native theorems one each; 4+8+22=34.",
+    "boundary": "Computational-axiom trust is explicit; no three-axiom-only/kernel-only upgrade, no legacy trustCompiler-only description, no transitive-source rebuild or executable certificate."
+  },
+  "independent_arithmetic_sanity": {
+    "six_wire_assignments": 64,
+    "two_inverse_indices": 4,
+    "three_inverse_indices": 8,
+    "two_context_triples": 32,
+    "three_context_triples": 192,
+    "passed": true
+  },
+  "verdict": "accepted",
+  "verdict_scope": "Whole 33-declaration bounded local mathematical convention agrees with source and independent source-blind decoder, under explicitly disclosed current native evaluator trust.",
+  "verdict_reasons": [
+    "Exact LE convention confirmed by actual structural provider composition.",
+    "All inverse rows/projections/context-code iff statements agree for every legal fixed input.",
+    "Source assumptions and all seven semantic-slot boundaries match.",
+    "24 native theorems and 34 generated axioms measured independently and retained."
+  ],
+  "not_approved": [
+    "kernel-only replacement/proof-strength upgrade",
+    "production migration/whole-system admission",
+    "matrix/circuit semantic bridge",
+    "physical exporter/gate synthesis/execution",
+    "arbitrary-width context deletion",
+    "runtime/query/gate/depth/precision/hardware resources",
+    "external paper assimilation"
+  ],
+  "limitations": [
+    "Publication binding carried from final packet, not recomputed from withheld candidate/contracts/global registry.",
+    "Exact packet/module/source/decoder/provider/toolchain hashes measured; no external attestation or full dependency rebuild.",
+    "Lake warns of local verso changes; unrelated files not inspected, no cleanliness claim.",
+    "Checker schema only read; full registry/publication checker not executed in this role.",
+    "No previous review, candidate classification or experimental alternative inspected."
+  ],
+  "mutation_scope": {
+    "production_modified": false,
+    "registry_or_status_modified": false,
+    "source_first_reconstruction_modified": false,
+    "own_probe_removed": true,
+    "live_process_handles": [],
+    "subagents_used": false
+  }
+}

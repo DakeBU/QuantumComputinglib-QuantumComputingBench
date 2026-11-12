@@ -16,6 +16,7 @@ import shutil
 import subprocess
 import sys
 from collections import Counter
+from copy import deepcopy
 from pathlib import Path
 from typing import Any
 from urllib.parse import quote
@@ -33,6 +34,21 @@ VIEWS = (("Mathematical methods", "mathematical-methods/"),
 ID = re.compile(r"[a-z][a-z0-9-]*:[a-z0-9][a-z0-9-]*$|[a-z][a-z0-9-]*$")
 SOURCE_STATES = {"primary-metadata-checked", "primary-text-checked", "primary-source-unavailable"}
 TECHNICAL_STATES = {"paper-cited", "classic-unformalized", "contract-only", "obligation", "formalized"}
+# Exact source/field pairs, not a general host-path or task-name rewrite rule.
+_PUBLIC_SOURCE_AUTHOR_DISPLAY = {
+    "aspbe-local-exact-primitives-controlled-rotations-finite-cubic": (
+        "Retrospective natural source /root; metadata /root/primitive_compiler_metadata_c31; historical formalizer UNKNOWN",
+        "Retrospective natural source agent-task:root; metadata agent-task:root/primitive_compiler_metadata_c31; historical formalizer UNKNOWN",
+    ),
+    "aspbe-local-stored-rectangular-elimination-v1": (
+        "Retrospective implementation-informed source /root/stored_givens_source_author_c38; historical formalizer UNKNOWN",
+        "Retrospective implementation-informed source agent-task:root/stored_givens_source_author_c38; historical formalizer UNKNOWN",
+    ),
+    "aspbe-local-retrospective-sequential-primitive-assembly-c48": (
+        "/root/sequential_assembly_c48_source_author; LOCAL retrospective mathematical contract",
+        "agent-task:root/sequential_assembly_c48_source_author; LOCAL retrospective mathematical contract",
+    ),
+}
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -41,6 +57,36 @@ def read_json(path: Path) -> dict[str, Any]:
 
 def load_catalog(directory: Path = DATA) -> dict[str, Any]:
     return {name: read_json(directory / filename) for name, filename in FILES.items()}
+
+
+def public_catalog(catalog: dict[str, Any]) -> dict[str, Any]:
+    """Derive lossless author-identity display metadata from validated originals.
+
+    Only three exact source-ID/author-field pairs are encoded. Unrecognized
+    authors, actual paths, nested fields and all scientific metadata are left
+    untouched for the ordinary publication checks, including the path scanner.
+    Canonical source bytes, source digests and review bindings never change.
+    """
+    validate_catalog(catalog)
+    if "public_projection" in catalog["sources"]:
+        raise ValueError("canonical sources must not contain derived public projection metadata")
+    projected = deepcopy(catalog)
+    for source in projected["sources"]["sources"]:
+        pair = _PUBLIC_SOURCE_AUTHOR_DISPLAY.get(source["id"])
+        if pair is not None and source.get("authors") == pair[0]:
+            source["authors"] = pair[1]
+    projected["sources"]["public_projection"] = {
+        "schema_version": "research.sources_author_identity_display.v1",
+        "canonical_source": "website/research/sources.json",
+        "source_digest_binds": "unmodified_canonical_catalog_files",
+        "author_identity_encoding": (
+            "Only exact allowlisted source-ID/author-field pairs are encoded. "
+            "Decode each agent-task:root[/task] token by replacing agent-task: "
+            "with a leading slash; other metadata is unchanged."
+        ),
+        "review_boundary": "Display-only derived metadata; no new source, mathematical or formalization review.",
+    }
+    return projected
 
 
 def require_fields(item: dict[str, Any], fields: tuple[str, ...], kind: str) -> None:
@@ -399,8 +445,9 @@ def publish(root: Path) -> dict[str, Any]:
     sources = {x["id"]: x for x in catalog["sources"]["sources"]}
     data_dir = root / "data/research"
     data_dir.mkdir(parents=True, exist_ok=True)
+    displayed_catalog = public_catalog(catalog)
     for name, filename in FILES.items():
-        (data_dir / filename).write_text(json.dumps(catalog[name], ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        (data_dir / filename).write_text(json.dumps(displayed_catalog[name], ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     for filename in ("research-atlas.css", "research-atlas.js", "research-focus.js", "research-delta.js"):
         shutil.copyfile(ROOT / "website/static" / filename, root / "static" / filename)
     additions: list[dict[str, Any]] = []
@@ -579,7 +626,11 @@ def source_digest() -> str:
 
 
 def check_published(root: Path) -> None:
-    validate_catalog(load_catalog())
+    catalog = load_catalog()
+    expected = public_catalog(catalog)
+    for name, filename in FILES.items():
+        if read_json(root / "data/research" / filename) != expected[name]:
+            raise ValueError("published research catalog differs from its declared display projection: " + filename)
     for _, route in VIEWS:
         path = root / route / "index.html"
         if not path.is_file() or not all(marker in path.read_text(encoding="utf-8") for marker in ('class="site-sidebar"', 'data-taxonomy-nav="papers"', 'data-taxonomy-nav="example-cases"')):
@@ -593,7 +644,6 @@ def check_published(root: Path) -> None:
     for marker in ("All inputs required", "AND", "Failure boundary", "no Lean-certified", "data-ra-hypergraph"):
         if marker not in hyper:
             raise ValueError(f"hypergraph lost truth contract: {marker}")
-    catalog = load_catalog()
     for route in catalog["wiki"]["routes"]:
         path = root / "state-preparation-wiki" / route["id"] / "index.html"
         text = path.read_text(encoding="utf-8")

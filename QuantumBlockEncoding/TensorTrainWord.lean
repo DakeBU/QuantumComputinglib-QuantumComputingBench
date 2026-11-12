@@ -21,7 +21,7 @@ theorem wordOfBasis_toBasis {n : Nat} (x : Word n) :
     wordOfBasis (toBasis x) = x := by
   induction n with
   | zero => cases x; rfl
-  | succ n ih => simp [wordOfBasis, toBasis, ih]
+  | succ n ih => simp [wordOfBasis, toBasis, ih] <;> rfl
 
 def basisEquiv (n : Nat) : Word n ≃ PrimitiveBasis n where
   toFun := toBasis

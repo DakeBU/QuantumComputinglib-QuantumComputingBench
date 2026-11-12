@@ -1,0 +1,32 @@
+warning: verso: repository '<repo>\.lake/packages\verso' has local changes
+HermiteNominalStageTransport.nominal_norm_preservation {width : ℕ} (word : List (Instruction width))
+  (x : EuclideanSpace ℝ (Basis width)) : ‖(Matrix.toEuclideanCLM (realWord word realIdentity)) x‖ = ‖x‖
+HermiteNominalStageTransport.nominal_contraction {width : ℕ} (word : List (Instruction width)) :
+  ‖Matrix.toEuclideanCLM (realWord word realIdentity)‖ ≤ 1
+HermiteNominalStageTransport.actual_stages_valid {width : ℕ} (words : List (List (Instruction width)))
+  (degree bits : ℕ) : Valid (actualStages words degree bits)
+HermiteNominalStageTransport.actual_product_error {width : ℕ} (words : List (List (Instruction width)))
+  (degree bits : ℕ) :
+  ‖surrogateProduct (actualStages words degree bits) - nominalProduct (actualStages words degree bits)‖ ≤
+    growth (actualStages words degree bits) - 1
+HermiteNominalStageTransport.actual_apply_error {width : ℕ} (words : List (List (Instruction width))) (degree bits : ℕ)
+  (x : StageSpace width) :
+  ‖(surrogateProduct (actualStages words degree bits)) x - (nominalProduct (actualStages words degree bits)) x‖ ≤
+    (growth (actualStages words degree bits) - 1) * ‖x‖
+'HermiteNominalStageTransport.ry_pair_square' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteNominalStageTransport.vectorStep_ry_pair' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteNominalStageTransport.vectorStep_sum_square' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteNominalStageTransport.realStep_mulVec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteNominalStageTransport.realStep_norm_preservation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteNominalStageTransport.realWord_norm_preservation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteNominalStageTransport.nominal_norm_preservation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteNominalStageTransport.nominal_contraction' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteNominalStageTransport.stageEta_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteNominalStageTransport.actual_stage_valid' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteNominalStageTransport.actual_stages_valid' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteNominalStageTransport.actual_product_error' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteNominalStageTransport.actual_apply_error' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteNominalStageTransport.changing_full_norm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteNominalStageTransport.changing_full_valid' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteNominalStageTransport.changing_full_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteNominalStageTransport.empty_width_valid' depends on axioms: [propext, Classical.choice, Quot.sound]

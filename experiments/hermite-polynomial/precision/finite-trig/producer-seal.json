@@ -1,0 +1,10 @@
+{
+  "status": "ADDITIVE_STATEMENT_SEAL_PRE_PRODUCER_PROOF_SEARCH",
+  "parent_seal_sha256": "27c27389b0beb651654dabb38b3badf8b3858c3bab47196d3d4d8380dd24136b",
+  "compiled_scalar_source_sha256": "af127d0a3f8fd05d541deacfbaff212f519e71d2db836ef319516cefba6756a9",
+  "definition": "selectDegree (q eps:Rat) (cap:Nat):Option Nat := (List.range (cap+1)).find? (fun n => decide (2*radius q n <= eps))",
+  "signature": "theorem selectDegree_sound (q eps:Rat)(cap n:Nat)(h:selectDegree q eps cap=some n): n<=cap /\\ 2*radius q n<=eps",
+  "classification": "C internal provider; h is exact computable producer-success equation, not trigonometric containment nor any source Anchor assumption",
+  "semantics": "Literal finite search of degrees 0..cap in order. None is honest cap failure; never mathematical impossibility or source-parameter exclusion. Success plus unconditional scalar roots supplies membership and width at most eps. Negative eps is allowed but cannot produce a false soundness claim.",
+  "boundaries": "No guarantee every cap succeeds; no uniform runtime theorem. Python decoder/parser, exact decimal transport and stage/circuit action remain separate. No frozen prior seal/source changed."
+}

@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "run_id": "qr-residual-5557a1e7-0577-41e5-a3fa-627492621c88",
+  "status": "IMMUTABLE_TYPED_INTERNAL_INTERFACES_BEFORE_PROOF_SEARCH_AND_IMPLEMENTATION",
+  "direction_fingerprint": "actual-stored-QR-residual-to-normalized-TT",
+  "expected_information_gain": "Replace blanket numerical QR assumptions by exact-dyadic a-posteriori cross-Gram certificates for the actual frozen scaled canonicalizer return, including its actual computed mantissa/exponent normalizer and all accumulated scale drift.",
+  "normalized_proof_input_digest": "5a8f47f8d0afd1d4f957e55babde52a9e9c01babf05c481b988e99ebca2f7758",
+  "scientific_target_unchanged": "n_p>=1,k natural,L>0; executable L positive Fraction. Literal normalized signed samples of g_k(-pi*L+2*pi*L*j/2^n_p), physical q0 least significant, no phase quotient, postselection, free oracle or discarded garbage. This internal residual task does not discharge scalar-source or serialized circuit errors.",
+  "context": "Reused formal/numerical context; worker authored downstream GlobalAssembly and earlier scoped audits. Not a fresh fork, whole-chain clean-room review or independent review of this new worker-authored certificate.",
+  "declaration_level": "C internal providers with exact real semantics, intended as reusable residual-composition interfaces; not a new scientific SourceAnchor",
+  "ambient": "Namespace QuantumBlockEncoding.ExperimentalQRResidual. TensorTrainCanonical.Chain n l r, Word n, slice, contract and maxBond are the existing literal dependent TT definitions. EuclideanSpace Real (Word n), NormedSpace.normalize and TensorTrainNormEnvironment.gram are reused. All chains below have scalar terminal boundary1.",
+  "typed_interfaces": {
+    "crossGram": "noncomputable def crossGram : {n l m : Nat} -> Chain n l 1 -> Chain n m 1 -> Matrix (Fin l) (Fin m) Real; nil/nil returns1; cons A C/cons B D returns sum bit:Fin2, slice A bit * crossGram C D * (slice B bit).transpose",
+    "ttVector": "noncomputable def ttVector {n:Nat} (C:Chain n 1 1) : EuclideanSpace Real (Word n) := WithLp.toLp 2 (fun x => contract C x 0 0)",
+    "crossGram_eq_sum": "theorem crossGram_eq_sum {n l m:Nat} (C:Chain n l 1) (D:Chain n m 1) : crossGram C D = sum x:Word n, contract C x * (contract D x).transpose",
+    "crossGram_scalar": "theorem crossGram_scalar {n:Nat} (C D:Chain n 1 1) : crossGram C D 0 0 = sum x:Word n, contract C x 0 0 * contract D x 0 0",
+    "gram_vector_norm_sq": "theorem gram_vector_norm_sq {n:Nat} (C:Chain n 1 1) : TensorTrainNormEnvironment.gram C 0 0 = norm(ttVector C)^2",
+    "residual_identity": "theorem residual_identity {n:Nat} (C D:Chain n 1 1) (s:Real) : norm(ttVector D - s^(-1) smul ttVector C)^2 = TensorTrainNormEnvironment.gram D 0 0 - 2*s^(-1)*crossGram C D 0 0 + (s^(-1))^2*TensorTrainNormEnvironment.gram C 0 0",
+    "ratio_error_of_square_error": "theorem ratio_error_of_square_error {a tau:Real} (ha:0<=a) (error:abs(a^2-1)<=tau) : abs(a-1)<=tau",
+    "certificate_to_normalized": "theorem certificate_to_normalized {n:Nat} (C D:Chain n 1 1) {s r tau:Real} (hs:0<s) (hr:0<=r) (raw_positive:0<TensorTrainNormEnvironment.gram C 0 0) (residual:TensorTrainNormEnvironment.gram D 0 0 - 2*s^(-1)*crossGram C D 0 0 + (s^(-1))^2*TensorTrainNormEnvironment.gram C 0 0<=r^2) (norm_square_error:abs((s^(-1))^2*TensorTrainNormEnvironment.gram C 0 0-1)<=tau) : norm(ttVector D-NormedSpace.normalize(ttVector C))<=r+tau",
+    "crossUpdateBudget": "def crossUpdateBudget (lC mC lD mD:Nat):Nat := 4*(lC*mC*mD+lC*mD*lD)+lC*lD",
+    "crossUpdateBudget_le": "theorem crossUpdateBudget_le (lC mC lD mD B:Nat) (hlC:lC<=B) (hmC:mC<=B) (hlD:lD<=B) (hmD:mD<=B) : crossUpdateBudget lC mC lD mD<=9*B^3",
+    "crossArithmeticBudget": "def crossArithmeticBudget : {n l m:Nat}->Chain n l 1->Chain n m 1->Nat; nil/nil0; cons/cons charges crossUpdateBudget current left/right dimensions plus recursive tail budget",
+    "crossArithmeticBudget_le": "theorem crossArithmeticBudget_le {n l m:Nat} (C:Chain n l 1) (D:Chain n m 1) (B:Nat) (hC:maxBond C<=B) (hD:maxBond D<=B) : crossArithmeticBudget C D<=9*n*B^3",
+    "certificateArithmeticBudget": "def certificateArithmeticBudget {n:Nat} (C D:Chain n 1 1):Nat := crossArithmeticBudget C C+crossArithmeticBudget D D+crossArithmeticBudget C D",
+    "certificateArithmeticBudget_le": "theorem certificateArithmeticBudget_le {n:Nat} (C D:Chain n 1 1) (B:Nat) (hC:maxBond C<=B) (hD:maxBond D<=B) : certificateArithmeticBudget C D<=27*n*B^3"
+  },
+  "binder_audit": {
+    "TYPING": ["Natural core count and finite bond dimensions", "Literal Chain matrices and Word basis", "Euclidean real scalar carrier"],
+    "SOURCE": ["Only the unchanged scientific n_p>=1,k>=0,L>0 family; not additional premises of these internal providers"],
+    "INTERNAL_COMPUTED_PREMISES": ["Actual positive stored normalizer s", "Exact positive raw Gram certifying nonzero stored TT", "Exact cross-Gram residual bounded by nonnegative rational r squared", "Exact scaled raw Gram deviation bounded by rational tau"],
+    "not_assumed": ["numpy QR exactness or blanket backward stability", "Returned core orthogonality", "True source normalizer equals stored normalizer", "No scale-product or absorption drift", "Certified numerical rank", "Full source error delta", "Serialized action zeta"]
+  },
+  "execution_contract": {
+    "entry": "certify_scaled_canonicalize(raw, certificate_bits=80)",
+    "stored_domain": "Nonempty real finite float64 TT with scalar open boundaries and compatible positive bond dimensions. Copy/interpret every actual stored entry via Fraction.from_float. Reject complex/nonfinite/malformed entries; retain the frozen canonicalizer's honest zero/underflow failures.",
+    "actual_producer": "Call frozen scaled_right_canonicalize exactly once. Bind that same returned TT and ScaledNorm; no replacement producer or dense amplitude input. Encode s exactly as Fraction.from_float(mantissa)*2^exponent, not to_float, log_norm or an ideal product of removed factors.",
+    "certificate": "Compute exact raw/raw, output/output and raw/output local cross-Gram contractions. Form q=Gout-2*cross/s+Graw/s^2 and a2=Graw/s^2. Reject q<0 or Graw<=0. Compute rational r>=sqrt(q) by integer square-root rounding upward on a requested binary grid and verify r^2>=q exactly. tau=abs(a2-1). Return r+tau for the literal output versus normalized original stored TT.",
+    "refinement_boundary": "The Lean cross-Gram theorem certifies the literal local mathematical recursion. Exact Python Fraction loops mirror it; no whole interpreter/numpy/serialization refinement is claimed. No local QR trace is required because the residual measures the actual end-to-end stored return, including rescaling, QR, absorption, head normalization and rounded scale product.",
+    "diagnostics_only": "Small dense signed references may test the certificate, never enter the producer. Wide tests contract selected amplitudes or no amplitudes. Rank-deficient/zero/tall/tiny and huge-scale cases must distinguish successful certificates from honest producer failure."
+  },
+  "cost_model": {
+    "contraction": "Three local Gram passes, matrix-multiply schedule: at most27*n*B^3 field additions/multiplications when both actual trains' bonds<=B. Input float decoding, scalar assembly, division, integer sqrt, allocation/copies/comparisons and exact rational normalization/GCD are separately charged, not free matrix callbacks.",
+    "actual_counters": "Count all exact rational multiplications/additions in matrix products and bit-environment sum; record actual visited core/scalar dimensions and maximum intermediate numerator/denominator bit lengths. No 2^n enumeration, full amplitude table, SVD or exact rank test in producer.",
+    "finite_bit": "Fraction arithmetic is exact finite integer arithmetic, not unit cost. Measure operand growth, requested binary grid, mantissa/exponent materialization and certificate text. A polynomial field-operation count does not certify a uniform polynomial bit/runtime theorem.",
+    "normalizer": "Actual exponent expansion may create large integers; charge abs(exponent) and resulting bit lengths. Never use floating normalizer expansion as a correctness step.",
+    "remaining": "Scalar/source conversion delta, exact Python-to-Lean adapter, all intermediate uniform bit bounds, actual angle/serialization zeta, epsilon-dependent source/QR/backend acceptance and all-garbage circuit composition remain open."
+  },
+  "input_sha256": {
+    "experiments/hermite-polynomial/mps/scaled_canonicalize.py": "7154179bd54addf22d8cf365cc29e6b195392bee2d182989c49b5f1fa4bff879",
+    "QuantumBlockEncoding/TensorTrainNormEnvironment.lean": "a898ff4a83a1cc6426af7e85d3adc812c46175af0a31c1fd5eb2d48c776afb0d",
+    "experiments/hermite-polynomial/precision/NormalizationStability.lean": "bd3afe3e1367c6b5af31173369a0321118756822875cc644fc3f2089bcfecac3",
+    "experiments/hermite-polynomial/precision/cycle11-staging-result.json": "d0bb5e80c434f9957f8464f332dc12e6097bfc4cbdb94134fde3ff2090affea5"
+  },
+  "scope": "Only NEW qr-residual subtree. This v1 is immutable; any signature additions/changes receive a versioned delta before proof search. No production/test/toolchain/prior evidence edits, commits, pushes, registry/status mutations, ROOT or publication claim."
+}

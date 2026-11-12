@@ -1,0 +1,15 @@
+# c28 source-first static delivery checkpoint
+
+Status: AUTHOR/PARENT WIP, not admission. The earlier partial-environment records remain unchanged and are not overwritten by later progress.
+
+The original author froze 18 artifacts plus an outputs manifest under `reviews/publication/primitive-semantics-c28/`; the authored lesson is `docs/lessons/concrete-primitive-and-reversible-semantics.md`. Manifest SHA256 is `1e238b21c3209fe3d4cf9e662c9bde1eaca6441529dce2e5e660e79dee236cd0`. The full three modules contain 88 public named roots (25/55/8), zero private named roots, and a 20-provider local import closure. The source has 39 lossless paragraphs, 23 AND edges, nine guarded groups and seven explicit stronger-consumer gaps. The four graph views remain AUTHOR_PROVISIONAL, not independent review.
+
+The parent byte-checked and privacy-scanned all transported artifacts. The read-only author verification replays the three exact binding digests with the unchanged recipe against the current catalog using only a prospective source-row data overlay. It performs no module admission or Lean execution. The author's recorded 15-record snapshot is historical, before the later c27 admission to 20; it is deliberately preserved rather than rewritten.
+
+The actual static delivery is `static-review-inputs-c28.json`, SHA256 `f8a52c1757c243ec9ab4b9521ace7522ee902a08c0e55c97264cc4222c9ba12b`, binding 31 inputs. It was delivered to the original distinct reviewer only after its frozen source-only derivation. Actual decoder/retry/compile/probe material and previous verdicts are withheld until that reviewer freezes its static comparison. No future evidence path in the three parent proposals means a record already exists or is accepted.
+
+Nine focused tests pass: the earlier six partial-state tests plus full author-manifest/coverage checks, actual static-delivery isolation, and prospective binding replay without admission. The parent transport's first large-proposal patch hit its explicit safe argument-length guard before that file was written; the helper then used bounded apply_patch chunks and exact-byte equality. No frozen original or scientific statement was changed.
+
+Preserved semantic boundaries include arbitrary stored normalization propositions; unlinked presentation/resource metadata; named wire assignments without an integer-endian bridge; exact half-angle, sign, order and global-phase conventions even at zero wires; full Hadamard versus RY(pi/2); and CCX proof-IR versus final four-primitive compilation. These remain review obligations, not assumptions silently supplied by module names.
+
+The same original decoder is independently performing one bounded resource-enabled continuation, with fresh dependency overrides and no duplicate Concrete compile. Its eventual result is not asserted by this static-only report. Canonical admission remains 20 valid records, 31 of 51 changed modules unadmitted. Main is still Lean 4.29.1; contribution is 4.33.0. Main merge, reader/purification and complete finite-bit Hermite ROOT remain open.

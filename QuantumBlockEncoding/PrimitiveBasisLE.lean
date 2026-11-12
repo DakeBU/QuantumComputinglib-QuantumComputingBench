@@ -51,7 +51,7 @@ def primitiveBits2LE (index : Fin 4) : PrimitiveBasis 2
 
 @[simp] theorem primitiveBasisLEEquiv_two_symm (index : Fin 4) :
     (primitiveBasisLEEquiv 2).symm index = primitiveBits2LE index := by
-  native_decide +revert
+  fin_cases index <;> native_decide
 
 /-- Fixed-width coordinate reductions whose domain exactly matches the
 `gridSize`-indexed finite matrix backend. -/
@@ -124,7 +124,7 @@ def primitiveBits3LE (index : Fin 8) : PrimitiveBasis 3
 
 @[simp] theorem primitiveBasisLEEquiv_three_symm (index : Fin 8) :
     (primitiveBasisLEEquiv 3).symm index = primitiveBits3LE index := by
-  native_decide +revert
+  fin_cases index <;> native_decide
 
 @[simp] theorem primitiveBasisLEEquiv_three_symm_wire_zero
     (index : Fin (gridSize 3)) :

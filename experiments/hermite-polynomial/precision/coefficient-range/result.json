@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "direction_fingerprint": "all-k-literal-Bernstein-range-and-rational-input-cost",
+  "shared_proof_input_digest": "5a8f47f8d0afd1d4f957e55babde52a9e9c01babf05c481b988e99ebca2f7758",
+  "status": "ALL_K_LITERAL_RANGE_AND_EXACT_RATIONAL_OUTPUT_ENVELOPES_COMPILED",
+  "failure_class": "NONE",
+  "remaining_boundary": "SOURCE_GAP for executable refinement and scalar/float/QR/global epsilon chain; no quantum ROOT or main/publication admission",
+  "narrow_verdict": "For every natural k, the existing literal source coefficients have an explicit exact range, transported to valid restrictions. The actual left-weight formula has a proved natural numerator/common-denominator representation with polynomial-in-numeric-k binary output envelopes. Rational exp-enclosure endpoints retain their input-size dependence. These are nontrivial all-parameter internal providers, not five-case fits or a total float64/runtime certificate.",
+  "scientific_contract": "Unchanged signed normalized Hermite function-value samples on p_j=-pi*L+2*pi*L*j/2^n, n>=1,k natural,L positive finite rational executable input,q0 LSB. No new source hypotheses, phase quotient, free oracle, hidden garbage, dense construction or target substitution.",
+  "context_and_history": "Reused worker context, not a fresh fork. Cycle11 seal-history debt and immutable old supplier/failure/results remain unchanged. Cycle12 uses separately retained immutable pre-proof versions rather than reconstructing earlier bytes.",
+  "statement_seal_history": [
+    {"file": "statement-seal-v1.json", "sha256": "d399b6509dbec5e7b57dfb858c907d156c6136611ff78a452ec427154ea2c93b", "timing": "After source/formula/process reads, before proof/API search and module creation", "interfaces": ["coarseBound", "factorialEnvelope", "commonDenominator", "sourceCoefficient_upper", "leftCoefficient_upper", "sourceBernsteinCoefficient_range", "restricted_source_range", "factorial_output_bound", "commonDenominator_bound", "commonDenominator_pos"]},
+    {"file": "statement-seal-v2-delta.json", "sha256": "beb7919845c25cdf231449004b6fe7faaabc695d44924d7c499f80587a1e2408", "timing": "After first coarse-range attempt/API retrieval, before writing numerator representation or explicit binary-envelope proofs", "interfaces": ["sourceNumerator", "leftNumerator", "sourceNumerator_value", "leftNumerator_value", "leftNumerator_bound", "commonDenominator_binary_bound", "leftNumerator_binary_bound"]},
+    {"file": "statement-seal-v3-delta.json", "sha256": "4a471ae36813c15dc4a3670e1326031be7a9b23641fb162abffc9f380fcb9f87", "timing": "After v2 proof attempt, before writing rational scalar endpoint representation/consumer proofs", "interfaces": ["fromConstant_range", "rationalSourceNumerator", "rationalSourceDenominator", "rationalSource_value", "rationalSourceDenominator_pos", "rationalSourceDenominator_bound", "rationalSourceNumerator_bound"]}
+  ],
+  "source_reconstruction": {
+    "formula": "a_i=sum_{m=0}^i choose(k+i-m,k)/m!; b_r=sum_{i=0}^k [i<=r<=k] a_i*choose(k-i,r-i)/choose(2k+1,r); c_r=exp(-1)*b_r+b_(2k+1-r)",
+    "actual_python": "Frozen offset_source.source_base_weights computes b_r by exactly these Fraction/binomial/factorial operations; source_coefficient_intervals computes E_lo*b_r+b_ref and E_hi*b_r+b_ref. No collapsed convolution identity or assumed all-k constant range replaces these formulas.",
+    "coverage": [
+      {"region": "source-series factorial/binomial summands", "disposition": "NODE", "evidence": "sourceCoefficient_upper and sourceNumerator_value"},
+      {"region": "degree elevation and collection", "disposition": "NODE", "evidence": "existing leftCoefficient_eq plus leftCoefficient_upper/leftNumerator_value"},
+      {"region": "exp(-1) multiplication and reflection", "disposition": "NODE", "evidence": "sourceBernsteinCoefficient_range and rationalSource_value"},
+      {"region": "valid interval restriction", "disposition": "NODE", "evidence": "existing restrictCoefficients_bounds consumed by restricted_source_range"},
+      {"region": "materialized scalar coefficient producer", "disposition": "NODE", "evidence": "existing fromConstant_value consumed by fromConstant_range"},
+      {"region": "rational scalar enclosure analytic membership and Python refinement", "disposition": "SOURCE_GAP"},
+      {"region": "pi/L restriction arithmetic, bounded cutoff, float conversion and complete numerical producer", "disposition": "SOURCE_GAP"}
+    ],
+    "graph_distinction": "Source formula topology above is not claimed to be an extracted elaborated Lean dependency graph. Checked local calls are retained in the actual module. No Functor Hypergraph/Compressed Quantum Spine promotion is inferred."
+  },
+  "mathematical_delta": {
+    "all_k_exact_range": "B_k=(k+1)^2*2^(3k). For every r,0<=leftCoefficient(k,r)<=B_k and0<=sourceBernsteinCoefficient(k,r)<=2B_k. For every valid0<=u<v<=1 and r<=2k+1, each restricted source coefficient is in[0,2B_k].",
+    "proof_of_range": "For i<=k, k+i-m<=2k. choose(n,r)<=2^n and m!>=1 bound each source summand by2^(2k), hence a_i<=(k+1)*2^(2k). Each elevation binomial is<=2^k and every contributing denominator is a positive integer>=1. At most k+1 terms give B_k. exp(-1)<=1 and nonnegativity give2B_k; exact convex restriction preserves the interval.",
+    "literal_integer_representation": "S_(k,i)=sum_m choose(k+i-m,k)*(k!/m!); A_(k,r)=sum_i [i<=r<=k] S_(k,i)*choose(k-i,r-i); D_(k,r)=k!*choose(2k+1,r). Because m<=i<=k, m! divides k!, so sourceCoefficient=S/k! and leftCoefficient=A/D exactly. For valid r, D>0.",
+    "base_output_envelopes": "D<=2^(k^2+3k+1), A<=2^(2k^2+9k+3). Thus this positive-denominator output representation has denominator binary length<=k^2+3k+2 and numerator length<=2k^2+9k+4, with zero numerator length0. The explicit powers-of2 inequalities are Lean-proved; the elementary binary-length interpretation and reduced Fraction size consequence are stated separately, not a new compiled Python/Rat bitLength theorem.",
+    "rational_scalar_output": "For any p,q natural,q>0 and valid r, E=p/q gives exact N/T where N=p*A_r*D_ref+q*A_ref*D_r and T=q*D_r*D_ref. T>0,T<=q*2^(2k^2+6k+2),N<=(p+q)*2^(3k^2+12k+4). Reduced output denominator needs at most bitLength(q)+2k^2+6k+2 bits; numerator needs at most bitLength(p+q)+3k^2+12k+4 bits. Analytic membership of E endpoints is not assumed in this representation theorem.",
+    "stored_consumer": "StoredHermiteCoefficients.fromConstant_range uses the actual materialized producer's existing fromConstant_value, proving its row lies in[0,2B_k] whenever the internally supplied scalar e lies in[0,1]. This is a reusable scalar-provider consumer, not a new hypothesis on the scientific Source Anchor.",
+    "strict_positivity_reuse": "Existing StoredHermiteCoefficients.compile_pos already proves strict positivity of the exact source row, including k0. It is reused as prior substrate, not duplicated or claimed as a new theorem.",
+    "k_model": "Polynomial output length is in numeric k and scalar operand bits, not necessarily in the binary encoding length log(k). k dependence is explicit. The value bound is exponential in k and is deliberately coarse."
+  },
+  "lean": {
+    "file": "experiments/hermite-polynomial/precision/coefficient-range/CoefficientRange.lean",
+    "namespace": "QuantumBlockEncoding.ExperimentalCoefficientRange",
+    "level": "C internal source-linked range/cost providers",
+    "roots": ["sourceCoefficient_upper", "leftCoefficient_upper", "sourceBernsteinCoefficient_range", "restricted_source_range", "factorial_output_bound", "commonDenominator_bound", "commonDenominator_pos", "sourceNumerator_value", "leftNumerator_value", "leftNumerator_bound", "commonDenominator_binary_bound", "leftNumerator_binary_bound", "fromConstant_range", "rationalSource_value", "rationalSourceDenominator_pos", "rationalSourceDenominator_bound", "rationalSourceNumerator_bound"],
+    "toolchain": "leanprover/lean4:v4.33.0",
+    "focused_command": "lake env lean experiments/hermite-polynomial/precision/coefficient-range/CoefficientRange.lean",
+    "focused_exit": 0,
+    "printed_roots": 17,
+    "reported_axioms_union": ["propext", "Classical.choice", "Quot.sound"],
+    "sorryAx": false,
+    "proof_attempts": "Initial tactic/API probes failed on an already-solved gcongr goal, cast normalization, implicit Nat.lt_two_pow_self argument and a positivity tactic. Final literal statements were unchanged and compiled; no fake gate or weakened statement was used.",
+    "warning": "Existing verso package local changes; no dependency mutation performed.",
+    "aggregate_gate": "Owned by root; this worker does not claim repository builds, publication validation, CI or reader approval."
+  },
+  "reuse_audit": {
+    "local": "Searched existing Hermite modules before duplicates; reused sourceCoefficient_eq/nonneg,leftCoefficient_eq/nonneg,sourceBernsteinCoefficient_nonneg,restrictCoefficients_bounds and StoredHermiteCoefficients.fromConstant_value. Existing compile_pos is acknowledged. No existing literal all-k upper bound was found by the targeted search.",
+    "mathlib": ["Nat.choose_le_two_pow", "Nat.factorial_pos", "Nat.factorial_dvd_factorial", "Nat.cast_div", "Nat.factorial_le_pow", "Nat.lt_two_pow_self", "Nat.pow_le_pow_left/right", "Real.exp_le_exp"],
+    "external": "No external paper/API theorem introduced; only local source definitions and Mathlib arithmetic are needed.",
+    "definition_and_binders": "All new definitions are literal finite integer sums/envelopes. Natural carriers are TYPING; index/restriction bounds and positive rational denominator are internal-domain inputs. e in[0,1] is an explicit scalar consumer premise, not hidden source access. No excess quantum/source binder."
+  },
+  "finite_evidence": {
+    "file": "experiments/hermite-polynomial/precision/coefficient-range/test_coefficient_range.py",
+    "command": ".venv/Scripts/python.exe -B experiments/hermite-polynomial/precision/coefficient-range/test_coefficient_range.py",
+    "exit": 0,
+    "tests": 5,
+    "last_measured_seconds": 1.324,
+    "witness_command": ".venv/Scripts/python.exe -B experiments/hermite-polynomial/precision/coefficient-range/test_coefficient_range.py --witness",
+    "witness_exit": 0,
+    "k_cases": "Every k0..32 plus48,64,96,128; every coefficient index in each row",
+    "checks": ["Actual frozen Fraction generator equals independently grouped natural A/D", "Positivity/nonnegativity and compiled coarse/output bounds", "Reduced denominator divides D and reduced numerator<=A", "k0 row exactly[1,0] and denominator[1,1]", "Actual source_coefficient_intervals endpoints for Taylor terms2,16,32,64 equal rationalSource representation", "Scalar input p/q with2001/4097 bit operands is charged in output envelope"],
+    "independence_scope": "Separate integer common-denominator reconstruction vs existing Fraction generator, not an independent author/reviewer or proof of whole-program cross-language refinement. No NumPy/Qiskit state vector or circuit enters these coefficient tests.",
+    "selected_records": [
+      {"k": 0, "base_numerator_bits": 1, "base_denominator_bits": 1, "exp_endpoint_numerator_bits": 112, "exp_endpoint_denominator_bits": 113},
+      {"k": 8, "base_numerator_bits": 31, "base_denominator_bits": 30, "exp_endpoint_numerator_bits": 142, "exp_endpoint_denominator_bits": 143},
+      {"k": 32, "base_numerator_bits": 175, "base_denominator_bits": 174, "exp_endpoint_numerator_bits": 286, "exp_endpoint_denominator_bits": 287},
+      {"k": 64, "base_numerator_bits": 415, "base_denominator_bits": 415, "exp_endpoint_numerator_bits": 527, "exp_endpoint_denominator_bits": 527},
+      {"k": 128, "base_numerator_bits": 970, "base_denominator_bits": 969, "exp_endpoint_numerator_bits": 1081, "exp_endpoint_denominator_bits": 1082}
+    ],
+    "record_boundary": "Selected endpoint records use Taylor terms32. These measured bit lengths are finite evidence, not fitted asymptotics. Universal upper envelopes come from the named Lean roots."
+  },
+  "cost_and_remaining_limits": {
+    "closed_layer": "Exact source value bounds and a natural rational output representation with explicit input-dependent envelopes. No assumption of unit-cost unbounded coefficients remains in this layer.",
+    "finite_conversion": "A finite real/rational value bound does not prove that every k fits a fixed IEEE float format.2B_k grows with k. The stronger k-independent range from earlier human algebra is not newly formalized; no all-k float64 conversion-safety claim follows from this coarse bound.",
+    "output_not_runtime": "Reduction/GCD, integer multiplication/division, factorial/binomial generation, sum evaluation, table materialization, copying and serialization remain charged. No global intermediate-operand bound or deterministic bit-runtime theorem is asserted; output denominator/numerator bounds alone cannot certify it.",
+    "inputs": "k is numeric, L and local tolerance are finite positive rationals with numerator/denominator bit lengths. The base source coefficients do not depend on n,L,epsilon, but actual interval restrictions do. Scalar endpoint p,q bit lengths are retained rather than hidden as constants.",
+    "scalar_enclosures": "Actual Machin pi and alternating exp(-1) membership/Python refinement remain open. The all-k rational source endpoint representation applies to given finite endpoints, not a free exact exp oracle or certified analytic supplier.",
+    "restricted_intermediate_growth": "Exact coefficient range is preserved through restrictions, but rational numerator/denominator growth through the actual offset coordinate and two interval triangles is not bounded here. Input L/pi/tolerance and all failed retries/cutoff work remain explicit.",
+    "epsilon_and_totality": "No schedule selected from global epsilon, arbitrary-tolerance float64 capability, bounded cutoff separation/totality, validation repair, exp/subdivision error, QR/absorption, scaled normalizer eta or serialized circuit zeta certificate. Retain the root bound2Fdelta+eta/(1-eta)+zeta without asserting actual uniform delta/eta/zeta.",
+    "future_consumer": "Root supplied an unproved future rational-radius/Lipschitz route: source derivative control from Bernstein adjacent differences could charge radius approximation error and avoid exact pi-cutoff separation. This packet does not prove that route or repeat parent-only cutoff evidence as a worker test."
+  },
+  "artifact_hashes": {
+    "statement-seal-v1.json": "d399b6509dbec5e7b57dfb858c907d156c6136611ff78a452ec427154ea2c93b",
+    "statement-seal-v2-delta.json": "beb7919845c25cdf231449004b6fe7faaabc695d44924d7c499f80587a1e2408",
+    "statement-seal-v3-delta.json": "4a471ae36813c15dc4a3670e1326031be7a9b23641fb162abffc9f380fcb9f87",
+    "CoefficientRange.lean": "e9ab95bb972ba742339a70dca1e5f1a302978092a1ca2a3cb42cd32b7faa4888",
+    "test_coefficient_range.py": "f283b662002f59af0bb122bc50102f10ba76a20529b4027a879130f1ba017e69"
+  },
+  "frozen_source_hashes": {
+    "QuantumBlockEncoding/HermiteBernstein.lean": "661618d9c10826491ee293c7c411ac2d55056426739f4bbfd3e7c410c05e4bff",
+    "QuantumBlockEncoding/StoredHermiteCoefficients.lean": "56829555856552ddec558be48572fa7b8925cf442e6d1fa981aa04a0ae99063e",
+    "experiments/hermite-polynomial/precision/offset-source/offset_source.py": "908acb0c17eb0b181d877de95858c8416ca875efe856fe9d649dfddce0d37a81",
+    "experiments/hermite-polynomial/precision/offset-source/result.json": "03cbe41c94359aad94e6827dd1787b067bdfe3710505a6baaae466d960bab6a4",
+    "experiments/hermite-polynomial/precision/source-reachable/result.json": "b9cb53a05a6c93c04356abd0ec97635c44d62e7f19d06f45b4875d8235cc01af"
+  },
+  "structured_handoff": {
+    "objective_frontier": "All-k source coefficient exact range and rational output-size dependency for the actual shared literal formulas",
+    "effect": "Closes coarse all-k value/output-envelope nodes, leaving stronger constant range, all-input executable refinement and whole numerical chain open.",
+    "files_changed": ["statement-seal-v1.json", "statement-seal-v2-delta.json", "statement-seal-v3-delta.json", "CoefficientRange.lean", "test_coefficient_range.py", "result.json"],
+    "scope": "New coefficient-range subtree only. No frozen offset/old failure/source/reviewer/production/registry/config/user edit; no commit/push.",
+    "skills_effect": "Substantive-worker required concrete all-parameter consumers and retained limits; source-dependency audit kept literal source formulas and separate scalar/executable gaps. Master role remains root-owned.",
+    "process_memory_ids": ["QBE-PM-VERIFIER-SEMANTIC-LEVEL", "QBE-PM-DENSE-CHECK-SMALL-INSTANCE", "QBE-PM-LOW-TOKEN-CONTROL-PLANE"],
+    "parallel_admission": "Root-assigned distinct coefficient uncertainty; no child agents spawned or independent review impersonated.",
+    "common_blind_spot_review": "Pending root independent audit; no alternative verified quantum construction or comparison claim.",
+    "salvage": "All named roots compiled as internal providers; reuse existing positivity/stored interfaces. Earlier constant-range human insight retained but not advertised as newly proved.",
+    "default_verified_route": "Exact-real Hermite source/TT route unchanged; no resource winner or polynomial full-runtime conclusion.",
+    "purification": "Experimental internal module, no publication/Exposition Seal/PURIFIED claimed. Definitions are consumed by proved output/range roots; root handles admission and aggregate checks.",
+    "next_action": "Independently audit literal integer representation against frozen source supplier and exact-root signatures. Use output envelopes in a separately sealed executable/GCD/intermediate-cost refinement; formalize stronger constant range if all-k fixed-float safety is needed. Close scalar membership and remaining numerical budgets before composing global epsilon.",
+    "token_usage": "unknown; no per-token telemetry available"
+  }
+}

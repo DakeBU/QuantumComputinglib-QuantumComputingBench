@@ -1,0 +1,27 @@
+warning: verso: repository '<repo>\.lake/packages\verso' has local changes
+@stage_operator_error : ∀ {width : ℕ} (word : List (Instruction width)) (degree bits : ℕ),
+  ‖Matrix.toEuclideanCLM (namedCast (stageCenter word degree bits) - evalPrimitiveCircuit (compileWord word))‖ ≤
+    ↑(stageEta word degree bits)
+@nominal_contraction : ∀ {width : ℕ} (word : List (Instruction width)),
+  ‖Matrix.toEuclideanCLM (evalPrimitiveCircuit (compileWord word))‖ ≤ 1
+@actual_stage_valid : ∀ {width : ℕ} (word : List (Instruction width)) (degree bits : ℕ),
+  0 ≤ (actualStage word degree bits).error ∧
+    ‖(actualStage word degree bits).nominal‖ ≤ 1 ∧
+      ‖(actualStage word degree bits).surrogate - (actualStage word degree bits).nominal‖ ≤
+        (actualStage word degree bits).error
+@actual_stages_valid : ∀ {width : ℕ} (words : List (List (Instruction width))) (degree bits : ℕ),
+  Valid (actualStages words degree bits)
+@nominalProduct_eq_flatten : ∀ {width : ℕ} (words : List (List (Instruction width))) (degree bits : ℕ),
+  nominalProduct (actualStages words degree bits) =
+    Matrix.toEuclideanCLM (evalPrimitiveCircuit (compileWord words.flatten))
+@actual_flatten_product_error : ∀ {width : ℕ} (words : List (List (Instruction width))) (degree bits : ℕ),
+  ‖surrogateProduct (actualStages words degree bits) -
+        Matrix.toEuclideanCLM (evalPrimitiveCircuit (compileWord words.flatten))‖ ≤
+    growth (actualStages words degree bits) - 1
+@actual_flatten_apply_error : ∀ {width : ℕ} (words : List (List (Instruction width))) (degree bits : ℕ)
+  (x : StageSpace width),
+  ‖(surrogateProduct (actualStages words degree bits)) x -
+        (Matrix.toEuclideanCLM (evalPrimitiveCircuit (compileWord words.flatten))) x‖ ≤
+    (growth (actualStages words degree bits) - 1) * ‖x‖
+'HermiteComplexStageReviewC21.full_complex_signature' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteComplexStageReviewC21.error_imaginary_part_zero' depends on axioms: [propext, Classical.choice, Quot.sound]

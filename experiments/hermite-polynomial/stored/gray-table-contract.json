@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "status": "STATEMENT_SEALED; internal provider",
+  "task": "SP-HERMITE-POLY-002",
+  "direction_fingerprint": "stored-physical-completion-to-gray-table",
+  "implementation": "experiments/hermite-polynomial/stored/GrayTable.lean",
+  "definition_kind": "literal cached permutation of a stored matrix",
+  "contract": "Materialize the actual Gray-basis words, encode their low q bond bits and last data bit into the existing bit*2^q+bond completion layout, cache the resulting labels, then read the actual input matrix at those labels. Returned denote table is exactly the input table pulled back along ConstructiveIsometryLocal.coordinates q composed with GrayBasis.equiv (q+1). No matrix-entry evaluation callback or arbitrary index equivalence is charged as constant time.",
+  "binder_audit": {"q": "TYPING", "stored_matrix": "provider input produced upstream, not a scientific-root oracle", "SO": "not a premise of the table reindex refinement"},
+  "resource_model": "StoredGivens exact-real word model; natural multiply/add index operations locally charged in field, reads/writes and persistent vector materialization charged; existing Gray-word producer cost retained",
+  "required_tests": ["zero bond width", "three-bit Gray labels", "nonsymmetric signed matrix to expose inverse/transpose mistakes", "equality to current named-coordinate grayCoordinates consumer"],
+  "omissions": ["finite-bit word/address cost", "allocation/garbage collector runtime", "source matrix production accounted upstream", "SO sweep and angle/primitive emission downstream", "finite-bit numerical error", "full ROOT and independent acceptance"],
+  "promotion": "focused compilation and axiom checks; independent publication and full integration still required"
+}

@@ -1136,9 +1136,10 @@ theorem oneTermRobinBlockEncodingProofRoute_ofCleanFunctionOracleEntry
             GHL2025.oneTermRobinGateMatrixPlaceholders]⟩).matrix i j =
         (GHL2025.functionOracleAmplitudeProofRoute
           (oneTermParameters n) j.val).cleanBranchAmplitude := by
-    simpa [oneTermRobinBlockEncodingProofRoute, oneTermRobinCircuitSemantics,
-      GHL2025.oneTermRobinGateMatrixPlaceholders,
-      GHL2025.functionOracleAmplitudeProofRoute] using
+    change GHL2025.functionOraclePaperMatrix (oneTermParameters n) i j =
+      (GHL2025.functionOraclePaperImage
+        (oneTermParameters n) j.val).cleanBranchAmplitude
+    exact
       GHL2025.functionOraclePaperMatrix_cleanBranch_entry
         (oneTermParameters n) i j hClean hBranch
   have hnormalized :
@@ -1148,7 +1149,8 @@ theorem oneTermRobinBlockEncodingProofRoute_ofCleanFunctionOracleEntry
             GHL2025.oneTermRobinGateMatrixPlaceholders]⟩).matrix i j =
         (GHL2025.functionOracleAmplitudeProofRoute
           (oneTermParameters n) j.val).normalizedAmplitude := by
-    simpa [GHL2025.functionOracleAmplitudeProofRoute] using hentry
+    rw [hentry]
+    rfl
   have hbasis :
       (GHL2025.functionOracleAmplitudeProofRoute
         (oneTermParameters n) j.val).cleanBranchBasisIndex = i.val := by
@@ -8186,6 +8188,7 @@ theorem
   simp [h96, h97]
   exact Rat.zero_add 0
 
+set_option maxRecDepth 10000 in
 /--
 Evaluation-level bridge from the active circuit fold to the explicit
 seven-gate `[0,0]` entry.
@@ -11729,10 +11732,10 @@ theorem oneTermRobinGamma3BoundaryFactorSemanticsContractMapEval_n3
     Coeff.evalWith env contract.projectedBranchProduct *
       Coeff.evalWith env contract.theoremNormalizer =
     Coeff.evalWith env contract.expectedTargetEntry := by
-  simpa [oneTermRobinGamma3BoundaryFactorSemanticsContractMap_n3]
-    using
-      (oneTermRobinGamma3BoundaryProjectionAmplitudeFactorEval_n3
-        env hND hNF hkappa hkappaSqrt)
+  dsimp [oneTermRobinGamma3BoundaryFactorSemanticsContractMap_n3,
+    oneTermRobinGamma3BoundaryProjectionAmplitudeFactorSemantics_n3]
+  exact oneTermRobinGamma3BoundaryProjectionAmplitudeFactorEval_n3
+    env hND hNF hkappa hkappaSqrt
 
 /--
 Transcript theorem for the focused factor-semantics contract map.
@@ -12987,10 +12990,12 @@ theorem oneTermRobinGamma3BoundaryHWKappaCleanColumnContract_feedsTransposeBridg
         ⟨oneTermRobinGamma3BoundaryHWKappaCleanColumnContract_n3.daggerColIndex,
           by native_decide⟩ =
       oneTermRobinGamma3BoundaryHWKappaCleanColumnContract_n3.expectedDaggerEntry := by
-  simpa [oneTermRobinGamma3BoundaryHWKappaCleanColumnContract_n3]
-    using
-      oneTermRobinGamma3BoundaryHWKappaDaggerEntryFromTransposeUniformColumn_n3
-        H hUniform
+  dsimp [oneTermRobinGamma3BoundaryHWKappaCleanColumnContract_n3,
+    oneTermRobinGamma3BoundaryHWKappaDaggerAdjointEntryConvention_n3,
+    oneTermRobinGamma3BoundaryHWKappaDaggerUniformColumnContract_n3] at hUniform ⊢
+  exact
+    oneTermRobinGamma3BoundaryHWKappaDaggerEntryFromTransposeUniformColumn_n3
+      H hUniform
 
 /--
 Transcript theorem for the clean-column contract bridge.
@@ -13237,10 +13242,12 @@ theorem oneTermRobinGamma3BoundaryCleanColumnBraRouteContract_feedsBraAmplitude_
         ⟨oneTermRobinGamma3BoundaryCleanColumnBraRouteContract_n3.daggerColIndex,
           by native_decide⟩ =
       oneTermRobinGamma3BoundaryCleanColumnBraRouteContract_n3.expectedBraAmplitudeFactor := by
-  simpa [oneTermRobinGamma3BoundaryCleanColumnBraRouteContract_n3]
-    using
-      oneTermRobinGamma3BoundaryHWKappaCleanColumnContract_feedsTransposeBridge_n3
-        H hUniform
+  dsimp [oneTermRobinGamma3BoundaryCleanColumnBraRouteContract_n3,
+    oneTermRobinGamma3BoundaryHWKappaCleanColumnContract_n3,
+    oneTermRobinGamma3BoundaryBraProjectionAmplitudeSourceMap_n3] at hUniform ⊢
+  exact
+    oneTermRobinGamma3BoundaryHWKappaCleanColumnContract_feedsTransposeBridge_n3
+      H hUniform
 
 /--
 Transcript theorem for the clean-column to bra-route contract.
@@ -25111,16 +25118,9 @@ theorem
       ⟨oneTermRobinGamma3BoundaryProductUnderContractsRoute_n3.cleanColumnFactorRoute.uniformColumnColIndex,
         by native_decide⟩ =
       oneTermRobinGamma3BoundaryProductUnderContractsRoute_n3.cleanColumnFactorRoute.expectedUniformColumnEntry := by
-  simpa [oneTermRobinGamma3BoundaryProductUnderContractsRoute_n3,
-    oneTermRobinGamma3BoundaryCleanColumnFactorSemanticsRoute_n3,
-    oneTermRobinGamma3BoundaryCleanColumnBraRouteContract_n3,
-    oneTermRobinGamma3BoundaryHWKappaCleanColumnContract_n3,
-    oneTermRobinGamma3BoundaryHWKappaDaggerAdjointEntryConvention_n3,
-    oneTermRobinGamma3BoundaryHWKappaDaggerUniformColumnContract_n3,
-    oneTermRobinGamma3BoundaryHWKappaDaggerEmbeddedEntryInterface_n3,
-    oneTermRobinGamma3BoundarySparseSlotIndex_n3,
-    oneTermRobinGamma3BoundarySparseCleanIndex_n3]
-    using hUniform ⟨2, by native_decide⟩
+  change H ⟨2, by native_decide⟩ ⟨0, by native_decide⟩ =
+    Coeff.symbol "sqrt_kappa_inv"
+  exact hUniform ⟨2, by native_decide⟩
 
 /--
 Conditional normalizer bridge for the source-prepared slot-`2` product route.

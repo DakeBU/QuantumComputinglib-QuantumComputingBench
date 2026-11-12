@@ -1,0 +1,1760 @@
+{
+  "schema_version": 1,
+  "role": "reviewer",
+  "identity": "/root/stored_matrix_source_reviewer_c17",
+  "run_id": "stored-matrix-source-reviewer-c17-v3",
+  "anti_anchored": true,
+  "binding_sha256": "c4bf0fd66e6c562cc27148de40167b8d0164f1a0882be170b41ad85c7cde9a1e",
+  "packet_path": "reviews/publication/stored-matrix-product-chain/reviewer-comparison-packet.json",
+  "packet_sha256": "ffb1258d6a2a7cdb0c7df5711c98d5fab36145e4d342a2e127901c1518364920",
+  "source_first": {
+    "path": "reviews/publication/stored-matrix-product-chain/source-first-reconstruction.json",
+    "sha256": "d682ec8072d12505fe6951a02b3897afdc2c12f753c7b9600ee428f85d388340",
+    "frozen_before_formal_access": true,
+    "unchanged_after_comparison": true,
+    "explicit_parent_phase2_permission": true
+  },
+  "source": {
+    "path": "docs/lessons/stored-boundary-absorption.md",
+    "sha256": "666f9b0c9fa69bc043fe80a6d1181ba81991e8edb68a40420f876c9b94ec4f07",
+    "class": "retrospective local exposition",
+    "silent_repair": false
+  },
+  "module": {
+    "path": "QuantumBlockEncoding/StoredMatrixProductChain.lean",
+    "sha256": "75df853f83c166df5409a3e567234b96bdd1bd7303c84f4401388530dfa090b0",
+    "public_declaration_count": 29,
+    "private_helpers": [
+      "sumEntries_cost_eq",
+      "total_add",
+      "node_total",
+      "read_total"
+    ],
+    "private_helper_boundary": "Freshly elaborated as part of exact whole target, no public extra assumptions."
+  },
+  "verdict": "accepted",
+  "verdict_scope": "Exact current local source/module correspondence and this independently bound decoder reconstruction only. Frozen raw-source expansion gaps remain explicit referenced provider boundaries. Not whole-provider publication admission or scientific closure.",
+  "semantic_slots": {
+    "target": "Accepted exact local target: same actual returned stored scalar-boundary chain and chronological real coefficients, not a substitute witness. All 29 public declarations and private target helpers freshly elaborated.",
+    "normalization": "No unit norm, positivity, rank or nonzero premise in source or target. Signed/singular/zero data allowed. No state-preparation conclusion inferred.",
+    "registers": "Abstract real core row and (bit,outgoing bond) column order matches finProdFinEquiv = outgoing + dimension*bit; Word emits first head first. Scalar endpoints 1; D=0 and singleton included. No physical-qubit endian convention certified.",
+    "oracles": "K is specification-only in Window/refinement. Production ofTable contains only stored tables and l,r; no K or start argument and no uncharged kernel entry callback. Only the finite input window is constrained.",
+    "ancillas_phases": "Classical real tensor chain with no ancilla/workspace or quantum phase contract. Signed contractions are preserved. Physical embedding, cleanup, canonicalization and circuit synthesis stay outside this lesson/module.",
+    "error_success": "Exact returned-value identities; no approximation, norm error, probability, preparation success, postselection or amplification guarantee. Zero data legitimately produce zero without a fallback repair.",
+    "resources": "Matches exact eight-counter model, with field/read/write only, lookup/collect/materialization/reference/node costs and conservative whole-run bound. Stored inputs required; finite-bit precision, preprocessing/index/counter arithmetic, machine time/memory and physical gates excluded."
+  },
+  "declarations": [
+    {
+      "name": "QuantumBlockEncoding.StoredMatrixProductChain.terminalEntry",
+      "kind": "def",
+      "source_nodes": [
+        "S07",
+        "C02",
+        "C03",
+        "C07"
+      ],
+      "exact_current_source_signature": "noncomputable def terminalEntry {D : ℕ} (A : StoredCore D D)\n    (right : Vector ℝ D) (a : Fin D) (bit : Fin 2) : Run ℝ",
+      "exact_current_source_declaration": "noncomputable def terminalEntry {D : ℕ} (A : StoredCore D D)\n    (right : Vector ℝ D) (a : Fin D) (bit : Fin 2) : Run ℝ :=\n  sumEntries fun b => do\n    let x ← StoredThinLQ.entry A a (finProdFinEquiv (bit, b))\n    let y ← read right b\n    StoredGivens.mul x y",
+      "interpretation": "Literal D-term stored right-boundary dot product; no K, rank, sign or nonzero restriction.",
+      "definition_kind": "literal",
+      "binder_audit": {
+        "logical_inputs": [],
+        "typing": "Every dimension n,D,r; carrier α; finite row/bit/column/reference index; and op : Op is TYPING. Source n,D,start are natural; N=n+1 is structural, not a positivity theorem premise.",
+        "data_inputs": "All tables, boundary vectors and the arbitrary nonempty input chain for local closeLeft are SOURCE data. K/start are SOURCE specification data only where present in the exact signature. General outgoing r and generic α are harmless helper interface generalizations, not added root premises.",
+        "project_bundle_expansion": "StoredCore l r = Vector(Vector ℝ (2*r)) l; StoredChain is the dependent nil/cons carrier without proof fields; Run α has value:α and cost:(Op→ℕ), without correctness/budget proof fields; Kernel D = ℕ→Fin2→Matrix(FinD)(FinD)ℝ. Window is the only target project Prop alias and is fully expanded above.",
+        "standing": "Exact-real/stored-word charging is a source-wide convention embedded in literal providers, not an extra logical binder.",
+        "ruled": [],
+        "excess": [],
+        "no_project_prop_or_typeclass_premise_hidden": true
+      },
+      "kernel_evidence": {
+        "all_29_fresh_check_and_axiom_receipt": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v3.json",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "sorryAx": false
+      },
+      "comparison": "corresponds-to-frozen-source-with-disclosed-provider-boundary"
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredMatrixProductChain.terminal",
+      "kind": "def",
+      "source_nodes": [
+        "S07",
+        "C05",
+        "C09"
+      ],
+      "exact_current_source_signature": "noncomputable def terminal {D : ℕ} (A : StoredCore D D)\n    (right : Vector ℝ D) : Run (StoredCore D 1)",
+      "exact_current_source_declaration": "noncomputable def terminal {D : ℕ} (A : StoredCore D D)\n    (right : Vector ℝ D) : Run (StoredCore D 1) :=\n  materialize fun a j => terminalEntry A right a (finProdFinEquiv.symm j).1",
+      "interpretation": "Literal D by 2 terminal materialization, taking the bit from inverse product index; outgoing bond is one.",
+      "definition_kind": "literal",
+      "binder_audit": {
+        "logical_inputs": [],
+        "typing": "Every dimension n,D,r; carrier α; finite row/bit/column/reference index; and op : Op is TYPING. Source n,D,start are natural; N=n+1 is structural, not a positivity theorem premise.",
+        "data_inputs": "All tables, boundary vectors and the arbitrary nonempty input chain for local closeLeft are SOURCE data. K/start are SOURCE specification data only where present in the exact signature. General outgoing r and generic α are harmless helper interface generalizations, not added root premises.",
+        "project_bundle_expansion": "StoredCore l r = Vector(Vector ℝ (2*r)) l; StoredChain is the dependent nil/cons carrier without proof fields; Run α has value:α and cost:(Op→ℕ), without correctness/budget proof fields; Kernel D = ℕ→Fin2→Matrix(FinD)(FinD)ℝ. Window is the only target project Prop alias and is fully expanded above.",
+        "standing": "Exact-real/stored-word charging is a source-wide convention embedded in literal providers, not an extra logical binder.",
+        "ruled": [],
+        "excess": [],
+        "no_project_prop_or_typeclass_premise_hidden": true
+      },
+      "kernel_evidence": {
+        "all_29_fresh_check_and_axiom_receipt": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v3.json",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "sorryAx": false
+      },
+      "comparison": "corresponds-to-frozen-source-with-disclosed-provider-boundary"
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredMatrixProductChain.initialEntry",
+      "kind": "def",
+      "source_nodes": [
+        "S10",
+        "C02",
+        "C03",
+        "C08"
+      ],
+      "exact_current_source_signature": "noncomputable def initialEntry {D r : ℕ} (left : Vector ℝ D)\n    (A : StoredCore D r) (j : Fin (2 * r)) : Run ℝ",
+      "exact_current_source_declaration": "noncomputable def initialEntry {D r : ℕ} (left : Vector ℝ D)\n    (A : StoredCore D r) (j : Fin (2 * r)) : Run ℝ :=\n  sumEntries fun a => do\n    let x ← read left a\n    let y ← StoredThinLQ.entry A a j\n    StoredGivens.mul x y",
+      "interpretation": "Literal D-term left-boundary dot product for the unchanged flattened output column. The arbitrary outgoing r is typing/generalized local-interface data, not a logical premise.",
+      "definition_kind": "literal",
+      "binder_audit": {
+        "logical_inputs": [],
+        "typing": "Every dimension n,D,r; carrier α; finite row/bit/column/reference index; and op : Op is TYPING. Source n,D,start are natural; N=n+1 is structural, not a positivity theorem premise.",
+        "data_inputs": "All tables, boundary vectors and the arbitrary nonempty input chain for local closeLeft are SOURCE data. K/start are SOURCE specification data only where present in the exact signature. General outgoing r and generic α are harmless helper interface generalizations, not added root premises.",
+        "project_bundle_expansion": "StoredCore l r = Vector(Vector ℝ (2*r)) l; StoredChain is the dependent nil/cons carrier without proof fields; Run α has value:α and cost:(Op→ℕ), without correctness/budget proof fields; Kernel D = ℕ→Fin2→Matrix(FinD)(FinD)ℝ. Window is the only target project Prop alias and is fully expanded above.",
+        "standing": "Exact-real/stored-word charging is a source-wide convention embedded in literal providers, not an extra logical binder.",
+        "ruled": [],
+        "excess": [],
+        "no_project_prop_or_typeclass_premise_hidden": true
+      },
+      "kernel_evidence": {
+        "all_29_fresh_check_and_axiom_receipt": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v3.json",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "sorryAx": false
+      },
+      "comparison": "corresponds-to-frozen-source-with-disclosed-provider-boundary"
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredMatrixProductChain.initial",
+      "kind": "def",
+      "source_nodes": [
+        "S10",
+        "C05",
+        "C10"
+      ],
+      "exact_current_source_signature": "noncomputable def initial {D r : ℕ} (left : Vector ℝ D)\n    (A : StoredCore D r) : Run (StoredCore 1 r)",
+      "exact_current_source_declaration": "noncomputable def initial {D r : ℕ} (left : Vector ℝ D)\n    (A : StoredCore D r) : Run (StoredCore 1 r) :=\n  materialize fun _ j => initialEntry left A j\n\n/-- Copy only references to already materialized local cores. -/",
+      "interpretation": "Literal one by 2r left-absorbed table; neither normalizes nor selects a representative.",
+      "definition_kind": "literal",
+      "binder_audit": {
+        "logical_inputs": [],
+        "typing": "Every dimension n,D,r; carrier α; finite row/bit/column/reference index; and op : Op is TYPING. Source n,D,start are natural; N=n+1 is structural, not a positivity theorem premise.",
+        "data_inputs": "All tables, boundary vectors and the arbitrary nonempty input chain for local closeLeft are SOURCE data. K/start are SOURCE specification data only where present in the exact signature. General outgoing r and generic α are harmless helper interface generalizations, not added root premises.",
+        "project_bundle_expansion": "StoredCore l r = Vector(Vector ℝ (2*r)) l; StoredChain is the dependent nil/cons carrier without proof fields; Run α has value:α and cost:(Op→ℕ), without correctness/budget proof fields; Kernel D = ℕ→Fin2→Matrix(FinD)(FinD)ℝ. Window is the only target project Prop alias and is fully expanded above.",
+        "standing": "Exact-real/stored-word charging is a source-wide convention embedded in literal providers, not an extra logical binder.",
+        "ruled": [],
+        "excess": [],
+        "no_project_prop_or_typeclass_premise_hidden": true
+      },
+      "kernel_evidence": {
+        "all_29_fresh_check_and_axiom_receipt": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v3.json",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "sorryAx": false
+      },
+      "comparison": "corresponds-to-frozen-source-with-disclosed-provider-boundary"
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredMatrixProductChain.tailTable",
+      "kind": "def",
+      "source_nodes": [
+        "S09",
+        "C11"
+      ],
+      "exact_current_source_signature": "def tailTable {α : Type} {n : ℕ} (xs : Vector α (n + 1)) : Run (Vector α n)",
+      "exact_current_source_declaration": "def tailTable {α : Type} {n : ℕ} (xs : Vector α (n + 1)) : Run (Vector α n) :=\n  collect fun i => read xs i.succ",
+      "interpretation": "Literal successor-index collection of arbitrary references. Generic carrier α generalizes the reference helper without changing the root's stored-core data.",
+      "definition_kind": "literal",
+      "binder_audit": {
+        "logical_inputs": [],
+        "typing": "Every dimension n,D,r; carrier α; finite row/bit/column/reference index; and op : Op is TYPING. Source n,D,start are natural; N=n+1 is structural, not a positivity theorem premise.",
+        "data_inputs": "All tables, boundary vectors and the arbitrary nonempty input chain for local closeLeft are SOURCE data. K/start are SOURCE specification data only where present in the exact signature. General outgoing r and generic α are harmless helper interface generalizations, not added root premises.",
+        "project_bundle_expansion": "StoredCore l r = Vector(Vector ℝ (2*r)) l; StoredChain is the dependent nil/cons carrier without proof fields; Run α has value:α and cost:(Op→ℕ), without correctness/budget proof fields; Kernel D = ℕ→Fin2→Matrix(FinD)(FinD)ℝ. Window is the only target project Prop alias and is fully expanded above.",
+        "standing": "Exact-real/stored-word charging is a source-wide convention embedded in literal providers, not an extra logical binder.",
+        "ruled": [],
+        "excess": [],
+        "no_project_prop_or_typeclass_premise_hidden": true
+      },
+      "kernel_evidence": {
+        "all_29_fresh_check_and_axiom_receipt": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v3.json",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "sorryAx": false
+      },
+      "comparison": "corresponds-to-frozen-source-with-disclosed-provider-boundary"
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredMatrixProductChain.tailChain",
+      "kind": "def",
+      "source_nodes": [
+        "S08"
+      ],
+      "exact_current_source_signature": "noncomputable def tailChain {D : ℕ} : {n : ℕ} →\n    Vector (StoredCore D D) (n + 1) → Vector ℝ D → Run (StoredChain (n + 1) D 1)\n  | 0, tables, right => do\n      let A ← read tables 0\n      let B ← terminal A right\n      (⟨.cons B (.nil 1), 2 • nodeBudget⟩ : Run _)\n  | _n + 1, tables, right => do\n      let A ← read tables 0\n      let ts ← tailTable tables\n      let C ← tailChain ts right\n      (⟨.cons A C, nodeBudget⟩ : Run _)",
+      "exact_current_source_declaration": "noncomputable def tailChain {D : ℕ} : {n : ℕ} →\n    Vector (StoredCore D D) (n + 1) → Vector ℝ D → Run (StoredChain (n + 1) D 1)\n  | 0, tables, right => do\n      let A ← read tables 0\n      let B ← terminal A right\n      (⟨.cons B (.nil 1), 2 • nodeBudget⟩ : Run _)\n  | _n + 1, tables, right => do\n      let A ← read tables 0\n      let ts ← tailTable tables\n      let C ← tailChain ts right\n      (⟨.cons A C, nodeBudget⟩ : Run _)",
+      "interpretation": "Literal length n+1 recursion with retained earlier core tables; base has terminal core and nil, charging two node budgets; step copies suffix references and charges one node.",
+      "definition_kind": "literal",
+      "binder_audit": {
+        "logical_inputs": [],
+        "typing": "Every dimension n,D,r; carrier α; finite row/bit/column/reference index; and op : Op is TYPING. Source n,D,start are natural; N=n+1 is structural, not a positivity theorem premise.",
+        "data_inputs": "All tables, boundary vectors and the arbitrary nonempty input chain for local closeLeft are SOURCE data. K/start are SOURCE specification data only where present in the exact signature. General outgoing r and generic α are harmless helper interface generalizations, not added root premises.",
+        "project_bundle_expansion": "StoredCore l r = Vector(Vector ℝ (2*r)) l; StoredChain is the dependent nil/cons carrier without proof fields; Run α has value:α and cost:(Op→ℕ), without correctness/budget proof fields; Kernel D = ℕ→Fin2→Matrix(FinD)(FinD)ℝ. Window is the only target project Prop alias and is fully expanded above.",
+        "standing": "Exact-real/stored-word charging is a source-wide convention embedded in literal providers, not an extra logical binder.",
+        "ruled": [],
+        "excess": [],
+        "no_project_prop_or_typeclass_premise_hidden": true
+      },
+      "kernel_evidence": {
+        "all_29_fresh_check_and_axiom_receipt": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v3.json",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "sorryAx": false
+      },
+      "comparison": "corresponds-to-frozen-source-with-disclosed-provider-boundary"
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredMatrixProductChain.closeLeft",
+      "kind": "def",
+      "source_nodes": [
+        "S11",
+        "S12"
+      ],
+      "exact_current_source_signature": "noncomputable def closeLeft {n D : ℕ} (left : Vector ℝ D) :\n    StoredChain (n + 1) D 1 → Run (StoredChain (n + 1) 1 1)\n  | .cons A C => do\n      let B ← initial left A\n      (⟨.cons B C, nodeBudget⟩ : Run _)",
+      "exact_current_source_declaration": "noncomputable def closeLeft {n D : ℕ} (left : Vector ℝ D) :\n    StoredChain (n + 1) D 1 → Run (StoredChain (n + 1) 1 1)\n  | .cons A C => do\n      let B ← initial left A\n      (⟨.cons B C, nodeBudget⟩ : Run _)",
+      "interpretation": "Literal replacement of only the nonempty chain head; outgoing dimension is inherited from the actual cons, including one for singleton input.",
+      "definition_kind": "literal",
+      "binder_audit": {
+        "logical_inputs": [],
+        "typing": "Every dimension n,D,r; carrier α; finite row/bit/column/reference index; and op : Op is TYPING. Source n,D,start are natural; N=n+1 is structural, not a positivity theorem premise.",
+        "data_inputs": "All tables, boundary vectors and the arbitrary nonempty input chain for local closeLeft are SOURCE data. K/start are SOURCE specification data only where present in the exact signature. General outgoing r and generic α are harmless helper interface generalizations, not added root premises.",
+        "project_bundle_expansion": "StoredCore l r = Vector(Vector ℝ (2*r)) l; StoredChain is the dependent nil/cons carrier without proof fields; Run α has value:α and cost:(Op→ℕ), without correctness/budget proof fields; Kernel D = ℕ→Fin2→Matrix(FinD)(FinD)ℝ. Window is the only target project Prop alias and is fully expanded above.",
+        "standing": "Exact-real/stored-word charging is a source-wide convention embedded in literal providers, not an extra logical binder.",
+        "ruled": [],
+        "excess": [],
+        "no_project_prop_or_typeclass_premise_hidden": true
+      },
+      "kernel_evidence": {
+        "all_29_fresh_check_and_axiom_receipt": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v3.json",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "sorryAx": false
+      },
+      "comparison": "corresponds-to-frozen-source-with-disclosed-provider-boundary"
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredMatrixProductChain.ofTable",
+      "kind": "def",
+      "source_nodes": [
+        "S16",
+        "J01"
+      ],
+      "exact_current_source_signature": "noncomputable def ofTable {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (left right : Vector ℝ D) : Run (StoredChain (n + 1) 1 1)",
+      "exact_current_source_declaration": "noncomputable def ofTable {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (left right : Vector ℝ D) : Run (StoredChain (n + 1) 1 1) := do\n  let C ← tailChain tables right\n  closeLeft left C",
+      "interpretation": "Literal bind of tailChain with closeLeft on its actual returned value. K/start are absent from production.",
+      "definition_kind": "literal",
+      "binder_audit": {
+        "logical_inputs": [],
+        "typing": "Every dimension n,D,r; carrier α; finite row/bit/column/reference index; and op : Op is TYPING. Source n,D,start are natural; N=n+1 is structural, not a positivity theorem premise.",
+        "data_inputs": "All tables, boundary vectors and the arbitrary nonempty input chain for local closeLeft are SOURCE data. K/start are SOURCE specification data only where present in the exact signature. General outgoing r and generic α are harmless helper interface generalizations, not added root premises.",
+        "project_bundle_expansion": "StoredCore l r = Vector(Vector ℝ (2*r)) l; StoredChain is the dependent nil/cons carrier without proof fields; Run α has value:α and cost:(Op→ℕ), without correctness/budget proof fields; Kernel D = ℕ→Fin2→Matrix(FinD)(FinD)ℝ. Window is the only target project Prop alias and is fully expanded above.",
+        "standing": "Exact-real/stored-word charging is a source-wide convention embedded in literal providers, not an extra logical binder.",
+        "ruled": [],
+        "excess": [],
+        "no_project_prop_or_typeclass_premise_hidden": true
+      },
+      "kernel_evidence": {
+        "all_29_fresh_check_and_axiom_receipt": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v3.json",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "sorryAx": false
+      },
+      "comparison": "corresponds-to-frozen-source-with-disclosed-provider-boundary"
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredMatrixProductChain.terminal_value",
+      "kind": "theorem",
+      "source_nodes": [
+        "S13"
+      ],
+      "exact_current_source_signature": "theorem terminal_value {D : ℕ} (A : StoredCore D D) (right : Vector ℝ D) :\n    denoteCore (terminal A right).value =\n      fun a out => ∑ b, denoteCore A a (out.1, b) * right[b.val]",
+      "exact_current_source_declaration": "theorem terminal_value {D : ℕ} (A : StoredCore D D) (right : Vector ℝ D) :\n    denoteCore (terminal A right).value =\n      fun a out => ∑ b, denoteCore A a (out.1, b) * right[b.val] := by\n  ext a out\n  simp only [terminal, denoteCore, materialize, denote, collect_value,\n    Equiv.symm_apply_apply, terminalEntry, sumEntries_value]\n  rfl",
+      "interpretation": "Actual whole returned core equality with right-boundary finite sum; unconditional.",
+      "definition_kind": "not-a-definition",
+      "binder_audit": {
+        "logical_inputs": [],
+        "typing": "Every dimension n,D,r; carrier α; finite row/bit/column/reference index; and op : Op is TYPING. Source n,D,start are natural; N=n+1 is structural, not a positivity theorem premise.",
+        "data_inputs": "All tables, boundary vectors and the arbitrary nonempty input chain for local closeLeft are SOURCE data. K/start are SOURCE specification data only where present in the exact signature. General outgoing r and generic α are harmless helper interface generalizations, not added root premises.",
+        "project_bundle_expansion": "StoredCore l r = Vector(Vector ℝ (2*r)) l; StoredChain is the dependent nil/cons carrier without proof fields; Run α has value:α and cost:(Op→ℕ), without correctness/budget proof fields; Kernel D = ℕ→Fin2→Matrix(FinD)(FinD)ℝ. Window is the only target project Prop alias and is fully expanded above.",
+        "standing": "Exact-real/stored-word charging is a source-wide convention embedded in literal providers, not an extra logical binder.",
+        "ruled": [],
+        "excess": [],
+        "no_project_prop_or_typeclass_premise_hidden": true
+      },
+      "kernel_evidence": {
+        "all_29_fresh_check_and_axiom_receipt": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v3.json",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "sorryAx": false
+      },
+      "comparison": "corresponds-to-frozen-source-with-disclosed-provider-boundary"
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredMatrixProductChain.initial_value",
+      "kind": "theorem",
+      "source_nodes": [
+        "S13"
+      ],
+      "exact_current_source_signature": "theorem initial_value {D r : ℕ} (left : Vector ℝ D) (A : StoredCore D r) :\n    denoteCore (initial left A).value = fun _ out => ∑ a, left[a.val] * denoteCore A a out",
+      "exact_current_source_declaration": "theorem initial_value {D r : ℕ} (left : Vector ℝ D) (A : StoredCore D r) :\n    denoteCore (initial left A).value = fun _ out => ∑ a, left[a.val] * denoteCore A a out := by\n  ext a out\n  simp only [initial, denoteCore, materialize, denote, collect_value,\n    initialEntry, sumEntries_value]\n  rfl",
+      "interpretation": "Actual whole returned core equality with left-boundary finite sum; unconditional.",
+      "definition_kind": "not-a-definition",
+      "binder_audit": {
+        "logical_inputs": [],
+        "typing": "Every dimension n,D,r; carrier α; finite row/bit/column/reference index; and op : Op is TYPING. Source n,D,start are natural; N=n+1 is structural, not a positivity theorem premise.",
+        "data_inputs": "All tables, boundary vectors and the arbitrary nonempty input chain for local closeLeft are SOURCE data. K/start are SOURCE specification data only where present in the exact signature. General outgoing r and generic α are harmless helper interface generalizations, not added root premises.",
+        "project_bundle_expansion": "StoredCore l r = Vector(Vector ℝ (2*r)) l; StoredChain is the dependent nil/cons carrier without proof fields; Run α has value:α and cost:(Op→ℕ), without correctness/budget proof fields; Kernel D = ℕ→Fin2→Matrix(FinD)(FinD)ℝ. Window is the only target project Prop alias and is fully expanded above.",
+        "standing": "Exact-real/stored-word charging is a source-wide convention embedded in literal providers, not an extra logical binder.",
+        "ruled": [],
+        "excess": [],
+        "no_project_prop_or_typeclass_premise_hidden": true
+      },
+      "kernel_evidence": {
+        "all_29_fresh_check_and_axiom_receipt": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v3.json",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "sorryAx": false
+      },
+      "comparison": "corresponds-to-frozen-source-with-disclosed-provider-boundary"
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredMatrixProductChain.tailTable_value",
+      "kind": "theorem",
+      "source_nodes": [
+        "S09"
+      ],
+      "exact_current_source_signature": "@[simp] theorem tailTable_value {α : Type} {n : ℕ} (xs : Vector α (n + 1)) (i : Fin n) :\n    (tailTable xs).value[i.val] = xs[i.succ.val]",
+      "exact_current_source_declaration": "@[simp] theorem tailTable_value {α : Type} {n : ℕ} (xs : Vector α (n + 1)) (i : Fin n) :\n    (tailTable xs).value[i.val] = xs[i.succ.val] := by\n  simp [tailTable, StoredGivens.read, charge]\n\n/-- Kernel appears only in this finite-window specification, never production. -/",
+      "interpretation": "Actual i-th collected reference is the original successor reference; unconditional.",
+      "definition_kind": "not-a-definition",
+      "binder_audit": {
+        "logical_inputs": [],
+        "typing": "Every dimension n,D,r; carrier α; finite row/bit/column/reference index; and op : Op is TYPING. Source n,D,start are natural; N=n+1 is structural, not a positivity theorem premise.",
+        "data_inputs": "All tables, boundary vectors and the arbitrary nonempty input chain for local closeLeft are SOURCE data. K/start are SOURCE specification data only where present in the exact signature. General outgoing r and generic α are harmless helper interface generalizations, not added root premises.",
+        "project_bundle_expansion": "StoredCore l r = Vector(Vector ℝ (2*r)) l; StoredChain is the dependent nil/cons carrier without proof fields; Run α has value:α and cost:(Op→ℕ), without correctness/budget proof fields; Kernel D = ℕ→Fin2→Matrix(FinD)(FinD)ℝ. Window is the only target project Prop alias and is fully expanded above.",
+        "standing": "Exact-real/stored-word charging is a source-wide convention embedded in literal providers, not an extra logical binder.",
+        "ruled": [],
+        "excess": [],
+        "no_project_prop_or_typeclass_premise_hidden": true
+      },
+      "kernel_evidence": {
+        "all_29_fresh_check_and_axiom_receipt": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v3.json",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "sorryAx": false
+      },
+      "comparison": "corresponds-to-frozen-source-with-disclosed-provider-boundary"
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredMatrixProductChain.Window",
+      "kind": "def",
+      "source_nodes": [
+        "S03",
+        "S04"
+      ],
+      "exact_current_source_signature": "def Window {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (K : MatrixProductChain.Kernel D) (start : ℕ) : Prop",
+      "exact_current_source_declaration": "def Window {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (K : MatrixProductChain.Kernel D) (start : ℕ) : Prop :=\n  ∀ i : Fin (n + 1), denoteCore tables[i.val] = fun a out => K (start + i.val) out.1 a out.2",
+      "interpretation": "Literal finite-position function equality; expanding StoredCore/denoteCore/Kernel gives exactly the entrywise finite window, no global oracle assumption.",
+      "definition_kind": "literal",
+      "binder_audit": {
+        "logical_inputs": [],
+        "typing": "Every dimension n,D,r; carrier α; finite row/bit/column/reference index; and op : Op is TYPING. Source n,D,start are natural; N=n+1 is structural, not a positivity theorem premise.",
+        "data_inputs": "All tables, boundary vectors and the arbitrary nonempty input chain for local closeLeft are SOURCE data. K/start are SOURCE specification data only where present in the exact signature. General outgoing r and generic α are harmless helper interface generalizations, not added root premises.",
+        "project_bundle_expansion": "StoredCore l r = Vector(Vector ℝ (2*r)) l; StoredChain is the dependent nil/cons carrier without proof fields; Run α has value:α and cost:(Op→ℕ), without correctness/budget proof fields; Kernel D = ℕ→Fin2→Matrix(FinD)(FinD)ℝ. Window is the only target project Prop alias and is fully expanded above.",
+        "standing": "Exact-real/stored-word charging is a source-wide convention embedded in literal providers, not an extra logical binder.",
+        "ruled": [],
+        "excess": [],
+        "no_project_prop_or_typeclass_premise_hidden": true
+      },
+      "kernel_evidence": {
+        "all_29_fresh_check_and_axiom_receipt": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v3.json",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "sorryAx": false
+      },
+      "comparison": "corresponds-to-frozen-source-with-disclosed-provider-boundary"
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredMatrixProductChain.tailChain_value",
+      "kind": "theorem",
+      "source_nodes": [
+        "S14"
+      ],
+      "exact_current_source_signature": "theorem tailChain_value {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (right : Vector ℝ D) (K : MatrixProductChain.Kernel D) (start : ℕ)\n    (h : Window tables K start) :\n    denoteChain (tailChain tables right).value =\n      MatrixProductChain.tailChain K (fun i => right[i.val]) start n",
+      "exact_current_source_declaration": "theorem tailChain_value {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (right : Vector ℝ D) (K : MatrixProductChain.Kernel D) (start : ℕ)\n    (h : Window tables K start) :\n    denoteChain (tailChain tables right).value =\n      MatrixProductChain.tailChain K (fun i => right[i.val]) start n := by\n  induction n generalizing start with\n  | zero =>\n      simp only [tailChain, bind, Run.bind, StoredGivens.read, charge, denoteChain,\n        terminal_value, MatrixProductChain.tailChain]\n      have h0 := h 0\n      simp only [Fin.val_zero, Nat.add_zero] at h0\n      simp only [Fin.val_zero]\n      rw [h0]\n      rfl\n  | succ n ih =>\n      simp only [tailChain, bind, Run.bind, StoredGivens.read, charge, denoteChain,\n        MatrixProductChain.tailChain]\n      have h0 := h 0\n      simp only [Fin.val_zero, Nat.add_zero] at h0\n      simp only [Fin.val_zero]\n      rw [h0, ih (tailTable tables).value (start + 1)]\n      intro i\n      rw [tailTable_value, h i.succ]\n      simp [Fin.val_succ, Nat.add_comm, Nat.add_left_comm] <;> rfl",
+      "interpretation": "Inductively identifies the actual denoted stored tail with chronological mathematical tailChain under exactly Window.",
+      "definition_kind": "not-a-definition",
+      "binder_audit": {
+        "logical_inputs": [
+          {
+            "binder": "h",
+            "classification": "SOURCE",
+            "expanded": "For every i : Fin(n+1), every row a : Fin D, every bit : Fin 2, every outgoing b : Fin D, stored table entry at finProdFinEquiv(bit,b) equals K(start+i,bit,a,b). Nothing is required outside the finite window."
+          }
+        ],
+        "typing": "Every dimension n,D,r; carrier α; finite row/bit/column/reference index; and op : Op is TYPING. Source n,D,start are natural; N=n+1 is structural, not a positivity theorem premise.",
+        "data_inputs": "All tables, boundary vectors and the arbitrary nonempty input chain for local closeLeft are SOURCE data. K/start are SOURCE specification data only where present in the exact signature. General outgoing r and generic α are harmless helper interface generalizations, not added root premises.",
+        "project_bundle_expansion": "StoredCore l r = Vector(Vector ℝ (2*r)) l; StoredChain is the dependent nil/cons carrier without proof fields; Run α has value:α and cost:(Op→ℕ), without correctness/budget proof fields; Kernel D = ℕ→Fin2→Matrix(FinD)(FinD)ℝ. Window is the only target project Prop alias and is fully expanded above.",
+        "standing": "Exact-real/stored-word charging is a source-wide convention embedded in literal providers, not an extra logical binder.",
+        "ruled": [],
+        "excess": [],
+        "no_project_prop_or_typeclass_premise_hidden": true
+      },
+      "kernel_evidence": {
+        "all_29_fresh_check_and_axiom_receipt": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v3.json",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "sorryAx": false
+      },
+      "comparison": "corresponds-to-frozen-source-with-disclosed-provider-boundary"
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredMatrixProductChain.closeLeft_value",
+      "kind": "theorem",
+      "source_nodes": [
+        "S15"
+      ],
+      "exact_current_source_signature": "theorem closeLeft_value {n D : ℕ} (left : Vector ℝ D) (C : StoredChain (n + 1) D 1) :\n    denoteChain (closeLeft left C).value =\n      MatrixProductChain.closeLeft (fun i => left[i.val]) (denoteChain C)",
+      "exact_current_source_declaration": "theorem closeLeft_value {n D : ℕ} (left : Vector ℝ D) (C : StoredChain (n + 1) D 1) :\n    denoteChain (closeLeft left C).value =\n      MatrixProductChain.closeLeft (fun i => left[i.val]) (denoteChain C) := by\n  cases C with\n  | cons A C =>\n      simp only [closeLeft, bind, Run.bind, denoteChain, initial_value,\n        MatrixProductChain.closeLeft]",
+      "interpretation": "Actual returned denotation equals mathematical closeLeft on the input denotation; no logical input.",
+      "definition_kind": "not-a-definition",
+      "binder_audit": {
+        "logical_inputs": [],
+        "typing": "Every dimension n,D,r; carrier α; finite row/bit/column/reference index; and op : Op is TYPING. Source n,D,start are natural; N=n+1 is structural, not a positivity theorem premise.",
+        "data_inputs": "All tables, boundary vectors and the arbitrary nonempty input chain for local closeLeft are SOURCE data. K/start are SOURCE specification data only where present in the exact signature. General outgoing r and generic α are harmless helper interface generalizations, not added root premises.",
+        "project_bundle_expansion": "StoredCore l r = Vector(Vector ℝ (2*r)) l; StoredChain is the dependent nil/cons carrier without proof fields; Run α has value:α and cost:(Op→ℕ), without correctness/budget proof fields; Kernel D = ℕ→Fin2→Matrix(FinD)(FinD)ℝ. Window is the only target project Prop alias and is fully expanded above.",
+        "standing": "Exact-real/stored-word charging is a source-wide convention embedded in literal providers, not an extra logical binder.",
+        "ruled": [],
+        "excess": [],
+        "no_project_prop_or_typeclass_premise_hidden": true
+      },
+      "kernel_evidence": {
+        "all_29_fresh_check_and_axiom_receipt": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v3.json",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "sorryAx": false
+      },
+      "comparison": "corresponds-to-frozen-source-with-disclosed-provider-boundary"
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredMatrixProductChain.ofTable_refines",
+      "kind": "theorem",
+      "source_nodes": [
+        "S16"
+      ],
+      "exact_current_source_signature": "theorem ofTable_refines {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (left right : Vector ℝ D) (K : MatrixProductChain.Kernel D) (start : ℕ)\n    (h : Window tables K start) :\n    denoteChain (ofTable tables left right).value =\n      MatrixProductChain.ofKernel K (fun i => left[i.val]) (fun i => right[i.val]) start n",
+      "exact_current_source_declaration": "theorem ofTable_refines {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (left right : Vector ℝ D) (K : MatrixProductChain.Kernel D) (start : ℕ)\n    (h : Window tables K start) :\n    denoteChain (ofTable tables left right).value =\n      MatrixProductChain.ofKernel K (fun i => left[i.val]) (fun i => right[i.val]) start n := by\n  simp only [ofTable, bind, Run.bind, closeLeft_value, tailChain_value tables right K start h,\n    MatrixProductChain.ofKernel]",
+      "interpretation": "Actual whole-chain equality with ofKernel under Window, not an existence witness or coefficient-only replacement.",
+      "definition_kind": "not-a-definition",
+      "binder_audit": {
+        "logical_inputs": [
+          {
+            "binder": "h",
+            "classification": "SOURCE",
+            "expanded": "For every i : Fin(n+1), every row a : Fin D, every bit : Fin 2, every outgoing b : Fin D, stored table entry at finProdFinEquiv(bit,b) equals K(start+i,bit,a,b). Nothing is required outside the finite window."
+          }
+        ],
+        "typing": "Every dimension n,D,r; carrier α; finite row/bit/column/reference index; and op : Op is TYPING. Source n,D,start are natural; N=n+1 is structural, not a positivity theorem premise.",
+        "data_inputs": "All tables, boundary vectors and the arbitrary nonempty input chain for local closeLeft are SOURCE data. K/start are SOURCE specification data only where present in the exact signature. General outgoing r and generic α are harmless helper interface generalizations, not added root premises.",
+        "project_bundle_expansion": "StoredCore l r = Vector(Vector ℝ (2*r)) l; StoredChain is the dependent nil/cons carrier without proof fields; Run α has value:α and cost:(Op→ℕ), without correctness/budget proof fields; Kernel D = ℕ→Fin2→Matrix(FinD)(FinD)ℝ. Window is the only target project Prop alias and is fully expanded above.",
+        "standing": "Exact-real/stored-word charging is a source-wide convention embedded in literal providers, not an extra logical binder.",
+        "ruled": [],
+        "excess": [],
+        "no_project_prop_or_typeclass_premise_hidden": true
+      },
+      "kernel_evidence": {
+        "all_29_fresh_check_and_axiom_receipt": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v3.json",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "sorryAx": false
+      },
+      "comparison": "corresponds-to-frozen-source-with-disclosed-provider-boundary"
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredMatrixProductChain.terminalEntry_cost",
+      "kind": "theorem",
+      "source_nodes": [
+        "C07"
+      ],
+      "exact_current_source_signature": "theorem terminalEntry_cost {D : ℕ} (A : StoredCore D D) (right : Vector ℝ D)\n    (a : Fin D) (bit : Fin 2) (op : Op) :\n    (terminalEntry A right a bit).cost op = D * (3 * tick .read op + 2 * tick .field op)",
+      "exact_current_source_declaration": "theorem terminalEntry_cost {D : ℕ} (A : StoredCore D D) (right : Vector ℝ D)\n    (a : Fin D) (bit : Fin 2) (op : Op) :\n    (terminalEntry A right a bit).cost op = D * (3 * tick .read op + 2 * tick .field op) := by\n  unfold terminalEntry\n  rw [sumEntries_cost_eq _ op (3 * tick .read op + tick .field op)]\n  · ring\n  · intro b\n    simp [bind, Run.bind, StoredGivens.read, StoredGivens.mul, charge]\n    ring",
+      "interpretation": "Per-operation exact D*(3 read ticks +2 field ticks); adding to zero is charged once per term.",
+      "definition_kind": "not-a-definition",
+      "binder_audit": {
+        "logical_inputs": [],
+        "typing": "Every dimension n,D,r; carrier α; finite row/bit/column/reference index; and op : Op is TYPING. Source n,D,start are natural; N=n+1 is structural, not a positivity theorem premise.",
+        "data_inputs": "All tables, boundary vectors and the arbitrary nonempty input chain for local closeLeft are SOURCE data. K/start are SOURCE specification data only where present in the exact signature. General outgoing r and generic α are harmless helper interface generalizations, not added root premises.",
+        "project_bundle_expansion": "StoredCore l r = Vector(Vector ℝ (2*r)) l; StoredChain is the dependent nil/cons carrier without proof fields; Run α has value:α and cost:(Op→ℕ), without correctness/budget proof fields; Kernel D = ℕ→Fin2→Matrix(FinD)(FinD)ℝ. Window is the only target project Prop alias and is fully expanded above.",
+        "standing": "Exact-real/stored-word charging is a source-wide convention embedded in literal providers, not an extra logical binder.",
+        "ruled": [],
+        "excess": [],
+        "no_project_prop_or_typeclass_premise_hidden": true
+      },
+      "kernel_evidence": {
+        "all_29_fresh_check_and_axiom_receipt": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v3.json",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "sorryAx": false
+      },
+      "comparison": "corresponds-to-frozen-source-with-disclosed-provider-boundary"
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredMatrixProductChain.initialEntry_cost",
+      "kind": "theorem",
+      "source_nodes": [
+        "C08"
+      ],
+      "exact_current_source_signature": "theorem initialEntry_cost {D r : ℕ} (left : Vector ℝ D) (A : StoredCore D r)\n    (j : Fin (2 * r)) (op : Op) :\n    (initialEntry left A j).cost op = D * (3 * tick .read op + 2 * tick .field op)",
+      "exact_current_source_declaration": "theorem initialEntry_cost {D r : ℕ} (left : Vector ℝ D) (A : StoredCore D r)\n    (j : Fin (2 * r)) (op : Op) :\n    (initialEntry left A j).cost op = D * (3 * tick .read op + 2 * tick .field op) := by\n  unfold initialEntry\n  rw [sumEntries_cost_eq _ op (3 * tick .read op + tick .field op)]\n  · ring\n  · intro a\n    simp [bind, Run.bind, StoredGivens.read, StoredGivens.mul, charge]\n    ring",
+      "interpretation": "Per-operation exact D*(3 read ticks +2 field ticks), independent of signed data, r and column index.",
+      "definition_kind": "not-a-definition",
+      "binder_audit": {
+        "logical_inputs": [],
+        "typing": "Every dimension n,D,r; carrier α; finite row/bit/column/reference index; and op : Op is TYPING. Source n,D,start are natural; N=n+1 is structural, not a positivity theorem premise.",
+        "data_inputs": "All tables, boundary vectors and the arbitrary nonempty input chain for local closeLeft are SOURCE data. K/start are SOURCE specification data only where present in the exact signature. General outgoing r and generic α are harmless helper interface generalizations, not added root premises.",
+        "project_bundle_expansion": "StoredCore l r = Vector(Vector ℝ (2*r)) l; StoredChain is the dependent nil/cons carrier without proof fields; Run α has value:α and cost:(Op→ℕ), without correctness/budget proof fields; Kernel D = ℕ→Fin2→Matrix(FinD)(FinD)ℝ. Window is the only target project Prop alias and is fully expanded above.",
+        "standing": "Exact-real/stored-word charging is a source-wide convention embedded in literal providers, not an extra logical binder.",
+        "ruled": [],
+        "excess": [],
+        "no_project_prop_or_typeclass_premise_hidden": true
+      },
+      "kernel_evidence": {
+        "all_29_fresh_check_and_axiom_receipt": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v3.json",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "sorryAx": false
+      },
+      "comparison": "corresponds-to-frozen-source-with-disclosed-provider-boundary"
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredMatrixProductChain.terminal_cost",
+      "kind": "theorem",
+      "source_nodes": [
+        "C09"
+      ],
+      "exact_current_source_signature": "theorem terminal_cost {D : ℕ} (A : StoredCore D D) (right : Vector ℝ D) (op : Op) :\n    (terminal A right).cost op =\n      2 * D ^ 2 * (3 * tick .read op + 2 * tick .field op) +\n      6 * D * (tick .read op + tick .write op)",
+      "exact_current_source_declaration": "theorem terminal_cost {D : ℕ} (A : StoredCore D D) (right : Vector ℝ D) (op : Op) :\n    (terminal A right).cost op =\n      2 * D ^ 2 * (3 * tick .read op + 2 * tick .field op) +\n      6 * D * (tick .read op + tick .write op) := by\n  simp [terminal, materialize_cost, terminalEntry_cost]\n  ring",
+      "interpretation": "Exact 2D^2*(3 read ticks+2 field ticks)+6D*(read+write ticks).",
+      "definition_kind": "not-a-definition",
+      "binder_audit": {
+        "logical_inputs": [],
+        "typing": "Every dimension n,D,r; carrier α; finite row/bit/column/reference index; and op : Op is TYPING. Source n,D,start are natural; N=n+1 is structural, not a positivity theorem premise.",
+        "data_inputs": "All tables, boundary vectors and the arbitrary nonempty input chain for local closeLeft are SOURCE data. K/start are SOURCE specification data only where present in the exact signature. General outgoing r and generic α are harmless helper interface generalizations, not added root premises.",
+        "project_bundle_expansion": "StoredCore l r = Vector(Vector ℝ (2*r)) l; StoredChain is the dependent nil/cons carrier without proof fields; Run α has value:α and cost:(Op→ℕ), without correctness/budget proof fields; Kernel D = ℕ→Fin2→Matrix(FinD)(FinD)ℝ. Window is the only target project Prop alias and is fully expanded above.",
+        "standing": "Exact-real/stored-word charging is a source-wide convention embedded in literal providers, not an extra logical binder.",
+        "ruled": [],
+        "excess": [],
+        "no_project_prop_or_typeclass_premise_hidden": true
+      },
+      "kernel_evidence": {
+        "all_29_fresh_check_and_axiom_receipt": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v3.json",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "sorryAx": false
+      },
+      "comparison": "corresponds-to-frozen-source-with-disclosed-provider-boundary"
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredMatrixProductChain.initial_cost",
+      "kind": "theorem",
+      "source_nodes": [
+        "C10"
+      ],
+      "exact_current_source_signature": "theorem initial_cost {D r : ℕ} (left : Vector ℝ D) (A : StoredCore D r) (op : Op) :\n    (initial left A).cost op =\n      2 * r * D * (3 * tick .read op + 2 * tick .field op) +\n      (4 * r + 2) * (tick .read op + tick .write op)",
+      "exact_current_source_declaration": "theorem initial_cost {D r : ℕ} (left : Vector ℝ D) (A : StoredCore D r) (op : Op) :\n    (initial left A).cost op =\n      2 * r * D * (3 * tick .read op + 2 * tick .field op) +\n      (4 * r + 2) * (tick .read op + tick .write op) := by\n  simp [initial, materialize_cost, initialEntry_cost]\n  ring",
+      "interpretation": "Exact 2rD*(3 read ticks+2 field ticks)+(4r+2)*(read+write ticks), including materialization when inner sums are empty.",
+      "definition_kind": "not-a-definition",
+      "binder_audit": {
+        "logical_inputs": [],
+        "typing": "Every dimension n,D,r; carrier α; finite row/bit/column/reference index; and op : Op is TYPING. Source n,D,start are natural; N=n+1 is structural, not a positivity theorem premise.",
+        "data_inputs": "All tables, boundary vectors and the arbitrary nonempty input chain for local closeLeft are SOURCE data. K/start are SOURCE specification data only where present in the exact signature. General outgoing r and generic α are harmless helper interface generalizations, not added root premises.",
+        "project_bundle_expansion": "StoredCore l r = Vector(Vector ℝ (2*r)) l; StoredChain is the dependent nil/cons carrier without proof fields; Run α has value:α and cost:(Op→ℕ), without correctness/budget proof fields; Kernel D = ℕ→Fin2→Matrix(FinD)(FinD)ℝ. Window is the only target project Prop alias and is fully expanded above.",
+        "standing": "Exact-real/stored-word charging is a source-wide convention embedded in literal providers, not an extra logical binder.",
+        "ruled": [],
+        "excess": [],
+        "no_project_prop_or_typeclass_premise_hidden": true
+      },
+      "kernel_evidence": {
+        "all_29_fresh_check_and_axiom_receipt": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v3.json",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "sorryAx": false
+      },
+      "comparison": "corresponds-to-frozen-source-with-disclosed-provider-boundary"
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredMatrixProductChain.tailTable_cost",
+      "kind": "theorem",
+      "source_nodes": [
+        "C11"
+      ],
+      "exact_current_source_signature": "theorem tailTable_cost {α : Type} {n : ℕ} (xs : Vector α (n + 1)) (op : Op) :\n    (tailTable xs).cost op = n * (3 * tick .read op + 2 * tick .write op)",
+      "exact_current_source_declaration": "theorem tailTable_cost {α : Type} {n : ℕ} (xs : Vector α (n + 1)) (op : Op) :\n    (tailTable xs).cost op = n * (3 * tick .read op + 2 * tick .write op) := by\n  simp [tailTable, collect_cost, StoredGivens.read, charge]\n  ring",
+      "interpretation": "Exact n*(3 read ticks+2 write ticks); the callback read and collect projection are both charged, and scalar core contents are shared.",
+      "definition_kind": "not-a-definition",
+      "binder_audit": {
+        "logical_inputs": [],
+        "typing": "Every dimension n,D,r; carrier α; finite row/bit/column/reference index; and op : Op is TYPING. Source n,D,start are natural; N=n+1 is structural, not a positivity theorem premise.",
+        "data_inputs": "All tables, boundary vectors and the arbitrary nonempty input chain for local closeLeft are SOURCE data. K/start are SOURCE specification data only where present in the exact signature. General outgoing r and generic α are harmless helper interface generalizations, not added root premises.",
+        "project_bundle_expansion": "StoredCore l r = Vector(Vector ℝ (2*r)) l; StoredChain is the dependent nil/cons carrier without proof fields; Run α has value:α and cost:(Op→ℕ), without correctness/budget proof fields; Kernel D = ℕ→Fin2→Matrix(FinD)(FinD)ℝ. Window is the only target project Prop alias and is fully expanded above.",
+        "standing": "Exact-real/stored-word charging is a source-wide convention embedded in literal providers, not an extra logical binder.",
+        "ruled": [],
+        "excess": [],
+        "no_project_prop_or_typeclass_premise_hidden": true
+      },
+      "kernel_evidence": {
+        "all_29_fresh_check_and_axiom_receipt": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v3.json",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "sorryAx": false
+      },
+      "comparison": "corresponds-to-frozen-source-with-disclosed-provider-boundary"
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredMatrixProductChain.terminal_total_cost",
+      "kind": "theorem",
+      "source_nodes": [
+        "C15"
+      ],
+      "exact_current_source_signature": "theorem terminal_total_cost {D : ℕ} (A : StoredCore D D) (right : Vector ℝ D) :\n    StoredRectangularGivens.total (terminal A right).cost = 10 * D ^ 2 + 12 * D",
+      "exact_current_source_declaration": "theorem terminal_total_cost {D : ℕ} (A : StoredCore D D) (right : Vector ℝ D) :\n    StoredRectangularGivens.total (terminal A right).cost = 10 * D ^ 2 + 12 * D := by\n  simp [StoredRectangularGivens.total, terminal_cost, tick]\n  ring",
+      "interpretation": "Exact eight-counter total 10D^2+12D.",
+      "definition_kind": "not-a-definition",
+      "binder_audit": {
+        "logical_inputs": [],
+        "typing": "Every dimension n,D,r; carrier α; finite row/bit/column/reference index; and op : Op is TYPING. Source n,D,start are natural; N=n+1 is structural, not a positivity theorem premise.",
+        "data_inputs": "All tables, boundary vectors and the arbitrary nonempty input chain for local closeLeft are SOURCE data. K/start are SOURCE specification data only where present in the exact signature. General outgoing r and generic α are harmless helper interface generalizations, not added root premises.",
+        "project_bundle_expansion": "StoredCore l r = Vector(Vector ℝ (2*r)) l; StoredChain is the dependent nil/cons carrier without proof fields; Run α has value:α and cost:(Op→ℕ), without correctness/budget proof fields; Kernel D = ℕ→Fin2→Matrix(FinD)(FinD)ℝ. Window is the only target project Prop alias and is fully expanded above.",
+        "standing": "Exact-real/stored-word charging is a source-wide convention embedded in literal providers, not an extra logical binder.",
+        "ruled": [],
+        "excess": [],
+        "no_project_prop_or_typeclass_premise_hidden": true
+      },
+      "kernel_evidence": {
+        "all_29_fresh_check_and_axiom_receipt": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v3.json",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "sorryAx": false
+      },
+      "comparison": "corresponds-to-frozen-source-with-disclosed-provider-boundary"
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredMatrixProductChain.initial_total_cost",
+      "kind": "theorem",
+      "source_nodes": [
+        "C16"
+      ],
+      "exact_current_source_signature": "theorem initial_total_cost {D r : ℕ} (left : Vector ℝ D) (A : StoredCore D r) :\n    StoredRectangularGivens.total (initial left A).cost = 10 * r * D + 8 * r + 4",
+      "exact_current_source_declaration": "theorem initial_total_cost {D r : ℕ} (left : Vector ℝ D) (A : StoredCore D r) :\n    StoredRectangularGivens.total (initial left A).cost = 10 * r * D + 8 * r + 4 := by\n  simp [StoredRectangularGivens.total, initial_cost, tick]\n  ring",
+      "interpretation": "Exact eight-counter total 10rD+8r+4.",
+      "definition_kind": "not-a-definition",
+      "binder_audit": {
+        "logical_inputs": [],
+        "typing": "Every dimension n,D,r; carrier α; finite row/bit/column/reference index; and op : Op is TYPING. Source n,D,start are natural; N=n+1 is structural, not a positivity theorem premise.",
+        "data_inputs": "All tables, boundary vectors and the arbitrary nonempty input chain for local closeLeft are SOURCE data. K/start are SOURCE specification data only where present in the exact signature. General outgoing r and generic α are harmless helper interface generalizations, not added root premises.",
+        "project_bundle_expansion": "StoredCore l r = Vector(Vector ℝ (2*r)) l; StoredChain is the dependent nil/cons carrier without proof fields; Run α has value:α and cost:(Op→ℕ), without correctness/budget proof fields; Kernel D = ℕ→Fin2→Matrix(FinD)(FinD)ℝ. Window is the only target project Prop alias and is fully expanded above.",
+        "standing": "Exact-real/stored-word charging is a source-wide convention embedded in literal providers, not an extra logical binder.",
+        "ruled": [],
+        "excess": [],
+        "no_project_prop_or_typeclass_premise_hidden": true
+      },
+      "kernel_evidence": {
+        "all_29_fresh_check_and_axiom_receipt": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v3.json",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "sorryAx": false
+      },
+      "comparison": "corresponds-to-frozen-source-with-disclosed-provider-boundary"
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredMatrixProductChain.tailTable_total_cost",
+      "kind": "theorem",
+      "source_nodes": [
+        "C17"
+      ],
+      "exact_current_source_signature": "theorem tailTable_total_cost {α : Type} {n : ℕ} (xs : Vector α (n + 1)) :\n    StoredRectangularGivens.total (tailTable xs).cost = 5 * n",
+      "exact_current_source_declaration": "theorem tailTable_total_cost {α : Type} {n : ℕ} (xs : Vector α (n + 1)) :\n    StoredRectangularGivens.total (tailTable xs).cost = 5 * n := by\n  simp [StoredRectangularGivens.total, tailTable_cost, tick]\n  ring",
+      "interpretation": "Exact eight-counter total 5n.",
+      "definition_kind": "not-a-definition",
+      "binder_audit": {
+        "logical_inputs": [],
+        "typing": "Every dimension n,D,r; carrier α; finite row/bit/column/reference index; and op : Op is TYPING. Source n,D,start are natural; N=n+1 is structural, not a positivity theorem premise.",
+        "data_inputs": "All tables, boundary vectors and the arbitrary nonempty input chain for local closeLeft are SOURCE data. K/start are SOURCE specification data only where present in the exact signature. General outgoing r and generic α are harmless helper interface generalizations, not added root premises.",
+        "project_bundle_expansion": "StoredCore l r = Vector(Vector ℝ (2*r)) l; StoredChain is the dependent nil/cons carrier without proof fields; Run α has value:α and cost:(Op→ℕ), without correctness/budget proof fields; Kernel D = ℕ→Fin2→Matrix(FinD)(FinD)ℝ. Window is the only target project Prop alias and is fully expanded above.",
+        "standing": "Exact-real/stored-word charging is a source-wide convention embedded in literal providers, not an extra logical binder.",
+        "ruled": [],
+        "excess": [],
+        "no_project_prop_or_typeclass_premise_hidden": true
+      },
+      "kernel_evidence": {
+        "all_29_fresh_check_and_axiom_receipt": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v3.json",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "sorryAx": false
+      },
+      "comparison": "corresponds-to-frozen-source-with-disclosed-provider-boundary"
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredMatrixProductChain.tailChain_total_cost_le",
+      "kind": "theorem",
+      "source_nodes": [
+        "C21"
+      ],
+      "exact_current_source_signature": "theorem tailChain_total_cost_le {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (right : Vector ℝ D) :\n    StoredRectangularGivens.total (tailChain tables right).cost ≤\n      10 * D ^ 2 + 12 * D + 5 * n ^ 2 + 7 * n + 13",
+      "exact_current_source_declaration": "theorem tailChain_total_cost_le {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (right : Vector ℝ D) :\n    StoredRectangularGivens.total (tailChain tables right).cost ≤\n      10 * D ^ 2 + 12 * D + 5 * n ^ 2 + 7 * n + 13 := by\n  induction n with\n  | zero =>\n      simp only [tailChain, bind, Run.bind, total_add, read_total, terminal_total_cost]\n      simp [StoredRectangularGivens.total, nodeBudget, tick]\n      omega\n  | succ n ih =>\n      simp only [tailChain, bind, Run.bind, total_add, read_total, tailTable_total_cost, node_total]\n      have h := ih (tailTable tables).value\n      nlinarith",
+      "interpretation": "Unconditional conservative recurrence bound 10D^2+12D+5n^2+7n+13, including terminal materialization, all suffix reference copies, input reads and nodes.",
+      "definition_kind": "not-a-definition",
+      "binder_audit": {
+        "logical_inputs": [],
+        "typing": "Every dimension n,D,r; carrier α; finite row/bit/column/reference index; and op : Op is TYPING. Source n,D,start are natural; N=n+1 is structural, not a positivity theorem premise.",
+        "data_inputs": "All tables, boundary vectors and the arbitrary nonempty input chain for local closeLeft are SOURCE data. K/start are SOURCE specification data only where present in the exact signature. General outgoing r and generic α are harmless helper interface generalizations, not added root premises.",
+        "project_bundle_expansion": "StoredCore l r = Vector(Vector ℝ (2*r)) l; StoredChain is the dependent nil/cons carrier without proof fields; Run α has value:α and cost:(Op→ℕ), without correctness/budget proof fields; Kernel D = ℕ→Fin2→Matrix(FinD)(FinD)ℝ. Window is the only target project Prop alias and is fully expanded above.",
+        "standing": "Exact-real/stored-word charging is a source-wide convention embedded in literal providers, not an extra logical binder.",
+        "ruled": [],
+        "excess": [],
+        "no_project_prop_or_typeclass_premise_hidden": true
+      },
+      "kernel_evidence": {
+        "all_29_fresh_check_and_axiom_receipt": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v3.json",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "sorryAx": false
+      },
+      "comparison": "corresponds-to-frozen-source-with-disclosed-provider-boundary"
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredMatrixProductChain.closeLeft_tail_total_cost_le",
+      "kind": "theorem",
+      "source_nodes": [
+        "C23"
+      ],
+      "exact_current_source_signature": "theorem closeLeft_tail_total_cost_le {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (left right : Vector ℝ D) :\n    StoredRectangularGivens.total (closeLeft left (tailChain tables right).value).cost ≤\n      10 * D ^ 2 + 18 * D + 18",
+      "exact_current_source_declaration": "theorem closeLeft_tail_total_cost_le {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (left right : Vector ℝ D) :\n    StoredRectangularGivens.total (closeLeft left (tailChain tables right).value).cost ≤\n      10 * D ^ 2 + 18 * D + 18 := by\n  cases n with\n  | zero =>\n      simp only [tailChain, bind, Run.bind, closeLeft, total_add, initial_total_cost, node_total]\n      nlinarith\n  | succ n =>\n      simp only [tailChain, bind, Run.bind, closeLeft, total_add, initial_total_cost, node_total]\n      nlinarith\n\n/-- Bound for the very same run whose value refines `ofKernel`; includes\nterminal/initial arithmetic, materialization, copied references, and nodes. -/",
+      "interpretation": "Only closeLeft cost on the actual tailChain value; its two n cases use outgoing dimensions 1 or D. Bound 10D^2+18D+18.",
+      "definition_kind": "not-a-definition",
+      "binder_audit": {
+        "logical_inputs": [],
+        "typing": "Every dimension n,D,r; carrier α; finite row/bit/column/reference index; and op : Op is TYPING. Source n,D,start are natural; N=n+1 is structural, not a positivity theorem premise.",
+        "data_inputs": "All tables, boundary vectors and the arbitrary nonempty input chain for local closeLeft are SOURCE data. K/start are SOURCE specification data only where present in the exact signature. General outgoing r and generic α are harmless helper interface generalizations, not added root premises.",
+        "project_bundle_expansion": "StoredCore l r = Vector(Vector ℝ (2*r)) l; StoredChain is the dependent nil/cons carrier without proof fields; Run α has value:α and cost:(Op→ℕ), without correctness/budget proof fields; Kernel D = ℕ→Fin2→Matrix(FinD)(FinD)ℝ. Window is the only target project Prop alias and is fully expanded above.",
+        "standing": "Exact-real/stored-word charging is a source-wide convention embedded in literal providers, not an extra logical binder.",
+        "ruled": [],
+        "excess": [],
+        "no_project_prop_or_typeclass_premise_hidden": true
+      },
+      "kernel_evidence": {
+        "all_29_fresh_check_and_axiom_receipt": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v3.json",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "sorryAx": false
+      },
+      "comparison": "corresponds-to-frozen-source-with-disclosed-provider-boundary"
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredMatrixProductChain.ofTable_total_cost_le",
+      "kind": "theorem",
+      "source_nodes": [
+        "C24"
+      ],
+      "exact_current_source_signature": "theorem ofTable_total_cost_le {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (left right : Vector ℝ D) :\n    StoredRectangularGivens.total (ofTable tables left right).cost ≤\n      20 * D ^ 2 + 30 * D + 5 * n ^ 2 + 7 * n + 31",
+      "exact_current_source_declaration": "theorem ofTable_total_cost_le {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (left right : Vector ℝ D) :\n    StoredRectangularGivens.total (ofTable tables left right).cost ≤\n      20 * D ^ 2 + 30 * D + 5 * n ^ 2 + 7 * n + 31 := by\n  have h := tailChain_total_cost_le tables right\n  have g := closeLeft_tail_total_cost_le tables left right\n  simp only [ofTable, bind, Run.bind, total_add]\n  omega\n\n/-- Entrywise supplier adapter; only the stored finite window is constrained. -/",
+      "interpretation": "Unconditional whole same-run total <=20D^2+30D+5n^2+7n+31; Window is not a cost premise.",
+      "definition_kind": "not-a-definition",
+      "binder_audit": {
+        "logical_inputs": [],
+        "typing": "Every dimension n,D,r; carrier α; finite row/bit/column/reference index; and op : Op is TYPING. Source n,D,start are natural; N=n+1 is structural, not a positivity theorem premise.",
+        "data_inputs": "All tables, boundary vectors and the arbitrary nonempty input chain for local closeLeft are SOURCE data. K/start are SOURCE specification data only where present in the exact signature. General outgoing r and generic α are harmless helper interface generalizations, not added root premises.",
+        "project_bundle_expansion": "StoredCore l r = Vector(Vector ℝ (2*r)) l; StoredChain is the dependent nil/cons carrier without proof fields; Run α has value:α and cost:(Op→ℕ), without correctness/budget proof fields; Kernel D = ℕ→Fin2→Matrix(FinD)(FinD)ℝ. Window is the only target project Prop alias and is fully expanded above.",
+        "standing": "Exact-real/stored-word charging is a source-wide convention embedded in literal providers, not an extra logical binder.",
+        "ruled": [],
+        "excess": [],
+        "no_project_prop_or_typeclass_premise_hidden": true
+      },
+      "kernel_evidence": {
+        "all_29_fresh_check_and_axiom_receipt": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v3.json",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "sorryAx": false
+      },
+      "comparison": "corresponds-to-frozen-source-with-disclosed-provider-boundary"
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredMatrixProductChain.window_of_entries",
+      "kind": "theorem",
+      "source_nodes": [
+        "S19"
+      ],
+      "exact_current_source_signature": "theorem window_of_entries {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (K : MatrixProductChain.Kernel D) (start : ℕ)\n    (h : ∀ (i : Fin (n + 1)) (a b : Fin D) (bit : Fin 2),\n      denoteCore tables[i.val] a (bit, b) = K (start + i.val) bit a b) :\n    Window tables K start",
+      "exact_current_source_declaration": "theorem window_of_entries {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (K : MatrixProductChain.Kernel D) (start : ℕ)\n    (h : ∀ (i : Fin (n + 1)) (a b : Fin D) (bit : Fin 2),\n      denoteCore tables[i.val] a (bit, b) = K (start + i.val) bit a b) :\n    Window tables K start := by\n  intro i\n  ext a out\n  exact h i a out.2 out.1",
+      "interpretation": "Entrywise finite-window premise implies literal Window by function/array extensionality. No producer for the supplier is assumed or certified.",
+      "definition_kind": "not-a-definition",
+      "binder_audit": {
+        "logical_inputs": [
+          {
+            "binder": "h",
+            "classification": "SOURCE",
+            "expanded": "∀ i : Fin(n+1), a b : Fin D, bit : Fin 2, denoteCore tables[i] a (bit,b) = K(start+i) bit a b; explicitly entrywise version of the source window."
+          }
+        ],
+        "typing": "Every dimension n,D,r; carrier α; finite row/bit/column/reference index; and op : Op is TYPING. Source n,D,start are natural; N=n+1 is structural, not a positivity theorem premise.",
+        "data_inputs": "All tables, boundary vectors and the arbitrary nonempty input chain for local closeLeft are SOURCE data. K/start are SOURCE specification data only where present in the exact signature. General outgoing r and generic α are harmless helper interface generalizations, not added root premises.",
+        "project_bundle_expansion": "StoredCore l r = Vector(Vector ℝ (2*r)) l; StoredChain is the dependent nil/cons carrier without proof fields; Run α has value:α and cost:(Op→ℕ), without correctness/budget proof fields; Kernel D = ℕ→Fin2→Matrix(FinD)(FinD)ℝ. Window is the only target project Prop alias and is fully expanded above.",
+        "standing": "Exact-real/stored-word charging is a source-wide convention embedded in literal providers, not an extra logical binder.",
+        "ruled": [],
+        "excess": [],
+        "no_project_prop_or_typeclass_premise_hidden": true
+      },
+      "kernel_evidence": {
+        "all_29_fresh_check_and_axiom_receipt": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v3.json",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "sorryAx": false
+      },
+      "comparison": "corresponds-to-frozen-source-with-disclosed-provider-boundary"
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredMatrixProductChain.ofTable_maxBond",
+      "kind": "theorem",
+      "source_nodes": [
+        "S18"
+      ],
+      "exact_current_source_signature": "theorem ofTable_maxBond {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (left right : Vector ℝ D) (K : MatrixProductChain.Kernel D) (start : ℕ)\n    (h : Window tables K start) :\n    maxBond (denoteChain (ofTable tables left right).value) ≤ max D 1",
+      "exact_current_source_declaration": "theorem ofTable_maxBond {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (left right : Vector ℝ D) (K : MatrixProductChain.Kernel D) (start : ℕ)\n    (h : Window tables K start) :\n    maxBond (denoteChain (ofTable tables left right).value) ≤ max D 1 := by\n  rw [ofTable_refines tables left right K start h]\n  exact MatrixProductChain.ofKernel_maxBond K _ _ start n\n\n/-- One producer, with both exact returned data and polynomial charged work. -/",
+      "interpretation": "Under Window, refinement and the separate mathematical ofKernel_maxBond theorem bound maxBond of the actual denoted result by max(D,1). This theorem does not accept an assumed output bond property.",
+      "definition_kind": "not-a-definition",
+      "binder_audit": {
+        "logical_inputs": [
+          {
+            "binder": "h",
+            "classification": "SOURCE",
+            "expanded": "For every i : Fin(n+1), every row a : Fin D, every bit : Fin 2, every outgoing b : Fin D, stored table entry at finProdFinEquiv(bit,b) equals K(start+i,bit,a,b). Nothing is required outside the finite window."
+          }
+        ],
+        "typing": "Every dimension n,D,r; carrier α; finite row/bit/column/reference index; and op : Op is TYPING. Source n,D,start are natural; N=n+1 is structural, not a positivity theorem premise.",
+        "data_inputs": "All tables, boundary vectors and the arbitrary nonempty input chain for local closeLeft are SOURCE data. K/start are SOURCE specification data only where present in the exact signature. General outgoing r and generic α are harmless helper interface generalizations, not added root premises.",
+        "project_bundle_expansion": "StoredCore l r = Vector(Vector ℝ (2*r)) l; StoredChain is the dependent nil/cons carrier without proof fields; Run α has value:α and cost:(Op→ℕ), without correctness/budget proof fields; Kernel D = ℕ→Fin2→Matrix(FinD)(FinD)ℝ. Window is the only target project Prop alias and is fully expanded above.",
+        "standing": "Exact-real/stored-word charging is a source-wide convention embedded in literal providers, not an extra logical binder.",
+        "ruled": [],
+        "excess": [],
+        "no_project_prop_or_typeclass_premise_hidden": true
+      },
+      "kernel_evidence": {
+        "all_29_fresh_check_and_axiom_receipt": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v3.json",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "sorryAx": false
+      },
+      "comparison": "corresponds-to-frozen-source-with-disclosed-provider-boundary"
+    },
+    {
+      "name": "QuantumBlockEncoding.StoredMatrixProductChain.ofTable_certified",
+      "kind": "theorem",
+      "source_nodes": [
+        "J01"
+      ],
+      "exact_current_source_signature": "theorem ofTable_certified {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (left right : Vector ℝ D) (K : MatrixProductChain.Kernel D) (start : ℕ)\n    (h : Window tables K start) :\n    let result",
+      "exact_current_source_declaration": "theorem ofTable_certified {n D : ℕ} (tables : Vector (StoredCore D D) (n + 1))\n    (left right : Vector ℝ D) (K : MatrixProductChain.Kernel D) (start : ℕ)\n    (h : Window tables K start) :\n    let result := ofTable tables left right\n    denoteChain result.value =\n      MatrixProductChain.ofKernel K (fun i => left[i.val]) (fun i => right[i.val]) start n ∧\n    StoredRectangularGivens.total result.cost ≤\n      20 * D ^ 2 + 30 * D + 5 * n ^ 2 + 7 * n + 31 :=\n  ⟨ofTable_refines tables left right K start h, ofTable_total_cost_le tables left right⟩",
+      "interpretation": "Exactly one let-bound result has the conjunction of actual whole-chain refinement and its own total bound. This declaration's conjunction does not itself include coefficients or bond; those follow through separate providers/consumers.",
+      "definition_kind": "not-a-definition",
+      "binder_audit": {
+        "logical_inputs": [
+          {
+            "binder": "h",
+            "classification": "SOURCE",
+            "expanded": "For every i : Fin(n+1), every row a : Fin D, every bit : Fin 2, every outgoing b : Fin D, stored table entry at finProdFinEquiv(bit,b) equals K(start+i,bit,a,b). Nothing is required outside the finite window."
+          }
+        ],
+        "typing": "Every dimension n,D,r; carrier α; finite row/bit/column/reference index; and op : Op is TYPING. Source n,D,start are natural; N=n+1 is structural, not a positivity theorem premise.",
+        "data_inputs": "All tables, boundary vectors and the arbitrary nonempty input chain for local closeLeft are SOURCE data. K/start are SOURCE specification data only where present in the exact signature. General outgoing r and generic α are harmless helper interface generalizations, not added root premises.",
+        "project_bundle_expansion": "StoredCore l r = Vector(Vector ℝ (2*r)) l; StoredChain is the dependent nil/cons carrier without proof fields; Run α has value:α and cost:(Op→ℕ), without correctness/budget proof fields; Kernel D = ℕ→Fin2→Matrix(FinD)(FinD)ℝ. Window is the only target project Prop alias and is fully expanded above.",
+        "standing": "Exact-real/stored-word charging is a source-wide convention embedded in literal providers, not an extra logical binder.",
+        "ruled": [],
+        "excess": [],
+        "no_project_prop_or_typeclass_premise_hidden": true
+      },
+      "kernel_evidence": {
+        "all_29_fresh_check_and_axiom_receipt": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v3.json",
+        "axioms": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "sorryAx": false
+      },
+      "comparison": "corresponds-to-frozen-source-with-disclosed-provider-boundary"
+    }
+  ],
+  "raw_region_comparison": [
+    {
+      "region": "R01",
+      "lines": [
+        1,
+        1
+      ],
+      "frozen_disposition": "EXCLUDED",
+      "comparison": "Preserved exclusion; no mathematical credit."
+    },
+    {
+      "region": "R02",
+      "lines": [
+        3,
+        7
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R03",
+      "lines": [
+        9,
+        9
+      ],
+      "frozen_disposition": "EXCLUDED",
+      "comparison": "Preserved exclusion; no mathematical credit."
+    },
+    {
+      "region": "R04",
+      "lines": [
+        11,
+        15
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R05",
+      "lines": [
+        17,
+        23
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R06",
+      "lines": [
+        25,
+        27
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R07",
+      "lines": [
+        29,
+        31
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R08",
+      "lines": [
+        33,
+        34
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R09",
+      "lines": [
+        36,
+        36
+      ],
+      "frozen_disposition": "EXCLUDED",
+      "comparison": "Preserved exclusion; no mathematical credit."
+    },
+    {
+      "region": "R10",
+      "lines": [
+        38,
+        43
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R11",
+      "lines": [
+        45,
+        49
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R12",
+      "lines": [
+        51,
+        55
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R13",
+      "lines": [
+        57,
+        59
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R14",
+      "lines": [
+        61,
+        62
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R15",
+      "lines": [
+        63,
+        65
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R16",
+      "lines": [
+        66,
+        68
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponding actual target and explicitly scoped formal providers; frozen G01-G03 source-expansion gaps remain unchanged."
+    },
+    {
+      "region": "R17",
+      "lines": [
+        70,
+        72
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponding actual target and explicitly scoped formal providers; frozen G01-G03 source-expansion gaps remain unchanged."
+    },
+    {
+      "region": "R18",
+      "lines": [
+        74,
+        74
+      ],
+      "frozen_disposition": "EXCLUDED",
+      "comparison": "Preserved exclusion; no mathematical credit."
+    },
+    {
+      "region": "R19",
+      "lines": [
+        76,
+        80
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R20",
+      "lines": [
+        82,
+        86
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R21",
+      "lines": [
+        88,
+        92
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R22",
+      "lines": [
+        94,
+        99
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R23",
+      "lines": [
+        100,
+        100
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R24",
+      "lines": [
+        101,
+        101
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R25",
+      "lines": [
+        102,
+        102
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R26",
+      "lines": [
+        103,
+        104
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R27",
+      "lines": [
+        105,
+        107
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R28",
+      "lines": [
+        109,
+        110
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R29",
+      "lines": [
+        111,
+        112
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R30",
+      "lines": [
+        114,
+        116
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R31",
+      "lines": [
+        117,
+        117
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R32",
+      "lines": [
+        118,
+        118
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R33",
+      "lines": [
+        119,
+        120
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R34",
+      "lines": [
+        122,
+        122
+      ],
+      "frozen_disposition": "EXCLUDED",
+      "comparison": "Preserved exclusion; no mathematical credit."
+    },
+    {
+      "region": "R35",
+      "lines": [
+        124,
+        125
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R36",
+      "lines": [
+        125,
+        127
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R37",
+      "lines": [
+        129,
+        131
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R38",
+      "lines": [
+        133,
+        135
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R39",
+      "lines": [
+        137,
+        139
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R40",
+      "lines": [
+        141,
+        145
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R41",
+      "lines": [
+        147,
+        148
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R42",
+      "lines": [
+        149,
+        150
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R43",
+      "lines": [
+        152,
+        154
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Corresponds to actual target definitions/theorems and scoped stored/mathematical conventions; no changed premise, scalar, order or resource model."
+    },
+    {
+      "region": "R44",
+      "lines": [
+        156,
+        156
+      ],
+      "frozen_disposition": "EXCLUDED",
+      "comparison": "Preserved exclusion; no mathematical credit."
+    },
+    {
+      "region": "R45",
+      "lines": [
+        158,
+        158
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Actual target namespace/module ownership confirmed only for this reviewed target."
+    },
+    {
+      "region": "R46",
+      "lines": [
+        160,
+        161
+      ],
+      "frozen_disposition": "EXCLUDED",
+      "comparison": "Preserved exclusion; no mathematical credit."
+    },
+    {
+      "region": "R47",
+      "lines": [
+        162,
+        162
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "All advertised public names resolved in the actual 29-declaration target and freshly checked. Table is provenance navigation, not a claim of elaborated proof-term dependency."
+    },
+    {
+      "region": "R48",
+      "lines": [
+        163,
+        163
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "All advertised public names resolved in the actual 29-declaration target and freshly checked. Table is provenance navigation, not a claim of elaborated proof-term dependency."
+    },
+    {
+      "region": "R49",
+      "lines": [
+        164,
+        164
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "All advertised public names resolved in the actual 29-declaration target and freshly checked. Table is provenance navigation, not a claim of elaborated proof-term dependency."
+    },
+    {
+      "region": "R50",
+      "lines": [
+        165,
+        165
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "All advertised public names resolved in the actual 29-declaration target and freshly checked. Table is provenance navigation, not a claim of elaborated proof-term dependency."
+    },
+    {
+      "region": "R51",
+      "lines": [
+        166,
+        166
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "All advertised public names resolved in the actual 29-declaration target and freshly checked. Table is provenance navigation, not a claim of elaborated proof-term dependency."
+    },
+    {
+      "region": "R52",
+      "lines": [
+        167,
+        167
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "All advertised public names resolved in the actual 29-declaration target and freshly checked. Table is provenance navigation, not a claim of elaborated proof-term dependency."
+    },
+    {
+      "region": "R53",
+      "lines": [
+        168,
+        168
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "All advertised public names resolved in the actual 29-declaration target and freshly checked. Table is provenance navigation, not a claim of elaborated proof-term dependency."
+    },
+    {
+      "region": "R54",
+      "lines": [
+        169,
+        169
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "All advertised public names resolved in the actual 29-declaration target and freshly checked. Table is provenance navigation, not a claim of elaborated proof-term dependency."
+    },
+    {
+      "region": "R55",
+      "lines": [
+        170,
+        170
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "All advertised public names resolved in the actual 29-declaration target and freshly checked. Table is provenance navigation, not a claim of elaborated proof-term dependency."
+    },
+    {
+      "region": "R56",
+      "lines": [
+        171,
+        171
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "All advertised public names resolved in the actual 29-declaration target and freshly checked. Table is provenance navigation, not a claim of elaborated proof-term dependency."
+    },
+    {
+      "region": "R57",
+      "lines": [
+        173,
+        173
+      ],
+      "frozen_disposition": "EXCLUDED",
+      "comparison": "Preserved exclusion; no mathematical credit."
+    },
+    {
+      "region": "R58",
+      "lines": [
+        175,
+        179
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Source graph separation and resource/scientific limits preserved; no extra transport/provider admission inferred."
+    },
+    {
+      "region": "R59",
+      "lines": [
+        179,
+        182
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Source graph separation and resource/scientific limits preserved; no extra transport/provider admission inferred."
+    },
+    {
+      "region": "R60",
+      "lines": [
+        184,
+        189
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Source graph separation and resource/scientific limits preserved; no extra transport/provider admission inferred."
+    },
+    {
+      "region": "R61",
+      "lines": [
+        191,
+        193
+      ],
+      "frozen_disposition": "NODE",
+      "comparison": "Source graph separation and resource/scientific limits preserved; no extra transport/provider admission inferred."
+    }
+  ],
+  "provider_bridges": [
+    {
+      "source_gap": "G01",
+      "frozen_disposition": "SOURCE_GAP",
+      "formal_providers": [
+        "QuantumBlockEncoding.StoredTensorTrain.StoredCore",
+        "QuantumBlockEncoding.StoredTensorTrain.StoredChain",
+        "QuantumBlockEncoding.StoredTensorTrain.denoteCore",
+        "QuantumBlockEncoding.StoredTensorTrain.denoteChain",
+        "QuantumBlockEncoding.TensorTrainCanonical.Core",
+        "QuantumBlockEncoding.TensorTrainCanonical.Chain",
+        "QuantumBlockEncoding.TensorTrainCanonical.Word",
+        "QuantumBlockEncoding.TensorTrainCanonical.contract"
+      ],
+      "comparison": "These literal formal definitions supply the intended heterogeneous chain, scalar endpoints and contraction recursion. This locates the implementation-side bridge; it does not rewrite the source's missing definitions or approve the whole providers."
+    },
+    {
+      "source_gap": "G02",
+      "frozen_disposition": "SOURCE_GAP",
+      "formal_providers": [
+        "QuantumBlockEncoding.MatrixProductChain.readout",
+        "QuantumBlockEncoding.MatrixProductChain.tailChain",
+        "QuantumBlockEncoding.MatrixProductChain.closeLeft",
+        "QuantumBlockEncoding.MatrixProductChain.ofKernel",
+        "QuantumBlockEncoding.MatrixProductChain.tailChain_contract",
+        "QuantumBlockEncoding.MatrixProductChain.closeLeft_contract",
+        "QuantumBlockEncoding.MatrixProductChain.ofKernel_contract"
+      ],
+      "comparison": "Read source definitions and finite-sum proofs. Their chronological order and ordinary real transpose match the raw lesson. Reviewer source_coefficient_bridge compiles as a consumer of the freshly elaborated target plus cached provider theorem; no separate whole-provider source admission claimed."
+    },
+    {
+      "source_gap": "G03",
+      "frozen_disposition": "SOURCE_GAP",
+      "formal_providers": [
+        "QuantumBlockEncoding.TensorTrainCanonical.maxBond",
+        "QuantumBlockEncoding.MatrixProductChain.tailChain_maxBond",
+        "QuantumBlockEncoding.MatrixProductChain.ofKernel_maxBond"
+      ],
+      "comparison": "maxBond includes endpoints (nil r is r, cons maxes incoming l and tail). Separate mathematical theorem matches max(D,1), including singleton maxBond=1 and D=0. Target transfers via exact refinement; source gap remains a missing exposition expansion, not an assumed output binder."
+    }
+  ],
+  "stored_provider_scope": {
+    "reviewed_definitions": [
+      "StoredGivens.Op/Cost/tick/Run/pure/bind/charge/add/mul/read/collect/StoredMatrix/denote/materialize",
+      "StoredGivens.collect_value/collect_cost/materialize_cost",
+      "StoredThinLQ.entry/entry_value/entry_cost",
+      "StoredTensorTrain.sumEntries/sumEntries_value/nodeBudget",
+      "StoredRectangularGivens.total",
+      "Mathlib finProdFinEquiv at Logic/Equiv/Fin/Basic.lean"
+    ],
+    "reviewed_content": "Needed actual formulas/proofs inspected, including full direct target imports. Target actual source freshly elaborated; inherited providers are read/hashed and checked only insofar as target consumers use their cached context.",
+    "unreviewed": "No fresh rebuild of provider modules; no exhaustive source-to-formal audit or independent publication review of every transitive provider declaration or Mathlib theorem."
+  },
+  "decoder_comparison": {
+    "identity": "/root/stored_matrix_blind_c17",
+    "run_id": "stored-matrix-blind-c17-v2",
+    "artifact_sha256": "00b0e66addc10bbcc3e0045b11b0531237dfebb10cf5bd3f09f2e334adf6755d",
+    "evidence_sha256": "98a87fea19f0c07d1d2c5f2c0403171bf25d360bec476ed2407a29e7f3635093",
+    "conclusion": "Independently agrees with frozen source semantics, finite window, literal definitions, operation counters and exclusions for all 29 declarations. Decoder arithmetic observations for reversed order are not used as reviewer proof: reviewer supplies separate named checked reverse/swapped discriminators with different data.",
+    "naming_boundary": "Decoder's physical_first_bit/physical_second_bit probe names refer to abstract emitted-bit coordinates; no physical register embedding is inferred.",
+    "receipt_verified": "Decoder v2 receipt hash matches; exit 0, 29 checks, unchanged context, no sorryAx. Decoder historical failed attempts are excluded and not reused."
+  },
+  "independent_probes": {
+    "source": "reviews/publication/stored-matrix-product-chain/reviewer-probes-c17-v3.lean",
+    "sha256": "267439f76e7f8a9ffbfb86e5e2e84bd1124397b9e066a52c11d0cbe7af706fc8",
+    "signed_matrices": "A0=[[2,-1],[3,0]], A1=[[-2,4],[1,-3]], B0=[[1,5],[-2,1]], B1=[[0,-4],[6,2]], l=[-1,2], r=[3,-2].",
+    "checked_coefficients": {
+      "10": 52,
+      "11": -108,
+      "00": -36,
+      "01": 46,
+      "reversed_00": -67,
+      "singleton": 10,
+      "swapped_boundary_singleton": -6,
+      "empty_D0_singleton": 0
+    },
+    "cost_checks": [
+      "D=0,N=1 still costs 31",
+      "N=1 exact 10D^2+22D+31",
+      "N=2 exact 20D^2+20D+35",
+      "N=4 exact 20D^2+20D+74",
+      "all eight terminal and initial operation counters",
+      "tail reference identity"
+    ],
+    "bond_checks": [
+      "actual singleton maxBond=1",
+      "actual two-site D=2 maxBond=2"
+    ],
+    "general_consumer": "source_coefficient_bridge: for arbitrary n,D,s, tables,l,r,K satisfying exactly Window, the actual returned chain coefficient equals the source chronological readout sum.",
+    "purpose": "Detect reversed products, swapped boundaries, sign removal, bit-major-column drift, erased empty-sum materialization, and suppressed suffix-reference costs. Finite numerical probes supplement, never replace, general target proofs."
+  },
+  "formal_gate": {
+    "receipt_path": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v3.json",
+    "receipt_sha256": "792ddc090e26a437bd6ba7ee07913b3254cb7d528e61818f54b9821ff3d2c9bd",
+    "exit_code": 0,
+    "whole_target_source_fresh": true,
+    "target_olean_imported": false,
+    "production_olean_written": false,
+    "all_29_checked": true,
+    "independent_probes_checked": true,
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "successful_module_sorryAx": false,
+    "unchanged_bound_context": true,
+    "hashed_context_rows": 117,
+    "context_evidence": "Exact before/after raw source and provider-cache hashes retained in receipt, including named Fin equivalence source/cache. Source assembly digest retained. No false full-transitive freshness claim.",
+    "full_repository_gate_run": false,
+    "reason": "Reviewer write/read scope requires focused whole-target stdin elaboration only; no production/build outputs or repository integration claim."
+  },
+  "excluded_attempts": [
+    {
+      "failure_class": "IMPLEMENTATION_FAILED",
+      "receipt_path": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v1.json",
+      "receipt_sha256": "0c7860aeb34cacf0bde7b8866b0c5fac70d175fc3013df15b221b1250c2c1852",
+      "probe_path": "reviews/publication/stored-matrix-product-chain/reviewer-probes-c17-v1.lean",
+      "probe_sha256": "8c3b7bbe777335a8c623df250c882060343848a66ca287137ddb4f9a94b2e9bb",
+      "description": "One reversed-order consumer used rw rather than erw and failed implicit transparency/type matching of Word. Target 29 checks passed, but whole v1 module failed and its probe sorryAx is excluded.",
+      "salvage": "Unchanged v1 source and receipt preserved; new v2 uses erw only at that probe, v2 and final enhanced-provenance v3 rerun every target declaration and all independent probes successfully; no source or target repair."
+    }
+  ],
+  "successful_predecessor": {
+    "receipt_path": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v2.json",
+    "receipt_sha256": "69afaaa784444a04e3263ccfe283c92b844f0420b8d5d28796db034f513c5435",
+    "purpose": "Successful full rerun before v3 expanded explicit provenance to Fin equivalence and generated target inventory."
+  },
+  "source_graph_topology": "Preserved one producer route; finite-window semantic branch and unconditional cost branch rejoin at one actual result. No false OR over mandatory components; n=0/n>0 is a case split. Source graph, target lexical calls, ownership and conceptual transports remain distinct.",
+  "conceptual_transport": "State preparation requires the complete normalization/canonicalization/physical embedding/cleanup/circuit synthesis AND tail; no such downstream edge is certified.",
+  "residual_boundary": [
+    "G01-G03 remain immutable source gaps and referenced formal-substrate boundaries",
+    "Provider caches not fresh transitive rebuild/admission",
+    "Source is retrospective, not historical preproof",
+    "No finite-bit/executable runtime, precision, peak memory, quantum gate/export or preprocessing guarantee",
+    "No ROOT/main/novelty/Hermite-scientific/PURIFIED/Exposition-Seal approval"
+  ],
+  "independence": {
+    "source_first_then_explicit_comparison": true,
+    "author_source_contract_candidate_registries_verdicts_unread": true,
+    "author_desired_judgment_not_used": true,
+    "neither_formalizer_nor_decoder": true,
+    "no_subagents": true,
+    "no_git_actions": true,
+    "no_production_source_or_protocol_writes": true
+  },
+  "content_pins": [
+    {
+      "path": "docs/lessons/stored-boundary-absorption.md",
+      "sha256": "666f9b0c9fa69bc043fe80a6d1181ba81991e8edb68a40420f876c9b94ec4f07"
+    },
+    {
+      "path": "reviews/publication/stored-matrix-product-chain/source-first-reconstruction.json",
+      "sha256": "d682ec8072d12505fe6951a02b3897afdc2c12f753c7b9600ee428f85d388340"
+    },
+    {
+      "path": "QuantumBlockEncoding/StoredMatrixProductChain.lean",
+      "sha256": "75df853f83c166df5409a3e567234b96bdd1bd7303c84f4401388530dfa090b0"
+    },
+    {
+      "path": "reviews/publication/stored-matrix-product-chain/reviewer-comparison-packet.json",
+      "sha256": "ffb1258d6a2a7cdb0c7df5711c98d5fab36145e4d342a2e127901c1518364920"
+    },
+    {
+      "path": "reviews/publication/stored-matrix-product-chain/decoder-artifact.json",
+      "sha256": "00b0e66addc10bbcc3e0045b11b0531237dfebb10cf5bd3f09f2e334adf6755d"
+    },
+    {
+      "path": "reviews/publication/stored-matrix-product-chain/decoder-evidence.json",
+      "sha256": "98a87fea19f0c07d1d2c5f2c0403171bf25d360bec476ed2407a29e7f3635093"
+    },
+    {
+      "path": "reviews/publication/stored-matrix-product-chain/decoder-packet.json",
+      "sha256": "cf8e4645556ada30f8c66c44ee43576f2d9423b1022f35e9097bb30a726e8f9f"
+    },
+    {
+      "path": "reviews/publication/stored-matrix-product-chain/decoder-receipt-c17-v2.json",
+      "sha256": "4153ecd1e11dab1b8771237f4f0bb2bf007d3b9c13bb830b2aa524f75042c2b2"
+    },
+    {
+      "path": "reviews/publication/stored-matrix-product-chain/decoder-probes-c17-v2.lean",
+      "sha256": "24ef26c31bf59e6319798eb4640cf2cd930b7e430cc2ba0c014bcfe00701bb8f"
+    },
+    {
+      "path": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v1.json",
+      "sha256": "0c7860aeb34cacf0bde7b8866b0c5fac70d175fc3013df15b221b1250c2c1852"
+    },
+    {
+      "path": "reviews/publication/stored-matrix-product-chain/reviewer-receipt-c17-v2.json",
+      "sha256": "69afaaa784444a04e3263ccfe283c92b844f0420b8d5d28796db034f513c5435"
+    },
+    {
+      "path": "reviews/publication/stored-matrix-product-chain/reviewer-probes-c17-v1.lean",
+      "sha256": "8c3b7bbe777335a8c623df250c882060343848a66ca287137ddb4f9a94b2e9bb"
+    },
+    {
+      "path": "reviews/publication/stored-matrix-product-chain/reviewer-probes-c17-v2.lean",
+      "sha256": "267439f76e7f8a9ffbfb86e5e2e84bd1124397b9e066a52c11d0cbe7af706fc8"
+    },
+    {
+      "path": "reviews/publication/stored-matrix-product-chain/reviewer-probes-c17-v3.lean",
+      "sha256": "267439f76e7f8a9ffbfb86e5e2e84bd1124397b9e066a52c11d0cbe7af706fc8"
+    },
+    {
+      "path": "reviews/publication/stored-matrix-product-chain/reviewer-run-c17-v1.ps1",
+      "sha256": "5dc58a8deb1a3b5ccba5b17e71b3a0171b16a1c1b1a29d1d3cc79d6b60096ac7"
+    },
+    {
+      "path": "reviews/publication/stored-matrix-product-chain/reviewer-run-c17-v3.ps1",
+      "sha256": "2f327fe7670edfa634a34a80ac9131a89169a3ca600896f6e76ff584a6afb6f6"
+    }
+  ],
+  "source_first_failure_history_untouched": true,
+  "replay_guard": "Verified v3 runner refuses an already-frozen receipt before Lean execution.",
+  "failure_class": "NONE",
+  "salvage": "Only the excluded reviewer probe implementation failure was repaired in a successor probe; target/source/frozen graph unchanged.",
+  "write_scope": "Only reviewer-* files in this subtree; source-first reconstruction remains frozen.",
+  "writes_stopped_after_seal": true
+}

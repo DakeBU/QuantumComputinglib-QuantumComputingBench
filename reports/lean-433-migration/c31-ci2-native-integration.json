@@ -1,0 +1,133 @@
+{
+  "schema": "c31-ci2-parent-reviewed-optional-integration-v1",
+  "status": "PYTHON_TESTED_NATIVE_PENDING_FRESH_CI",
+  "original_proposal_seal_sha256": "373c06cc36e7f043cad97b323f8f6eea15e170f310cf8aa3a17dd9b57a6d430c",
+  "original_manifest_sha256": "8f89167d4515631989099ad689f858c4b69f1003872ca69a52a67903ac775ef3",
+  "profile_sha256": "7047f441d8f6afe7a85b547d2f58b9156a4bf5792d1260f962221e1c03836ee3",
+  "files": [
+    {
+      "path": "tools/primitive_compiler_native_profile_ci2/README.md",
+      "sha256": "24c6aca2e2e35e15fc03ad55c76f20496af08064421932075c1e4f87c13d5294",
+      "bytes": 8273
+    },
+    {
+      "path": "tools/primitive_compiler_native_profile_ci2/HANDOFF.md",
+      "sha256": "e637ecbaed9fdf668a1db34a9bcd6ac4b7216c5b2fd6b06c8b97ee7781a94f2a",
+      "bytes": 6371
+    },
+    {
+      "path": "tools/primitive_compiler_native_profile_ci2/actual-ci1-analysis.json",
+      "sha256": "fbce74864641fa756000420ebaee3fdf5f41dff61755d8d7d7a11d4232ca2e72",
+      "bytes": 5324
+    },
+    {
+      "path": "tools/primitive_compiler_native_profile_ci2/verify_ci1.py",
+      "sha256": "725edeca27d25b2c14fa74c0d9ba00b07061b488febaa9a038d46aabca2b5150",
+      "bytes": 5470
+    },
+    {
+      "path": "tools/primitive_compiler_native_profile_ci2/build_ci2_profile.py",
+      "sha256": "d81e0fc9ac058c138762c1fd4f5cd22f97b93ca0b3a0cbdfffa37873bee02a1f",
+      "bytes": 3861
+    },
+    {
+      "path": "tools/primitive_compiler_native_profile_ci2/ci2-profile.json",
+      "sha256": "7047f441d8f6afe7a85b547d2f58b9156a4bf5792d1260f962221e1c03836ee3",
+      "bytes": 3313
+    },
+    {
+      "path": "tools/primitive_compiler_native_profile_ci2/resource_gate.py",
+      "sha256": "388cef2419bd553e1e19af62ae6c733fcdf3a5a3812f5f5266bdbddf5957a882",
+      "bytes": 14181
+    },
+    {
+      "path": "tools/primitive_compiler_native_profile_ci2/runner_v2.py",
+      "sha256": "5645b34cd0977926be6666eeed1fca655ed59a8fab21dbd2418ce1f8c244f948",
+      "bytes": 12007
+    },
+    {
+      "path": "tools/primitive_compiler_native_profile_ci2/test_ci2.py",
+      "sha256": "f51563120df66e5ba9e5d9a29463d8f5c647994f77d44f7976a237628b1df13e",
+      "bytes": 16421
+    },
+    {
+      "path": "tools/primitive_compiler_native_profile_ci2/workflow-one-line.PROPOSAL.patch",
+      "sha256": "0b67b8cef217387be104d97eca026a99c3deeaade631c8c7a2bd8cde4870fddb",
+      "bytes": 278
+    },
+    {
+      "path": "tools/primitive_compiler_native_profile_ci2/freeze_ci2.py",
+      "sha256": "610ffe77d243eab8100555a58195ad3536904adcac8c12851568fcd13e7e1770",
+      "bytes": 5883
+    },
+    {
+      "path": "tools/primitive_compiler_native_profile_ci2/python-only-tests.json",
+      "sha256": "dc88a6c755daa910b1759f9423a9a1c9078cc82c8d668f2990f63cb5da12e4e8",
+      "bytes": 4209
+    },
+    {
+      "path": "tools/primitive_compiler_native_profile_ci2/ci2-bindings.json",
+      "sha256": "8f89167d4515631989099ad689f858c4b69f1003872ca69a52a67903ac775ef3",
+      "bytes": 1130
+    },
+    {
+      "path": "tools/primitive_compiler_native_profile_ci2/ci2-seal.json",
+      "sha256": "373c06cc36e7f043cad97b323f8f6eea15e170f310cf8aa3a17dd9b57a6d430c",
+      "bytes": 2278
+    },
+    {
+      "path": "tools/primitive_compiler_native_profile_ci2/workflow-before-ci2.yml.txt",
+      "sha256": "e22b93a862a63dffdced6e8772e6b5732aa0f4293764469a744565e5bd545ad8",
+      "bytes": 1955
+    }
+  ],
+  "workflow_before_copy": "tools/primitive_compiler_native_profile_ci2/workflow-before-ci2.yml.txt",
+  "workflow_before_sha256": "e22b93a862a63dffdced6e8772e6b5732aa0f4293764469a744565e5bd545ad8",
+  "workflow_after_sha256": "ef42422b904ee092905ccfcc35e610edf4c261b4b0f24d818c70ced6f6d696fb",
+  "workflow_delta": [
+    {
+      "before": "      - 'tools/primitive_compiler_native_profile_v1/**'\n",
+      "after": "      - 'tools/primitive_compiler_native_profile_v1/**'\n      - 'tools/primitive_compiler_native_profile_ci2/**'\n"
+    },
+    {
+      "before": "      - name: Set up pinned Lean and inherited dependency caches\n",
+      "after": "      - name: CI2 finite resource gate negative and Python-only tests\n        run: python3 -B -m unittest discover -s tools/primitive_compiler_native_profile_ci2 -p 'test*.py' -v\n      - name: Set up pinned Lean and inherited dependency caches\n"
+    },
+    {
+      "before": "        run: lake env python3 tools/primitive_compiler_native_profile_v1/runner.py\n",
+      "after": "        run: lake env python3 -B tools/primitive_compiler_native_profile_ci2/runner_v2.py\n"
+    }
+  ],
+  "parent_read_scope": "Complete final resource_gate, runner_v2, tests, build/verify/freeze scripts, README/HANDOFF, profile, seals, analysis and test receipt; checked pinned shared exporter and old runner callback callsites. All14 final bytes equal the read C staging bytes.",
+  "parent_tests": {
+    "tests_run": 20,
+    "exit_code": 0,
+    "PID": 32900,
+    "wall_seconds": 0.6560000000026776,
+    "stdout_sha256": "758fac2a8adecbc0f08885e78a83551b60048b6aed6c838c567fc2f951e34e80",
+    "stderr_sha256": "8fba5af2fbd87b2a205e534907bae85e8f689b7175be13ede01551033fa7aae0",
+    "scope": "Synthetic resource fixtures and real Python children only; no Lean."
+  },
+  "first_failure_archive": "reviews/publication/primitive-compiler-c31/ci1-native-memory-failure-public.zip",
+  "first_failure_archive_sha256": "a2edbb904f6be270e3b1c7dabc1090808390667ecf95f8dee323dbbe9de70dd6",
+  "budget_mib": 5120,
+  "reserve_mib": 2048,
+  "minimum_measured_headroom_mib": 7168,
+  "native_threads": 1,
+  "base14_unchanged": true,
+  "source_config_pins_unchanged": 31,
+  "old_local_gate_changed": false,
+  "required_workflows_changed": false,
+  "production_lean_changed": false,
+  "trusted_verifier_changed": false,
+  "target_changed": false,
+  "scoring_changed": false,
+  "public_resource_scope": "Private real OS-read file digests and private snapshot digests remain raw. Public JSON has explicit logical cgroup coordinates and separately hashed sanitized derivatives; it is not a raw-path alias or an actual-load trace.",
+  "rollback": "Restore workflow-before-ci2.yml.txt bytes to the optional workflow and retire only the new sibling package. Preserve v1, all failure evidence and historical receipts; callbacks also restore in finally.",
+  "nativeAccepted": false,
+  "scientific_ROOT": false,
+  "main_admission": false,
+  "sourceAgreement": null,
+  "axiomPolicyPass": null,
+  "publicationBinding": null
+}

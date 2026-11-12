@@ -1,0 +1,51 @@
+HermiteSavedRyInterval.finiteRy_literal (theta : ℚ) (n : ℕ) :
+  finiteRy theta n = Robin.ComplexLCU.realOrthogonalRotation ↑(cosPoly (theta / 2) n) ↑(sinPoly (theta / 2) n)
+HermiteSavedRyInterval.entry_error (theta : ℚ) (n : ℕ) (row col : Fin 2) :
+  ‖(finiteRy theta n - standardRyMatrix ↑theta) row col‖ ≤ ↑(radius (theta / 2) n)
+HermiteSavedRyInterval.difference_decomposition (theta : ℚ) (n : ℕ) :
+  finiteRy theta n - standardRyMatrix ↑theta =
+    ↑(↑(cosPoly (theta / 2) n) - Real.cos (↑theta / 2)) • standardRyMatrix 0 +
+      ↑(↑(sinPoly (theta / 2) n) - Real.sin (↑theta / 2)) • standardRyMatrix Real.pi
+HermiteSavedRyInterval.local_operator_error (theta : ℚ) (n : ℕ) :
+  ‖finiteRy theta n - standardRyMatrix ↑theta‖ ≤ 2 * ↑(radius (theta / 2) n)
+HermiteSavedRyInterval.lifted_operator_error {qubits : ℕ} (target : Fin qubits) (theta : ℚ) (n : ℕ) :
+  ‖liftPrimitiveOneQubit target (finiteRy theta n) -
+        evalPrimitiveGate (PrimitiveGate.ry target (ExactAngle.rational theta))‖ ≤
+    2 * ↑(radius (theta / 2) n)
+HermiteSavedRyInterval.lifted_clm_error {qubits : ℕ} (target : Fin qubits) (theta : ℚ) (n : ℕ) :
+  ‖Matrix.toEuclideanCLM
+        (liftPrimitiveOneQubit target (finiteRy theta n) -
+          evalPrimitiveGate (PrimitiveGate.ry target (ExactAngle.rational theta)))‖ ≤
+    2 * ↑(radius (theta / 2) n)
+HermiteSavedRyInterval.lifted_vector_error {qubits : ℕ} (target : Fin qubits) (theta : ℚ) (n : ℕ)
+  (v : EuclideanSpace ℂ (PrimitiveBasis qubits)) :
+  ‖(Matrix.toEuclideanCLM
+          (liftPrimitiveOneQubit target (finiteRy theta n) -
+            evalPrimitiveGate (PrimitiveGate.ry target (ExactAngle.rational theta))))
+        v‖ ≤
+    2 * ↑(radius (theta / 2) n) * ‖v‖
+HermiteSavedRyInterval.lifted_entry_error {qubits : ℕ} (target : Fin qubits) (theta : ℚ) (n : ℕ)
+  (row col : PrimitiveBasis qubits) :
+  ‖(liftPrimitiveOneQubit target (finiteRy theta n) -
+          evalPrimitiveGate (PrimitiveGate.ry target (ExactAngle.rational theta)))
+        row col‖ ≤
+    ↑(radius (theta / 2) n)
+'HermiteSavedRyInterval.finiteRy_literal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedRyInterval.entry_error' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedRyInterval.difference_decomposition' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedRyInterval.local_operator_error' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedRyInterval.lifted_operator_error' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedRyInterval.lifted_clm_error' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedRyInterval.lifted_vector_error' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedRyInterval.lifted_entry_error' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedRyInterval.Consumer.zero_angle' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedRyInterval.Consumer.signed_half_angle' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedRyInterval.Consumer.physical_wire_discriminators' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HermiteSavedRyInterval.Consumer.spectator_discriminator' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedRyInterval.Consumer.cx_basis_discriminator' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedRyInterval.Consumer.actual_saved_first_entry' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedRyInterval.Consumer.actual_saved_first_operator' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+warning: verso: repository '<repo>\.lake/packages\verso' has local changes

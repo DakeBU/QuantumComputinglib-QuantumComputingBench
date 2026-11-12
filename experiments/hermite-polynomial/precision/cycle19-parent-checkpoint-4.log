@@ -1,0 +1,336 @@
+warning: verso: repository '<repo>\.lake/packages\verso' has local changes
+QuantumBlockEncoding.StoredTensorTrain.StoredCore (l r : Nat) : Type
+'QuantumBlockEncoding.StoredTensorTrain.StoredCore' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+QuantumBlockEncoding.StoredTensorTrain.denoteCore {l r : Nat}
+  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l r) : QuantumBlockEncoding.TensorTrainCanonical.Core l r
+'QuantumBlockEncoding.StoredTensorTrain.denoteCore' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+QuantumBlockEncoding.StoredTensorTrain.StoredChain : Nat → Nat → Nat → Type
+'QuantumBlockEncoding.StoredTensorTrain.StoredChain' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+QuantumBlockEncoding.StoredTensorTrain.denoteChain {n l r : Nat} :
+  QuantumBlockEncoding.StoredTensorTrain.StoredChain n l r → QuantumBlockEncoding.TensorTrainCanonical.Chain n l r
+'QuantumBlockEncoding.StoredTensorTrain.denoteChain' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+QuantumBlockEncoding.StoredTensorTrain.sumEntries {k : Nat} :
+  (Fin k → QuantumBlockEncoding.StoredGivens.Run Real) → QuantumBlockEncoding.StoredGivens.Run Real
+'QuantumBlockEncoding.StoredTensorTrain.sumEntries' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+QuantumBlockEncoding.StoredTensorTrain.sumEntries_value {k : Nat}
+  (f : Fin k → QuantumBlockEncoding.StoredGivens.Run Real) :
+  @Eq.{1} Real
+    (@QuantumBlockEncoding.StoredGivens.Run.value Real (@QuantumBlockEncoding.StoredTensorTrain.sumEntries k f))
+    (@Finset.sum.{0, 0} (Fin k) Real Real.instAddCommMonoid (@Finset.univ.{0} (Fin k) (Fin.fintype k))
+      fun (i : Fin k) => @QuantumBlockEncoding.StoredGivens.Run.value Real (f i))
+'QuantumBlockEncoding.StoredTensorTrain.sumEntries_value' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.StoredTensorTrain.sumEntries_cost_le {k : Nat}
+  (f : Fin k → QuantumBlockEncoding.StoredGivens.Run Real) (op : QuantumBlockEncoding.StoredGivens.Op) (B : Nat)
+  (bound : ∀ (i : Fin k), @LE.le.{0} Nat instLENat (@QuantumBlockEncoding.StoredGivens.Run.cost Real (f i) op) B) :
+  @LE.le.{0} Nat instLENat
+    (@QuantumBlockEncoding.StoredGivens.Run.cost Real (@QuantumBlockEncoding.StoredTensorTrain.sumEntries k f) op)
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) k
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) B
+        (QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.field op)))
+'QuantumBlockEncoding.StoredTensorTrain.sumEntries_cost_le' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.StoredTensorTrain.absorptionEntry {l m r : Nat}
+  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l m) (R : QuantumBlockEncoding.StoredGivens.StoredMatrix m r)
+  (a : Fin l) (out : Prod.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin r)) :
+  QuantumBlockEncoding.StoredGivens.Run Real
+'QuantumBlockEncoding.StoredTensorTrain.absorptionEntry' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.StoredTensorTrain.absorptionEntry_value {l m r : Nat}
+  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l m) (R : QuantumBlockEncoding.StoredGivens.StoredMatrix m r)
+  (a : Fin l) (out : Prod.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin r)) :
+  @Eq.{1} Real
+    (@QuantumBlockEncoding.StoredGivens.Run.value Real
+      (@QuantumBlockEncoding.StoredTensorTrain.absorptionEntry l m r A R a out))
+    (@QuantumBlockEncoding.TensorTrainCanonical.absorb l m r (@QuantumBlockEncoding.StoredTensorTrain.denoteCore l m A)
+      (@QuantumBlockEncoding.StoredGivens.denote m r R) a out)
+'QuantumBlockEncoding.StoredTensorTrain.absorptionEntry_value' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.StoredTensorTrain.absorptionEntry_cost_le {l m r : Nat}
+  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l m) (R : QuantumBlockEncoding.StoredGivens.StoredMatrix m r)
+  (a : Fin l) (out : Prod.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin r))
+  (op : QuantumBlockEncoding.StoredGivens.Op) :
+  @LE.le.{0} Nat instLENat
+    (@QuantumBlockEncoding.StoredGivens.Run.cost Real
+      (@QuantumBlockEncoding.StoredTensorTrain.absorptionEntry l m r A R a out) op)
+    (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) m
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+          (QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.read op))
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          (QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.field op))))
+'QuantumBlockEncoding.StoredTensorTrain.absorptionEntry_cost_le' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.StoredTensorTrain.absorption {l m r : Nat}
+  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l m) (R : QuantumBlockEncoding.StoredGivens.StoredMatrix m r) :
+  QuantumBlockEncoding.StoredGivens.Run (QuantumBlockEncoding.StoredTensorTrain.StoredCore l r)
+'QuantumBlockEncoding.StoredTensorTrain.absorption' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+QuantumBlockEncoding.StoredTensorTrain.absorption_value {l m r : Nat}
+  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l m) (R : QuantumBlockEncoding.StoredGivens.StoredMatrix m r) :
+  @Eq.{1} (QuantumBlockEncoding.TensorTrainCanonical.Core l r)
+    (@QuantumBlockEncoding.StoredTensorTrain.denoteCore l r
+      (@QuantumBlockEncoding.StoredGivens.Run.value (QuantumBlockEncoding.StoredTensorTrain.StoredCore l r)
+        (@QuantumBlockEncoding.StoredTensorTrain.absorption l m r A R)))
+    (@QuantumBlockEncoding.TensorTrainCanonical.absorb l m r (@QuantumBlockEncoding.StoredTensorTrain.denoteCore l m A)
+      (@QuantumBlockEncoding.StoredGivens.denote m r R))
+'QuantumBlockEncoding.StoredTensorTrain.absorption_value' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.StoredTensorTrain.absorptionBudget (l m r : Nat) : QuantumBlockEncoding.StoredGivens.Cost
+'QuantumBlockEncoding.StoredTensorTrain.absorptionBudget' does not depend on any axioms
+QuantumBlockEncoding.StoredTensorTrain.absorption_cost_le {l m r : Nat}
+  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l m) (R : QuantumBlockEncoding.StoredGivens.StoredMatrix m r)
+  (op : QuantumBlockEncoding.StoredGivens.Op) :
+  @LE.le.{0} Nat instLENat
+    (@QuantumBlockEncoding.StoredGivens.Run.cost (QuantumBlockEncoding.StoredTensorTrain.StoredCore l r)
+      (@QuantumBlockEncoding.StoredTensorTrain.absorption l m r A R) op)
+    (QuantumBlockEncoding.StoredTensorTrain.absorptionBudget l m r op)
+'QuantumBlockEncoding.StoredTensorTrain.absorption_cost_le' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.StoredTensorTrain.CoreResult {l r : Nat}
+  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l r) : Type
+'QuantumBlockEncoding.StoredTensorTrain.CoreResult' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+QuantumBlockEncoding.StoredTensorTrain.factorCore {l r : Nat}
+  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l r) :
+  QuantumBlockEncoding.StoredGivens.Run (@QuantumBlockEncoding.StoredTensorTrain.CoreResult l r A)
+'QuantumBlockEncoding.StoredTensorTrain.factorCore' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+QuantumBlockEncoding.StoredTensorTrain.Result {n l r : Nat}
+  (C : QuantumBlockEncoding.StoredTensorTrain.StoredChain n l r) : Type
+'QuantumBlockEncoding.StoredTensorTrain.Result' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+QuantumBlockEncoding.StoredTensorTrain.nodeBudget : QuantumBlockEncoding.StoredGivens.Cost
+'QuantumBlockEncoding.StoredTensorTrain.nodeBudget' depends on axioms: [propext, Quot.sound.{u}]
+QuantumBlockEncoding.StoredTensorTrain.canonicalize {n l r : Nat}
+  (C : QuantumBlockEncoding.StoredTensorTrain.StoredChain n l r) :
+  QuantumBlockEncoding.StoredGivens.Run (@QuantumBlockEncoding.StoredTensorTrain.Result n l r C)
+'QuantumBlockEncoding.StoredTensorTrain.canonicalize' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+QuantumBlockEncoding.StoredTensorTrain.canonicalize_maxBond_le {n l r : Nat}
+  (C : QuantumBlockEncoding.StoredTensorTrain.StoredChain n l r) :
+  @LE.le.{0} Nat instLENat
+    (@QuantumBlockEncoding.TensorTrainCanonical.maxBond n
+      (@QuantumBlockEncoding.StoredTensorTrain.Result.rank n l r C
+        (@QuantumBlockEncoding.StoredGivens.Run.value (@QuantumBlockEncoding.StoredTensorTrain.Result n l r C)
+          (@QuantumBlockEncoding.StoredTensorTrain.canonicalize n l r C)))
+      r
+      (@QuantumBlockEncoding.StoredTensorTrain.denoteChain n
+        (@QuantumBlockEncoding.StoredTensorTrain.Result.rank n l r C
+          (@QuantumBlockEncoding.StoredGivens.Run.value (@QuantumBlockEncoding.StoredTensorTrain.Result n l r C)
+            (@QuantumBlockEncoding.StoredTensorTrain.canonicalize n l r C)))
+        r
+        (@QuantumBlockEncoding.StoredTensorTrain.Result.canonical n l r C
+          (@QuantumBlockEncoding.StoredGivens.Run.value (@QuantumBlockEncoding.StoredTensorTrain.Result n l r C)
+            (@QuantumBlockEncoding.StoredTensorTrain.canonicalize n l r C)))))
+    (@QuantumBlockEncoding.TensorTrainCanonical.maxBond n l r
+      (@QuantumBlockEncoding.StoredTensorTrain.denoteChain n l r C))
+'QuantumBlockEncoding.StoredTensorTrain.canonicalize_maxBond_le' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.StoredTensorTrain.absorption_total_cost_le {l m r : Nat}
+  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l m) (R : QuantumBlockEncoding.StoredGivens.StoredMatrix m r) :
+  @LE.le.{0} Nat instLENat
+    (QuantumBlockEncoding.StoredRectangularGivens.total
+      (@QuantumBlockEncoding.StoredGivens.Run.cost (QuantumBlockEncoding.StoredTensorTrain.StoredCore l r)
+        (@QuantumBlockEncoding.StoredTensorTrain.absorption l m r A R)))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+              (@OfNat.ofNat.{0} Nat (nat_lit 12) (instOfNatNat (nat_lit 12))) l)
+            m)
+          r)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+            (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8))) l)
+          r))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) l))
+'QuantumBlockEncoding.StoredTensorTrain.absorption_total_cost_le' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.StoredTensorTrain.factorCore_total_cost_le {l r : Nat}
+  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l r) (D : Nat) (hl : @LE.le.{0} Nat instLENat l D)
+  (hr : @LE.le.{0} Nat instLENat r D) :
+  @LE.le.{0} Nat instLENat
+    (QuantumBlockEncoding.StoredRectangularGivens.total
+      (@QuantumBlockEncoding.StoredGivens.Run.cost (@QuantumBlockEncoding.StoredTensorTrain.CoreResult l r A)
+        (@QuantumBlockEncoding.StoredTensorTrain.factorCore l r A)))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+            (@OfNat.ofNat.{0} Nat (nat_lit 164) (instOfNatNat (nat_lit 164)))
+            (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+              (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid))) D
+              (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))))
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+            (@OfNat.ofNat.{0} Nat (nat_lit 108) (instOfNatNat (nat_lit 108)))
+            (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+              (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid))) D
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))))
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 25) (instOfNatNat (nat_lit 25))) D))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+'QuantumBlockEncoding.StoredTensorTrain.factorCore_total_cost_le' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.StoredTensorTrain.canonicalize_total_cost_le {n l r : Nat}
+  (C : QuantumBlockEncoding.StoredTensorTrain.StoredChain n l r) (D : Nat)
+  (bound :
+    @LE.le.{0} Nat instLENat
+      (@QuantumBlockEncoding.TensorTrainCanonical.maxBond n l r
+        (@QuantumBlockEncoding.StoredTensorTrain.denoteChain n l r C))
+      D) :
+  @LE.le.{0} Nat instLENat
+    (QuantumBlockEncoding.StoredRectangularGivens.total
+      (@QuantumBlockEncoding.StoredGivens.Run.cost (@QuantumBlockEncoding.StoredTensorTrain.Result n l r C)
+        (@QuantumBlockEncoding.StoredTensorTrain.canonicalize n l r C)))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) n
+            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+              (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+                (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+                  (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                    (@OfNat.ofNat.{0} Nat (nat_lit 176) (instOfNatNat (nat_lit 176)))
+                    (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+                      (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid))) D
+                      (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))))
+                  (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                    (@OfNat.ofNat.{0} Nat (nat_lit 116) (instOfNatNat (nat_lit 116)))
+                    (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+                      (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid))) D
+                      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))))
+                (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                  (@OfNat.ofNat.{0} Nat (nat_lit 29) (instOfNatNat (nat_lit 29))) D))
+              (@OfNat.ofNat.{0} Nat (nat_lit 8) (instOfNatNat (nat_lit 8)))))
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+            (@OfNat.ofNat.{0} Nat (nat_lit 5) (instOfNatNat (nat_lit 5)))
+            (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+              (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid))) D
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))))
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))) D))
+      (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6))))
+'QuantumBlockEncoding.StoredTensorTrain.canonicalize_total_cost_le' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.StoredTensorTrain.boundary {n l r : Nat}
+  (C : QuantumBlockEncoding.StoredTensorTrain.StoredChain n l r) (v : Fin l → Real) :
+  Fin
+      (@QuantumBlockEncoding.StoredTensorTrain.Result.rank n l r C
+        (@QuantumBlockEncoding.StoredGivens.Run.value (@QuantumBlockEncoding.StoredTensorTrain.Result n l r C)
+          (@QuantumBlockEncoding.StoredTensorTrain.canonicalize n l r C))) →
+    Real
+'QuantumBlockEncoding.StoredTensorTrain.boundary' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+QuantumBlockEncoding.StoredTensorTrain.boundary_mass {n l r : Nat}
+  (C : QuantumBlockEncoding.StoredTensorTrain.StoredChain n l r) (v : Fin l → Real) :
+  @Eq.{1} Real
+    (@QuantumBlockEncoding.TensorTrainCanonical.chainMass n l r
+      (@QuantumBlockEncoding.StoredTensorTrain.denoteChain n l r C) v)
+    (@QuantumBlockEncoding.TensorTrainCanonical.mass.{0}
+      (Fin
+        (@QuantumBlockEncoding.StoredTensorTrain.Result.rank n l r C
+          (@QuantumBlockEncoding.StoredGivens.Run.value (@QuantumBlockEncoding.StoredTensorTrain.Result n l r C)
+            (@QuantumBlockEncoding.StoredTensorTrain.canonicalize n l r C))))
+      (Fin.fintype
+        (@QuantumBlockEncoding.StoredTensorTrain.Result.rank n l r C
+          (@QuantumBlockEncoding.StoredGivens.Run.value (@QuantumBlockEncoding.StoredTensorTrain.Result n l r C)
+            (@QuantumBlockEncoding.StoredTensorTrain.canonicalize n l r C))))
+      (@QuantumBlockEncoding.StoredTensorTrain.boundary n l r C v))
+'QuantumBlockEncoding.StoredTensorTrain.boundary_mass' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.StoredTensorTrain.boundary_normalized {n l r : Nat}
+  (C : QuantumBlockEncoding.StoredTensorTrain.StoredChain n l r) (v : Fin l → Real)
+  (normalized :
+    @Eq.{1} Real
+      (@QuantumBlockEncoding.TensorTrainCanonical.chainMass n l r
+        (@QuantumBlockEncoding.StoredTensorTrain.denoteChain n l r C) v)
+      (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne))) :
+  @Eq.{1} Real
+    (@QuantumBlockEncoding.TensorTrainCanonical.mass.{0}
+      (Fin
+        (@QuantumBlockEncoding.StoredTensorTrain.Result.rank n l r C
+          (@QuantumBlockEncoding.StoredGivens.Run.value (@QuantumBlockEncoding.StoredTensorTrain.Result n l r C)
+            (@QuantumBlockEncoding.StoredTensorTrain.canonicalize n l r C))))
+      (Fin.fintype
+        (@QuantumBlockEncoding.StoredTensorTrain.Result.rank n l r C
+          (@QuantumBlockEncoding.StoredGivens.Run.value (@QuantumBlockEncoding.StoredTensorTrain.Result n l r C)
+            (@QuantumBlockEncoding.StoredTensorTrain.canonicalize n l r C))))
+      (@QuantumBlockEncoding.StoredTensorTrain.boundary n l r C v))
+    (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne))
+'QuantumBlockEncoding.StoredTensorTrain.boundary_normalized' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.StoredTensorTrain.Result.toSemantic {n l r : Nat}
+  {C : QuantumBlockEncoding.StoredTensorTrain.StoredChain n l r}
+  (result : @QuantumBlockEncoding.StoredTensorTrain.Result n l r C) :
+  @QuantumBlockEncoding.ConstructiveTensorTrain.Result n l r
+    (@QuantumBlockEncoding.StoredTensorTrain.denoteChain n l r C)
+'QuantumBlockEncoding.StoredTensorTrain.Result.toSemantic' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.StoredTensorTrain.factorCore_R {l r : Nat}
+  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l r) :
+  @Eq.{1}
+    (Matrix.{0, 0, 0} (Fin l)
+      (Fin
+        (@Min.min.{0} Nat instMinNat l
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r)))
+      Real)
+    (@QuantumBlockEncoding.StoredGivens.denote l
+      (@Min.min.{0} Nat instMinNat l
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r))
+      (@QuantumBlockEncoding.StoredTensorTrain.CoreResult.R l r A
+        (@QuantumBlockEncoding.StoredGivens.Run.value (@QuantumBlockEncoding.StoredTensorTrain.CoreResult l r A)
+          (@QuantumBlockEncoding.StoredTensorTrain.factorCore l r A))))
+    (@QuantumBlockEncoding.ConstructiveTensorTrain.CoreFactorization.R l r
+      (@QuantumBlockEncoding.StoredTensorTrain.denoteCore l r A)
+      (@QuantumBlockEncoding.ConstructiveTensorTrain.factorCore l r
+        (@QuantumBlockEncoding.StoredTensorTrain.denoteCore l r A)))
+'QuantumBlockEncoding.StoredTensorTrain.factorCore_R' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+QuantumBlockEncoding.StoredTensorTrain.factorCore_Q {l r : Nat}
+  (A : QuantumBlockEncoding.StoredTensorTrain.StoredCore l r) :
+  @Eq.{1}
+    (QuantumBlockEncoding.TensorTrainCanonical.Core
+      (@Min.min.{0} Nat instMinNat l
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r))
+      r)
+    (@QuantumBlockEncoding.StoredTensorTrain.denoteCore
+      (@Min.min.{0} Nat instMinNat l
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r))
+      r
+      (@QuantumBlockEncoding.StoredTensorTrain.CoreResult.Q l r A
+        (@QuantumBlockEncoding.StoredGivens.Run.value (@QuantumBlockEncoding.StoredTensorTrain.CoreResult l r A)
+          (@QuantumBlockEncoding.StoredTensorTrain.factorCore l r A))))
+    (@QuantumBlockEncoding.ConstructiveTensorTrain.CoreFactorization.Q l r
+      (@QuantumBlockEncoding.StoredTensorTrain.denoteCore l r A)
+      (@QuantumBlockEncoding.ConstructiveTensorTrain.factorCore l r
+        (@QuantumBlockEncoding.StoredTensorTrain.denoteCore l r A)))
+'QuantumBlockEncoding.StoredTensorTrain.factorCore_Q' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+QuantumBlockEncoding.StoredTensorTrain.canonicalize_refines {n l r : Nat}
+  (C : QuantumBlockEncoding.StoredTensorTrain.StoredChain n l r) :
+  @Eq.{1}
+    (@QuantumBlockEncoding.ConstructiveTensorTrain.Result n l r
+      (@QuantumBlockEncoding.StoredTensorTrain.denoteChain n l r C))
+    (@QuantumBlockEncoding.StoredTensorTrain.Result.toSemantic n l r C
+      (@QuantumBlockEncoding.StoredGivens.Run.value (@QuantumBlockEncoding.StoredTensorTrain.Result n l r C)
+        (@QuantumBlockEncoding.StoredTensorTrain.canonicalize n l r C)))
+    (@QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize n l r
+      (@QuantumBlockEncoding.StoredTensorTrain.denoteChain n l r C))
+'QuantumBlockEncoding.StoredTensorTrain.canonicalize_refines' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]

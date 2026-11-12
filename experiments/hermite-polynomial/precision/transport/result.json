@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "status": "EXACT_SERIALIZATION_DIAGNOSTIC_AND_TWO_FINITE_SOURCE_REPLAYS_PASS; SCIENTIFIC_ROOT_OPEN",
+  "contract": "experiments/hermite-polynomial/precision/transport/contract.json",
+  "artifact_sha256": {
+    "contract.json": "279490e60a52b5bb8ce3472ec8e64b3562ea732852632bf6090f322161e423df",
+    "audit_decimal_qasm.py": "e63e70b35e0d9b93b0316d76ee1c6222bb4d3effd3ea56057c43ccdcd15a9937",
+    "generate_saved_inputs.py": "e6efef794ff7fa0fbe5bb70c5009a363437f812b34b1141e2c107bbe935c16e6",
+    "test_audit_decimal_qasm.py": "63b9d5bab97ed1d3698eb3fe622326f1a39d8ed948d322313d071bf0e18419f2"
+  },
+  "scope": "Independent standard-library exact Fraction audit of actual saved decimal QASM2 RY/CX instructions against a manifest of actual floating compiler binary64-hex gates. No compiler/canonicalizer/simulator imported by auditor. Generation is producer-side and independent saved replay is a separate command.",
+  "interpretation": "Decimal text and binary64 references are different exact rationals. Sum of absolute angle discrepancies divided by2 is a conditional Euclidean operator bound using existing formal RY sensitivity and circuit telescoping. Python parsing-to-Lean semantics has not been refined.",
+  "tests": {"command": ".venv/Scripts/python.exe -B -m unittest discover -s experiments/hermite-polynomial/precision/transport -p test_audit_decimal_qasm.py -v", "tests": 10, "exit": 0, "scope": "Missing inputs, malformed/nonfinite angles, wrong gate count/order/physical wires, actual existing writer, decimal-vs-binary distinction and finite subnormal cases"},
+  "finite_instances": [
+    {
+      "n_p": 3, "k": 1, "L": "1", "saved_directory": "_out/hermite-poly-cycle10-transport/n3-k1-L1",
+      "qasm_sha256": "46b4c6b9f8584e49f9f2739e534d2bb4433bf9f6dc80eadf0f70289cebc0e364",
+      "reference_sha256": "18e274af93dc81c8013592d4f10c2cdd592090de2e83bb4d8bdbac64163a38ae",
+      "instructions": 456, "ry": 228, "cx": 228, "ancillas": 2, "oracle_calls": 0,
+      "exact_decimal_operator_bound": "2458925612049/3435973836800000000000000000", "parsed_binary64_operator_bound": "0",
+      "independent_replay": {"status": "finite_diagnostic_pass", "exit": 0, "state_error": 1.1040693864297168e-15, "garbage_norm": 1.6322079465816867e-16, "global_phase": 0, "depth": 421}
+    },
+    {
+      "n_p": 1, "k": 0, "L": "0.1", "saved_directory": "_out/hermite-poly-cycle10-transport/n1-k0-L01",
+      "qasm_sha256": "49836a9dc356ba459434b55e9dc990c01d1c79a8ca9f957a5be5201d429216ee",
+      "reference_sha256": "d3aa85d28cddcc4e266f9176dbeb1fe9bce0a1619ee9505d9b279c8fd815dbe5",
+      "instructions": 1, "ry": 1, "cx": 0, "ancillas": 0, "oracle_calls": 0,
+      "exact_decimal_operator_bound": "23804541591/1374389534720000000000000000", "parsed_binary64_operator_bound": "0",
+      "independent_replay": {"status": "finite_diagnostic_pass", "exit": 0, "state_error": 1.1102230246251565e-16, "garbage_norm": 0, "global_phase": 0, "depth": 1}
+    }
+  ],
+  "portable_reproduction": {
+    "generate": ".venv/Scripts/python.exe -B experiments/hermite-polynomial/precision/transport/generate_saved_inputs.py --n 3 --k 1 --L 1 --output _out/hermite-poly-cycle10-transport/n3-k1-L1",
+    "audit_existing": ".venv/Scripts/python.exe -B experiments/hermite-polynomial/precision/transport/audit_decimal_qasm.py _out/hermite-poly-cycle10-transport/n3-k1-L1/saved.qasm _out/hermite-poly-cycle10-transport/n3-k1-L1/reference.json",
+    "replay_existing": ".venv/Scripts/python.exe -B experiments/hermite-polynomial/mps/replay_mps_qasm.py _out/hermite-poly-cycle10-transport/n3-k1-L1/saved.qasm --n 3 --k 1 --L 1",
+    "second_instance": "Replace n=3,k=1,L=1 and directory with n=1,k=0,L=0.1 and n1-k0-L01. Generation, audit and replay are separate commands; auditor/replay never reconstruct missing files.",
+    "artifact_boundary": "Ignored saved files exist locally. Recipes and exact hashes are tracked, not a promise of byte-identical cross-platform NumPy generation. A replay must report its actual hashes, never reuse this JSON as acceptance."
+  },
+  "scientific_root_closed": false,
+  "remaining": ["Literal exact Lean compiler to finite producer refinement", "Source/QR/normalizer computed error", "Computable angle enclosure supplier and finite-bit cost", "Python/QASM parser to formal primitive semantics bridge", "Uniform family executable acceptance", "Physical finite-gate synthesis and its cost/error"],
+  "changed_files": ["contract.json", "audit_decimal_qasm.py", "test_audit_decimal_qasm.py", "generate_saved_inputs.py", "result.json"],
+  "behavior_change": "New opt-in isolated transport diagnostic rejects missing/mismatched saved inputs and reports exact representation discrepancies; no production verifier, acceptance anchor, scientific target, scoring or controller behavior changed.",
+  "rollback": "Remove the new isolated diagnostic files to undo tool availability; preserve this result and associated failure evidence. No historical log or user artifact overwritten.",
+  "independent_audit": "Separate worker audit pending; this root-authored result is not its verdict.",
+  "commits_push_merge": "none"
+}

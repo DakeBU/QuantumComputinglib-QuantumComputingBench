@@ -68,6 +68,13 @@ theorem stored_raw_norm_cost_le (k n : ℕ) (L : ℝ) (hL : 0 < L) :
         5*(2*k+6)^2 + 4*(2*k+6) + 9 :=
   StoredTensorTrainNorm.norm_total_cost_le _ (2*k+6) (raw_maxBond k n L hL)
 
+section ConcreteWordFixtures
+
+-- Concrete recursive word literals end in `Word 0 = Unit`. Restore the
+-- definitional unfolding needed by rewrite matching, without changing any
+-- endpoint, bit-order, or cutoff assertion.
+set_option backward.isDefEq.respectTransparency false
+
 /-- N=1, false digit is the literal left endpoint. -/
 theorem raw_one_bit_left (k : ℕ) (L : ℝ) (hL : 0 < L) :
     contract (denoteChain (raw k 0 L).run.value) (0, ()) 0 0 =
@@ -136,6 +143,8 @@ example (k : ℕ) (L : ℝ) (hL : 0 < L) :
     rfl
   rw [raw_contract k 1 L hL, hi, HermiteStatePreparation.sampledAmplitude,
     HermiteIntervalMass.gridPoint_central, HermiteIntervalMass.smoothInitial_zero]
+
+end ConcreteWordFixtures
 
 #print axioms raw_value
 #print axioms raw_contract

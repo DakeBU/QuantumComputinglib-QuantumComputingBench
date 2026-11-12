@@ -1,0 +1,37 @@
+{
+  "schema": "C350_EXPLICIT_C341_SOURCE_ANALYSIS_CORRECTION_V1",
+  "corrected_original_analysis_sha256": "f0db0e36c3abc23fde67a5602d1bfdcb77de2b3a2f48437f0191bb9b2474d8a9",
+  "corrected_original_manifest_sha256": "a4e1826b3631286de167c64f6ee9bb32d24ab9b6adc9fe83cffedae396deb71a",
+  "original_bytes_and_claims_retained": true,
+  "incorrect_text": "C341 ANALYSIS actual exponential input is -p^2; manifest finite-exp scope_note and source_API_inventory description repeat this error.",
+  "correct_literal_branches": {
+    "left": "p < -1: negativeMidpoint p delta approximates exp(p)",
+    "middle": "-1 <= p <= 0: middleValueQ uses expMidpoint delta at fixed q=-1",
+    "right": "p > 0: negativeMidpoint (-p) delta approximates exp(-p)"
+  },
+  "original_target_not_Gaussian": true,
+  "all_actual_exponential_inputs_nonpositive": true,
+  "checked_sources": [
+    {
+      "path": "experiments/hermite-polynomial/precision/piecewise-source-budget/PiecewiseSourceBudget.lean",
+      "sha256": "d821b555e0450ee74456b7ea842a918a1e7ffb58bda3afcbc65bfd2998f0f0c2",
+      "parent_read": "lines1-120 including literal piecewiseValue and piecewise_error proof"
+    },
+    {
+      "path": "experiments/hermite-polynomial/precision/finite-middle-source/FiniteMiddleSource.lean",
+      "sha256": "84758df46e2fe7aebecb5e85f11b9378492515f6ed7d5604e8b1847aa3a7341d",
+      "parent_read": "lines1-40 including expMidpoint fixed -1"
+    },
+    {
+      "path": "QuantumBlockEncoding/HermitePolynomial.lean",
+      "sha256": "f8a3e1d5f29aed1228b6ede3577a9af1e76301559172ee67a266fcb0d56fee1e",
+      "parent_read": "smoothInitial and left/middle/right definitions and theorems"
+    }
+  ],
+  "complete_enclosure_domain_changed": false,
+  "existing_error_budget_changed": false,
+  "existing_epsilon_half_theorem_changed": false,
+  "scientific_target_changed": false,
+  "new_compilation_or_scientific_ROOT": false,
+  "correction_scope": "Source-analysis prose only; no source code or old artifact mutation. Parent intake hash matching alone did not catch this semantic mistake."
+}

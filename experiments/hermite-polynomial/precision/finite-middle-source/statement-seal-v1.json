@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "cycle": 16,
+  "status": "STATEMENT_SEALED_BEFORE_PROOF",
+  "declaration_level": "C_INTERNAL_PROVIDER",
+  "direction_fingerprint": "rational-middle-cast-and-amplification",
+  "verified_memory_digest": "5a8f47f8d0afd1d4f957e55babde52a9e9c01babf05c481b988e99ebca2f7758",
+  "namespace": "HermiteFiniteMiddleSource",
+  "definitions_literal": {
+    "coefficientQ (k i : Nat) : Rat": "ExperimentalCoefficientRange.sourceNumerator k i / k.factorial",
+    "coefficientPolynomialQ (k : Nat) : Polynomial Rat": "sum i in range(k+1), monomial i (coefficientQ k i)",
+    "endpointPolynomialQ (k : Nat) : Polynomial Rat": "(1-X)^(k+1)*coefficientPolynomialQ k",
+    "middlePolynomialQ (k : Nat) (e : Rat) : Polynomial Rat": "C e * (endpointPolynomialQ k).comp (X+1) + (endpointPolynomialQ k).comp (-X)",
+    "expMidpoint (delta : Rat) : Rat": "let I := HermiteFiniteExp.bounds (-1) (tailCutoff delta) (HermiteFiniteExpDegree.sourceDegree delta); (I.1+I.2)/2",
+    "sourcePolynomial (k : Nat) (delta : Rat) : Polynomial Rat": "middlePolynomialQ k (expMidpoint delta)",
+    "amplificationQ (k : Nat) : Rat": "(k+1)^2*2^(2*k)"
+  },
+  "signatures": [
+    "coefficientQ_cast (k i : Nat) (hi : i <= k) : (coefficientQ k i : Real) = HermiteBernstein.sourceCoefficient k i",
+    "coefficientQ_formula (k i : Nat) (hi : i <= k) : coefficientQ k i = sum m in range(i+1), (Nat.choose (k+i-m) k : Rat)/(m.factorial : Rat)",
+    "coefficientPolynomialQ_eval (k : Nat) (t : Real) : (coefficientPolynomialQ k).eval₂ (Rat.castHom Real) t = (HermitePolynomial.coefficientPolynomial k).eval t",
+    "endpointPolynomialQ_eval (k : Nat) (t : Real) : (endpointPolynomialQ k).eval₂ (Rat.castHom Real) t = (1-t)^(k+1)*(HermitePolynomial.coefficientPolynomial k).eval t",
+    "middlePolynomialQ_eval (k : Nat) (e : Rat) (p : Real) : (middlePolynomialQ k e).eval₂ (Rat.castHom Real) p = (e : Real)*(1-(p+1))^(k+1)*(HermitePolynomial.coefficientPolynomial k).eval (p+1) + (p+1)^(k+1)*(HermitePolynomial.coefficientPolynomial k).eval (1-(p+1))",
+    "coefficientPolynomial_bound (k : Nat) (t : Real) (ht : t in Set.Icc 0 1) : (HermitePolynomial.coefficientPolynomial k).eval t in Set.Icc 0 (amplificationQ k : Real)",
+    "endpointFactor_bound (k : Nat) (t : Real) (ht : t in Set.Icc 0 1) : (1-t)^(k+1)*(HermitePolynomial.coefficientPolynomial k).eval t in Set.Icc 0 (amplificationQ k : Real)",
+    "expMidpoint_error (delta : Rat) (hd : 0 < delta) : abs((expMidpoint delta : Real)-Real.exp(-1)) <= (delta : Real)/2",
+    "middle_error (k : Nat) (delta : Rat) (p : Real) (hp : p in Set.Icc (-1) 0) (hd : 0 < delta) : abs((sourcePolynomial k delta).eval₂ (Rat.castHom Real) p-HermitePolynomial.smoothInitial k p) <= (delta : Real)/2*(amplificationQ k : Real)",
+    "middle_central (k : Nat) (delta : Rat) : (sourcePolynomial k delta).eval 0 = 1"
+  ],
+  "binder_audit": {"TYPING": ["k,i natural", "delta,e finite rational", "p,t real"], "SOURCE": ["valid coefficient index i<=k", "t in [0,1]", "p in [-1,0]", "positive scalar interval-width delta"], "EXCESS": []},
+  "proof_ingredients_dependencies_not_hypotheses": ["sourceNumerator_value including factorial denominator", "sourceCoefficient_upper", "coefficientPolynomial_eval", "sourceInterpolant_eval", "complete_enclosure"],
+  "source_formula_classification": "Literal exact finite rational reconstruction of the existing coefficient series; midpoint substitution is a separately labelled approximate supplier, not a replacement of original smoothInitial or targetVector.",
+  "frozen_quantum_boundary": "Original signed function values, piL grid, normalization, q0 LSB, full final garbage, no phase quotient or free oracle unchanged. This arithmetic supplier does not construct any circuit.",
+  "not_claimed": ["Global normalized-state epsilon", "grid storage refinement", "TT/QR compiler", "runtime or intermediate bit cost", "Source Anchor/ROOT/admission/purification"]
+}

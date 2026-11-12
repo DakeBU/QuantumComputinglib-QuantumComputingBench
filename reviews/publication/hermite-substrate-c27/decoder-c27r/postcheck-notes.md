@@ -1,0 +1,11 @@
+# Post-check boundary notes
+
+Lean runtime was independently queried: version 4.33.0, x86_64-w64-windows-gnu, release commit d8b18978322de05a8f3dba51ef03cf5461676c17. The version-only invocation is separate from the fourteen proof/probe invocations in the private call ledger.
+
+All five actual-source fresh compiles succeeded at their first invocation. The five public-root probe families ultimately succeeded, checking all 71 named public roots. The supplemental private-root probe succeeded for all four exact environment names, using actual #check and #print axioms elaborators. There were three diagnostic assembly failures, all retained as such; none was a failed production theorem.
+
+The numerical work bounds are statements about the explicitly annotated Run cost functions. In particular decode's eight-comparison charge and storedBlock's eight-comparison tag-dispatch charge are fixed conservative annotations. The compiler did not independently extract a primitive operational trace of bondEquiv and prove its true machine comparison count below that annotation. Its elaborated equality/value and cost expressions are checked; finite-bit runtime refinement remains outside this evidence.
+
+The initial seal includes source/import/scope inventories, toolchain/dependency configuration hashes, and 57 transitive project input source/olean bindings. It was written before the first proof command. A separate execution configuration attestation, explicitly timestamped by lifecycle rather than pretending to be an initial event, was added after the first fresh compilation and records the then-existing setup JSON hashes. Probe source revisions and failures are separately bound by the private invocation ledger. No old mathematical review was used to establish this reconstruction.
+
+Private local support files are not publication material: audit.py contains local paths; setup files contain exact artifact locations; private logs and the private call ledger retain complete local commands and failure locations. Only reconstruction, neutral public seals/summary/packet, this note, the failure record and successfully generated public logs are intended for parent-side publication assembly. No author-packet digest or source-equivalence verdict has been invented.

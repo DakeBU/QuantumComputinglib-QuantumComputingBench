@@ -68,7 +68,9 @@ theorem tailChain_maxBond {D : Nat} (K : Kernel D) (right : Fin D → ℝ)
 theorem ofKernel_maxBond {D : Nat} (K : Kernel D) (left right : Fin D → ℝ)
     (start n : Nat) : maxBond (ofKernel K left right start n) ≤ max D 1 := by
   cases n with
-  | zero => simp [ofKernel, tailChain, closeLeft, maxBond]
+  | zero =>
+    change 1 ≤ max D 1
+    exact le_max_right _ _
   | succ n => exact max_le (le_max_right _ _) (tailChain_maxBond K right (start + 1) n)
 
 /-- Number of entries in the explicit dense *local* cores. -/

@@ -88,6 +88,7 @@ theorem warmRobinFigure4PrepareHighContext_iff
           (warmRobinFigure4SystemBits column, (column 7, column 8)) := by
   native_decide +revert
 
+set_option backward.isDefEq.respectTransparency false in
 theorem warmRobinFigure4PrepareHighPhysical_eval :
     evalPrimitiveGate (.ry (2 : Fin 9) warmRobinUniformSevenHighAngle) =
       _root_.Matrix.reindexAlgEquiv ℂ ℂ
@@ -135,6 +136,7 @@ theorem warmRobinFigure4PrepareMiddleContext_iff
           (warmRobinFigure4SystemBits column, (column 7, column 8)) := by
   native_decide +revert
 
+set_option backward.isDefEq.respectTransparency false in
 theorem warmRobinFigure4PrepareMiddlePhysical_eval :
     controlledRyBlockMatrix warmRobinFigure4PrepareMiddleWires 1
         warmRobinFigure4PrepareMiddleWires_ne_target
@@ -194,6 +196,7 @@ theorem warmRobinFigure4PrepareLowContext_iff
           (warmRobinFigure4SystemBits column, (column 7, column 8)) := by
   native_decide +revert
 
+set_option backward.isDefEq.respectTransparency false in
 theorem warmRobinFigure4PrepareLowPhysical_eval :
     controlledRyBlockMatrix warmRobinFigure4PrepareLowWires 0
         warmRobinFigure4PrepareLowWires_ne_target

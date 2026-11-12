@@ -1,0 +1,22 @@
+{
+  "task": "SP-HERMITE-POLY-002",
+  "level": "C_INTERNAL_PROVIDER_NOT_PUBLIC_SOURCE_ANCHOR",
+  "version": 1,
+  "direction_fingerprint": "actual-rational-five-way-source/binomial-LSB-comparison/directsum-stored-window",
+  "expected_information_gain": "Discharge source decomposition before matrix work, and test a formula-derived rational local table producer against all finite words without enumerating those words during production.",
+  "inputs": ["PiecewiseSourceBudget.lean", "ConsumerChecks.lean", "FiniteExp.lean", "FiniteExpDegree.lean", "HermiteTransferCores.lean", "MatrixProductChain.lean", "StoredMatrixProductChain.lean"],
+  "frozen_target": "Same literal piecewiseValue on rationalGrid with p<-1, middle includes[-1,0], right p>0; exact signed rational values. Original piL normalized target is unchanged and outside this table-producer interface.",
+  "exact_signatures": [
+    "negativeMidpoint_split (q delta : Rational) : negativeMidpoint q delta = if q <= -(tailCutoff delta : Rational) then tailRadius (tailCutoff delta)/2 else poly q (sourceDegree delta)",
+    "five_components (k : Nat) (delta p : Rational) : piecewiseValue k delta p = A*C*c + A*(1-C)*F(p) + (1-A)*B*M(p) + (1-B)*D*c + (1-B)*(1-D)*F(-p)",
+    "generated_window (k n : Nat) (R delta : Rational) : StoredMatrixProductChain.Window (generatedTables k n R delta).value (kernel k n R delta) 0",
+    "returned_chain_refines (k n : Nat) (R delta : Rational) : denoteChain (produce k n R delta).value = MatrixProductChain.ofKernel (kernel k n R delta) (leftBoundary k delta) (rightBoundary k n R delta) 0 n"
+  ],
+  "binder_audit": {"TYPING": ["natural k,n and finite bit/bond/table indices", "rational R,delta,p,q"], "SOURCE": [], "EXCESS": [], "expanded_logical_inputs": "No supplied mask correctness, TT witness, rank, source approximation, normalization, oracle, storage window or cost premise in public producer theorem. General auxiliary matrix algebra may be conditional but is not promoted as actual producer correctness."},
+  "definition_audit": {"all_definitions": "literal", "no_choice": "Rational entries are explicit finite sums, binomial/factorial and positional powers. Real casts/storage reuse existing noncomputable exact-real API; that API is not an executable finite-bit program."},
+  "conventions": {"bits": "q0 LSB; chronological cores process q0 then q1. A more significant unequal bit overrides the current three-state comparison; no output bit reversal.", "cuts": "Nat cuts clipped to 0..2^(n+1), including endpoint N distinct from n-bit FinN", "T": "tailCutoff delta may be0 or1; no interval ordering premise", "dimension": "Candidate conservative18*(d+1)+9*(m+1)+18; not asserted until actual representation agrees."},
+  "source_topology": {"NODE": ["literal negative midpoint active versus clipped", "actual five-component branch identity", "formula rational threshold cuts", "LSB three-state comparison", "binomial translation", "tensor product masks and direct sum", "stored finite window", "same returned boundary chain"], "SOURCE_GAP": ["full arbitrary-width kernel contraction to actual source pending", "uniform finite-bit arithmetic/resource and downstream QR/circuit supplier"], "EXCLUDED": ["original source error already separate reviewed provider", "quantum normalization/QR/primitive circuit", "physical synthesis"]},
+  "alternatives": ["Existing exact exponential TT is retained for its different exact source; its rank is not inherited", "Bernstein restriction route remains separate design-only OR route"],
+  "scientific_ROOT": false,
+  "proof_search_started_after_this_seal": true
+}

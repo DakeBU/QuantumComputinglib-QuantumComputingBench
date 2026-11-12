@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "statement_version": 1,
+  "state": "INTERNAL_PROVIDER_SEALED_BEFORE_ALLOCATOR_PROOF_OR_API_SEARCH",
+  "task": "SP-HERMITE-POLY-002",
+  "cycle": 12,
+  "identity": "/root/hermite_dyadic_supplier",
+  "direction_fingerprint": "rational-input-global-budget-to-same-angle-list",
+  "expected_information_gain": "Remove arbitrary-real epsilon precision selection from the finite-data budget-to-dyadic-list path, without claiming source-angle enclosure generation or QR closure.",
+  "verified_memory_digest": "5a8f47f8d0afd1d4f957e55babde52a9e9c01babf05c481b988e99ebca2f7758",
+  "bootstrap": {
+    "task_sha256": "07f53397e16021ee970ad3a698ea1c3e6c30cdf09de5e72403dc95c893f0b526",
+    "cycle11_aggregate_sha256": "d0bb5e80c434f9957f8464f332dc12e6097bfc4cbdb94134fde3ff2090affea5"
+  },
+  "immutable_dependencies": {
+    "SafeEnclosure.lean": "959d39bcea8150db22be07560a5f12ab7055bbc6e2594cf2f923f88133db8d6a",
+    "DyadicSupplier.lean": "da741bb844d8ee809ab95e40ebdc3c3f003f4138cec6ebe67e3447ebebf69968",
+    "GlobalAssembly.lean": "ad6d6ebca61a27c6c7e89dd305cc9be161ea0f8bb326ecb9af9ebddc15172624"
+  },
+  "definition_kind": "Literal computable Nat/Rat/Int allocator and Option composition; no exact-real evaluation or classical choice determines epsilon-dependent output.",
+  "algorithm": {
+    "coefficientNat": "24*(n+1)*(2*k+6)^3 : Nat, with nphysical=n+1 and D=2*k+6",
+    "ceilingThreshold": "Nat.ceil ((coefficientNat k n : Rat)/epsilon), using the computable rational FloorSemiring implementation, which evaluates rational numerator/denominator integer ceiling; its actual computational implementation must be exposed and executed, not assumed as a real evaluator.",
+    "bits": "Nat.clog 2 (max 1 (ceilingThreshold k n epsilon))",
+    "allocate": "If 0<epsilon:Rat then some(bits k n epsilon), else none.",
+    "supplyBudget": "For exact finite PrimitiveCircuit and rational interval list, bind allocate to b, then frozen SafeEnclosure.supplyCircuit b exact intervals to returned, and return some(b,returned); failure returns none."
+  },
+  "sealed_interfaces": {
+    "coefficientNat_cast": "forall k n : Nat, (coefficientNat k n : Real)=DyadicSupplier.errorCoefficient k n",
+    "ceilingThreshold_bound": "forall k n : Nat, epsilon:Rat, (coefficientNat k n : Rat)/epsilon <= (ceilingThreshold k n epsilon : Rat)",
+    "bits_pow_bound": "forall k n : Nat, epsilon:Rat, ceilingThreshold k n epsilon <= 2^(bits k n epsilon)",
+    "bits_error_rat": "forall k n : Nat, epsilon:Rat, 0<epsilon -> (coefficientNat k n : Rat)/(2:Rat)^(bits k n epsilon) <= epsilon",
+    "bits_error_real": "forall k n : Nat, epsilon:Rat, 0<epsilon -> DyadicSupplier.errorCoefficient k n/(2:Real)^(bits k n epsilon) <= (epsilon:Real)",
+    "allocate_positive": "forall k n epsilon, 0<epsilon -> allocate k n epsilon=some(bits k n epsilon)",
+    "allocate_nonpositive": "forall k n epsilon, epsilon<=0 -> allocate k n epsilon=none",
+    "bits_size_bound": "forall k n epsilon, bits k n epsilon <= Nat.size(max 1 (ceilingThreshold k n epsilon))",
+    "allocated_numerator_bits": "forall k n epsilon lo hi, Nat.size((SafeEnclosure.nearestNumerator (bits k n epsilon) lo hi).natAbs) <= Nat.size(lo.num.natAbs+hi.num.natAbs+1)+Nat.size(max 1 (ceilingThreshold k n epsilon))",
+    "supplyBudget_positive": "For 0<epsilon and supplyCircuit (bits k n epsilon) exact intervals=some returned, supplyBudget k n epsilon exact intervals=some(bits k n epsilon,returned)",
+    "supplyBudget_nonpositive": "For epsilon<=0, supplyBudget k n epsilon exact intervals=none",
+    "hermite_internal_supplier": "For k n:Nat,L:Real,hL:0<L,epsilon:Rat,he:0<epsilon and rational intervals, if intervals.length equals actual GlobalAssembly.compile RY count, ValidIntervals (bits k n epsilon) intervals and Sound actual-list intervals, then exists returned with supplyBudget k n epsilon actual-list intervals=some(bits k n epsilon,returned), identical returned.resource and eraseRyAngle chronology, and full Euclidean column error to frozen DyadicSupplier.target k n L <= (epsilon:Real). Actual successful return is obtained internally via frozen supplyCircuit_complete, not an input assumption."
+  },
+  "binder_audit": "Nat/Rat carriers and physical dimensions are TYPING. epsilon positivity is the requested rational budget domain, enforced by executable Option validation. Interval arity/validity/Sound are explicitly unresolved INTERNAL producer conditions, never new SOURCE/STANDING assumptions of a public Hermite Anchor. State action/count/normalization/alignment and return/resource facts are dependency edges; no caller alignment or external success certificate is added.",
+  "target_boundary": "Same normalized signed Hermite function values, q0 LSB, nphysical=n+1, full garbage coordinates and terminal bond-zero target. No phase quotient, replacement state, free oracle, postselection or amplitude-only endpoint.",
+  "output_and_cost_boundary": "Prove logarithmic allocator-bit bound and reuse endpoint-numerator-dependent dyadic output bounds. Actual rational ceil is executable but operand reduction/GCD/division/clog costs, denominator/intermediate bit-growth, input decoding, source L representation, producer refinement and total preprocessing runtime are not certified by output-grid bits.",
+  "required_regressions": ["epsilon=0 rejected", "negative epsilon rejected", "positive integer and fractional budgets", "budget exceeding A returns b=0", "very small rational epsilon", "large epsilon numerator", "k=0,n=0 minimal physical shape", "larger k and n", "same computed budget consumed by actual finite primitive list", "missing/extra/invalid intervals rejected"],
+  "upstream_remaining": "Actual source-to-finite-list refinement; sound rational source/QR/angle enclosure generation at demanded b; all source error components allocated and composed into one global budget; input/intermediate denominator and total operation/bit runtime certificates; serialization and physical synthesis.",
+  "context_disclosure": "Reused distinct worker context; author of frozen SafeEnclosure and DyadicSupplier. This is not an independent review of those dependencies. Root owns aggregate integration and distinct review.",
+  "version_rule": "Preserve v1 bytes. Any later new or materially changed interface must receive a separately stored versioned pre-proof delta before its proof/search, not a retrospective seal amendment.",
+  "ownership": "Only new precision/rational-budget subtree and explicitly authorized ignored SafeEnclosure dependency cache generation. No old source/review/config/controller/registry/ledger edits, commits, push, main or publication promotion."
+}

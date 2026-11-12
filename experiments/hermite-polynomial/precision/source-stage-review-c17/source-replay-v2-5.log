@@ -1,0 +1,80 @@
+QuantumBlockEncoding.ExperimentalCoefficientRange.sourceCoefficient_upper (k i : ℕ) (hi : i ≤ k) :
+  sourceCoefficient k i ≤ (↑k + 1) * 2 ^ (2 * k)
+QuantumBlockEncoding.ExperimentalCoefficientRange.leftCoefficient_upper (k r : ℕ) : leftCoefficient k r ≤ coarseBound k
+QuantumBlockEncoding.ExperimentalCoefficientRange.sourceBernsteinCoefficient_range (k r : ℕ) :
+  sourceBernsteinCoefficient k r ∈ Set.Icc 0 (2 * coarseBound k)
+QuantumBlockEncoding.ExperimentalCoefficientRange.restricted_source_range (k : ℕ) (u v : ℝ) (hu : 0 ≤ u) (huv : u < v)
+  (hv : v ≤ 1) (r : ℕ) (hr : r ≤ 2 * k + 1) :
+  restrictCoefficients (2 * k + 1) u v (sourceBernsteinCoefficient k) r ∈ Set.Icc 0 (2 * coarseBound k)
+QuantumBlockEncoding.ExperimentalCoefficientRange.factorial_output_bound (k : ℕ) : k.factorial ≤ factorialEnvelope k
+QuantumBlockEncoding.ExperimentalCoefficientRange.commonDenominator_bound (k r : ℕ) :
+  commonDenominator k r ≤ factorialEnvelope k * 2 ^ (2 * k + 1)
+QuantumBlockEncoding.ExperimentalCoefficientRange.commonDenominator_pos (k r : ℕ) (hr : r ≤ 2 * k + 1) :
+  0 < commonDenominator k r
+'QuantumBlockEncoding.ExperimentalCoefficientRange.sourceCoefficient_upper' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalCoefficientRange.leftCoefficient_upper' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalCoefficientRange.sourceBernsteinCoefficient_range' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalCoefficientRange.restricted_source_range' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalCoefficientRange.factorial_output_bound' depends on axioms: [propext]
+'QuantumBlockEncoding.ExperimentalCoefficientRange.commonDenominator_bound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalCoefficientRange.commonDenominator_pos' depends on axioms: [propext]
+QuantumBlockEncoding.ExperimentalCoefficientRange.sourceNumerator_value (k i : ℕ) (hi : i ≤ k) :
+  sourceCoefficient k i = ↑(sourceNumerator k i) / ↑k.factorial
+QuantumBlockEncoding.ExperimentalCoefficientRange.leftNumerator_value (k r : ℕ) :
+  leftCoefficient k r = ↑(leftNumerator k r) / ↑(commonDenominator k r)
+QuantumBlockEncoding.ExperimentalCoefficientRange.leftNumerator_bound (k r : ℕ) (hr : r ≤ 2 * k + 1) :
+  leftNumerator k r ≤ (k + 1) ^ 2 * 2 ^ (3 * k) * commonDenominator k r
+QuantumBlockEncoding.ExperimentalCoefficientRange.commonDenominator_binary_bound (k r : ℕ) :
+  commonDenominator k r ≤ 2 ^ (k * (k + 1) + 2 * k + 1)
+QuantumBlockEncoding.ExperimentalCoefficientRange.leftNumerator_binary_bound (k r : ℕ) (hr : r ≤ 2 * k + 1) :
+  leftNumerator k r ≤ 2 ^ ((k + 2) * (k + 1) + k * (k + 1) + 5 * k + 1)
+'QuantumBlockEncoding.ExperimentalCoefficientRange.sourceNumerator_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalCoefficientRange.leftNumerator_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalCoefficientRange.leftNumerator_bound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalCoefficientRange.commonDenominator_binary_bound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalCoefficientRange.leftNumerator_binary_bound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+QuantumBlockEncoding.ExperimentalCoefficientRange.fromConstant_range (k : ℕ) (e : ℝ) (he : e ∈ Set.Icc 0 1)
+  (r : Fin (2 * k + 2)) : (StoredHermiteCoefficients.fromConstant k e).value[↑r] ∈ Set.Icc 0 (2 * coarseBound k)
+QuantumBlockEncoding.ExperimentalCoefficientRange.rationalSource_value (k r p q : ℕ) (hr : r ≤ 2 * k + 1) (hq : 0 < q) :
+  ↑p / ↑q * leftCoefficient k r + leftCoefficient k (2 * k + 1 - r) =
+    ↑(rationalSourceNumerator k r p q) / ↑(rationalSourceDenominator k r q)
+QuantumBlockEncoding.ExperimentalCoefficientRange.rationalSourceDenominator_pos (k r q : ℕ) (hr : r ≤ 2 * k + 1)
+  (hq : 0 < q) : 0 < rationalSourceDenominator k r q
+QuantumBlockEncoding.ExperimentalCoefficientRange.rationalSourceDenominator_bound (k r q : ℕ) :
+  rationalSourceDenominator k r q ≤ q * 2 ^ (2 * (k * (k + 1) + 2 * k + 1))
+QuantumBlockEncoding.ExperimentalCoefficientRange.rationalSourceNumerator_bound (k r p q : ℕ) (hr : r ≤ 2 * k + 1) :
+  rationalSourceNumerator k r p q ≤ (p + q) * 2 ^ ((k + 2) * (k + 1) + 2 * k * (k + 1) + 7 * k + 2)
+'QuantumBlockEncoding.ExperimentalCoefficientRange.fromConstant_range' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalCoefficientRange.rationalSource_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalCoefficientRange.rationalSourceDenominator_pos' depends on axioms: [propext]
+'QuantumBlockEncoding.ExperimentalCoefficientRange.rationalSourceDenominator_bound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'QuantumBlockEncoding.ExperimentalCoefficientRange.rationalSourceNumerator_bound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+warning: verso: repository '<repo>\.lake/packages\verso' has local changes

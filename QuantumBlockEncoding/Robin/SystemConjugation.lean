@@ -229,7 +229,6 @@ theorem cleanSystemBlock_conjugateSystem
   rw [_root_.Matrix.mul_apply]
   apply Finset.sum_congr rfl
   intro intermediate _
-  rw [_root_.Matrix.mul_apply]
-  simp
+  congr 1
 
 end QuantumBlockEncoding.Robin.ComplexLCU

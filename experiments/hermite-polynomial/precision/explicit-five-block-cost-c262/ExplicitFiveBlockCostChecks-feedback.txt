@@ -1,0 +1,8 @@
+HermiteExplicitCachedStored.produceExplicitStored_cost_counters (k n : ℕ) (R delta : ℚ) :
+  have result := produceExplicitStored k n R delta;
+  StoredRectangularGivens.total result.run.cost ≤ frontierBudget k n delta ∧
+    result.quotientCalls ≤ 14 * (n + 1) * assemblySize k delta ^ 2 + 4 * assemblySize k delta ∧
+      result.remainderCalls ≤ 14 * (n + 1) * assemblySize k delta ^ 2 + 4 * assemblySize k delta
+'HermiteExplicitCachedStored.produceExplicitStored_cost_counters' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

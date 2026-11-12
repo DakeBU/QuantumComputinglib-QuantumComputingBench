@@ -72,6 +72,7 @@ theorem exists_core_lq {l r : ℕ} (A : Core l r) :
   obtain ⟨R, Q, hA, hQ⟩ := ThinLQ.exists_thin_lq (fun a j => A a (e.symm j))
   refine ⟨R, fun a j => Q a (e j), ?_, ?_⟩
   · ext a j
+    change A a j = ∑ b, R a b * Q b (e j)
     simpa only [Equiv.symm_apply_apply, _root_.Matrix.mul_apply] using
       congrFun (congrFun hA a) (e j)
   · ext a b
@@ -142,7 +143,9 @@ noncomputable def chainMass {n l r : ℕ} (C : Chain n l r) (v : Fin l → ℝ) 
 theorem chainMass_eq {n l r : ℕ} (C : Chain n l r) (hC : RightCanonical C)
     (v : Fin l → ℝ) : chainMass C v = mass v := by
   induction C with
-  | nil r => simp [chainMass, contract, Word]
+  | nil r =>
+    change (∑ _ : Unit, mass (_root_.Matrix.vecMul v (1 : _root_.Matrix (Fin r) (Fin r) ℝ))) = mass v
+    simp
   | @cons n l m r A C ih =>
     obtain ⟨hA, hC⟩ := hC
     change (∑ x : Fin 2 × Word n,

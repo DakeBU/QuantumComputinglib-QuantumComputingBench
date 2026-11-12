@@ -1,0 +1,244 @@
+{
+  "schema_version": 1,
+  "role": "later formal-only packet v2 binding bridge",
+  "decoder_identity": "hcr-decoder-c24",
+  "direction_fingerprint": "HCR_AFFINE_CUT_SIGNED_THRESHOLD_AND_RANK_ONLY",
+  "initial_formal_input_seal_sha256": "7c29e0242ae949324338c1863fdb7d48484cbd2cbe3c11ae1f1141f2398af531",
+  "prior_later_bridge_sha256": "2df1e6d27c66f2777bdf5259d8a6f2c7e7ae14ad6d429f58b6ae1e72dbcad7c4",
+  "packet_path": "reviews/publication/hermite-cut-rank/author-decoder-packet-v2.json",
+  "packet_sha256": "d3554a962721b44b228f6e5c29966973c295af538ed66758b098f6432c2bf7c8",
+  "formal_context_path": "reviews/publication/hermite-cut-rank/author-formal-context-v2.json",
+  "formal_context_sha256": "37831aec1c838ac37490386b1145b904976916e1419295cfd2d519667adf3eb0",
+  "opaque_binding": "4c21761e76780c5f175e4416bb26bb01f1b6b12cf72b703eb0c0bb6f6d687727",
+  "opaque_recomputed": false,
+  "timing": "v2 read after unchanged independent initial seal, first compiler resource failure and mathematical draft; no prior-packet claim",
+  "context_metadata": [
+    {
+      "property": "schema_version",
+      "value": 1
+    },
+    {
+      "property": "role",
+      "value": "formal-context-snapshot-not-reconstruction"
+    },
+    {
+      "property": "target_module",
+      "value": "QuantumBlockEncoding/HermiteCutRank.lean"
+    },
+    {
+      "property": "module_sha256",
+      "value": "4953db6b9d5e255f0dd63094a243ef7bb6685053e86e920ffe02552faee86ce0"
+    },
+    {
+      "property": "source_lexical_not_elaborated_types",
+      "value": true
+    },
+    {
+      "property": "ambient_context_boundary",
+      "value": "Actual formal Mathlib sources are available and must be expanded as needed. This snapshot is not a complete transitive source closure or a cache attestation."
+    },
+    {
+      "property": "fresh_Lean_execution",
+      "value": false
+    },
+    {
+      "property": "lexical_extraction",
+      "value": "first := at balanced (),[],{} depth zero; source_exact/full_source_lines remain authoritative, not elaborated types"
+    },
+    {
+      "property": "supersedes",
+      "value": "author-formal-context.json; named-argument := was incorrectly split as a declaration body assignment"
+    }
+  ],
+  "files": [
+    {
+      "path": "QuantumBlockEncoding/HermiteCutRank.lean",
+      "sha256": "4953db6b9d5e255f0dd63094a243ef7bb6685053e86e920ffe02552faee86ce0",
+      "actual_sha_matches": true,
+      "initial_seal_matches": true,
+      "snapshot_declared_hash_matches": true,
+      "v1_snapshot_text_unchanged": true,
+      "snapshot_reconstruction_instruction": "Concatenate full_source_lines without separator to recover exact UTF-8 source."
+    },
+    {
+      "path": "QuantumBlockEncoding/HermitePolynomial.lean",
+      "sha256": "f8a3e1d5f29aed1228b6ede3577a9af1e76301559172ee67a266fcb0d56fee1e",
+      "actual_sha_matches": true,
+      "initial_seal_matches": true,
+      "snapshot_declared_hash_matches": true,
+      "v1_snapshot_text_unchanged": true,
+      "snapshot_reconstruction_instruction": "Concatenate full_source_lines without separator to recover exact UTF-8 source."
+    }
+  ],
+  "declarations": [
+    {
+      "name": "QuantumBlockEncoding.HermiteCutRank.FactorsThrough",
+      "line_matches": true,
+      "source_exact_matches_actual": true,
+      "source_exact_unchanged": true,
+      "statement_source_matches_independent_seal": true,
+      "statement_source": "def FactorsThrough [Fintype ι] (F : Matrix α β ℝ) : Prop"
+    },
+    {
+      "name": "QuantumBlockEncoding.HermiteCutRank.FactorsThrough.rank_le",
+      "line_matches": true,
+      "source_exact_matches_actual": true,
+      "source_exact_unchanged": true,
+      "statement_source_matches_independent_seal": true,
+      "statement_source": "theorem FactorsThrough.rank_le [Fintype β] [Fintype ι]\n    {F : Matrix α β ℝ} (h : FactorsThrough (ι := ι) F) :\n    F.rank ≤ Fintype.card ι"
+    },
+    {
+      "name": "QuantumBlockEncoding.HermiteCutRank.polynomial_add_factorization",
+      "line_matches": true,
+      "source_exact_matches_actual": true,
+      "source_exact_unchanged": true,
+      "statement_source_matches_independent_seal": true,
+      "statement_source": "theorem polynomial_add_factorization (p : ℝ[X]) (d : ℕ)\n    (hd : p.natDegree ≤ d) (u : α → ℝ) (v : β → ℝ) :\n    FactorsThrough (ι := Fin (d + 1)) (fun x y => p.eval (u x + v y))"
+    },
+    {
+      "name": "QuantumBlockEncoding.HermiteCutRank.polynomial_add_rank_le",
+      "line_matches": true,
+      "source_exact_matches_actual": true,
+      "source_exact_unchanged": true,
+      "statement_source_matches_independent_seal": true,
+      "statement_source": "theorem polynomial_add_rank_le [Fintype β] (p : ℝ[X]) (d : ℕ)\n    (hd : p.natDegree ≤ d) (u : α → ℝ) (v : β → ℝ) :\n    Matrix.rank (fun x y => p.eval (u x + v y) : Matrix α β ℝ) ≤ d + 1"
+    },
+    {
+      "name": "QuantumBlockEncoding.HermiteCutRank.hermite_polynomial_add_rank_le",
+      "line_matches": true,
+      "source_exact_matches_actual": true,
+      "source_exact_unchanged": true,
+      "statement_source_matches_independent_seal": true,
+      "statement_source": "theorem hermite_polynomial_add_rank_le [Fintype β] (k : ℕ)\n    (u : α → ℝ) (v : β → ℝ) :\n    Matrix.rank (fun x y => (HermitePolynomial.sourceInterpolant k).eval (u x + v y) :\n      Matrix α β ℝ) ≤ 2 * k + 2"
+    },
+    {
+      "name": "QuantumBlockEncoding.HermiteCutRank.product_factorization",
+      "line_matches": true,
+      "source_exact_matches_actual": true,
+      "source_exact_unchanged": true,
+      "statement_source_matches_independent_seal": true,
+      "statement_source": "theorem product_factorization (u : α → ℝ) (v : β → ℝ) :\n    FactorsThrough (ι := Unit) (fun x y => u x * v y)"
+    },
+    {
+      "name": "QuantumBlockEncoding.HermiteCutRank.exponential_add_factorization",
+      "line_matches": true,
+      "source_exact_matches_actual": true,
+      "source_exact_unchanged": true,
+      "statement_source_matches_independent_seal": true,
+      "statement_source": "theorem exponential_add_factorization (u : α → ℝ) (v : β → ℝ) :\n    FactorsThrough (ι := Unit) (fun x y => Real.exp (u x + v y))"
+    },
+    {
+      "name": "QuantumBlockEncoding.HermiteCutRank.FactorsThrough.add",
+      "line_matches": true,
+      "source_exact_matches_actual": true,
+      "source_exact_unchanged": true,
+      "statement_source_matches_independent_seal": true,
+      "statement_source": "theorem FactorsThrough.add [Fintype ι] [Fintype κ]\n    {F G : Matrix α β ℝ} (hf : FactorsThrough (ι := ι) F)\n    (hg : FactorsThrough (ι := κ) G) :\n    FactorsThrough (ι := Sum ι κ) (fun x y => F x y + G x y)"
+    },
+    {
+      "name": "QuantumBlockEncoding.HermiteCutRank.FactorsThrough.neg",
+      "line_matches": true,
+      "source_exact_matches_actual": true,
+      "source_exact_unchanged": true,
+      "statement_source_matches_independent_seal": true,
+      "statement_source": "theorem FactorsThrough.neg [Fintype ι]\n    {F : Matrix α β ℝ} (hf : FactorsThrough (ι := ι) F) :\n    FactorsThrough (ι := ι) (fun x y => -F x y)"
+    },
+    {
+      "name": "QuantumBlockEncoding.HermiteCutRank.FactorsThrough.pointwise_mul",
+      "line_matches": true,
+      "source_exact_matches_actual": true,
+      "source_exact_unchanged": true,
+      "statement_source_matches_independent_seal": true,
+      "statement_source": "theorem FactorsThrough.pointwise_mul [Fintype ι] [Fintype κ]\n    {F G : Matrix α β ℝ} (hf : FactorsThrough (ι := ι) F)\n    (hg : FactorsThrough (ι := κ) G) :\n    FactorsThrough (ι := ι × κ) (fun x y => F x y * G x y)"
+    },
+    {
+      "name": "QuantumBlockEncoding.HermiteCutRank.blockIndex_lt_iff",
+      "line_matches": true,
+      "source_exact_matches_actual": true,
+      "source_exact_unchanged": true,
+      "statement_source_matches_independent_seal": true,
+      "statement_source": "theorem blockIndex_lt_iff (M x y T : ℕ) (hy : y < M) :\n    M * x + y < T ↔ x < T / M ∨ (x = T / M ∧ y < T % M)"
+    },
+    {
+      "name": "QuantumBlockEncoding.HermiteCutRank.threshold_factorization",
+      "line_matches": true,
+      "source_exact_matches_actual": true,
+      "source_exact_unchanged": true,
+      "statement_source_matches_independent_seal": true,
+      "statement_source": "theorem threshold_factorization (M T : ℕ) (u : α → ℕ) (v : β → ℕ)\n    (hv : ∀ y, v y < M) :\n    FactorsThrough (ι := Fin 2)\n      (fun x y => if M * u x + v y < T then (1 : ℝ) else 0)"
+    },
+    {
+      "name": "QuantumBlockEncoding.HermiteCutRank.threshold_complement_factorization",
+      "line_matches": true,
+      "source_exact_matches_actual": true,
+      "source_exact_unchanged": true,
+      "statement_source_matches_independent_seal": true,
+      "statement_source": "theorem threshold_complement_factorization (M T : ℕ) (u : α → ℕ) (v : β → ℕ)\n    (hv : ∀ y, v y < M) :\n    FactorsThrough (ι := Fin 2)\n      (fun x y => 1 - if M * u x + v y < T then (1 : ℝ) else 0)"
+    },
+    {
+      "name": "QuantumBlockEncoding.HermiteCutRank.affine_lt_cut",
+      "line_matches": true,
+      "source_exact_matches_actual": true,
+      "source_exact_unchanged": true,
+      "statement_source_matches_independent_seal": true,
+      "statement_source": "theorem affine_lt_cut (a h t : ℝ) (hh : 0 < h) (j : ℕ) :\n    a + h * (j : ℝ) < t ↔ j < Nat.ceil ((t - a) / h)"
+    },
+    {
+      "name": "QuantumBlockEncoding.HermiteCutRank.smoothInitial_strict",
+      "line_matches": true,
+      "source_exact_matches_actual": true,
+      "source_exact_unchanged": true,
+      "statement_source_matches_independent_seal": true,
+      "statement_source": "theorem smoothInitial_strict (k : ℕ) (p : ℝ) :\n    HermitePolynomial.smoothInitial k p =\n      if p < -1 then Real.exp p else\n        if p < 0 then (HermitePolynomial.sourceInterpolant k).eval p\n        else Real.exp (-p)"
+    },
+    {
+      "name": "QuantumBlockEncoding.HermiteCutRank.HermiteBond",
+      "line_matches": true,
+      "source_exact_matches_actual": true,
+      "source_exact_unchanged": true,
+      "statement_source_matches_independent_seal": true,
+      "statement_source": "abbrev HermiteBond (k : ℕ)"
+    },
+    {
+      "name": "QuantumBlockEncoding.HermiteCutRank.hermiteBond_card",
+      "line_matches": true,
+      "source_exact_matches_actual": true,
+      "source_exact_unchanged": true,
+      "statement_source_matches_independent_seal": true,
+      "statement_source": "theorem hermiteBond_card (k : ℕ) : Fintype.card (HermiteBond k) = 8 * k + 12"
+    },
+    {
+      "name": "QuantumBlockEncoding.HermiteCutRank.hermite_affine_factorization",
+      "line_matches": true,
+      "source_exact_matches_actual": true,
+      "source_exact_unchanged": true,
+      "statement_source_matches_independent_seal": true,
+      "statement_source": "theorem hermite_affine_factorization (k M : ℕ) (a h : ℝ) (hh : 0 < h)\n    (u : α → ℕ) (v : β → ℕ) (hv : ∀ y, v y < M) :\n    FactorsThrough (ι := HermiteBond k)\n      (fun x y => HermitePolynomial.smoothInitial k\n        (a + h * ((M * u x + v y : ℕ) : ℝ)))"
+    },
+    {
+      "name": "QuantumBlockEncoding.HermiteCutRank.hermite_affine_cut_rank_le",
+      "line_matches": true,
+      "source_exact_matches_actual": true,
+      "source_exact_unchanged": true,
+      "statement_source_matches_independent_seal": true,
+      "statement_source": "theorem hermite_affine_cut_rank_le [Fintype β] (k M : ℕ) (a h : ℝ) (hh : 0 < h)\n    (u : α → ℕ) (v : β → ℕ) (hv : ∀ y, v y < M) :\n    Matrix.rank (fun x y => HermitePolynomial.smoothInitial k\n      (a + h * ((M * u x + v y : ℕ) : ℝ))) ≤ 8 * k + 12"
+    },
+    {
+      "name": "QuantumBlockEncoding.HermiteCutRank.FactorsThrough.scale",
+      "line_matches": true,
+      "source_exact_matches_actual": true,
+      "source_exact_unchanged": true,
+      "statement_source_matches_independent_seal": true,
+      "statement_source": "theorem FactorsThrough.scale [Fintype ι] {F : Matrix α β ℝ}\n    (hf : FactorsThrough (ι := ι) F) (c : ℝ) :\n    FactorsThrough (ι := ι) (fun x y => c * F x y)"
+    }
+  ],
+  "declaration_order_matches": true,
+  "target_toolchain_manifest_lakefile_matches": {
+    "lakefile": true,
+    "target": true,
+    "manifest": true,
+    "toolchain": true
+  },
+  "source_agreement_verdict": null,
+  "publication_verdict": null
+}

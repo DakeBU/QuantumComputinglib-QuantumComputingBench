@@ -1,0 +1,117 @@
+{
+  "schema": "aspbe-staged-provider-result-v1",
+  "status": "FOCUSED_CHECKED_STAGED_PROVIDER",
+  "class": "C_INTERNAL_PROVIDER",
+  "parent": "SP-HERMITE-POLY-002:C2",
+  "direction_fingerprint": "stored-SO-to-primitive-trace",
+  "expected_information_gain": "Close the deterministic stored square-sweep log to elementary chronological selected-RY/CX emission gap, including explicit Gray targets/controls and charged real-angle instantiation of the same returned circuit.",
+  "statement_seal": {
+    "contract": "experiments/hermite-polynomial/stored/local-so-emission-contract.json",
+    "sha256": "7d495fe66d0b281f8cc08d7cace4f2e8e7be58b8c411b86f7a16e4713f82611b",
+    "sealed_before_proof_search": true,
+    "public_extra_hermite_premises": []
+  },
+  "source": {
+    "path": "experiments/hermite-polynomial/stored/LocalSOEmission.lean",
+    "sha256": "c7e92721d0b9eeb1273c099c1848038d6abb37dbc02391ee3dbe8af704d33689",
+    "namespace": "QuantumBlockEncoding.StagedLocalSOEmission",
+    "imports": ["GrayTarget", "ExplicitControls", "QuantumBlockEncoding.StoredRectangularGivens"],
+    "dependency_source_sha256": {
+      "GrayTarget.lean": "5fda7e3f710a5264b1758de38e1fd21a973130696c172e217d1bd86ea94b7fba",
+      "ExplicitControls.lean": "cda3e960dd3798f4f46dec549746d1ccbd884347d71a14e3a36c8a3517969c77"
+    }
+  },
+  "actual_returned_object": {
+    "supplier": "noncomputable def compileGray {q : Nat} (A : StoredMatrix (2^(q+1)) (2^(q+1))) : Run (PrimitiveCircuit (q+1))",
+    "input_boundary": "Already materialized square real table in Gray numeric order. The separate charged GrayTable.reindex adapter is not run or charged by this producer.",
+    "pipeline": [
+      "One StoredRectangularGivens.sweep A 0 N, with stored residual and actual elimination log obtained together; no replay or second sweep is run.",
+      "reverseInverse reads each actual returned record and its first/second/angle fields, negates the angle, and writes an inverse-record accumulator.",
+      "For each chronological inverse record, explicit discover and materialized Gray word determine target, context and signed orientation.",
+      "ExplicitControls.selected constructs the rational-coefficient RY/CX trace with increasing skip controls.",
+      "realize reads each actual rational instruction, charges Rat-to-real conversion and real angle multiplication for RY, and emits the actual real-angle elementary instruction.",
+      "StoredSelectedRyTrace.append pays for copied left spines while preserving chronological first-then-tail execution."
+    ],
+    "semantic_root": "theorem compileGray_eval {q : Nat} (A : StoredMatrix (2^(q+1)) (2^(q+1))) (hO : (denote A).transpose * denote A = 1) (hD : (denote A).det = 1) : evalPrimitiveCircuit (compileGray A).value = GrayGivensCompiler.transport (GrayBasis.equiv (q+1)) (denote A)",
+    "semantic_root_line": 200,
+    "generic_premises": "SO orthogonality and determinant +1, to be discharged by the actual completion consumer, not additional Hermite source hypotheses.",
+    "exactness": "Exact signed matrix action, not up to global phase. q+1 existing wires; no additional ancilla or oracle. GrayBasis little-endian bit convention.",
+    "chronology_and_sign": "Elimination records are reversed and angle-negated once to reconstruct A. The resulting angle is negated again precisely when the first Gray endpoint has target bit 1. Later chronological gates multiply on the left.",
+    "nonconstructive_provider_removed": "Actual producer does not use Fintype equivalence choice for control enumeration or the nonconstructively chosen original stepTarget. The proof identifies explicit discover with stepTarget; selected controls are explicit stored increasing-skip wires. Real-valued operations and generic semantics remain noncomputable exact-real definitions, not finite-bit code."
+  },
+  "checked_interfaces": {
+    "soLog_value": "theorem soLog_value {N : Nat} (A : StoredMatrix N N) : (soLog A).value = AdjacentGivens.decomposeSO (denote A)",
+    "soLog_length": "theorem soLog_length {N : Nat} (A : StoredMatrix N N) : (soLog A).value.length = N*(N-1)/2",
+    "plane_eval": "theorem plane_eval {q : Nat} (step : AdjacentGivens.Step (2^(q+1))) : evalPrimitiveCircuit (plane step).value = GrayGivensCompiler.transport (GrayBasis.equiv (q+1)) step.matrix",
+    "compileGray_gateCount": "theorem compileGray_gateCount {q : Nat} (A : StoredMatrix (2^(q+1)) (2^(q+1))) : (compileGray A).value.gateCount = (2^(q+1)*(2^(q+1)-1)/2)*gatesPerPlane q",
+    "compileGray_total_cost_le": "theorem compileGray_total_cost_le {q : Nat} (A : StoredMatrix (2^(q+1)) (2^(q+1))) : StoredRectangularGivens.total (compileGray A).cost <= compilerBudget q",
+    "compileGray_transcendental_cost_le": "theorem compileGray_transcendental_cost_le {q : Nat} (A : StoredMatrix (2^(q+1)) (2^(q+1))) : (compileGray A).cost .sqrt <= (2^(q+1))^2 ∧ (compileGray A).cost .angle <= (2^(q+1))^2 ∧ (compileGray A).cost .trig <= 2*(2^(q+1))^2",
+    "compileGray_emit": "theorem compileGray_emit {q : Nat} (A : StoredMatrix (2^(q+1)) (2^(q+1))) : (compileGray A).cost .emit = (2^(q+1)*(2^(q+1)-1)/2)*(1+2*gatesPerPlane q)"
+  },
+  "certified_cost_scope": {
+    "notation": "N=2^(q+1); E=N*(N-1)/2; G=gatesPerPlane(q)=2^q+2*(2^q-1)",
+    "returned_intermediate_log_length": "E, including harmless zero-pivot rotations",
+    "returned_final_primitive_gate_count": "E*G",
+    "emit_counter": "E*(1+2*G), exactly proved: E elimination records plus E*G rational-template records plus E*G final primitive instructions. Not the final gate count.",
+    "reverse_inverse_total": "7*logLength+1 (4 stored reads, 1 real negation, 2 writes per record; one end read)",
+    "realization_total_le": "5*traceLength+1; exact .emit=traceLength. CNOT does no real-angle arithmetic; RY casts coefficient and multiplies cached signed angle.",
+    "planeBudget": "(16*q+12)*2^q+5*q^2+14*q+8*(q+1)*(q+10)+4*(q+1)+5*G+5",
+    "emissionBudget": "planeBudget(q)+2*G+2",
+    "compilerBudget": "26*N^3+30*N^2+N+1+N^2*emissionBudget(q)+1",
+    "bound_status": "The new composed bound is proved against the actual compileGray run; it is not an earlier estimated whole-compiler formula. Polynomial in the local matrix dimension N and q, not in the global data-register state count.",
+    "reused_certified_bounds": [
+      "StoredRectangularGivens.sweep_cost_le componentwise charged sweep bound",
+      "HermiteGrayTargetCandidate.discover_cost: quotients<=2*(q+1), remainders<=q+1, comparisons<=q+1",
+      "HermiteGrayTargetCandidate.word_total_cost_le: 8*(q+1)*(q+10)",
+      "HermiteExplicitControlsCandidate.selected_total_cost_le: (16*q+12)*2^q+5*q^2+14*q",
+      "StoredSelectedRyTrace.append_cost: (leftLength+1) reads plus leftLength writes"
+    ],
+    "ordinary_operations": "Exact real/rational field work, exact comparisons, stored-word reads/writes, emitted records. Selected Gray quotient/remainder/bit/index operations are overcharged under the .field tag; that tag is not purely real arithmetic.",
+    "transcendentals": "Only the one original stored elimination sweep contributes .sqrt/.angle/.trig. Proved bounds sqrt<=N^2, arccos<=N^2, trig<=2*N^2. Here .angle means arccos; no atan2 operation occurs. Reverse/inverse and primitive emission add none of these operations.",
+    "copying": "Persistent matrix row copies are inherited from the stored sweep model; inverse list allocation and persistent primitive left-spine append are charged. No input entry callback is evaluated or assumed free.",
+    "excluded": ["finite-bit real/rational arithmetic and address sizes", "numerical square root/arccos/trig accuracy or runtime", "uniform approximation/error propagation", "general loop/address arithmetic beyond selected explicit index overcounts", "proof checking and counter bookkeeping", "global physical wire placement", "input reindex adapter", "Hermite all-stage compiler and global total cost"]
+  },
+  "regressions": [
+    "Dimension0 and dimension1 stored square suppliers return empty inverse logs.",
+    "Empty q0 emission returns the actual empty primitive list.",
+    "Actual charged StoredGivens.angle 0 0 returns real zero.",
+    "Two explicit records reverse their chronological order and negate each angle.",
+    "Adjacent 2-to-3 Gray edge at q1 has first cached target bit1, exercising the orientation-negation branch; generic plane_eval checks that branch's exact action.",
+    "Any stored 2x2 input yields one primitive gate at q0; any stored 4x4 input yields 24 at q1. No orthogonality premise is needed for counts.",
+    "Stored signed SO matrix [[0,-1],[1,0]] has checked orthogonality and determinant1 and its actual compileGray return has exact signed action."
+  ],
+  "verification": {
+    "lean_toolchain": "leanprover/lean4:v4.33.0",
+    "root_context_head": "8c341b099e21ca98c264076837f10787a80d0c8f",
+    "root_context_proof_input_digest": "5a8f47f8d0afd1d4f957e55babde52a9e9c01babf05c481b988e99ebca2f7758",
+    "cache_path_this_run": ".lake/local-so-cache (ignored, compiler outputs only)",
+    "portable_powershell_commands": [
+      "New-Item -ItemType Directory -Force .lake/local-so-cache | Out-Null",
+      "lake env lean -R experiments/hermite-polynomial/stored -o .lake/local-so-cache/GrayTarget.olean experiments/hermite-polynomial/stored/GrayTarget.lean",
+      "lake env lean -R experiments/hermite-polynomial/stored -o .lake/local-so-cache/ExplicitControls.olean experiments/hermite-polynomial/stored/ExplicitControls.lean",
+      "$env:LEAN_PATH = '.lake/local-so-cache;' + $env:LEAN_PATH",
+      "lake env lean -R experiments/hermite-polynomial/stored -o .lake/local-so-cache/LocalSOEmission.olean experiments/hermite-polynomial/stored/LocalSOEmission.lean"
+    ],
+    "focused_exit_code": 0,
+    "dependency_focused_exit_codes": {"GrayTarget": 0, "ExplicitControls": 0},
+    "axiom_printed_roots": ["compileGray_eval", "compileGray_gateCount", "compileGray_total_cost_le", "compileGray_transcendental_cost_le", "emitSteps_emit", "compileGray_emit"],
+    "axiom_union": ["propext", "Classical.choice", "Quot.sound"],
+    "no_sorry_placeholder_axiom_or_unsafe_deliverable": true,
+    "not_run": ["full lake build", "full Tests build", "website build", "independent reviewer gate", "production publication"],
+    "warning": "Pre-existing local changes in verso dependency; no dependency source was changed by this worker.",
+    "independent_review": "pending root check; worker self-check is not independent review",
+    "failure_class": "NONE"
+  },
+  "remaining_interfaces": [
+    "Compose the root's charged actual GrayTable.reindex return with this compileGray input and discharge generic SO premises from the actual stored completion; preserve named bit*S+bond layout and q+1 width.",
+    "Accumulate actual normalized-source, active extraction, completion, Gray-table and local-emission runs into one cached all-stage supplier; repeated hermiteStage calls would rebuild the source and are not that supplier.",
+    "Discharge global stage ordering, inactive-bond handling, physical wire embedding and exact final Hermite amplitude claim for the same all-stage return.",
+    "Finite-bit implementation, precision/error propagation, resource migration into production, independent review and publication remain open."
+  ],
+  "claim_boundary": "A staged dependency-ready local exact-real supplier, not complete C2/C3/ROOT closure or a new production certificate.",
+  "ownership": "Only new LocalSOEmission.lean and matching contract/result JSON edited; no production, prior reviewed packets, canonical ledger, manifest, toolchain, website, commits or pushes.",
+  "process_memory_ids": ["QBE-PM-LOW-TOKEN-CONTROL-PLANE", "QBE-PM-DENSE-CHECK-SMALL-INSTANCE", "QBE-PM-VERIFIER-SEMANTIC-LEVEL"],
+  "subagents": [],
+  "worker_tokens": null,
+  "worker_runtime_seconds": null
+}

@@ -1,0 +1,95 @@
+{
+  "kind": "READ_ONLY_API_DESIGN_NOT_EXECUTED",
+  "leanVersionFromPinnedToolchain": "4.33.0",
+  "actualLeanHelpQueried": false,
+  "sourcePins": [
+    {
+      "toolchainRelativePath": "src/lean/Lean/Elab/DocString/Builtin.lean",
+      "sha256": "0f74ed8e04215f947f09dab444c002918c3fadd424c098a39df7265a830a11f3"
+    },
+    {
+      "toolchainRelativePath": "src/lean/Lean/Elab/Print.lean",
+      "sha256": "459b4ecda77dc07c346b6cb48be0f8941c9aa30e2729ffb8f339f604052140a3"
+    },
+    {
+      "toolchainRelativePath": "src/lean/Lean/Environment.lean",
+      "sha256": "ee364e4788ce0560c87f621eeb3c4c3dfec62e8db4e15e099fd80e6adc533b86"
+    },
+    {
+      "toolchainRelativePath": "src/lean/Lean/Meta/Basic.lean",
+      "sha256": "9339066e8c4df71c9aac2c348d9a3a7c2a8a9a20aca0d07228c26deef647d4a8"
+    },
+    {
+      "toolchainRelativePath": "src/lean/Lean/PrivateName.lean",
+      "sha256": "21569296df3d69ca3f48dd109ed875c040509f9f693419e44cea9fa130b08179"
+    },
+    {
+      "toolchainRelativePath": "src/lean/Lean/Structure.lean",
+      "sha256": "efb642c4ba81cda9af92374cc48e776ebad991faf16161ca71b6c1bda3b82671"
+    },
+    {
+      "toolchainRelativePath": "src/lean/Lean/Util/CollectAxioms.lean",
+      "sha256": "64f340d42f18c51ee83527f03fa69cc26415dd71dcf7fe71031b7760be90007d"
+    }
+  ],
+  "verifiedSourceAPI": [
+    {
+      "api": "Lean.privateToUserName? : Name -> Option Name",
+      "path": "src/lean/Lean/PrivateName.lean",
+      "line": 58,
+      "use": "Map observed actual internal names to source user names, never construct private numeric mangling"
+    },
+    {
+      "api": "Lean.isPrivateName : Name -> Bool",
+      "path": "src/lean/Lean/PrivateName.lean",
+      "line": 32,
+      "use": "Enforce source private/public status"
+    },
+    {
+      "api": "Lean.Environment.constants.toList",
+      "path": "src/lean/Lean/Elab/DocString/Builtin.lean",
+      "line": 156,
+      "use": "Observed supported enumeration pattern"
+    },
+    {
+      "api": "Lean.Environment.getModuleIdxFor? : Environment -> Name -> Option ModuleIdx",
+      "path": "src/lean/Lean/Environment.lean",
+      "line": 1195,
+      "use": "Filter declarations to actual imported target owning module"
+    },
+    {
+      "api": "Lean.Environment.getModuleIdx? : Environment -> Name -> Option ModuleIdx",
+      "path": "src/lean/Lean/Environment.lean",
+      "line": 1210,
+      "use": "Resolve target ownership index dynamically"
+    },
+    {
+      "api": "Lean.collectAxioms [Monad m] [MonadEnv m] (constName : Name) : m (Array Name)",
+      "path": "src/lean/Lean/Util/CollectAxioms.lean",
+      "line": 149,
+      "use": "Actual builtin #print axioms calls this at Print.lean:241; inspect returned array without presuming opaque cleanliness"
+    },
+    {
+      "api": "Lean.Meta.ppExpr (e : Expr) : MetaM Format",
+      "path": "src/lean/Lean/Meta/Basic.lean",
+      "line": 2249,
+      "use": "Pretty-print each observed ConstantInfo.type using explicit/universe-rich printing options"
+    },
+    {
+      "api": "Lean.getStructureInfo?",
+      "path": "src/lean/Lean/Structure.lean",
+      "line": 126,
+      "use": "Recover compiler structure metadata and field projection names; separate generated declarations from 319 explicit roots"
+    }
+  ],
+  "plannedProcedure": [
+    "Preserve original sealed raw target byte hash; fresh compile actual source once under the exact QuantumBlockEncoding.CubicStatePreparation module name, writing only successor fresh artifact tree.",
+    "Import that fresh artifact first in LEAN_PATH, with inherited pinned providers after it; no lake build, dependency rebuild or cache writes. Verify actual --help accepts --threads=1 before heavy execution.",
+    "Enumerate actual constants from an environment with private visibility (env.setExporting false, as collectAxioms itself does). Resolve target module index and filter constants by its owning module.",
+    "For each explicit source root, require exactly one matching observed target constant: public source name equals actual name and isPrivateName=false; private privateToUserName? equals source fully qualified name and isPrivateName=true. Missing or ambiguity fails closed before certifying coverage.",
+    "Serially output exact observed internal name, source name, private flag, ConstantInfo kind, all level parameters, actual ppExpr(type), actual collectAxioms result. Keep individual progress and never rerun successfully completed target compilation.",
+    "Independently enumerate all target-owned constants, identify structure-generated constructors/recursors/projections via actual ConstantInfo and StructureInfo metadata, and retain every other generated residual under an explicit unclassified-generated label. Never call 319 compiler exhaustive.",
+    "On OOM/failure stop once, preserve raw logs and partial records; no same-state retries or mathematical impossibility claim."
+  ],
+  "status": "No Lean API probe or audit program was executed because start gate failed; API availability is source-inspected, not runtime-validated."
+}

@@ -1,0 +1,94 @@
+QuantumBlockEncoding.HermiteBinaryCutoff.below (x : Real) : QuantumBlockEncoding.StoredGivens.Run Bool
+'QuantumBlockEncoding.HermiteBinaryCutoff.below' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+QuantumBlockEncoding.HermiteBinaryCutoff.search (remaining start : Nat) (lower span : Real) :
+  QuantumBlockEncoding.StoredGivens.Run Nat
+'QuantumBlockEncoding.HermiteBinaryCutoff.search' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+QuantumBlockEncoding.HermiteBinaryCutoff.search_cost (remaining start : Nat) (lower span : Real)
+  (op : QuantumBlockEncoding.StoredGivens.Op) :
+  @Eq.{1} Nat
+    (@QuantumBlockEncoding.StoredGivens.Run.cost Nat
+      (QuantumBlockEncoding.HermiteBinaryCutoff.search remaining start lower span) op)
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) remaining)
+        (QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.field op))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) remaining
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+        (QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.compare op)))
+'QuantumBlockEncoding.HermiteBinaryCutoff.search_cost' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.HermiteBinaryCutoff.search_value (n remaining start : Nat) (L : Real)
+  (hL : @LT.lt.{0} Real Real.instLT (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)) L)
+  (hlo : @LE.le.{0} Nat instLENat start (QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex n L))
+  (hhi :
+    @LE.le.{0} Nat instLENat (QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex n L)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) start
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+          (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) remaining))) :
+  @Eq.{1} Nat
+    (@QuantumBlockEncoding.StoredGivens.Run.value Nat
+      (QuantumBlockEncoding.HermiteBinaryCutoff.search remaining start
+        (QuantumBlockEncoding.HermiteBoundaryInjection.gridPointNat n L start)
+        (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul)
+          (QuantumBlockEncoding.HermiteBoundaryInjection.gridStep n L)
+          (@HPow.hPow.{0, 0, 0} Real Nat Real
+            (@instHPow.{0, 0} Real Nat (@NPow.toPow.{0} Real (@Monoid.toNPow.{0} Real Real.instMonoid)))
+            (@OfNat.ofNat.{0} Real (nat_lit 2) (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast ⋯))
+            remaining))))
+    (QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex n L)
+'QuantumBlockEncoding.HermiteBinaryCutoff.search_value' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.HermiteBinaryCutoff.compute (n : Nat) (L : Real) : QuantumBlockEncoding.StoredGivens.Run Nat
+'QuantumBlockEncoding.HermiteBinaryCutoff.compute' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+QuantumBlockEncoding.HermiteBinaryCutoff.compute_value (n : Nat) (L : Real)
+  (hL : @LT.lt.{0} Real Real.instLT (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)) L) :
+  @Eq.{1} Nat (@QuantumBlockEncoding.StoredGivens.Run.value Nat (QuantumBlockEncoding.HermiteBinaryCutoff.compute n L))
+    (QuantumBlockEncoding.HermiteBoundaryInjection.cutIndex n L)
+'QuantumBlockEncoding.HermiteBinaryCutoff.compute_value' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.HermiteBinaryCutoff.compute_cost (n : Nat) (L : Real) (op : QuantumBlockEncoding.StoredGivens.Op) :
+  @Eq.{1} Nat
+    (@QuantumBlockEncoding.StoredGivens.Run.cost Nat (QuantumBlockEncoding.HermiteBinaryCutoff.compute n L) op)
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) n)
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+        (QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.field op))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+        (QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.compare op)))
+'QuantumBlockEncoding.HermiteBinaryCutoff.compute_cost' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.HermiteBinaryCutoff.compute_comparisons (n : Nat) (L : Real) :
+  @Eq.{1} Nat
+    (@QuantumBlockEncoding.StoredGivens.Run.cost Nat (QuantumBlockEncoding.HermiteBinaryCutoff.compute n L)
+      QuantumBlockEncoding.StoredGivens.Op.compare)
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+'QuantumBlockEncoding.HermiteBinaryCutoff.compute_comparisons' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.HermiteBinaryCutoff.compute_field_operations (n : Nat) (L : Real) :
+  @Eq.{1} Nat
+    (@QuantumBlockEncoding.StoredGivens.Run.cost Nat (QuantumBlockEncoding.HermiteBinaryCutoff.compute n L)
+      QuantumBlockEncoding.StoredGivens.Op.field)
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) n)
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+'QuantumBlockEncoding.HermiteBinaryCutoff.compute_field_operations' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+PRIVATE_NAME _private.QuantumBlockEncoding.HermiteBinaryCutoff.0.QuantumBlockEncoding.HermiteBinaryCutoff.half_span
+PRIVATE_NAME _private.QuantumBlockEncoding.HermiteBinaryCutoff.0.QuantumBlockEncoding.HermiteBinaryCutoff.root_span
+PRIVATE_NAME _private.QuantumBlockEncoding.HermiteBinaryCutoff.0.QuantumBlockEncoding.HermiteBinaryCutoff.middle_point

@@ -1,0 +1,156 @@
+reviews/internal/c23-charged-cache-review/IndependentConsumer.lean:95:70: error: Tactic `decide` failed for proposition
+  (produceSourceCache 0).value.toList = [1]
+because its `Decidable` instance
+  instDecidableEqList (produceSourceCache 0).value.toList [1]
+did not reduce to `isTrue` or `isFalse`.
+
+After unfolding the instance `instDecidableEqList`, reduction got stuck at the `Decidable` instance
+  match (produceSourceCache 0).value.toList with
+  | [] =>
+    match [1] with
+    | [] => isTrue ⋯
+    | head :: tail => isFalse ⋯
+  | a :: as =>
+    match [1] with
+    | [] => isFalse ⋯
+    | b :: bs =>
+      match decEq a b with
+      | isTrue hab =>
+        match as.hasDecEq bs with
+        | isTrue habs => isTrue ⋯
+        | isFalse nabs => isFalse ⋯
+      | isFalse nab => isFalse ⋯
+reviews/internal/c23-charged-cache-review/IndependentConsumer.lean:96:71: error: Tactic `decide` failed for proposition
+  (produceSourceCache 1).value.toList = [1, 3]
+because its `Decidable` instance
+  instDecidableEqList (produceSourceCache 1).value.toList [1, 3]
+did not reduce to `isTrue` or `isFalse`.
+
+After unfolding the instance `instDecidableEqList`, reduction got stuck at the `Decidable` instance
+  match (produceSourceCache 1).value.toList with
+  | [] =>
+    match [1, 3] with
+    | [] => isTrue ⋯
+    | head :: tail => isFalse ⋯
+  | a :: as =>
+    match [1, 3] with
+    | [] => isFalse ⋯
+    | b :: bs =>
+      match decEq a b with
+      | isTrue hab =>
+        match as.hasDecEq bs with
+        | isTrue habs => isTrue ⋯
+        | isFalse nabs => isFalse ⋯
+      | isFalse nab => isFalse ⋯
+reviews/internal/c23-charged-cache-review/IndependentConsumer.lean:97:76: error: Tactic `decide` failed for proposition
+  (produceSourceCache 2).value.toList = [1, 4, 19 / 2]
+because its `Decidable` instance
+  instDecidableEqList (produceSourceCache 2).value.toList [1, 4, 19 / 2]
+did not reduce to `isTrue` or `isFalse`.
+
+After unfolding the instance `instDecidableEqList`, reduction got stuck at the `Decidable` instance
+  match (produceSourceCache 2).value.toList with
+  | [] =>
+    match [1, 4, 19 / 2] with
+    | [] => isTrue ⋯
+    | head :: tail => isFalse ⋯
+  | a :: as =>
+    match [1, 4, 19 / 2] with
+    | [] => isFalse ⋯
+    | b :: bs =>
+      match decEq a b with
+      | isTrue hab =>
+        match as.hasDecEq bs with
+        | isTrue habs => isTrue ⋯
+        | isFalse nabs => isFalse ⋯
+      | isFalse nab => isFalse ⋯
+reviews/internal/c23-charged-cache-review/IndependentConsumer.lean:98:84: error: Tactic `decide` failed for proposition
+  (produceSourceCache 3).value.toList = [1, 5, 29 / 2, 193 / 6]
+because its `Decidable` instance
+  instDecidableEqList (produceSourceCache 3).value.toList [1, 5, 29 / 2, 193 / 6]
+did not reduce to `isTrue` or `isFalse`.
+
+After unfolding the instance `instDecidableEqList`, reduction got stuck at the `Decidable` instance
+  match (produceSourceCache 3).value.toList with
+  | [] =>
+    match [1, 5, 29 / 2, 193 / 6] with
+    | [] => isTrue ⋯
+    | head :: tail => isFalse ⋯
+  | a :: as =>
+    match [1, 5, 29 / 2, 193 / 6] with
+    | [] => isFalse ⋯
+    | b :: bs =>
+      match decEq a b with
+      | isTrue hab =>
+        match as.hasDecEq bs with
+        | isTrue habs => isTrue ⋯
+        | isFalse nabs => isFalse ⋯
+      | isFalse nab => isFalse ⋯
+reviews/internal/c23-charged-cache-review/IndependentConsumer.lean:111:33: error: Tactic `decide` failed for proposition
+  (chooseFrom (Vector.replicate 1 0) 0 0 ⋯ ⋯).value ≠ ↑(Nat.choose 0 0)
+because its `Decidable` instance
+  instDecidableNot
+did not reduce to `isTrue` or `isFalse`.
+
+After unfolding the instances `instDecidableEqRat`, `instDecidableNot`, `Int.decEq`, `Int.instDecidableEq`, and `instDecidableEqRat.decEq`, reduction got stuck at the `Decidable` instance
+  match
+    ((StoredGivens.read (Vector.replicate 1 0) ⟨0, ⋯⟩).value.mul
+        (qMul (StoredGivens.read (Vector.replicate 1 0) ⟨0, ⋯⟩).value
+              (StoredGivens.read (Vector.replicate 1 0) ⟨0 - 0, ⋯⟩).value).value.inv).num,
+    ↑(Nat.choose 0 0) with
+  | Int.ofNat a, Int.ofNat b =>
+    match decEq a b with
+    | isTrue h => isTrue ⋯
+    | isFalse h => isFalse ⋯
+  | Int.ofNat a, Int.negSucc a_1 => isFalse ⋯
+  | Int.negSucc a, Int.ofNat a_1 => isFalse ⋯
+  | Int.negSucc a, Int.negSucc b =>
+    match decEq a b with
+    | isTrue h => isTrue ⋯
+    | isFalse h => isFalse ⋯
+reviews/internal/c23-charged-cache-review/IndependentConsumer.lean:114:2: error: Tactic `decide` failed for proposition
+  HermitePiecewiseAssembly.sourceCoefficientQ 0 2 ≠ HermiteFiniteMiddleSource.coefficientQ 0 2
+because its `Decidable` instance
+  instDecidableNot
+did not reduce to `isTrue` or `isFalse`.
+
+After unfolding the instances `instDecidableEqRat`, `instDecidableNot`, `Int.decEq`, `Int.instDecidableEq`, and `instDecidableEqRat.decEq`, reduction got stuck at the `Decidable` instance
+  match
+    (((fun r => ↑((0 + 2 - r).choose 0) / ↑r.factorial) 0).add
+        (List.foldr (fun x1 x2 => x1 + x2) 0 (List.map (fun r => ↑((0 + 2 - r).choose 0) / ↑r.factorial) [1, 2]))).num,
+    ((↑(ExperimentalCoefficientRange.sourceNumerator 0 2)).mul (↑(Nat.factorial 0)).inv).num with
+  | Int.ofNat a, Int.ofNat b =>
+    match decEq a b with
+    | isTrue h => isTrue ⋯
+    | isFalse h => isFalse ⋯
+  | Int.ofNat a, Int.negSucc a_1 => isFalse ⋯
+  | Int.negSucc a, Int.ofNat a_1 => isFalse ⋯
+  | Int.negSucc a, Int.negSucc b =>
+    match decEq a b with
+    | isTrue h => isTrue ⋯
+    | isFalse h => isFalse ⋯
+'C23InternalReview.same_object_arithmetic_and_count' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C23InternalReview.lookup_same_object' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C23InternalReview.produced_factorial_positive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C23InternalReview.choose_denominator_nonzero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C23InternalReview.source_denominator_nonzero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C23InternalReview.real_source_bridge' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C23InternalReview.sumEntries_exact_cost' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C23InternalReview.sourceEntry_exact_cost' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C23InternalReview.values_zero' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'C23InternalReview.values_one' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'C23InternalReview.values_two' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'C23InternalReview.values_three' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'C23InternalReview.counts_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C23InternalReview.counts_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C23InternalReview.counts_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C23InternalReview.counts_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C23InternalReview.total_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C23InternalReview.total_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C23InternalReview.total_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C23InternalReview.total_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C23InternalReview.arbitrary_factorial_table_is_not_a_choose_certificate' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+'C23InternalReview.full_carrier_bridge_is_false' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]

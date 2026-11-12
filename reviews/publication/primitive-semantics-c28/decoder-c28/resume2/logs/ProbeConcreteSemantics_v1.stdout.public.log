@@ -1,0 +1,284 @@
+QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix.{u} (rows cols : Nat) (α : Type u) : Type u
+'QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix' does not depend on any axioms
+QuantumBlockEncoding.ConcreteSemantics.StateVector.{u} (dimension : Nat) (α : Type u) : Type u
+'QuantumBlockEncoding.ConcreteSemantics.StateVector' does not depend on any axioms
+QuantumBlockEncoding.ConcreteSemantics.basisKet.{u} (dimension : Nat) {α : Type u} [Zero.{u} α] [One.{u} α]
+  (index : Fin dimension) : QuantumBlockEncoding.ConcreteSemantics.StateVector.{u} dimension α
+'QuantumBlockEncoding.ConcreteSemantics.basisKet' does not depend on any axioms
+QuantumBlockEncoding.ConcreteSemantics.basisKet_apply.{u} {dimension : Nat} {α : Type u} [Zero.{u} α] [One.{u} α]
+  (index row : Fin dimension) :
+  @Eq.{u + 1} α (@QuantumBlockEncoding.ConcreteSemantics.basisKet.{u} dimension α inst✝ inst✝¹ index row)
+    (@ite.{u + 1} α (@Eq.{1} (Fin dimension) index row) (instDecidableEqFin dimension index row)
+      (@OfNat.ofNat.{u} α (nat_lit 1) (@One.toOfNat1.{u} α inst✝¹))
+      (@OfNat.ofNat.{u} α (nat_lit 0) (@Zero.toOfNat0.{u} α inst✝)))
+'QuantumBlockEncoding.ConcreteSemantics.basisKet_apply' depends on axioms: [propext]
+QuantumBlockEncoding.ConcreteSemantics.zeroKet.{u} (qubits : Nat) {α : Type u} [Zero.{u} α] [One.{u} α] :
+  QuantumBlockEncoding.ConcreteSemantics.StateVector.{u} (QuantumBlockEncoding.gridSize qubits) α
+'QuantumBlockEncoding.ConcreteSemantics.zeroKet' does not depend on any axioms
+QuantumBlockEncoding.ConcreteSemantics.applyVec.{u} {rows cols : Nat} {α : Type u} [NonUnitalNonAssocSemiring.{u} α]
+  (operator : QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix.{u} rows cols α)
+  (state : QuantumBlockEncoding.ConcreteSemantics.StateVector.{u} cols α) :
+  QuantumBlockEncoding.ConcreteSemantics.StateVector.{u} rows α
+'QuantumBlockEncoding.ConcreteSemantics.applyVec' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+QuantumBlockEncoding.ConcreteSemantics.ComplexUnitaryGate (qubits : Nat) : Type
+'QuantumBlockEncoding.ConcreteSemantics.ComplexUnitaryGate' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.ConcreteSemantics.applyVec_basisKet.{u} {rows cols : Nat} {α : Type u} [NonAssocSemiring.{u} α]
+  (operator : QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix.{u} rows cols α) (index : Fin cols) :
+  @Eq.{u + 1} (QuantumBlockEncoding.ConcreteSemantics.StateVector.{u} rows α)
+    (@QuantumBlockEncoding.ConcreteSemantics.applyVec.{u} rows cols α
+      (@NonAssocSemiring.toNonUnitalNonAssocSemiring.{u} α inst✝) operator
+      (@QuantumBlockEncoding.ConcreteSemantics.basisKet.{u} cols α
+        (@MulZeroClass.toZero.{u} α
+          (@NonUnitalNonAssocSemiring.toMulZeroClass.{u} α (@NonAssocSemiring.toNonUnitalNonAssocSemiring.{u} α inst✝)))
+        (@AddMonoidWithOne.toOne.{u} α
+          (@AddCommMonoidWithOne.toAddMonoidWithOne.{u} α (@NonAssocSemiring.toAddCommMonoidWithOne.{u} α inst✝)))
+        index))
+    (@Matrix.col.{u, 0, 0} (Fin rows) (Fin cols) α operator index)
+'QuantumBlockEncoding.ConcreteSemantics.applyVec_basisKet' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.ConcreteSemantics.applyVec_twoBasisSuperposition {rows cols : Nat}
+  (operator : QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix.{0} rows cols Complex) (a b : Complex)
+  (left right : Fin cols) :
+  @Eq.{1} (QuantumBlockEncoding.ConcreteSemantics.StateVector.{0} rows Complex)
+    (@QuantumBlockEncoding.ConcreteSemantics.applyVec.{0} rows cols Complex
+      (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+        (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+          (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex Complex.instNonUnitalCommRing)))
+      operator
+      (@HAdd.hAdd.{0, 0, 0} (QuantumBlockEncoding.ConcreteSemantics.StateVector.{0} cols Complex)
+        (QuantumBlockEncoding.ConcreteSemantics.StateVector.{0} cols Complex)
+        (QuantumBlockEncoding.ConcreteSemantics.StateVector.{0} cols Complex)
+        (@instHAdd.{0} (QuantumBlockEncoding.ConcreteSemantics.StateVector.{0} cols Complex)
+          (@Pi.instAdd.{0, 0} (Fin cols) (fun a => Complex) fun i => Complex.instAdd))
+        (@HSMul.hSMul.{0, 0, 0} Complex (QuantumBlockEncoding.ConcreteSemantics.StateVector.{0} cols Complex)
+          (QuantumBlockEncoding.ConcreteSemantics.StateVector.{0} cols Complex)
+          (@instHSMul.{0, 0} Complex (QuantumBlockEncoding.ConcreteSemantics.StateVector.{0} cols Complex)
+            (@Function.hasSMul.{0, 0, 0} (Fin cols) Complex Complex (@instSMulOfMul.{0} Complex Complex.instMul)))
+          a (@QuantumBlockEncoding.ConcreteSemantics.basisKet.{0} cols Complex Complex.instZero Complex.instOne left))
+        (@HSMul.hSMul.{0, 0, 0} Complex (QuantumBlockEncoding.ConcreteSemantics.StateVector.{0} cols Complex)
+          (QuantumBlockEncoding.ConcreteSemantics.StateVector.{0} cols Complex)
+          (@instHSMul.{0, 0} Complex (QuantumBlockEncoding.ConcreteSemantics.StateVector.{0} cols Complex)
+            (@Function.hasSMul.{0, 0, 0} (Fin cols) Complex Complex (@instSMulOfMul.{0} Complex Complex.instMul)))
+          b
+          (@QuantumBlockEncoding.ConcreteSemantics.basisKet.{0} cols Complex Complex.instZero Complex.instOne right))))
+    (@HAdd.hAdd.{0, 0, 0} (Fin rows → Complex) (Fin rows → Complex) (Fin rows → Complex)
+      (@instHAdd.{0} (Fin rows → Complex) (@Pi.instAdd.{0, 0} (Fin rows) (fun a => Complex) fun i => Complex.instAdd))
+      (@HSMul.hSMul.{0, 0, 0} Complex (Fin rows → Complex) (Fin rows → Complex)
+        (@instHSMul.{0, 0} Complex (Fin rows → Complex)
+          (@Function.hasSMul.{0, 0, 0} (Fin rows) Complex Complex (@instSMulOfMul.{0} Complex Complex.instMul)))
+        a (@Matrix.col.{0, 0, 0} (Fin rows) (Fin cols) Complex operator left))
+      (@HSMul.hSMul.{0, 0, 0} Complex (Fin rows → Complex) (Fin rows → Complex)
+        (@instHSMul.{0, 0} Complex (Fin rows → Complex)
+          (@Function.hasSMul.{0, 0, 0} (Fin rows) Complex Complex (@instSMulOfMul.{0} Complex Complex.instMul)))
+        b (@Matrix.col.{0, 0, 0} (Fin rows) (Fin cols) Complex operator right)))
+'QuantumBlockEncoding.ConcreteSemantics.applyVec_twoBasisSuperposition' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.ConcreteSemantics.applyVec_twoBasisSuperposition_apply {rows cols : Nat}
+  (operator : QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix.{0} rows cols Complex) (a b : Complex)
+  (left right : Fin cols) (row : Fin rows) :
+  @Eq.{1} Complex
+    (@QuantumBlockEncoding.ConcreteSemantics.applyVec.{0} rows cols Complex
+      (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+        (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+          (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex Complex.instNonUnitalCommRing)))
+      operator
+      (@HAdd.hAdd.{0, 0, 0} (QuantumBlockEncoding.ConcreteSemantics.StateVector.{0} cols Complex)
+        (QuantumBlockEncoding.ConcreteSemantics.StateVector.{0} cols Complex)
+        (QuantumBlockEncoding.ConcreteSemantics.StateVector.{0} cols Complex)
+        (@instHAdd.{0} (QuantumBlockEncoding.ConcreteSemantics.StateVector.{0} cols Complex)
+          (@Pi.instAdd.{0, 0} (Fin cols) (fun a => Complex) fun i => Complex.instAdd))
+        (@HSMul.hSMul.{0, 0, 0} Complex (QuantumBlockEncoding.ConcreteSemantics.StateVector.{0} cols Complex)
+          (QuantumBlockEncoding.ConcreteSemantics.StateVector.{0} cols Complex)
+          (@instHSMul.{0, 0} Complex (QuantumBlockEncoding.ConcreteSemantics.StateVector.{0} cols Complex)
+            (@Function.hasSMul.{0, 0, 0} (Fin cols) Complex Complex (@instSMulOfMul.{0} Complex Complex.instMul)))
+          a (@QuantumBlockEncoding.ConcreteSemantics.basisKet.{0} cols Complex Complex.instZero Complex.instOne left))
+        (@HSMul.hSMul.{0, 0, 0} Complex (QuantumBlockEncoding.ConcreteSemantics.StateVector.{0} cols Complex)
+          (QuantumBlockEncoding.ConcreteSemantics.StateVector.{0} cols Complex)
+          (@instHSMul.{0, 0} Complex (QuantumBlockEncoding.ConcreteSemantics.StateVector.{0} cols Complex)
+            (@Function.hasSMul.{0, 0, 0} (Fin cols) Complex Complex (@instSMulOfMul.{0} Complex Complex.instMul)))
+          b (@QuantumBlockEncoding.ConcreteSemantics.basisKet.{0} cols Complex Complex.instZero Complex.instOne right)))
+      row)
+    (@HAdd.hAdd.{0, 0, 0} Complex Complex Complex (@instHAdd.{0} Complex Complex.instAdd)
+      (@HMul.hMul.{0, 0, 0} Complex Complex Complex (@instHMul.{0} Complex Complex.instMul) a (operator row left))
+      (@HMul.hMul.{0, 0, 0} Complex Complex Complex (@instHMul.{0} Complex Complex.instMul) b (operator row right)))
+'QuantumBlockEncoding.ConcreteSemantics.applyVec_twoBasisSuperposition_apply' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.ConcreteSemantics.applyVec_zeroKet.{u} {α : Type u} [NonAssocSemiring.{u} α] {qubits : Nat}
+  (operator :
+    QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix.{u} (QuantumBlockEncoding.gridSize qubits)
+      (QuantumBlockEncoding.gridSize qubits) α) :
+  @Eq.{u + 1} (QuantumBlockEncoding.ConcreteSemantics.StateVector.{u} (QuantumBlockEncoding.gridSize qubits) α)
+    (@QuantumBlockEncoding.ConcreteSemantics.applyVec.{u} (QuantumBlockEncoding.gridSize qubits)
+      (QuantumBlockEncoding.gridSize qubits) α (@NonAssocSemiring.toNonUnitalNonAssocSemiring.{u} α inst✝) operator
+      (@QuantumBlockEncoding.ConcreteSemantics.zeroKet.{u} qubits α
+        (@MulZeroClass.toZero.{u} α
+          (@NonUnitalNonAssocSemiring.toMulZeroClass.{u} α (@NonAssocSemiring.toNonUnitalNonAssocSemiring.{u} α inst✝)))
+        (@AddMonoidWithOne.toOne.{u} α
+          (@AddCommMonoidWithOne.toAddMonoidWithOne.{u} α (@NonAssocSemiring.toAddCommMonoidWithOne.{u} α inst✝)))))
+    (@Matrix.col.{u, 0, 0} (Fin (QuantumBlockEncoding.gridSize qubits)) (Fin (QuantumBlockEncoding.gridSize qubits)) α
+      operator (QuantumBlockEncoding.zeroBasisIndex qubits))
+'QuantumBlockEncoding.ConcreteSemantics.applyVec_zeroKet' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.ConcreteSemantics.firstColumnMatches_iff_applyVec_zeroKet.{u} {α : Type u} [NonAssocSemiring.{u} α]
+  {qubits : Nat}
+  (operator :
+    QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix.{u} (QuantumBlockEncoding.gridSize qubits)
+      (QuantumBlockEncoding.gridSize qubits) α)
+  (target : QuantumBlockEncoding.StatePreparationTarget.{u} α qubits) :
+  Iff (@QuantumBlockEncoding.FirstColumnMatches.{u} α qubits operator target)
+    (@Eq.{u + 1} (QuantumBlockEncoding.ConcreteSemantics.StateVector.{u} (QuantumBlockEncoding.gridSize qubits) α)
+      (@QuantumBlockEncoding.ConcreteSemantics.applyVec.{u} (QuantumBlockEncoding.gridSize qubits)
+        (QuantumBlockEncoding.gridSize qubits) α (@NonAssocSemiring.toNonUnitalNonAssocSemiring.{u} α inst✝) operator
+        (@QuantumBlockEncoding.ConcreteSemantics.zeroKet.{u} qubits α
+          (@MulZeroClass.toZero.{u} α
+            (@NonUnitalNonAssocSemiring.toMulZeroClass.{u} α
+              (@NonAssocSemiring.toNonUnitalNonAssocSemiring.{u} α inst✝)))
+          (@AddMonoidWithOne.toOne.{u} α
+            (@AddCommMonoidWithOne.toAddMonoidWithOne.{u} α (@NonAssocSemiring.toAddCommMonoidWithOne.{u} α inst✝)))))
+      (@QuantumBlockEncoding.StatePreparationTarget.amplitudes.{u} α qubits target))
+'QuantumBlockEncoding.ConcreteSemantics.firstColumnMatches_iff_applyVec_zeroKet' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.ConcreteSemantics.ComplexStatePreparationCertificate (qubits : Nat) : Type
+'QuantumBlockEncoding.ConcreteSemantics.ComplexStatePreparationCertificate' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.ConcreteSemantics.ComplexStatePreparationCertificate.candidate {qubits : Nat}
+  (certificate : QuantumBlockEncoding.ConcreteSemantics.ComplexStatePreparationCertificate qubits)
+  (circuit : QuantumBlockEncoding.Circuit) (schedule : QuantumBlockEncoding.LayeredCircuit)
+  (resource : QuantumBlockEncoding.Resource)
+  (auxiliaryQubits : Nat := @OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) :
+  QuantumBlockEncoding.StatePreparationCandidate.{0} Complex qubits
+'QuantumBlockEncoding.ConcreteSemantics.ComplexStatePreparationCertificate.candidate' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.ConcreteSemantics.ComplexStatePreparationCertificate.verified {qubits : Nat}
+  (certificate : QuantumBlockEncoding.ConcreteSemantics.ComplexStatePreparationCertificate qubits)
+  (circuit : QuantumBlockEncoding.Circuit) (schedule : QuantumBlockEncoding.LayeredCircuit)
+  (resource : QuantumBlockEncoding.Resource)
+  (auxiliaryQubits : Nat := @OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) :
+  QuantumBlockEncoding.VerifiedStatePreparation.{0} Complex qubits
+'QuantumBlockEncoding.ConcreteSemantics.ComplexStatePreparationCertificate.verified' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.ConcreteSemantics.ComplexStatePreparationCertificate.preparesVector {qubits : Nat}
+  (certificate : QuantumBlockEncoding.ConcreteSemantics.ComplexStatePreparationCertificate qubits) :
+  @Eq.{1} (QuantumBlockEncoding.ConcreteSemantics.StateVector.{0} (QuantumBlockEncoding.gridSize qubits) Complex)
+    (@QuantumBlockEncoding.ConcreteSemantics.applyVec.{0} (QuantumBlockEncoding.gridSize qubits)
+      (QuantumBlockEncoding.gridSize qubits) Complex
+      (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+        (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+          (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex Complex.instNonUnitalCommRing)))
+      (@QuantumBlockEncoding.ConcreteSemantics.ComplexUnitaryGate.matrix qubits
+        (@QuantumBlockEncoding.ConcreteSemantics.ComplexStatePreparationCertificate.gate qubits certificate))
+      (@QuantumBlockEncoding.ConcreteSemantics.zeroKet.{0} qubits Complex Complex.instZero Complex.instOne))
+    (@QuantumBlockEncoding.StatePreparationTarget.amplitudes.{0} Complex qubits
+      (@QuantumBlockEncoding.ConcreteSemantics.ComplexStatePreparationCertificate.target qubits certificate))
+'QuantumBlockEncoding.ConcreteSemantics.ComplexStatePreparationCertificate.preparesVector' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.ConcreteSemantics.ProductRegisterMatrix.{u} (signalDim rows cols : Nat) (α : Type u) : Type u
+'QuantumBlockEncoding.ConcreteSemantics.ProductRegisterMatrix' does not depend on any axioms
+QuantumBlockEncoding.ConcreteSemantics.flatToProductRegister.{u} {signalDim rows cols : Nat} {α : Type u}
+  (operator :
+    QuantumBlockEncoding.Matrix.{u} (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) signalDim rows)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) signalDim cols) α) :
+  QuantumBlockEncoding.ConcreteSemantics.ProductRegisterMatrix.{u} signalDim rows cols α
+'QuantumBlockEncoding.ConcreteSemantics.flatToProductRegister' depends on axioms: [propext, Quot.sound.{u}]
+QuantumBlockEncoding.ConcreteSemantics.productRegisterBlockProjection.{u} {signalDim rows cols : Nat} {α : Type u}
+  (operator : QuantumBlockEncoding.ConcreteSemantics.ProductRegisterMatrix.{u} signalDim rows cols α)
+  (signalIndex : Fin signalDim) : QuantumBlockEncoding.Matrix.{u} rows cols α
+'QuantumBlockEncoding.ConcreteSemantics.productRegisterBlockProjection' does not depend on any axioms
+QuantumBlockEncoding.ConcreteSemantics.productRegisterBlockProjection_flatToProductRegister.{u}
+  {signalDim rows cols : Nat} {α : Type u} [OfNat.{u} α (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))]
+  (operator :
+    QuantumBlockEncoding.Matrix.{u} (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) signalDim rows)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) signalDim cols) α)
+  (signalIndex : Fin signalDim) :
+  @Eq.{u + 1} (QuantumBlockEncoding.Matrix.{u} rows cols α)
+    (@QuantumBlockEncoding.ConcreteSemantics.productRegisterBlockProjection.{u} signalDim rows cols α
+      (@QuantumBlockEncoding.ConcreteSemantics.flatToProductRegister.{u} signalDim rows cols α operator) signalIndex)
+    (@QuantumBlockEncoding.signalSystemBlockProjection.{u} α inst✝ signalDim rows cols operator signalIndex)
+'QuantumBlockEncoding.ConcreteSemantics.productRegisterBlockProjection_flatToProductRegister' depends on axioms: [propext,
+ Quot.sound.{u}]
+QuantumBlockEncoding.ConcreteSemantics.productIndex_val_eq_signalSystemBlockRowIndex {signalDim systemDim : Nat}
+  (signalIndex : Fin signalDim) (systemIndex : Fin systemDim) :
+  @Eq.{1} Nat
+    (@Fin.val (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) signalDim systemDim)
+      (@QuantumBlockEncoding.BlockEncodingClassics.productIndex signalDim systemDim signalIndex systemIndex))
+    (QuantumBlockEncoding.signalSystemBlockRowIndex systemDim (@Fin.val signalDim signalIndex)
+      (@Fin.val systemDim systemIndex))
+'QuantumBlockEncoding.ConcreteSemantics.productIndex_val_eq_signalSystemBlockRowIndex' depends on axioms: [propext,
+ Quot.sound.{u}]
+QuantumBlockEncoding.ConcreteSemantics.signalSystemBlockProjection_eq_cleanBlockProduct {signalDim systemDim : Nat}
+  (operator :
+    QuantumBlockEncoding.Matrix.{0}
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) signalDim systemDim)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) signalDim systemDim) Rat)
+  (signalIndex : Fin signalDim) :
+  @QuantumBlockEncoding.Matrix.PointwiseEq.{0} systemDim systemDim Rat
+    (@QuantumBlockEncoding.signalSystemBlockProjection.{0} Rat
+      (@Rat.instOfNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))) signalDim systemDim systemDim
+      operator signalIndex)
+    (@QuantumBlockEncoding.BlockEncodingClassics.cleanBlockProduct signalDim systemDim signalIndex operator)
+'QuantumBlockEncoding.ConcreteSemantics.signalSystemBlockProjection_eq_cleanBlockProduct' depends on axioms: [propext,
+ Quot.sound.{u}]
+QuantumBlockEncoding.ConcreteSemantics.cleanBasisActionAmplitude.{u} {signalDim systemDim : Nat} {α : Type u}
+  [NonAssocSemiring.{u} α]
+  (operator :
+    QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix.{u}
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) signalDim systemDim)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) signalDim systemDim) α)
+  (signalIndex : Fin signalDim) (output input : Fin systemDim) : α
+'QuantumBlockEncoding.ConcreteSemantics.cleanBasisActionAmplitude' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.ConcreteSemantics.cleanBasisActionAmplitude_eq_signalSystemBlockProjection.{u}
+  {signalDim systemDim : Nat} {α : Type u} [NonAssocSemiring.{u} α]
+  (operator :
+    QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix.{u}
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) signalDim systemDim)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) signalDim systemDim) α)
+  (signalIndex : Fin signalDim) (output input : Fin systemDim) :
+  @Eq.{u + 1} α
+    (@QuantumBlockEncoding.ConcreteSemantics.cleanBasisActionAmplitude.{u} signalDim systemDim α inst✝ operator
+      signalIndex output input)
+    (@QuantumBlockEncoding.signalSystemBlockProjection.{u} α
+      (@Zero.toOfNat0.{u} α
+        (@MulZeroClass.toZero.{u} α
+          (@NonUnitalNonAssocSemiring.toMulZeroClass.{u} α
+            (@NonAssocSemiring.toNonUnitalNonAssocSemiring.{u} α inst✝))))
+      signalDim systemDim systemDim operator signalIndex output input)
+'QuantumBlockEncoding.ConcreteSemantics.cleanBasisActionAmplitude_eq_signalSystemBlockProjection' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.ConcreteSemantics.pointwiseProjection_iff_cleanBasisAction.{u} {signalDim systemDim : Nat}
+  {α : Type u} [NonAssocSemiring.{u} α]
+  (operator :
+    QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix.{u}
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) signalDim systemDim)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat) signalDim systemDim) α)
+  (signalIndex : Fin signalDim) (target : QuantumBlockEncoding.Matrix.{u} systemDim systemDim α) :
+  Iff
+    (@QuantumBlockEncoding.Matrix.PointwiseEq.{u} systemDim systemDim α
+      (@QuantumBlockEncoding.signalSystemBlockProjection.{u} α
+        (@Zero.toOfNat0.{u} α
+          (@MulZeroClass.toZero.{u} α
+            (@NonUnitalNonAssocSemiring.toMulZeroClass.{u} α
+              (@NonAssocSemiring.toNonUnitalNonAssocSemiring.{u} α inst✝))))
+        signalDim systemDim systemDim operator signalIndex)
+      target)
+    (∀ (output input : Fin systemDim),
+      @Eq.{u + 1} α
+        (@QuantumBlockEncoding.ConcreteSemantics.cleanBasisActionAmplitude.{u} signalDim systemDim α inst✝ operator
+          signalIndex output input)
+        (target output input))
+'QuantumBlockEncoding.ConcreteSemantics.pointwiseProjection_iff_cleanBasisAction' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]

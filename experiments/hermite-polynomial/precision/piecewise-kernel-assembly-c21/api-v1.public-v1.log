@@ -1,0 +1,11 @@
+warning: verso: repository '.\.lake/packages\verso' has local changes
+Fin.sum_univ_eq_sum_range.{u_1} {α : Type u_1} [AddCommMonoid α] (f : ℕ → α) (n : ℕ) :
+  ∑ i, f ↑i = ∑ i ∈ Finset.range n, f i
+Finset.sum_range.{u_2} {M : Type u_2} [AddCommMonoid M] {n : ℕ} (f : ℕ → M) : ∑ i ∈ Finset.range n, f i = ∑ i, f ↑i
+Finset.sum_range_succ.{u_4} {M : Type u_4} [AddCommMonoid M] (f : ℕ → M) (n : ℕ) :
+  ∑ x ∈ Finset.range (n + 1), f x = ∑ x ∈ Finset.range n, f x + f n
+finSumFinEquiv {m n : ℕ} : Fin m ⊕ Fin n ≃ Fin (m + n)
+neg_pow.{u} {R : Type u} [Monoid R] [HasDistribNeg R] (a : R) (n : ℕ) : (-a) ^ n = (-1) ^ n * a ^ n
+Polynomial.eval_eq_sum_range'.{u} {R : Type u} [Semiring R] {p : Polynomial R} {n : ℕ} (hn : p.natDegree < n) (x : R) :
+  Polynomial.eval x p = ∑ i ∈ Finset.range n, p.coeff i * x ^ i
+

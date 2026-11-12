@@ -1,0 +1,42 @@
+name: Cubic kernel candidate same-fresh two-type supplement WIP
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/c29-kernel-two-types.yml'
+      - 'tools/cubic_c29_kernel_types_v2/**'
+permissions:
+  contents: read
+concurrency:
+  group: c29-kernel-two-types-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  c29-kernel-two-types:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v5
+      - name: Two-type guard tests and original31 Python guards
+        run: |
+          python3 -B -m unittest discover -s tools/cubic_c29_kernel_types_v2 -p 'test*.py'
+          python3 -B tools/cubic_c29_kernel_ci1/launch.py --python-tests
+      - uses: leanprover/lean-action@v1
+        with:
+          auto-config: false
+          use-github-cache: true
+          use-mathlib-cache: true
+      - name: Build only inherited local providers
+        run: lake build QuantumBlockEncoding.Core QuantumBlockEncoding.Resources QuantumBlockEncoding.Circuit QuantumBlockEncoding.BlockEncoding QuantumBlockEncoding.BlockEncodingClassics
+      - name: One candidate cohort then same-fresh two-type observation
+        run: lake env python3 -B tools/cubic_c29_kernel_types_v2/run.py
+      - name: Retain only sanitized actual evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: c29-kernel-two-types-${{ github.sha }}
+          path: |
+            _out/cubic-c29-kernel-only-v1/public/
+            _out/cubic-c29-kernel-ci1/public/
+            _out/cubic-c29-kernel-types-v2/public/
+          if-no-files-found: warn
+          retention-days: 7

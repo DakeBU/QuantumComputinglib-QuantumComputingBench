@@ -1,0 +1,35 @@
+OWN\CachedChainValueProof.lean:60:23: warning: This simp argument is unused:
+  charge
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [rightEntry, c187_rightProduct_value, pure, Run.pure, c187_read_value, hA, hB, hC, hD, hFget, hm,
+    hclip, actualBlocksQ, BlockQ.sum, BlockQ.prod, strictQ, inclusiveQ, thresholdQ, constantQ, tailQ, middleQ, polyQ,
+    Bool.false_eq_true, if_false, if_true, Sum.elim]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+HermiteCachedPiecewiseStored.c187_read_value {α : Type} {N : ℕ} (v : Vector α N) (i : Fin N) :
+  (StoredGivens.read v i).value = v.get i
+'_private.CachedChainValueProof.0.HermiteCachedPiecewiseStored.c187_read_value' depends on axioms: [propext, Quot.sound]
+HermiteCachedPiecewiseStored.c187_rightProduct_value (width cutA cutB : ℕ) (flipA flipB : Bool) (a b : Fin 3)
+  (coefficient : Run ℚ) :
+  (rightProduct width cutA cutB flipA flipB a b coefficient).value =
+    (if flipA = true then 1 - acceptQ width cutA a else acceptQ width cutA a) *
+      ((if flipB = true then 1 - acceptQ width cutB b else acceptQ width cutB b) * coefficient.value)
+'_private.CachedChainValueProof.0.HermiteCachedPiecewiseStored.c187_rightProduct_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+HermiteCachedPiecewiseStored.c187_collect_value_eq {α : Type} {N : ℕ} (f g : Fin N → Run α)
+  (h : ∀ (i : Fin N), (f i).value = (g i).value) : (collect f).value = (collect g).value
+'_private.CachedChainValueProof.0.HermiteCachedPiecewiseStored.c187_collect_value_eq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+HermiteCachedPiecewiseStored.c187_produceCachedData_value (k n : ℕ) (R delta : ℚ) :
+  (produceCachedData k n R delta).value = (produceData k n R delta).value
+'_private.CachedChainValueProof.0.HermiteCachedPiecewiseStored.c187_produceCachedData_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+HermiteCachedPiecewiseStored.c187_produceCachedStored_value (k n : ℕ) (R delta : ℚ) :
+  (produceCachedStored k n R delta).value = (produceStored k n R delta).value
+'_private.CachedChainValueProof.0.HermiteCachedPiecewiseStored.c187_produceCachedStored_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

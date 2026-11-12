@@ -1,0 +1,18 @@
+HermiteExplicitCachedStored.produceExplicitStored_same_run (k n : ℕ) (R delta : ℚ) :
+  have result := produceExplicitStored k n R delta;
+  denoteChain result.run.value = actualChain k n R delta ∧
+    StoredRectangularGivens.total result.run.cost ≤ frontierBudget k n delta ∧
+      result.quotientCalls ≤ 14 * (n + 1) * assemblySize k delta ^ 2 + 4 * assemblySize k delta ∧
+        result.remainderCalls ≤ 14 * (n + 1) * assemblySize k delta ^ 2 + 4 * assemblySize k delta
+C332ExactChecks.sameRunExactCheck (k n : ℕ) (R delta : ℚ) :
+  have result := produceExplicitStored k n R delta;
+  denoteChain result.run.value = actualChain k n R delta ∧
+    StoredRectangularGivens.total result.run.cost ≤ frontierBudget k n delta ∧
+      result.quotientCalls ≤ 14 * (n + 1) * assemblySize k delta ^ 2 + 4 * assemblySize k delta ∧
+        result.remainderCalls ≤ 14 * (n + 1) * assemblySize k delta ^ 2 + 4 * assemblySize k delta
+'HermiteExplicitCachedStored.produceExplicitStored_same_run' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C332ExactChecks.sameRunExactCheck' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteExplicitCachedStored.produceExplicitStored_refines' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteExplicitCachedStored.produceExplicitStored_cost_counters' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

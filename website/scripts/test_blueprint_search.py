@@ -5,7 +5,7 @@ import unittest
 from unittest.mock import patch
 
 from website.scripts.augment_blueprint_search import (
-    ADAPTER, BEGIN, DOMAIN, PREFIX, SEARCH_IMPORT, SearchContractError,
+    ADAPTER, BEGIN, DOMAIN, PREFIX, SEARCH_IMPORT, SEARCH_IMPORT_433, SearchContractError,
     augment, declaration_entries,
 )
 
@@ -44,6 +44,28 @@ class BlueprintSearchTests(unittest.TestCase):
         self.assertEqual(before, (self.root / "-verso-search" / ADAPTER).read_bytes())
         self.assertNotIn(b"\r", before)
         self.assertEqual((self.root / "-verso-search/domain-mappers.js").read_text().count(BEGIN), 1)
+
+    def test_lean_433_priority_aware_search_is_preserved(self):
+        init = (SEARCH_IMPORT_433 + "\nregisterSearch({\n"
+                "  searchWrapper, data, domainMappers, searchPriorities,\n"
+                "  docPriorities, searchPagePath,\n});")
+        self.write("-verso-search/search-init.js", init)
+        self.assertEqual(augment(self.root), 1)
+        self.assertEqual(augment(self.root, check=True), 1)
+        self.assertEqual((self.root / "-verso-search/search-init.js").read_text(), init)
+
+    def test_unknown_or_mismatched_search_initialization_fails_before_write(self):
+        for init in (
+            SEARCH_IMPORT_433 + "\nregisterSearch({searchWrapper,data,domainMappers});",
+            SEARCH_IMPORT + "\nregisterSearch({searchWrapper,data,domainMappers,unknown});",
+            SEARCH_IMPORT + "\n" + SEARCH_IMPORT + "\nregisterSearch({searchWrapper,data,domainMappers});",
+            SEARCH_IMPORT + "\nregisterSearch({searchWrapper,data,domainMappers});\nregisterSearch({other});",
+        ):
+            with self.subTest(init=init):
+                self.write("-verso-search/search-init.js", init)
+                with self.assertRaisesRegex(SearchContractError, "initialization contract"):
+                    augment(self.root)
+                self.assertFalse((self.root / "-verso-search" / ADAPTER).exists())
 
     def test_duplicate_renderings_and_other_domains_do_not_duplicate_results(self):
         self.xref[DOMAIN]["contents"][PREFIX + NAME].append(dict(self.entry))

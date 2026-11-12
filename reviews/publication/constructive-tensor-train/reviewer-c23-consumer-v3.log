@@ -1,0 +1,30 @@
+﻿QuantumBlockEncoding.ConstructiveTensorTrain.CoreFactorization {l r : ℕ} (A : Core l r) : Type
+QuantumBlockEncoding.ConstructiveTensorTrain.factorCore {l r : ℕ} (A : Core l r) : CoreFactorization A
+QuantumBlockEncoding.ConstructiveTensorTrain.Result {n l r : ℕ} (C : Chain n l r) : Type
+QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize {n l r : ℕ} (C : Chain n l r) : Result C
+QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_rightCanonical {n l r : ℕ} (C : Chain n l r) :
+  RightCanonical (canonicalize C).canonical
+QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_rankReduced {n l r : ℕ} (C : Chain n l r) :
+  RankReduced C (canonicalize C).canonical
+QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_action {n l r : ℕ} (C : Chain n l r) (x : Word n) :
+  contract C x = (canonicalize C).residual * contract (canonicalize C).canonical x
+QuantumBlockEncoding.ConstructiveTensorTrain.canonicalize_maxBond_le {n l r : ℕ} (C : Chain n l r) :
+  maxBond (canonicalize C).canonical ≤ maxBond C
+QuantumBlockEncoding.ConstructiveTensorTrain.boundary {n l r : ℕ} (C : Chain n l r) (v : Fin l → ℝ) :
+  Fin (canonicalize C).rank → ℝ
+QuantumBlockEncoding.ConstructiveTensorTrain.boundary_action {n l r : ℕ} (C : Chain n l r) (v : Fin l → ℝ)
+  (x : Word n) : Matrix.vecMul v (contract C x) = Matrix.vecMul (boundary C v) (contract (canonicalize C).canonical x)
+QuantumBlockEncoding.ConstructiveTensorTrain.boundary_mass {n l r : ℕ} (C : Chain n l r) (v : Fin l → ℝ) :
+  chainMass C v = mass (boundary C v)
+QuantumBlockEncoding.ConstructiveTensorTrain.boundary_normalized {n l r : ℕ} (C : Chain n l r) (v : Fin l → ℝ)
+  (normalized : chainMass C v = 1) : mass (boundary C v) = 1
+QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary {n : ℕ} (C : Chain n 1 1) : Fin (canonicalize C).rank → ℝ
+QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary_action {n : ℕ} (C : Chain n 1 1) (x : Word n) :
+  contract C x 0 0 = ∑ a, stateBoundary C a * contract (canonicalize C).canonical x a 0
+QuantumBlockEncoding.ConstructiveTensorTrain.stateBoundary_normalized {n : ℕ} (C : Chain n 1 1)
+  (normalized : ∑ x, contract C x 0 0 ^ 2 = 1) : mass (stateBoundary C) = 1
+'CTTSourceFirstReviewerC23.symbolic_root' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CTTSourceFirstReviewerC23.scalar_consumer' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CTTSourceFirstReviewerC23.actual_core_factor' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CTTSourceFirstReviewerC23.zero_terminal_not_normalized' depends on axioms: [propext, Classical.choice, Quot.sound]
+

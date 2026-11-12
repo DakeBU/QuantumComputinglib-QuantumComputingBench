@@ -129,6 +129,7 @@ theorem warmRobinPaperSevenControlledRy_eq_amplitudeLift :
       warmRobinPaperSevenAmplitudeControlWires,
       warmRobinPaperSevenAmplitudeSelector,
       warmRobinPaperSevenAmplitudeSystem,
+      warmRobinPaperSevenSelectorBits, warmRobinPaperSevenSystemBits,
       splitPrimitiveWire] using rotationEntry
   · rw [if_neg contextsEqual, if_neg (not_congr contextIff |>.mp contextsEqual)]
 

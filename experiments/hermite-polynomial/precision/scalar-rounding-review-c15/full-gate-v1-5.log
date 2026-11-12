@@ -1,0 +1,20 @@
+warning: verso: repository '<repo>\.lake/packages\verso' has local changes
+'HermiteSavedRounding.outward_widening' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedRounding.scaled_floor_num' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedRounding.scaled_ceil_num' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedRounding.times_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedRounding.ryRow_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedRounding.rowTrace_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedRounding.actual_first_saved_ry' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteSavedRounding.final_column_center_error' depends on axioms: [propext, Classical.choice, Quot.sound]
+HermiteSavedRounding.outward_mem (a : Interval) (bits : ℕ) (x : ℝ) (hx : Mem a x) : Mem (outward a bits) x
+HermiteSavedRounding.ryRow_mem (theta : ℚ) (n bits : ℕ) (u v : Interval) (x y : ℝ) (hu : Mem u x) (hv : Mem v y) :
+  Mem (ryRow theta n bits u v).1 (Real.cos (↑theta / 2) * x - Real.sin (↑theta / 2) * y) ∧
+    Mem (ryRow theta n bits u v).2 (Real.sin (↑theta / 2) * x + Real.cos (↑theta / 2) * y)
+HermiteSavedRounding.rowTrace_mem (angles : List ℚ) (n bits : ℕ) (uv : Interval × Interval) (xy : ℝ × ℝ)
+  (hu : Mem uv.1 xy.1) (hv : Mem uv.2 xy.2) :
+  Mem (rowTrace angles n bits uv).1 (realTrace angles xy).1 ∧ Mem (rowTrace angles n bits uv).2 (realTrace angles xy).2
+HermiteSavedRounding.final_column_center_error (angles : List ℚ) (n bits : ℕ) (u v : ℚ) :
+  have p := rowTrace angles n bits (singleton u, singleton v);
+  have z := realTrace angles (↑u, ↑v);
+  |z.1 - ↑(midpoint p.1)| ≤ ↑((p.1.hi - p.1.lo) / 2) ∧ |z.2 - ↑(midpoint p.2)| ≤ ↑((p.2.hi - p.2.lo) / 2)

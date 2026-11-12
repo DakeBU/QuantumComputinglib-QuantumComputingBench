@@ -1,0 +1,47 @@
+{
+  "schema": "C386_FIXED_DIFF_REVIEW_INPUTS_V1",
+  "reviewer": "/root/robin_compatibility_review_c364",
+  "reviewer_is_repair_author": false,
+  "inputs": [
+    {"path": "W/c386-fixed-diff-candidate/check_toolchain_maintenance.py", "bytes": 13434, "lines": 198, "sha256": "e5d411116296caffc80db5d479a3c7b7dfdea344876bec737aacb80d8e4b7c43", "read_extent": "complete"},
+    {"path": "W/c386-fixed-diff-candidate/test_toolchain_maintenance.py", "bytes": 18631, "lines": 328, "sha256": "f486902cd77bffc521c31311c34b31060a021a6636b962163dbbbcc4c7bf3a37", "read_extent": "complete"},
+    {"path": "W/c386-fixed-diff-candidate/REPRODUCTION.json", "bytes": 406, "lines": 9, "sha256": "5d93ab5da42c20479ee7aefdb11fdf09514cfdd38bab5b62c85a753cfc1990d6", "read_extent": "complete; claims checked against own local reproduction, not Linux artifacts"},
+    {"path": "W/c373-typed-policy-successor/check_toolchain_maintenance.py", "bytes": 13339, "sha256": "f178ba5a2475086b7714076f3867f2c06c96ca412401500a78315fdf56338ea0", "read_extent": "prior C375 complete reading reused; raw mechanical comparison"},
+    {"path": "W/c373-typed-policy-successor/test_toolchain_maintenance.py", "bytes": 17047, "sha256": "94081fee920cd36a78656ba02c0dc4679f020902f61398821387c7f79a49a738", "read_extent": "prior reading reused; raw mechanical comparison"},
+    {"path": "R/website/scripts/check_toolchain_maintenance.py", "bytes": 13339, "sha256": "f178ba5a2475086b7714076f3867f2c06c96ca412401500a78315fdf56338ea0", "read_extent": "raw mechanical equality to accepted code; no production edit"},
+    {"path": "R/website/scripts/test_toolchain_maintenance.py", "bytes": 17047, "sha256": "94081fee920cd36a78656ba02c0dc4679f020902f61398821387c7f79a49a738", "read_extent": "raw hash/length equality; no production edit"},
+    {"path": "W/c363-robin-exact-compatibility.patch", "bytes": 5426, "sha256": "9418ed5a4e1754b042d03084cab78ac171794cd35f71ed469ea94f0933df4bd2", "read_extent": "raw byte equality to actual explicit8 stdout; historical content not changed"}
+  ],
+  "delta": {
+    "source_only_comment_line_105_and_abbrev8_argument_line_106": true,
+    "undo_delta_exactly_reconstructs_accepted_and_current_production_code": true,
+    "test_only_exact_mock_argument_plus_real_Git_fixture_301_327": true,
+    "undo_test_delta_exactly_reconstructs_accepted_and_production_test": true,
+    "policy_semantics_source_hashes_frozen_patch_hash_and_typed_bindings_unchanged": true
+  },
+  "actual_test_runs": [
+    {"sandbox": "default", "tests": 34, "seconds": 19.672, "result": "FAILED errors=1", "existing_33_passed": true, "failure": "real temporary Git init exited 128; stderr captured but not printed", "specific_permission_cause_established_from_stderr": false},
+    {"sandbox": "scoped escalation for same reviewed suite and disposable fixtures", "tests": 34, "seconds": 11.384, "result": "OK", "candidate_unchanged_between_runs": true}
+  ],
+  "real_Git_fixture": {"local_disposable_repository_only": true, "core_abbrev_values": [7,8,12,40], "all_explicit8_outputs_equal": true, "all_index_names_length_8_in_fixture": true, "distinct_default_outputs": 4, "temporary_commit_and_cleanup": true},
+  "actual_local_readonly_reproduction": {
+    "repository": "R/",
+    "base": "af585d9cbbb299c1c8c48647627a2cb820ef536a",
+    "module": "R/QuantumBlockEncoding/RobinMatrix.lean",
+    "optional_Git_locks_disabled": true,
+    "shared_args": ["diff", "--no-ext-diff", "--no-renames"],
+    "explicit8": {"bytes": 5426, "sha256": "9418ed5a4e1754b042d03084cab78ac171794cd35f71ed469ea94f0933df4bd2", "index": "ac371ae9..d80cfba8", "exactly_equals_frozen_patch": true},
+    "explicit7": {"bytes": 5424, "sha256": "baf1d672dc5b1dfb8f127bc82e8410122f731231ff7d4b0f42ec4020830fef17", "index": "ac371ae..d80cfba"},
+    "only_index_header_differs": true,
+    "stdout_captured_as_raw_bytes": true,
+    "scoped_readonly_escalation": true,
+    "production_Git_or_source_writes": false,
+    "actual_failing_Linux_patch_observed": false,
+    "reported_commit_or_CI_state_independently_authenticated": false
+  },
+  "verdict": "accepted-for-compatibility-only",
+  "required_changes": [],
+  "limits": ["exact repair only", "new checker bytes require integration rebinding", "not actual registry/case/main/BE/TCB admission", "not proof of every Git-format setting or collision scenario", "live CI not queried or altered"],
+  "operations": {"historical_candidate_production_registry_edits": false, "production_branch_push_restart_cancel": false, "network_Lean_subagents": false, "writes": "new C386 packet and automatically cleaned temporary fixtures only"},
+  "failure_class_after_scoped_rerun": "NONE"
+}

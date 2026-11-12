@@ -170,7 +170,7 @@ theorem firstEntry_cost_le {l m : ℕ} (A : StoredCore l m)
       intro b
       simp [bind, Run.bind, StoredGivens.mul, charge]
       omega)
-  convert h using 1; ring
+  simpa only [firstEntry, Nat.add_assoc, ← two_mul] using h
 
 theorem secondEntry_cost_le {l m : ℕ} (F : StoredMatrix l m)
     (A : StoredCore l m) (bit : Fin 2) (a c : Fin l) (op : Op) :
@@ -182,7 +182,7 @@ theorem secondEntry_cost_le {l m : ℕ} (F : StoredMatrix l m)
       intro j
       simp [bind, Run.bind, StoredGivens.mul, charge]
       omega)
-  convert h using 1; ring
+  simpa only [secondEntry, Nat.add_assoc, ← two_mul] using h
 
 theorem firstPass_cost_le {l m : ℕ} (A : StoredCore l m)
     (E : StoredMatrix m m) (bit : Fin 2) (op : Op) :

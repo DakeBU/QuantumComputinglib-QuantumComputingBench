@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "status": "STATEMENT_SEALED_BEFORE_PROOF",
+  "task": "SP-HERMITE-POLY-002",
+  "direction_fingerprint": "positive-scaling-normalized-action-invariant",
+  "proof_input_digest_supplied_by_root": "5a8f47f8d0afd1d4f957e55babde52a9e9c01babf05c481b988e99ebca2f7758",
+  "toolchain": "Lean 4.33.0",
+  "scope": "Experimental exact-real mathematical invariant for the positive scalar-removal mechanism in mps/scaled_canonicalize.py. Not floating-point QR or Python refinement.",
+  "definition_kind": "literal",
+  "ambient": "Existing TensorTrainCanonical.Chain n l r, Core l r, Word n, contract, absorb; existing TensorTrainNormEnvironment.norm and MatrixProductChain.ofKernel. No new state carrier.",
+  "transformation": "Divide each chronological core by its supplied positive factor, retaining all dimensions and signs. factorProduct is the chronological product, with empty product one.",
+  "statements": {
+    "contract_rescale": "For every Chain n l r, factors : Fin n -> Real, and Word n, contract (rescale C factors) x = (factorProduct factors)^(-1) smul contract C x. Algebraic statement includes zero factors via Lean's total inverse; recovery/normalization below require positivity.",
+    "recover_contract": "If every factor is positive, factorProduct factors smul contract (rescale C factors) x = contract C x, preserving signed amplitudes and both boundary indices.",
+    "norm_rescale": "For scalar-boundary Chain n 1 1 and positive factors, existing local Gram norm of rescale C factors = norm C / factorProduct factors.",
+    "normalized_action": "For scalar-boundary Chain n 1 1 with norm C > 0 and positive factors, contract(rescale C factors,x)[0,0]/norm(rescale C factors) = contract(C,x)[0,0]/norm C. No global-phase quotient.",
+    "absorb_recovered": "For positive a,b, (a*b) smul absorb(a^(-1) smul A,b^(-1) smul R) = absorb A R; this is the residual-before-absorption scaling mechanism.",
+    "boundary_action": "Apply recovery to actual MatrixProductChain.ofKernel with arbitrary signed left/right boundaries and retain its literal kernel readout.",
+    "hermite_target": "Normalize a positively rescaled HermiteExplicitBond.rawSourceChain, obtaining the frozen sampledAmplitude/sampleNorm through existing TensorTrainWord public little-endian indexing. L > 0, k,n natural; physical width n+1."
+  },
+  "binder_audit": {
+    "TYPING": ["natural dimensions", "dependent Chain/Core/Word carriers", "finite scaling-factor index"],
+    "SOURCE": ["supplied positive scaling factors", "nonzero-norm premise for genuine normalized-state action", "L > 0 for the existing raw Hermite source theorem"],
+    "EXCESS": []
+  },
+  "edge_scope": "Zero and deficient bonds allowed algebraically; empty chain/product handled. A zero train has no normalized state and is not assigned a fallback target. No certified rank decision, precision/runtime estimate, QR correctness, serialized circuit or ancillary-cleanup assertion is added.",
+  "independent_review": "Pending root rerun/review; author does not claim source-blind review or self approval."
+}

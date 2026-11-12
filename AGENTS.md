@@ -19,8 +19,9 @@ condition. Export readable mathematics, theorem-linked circuit figures, and
 optional executable artifacts without overstating the certified frontier.
 
 QuantumComputinglib has a broader long-term textbook mission. State Preparation
-and Block Encoding are the current two primary parts; future Quantum
-Information and Quantum Scientific Computing material is admitted through the
+and Block Encoding are Parts I and II; Quantum Information and Representation
+Theory and Quantum Algorithms for Scientific Computation are peer Parts III
+and IV with planned chapters until local admission. Their material uses the
 same source/publication protocol and must reuse the shared lower Lean graph
 whenever semantics agree. See `docs/quantum-domain-roadmap.md`. Planned
 curriculum is not evidence of local theorem closure.

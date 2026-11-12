@@ -1,0 +1,241 @@
+{
+  "module": "QuantumBlockEncoding/RectangularGivens.lean",
+  "source_id": "aspbe-local-rectangular-row-elimination-v2",
+  "source_statement": "For every finite real rectangular matrix, a literal column-by-column adjacent-rotation algorithm computes a chronological list T and residual R; U(T)A=R, R is zero strictly below the diagonal, length(T)<=N*M, U(T)^T U(T)=I, det(U(T))=1 and U(T)^T R=A. Whole19-declaration intermediate/general-list scope retained.",
+  "source_anchor": "docs/lessons/rectangular-row-elimination-v2.md sections S1-S7",
+  "lesson_path": "docs/lessons/rectangular-row-elimination-v2.md",
+  "declarations": [
+    "QuantumBlockEncoding.RectangularGivens.sweep",
+    "QuantumBlockEncoding.RectangularGivens.sweepSteps",
+    "QuantumBlockEncoding.RectangularGivens.sweepSteps_action",
+    "QuantumBlockEncoding.RectangularGivens.UpperPrefix",
+    "QuantumBlockEncoding.RectangularGivens.columnSweep_upperPrefix",
+    "QuantumBlockEncoding.RectangularGivens.sweep_upperPrefix",
+    "QuantumBlockEncoding.RectangularGivens.sweepSteps_length_le",
+    "QuantumBlockEncoding.RectangularGivens.stepsMatrix_orthogonal",
+    "QuantumBlockEncoding.RectangularGivens.stepsMatrix_det",
+    "QuantumBlockEncoding.RectangularGivens.decompose",
+    "QuantumBlockEncoding.RectangularGivens.reduced",
+    "QuantumBlockEncoding.RectangularGivens.transform",
+    "QuantumBlockEncoding.RectangularGivens.decompose_action",
+    "QuantumBlockEncoding.RectangularGivens.transform_mul",
+    "QuantumBlockEncoding.RectangularGivens.reduced_zero_below",
+    "QuantumBlockEncoding.RectangularGivens.decompose_length_le",
+    "QuantumBlockEncoding.RectangularGivens.transform_orthogonal",
+    "QuantumBlockEncoding.RectangularGivens.transform_det",
+    "QuantumBlockEncoding.RectangularGivens.exact_recovery"
+  ],
+  "obligation_map": [
+    {
+      "kind": "prerequisite",
+      "source_obligation": "S2",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.sweep"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "S2",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.sweepSteps"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S2a",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.sweepSteps_action"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "S3",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.UpperPrefix"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S3a",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.columnSweep_upperPrefix"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S3b",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.sweep_upperPrefix"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S4",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.sweepSteps_length_le"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S5a",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.stepsMatrix_orthogonal"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S5b",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.stepsMatrix_det"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "S6",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.decompose"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "S6",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.reduced"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "S6",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.transform"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S6.1",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.decompose_action"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S6.2",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.transform_mul"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S6.3",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.reduced_zero_below"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S6.4",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.decompose_length_le"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S6.5",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.transform_orthogonal"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S6.5",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.transform_det"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S6.6",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.exact_recovery"
+      ]
+    }
+  ],
+  "assumption_deltas": [
+    {
+      "classification": "same",
+      "source": "S1-S6 all dimensions and real matrices, explicit intermediate prefix/index conditions, literal computed outputs.",
+      "formal": "Whole module19source declarations, exact-real recurrence, no rank/isometry/SO hypothesis on input.",
+      "explanation": "Intermediate prefix and dimension proofs are used as the corresponding explicit local source claims; final computed outputs do not assume their conclusions."
+    },
+    {
+      "classification": "same",
+      "source": "S7 no total arithmetic/finite-bit/quantum resource certificate.",
+      "formal": "Only list-length bound N*M; noncomputable exact-real angle suppliers.",
+      "explanation": "No conversion from matrix-dimension polynomial list bound to qubit-polynomial state preparation is asserted."
+    }
+  ],
+  "graph_contribution": {
+    "baseline": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+    "classes": [
+      "reorganisation"
+    ],
+    "node_ids": [
+      "module:QuantumBlockEncoding.RectangularGivens",
+      "declaration:QuantumBlockEncoding.RectangularGivens.sweep",
+      "declaration:QuantumBlockEncoding.RectangularGivens.sweepSteps",
+      "declaration:QuantumBlockEncoding.RectangularGivens.sweepSteps_action",
+      "declaration:QuantumBlockEncoding.RectangularGivens.UpperPrefix",
+      "declaration:QuantumBlockEncoding.RectangularGivens.columnSweep_upperPrefix",
+      "declaration:QuantumBlockEncoding.RectangularGivens.sweep_upperPrefix",
+      "declaration:QuantumBlockEncoding.RectangularGivens.sweepSteps_length_le",
+      "declaration:QuantumBlockEncoding.RectangularGivens.stepsMatrix_orthogonal",
+      "declaration:QuantumBlockEncoding.RectangularGivens.stepsMatrix_det",
+      "declaration:QuantumBlockEncoding.RectangularGivens.decompose",
+      "declaration:QuantumBlockEncoding.RectangularGivens.reduced",
+      "declaration:QuantumBlockEncoding.RectangularGivens.transform",
+      "declaration:QuantumBlockEncoding.RectangularGivens.decompose_action",
+      "declaration:QuantumBlockEncoding.RectangularGivens.transform_mul",
+      "declaration:QuantumBlockEncoding.RectangularGivens.reduced_zero_below",
+      "declaration:QuantumBlockEncoding.RectangularGivens.decompose_length_le",
+      "declaration:QuantumBlockEncoding.RectangularGivens.transform_orthogonal",
+      "declaration:QuantumBlockEncoding.RectangularGivens.transform_det",
+      "declaration:QuantumBlockEncoding.RectangularGivens.exact_recovery"
+    ],
+    "views": [
+      "source-construction-graph",
+      "lean-graph",
+      "compressed-quantum-spine",
+      "functor-hypergraph"
+    ],
+    "preserved_contract": "Whole current raw source unchanged, including definitions, imports, proof bodies, guards, sign, index and product order.",
+    "remaining_boundary": "Source is retrospective implementation-informed; actual current full build exists but is cache-inherited; independent semantic and topology review/final binding pending. No finite-bit runtime or quantum synthesis claim. Version2 only specifies partial-interval zeroing and the principal-arccos angle representative; no input-matrix hypothesis or production proof changes."
+  },
+  "formalizer": "/root retrospective source/metadata author; historical formalizer UNKNOWN",
+  "historical_formalizer": "UNKNOWN",
+  "residual_boundary": "Exact-real matrix list semantics only. List length is not scalar evaluation, storage, numerical stability, finite-bit cost or a polynomial-in-qubits circuit. Source is retrospective; pre-proof seal is not claimed.",
+  "status": "AUTHOR_WIP_NOT_ADMITTED",
+  "source_proof_coverage": "reviews/publication/rectangular-givens-c36/source-v2/author-coverage.json",
+  "statement_seal": {
+    "timing": "RETROSPECTIVE_IMPLEMENTATION_INFORMED",
+    "pre_proof_claim": false,
+    "module_sha256": "aa4b908e26c0e0b0bccc05034b839f170fb4a2641d96b713ff8d3fac731bcb52",
+    "source_sha256": "91c442f1f8002be9d082257fbba0a79d551df3cdda499c6d1a2f539a686e0fd3",
+    "formal_packet_seal_sha256": "e539fa2f2fd0cf48937e218096d01d05d5c446286fc9d33c4bf4edc62490dc60",
+    "predecessor_source_sha256": "fe6357c4a8714ba463b00a0d575a28b2387bff7a1cfd9478f063a0bd6ddd12bb",
+    "clarification_proposal_sha256": "d91e7a2f355c3eb4b81d01a70d8763f7aa93207c9ec7c80a924b27a18ad5412c",
+    "independent_clarification_review": "PENDING"
+  },
+  "decoder_evidence": "reviews/publication/rectangular-givens-c36/final-evidence/decoder.json",
+  "reviewer_evidence": "reviews/publication/rectangular-givens-c36/final-evidence/reviewer.json",
+  "purification": {
+    "status": "PENDING",
+    "Exposition_Seal": "PENDING"
+  },
+  "main_admission": false,
+  "scientific_ROOT": false,
+  "binding_sha256": "c86b08dd62a1626fea6a229ebe7c9d8ec807c07d845cbaa261132160f860e0e2",
+  "repair": {
+    "proposal_path": "reviews/publication/rectangular-givens-c36/source-v2/clarification-proposal.json",
+    "independent_review": "reviews/publication/rectangular-givens-c36/source-v2-review/clarification-review.json"
+  }
+}

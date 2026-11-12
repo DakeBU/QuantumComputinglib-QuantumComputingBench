@@ -1,0 +1,45 @@
+{
+  "schema": "aspbe-staged-provider-contract-v1",
+  "status": "STATEMENT_SEALED",
+  "objective": "stored-active-column-materialization",
+  "class": "C_INTERNAL_PROVIDER",
+  "parent": "SP-HERMITE-POLY-002:C2",
+  "baseline": "8c341b099e21ca98c264076837f10787a80d0c8f",
+  "production_proof_input_digest": "5a8f47f8d0afd1d4f957e55babde52a9e9c01babf05c481b988e99ebca2f7758",
+  "toolchain": "leanprover/lean4:v4.33.0",
+  "frozen_supplier": {
+    "file": "experiments/hermite-polynomial/stored/NormalizedCanonical.lean",
+    "sha256": "1b9b54933a360cc5a09b5858ae7f48644804ae1876e819986a43d00437501f4e",
+    "returned_object": "(StagedNormalizedCanonical.compile k n L).run.value"
+  },
+  "literal_layout": {
+    "width": "N=n+1; t:Fin N",
+    "bond": "q=HermiteFiniteChain.bondQubits k; S=2^q; H=2*S",
+    "rows": "Fin H, decoded by finProdFinEquiv.symm as (bit:Fin 2,bond:Fin S); numeric row=bit*S+bond; low q physical wires are bond little-endian, highest local wire is bit",
+    "columns": "Fin(rankAt (denoteChain C) t); input physical positions are prefix labels a, equivalently (bit=0,bond=a)",
+    "core_storage": "StoredCore l m rows old bond a, flattened column=bit*m+new bond b",
+    "padding": "entries with output bond >= actual next rank are exactly zero; no artificial active columns beyond actual rank",
+    "sign": "literal signed real entries; no absolute-value or phase quotient"
+  },
+  "interfaces": {
+    "extract": "extract (C:StoredChain n l r) (q t:Nat) (ht:t<n): Run(StoredMatrix (2*2^q) (rankAt (denoteChain C) t))",
+    "value": "denote (extract C q t ht).value = fun row a => activeColumns (denoteChain C) t hB ((ConstructiveIsometryLocal.coordinates q).symm row) a",
+    "cost": "each op bounded by (2*S*rank)*(4*tick.field+2*tick.read+tick.compare)+(2*S*rank+2*S)*(2*tick.read+2*tick.write)+3*(t+1)*tick.read; therefore total <=22*S*rank+8*S+3*(t+1)",
+    "prefix": "stored Positions (2*S) rank has embedding a=Fin.castLE rank_bound a; prefix labels are materialized, not supplied as a free embedding",
+    "source": "public Hermite theorem binders k n L hL:(0<L) t:Fin(n+1); hB and canonicality produced internally from frozen supplier",
+    "completion_if_ready": "completeFrom consumes the actual extract run and actual prefix Positions run; returned stored square matrix refines ConstructiveIsometryLocal.completeStage under coordinates, with supplier plus extraction plus positions plus existing completion polynomialBudget charged"
+  },
+  "cost_scope": {
+    "model": "selected exact-real stored-word RAM counters; extractor additionally charges selected natural index operations in Op.field as declared overcount category, NOT real arithmetic claims",
+    "index_operations": "two quotient/remainder operations per extracted cell for row decoding; two multiplication/addition operations per supported cell for stored-core flattening; all <=4*H*rank; core traversal three reads per visited cons node",
+    "storage": "materialize full nested vectors with existing collect projection/counter passes; supported scalar lookup two reads; padding comparison once per cell",
+    "callback": "only explicit charged decode/guard/flatten/stored-entry callbacks; no arbitrary scalar callback",
+    "excluded": ["general loop/enumeration/proof/counter metadata arithmetic", "finite-bit real arithmetic", "uniform numerical error", "Gray/Givens primitive emission", "angle instantiation", "global wire placement and circuit copying"],
+    "raw_extra_counters": "must remain separate from extractor selected-index counters; do not reinterpret raw quotient/remainder theorem as full pipeline quotient/remainder count"
+  },
+  "regression": ["source n=0 is one real stage", "generic empty train admits no valid stage", "zero core/zero next bond", "deficient noncanonical core extraction allowed but isometry not claimed", "non-prefix completion input tested via existing stored completion producer", "power-of-two padding and bit/bond order"],
+  "memory_ids": ["QBE-PM-LOW-TOKEN-CONTROL-PLANE", "QBE-PM-DENSE-CHECK-SMALL-INSTANCE", "QBE-PM-VERIFIER-SEMANTIC-LEVEL"],
+  "independent_review": "pending",
+  "purification": "pending",
+  "worker_tokens": null
+}

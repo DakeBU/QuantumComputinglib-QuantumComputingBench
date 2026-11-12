@@ -1,0 +1,28 @@
+{
+  "evidence_class": "C_INTERNAL_PROVIDER",
+  "version": 1,
+  "status": "STATEMENT_SEALED_BEFORE_PROOF_SEARCH",
+  "direction_fingerprint": "literal-rational-half-angle-to-signed-rotation-matrix-linear-unitary-decomposition",
+  "quantum_contract": {
+    "angle": "theta : Rat; exact real cast, half argument theta/2",
+    "nominal": "QuantumBlockEncoding.standardRyMatrix (theta : Real)",
+    "surrogate": "[[cosPoly(theta/2,n), -sinPoly(theta/2,n)], [sinPoly(theta/2,n), cosPoly(theta/2,n)]] cast to Complex",
+    "radius": "HermiteFiniteTrig.radius (theta/2) n",
+    "basis": "Fin 2 ordered 0,1; named PrimitiveBasis physical wire; little-endian adapter if provided",
+    "phase": "literal full signed entries, no phase quotient",
+    "action": "left matrix multiplication; spectators unchanged",
+    "norm": "Matrix.Norms.L2Operator and explicit toEuclideanCLM; not entrywise sup norm",
+    "inputs": "theta,n and typing-only named target; no assumed Valid or assumed operator-error bound",
+    "bounds": "each entry norm <= radius; local and lifted L2 operator error <= 2*radius",
+    "surrogate_unitary": false,
+    "CX": "existing exact cxBasisAction and evalPrimitiveGate; identical surrogate gives zero error"
+  },
+  "sealed_signatures": [
+    "entry_error (theta : Rat) (n : Nat) (row col : Fin 2) : norm ((finiteRy theta n - standardRyMatrix (theta : Real)) row col) <= (radius (theta/2) n : Real)",
+    "local_operator_error (theta : Rat) (n : Nat) : norm (finiteRy theta n - standardRyMatrix (theta : Real)) <= 2 * (radius (theta/2) n : Real)",
+    "lifted_operator_error {qubits : Nat} (target : Fin qubits) (theta : Rat) (n : Nat) : norm (liftPrimitiveOneQubit target (finiteRy theta n) - evalPrimitiveGate (.ry target (.rational theta))) <= 2 * (radius (theta/2) n : Real)",
+    "lifted_clm_error {qubits : Nat} (target : Fin qubits) (theta : Rat) (n : Nat) : norm (Matrix.toEuclideanCLM (liftPrimitiveOneQubit target (finiteRy theta n) - evalPrimitiveGate (.ry target (.rational theta)))) <= 2 * (radius (theta/2) n : Real)"
+  ],
+  "still_open": ["Python/parser refinement", "outward interval arithmetic", "saved stage midpoint after chronology", "full tensor/readout", "whole Hermite family", "finite-bit and operation cost"],
+  "publication": "No SourceAnchor admission, root completion, or independent reviewer claim"
+}

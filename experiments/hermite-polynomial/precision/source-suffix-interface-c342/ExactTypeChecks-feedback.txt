@@ -1,0 +1,45 @@
+HermiteSourceSuffix.actualFactorials (k : ℕ) : Vector ℚ (2 * k + 2)
+HermiteSourceSuffix.actualSourceTerm (k : ℕ) (i : Fin (k + 1)) (r : Fin (↑i + 1)) :
+  QuantumBlockEncoding.StoredGivens.Run ℚ
+HermiteSourceSuffix.droppedTerms (k : ℕ) (i : Fin (k + 1)) (s : Fin (↑i + 2)) (r : Fin (↑i + 1 - ↑s)) :
+  QuantumBlockEncoding.StoredGivens.Run ℚ
+HermiteSourceSuffix.actualSuffixObservation (k : ℕ) (i : Fin (k + 1)) (s : Fin (↑i + 2)) : ℚ
+HermiteSourceSuffix.actualTailObservation (k : ℕ) (i : Fin (k + 1)) (s : Fin (↑i + 2)) : ℚ
+HermiteSourceSuffix.SourceSuffix (k : ℕ) (i : Fin (k + 1)) (s : Fin (↑i + 2)) : ℚ
+def HermiteSourceSuffix.ActualSuffixSpec : Prop :=
+∀ (k : ℕ) (i : Fin (k + 1)) (s : Fin (↑i + 2)),
+  actualSuffixObservation k i s = SourceSuffix k i s ∧
+    actualSuffixObservation k i ⟨0, ⋯⟩ = (HermiteChargedSourceCache.sourceEntry k (actualFactorials k) i).value ∧
+      if h : ↑s < ↑i + 1 then
+        have next := ⟨↑s + 1, ⋯⟩;
+        actualTailObservation k i s = actualSuffixObservation k i next ∧
+          actualSuffixObservation k i s = (actualSourceTerm k i ⟨↑s, h⟩).value + actualTailObservation k i s
+      else actualSuffixObservation k i s = 0
+def HermiteSourceSuffix.SuffixEnvelopeSpec : Prop :=
+∀ (k : ℕ) (i : Fin (k + 1)) (s : Fin (↑i + 2)),
+  have q := SourceSuffix k i s;
+  q.den ∣ k.factorial ∧ 0 ≤ q ∧ q ≤ ↑((↑i + 1 - ↑s) * 2 ^ (2 * k))
+def HermiteSourceSuffix.ReturnedCacheSpec : Prop :=
+∀ (k : ℕ) (i : Fin (k + 1)),
+  have a := (HermiteChargedSourceCache.produceSourceCache k).value[↑i];
+  a = actualSuffixObservation k i ⟨0, ⋯⟩ ∧ a.den ∣ k.factorial ∧ 0 ≤ a ∧ a ≤ ↑((k + 1) * 2 ^ (2 * k))
+have this :=
+  ∀ (k : ℕ) (i : Fin (k + 1)) (s : Fin (↑i + 2)),
+    actualSuffixObservation k i s = SourceSuffix k i s ∧
+      actualSuffixObservation k i ⟨0, ⋯⟩ = (HermiteChargedSourceCache.sourceEntry k (actualFactorials k) i).value ∧
+        if h : ↑s < ↑i + 1 then
+          let next := ⟨↑s + 1, ⋯⟩;
+          actualTailObservation k i s = actualSuffixObservation k i next ∧
+            actualSuffixObservation k i s = (actualSourceTerm k i ⟨↑s, h⟩).value + actualTailObservation k i s
+        else actualSuffixObservation k i s = 0;
+this : Prop
+have this :=
+  ∀ (k : ℕ) (i : Fin (k + 1)) (s : Fin (↑i + 2)),
+    let q := SourceSuffix k i s;
+    q.den ∣ k.factorial ∧ 0 ≤ q ∧ q ≤ ↑((↑i + 1 - ↑s) * 2 ^ (2 * k));
+this : Prop
+have this :=
+  ∀ (k : ℕ) (i : Fin (k + 1)),
+    let a := (HermiteChargedSourceCache.produceSourceCache k).value[↑i];
+    a = actualSuffixObservation k i ⟨0, ⋯⟩ ∧ a.den ∣ k.factorial ∧ 0 ≤ a ∧ a ≤ ↑((k + 1) * 2 ^ (2 * k));
+this : Prop

@@ -39,28 +39,10 @@ theorem warmRobinXorFourSlotSelectBasisAction_eq_perm :
 theorem warmRobinXorFourSlotSelectProgram_eval :
     evalPrimitiveCircuit warmRobinXorFourSlotSelectCircuit =
       ComplexLCU.equivPermutationMatrix warmRobinXorFourSlotSelectBasisEquiv := by
-  ext row column
   simp only [warmRobinXorFourSlotSelectCircuit, evalPrimitiveCircuit,
     evalPrimitiveGate, Matrix.one_mul]
-  rw [ComplexLCU.equivPermutationMatrix_mul_apply]
-  unfold ComplexLCU.equivPermutationMatrix warmRobinXorFourSlotSelectBasisEquiv
-  by_cases selected :
-      (cxBasisEquiv (4 : Fin 6) (1 : Fin 6) (by decide)).symm row =
-        cxBasisEquiv (3 : Fin 6) (0 : Fin 6) (by decide) column
-  · have selected' :
-        row = cxBasisEquiv (4 : Fin 6) (1 : Fin 6) (by decide)
-          (cxBasisEquiv (3 : Fin 6) (0 : Fin 6) (by decide) column) := by
-      rw [← selected]
-      exact (cxBasisEquiv (4 : Fin 6) (1 : Fin 6) (by decide)).apply_symm_apply row |>.symm
-    simp [selected']
-  · have selected' :
-        row ≠ cxBasisEquiv (4 : Fin 6) (1 : Fin 6) (by decide)
-          (cxBasisEquiv (3 : Fin 6) (0 : Fin 6) (by decide) column) := by
-      intro equality
-      apply selected
-      rw [equality]
-      exact (cxBasisEquiv (4 : Fin 6) (1 : Fin 6) (by decide)).symm_apply_apply _
-    simp [selected, selected']
+  rw [ComplexLCU.equivPermutationMatrix_mul]
+  rfl
 
 theorem warmRobinXorFourSlotSelectProgram_noOracleCalls :
     warmRobinXorFourSlotSelectCircuit.resource.oracleCalls = 0 :=
@@ -458,29 +440,10 @@ theorem warmRobinXorFourSlotPairCoordinateCircuit_eval :
     evalPrimitiveCircuit warmRobinXorFourSlotPairCoordinateCircuit =
       ComplexLCU.equivPermutationMatrix
         warmRobinXorFourSlotPairCoordinateBasisEquiv := by
-  ext row column
   simp only [warmRobinXorFourSlotPairCoordinateCircuit,
     evalPrimitiveCircuit, evalPrimitiveGate, _root_.Matrix.one_mul]
-  rw [ComplexLCU.equivPermutationMatrix_mul_apply]
-  unfold ComplexLCU.equivPermutationMatrix
-    warmRobinXorFourSlotPairCoordinateBasisEquiv
-  by_cases selected :
-      (cxBasisEquiv (2 : Fin 6) (0 : Fin 6) (by decide)).symm row =
-        cxBasisEquiv (2 : Fin 6) (1 : Fin 6) (by decide) column
-  · have selected' :
-        row = cxBasisEquiv (2 : Fin 6) (0 : Fin 6) (by decide)
-          (cxBasisEquiv (2 : Fin 6) (1 : Fin 6) (by decide) column) := by
-      rw [← selected]
-      exact (cxBasisEquiv (2 : Fin 6) (0 : Fin 6) (by decide)).apply_symm_apply row |>.symm
-    simp [selected']
-  · have selected' :
-        row ≠ cxBasisEquiv (2 : Fin 6) (0 : Fin 6) (by decide)
-          (cxBasisEquiv (2 : Fin 6) (1 : Fin 6) (by decide) column) := by
-      intro equality
-      apply selected
-      rw [equality]
-      exact (cxBasisEquiv (2 : Fin 6) (0 : Fin 6) (by decide)).symm_apply_apply _
-    simp [selected, selected']
+  rw [ComplexLCU.equivPermutationMatrix_mul]
+  rfl
 
 theorem warmRobinXorFourSlotPairCoordinateBasisEquiv_involutive :
     Function.Involutive warmRobinXorFourSlotPairCoordinateBasisEquiv := by

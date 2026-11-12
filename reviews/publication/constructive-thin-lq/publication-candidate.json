@@ -1,0 +1,103 @@
+{
+  "module": "QuantumBlockEncoding/ConstructiveThinLQ.lean",
+  "source_id": "aspbe-local-constructive-thin-lq",
+  "source_statement": "Every finite real m by n matrix is assigned specified factors R:m by min(m,n),Q:min(m,n) by n with A=RQ and QQ^T=I. Wide factors literally extract the residual/transform of the fixed adjacent-Givens elimination of the transpose; tall factors are A and identity. Zero, deficient and empty shapes included. Exact-real deterministic mathematical definitions, not a computable finite-bit procedure, triangularity, stability, runtime, quantum action or cost certificate.",
+  "source_anchor": "docs/lessons/deterministic-real-thin-lq.md: Matrices and output equations through Reuse and the four graph views; reviews/publication/constructive-thin-lq/source-contract.json",
+  "lesson_path": "docs/lessons/deterministic-real-thin-lq.md",
+  "declarations": [
+    "QuantumBlockEncoding.ConstructiveThinLQ.Factorization",
+    "QuantumBlockEncoding.ConstructiveThinLQ.wideR",
+    "QuantumBlockEncoding.ConstructiveThinLQ.wideQ",
+    "QuantumBlockEncoding.ConstructiveThinLQ.wide_factorization",
+    "QuantumBlockEncoding.ConstructiveThinLQ.wide_orthogonal",
+    "QuantumBlockEncoding.ConstructiveThinLQ.factorOfLE",
+    "QuantumBlockEncoding.ConstructiveThinLQ.factor",
+    "QuantumBlockEncoding.ConstructiveThinLQ.factor_correct"
+  ],
+  "obligation_map": [
+    {
+      "kind": "proof-edge",
+      "source_obligation": "local-constructive-lq:output-record; literal factors and two mathematical proof fields",
+      "declarations": [
+        "QuantumBlockEncoding.ConstructiveThinLQ.Factorization"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "local-constructive-lq:wide-extraction; transpose elimination, zero-tail truncation and row orthogonality",
+      "declarations": [
+        "QuantumBlockEncoding.ConstructiveThinLQ.wideR",
+        "QuantumBlockEncoding.ConstructiveThinLQ.wideQ",
+        "QuantumBlockEncoding.ConstructiveThinLQ.wide_factorization",
+        "QuantumBlockEncoding.ConstructiveThinLQ.wide_orthogonal",
+        "QuantumBlockEncoding.ConstructiveThinLQ.factorOfLE"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "local-constructive-lq:all-shapes; wide OR tall identity, including empty dimensions; actual returned factors",
+      "declarations": [
+        "QuantumBlockEncoding.ConstructiveThinLQ.factor",
+        "QuantumBlockEncoding.ConstructiveThinLQ.factor_correct"
+      ]
+    }
+  ],
+  "assumption_deltas": [
+    {
+      "classification": "same",
+      "source": "Finite nonnegative m,n; arbitrary real matrix, no rank, nonzero or positivity premise",
+      "formal": "m n:Nat; A:Matrix (Fin m) (Fin n) Real; output inner dimension min m n",
+      "explanation": "Real transpose and fixed inner dimension match, including deficient and empty shapes."
+    },
+    {
+      "classification": "same",
+      "source": "Wide subcase m<=n; all-shape constructor dispatches this comparison internally",
+      "formal": "wideR,wideQ,wide_factorization,wide_orthogonal,factorOfLE have hmn:m<=n; factor,factor_correct have no such assumption",
+      "explanation": "Wide guard is SOURCE, finite types are TYPING; tall and empty cases are not excluded."
+    },
+    {
+      "classification": "same",
+      "source": "Factor record carries reconstruction and orthogonality as required outputs",
+      "formal": "Factorization fields factorization and orthogonal; factorOfLE and factor construct their proofs",
+      "explanation": "Proof fields are obligations of a returned record, not caller-supplied assumptions replacing constructor correctness."
+    },
+    {
+      "classification": "same",
+      "source": "Fixed exact-real adjacent rotation procedure and shared prefix identity are proved prerequisites",
+      "formal": "Actual RectangularGivens definitions, exact_recovery,reduced_zero_below,transform_orthogonal and ThinLQ.sum_prefix_of_zero",
+      "explanation": "Dependencies are internal proofs, not free oracle or unproved numerical supplier."
+    }
+  ],
+  "graph_contribution": {
+    "baseline": "305952f4291d7be530c76f51f7e98d77faf1cf45",
+    "classes": [
+      "reorganisation",
+      "bridge"
+    ],
+    "node_ids": [
+      "module:QuantumBlockEncoding.ConstructiveThinLQ",
+      "declaration:QuantumBlockEncoding.ConstructiveThinLQ.Factorization",
+      "declaration:QuantumBlockEncoding.ConstructiveThinLQ.wideR",
+      "declaration:QuantumBlockEncoding.ConstructiveThinLQ.wideQ",
+      "declaration:QuantumBlockEncoding.ConstructiveThinLQ.wide_factorization",
+      "declaration:QuantumBlockEncoding.ConstructiveThinLQ.wide_orthogonal",
+      "declaration:QuantumBlockEncoding.ConstructiveThinLQ.factorOfLE",
+      "declaration:QuantumBlockEncoding.ConstructiveThinLQ.factor",
+      "declaration:QuantumBlockEncoding.ConstructiveThinLQ.factor_correct"
+    ],
+    "views": [
+      "source-construction-graph",
+      "lean-graph",
+      "compressed-quantum-spine",
+      "functor-hypergraph"
+    ],
+    "preserved_contract": "Existing complete module proof bytes unchanged; retrospective mathematical algorithm explanation. Source procedure, actual named formal providers, compressed elimination move and conceptual transport are distinct, not elaborated proof-term graph or certified functor.",
+    "remaining_boundary": "Noncomputable exact-real definitions; numerical stability, finite-bit implementation, runtime, physical action and Hermite root remain separate. No triangularity/uniqueness/novelty claim; whole migration and reader/purification pending."
+  },
+  "formalizer": "root-retrospective-constructive-thin-lq-author-20261008; historical proof authors retained by Git",
+  "residual_boundary": "Only this whole8-declaration local module; transitive axioms and exact algorithm definitions must be independently checked. No production source mutation or scientific/main promotion.",
+  "decoder_evidence": "reviews/publication/constructive-thin-lq/decoder-evidence.json",
+  "reviewer_evidence": "reviews/publication/constructive-thin-lq/reviewer-evidence-v2.json",
+  "status": "SOURCE_REVIEWED_LOCAL; reader/purification/main pending",
+  "binding_sha256": "b7638fc77dbdcf0193933736bec043819990080fa1984f44fcd7ef4bd8784460"
+}

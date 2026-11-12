@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "version": 3,
+  "status": "IMMUTABLE_PRE_PROOF_ADDITIONAL_SIGNATURE_DELTA",
+  "parent": "statement-seal-v2-delta.json",
+  "timing": "After writing v2 numerator proof attempt; before defining or proving the rational exp-enclosure endpoint output representations below. This delta is retained separately, and v1/v2 remain unchanged.",
+  "definitions": {
+    "rationalSourceNumerator": "def rationalSourceNumerator (k r p q : Nat) : Nat := p * leftNumerator k r * commonDenominator k (2*k+1-r) + q * leftNumerator k (2*k+1-r) * commonDenominator k r",
+    "rationalSourceDenominator": "def rationalSourceDenominator (k r q : Nat) : Nat := q * commonDenominator k r * commonDenominator k (2*k+1-r)"
+  },
+  "exact_signatures": [
+    "theorem fromConstant_range (k : Nat) (e : Real) (he : e in Set.Icc 0 1) (r : Fin(2*k+2)) : (StoredHermiteCoefficients.fromConstant k e).value[r.val] in Set.Icc 0 (2 * coarseBound k)",
+    "theorem rationalSource_value (k r p q : Nat) (hr : r <= 2*k+1) (hq : 0 < q) : (p:Real)/(q:Real)*leftCoefficient k r + leftCoefficient k (2*k+1-r) = (rationalSourceNumerator k r p q:Real)/(rationalSourceDenominator k r q:Real)",
+    "theorem rationalSourceDenominator_pos (k r q : Nat) (hr : r <= 2*k+1) (hq : 0 < q) : 0 < rationalSourceDenominator k r q",
+    "theorem rationalSourceDenominator_bound (k r q : Nat) : rationalSourceDenominator k r q <= q * 2^(2*(k*(k+1)+2*k+1))",
+    "theorem rationalSourceNumerator_bound (k r p q : Nat) (hr : r <= 2*k+1) : rationalSourceNumerator k r p q <= (p+q) * 2^((k+2)*(k+1)+2*k*(k+1)+7*k+2)"
+  ],
+  "classification": "C internal actual-source scalar and rational representation consumers. he is interval membership for a reusable stored-scalar provider, not a new source Anchor assumption. p,q are finite rational scalar inputs, not free source oracles.",
+  "consumer": "Actual source_coefficient_intervals computes E*base[r]+base[d-r] at each rational E endpoint. p,q representation gives polynomial-in-k output binary length plus scalar input bits. Pi,L,restriction arithmetic and executable refinement remain separate.",
+  "nonclaims": ["No all-input Fraction implementation refinement", "No inferred pi/exp analytic membership", "No runtime bound from output size", "No global epsilon/QR/circuit result"]
+}

@@ -1,0 +1,18 @@
+powQ_value : ∀ (x : ℚ) (m : ℕ), (powQ x m).value = x ^ m
+powQ_cost : ∀ (x : ℚ) (m : ℕ) (op : Op), (powQ x m).cost op = m * tick Op.field op
+cutoffQ_value : ∀ (delta : ℚ), (cutoffQ delta).value = HermiteFiniteExp.tailCutoff delta
+gridStepRun_value : ∀ (width : ℕ) (R : ℚ), (gridStepRun width R).value = HermitePiecewiseUniform.gridStepQ width R
+acceptRun_value : ∀ (width cut : ℕ) (a : Fin 3) (flip : Bool),
+  (acceptRun width cut a flip).value =
+    if flip = true then 1 - HermitePiecewiseStored.acceptQ width cut a else HermitePiecewiseStored.acceptQ width cut a
+acceptRun_total_le : ∀ (width cut : ℕ) (a : Fin 3) (flip : Bool),
+  StoredRectangularGivens.total (acceptRun width cut a flip).cost ≤ 4
+rightEntry_total_le : ∀ (k n : ℕ) (R delta : ℚ) (s : RightSetup n R delta) (middle : Vector ℚ (2 * k + 2))
+  (z : FullIndex k delta), StoredRectangularGivens.total (rightEntry k n R delta s middle z).cost ≤ 11
+'HermiteCachedPiecewiseStored.powQ_value' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteCachedPiecewiseStored.powQ_cost' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteCachedPiecewiseStored.cutoffQ_value' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteCachedPiecewiseStored.gridStepRun_value' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteCachedPiecewiseStored.acceptRun_value' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteCachedPiecewiseStored.acceptRun_total_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteCachedPiecewiseStored.rightEntry_total_le' depends on axioms: [propext, Classical.choice, Quot.sound]

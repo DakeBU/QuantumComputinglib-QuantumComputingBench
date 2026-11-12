@@ -1,0 +1,58 @@
+UncomputeGaussian206.frozenWord (j : ℕ) : ℕ
+UncomputeGaussian206.bit (n i : ℕ) : ℕ
+UncomputeGaussian206.Digit : Type
+UncomputeGaussian206.digit (n i : ℕ) : Digit
+UncomputeGaussian206.address (y : ℕ) : ℕ
+UncomputeGaussian206.localD (y : ℕ) : ℕ
+UncomputeGaussian206.localU (D : ℕ) : ℕ
+UncomputeGaussian206.a0 (j : ℕ) : ℕ
+UncomputeGaussian206.slopeInitialStored (j : ℕ) : ℕ
+UncomputeGaussian206.correctionPattern (j : ℕ) : ℕ
+UncomputeGaussian206.correctionSigned (j : ℕ) : ℤ
+UncomputeGaussian206.truncSigned (z : ℤ) (shift keep : ℕ) : ℤ
+UncomputeGaussian206.midShift (t : ℕ) : ℕ
+UncomputeGaussian206.midLow (t : ℕ) : ℕ
+UncomputeGaussian206.middleRow (j D t : ℕ) : ℤ
+UncomputeGaussian206.modBits (z : ℤ) (n : ℕ) : ℕ
+UncomputeGaussian206.slopeUnbounded (j D : ℕ) : ℤ
+UncomputeGaussian206.slopeStored (j D : ℕ) : ℕ
+UncomputeGaussian206.slopeWord (j D : ℕ) : ℕ
+UncomputeGaussian206.finalDrop (i : ℕ) : ℕ
+UncomputeGaussian206.finalShift (i : ℕ) : ℕ
+UncomputeGaussian206.finalRow (F D i : ℕ) : ℤ
+UncomputeGaussian206.finalSum (F D : ℕ) : ℤ
+UncomputeGaussian206.localIncrement (j D : ℕ) : ℤ
+UncomputeGaussian206.foldSigned (xs : ℤ) : ℕ
+UncomputeGaussian206.inDomain (xs : ℤ) : Prop
+UncomputeGaussian206.increment (xs : ℤ) : ℤ
+UncomputeGaussian206.evaluateSigned (xs : ℤ) (k : ℕ) : Option ℕ
+UncomputeGaussian206.decode39 (p : ℕ) : ℤ
+UncomputeGaussian206.evaluatePattern (p k : ℕ) : Option (ℕ × ℕ)
+UncomputeGaussian206.regime (j : ℕ) : ℕ
+def UncomputeGaussian206.digit : ℕ → ℕ → Digit :=
+fun n i =>
+  have b0 := if i = 0 then 0 else bit n (2 * i - 1);
+  have b1 := bit n (2 * i);
+  have b2 := bit n (2 * i + 1);
+  have one := if b0 = b1 then 0 else 1;
+  have two := if (one == 0 && b1 != b2) = true then 1 else 0;
+  { one := one, two := two, sign := 1 - 2 * ↑b2 }
+def UncomputeGaussian206.middleRow : ℕ → ℕ → ℕ → ℤ :=
+fun j D t =>
+  have d := 256 * correctionSigned j;
+  have u := digit (localU D) t;
+  u.sign * (↑u.one * truncSigned d (midShift t) (midLow t) + ↑u.two * truncSigned d (midShift t - 1) (midLow t))
+def UncomputeGaussian206.slopeStored : ℕ → ℕ → ℕ :=
+fun j D => List.foldl (fun s t => modBits (↑s + middleRow j D t / 4) 19) (slopeInitialStored j) (List.range 6)
+def UncomputeGaussian206.finalRow : ℕ → ℕ → ℕ → ℤ :=
+fun F D i =>
+  have u := digit F i;
+  have drop := finalDrop i;
+  have sh := finalShift i;
+  have t1 := D / 2 ^ (sh + drop) * 2 ^ drop;
+  have t2 := D / 2 ^ (sh - 1 + drop) * 2 ^ drop;
+  u.sign * (↑u.one * ↑t1 + ↑u.two * ↑t2 + ↑(u.one + u.two) * 2 ^ (drop - 1))
+def UncomputeGaussian206.evaluateSigned : ℤ → ℕ → Option ℕ :=
+fun xs k => if inDomain xs ∧ k < 2 ^ 39 then some (modBits (↑k + increment xs) 39) else none
+def UncomputeGaussian206.evaluatePattern : ℕ → ℕ → Option (ℕ × ℕ) :=
+fun p k => if p < 2 ^ 39 then Option.map (fun out => (p, out)) (evaluateSigned (decode39 p) k) else none

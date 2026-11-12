@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "cycle": 12,
+  "reviewer_identity": "/root/hermite_source_numeric",
+  "author_identity": "/root/hermite_dyadic_supplier",
+  "verdict": "ACCEPTED_INTERNAL_RATIONAL_BUDGET_PROVIDER_WITH_EXPLICIT_SOURCE_GAPS",
+  "failure_class": "NONE for frozen formal target; IMPLEMENTATION_FAILED for corrected auditor-only syntax probe",
+  "scientific_ROOT": false,
+  "public_source_anchor_accepted": false,
+  "main_migration_or_publication_accepted": false,
+  "independence_disclosure": "Reviewer is distinct from RationalBudget/SafeEnclosure/DyadicSupplier author, but authored earlier Hermite source-reachable, OffsetSource and cycle12 CoefficientRange experiments and has prior shared Hermite/precision/Gray review context. This is a reused context, not fresh whole-chain clean-room review. Reviewer did not author the frozen modules being reviewed and does not independently approve the entire historical dependency chain.",
+  "review_scope": "Entire actual RationalBudget source, retained v1/v2/v3 seals and result read; complete frozen SafeEnclosure/DyadicSupplier consumer definitions read; relevant GlobalAssembly source action/count and PrimitiveCircuitPerturbation norm/alignment definitions inspected. Only this new audit record is written; no frozen file, cache, production/config/registry/user edit, delegation, commit or push.",
+  "bindings": {
+    "RationalBudget.lean": "e167419e288526aa1e837ae69f49aaa85105ecb490ee7bf4ecccd910eba169d7",
+    "result.json": "cbf387a91b8d6de648ea0483c88ec5ccfedfaf76d31829ddd7abb82cba6fc6d9",
+    "statement-seal-v1.json": "d25b35dc5d755285eb93a9fe412e38997501e5f7842bff7275db014530f930b0",
+    "statement-delta-v2.json": "d8a1dedfa25b57d39fe28659df8b15f6f4f7a54a22034d2be2eb707676c09943",
+    "statement-delta-v3.json": "5a286dc1848a87ed52bb58a63e87f631f2fc8f9f33d754556547c0565909e749"
+  },
+  "frozen_dependencies": {
+    "experiments/hermite-polynomial/precision/safe-enclosure/SafeEnclosure.lean": "959d39bcea8150db22be07560a5f12ab7055bbc6e2594cf2f923f88133db8d6a",
+    "experiments/hermite-polynomial/precision/dyadic-supplier/DyadicSupplier.lean": "da741bb844d8ee809ab95e40ebdc3c3f003f4138cec6ebe67e3447ebebf69968",
+    "experiments/hermite-polynomial/stored/GlobalAssembly.lean": "ad6d6ebca61a27c6c7e89dd305cc9be161ea0f8bb326ecb9af9ebddc15172624"
+  },
+  "binding_checks": "All source/seal/result and dependency SHA256 bindings verified before review and after fresh compile/adversaries. V2 parent equals v1 digest; v3 parent equals v2 and its v1 digest equals retained v1. No source mismatch or rewritten seal found.",
+  "seal_assessment": "All actual definitions/theorem interfaces match the retained v1 plus additive v2/v3 signatures. Retained bytes and explicit parent links are verified. Author-reported before-proof creation timing is recorded in those packets; the reviewer cannot independently establish historical causal timing from hashes alone and does not invent a fresh historical trace. Unlike cycle11 OffsetSource, these separate predecessor seal files remain available.",
+  "fresh_focused_gate": {
+    "command": "lake env lean experiments/hermite-polynomial/precision/rational-budget/RationalBudget.lean",
+    "lean_path_prefix": ".lake/safe-enclosure-cache;.lake/global-assembly-cache;_out/goal-20261008-staging-imports",
+    "session": 79845,
+    "exit": 0,
+    "printed_roots": 12,
+    "roots": ["ceilingThreshold_num_den", "bits_error_rat", "bits_error_real", "allocate_nonpositive", "bits_size_bound", "allocated_numerator_bits", "threshold_input_bound", "bits_input_size_bound", "bits_input_sum_size_bound", "allocated_numerator_input_bits", "supplyBudget_nonpositive", "hermite_internal_supplier"],
+    "axioms_union": ["propext", "Classical.choice", "Quot.sound"],
+    "sorryAx": false,
+    "native_decide_axiom": false,
+    "original_executed_checks": "Eight allocator outputs reproduced exactly, seven allocator equality checks true, actual b13 three-gate output reproduced, four rejection checks true, two kernel rejection examples compiled.",
+    "cache_scope": "Actual frozen new source elaborated freshly. Dependencies imported from existing ignored safe/global/staging caches, whose actual consumer source and bindings were inspected. No fresh rebuild of every cached upstream proof or aggregate gate is claimed.",
+    "warning": "Existing verso local-change warning only."
+  },
+  "mathematical_audit": {
+    "allocator_semantics": "A=24*(n+1)*(2k+6)^3 is positive for all natural k,n. epsilon is a normalized exact Rat with positive denominator. Ratio q=A/epsilon is exact and normalized; Nat.ceil q equals max(0,integer-ceil(q)), and the proved integer implementation is(-(-q.num/(q.den:Int))).toNat. For epsilon>0, q>0 and its ceiling is at least1; bits=clog2(ceil q). For zero/negative input, allocate returns none even though the separately total bits/threshold definitions have values.",
+    "precision_proof": "ceil q>=q and2^b>=ceil q imply A<=epsilon*2^b, hence A/2^b<=epsilon. Positive pow denominator and positive epsilon are explicitly required for those division steps. bits_error_real transports this exact rational inequality, using the exact coefficientNat/errorCoefficient cast identity; no floating approximation is involved.",
+    "original_input_size": "For positive epsilon=p/d normalized,p>=1. Therefore A/epsilon=A*d/p<=A*d, and its natural ceiling<=A*d because A*d is an integer. Binary ceiling logarithm b is bounded by size(A*d), then by size(A)+size(d). Positive numerator is used for the coarse bound but NOT discarded by the actual allocation computation. Negative inputs do not receive this positive-domain bound.",
+    "output_bit_boundary": "allocated_numerator_input_bits correctly composes SafeEnclosure's bound for abs(nearestNumerator) with b<=size(A)+size(epsilon.den). Endpoint numerator sizes are retained. Grid denominator size is b+1 for unreduced2^b, not all reduced/temporary rational denominator sizes. Input reading, epsilon normalization/GCD/division and large numerator costs are not certified by these output bounds.",
+    "actual_return": "supplyBudget binds actual allocate to b and actual supplyCircuit b to returned; no replacement list is introduced. hermite_internal_supplier derives actual Some from positive budget plus valid rational interval widths/order and exact RY arity using supplyCircuit_complete. Its caller does not supply successful return, alignment or a budget-error certificate.",
+    "sound_boundary": "Sound remains an explicit missing INTERNAL producer proposition. The executable consumer validates width/order/arity, not true-angle containment. The auditor's deliberately wrong point intervals still return Some but fail Sound, so the conditional state theorem cannot be used. This is the intended interface boundary, not evidence of an unconditional source certificate.",
+    "chronology_and_payloads": "supplyCircuit recurses chronologically, consumes intervals only at RY constructors, keeps each physical RY target, and copies X/RZ/CX including RZ angle and ordered control/target arguments. eraseRyAngle removes only RY payloads; list equality after that erasure is stronger than constructor counts and prevents reordering/wire swapping or changes to non-RY payloads. Resource equality follows from actual footprints/wire-depth recursion.",
+    "physical_dimension": "The new theorem uses physical data count n+1, with n natural, so n0 is one data qubit rather than an unphysical zero-data exception. D=2k+6 and bondQubits k are unchanged. q0 stays least significant via primitiveBasisLEEquiv.",
+    "full_state_error": "DyadicSupplier.target is a EuclideanSpace over ALL physical-plus-bond basis coordinates, literal normalizedAmplitude at the zero bond sector and zero elsewhere. The column is the all-zero input column. exact_column_target uses actual GlobalAssembly.compile_columns. SafeEnclosure supplies positional alignment, each RY perturbation contributes at most angle-error/2, and the actual gateCount bound48*(n+1)*D^3 gives A/2^b. The final norm includes all garbage coordinates and literal signed amplitudes: no projection, success conditioning, phase quotient or absolute-amplitude comparison.",
+    "budget_composition": "This gives epsilon entirely to perturbing an exact source list. If a finite source/QR/normalizer pipeline approximates that list, its other errors must be allocated and composed separately. No unproved upstream errors are set to zero by this review.",
+    "classification": "Internal provider accepted. Finite rationals/positivity are input domain; actual interval arity/ValidIntervals/Sound are INTERNAL upstream requirements. Treating those as new scientific Source Anchor assumptions would change the target and is not accepted."
+  },
+  "independent_adversaries": {
+    "execution": "Actual full frozen source plus auditor-only appended code piped to lake env lean --stdin; no temporary source file or frozen source edit.",
+    "initial_probe": {"session": 62597, "exit": 1, "finding": "Auditor used ASCII* for product TYPES in two probe declarations; Lean attempted HMul Type Type. This is a probe syntax/API failure, not frozen target failure. Other checks ran, but this invocation is not counted as a passing probe."},
+    "corrected_probe": {"session": 47438, "exit": 0, "repair": "Auditor-only product types changed to explicit Prod Nat(Prod Nat Rat) and Prod String(Prod Nat Rat); frozen source remained byte-identical.", "axioms": "The same12 frozen roots printed ordinary3; no extra axiom/native_decide was introduced."},
+    "allocator_cases": [
+      {"k": 0, "n": 0, "epsilon": "0", "bits_total_definition": 0, "allocate": "none"},
+      {"k": 0, "n": 0, "epsilon": "-2/20", "bits_total_definition": 0, "allocate": "none"},
+      {"k": 0, "n": 0, "epsilon": "2/20", "allocate": "some16"},
+      {"k": 0, "n": 0, "epsilon": "-2/(-20)", "allocate": "some16"},
+      {"k": 0, "n": 0, "epsilon": "5184=A", "allocate": "some0"},
+      {"k": 0, "n": 0, "epsilon": "2592=A/2", "allocate": "some1"},
+      {"k": 0, "n": 0, "epsilon": "5184/(2^17-1)", "allocate": "some17"},
+      {"k": 0, "n": 0, "epsilon": "5184/2^17", "allocate": "some17"},
+      {"k": 0, "n": 0, "epsilon": "5184/(2^17+1)", "allocate": "some18"},
+      {"k": 0, "n": 0, "epsilon": "1/10^1000", "allocate": "some3335"},
+      {"k": 0, "n": 0, "epsilon": "10^1000", "allocate": "some0"},
+      {"k": 0, "n": 0, "epsilon": "(10^1000+1)/(10^2000+1)", "allocate": "some3335"},
+      {"k": 10, "n": 100, "epsilon": "13/7", "allocate": "some25"}
+    ],
+    "cross_check": "Separate Python Fraction/integer ceiling and bit_length calculation reproduced all13 allocation expectations. This was read-only -c, not a substitute formal supplier or saved new implementation.",
+    "additional_allocator_checks": "Eleven executable decide checks true: positive normalization equalities, nonpositive ratio clamp, division-by-zero expression rejection, three power-of-two thresholds and three huge/small allocations. Lean1/0:Rat is the field's totalized zero, so that check is NOT an external input parser/invalid-denominator validation theorem.",
+    "mixed_circuit": {
+      "input": "[X1,RZ0(7/13),CX0->1,RY1(-1/8),CX1->0,RY0(1/8)]",
+      "epsilon": "1296=A/4",
+      "point_intervals": [["-1/8", "-1/8"], ["1/8", "1/8"]],
+      "actual_return": "some(2,[X1,RZ0(7/13),CX0->1,RY1(0),CX1->0,RY0(1/4)])",
+      "sign_tie": "Nearest rounding uses floor(4*theta+1/2); negative half-tie returns0, positive half-tie returns1, agreeing with signed-error semantics rather than floor-only rounding."
+    },
+    "width_arity_adversaries": "Seven boolean checks true: exact width1/4 at b2 accepted; width1/4+10^-1000 rejected; reversed interval rejected; missing/extra intervals rejected; positive budget empty zero-RY list returnsSome; zero budget empty list rejects. These checks include exact finite sub-resolution discrimination, not float conversion.",
+    "unsound_return_discriminator": "epsilon10000 and two point intervals[100,100] on frozen physical[RY1(1/10),CX1->0,RY0(-1/10)] returnedSome(0,[RY1(100),CX1->0,RY0(100)]). A kernel norm_num example proves Not(Sound physical intervals). Therefore successful return alone never certifies source action; no false unconditional interpretation admitted.",
+    "input_size_case": "For epsilon=(10^1000+1)/(10^2000+1), explicit b<=size(A)+size(epsilon.den) check returned true while actual b remains3335; huge numerator information affects actual allocation but is excluded only from the intentionally coarse upper bound."
+  },
+  "remaining_obligations": [
+    "Actual finitely represented L and same-source finite circuit/list producer refining noncomputable GlobalAssembly",
+    "Source-specific finite rational angle intervals with demanded width, true Sound and RY arity, including exp/sqrt/arccos/trig/QR/sign/rank/normalizer cases",
+    "Global epsilon allocation across source/QR/normalizer/list interpretation/angle and physical synthesis errors",
+    "All input/intermediate numerator/denominator lengths, decoding/GCD/division/clog/power/list/copy/storage/serialization and total preprocessing runtime",
+    "Saved-byte parser/refinement and physical finite-gate synthesis",
+    "Root aggregate and distinct admission/reader gates; no whole migration, scientific ROOT or full clean-room dependency approval"
+  ],
+  "handoff": {
+    "result": "Accepted narrow internal mathematical allocator and same-list conditional consumer; no mismatch requiring frozen author repair found.",
+    "recommended_action": "Retain this interface as the rational-input budget edge. Next produce actual same-source Sound intervals and compose all budget components; do not promote successful interval validation or output-size bounds into uniform runtime/source correctness.",
+    "audit_file_only": "experiments/hermite-polynomial/precision/rational-budget/independent-audit.json",
+    "frozen_preservation": "All five source/result/seal and three dependency hashes unchanged after review.",
+    "historical_timing_limit": "Retained seal bytes inspected; before-proof chronology not independently reconstructed from nonexistent reviewer history.",
+    "token_usage": "unknown"
+  }
+}

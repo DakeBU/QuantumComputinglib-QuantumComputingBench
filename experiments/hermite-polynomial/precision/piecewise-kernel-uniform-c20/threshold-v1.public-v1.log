@@ -1,0 +1,121 @@
+warning: verso: repository '.\.lake/packages\verso' has local changes
+experiments/hermite-polynomial/precision/piecewise-kernel-uniform-c20/UniformThresholds.lean:17:24: error(lean.unknownIdentifier): Unknown constant `Nat.lt_min_iff`
+experiments/hermite-polynomial/precision/piecewise-kernel-uniform-c20/UniformThresholds.lean:18:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ?m.57 < ?m.58 / gridStepQ width R
+in the target expression
+  j < min (2 ^ width) ⌈(s + R) / gridStepQ width R⌉₊ ↔ -R + 2 * R * ↑j / 2 ^ width < s
+
+width : ℕ
+R s : ℚ
+hR : 0 < R
+j : ℕ
+hj : j < 2 ^ width
+hs : 0 < gridStepQ width R
+⊢ j < min (2 ^ width) ⌈(s + R) / gridStepQ width R⌉₊ ↔ -R + 2 * R * ↑j / 2 ^ width < s
+experiments/hermite-polynomial/precision/piecewise-kernel-uniform-c20/UniformThresholds.lean:17:40: warning: This simp argument is unused:
+  hj
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [strictCut, Nat.lt_min_iff, true_and, Nat.lt_ceil]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+experiments/hermite-polynomial/precision/piecewise-kernel-uniform-c20/UniformThresholds.lean:17:44: warning: This simp argument is unused:
+  true_and
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [strictCut, Nat.lt_min_iff, hj, Nat.lt_ceil]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+experiments/hermite-polynomial/precision/piecewise-kernel-uniform-c20/UniformThresholds.lean:17:54: warning: This simp argument is unused:
+  Nat.lt_ceil
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [strictCut, Nat.lt_min_iff, hj, true_and]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+experiments/hermite-polynomial/precision/piecewise-kernel-uniform-c20/UniformThresholds.lean:30:26: error(lean.unknownIdentifier): Unknown identifier `div_neg_iff_of_pos_right`
+experiments/hermite-polynomial/precision/piecewise-kernel-uniform-c20/UniformThresholds.lean:35:43: error(lean.unknownIdentifier): Unknown constant `Nat.lt_min_iff`
+experiments/hermite-polynomial/precision/piecewise-kernel-uniform-c20/UniformThresholds.lean:37:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ?m.156 ≤ ?m.157 / gridStepQ width R
+in the target expression
+  j < min (2 ^ width) (⌊(s + R) / gridStepQ width R⌋₊ + 1) ↔ -R + 2 * R * ↑j / 2 ^ width ≤ s
+
+case neg
+width : ℕ
+R s : ℚ
+hR : 0 < R
+j : ℕ
+hj : j < 2 ^ width
+hs : 0 < gridStepQ width R
+hmul : ↑j * gridStepQ width R = 2 * R * ↑j / 2 ^ width
+hq : ¬(s + R) / gridStepQ width R < 0
+⊢ j < min (2 ^ width) (⌊(s + R) / gridStepQ width R⌋₊ + 1) ↔ -R + 2 * R * ↑j / 2 ^ width ≤ s
+experiments/hermite-polynomial/precision/piecewise-kernel-uniform-c20/UniformThresholds.lean:35:59: warning: This simp argument is unused:
+  hj
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [inclusiveCut, hq, if_false, Nat.lt_min_iff, true_and, Nat.lt_add_one_iff,
+    Nat.le_floor_iff (le_of_not_gt hq)]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+experiments/hermite-polynomial/precision/piecewise-kernel-uniform-c20/UniformThresholds.lean:35:63: warning: This simp argument is unused:
+  true_and
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [inclusiveCut, hq, if_false, Nat.lt_min_iff, hj, Nat.lt_add_one_iff,
+    Nat.le_floor_iff (le_of_not_gt hq)]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+experiments/hermite-polynomial/precision/piecewise-kernel-uniform-c20/UniformThresholds.lean:36:6: warning: This simp argument is unused:
+  Nat.lt_add_one_iff
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [inclusiveCut, hq, if_false, Nat.lt_min_iff, hj, true_and, Nat.le_floor_iff (le_of_not_gt hq)]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+experiments/hermite-polynomial/precision/piecewise-kernel-uniform-c20/UniformThresholds.lean:36:26: warning: This simp argument is unused:
+  Nat.le_floor_iff (le_of_not_gt hq)
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [inclusiveCut, hq, if_false, Nat.lt_min_iff, hj, true_and, Nat.lt_add_one_iff]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+experiments/hermite-polynomial/precision/piecewise-kernel-uniform-c20/UniformThresholds.lean:43:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  contract (denoteChain (produceComparison n (min (2 ^ (n + 1)) ?m.77)).run.value) ?x 0 0
+in the target expression
+  contract (denoteChain (produceComparison n (strictCut (n + 1) R s)).run.value) x 0 0 =
+    if -R + 2 * R * ↑(wordValue x) / 2 ^ (n + 1) < s then 1 else 0
+
+n : ℕ
+R s : ℚ
+hR : 0 < R
+x : Word (n + 1)
+⊢ contract (denoteChain (produceComparison n (strictCut (n + 1) R s)).run.value) x 0 0 =
+    if -R + 2 * R * ↑(wordValue x) / 2 ^ (n + 1) < s then 1 else 0
+
+Note: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.
+Full error:
+  function expected
+    contract (denoteChain (produceComparison n (strictCut (n + 1) R s)).run.value) x 0
+experiments/hermite-polynomial/precision/piecewise-kernel-uniform-c20/UniformThresholds.lean:49:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  contract (denoteChain (produceComparison n (min (2 ^ (n + 1)) ?m.77)).run.value) ?x 0 0
+in the target expression
+  contract (denoteChain (produceComparison n (inclusiveCut (n + 1) R s)).run.value) x 0 0 =
+    if -R + 2 * R * ↑(wordValue x) / 2 ^ (n + 1) ≤ s then 1 else 0
+
+n : ℕ
+R s : ℚ
+hR : 0 < R
+x : Word (n + 1)
+⊢ contract (denoteChain (produceComparison n (inclusiveCut (n + 1) R s)).run.value) x 0 0 =
+    if -R + 2 * R * ↑(wordValue x) / 2 ^ (n + 1) ≤ s then 1 else 0
+
+Note: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.
+Full error:
+  function expected
+    contract (denoteChain (produceComparison n (inclusiveCut (n + 1) R s)).run.value) x 0
+'HermitePiecewiseUniform.strictCut_correct' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HermitePiecewiseUniform.inclusiveCut_correct' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HermitePiecewiseUniform.stored_strict_grid_mask' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HermitePiecewiseUniform.stored_inclusive_grid_mask' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+

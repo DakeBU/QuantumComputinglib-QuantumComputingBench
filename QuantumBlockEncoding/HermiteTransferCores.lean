@@ -40,7 +40,9 @@ theorem rowFeatures_translationCore (d : ℕ) (x w : ℝ) :
         x ^ i * ((j.val.choose i : ℝ) * w ^ (j.val - i)) := by
     apply (Finset.sum_subset (Finset.range_mono (by omega)) ?_).symm
     intro i hi hnot
-    have hj : j.val < i := by simpa only [Finset.mem_range, not_lt] using hnot
+    have hj : j.val < i := by
+      simp only [Finset.mem_range, not_lt] at hnot
+      omega
     simp [Nat.choose_eq_zero_of_lt hj]
   rw [hs, add_pow]
   apply Finset.sum_congr rfl

@@ -1,0 +1,157 @@
+@QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2,
+    u_3} : {α : Type u_1} → {β : Type u_2} → {ι : Type u_3} → [Fintype.{u_3} ι] → Matrix.{u_1, u_2, 0} α β ℝ → Prop
+@QuantumBlockEncoding.HermiteCutRank.FactorsThrough.rank_le.{u_1, u_2,
+    u_3} : ∀ {α : Type u_1} {β : Type u_2} {ι : Type u_3} [inst : Fintype.{u_2} β] [inst_1 : Fintype.{u_3} ι]
+  {F : Matrix.{u_1, u_2, 0} α β ℝ},
+  QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, u_3} F →
+    LE.le.{0} (Matrix.rank.{u_1, u_2, 0} F) (Fintype.card.{u_3} ι)
+@QuantumBlockEncoding.HermiteCutRank.polynomial_add_factorization.{u_1,
+    u_2} : ∀ {α : Type u_1} {β : Type u_2} (p : Polynomial.{0} ℝ) (d : ℕ),
+  LE.le.{0} (Polynomial.natDegree.{0} p) d →
+    ∀ (u : α → ℝ) (v : β → ℝ),
+      QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, 0} fun x y =>
+        Polynomial.eval.{0} (HAdd.hAdd.{0, 0, 0} (u x) (v y)) p
+@QuantumBlockEncoding.HermiteCutRank.polynomial_add_rank_le.{u_1,
+    u_2} : ∀ {α : Type u_1} {β : Type u_2} [inst : Fintype.{u_2} β] (p : Polynomial.{0} ℝ) (d : ℕ),
+  LE.le.{0} (Polynomial.natDegree.{0} p) d →
+    ∀ (u : α → ℝ) (v : β → ℝ),
+      LE.le.{0} (Matrix.rank.{u_1, u_2, 0} fun x y => Polynomial.eval.{0} (HAdd.hAdd.{0, 0, 0} (u x) (v y)) p)
+        (HAdd.hAdd.{0, 0, 0} d 1)
+@QuantumBlockEncoding.HermiteCutRank.hermite_polynomial_add_rank_le.{u_1,
+    u_2} : ∀ {α : Type u_1} {β : Type u_2} [inst : Fintype.{u_2} β] (k : ℕ) (u : α → ℝ) (v : β → ℝ),
+  LE.le.{0}
+    (Matrix.rank.{u_1, u_2, 0} fun x y =>
+      Polynomial.eval.{0} (HAdd.hAdd.{0, 0, 0} (u x) (v y))
+        (QuantumBlockEncoding.HermitePolynomial.sourceInterpolant k))
+    (HAdd.hAdd.{0, 0, 0} (HMul.hMul.{0, 0, 0} 2 k) 2)
+@QuantumBlockEncoding.HermiteCutRank.product_factorization.{u_1,
+    u_2} : ∀ {α : Type u_1} {β : Type u_2} (u : α → ℝ) (v : β → ℝ),
+  QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, 0} fun x y => HMul.hMul.{0, 0, 0} (u x) (v y)
+@QuantumBlockEncoding.HermiteCutRank.exponential_add_factorization.{u_1,
+    u_2} : ∀ {α : Type u_1} {β : Type u_2} (u : α → ℝ) (v : β → ℝ),
+  QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, 0} fun x y => Real.exp (HAdd.hAdd.{0, 0, 0} (u x) (v y))
+@QuantumBlockEncoding.HermiteCutRank.FactorsThrough.add.{u_1, u_2, u_3,
+    u_4} : ∀ {α : Type u_1} {β : Type u_2} {ι : Type u_3} {κ : Type u_4} [inst : Fintype.{u_3} ι]
+  [inst_1 : Fintype.{u_4} κ] {F G : Matrix.{u_1, u_2, 0} α β ℝ},
+  QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, u_3} F →
+    QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, u_4} G →
+      QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, max u_4 u_3} fun x y =>
+        HAdd.hAdd.{0, 0, 0} (F x y) (G x y)
+@QuantumBlockEncoding.HermiteCutRank.FactorsThrough.neg.{u_1, u_2,
+    u_3} : ∀ {α : Type u_1} {β : Type u_2} {ι : Type u_3} [inst : Fintype.{u_3} ι] {F : Matrix.{u_1, u_2, 0} α β ℝ},
+  QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, u_3} F →
+    QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, u_3} fun x y => Neg.neg.{0} (F x y)
+@QuantumBlockEncoding.HermiteCutRank.FactorsThrough.pointwise_mul.{u_1, u_2, u_3,
+    u_4} : ∀ {α : Type u_1} {β : Type u_2} {ι : Type u_3} {κ : Type u_4} [inst : Fintype.{u_3} ι]
+  [inst_1 : Fintype.{u_4} κ] {F G : Matrix.{u_1, u_2, 0} α β ℝ},
+  QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, u_3} F →
+    QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, u_4} G →
+      QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, max u_4 u_3} fun x y =>
+        HMul.hMul.{0, 0, 0} (F x y) (G x y)
+QuantumBlockEncoding.HermiteCutRank.blockIndex_lt_iff : ∀ (M x y T : ℕ),
+  LT.lt.{0} y M →
+    (LT.lt.{0} (HAdd.hAdd.{0, 0, 0} (HMul.hMul.{0, 0, 0} M x) y) T ↔
+      LT.lt.{0} x (HDiv.hDiv.{0, 0, 0} T M) ∨
+        Eq.{1} x (HDiv.hDiv.{0, 0, 0} T M) ∧ LT.lt.{0} y (HMod.hMod.{0, 0, 0} T M))
+@QuantumBlockEncoding.HermiteCutRank.threshold_factorization.{u_1,
+    u_2} : ∀ {α : Type u_1} {β : Type u_2} (M T : ℕ) (u : α → ℕ) (v : β → ℕ),
+  (∀ (y : β), LT.lt.{0} (v y) M) →
+    QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, 0} fun x y =>
+      ite.{1} (LT.lt.{0} (HAdd.hAdd.{0, 0, 0} (HMul.hMul.{0, 0, 0} M (u x)) (v y)) T) 1 0
+@QuantumBlockEncoding.HermiteCutRank.threshold_complement_factorization.{u_1,
+    u_2} : ∀ {α : Type u_1} {β : Type u_2} (M T : ℕ) (u : α → ℕ) (v : β → ℕ),
+  (∀ (y : β), LT.lt.{0} (v y) M) →
+    QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, 0} fun x y =>
+      HSub.hSub.{0, 0, 0} 1 (ite.{1} (LT.lt.{0} (HAdd.hAdd.{0, 0, 0} (HMul.hMul.{0, 0, 0} M (u x)) (v y)) T) 1 0)
+QuantumBlockEncoding.HermiteCutRank.affine_lt_cut : ∀ (a h t : ℝ),
+  LT.lt.{0} 0 h →
+    ∀ (j : ℕ),
+      LT.lt.{0} (HAdd.hAdd.{0, 0, 0} a (HMul.hMul.{0, 0, 0} h ↑j)) t ↔
+        LT.lt.{0} j (Nat.ceil.{0} (HDiv.hDiv.{0, 0, 0} (HSub.hSub.{0, 0, 0} t a) h))
+QuantumBlockEncoding.HermiteCutRank.smoothInitial_strict : ∀ (k : ℕ) (p : ℝ),
+  Eq.{1} (QuantumBlockEncoding.HermitePolynomial.smoothInitial k p)
+    (ite.{1} (LT.lt.{0} p (-1)) (Real.exp p)
+      (ite.{1} (LT.lt.{0} p 0) (Polynomial.eval.{0} p (QuantumBlockEncoding.HermitePolynomial.sourceInterpolant k))
+        (Real.exp (Neg.neg.{0} p))))
+QuantumBlockEncoding.HermiteCutRank.HermiteBond : ℕ → Type
+QuantumBlockEncoding.HermiteCutRank.hermiteBond_card : ∀ (k : ℕ),
+  Eq.{1} (Fintype.card.{0} (QuantumBlockEncoding.HermiteCutRank.HermiteBond k))
+    (HAdd.hAdd.{0, 0, 0} (HMul.hMul.{0, 0, 0} 8 k) 12)
+@QuantumBlockEncoding.HermiteCutRank.hermite_affine_factorization.{u_1,
+    u_2} : ∀ {α : Type u_1} {β : Type u_2} (k M : ℕ) (a h : ℝ),
+  LT.lt.{0} 0 h →
+    ∀ (u : α → ℕ) (v : β → ℕ),
+      (∀ (y : β), LT.lt.{0} (v y) M) →
+        QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, 0} fun x y =>
+          QuantumBlockEncoding.HermitePolynomial.smoothInitial k
+            (HAdd.hAdd.{0, 0, 0} a (HMul.hMul.{0, 0, 0} h ↑(HAdd.hAdd.{0, 0, 0} (HMul.hMul.{0, 0, 0} M (u x)) (v y))))
+@QuantumBlockEncoding.HermiteCutRank.hermite_affine_cut_rank_le.{u_1,
+    u_2} : ∀ {α : Type u_1} {β : Type u_2} [inst : Fintype.{u_2} β] (k M : ℕ) (a h : ℝ),
+  LT.lt.{0} 0 h →
+    ∀ (u : α → ℕ) (v : β → ℕ),
+      (∀ (y : β), LT.lt.{0} (v y) M) →
+        LE.le.{0}
+          (Matrix.rank.{u_1, u_2, 0} fun x y =>
+            QuantumBlockEncoding.HermitePolynomial.smoothInitial k
+              (HAdd.hAdd.{0, 0, 0} a
+                (HMul.hMul.{0, 0, 0} h ↑(HAdd.hAdd.{0, 0, 0} (HMul.hMul.{0, 0, 0} M (u x)) (v y)))))
+          (HAdd.hAdd.{0, 0, 0} (HMul.hMul.{0, 0, 0} 8 k) 12)
+@QuantumBlockEncoding.HermiteCutRank.FactorsThrough.scale.{u_1, u_2,
+    u_3} : ∀ {α : Type u_1} {β : Type u_2} {ι : Type u_3} [inst : Fintype.{u_3} ι] {F : Matrix.{u_1, u_2, 0} α β ℝ},
+  QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, u_3} F →
+    ∀ (c : ℝ),
+      QuantumBlockEncoding.HermiteCutRank.FactorsThrough.{u_1, u_2, u_3} fun x y => HMul.hMul.{0, 0, 0} c (F x y)
+'QuantumBlockEncoding.HermiteCutRank.FactorsThrough' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.FactorsThrough.rank_le' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.polynomial_add_factorization' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.polynomial_add_rank_le' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.hermite_polynomial_add_rank_le' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.product_factorization' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.exponential_add_factorization' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.FactorsThrough.add' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.FactorsThrough.neg' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.FactorsThrough.pointwise_mul' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.blockIndex_lt_iff' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.threshold_factorization' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.threshold_complement_factorization' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.affine_lt_cut' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.smoothInitial_strict' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.HermiteBond' does not depend on any axioms
+'QuantumBlockEncoding.HermiteCutRank.hermiteBond_card' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.hermite_affine_factorization' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.hermite_affine_cut_rank_le' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.HermiteCutRank.FactorsThrough.scale' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]

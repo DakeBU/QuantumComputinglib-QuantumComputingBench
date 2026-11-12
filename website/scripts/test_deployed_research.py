@@ -9,6 +9,7 @@ from unittest.mock import patch
 from website.scripts import check_deployed_research as live
 from website.scripts.research_browser_contract import ROUTES, WIDTHS, THEMES, validate_browser_report
 from website.scripts.proof_inputs import proof_input_digest, lean_module_targets
+from website.scripts import research_atlas as atlas
 
 
 def browser_report() -> dict:
@@ -74,9 +75,9 @@ class DeployedReaderTests(unittest.TestCase):
             "data/research/browser-report.json": browser_report(),
             "data/curriculum-parts.json": json.loads((live.ROOT / "website/curriculum-parts.json").read_text(encoding="utf-8")),
         }
-        for name in ("atlas.json", "state-preparation-wiki.json", "sources.json"):
-            self.responses["data/research/" + name] = json.loads(
-                (live.ROOT / "website/research" / name).read_text(encoding="utf-8"))
+        projected = atlas.public_catalog(atlas.load_catalog(live.ROOT / "website/research"))
+        for name, filename in atlas.FILES.items():
+            self.responses["data/research/" + filename] = projected[name]
         self.pages = []
 
     def fetch(self, path, commit):
@@ -98,6 +99,7 @@ class DeployedReaderTests(unittest.TestCase):
             report = live.check(self.commit)
         self.assertEqual(report["browser_combinations"], 42)
         self.assertTrue(report["curriculum_parts_match"])
+        self.assertTrue(report["source_author_display_projection_match"])
         self.assertTrue({"index.html", "learning/index.html", "quantum-information/index.html",
                          "quantum-scientific-computing/index.html"}.issubset(self.pages))
 
@@ -105,6 +107,65 @@ class DeployedReaderTests(unittest.TestCase):
         self.responses["data/curriculum-parts.json"]["parts"].pop()
         with patch.object(live, "fetch", side_effect=self.fetch):
             with self.assertRaisesRegex(ValueError, "curriculum"):
+                live.check(self.commit)
+
+    def test_live_catalog_comparison_rejects_every_source_field_tamper(self):
+        key = "data/research/sources.json"
+        original = deepcopy(self.responses[key])
+        for field in ("id", "title", "url", "authors", "status", "anchor", "scope", "formal_status"):
+            with self.subTest(field=field):
+                self.responses[key] = deepcopy(original)
+                self.responses[key]["sources"][0][field] = "tampered"
+                with patch.object(live, "fetch", side_effect=self.fetch):
+                    with self.assertRaisesRegex(ValueError, "canonical source mismatch: sources.json"):
+                        live.check(self.commit)
+        self.responses[key] = original
+
+    def test_live_catalog_comparison_includes_projection_disclosure_and_all_records(self):
+        key = "data/research/sources.json"
+        original = deepcopy(self.responses[key])
+        for mutation in (lambda value: value.pop("public_projection"),
+                         lambda value: value["public_projection"].update(review_boundary="reviewed"),
+                         lambda value: value["sources"].pop(),
+                         lambda value: value["sources"][0].update(extra_metadata={"unexpected": True})):
+            self.responses[key] = deepcopy(original)
+            mutation(self.responses[key])
+            with patch.object(live, "fetch", side_effect=self.fetch):
+                with self.assertRaisesRegex(ValueError, "canonical source mismatch: sources.json"):
+                    live.check(self.commit)
+        self.responses[key] = original
+
+    def test_live_gate_rejects_unprojected_sources_and_other_catalog_changes(self):
+        projected_sources = deepcopy(self.responses["data/research/sources.json"])
+        self.responses["data/research/sources.json"] = atlas.load_catalog()["sources"]
+        with patch.object(live, "fetch", side_effect=self.fetch):
+            with self.assertRaisesRegex(ValueError, "canonical source mismatch: sources.json"):
+                live.check(self.commit)
+        self.responses["data/research/sources.json"] = projected_sources
+        for filename in ("atlas.json", "state-preparation-wiki.json"):
+            with self.subTest(filename=filename):
+                key = "data/research/" + filename
+                original = deepcopy(self.responses[key])
+                self.responses[key]["unexpected"] = "tampered"
+                with patch.object(live, "fetch", side_effect=self.fetch):
+                    with self.assertRaisesRegex(ValueError, "canonical source mismatch: " + filename):
+                        live.check(self.commit)
+                self.responses[key] = original
+
+    def test_live_gate_rejects_a_forged_display_identity(self):
+        sources = self.responses["data/research/sources.json"]["sources"]
+        source = next(s for s in sources if s["id"] == "aspbe-local-stored-rectangular-elimination-v1")
+        source["authors"] = source["authors"].replace("agent-task:root/", "agent-task:root/forged_")
+        with patch.object(live, "fetch", side_effect=self.fetch):
+            with self.assertRaisesRegex(ValueError, "canonical source mismatch: sources.json"):
+                live.check(self.commit)
+
+    def test_live_gate_validates_original_canonical_schema(self):
+        canonical = atlas.load_catalog()
+        canonical["sources"]["schema_version"] = 2
+        with patch.object(atlas, "load_catalog", return_value=canonical), \
+             patch.object(live, "fetch", side_effect=self.fetch):
+            with self.assertRaisesRegex(ValueError, "unsupported sources schema"):
                 live.check(self.commit)
 
     def test_missing_new_part_is_rejected(self):

@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "status": "WIP_RETROSPECTIVE_CONTRACT_PENDING_DISTINCT_REVIEW",
+  "module": "QuantumBlockEncoding/StoredMatrixProductChain.lean",
+  "module_sha256": "75df853f83c166df5409a3e567234b96bdd1bd7303c84f4401388530dfa090b0",
+  "source_id": "aspbe-local-stored-matrix-product-chain",
+  "lesson_path": "docs/lessons/stored-boundary-absorption.md",
+  "lesson_sha256": "666f9b0c9fa69bc043fe80a6d1181ba81991e8edb68a40420f876c9b94ec4f07",
+  "retrospective": true,
+  "preproof_historical_claim": false,
+  "whole_public_declarations": [
+    "QuantumBlockEncoding.StoredMatrixProductChain.terminalEntry",
+    "QuantumBlockEncoding.StoredMatrixProductChain.terminal",
+    "QuantumBlockEncoding.StoredMatrixProductChain.initialEntry",
+    "QuantumBlockEncoding.StoredMatrixProductChain.initial",
+    "QuantumBlockEncoding.StoredMatrixProductChain.tailTable",
+    "QuantumBlockEncoding.StoredMatrixProductChain.tailChain",
+    "QuantumBlockEncoding.StoredMatrixProductChain.closeLeft",
+    "QuantumBlockEncoding.StoredMatrixProductChain.ofTable",
+    "QuantumBlockEncoding.StoredMatrixProductChain.terminal_value",
+    "QuantumBlockEncoding.StoredMatrixProductChain.initial_value",
+    "QuantumBlockEncoding.StoredMatrixProductChain.tailTable_value",
+    "QuantumBlockEncoding.StoredMatrixProductChain.Window",
+    "QuantumBlockEncoding.StoredMatrixProductChain.tailChain_value",
+    "QuantumBlockEncoding.StoredMatrixProductChain.closeLeft_value",
+    "QuantumBlockEncoding.StoredMatrixProductChain.ofTable_refines",
+    "QuantumBlockEncoding.StoredMatrixProductChain.terminalEntry_cost",
+    "QuantumBlockEncoding.StoredMatrixProductChain.initialEntry_cost",
+    "QuantumBlockEncoding.StoredMatrixProductChain.terminal_cost",
+    "QuantumBlockEncoding.StoredMatrixProductChain.initial_cost",
+    "QuantumBlockEncoding.StoredMatrixProductChain.tailTable_cost",
+    "QuantumBlockEncoding.StoredMatrixProductChain.terminal_total_cost",
+    "QuantumBlockEncoding.StoredMatrixProductChain.initial_total_cost",
+    "QuantumBlockEncoding.StoredMatrixProductChain.tailTable_total_cost",
+    "QuantumBlockEncoding.StoredMatrixProductChain.tailChain_total_cost_le",
+    "QuantumBlockEncoding.StoredMatrixProductChain.closeLeft_tail_total_cost_le",
+    "QuantumBlockEncoding.StoredMatrixProductChain.ofTable_total_cost_le",
+    "QuantumBlockEncoding.StoredMatrixProductChain.window_of_entries",
+    "QuantumBlockEncoding.StoredMatrixProductChain.ofTable_maxBond",
+    "QuantumBlockEncoding.StoredMatrixProductChain.ofTable_certified"
+  ],
+  "binder_audit": [
+    {
+      "classification": "same",
+      "source": "Positive lengthN=n+1 and arbitrary stored real D-to-D cores/boundaries, D=0 allowed",
+      "formal": "Vector(StoredCore D D)(n+1), left/right:Vector Real D",
+      "explanation": "Carrier/source inputs only; no rank, positivity, normalization or expected output property."
+    },
+    {
+      "classification": "same",
+      "source": "Stored finite-window entries equal specification K(s+i,b); no outside-window or executable oracle use",
+      "formal": "Window tables K start and entrywise window_of_entries adapter",
+      "explanation": "Exact input representation contract only for refinement/bond/joint certificate; standalone cost bound needs no Window. Production never evaluates K."
+    },
+    {
+      "classification": "same",
+      "source": "Eight charged exact-real operations and stored-word materialization/reference traffic",
+      "formal": "StoredGivens.Run/Cost and StoredRectangularGivens.total",
+      "explanation": "Model explicitly excludes input generation, index/counter arithmetic, finite-bit numerical costs/runtime/peakmemory and quantum action; not a complete resource theorem."
+    }
+  ],
+  "definition_audit": "Nine public literal definitions: charged stored sums/materializations/reference collection/recursive chain and exact input Window. No characterized choice/default/phase quotient; empty inner sum is genuine zero, not illegal-input fallback.",
+  "source_construction_graph": [
+    {
+      "id": "source:stored-boundary:inputs-window",
+      "kind": "NODE",
+      "meaning": "Already materialized tables and stored boundaries with exact finite matching window"
+    },
+    {
+      "id": "source:stored-boundary:terminal",
+      "kind": "NODE",
+      "meaning": "Actual D-term right sums, materialize D-to-1 terminal"
+    },
+    {
+      "id": "source:stored-boundary:tail-references",
+      "kind": "NODE",
+      "meaning": "Read head, collect tail references, construct tail, allocate nodes"
+    },
+    {
+      "id": "source:stored-boundary:initial",
+      "kind": "NODE",
+      "meaning": "Actual left D-term sums and first-core replacement"
+    },
+    {
+      "id": "source:stored-boundary:refinement",
+      "kind": "NODE",
+      "meaning": "Local values then finite-window induction then single returned chain equality"
+    },
+    {
+      "id": "source:stored-boundary:costs",
+      "kind": "NODE",
+      "meaning": "Per-term3reads2field, nested materialization, tail reference and node charges; total recursive bound for same run"
+    },
+    {
+      "id": "source:stored-boundary:bonds",
+      "kind": "NODE",
+      "meaning": "Actual bond bound inherited through proved returned-value equality"
+    },
+    {
+      "id": "source:stored-boundary:finite-runtime",
+      "kind": "SOURCE_GAP",
+      "meaning": "Generating stored inputs, finite-bit/index arithmetic, numerical stability and physical preparation not specified by this model"
+    }
+  ],
+  "quantum_slots": {
+    "target": "Real scalar-boundary matrix-product coefficients, not normalized state",
+    "normalization": "None",
+    "registers": "Abstract bit/core order and finProdFinEquiv columns, not physical endian",
+    "oracles": "Semantic K specification only, never executable callback",
+    "ancillas_phases": "No physical program or garbage claim",
+    "error_success": "Exact real values only, no numerical/probability theorem",
+    "resources": "Eight-counter exact-real stored-word model with all exclusions retained"
+  },
+  "source_credit": "Local authored retrospective source only; independent whole-module reviews still required",
+  "purified": false,
+  "root": false
+}

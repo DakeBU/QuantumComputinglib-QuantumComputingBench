@@ -1,0 +1,130 @@
+warning: verso: repository '.\.lake/packages\verso' has local changes
+experiments/hermite-polynomial/precision/piecewise-kernel-assembly-c21/IndexedKernel.lean:35:4: error: Tactic `apply` failed: could not unify the conclusion of `Finset.sum_congr rfl`
+  Finset.sum ?m.49 ?m.46 = Finset.sum ?m.49 ?m.47
+with the goal
+  ∑ x_1,
+      ∑ x_2,
+        K start x.1 a.1 x_1 * J start x.1 a.2 x_2 *
+          (ireadout K r (start + 1) x.2 x_1 * ireadout J s (start + 1) x.2 x_2) =
+    ∑ x_1,
+      ∑ i, K start x.1 a.1 i * ireadout K r (start + 1) x.2 i * (J start x.1 a.2 x_1 * ireadout J s (start + 1) x.2 x_1)
+
+Note: The full type of `Finset.sum_congr rfl` is
+  (∀ x ∈ ?m.49, ?m.46 x = ?m.47 x) → Finset.sum ?m.49 ?m.46 = Finset.sum ?m.49 ?m.47
+
+case succ
+α β : Type
+inst✝¹ : Fintype α
+inst✝ : Fintype β
+K : IKernel α
+J : IKernel β
+r : α → ℝ
+s : β → ℝ
+n : ℕ
+ih :
+  ∀ (start : ℕ) (x : Word n) (a : α × β),
+    ireadout (productKernel K J) (productBoundary r s) start x a = ireadout K r start x a.1 * ireadout J s start x a.2
+start : ℕ
+x : Word (n + 1)
+a : α × β
+⊢ ∑ x_1,
+      ∑ x_2,
+        K start x.1 a.1 x_1 * J start x.1 a.2 x_2 *
+          (ireadout K r (start + 1) x.2 x_1 * ireadout J s (start + 1) x.2 x_2) =
+    ∑ x_1,
+      ∑ i, K start x.1 a.1 i * ireadout K r (start + 1) x.2 i * (J start x.1 a.2 x_1 * ireadout J s (start + 1) x.2 x_1)
+experiments/hermite-polynomial/precision/piecewise-kernel-assembly-c21/IndexedKernel.lean:48:2: error: Tactic `apply` failed: could not unify the conclusion of `Finset.sum_congr rfl`
+  Finset.sum ?m.31 ?m.28 = Finset.sum ?m.31 ?m.29
+with the goal
+  ∑ x_1, ∑ x_2, l x_1 * u x_2 * (ireadout K r start x x_1 * ireadout J v start x x_2) =
+    ∑ x_1, ∑ i, l i * ireadout K r start x i * (u x_1 * ireadout J v start x x_1)
+
+Note: The full type of `Finset.sum_congr rfl` is
+  (∀ x ∈ ?m.31, ?m.28 x = ?m.29 x) → Finset.sum ?m.31 ?m.28 = Finset.sum ?m.31 ?m.29
+
+α β : Type
+inst✝¹ : Fintype α
+inst✝ : Fintype β
+K : IKernel α
+J : IKernel β
+l r : α → ℝ
+u v : β → ℝ
+n start : ℕ
+x : Word n
+⊢ ∑ x_1, ∑ x_2, l x_1 * u x_2 * (ireadout K r start x x_1 * ireadout J v start x x_2) =
+    ∑ x_1, ∑ i, l i * ireadout K r start x i * (u x_1 * ireadout J v start x x_1)
+experiments/hermite-polynomial/precision/piecewise-kernel-assembly-c21/IndexedKernel.lean:70:14: error: unsolved goals
+case succ.inl
+α β : Type
+inst✝¹ : Fintype α
+inst✝ : Fintype β
+K : IKernel α
+J : IKernel β
+r : α → ℝ
+s : β → ℝ
+n : ℕ
+ih :
+  ∀ (start : ℕ) (x : Word n),
+    ireadout (sumKernel K J) (sumBoundary r s) start x = sumBoundary (ireadout K r start x) (ireadout J s start x)
+start : ℕ
+x : Word (n + 1)
+val✝ : α
+⊢ ∑ x_1, K start x.1 val✝ x_1 * ireadout (sumKernel K J) (Sum.elim r s) (start + 1) x.2 (Sum.inl x_1) =
+    ∑ x_1, K start x.1 val✝ x_1 * ireadout K r (start + 1) x.2 x_1
+
+case succ.inr
+α β : Type
+inst✝¹ : Fintype α
+inst✝ : Fintype β
+K : IKernel α
+J : IKernel β
+r : α → ℝ
+s : β → ℝ
+n : ℕ
+ih :
+  ∀ (start : ℕ) (x : Word n),
+    ireadout (sumKernel K J) (sumBoundary r s) start x = sumBoundary (ireadout K r start x) (ireadout J s start x)
+start : ℕ
+x : Word (n + 1)
+val✝ : β
+⊢ ∑ x_1, J start x.1 val✝ x_1 * ireadout (sumKernel K J) (Sum.elim r s) (start + 1) x.2 (Sum.inr x_1) =
+    ∑ x_1, J start x.1 val✝ x_1 * ireadout J s (start + 1) x.2 x_1
+experiments/hermite-polynomial/precision/piecewise-kernel-assembly-c21/IndexedKernel.lean:73:30: warning: This simp argument is unused:
+  ih
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ireadout, mulVec, dotProduct, Fintype.sum_sum_type, sumKernel, sumBoundary]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+experiments/hermite-polynomial/precision/piecewise-kernel-assembly-c21/IndexedKernel.lean:79:59: error: unsolved goals
+α β : Type
+inst✝¹ : Fintype α
+inst✝ : Fintype β
+K : IKernel α
+J : IKernel β
+l r : α → ℝ
+u v : β → ℝ
+n start : ℕ
+x : Word n
+⊢ ∑ a₁, l a₁ * ireadout (sumKernel K J) (Sum.elim r v) start x (Sum.inl a₁) +
+      ∑ a₂, u a₂ * ireadout (sumKernel K J) (Sum.elim r v) start x (Sum.inr a₂) =
+    ∑ a, l a * ireadout K r start x a + ∑ a, u a * ireadout J v start x a
+experiments/hermite-polynomial/precision/piecewise-kernel-assembly-c21/IndexedKernel.lean:80:19: warning: This simp argument is unused:
+  sum_readout
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [amplitude, Fintype.sum_sum_type, sumBoundary]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+experiments/hermite-polynomial/precision/piecewise-kernel-assembly-c21/IndexedKernel.lean:109:92: error: unsolved goals
+case e_f
+D : ℕ
+K : MatrixProductChain.Kernel D
+l r : Fin D → ℝ
+n start : ℕ
+x : Word (n + 1)
+⊢ (fun a => l a * ireadout K r start x a) = fun a => l a * MatrixProductChain.readout K r start x a
+'HermitePiecewiseAssembly.product_amplitude' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HermitePiecewiseAssembly.sum_amplitude' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HermitePiecewiseAssembly.reindex_contract' depends on axioms: [propext, Classical.choice, Quot.sound]
+

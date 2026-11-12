@@ -1,0 +1,675 @@
+{
+  "schema_version": 1,
+  "status": "AUTHOR_PROPOSAL_NOT_INDEPENDENT_REVIEW",
+  "views": {
+    "source-construction-graph": {
+      "nodes": [
+        {
+          "id": "source:S1",
+          "kind": "local-source-obligation",
+          "source_region": "S1"
+        },
+        {
+          "id": "source:S2",
+          "kind": "local-source-obligation",
+          "source_region": "S2"
+        },
+        {
+          "id": "source:S3",
+          "kind": "local-source-obligation",
+          "source_region": "S3"
+        },
+        {
+          "id": "source:S4",
+          "kind": "local-source-obligation",
+          "source_region": "S4"
+        },
+        {
+          "id": "source:S5",
+          "kind": "local-source-obligation",
+          "source_region": "S5"
+        },
+        {
+          "id": "source:S6",
+          "kind": "local-source-obligation",
+          "source_region": "S6"
+        },
+        {
+          "id": "source:S7",
+          "kind": "local-source-obligation",
+          "source_region": "S7"
+        },
+        {
+          "id": "source:S8",
+          "kind": "local-source-obligation",
+          "source_region": "S8"
+        },
+        {
+          "id": "source:S9",
+          "kind": "local-source-obligation",
+          "source_region": "S9"
+        },
+        {
+          "id": "source:S10",
+          "kind": "local-source-obligation",
+          "source_region": "S10"
+        },
+        {
+          "id": "source:S11",
+          "kind": "local-source-obligation",
+          "source_region": "S11"
+        },
+        {
+          "id": "source:S12",
+          "kind": "local-source-obligation",
+          "source_region": "S12"
+        },
+        {
+          "id": "source:S13",
+          "kind": "local-source-obligation",
+          "source_region": "S13"
+        },
+        {
+          "id": "source:S14",
+          "kind": "local-source-obligation",
+          "source_region": "S14"
+        },
+        {
+          "id": "source:S15",
+          "kind": "local-source-obligation",
+          "source_region": "S15"
+        },
+        {
+          "id": "source:S16",
+          "kind": "local-source-obligation",
+          "source_region": "S16"
+        },
+        {
+          "id": "source:S17",
+          "kind": "local-source-obligation",
+          "source_region": "S17"
+        },
+        {
+          "id": "source:S18",
+          "kind": "local-source-obligation",
+          "source_region": "S18"
+        },
+        {
+          "id": "source:S19",
+          "kind": "local-source-obligation",
+          "source_region": "S19"
+        },
+        {
+          "id": "source:S20",
+          "kind": "local-source-obligation",
+          "source_region": "S20"
+        },
+        {
+          "id": "typing:real-indexed-matrices",
+          "kind": "typing",
+          "statement": "Arbitrary index sets X,Y and real-valued matrices/functions."
+        },
+        {
+          "id": "typing:finite-witness-index",
+          "kind": "typing",
+          "statement": "The witness index I is finite, possibly empty."
+        },
+        {
+          "id": "typing:finite-columns",
+          "kind": "typing",
+          "statement": "Y is finite only for rank consumers."
+        },
+        {
+          "id": "premise:polynomial-degree-bound",
+          "kind": "premise",
+          "statement": "Real p has natural degree at most natural d."
+        },
+        {
+          "id": "typing:fixed-hermite-polynomial",
+          "kind": "typing",
+          "statement": "The literal P_k and natural k specified in S3-S5, not an arbitrary oracle."
+        },
+        {
+          "id": "prerequisite:hermite-degree-and-endpoint",
+          "kind": "prerequisite",
+          "statement": "Existing degree<=2k+1 and P_k(0)=1 interfaces, not re-proved here."
+        },
+        {
+          "id": "premise:suffix-less-than-base",
+          "kind": "premise",
+          "statement": "For every actual column y, v(y)<M; M,T,u,v are natural-valued."
+        },
+        {
+          "id": "premise:local-suffix-bound",
+          "kind": "premise",
+          "statement": "The actual natural y satisfies y<M."
+        },
+        {
+          "id": "premise:positive-real-step",
+          "kind": "premise",
+          "statement": "h>0; a,h,t are exact real numbers."
+        },
+        {
+          "id": "typing:separation-witnesses",
+          "kind": "typing",
+          "statement": "The exact input factors and their pointwise sum equalities are provided."
+        },
+        {
+          "id": "typing:natural-grid-data",
+          "kind": "typing",
+          "statement": "Natural k,M,u,v and exact real a,h; no bitstring bijection assumed."
+        },
+        {
+          "id": "typing:constant-real-scale",
+          "kind": "typing",
+          "statement": "An arbitrary exact real c; not a certified normalization."
+        }
+      ],
+      "hyperedges": [
+        {
+          "id": "source-edge:S1",
+          "logic": "AND",
+          "tails": [
+            "typing:real-indexed-matrices",
+            "typing:finite-witness-index"
+          ],
+          "heads": [
+            "source:S1"
+          ]
+        },
+        {
+          "id": "source-edge:S2",
+          "logic": "AND",
+          "tails": [
+            "source:S1",
+            "typing:finite-columns"
+          ],
+          "heads": [
+            "source:S2"
+          ]
+        },
+        {
+          "id": "source-edge:S3",
+          "logic": "AND",
+          "tails": [
+            "source:S1",
+            "premise:polynomial-degree-bound"
+          ],
+          "heads": [
+            "source:S3"
+          ]
+        },
+        {
+          "id": "source-edge:S4",
+          "logic": "AND",
+          "tails": [
+            "source:S3",
+            "source:S2",
+            "typing:finite-columns"
+          ],
+          "heads": [
+            "source:S4"
+          ]
+        },
+        {
+          "id": "source-edge:S5",
+          "logic": "AND",
+          "tails": [
+            "source:S4",
+            "typing:fixed-hermite-polynomial",
+            "prerequisite:hermite-degree-and-endpoint",
+            "typing:finite-columns"
+          ],
+          "heads": [
+            "source:S5"
+          ]
+        },
+        {
+          "id": "source-edge:S6",
+          "logic": "AND",
+          "tails": [
+            "source:S1",
+            "typing:real-indexed-matrices"
+          ],
+          "heads": [
+            "source:S6"
+          ]
+        },
+        {
+          "id": "source-edge:S7",
+          "logic": "AND",
+          "tails": [
+            "source:S6",
+            "typing:real-indexed-matrices"
+          ],
+          "heads": [
+            "source:S7"
+          ]
+        },
+        {
+          "id": "source-edge:S8",
+          "logic": "AND",
+          "tails": [
+            "source:S1",
+            "typing:separation-witnesses"
+          ],
+          "heads": [
+            "source:S8"
+          ]
+        },
+        {
+          "id": "source-edge:S9",
+          "logic": "AND",
+          "tails": [
+            "source:S1",
+            "typing:separation-witnesses"
+          ],
+          "heads": [
+            "source:S9"
+          ]
+        },
+        {
+          "id": "source-edge:S10",
+          "logic": "AND",
+          "tails": [
+            "source:S1",
+            "typing:separation-witnesses"
+          ],
+          "heads": [
+            "source:S10"
+          ]
+        },
+        {
+          "id": "source-edge:S11",
+          "logic": "AND",
+          "tails": [
+            "premise:local-suffix-bound"
+          ],
+          "heads": [
+            "source:S11"
+          ]
+        },
+        {
+          "id": "source-edge:S12",
+          "logic": "AND",
+          "tails": [
+            "source:S11",
+            "source:S1",
+            "premise:suffix-less-than-base"
+          ],
+          "heads": [
+            "source:S12"
+          ]
+        },
+        {
+          "id": "source-edge:S13",
+          "logic": "AND",
+          "tails": [
+            "source:S11",
+            "source:S1",
+            "premise:suffix-less-than-base"
+          ],
+          "heads": [
+            "source:S13"
+          ]
+        },
+        {
+          "id": "source-edge:S14",
+          "logic": "AND",
+          "tails": [
+            "premise:positive-real-step"
+          ],
+          "heads": [
+            "source:S14"
+          ]
+        },
+        {
+          "id": "source-edge:S15",
+          "logic": "AND",
+          "tails": [
+            "typing:fixed-hermite-polynomial",
+            "prerequisite:hermite-degree-and-endpoint"
+          ],
+          "heads": [
+            "source:S15"
+          ]
+        },
+        {
+          "id": "source-edge:S16",
+          "logic": "AND",
+          "tails": [
+            "typing:fixed-hermite-polynomial"
+          ],
+          "heads": [
+            "source:S16"
+          ]
+        },
+        {
+          "id": "source-edge:S17",
+          "logic": "AND",
+          "tails": [
+            "source:S16"
+          ],
+          "heads": [
+            "source:S17"
+          ]
+        },
+        {
+          "id": "source-edge:S18",
+          "logic": "AND",
+          "tails": [
+            "source:S3",
+            "source:S7",
+            "source:S8",
+            "source:S9",
+            "source:S10",
+            "source:S12",
+            "source:S13",
+            "source:S14",
+            "source:S15",
+            "source:S16",
+            "premise:positive-real-step",
+            "premise:suffix-less-than-base",
+            "typing:natural-grid-data",
+            "prerequisite:hermite-degree-and-endpoint"
+          ],
+          "heads": [
+            "source:S18"
+          ]
+        },
+        {
+          "id": "source-edge:S19",
+          "logic": "AND",
+          "tails": [
+            "source:S18",
+            "source:S17",
+            "source:S2",
+            "typing:finite-columns"
+          ],
+          "heads": [
+            "source:S19"
+          ]
+        },
+        {
+          "id": "source-edge:S20",
+          "logic": "AND",
+          "tails": [
+            "source:S1",
+            "typing:separation-witnesses",
+            "typing:constant-real-scale"
+          ],
+          "heads": [
+            "source:S20"
+          ]
+        }
+      ]
+    },
+    "lean-graph": {
+      "nodes": [
+        {
+          "id": "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough",
+          "source_region": "S1"
+        },
+        {
+          "id": "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough.rank_le",
+          "source_region": "S2"
+        },
+        {
+          "id": "declaration:QuantumBlockEncoding.HermiteCutRank.polynomial_add_factorization",
+          "source_region": "S3"
+        },
+        {
+          "id": "declaration:QuantumBlockEncoding.HermiteCutRank.polynomial_add_rank_le",
+          "source_region": "S4"
+        },
+        {
+          "id": "declaration:QuantumBlockEncoding.HermiteCutRank.hermite_polynomial_add_rank_le",
+          "source_region": "S5"
+        },
+        {
+          "id": "declaration:QuantumBlockEncoding.HermiteCutRank.product_factorization",
+          "source_region": "S6"
+        },
+        {
+          "id": "declaration:QuantumBlockEncoding.HermiteCutRank.exponential_add_factorization",
+          "source_region": "S7"
+        },
+        {
+          "id": "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough.add",
+          "source_region": "S8"
+        },
+        {
+          "id": "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough.neg",
+          "source_region": "S9"
+        },
+        {
+          "id": "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough.pointwise_mul",
+          "source_region": "S10"
+        },
+        {
+          "id": "declaration:QuantumBlockEncoding.HermiteCutRank.blockIndex_lt_iff",
+          "source_region": "S11"
+        },
+        {
+          "id": "declaration:QuantumBlockEncoding.HermiteCutRank.threshold_factorization",
+          "source_region": "S12"
+        },
+        {
+          "id": "declaration:QuantumBlockEncoding.HermiteCutRank.threshold_complement_factorization",
+          "source_region": "S13"
+        },
+        {
+          "id": "declaration:QuantumBlockEncoding.HermiteCutRank.affine_lt_cut",
+          "source_region": "S14"
+        },
+        {
+          "id": "declaration:QuantumBlockEncoding.HermiteCutRank.smoothInitial_strict",
+          "source_region": "S15"
+        },
+        {
+          "id": "declaration:QuantumBlockEncoding.HermiteCutRank.HermiteBond",
+          "source_region": "S16"
+        },
+        {
+          "id": "declaration:QuantumBlockEncoding.HermiteCutRank.hermiteBond_card",
+          "source_region": "S17"
+        },
+        {
+          "id": "declaration:QuantumBlockEncoding.HermiteCutRank.hermite_affine_factorization",
+          "source_region": "S18"
+        },
+        {
+          "id": "declaration:QuantumBlockEncoding.HermiteCutRank.hermite_affine_cut_rank_le",
+          "source_region": "S19"
+        },
+        {
+          "id": "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough.scale",
+          "source_region": "S20"
+        }
+      ],
+      "source_coverage": [
+        {
+          "source": "source:S1",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough"
+        },
+        {
+          "source": "source:S2",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough.rank_le"
+        },
+        {
+          "source": "source:S3",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.polynomial_add_factorization"
+        },
+        {
+          "source": "source:S4",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.polynomial_add_rank_le"
+        },
+        {
+          "source": "source:S5",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.hermite_polynomial_add_rank_le"
+        },
+        {
+          "source": "source:S6",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.product_factorization"
+        },
+        {
+          "source": "source:S7",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.exponential_add_factorization"
+        },
+        {
+          "source": "source:S8",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough.add"
+        },
+        {
+          "source": "source:S9",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough.neg"
+        },
+        {
+          "source": "source:S10",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough.pointwise_mul"
+        },
+        {
+          "source": "source:S11",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.blockIndex_lt_iff"
+        },
+        {
+          "source": "source:S12",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.threshold_factorization"
+        },
+        {
+          "source": "source:S13",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.threshold_complement_factorization"
+        },
+        {
+          "source": "source:S14",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.affine_lt_cut"
+        },
+        {
+          "source": "source:S15",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.smoothInitial_strict"
+        },
+        {
+          "source": "source:S16",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.HermiteBond"
+        },
+        {
+          "source": "source:S17",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.hermiteBond_card"
+        },
+        {
+          "source": "source:S18",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.hermite_affine_factorization"
+        },
+        {
+          "source": "source:S19",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.hermite_affine_cut_rank_le"
+        },
+        {
+          "source": "source:S20",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough.scale"
+        }
+      ],
+      "dependency_boundary": "Actual imported Lean dependency graph remains authoritative; source edges are not claimed to be kernel import edges."
+    },
+    "compressed-quantum-spine": {
+      "stages": [
+        "finite separation witness",
+        "exact affine Hermite sample separation",
+        "matrix rank bound"
+      ],
+      "unavailable_consumers": [
+        "normalized quantum state",
+        "coherent access",
+        "physical circuit and cleanup",
+        "finite-bit total cost"
+      ]
+    },
+    "functor-hypergraph": {
+      "logic": "AND",
+      "source_to_formal": [
+        {
+          "source": "source:S1",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough"
+        },
+        {
+          "source": "source:S2",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough.rank_le"
+        },
+        {
+          "source": "source:S3",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.polynomial_add_factorization"
+        },
+        {
+          "source": "source:S4",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.polynomial_add_rank_le"
+        },
+        {
+          "source": "source:S5",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.hermite_polynomial_add_rank_le"
+        },
+        {
+          "source": "source:S6",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.product_factorization"
+        },
+        {
+          "source": "source:S7",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.exponential_add_factorization"
+        },
+        {
+          "source": "source:S8",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough.add"
+        },
+        {
+          "source": "source:S9",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough.neg"
+        },
+        {
+          "source": "source:S10",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough.pointwise_mul"
+        },
+        {
+          "source": "source:S11",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.blockIndex_lt_iff"
+        },
+        {
+          "source": "source:S12",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.threshold_factorization"
+        },
+        {
+          "source": "source:S13",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.threshold_complement_factorization"
+        },
+        {
+          "source": "source:S14",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.affine_lt_cut"
+        },
+        {
+          "source": "source:S15",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.smoothInitial_strict"
+        },
+        {
+          "source": "source:S16",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.HermiteBond"
+        },
+        {
+          "source": "source:S17",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.hermiteBond_card"
+        },
+        {
+          "source": "source:S18",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.hermite_affine_factorization"
+        },
+        {
+          "source": "source:S19",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.hermite_affine_cut_rank_le"
+        },
+        {
+          "source": "source:S20",
+          "formal": "declaration:QuantumBlockEncoding.HermiteCutRank.FactorsThrough.scale"
+        }
+      ],
+      "no_resource_functor_claim": true,
+      "no_physical_compilation_functor_claim": true
+    }
+  }
+}

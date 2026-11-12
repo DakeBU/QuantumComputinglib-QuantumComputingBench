@@ -1,0 +1,15 @@
+{
+  "version": 5,
+  "parent": "statement-delta-v4.json",
+  "timing": "after provider proof attempt, before writing consumer source or interpreter tests",
+  "signature": "theorem normalized_logRadius_error (k n : Nat) (L epsilon : Rat) (hL : 0 < L) (hepsilon : 0 < epsilon) : norm(normalize(radiusVector k n (logRadius L epsilon : Real)) - targetVector k n (L:Real)) <= 2*sqrt(gridSize(n+1))*sourceLipschitzConstant k*(epsilon:Real)",
+  "consumer_topology": "Actual computable logRadius_error and logRadius_positive instantiate frozen normalized_radius_error against unchanged actual signed source target.",
+  "tests": [
+    "Kernel instantiated normalized state bound for arbitrary k,n, positive Rat L/epsilon",
+    "Kernel original piL interval membership at tiny positive rational L=1/10^100, epsilon=1/10^110",
+    "Interpreter actual logTermCount at L=1 epsilon=1/1000; epsilon>=20L; L=10^100 epsilon=1/10^100",
+    "Interpreter rational returned radius numerator/denominator sizes and positive output for tiny positive L",
+    "Interpreter actual enclosure endpoints and positivity for small exact rational inputs"
+  ],
+  "boundary": "These finite outputs are execution checks of the Lean producer, not runtime/refinement asymptotics or external Python refinement. Radius contribution only; all other numerical errors remain separately charged."
+}

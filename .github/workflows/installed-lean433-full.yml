@@ -1,0 +1,95 @@
+name: Installed Lean 4.33 full build WIP
+on:
+  workflow_dispatch:
+  push:
+    branches: ["work/lean433-curriculum-20261008"]
+    paths:
+      - "QuantumBlockEncoding/**"
+      - "ABEISTests/**"
+      - "QuantumBlockEncoding.lean"
+      - "Tests.lean"
+      - "lean-toolchain"
+      - "lakefile.lean"
+      - "lake-manifest.json"
+      - ".github/workflows/installed-lean433-full.yml"
+permissions:
+  contents: read
+concurrency:
+  group: installed-lean433-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  full-installed-lean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Bind actual installed sources and preserve publication debt
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib,json,subprocess
+          from pathlib import Path
+          from website.scripts import check_research_publications as gate
+          root=Path.cwd()
+          assert (root/'lean-toolchain').read_text().strip() == 'leanprover/lean4:v4.33.0'
+          registry=json.loads((root/'website/research/publications.json').read_text())
+          records=registry['records']
+          maintenance=registry.get('maintenance_records',[])
+          from website.scripts import check_toolchain_maintenance as maintenance_gate
+          inventory={x['fullName']:x for x in json.loads((root/'web/library/declarations.json').read_text())['declarations']}
+          for row in records:gate.validate_record(root,row,inventory)
+          for row in maintenance:maintenance_gate.validate_record(root,row,inventory)
+          missing=sorted(set(gate.changed_modules(root,'origin/main'))-{r['module'] for r in records}-{r['case']['module'] for r in maintenance})
+          paths=subprocess.check_output(['git','ls-files','--','QuantumBlockEncoding','ABEISTests','QuantumBlockEncoding.lean','Tests.lean','lean-toolchain','lakefile.lean','lake-manifest.json','website/research/publications.json','website/research/sources.json','website/scripts/check_research_publications.py','website/scripts/check_toolchain_maintenance.py','docs/theorem-publication-protocol.md','.gitattributes','tools/proof_trust.py']).decode().splitlines()
+          sha=lambda p:hashlib.sha256((root/p).read_bytes()).hexdigest()
+          result=dict(commit=subprocess.check_output(['git','rev-parse','HEAD']).decode().strip(),inputs={p:sha(p) for p in paths},validated_existing_records=len(records),validated_compatibility_records=len(maintenance),publication_missing_modules=missing,publication_complete=not missing,full_Lean_Tests_success=False,website_gate=False,main_admitted=False,scientific_ROOT=False)
+          out=root/'_out/installed-lean433-public';out.mkdir(parents=True,exist_ok=False)
+          (out/'snapshot.json').write_text(json.dumps(result,indent=2)+'\n')
+          print(json.dumps(dict(records=len(records),publication_debt=len(missing),full_build='PENDING_NOT_A_PUBLICATION_BYPASS')))
+          PY
+      - name: Unchanged source trust gate
+        run: python3 -B tools/check_proof_trust.py
+      - uses: leanprover/lean-action@v1
+        with:
+          auto-config: false
+          use-github-cache: true
+          use-mathlib-cache: true
+      - name: Full default library and every Tests target
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake build
+          lake build Tests
+      - name: Record success only after both real full commands
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib,json,subprocess
+          from pathlib import Path
+          root=Path.cwd();out=root/'_out/installed-lean433-public'
+          before=json.loads((out/'snapshot.json').read_text())
+          assert all(hashlib.sha256((root/p).read_bytes()).hexdigest()==digest for p,digest in before['inputs'].items())
+          prefix=Path(subprocess.check_output(['lean','--print-prefix']).decode().strip())
+          lean=prefix/'bin/lean';version=subprocess.check_output([str(lean),'--version']).decode().strip()
+          assert 'version 4.33.0' in version
+          result=dict(before,full_Lean_Tests_success=True,Lean_version=version,Lean_binary_sha256=hashlib.sha256(lean.read_bytes()).hexdigest(),input_bytes_unchanged=True,scope='Actual installed full library and Tests; inherited caches,not clean-transitive rebuild. Publication debt and website/reader/scientific gates remain separately mandatory.')
+          (out/'result.json').write_text(json.dumps(result,indent=2)+'\n')
+          PY
+      - name: Test and observe exact RobinMatrix exported names and axiom debt
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -B -m unittest discover -s tools/robin_maintenance_export_audit -p 'test_audit_robin_exports.py' -v
+          python3 -B tools/robin_maintenance_export_audit/audit_robin_exports.py --repo . --out _out/installed-lean433-public/robin-export-audit --full-build-report _out/installed-lean433-public/result.json
+      - name: Exact source-bound observations including pending/failure snapshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: installed-lean433-${{ github.sha }}
+          path: _out/installed-lean433-public/
+          if-no-files-found: error
+          retention-days: 14

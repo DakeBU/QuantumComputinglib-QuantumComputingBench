@@ -60,6 +60,14 @@ def ccxBasisEquiv {qubits : Nat} (control0 control1 target : Fin qubits)
   right_inv := ccxBasisAction_involutive control0 control1 target
     c0_ne_target c1_ne_target
 
+@[simp] theorem ccxBasisEquiv_apply {qubits : Nat}
+    (control0 control1 target : Fin qubits)
+    (c0_ne_target : control0 ≠ target)
+    (c1_ne_target : control1 ≠ target)
+    (state : PrimitiveBasis qubits) :
+    ccxBasisEquiv control0 control1 target c0_ne_target c1_ne_target state =
+      ccxBasisAction control0 control1 target state := rfl
+
 def evalReversibleGate {qubits : Nat} : ReversibleGate qubits →
     PrimitiveBasis qubits ≃ PrimitiveBasis qubits
   | .x target => xBasisEquiv target

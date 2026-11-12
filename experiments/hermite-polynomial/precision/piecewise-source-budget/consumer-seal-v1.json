@@ -1,0 +1,13 @@
+{
+  "cycle": 17,
+  "declaration_level": "C_ACTUAL_ORIGINAL_AMPLITUDE_CONSUMER",
+  "preproof_interfaces": [
+    "allocatedVector_nonzero(k n:Nat)(L epsilon:Q): allocatedVector k n L epsilon !=0; no small-error premise because exact central1",
+    "allocatedVector_unit(k n:Nat)(L epsilon:Q): norm(normalize(allocatedVector k n L epsilon))=1",
+    "original_amplitude_error_sq(k n:Nat)(L epsilon:Q)(hL:0<L)(he:0<epsilon): sum j, normSq(normalize(allocatedVector k n L epsilon) j - HermiteStatePreparation.normalizedAmplitude k (n+1) (cast L) j) <= (cast epsilon)^2/4",
+    "positive_scaled_original_error(k n:Nat)(L epsilon:Q)(F:Real)(hL:0<L)(he:0<epsilon)(hF:0<F): norm(normalize(F^-1 smul allocatedVector)-targetVector k n (cast L)) <= cast epsilon/2"
+  ],
+  "binder_audit": {"TYPING": "natural k,n; rational L/epsilon; real positive scale F", "SOURCE": "L>0,epsilon>0 where original error is claimed; F>0 only for explicit positive-scaled variant", "EXCESS": []},
+  "diagnostics": "Exact Lean endpoint/clipped/asymmetric/physical central roots; executable all entries at small physical widths and Decimal original piL norm comparison. Decimal approximations remain finite diagnostics, not error premises.",
+  "remaining": "Actual stored TT/data/circuit and all finite-bit/classical costs remain OPEN; no phase quotient."
+}

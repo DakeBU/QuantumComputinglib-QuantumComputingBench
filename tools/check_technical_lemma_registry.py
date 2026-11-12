@@ -33,7 +33,16 @@ REQUIRED_FIELDS = {
 }
 
 
+def pinned_lean_version(root: Path) -> str:
+    toolchain = (root / "lean-toolchain").read_text(encoding="utf-8").strip()
+    match = re.fullmatch(r"leanprover/lean4:v(\d+\.\d+\.\d+(?:-[\w.-]+)?)", toolchain)
+    if match is None:
+        raise ValueError("technical lemma registry requires a pinned Lean toolchain")
+    return match.group(1)
+
+
 def main() -> int:
+    lean_version = pinned_lean_version(ROOT)
     payload = json.loads(REGISTRY.read_text(encoding="utf-8"))
     entries = payload.get("entries")
     if not isinstance(entries, list):
@@ -72,6 +81,8 @@ def main() -> int:
             )
         if entry["verification_status"] != "compiled":
             errors.append(f"{lemma_id}: promoted entry is not marked compiled")
+        if entry["lean_version"] != lean_version:
+            errors.append(f"{lemma_id}: compiled version differs from the pinned Lean {lean_version}")
         if entry["local_declaration_status"] != "complete":
             errors.append(f"{lemma_id}: promoted entry is not locally complete")
 

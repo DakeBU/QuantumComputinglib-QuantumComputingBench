@@ -2,10 +2,12 @@ from __future__ import annotations
 
 import copy
 import hashlib
+import importlib.util
 import json
 import tempfile
 import unittest
-from pathlib import Path
+from pathlib import Path, PurePosixPath, PureWindowsPath
+from unittest.mock import patch
 
 from website.scripts import research_atlas as atlas
 from website.scripts import check_research_publications as publication
@@ -222,6 +224,151 @@ class ResearchCatalogTests(unittest.TestCase):
         self.assertIn("Read formalization plan (not a certificate)", page)
         for route in ("spw-walsh", "spw-diagonal"):
             self.assertIn(f'../../state-preparation-wiki/{route}/index.html', page)
+
+
+class PublicCatalogProjectionTests(unittest.TestCase):
+    SOURCE_IDS = {
+        "aspbe-local-exact-primitives-controlled-rotations-finite-cubic",
+        "aspbe-local-stored-rectangular-elimination-v1",
+        "aspbe-local-retrospective-sequential-primitive-assembly-c48",
+    }
+
+    def setUp(self):
+        self.catalog = atlas.load_catalog()
+        spec = importlib.util.spec_from_file_location(
+            "publication_path_scanner", atlas.ROOT / "scripts/sanitize-blueprint-paths.py")
+        self.assertIsNotNone(spec)
+        self.assertIsNotNone(spec.loader)
+        self.scanner = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(self.scanner)
+
+    def scan_sources(self, sources):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "sources.json").write_text(json.dumps(sources), encoding="utf-8")
+            return self.scanner._assert_no_local_paths(root, atlas.ROOT)
+
+    def test_exact_lossless_display_preserves_canonical_bytes_and_scientific_fields(self):
+        original = copy.deepcopy(self.catalog)
+        canonical_bytes = {name: (atlas.DATA / filename).read_bytes()
+                           for name, filename in atlas.FILES.items()}
+        digest = atlas.source_digest()
+        projected = atlas.public_catalog(self.catalog)
+        self.assertEqual(self.catalog, original)
+        self.assertEqual(atlas.source_digest(), digest)
+        for name, filename in atlas.FILES.items():
+            self.assertEqual((atlas.DATA / filename).read_bytes(), canonical_bytes[name])
+        self.assertEqual(projected["atlas"], original["atlas"])
+        self.assertEqual(projected["wiki"], original["wiki"])
+        changed = set()
+        for canonical, public in zip(original["sources"]["sources"], projected["sources"]["sources"]):
+            if canonical != public:
+                changed.add(canonical["id"])
+                self.assertEqual(public["authors"], canonical["authors"].replace("/root", "agent-task:root"))
+                self.assertEqual(public["authors"].replace("agent-task:", "/"), canonical["authors"])
+                self.assertEqual({k: v for k, v in public.items() if k != "authors"},
+                                 {k: v for k, v in canonical.items() if k != "authors"})
+            else:
+                self.assertNotIn(canonical["id"], self.SOURCE_IDS)
+        self.assertEqual(changed, self.SOURCE_IDS)
+        restored = copy.deepcopy(projected["sources"])
+        disclosure = restored.pop("public_projection")
+        self.assertEqual(disclosure["schema_version"], "research.sources_author_identity_display.v1")
+        self.assertIn("no new source, mathematical or formalization review", disclosure["review_boundary"])
+        self.assertIn("unmodified_canonical", disclosure["source_digest_binds"])
+        for source in restored["sources"]:
+            if source["id"] in self.SOURCE_IDS:
+                source["authors"] = source["authors"].replace("agent-task:", "/")
+        self.assertEqual(restored, original["sources"])
+        with self.assertRaisesRegex(ValueError, "local filesystem paths"):
+            self.scan_sources(original["sources"])
+        self.assertEqual(self.scan_sources(projected["sources"]), 1)
+
+    def test_unknown_or_extended_author_strings_and_real_paths_remain_detectable(self):
+        source = next(s for s in self.catalog["sources"]["sources"] if s["id"] in self.SOURCE_IDS)
+        canonical_authors = source["authors"]
+        # Artificial paths are string-processing fixtures, never destinations.
+        private_path = str(PurePosixPath("/", "root", "private", "report.json"))
+        for authors in (canonical_authors + " " + private_path,
+                        canonical_authors + " (unrecognized extra metadata)",
+                        str(PurePosixPath("/", "root", "not_an_allowlisted_task")),
+                        str(PurePosixPath("/", "home", "fixture", "private", "report.json")),
+                        str(PureWindowsPath("Z:/", "Users", "fixture", "private", "report.json")),
+                        str(PurePosixPath("/", "root", "primitive_compiler_metadata_c31", "report.json"))):
+            with self.subTest(authors_kind=authors.split("/", 1)[0]):
+                source["authors"] = authors
+                public = atlas.public_catalog(self.catalog)["sources"]
+                self.assertEqual(next(s for s in public["sources"] if s["id"] == source["id"])["authors"], authors)
+                with self.assertRaisesRegex(ValueError, "local filesystem paths"):
+                    self.scan_sources(public)
+
+    def test_known_authors_on_an_unlisted_source_are_not_rewritten(self):
+        source = copy.deepcopy(next(s for s in self.catalog["sources"]["sources"] if s["id"] in self.SOURCE_IDS))
+        source["id"] = "fixture-unlisted-source"
+        self.catalog["sources"]["sources"].append(source)
+        public = atlas.public_catalog(self.catalog)["sources"]
+        self.assertEqual(public["sources"][-1], source)
+        with self.assertRaisesRegex(ValueError, "local filesystem paths"):
+            self.scan_sources(public)
+
+    def test_arbitrary_nested_fields_are_not_scrubbed(self):
+        source = next(s for s in self.catalog["sources"]["sources"] if s["id"] in self.SOURCE_IDS)
+        source["extra_metadata"] = {
+            "authors": source["authors"],
+            "path": str(PurePosixPath("/", "root", "private", "report.json")),
+        }
+        public = atlas.public_catalog(self.catalog)["sources"]
+        displayed = next(s for s in public["sources"] if s["id"] == source["id"])
+        self.assertEqual(displayed["extra_metadata"], source["extra_metadata"])
+        with self.assertRaisesRegex(ValueError, "local filesystem paths"):
+            self.scan_sources(public)
+
+    def test_original_schema_is_validated_before_projection(self):
+        self.catalog["sources"]["schema_version"] = 2
+        with patch.object(atlas, "deepcopy", side_effect=AssertionError("projection ran before validation")):
+            with self.assertRaisesRegex(ValueError, "unsupported sources schema"):
+                atlas.public_catalog(self.catalog)
+
+    def test_projection_cannot_overwrite_a_canonical_field(self):
+        self.catalog["sources"]["public_projection"] = {"canonical": "must not be overwritten"}
+        with self.assertRaisesRegex(ValueError, "canonical sources"):
+            atlas.public_catalog(self.catalog)
+
+    def test_publish_emits_exact_projected_json_before_reader_rendering(self):
+        from website.scripts import build_site as site
+        refs = {ref for collection in ("families", "hyperedges", "contributions")
+                for item in self.catalog["atlas"][collection] for ref in item.get("lean_refs", [])}
+        refs |= {ref for item in self.catalog["wiki"]["routes"] for ref in item.get("lean_refs", [])}
+        refs |= {ref for item in self.catalog["atlas"]["families"]
+                 for ref in item.get("technical_card", {}).get("lean_decl", [])}
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            fixtures = {
+                "library/declarations.json": {"declarations": [{"fullName": ref} for ref in refs]},
+                "data/lean-graph.json": {"nodes": [{"id": "declaration:" + ref} for ref in refs]},
+                "build-report.json": {"coverage": {}, "leanGate": {"passed": True, "commit": "a" * 40}},
+            }
+            for filename, value in fixtures.items():
+                path = root / filename
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(json.dumps(value), encoding="utf-8")
+            # Deliberately bounded: exercise the real JSON write loop, not a full-site gate.
+            with patch.object(atlas, "load_catalog", return_value=self.catalog), \
+                 patch.object(site, "git_context", return_value={"commit": "a" * 40}), \
+                 patch.object(atlas.shutil, "copyfile", side_effect=RuntimeError("stop before reader rendering")):
+                with self.assertRaisesRegex(RuntimeError, "stop before reader rendering"):
+                    atlas.publish(root)
+            expected = atlas.public_catalog(self.catalog)
+            for name, filename in atlas.FILES.items():
+                self.assertEqual(atlas.read_json(root / "data/research" / filename), expected[name])
+            self.assertEqual(self.scanner._assert_no_local_paths(root / "data/research", atlas.ROOT), 3)
+            source_file = root / "data/research/sources.json"
+            for field in ("authors", "status", "anchor", "scope", "formal_status"):
+                tampered = copy.deepcopy(expected["sources"])
+                tampered["sources"][0][field] = "tampered"
+                source_file.write_text(json.dumps(tampered), encoding="utf-8")
+                with self.subTest(field=field), self.assertRaisesRegex(ValueError, "display projection"):
+                    atlas.check_published(root)
 
 
 class PublicationBindingTests(unittest.TestCase):

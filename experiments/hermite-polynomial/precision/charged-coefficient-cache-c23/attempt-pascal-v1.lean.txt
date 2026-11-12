@@ -1,0 +1,193 @@
+import ActualCoefficients
+import QuantumBlockEncoding.StoredGivens
+
+namespace HermiteChargedSourceCache
+open scoped BigOperators
+open QuantumBlockEncoding.StoredGivens HermitePiecewiseAssembly
+
+def qAdd (x y : ℚ) : Run ℚ := charge .field (x+y)
+def qMul (x y : ℚ) : Run ℚ := charge .field (x*y)
+def qDiv (x y : ℚ) : Run ℚ := charge .field (x/y)
+def qIndex (n : ℕ) : Run ℚ := charge .field (n : ℚ)
+
+/-- Each previous row is materialized once within a row computation. -/
+def chooseRow (W : ℕ) : ℕ → Run (Vector ℚ W)
+  | 0 => collect fun j => pure (if j.val=0 then 1 else 0)
+  | n+1 => do
+    let prev ← chooseRow W n
+    collect fun j => if h : j.val=0 then pure 1 else do
+      let a ← read prev ⟨j.val-1, by omega⟩
+      let b ← read prev j
+      qAdd a b
+
+theorem chooseRow_entry (W n : ℕ) (j : Fin W) :
+    (chooseRow W n).value[j.val] = (Nat.choose n j.val : ℚ) := by
+  induction n with
+  | zero => simp [chooseRow, pure, Run.pure, Nat.choose_zero_right]
+  | succ n ih =>
+    simp only [chooseRow, bind, Run.bind, collect_value]
+    split_ifs with h
+    · simp [h, pure, Run.pure]
+    · simp only [bind, Run.bind, read, charge, qAdd]
+      rw [ih, ih]
+      have hj : j.val = (j.val-1)+1 := by omega
+      conv_rhs => rw [hj, Nat.choose_succ_succ']
+      norm_cast
+
+private theorem tick_le (a b : Op) : tick a b ≤ 1 := by simp [tick]; split_ifs <;> omega
+
+private theorem collect_cost_le {N : ℕ} (f : Fin N → Run α) (B : ℕ)
+    (op : Op) (h : ∀ i, (f i).cost op ≤ B) :
+    (collect f).cost op ≤ N*(B+4) := by
+  rw [collect_cost]
+  have hs : (∑ i : Fin N, (f i).cost op) ≤ N*B := by
+    calc
+      _ ≤ ∑ _i : Fin N, B := Finset.sum_le_sum (fun i _ => h i)
+      _ = _ := by simp
+  have hr := tick_le .read op
+  have hw := tick_le .write op
+  nlinarith
+
+theorem chooseRow_cost_le (W n : ℕ) (op : Op) :
+    (chooseRow W n).cost op ≤ 7*(n+1)*W := by
+  induction n with
+  | zero =>
+    have h := collect_cost_le (fun j : Fin W => (pure (if j.val=0 then (1:ℚ) else 0) : Run ℚ))
+      0 op (by intro j; simp [pure, Run.pure])
+    simpa [chooseRow] using h.trans (by omega)
+  | succ n ih =>
+    simp only [chooseRow, bind, Run.bind, Pi.add_apply]
+    have h := collect_cost_le
+      (fun j : Fin W => if h : j.val=0 then (pure 1 : Run ℚ) else do
+        let a ← read (chooseRow W n).value ⟨j.val-1, by omega⟩
+        let b ← read (chooseRow W n).value j
+        qAdd a b) 3 op (by
+          intro j
+          split_ifs
+          · simp [pure, Run.pure]
+          · simp only [bind, Run.bind, read, charge, qAdd, Pi.add_apply]
+            have hr := tick_le .read op
+            have hf := tick_le .field op
+            omega)
+    nlinarith
+
+def factorialRun : ℕ → Run ℚ
+  | 0 => pure 1
+  | n+1 => do
+    let f ← factorialRun n
+    let index ← qIndex (n+1)
+    qMul index f
+
+theorem factorialRun_value (n : ℕ) : (factorialRun n).value = (n.factorial : ℚ) := by
+  induction n with
+  | zero => simp [factorialRun, pure, Run.pure]
+  | succ n ih => simp [factorialRun, bind, Run.bind, qIndex, qMul, charge, ih, Nat.factorial_succ]
+
+theorem factorialRun_cost_le (n : ℕ) (op : Op) :
+    (factorialRun n).cost op ≤ 2*n := by
+  induction n with
+  | zero => simp [factorialRun, pure, Run.pure]
+  | succ n ih =>
+    simp only [factorialRun, bind, Run.bind, qIndex, qMul, charge, Pi.add_apply]
+    have hf := tick_le .field op
+    omega
+
+def chooseTable (k : ℕ) : Run (Vector (Vector ℚ (k+1)) (2*k+1)) :=
+  collect fun n => chooseRow (k+1) n.val
+
+def factorialTable (k : ℕ) : Run (Vector ℚ (k+1)) :=
+  collect fun r => factorialRun r.val
+
+def sumRun (f : ℕ → Run ℚ) : ℕ → Run ℚ
+  | 0 => pure 0
+  | n+1 => do
+    let s ← sumRun f n
+    let x ← f n
+    qAdd s x
+
+theorem sumRun_value (f : ℕ → Run ℚ) (n : ℕ) :
+    (sumRun f n).value = ∑ r ∈ Finset.range n, (f r).value := by
+  induction n with
+  | zero => simp [sumRun, pure, Run.pure]
+  | succ n ih => simp [sumRun, bind, Run.bind, qAdd, charge, ih, Finset.sum_range_succ]
+
+private theorem sumRun_cost_le (f : ℕ → Run ℚ) (n B : ℕ) (op : Op)
+    (h : ∀ r < n, (f r).cost op ≤ B) : (sumRun f n).cost op ≤ n*(B+1) := by
+  induction n with
+  | zero => simp [sumRun, pure, Run.pure]
+  | succ n ih =>
+    simp only [sumRun, bind, Run.bind, qAdd, charge, Pi.add_apply]
+    have hh := ih (fun r hr => h r (by omega))
+    have hn := h n (by omega)
+    have hf := tick_le .field op
+    nlinarith
+
+/-- Out-of-range terms are not evaluated by sumRun; total indexing uses k+i-r,
+which is <=2k for all r when i<=k. No fallback scalar formula is introduced. -/
+def sourceTerm (k : ℕ) (i : Fin (k+1))
+    (rows : Vector (Vector ℚ (k+1)) (2*k+1)) (facts : Vector ℚ (k+1))
+    (r : ℕ) : Run ℚ := do
+  let row ← read rows ⟨k+i.val-r, by omega⟩
+  let binom ← read row ⟨k, by omega⟩
+  let fact ← read facts ⟨min r k, by omega⟩
+  qDiv binom fact
+
+def produceSourceCache (k : ℕ) : Run (Vector ℚ (k+1)) := do
+  let rows ← chooseTable k
+  let facts ← factorialTable k
+  collect fun i => sumRun (sourceTerm k i rows facts) (i.val+1)
+
+theorem produceSourceCache_entry (k : ℕ) (i : Fin (k+1)) :
+    (produceSourceCache k).value[i.val] = sourceCoefficientQ k i.val := by
+  simp only [produceSourceCache, bind, Run.bind, collect_value, sumRun_value]
+  unfold sourceCoefficientQ
+  apply Finset.sum_congr rfl
+  intro r hr
+  have hrk : r ≤ k := by simp only [Finset.mem_range] at hr; omega
+  simp [sourceTerm, bind, Run.bind, read, charge, qDiv,
+    chooseTable, factorialTable, chooseRow_entry, factorialRun_value, Nat.min_eq_left hrk]
+
+def sourceCacheBudget (k : ℕ) : ℕ :=
+  7*(2*k+1)^2*(k+1)+4*(2*k+1)+(k+1)*(2*k+4)+(k+1)*(5*(k+1)+4)
+
+theorem produceSourceCache_cost_le (k : ℕ) (op : Op) :
+    (produceSourceCache k).cost op ≤ sourceCacheBudget k := by
+  have hc : (chooseTable k).cost op ≤ (2*k+1)*(7*(2*k+1)*(k+1)+4) := by
+    apply collect_cost_le
+    intro n
+    have h := chooseRow_cost_le (k+1) n.val op
+    have hn := n.isLt
+    nlinarith
+  have hf : (factorialTable k).cost op ≤ (k+1)*(2*k+4) := by
+    apply collect_cost_le
+    intro r
+    have h := factorialRun_cost_le r.val op
+    have hr := r.isLt
+    omega
+  have ht : ∀ (i : Fin (k+1)) (r : ℕ),
+      (sourceTerm k i (chooseTable k).value (factorialTable k).value r).cost op ≤ 4 := by
+    intro i r
+    simp only [sourceTerm, bind, Run.bind, read, charge, qDiv, Pi.add_apply]
+    have hread := tick_le .read op
+    have hfield := tick_le .field op
+    omega
+  have hs : (collect fun i : Fin (k+1) =>
+      sumRun (sourceTerm k i (chooseTable k).value (factorialTable k).value) (i.val+1)).cost op
+      ≤ (k+1)*(5*(k+1)+4) := by
+    apply collect_cost_le
+    intro i
+    have h := sumRun_cost_le (sourceTerm k i (chooseTable k).value (factorialTable k).value)
+      (i.val+1) 4 op (by intro r _; exact ht i r)
+    have hi := i.isLt
+    nlinarith
+  simp only [produceSourceCache, bind, Run.bind, Pi.add_apply]
+  unfold sourceCacheBudget
+  nlinarith [hc, hf, hs]
+
+#print axioms chooseRow_entry
+#print axioms chooseRow_cost_le
+#print axioms factorialRun_value
+#print axioms factorialRun_cost_le
+#print axioms produceSourceCache_entry
+#print axioms produceSourceCache_cost_le
+end HermiteChargedSourceCache

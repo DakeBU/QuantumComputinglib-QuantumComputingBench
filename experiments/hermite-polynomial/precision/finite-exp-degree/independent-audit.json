@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "cycle": 15,
+  "reviewer": "root/scalar_rounding_review_c15",
+  "review_kind": "DISTINCT_EXACT_SOURCE_INTERNAL_PROOF_AND_COMMON_BLINDSPOT_REVIEW",
+  "accepted": true,
+  "verdict": "ACCEPTED_SCOPED_UNIFORM_NEGATIVE_EXP_DEGREE_COMPLETENESS_AND_ACTUAL_RATIONAL_HERMITE_TAIL_CONSUMERS",
+  "evidence_class": "C_INTERNAL_PROVIDER",
+  "result_sha256": "a3a0bf796ab229e65a5bc85acc58a5f92c505793a318162bc278df010d9c1f54",
+  "provider_sha256": "021f4e3cfc786221d773069a633108db0c32e5e4f0b4e694986b722487944cf5",
+  "consumer_sha256": "1af66d07a1a3db9f314f884ad02e3c9f5ee1c4b3900d1c4c3956044674b5bf74",
+  "all_author_input_and_log_bindings": "Verified individually before replay and unchanged after replay; full exact mapping in bound reviewer full-replay-v1.json",
+  "reviewer_replay": {
+    "path": "experiments/hermite-polynomial/precision/scalar-rounding-review-c15/full-replay-v1.json",
+    "sha256": "ba390971a950647d9fe6e7c7fde57f5497cf83be70cda39202db26d27a4d668f",
+    "session": 69443,
+    "scope": "Complete original FiniteExp, complete degree source, complete actual Hermite ConsumerChecks; separate whole FiniteTrig/SavedRounding/consumer rebuild and author tests also passed",
+    "degree_gate_indices": [0, 1, 2],
+    "exit_codes": [0, 0, 0],
+    "private_cache": "experiments/hermite-polynomial/precision/scalar-rounding-review-c15/.cache",
+    "provenance": "Freshly compiled complete sources. Author caches absent from LEAN_PATH. Existing pinned Mathlib/production substrate used, not all transitive dependencies rebuilt."
+  },
+  "complete_scope_read": ["AGENTS.md", "HARNESS.md", "substantive-worker skill", "all publication/digestion/evidence protocols", "reports/process-memory.json", "prior finite-exp audit and c14 handoff", "original FiniteExp.lean", "whole FiniteExpDegree.lean", "whole actual ConsumerChecks.lean", "all exact statement/consumer seals", "negative-evidence.json", "replay.ps1", "result.json", "whole QuantumBlockEncoding/HermitePolynomial.lean"],
+  "additional_dependency_binding": {
+    ".lake/packages/mathlib/Mathlib/Data/Nat/Factorial/Basic.lean": "01b8416d33e612a180b218160b7465bc199beb769b31b65f74e3be1f7e167351"
+  },
+  "mathematical_review": {
+    "factorial": "For d=2*T^2+b+1>=1, d^d <= d!*d^d <= (2*d)!. The Mathlib multiplicative factorial-block inequality is genuinely applied; no extra factorial estimate binder or axiom.",
+    "radius": "|q|<=T gives |q|^(2d)*2^d=(2|q|^2)^d<=d^d<=(2d)!, hence radius at degree 2d-1 is <=2^-d<=2^-(b+1). Natural truncation in 2d-1 is safe since d>=1. T=0 is included.",
+    "completeness": "At T=tailCutoff(epsilon), clipped q<=-T retains [0,2^-T], width<=epsilon. Active q has |q|<T, so b=T gives 2*radius<=2^-T<=epsilon. Existing checked then returns some bounds. No assumed width and no fixed degree cap.",
+    "soundness": "complete_enclosure calls actual checked_sound, so completeness is combined with the original Taylor/clipped enclosure rather than a fresh surrogate checker.",
+    "allocation": "degree=4*T^2+2*b+1 and sourceDegree_size follow from existing cutoff<=Nat.size(max1 ceil(1/epsilon)). The unconditional arithmetic size inequality at invalid epsilon does not assert checked completeness; epsilon>0 remains essential.",
+    "actual_consumers": "Left p<-1 uses original smoothInitial k p=exp(p); right p>0 uses exp(-p); endpoint is exp(-1). Uniform k is real but no middle polynomial, original irrational grid, normalization or state aggregation is supplied.",
+    "clipping": "The exp tail is enclosed, not zeroed or removed. Equality q=-T takes clipped branch; epsilon=2 gives T=0,n=1 and [0,1], including exp(0)=1. Huge q=-10^1000 selects this branch without evaluating a huge Taylor sum.",
+    "global_boundary": "Scalar interval width epsilon is NOT the Euclidean error of an N-component or normalized state. N=4 identical entry errors e already have norm 2e. Conservative term allocation is neither canonical rational input size nor bit/GCD/storage/runtime complexity."
+  },
+  "independent_discriminators": {
+    "result": "experiments/hermite-polynomial/precision/scalar-rounding-review-c15/probe-results-v1.json",
+    "sha256": "13c2b37d092fa76c537410d287837098663c3ffd4cc4224f08d5a6f056cb4537",
+    "kernel_exit": 0,
+    "kernel_roots": "Clipped nonzero width, zero cutoff, zero/negative precision rejection, degree80=25761, symbolic high precision completeness, signed outward, mixed product, empty trace and scalar squared error discriminator",
+    "finite_v2_exit": 0,
+    "finite_methods": 4,
+    "finite_v1_exit": 1,
+    "failure_retained": "Reviewer-only symmetric reversal fixtures failed to distinguish order. Original v1 retained, additive v2 uses exact asymmetric singleton witness. Not author failure or negative mathematics. No failed gate is labelled green."
+  },
+  "axiom_census": "All printed original/provider/consumer/own successful roots use only propext, Classical.choice, Quot.sound or subsets. No sorryAx, new declared axioms, sorry/admit/native_decide/unsafe or fake closure in reviewed new Lean sources.",
+  "warnings": "Existing local Verso changes and harmless original/degree lints retained. Not clean CI, Linux or runtime-comparison evidence.",
+  "common_blindspots": "Cross-package clipping/discard, scalar/global metric, conservative degree/finite-bit cost, signed rounding/product-center, halfangle/sign and same-pair/full-stage distinctions checked. Narrow common-blindspot review only, not global Source Anchor review.",
+  "failure_class": "NONE_FOR_FROZEN_PROVIDER; IMPLEMENTATION_FAILED_FOR_REPAIRED_REVIEWER_FIXTURE",
+  "rejected_claims": ["Scalar epsilon closes normalized state epsilon", "Clipped tails are zero", "Quadratic degree allocation is polynomial finite-bit runtime", "Uniform k certifies middle coefficient amplification", "Any scientific ROOT or resource winner"],
+  "remaining": ["Canonical rational input-size translation and intermediate numerator/denominator/GCD/storage/runtime", "Middle coefficient amplification and all global error stages", "Original irrational-grid to stored-source refinement", "Actual TT/QR producer and normalizer stability", "C2", "C3", "X2", "ROOT", "Physical finite-bit synthesis cost"],
+  "publication": "INTERNAL_ONLY_NOT_SOURCE_BLIND_NOT_PUBLIC_ANCHOR_NOT_PURIFIED",
+  "source_anchor_approved": false,
+  "scientific_ROOT": false,
+  "new_resource_winner": false,
+  "full_repository_gate": "Parent-owned production/Tests and 50-unit evidence only; not rerun or claimed by this reviewer",
+  "scope_controls": "Only own new reviewer subtree and two new independent audits written; no frozen source/seal/result, production, historical record or Git edits. Public logs sanitize absolute ROOT before writing. No subagents.",
+  "process_memory_ids": ["QBE-PM-LOW-TOKEN-CONTROL-PLANE", "QBE-PM-DENSE-CHECK-SMALL-INSTANCE", "QBE-PM-VERIFIER-SEMANTIC-LEVEL"]
+}

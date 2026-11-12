@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "version": 1,
+  "status": "IMMUTABLE_PRE_PROOF_SIGNATURE_SEAL",
+  "task": "SP-HERMITE-POLY-002",
+  "direction_fingerprint": "original-source-global-Lipschitz-and-rational-radius-normalized-stability",
+  "shared_proof_input_digest": "5a8f47f8d0afd1d4f957e55babde52a9e9c01babf05c481b988e99ebca2f7758",
+  "timing": "Created after reading actual source/normalization definitions for statement formation, before proof/API search, theorem probes or proof-module creation. This file will remain unchanged; additions receive separately retained pre-proof deltas.",
+  "scientific_target": "Original normalized signed Hermite function-value grid with radius pi*L,physical n_p=n+1>=1,k natural,L>0 finite rational executable boundary,q0 LSB. Approximate radius is an internal approximation with error charged against original target, not a replacement target.",
+  "level": "C internal literal-source approximation providers, not a public Source Anchor or numerical producer",
+  "definitions": {
+    "sourceLipschitzConstant": "def sourceLipschitzConstant (k : Nat) : Real := 2 * ExperimentalCoefficientRange.coarseBound k * (2*k+2:Real) * (2*k+1:Real) * 2^(2*k+1)",
+    "radiusGrid": "def radiusGrid (n : Nat) (R : Real) (j : Fin(gridSize(n+1))) : Real := -R+2*R*(j.val:Real)/(gridSize(n+1):Real)",
+    "radiusVector": "noncomputable def radiusVector (k n : Nat) (R : Real) : EuclideanSpace Complex (Fin(gridSize(n+1))) := WithLp.toLp 2 (fun j => (HermitePolynomial.smoothInitial k (radiusGrid n R j):Complex))"
+  },
+  "exact_signatures": [
+    "theorem sourceLipschitzConstant_ge_one (k : Nat) : 1 <= sourceLipschitzConstant k",
+    "theorem sourceInterpolant_lipschitz (k : Nat) (x y : Real) (hx : x in Set.Icc(-1)0) (hy : y in Set.Icc(-1)0) : abs((HermitePolynomial.sourceInterpolant k).eval x-(HermitePolynomial.sourceInterpolant k).eval y) <= sourceLipschitzConstant k * abs(x-y)",
+    "theorem smoothInitial_lipschitz (k : Nat) (x y : Real) : abs(HermitePolynomial.smoothInitial k x-HermitePolynomial.smoothInitial k y) <= sourceLipschitzConstant k * abs(x-y)",
+    "theorem radius_grid_difference (n : Nat) (R S : Real) (j : Fin(gridSize(n+1))) : abs(radiusGrid n R j-radiusGrid n S j) <= abs(R-S)",
+    "theorem radiusVector_error (k n : Nat) (R S : Real) : norm(radiusVector k n R-radiusVector k n S) <= Real.sqrt(gridSize(n+1):Real) * sourceLipschitzConstant k * abs(R-S)",
+    "theorem radiusVector_source (k n : Nat) (L : Real) : radiusVector k n (Real.pi*L)=ExperimentalNormalizationStability.sourceVector k n L",
+    "theorem normalized_radius_error (k n : Nat) (L : Real) (hL : 0<L) (Rhat : Rat) (hRhat : 0<Rhat) : norm(NormedSpace.normalize(radiusVector k n (Rhat:Real))-ExperimentalNormalizationStability.targetVector k n L) <= 2 * Real.sqrt(gridSize(n+1):Real) * sourceLipschitzConstant k * abs((Rhat:Real)-Real.pi*L)"
+  ],
+  "binder_audit": {"TYPING": ["natural k,n", "finite sample index", "real source coordinates/radii", "rational approximate radius"], "INTERNAL_DOMAIN": ["source middle-interval membership", "L>0 scientific domain", "positive approximate rational radius"], "EXCESS_SCIENTIFIC": []},
+  "definition_audit": "Literal existing smoothInitial and original symmetric source grid. Constant is explicit conservative formula using frozen all-k coefficient bound; no source callback, assumed Lipschitz premise, numerical derivative oracle or phase quotient.",
+  "source_topology": ["Literal polynomial Bernstein expansion and coefficient range", "Middle polynomial difference bound", "Two exponential tails difference bounds", "Value matching at -1 and0, including k0 without derivative matching", "Cross-piece triangle inequalities", "Original finite grid coefficient in[-1,1]", "Euclidean finite-sum error", "Midpoint source norm floor and normalization stability"],
+  "cost_boundary": "All-k constant may be exponentially large in numeric k but logarithm of precision dependence is polynomial in k. This is an exact-real source stability/error interface, not a rational-radius generator, cutoff algorithm, full runtime/intermediate cost, TT/oracle/bond/gate certificate or global epsilon closure.",
+  "history_boundary": "Frozen coefficient/normalization/source inputs unchanged. Earlier OffsetSource seal-history debt is retained; this seal does not reconstruct old bytes.",
+  "review": "Reused coefficient author/source context disclosed; root owns independent review and aggregate gates."
+}

@@ -1,0 +1,455 @@
+{
+  "module": "QuantumBlockEncoding/RectangularGivens.lean",
+  "source_id": "aspbe-local-rectangular-row-elimination-v2",
+  "source_statement": "For every finite real rectangular matrix, a literal column-by-column adjacent-rotation algorithm computes a chronological list T and residual R; U(T)A=R, R is zero strictly below the diagonal, length(T)<=N*M, U(T)^T U(T)=I, det(U(T))=1 and U(T)^T R=A. Whole19-declaration intermediate/general-list scope retained.",
+  "source_anchor": "docs/lessons/rectangular-row-elimination-v2.md sections S1-S7",
+  "lesson_path": "docs/lessons/rectangular-row-elimination-v2.md",
+  "declarations": [
+    "QuantumBlockEncoding.RectangularGivens.sweep",
+    "QuantumBlockEncoding.RectangularGivens.sweepSteps",
+    "QuantumBlockEncoding.RectangularGivens.sweepSteps_action",
+    "QuantumBlockEncoding.RectangularGivens.UpperPrefix",
+    "QuantumBlockEncoding.RectangularGivens.columnSweep_upperPrefix",
+    "QuantumBlockEncoding.RectangularGivens.sweep_upperPrefix",
+    "QuantumBlockEncoding.RectangularGivens.sweepSteps_length_le",
+    "QuantumBlockEncoding.RectangularGivens.stepsMatrix_orthogonal",
+    "QuantumBlockEncoding.RectangularGivens.stepsMatrix_det",
+    "QuantumBlockEncoding.RectangularGivens.decompose",
+    "QuantumBlockEncoding.RectangularGivens.reduced",
+    "QuantumBlockEncoding.RectangularGivens.transform",
+    "QuantumBlockEncoding.RectangularGivens.decompose_action",
+    "QuantumBlockEncoding.RectangularGivens.transform_mul",
+    "QuantumBlockEncoding.RectangularGivens.reduced_zero_below",
+    "QuantumBlockEncoding.RectangularGivens.decompose_length_le",
+    "QuantumBlockEncoding.RectangularGivens.transform_orthogonal",
+    "QuantumBlockEncoding.RectangularGivens.transform_det",
+    "QuantumBlockEncoding.RectangularGivens.exact_recovery"
+  ],
+  "obligation_map": [
+    {
+      "kind": "prerequisite",
+      "source_obligation": "S2",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.sweep"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "S2",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.sweepSteps"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S2a",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.sweepSteps_action"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "S3",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.UpperPrefix"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S3a",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.columnSweep_upperPrefix"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S3b",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.sweep_upperPrefix"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S4",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.sweepSteps_length_le"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S5a",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.stepsMatrix_orthogonal"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S5b",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.stepsMatrix_det"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "S6",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.decompose"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "S6",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.reduced"
+      ]
+    },
+    {
+      "kind": "prerequisite",
+      "source_obligation": "S6",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.transform"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S6.1",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.decompose_action"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S6.2",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.transform_mul"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S6.3",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.reduced_zero_below"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S6.4",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.decompose_length_le"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S6.5",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.transform_orthogonal"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S6.5",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.transform_det"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "S6.6",
+      "declarations": [
+        "QuantumBlockEncoding.RectangularGivens.exact_recovery"
+      ]
+    }
+  ],
+  "assumption_deltas": [
+    {
+      "classification": "same",
+      "source": "S1-S6 all dimensions and real matrices, explicit intermediate prefix/index conditions, literal computed outputs.",
+      "formal": "Whole module19source declarations, exact-real recurrence, no rank/isometry/SO hypothesis on input.",
+      "explanation": "Intermediate prefix and dimension proofs are used as the corresponding explicit local source claims; final computed outputs do not assume their conclusions."
+    },
+    {
+      "classification": "same",
+      "source": "S7 no total arithmetic/finite-bit/quantum resource certificate.",
+      "formal": "Only list-length bound N*M; noncomputable exact-real angle suppliers.",
+      "explanation": "No conversion from matrix-dimension polynomial list bound to qubit-polynomial state preparation is asserted."
+    }
+  ],
+  "graph_contribution": {
+    "baseline": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+    "classes": [
+      "reorganisation"
+    ],
+    "node_ids": [
+      "module:QuantumBlockEncoding.RectangularGivens",
+      "declaration:QuantumBlockEncoding.RectangularGivens.sweep",
+      "declaration:QuantumBlockEncoding.RectangularGivens.sweepSteps",
+      "declaration:QuantumBlockEncoding.RectangularGivens.sweepSteps_action",
+      "declaration:QuantumBlockEncoding.RectangularGivens.UpperPrefix",
+      "declaration:QuantumBlockEncoding.RectangularGivens.columnSweep_upperPrefix",
+      "declaration:QuantumBlockEncoding.RectangularGivens.sweep_upperPrefix",
+      "declaration:QuantumBlockEncoding.RectangularGivens.sweepSteps_length_le",
+      "declaration:QuantumBlockEncoding.RectangularGivens.stepsMatrix_orthogonal",
+      "declaration:QuantumBlockEncoding.RectangularGivens.stepsMatrix_det",
+      "declaration:QuantumBlockEncoding.RectangularGivens.decompose",
+      "declaration:QuantumBlockEncoding.RectangularGivens.reduced",
+      "declaration:QuantumBlockEncoding.RectangularGivens.transform",
+      "declaration:QuantumBlockEncoding.RectangularGivens.decompose_action",
+      "declaration:QuantumBlockEncoding.RectangularGivens.transform_mul",
+      "declaration:QuantumBlockEncoding.RectangularGivens.reduced_zero_below",
+      "declaration:QuantumBlockEncoding.RectangularGivens.decompose_length_le",
+      "declaration:QuantumBlockEncoding.RectangularGivens.transform_orthogonal",
+      "declaration:QuantumBlockEncoding.RectangularGivens.transform_det",
+      "declaration:QuantumBlockEncoding.RectangularGivens.exact_recovery",
+      "concept:rectangular-elimination/ALL_FIN_M_COLUMNS_LT_M",
+      "concept:rectangular-elimination/ANGLE:pairNorm_and_principal_acos_sign_branches",
+      "concept:rectangular-elimination/APPEND_ACTION",
+      "concept:rectangular-elimination/APPEND_LENGTH",
+      "concept:rectangular-elimination/BELOW_INDEX",
+      "concept:rectangular-elimination/CHRONOLOGICAL_PRODUCT",
+      "concept:rectangular-elimination/COMPLETE_OUTPUT_DEFINITIONS",
+      "concept:rectangular-elimination/COMPLETE_RESIDUAL",
+      "concept:rectangular-elimination/COMPLETE_TRACE",
+      "concept:rectangular-elimination/COMPLETE_VALID_TRACE_TRANSFORM",
+      "concept:rectangular-elimination/COUNT_LE_N",
+      "concept:rectangular-elimination/CURRENT_MATRIX",
+      "concept:rectangular-elimination/CURRENT_PREFIX_INPUT",
+      "concept:rectangular-elimination/DESCENDING_ADJACENT_PAIRS",
+      "concept:rectangular-elimination/DET_IDENTITY",
+      "concept:rectangular-elimination/DET_MULTIPLICATIVE",
+      "concept:rectangular-elimination/EMPTY_AND_SKIP_CASES",
+      "concept:rectangular-elimination/IDENTITY_BASE",
+      "concept:rectangular-elimination/INDUCTION_ON_REMAINING",
+      "concept:rectangular-elimination/LEGAL_NEXT_CALL",
+      "concept:rectangular-elimination/LIST_INDUCTION",
+      "concept:rectangular-elimination/MATRIX_ASSOCIATIVITY_AND_IDENTITY",
+      "concept:rectangular-elimination/OLDER_COLUMN_INDEX_INEQUALITY",
+      "concept:rectangular-elimination/ONE_RECORD_PER_PAIR_INCLUDING_ZERO",
+      "concept:rectangular-elimination/PAIR_ZERO",
+      "concept:rectangular-elimination/PIVOT_IN_RANGE",
+      "concept:rectangular-elimination/PLANE_ACTION",
+      "concept:rectangular-elimination/PLANE_DET",
+      "concept:rectangular-elimination/PLANE_ORTH",
+      "concept:rectangular-elimination/PREFIX_AT_ZERO",
+      "concept:rectangular-elimination/PREFIX_DEF",
+      "concept:rectangular-elimination/PRODUCT_ACTION",
+      "concept:rectangular-elimination/S2A",
+      "concept:rectangular-elimination/S2_RECURRENCES",
+      "concept:rectangular-elimination/S2_TRACE",
+      "concept:rectangular-elimination/S3A",
+      "concept:rectangular-elimination/S3B",
+      "concept:rectangular-elimination/S4",
+      "concept:rectangular-elimination/S5A",
+      "concept:rectangular-elimination/S5B",
+      "concept:rectangular-elimination/S6_1",
+      "concept:rectangular-elimination/S6_2",
+      "concept:rectangular-elimination/S6_3",
+      "concept:rectangular-elimination/S6_4",
+      "concept:rectangular-elimination/S6_5_DET",
+      "concept:rectangular-elimination/S6_5_ORTH",
+      "concept:rectangular-elimination/S6_6",
+      "concept:rectangular-elimination/SKIP_CASE",
+      "concept:rectangular-elimination/SKIP_PREFIX_FROM_ROW_LT_N_LE_K",
+      "concept:rectangular-elimination/STEP_DISTINCTNESS",
+      "concept:rectangular-elimination/SWEEP_ACTION",
+      "concept:rectangular-elimination/SWEEP_LENGTH",
+      "concept:rectangular-elimination/SWEEP_PRESERVE",
+      "concept:rectangular-elimination/SWEEP_PROGRAM",
+      "concept:rectangular-elimination/SWEEP_RECURSION",
+      "concept:rectangular-elimination/SWEEP_ZERO_LOCAL",
+      "concept:rectangular-elimination/TRANSPOSE_MULTIPLICATION_AND_ASSOCIATIVITY",
+      "concept:rectangular-elimination/UNTOUCHED_ROWS",
+      "concept:rectangular-elimination/ZERO_OLDER_COLUMN_INTERVAL",
+      "concept:rectangular-elimination/ZERO_PAIR_BRANCH"
+    ],
+    "views": [
+      "source-construction-graph",
+      "lean-graph",
+      "compressed-quantum-spine",
+      "functor-hypergraph"
+    ],
+    "preserved_contract": "Whole current raw source unchanged, including definitions, imports, proof bodies, guards, sign, index and product order.",
+    "remaining_boundary": "Retrospective implementation-informed source; no pre-proof claim. Independent whole-module semantic/topology comparison and minimal source clarification accepted; final exact binding, owner integration and purification pending. Existing full build uses inherited caches. No finite-bit runtime, numerical stability, storage or qubit-polynomial synthesis certificate.",
+    "source_AND_hyperedges": [
+      {
+        "tails": [
+          "concept:rectangular-elimination/ANGLE:pairNorm_and_principal_acos_sign_branches",
+          "concept:rectangular-elimination/PLANE_ACTION",
+          "concept:rectangular-elimination/ZERO_PAIR_BRANCH"
+        ],
+        "head": "concept:rectangular-elimination/PAIR_ZERO"
+      },
+      {
+        "tails": [
+          "concept:rectangular-elimination/PAIR_ZERO",
+          "concept:rectangular-elimination/DESCENDING_ADJACENT_PAIRS",
+          "concept:rectangular-elimination/CURRENT_MATRIX",
+          "concept:rectangular-elimination/UNTOUCHED_ROWS"
+        ],
+        "head": "concept:rectangular-elimination/SWEEP_ZERO_LOCAL"
+      },
+      {
+        "tails": [
+          "concept:rectangular-elimination/PLANE_ACTION",
+          "concept:rectangular-elimination/ZERO_OLDER_COLUMN_INTERVAL",
+          "concept:rectangular-elimination/UNTOUCHED_ROWS",
+          "concept:rectangular-elimination/SWEEP_RECURSION"
+        ],
+        "head": "concept:rectangular-elimination/SWEEP_PRESERVE"
+      },
+      {
+        "tails": [
+          "concept:rectangular-elimination/SWEEP_PROGRAM",
+          "concept:rectangular-elimination/ONE_RECORD_PER_PAIR_INCLUDING_ZERO"
+        ],
+        "head": "concept:rectangular-elimination/SWEEP_LENGTH"
+      },
+      {
+        "tails": [
+          "concept:rectangular-elimination/S2_RECURRENCES",
+          "concept:rectangular-elimination/SWEEP_ACTION",
+          "concept:rectangular-elimination/APPEND_ACTION",
+          "concept:rectangular-elimination/LEGAL_NEXT_CALL",
+          "concept:rectangular-elimination/EMPTY_AND_SKIP_CASES",
+          "concept:rectangular-elimination/INDUCTION_ON_REMAINING"
+        ],
+        "head": "concept:rectangular-elimination/S2A"
+      },
+      {
+        "tails": [
+          "concept:rectangular-elimination/PREFIX_DEF",
+          "concept:rectangular-elimination/PIVOT_IN_RANGE",
+          "concept:rectangular-elimination/SWEEP_ZERO_LOCAL",
+          "concept:rectangular-elimination/SWEEP_PRESERVE",
+          "concept:rectangular-elimination/OLDER_COLUMN_INDEX_INEQUALITY"
+        ],
+        "head": "concept:rectangular-elimination/S3A"
+      },
+      {
+        "tails": [
+          "concept:rectangular-elimination/S3A",
+          "concept:rectangular-elimination/CURRENT_PREFIX_INPUT",
+          "concept:rectangular-elimination/SKIP_PREFIX_FROM_ROW_LT_N_LE_K",
+          "concept:rectangular-elimination/LEGAL_NEXT_CALL",
+          "concept:rectangular-elimination/INDUCTION_ON_REMAINING"
+        ],
+        "head": "concept:rectangular-elimination/S3B"
+      },
+      {
+        "tails": [
+          "concept:rectangular-elimination/S2_TRACE",
+          "concept:rectangular-elimination/SWEEP_LENGTH",
+          "concept:rectangular-elimination/APPEND_LENGTH",
+          "concept:rectangular-elimination/COUNT_LE_N",
+          "concept:rectangular-elimination/SKIP_CASE",
+          "concept:rectangular-elimination/INDUCTION_ON_REMAINING"
+        ],
+        "head": "concept:rectangular-elimination/S4"
+      },
+      {
+        "tails": [
+          "concept:rectangular-elimination/CHRONOLOGICAL_PRODUCT",
+          "concept:rectangular-elimination/STEP_DISTINCTNESS",
+          "concept:rectangular-elimination/PLANE_ORTH",
+          "concept:rectangular-elimination/IDENTITY_BASE",
+          "concept:rectangular-elimination/TRANSPOSE_MULTIPLICATION_AND_ASSOCIATIVITY",
+          "concept:rectangular-elimination/LIST_INDUCTION"
+        ],
+        "head": "concept:rectangular-elimination/S5A"
+      },
+      {
+        "tails": [
+          "concept:rectangular-elimination/CHRONOLOGICAL_PRODUCT",
+          "concept:rectangular-elimination/STEP_DISTINCTNESS",
+          "concept:rectangular-elimination/PLANE_DET",
+          "concept:rectangular-elimination/DET_IDENTITY",
+          "concept:rectangular-elimination/DET_MULTIPLICATIVE",
+          "concept:rectangular-elimination/LIST_INDUCTION"
+        ],
+        "head": "concept:rectangular-elimination/S5B"
+      },
+      {
+        "tails": [
+          "concept:rectangular-elimination/COMPLETE_OUTPUT_DEFINITIONS",
+          "concept:rectangular-elimination/S2A"
+        ],
+        "head": "concept:rectangular-elimination/S6_1"
+      },
+      {
+        "tails": [
+          "concept:rectangular-elimination/S6_1",
+          "concept:rectangular-elimination/PRODUCT_ACTION"
+        ],
+        "head": "concept:rectangular-elimination/S6_2"
+      },
+      {
+        "tails": [
+          "concept:rectangular-elimination/S3B",
+          "concept:rectangular-elimination/PREFIX_AT_ZERO",
+          "concept:rectangular-elimination/COMPLETE_RESIDUAL",
+          "concept:rectangular-elimination/ALL_FIN_M_COLUMNS_LT_M",
+          "concept:rectangular-elimination/BELOW_INDEX"
+        ],
+        "head": "concept:rectangular-elimination/S6_3"
+      },
+      {
+        "tails": [
+          "concept:rectangular-elimination/S4",
+          "concept:rectangular-elimination/COMPLETE_TRACE"
+        ],
+        "head": "concept:rectangular-elimination/S6_4"
+      },
+      {
+        "tails": [
+          "concept:rectangular-elimination/S5A",
+          "concept:rectangular-elimination/COMPLETE_VALID_TRACE_TRANSFORM"
+        ],
+        "head": "concept:rectangular-elimination/S6_5_ORTH"
+      },
+      {
+        "tails": [
+          "concept:rectangular-elimination/S5B",
+          "concept:rectangular-elimination/COMPLETE_VALID_TRACE_TRANSFORM"
+        ],
+        "head": "concept:rectangular-elimination/S6_5_DET"
+      },
+      {
+        "tails": [
+          "concept:rectangular-elimination/S6_2",
+          "concept:rectangular-elimination/S6_5_ORTH",
+          "concept:rectangular-elimination/MATRIX_ASSOCIATIVITY_AND_IDENTITY"
+        ],
+        "head": "concept:rectangular-elimination/S6_6"
+      }
+    ],
+    "topology_provenance": "Exact independently reviewed source-construction AND edges from source-v2-review/comparison.json; not elaborated Lean proof-term dependencies or certified functors."
+  },
+  "formalizer": "/root retrospective source/metadata author; historical formalizer UNKNOWN",
+  "historical_formalizer": "UNKNOWN",
+  "residual_boundary": "Exact-real matrix list semantics only. List length is not scalar evaluation, storage, numerical stability, finite-bit cost or a polynomial-in-qubits circuit. Source is retrospective; pre-proof seal is not claimed.",
+  "status": "INDEPENDENT_SEMANTIC_COMPARISON_ACCEPTED_FINAL_BINDING_PENDING",
+  "source_proof_coverage": "reviews/publication/rectangular-givens-c36/source-v2-review/comparison.json",
+  "statement_seal": {
+    "timing": "RETROSPECTIVE_IMPLEMENTATION_INFORMED",
+    "pre_proof_claim": false,
+    "module_sha256": "aa4b908e26c0e0b0bccc05034b839f170fb4a2641d96b713ff8d3fac731bcb52",
+    "source_sha256": "91c442f1f8002be9d082257fbba0a79d551df3cdda499c6d1a2f539a686e0fd3",
+    "formal_packet_seal_sha256": "e539fa2f2fd0cf48937e218096d01d05d5c446286fc9d33c4bf4edc62490dc60",
+    "predecessor_source_sha256": "fe6357c4a8714ba463b00a0d575a28b2387bff7a1cfd9478f063a0bd6ddd12bb",
+    "clarification_proposal_sha256": "d91e7a2f355c3eb4b81d01a70d8763f7aa93207c9ec7c80a924b27a18ad5412c",
+    "independent_clarification_review": "reviews/publication/rectangular-givens-c36/source-v2-review/source-repair-review.json"
+  },
+  "decoder_evidence": "reviews/publication/rectangular-givens-c36/final-evidence/decoder.json",
+  "reviewer_evidence": "reviews/publication/rectangular-givens-c36/final-evidence/reviewer.json",
+  "purification": {
+    "status": "PENDING",
+    "Exposition_Seal": "PENDING"
+  },
+  "main_admission": false,
+  "scientific_ROOT": false,
+  "binding_sha256": "db2136bbbe8b4c4bc968e302705572bd8a6127ddd7b72ad8853c5d1fd4d2da35",
+  "repair": {
+    "proposal_path": "reviews/publication/rectangular-givens-c36/source-v2/clarification-proposal.json",
+    "independent_review": "reviews/publication/rectangular-givens-c36/source-v2-review/source-repair-review.json"
+  },
+  "predecessor_prospective_binding_sha256": "c86b08dd62a1626fea6a229ebe7c9d8ec807c07d845cbaa261132160f860e0e2"
+}

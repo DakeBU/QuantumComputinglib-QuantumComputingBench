@@ -1,0 +1,23 @@
+{
+  "version": 4,
+  "parent": "statement-delta-v3.json",
+  "purpose": "Add an efficient logarithmic term-count successor without altering the sealed conservative supplier.",
+  "definitions": {
+    "logTermCount": "Nat.clog 2 (max 1 (Nat.ceil (20*L/epsilon))) + 1",
+    "logRadius": "piApprox (logTermCount L epsilon)*L",
+    "logRadiusInterval": "((piApprox m-20/(2^m))*L,(piApprox m+20/(2^m))*L), m=logTermCount L epsilon"
+  },
+  "signatures": [
+    "theorem atan_remainder_sharp (x : Real) (hx : 0 <= x) (hx1 : x < 1) (m : Nat) : abs(Real.arctan x - sum i in range m, (-1)^i*x^(2*i+1)/(2*i+1)) <= x^(2*m+1)/(2*m+1)",
+    "theorem atan_remainder_geometric (x : Real) (hx : 0 <= x) (hxhalf : x <= 1/2) (m : Nat) : abs(Real.arctan x - sum i in range m, (-1)^i*x^(2*i+1)/(2*i+1)) <= 1/2^m",
+    "theorem piApprox_error_geometric (m : Nat) : abs((piApprox m : Real)-Real.pi) <= 20/2^m",
+    "theorem logRadius_budget (L epsilon : Rat) (hL : 0 < L) (hepsilon : 0 < epsilon) : (20/(2:Rat)^(logTermCount L epsilon))*L <= epsilon",
+    "theorem logRadius_error (L epsilon : Rat) (hL : 0 < L) (hepsilon : 0 < epsilon) : abs((logRadius L epsilon : Real)-Real.pi*(L:Real)) <= (epsilon:Real)",
+    "theorem logRadius_positive (L epsilon : Rat) (hL : 0 < L) (hepsilon : 0 < epsilon) : 0 < logRadius L epsilon",
+    "theorem logRadius_membership (L epsilon : Rat) (hL : 0 < L) (hepsilon : 0 < epsilon) : Real.pi*(L:Real) in Set.Icc ((logRadiusInterval L epsilon).1:Real) ((logRadiusInterval L epsilon).2:Real)",
+    "theorem logTermCount_size (L epsilon : Rat) : logTermCount L epsilon <= Nat.size (max 1 (Nat.ceil (20*L/epsilon)))+1"
+  ],
+  "status": "pre-implementation successor seal; ordinary helper binders only, no new Source assumptions",
+  "topology": "Retain exact omitted-term bound from Mathlib, dominate by geometric base1/2 for actual Machin arguments, use Nat.le_pow_clog and rational ceiling, compose same original target radius stability.",
+  "resource_boundary": "Term count is logarithmic in rational ratio threshold; runtime/GCD/intermediate-bit refinements still separate."
+}

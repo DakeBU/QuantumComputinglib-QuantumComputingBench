@@ -300,7 +300,7 @@ theorem boundaryReadout_eq (k : ℕ) (origin step : ℝ) (lower upper : ℕ)
           rcases ho with ho | ho <;> omega
         rw [if_neg hn]
       · rw [if_neg ho, ih]
-        simp only [wordValue, Nat.add_assoc]
+        simp only [wordValue, Nat.add_assoc] <;> rfl
 
 /-- One unresolved boundary scalar and one shared degree-sized coefficient row. -/
 abbrev InjectionBond (k : ℕ) := Option (Fin (2 * k + 1 + 1))
@@ -558,7 +558,7 @@ theorem scalarBoundaryReadout_eq (lower upper : ℕ) (inject : ℕ → ℕ → �
           rcases ho with ho | ho <;> omega
         rw [if_neg hn]
       · rw [if_neg ho, ih]
-        simp only [wordValue, Nat.add_assoc]
+        simp only [wordValue, Nat.add_assoc] <;> rfl
 
 theorem scalarContract_boundary (lower upper : ℕ) (schedule : ℕ → ℕ)
     (inject : ℕ → ℕ → ℝ) (free : ℕ → Bool → ℝ) (bits : List Bool)
@@ -764,7 +764,7 @@ theorem middleReadout_eq (k n : ℕ) (L : ℝ) (hL : 0 < L) (bits : List Bool) :
           (gridPointNat n L (wordValue bits)) else 0 := by
   unfold middleReadout
   rw [boundaryReadout_eq]
-  · simp only [zero_add, middle_membership_iff n L hL, gridPointNat]
+  · simp only [zero_add, middle_membership_iff n L hL, gridPointNat] <;> rfl
   · intro j _ hj
     exact ne_of_lt ((gridPointNat_lt_zero_iff n L hL j).mpr hj)
 
@@ -787,6 +787,15 @@ def wordSampleIndex (n : ℕ) (bits : List Bool) (hbits : bits.length = n + 1) :
     Fin (gridSize (n + 1)) :=
   ⟨wordValue bits, by simpa only [gridSize, ← hbits] using wordValue_lt bits⟩
 
+private theorem sampledAmplitude_word (k n : ℕ) (L : ℝ)
+    (bits : List Bool) (hbits : bits.length = n + 1) :
+    HermiteStatePreparation.sampledAmplitude k (n + 1) L
+      (wordSampleIndex n bits hbits) =
+      HermitePolynomial.smoothInitial k (gridPointNat n L (wordValue bits)) := by
+  unfold HermiteStatePreparation.sampledAmplitude
+  rw [← gridPointNat_eq_gridPoint]
+  rfl
+
 /-- All-bit exact source readout on the actual public sample API. The center
 belongs to the right tail, while the sample at `p=-1` belongs to this component. -/
 theorem middleReadout_eq_masked_sample (k n : ℕ) (L : ℝ) (hL : 0 < L)
@@ -800,9 +809,7 @@ theorem middleReadout_eq_masked_sample (k n : ℕ) (L : ℝ) (hL : 0 < L)
   by_cases hm : cutIndex n L ≤ wordValue bits ∧ wordValue bits < 2 ^ n
   · rw [if_pos hm, if_pos hm]
     have hc := (middle_membership_iff n L hL _).mp hm
-    unfold HermiteStatePreparation.sampledAmplitude
-    rw [← gridPointNat_eq_gridPoint, HermiteCutRank.smoothInitial_strict]
-    simp only [wordSampleIndex]
+    rw [sampledAmplitude_word, HermiteCutRank.smoothInitial_strict]
     rw [if_neg (by linarith : ¬ gridPointNat n L (wordValue bits) < -1), if_pos hc.2]
   · rw [if_neg hm, if_neg hm]
 
@@ -897,9 +904,7 @@ theorem leftFiniteReadout_eq_masked_sample (k n : ℕ) (L : ℝ) (hL : 0 < L)
   rw [leftFiniteReadout_eq n L hL bits hbits]
   by_cases hj : wordValue bits < cutIndex n L
   · rw [if_pos hj, if_pos hj]
-    unfold HermiteStatePreparation.sampledAmplitude
-    rw [← gridPointNat_eq_gridPoint, HermiteCutRank.smoothInitial_strict]
-    simp only [wordSampleIndex]
+    rw [sampledAmplitude_word, HermiteCutRank.smoothInitial_strict]
     rw [if_pos ((gridPointNat_lt_neg_one_iff n L hL _).mpr hj)]
   · rw [if_neg hj, if_neg hj]
 
@@ -978,9 +983,7 @@ theorem rightFiniteReadout_eq_masked_sample (k n : ℕ) (L : ℝ) (hL : 0 < L)
     have hp : ¬ gridPointNat n L (wordValue bits) < 0 := by
       intro hh
       exact hj ((gridPointNat_lt_zero_iff n L hL _).mp hh)
-    unfold HermiteStatePreparation.sampledAmplitude
-    rw [← gridPointNat_eq_gridPoint, HermiteCutRank.smoothInitial_strict]
-    simp only [wordSampleIndex]
+    rw [sampledAmplitude_word, HermiteCutRank.smoothInitial_strict]
     rw [if_neg (by linarith : ¬ gridPointNat n L (wordValue bits) < -1), if_neg hp]
 
 /-- Exact three-component source action. No cancellation between masked

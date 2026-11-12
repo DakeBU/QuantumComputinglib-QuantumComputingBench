@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "audit_identity": "root/hermite_dyadic_supplier:cycle12-offset-entry-v2-independent-review",
+  "completed_at_utc": "2026-10-08 12:29:12 UTC",
+  "verdict": "PASS_BOUNDED_OPTIONAL_ENTRY_AND_FINITE_FAILURE_RECORD",
+  "reviewer_provenance": {
+    "distinct_from_entry_and_cutoff_record_author": true,
+    "author_of_SafeEnclosure_and_RationalBudget": true,
+    "reused_context": "Prior actual GlobalAssembly, DyadicSupplier, SafeEnclosure, rational-budget and independent local transport/ThinLQ work was available. This is a separate source inspection and fresh execution, not a clean-room whole-chain review.",
+    "root_results_read": true,
+    "root_results_substituted_for_independent_execution": false,
+    "authorization_scope": "Optional entry validation and fixed-cutoff-cap diagnostic only; no scientific publication, ROOT acceptance, source migration, registry or production changes."
+  },
+  "bindings": [
+    {
+      "path": "experiments/hermite-polynomial/precision/offset-entry-v2/statement-seal-v1.json",
+      "sha256": "39f17632581731939d5767674c9a7a21a8163fad3ff1d4c2195cc856df5b406d",
+      "inspection": "complete"
+    },
+    {
+      "path": "experiments/hermite-polynomial/precision/offset-entry-v2/checked_entry.py",
+      "sha256": "973d075889a383070a67f718290c7d0fc165eef259f5d9e715b5801a4fa1bfb3",
+      "inspection": "complete"
+    },
+    {
+      "path": "experiments/hermite-polynomial/precision/offset-entry-v2/test_checked_entry.py",
+      "sha256": "b5c163c38c3efb5f3f531500ecf2ba775a1230aad4cad3957bd9bfc80515779a",
+      "inspection": "complete"
+    },
+    {
+      "path": "experiments/hermite-polynomial/precision/offset-entry-v2/result.json",
+      "sha256": "67f0eb6d06f033ecb360717bff955827556a7e8f306e5c1774b8193cc3c8b7d8",
+      "inspection": "complete; author result is not independent execution evidence"
+    },
+    {
+      "path": "experiments/hermite-polynomial/precision/cutoff-cap/statement-seal-v1.json",
+      "sha256": "e93b75f01c6fff437ea4713e2086e6b4d15f5c6d5d556bb4efe82b4f31eb210b",
+      "inspection": "complete; the seal honestly discloses an earlier inline probe"
+    },
+    {
+      "path": "experiments/hermite-polynomial/precision/cutoff-cap/test_cutoff_cap.py",
+      "sha256": "3df26efc5bc86d59be6e1663a73aeef7c63e0d9df9ae0cf985b4d1dd3c965e11",
+      "inspection": "complete"
+    },
+    {
+      "path": "experiments/hermite-polynomial/precision/offset-source/offset_source.py",
+      "sha256": "908acb0c17eb0b181d877de95858c8416ca875efe856fe9d649dfddce0d37a81",
+      "inspection": "complete; unchanged delegated parent"
+    },
+    {
+      "path": "experiments/hermite-polynomial/mps/mps_core_probe.py",
+      "sha256": "1ef28771ee4e4e153cc54fb8247c1e033eea70c137f6fe4506f90fe9ddd0f693",
+      "inspection": "complete; actual pi interval, rational ceiling and fixed-cap cutoff implementation"
+    },
+    {
+      "path": "failure-memory/SP-HERMITE-POLY-002-fixed-cutoff-cap.json",
+      "sha256": "a70d2586503dedfe316c31f22bd61d279bf666f0294daff0a0078717512ae0eb",
+      "inspection": "complete; all ten witness fields compared with the fresh independently executed witness"
+    }
+  ],
+  "independent_runs": [
+    {
+      "command": ".venv/Scripts/python.exe -B experiments/hermite-polynomial/precision/offset-entry-v2/test_checked_entry.py -v",
+      "exit_code": 0,
+      "output_handle": "3aecd6",
+      "tests": 8,
+      "reported_test_seconds": 0.042,
+      "result": "All eight tests OK; includes actual core dtype/shape/bytes/metadata comparison, mock object identity and call count, zero-injection invalid-budget rejection, exact type validation and exception preservation."
+    },
+    {
+      "command": ".venv/Scripts/python.exe -B experiments/hermite-polynomial/precision/cutoff-cap/test_cutoff_cap.py -v",
+      "exit_code": 0,
+      "output_handle": "635a70",
+      "tests": 3,
+      "reported_test_seconds": 1.210,
+      "result": "All three tests OK: 64 exact rational attempts, actual fixed-cap failure, and unchanged old/new entry failure propagation."
+    },
+    {
+      "command": ".venv/Scripts/python.exe -B experiments/hermite-polynomial/precision/cutoff-cap/test_cutoff_cap.py --witness",
+      "exit_code": 0,
+      "output_handle": "5364a2",
+      "result": "Fresh JSON witness produced; all its fields exactly equal corresponding frozen failure-memory fields after JSON parsing. The harness succeeded by observing an implementation failure, not by constructing a successful circuit."
+    },
+    {
+      "command": "PowerShell in-memory Python stdin probe via .venv/Scripts/python.exe -B -",
+      "exit_code": 0,
+      "output_handle": "36bc40",
+      "probe": "Create positive Fraction subclasses for length and tolerance; patch the delegated callable with a sentinel; require same returned tuple object, one call, and both rational argument objects unchanged. Create int subclasses and bool n/k values; require ValueError before delegation. Check the ordinary loaded callable module is offset_source.",
+      "result": "All supplemental ordinary-object checks PASS."
+    }
+  ],
+  "source_findings": {
+    "input_contract": "n and k use exact type(x) is int, with n >= 1 and k >= 0; this rejects bool, float and int subclasses. Length and local coefficient tolerance use isinstance(x, Fraction) plus positivity; positive ordinary Fraction subclasses are intentionally allowed by the seal.",
+    "invalid_budget_zero_injection": "The frozen parent checks tolerance only inside certified_polynomial_injection. For n=4,k=0,L=1000 that callback is skipped, so the old entry accepts Fraction(0), Fraction(-1) and float(0) while retaining an empty polynomial_certificates list and global_epsilon_certificate=false. The optional checked entry rejects these budgets before any delegate call. This is a uniform validation fix, not a numerical algorithm change.",
+    "valid_call_identity": "After validation the wrapper literally returns one _frozen_constructor(n,k,length,coefficient_tolerance) call, forwarding the same objects without rounding, copying, replacement, retry or fallback. It does not reconstruct TT cores or metadata. Mock identity checks exercise this, and actual valid sample comparisons confirm identical core bytes/dtypes/shapes and metadata for tiny L, n=3,k=1,L=1, and zero-injection L=1000.",
+    "exceptions": "There is no try/except around the delegate. Both mocked exception object identity and actual positive unattainable-tolerance ArithmeticError are preserved; the legal fixed-cap adversarial input still raises the same cutoff exception through both entries.",
+    "global_error_scope": "The wrapper does not calculate or certify global epsilon. Its coefficient_tolerance is local stored-polynomial coefficient tolerance. The delegated metadata keeps global_epsilon_certificate=false; Decimal/float exponential cores, QR, normalization, source-to-formal refinement and subsequent saved/circuit action remain outside this entry audit."
+  },
+  "finite_cutoff_witness": {
+    "n": 2,
+    "k": 0,
+    "L_rule": "2/(pi_low(512)+pi_high(512))",
+    "L_is_positive_exact_rational": true,
+    "L_numerator_bits": 11913,
+    "L_denominator_bits": 11915,
+    "terms_first": 8,
+    "terms_last": 512,
+    "terms_step": 8,
+    "attempt_count": 64,
+    "all_attempts": "lo < 1/L < hi; lower cutoff expression negative, upper positive; the clamped ceilings are exactly [0,1].",
+    "actual_exception": "rational pi interval did not separate the cutoff",
+    "classification": "IMPLEMENTATION_FAILED",
+    "global_epsilon_certificate": false,
+    "comparison_with_frozen_failure_memory": "task,n,k,L_rule,L_input_bits,attempts,classification,scope,global_epsilon_certificate,actual_exception all exactly equal",
+    "mathematical_interpretation": "This exact rational was chosen using the midpoint of one finite pi enclosure. No identification of true pi with that midpoint is made. It refutes successful totality of the present fixed 512-term executable cutoff supplier on every legal input, but neither exact-real cutoff existence nor approximate Hermite/state preparation is shown impossible."
+  },
+  "limitations_and_potential_gaps": [
+    "The cutoff witness reuses the actual executable pi_interval/ceil_fraction supplier, as required for a stored implementation regression. It is not a fresh Lean proof of the transcendental enclosure or a Python-to-Lean refinement bridge.",
+    "The wrapper relies on normal trusted Python imports and ordinary object semantics. It neither cryptographically verifies its provider at runtime nor hardens against hostile Fraction subclasses that override comparison. The sealed interface explicitly allows Fraction subclasses; no hostile-object security guarantee is advertised or accepted here.",
+    "The valid-input numerical identity follows from the literal unchanged delegate return under the inspected provider, not from finite sample equality alone. This does not certify the delegated provider's scientific correctness or guarantee successful return for every positive input.",
+    "There is no global epsilon allocation, finite-data enclosure producer, numerical preprocessing runtime theorem or unconditional finite-bit Hermite pipeline acceptance in these artifacts.",
+    "No newly discovered in-scope contract violation was found. The fixed cutoff totality failure and the parent zero-injection validation bypass are real and are preserved, not hidden by passing regression tests."
+  ],
+  "mutation_record": {
+    "created_only": "experiments/hermite-polynomial/precision/offset-entry-v2/independent-audit.json",
+    "frozen_inputs_changed": false,
+    "production_or_registry_changed": false,
+    "commits_or_pushes": false,
+    "live_handles": []
+  },
+  "accepted_claim": "The bounded optional-entry validation/no-numeric-change contract and the finite fixed-cutoff failure record are independently checked at the bound bytes. This is not acceptance of global epsilon, a quantum theorem, full ROOT, migration or publication."
+}

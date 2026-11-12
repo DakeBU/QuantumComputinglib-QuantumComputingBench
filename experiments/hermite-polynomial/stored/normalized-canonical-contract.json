@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "status": "STATEMENT_SEALED_STAGING_ONLY",
+  "task": "SP-HERMITE-POLY-002",
+  "version": "explicit-layout-normalized-canonical-v1",
+  "base_commit": "8c341b099e21ca98c264076837f10787a80d0c8f",
+  "base_proof_input_digest": "5a8f47f8d0afd1d4f957e55babde52a9e9c01babf05c481b988e99ebca2f7758",
+  "lean_toolchain": "leanprover/lean4:v4.33.0",
+  "definition_kind": "literal deterministic supplier composition; no chosen witness",
+  "producer": "QuantumBlockEncoding.StagedNormalizedCanonical.compile (k n : Nat) (L : Real) : StoredHermiteRawSource.RawRun (StoredTensorTrain.StoredChain (n+1) 1 1)",
+  "public_signature": "compile_certified (k n : Nat) (L : Real) (hL : 0 < L) : let result := compile k n L; TensorTrainCanonical.RightCanonical (StoredTensorTrain.denoteChain result.run.value) /\\ TensorTrainCanonical.maxBond (StoredTensorTrain.denoteChain result.run.value) <= 2*k+6 /\\ (forall x : TensorTrainCanonical.Word (n+1), TensorTrainCanonical.contract (StoredTensorTrain.denoteChain result.run.value) x 0 0 = HermiteStatePreparation.sampledAmplitude k (n+1) L (TensorTrainWord.sampleEquiv (n+1) x) / HermiteStatePreparation.sampleNorm k (n+1) L) /\\ StoredHermiteRawCost.ordinary result.run.cost <= compilerBudget k n /\\ result.exponentialCalls <= 3*(n+1)+1 /\\ result.quotientCalls = (n+1)*(n+2) /\\ result.remainderCalls = (n+1)^2 /\\ result.integerDoublings = n /\\ result.integerAdditions = 4*(n+1)",
+  "compiler_budget": "rawBudget k n + (n+1)*(200*(2*k+6)^3 + 141*(2*k+6)^2 + 49*(2*k+6) + 14) + 10*(2*k+6)^2 + 44*(2*k+6) + 100",
+  "binder_audit": {"k,n,L": "TYPING", "hL: 0 < L": "SOURCE", "excess": []},
+  "construction": [
+    "Call actual StoredHermiteRawSource.raw once.",
+    "Call actual StoredTensorTrainNorm.norm on that returned chain once.",
+    "Charge reciprocal and singleton-vector construction, then use closeLeft for first-core normalization.",
+    "Call actual StoredTensorTrain.canonicalize once on the normalized chain.",
+    "Read stored residual row zero without discarding its sign, then use closeLeft on the returned canonical chain."
+  ],
+  "semantic_refinement": "Returned final chain equals ConstructiveTensorTrainCompiler.unitBoundary of the actual normalized explicit-layout chain; no equality to the old cardinality-based layout or old primitive list is required.",
+  "scalar_and_order": "Exact real scalars; n+1 data bits; chronological Word is MSB-first; sampleEquiv connects to unchanged sample labels. Final physical primitive-wire placement is outside this supplier.",
+  "normalization_and_phase": "Literal amplitudes divided by original positive sampleNorm. Signed canonical residual is absorbed exactly. No quotient by global phase.",
+  "operation_model": "Existing StoredGivens eight-counter unit scalar/stored-word model. Sum actual raw, norm, reciprocal, singleton write, closeLeft, canonicalization, residual read and final closeLeft ledgers once. Raw exponential and four selected integer counters are inherited unchanged.",
+  "omissions": ["whole primitive compiler", "stored active-column extraction", "Gray target/control production", "gate-angle instantiation and physical placement", "serialization", "all loop/index arithmetic", "arbitrary-precision bit work", "allocation bytes and GC", "proof checking and ledger bookkeeping", "numerical exponential/angle evaluation", "finite precision and conditioning"],
+  "source_coverage": {"literal Hermite samples and normalizer": "NODE: frozen tasks/SP-HERMITE-POLY-002.md", "polynomial source and stored normalization": "NODE: this supplier", "SO completion and primitive emission": "SOURCE_GAP: downstream interfaces outside bounded scope", "approximate export": "EXCLUDED: exact-real supplier only"},
+  "regressions": ["n=0 means one data bit", "signed normalized train", "deficient rows", "zero internal bond generic producer behavior", "raw exact -1 and zero/midpoint cutoffs", "01/10 chronological discrimination", "raw extra counters unchanged", "same-run cost bound"],
+  "publication_and_integration": "Pending. Focused Lean compile only; no source-blind reviewer or full-gate acceptance is asserted."
+}

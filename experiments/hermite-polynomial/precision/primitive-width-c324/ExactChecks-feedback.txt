@@ -1,0 +1,32 @@
+OWN\ExactChecks.lean:5:0: warning: Definition `primitiveWidthExpandedCheck` is a proposition; use `theorem` instead of `def`
+
+Note: This linter can be disabled with `set_option linter.defProp false`
+HermiteRationalHeight.primitiveWidth : HermiteRationalHeight.PrimitiveWidthSpec
+C310ExactChecks.primitiveWidthExpandedCheck (op : HermiteRationalHeight.Operation) (x y : ℚ) :
+  have w :=
+    match op with
+    | HermiteRationalHeight.Operation.add =>
+      { numerator := x.num * ↑y.den + y.num * ↑x.den, denominator := x.den * y.den }
+    | HermiteRationalHeight.Operation.sub =>
+      { numerator := x.num * ↑y.den - y.num * ↑x.den, denominator := x.den * y.den }
+    | HermiteRationalHeight.Operation.mul => { numerator := x.num * y.num, denominator := x.den * y.den }
+    | HermiteRationalHeight.Operation.div =>
+      if y.num = 0 then { numerator := 0, denominator := 1 }
+      else
+        { numerator := if y.num < 0 then -(x.num * ↑y.den) else x.num * ↑y.den, denominator := x.den * y.num.natAbs };
+  have B :=
+    max 1 (max x.num.natAbs.size x.den.size) + max 1 (max y.num.natAbs.size y.den.size) +
+      match op with
+      | HermiteRationalHeight.Operation.add => 1
+      | HermiteRationalHeight.Operation.sub => 1
+      | HermiteRationalHeight.Operation.mul => 0
+      | HermiteRationalHeight.Operation.div => 0;
+  have zs :=
+    match op with
+    | HermiteRationalHeight.Operation.add => [x.num * ↑y.den, y.num * ↑x.den, w.numerator, ↑w.denominator]
+    | HermiteRationalHeight.Operation.sub => [x.num * ↑y.den, y.num * ↑x.den, w.numerator, ↑w.denominator]
+    | HermiteRationalHeight.Operation.mul => [w.numerator, ↑w.denominator]
+    | HermiteRationalHeight.Operation.div => [x.num * ↑y.den, ↑x.den * y.num, w.numerator, ↑w.denominator];
+  max 1 (max w.numerator.natAbs.size w.denominator.size) ≤ B ∧ ∀ z ∈ zs, z.natAbs.size ≤ B
+'HermiteRationalHeight.primitiveWidth' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C310ExactChecks.primitiveWidthExpandedCheck' depends on axioms: [propext, Classical.choice, Quot.sound]

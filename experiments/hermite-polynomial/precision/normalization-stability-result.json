@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "status": "PROVED_LOCAL_INTERNAL_EXACT_REAL_BRIDGE; finite-bit supplier and ROOT open",
+  "direction_fingerprint": "computed-input-normalization-to-finite-bit-error",
+  "expected_information_gain": "Replace a vague uniform numerical-error premise by an exact source-specific normalization interface and falsify positivity-only generic max-scale totality.",
+  "source": "experiments/hermite-polynomial/precision/NormalizationStability.lean",
+  "source_sha256": "bd3afe3e1367c6b5af31173369a0321118756822875cc644fc3f2089bcfecac3",
+  "statement_seal": "experiments/hermite-polynomial/precision/normalization-stability-contract.json",
+  "statement_seal_sha256": "96a6df5ba91445fb4f0e7c65e4204426f50aa312282ec061da81ea5e2e198e62",
+  "diagnostic": "experiments/hermite-polynomial/precision/test_normalization_underflow.py",
+  "diagnostic_sha256": "b4d2e542d2103ad4b59ec44350679ef2dd9f70442a433e0d7c3e406079495340",
+  "namespace": "QuantumBlockEncoding.ExperimentalNormalizationStability",
+  "toolchain": "leanprover/lean4:v4.33.0",
+  "environment": {"python": "3.12.14", "numpy": "1.26.4"},
+  "focused_lean_check": {
+    "command": "lake env lean experiments/hermite-polynomial/precision/NormalizationStability.lean",
+    "actual_exit_code": 0,
+    "axioms_printed_for": ["normalization_stability", "normalizer_relative_error", "hermite_scaled_error", "hermite_serialized_error", "hermite_serialized_relative_error", "target_error_sq"],
+    "axioms_for_each_printed_root": ["propext", "Classical.choice", "Quot.sound"],
+    "sorryAx_or_new_axiom": false,
+    "gate_scope": "One experimental source elaborated against cached imported production modules. Full lake build and lake build Tests are owned by root after cohort freeze, not claimed here.",
+    "warning": "Only the pre-existing local-change warning for the verso dependency in final focused run; no final source linter warning.",
+    "iteration_history": "Initial carrier namespace and proof-goal mistakes repaired locally; then explicit source norm rewrite and inverse quotient rewrite fixed. No sealed conclusion weakened, no repeated unchanged route, no failed-run axioms output accepted. Final focused run exit0."
+  },
+  "tests": [
+    {"command": ".venv/Scripts/python.exe -B experiments/hermite-polynomial/precision/test_normalization_underflow.py", "actual_exit_code": 0, "tests": 2},
+    {"command": ".venv/Scripts/python.exe -B experiments/hermite-polynomial/precision/test_normalization_underflow.py --witness", "actual_exit_code": 0, "scope": "Executable returns JSON only after exact dyadic nonzero action and expected candidate failure assertions"},
+    {"command": ".venv/Scripts/python.exe -B -m unittest discover -s experiments/hermite-polynomial/mps -p test_scaled_canonicalize.py", "actual_exit_code": 0, "test_methods": 6, "scope": "Existing bounded candidate diagnostics, not all-parameter precision acceptance"}
+  ],
+  "portable_commands": [
+    "lake env lean experiments/hermite-polynomial/precision/NormalizationStability.lean",
+    "python -B experiments/hermite-polynomial/precision/test_normalization_underflow.py",
+    "python -B experiments/hermite-polynomial/precision/test_normalization_underflow.py --witness",
+    "python -B -m unittest discover -s experiments/hermite-polynomial/mps -p test_scaled_canonicalize.py"
+  ],
+  "definitions": {
+    "sourceVector": "WithLp.toLp 2 (fun j => (sampledAmplitude k (n+1) L j : Complex))",
+    "targetVector": "WithLp.toLp 2 (normalizedAmplitude k (n+1) L)",
+    "normalization": "Existing Mathlib NormedSpace.normalize; no new state carrier or phase quotient"
+  },
+  "principal_checked_statements": {
+    "normalization_stability": "For any NormedAddCommGroup E with NormedSpace Real E and x != 0: ||normalize y - normalize x|| <= 2*||y-x||/||x||. This remains valid at y=0, but does not call zero a normalized state.",
+    "hermite_norm_floor": "For every k,n:Nat and L:Real, 1 <= HermiteStatePreparation.sampleNorm k (n+1) L. This is derived from the existing central sample provider; not assumed.",
+    "source_normalize_target": "normalize(sourceVector k n L)=targetVector k n L, literally, not modulo global phase.",
+    "target_error_sq": "||w-targetVector k n L||^2 = sum_j Complex.normSq(w_j-normalizedAmplitude k (n+1) L j). PiLp2 avoids the plain function sup norm.",
+    "hermite_scaled_error": "For F>0 and ||y-F^(-1) smul sourceVector||<=delta: ||normalize y-targetVector||<=2*F*delta.",
+    "hermite_computed_nonzero": "Same error with F*delta<1 implies y != 0.",
+    "normalizer_relative_error": "b>0, 0<=eta<1, |s-b|<=eta*b imply s>0 and |b/s-1|<=eta/(1-eta).",
+    "hermite_serialized_error": "If F*delta<1, s>0, | ||y||/s-1 |<=tau and ||w-s^(-1) smul y||<=zeta, then ||w-targetVector||<=2*F*delta+tau+zeta.",
+    "hermite_serialized_relative_error": "If F*delta<1, 0<=eta<1, |s-||y|||<=eta*||y|| and ||w-s^(-1) smul y||<=zeta, then ||w-targetVector||<=2*F*delta+eta/(1-eta)+zeta. Positivity of s and nonzero y are supplied inside the proof, not extra source premises."
+  },
+  "meaning_of_suppliers": {
+    "F": "An EXACT positive scalar relating the chosen scaled reference to literal sourceVector. It may be the exact product of factors in ExperimentalScaledInvariant; this file does not treat the rounded ScaledNorm mantissa/exponent product as exact.",
+    "y": "Exact complex-vector denotation of the actual stored computed object before the chosen final normalizer. If using QR output, its computed contraction must be connected here; dimensional compatibility alone is not enough.",
+    "delta": "Certified Euclidean source/input/core/QR error, including L approximation, pi/Decimal/coefficient/exp/float conversion, scaling divisions, einsum absorption, underflow and cancellation. Current diagnostics do not supply this bound uniformly.",
+    "s_eta": "The actual chosen reconstructed normalizer and a certified relative error to ||y||; hypot, accumulation, mantissa/exponent conversion and overflow-free reconstruction remain supplier obligations.",
+    "w_zeta": "The actual serialized/synthesized output vector and a bound to s^(-1) smul y in the same full-action Euclidean carrier. QASM syntax/probabilities/local orthogonality do not supply zeta. With physical ancillary wires, apply the generic theorem after an isometric clean-sector embedding or separately prove the full-output/cleanup bridge; the data-only Hermite adapter cannot hide garbage."
+  },
+  "input_representation_boundary": {
+    "existing_executable": "stable_hermite_tt(n:int,k:int,length:Fraction) stores a finite exact rational L; integer and numerator/denominator bit lengths require charging.",
+    "scientific_target": "Existing ideal producer still serves all exact L>0, k natural and physical width>=1. No rationality promise or fixed-precision promise added.",
+    "general_real_input": "To use finite input for arbitrary real L, supply a represented approximation with certified input error and a source-state sensitivity bound; charge the representation/oracle work. Neither is supplied by this file.",
+    "conditioning": "Original sample norm has dimension-free floor1. A positively scaled reference has floor1/F, so absolute computed error must satisfy F*delta<1 for nonzero inference; normalized-state error is at most2Fdelta. Width or large factors cannot be ignored by quoting the original floor."
+  },
+  "generic_underflow_witness": {
+    "failure_class": "REFUTED",
+    "scope": "Generic finite nonzero TT coverage ONLY; no proof this witness is reachable by stable_hermite_tt",
+    "core_shapes": [[1, 2, 2], [2, 2, 1]],
+    "first_core_rows": "Both physical rows are [large,small]",
+    "terminal_rows": "[[0,0],[1,1]]",
+    "large_hex": "0x1.1ccf385ebc8a0p+1023",
+    "small_hex": "0x0.730d67819e8d2p-1022",
+    "exact_interpretation": "Hex values are finite dyadic rationals. All four exact contracted amplitudes equal Fraction.from_float(float('1e-308'))>0; exact squared norm is4*small^2; all exact normalized amplitudes are+1/2.",
+    "actual_scaled_supported_entry": 0.0,
+    "actual_exception": "ArithmeticError: stored-zero tensor has no normalized state",
+    "mechanism": "Initial max-scaling divides the only terminal-supported small entry by large, rounding its positive ratio to zero. The large entries have zero terminal support. QR and absorption then see stored zero action.",
+    "minimality": "Two is the minimum chain length for this terminal-support mechanism. No claim of smallest dynamic range, smallest bond, or smallest Hermite parameters.",
+    "retired_claim": "Finite nonzero represented TT plus positive max scales implies scaled candidate is a total normalized-state producer.",
+    "preserved": "Hermite polynomial preparation route and existing positive-scaling exact-real invariant are NOT refuted.",
+    "next_action": "Prove reachable-core underflow/dynamic-range/backward-error bounds or change storage/scaling mechanism; do not certify generic scaled canonicalization using only positivity."
+  },
+  "reuse": [
+    "HermiteIntervalMass.sampled_mass_ge_one (central sample p=0)",
+    "HermiteStatePreparation.sampleNorm/normalizedAmplitude",
+    "Mathlib NormedSpace.normalize/norm_smul_normalize/normalize_smul_of_pos/norm_normalize",
+    "Mathlib EuclideanSpace.norm_eq/norm_sq_eq and Complex.normSq_eq_norm_sq",
+    "Mathlib reverse triangle inequality and norm scalar laws"
+  ],
+  "process_memory_consulted": ["failure-memory/SP-HERMITE-POLY-002-float64-norm-overflow.json", "experiments/hermite-polynomial/precision/scaled-invariant-result.json", "experiments/hermite-polynomial/stored/cycle08-staging-result.json"],
+  "existing_frozen_hashes": {
+    "experiments/hermite-polynomial/mps/scaled_canonicalize.py": "7154179bd54addf22d8cf365cc29e6b195392bee2d182989c49b5f1fa4bff879",
+    "experiments/hermite-polynomial/mps/test_scaled_canonicalize.py": "a58d31a47300cc6f3ecddad09b20a5a540f3bf51094f80cbc2acc0d517b4cf33"
+  },
+  "remaining_frontier": ["C3 actual finite-bit source/core/QR supplier", "Normalizer finite-bit supplier", "Actual serialized/synthesized full-action and clean ancillary supplier", "C2 bit-complexity and X2 independent export acceptance", "ROOT remains open"],
+  "review": "Local compilation and bounded witness checks complete. No source-blind decoder, independent publication admission or Exposition Seal claimed. Root aggregate gate and independent review pending.",
+  "purification": "One shared Mathlib normalization API, literal target adapters, no production integration, no backend modifications, no numerical placeholder theorem.",
+  "files_changed": [
+    "experiments/hermite-polynomial/precision/NormalizationStability.lean",
+    "experiments/hermite-polynomial/precision/normalization-stability-contract.json",
+    "experiments/hermite-polynomial/precision/test_normalization_underflow.py",
+    "experiments/hermite-polynomial/precision/normalization-stability-result.json"
+  ],
+  "commits_pushes_subagents": "None"
+}

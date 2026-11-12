@@ -66,7 +66,7 @@ theorem compileReversibleProgram_eval {qubits : Nat}
       ext row column
       simp [evalReversibleProgram,
         Robin.ComplexLCU.equivPermutationMatrix,
-        _root_.Matrix.one_apply]
+        _root_.Matrix.one_apply] <;> rfl
   | cons gate rest induction =>
       rw [compileReversibleProgram, evalPrimitiveProgram_seq, induction,
         compileReversibleGate_eval, Robin.ComplexLCU.equivPermutationMatrix_mul]
@@ -133,7 +133,7 @@ theorem cleanC3XBasisAction {qubits : Nat}
   all_goals
       subst_vars
       simp_all [cleanC3XBasisEquiv, cleanC3XReversibleProgram,
-        evalReversibleProgram, evalReversibleGate, ccxBasisEquiv,
+        evalReversibleProgram, evalReversibleGate,
         ccxBasisAction, c3xBasisAction, xBasisAction, flipBit,
         c0_ne_work, c1_ne_work, work_ne_c2, work_ne_target,
         c0_ne_target, c1_ne_target,

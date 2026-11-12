@@ -1,0 +1,14 @@
+{
+  "version": 5,
+  "parent": "threshold-seal-v4.json",
+  "exact_signatures": [
+    "actual_source_mask_consumers (n T : Nat) (R : Rational) (hR : 0<R) (x : Word(n+1)) : same_returned_stored_comparison_masks equal the literal indicators A=[p<-1],B=[p<=0],C=[p<=-T],D=[p>=T],p=-R+2R*wordValue(x)/2^(n+1)",
+    "same_returned_maxBond (n cut : Nat) : maxBond(denoteChain(produceComparison n cut).run.value)<=3",
+    "same_returned_storage (n cut : Nat) : storedScalars(denoteChain(produceComparison n cut).run.value)<=18*(n+1)",
+    "inclusive_N_endpoint (n : Nat) (x : Word(n+1)) : contract(denoteChain(produceComparison n (2^(n+1))).run.value,x,0,0)=1",
+    "zero_endpoint (n : Nat) (x : Word(n+1)) : contract(denoteChain(produceComparison n 0).run.value,x,0,0)=0"
+  ],
+  "binder_audit": {"TYPING": ["n,T,cut,physical word,rational R"], "SOURCE": ["R>0 only for actual affine-grid masks"], "EXCESS": [], "dependencies_not_binders": ["cut selection", "comparison arithmetic", "matrix contraction", "generated Window", "stored refinement", "same-object dimension/cost"]},
+  "scope": "Uniform actual source mask slice plus generic exact rational polynomial translation. No assumed source coefficient/piecewise-product/directsum theorem; full source root remains open.",
+  "scientific_ROOT": false
+}

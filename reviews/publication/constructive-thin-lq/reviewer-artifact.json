@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "role": "independent-source-and-formal-reviewer",
+  "identity": "hermite-dyadic-supplier-thin-lq-reviewer",
+  "agent_identity": "/root/hermite_dyadic_supplier",
+  "run_id": "thin-lq-reviewer-hermite-dyadic-supplier-20261008T114636Z",
+  "binding_sha256": "b7638fc77dbdcf0193933736bec043819990080fa1984f44fcd7ef4bd8784460",
+  "packet_sha256": "a976872a6f7da3d62108ac3daff9239459e1cd46c143f30643b9aee5659e63f9",
+  "source_sha256": "721cd462ab36eaf70bc4d57f4e7cc1398d9ec7869f67e57303e5cefe54d75538",
+  "module_sha256": "a9cec4dce7e7b955f663df02fb29716a67e42da63570dfac9c754a1aae9a8e18",
+  "source_first_reconstruction_sha256": "ef8a6df65a72600b41019eb720b99c049956fec027743289cceaa08a353f9bc1",
+  "decoder_artifact_sha256": "e7c4128a289a606d4cc16ee5ff572c692792dca8dfed5d446208bf70379732bc",
+  "decoder_evidence_sha256": "2fbd46262b3fd4531a8e588b8d15d866c64260bfcaf3a8588d07a8248bcc94cb",
+  "verdict": "accepted",
+  "accepted_scope": "Bounded local exact-real deterministic matrix constructor: the complete target module, its eight authored public declarations, the lesson's specified procedure and equations, and the decoder's reconstruction agree. This is not an external-paper, finite-bit, costed, quantum, Hermite ROOT, main-migration or registry-admission verdict.",
+  "independence": {
+    "fresh_context": false,
+    "distinct_from_formalizer_and_decoder": true,
+    "disclosure": "Reused worker context with prior actual GlobalAssembly/provider exposure and authorship of separate DyadicSupplier/SafeEnclosure precision experiments. I did not author this lesson or target module and am not the cached-global decoder. Source-first sequencing is genuine for this review, but this is not clean-room or author-independent review of the entire inherited Hermite chain.",
+    "sequence": "Read and froze the designated lesson-only source reconstruction before this final packet. Only after the final packet was supplied did I read complete ConstructiveThinLQ, RectangularGivens, ThinLQ, AdjacentGivens, RealAmplitudePreparation, SelectedRyPlane, PrimitiveCircuit and complete decoder artifact/evidence. This review did not inspect source-contract, candidate, registry or prior reviewer judgments.",
+    "previous_artifacts_preserved": true
+  },
+  "reconstruction": "For every real m-by-n matrix A, this literal constructor returns R:m-by-min(m,n) and Q:min(m,n)-by-n, proving A=RQ and QQ^T=I. If m<=n it eliminates A^T using signed half-angle adjacent row planes from the changing matrix and extracts the leading residual rows transposed and leading accumulated-transform rows. If m>n it returns exactly A and I_n. Rank deficiency and empty dimensions need no additional premise. The construction fixes a mathematical rule on exact reals, not an executable finite-bit preprocessing pipeline.",
+  "declaration_comparison": [
+    {
+      "name": "QuantumBlockEncoding.ConstructiveThinLQ.Factorization",
+      "status": "same",
+      "checked_type": "{m n : Nat} -> Matrix (Fin m) (Fin n) Real -> Nat -> Type",
+      "comparison": "Generic record at parameter r, containing R:m-by-r, Q:r-by-n and proofs A=R*Q, Q*Q.transpose=I_r. Lesson correctly distinguishes the record from its producer. The record is not claimed inhabited at every r and has no triangular/rank/positive/unique/cost field. Actual factor chooses r=min(m,n)."
+    },
+    {
+      "name": "QuantumBlockEncoding.ConstructiveThinLQ.wideR",
+      "status": "same",
+      "checked_type": "{m n : Nat} -> m<=n -> Matrix (Fin m) (Fin n) Real -> Matrix (Fin m) (Fin m) Real",
+      "comparison": "Literal body reduced A.transpose (Fin.castLE hmn k) i matches R_ik=T(A^T)_ki. The first index is the residual row-prefix index, and the second is the original data-row index; there is no existence-witness replacement."
+    },
+    {
+      "name": "QuantumBlockEncoding.ConstructiveThinLQ.wideQ",
+      "status": "same",
+      "checked_type": "{m n : Nat} -> m<=n -> Matrix (Fin m) (Fin n) Real -> Matrix (Fin m) (Fin n) Real",
+      "comparison": "Literal body transform A.transpose (Fin.castLE hmn k) j matches Q_kj=S(A^T)_kj. Both factors use the same specified procedure, although the functional definitions do not promise shared cached evaluation."
+    },
+    {
+      "name": "QuantumBlockEncoding.ConstructiveThinLQ.wide_factorization",
+      "status": "same",
+      "checked_type": "forall {m n} (hmn:m<=n) (A:Matrix (Fin m) (Fin n) Real), A=wideR hmn A*wideQ hmn A",
+      "comparison": "Transposes actual provider recovery, then uses reduced_zero_below and ThinLQ.sum_prefix_of_zero to discard exactly the residual tail ell>=m. This is the lesson's entrywise proof, with no full-rank or caller-supplied recovery premise."
+    },
+    {
+      "name": "QuantumBlockEncoding.ConstructiveThinLQ.wide_orthogonal",
+      "status": "same",
+      "checked_type": "forall {m n} (hmn:m<=n) (A:Matrix (Fin m) (Fin n) Real), wideQ hmn A*(wideQ hmn A).transpose=1",
+      "comparison": "Uses mul_eq_one_comm on the square transform's S^T S=I and reads SS^T entries at the prefix embeddings. This proves row orthogonality QQ^T, not the generally false Q^T Q=I_n when m<n."
+    },
+    {
+      "name": "QuantumBlockEncoding.ConstructiveThinLQ.factorOfLE",
+      "status": "same",
+      "checked_type": "{m n} -> m<=n -> (A:Matrix (Fin m) (Fin n) Real) -> Factorization A m",
+      "comparison": "Packages exactly wideR and wideQ with the two internally proved equations. A and the shape guard are the inputs, not a factorization/orthogonality certificate supplied by the caller."
+    },
+    {
+      "name": "QuantumBlockEncoding.ConstructiveThinLQ.factor",
+      "status": "same",
+      "checked_type": "{m n} -> (A:Matrix (Fin m) (Fin n) Real) -> Factorization A (min m n)",
+      "comparison": "by_cases m<=n chooses wide at equality; otherwise literal record <A,1,...>. Equality transports change only the dependent dimension. No Classical.choose of ThinLQ.exists_thin_lq or gramSchmidt factor selection occurs in this constructor."
+    },
+    {
+      "name": "QuantumBlockEncoding.ConstructiveThinLQ.factor_correct",
+      "status": "same",
+      "checked_type": "forall {m n} (A:Matrix (Fin m) (Fin n) Real), A=(factor A).R*(factor A).Q and (factor A).Q*(factor A).Q.transpose=1",
+      "comparison": "Projects both proofs from this same actual returned record. It is a packaging consequence, not an independent algorithm; the substantive construction/correctness is in literal factor/wide providers and their proofs. The lesson does not mistake this wrapper for finite-bit or quantum closure."
+    }
+  ],
+  "provider_and_topology_comparison": {
+    "signed_rule": "pairNorm is sqrt(x^2+y^2). splitAngle is rational zero at pairNorm=0 and otherwise ExactAngle.real(2*alpha) with the negative arccos branch exactly when y<0. ExactAngle.eval interprets .real literally; eliminationAngle negates splitAngle.eval, hence theta=-2alpha exactly. AdjacentGivens.eliminate_pair proves the ordered pivot goes to (pairNorm,0). This matches both source-first sign discriminators, including x<0,y=0 and negative y.",
+    "row_plane": "rotateRows mixes complete ordered rows with cos(theta/2), -sin(theta/2); sin(theta/2), cos(theta/2), fixing all other rows. Step adjacency supplies distinctness. The zero-pair theorem proves an actual identity full-row update, not a default matrix or division-zero escape.",
+    "changing_matrix": "columnSweepSteps emits the current bottom pair's eliminationAngle and recurses on eliminateEntry A first second col. Rectangular sweepSteps concatenates that current-column list before a tail computed on columnSweep A. Thus both scalar angles and later columns depend on the updated matrix, not the original matrix or an externally supplied log.",
+    "chronology": "applySteps executes head first; stepsMatrix(step::rest)=stepsMatrix(rest)*step.matrix. The action theorem identifies this literal product with the residual. The source S=G_s...G_1 is the same convention.",
+    "zeros": "RectangularGivens.UpperPrefix expresses zeros below already processed columns. columnSweep_upperPrefix and sweep_upperPrefix prove propagation and reduced_zero_below for arbitrary rectangular A, independently of rank or orthogonality of A.",
+    "orthogonality_recovery": "stepsMatrix_orthogonal proves S^T S=I using actual plane orthogonality. transform_mul proves SB=T; exact_recovery proves S^T T=B. Square left/right inverse equivalence then provides row orthogonality in the target proof.",
+    "prefix_removal": "ThinLQ is completely inspected: its existence result uses Gram-Schmidt completion, but ConstructiveThinLQ references only sum_prefix_of_zero. Importing ThinLQ does not mean its existence witness selected these factors.",
+    "case_topology": "The target combines two equations within each guarded dimension branch. The wide and tall branches are exhaustive alternatives, not two independently sufficient unguarded routes for every shape. Existing SO decomposition requirements in AdjacentGivens are not imported as hypotheses of rectangular elimination or the target factor theorem.",
+    "graph_limit": "These are inspected source/proof-call relationships, not an exported elaborated proof-term graph or a categorical certification."
+  },
+  "binder_and_definition_audit": {
+    "logical_inputs": "Natural dimensions and real matrix carriers are TYPING. The m<=n guard is the explicitly stated wide-branch domain, also providing Fin.castLE; all-shape factor removes it by its own comparison. No full rank, row independence, positive entries, nonzero row, or factor correctness hypothesis appears in its public final theorem.",
+    "bundles_expanded": "Factorization.mk takes actual matrix data then both proof fields; these become outputs of the supplier. Source-facing factor_correct supplies no existing Factorization input. Internal recursion bounds and Step adjacency are constructed by producers rather than public factorization callers.",
+    "definition_kind": "Literal recurrences, literal factor extractions and explicit shape branch. Non-uniqueness of possible LQ factors does not imply this chosen rule is unspecified. There is no quotient/global-phase equivalence or characterized-object Classical.choose selection in this module.",
+    "excess_binders_found": false
+  },
+  "semantic_slots": {
+    "target": {"status": "same", "reason": "Actual all-shape real matrix reconstruction A=RQ at r=min(m,n), not rank(A), with literal factors prescribed by the source."},
+    "normalization": {"status": "same", "reason": "Only Q rows are normalized/orthogonal: QQ^T=I_r. Arbitrary A is not normalized, and no prepared-state normalization is implied."},
+    "registers": {"status": "out-of-scope", "reason": "Numerical Fin row/column indices are not qubit registers; no endian, tensor factor, Gray-code or wire mapping is asserted by this target."},
+    "oracles": {"status": "out-of-scope", "reason": "A is an arbitrary matrix function; no costed entry oracle, coherent query interface or constant-time lookup assumption is certified."},
+    "ancillas_phases": {"status": "out-of-scope", "reason": "No quantum ancilla/garbage or global/relative phase claim. Signed real entries and ordered plane signs are literal equalities, not equality modulo phase; their preservation was checked separately."},
+    "error_success": {"status": "out-of-scope", "reason": "The matrix equations are exact. There is no epsilon, norm-distance, probability, postselection branch or numerical error certificate."},
+    "resources": {"status": "out-of-scope", "reason": "The lesson asserts no total arithmetic/runtime or quantum-resource bound. Provider rotation-list length <=N*M is not operand-bit, matrix-entry evaluation, storage/copying, finite-bit or circuit cost."}
+  },
+  "rank_sign_shape_empty_audit": {
+    "rank_deficiency": "same: exact inner dimension min(m,n), including zero and repeated rows; R may be singular and Q remains a row frame.",
+    "wide": "same: R m-by-m, Q m-by-n. Wide R is lower triangular by inspected zero formula, but the source deliberately does not advertise triangularity for all shapes.",
+    "square": "same: equality enters wide. A 1-by-1 negative scalar is retained in R because no pair is swept; no positive final diagonal premise or conclusion is present.",
+    "tall": "same: R=A,Q=I_n and no triangularity claim. Two independently authored kernel examples at arbitrary 2-by-1 A verified both literal fields in the fresh source replay.",
+    "empty": "same: m=0 uses wide with empty residual/prefix and no columns; n=0<m uses tall I_0; m=n=0 uses wide. No positive dimension is required and no empty identity is replaced by scalar 1.",
+    "zero_pair_zero_matrix": "same: actual zero-angle identity steps remain in the log; with A=0 all are identities, leading to the fixed identity row prefix rather than arbitrary completion."
+  },
+  "decoder_comparison": {
+    "status": "same",
+    "all8": "Whole decoder artifact and evidence were read. Its eight types, literal bodies/proof reconstructions and record expansion match independently read target source and newly checked types.",
+    "mechanism": "Its signed twice-polar angle, negative elimination angle, updated-matrix schedule, head-first action and prefix extraction agree with inspected providers and frozen source-first reconstruction.",
+    "boundary": "It explicitly preserves rank-versus-shape, QQ^T orientation, tall nontriangularity, signed residuals, exact-real noncomputability, uncached functional input and separate finite-bit/quantum obligations.",
+    "independence_limits": "Decoder also discloses reused context/shared GlobalAssembly dependency authorship. I do not convert the two distinct local identities into a claim of fresh-context or whole-chain independent scientific review.",
+    "mismatches_found": []
+  },
+  "fresh_trust_evidence": {
+    "source_compile_exit": 0,
+    "source_compile_session": 7755,
+    "all8_replay_exit": 0,
+    "all8_replay_session": 18193,
+    "all8_axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "no_sorryAx_or_native_decide_axiom": true,
+    "actual_source_reelaborated": true,
+    "cached_target_imported": false,
+    "provider_imports_used": true,
+    "transitive_provider_fresh_rebuild": false,
+    "probe_correction": "An optional unannotated tall-Q identity probe failed typeclass elaboration in session 69426, after all eight target checks/axioms succeeded. Correcting only the in-memory probe to explicitly type I_1 made the independent replay exit0. No source was changed; this was not a target mathematics failure.",
+    "scope": "Fresh actual target plus complete-source stdin replay and eight root-axiom observations, with extra record/provider checks. Not full build/Tests/site or all-transitive-provider census."
+  },
+  "remaining_boundary": {
+    "finite_bit": "Exact arbitrary real inputs, zero/sign tests, sqrt/arccos/trig and functional matrix evaluation remain noncomputable semantics. No finite source encoding, rounding/stability, rank-decision/conditioning, stored caching or runtime certificate is provided. This neither proves efficiency nor refutes a numerical implementation.",
+    "downstream": "Stored factors, tensor contractions, isometry completions, literal quantum instructions, state action, resources and Hermite source correctness each need separately bound proofs. This review accepts none of those merely from the matrix supplier.",
+    "binding": "I independently verified listed input bytes. The master-supplied full binding digest is carried unchanged, not recomputed from prohibited source-contract/candidate/registry inputs. Root owns full-binding validation and registry/main decisions.",
+    "publication": "This bounded mathematical comparison can support local explanation review; it does not on its own satisfy aggregate CI, site, purification, whole-root, main migration or publication admission."
+  },
+  "scientific_root_success": false,
+  "main_migration_acceptance": false,
+  "live_terminal_handles": []
+}

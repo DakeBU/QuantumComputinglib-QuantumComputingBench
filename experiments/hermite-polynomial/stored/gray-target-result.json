@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "status": "PROVED_LOCAL_STAGING_ONLY",
+  "task": "SP-HERMITE-POLY-002",
+  "source": "experiments/hermite-polynomial/stored/GrayTarget.lean",
+  "source_sha256": "5fda7e3f710a5264b1758de38e1fd21a973130696c172e217d1bd86ea94b7fba",
+  "contract": "experiments/hermite-polynomial/stored/gray-target-contract.json",
+  "contract_sha256": "2cdf7f0583396025af110862a2bb43ba5aeaf7ed3143efbba398dd5cf51905c0",
+  "lean": "4.33.0",
+  "base": "8c341b099e21ca98c264076837f10787a80d0c8f",
+  "production_digest": "5a8f47f8d0afd1d4f957e55babde52a9e9c01babf05c481b988e99ebca2f7758",
+  "required_imports": ["QuantumBlockEncoding.GrayGivensCompiler", "QuantumBlockEncoding.StoredSelectedRyTrace"],
+  "namespace": "QuantumBlockEncoding.HermiteGrayTargetCandidate",
+  "checked_signatures": {
+    "discover_action": "(n : Nat) (first second : Fin (2^n)) (next : first.val+1=second.val) : GrayBasis.equiv n second = xBasisAction (discover n first second next).target (GrayBasis.equiv n first)",
+    "discover_cost": "(n : Nat) (first second : Fin (2^n)) (next : first.val+1=second.val) : (discover n first second next).quotients<=2*n /\\ (discover n first second next).remainders<=n /\\ (discover n first second next).comparisons<=n",
+    "discover_step_target": "{q : Nat} (step : AdjacentGivens.Step (2^(q+1))) : (discover (q+1) step.first step.second step.adjacent).target = GrayGivensCompiler.stepTarget step",
+    "word_value": "(n : Nat) (index : Fin (2^n)) (wire : Fin n) : (word n index).value[wire.val] = GrayBasis.equiv n index wire",
+    "word_total_cost_le": "(n : Nat) (index : Fin (2^n)) : StoredRectangularGivens.total (word n index).cost<=8*n*(n+9)"
+  },
+  "mechanism": "Explicit parity recursion computes the unique differing Gray wire; a charged per-bit recursion materializes the stored Gray word. No Classical.choose in either executable producer. The theorem proofs may use ordinary Classical.choice inherited from shared matrix semantics.",
+  "tests": ["indices 0->1 target0", "indices 1->2 target1", "indices 3->4 target2", "Gray3 bits [0,1,0]", "Gray4 bits [0,1,1]", "empty stored word", "zero-width adjacent labels impossible"],
+  "focused_command": "lake env lean experiments/hermite-polynomial/stored/GrayTarget.lean",
+  "focused_exit_code": 0,
+  "root_axioms": ["propext", "Classical.choice", "Quot.sound"],
+  "earlier_attempts": "Target recursion passed first focused attempt. Extended bit supplier needed explicit Boolean parity case splits and pointwise cost addition; final run contains no sorryAx or compiler errors.",
+  "cost_boundary": "Target uses separately counted unit integer quotients/remainders/comparisons. Gray-word integer work is locally overcharged under field tag in the stored model, with full vector materialization. Not finite-bit cost, full SO emitter, angle instantiation or final placement.",
+  "same_root_link": "Target equality supplies the old selectedStep physical target; exact word equality supplies the stored input assignment used by the explicit-controls provider. Whole-run composition remains an obligation.",
+  "failure_class": "NONE",
+  "publication_review_purification": "pending; root-authored internal provider, not independent review or whole-module production admission",
+  "per_worker_token_or_model_calls": null
+}

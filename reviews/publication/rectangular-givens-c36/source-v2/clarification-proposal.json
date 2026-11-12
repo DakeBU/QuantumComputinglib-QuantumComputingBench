@@ -1,0 +1,30 @@
+{
+  "schema": "C36_VERSIONED_RETROSPECTIVE_SOURCE_CLARIFICATION_PROPOSAL",
+  "source_v1_sha256": "fe6357c4a8714ba463b00a0d575a28b2387bff7a1cfd9478f063a0bd6ddd12bb",
+  "source_v2_sha256": "91c442f1f8002be9d082257fbba0a79d551df3cdda499c6d1a2f539a686e0fd3",
+  "source_first_phase1_seal_sha256": "2ea34c33b708c78d4488a1993e8b06e763abd198af0aa5fe6cdf1ec1727072c3",
+  "changes": [
+    {
+      "before": "## S1. Carrier, rotation convention, and chronological lists",
+      "after": "Version 2 is a proposed local-source clarification after independent source-only\nreview. Version 1 and its two findings remain immutable. The complete matrix\ncontract is unchanged; the partial-sweep range and literal angle representative\nare now explicit. This is not a new historical or pre-proof source.\n\n## S1. Carrier, rotation convention, and chronological lists"
+    },
+    {
+      "before": "the exact signed preparation angle. This sends (x,y) to (sqrt(x*x+y*y),0).\nThe pair (0,0) uses angle zero. The sweep emits t rotation records, including",
+      "after": "the following literal signed preparation angle. Put rho=sqrt(x*x+y*y).\nIf rho=0, set alpha=0. Otherwise set\n\n    alpha = 2*(-arccos(x/rho)) if y<0,\n    alpha = 2*arccos(x/rho) if y>=0,\n\nwhere arccos is the principal real arccosine with values in [0,pi]. The\nelimination parameter is theta=-alpha, not an arbitrary congruent angle.\nIts block sends (x,y) to (rho,0). In particular, y=0,x<0 gives theta=-2*pi;\nthat operation is not silently deleted. The pair (0,0) uses angle zero.\nThe sweep emits t rotation records, including"
+    },
+    {
+      "before": "has exactly that chronological matrix action, zeros the processed column below\nlo, and preserves an older column whenever that older column vanishes on the",
+      "after": "has exactly that chronological matrix action, zeros the processed column at\nexactly the guaranteed rows lo<i<=lo+t, leaves rows outside [lo,lo+t] unchanged,\nand preserves an older column whenever that older column vanishes on the"
+    }
+  ],
+  "F1": "Qualify partial-sweep zeroing by lo<i<=lo+t and untouched outside rows; old global reading has the independently supplied counterexample.",
+  "F2": "Pin the literal principal-arccos representative, including y=0/x<0 and the zero pair, instead of only matrix-equivalent angle classes.",
+  "whole_matrix_target_changed": false,
+  "production_Lean_changed": false,
+  "rank_or_normalization_hypothesis_added": false,
+  "v1_or_phase1_overwritten": false,
+  "author": "/root",
+  "independent_minimality_verdict": "PENDING",
+  "historical_source_claim": false,
+  "pre_proof_seal_claim": false
+}

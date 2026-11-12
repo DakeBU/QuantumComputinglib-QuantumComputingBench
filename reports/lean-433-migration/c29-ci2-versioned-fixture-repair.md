@@ -1,0 +1,19 @@
+# c29 CI2: versioned fixture repair after actual CI1 failure
+
+CI1 job117200296308/run38968346344 actually failed. The full 24-file sanitized public archive is retained byte-exact in `reviews/publication/cubic-source-c29/ci1-failure-public.zip`, SHA256 `e82e53f3ba94a46a6d94ad7402669a14313402aa3980431b61d92b2656fd18c9`, with detailed file hashes in `c29-actual-ci1-failure.json`. The CI checkout was merge commit `53d3001de984f7fd8bffea4e52cf7807580ce0bf` for contribution `40d7904`, not a different actual source compilation. The Lean environment and five local providers built; the fixture compiled; its probe failed before any Cubic compile. This is IMPLEMENTATION_FAILED, not mathematical refutation.
+
+## Small reversible code change
+
+`FixtureProbe-v5.lean` changes only the first import from the preserved wrong Cubic import to `Fixture`. Every remaining byte equals retained v4. Original candidate3 payloads, Fixture-v4, Cubic Probe-v4, expected roots and validator remain unchanged. `pins.json` selects an explicitly pinned `activeFixtureProbe`; `runner.py` now checks both direct imports and the runtime target before invoking Lean. Five new tests reject the actual old error, missing/mismatched pins and target drift. The scoped `.gitattributes` preserves v5 bytes. CI1 failure history and README provenance are added. Existing workflow, verifier, required checks, science target, scoring, anchors and production Lean are unchanged. Rollback returns these diagnostic-only selections/functions to the preceding checkpoint; preserve failure archives and old drivers.
+
+The parent read the actual code diff and real native output before integration. `c29-ci2-integration-receipt.json` binds the exact 16-file candidate and 19 tiny public derivatives. The private manifest is excluded because its host argv contain paths. Generated public logs have individual raw/derived hashes; they are not raw-byte aliases or evidence that private logs were uploaded.
+
+## Actual tiny evidence, not Cubic acceptance
+
+The same independent decoder took one actual final resource check: physical 4243928 KiB, virtual 3419404 KiB, C free 9338785792 bytes, satisfying the existing tiny-only 1 GiB/2.5 GiB/8 GiB thresholds. It ran a genuine legacy Fixture with threads1 and memory1024 MiB: compile PID1616 exit0/0.953s; probe PID48944 exit0/3.969s. Actual probe raw stdout SHA256 is `380ea92b791875a3bc7ebd27b5d1cd45f6931f02944ddb14141c5a8453f08cd4`. Five real roots expose a genuine axiom, its propagation through the dynamically resolved private theorem, an opaque with body and one structure. Fifteen generated rows are metadata only. The README candidate was frozen before this later tiny result; the actual later result is this separately bound receipt and logs, not a silent rewrite of the candidate history.
+
+This proves that these tiny API operations executed, not that Cubic compiled or all 319 explicit roots passed. Current Cubic target runtime, full generated types/axioms, source agreement, late publication binding, independent final comparison and required full integration remain open. The heavy-run memory gate was not lowered. No ROOT, source admission, main merge or finite-bit family certificate is inferred. The new CI run must actually execute before claiming a changed-host result.
+
+## Tests and remaining uncertainty
+
+The independent candidate ran 37 Python tests: 36 passed and one Windows symlink-permission test skipped. Parent integration repeats focused diagnostics and frozen-evidence tests, including actual CI1 nonzero preservation and tiny genuine-axiom observations. Synthetic parser fixtures stay explicitly separate from native output. Exact parent totals and remote delivery belong in the next handoff; this report is not a future CI success claim. New source/driver drift requires a new version, not pin refresh or editing historical failure data.

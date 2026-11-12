@@ -1,0 +1,80 @@
+{
+  "module": "QuantumBlockEncoding/ThinLQ.lean",
+  "source_id": "aspbe-local-finite-real-thin-lq",
+  "source_statement": "Every finite real m by n matrix A admits R:m by min(m,n) and Q:min(m,n) by n with A=RQ and QQ^T=I, including dependent/zero rows and empty dimensions. Wide subcase m<=n; additive commutative monoid prefix-sum prerequisite stated separately. No triangularity, unique factors, executable procedure, resource, quantum success or approximation theorem.",
+  "source_anchor": "docs/lessons/finite-real-thin-lq.md: Statement through All shapes; reviews/publication/thin-lq/source-contract.json",
+  "lesson_path": "docs/lessons/finite-real-thin-lq.md",
+  "declarations": [
+    "QuantumBlockEncoding.ThinLQ.sum_prefix_of_zero",
+    "QuantumBlockEncoding.ThinLQ.exists_factor_of_le",
+    "QuantumBlockEncoding.ThinLQ.exists_thin_lq"
+  ],
+  "obligation_map": [
+    {
+      "kind": "prerequisite",
+      "source_obligation": "local-thin-lq:prefix, additive commutative monoid generalization stated as an independent local prerequisite",
+      "declarations": [
+        "QuantumBlockEncoding.ThinLQ.sum_prefix_of_zero"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "local-thin-lq:zero-extension + ordered-basis + reconstruction + orthogonality; wide-matrix subcase",
+      "declarations": [
+        "QuantumBlockEncoding.ThinLQ.exists_factor_of_le"
+      ]
+    },
+    {
+      "kind": "proof-edge",
+      "source_obligation": "local-thin-lq:statement; wide OR tall-and-empty identity construction",
+      "declarations": [
+        "QuantumBlockEncoding.ThinLQ.exists_thin_lq"
+      ]
+    }
+  ],
+  "assumption_deltas": [
+    {
+      "classification": "same",
+      "source": "m,n nonnegative finite dimensions; arbitrary real matrix, no rank or nonzero assumptions",
+      "formal": "m n : Nat; A : Matrix (Fin m) (Fin n) Real; no rank or nonzero binder",
+      "explanation": "Finite carriers name exactly the source dimensions; transpose and real scalar semantics agree."
+    },
+    {
+      "classification": "same",
+      "source": "m<=n only for the separately stated wide subcase",
+      "formal": "exists_factor_of_le has hmn:m<=n; exists_thin_lq does not",
+      "explanation": "The root obtains the subcase premise internally or uses the tall identity alternative."
+    },
+    {
+      "classification": "same",
+      "source": "prefix identity in an additive commutative monoid with zero tail",
+      "formal": "AddCommMonoid M; m<=n; f:Fin n->M; zero tail",
+      "explanation": "The generalized helper is explicitly part of the local contract, not an extra root assumption."
+    }
+  ],
+  "graph_contribution": {
+    "baseline": "305952f4291d7be530c76f51f7e98d77faf1cf45",
+    "classes": [
+      "reorganisation"
+    ],
+    "node_ids": [
+      "module:QuantumBlockEncoding.ThinLQ",
+      "declaration:QuantumBlockEncoding.ThinLQ.sum_prefix_of_zero",
+      "declaration:QuantumBlockEncoding.ThinLQ.exists_factor_of_le",
+      "declaration:QuantumBlockEncoding.ThinLQ.exists_thin_lq"
+    ],
+    "views": [
+      "source-construction-graph",
+      "lean-graph",
+      "compressed-quantum-spine"
+    ],
+    "preserved_contract": "Existing mathematical statements unchanged; migration tactic compatibility and retrospective exposition/admission only. Imported Mathlib providers are formal dependencies. A conceptual source graph is not an elaborated proof-term graph.",
+    "remaining_boundary": "Existence only; constructive stored factors and Hermite total/finite-bit cost remain separate. No new mathematical novelty, certified categorical functor or complete TT compiler claimed. Purification and whole-PR admission pending."
+  },
+  "formalizer": "root-retrospective-contract-author-20261008; historical proof authors retained by Git",
+  "residual_boundary": "Only this whole module is the pilot. The other changed modules and experimental RobinMatrix are not admitted by this record. Independent decoder/reviewer artifacts must be genuine and current before registry insertion.",
+  "binding_sha256": "4c90c8bd8de9a7fa7f063704c20959c7f27004d7511008ced0784184e628e78f",
+  "decoder_evidence": "reviews/publication/thin-lq-lf/decoder-evidence.json",
+  "reviewer_evidence": "reviews/publication/thin-lq-lf/reviewer-evidence.json",
+  "status": "CANDIDATE_NOT_ADMITTED"
+}

@@ -82,7 +82,7 @@ theorem absorptionEntry_cost_le {l m r : ℕ} (A : StoredCore l m)
       intro b
       simp [bind, Run.bind, StoredGivens.mul, charge]
       omega)
-  convert h using 1 <;> ring
+  simpa only [absorptionEntry, Nat.add_assoc, ← two_mul] using h
 
 noncomputable def absorption {l m r : ℕ} (A : StoredCore l m)
     (R : StoredMatrix m r) : Run (StoredCore l r) :=

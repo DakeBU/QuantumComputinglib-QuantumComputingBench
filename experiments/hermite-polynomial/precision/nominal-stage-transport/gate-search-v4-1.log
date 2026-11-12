@@ -1,0 +1,71 @@
+warning: verso: repository '<repo>\.lake/packages\verso' has local changes
+experiments/hermite-polynomial/precision/nominal-stage-transport/ChronologicalTransport.lean:16:15: error: unsolved goals
+case ry.false
+width : ℕ
+m n : RealMatrix width
+i j : Basis width
+theta : ℚ
+q : Fin width
+h : bit q i = false
+⊢ ∑ i_1, Real.cos (↑theta / 2) * (m (low q i) i_1 * n i_1 j) -
+      ∑ i_1, Real.sin (↑theta / 2) * (m (high q i) i_1 * n i_1 j) =
+    ((fun i j =>
+          if bit q i = true then Real.sin (↑theta / 2) * m (low q i) j + Real.cos (↑theta / 2) * m (high q i) j
+          else Real.cos (↑theta / 2) * m (low q i) j - Real.sin (↑theta / 2) * m (high q i) j) *
+        n)
+      i j
+
+case ry.true
+width : ℕ
+m n : RealMatrix width
+i j : Basis width
+theta : ℚ
+q : Fin width
+h : bit q i = true
+⊢ ∑ i_1, Real.sin (↑theta / 2) * (m (low q i) i_1 * n i_1 j) +
+      ∑ i_1, Real.cos (↑theta / 2) * (m (high q i) i_1 * n i_1 j) =
+    ((fun i j =>
+          if bit q i = true then Real.sin (↑theta / 2) * m (low q i) j + Real.cos (↑theta / 2) * m (high q i) j
+          else Real.cos (↑theta / 2) * m (low q i) j - Real.sin (↑theta / 2) * m (high q i) j) *
+        n)
+      i j
+experiments/hermite-polynomial/precision/nominal-stage-transport/ChronologicalTransport.lean:19:10: warning: This simp argument is unused:
+  Finset.sum_sub_distrib
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [realStep, h, HermiteSavedRounding.realRyRow, Matrix.mul_apply, Finset.sum_add_distrib, Finset.mul_sum,
+    sub_mul, add_mul, mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+experiments/hermite-polynomial/precision/nominal-stage-transport/ChronologicalTransport.lean:19:34: warning: This simp argument is unused:
+  Finset.sum_add_distrib
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [realStep, h, HermiteSavedRounding.realRyRow, Matrix.mul_apply, Finset.sum_sub_distrib, Finset.mul_sum,
+    sub_mul, add_mul, mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+experiments/hermite-polynomial/precision/nominal-stage-transport/ChronologicalTransport.lean:19:74: warning: This simp argument is unused:
+  sub_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [realStep, h, HermiteSavedRounding.realRyRow, Matrix.mul_apply, Finset.sum_sub_distrib,
+    Finset.sum_add_distrib, Finset.mul_sum, add_mul, mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+experiments/hermite-polynomial/precision/nominal-stage-transport/ChronologicalTransport.lean:19:83: warning: This simp argument is unused:
+  add_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [realStep, h, HermiteSavedRounding.realRyRow, Matrix.mul_apply, Finset.sum_sub_distrib,
+    Finset.sum_add_distrib, Finset.mul_sum, sub_mul, mul_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+experiments/hermite-polynomial/precision/nominal-stage-transport/ChronologicalTransport.lean:20:10: warning: This simp argument is unused:
+  mul_assoc
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [realStep, h, HermiteSavedRounding.realRyRow, Matrix.mul_apply, Finset.sum_sub_distrib,
+    Finset.sum_add_distrib, Finset.mul_sum, sub_mul, add_mul]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "status": "RETROSPECTIVE_LOCAL_CONTRACT; independent review pending",
+  "kind": "original-local-contract-not-external-paper-assimilation",
+  "source_id": "aspbe-local-finite-real-thin-lq",
+  "statement_version": 1,
+  "source_statement": "For every finite real m by n matrix A there are R of shape m by min(m,n) and Q of shape min(m,n) by n such that A=R*Q and Q*Q.transpose=I. No rank/nonzero premises. No triangularity or algorithm/resource conclusion. Prefix-sum helper over any additive commutative monoid is an explicit generalized prerequisite.",
+  "source_anchor": "docs/lessons/finite-real-thin-lq.md: Statement, Removing zero terms from a sum, Wide matrices, All shapes",
+  "binder_audit": {"m_n": "TYPING nonnegative finite dimensions", "A": "SOURCE arbitrary real matrix", "m_le_n": "SOURCE only for the separately stated wide subcase", "M_AddCommMonoid_f_zero_tail": "SOURCE generalized prefix-sum prerequisite, not a new premise of matrix root"},
+  "definition_audit": "Existential factors; constructed basis representative is not unique. No public canonicality or uniqueness claim. Zero extension is an internal finite-list construction on the declared carrier, not a fallback for off-source input.",
+  "source_proof_coverage": [
+    {"id": "local-thin-lq:statement", "disposition": "NODE", "kind": "source-anchor"},
+    {"id": "local-thin-lq:prefix", "disposition": "NODE", "kind": "generalized-prerequisite"},
+    {"id": "local-thin-lq:zero-extension", "disposition": "NODE", "kind": "construction"},
+    {"id": "local-thin-lq:ordered-basis", "disposition": "NODE", "kind": "Mathlib dependency"},
+    {"id": "local-thin-lq:reconstruction", "disposition": "NODE", "kind": "matrix-entry proof", "depends_on": ["local-thin-lq:prefix", "local-thin-lq:zero-extension", "local-thin-lq:ordered-basis"]},
+    {"id": "local-thin-lq:orthogonality", "disposition": "NODE", "kind": "basis inner-product proof", "depends_on": ["local-thin-lq:ordered-basis"]},
+    {"id": "local-thin-lq:tall-and-empty", "disposition": "NODE", "kind": "identity alternative", "depends_on": ["local-thin-lq:statement"]},
+    {"id": "local-thin-lq:boundary", "disposition": "EXCLUDED", "reason": "No stored runtime, triangularity, unique factor, circuit, resource, probability or finite-bit claim"}
+  ],
+  "topology_review": "pending; author reconstruction is not independently source-topology reviewed",
+  "proof_digestion": {"existing": "Mathlib ordered orthonormal completion and finite matrix semantics", "bookkeeping": "prefix restriction and entrywise reconstruction", "new_reusable": "local whole-shape interface only; no novelty claim", "new_topology": "none claimed"},
+  "purification": "pending admission; retain source and Lean graph distinction"
+}

@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "reviewer_role": "independent worker /root/hermite_dyadic_supplier; not author of transport implementation or repair",
+  "verdict": "ACCEPTED_SERIALIZATION_DIAGNOSTIC_SCOPE_ONLY",
+  "scientific_root_closed": false,
+  "scope": "Independently read and tested the exact root-owned v2 diagnostic source. Acceptance is limited to saved-byte positional RY/CX transport measurements and repaired schema-type rejection. No Python-to-Lean parser bridge, source-state theorem or scientific ROOT closure is certified.",
+  "predecessor": "experiments/hermite-polynomial/precision/transport/independent-audit-v1.json",
+  "predecessor_sha256": "659d483886f7d430301f6210a2f79d0ca8dd75b98de54e74a0b07623190e3a2c",
+  "predecessor_verdict_preserved": "REQUIRES_SCHEMA_FIX; not overwritten or reinterpreted as approval of v1",
+  "reviewed_files_sha256": {
+    "experiments/hermite-polynomial/precision/transport/contract-v2.json": "c6168cea4d81cfaa092bf5b95c6d447159a20fc2bb419422a6b4f62034b7db7d",
+    "experiments/hermite-polynomial/precision/transport/contract.json": "279490e60a52b5bb8ce3472ec8e64b3562ea732852632bf6090f322161e423df",
+    "experiments/hermite-polynomial/precision/transport/audit_decimal_qasm.py": "4ab395c47139c19b8d57110419f74b6b272b8dba1e93051874285acac2f0d2ff",
+    "experiments/hermite-polynomial/precision/transport/test_audit_decimal_qasm.py": "d2be81e1e7621da0f25bb7bf7eb9d582d0e267a1c3991d19d3730abaa5101287",
+    "experiments/hermite-polynomial/precision/transport/generate_saved_inputs.py": "e6efef794ff7fa0fbe5bb70c5009a363437f812b34b1141e2c107bbe935c16e6"
+  },
+  "root_supplied_v2_hashes_independently_matched": true,
+  "runtime": "Python 3.11.9",
+  "commands_actually_run": [
+    {
+      "command": "python -m unittest discover -s experiments/hermite-polynomial/precision/transport -p test_audit_decimal_qasm.py -v",
+      "exit_code": 0,
+      "result": "12 tests ran in 0.219s; all OK. The schema-version test independently exercises True, False, 1.0, string1, None, 0 and 2 as rejecting subcases."
+    },
+    {
+      "command": "python experiments/hermite-polynomial/precision/transport/audit_decimal_qasm.py _out/hermite-poly-cycle10-transport/n3-k1-L1/saved.qasm _out/hermite-poly-cycle10-transport/n3-k1-L1/reference.json",
+      "exit_code": 0,
+      "result": "SERIALIZATION_ONLY_PASS; identical saved bytes and exact rational measurements to v1, 456 instructions/228 RY on 5 qubits."
+    },
+    {
+      "command": "python experiments/hermite-polynomial/precision/transport/audit_decimal_qasm.py _out/hermite-poly-cycle10-transport/n1-k0-L01/saved.qasm _out/hermite-poly-cycle10-transport/n1-k0-L01/reference.json",
+      "exit_code": 0,
+      "result": "SERIALIZATION_ONLY_PASS; identical saved bytes and exact rational measurements to v1, one RY on one qubit."
+    },
+    {
+      "command": "python -c <independent in-memory importlib/unittest.mock schema and missing-file probe>",
+      "exit_code": 0,
+      "result": "All seven malformed schema-version types/values rejected with ValueError. Independently missing QASM and independently missing manifest each rejected with FileNotFoundError. Fresh auditor-only process contained no qiskit, mps_ or numpy module imports.",
+      "probe_design": "Load only audit_decimal_qasm.py using importlib.util.spec_from_file_location; patch Path.read_bytes to an encoded reference and Path.open to BytesIO QASM. Iterate True, False, 1.0, string1, None, 0, 2 and require ValueError; then independently inject FileNotFoundError on read_bytes/open and require rejection. No probe file or saved input is created or modified."
+    }
+  ],
+  "repair_review": {
+    "finding_from_v1": "Numerical equality accepted schema_version true and 1.0 as version1.",
+    "implementation_change": "Auditor now checks type(manifest.get('schema_version')) is int before requiring manifest['schema_version']==1. The short-circuit also safely rejects missing schema_version without accessing the missing key.",
+    "independent_counterexample_retest": "Both original True and 1.0 counterexamples are rejected. All newly requested false/string/null/other-integer variants are also rejected by independent probe and the test suite.",
+    "scope_minimality": "Exact rational arithmetic, gate interpretation, existing input files, positional checks and false scientific flags are unchanged. No source/compiler/controller acceptance was changed.",
+    "status_semantics": "contract-v2 explicitly resolves the order ambiguity: structural gate kinds/physical wires and chronology must match; changed angle values at same-kind/same-wire positions are measured, not automatically rejected. SERIALIZATION_ONLY_PASS is a completed diagnostic, not strict angle identity or tolerance acceptance."
+  },
+  "actual_existing_saved_bytes": [
+    {
+      "directory": "_out/hermite-poly-cycle10-transport/n3-k1-L1",
+      "qasm_sha256": "46b4c6b9f8584e49f9f2739e534d2bb4433bf9f6dc80eadf0f70289cebc0e364",
+      "reference_sha256": "18e274af93dc81c8013592d4f10c2cdd592090de2e83bb4d8bdbac64163a38ae",
+      "qubits": 5,
+      "instructions": 456,
+      "ry": 228,
+      "exact_decimal_operator_bound": "2458925612049/3435973836800000000000000000",
+      "parsed_binary64_operator_bound": "0",
+      "decimal_to_binary64_operator_bound": "2458925612049/3435973836800000000000000000",
+      "parsed_angles_exactly_equal_reference": true,
+      "source_refinement_verified": false,
+      "full_state_acceptance_verified": false,
+      "uniform_numerical_certificate": false,
+      "scientific_root_closed": false
+    },
+    {
+      "directory": "_out/hermite-poly-cycle10-transport/n1-k0-L01",
+      "qasm_sha256": "49836a9dc356ba459434b55e9dc990c01d1c79a8ca9f957a5be5201d429216ee",
+      "reference_sha256": "d3aa85d28cddcc4e266f9176dbeb1fe9bce0a1619ee9505d9b279c8fd815dbe5",
+      "qubits": 1,
+      "instructions": 1,
+      "ry": 1,
+      "exact_decimal_operator_bound": "23804541591/1374389534720000000000000000",
+      "parsed_binary64_operator_bound": "0",
+      "decimal_to_binary64_operator_bound": "23804541591/1374389534720000000000000000",
+      "parsed_angles_exactly_equal_reference": true,
+      "source_refinement_verified": false,
+      "full_state_acceptance_verified": false,
+      "uniform_numerical_certificate": false,
+      "scientific_root_closed": false
+    }
+  ],
+  "accepted_review_points": [
+    "The exact decimal Fraction is nonzero-different from the exact binary64 reference Fraction in both actual saved circuits; parsed binary64 values happen to agree. These are separate conclusions and neither substitutes for exact Lean source-angle refinement.",
+    "Actual saved bytes are opened and hashed, not regenerated, and neither file can be replaced by stale success JSON. Validated gate/wire positional comparisons reject structural chronology mismatches and missing/extra instructions.",
+    "Auditor-only code retains stdlib-only imports; fresh import/probe independently found no quantum compiler or simulator modules. Compiler imports in input generation and existing-writer unit tests are not misrepresented as independent source-circuit certification.",
+    "The two new tests make invalid schema typing and nonzero-error same-wire angle permutation semantics explicit; no scientific status becomes true.",
+    "All source-refinement, full-state, uniform numerical and scientific ROOT flags remained false in the actual v2 outputs."
+  ],
+  "remaining_boundaries_and_nonblocking_hardening": [
+    "The manifest is a supplied reference; matching current file hashes identifies bytes but does not authenticate their producer or establish correctness of floating source construction.",
+    "This audits Python Decimal-to-float, not a certified Qiskit/OpenQASM semantic parser or Python-to-Lean execution bridge. The Euclidean norm bound interpretation remains conditional on the stated primitive interpretation.",
+    "Python JSON uses its standard last-key-wins behavior for duplicate object keys. A future adversarial-manifest contract may reject duplicate keys; the current supplied-reference numerical diagnostic is not an authenticated interchange/security checker.",
+    "Negative zero is compared as rational angle value, not by binary sign bit. No bitwise identity claim is accepted.",
+    "Rational arithmetic costs, source input precision, QR/rank/branch/transcendental refinement and uniform finite-bit preprocessing remain outside this review.",
+    "Root-owned independent source-state replay and Lean supplier compilation are distinct evidence; this review does not inherit them as a Python-to-Lean bridge or scientific success."
+  ],
+  "failure_class": "NONE",
+  "salvage": "v1 exact saved-byte measurements remain valid at their old hashes; its rejected schema-typing route and independent counterexamples remain historical evidence. v2 closes that implementation defect without changing quantum mathematics.",
+  "changes_made_by_reviewer": ["experiments/hermite-polynomial/precision/transport/independent-audit-v2.json only in this v2 pass"],
+  "source_contract_results_modified_by_reviewer": false,
+  "saved_inputs_regenerated_or_modified": false,
+  "frozen_supplier_modified": false,
+  "live_terminal_handles": [],
+  "publication_or_scientific_admission": "Not provided or claimed. This is independent diagnostic review at the bound source hashes only."
+}

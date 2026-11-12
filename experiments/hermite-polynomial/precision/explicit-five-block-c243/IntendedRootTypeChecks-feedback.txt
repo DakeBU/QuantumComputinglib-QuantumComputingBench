@@ -1,0 +1,54 @@
+HermiteExplicitCachedStored.decode (d m : ℕ) (i : Fin (fiveSize d m)) :
+  StoredBinaryCoordinates.IndexedRun (FiveIndex d m)
+HermiteExplicitCachedStored.comparisonQ (cut q : ℕ) (bit : Fin 2) (a b : Fin 3) : StoredBinaryCoordinates.IndexedRun ℚ
+HermiteExplicitCachedStored.translationQ (L r q : ℕ) (F : Vector ℚ (L + 1)) (hr : r ≤ L) (step : ℚ) (bit : Fin 2)
+  (i j : Fin (r + 1)) : Run ℚ
+HermiteExplicitCachedStored.kernelAt (d m L q : ℕ) (F : Vector ℚ (L + 1)) (hd : d ≤ L) (hm : m ≤ L)
+  (cutMinusOne cutZero cutMinusT cutT : ℕ) (step minusStep : ℚ) (bit : Fin 2) (a b : FiveIndex d m) :
+  StoredBinaryCoordinates.IndexedRun ℚ
+HermiteExplicitCachedStored.kernelEntry (d m n L : ℕ) (F : Vector ℚ (L + 1)) (hd : d ≤ L) (hm : m ≤ L)
+  (cutMinusOne cutZero cutMinusT cutT : ℕ) (step minusStep : ℚ) (q : Fin (n + 1)) (a : Fin (fiveSize d m))
+  (j : Fin (2 * fiveSize d m)) : StoredBinaryCoordinates.IndexedRun ℚ
+HermiteExplicitCachedStored.leftAt (d m : ℕ) (R minusR : ℚ) (a : FiveIndex d m) : Run ℚ
+HermiteExplicitCachedStored.leftEntry (d m : ℕ) (R minusR : ℚ) (a : Fin (fiveSize d m)) :
+  StoredBinaryCoordinates.IndexedRun ℚ
+HermiteExplicitCachedStored.rightEntry (k n : ℕ) (R delta : ℚ) (d : ℕ)
+  (hd : d = HermiteFiniteExpDegree.sourceDegree delta) (setup : HermiteCachedPiecewiseStored.RightSetup n R delta)
+  (middle : Vector ℚ (2 * k + 2)) (a : Fin (fiveSize d (2 * k + 1))) : StoredBinaryCoordinates.IndexedRun ℚ
+HermiteExplicitCachedStored.materializePrepared (k n : ℕ) (R delta : ℚ) (d : ℕ)
+  (hd : d = HermiteFiniteExpDegree.sourceDegree delta) (L : ℕ) (ht : d ≤ L) (hm : 2 * k + 1 ≤ L)
+  (setup : HermiteCachedPiecewiseStored.RightSetup n R delta) (middle : Vector ℚ (2 * k + 2)) (F : Vector ℚ (L + 1))
+  (step minusR minusStep : ℚ) : StoredBinaryCoordinates.IndexedRun (RationalData n (fiveSize d (2 * k + 1)))
+HermiteExplicitCachedStored.produceExplicitQData (k n : ℕ) (R delta : ℚ) :
+  StoredBinaryCoordinates.IndexedRun (RationalData n (assemblySize k delta))
+HermiteExplicitCachedStored.produceExplicitData (k n : ℕ) (R delta : ℚ) :
+  StoredBinaryCoordinates.IndexedRun (RealData n (assemblySize k delta))
+HermiteExplicitCachedStored.produceExplicitStored (k n : ℕ) (R delta : ℚ) :
+  StoredBinaryCoordinates.IndexedRun (StoredChain (n + 1) 1 1)
+HermiteExplicitCachedStored.frontierBudget (k n : ℕ) (delta : ℚ) : ℕ
+∀ (k : ℕ) (delta : ℚ) (a : Fin (assemblySize k delta)),
+  (decode (HermiteFiniteExpDegree.sourceDegree delta) (2 * k + 1) a).run.value = (fullEquiv k delta).symm a : Prop
+∀ (cut q : ℕ) (bit : Fin 2) (a b : Fin 3),
+  (comparisonQ cut q bit a b).run.value = HermitePiecewiseUniform.comparisonEntry cut q bit a b : Prop
+∀ (L r q : ℕ) (hr : r ≤ L) (step : ℚ) (bit : Fin 2) (i j : Fin (r + 1)),
+  (translationQ L r q (HermiteChargedSourceCache.factorials L).value.values hr step bit i j).value =
+    HermitePiecewiseUniform.translationCoreQ r (step * 2 ^ q * ↑↑bit) i j : Prop
+∀ (k n : ℕ) (R delta : ℚ),
+  (produceExplicitQData k n R delta).run.value =
+    (HermiteCachedPiecewiseStored.produceCachedQData k n R delta).value : Prop
+∀ (k n : ℕ) (R delta : ℚ),
+  StoredMatrixProductChain.Window (produceExplicitData k n R delta).run.value.tables
+    (reindexKernel (fullEquiv k delta) (actualBlocks k n R delta).kernel) 0 : Prop
+∀ (k n : ℕ) (R delta : ℚ), denoteChain (produceExplicitStored k n R delta).run.value = actualChain k n R delta : Prop
+∀ (k n : ℕ) (R delta : ℚ),
+  0 < R →
+    ∀ (x : TensorTrainCanonical.Word (n + 1)),
+      TensorTrainCanonical.contract (denoteChain (produceExplicitStored k n R delta).run.value) x 0 0 =
+        ↑(HermitePiecewiseSourceBudget.piecewiseValue k delta
+            (HermitePiecewiseSourceBudget.rationalGrid n R (wordIndex n x))) : Prop
+∀ (k n : ℕ) (R delta : ℚ),
+  let result := produceExplicitStored k n R delta;
+  denoteChain result.run.value = actualChain k n R delta ∧
+    StoredRectangularGivens.total result.run.cost ≤ frontierBudget k n delta ∧
+      result.quotientCalls ≤ 14 * (n + 1) * assemblySize k delta ^ 2 + 4 * assemblySize k delta ∧
+        result.remainderCalls ≤ 14 * (n + 1) * assemblySize k delta ^ 2 + 4 * assemblySize k delta : Prop

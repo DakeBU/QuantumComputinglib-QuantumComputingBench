@@ -1,0 +1,54 @@
+# Optional WIP diagnostic; not a required scientific acceptance gate.
+# Proposed package destination: tools/primitive_compiler_native_profile_v1.
+name: C31 three-module fresh native diagnostic WIP
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/c31-native-diagnostic.yml'
+      - 'tools/primitive_compiler_native_profile_v1/**'
+      - 'tools/primitive_compiler_native_profile_ci2/**'
+      - 'tools/primitive_compiler_native_profile_ci3/**'
+      - 'tools/cubic_c29_diagnostic/runner.py'
+      - 'QuantumBlockEncoding/**'
+      - 'lean-toolchain'
+      - 'lakefile.lean'
+      - 'lake-manifest.json'
+permissions:
+  contents: read
+concurrency:
+  group: c31-native-diagnostic-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  c31-native-diagnostic-independent:
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - name: Checkout read-only diagnostic inputs
+        uses: actions/checkout@v5
+      - name: Python-only negative and instrumentation tests
+        run: python3 -m unittest discover -s tools/primitive_compiler_native_profile_v1 -p 'test*.py' -v
+      - name: CI2 finite resource gate negative and Python-only tests
+        run: python3 -B -m unittest discover -s tools/primitive_compiler_native_profile_ci2 -p 'test*.py' -v
+      - name: CI3 root-interface negative and Python-only tests
+        run: python3 -B -m unittest discover -s tools/primitive_compiler_native_profile_ci3 -p 'test*.py' -v
+      - name: Set up pinned Lean and inherited dependency caches
+        uses: leanprover/lean-action@v1
+        with:
+          auto-config: false
+          use-github-cache: true
+          use-mathlib-cache: true
+      - name: Prepare inherited project providers, not the three targets
+        run: lake build QuantumBlockEncoding.ReversibleClassical QuantumBlockEncoding.PrimitiveBasisLE QuantumBlockEncoding.CubicStatePreparation
+      - name: Fresh three-target cohort diagnostic, never admission
+        run: lake env python3 -B tools/primitive_compiler_native_profile_ci3/runner_v3.py
+      - name: Upload only sanitized diagnostic derivatives even after failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: c31-native-diagnostic-${{ github.sha }}
+          path: _out/primitive-compiler-native-profile-v1/public/
+          if-no-files-found: warn
+          retention-days: 7

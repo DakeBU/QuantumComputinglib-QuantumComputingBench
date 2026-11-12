@@ -66,9 +66,13 @@ def mixedPositions : Positions 3 2 := ⟨#v[2, 0], by decide⟩
 noncomputable def mixedColumns : StoredMatrix 3 2 := #v[#v[3 / 5, 0], #v[4 / 5, 0], #v[0, -1]]
 
 theorem mixedColumns_isometry : (denote mixedColumns).transpose * denote mixedColumns = 1 := by
+  have entries : denote mixedColumns = !![3 / 5, 0; 4 / 5, 0; 0, -1] := by
+    ext i j
+    fin_cases i <;> fin_cases j <;> rfl
+  rw [entries]
   ext a b
   fin_cases a <;> fin_cases b <;>
-    norm_num [mixedColumns, denote, _root_.Matrix.mul_apply, Fin.sum_univ_succ]
+    norm_num [_root_.Matrix.mul_apply, Fin.sum_univ_succ]
 
 example : denote (complete (by decide : 2 < 3) mixedColumns mixedPositions).value 1 2 = 4 / 5 := by
   simpa [mixedColumns, denote, mixedPositions, Positions.embedding] using

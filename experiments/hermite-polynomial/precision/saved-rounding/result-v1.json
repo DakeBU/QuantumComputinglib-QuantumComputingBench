@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "evidence_class": "C_INTERNAL_PROVIDER",
+  "status": "PROVED_LOCAL_FOCUSED",
+  "objective": "Actual outward-rounded saved RY row interval semantics",
+  "mathematical_delta": "Signed integer numerator/denominator floor/ceil formulas, strict <2^-bits outward widening, four-corner real enclosure, unconditional FiniteTrig-to-rounded RY row enclosure, chronological SAME ROW PAIR fold, and end-only midpoint entry radius.",
+  "effect_on_root_frontier": "Closes analytic literal interval-row provider. Does not close actual full saved stage or eta operator supplier.",
+  "namespace": "HermiteSavedRounding",
+  "roots": [
+    "scaled_floor_num",
+    "scaled_ceil_num",
+    "outward_widening",
+    "outward_mem",
+    "times_mem",
+    "sine_mem",
+    "cosine_mem",
+    "ryRow_mem",
+    "rowTrace_mem",
+    "midpoint_error",
+    "actual_first_saved_ry",
+    "literal_column_trace",
+    "final_column_center_error"
+  ],
+  "scope_warning": "rowTrace always acts on the SAME TWO ROWS. It is NOT variable-target/CX full-stage scheduling. The finite CX stage test is diagnostic only.",
+  "real_saved_action_link": "saved_action.py computes the identical four corner times, signed row0 c*u-s*v and row1 s*u+c*v, signed // outward after each output, and only then endstage midpoint. Independent exact tests import this immutable producer.",
+  "assumptions": "Initial entry enclosures are local row invariants, discharged by literal singleton inputs in column consumers; Taylor sine/cosine enclosure is PRODUCED, not a Valid premise. No surrogate unitarity or operator bound assumed.",
+  "conventions": "Signed exact rational decimal half-angle. No phase alignment/quotient, no garbage projection, no dimension or physical q0-LSB change claimed. Row provider is scalar and does not identify physical routing.",
+  "downstream_transport": "NonunitaryTransport remains conditional; this package does not yet prove its actual matrix difference norm <= size*entry_radius or nominal-stage contraction.",
+  "execution": [
+    {
+      "command": [
+        "lake",
+        "env",
+        "lean",
+        "-o",
+        "experiments/hermite-polynomial/precision/saved-rounding/.cache/FiniteTrig.olean",
+        "experiments/hermite-polynomial/precision/finite-trig/FiniteTrig.lean"
+      ],
+      "exit_code": 0,
+      "measured_seconds": 142.76888089999557,
+      "log": "experiments/hermite-polynomial/precision/saved-rounding/gate-v1-0.log",
+      "log_sha256": "dbe9c4d299581b4e97492a67ce5a00bc8949b7e7cec1f485dd12f9b02f16743e"
+    },
+    {
+      "command": [
+        "lake",
+        "env",
+        "lean",
+        "-o",
+        "experiments/hermite-polynomial/precision/saved-rounding/.cache/SavedRounding.olean",
+        "experiments/hermite-polynomial/precision/saved-rounding/SavedRounding.lean"
+      ],
+      "exit_code": 0,
+      "measured_seconds": 97.34091279999848,
+      "log": "experiments/hermite-polynomial/precision/saved-rounding/gate-v1-1.log",
+      "log_sha256": "d8c0e1d08d031e7e608d27e3ece544a001fc72ddd3237ad0a2a0c059cf21a502"
+    },
+    {
+      "command": [
+        "lake",
+        "env",
+        "lean",
+        "experiments/hermite-polynomial/precision/saved-rounding/ConsumerChecks.lean"
+      ],
+      "exit_code": 0,
+      "measured_seconds": 85.30684769999789,
+      "log": "experiments/hermite-polynomial/precision/saved-rounding/gate-v1-2.log",
+      "log_sha256": "fded85e6a036ecef3fe2de7c6471a3d7988f2de76617516ef0fb2ef1c0e1c5ce"
+    },
+    {
+      "command": [
+        ".venv/Scripts/python.exe",
+        "experiments/hermite-polynomial/precision/saved-rounding/test_saved_rounding.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "measured_seconds": 0.5073706999974092,
+      "log": "experiments/hermite-polynomial/precision/saved-rounding/gate-v1-3.log",
+      "log_sha256": "26fd7c27a3ad7ab2265d18499b06755a2c6f8039419be38a1c105ba0f4a0fd05"
+    }
+  ],
+  "bindings_sha256": {
+    "experiments/hermite-polynomial/precision/saved-rounding/ConsumerChecks.lean": "0462f85d82c5a61800a4a993348f12610ec6696a96f0fc944e5ccd088cf8ce35",
+    "experiments/hermite-polynomial/precision/saved-rounding/SavedRounding.lean": "1052620295fbbd9c5053f81d8a6fd35c761a7948f60fa9e3f4536e4cab274417",
+    "experiments/hermite-polynomial/precision/saved-rounding/consumer-seal-v1.json": "e97076b851262b3051bcf4982e394efa2bc086d6bcd2992eed4bd7d9409c0c27",
+    "experiments/hermite-polynomial/precision/saved-rounding/integer-formula-seal-v2.json": "79769ddac973e2701e37d4f6d306feecf857ec14a1eb03a791b0458594febb2f",
+    "experiments/hermite-polynomial/precision/saved-rounding/replay.ps1": "128a003c1ff4f06a9bb28600e01bd2783979e5c3b91add1e02e14f90cb87fcc0",
+    "experiments/hermite-polynomial/precision/saved-rounding/replay.py": "ed6331194088555afc276e3e21d1d5e8a86c0abe02adc35f708cb16d1a7f9846",
+    "experiments/hermite-polynomial/precision/saved-rounding/statement-seal-v1.json": "7252047a77dd83b56232eb95b20773751bae60f6bccc3e7407d4b2a830f2fefe",
+    "experiments/hermite-polynomial/precision/saved-rounding/test_saved_rounding.py": "92b62597014e8755645800df163afebb04dc675a3d8d4bf576a7e70892c1cb9d",
+    "experiments/hermite-polynomial/precision/saved-rounding/.gitignore": "046032151fe6113c18a8d7d9971c557e81129ca1ba244e5263d54b7e0e6f9643",
+    "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "lake-manifest.json": "510171e8214a2ac5e00f16c1bf92ad474d2de42c4cd2dc2b3d411272f7b58763",
+    "experiments/hermite-polynomial/precision/finite-trig/FiniteTrig.lean": "af127d0a3f8fd05d541deacfbaff212f519e71d2db836ef319516cefba6756a9",
+    "experiments/hermite-polynomial/precision/saved-action/saved_action.py": "5b4572c337f855eed221c24140bcd02344ee100161e370bfe9f3fa83e88f81f5",
+    "experiments/hermite-polynomial/precision/saved-action/statement-seal-v1.json": "4d0bc4ff48a6af9c1ba951bbf6ed99e4517d60f7b9905850d95763a3c418672f",
+    "experiments/hermite-polynomial/precision/qr-residual/qr_residual.py": "11b5398a945edeb465eafe3c8339336d7ab49ffb0a32c62637936aa1ec501bba",
+    "experiments/hermite-polynomial/precision/saved-action/fixture-n3-k1-L1/saved.qasm": "cc78a8231cddfa64be885704924fdb383b39968504ecbd24f22cb9f4194ccaf0",
+    "experiments/hermite-polynomial/precision/saved-ry-interval/result-v2.json": "540b65b0a44213bce4a8e2c07695a3811398ffc82374b180f7bdca4176c0431a",
+    "experiments/hermite-polynomial/precision/nonunitary-transport/result.json": "c6105197c4987258ce28cda5493dea4b31ea5ccf9f250355e261ae5f2bec3051"
+  },
+  "bound_inputs_unchanged": true,
+  "axioms_expected_union": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "new_axioms": false,
+  "new_sorry": false,
+  "new_native_decide": false,
+  "finite_tests": "4 unittest methods: signed decimals / bits0 / dyadic boundaries, product sign quadrants and cancellation, independent Taylor and row formulas, actual finite CX-interleaved stage center/radius/eta comparison.",
+  "failure_class": "NONE",
+  "authoring_obstructions": [
+    "IMPLEMENTATION_FAILED: real recurrence needed noncomputable; corrected without changing executable rational definitions.",
+    "IMPLEMENTATION_FAILED: widening required cancellation of inverse grid and product enclosure required explicit commuted endpoint types; corrected.",
+    "API_BLOCKED retrieval probe unknown Rat.divInt_self; use existing Rat.num_div_den instead. This did not refute mathematics.",
+    "IMPLEMENTATION_FAILED: decide did not reduce opaque Rat operations; replaced finite kernel checks with norm_num. No native_decide used."
+  ],
+  "salvage_audit": "All kept helpers serve actual rounded-row roots; no fake Valid closure. Ignored probe is not evidence.",
+  "process_memory_ids": [
+    "QBE-PM-LOW-TOKEN-CONTROL-PLANE",
+    "QBE-PM-VERIFIER-SEMANTIC-LEVEL",
+    "QBE-PM-DENSE-CHECK-SMALL-INSTANCE"
+  ],
+  "direction_fingerprint": "outward-stage-not-uniform-exp-degree",
+  "expected_information_gain": "Resolve actual floor/ceil and signed interval arithmetic instead of repeating raw Taylor midpoint norm bound.",
+  "parallel_admission": "Parent assigned independent actual interval uncertainty; no worker subdelegation.",
+  "independent_review": "PENDING",
+  "common_blind_spot_audit": "Parent-owned pending",
+  "default_verified_route": "Literal interval row semantics; no alternative operator-norm route selected.",
+  "purification": "Internal helper reachability inspected; public purification and Exposition Seal not claimed.",
+  "source_lean_expansion": "Taylor bounds -> signed integer outward formulas -> interval product/sum -> rounded actual RY pair -> chronological SAME PAIR -> end midpoint.",
+  "remaining": [
+    "Formal Python Fraction/Int // parser/runtime refinement",
+    "Variable-target row-pair routing and CX interleaving to actual saved matrix entries",
+    "Stage-end matrix midpoint and max-entry-radius, dimension size and Euclidean operator eta bound",
+    "Saved stage partition/data-first TT/readout with all garbage",
+    "Uniform Hermite family, finite-bit runtime including Fraction GCD and physical synthesis"
+  ],
+  "recommended_next": "Freeze a physical-index row update/CX instruction semantics and induct its full matrix entry enclosure; derive size*max-entry-radius opnorm before applying NonunitaryTransport.",
+  "full_repository_gate": "Parent reports production/Tests and 50 tests passed; not rerun by worker. Focused provider is outside production import graph.",
+  "source_anchor_admission": false,
+  "scientific_root_closed": false,
+  "uniform_finite_bit_certificate": false,
+  "surrogate_unitarity_assumed": false,
+  "phase_quotient": false,
+  "worker_git_mutations": false,
+  "parent_owns_checkpoint": true,
+  "context_digest": "5a8f47f8d0afd1d4f957e55babde52a9e9c01babf05c481b988e99ebca2f7758",
+  "per_worker_tokens": "unknown"
+}

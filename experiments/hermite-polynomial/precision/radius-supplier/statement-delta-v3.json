@@ -1,0 +1,12 @@
+{
+  "version": 3,
+  "parent": "statement-delta-v2.json",
+  "reason": "Clarify finite-sum cast helper without integer-power notation; add consumed positivity and budget helpers before their proofs.",
+  "exact_signatures": [
+    "theorem atanSum_cast (q : Rat) (m : Nat) : (atanSum q m : Real) = sum i in range m, (-1)^i*((q : Real)^(2*i+1))^(-1)/(2*i+1)",
+    "theorem piApprox_positive (m : Nat) (hm : 1 <= m) : 0 < piApprox m",
+    "theorem radius_budget (L epsilon : Rat) (hL : 0 < L) (hepsilon : 0 < epsilon) : piError (termCount L epsilon)*L <= epsilon"
+  ],
+  "definition_audit": "The inverse finite-natural-power helper is algebraically identical to v2 integer-power formula; no producer or error target changed.",
+  "proof_plan": "For positive pi approximation use the coarse universal bound for m>=4 and exact rational evaluation m=1,2,3. These finite base cases support an arbitrary-m theorem, not finite replacement for uniform proof. Budget uses Int.le_ceil and toNat nonnegative domination."
+}

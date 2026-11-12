@@ -7,9 +7,13 @@ by `website/research/publications.json`,
 `docs/theorem-publication-protocol.md`, the Lean inventory, and the generated
 Implementation Map. A planned chapter here is not a formalized theorem.
 
-## 1. Current textbook: two parts, one shared foundation
+## 1. Four peer textbook parts, one shared foundation
 
-The current nine guided chapters should be read as two primary parts.
+QuantumComputinglib is organized as four peer textbook parts. Parts I and II
+already contain compiled guided chapters; Parts III and IV are source-audited
+curricula whose individual chapters remain planned until exact local Lean roots
+exist. This status distinction is machine-readable in
+`website/curriculum-parts.json`.
 
 ### Part I — State Preparation
 
@@ -53,7 +57,7 @@ broader construction theory while retaining its own certificate type.
 Conceptual graph edges may show both transports; only named Lean theorems may
 be shown as formal implication edges.
 
-## 2. Planned Part III — Quantum Information and symmetry
+## 2. Part III — Quantum Information and Representation Theory
 
 A future Quantum Information part will use Felix Leditzky's
 [Representation-theoretic methods in quantum information theory](https://www.felixleditzky.info/teaching/FT25/math595-repth-qit.pdf)
@@ -70,7 +74,9 @@ The intended progression is:
 5. Schur–Weyl duality, Young diagrams/tableaux and the quantum method of types;
 6. invariant families such as Werner/isotropic states;
 7. de Finetti reductions and symmetry-based compression;
-8. approximate cloning, spectrum estimation and weak Schur sampling.
+8. approximate cloning, spectrum estimation and weak Schur sampling;
+9. advanced capacity, secret-key, entangled-game and quantum-optics routes;
+10. channel counterexamples and representation-theory extensions.
 
 The order is intentionally graph-driven: quantum states, tensor products,
 partial trace, positive operators and channel semantics become **shared
@@ -78,7 +84,21 @@ foundation nodes** consumed both by QIT chapters and by later scientific
 algorithms. Representation-theoretic nodes sit above that shared layer and are
 not baked into the lower circuit model.
 
-## 3. Planned Part IV — Quantum Algorithms for Scientific Computation
+The pinned OpenAI Math audit contributes only scoped candidates here:
+
+- `InformationTheory/Entanglement` and `Analysis/Quantum/PPTSquare` can inform
+  the shared state/channel/Choi layer, but only declaration by declaration;
+- `RepresentationTheory/Young`, `YoungSymmetry` and `FiniteUnitary` are
+  candidate prerequisites after manuscript-specific namespaces are purified;
+- Saxl and Foulkes--Howe belong to an advanced extension, not the core
+  Schur--Weyl dependency chain;
+- `InformationTheory/DimensionTen`, PhotonNumber, SecretKey and EntangledGames
+  are downstream consumers and must not dictate the foundational API.
+
+`OAI.Analysis.Naimark` is explicitly excluded from the measurement chapter: it
+formalizes the C*-algebra Naimark problem, not POVM dilation.
+
+## 3. Part IV — Quantum Algorithms for Scientific Computation
 
 A second long-term anchor is Lin Lin and Nathan Wiebe,
 [Quantum Algorithms for Scientific Computation, 29 April 2026 edition](https://math.berkeley.edu/~linlin/qasc/live_notes_0429.pdf).
@@ -106,6 +126,21 @@ scientific-computing part points back to the existing certified Block Encoding
 nodes and adds only genuinely new transforms and application theorems. The same
 deduplication applies to Ch. 2–3 objects that will also be consumed by the
 Leditzky QIT route.
+
+The pinned OpenAI Math tree adds three carefully bounded extensions:
+
+- `Computability/FourierCircuit` supplies a Comparator-backed exact Fourier
+  circuit/resource theorem to the Fourier and phase-estimation chapter after a
+  circuit-model adapter; it does not close QPE itself;
+- `Computability/QuantumFactoring` is a source of compiler and resource
+  patterns for an extended synthesis chapter, not a core prerequisite;
+- `Analysis/Laughlin` is placed in an extended many-body-model chapter as
+  mathematical substrate, never as a claimed quantum simulation result.
+
+The Walsh-series and space--time--accuracy diagonal-operator papers remain
+respectively in Part I and Parts I--II. Their placement cards expose the phase
+supplier, accepted branch, finite-precision and success-cost obligations; no
+paper citation is promoted into a compiled theorem.
 
 ## 4. One graph, minimal duplicated nodes
 
@@ -200,10 +235,18 @@ mathematical oracle complexity and an explicit gate implementation.
 
 ## 7. Immediate next steps
 
+The September source/frontier admission is recorded in
+[the state-preparation audit](state-preparation-frontier-audit-20260929.md).
+It adds the Walsh Series Loader and diagonal space–time–accuracy papers to the
+planned queue, with shared phase/accepted-branch mechanisms, not a duplicate
+foundation. The canonical cards and routes remain in the research JSON.
+The Leditzky public PDF currently carries a 10 April 2026 edition date; FT25
+in its URL is not the edition date. These additions are not source-root closure.
+
 The near-term order is deliberately conservative:
 
-1. keep the current teaching surface as **Part I State Preparation / Part II
-   Block Encoding** while sharing Chapters 1–2 rather than duplicating them;
+1. publish all four peer parts in the teaching surface while marking Parts III
+   and IV, and the Walsh/diagonal additions, as planned rather than compiled;
 2. finish source-faithful Vandaele comparator/adder formalization before using
    its arithmetic circuits as generic memory;
 3. build the QIT shared foundations that are simultaneously useful to

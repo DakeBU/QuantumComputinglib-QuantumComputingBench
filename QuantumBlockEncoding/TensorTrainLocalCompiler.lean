@@ -63,7 +63,7 @@ def activePositions {q l : ℕ} (hl : l ≤ 2 ^ q) : Fin l ↪ PrimitiveBasis (q
   inj' a b h := by
     have he := congrArg (fun x => ((localIndex q) x).2.val) h
     apply Fin.ext
-    simpa only [Equiv.apply_symm_apply] using he
+    simpa only [Equiv.apply_symm_apply, Fin.castLE] using he
 
 /-- The occupied real columns of a padded core, in physical named-wire order. -/
 def activeColumns {n l r q : ℕ} (C : Chain n l r) (t : ℕ)
@@ -124,13 +124,16 @@ theorem exists_local_circuit_with_resources {n l r q : ℕ} (C : Chain n l r)
     rfl
   have he : activePositions hl aa = Fin.snoc a 0 := by
     apply (localIndex q).injective
-    simp [activePositions, hcast]
+    change localIndex q ((localIndex q).symm (0, Fin.castLE hl aa)) =
+      localIndex q (Fin.snoc a 0)
+    rw [Equiv.apply_symm_apply, localIndex_snoc, hcast]
     rfl
   rw [GrayGivensCompiler.compileSO_eval U hU hd]
   change (U (Fin.snoc b bit) (Fin.snoc a 0) : ℂ) = _
   rw [← he, columns]
-  simpa only [activeColumns, localIndex_snoc, hcast] using
-    paddedAt_real C t (bit, primitiveBasisLEEquiv q b) (primitiveBasisLEEquiv q a)
+  change ((paddedAt C t (localIndex q (Fin.snoc b bit)) (Fin.castLE hl aa)).re : ℂ) = _
+  rw [localIndex_snoc, hcast]
+  exact paddedAt_real C t (bit, primitiveBasisLEEquiv q b) (primitiveBasisLEEquiv q a)
 
 /-- Minimal local-column interface for sequential tensor-train assembly. -/
 theorem exists_local_circuit {n l r q : ℕ} (C : Chain n l r)

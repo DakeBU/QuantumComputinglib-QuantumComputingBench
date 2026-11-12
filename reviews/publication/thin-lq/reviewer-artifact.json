@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "role": "reviewer",
+  "identity": "/root/thin_lq_independent_reviewer",
+  "run_id": "thin-lq-independent-20261008",
+  "anti_anchored": true,
+  "verdict": "accepted",
+  "binding_sha256": "608241bcd9d3829a2b9ea60a84db0055dcf4c56bff3d71d36bd63be1d0ba3ae7",
+  "packet_path": "reviews/publication/thin-lq/reviewer-packet.json",
+  "packet_sha256": "de76b10990d784e19e13883728cb0c474b4b9288d0c36f9859308d8a04562ae0",
+  "source_path": "docs/lessons/finite-real-thin-lq.md",
+  "source_sha256": "2322843cfd6911d2a555615dafe71986afeb9a7440fec53d640ae55dc93fb907",
+  "module_path": "QuantumBlockEncoding/ThinLQ.lean",
+  "module_sha256": "4053889ffc143f953ed1f19898146657f92db2beb764af8754a6709c3983220a",
+  "decoder_evidence_sha256": "6126a56c698146c25baa96b653b4151ba98829d57e793e5aa685a6eff5580d86",
+  "review_scope": "Whole-module local mathematical statement, proof topology, source correctness and semantic comparison. Acceptance here does not attest integration, compilation, global migration, generated-reader or purification gates.",
+  "source_first_reconstruction": {
+    "order_observed": "Read the reviewer packet and entire authored mathematical lesson before opening ThinLQ.lean or the decoder artifacts. Reconstructed and recorded the following topology before implementation inspection; the subsequent comparison did not determine this reconstruction.",
+    "statement": "For arbitrary natural m,n and arbitrary real m-by-n A, let r=min(m,n). There exist real R of shape m-by-r and Q of shape r-by-n with A=RQ and QQ^T=I_r. No independence, full-rank, positive-dimension, nonzero-row or norm premise is stated. Width r depends on shape, not rank.",
+    "nodes": [
+      {"id": "source:prefix-sum", "claim": "A prefix sum in any additive commutative monoid equals the full finite sum when every complementary term is zero.", "argument": "The value-preserving prefix inclusion is injective; sum over its image, then add only zero terms outside it."},
+      {"id": "source:zero-padding", "claim": "For m<=n, form n vectors in real n-space from the m input rows followed by zero vectors."},
+      {"id": "source:ordered-completion", "claim": "A full orthonormal basis obtained by ordered Gram-Schmidt with completion satisfies <b_k,f_i>=0 for i<k even for dependent or zero input vectors.", "argument": "Use completion, not a claim that every raw residual has nonzero norm. The ordered zero property is the specific required basis property."},
+      {"id": "source:expansion-truncation", "claim": "For i<m, f_i=sum_{k<n}<b_k,f_i>b_k=sum_{k<m}<b_k,f_i>b_k.", "argument": "Full orthonormal-basis expansion supplies the first equality. Every discarded k obeys k>=m>i, so the prefix-sum node supplies the second."},
+      {"id": "source:factor-definitions", "claim": "Set R_ik=<b_k,f_i> and Q_kj=(b_k)_j for k<m."},
+      {"id": "source:entry-reconstruction", "claim": "Taking coordinate j in the truncated expansion yields A_ij=sum_{k<m}R_ik Q_kj."},
+      {"id": "source:row-orthogonality", "claim": "The coordinate inner product of any two retained basis vectors is their Kronecker delta, hence QQ^T=I_m."},
+      {"id": "source:shape-split", "claim": "If m<=n, substitute min(m,n)=m and use the wide construction. If m>n, substitute min(m,n)=n and use R=A,Q=I_n."}
+    ],
+    "dependency_edges": [
+      ["source:zero-padding", "source:ordered-completion"],
+      ["source:prefix-sum", "source:expansion-truncation"],
+      ["source:ordered-completion", "source:expansion-truncation"],
+      ["source:ordered-completion", "source:factor-definitions"],
+      ["source:expansion-truncation", "source:entry-reconstruction"],
+      ["source:factor-definitions", "source:entry-reconstruction"],
+      ["source:factor-definitions", "source:row-orthogonality"],
+      ["source:ordered-completion", "source:row-orthogonality"],
+      ["source:entry-reconstruction", "source:shape-split"],
+      ["source:row-orthogonality", "source:shape-split"]
+    ],
+    "branch_logic": "The all-shapes result uses a case split with branch-specific sufficient witnesses. Its wide route needs reconstruction AND row orthogonality. The tall identity route does not additionally depend on Gram-Schmidt. These are exhaustive shape branches, not two separately sufficient constructions for every shape.",
+    "source_coverage": [
+      {"region": "Opening description and Statement", "disposition": "NODE", "review": "Exact shape, real field, existential equalities, shape-width and empty orthogonality reviewed; introductory denial of algorithmic or triangular strength retained."},
+      {"region": "Removing zero terms from a sum", "disposition": "NODE", "review": "Full generalized additive-monoid statement and injective-image argument reviewed."},
+      {"region": "Wide matrices", "disposition": "NODE", "review": "Padding, completion, ordered zeros, both displayed expansion equalities, factor definitions, coordinate reconstruction and row Gram matrix all reviewed."},
+      {"region": "Named imported providers in Wide matrices", "disposition": "NODE", "review": "Actual provider signatures and completion mechanism inspected; they are proof dependencies, not input assumptions or black-box oracle premises."},
+      {"region": "All shapes", "disposition": "NODE", "review": "Both dimension substitutions and tall identity equations reviewed, including n=0."},
+      {"region": "Formal context and boundary", "disposition": "NODE", "review": "Module imports agree with actual file. Existence-to-stored-factor, pivot, rotation, runtime and efficient-compiler boundaries remain explicit."},
+      {"region": "Publication-status location and other-module/Hermite admission notice", "disposition": "EXCLUDED", "reason": "Administrative pointers and negative scope notices are not additional mathematical claims; their registries and wider admission state were deliberately not consulted or certified."}
+    ],
+    "source_gaps": [],
+    "mathematical_correctness": "The argument is valid. For a zero Gram-Schmidt direction, its assigned completion vector is orthogonal to the span of all nonzero normalized directions, hence to every input row; for a nonzero later direction, ordered Gram-Schmidt gives the needed orthogonality to earlier inputs. Consequently completion cannot introduce a nonzero discarded coefficient. The finite sum restriction and real coordinate Gram calculation then establish both equalities. The tall identity branch is exact without any rank condition."
+  },
+  "whole_module_comparison": [
+    {
+      "declaration": "QuantumBlockEncoding.ThinLQ.sum_prefix_of_zero",
+      "result": "matches",
+      "comparison": "The public type has arbitrary m,n, AddCommMonoid M, m<=n and exactly the tail-zero premise stated in the lesson. Fin.castLE preserves prefix index values. The actual proof rewrites by the injective image sum and Finset.sum_subset, supplying tail-zero for excluded indices. No positive dimension or stronger additive structure is hidden."
+    },
+    {
+      "declaration": "QuantumBlockEncoding.ThinLQ.exists_factor_of_le",
+      "result": "matches",
+      "comparison": "The public hypothesis is solely m<=n in addition to a real input matrix. Witness dimensions m-by-m and m-by-n and the conjunction A=R*Q, Q*Q.transpose=1 exactly match the wide source statement. Local f uses zero-padding and the Euclidean wrapper, b uses a full completion at dimension n, and R uses b.repr. OrthonormalBasis.repr_apply_apply identifies that coefficient with the source inner product. The actual hz proof obtains ordered coefficient zeros, hs restricts the sum, hb expands the basis and evaluates a coordinate, and inner_eq_ite plus PiLp.inner_apply establishes the retained-row identity."
+    },
+    {
+      "declaration": "QuantumBlockEncoding.ThinLQ.exists_thin_lq",
+      "result": "matches",
+      "comparison": "The public type has no shape inequality or extra input assumptions, and both factor widths are exactly min(m,n). The actual case split substitutes min=m and calls the wide theorem, or substitutes min=n and returns A and the identity. This is the same proof topology as the lesson."
+    }
+  ],
+  "boundary_checks": [
+    {"case": "m=0", "finding": "r=0. R is 0-by-0 and Q is 0-by-n; equality and row Gram constraints have no row entries. Prefix restriction also works for an empty prefix."},
+    {"case": "n=0,m>0", "finding": "r=0. R=A is m-by-0 and Q=I_0 is 0-by-0 in the tall route. No column entries or orthonormal rows are required."},
+    {"case": "m=n=0", "finding": "Both routes' mathematical contracts are vacuous; the formal split uses the wide route. No division by a zero row norm is required to provide a basis of the zero space."},
+    {"case": "A=0,r>0", "finding": "Q has r genuine unit orthogonal rows supplied by completion; all coefficients in the wide R vanish, or tall R=A=0. The contract does not claim Q itself is zero."},
+    {"case": "rank(A)<r", "finding": "Completion supplies extra directions and the coefficients still reconstruct A. The lesson and formal theorem both use r rows, not rank(A) rows; neither asserts equality of A's row space and Q's row space."},
+    {"case": "m=n", "finding": "The formal first branch is valid; no nonsingularity premise arises. A square orthogonal Q is possible even when A is singular."},
+    {"case": "m>n", "finding": "Q=I_n and R=A satisfy the stated equations, but do not provide a triangular/trapezoidal R for arbitrary A. The source expressly denies a triangular-factor conclusion."},
+    {"case": "m<n", "finding": "QQ^T=I_m is row orthonormality, not Q^TQ=I_n. No silent column-orthonormality or unitary-circuit inference appears."}
+  ],
+  "semantic_slots": {
+    "target": "Match: exact real finite-matrix factorization A=RQ with R:m-by-r,Q:r-by-n,r=min(m,n), and QQ^T=I_r. All three public statements are covered; no triangularity, uniqueness or rank-minimality clause is asserted.",
+    "normalization": "Match: Q's rows have real dot products delta_kl, so each existing row has norm one. A and R need no norm bound or normalization. Quantum-state normalization and block-encoding scaling are not applicable because there is no state or block-encoding contract.",
+    "registers": "Quantum registers are not applicable: objects are functions on Fin row and column indices. Row index precedes column index, factors use the specified shared width, and ordinary transpose swaps the two indices. No qubit, tensor or endianness convention is present.",
+    "oracles": "Not applicable: no oracle-access hypothesis or runtime input API exists. Imported Gram-Schmidt completion and basis theorems are formal proof providers, not quantum or classical access oracles assumed of A.",
+    "ancillas_phases": "Not applicable: there is no circuit workspace, ancilla, garbage sector or complex phase. All scalars are real and the theorem uses ordinary transpose; orthonormal-completion choices are noncanonical mathematical witnesses, not relative-phase or cleanup claims.",
+    "error_success": "Match: both matrix equations hold exactly, including empty, zero and deficient cases. There is no approximation parameter, numerical stability bound, postselection, randomized procedure or success-probability assertion.",
+    "resources": "Match: only output matrix dimensions are asserted. Noncomputable choice-based completion proves existence and does not supply executable stored factors, a numerical algorithm, runtime, query/gate bounds or finite-bit costs. The lesson explicitly preserves those frontiers."
+  },
+  "decoder_comparison": {
+    "artifact_path": "reviews/publication/thin-lq/decoder-artifact.json",
+    "artifact_sha256_computed": "f165f1723e1e9ad513b6458dc3a71c0b032efb79224e9830acc6c72bcd68fef0",
+    "evidence_path": "reviews/publication/thin-lq/decoder-evidence.json",
+    "evidence_sha256_computed": "6126a56c698146c25baa96b653b4151ba98829d57e793e5aa685a6eff5580d86",
+    "result": "The independent decoder reconstructs the same three statements and boundaries. Its triangularity warning is not a mismatch because the authored lesson expressly excludes that conclusion. Its inferred rank/projection consequences are labeled as unexported consequences and are mathematically consistent; they are not promoted as additional module declarations. Decoder limitations are preserved rather than upgraded into a compiler or source certificate."
+  },
+  "drift_and_novelty": {
+    "mismatches": [],
+    "required_repairs": [],
+    "finding": "No undocumented source/implementation drift, extra public premise, silent mathematical correction, algorithmic promotion or novelty claim was found. There are exactly three public theorems, no public definitions or local duplicate factorization implementations. The wide proof's stronger zero pattern is not exported as a conclusion; the lesson does not advertise it. Reuse is through the existing Mathlib providers.",
+    "duplicate_audit_scope": "The entire target module was inspected. This is not an exhaustive repository-wide canonicality or duplicate-declaration audit."
+  },
+  "consulted_files": [
+    "AGENTS.md",
+    "HARNESS.md",
+    ".agents/skills/qbe-frontier-master/SKILL.md",
+    ".agents/skills/qbe-substantive-worker/SKILL.md",
+    "docs/theorem-publication-protocol.md",
+    "docs/proof-digestion-protocol.md",
+    "docs/evidence-routed-memory-protocol.md",
+    "reviews/publication/thin-lq/reviewer-packet.json",
+    "docs/lessons/finite-real-thin-lq.md",
+    "QuantumBlockEncoding/ThinLQ.lean",
+    "reviews/publication/thin-lq/decoder-artifact.json",
+    "reviews/publication/thin-lq/decoder-evidence.json",
+    "lean-toolchain",
+    "lake-manifest.json",
+    ".lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/GramSchmidtOrtho.lean",
+    ".lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/PiL2.lean",
+    ".lake/packages/mathlib/Mathlib/Data/Matrix/Basic.lean",
+    ".lake/packages/mathlib/Mathlib/LinearAlgebra/Matrix/Defs.lean",
+    ".lake/packages/mathlib/Mathlib/Data/Matrix/Mul.lean",
+    ".lake/packages/mathlib/Mathlib/Data/Matrix/Diagonal.lean"
+  ],
+  "consultation_details": {
+    "fully_read": "The task packet, lesson, target module, decoder artifact/evidence, toolchain, manifest and listed repository guidance were read completely. A combined guidance read was truncated, so omitted skill text and Harness tail were reread in focused calls.",
+    "providers": "GramSchmidtOrtho.lean was read completely. Selected PiL2 excerpts cover Euclidean carrier/inner product, basis repr, sum reconstruction, orthonormality and indexed basis extension with cardinality equality. Matrix provider excerpts cover carrier, transpose, finite multiplication and identity. Basic.lean's opening imports were checked.",
+    "search_only_files": [".lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/Orthonormal.lean"],
+    "excluded_inputs": ["publication-candidate.json", "source-contract classifications", "source/publication registry records", "prior reviewer verdicts", "earlier chat summaries"],
+    "nested_guidance_check": "Checked AGENTS.md at the reviews, reviews/publication, reviews/publication/thin-lq, docs, docs/lessons and QuantumBlockEncoding ancestors; none existed there.",
+    "writes": ["reviews/publication/thin-lq/reviewer-artifact.json", "reviews/publication/thin-lq/reviewer-evidence.json"]
+  },
+  "limitations": [
+    "No independent Lean execution or compilation was performed in this review. The verdict is a source/semantic comparison, not a compiler attestation. No broad build or full integration/reader gate was run.",
+    "The target module contains no sorry, admit or custom axiom declaration by full inspection and declaration search. This is not a transitive proof-term or axiom audit of Mathlib.",
+    "Provider review was focused as described, not a complete transitive formal-library review. The toolchain file states leanprover/lean4:v4.33.0 and the manifest pins Mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d; installed-toolchain execution was not certified.",
+    "The lesson is a retrospective local contract, not an externally sourced paper-reproduction or foundational-novelty claim. No external paper audit was attempted.",
+    "Acceptance does not close other production modules, Hermite, stored/constructive suppliers, runtime, quantum-circuit realization, migration, deployment, Exposition Seal or PURIFIED status."
+  ],
+  "conclusion": "Accepted for the pinned local whole-module mathematical-contract review: the source is mathematically sound and exactly matches all public theorem interfaces and proof boundaries. No repair is requested within this scope."
+}

@@ -35,8 +35,9 @@ example : Equiv.Perm.sign (extendPrefix (by decide) highPosition 1 le_rfl) = -1 
 example : unusedPosition (by decide : 1 < 2) highPosition = 0 := by decide
 
 example : complete (by decide : 1 < 2) negativeColumn highPosition 0 1 = -1 := by
-  simpa [negativeColumn, highPosition] using
-    (complete_spec (by decide) negativeColumn highPosition negativeColumn_isometry).2.2 0 0
+  have h := (complete_spec (by decide) negativeColumn highPosition negativeColumn_isometry).2.2 0 0
+  change complete (by decide : 1 < 2) negativeColumn highPosition 0 1 = negativeColumn 0 0 at h
+  simpa [negativeColumn] using h
 
 example : (complete (by decide : 1 < 2) negativeColumn highPosition).det = 1 :=
   (complete_spec (by decide) negativeColumn highPosition negativeColumn_isometry).2.1

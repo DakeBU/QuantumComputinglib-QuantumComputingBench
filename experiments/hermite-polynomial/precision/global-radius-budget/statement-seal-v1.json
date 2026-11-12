@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "declaration_level": "C_INTERNAL_PROVIDER",
+  "status": "STATEMENT_SEALED_BEFORE_IMPLEMENTATION",
+  "base_commit": "b68ecbe",
+  "direction_fingerprint": "global-normalized-metric-dimension-aware-rational-radius-allocation",
+  "definitions": {
+    "lipschitzQ": "def lipschitzQ (k : Nat) : Rat := 2*(k+1)^2*2^(3*k)*(2*k+2)*(2*k+1)*2^(2*k+1)",
+    "deltaRadius": "def deltaRadius (k n : Nat) (epsilon : Rat) : Rat := epsilon/(8*2^(n+1)*lipschitzQ k)",
+    "allocatedRadius": "def allocatedRadius (k n : Nat) (L epsilon : Rat) : Rat := logRadius L (deltaRadius k n epsilon)"
+  },
+  "signatures": [
+    "theorem lipschitzQ_cast (k : Nat) : (lipschitzQ k : Real) = sourceLipschitzConstant k",
+    "theorem deltaRadius_positive (k n : Nat) (epsilon : Rat) (hepsilon : 0 < epsilon) : 0 < deltaRadius k n epsilon",
+    "theorem allocatedRadius_positive (k n : Nat) (L epsilon : Rat) (hL : 0 < L) (hepsilon : 0 < epsilon) : 0 < allocatedRadius k n L epsilon",
+    "theorem allocatedRadius_error (k n : Nat) (L epsilon : Rat) (hL : 0 < L) (hepsilon : 0 < epsilon) : |(allocatedRadius k n L epsilon : Real)-Real.pi*(L : Real)| <= (deltaRadius k n epsilon : Real)",
+    "theorem normalized_allocatedRadius_error (k n : Nat) (L epsilon : Rat) (hL : 0 < L) (hepsilon : 0 < epsilon) : norm (NormedSpace.normalize (radiusVector k n (allocatedRadius k n L epsilon : Real))-targetVector k n (L : Real)) <= (epsilon : Real)/4",
+    "theorem allocatedTermCount_size (k n : Nat) (L epsilon : Rat) : logTermCount L (deltaRadius k n epsilon) <= Nat.size (max 1 (Nat.ceil (160*L*2^(n+1)*lipschitzQ k/epsilon)))+1"
+  ],
+  "binder_audit": {
+    "TYPING": ["k,n arbitrary Nat; physical input width n+1 >= 1", "L,epsilon exact finite Rat"],
+    "SOURCE": ["L>0", "epsilon>0 selected global normalized-state error budget"],
+    "EXCESS": [],
+    "dependencies_not_binders": ["actual all-k source Lipschitz theorem", "actual logarithmic Machin radius error", "normalization stability", "sqrt dimension comparison"]
+  },
+  "contract": "Original signed Hermite function-value amplitudes and original normalizer on p_j=-pi*L+2*pi*L*j/2^(n+1), q0 least significant; no circuit or garbage sector changes. Only radius perturbation receives epsilon/4. Other four error stages remain OPEN and are neither zeroed nor assumed discharged.",
+  "definition_kind": "literal finite rational arithmetic; positive-domain theorem, no choice or real approximation oracle",
+  "review_debt": "Internal provider only; distinct exact-source review pending. No Source Anchor, Proof Seal, publication, purified-reader or root-closure credit.",
+  "cost_boundary": "Term count bound only; stored intermediate, GCD, runtime, all other source errors, QR, circuit synthesis remain OPEN."
+}

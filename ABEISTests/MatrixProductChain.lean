@@ -10,13 +10,15 @@ def scalarKernel : Kernel 1 := fun t bit _ _ =>
 -- The first emitted bit is the first kernel argument; this catches reversal.
 example : contract (ofKernel scalarKernel (fun _ => 1) (fun _ => 1) 0 1)
     ((0 : Fin 2), ((1 : Fin 2), ())) 0 0 = 14 := by
-  rw [ofKernel_contract]
-  norm_num [readout, scalarKernel, _root_.Matrix.mulVec, dotProduct]
+  have h := ofKernel_contract scalarKernel (fun _ => 1) (fun _ => 1) 0 1 (0, (1, ()))
+  norm_num [readout, scalarKernel, _root_.Matrix.mulVec, dotProduct] at h
+  exact h
 
 example : contract (ofKernel scalarKernel (fun _ => 1) (fun _ => 1) 0 1)
     ((1 : Fin 2), ((0 : Fin 2), ())) 0 0 = 15 := by
-  rw [ofKernel_contract]
-  norm_num [readout, scalarKernel, _root_.Matrix.mulVec, dotProduct]
+  have h := ofKernel_contract scalarKernel (fun _ => 1) (fun _ => 1) 0 1 (1, (0, ()))
+  norm_num [readout, scalarKernel, _root_.Matrix.mulVec, dotProduct] at h
+  exact h
 
 -- An empty interior bond yields zero amplitudes, without nonempty assumptions.
 example (K : Kernel 0) (left right : Fin 0 → ℝ) (n : Nat) (x : Word (n + 1)) :

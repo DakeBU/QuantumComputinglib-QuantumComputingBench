@@ -1,0 +1,22 @@
+theorem HermitePiecewiseStored.allocated_stored_source : ∀ (k n : ℕ) (L epsilon : ℚ),
+  0 < L →
+    0 < epsilon →
+      ∀ (x : Word (n + 1)),
+        have R := ExperimentalGlobalRadiusBudget.allocatedRadius k n L epsilon;
+        have delta := sourceDelta k n epsilon;
+        have result := produceStored k n R delta;
+        denoteChain result.value = actualChain k n R delta ∧
+          contract (denoteChain result.value) x 0 0 = ↑(piecewiseValue k delta (rationalGrid n R (wordIndex n x))) ∧
+            maxBond (denoteChain result.value) ≤ 18 * (sourceDegree delta + 1) + 9 * (2 * k + 1 + 1) + 18 ∧
+              MatrixProductChain.storedScalars (denoteChain result.value) ≤
+                2 * (n + 1) * (18 * (sourceDegree delta + 1) + 9 * (2 * k + 1 + 1) + 18) ^ 2 :=
+fun k n L epsilon hL he x =>
+  ⟨produceStored_refines k n (ExperimentalGlobalRadiusBudget.allocatedRadius k n L epsilon) (sourceDelta k n epsilon),
+    ⟨produceStored_source k n (ExperimentalGlobalRadiusBudget.allocatedRadius k n L epsilon) (sourceDelta k n epsilon)
+        (ExperimentalGlobalRadiusBudget.allocatedRadius_positive k n L epsilon hL he) x,
+      ⟨produceStored_maxBond k n (ExperimentalGlobalRadiusBudget.allocatedRadius k n L epsilon)
+          (sourceDelta k n epsilon),
+        produceStored_scalars k n (ExperimentalGlobalRadiusBudget.allocatedRadius k n L epsilon)
+          (sourceDelta k n epsilon)⟩⟩⟩
+'HermitePiecewiseStored.allocated_stored_source' depends on axioms: [propext, Classical.choice, Quot.sound]
+warning: verso: repository '.\.lake/packages\verso' has local changes

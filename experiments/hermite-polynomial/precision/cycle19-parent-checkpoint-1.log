@@ -1,0 +1,74 @@
+warning: verso: repository '<repo>\.lake/packages\verso' has local changes
+theorem HermiteLiteralComplexAdapter.realWord_eq_primitive : ∀ {width : ℕ} (word : List (Instruction width)),
+  castMatrix (realWord word realIdentity) =
+    (Matrix.reindexAlgEquiv ℂ ℂ (primitiveBasisLEEquiv width)) (evalPrimitiveCircuit (compileWord word)) :=
+fun {width} word =>
+  Eq.mpr
+    (id
+      (congrArg
+        (fun _a =>
+          _a = (Matrix.reindexAlgEquiv ℂ ℂ (primitiveBasisLEEquiv width)) (evalPrimitiveCircuit (compileWord word)))
+        (realWord_input_eq_primitive word realIdentity)))
+    (have h :=
+      Matrix.ext fun i j =>
+        if h : i = j then
+          of_eq_true
+            (Eq.trans
+              (congr
+                (congrArg Eq
+                  (congrArg Complex.ofReal (ite_cond_eq_true 1 0 (Eq.trans (congrFun' (congrArg Eq h) j) (eq_self j)))))
+                (ite_cond_eq_true 1 0 (Eq.trans (congrFun' (congrArg Eq h) j) (eq_self j))))
+              (eq_self 1))
+        else
+          of_eq_true
+            (Eq.trans
+              (congr (congrArg Eq (congrArg Complex.ofReal (ite_cond_eq_false 1 0 (eq_false h))))
+                (Matrix.one_apply_ne (of_eq_true (Eq.trans (congrArg Not (eq_false h)) not_false_eq_true))))
+              (eq_self 0));
+    Eq.mpr
+      (id
+        (congrArg
+          (fun _a =>
+            (Matrix.reindexAlgEquiv ℂ ℂ (primitiveBasisLEEquiv width)) (evalPrimitiveCircuit (compileWord word)) * _a =
+              (Matrix.reindexAlgEquiv ℂ ℂ (primitiveBasisLEEquiv width)) (evalPrimitiveCircuit (compileWord word)))
+          h))
+      (Eq.mpr
+        (id
+          (congrArg
+            (fun _a =>
+              _a = (Matrix.reindexAlgEquiv ℂ ℂ (primitiveBasisLEEquiv width)) (evalPrimitiveCircuit (compileWord word)))
+            (mul_one
+              ((Matrix.reindexAlgEquiv ℂ ℂ (primitiveBasisLEEquiv width)) (evalPrimitiveCircuit (compileWord word))))))
+        (Eq.refl
+          ((Matrix.reindexAlgEquiv ℂ ℂ (primitiveBasisLEEquiv width)) (evalPrimitiveCircuit (compileWord word))))))
+theorem HermiteLiteralComplexAdapter.realWord_input_eq_primitive : ∀ {width : ℕ} (word : List (Instruction width))
+  (m : RealMatrix width),
+  castMatrix (realWord word m) =
+    (Matrix.reindexAlgEquiv ℂ ℂ (primitiveBasisLEEquiv width)) (evalPrimitiveCircuit (compileWord word)) *
+      castMatrix m :=
+fun {width} word m =>
+  have h := congrArg (⇑(Matrix.reindexAlgEquiv ℂ ℂ (primitiveBasisLEEquiv width))) (namedCast_word word m);
+  Eq.mp
+    (congr
+      (congrArg Eq
+        (AlgEquiv.apply_symm_apply (Matrix.reindexAlgEquiv ℂ ℂ (primitiveBasisLEEquiv width))
+          (castMatrix (realWord word m))))
+      (Eq.trans
+        (map_mul (Matrix.reindexAlgEquiv ℂ ℂ (primitiveBasisLEEquiv width)) (evalPrimitiveCircuit (compileWord word))
+          ((Matrix.reindexAlgEquiv ℂ ℂ (primitiveBasisLEEquiv width)).symm (castMatrix m)))
+        (congrArg
+          (HMul.hMul
+            ((Matrix.reindexAlgEquiv ℂ ℂ (primitiveBasisLEEquiv width)) (evalPrimitiveCircuit (compileWord word))))
+          (AlgEquiv.apply_symm_apply (Matrix.reindexAlgEquiv ℂ ℂ (primitiveBasisLEEquiv width)) (castMatrix m)))))
+    h
+'HermiteLiteralComplexAdapter.realWord_eq_primitive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteLiteralComplexAdapter.realWord_input_eq_primitive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C18IndependentReview.arbitrary_nonidentity_input' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C18IndependentReview.all_spectators_low' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C18IndependentReview.all_spectators_high' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C18IndependentReview.cx_inverse_row_direction' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C18IndependentReview.cx_full_input' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C18IndependentReview.signed_negative_rational' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C18IndependentReview.chronological_all_inputs' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C18IndependentReview.arbitrary_complex_vector' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C18IndependentReview.width_zero_arbitrary_input' depends on axioms: [propext, Classical.choice, Quot.sound]

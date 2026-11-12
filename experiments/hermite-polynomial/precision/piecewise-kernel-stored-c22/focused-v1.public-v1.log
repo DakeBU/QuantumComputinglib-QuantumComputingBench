@@ -1,0 +1,63 @@
+BEGIN QuantumBlockEncoding/StoredGivens.lean
+warning: verso: repository '.\.lake/packages\verso' has local changes
+PASS QuantumBlockEncoding/StoredGivens.lean
+BEGIN QuantumBlockEncoding/StoredTensorTrain.lean
+warning: verso: repository '.\.lake/packages\verso' has local changes
+PASS QuantumBlockEncoding/StoredTensorTrain.lean
+BEGIN QuantumBlockEncoding/MatrixProductChain.lean
+warning: verso: repository '.\.lake/packages\verso' has local changes
+PASS QuantumBlockEncoding/MatrixProductChain.lean
+BEGIN QuantumBlockEncoding/StoredMatrixProductChain.lean
+warning: verso: repository '.\.lake/packages\verso' has local changes
+QuantumBlockEncoding/StoredMatrixProductChain.lean:107:59: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+PASS QuantumBlockEncoding/StoredMatrixProductChain.lean
+BEGIN experiments/hermite-polynomial/precision/piecewise-kernel-stored-c22/RationalBlocks.lean
+warning: verso: repository '.\.lake/packages\verso' has local changes
+'HermitePiecewiseStored.actualBlocksQ_cast' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseStored.actualEntryQ_cast' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseStored.actualLeftQ_cast' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseStored.actualRightQ_cast' depends on axioms: [propext, Classical.choice, Quot.sound]
+PASS experiments/hermite-polynomial/precision/piecewise-kernel-stored-c22/RationalBlocks.lean
+BEGIN experiments/hermite-polynomial/precision/piecewise-kernel-stored-c22/StoredProducer.lean
+warning: verso: repository '.\.lake/packages\verso' has local changes
+'HermitePiecewiseStored.produceQData_entry' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseStored.produceData_window' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseStored.produceStored_refines' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseStored.produceStored_source' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseStored.produceStored_maxBond' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseStored.produceStored_scalars' depends on axioms: [propext, Classical.choice, Quot.sound]
+PASS experiments/hermite-polynomial/precision/piecewise-kernel-stored-c22/StoredProducer.lean
+BEGIN experiments/hermite-polynomial/precision/piecewise-kernel-stored-c22/AccountedTraffic.lean
+warning: verso: repository '.\.lake/packages\verso' has local changes
+'HermitePiecewiseStored.produceQData_traffic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseStored.produceData_accounted_total' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermitePiecewiseStored.produceStored_accounted_traffic_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+PASS experiments/hermite-polynomial/precision/piecewise-kernel-stored-c22/AccountedTraffic.lean
+BEGIN experiments/hermite-polynomial/precision/piecewise-kernel-stored-c22/StoredConsumerChecks.lean
+warning: verso: repository '.\.lake/packages\verso' has local changes
+theorem HermitePiecewiseStored.allocated_stored_source : ∀ (k n : ℕ) (L epsilon : ℚ),
+  0 < L →
+    0 < epsilon →
+      ∀ (x : Word (n + 1)),
+        have R := ExperimentalGlobalRadiusBudget.allocatedRadius k n L epsilon;
+        have delta := sourceDelta k n epsilon;
+        have result := produceStored k n R delta;
+        denoteChain result.value = actualChain k n R delta ∧
+          contract (denoteChain result.value) x 0 0 = ↑(piecewiseValue k delta (rationalGrid n R (wordIndex n x))) ∧
+            maxBond (denoteChain result.value) ≤ 18 * (sourceDegree delta + 1) + 9 * (2 * k + 1 + 1) + 18 ∧
+              MatrixProductChain.storedScalars (denoteChain result.value) ≤
+                2 * (n + 1) * (18 * (sourceDegree delta + 1) + 9 * (2 * k + 1 + 1) + 18) ^ 2 :=
+fun k n L epsilon hL he x =>
+  ⟨produceStored_refines k n (ExperimentalGlobalRadiusBudget.allocatedRadius k n L epsilon) (sourceDelta k n epsilon),
+    ⟨produceStored_source k n (ExperimentalGlobalRadiusBudget.allocatedRadius k n L epsilon) (sourceDelta k n epsilon)
+        (ExperimentalGlobalRadiusBudget.allocatedRadius_positive k n L epsilon hL he) x,
+      ⟨produceStored_maxBond k n (ExperimentalGlobalRadiusBudget.allocatedRadius k n L epsilon)
+          (sourceDelta k n epsilon),
+        produceStored_scalars k n (ExperimentalGlobalRadiusBudget.allocatedRadius k n L epsilon)
+          (sourceDelta k n epsilon)⟩⟩⟩
+'HermitePiecewiseStored.allocated_stored_source' depends on axioms: [propext, Classical.choice, Quot.sound]
+PASS experiments/hermite-polynomial/precision/piecewise-kernel-stored-c22/StoredConsumerChecks.lean
+ALL PRE-GATE SOURCE/SEAL/FROZEN C19 C20 C21 BINDINGS UNCHANGED
+

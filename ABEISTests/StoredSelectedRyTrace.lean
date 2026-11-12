@@ -69,7 +69,11 @@ example : (StoredSelectedRyTrace.append [1, 2, 3] [8, 9]).value = [1, 2, 3, 8, 9
 example (xs : Coefficients 2) :
     (compile 2 (#v[3, 3] : Vector (Fin 4) 2) 1 (by decide) xs).value =
       SelectedRyTrace.compile 2 (fun _ : Fin 2 => (3 : Fin 4)) 1 (by decide) (denote xs) := by
-  simpa using compile_value (#v[3, 3] : Vector (Fin 4) 2) 1 (by decide) xs
+  have wires_eq : (fun i : Fin 2 => (#v[3, 3] : Vector (Fin 4) 2)[i.val]) =
+      (fun _ : Fin 2 => (3 : Fin 4)) := by
+    funext i
+    fin_cases i <;> rfl
+  simpa only [wires_eq] using compile_value (#v[3, 3] : Vector (Fin 4) 2) 1 (by decide) xs
 
 example {qubits q : Nat} (wires : Vector (Fin qubits) q) (target : Fin qubits)
     (distinct : ∀ i : Fin q, wires[i.val] ≠ target) (xs : Coefficients q) :

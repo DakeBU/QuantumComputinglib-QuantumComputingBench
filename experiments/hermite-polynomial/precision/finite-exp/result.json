@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "cycle": 14,
+  "status": "PROVED_LOCALLY_PENDING_DISTINCT_REVIEW",
+  "declaration_level": "C_INTERNAL_PROVIDER",
+  "author": "root",
+  "direction_fingerprint": "finite-negative-exponential-supplier-with-charged-tail-clipping",
+  "mathematical_delta": "Literal computable rational Taylor enclosures for exp(q), q<=0, derived from actual iterated derivatives and the correct (n+1)! remainder. At q<=-T, the genuinely clipped branch returns [0,2^-T] and never evaluates Taylor powers of huge |q|. Positive rational scalar-width epsilon allocates T through checked logarithmic ceiling. Actual original Hermite left/right rational-coordinate tails and exp(-1) consume this supplier.",
+  "bindings": [
+    {"path": "experiments/hermite-polynomial/precision/finite-exp/statement-seal-v1.json", "sha256": "3cb46335cfd9db262fd1b8208cb9093d084029250a54cd9506e77647d2fa4308"},
+    {"path": "experiments/hermite-polynomial/precision/finite-exp/statement-seal-v2.json", "sha256": "3a295a2f61437d2ba4183a88313407afa63d7fcb4504d33b330543a670465095"},
+    {"path": "experiments/hermite-polynomial/precision/finite-exp/FiniteExp.lean", "sha256": "7bb399fdb135a17791d821388b217fad9ad7d4bd53d9bfb896409ac632fb813c"},
+    {"path": "experiments/hermite-polynomial/precision/finite-exp/ConsumerChecks.lean", "sha256": "c91e371502e7c70342889516251f911d7a296b12bb6513d0883f00c24c0d0ebb"},
+    {"path": "experiments/hermite-polynomial/precision/finite-exp/replay.ps1", "sha256": "0322d6ae6a38dfd4a29dd85333b1f746e4b8f378857d90b722b49df4d035fa65"}
+  ],
+  "focused_gate": {
+    "command": "powershell -NoProfile -ExecutionPolicy Bypass -File experiments/hermite-polynomial/precision/finite-exp/replay.ps1",
+    "session": 68872,
+    "exit_code": 0,
+    "full_sources": 2,
+    "printed_roots": 11,
+    "axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "kernel_discriminators": 8,
+    "interpreter_discriminators": 5,
+    "outputs": ["tailCutoff(1/1000)=10", "tailCutoff(2^-80)=80", "checked(-1,1/1000,10,8)=some(16687/45360,66749/181440)", "checked(-1,1/1000,10,0)=none", "checked(-10^1000,2^-80,80,0)=some(0,2^-80)"],
+    "cache": {"path": ".lake/finite-exp-cache/FiniteExp.olean", "sha256": "11f58fe09ab4a1aa2c6e80761d84a2f4fb321867219842000e18f77bba688064", "ignored": true},
+    "warning_boundary": "Existing local Verso compatibility changes and harmless simp/sequence lints; not a clean Linux/CI claim. Replay uses process-scoped script-policy override, not system policy mutation."
+  },
+  "failure_record": [
+    {"class": "API_BLOCKED", "attempt": "Initial inverse monotonicity used iff as a direct proof and unnecessary false-branch tactic", "repair": "Use inv_le_inv0.mpr with both positive powers; remove automatically discharged impossible branch. Final complete sources compiled without placeholder axioms."},
+    {"class": "IMPLEMENTATION_FAILED", "attempt": "Kernel decide examples stalled at rational division; enormous power also exceeded elaborator exponent/recursion thresholds", "repair": "Small fixtures use kernel norm_num/simp. Huge input remains an actual #eval discriminator only; not presented as a kernel fixture theorem."},
+    {"class": "ENV_BLOCKED", "attempt": "Host script policy rejected plain PowerShell replay", "repair": "Explicit process-only -ExecutionPolicy Bypass; actual complete replay passed."}
+  ],
+  "cost_boundary": {
+    "proved": "Active (nonclipped) arguments have |q|<T. Tail cutoff <= Nat.size(max1 ceil(1/epsilon)). This is mathematical magnitude/term-allocation evidence, not a total bit-cost theorem.",
+    "not_proved": ["Uniform active Taylor degree completeness or polynomial bound", "canonical rational input-size translation", "all intermediate numerator/denominator, GCD, parsing/comparison, copying/storage/runtime", "source radius/scalar error to actual stored TT", "Python/dyadic producer refinement", "full global error composition", "physical gate synthesis"]
+  },
+  "scientific_boundary": "Scalar epsilon is interval width, not an automatically granted global state epsilon. Consumers are the literal source at rational p, not original irrational grid-to-storage refinement. Clipping error is enclosed, never silently dropped or renormalized away.",
+  "scientific_ROOT": false,
+  "C2_C3_X2": "OPEN",
+  "independent_review": "PENDING",
+  "source_anchor_publication_purification": "NOT_CLAIMED",
+  "rollback": "Remove this isolated experimental package and its subsequent ledger references; production verifier, target, scoring, accepted artifacts and historical packets remain unchanged."
+}

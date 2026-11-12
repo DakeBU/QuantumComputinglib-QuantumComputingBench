@@ -30,6 +30,7 @@ noncomputable def factorCore {l r : ℕ} (A : Core l r) : CoreFactorization A :=
   let factors := ConstructiveThinLQ.factor (fun a j => A a (e.symm j))
   refine ⟨factors.R, fun a j => factors.Q a (e j), ?_, ?_⟩
   · ext a j
+    change A a j = ∑ k, factors.R a k * factors.Q k (e j)
     simpa only [Equiv.symm_apply_apply, _root_.Matrix.mul_apply] using
       congrFun (congrFun factors.factorization a) (e j)
   · ext a b

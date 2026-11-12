@@ -1,0 +1,62 @@
+{
+  "schema": "c29-reviewer-public-sanitized-allowlist-v1",
+  "status": "EXPORT_ALLOWLIST_ONLY_NOT_PUBLICATION_OR_ADMISSION",
+  "reviewer_identity": "/root/cubic_source_first_review_c29",
+  "logical_path_aliases": [
+    "$PROJECT",
+    "$AUTHOR",
+    "$REVIEWER"
+  ],
+  "allowed_artifacts": [
+    {
+      "path": "$REVIEWER/sanitized-phase1-notes.md",
+      "sha256": "7ef1ae4aa05afe87cf8ec7abe22ab5ab307f60ee36508834785185dd817fc9a5",
+      "bytes": 43745
+    },
+    {
+      "path": "$REVIEWER/sanitized-phase1-seal.json",
+      "sha256": "54a5ed5be1ffed9adb8459fc4dd0d059c76ab290e240bc0cebc05c16ba935474",
+      "bytes": 4315
+    },
+    {
+      "path": "$REVIEWER/phase2-static-report.md",
+      "sha256": "ccdcd6cdb0d40d4645ed4d64c9381ffc9121c88309be4493979b7a35156a4f4e",
+      "bytes": 34446
+    },
+    {
+      "path": "$REVIEWER/phase2-static-seal.json",
+      "sha256": "5fb3ca99c1dfa0f39ee671393196ea9da180f477008e01b14cef696f56bf3ee0",
+      "bytes": 10361
+    }
+  ],
+  "allowlist_self_path": "$REVIEWER/public-sanitized-allowlist.json",
+  "self_hash_excluded": true,
+  "original_phase1_bindings_retained": [
+    {
+      "path": "$REVIEWER/source-only-notes.md",
+      "sha256": "be330a1b3b5f30d66dfd9a41a62bc7fdb3ae79d8ceee288c0c0bfb4ae17e0485",
+      "raw_public_export_allowed": false,
+      "reason": "Publish the separately marked path-sanitized notes export, not this immutable private original."
+    },
+    {
+      "path": "$REVIEWER/phase1-seal.json",
+      "sha256": "c5eca83e0e43e5ecf05d864d067b404186269ebf432c3f20c82f20b2eb7eb742",
+      "raw_public_export_allowed": false,
+      "reason": "Contains original concrete local paths. Only the explicitly marked sanitized export is allowlisted."
+    }
+  ],
+  "excluded_by_default": [
+    "All other reviewer files, unless separately authorized and added by a successor allowlist.",
+    "Raw author-private-coverage and author formal/context/coverage metadata are not granted publication permission by this reviewer allowlist.",
+    "Invalid author-formal-context-partial-argv-v1.json is not successful evidence.",
+    "Decoder results, compile/runtime/CI/cache artifacts and previous reviews were not inspected or authorized for export."
+  ],
+  "sanitization_semantics": "New exports replace only local/private path references with logical aliases and add export provenance; raw original hashes remain unchanged. This allowlist contains no concrete local path prefixes.",
+  "publication_performed": false,
+  "production_or_canonical_writes": false,
+  "native_acceptance": false,
+  "Lean_pass_claim": false,
+  "main_admission": false,
+  "scientific_ROOT": false,
+  "PURIFIED": false
+}

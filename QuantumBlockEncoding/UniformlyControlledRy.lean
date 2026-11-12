@@ -108,7 +108,8 @@ private theorem evalPrimitiveCx_eq_controlledXBlock
   ext row column
   simp only [evalPrimitiveGate, equivPermutationMatrix,
     _root_.Matrix.reindexAlgEquiv_apply, _root_.Matrix.reindex_apply,
-    _root_.Matrix.submatrix_apply, _root_.Matrix.blockDiagonal_apply]
+    _root_.Matrix.submatrix_apply, _root_.Matrix.blockDiagonal_apply,
+    cxBasisEquiv_apply, Equiv.symm_symm]
   by_cases contextsEqual :
       (splitPrimitiveWire target row).2 = (splitPrimitiveWire target column).2
   · have controlEqual : row control = column control := by
@@ -130,7 +131,7 @@ private theorem evalPrimitiveCx_eq_controlledXBlock
           · simpa [splitPrimitiveWire]
           · exact contextsEqual
       simp [controlledXBlock, contextsEqual, controlZero, rowControlZero,
-        cxBasisEquiv, cxBasisAction, splitPrimitiveWire, rowEq,
+        cxBasisAction, splitPrimitiveWire, rowEq,
         contextFunctionsEqual, Equiv.symm_symm]
       change (if row target = column target then 1 else 0) =
         if row target = column target then 1 else 0
@@ -160,7 +161,7 @@ private theorem evalPrimitiveCx_eq_controlledXBlock
           have flipNe := flipNeAll (column target)
           simpa [xBasisAction] using flipNe
         simp [controlledXBlock, contextsEqual, controlZero,
-          cxBasisEquiv, action, cxBasisAction, xMatrix, splitPrimitiveWire,
+          action, cxBasisAction, xMatrix, splitPrimitiveWire,
           contextFunctionsEqual, targetFlipped, xContext, xControl,
           xMatrix_flipBit, Equiv.symm_symm, xTargetNe]
       · have actionMiss : row ≠ cxBasisAction control target column := by
@@ -173,7 +174,7 @@ private theorem evalPrimitiveCx_eq_controlledXBlock
         have targetEqual : row target = column target :=
           bitComplement _ _ targetFlipped
         simp [controlledXBlock, contextsEqual, controlZero, rowControlNonzero,
-          cxBasisEquiv, actionMiss, xMatrix, splitPrimitiveWire, targetFlipped,
+          actionMiss, xMatrix, splitPrimitiveWire, targetFlipped,
           targetEqual, contextFunctionsEqual, Equiv.symm_symm]
   · have actionMiss : row ≠ cxBasisAction control target column := by
       intro action
@@ -185,7 +186,7 @@ private theorem evalPrimitiveCx_eq_controlledXBlock
         by_cases controlZero : column control = 0 <;>
           simp [cxBasisAction, controlZero, xBasisAction, wire.property]
       simpa [splitPrimitiveWire, unchanged] using actionWire
-    simp [contextsEqual, cxBasisEquiv, actionMiss]
+    simp [contextsEqual, actionMiss]
 
 /-- Reference recursive compiler.  Controls are consumed from low to high in
 the supplied control tuple; circuit execution remains chronological. -/

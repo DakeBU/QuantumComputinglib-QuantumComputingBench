@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "status": "SEALED_BEFORE_CONSUMER_IMPLEMENTATION",
+  "consumer": "example (k n : Nat) (L epsilon : Rat) (hL : 0<L) (hepsilon : 0<epsilon) : norm (NormedSpace.normalize (radiusVector k n (allocatedRadius k n L epsilon : Real))-targetVector k n (L : Real)) <= (epsilon : Real)/4",
+  "execution_checks": [
+    "(lipschitzQ 0,deltaRadius 0 0 (1/1000))",
+    "logTermCount (1/10^100) (deltaRadius 0 0 (1/10^110))",
+    "logTermCount 1 (deltaRadius 0 200 (1/1000))",
+    "logTermCount 1 (deltaRadius 20 0 (1/1000))",
+    "actual allocatedRadius for tiny L: positivity and reduced numerator/denominator bit sizes",
+    "deltaRadius(k=0,n=200) < deltaRadius(k=0,n=0)",
+    "deltaRadius(k=20,n=0) < deltaRadius(k=0,n=0)"
+  ],
+  "limits": "No invalid-input callback introduced: the total literal functions have only positive-input scientific guarantees. Executed rational diagnostics are not proof shortcuts. All four other error stages and full runtime/source/circuit synthesis remain OPEN."
+}

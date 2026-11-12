@@ -1,0 +1,670 @@
+structure QuantumBlockEncoding.StoredHermiteChildGeometry.Flags : Type
+number of parameters: 0
+fields:
+  QuantumBlockEncoding.StoredHermiteChildGeometry.Flags.full : Bool
+  QuantumBlockEncoding.StoredHermiteChildGeometry.Flags.isPartial : Bool
+constructor:
+  QuantumBlockEncoding.StoredHermiteChildGeometry.Flags.mk (full isPartial : Bool) :
+    QuantumBlockEncoding.StoredHermiteChildGeometry.Flags
+structure QuantumBlockEncoding.StoredHermiteChildGeometry.Child : Type
+number of parameters: 0
+fields:
+  QuantumBlockEncoding.StoredHermiteChildGeometry.Child.first : Nat
+  QuantumBlockEncoding.StoredHermiteChildGeometry.Child.lower : Real
+  QuantumBlockEncoding.StoredHermiteChildGeometry.Child.upper : Real
+  QuantumBlockEncoding.StoredHermiteChildGeometry.Child.leftFull : Bool
+  QuantumBlockEncoding.StoredHermiteChildGeometry.Child.leftPartial : Bool
+  QuantumBlockEncoding.StoredHermiteChildGeometry.Child.middleFull : Bool
+  QuantumBlockEncoding.StoredHermiteChildGeometry.Child.middlePartial : Bool
+constructor:
+  QuantumBlockEncoding.StoredHermiteChildGeometry.Child.mk (first : Nat) (lower upper : Real)
+    (leftFull leftPartial middleFull middlePartial : Bool) : QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+structure QuantumBlockEncoding.StoredHermiteChildGeometry.ChildRun (α : Type) : Type
+number of parameters: 1
+fields:
+  QuantumBlockEncoding.StoredHermiteChildGeometry.ChildRun.run : QuantumBlockEncoding.StoredGivens.Run α
+  QuantumBlockEncoding.StoredHermiteChildGeometry.ChildRun.integerAdditions : Nat
+constructor:
+  QuantumBlockEncoding.StoredHermiteChildGeometry.ChildRun.mk {α : Type} (run : QuantumBlockEncoding.StoredGivens.Run α)
+    (integerAdditions : Nat) : QuantumBlockEncoding.StoredHermiteChildGeometry.ChildRun α
+def QuantumBlockEncoding.StoredHermiteChildGeometry.Refines : QuantumBlockEncoding.StoredHermiteChildGeometry.Child →
+  Nat → Nat → Nat → Real → Real → Bool → Prop :=
+fun c cut n r origin grid bit =>
+  And
+    (@Eq.{1} Nat c.first
+      (QuantumBlockEncoding.HermiteBoundaryInjection.selectedChild
+        (QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule cut) r bit))
+    (And
+      (@Eq.{1} Real c.lower
+        (QuantumBlockEncoding.HermiteBoundaryInjection.affinePoint origin grid
+          (QuantumBlockEncoding.HermiteBoundaryInjection.selectedChild
+            (QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule cut) r bit)))
+      (And
+        (@Eq.{1} Real c.upper
+          (QuantumBlockEncoding.HermiteBoundaryInjection.affinePoint origin grid
+            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+              (QuantumBlockEncoding.HermiteBoundaryInjection.selectedChild
+                (QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule cut) r bit)
+              (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+                (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r))))
+        (And
+          (@Eq.{1} Bool c.leftFull
+            (@Decidable.decide
+              (QuantumBlockEncoding.HermiteBoundaryInjection.Full
+                (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) cut
+                (QuantumBlockEncoding.HermiteBoundaryInjection.selectedChild
+                  (QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule cut) r bit)
+                (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+                  (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r))
+              (QuantumBlockEncoding.HermiteBoundaryInjection.instDecidableFull
+                (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) cut
+                (QuantumBlockEncoding.HermiteBoundaryInjection.selectedChild
+                  (QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule cut) r bit)
+                (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+                  (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r))))
+          (And
+            (@Eq.{1} Bool c.leftPartial
+              (@Decidable.decide
+                (QuantumBlockEncoding.HermiteBoundaryInjection.Partial
+                  (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) cut
+                  (QuantumBlockEncoding.HermiteBoundaryInjection.selectedChild
+                    (QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule cut) r bit)
+                  (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+                    (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+                    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r))
+                (QuantumBlockEncoding.HermiteBoundaryInjection.instDecidablePartial
+                  (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) cut
+                  (QuantumBlockEncoding.HermiteBoundaryInjection.selectedChild
+                    (QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule cut) r bit)
+                  (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+                    (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+                    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r))))
+            (And
+              (@Eq.{1} Bool c.middleFull
+                (@Decidable.decide
+                  (QuantumBlockEncoding.HermiteBoundaryInjection.Full cut
+                    (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+                      (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) n)
+                    (QuantumBlockEncoding.HermiteBoundaryInjection.selectedChild
+                      (QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule cut) r bit)
+                    (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+                      (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r))
+                  (QuantumBlockEncoding.HermiteBoundaryInjection.instDecidableFull cut
+                    (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+                      (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) n)
+                    (QuantumBlockEncoding.HermiteBoundaryInjection.selectedChild
+                      (QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule cut) r bit)
+                    (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+                      (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r))))
+              (@Eq.{1} Bool c.middlePartial
+                (@Decidable.decide
+                  (QuantumBlockEncoding.HermiteBoundaryInjection.Partial cut
+                    (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+                      (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) n)
+                    (QuantumBlockEncoding.HermiteBoundaryInjection.selectedChild
+                      (QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule cut) r bit)
+                    (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+                      (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r))
+                  (QuantumBlockEncoding.HermiteBoundaryInjection.instDecidablePartial cut
+                    (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+                      (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) n)
+                    (QuantumBlockEncoding.HermiteBoundaryInjection.selectedChild
+                      (QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule cut) r bit)
+                    (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+                      (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r)))))))))
+QuantumBlockEncoding.StoredHermiteChildGeometry.Flags : Type
+'QuantumBlockEncoding.StoredHermiteChildGeometry.Flags' does not depend on any axioms
+QuantumBlockEncoding.StoredHermiteChildGeometry.flags (lower upper first last : Nat) :
+  QuantumBlockEncoding.StoredGivens.Run QuantumBlockEncoding.StoredHermiteChildGeometry.Flags
+'QuantumBlockEncoding.StoredHermiteChildGeometry.flags' depends on axioms: [propext, Quot.sound.{u}]
+QuantumBlockEncoding.StoredHermiteChildGeometry.flags_full (lower upper first size : Nat) :
+  @Eq.{1} Bool
+    (@QuantumBlockEncoding.StoredGivens.Run.value QuantumBlockEncoding.StoredHermiteChildGeometry.Flags
+        (QuantumBlockEncoding.StoredHermiteChildGeometry.flags lower upper first
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) first size))).full
+    (@Decidable.decide (QuantumBlockEncoding.HermiteBoundaryInjection.Full lower upper first size)
+      (QuantumBlockEncoding.HermiteBoundaryInjection.instDecidableFull lower upper first size))
+'QuantumBlockEncoding.StoredHermiteChildGeometry.flags_full' depends on axioms: [propext, Quot.sound.{u}]
+QuantumBlockEncoding.StoredHermiteChildGeometry.flags_partial (lower upper first size : Nat) :
+  @Eq.{1} Bool
+    (@QuantumBlockEncoding.StoredGivens.Run.value QuantumBlockEncoding.StoredHermiteChildGeometry.Flags
+        (QuantumBlockEncoding.StoredHermiteChildGeometry.flags lower upper first
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) first size))).isPartial
+    (@Decidable.decide (QuantumBlockEncoding.HermiteBoundaryInjection.Partial lower upper first size)
+      (QuantumBlockEncoding.HermiteBoundaryInjection.instDecidablePartial lower upper first size))
+'QuantumBlockEncoding.StoredHermiteChildGeometry.flags_partial' depends on axioms: [propext, Quot.sound.{u}]
+QuantumBlockEncoding.StoredHermiteChildGeometry.flags_cost (lower upper first last : Nat)
+  (op : QuantumBlockEncoding.StoredGivens.Op) :
+  @Eq.{1} Nat
+    (@QuantumBlockEncoding.StoredGivens.Run.cost QuantumBlockEncoding.StoredHermiteChildGeometry.Flags
+      (QuantumBlockEncoding.StoredHermiteChildGeometry.flags lower upper first last) op)
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+        (QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.compare op))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+        (QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.write op)))
+'QuantumBlockEncoding.StoredHermiteChildGeometry.flags_cost' depends on axioms: [propext, Quot.sound.{u}]
+QuantumBlockEncoding.StoredHermiteChildGeometry.Child : Type
+'QuantumBlockEncoding.StoredHermiteChildGeometry.Child' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.StoredHermiteChildGeometry.ChildRun (α : Type) : Type
+'QuantumBlockEncoding.StoredHermiteChildGeometry.ChildRun' does not depend on any axioms
+QuantumBlockEncoding.StoredHermiteChildGeometry.child (parent : QuantumBlockEncoding.StoredBinaryCoordinates.Point)
+  (level : QuantumBlockEncoding.StoredHermiteGeometry.TailLevel) (span cut midpoint : Nat) (bit : Bool) :
+  QuantumBlockEncoding.StoredHermiteChildGeometry.ChildRun QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+'QuantumBlockEncoding.StoredHermiteChildGeometry.child' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.StoredHermiteChildGeometry.child_first
+  (parent : QuantumBlockEncoding.StoredBinaryCoordinates.Point)
+  (level : QuantumBlockEncoding.StoredHermiteGeometry.TailLevel) (span cut midpoint : Nat) (bit : Bool) :
+  @Eq.{1} Nat
+    (@QuantumBlockEncoding.StoredGivens.Run.value QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+        (@QuantumBlockEncoding.StoredHermiteChildGeometry.ChildRun.run
+          QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+          (QuantumBlockEncoding.StoredHermiteChildGeometry.child parent level span cut midpoint bit))).first
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) parent.first
+      (@ite.{1} Nat (@Eq.{1} Bool bit Bool.true) (instDecidableEqBool bit Bool.true) span
+        (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))
+'QuantumBlockEncoding.StoredHermiteChildGeometry.child_first' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.StoredHermiteChildGeometry.child_lower
+  (parent : QuantumBlockEncoding.StoredBinaryCoordinates.Point)
+  (level : QuantumBlockEncoding.StoredHermiteGeometry.TailLevel) (span cut midpoint : Nat) (bit : Bool) :
+  @Eq.{1} Real
+    (@QuantumBlockEncoding.StoredGivens.Run.value QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+        (@QuantumBlockEncoding.StoredHermiteChildGeometry.ChildRun.run
+          QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+          (QuantumBlockEncoding.StoredHermiteChildGeometry.child parent level span cut midpoint bit))).lower
+    (@HAdd.hAdd.{0, 0, 0} Real Real Real (@instHAdd.{0} Real Real.instAdd) parent.lower
+      (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul)
+        (@ite.{1} Real (@Eq.{1} Bool bit Bool.true) (instDecidableEqBool bit Bool.true)
+          (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne))
+          (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)))
+        level.width))
+'QuantumBlockEncoding.StoredHermiteChildGeometry.child_lower' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.StoredHermiteChildGeometry.child_upper
+  (parent : QuantumBlockEncoding.StoredBinaryCoordinates.Point)
+  (level : QuantumBlockEncoding.StoredHermiteGeometry.TailLevel) (span cut midpoint : Nat) (bit : Bool) :
+  @Eq.{1} Real
+    (@QuantumBlockEncoding.StoredGivens.Run.value QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+        (@QuantumBlockEncoding.StoredHermiteChildGeometry.ChildRun.run
+          QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+          (QuantumBlockEncoding.StoredHermiteChildGeometry.child parent level span cut midpoint bit))).upper
+    (@HAdd.hAdd.{0, 0, 0} Real Real Real (@instHAdd.{0} Real Real.instAdd)
+      (@QuantumBlockEncoding.StoredGivens.Run.value QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+          (@QuantumBlockEncoding.StoredHermiteChildGeometry.ChildRun.run
+            QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+            (QuantumBlockEncoding.StoredHermiteChildGeometry.child parent level span cut midpoint bit))).lower
+      level.width)
+'QuantumBlockEncoding.StoredHermiteChildGeometry.child_upper' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.StoredHermiteChildGeometry.child_flags
+  (parent : QuantumBlockEncoding.StoredBinaryCoordinates.Point)
+  (level : QuantumBlockEncoding.StoredHermiteGeometry.TailLevel) (span cut midpoint : Nat) (bit : Bool) :
+  have c :=
+    @QuantumBlockEncoding.StoredGivens.Run.value QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+      (@QuantumBlockEncoding.StoredHermiteChildGeometry.ChildRun.run
+        QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+        (QuantumBlockEncoding.StoredHermiteChildGeometry.child parent level span cut midpoint bit));
+  And
+    (@Eq.{1} Bool c.leftFull
+      (@Decidable.decide
+        (QuantumBlockEncoding.HermiteBoundaryInjection.Full
+          (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) cut c.first span)
+        (QuantumBlockEncoding.HermiteBoundaryInjection.instDecidableFull
+          (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) cut c.first span)))
+    (And
+      (@Eq.{1} Bool c.leftPartial
+        (@Decidable.decide
+          (QuantumBlockEncoding.HermiteBoundaryInjection.Partial
+            (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) cut c.first span)
+          (QuantumBlockEncoding.HermiteBoundaryInjection.instDecidablePartial
+            (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) cut c.first span)))
+      (And
+        (@Eq.{1} Bool c.middleFull
+          (@Decidable.decide (QuantumBlockEncoding.HermiteBoundaryInjection.Full cut midpoint c.first span)
+            (QuantumBlockEncoding.HermiteBoundaryInjection.instDecidableFull cut midpoint c.first span)))
+        (@Eq.{1} Bool c.middlePartial
+          (@Decidable.decide (QuantumBlockEncoding.HermiteBoundaryInjection.Partial cut midpoint c.first span)
+            (QuantumBlockEncoding.HermiteBoundaryInjection.instDecidablePartial cut midpoint c.first span)))))
+'QuantumBlockEncoding.StoredHermiteChildGeometry.child_flags' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.StoredHermiteChildGeometry.child_cost (parent : QuantumBlockEncoding.StoredBinaryCoordinates.Point)
+  (level : QuantumBlockEncoding.StoredHermiteGeometry.TailLevel) (span cut midpoint : Nat) (bit : Bool)
+  (op : QuantumBlockEncoding.StoredGivens.Op) :
+  @Eq.{1} Nat
+    (@QuantumBlockEncoding.StoredGivens.Run.cost QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+      (@QuantumBlockEncoding.StoredHermiteChildGeometry.ChildRun.run
+        QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+        (QuantumBlockEncoding.StoredHermiteChildGeometry.child parent level span cut midpoint bit))
+      op)
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+            (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3)))
+            (QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.field op))
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+            (@OfNat.ofNat.{0} Nat (nat_lit 9) (instOfNatNat (nat_lit 9)))
+            (QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.compare op)))
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))
+          (QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.read op)))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@OfNat.ofNat.{0} Nat (nat_lit 11) (instOfNatNat (nat_lit 11)))
+        (QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.write op)))
+'QuantumBlockEncoding.StoredHermiteChildGeometry.child_cost' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.StoredHermiteChildGeometry.child_integerAdditions
+  (parent : QuantumBlockEncoding.StoredBinaryCoordinates.Point)
+  (level : QuantumBlockEncoding.StoredHermiteGeometry.TailLevel) (span cut midpoint : Nat) (bit : Bool) :
+  @Eq.{1} Nat
+    (@QuantumBlockEncoding.StoredHermiteChildGeometry.ChildRun.integerAdditions
+      QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+      (QuantumBlockEncoding.StoredHermiteChildGeometry.child parent level span cut midpoint bit))
+    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+'QuantumBlockEncoding.StoredHermiteChildGeometry.child_integerAdditions' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.StoredHermiteChildGeometry.child_refines
+  (parent : QuantumBlockEncoding.StoredBinaryCoordinates.Point)
+  (level : QuantumBlockEncoding.StoredHermiteGeometry.TailLevel) (span cut midpoint n r : Nat) (origin grid : Real)
+  (bit : Bool)
+  (hp :
+    @Eq.{1} Nat parent.first
+      (QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule cut
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) r
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))
+  (hl : @Eq.{1} Real parent.lower (QuantumBlockEncoding.HermiteBoundaryInjection.affinePoint origin grid parent.first))
+  (hw :
+    @Eq.{1} Real level.width
+      (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul) grid
+        (@HPow.hPow.{0, 0, 0} Real Nat Real
+          (@instHPow.{0, 0} Real Nat (@NPow.toPow.{0} Real (@Monoid.toNPow.{0} Real Real.instMonoid)))
+          (@OfNat.ofNat.{0} Real (nat_lit 2) (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast ⋯)) r)))
+  (hs :
+    @Eq.{1} Nat span
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+        (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r))
+  (hm :
+    @Eq.{1} Nat midpoint
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+        (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) n)) :
+  have c :=
+    @QuantumBlockEncoding.StoredGivens.Run.value QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+      (@QuantumBlockEncoding.StoredHermiteChildGeometry.ChildRun.run
+        QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+        (QuantumBlockEncoding.StoredHermiteChildGeometry.child parent level span cut midpoint bit));
+  And
+    (@Eq.{1} Nat c.first
+      (QuantumBlockEncoding.HermiteBoundaryInjection.selectedChild
+        (QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule cut) r bit))
+    (And
+      (@Eq.{1} Real c.lower
+        (QuantumBlockEncoding.HermiteBoundaryInjection.affinePoint origin grid
+          (QuantumBlockEncoding.HermiteBoundaryInjection.selectedChild
+            (QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule cut) r bit)))
+      (And
+        (@Eq.{1} Real c.upper
+          (QuantumBlockEncoding.HermiteBoundaryInjection.affinePoint origin grid
+            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+              (QuantumBlockEncoding.HermiteBoundaryInjection.selectedChild
+                (QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule cut) r bit)
+              (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+                (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r))))
+        (And
+          (@Eq.{1} Bool c.leftFull
+            (@Decidable.decide
+              (QuantumBlockEncoding.HermiteBoundaryInjection.Full
+                (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) cut
+                (QuantumBlockEncoding.HermiteBoundaryInjection.selectedChild
+                  (QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule cut) r bit)
+                (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+                  (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r))
+              (QuantumBlockEncoding.HermiteBoundaryInjection.instDecidableFull
+                (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) cut
+                (QuantumBlockEncoding.HermiteBoundaryInjection.selectedChild
+                  (QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule cut) r bit)
+                (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+                  (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r))))
+          (And
+            (@Eq.{1} Bool c.leftPartial
+              (@Decidable.decide
+                (QuantumBlockEncoding.HermiteBoundaryInjection.Partial
+                  (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) cut
+                  (QuantumBlockEncoding.HermiteBoundaryInjection.selectedChild
+                    (QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule cut) r bit)
+                  (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+                    (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+                    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r))
+                (QuantumBlockEncoding.HermiteBoundaryInjection.instDecidablePartial
+                  (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) cut
+                  (QuantumBlockEncoding.HermiteBoundaryInjection.selectedChild
+                    (QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule cut) r bit)
+                  (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+                    (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+                    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r))))
+            (And
+              (@Eq.{1} Bool c.middleFull
+                (@Decidable.decide
+                  (QuantumBlockEncoding.HermiteBoundaryInjection.Full cut
+                    (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+                      (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) n)
+                    (QuantumBlockEncoding.HermiteBoundaryInjection.selectedChild
+                      (QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule cut) r bit)
+                    (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+                      (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r))
+                  (QuantumBlockEncoding.HermiteBoundaryInjection.instDecidableFull cut
+                    (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+                      (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) n)
+                    (QuantumBlockEncoding.HermiteBoundaryInjection.selectedChild
+                      (QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule cut) r bit)
+                    (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+                      (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r))))
+              (@Eq.{1} Bool c.middlePartial
+                (@Decidable.decide
+                  (QuantumBlockEncoding.HermiteBoundaryInjection.Partial cut
+                    (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+                      (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) n)
+                    (QuantumBlockEncoding.HermiteBoundaryInjection.selectedChild
+                      (QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule cut) r bit)
+                    (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+                      (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r))
+                  (QuantumBlockEncoding.HermiteBoundaryInjection.instDecidablePartial cut
+                    (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+                      (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) n)
+                    (QuantumBlockEncoding.HermiteBoundaryInjection.selectedChild
+                      (QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule cut) r bit)
+                    (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+                      (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+                      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r)))))))))
+'QuantumBlockEncoding.StoredHermiteChildGeometry.child_refines' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.StoredHermiteChildGeometry.children (parent : QuantumBlockEncoding.StoredBinaryCoordinates.Point)
+  (level : QuantumBlockEncoding.StoredHermiteGeometry.TailLevel) (span cut midpoint : Nat) :
+  QuantumBlockEncoding.StoredHermiteChildGeometry.ChildRun
+    (Vector.{0} QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+'QuantumBlockEncoding.StoredHermiteChildGeometry.children' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.StoredHermiteChildGeometry.children_value
+  (parent : QuantumBlockEncoding.StoredBinaryCoordinates.Point)
+  (level : QuantumBlockEncoding.StoredHermiteGeometry.TailLevel) (span cut midpoint : Nat) (bit : Bool) :
+  @Eq.{1} QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+    (@GetElem.getElem.{0, 0, 0}
+      (Vector.{0} QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      Nat QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+      (fun x i => @LT.lt.{0} Nat instLTNat i (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@Vector.instGetElemNatLt.{0} QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@QuantumBlockEncoding.StoredGivens.Run.value
+        (Vector.{0} QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+        (@QuantumBlockEncoding.StoredHermiteChildGeometry.ChildRun.run
+          (Vector.{0} QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+          (QuantumBlockEncoding.StoredHermiteChildGeometry.children parent level span cut midpoint)))
+      (@ite.{1} Nat (@Eq.{1} Bool bit Bool.true) (instDecidableEqBool bit Bool.true)
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+      ⋯)
+    (@QuantumBlockEncoding.StoredGivens.Run.value QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+      (@QuantumBlockEncoding.StoredHermiteChildGeometry.ChildRun.run
+        QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+        (QuantumBlockEncoding.StoredHermiteChildGeometry.child parent level span cut midpoint bit)))
+'QuantumBlockEncoding.StoredHermiteChildGeometry.children_value' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.StoredHermiteChildGeometry.children_cost
+  (parent : QuantumBlockEncoding.StoredBinaryCoordinates.Point)
+  (level : QuantumBlockEncoding.StoredHermiteGeometry.TailLevel) (span cut midpoint : Nat)
+  (op : QuantumBlockEncoding.StoredGivens.Op) :
+  @Eq.{1} Nat
+    (@QuantumBlockEncoding.StoredGivens.Run.cost
+      (Vector.{0} QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@QuantumBlockEncoding.StoredHermiteChildGeometry.ChildRun.run
+        (Vector.{0} QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+        (QuantumBlockEncoding.StoredHermiteChildGeometry.children parent level span cut midpoint))
+      op)
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+            (@OfNat.ofNat.{0} Nat (nat_lit 6) (instOfNatNat (nat_lit 6)))
+            (QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.field op))
+          (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+            (@OfNat.ofNat.{0} Nat (nat_lit 20) (instOfNatNat (nat_lit 20)))
+            (QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.compare op)))
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 18) (instOfNatNat (nat_lit 18)))
+          (QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.read op)))
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@OfNat.ofNat.{0} Nat (nat_lit 26) (instOfNatNat (nat_lit 26)))
+        (QuantumBlockEncoding.StoredGivens.tick QuantumBlockEncoding.StoredGivens.Op.write op)))
+'QuantumBlockEncoding.StoredHermiteChildGeometry.children_cost' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.StoredHermiteChildGeometry.children_integerAdditions
+  (parent : QuantumBlockEncoding.StoredBinaryCoordinates.Point)
+  (level : QuantumBlockEncoding.StoredHermiteGeometry.TailLevel) (span cut midpoint : Nat) :
+  @Eq.{1} Nat
+    (@QuantumBlockEncoding.StoredHermiteChildGeometry.ChildRun.integerAdditions
+      (Vector.{0} QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (QuantumBlockEncoding.StoredHermiteChildGeometry.children parent level span cut midpoint))
+    (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))
+'QuantumBlockEncoding.StoredHermiteChildGeometry.children_integerAdditions' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.StoredHermiteChildGeometry.children_total_cost
+  (parent : QuantumBlockEncoding.StoredBinaryCoordinates.Point)
+  (level : QuantumBlockEncoding.StoredHermiteGeometry.TailLevel) (span cut midpoint : Nat) :
+  @Eq.{1} Nat
+    (∑ op,
+      @QuantumBlockEncoding.StoredGivens.Run.cost
+        (Vector.{0} QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+        (@QuantumBlockEncoding.StoredHermiteChildGeometry.ChildRun.run
+          (Vector.{0} QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+          (QuantumBlockEncoding.StoredHermiteChildGeometry.children parent level span cut midpoint))
+        op)
+    (@OfNat.ofNat.{0} Nat (nat_lit 70) (instOfNatNat (nat_lit 70)))
+'QuantumBlockEncoding.StoredHermiteChildGeometry.children_total_cost' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.StoredHermiteChildGeometry.Refines (c : QuantumBlockEncoding.StoredHermiteChildGeometry.Child)
+  (cut n r : Nat) (origin grid : Real) (bit : Bool) : Prop
+'QuantumBlockEncoding.StoredHermiteChildGeometry.Refines' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.StoredHermiteChildGeometry.children_refines
+  (parent : QuantumBlockEncoding.StoredBinaryCoordinates.Point)
+  (level : QuantumBlockEncoding.StoredHermiteGeometry.TailLevel) (span cut midpoint n r : Nat) (origin grid : Real)
+  (bit : Bool)
+  (hp :
+    @Eq.{1} Nat parent.first
+      (QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule cut
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) r
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))
+  (hl : @Eq.{1} Real parent.lower (QuantumBlockEncoding.HermiteBoundaryInjection.affinePoint origin grid parent.first))
+  (hw :
+    @Eq.{1} Real level.width
+      (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul) grid
+        (@HPow.hPow.{0, 0, 0} Real Nat Real
+          (@instHPow.{0, 0} Real Nat (@NPow.toPow.{0} Real (@Monoid.toNPow.{0} Real Real.instMonoid)))
+          (@OfNat.ofNat.{0} Real (nat_lit 2) (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast ⋯)) r)))
+  (hs :
+    @Eq.{1} Nat span
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+        (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r))
+  (hm :
+    @Eq.{1} Nat midpoint
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+        (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) n)) :
+  QuantumBlockEncoding.StoredHermiteChildGeometry.Refines
+    (@GetElem.getElem.{0, 0, 0}
+      (Vector.{0} QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      Nat QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+      (fun x i => @LT.lt.{0} Nat instLTNat i (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@Vector.instGetElemNatLt.{0} QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@QuantumBlockEncoding.StoredGivens.Run.value
+        (Vector.{0} QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+        (@QuantumBlockEncoding.StoredHermiteChildGeometry.ChildRun.run
+          (Vector.{0} QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+          (QuantumBlockEncoding.StoredHermiteChildGeometry.children parent level span cut midpoint)))
+      (@ite.{1} Nat (@Eq.{1} Bool bit Bool.true) (instDecidableEqBool bit Bool.true)
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+      ⋯)
+    cut n r origin grid bit
+'QuantumBlockEncoding.StoredHermiteChildGeometry.children_refines' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.StoredHermiteChildGeometry.children_certified
+  (parent : QuantumBlockEncoding.StoredBinaryCoordinates.Point)
+  (level : QuantumBlockEncoding.StoredHermiteGeometry.TailLevel) (span cut midpoint n r : Nat) (origin grid : Real)
+  (hp :
+    @Eq.{1} Nat parent.first
+      (QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule cut
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) r
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))
+  (hl : @Eq.{1} Real parent.lower (QuantumBlockEncoding.HermiteBoundaryInjection.affinePoint origin grid parent.first))
+  (hw :
+    @Eq.{1} Real level.width
+      (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul) grid
+        (@HPow.hPow.{0, 0, 0} Real Nat Real
+          (@instHPow.{0, 0} Real Nat (@NPow.toPow.{0} Real (@Monoid.toNPow.{0} Real Real.instMonoid)))
+          (@OfNat.ofNat.{0} Real (nat_lit 2) (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast ⋯)) r)))
+  (hs :
+    @Eq.{1} Nat span
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+        (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r))
+  (hm :
+    @Eq.{1} Nat midpoint
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+        (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) n)) :
+  have result := QuantumBlockEncoding.StoredHermiteChildGeometry.children parent level span cut midpoint;
+  And
+    (∀ (bit : Bool),
+      QuantumBlockEncoding.StoredHermiteChildGeometry.Refines
+        (@GetElem.getElem.{0, 0, 0}
+          (Vector.{0} QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+          Nat QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+          (fun x i => @LT.lt.{0} Nat instLTNat i (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+          (@Vector.instGetElemNatLt.{0} QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+          (@QuantumBlockEncoding.StoredGivens.Run.value
+            (Vector.{0} QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+            (@QuantumBlockEncoding.StoredHermiteChildGeometry.ChildRun.run
+              (Vector.{0} QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+              result))
+          (@ite.{1} Nat (@Eq.{1} Bool bit Bool.true) (instDecidableEqBool bit Bool.true)
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))
+          ⋯)
+        cut n r origin grid bit)
+    (And
+      (@Eq.{1} Nat
+        (∑ op,
+          @QuantumBlockEncoding.StoredGivens.Run.cost
+            (Vector.{0} QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+            (@QuantumBlockEncoding.StoredHermiteChildGeometry.ChildRun.run
+              (Vector.{0} QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+              result)
+            op)
+        (@OfNat.ofNat.{0} Nat (nat_lit 70) (instOfNatNat (nat_lit 70))))
+      (@Eq.{1} Nat
+        (@QuantumBlockEncoding.StoredHermiteChildGeometry.ChildRun.integerAdditions
+          (Vector.{0} QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+          result)
+        (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))))
+'QuantumBlockEncoding.StoredHermiteChildGeometry.children_certified' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.StoredHermiteChildGeometry.child_index_word_bound
+  (parent : QuantumBlockEncoding.StoredBinaryCoordinates.Point)
+  (level : QuantumBlockEncoding.StoredHermiteGeometry.TailLevel) (span cut midpoint n r : Nat) (bit : Bool)
+  (hp :
+    @Eq.{1} Nat parent.first
+      (QuantumBlockEncoding.HermiteBoundaryInjection.boundarySchedule cut
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) r
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))
+  (hs :
+    @Eq.{1} Nat span
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+        (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r))
+  (hc :
+    @LE.le.{0} Nat instLENat cut
+      (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+        (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) n))
+  (hr : @LE.le.{0} Nat instLENat r n) :
+  @LT.lt.{0} Nat instLTNat
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@QuantumBlockEncoding.StoredGivens.Run.value QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+          (@QuantumBlockEncoding.StoredHermiteChildGeometry.ChildRun.run
+            QuantumBlockEncoding.StoredHermiteChildGeometry.Child
+            (QuantumBlockEncoding.StoredHermiteChildGeometry.child parent level span cut midpoint bit))).first
+      span)
+    (@HPow.hPow.{0, 0, 0} Nat Nat Nat
+      (@instHPow.{0, 0} Nat Nat (@NPow.toPow.{0} Nat (@Monoid.toNPow.{0} Nat Nat.instMonoid)))
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+'QuantumBlockEncoding.StoredHermiteChildGeometry.child_index_word_bound' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]

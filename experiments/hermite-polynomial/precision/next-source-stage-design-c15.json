@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "cycle": 15,
+  "status": "DESIGN_ONLY_NOT_SOURCE_TT_OR_FULL_STATE_CERTIFICATE",
+  "direction_fingerprint": "finite-rational-piecewise-source-crossover-from-certified-scalar-degree-and-radius",
+  "parents": [
+    {
+      "path": "experiments/hermite-polynomial/precision/finite-exp-degree/result.json",
+      "sha256": "a3a0bf796ab229e65a5bc85acc58a5f92c505793a318162bc278df010d9c1f54",
+      "role": "Existing checked negative exponential now has sufficient degree; still internal local scope"
+    },
+    {
+      "path": "experiments/hermite-polynomial/precision/global-radius-budget/result.json",
+      "sha256": "fad673bea9f78ee06f0d04a8948f584c48f848c284b3d1f38fdfff44f0bd99d3",
+      "role": "Original normalized target radius error reserve<=epsilon/4"
+    }
+  ],
+  "frozen_target": "Original normalized signed function-value samples, pi*L domain, physical n_p>=1, q0 LSB, full final garbage, no new oracle or phase alignment",
+  "new_route_not_silent_replacement": "A finite rational polynomial/clipped-tail source is a separate approximate OR-route, not a silently altered exact MPS-01 or new certified population parent",
+  "proposed_subgoals": [
+    {
+      "id": "finite-source:middle",
+      "target": "Define exact rational coefficient polynomial from the literal existing coefficient-series formula. Substitute midpoint enclosure for exp(-1), and PROVE original Hermite middle error on [-1,0] including exact central value1.",
+      "reuse": [
+        "QuantumBlockEncoding.HermitePolynomial.coefficientPolynomial_eval",
+        "QuantumBlockEncoding.HermitePolynomial.sourceInterpolant_eval",
+        "experiments/hermite-polynomial/precision/coefficient-range/CoefficientRange.lean"
+      ],
+      "gap": "Exact coefficient cast/denominator refinement and endpoint-factor amplification bound must be proved, not assumed."
+    },
+    {
+      "id": "finite-source:tail",
+      "target": "Use bounds(q,tailCutoff delta,sourceDegree delta) midpoint at each legal negative argument; consume complete_enclosure to derive pointwise absolute error. Clipped [0,2^-T] is enclosed mass, not a free deletion.",
+      "reuse": [
+        "HermiteFiniteExpDegree.checked_complete",
+        "HermiteFiniteExpDegree.complete_enclosure"
+      ],
+      "gap": "Scalar delta must be transported to full vector and normalization; no arbitrary real q input oracle."
+    },
+    {
+      "id": "finite-source:global",
+      "target": "Select a rational tolerance charging dimension and middle amplification from the remaining explicit global epsilon reserve; combine source-grid/radius triangle inequality and the norm-floor central sample.",
+      "reuse": [
+        "QuantumBlockEncoding.ExperimentalGlobalRadiusBudget.normalized_allocatedRadius_error",
+        "QuantumBlockEncoding.ExperimentalNormalizationStability"
+      ],
+      "gap": "No scalar delta equated to state epsilon. The candidate tolerance formula and complete global proof must be sealed separately; epsilon/4 radius reservation alone does not close four other stages."
+    },
+    {
+      "id": "finite-source:stored-tt",
+      "target": "Build actual stored rational local cores for rational affine sample coordinates, polynomial windows and clipped constants, with exact integer cutoff decisions. Derive rank/bond bounds and same producer costs.",
+      "reuse": [
+        "QuantumBlockEncoding.HermiteBinaryCutoff",
+        "QuantumBlockEncoding.HermiteTransferCores",
+        "QuantumBlockEncoding.StoredHermiteCoefficients",
+        "QuantumBlockEncoding.StoredTensorTrainNorm"
+      ],
+      "gap": "Existing exact-real 2*k+6 bond/gate bound does not automatically apply to increased precision-dependent polynomial degree. Charge input/pre-GCD/intermediate/copy/storage/GCD costs; output length/rank is not runtime."
+    }
+  ],
+  "saved_stage_next": {
+    "target": "Formalize a full literal matrix interpreter for changing target row pairs and CX permutations, induct entry enclosure from identity through the actual ordered word, take midpoint only at stage end, derive eta=size*max-entry-radius in Euclidean operator norm.",
+    "reuse": [
+      "HermiteSavedRounding.scaled_floor_num",
+      "HermiteSavedRounding.scaled_ceil_num",
+      "HermiteSavedRounding.ryRow_mem",
+      "HermiteSavedRounding.midpoint_error",
+      "QuantumBlockEncoding.ExperimentalNonunitaryTransport"
+    ],
+    "gap": "Current rowTrace only one fixed pair; Python finite comparisons are not interpreter refinement. No Valid or nominal contraction supplied by premise substitution."
+  },
+  "resource_boundary": "Conservative quadratic cutoff degree is certified locally, but no optimality, bit-runtime, TT/QR/compiler error, stored matrix rounding, physical synthesis, oracle/ancilla cost winner or uniform family executable acceptance follows.",
+  "scientific_ROOT": false,
+  "all_signatures_here": "UNSEALED_DESIGN_NOT_PROVED",
+  "historical_failures": "Fixed cap, float underflow/collapse and exact-decimal versus binary64 discrepancies retained unchanged; no prior record corrected by this proposal."
+}

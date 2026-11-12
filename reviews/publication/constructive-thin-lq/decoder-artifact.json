@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "role": "source-blind-formal-decoder",
+  "identity": "hermite-cached-global-formal-thin-lq-decoder",
+  "run_id": "thin-lq-decoder-14ee03ff-5ebb-4878-88ed-ee25dbb97b68",
+  "binding_sha256": "b7638fc77dbdcf0193933736bec043819990080fa1984f44fcd7ef4bd8784460",
+  "binding_provenance": "Carried from master packet; not recomputed using withheld context.",
+  "module": "QuantumBlockEncoding/ConstructiveThinLQ.lean",
+  "module_sha256": "a9cec4dce7e7b955f663df02fb29716a67e42da63570dfac9c754a1aae9a8e18",
+  "toolchain": "leanprover/lean4:v4.33.0",
+  "manifest_mathlib": "db584cd6d46c92f209a44c0f1c829460d327499d",
+  "context_disclosure": {
+    "fresh_context": false,
+    "source_blind_scope": "Blind to the new authored explanation, source-contract, publication-candidate, source registry and earlier publication judgments. Formal module text, including its comments, and necessary actual providers were permitted.",
+    "prior_familiarity": "Reused formal worker context with downstream Hermite stored/GlobalAssembly and Givens/provider familiarity. This decoder authored the separate frozen GlobalAssembly provider, not this target module or its new lesson. No whole-chain author-independent or clean-room claim is made.",
+    "held_out_material_read": false,
+    "packet_first": "The decoder packet was read before the target/relevant providers. Repository process instructions were read separately as required."
+  },
+  "reconstruction": "A deterministic exact-real producer returns actual finite real matrix factors R,Q with A=R*Q and Q*Q.transpose=I, using inner dimension min(m,n), irrespective of deficient rank. In the wide branch it eliminates A.transpose by a specified changing-matrix adjacent-row recurrence and extracts the leading residual block and leading rows of the accumulated orthogonal transform; in the tall branch it returns R=A,Q=I. This is a certified matrix supplier, not merely an existence statement, and not an executable finite-bit factorization or quantum circuit theorem.",
+  "public_declarations": [
+    {
+      "name": "QuantumBlockEncoding.ConstructiveThinLQ.Factorization",
+      "kind": "structure",
+      "checked_type": "{m n : Nat} -> Matrix (Fin m) (Fin n) Real -> Nat -> Type",
+      "source_signature": "structure Factorization {m n : ℕ} (A : Matrix (Fin m) (Fin n) ℝ) (r : ℕ) where R : Matrix (Fin m) (Fin r) ℝ; Q : Matrix (Fin r) (Fin n) ℝ; factorization : A = R * Q; orthogonal : Q * Q.transpose = 1",
+      "meaning": "A data record of two actual matrix fields and two proof fields. A and r are explicit record parameters; m,n are implicit. No triangularity, rank, positive-diagonal, uniqueness, costs, rotations or quantum-register field is present.",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"]
+    },
+    {
+      "name": "QuantumBlockEncoding.ConstructiveThinLQ.wideR",
+      "kind": "noncomputable definition",
+      "checked_type": "{m n : Nat} -> m <= n -> Matrix (Fin m) (Fin n) Real -> Matrix (Fin m) (Fin m) Real",
+      "literal_body": "wideR hmn A i k = RectangularGivens.reduced A.transpose (Fin.castLE hmn k) i",
+      "meaning": "The transpose of the leading m by m residual block of the n by m eliminated transpose, not an arbitrary factor satisfying a relation.",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"]
+    },
+    {
+      "name": "QuantumBlockEncoding.ConstructiveThinLQ.wideQ",
+      "kind": "noncomputable definition",
+      "checked_type": "{m n : Nat} -> m <= n -> Matrix (Fin m) (Fin n) Real -> Matrix (Fin m) (Fin n) Real",
+      "literal_body": "wideQ hmn A k j = RectangularGivens.transform A.transpose (Fin.castLE hmn k) j",
+      "meaning": "Exactly the first m rows, in numerical prefix order, of the actual n by n accumulated row-rotation transform.",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"]
+    },
+    {
+      "name": "QuantumBlockEncoding.ConstructiveThinLQ.wide_factorization",
+      "kind": "theorem",
+      "checked_type": "forall {m n : Nat} (hmn : m <= n) (A : Matrix (Fin m) (Fin n) Real), A = wideR hmn A * wideQ hmn A",
+      "proof_reconstruction": "Let B=A.transpose, U=reduced B and T=transform B. Provider recovery T.transpose*U=B transposes to U.transpose*T=A. Terms indexed by k>=m vanish because U k i=0 for i<m<=k, using reduced_zero_below. Restricting the n-term matrix-product sum to the m-term prefix gives the literal RQ product.",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"]
+    },
+    {
+      "name": "QuantumBlockEncoding.ConstructiveThinLQ.wide_orthogonal",
+      "kind": "theorem",
+      "checked_type": "forall {m n : Nat} (hmn : m <= n) (A : Matrix (Fin m) (Fin n) Real), wideQ hmn A * (wideQ hmn A).transpose = 1",
+      "proof_reconstruction": "Provider T.transpose*T=I for square T implies T*T.transpose=I. Selecting the first m rows on both sides yields all pairwise row inner products of Q equal to the m by m identity. It does not say Q.transpose*Q=I_n in the strictly wide case.",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"]
+    },
+    {
+      "name": "QuantumBlockEncoding.ConstructiveThinLQ.factorOfLE",
+      "kind": "noncomputable definition",
+      "checked_type": "{m n : Nat} -> m <= n -> (A : Matrix (Fin m) (Fin n) Real) -> Factorization A m",
+      "literal_body": "R:=wideR hmn A; Q:=wideQ hmn A; factorization:=wide_factorization hmn A; orthogonal:=wide_orthogonal hmn A",
+      "meaning": "Builds one explicit wide-factor record and internally proves its two equations. The caller supplies only the dimension comparison and original matrix.",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"]
+    },
+    {
+      "name": "QuantumBlockEncoding.ConstructiveThinLQ.factor",
+      "kind": "noncomputable definition",
+      "checked_type": "{m n : Nat} -> (A : Matrix (Fin m) (Fin n) Real) -> Factorization A (min m n)",
+      "literal_body": "If m<=n, transport factorOfLE hmn A along min(m,n)=m. Otherwise transport the explicit record R=A,Q=1 with the two simp-proved equations along min(m,n)=n.",
+      "meaning": "Handles every natural dimension with an actual dimension branch, not Classical.choose of the existing existence theorem. It returns fixed inner dimension min(m,n), not rank(A).",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"]
+    },
+    {
+      "name": "QuantumBlockEncoding.ConstructiveThinLQ.factor_correct",
+      "kind": "theorem",
+      "checked_type": "forall {m n : Nat} (A : Matrix (Fin m) (Fin n) Real), A = (factor A).R * (factor A).Q and (factor A).Q * (factor A).Q.transpose = 1",
+      "literal_body": "The conjunction of the two proof projections (factor A).factorization and (factor A).orthogonal.",
+      "meaning": "Certifies this same returned record, with no factorization, orthogonality, nonzero-row, independence, rank or cost certificate supplied by its caller.",
+      "axioms": ["propext", "Classical.choice", "Quot.sound"]
+    }
+  ],
+  "record_and_binder_expansion": {
+    "constructor_checked": "Factorization.mk takes implicit m,n,A,r, then actual R:m by r and Q:r by n, then proofs A=RQ and Q*Q.transpose=I_r, and returns Factorization A r.",
+    "projection_checked": "factorization and orthogonal project those two equations from an existing record; they are outputs of factor/factorOfLE, not extra hypotheses of factor_correct.",
+    "carriers": "All scalar entries are arbitrary Real; m,n,r are natural dimensions. No complex adjoint or probabilistic approximate semantics is substituted.",
+    "wide_shape_condition": "hmn:m<=n is an explicit logical dimension condition of wideR,wideQ,their two theorems and factorOfLE, supplying the prefix embedding Fin.castLE. factor removes this restriction by its branch. Its source-relative SOURCE/TYPING/EXCESS classification cannot be decided without the withheld source statement; no author's classification was imported.",
+    "record_inhabitance": "The record type is declared for arbitrary r, but the module does not prove it inhabited for every r. Its actual supplier constructs it only at r=min(m,n).",
+    "helper_typing": "Rectangular sweep carries k+remaining<=M; column sweep carries lo+count<N; Step contains ordered Fin N supports and proof first.val+1=second.val. The producers construct these recursion/index proofs internally."
+  },
+  "literal_provider_reconstruction": {
+    "pairNorm": "r(x,y)=sqrt(x^2+y^2)>=0. splitAngle(x,y) is rational zero if r=0, otherwise ExactAngle.real(2*(-arccos(x/r) if y<0 else arccos(x/r))). ExactAngle.eval interprets .real literally. Nonzero r ensures x/r is in [-1,1] as a proved consequence.",
+    "rotation_convention": "rotateRows A i j theta replaces ordered rows by cos(theta/2)*A_i-sin(theta/2)*A_j and sin(theta/2)*A_i+cos(theta/2)*A_j, fixing every other row. planeMatrix=rotateRows I. The ordered block is [[cos(theta/2),-sin(theta/2)],[sin(theta/2),cos(theta/2)]], matching literal standard RY half-angle radians. No unsigned amplitude or up-to-sign equivalence is used.",
+    "elimination": "theta=-splitAngle(x,y).eval sends [x,y] to [sqrt(x^2+y^2),0]. At (0,0), theta=0 and the actual full matrix update is identity, without division by zero. Negative y is handled by the signed arccos branch. An unswept final pivot need not be nonnegative.",
+    "step_record": "AdjacentGivens.Step N has first:Fin N,second:Fin N,adjacent:first.val+1=second.val,angle:Real. distinct follows from adjacency. Step.matrix is the ordered planeMatrix; Step.inverse negates its angle, preserving supports.",
+    "bottom_up_column_sweep": "For fixed col,lo,count, the positive-count branch first eliminates rows lo+count-1 and lo+count, then recursively sweeps the updated matrix with count-1. Thus adjacent pairs occur bottom-up, ending at lo,lo+1. columnSweepSteps computes each next angle from the changing matrix and has exactly count entries, including zero-angle steps.",
+    "rectangular_sweep": "For N by M input, sweep starts k=0,remaining=M. When k<N, run columnSweep on column k with lo=k,count=N-1-k, then recurse at k+1 on the updated matrix. For k>=N, skip that column's row sweep but continue the column schedule. remaining=0 returns current A. sweepSteps concatenates the identical current-column log before the updated-matrix tail.",
+    "literal_outputs": "decompose A=sweepSteps A 0 M; reduced A=sweep A 0 M; transform A=stepsMatrix(decompose A). applySteps executes list head first. stepsMatrix []=I and stepsMatrix(step::rest)=stepsMatrix(rest)*step.matrix, so transform*A=reduced, transform.transpose*transform=I, det(transform)=1, and transform.transpose*reduced=A.",
+    "residual_property": "UpperPrefix requires earlier columns zero strictly below their numerical diagonals. Existing zero columns remain zero under row mixing, so sweep extends this prefix without a nonzero-pivot assumption. reduced_zero_below applies to every rectangular input.",
+    "existing_ThinLQ_role": "Read actual ThinLQ. Its wide existence theorem uses gramSchmidtOrthonormalBasis and completion. ConstructiveThinLQ does not select its existential factors; the proof reuses only ThinLQ.sum_prefix_of_zero to restrict a matrix-product sum. An import edge is not proof that the current producer uses basis selection."
+  },
+  "shape_rank_sign_cases": {
+    "strictly_wide": "m<n: R is m by m, Q m by n with orthonormal rows. From the literal residual formula R i k=0 when i<k, so the wide R is lower triangular; this is a decoder deduction, not a separately advertised public triangularity theorem.",
+    "square": "m=n enters the wide branch. No positive-diagonal or determinant-one restriction on A is required. In particular, a 1 by 1 negative entry is retained in R because there is no adjacent row pair to sweep; Q is the 1 by 1 identity.",
+    "tall": "m>n: R is exactly A (m by n), Q=I_n. Arbitrary tall A need not be lower trapezoidal. Thus the all-shape record is the two-equation contract, not a conventional triangular-R LQ claim for every shape.",
+    "deficient_rank": "Zero or repeated rows are permitted with no full-rank premise. The orthonormal Q still has min(m,n) rows; R may be singular. This is dimension-thin, not rank-compressed, and not a unique factorization theorem.",
+    "zero_matrix": "All scheduled elimination pairs are zero, so every computed angle is zero and transform is identity. The wide output is R=0 and Q the first m rows of identity, rather than choosing a basis for only the nonzero rows. This follows from the inspected recurrence; no float replay was used.",
+    "m_zero": "m=0 enters the wide branch for every n. A.transpose has no columns; decompose is empty, transform=I_n, R is 0 by 0 and Q 0 by n. The two equations use empty-row matrix semantics.",
+    "n_zero": "n=0,m>0 uses the tall branch with R=A:m by 0 and Q=I_0. m=n=0 uses the wide branch. Empty inner sums and empty identities are valid finite matrix objects; no positive dimension is assumed.",
+    "register_boundary": "These are numerical Fin-indexed matrices and adjacent row planes, not qubit registers. No little-endian/Gray code, ancilla cleanup, RY/CX instruction list, state-preparation action or Hermite target theorem is asserted by this module."
+  },
+  "definition_and_cost_boundary": {
+    "definition_kind": "Literal deterministic matrix recurrences/extractions and an explicit shape branch, not quotient representatives and not characterized-object selection. Orthogonal completions need not be mathematically unique, but the producer fixes this one rule.",
+    "noncomputability": "Exact arbitrary real inputs, sqrt/arccos/sin/cos and zero/sign tests use existing noncomputable semantics. Classical.choice in printed axiom dependencies does not mean the factors are selected by Classical.choose of an existence theorem.",
+    "rotation_length": "RectangularGivens.decompose_length_le bounds the computed log length by N*M, hence by n*m for A.transpose. This is a symbolic list-length bound, not a total arithmetic evaluation, storage, copying, matrix-entry oracle or bit-operation cost theorem.",
+    "uncached_inputs": "A is a Matrix function; public wideR and wideQ are entrywise expressions calling reduced/transform. No stored input array or cached shared decomposition and costed evaluation API is present. Do not infer one from the mathematical determinism.",
+    "finite_bit_open": "No finite input encoding, approximation tolerance, rounding analysis, conditioning/rank-decision strategy, error propagation, executable extraction, serialization, total runtime, numerator bit-growth, gate synthesis or quantum resource certificate is supplied.",
+    "non_impossibility": "The noncomputable marker and missing cost theorem neither certify finite-bit efficiency nor refute the existence of a numerical implementation."
+  },
+  "fresh_evidence_scope": {
+    "actual_source": "lake env lean QuantumBlockEncoding/ConstructiveThinLQ.lean freshly elaborated the frozen source, exit0.",
+    "independent_source_replay": "A second invocation piped the complete current UTF-8 target source plus decoder-owned #check/#print axioms commands to lake env lean --stdin, exit0. Its imports remained RectangularGivens and ThinLQ; it did not import a cached ConstructiveThinLQ target. No temporary file or production olean was written.",
+    "all8_types_and_axioms": "All eight listed public declarations had explicit-implicit-parameter #check queries and #print axioms queries. Every printed set was exactly [propext,Classical.choice,Quot.sound]. Record constructor/proof projections and key provider signatures were additionally checked.",
+    "scope_limit": "This is a current target-source and root-axiom check using installed provider imports. It is not a fresh rebuild or axiom census of every transitive provider, nor lake build/Tests/site/publication acceptance.",
+    "warnings": "Lake reported the pre-existing local verso dependency changes. Target and stdin proof compilation emitted no Lean error or linter warning."
+  },
+  "interpretation_alerts_for_later_comparison": [
+    "Exactly min(m,n), not numerical rank; no row-independence premise.",
+    "Q*Q.transpose=I_r, not Q.transpose*Q=I_n in the strictly wide case.",
+    "Tall R=A need not be triangular; no all-shape triangular field exists.",
+    "Signed entries are literal; no positive final diagonal or uniqueness claim.",
+    "Actual deterministic factor output is proved, but no finite-bit preprocessing or quantum circuit cost follows."
+  ],
+  "admission": "No source comparison, scientific ROOT acceptance, publication verdict, new source lesson approval or whole-chain independent review. A distinct reviewer must compare this reconstruction against the withheld source contract.",
+  "live_terminal_handles": []
+}

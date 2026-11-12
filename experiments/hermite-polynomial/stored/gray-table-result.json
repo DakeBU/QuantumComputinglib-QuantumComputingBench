@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "status": "PROVED_LOCAL staging; no production, source/publication or ROOT promotion",
+  "task": "SP-HERMITE-POLY-002",
+  "implementation": "experiments/hermite-polynomial/stored/GrayTable.lean",
+  "source_sha256": "b10a9088745f332639430c638c42e514d2425bbe334c85f14f6338d38ddb2b39",
+  "statement_seal": "experiments/hermite-polynomial/stored/gray-table-contract.json",
+  "seal_sha256": "28ae941ee334fa91ae538fe5060d1984e282c4c9dfaefe5aff6fcbf587d48340",
+  "delta": "Explicit recursive little-endian integer encoding, materialized Gray bit/bond labels cached once, and actual stored-table reindex exactly refining the existing physical named matrix's grayCoordinates",
+  "roots": ["QuantumBlockEncoding.StagedGrayTable.encode_value", "QuantumBlockEncoding.StagedGrayTable.label_value", "QuantumBlockEncoding.StagedGrayTable.reindex_value", "QuantumBlockEncoding.StagedGrayTable.reindex_grayCoordinates", "QuantumBlockEncoding.StagedGrayTable.reindex_total_cost"],
+  "resource_model": "StoredGivens extended exact-real word model; selected natural multiply/add and Gray quotient/parity work charged under field, reads/writes and persistent copying explicit. Not finite-bit time/address/allocation cost.",
+  "bounds": {"encode_per_operation": "n*(5*n+3)", "label_per_operation": "6*q^2+19*q+13", "actual_table_total": "<=8*tableBudget(q), where H=2^(q+1), tableBudget=H*(labelBudget+4)+8*H^2+4*H"},
+  "regressions": ["q=0 labels [0,1]", "q=2 labels [0,1,3,2,6,7,5,4]", "signed arbitrary nonsymmetric table entry (Gray row2,col1) equals physical row3,col1, exposing transpose/inverse mistakes", "three-bit LE encoding [1,0,1] =5"],
+  "master_check": {"compiler": "Lean4.33.0", "focused_exit_code": 0, "dependency": "Frozen GrayTarget compiled into an ignored external cache, imported under its declared staging module name; cache path omitted", "axioms": ["propext", "Classical.choice", "Quot.sound"], "failed_tactic_iterations": "Preserved in tool/run history; repaired elaboration and cost-proof bookkeeping, no false mathematical obstruction claimed"},
+  "effect": "Closes the charged stored physical-completion to Gray-input adapter needed by the local SO primitive emitter; exact same returned table and actual cost. All-stage source binding/placement, uniform precision, executable acceptance, source review, purification and C2/C3/X2/ROOT remain separate.",
+  "lineage": {"parents": ["staged ActiveColumns physical completion", "staged GrayTarget word producer", "existing GrayGivensCompiler.grayCoordinates"], "mutation": "replace conceptual constant-time permutation by cached materialized label producer", "crossover": "consumer equality connects the actual physical stored table to the existing named Gray semantic interface"},
+  "failure_class": "NONE"
+}

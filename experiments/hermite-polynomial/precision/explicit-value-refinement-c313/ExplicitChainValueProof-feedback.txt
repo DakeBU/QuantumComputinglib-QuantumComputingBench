@@ -1,0 +1,98 @@
+OWN\ExplicitChainValueProof.lean:46:45: warning: This simp argument is unused:
+  Sum.elim
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [kernelAt, c252_componentKernel_value, liftRun, pure, Run.pure, hA, hB, hC, hD, actualBlocksQ,
+    BlockQ.sum, BlockQ.prod, strictQ, inclusiveQ, thresholdQ, constantQ, tailQ, middleQ, polyQ, Bool.false_eq_true,
+    if_false, if_true]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+OWN\ExplicitChainValueProof.lean:63:4: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (decode (sourceDegree delta) (2 * k + 1) (finProdFinEquiv.symm j).2).run.value
+in the target expression
+  (kernelAt (sourceDegree delta) (2 * k + 1) L (↑q) (HermiteChargedSourceCache.factorials L).value.values ht hm
+          (HermiteCachedPiecewiseStored.rightSetup n R delta).value.cutMinusOne
+          (HermiteCachedPiecewiseStored.rightSetup n R delta).value.cutZero
+          (HermiteCachedPiecewiseStored.rightSetup n R delta).value.cutMinusT
+          (HermiteCachedPiecewiseStored.rightSetup n R delta).value.cutT (gridStepQ (n + 1) R) (-gridStepQ (n + 1) R)
+          (finProdFinEquiv.symm j).1 ((fullEquiv k delta).symm a)
+          (decode (sourceDegree delta) (2 * k + 1) (finProdFinEquiv.symm j).2).run.value).run.value =
+    actualEntryQ k n R delta (↑q) (finProdFinEquiv.symm j).1 a (finProdFinEquiv.symm j).2
+
+k n : ℕ
+R delta : ℚ
+L : ℕ
+ht : sourceDegree delta ≤ L
+hm : 2 * k + 1 ≤ L
+q : Fin (n + 1)
+a : Fin (assemblySize k delta)
+j : Fin (2 * assemblySize k delta)
+⊢ (kernelAt (sourceDegree delta) (2 * k + 1) L (↑q) (HermiteChargedSourceCache.factorials L).value.values ht hm
+          (HermiteCachedPiecewiseStored.rightSetup n R delta).value.cutMinusOne
+          (HermiteCachedPiecewiseStored.rightSetup n R delta).value.cutZero
+          (HermiteCachedPiecewiseStored.rightSetup n R delta).value.cutMinusT
+          (HermiteCachedPiecewiseStored.rightSetup n R delta).value.cutT (gridStepQ (n + 1) R) (-gridStepQ (n + 1) R)
+          (finProdFinEquiv.symm j).1 ((fullEquiv k delta).symm a)
+          (decode (sourceDegree delta) (2 * k + 1) (finProdFinEquiv.symm j).2).run.value).run.value =
+    actualEntryQ k n R delta (↑q) (finProdFinEquiv.symm j).1 a (finProdFinEquiv.symm j).2
+
+Note: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.
+Full error:
+  Application type mismatch: The argument
+    j
+  has type
+    Fin (2 * assemblySize k delta)
+  but is expected to have type
+    Fin (2 * fiveSize (sourceDegree delta) (2 * k + 1))
+  in the application
+    finProdFinEquiv.symm j
+OWN\ExplicitChainValueProof.lean:142:2: error: Type mismatch: After simplification, term
+  c252_prepared_value k n R delta (sourceDegree delta + 2 * k + 1)
+    (Decidable.byContradiction fun a => produceExplicitQData_value._proof_1_3 k delta a)
+    (Decidable.byContradiction fun a => produceExplicitQData_value._proof_1_4 k delta a)
+ has type
+  @Eq
+    (RationalData n
+      (fiveSize (degree (HermiteFiniteExp.tailCutoff delta) (HermiteFiniteExp.tailCutoff delta)) (2 * k + 1)))
+    (materializePrepared k n R delta (degree (HermiteFiniteExp.tailCutoff delta) (HermiteFiniteExp.tailCutoff delta)) ⋯
+          (degree (HermiteFiniteExp.tailCutoff delta) (HermiteFiniteExp.tailCutoff delta) + 2 * k + 1) ⋯ ⋯
+          (HermiteCachedPiecewiseStored.rightSetup n R delta).value
+          (HermiteCachedPiecewiseStored.middleFromCache k
+              (HermiteCachedPiecewiseStored.rightSetup n R delta).value.midpoint
+              (HermiteChargedSourceCache.produceSourceCache k).value).value
+          (HermiteChargedSourceCache.factorials
+                (degree (HermiteFiniteExp.tailCutoff delta) (HermiteFiniteExp.tailCutoff delta) + 2 * k +
+                  1)).value.values
+          (gridStepQ (n + 1) R) (-R) (-gridStepQ (n + 1) R)).run.value
+    (HermiteCachedPiecewiseStored.produceCachedQData k n R delta).value
+but is expected to have type
+  @Eq (RationalData n (assemblySize k delta))
+    (materializePrepared k n R delta
+          (degree (HermiteCachedPiecewiseStored.cutoffQ delta).value (HermiteCachedPiecewiseStored.cutoffQ delta).value)
+          ⋯
+          (degree (HermiteCachedPiecewiseStored.cutoffQ delta).value
+                (HermiteCachedPiecewiseStored.cutoffQ delta).value +
+              2 * k +
+            1)
+          ⋯ ⋯ (HermiteCachedPiecewiseStored.rightSetup n R delta).value
+          (HermiteCachedPiecewiseStored.middleFromCache k
+              (HermiteCachedPiecewiseStored.rightSetup n R delta).value.midpoint
+              (HermiteChargedSourceCache.produceSourceCache k).value).value
+          (HermiteChargedSourceCache.factorials
+                (degree (HermiteCachedPiecewiseStored.cutoffQ delta).value
+                      (HermiteCachedPiecewiseStored.cutoffQ delta).value +
+                    2 * k +
+                  1)).value.values
+          (gridStepQ (n + 1) R) (-R) (-gridStepQ (n + 1) R)).run.value
+    (HermiteCachedPiecewiseStored.produceCachedQData k n R delta).value
+HermiteExplicitCachedStored.c252_componentKernel_value (L r q : ℕ) (hr : r ≤ L) (cutA cutB : ℕ) (step : ℚ) (bit : Fin 2)
+  (a b : ComponentIndex r) :
+  (componentKernel L r q (HermiteChargedSourceCache.factorials L).value.values hr cutA cutB step bit a b).run.value =
+    comparisonEntry cutA q bit a.1 b.1 *
+      (comparisonEntry cutB q bit a.2.1 b.2.1 * translationCoreQ r (step * 2 ^ q * ↑↑bit) a.2.2 b.2.2)
+'_private.ExplicitChainValueProof.0.HermiteExplicitCachedStored.c252_componentKernel_value' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+HermiteExplicitCachedStored.c252_kernelAt_value (k n : ℕ) (R delta : ℚ) (L q : ℕ) (ht : sourceDegree delta ≤ L)
+  (hm : 2 * k + 1 ≤ L) (bit : Fin 2) (a b : FullIndex
+[Bounded excerpt; complete raw streams retained privately.]

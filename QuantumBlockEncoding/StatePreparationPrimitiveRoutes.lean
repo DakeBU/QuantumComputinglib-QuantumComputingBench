@@ -152,7 +152,7 @@ theorem evalPrimitiveCircuitLE_append {qubits : Nat}
   simp [evalPrimitiveCircuitLE, primitiveLEBits, evalPrimitiveCircuit,
     evalPrimitiveGate, _root_.Matrix.reindexAlgEquiv_apply,
     _root_.Matrix.reindex_apply, _root_.Matrix.submatrix_apply,
-    liftPrimitiveOneQubit_apply]
+    liftPrimitiveOneQubit_apply] <;> rfl
 
 theorem evalPrimitiveCircuitLE_compileUniformlyControlledRy_apply
     {qubits controls : Nat}
@@ -231,14 +231,46 @@ theorem groverRudolphFactorized_evalLE_eq_matrix :
       groverRudolphProductMatrix := by
   unfold groverRudolphFactorizedCircuit
   rw [evalPrimitiveCircuitLE_append]
+  let lowMatrix : _root_.Matrix (Fin (gridSize 2)) (Fin (gridSize 2)) ℂ := fun row column =>
+    match row.val, column.val with
+    | 0, 0 | 2, 2 => (3 : ℂ) / 5
+    | 0, 1 | 2, 3 => -(4 : ℂ) / 5
+    | 1, 0 | 3, 2 => (4 : ℂ) / 5
+    | 1, 1 | 3, 3 => (3 : ℂ) / 5
+    | _, _ => 0
+  let highMatrix : _root_.Matrix (Fin (gridSize 2)) (Fin (gridSize 2)) ℂ := fun row column =>
+    match row.val, column.val with
+    | 0, 0 | 1, 1 => (3 : ℂ) / 5
+    | 0, 2 | 1, 3 => -(4 : ℂ) / 5
+    | 2, 0 | 3, 1 => (4 : ℂ) / 5
+    | 2, 2 | 3, 3 => (3 : ℂ) / 5
+    | _, _ => 0
+  have lowEval :
+      evalPrimitiveCircuitLE [PrimitiveGate.ry (0 : Fin 2) ryAngle35] =
+        lowMatrix := by
+    ext row column
+    fin_cases row <;> fin_cases column <;>
+      rw [evalPrimitiveCircuitLE_singleton_ry_apply]
+    all_goals first | rw [if_pos (by native_decide)] | rw [if_neg (by native_decide)]
+    all_goals norm_num [lowMatrix, primitiveLEBits, primitiveBasisLEEquiv_two_symm,
+      primitiveBits2LE, primitiveBits2LEWithout,
+      standardRyMatrix_ryAngle35, realOrthogonalRotation, cosine35, sine35]
+  have highEval :
+      evalPrimitiveCircuitLE [PrimitiveGate.ry (1 : Fin 2) ryAngle35] =
+        highMatrix := by
+    ext row column
+    fin_cases row <;> fin_cases column <;>
+      rw [evalPrimitiveCircuitLE_singleton_ry_apply]
+    all_goals first | rw [if_pos (by native_decide)] | rw [if_neg (by native_decide)]
+    all_goals norm_num [highMatrix, primitiveLEBits, primitiveBasisLEEquiv_two_symm,
+      primitiveBits2LE, primitiveBits2LEWithout,
+      standardRyMatrix_ryAngle35, realOrthogonalRotation, cosine35, sine35]
+  rw [lowEval, highEval]
   ext row column
   fin_cases row <;> fin_cases column <;>
     rw [_root_.Matrix.mul_apply, Finset.sum_fin_eq_sum_range] <;>
-    norm_num [gridSize, Finset.sum_range_succ,
-      evalPrimitiveCircuitLE_singleton_ry_apply,
-      primitiveLEBits, primitiveBasisLEEquiv_two_symm, primitiveBits2LE,
-      primitiveBits2LEWithout, standardRyMatrix_ryAngle35,
-      realOrthogonalRotation, cosine35, sine35, groverRudolphProductMatrix]
+    norm_num [gridSize, Finset.sum_range_succ, lowMatrix, highMatrix,
+      groverRudolphProductMatrix]
 
 theorem groverRudolphFactorized_prepares_target :
     applyVec (evalPrimitiveCircuitLE groverRudolphFactorizedCircuit) (zeroKet 2) =

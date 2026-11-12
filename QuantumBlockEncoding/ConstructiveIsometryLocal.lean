@@ -53,11 +53,14 @@ theorem completeStage_spec {n l r q : ℕ} (C : Chain n l r)
   have hcast : Fin.castLE hl aa = primitiveBasisLEEquiv q a := Fin.ext rfl
   have he : activePositions hl aa = Fin.snoc a 0 := by
     apply (localIndex q).injective
-    simp [activePositions, hcast]
+    change localIndex q ((localIndex q).symm (0, Fin.castLE hl aa)) =
+      localIndex q (Fin.snoc a 0)
+    rw [Equiv.apply_symm_apply, localIndex_snoc, hcast]
     rfl
   change (localCompletion hl (activeColumns C t hB) _ _ : ℂ) = _
   rw [← he, hc]
-  simpa only [activeColumns, localIndex_snoc, hcast] using
-    paddedAt_real C t (bit, primitiveBasisLEEquiv q b) (primitiveBasisLEEquiv q a)
+  change ((paddedAt C t (localIndex q (Fin.snoc b bit)) (Fin.castLE hl aa)).re : ℂ) = _
+  rw [localIndex_snoc, hcast]
+  exact paddedAt_real C t (bit, primitiveBasisLEEquiv q b) (primitiveBasisLEEquiv q a)
 
 end QuantumBlockEncoding.ConstructiveIsometryLocal

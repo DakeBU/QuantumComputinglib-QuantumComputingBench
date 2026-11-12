@@ -1,0 +1,31 @@
+{
+  "schema": "aspbe-staged-provider-contract-v1",
+  "status": "STATEMENT_SEALED",
+  "version": 1,
+  "class": "C_INTERNAL_PROVIDER",
+  "parent": "SP-HERMITE-POLY-002:C2",
+  "direction_fingerprint": "stored-SO-to-primitive-trace",
+  "input": "q:Nat; A:StoredMatrix (2^(q+1)) (2^(q+1)), materialized signed real SO matrix in Gray-ordered numeric coordinates",
+  "generic_premises": ["(StoredGivens.denote A).transpose * StoredGivens.denote A = 1", "(StoredGivens.denote A).det = 1"],
+  "hermite_source_premises": "No new Hermite public premise. Generic SO premises must be discharged by the actual stored completion consumer; a charged bit/bond LE-to-Gray input reindexer is a separate interface unless implemented here.",
+  "actual_producer": "compileGray binds one actual stored square sweep, forms its reverse/inverse log with charged record reads/angle negations/list writes, emits each actual plane through GrayTarget.discover, GrayTarget.word, ExplicitControls.selected, charged real coefficient/angle instantiation and persistent chronological append",
+  "sealed_semantic_signature": "theorem compileGray_eval {q:Nat} (A:StoredMatrix (2^(q+1)) (2^(q+1))) (hO:(denote A).transpose * denote A = 1) (hD:(denote A).det=1) : evalPrimitiveCircuit (compileGray A).value = GrayGivensCompiler.transport (GrayBasis.equiv (q+1)) (denote A)",
+  "returned_trace": "PrimitiveCircuit(q+1), chronological list of actual elementary RY(real coefficient*cached signed angle) and CX instructions; same returned object in semantic and cost statements",
+  "chronology": "Elimination log reduces A to identity; reverse log and negate each elimination angle first. Then negate again exactly when the first Gray endpoint has target bit1. evalPrimitiveCircuit executes list head first; stepsMatrix multiplies later steps on the left.",
+  "phase_and_wires": "Exact signed matrix action, not up to phase. q+1 existing wires, GrayBasis.equiv little-endian physical bits. Explicit increasing skip controls; no oracle or added ancilla.",
+  "counts": {
+    "intermediate_log": "E=N*(N-1)/2 including zero-pivot identity rotations, N=2^(q+1)",
+    "final_gates": "E*G, G=2^q+2*(2^q-1); intermediate emit ledger and final gate count distinct",
+    "ordinary_scope": "exact real/rational operations and stored-word traffic; selected integer quotient/remainder and bit operations overcharged in field tag and identified separately",
+    "transcendentals": "sqrt/arccos/trig from stored elimination remain separate Op.sqrt/.angle/.trig counters. No atan2 call or finite-bit evaluation claimed.",
+    "real_angle_instantiation": "each RY coefficient cast and multiplication explicitly charged; sign selection cached bit read, comparison and possible real negation charged",
+    "copying": "reverse/inverse log and final persistent append charged. No free entry callback: input is stored; actual scalar work uses charged operations.",
+    "polynomial_goal": "polynomial in local N and q from existing sweep/selected/Gray-word bounds plus reverse, real instantiation and append; exact formula sealed by implementation result rather than guessed coefficient",
+    "excluded": ["full Hermite all-stage compiler", "general loop/address and proof/counter metadata arithmetic", "finite-bit arithmetic/transcendental evaluation", "uniform approximation error", "global physical wire placement", "uncharged input table reindexing is NOT included"]
+  },
+  "regressions": ["empty log and dimension0/1 helpers", "zero pivot pairs still emit identity rotations", "reverse/inverse chronology", "first Gray bit1 angle sign", "q=0 one RY per plane", "signed SO matrix exact action"],
+  "reuse": ["StoredRectangularGivens.sweep/sweep_steps/sweep_cost_le", "AdjacentGivens.fullSweepSteps/decomposeSO_matrix", "GrayGivensCompiler.edge_plane_transport", "HermiteGrayTargetCandidate.discover/word", "HermiteExplicitControlsCandidate.selected", "StoredSelectedRyTrace.append", "SelectedRyTrace.instantiate"],
+  "process_memory_ids": ["QBE-PM-LOW-TOKEN-CONTROL-PLANE", "QBE-PM-DENSE-CHECK-SMALL-INSTANCE", "QBE-PM-VERIFIER-SEMANTIC-LEVEL"],
+  "independent_review": "pending",
+  "worker_token_telemetry": null
+}

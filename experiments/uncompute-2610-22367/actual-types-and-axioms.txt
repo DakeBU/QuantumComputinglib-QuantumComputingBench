@@ -1,0 +1,20 @@
+Hddivsteps.ladder {p : ℤ} {s : Hddivsteps.ZState} (h : Hddivsteps.Inv p s) (hz : s.z < 0) {j : ℕ} {q : ℤ}
+  (hj : j = padicValInt 2 (Hddivsteps.zStep s).fv) (hq : q = (Hddivsteps.zStep s).fv / 2 ^ j) :
+  Hddivsteps.bbit s = Hddivsteps.bitk (↑(↑(Hddivsteps.zStep s).gv * (↑q)⁻¹).val) (j - 1)
+Hddivsteps.ladder_det {p : ℤ} {s : Hddivsteps.ZState} (h : Hddivsteps.Inv p s) (hp : p % 2 = 1) (hz : s.z < 0) {j : ℕ}
+  {q : ℤ} (hj : j = padicValInt 2 (Hddivsteps.zStep s).fv) (hq : q = (Hddivsteps.zStep s).fv / 2 ^ j) :
+  Hddivsteps.bbit s = Hddivsteps.bitk (↑(↑p * (↑((Hddivsteps.zStep s).f * q))⁻¹).val) (j - 1)
+Hddivsteps.finite_dependence {p : ℤ} (hp : p % 2 = 1) (j : ℕ) :
+  ∃ decode,
+    ∀ (s : Hddivsteps.ZState),
+      Hddivsteps.Inv p s →
+        s.z < 0 →
+          j = padicValInt 2 (Hddivsteps.zStep s).fv →
+            Hddivsteps.bbit s = decode ↑(Hddivsteps.zStep s).f ↑((Hddivsteps.zStep s).fv / 2 ^ j)
+Hddivsteps.j2_law {p : ℤ} {s : Hddivsteps.ZState} (h : Hddivsteps.Inv p s) (hp : p % 2 = 1) (hz : s.z < 0)
+  (h2 : padicValInt 2 (Hddivsteps.zStep s).fv = 2) :
+  Hddivsteps.bbit s = (Hddivsteps.bitk (Hddivsteps.zStep s).gv 1 + Hddivsteps.bitk (Hddivsteps.zStep s).fv 3) % 2
+'Hddivsteps.ladder' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Hddivsteps.ladder_det' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Hddivsteps.finite_dependence' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Hddivsteps.j2_law' depends on axioms: [propext, Classical.choice, Quot.sound]

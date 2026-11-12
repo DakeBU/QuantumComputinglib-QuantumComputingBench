@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "objective": "Hermite-source-reachable-dynamic-range-and-rounded-core-error",
+  "status": "FOCUSED_INTERNAL_PROVIDERS_COMPILED_AND_ACTUAL_SUPPLIER_FAILURE_REPRODUCED",
+  "failure_class": "IMPLEMENTATION_FAILED",
+  "root_effect": "Retires unrestricted totality of the frozen actual float64/Decimal supplier over positive rational L. Does not refute the exact-real Hermite construction or polynomial preparation. Adds reusable source-linked Bernstein error providers; uniform producer/QR/normalizer/serialized error remains open.",
+  "shared_proof_input_digest": "5a8f47f8d0afd1d4f957e55babde52a9e9c01babf05c481b988e99ebca2f7758",
+  "mathematical_delta": [
+    "Exact Bernstein evaluation maps sup coefficient error delta to scalar error at most delta, independent of degree.",
+    "Exact interval restriction maps sup coefficient error delta to sup restricted-coefficient error at most delta.",
+    "Rounded de Casteljau rows with initial error delta and certified per-update absolute residual rho have error at most delta+d*rho after d rows.",
+    "These compose with the literal sourceInterpolant_bernstein bridge; they are not generic-TT substitutes.",
+    "A valid frozen-source n2,k0,L=1/10^100 instance fails before QR: interval coordinates round to[1,1] at the91-digit schedule, although exact width is pi/10^100>0.",
+    "Actual n2,k0,L1000 source underflow has a rigorous tiny omitted-tail state-error budget, not an all-zero normalized-state failure."
+  ],
+  "lean": {
+    "file": "experiments/hermite-polynomial/precision/source-reachable/BernsteinError.lean",
+    "namespace": "QuantumBlockEncoding.ExperimentalHermiteSourcePrecision",
+    "roots": ["bernstein_eval_error", "restriction_coefficient_error", "rounded_casteljau_error", "source_perturbed_eval", "exp_underflow_error"],
+    "helpers": ["convex_step_error", "casteljau_succ", "leftRestriction_sub", "rightRestriction_sub", "restriction_sub"],
+    "declaration_level": "C internal provider, not accepted quantum Source Anchor",
+    "toolchain": "leanprover/lean4:v4.33.0",
+    "focused_command": "lake env lean experiments/hermite-polynomial/precision/source-reachable/BernsteinError.lean",
+    "focused_exit": 0,
+    "reported_axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "sorryAx": false,
+    "repository_gates": "Root owns aggregate lake build and lake build Tests; this packet does not claim they were run by this worker.",
+    "environment_warning": "Existing verso package has local changes; no repair or package mutation performed."
+  },
+  "diagnostic": {
+    "file": "experiments/hermite-polynomial/precision/source-reachable/test_source_precision.py",
+    "command": ".venv/Scripts/python.exe -B -m unittest discover -s experiments/hermite-polynomial/precision/source-reachable -p test_source_precision.py -v",
+    "exit": 0,
+    "tests": 4,
+    "last_measured_test_seconds": 0.197,
+    "witness_command": ".venv/Scripts/python.exe -B experiments/hermite-polynomial/precision/source-reachable/test_source_precision.py --witness",
+    "important": "Passing expected-failure assertions reproduces failure; it is not producer acceptance. Four-entry dense source references are diagnostics only, never construction inputs.",
+    "source_constructor_failure": {
+      "n": 2, "k": 0, "L": "1/10^100",
+      "rational_input_bits": {"numerator": 1, "denominator": 333},
+      "decimal_digits": 91,
+      "left_cutoff": 0,
+      "first_included_middle_interval": "[1-pi/10^100,1]",
+      "exact_radius_bound": "0<pi/10^100<4/10^100<1/(2*10^91)",
+      "rounded_interval": ["1", "1"],
+      "observed_error": "ArithmeticError: source polynomial restriction outside [0,1]",
+      "source_validity": "k natural,n>=1,L positive rational; all source samples positive and central sample exactly1",
+      "minimality": "No smallest n or smallest input-bit-length claim. n2 is a bounded sharp witness.",
+      "invalidation": "Change to working-digit schedule, affine coordinate representation, or interval restriction supplier requires new source hash/replay."
+    },
+    "actual_underflow": {
+      "n": 2, "k": 0, "L": "1000",
+      "source": "[exp(-1000*pi),exp(-500*pi),1,exp(-500*pi)]",
+      "stored_normalized": [0, 0, 1, 0],
+      "scaled_normalizer": 1,
+      "exact_state_error_bound": "2*sqrt(3)*exp(-1500)<4*300!/1500^300<10^-300",
+      "argument": "pi>3; monotone exp; source norm floor1; normalization_stability; positive Taylor term exp(1500)>1500^300/300!; final rational comparison exact",
+      "scope": "Rigorous finite source-error derivation combined with actual output observation, not a formal IEEE-library or arbitrary-width certificate."
+    }
+  },
+  "source_dynamic_range_derivation": {
+    "status": "Human exact algebra and finite exact-rational discriminator, not yet Lean or independently reviewed",
+    "degree": "d=2k+1; r<=k",
+    "collapsed_left_coefficient": "b_r=sum_{m=0}^r binom(d-m,r-m)/(binom(d,r)*m!)",
+    "convolution_identity": "sum_{u=0}^{r-m} binom(k+u,u)*binom(k-m-u,r-m-u)=binom(2k+1-m,r-m)",
+    "independent_derivation": "Extract coefficient t^(r-m) of (1+t)^(k-m) * sum_u binom(k+u,u)*(t/(1+t))^u = (1+t)^(2k+1-m). Terms beyond r-m cannot contribute; all binomial upper arguments in contributing terms are nonnegative because r<=k.",
+    "ratio_bound": "binom(d-m,r-m)/binom(d,r)=prod_{j<m}(r-j)/(d-j)<=2^(-m), since r<=k<d/2. The m0 term is1.",
+    "left_bounds": "1<=b_r<=sum_m1/(2^m*m!)<=exp(1/2)<2; b_r=0 for k<r<=d",
+    "source_coefficient_bounds": "For0<=r<=d exactly one reflected half is nonzero. First half: exp(-1)<=c_r<=exp(-1/2); second half:1<=c_r<=exp(1/2). Thus every source Bernstein coefficient lies in[exp(-1),exp(1/2)].",
+    "injection_bounds": "By existing restrictCoefficients_bounds every exact restricted coefficient has the same interval bounds, independently of n,L. Source polynomial injection cannot have enormous magnitude or tiny positive coefficients.",
+    "subdivision_bounds": "Exact subdivision entries are binomial probabilities in[0,1], with stochastic coefficient updates. Exponential free/injection entries are in[0,1] on their source loci. Zero support/mask entries are intentional.",
+    "raw_core_consequence": "Exact MPS-02 raw core entries are nonnegative and at most2 after boundary folding; disjoint summands do not create the generic1e308/1e-308 unsupported-branch witness. This consequence is not a checked all-parameter float64/QR theorem.",
+    "finite_exact_check": "test_exact_source_coefficient_collapse_identity checks every r<=k for k0..24 using Fraction arithmetic. This is a discriminator for the derivation, not its universal proof."
+  },
+  "cost_and_error_boundary": {
+    "coordinates": "The selected literal representation1-radius*offset needs precision depending on small-L exponent/input bit length to distinguish restriction endpoints. Fixed digits depending only on n cannot work for all positive rational L. This is an implementation requirement, not an intrinsic precision lower bound.",
+    "alternative_mechanism": "Retain source offsets s=1-t; reflect Bernstein coefficients and restrict in s near0 to avoid adding tiny offsets to1. Alternatively use outward/adaptive interval arithmetic that proves0<=lower<upper<=1 before evaluation; increasing precision alone is not accepted without certified resulting error.",
+    "coefficient_operations": "Exact Fraction construction/elevation uses polynomially many coefficient operations in k but operand bit lengths and copying are charged separately. Decimal precision must depend on epsilon and operation count;90 guard digits have no uniform epsilon meaning.",
+    "source_sup_to_state": "If actual raw samples satisfy uniform absolute error alpha, Euclidean error is at most sqrt(2^n)*alpha; source norm floor1 yields normalized error at most2*sqrt(2^n)*alpha via existing normalization_stability. This conditional conversion is not a producer-bound proof.",
+    "underflow": "A source exponential factor rounded to0 can be charged an absolute tail budget. It need not preserve nonzero support, and actual source positivity does not forbid harmless underflow.",
+    "QR": "Signed QR and residual absorption require actual backward/forward error bounds, including near-deficient ranks and max-scaling support; bounded positive raw entries alone do not supply them.",
+    "normalizer": "Scaled mantissa/exponent products avoid materializing large norms but multiplication rounding and the relation to computed state norm still need an eta certificate.",
+    "end_to_end": "Root-owned bound2Fdelta+eta/(1-eta)+zeta is retained. None of delta,eta,zeta is asserted by these diagnostics; scalar exp,pi cutoff separation,QR,normalizer,angle and gate-synthesis costs are still charged."
+  },
+  "source_hashes": {
+    "experiments/hermite-polynomial/mps/mps_stable_cores.py": "446cb38910cd418af9fa293bd33e8d6eb09769f9fcdf41d919210eaaee2142c0",
+    "experiments/hermite-polynomial/mps/scaled_canonicalize.py": "7154179bd54addf22d8cf365cc29e6b195392bee2d182989c49b5f1fa4bff879",
+    "QuantumBlockEncoding/HermiteBernstein.lean": "661618d9c10826491ee293c7c411ac2d55056426739f4bbfd3e7c410c05e4bff",
+    "QuantumBlockEncoding/HermiteFiniteChain.lean": "b6cd70313fe158287b243327bef81599a131b7bba205d10509fe3d17f95212bf",
+    "experiments/hermite-polynomial/mass/analytic_mass.py": "7a7eb478cb346ead3cc95cc6c7548d53bd431cb17316c06985eaef47f8ac848b"
+  },
+  "artifact_hashes": {
+    "BernsteinError.lean": "237497d80953ff70ef900b2509c38af802b35f28464a89b2c345ac99eb44c06b",
+    "test_source_precision.py": "6f0da5a6818ea45b089bca36a39168352f2396cbff44130488425aa217931a11",
+    "statement-seal.json": "38901e0033aac2be7adb2ba772b71486cfa8cfa667190d227b23d8dee71065ca"
+  },
+  "handoff": {
+    "files_changed": ["experiments/hermite-polynomial/precision/source-reachable/statement-seal.json", "experiments/hermite-polynomial/precision/source-reachable/BernsteinError.lean", "experiments/hermite-polynomial/precision/source-reachable/test_source_precision.py", "experiments/hermite-polynomial/precision/source-reachable/result.json"],
+    "salvage": "Promote the compiled internal Bernstein error interface after root gate/review. Preserve source range derivation for a future all-k coefficient-bound formalization. Do not discard exact positive-scaling or normalization theorems due to this numerical supplier failure.",
+    "process_memory_ids": ["QBE-PM-DENSE-CHECK-SMALL-INSTANCE", "QBE-PM-VERIFIER-SEMANTIC-LEVEL", "QBE-PM-LOW-TOKEN-CONTROL-PLANE"],
+    "failure_memory_consulted": ["SP-HERMITE-POLY-002-generic-max-core-underflow", "SP-HERMITE-POLY-002-float64-norm-overflow"],
+    "parallel_admission": "Root-assigned independent actual-source numerical uncertainty; no child agents spawned.",
+    "common_blind_spot_review": "Pending root independent review; no alternative verified quantum construction presented.",
+    "default_verified_route": "Existing exact-real Hermite source/TT root unchanged. New providers are precision edges only, not replacement preparation.",
+    "purification": "Experimental internal module only; helpers consumed by named roots; no production/publication/registry/scoring/ROOT mutation. Exposition Seal and independent source review not claimed.",
+    "residual_risk": "Uniform error and bit complexity open. All-k coefficient range derivation is human mathematics pending Lean and independent audit. No claim of minimal witness, polynomial exact cutoff separation, or accepted executable circuit.",
+    "next_action": "Change coefficient-coordinate supplier to offset/reflected or adaptively certified interval arithmetic in a successor experiment; replay this tiny-L regression. Formalize all-k Bernstein range; certify scalar-operation errors and compose compiled convex error providers, then independently certify QR/normalizer/serialized errors.",
+    "token_usage": "unknown"
+  }
+}

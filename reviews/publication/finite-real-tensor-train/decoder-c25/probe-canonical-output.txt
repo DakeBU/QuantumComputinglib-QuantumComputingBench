@@ -1,0 +1,621 @@
+QuantumBlockEncoding.TensorTrainCanonical.Core : Nat → Nat → Type
+@QuantumBlockEncoding.TensorTrainCanonical.slice : {l r : Nat} →
+  QuantumBlockEncoding.TensorTrainCanonical.Core l r →
+    Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) → Matrix.{0, 0, 0} (Fin l) (Fin r) Real
+QuantumBlockEncoding.TensorTrainCanonical.Chain : Nat → Nat → Nat → Type
+QuantumBlockEncoding.TensorTrainCanonical.Word : Nat → Type
+QuantumBlockEncoding.TensorTrainCanonical.wordFintype : (n : Nat) →
+  Fintype.{0} (QuantumBlockEncoding.TensorTrainCanonical.Word n)
+@QuantumBlockEncoding.TensorTrainCanonical.contract : {n l r : Nat} →
+  QuantumBlockEncoding.TensorTrainCanonical.Chain n l r →
+    QuantumBlockEncoding.TensorTrainCanonical.Word n → Matrix.{0, 0, 0} (Fin l) (Fin r) Real
+@QuantumBlockEncoding.TensorTrainCanonical.RightCanonical : {n l r : Nat} →
+  QuantumBlockEncoding.TensorTrainCanonical.Chain n l r → Prop
+@QuantumBlockEncoding.TensorTrainCanonical.RankReduced : {n l l' r : Nat} →
+  QuantumBlockEncoding.TensorTrainCanonical.Chain n l r → QuantumBlockEncoding.TensorTrainCanonical.Chain n l' r → Prop
+@QuantumBlockEncoding.TensorTrainCanonical.absorb : {l m r : Nat} →
+  QuantumBlockEncoding.TensorTrainCanonical.Core l m →
+    Matrix.{0, 0, 0} (Fin m) (Fin r) Real → QuantumBlockEncoding.TensorTrainCanonical.Core l r
+@QuantumBlockEncoding.TensorTrainCanonical.absorb_slice : ∀ {l m r : Nat}
+  (A : QuantumBlockEncoding.TensorTrainCanonical.Core l m) (R : Matrix.{0, 0, 0} (Fin m) (Fin r) Real)
+  (bit : Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))),
+  @Eq.{1} (Matrix.{0, 0, 0} (Fin l) (Fin r) Real)
+    (@QuantumBlockEncoding.TensorTrainCanonical.slice l r (@QuantumBlockEncoding.TensorTrainCanonical.absorb l m r A R)
+      bit)
+    (@HMul.hMul.{0, 0, 0} (Matrix.{0, 0, 0} (Fin l) (Fin m) Real) (Matrix.{0, 0, 0} (Fin m) (Fin r) Real)
+      (Matrix.{0, 0, 0} (Fin l) (Fin r) Real)
+      (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{0, 0, 0, 0} (Fin l) (Fin m) (Fin r) Real (Fin.fintype m)
+        Real.instMul Real.instAddCommMonoid)
+      (@QuantumBlockEncoding.TensorTrainCanonical.slice l m A bit) R)
+@QuantumBlockEncoding.TensorTrainCanonical.exists_core_lq : ∀ {l r : Nat}
+  (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r),
+  ∃ R Q,
+    And
+      (@Eq.{1} (QuantumBlockEncoding.TensorTrainCanonical.Core l r) A
+        (@HMul.hMul.{0, 0, 0}
+          (Matrix.{0, 0, 0} (Fin l)
+            (Fin
+              (@Min.min.{0} Nat instMinNat l
+                (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r)))
+            Real)
+          (QuantumBlockEncoding.TensorTrainCanonical.Core
+            (@Min.min.{0} Nat instMinNat l
+              (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r))
+            r)
+          (Matrix.{0, 0, 0} (Fin l)
+            (Prod.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin r)) Real)
+          (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{0, 0, 0, 0} (Fin l)
+            (Fin
+              (@Min.min.{0} Nat instMinNat l
+                (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r)))
+            (Prod.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin r)) Real
+            (Fin.fintype
+              (@Min.min.{0} Nat instMinNat l
+                (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r)))
+            Real.instMul Real.instAddCommMonoid)
+          R Q))
+      (@Eq.{1}
+        (Matrix.{0, 0, 0}
+          (Fin
+            (@Min.min.{0} Nat instMinNat l
+              (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r)))
+          (Fin
+            (@Min.min.{0} Nat instMinNat l
+              (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r)))
+          Real)
+        (@HMul.hMul.{0, 0, 0}
+          (QuantumBlockEncoding.TensorTrainCanonical.Core
+            (@Min.min.{0} Nat instMinNat l
+              (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r))
+            r)
+          (Matrix.{0, 0, 0} (Prod.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin r))
+            (Fin
+              (@Min.min.{0} Nat instMinNat l
+                (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r)))
+            Real)
+          (Matrix.{0, 0, 0}
+            (Fin
+              (@Min.min.{0} Nat instMinNat l
+                (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r)))
+            (Fin
+              (@Min.min.{0} Nat instMinNat l
+                (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r)))
+            Real)
+          (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{0, 0, 0, 0}
+            (Fin
+              (@Min.min.{0} Nat instMinNat l
+                (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r)))
+            (Prod.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin r))
+            (Fin
+              (@Min.min.{0} Nat instMinNat l
+                (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r)))
+            Real
+            (@instFintypeProd.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin r)
+              (Fin.fintype (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin.fintype r))
+            Real.instMul Real.instAddCommMonoid)
+          Q
+          (@Matrix.transpose.{0, 0, 0}
+            (Fin
+              (@Min.min.{0} Nat instMinNat l
+                (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r)))
+            (Prod.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin r)) Real Q))
+        (@OfNat.ofNat.{0}
+          (Matrix.{0, 0, 0}
+            (Fin
+              (@Min.min.{0} Nat instMinNat l
+                (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r)))
+            (Fin
+              (@Min.min.{0} Nat instMinNat l
+                (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                  (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r)))
+            Real)
+          (nat_lit 1)
+          (@One.toOfNat1.{0}
+            (Matrix.{0, 0, 0}
+              (Fin
+                (@Min.min.{0} Nat instMinNat l
+                  (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r)))
+              (Fin
+                (@Min.min.{0} Nat instMinNat l
+                  (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r)))
+              Real)
+            (@Matrix.one.{0, 0}
+              (Fin
+                (@Min.min.{0} Nat instMinNat l
+                  (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r)))
+              Real
+              (instDecidableEqFin
+                (@Min.min.{0} Nat instMinNat l
+                  (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+                    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) r)))
+              Real.instZero Real.instOne))))
+@QuantumBlockEncoding.TensorTrainCanonical.exists_rightCanonical : ∀ {n l r : Nat}
+  (C : QuantumBlockEncoding.TensorTrainCanonical.Chain n l r),
+  ∃ l' R D,
+    And (@QuantumBlockEncoding.TensorTrainCanonical.RightCanonical n l' r D)
+      (And (@QuantumBlockEncoding.TensorTrainCanonical.RankReduced n l l' r C D)
+        (∀ (x : QuantumBlockEncoding.TensorTrainCanonical.Word n),
+          @Eq.{1} (Matrix.{0, 0, 0} (Fin l) (Fin r) Real)
+            (@QuantumBlockEncoding.TensorTrainCanonical.contract n l r C x)
+            (@HMul.hMul.{0, 0, 0} (Matrix.{0, 0, 0} (Fin l) (Fin l') Real) (Matrix.{0, 0, 0} (Fin l') (Fin r) Real)
+              (Matrix.{0, 0, 0} (Fin l) (Fin r) Real)
+              (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{0, 0, 0, 0} (Fin l) (Fin l') (Fin r) Real (Fin.fintype l')
+                Real.instMul Real.instAddCommMonoid)
+              R (@QuantumBlockEncoding.TensorTrainCanonical.contract n l' r D x))))
+@QuantumBlockEncoding.TensorTrainCanonical.RankReduced.head_bound : ∀ {n l l' r : Nat}
+  {C :
+    QuantumBlockEncoding.TensorTrainCanonical.Chain
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+      l r}
+  {D :
+    QuantumBlockEncoding.TensorTrainCanonical.Chain
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+      l' r},
+  @QuantumBlockEncoding.TensorTrainCanonical.RankReduced
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+      l l' r C D →
+    And (@LE.le.{0} Nat instLENat l' l)
+      (∃ m' Q tail,
+        And
+          (@Eq.{1}
+            (QuantumBlockEncoding.TensorTrainCanonical.Chain
+              (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+                (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+              l' r)
+            D (@QuantumBlockEncoding.TensorTrainCanonical.Chain.cons n l' m' r Q tail))
+          (@LE.le.{0} Nat instLENat l'
+            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) m')))
+@QuantumBlockEncoding.TensorTrainCanonical.RankReduced.last_bond_le_two : ∀ {l l' : Nat}
+  {C :
+    QuantumBlockEncoding.TensorTrainCanonical.Chain (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) l
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))}
+  {D :
+    QuantumBlockEncoding.TensorTrainCanonical.Chain (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) l'
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))},
+  @QuantumBlockEncoding.TensorTrainCanonical.RankReduced (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) l
+      l' (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) C D →
+    @LE.le.{0} Nat instLENat l' (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+@QuantumBlockEncoding.TensorTrainCanonical.mass.{u_1} : {I : Type u_1} → [Fintype.{u_1} I] → (I → Real) → Real
+@QuantumBlockEncoding.TensorTrainCanonical.mass_vecMul.{u_1,
+    u_2} : ∀ {I : Type u_1} {J : Type u_2} [inst : Fintype.{u_1} I] [inst_1 : Fintype.{u_2} J]
+  [inst_2 : DecidableEq.{u_1 + 1} I] (A : Matrix.{u_1, u_2, 0} I J Real),
+  @Eq.{u_1 + 1} (Matrix.{u_1, u_1, 0} I I Real)
+      (@HMul.hMul.{max u_1 u_2, max u_1 u_2, u_1} (Matrix.{u_1, u_2, 0} I J Real) (Matrix.{u_2, u_1, 0} J I Real)
+        (Matrix.{u_1, u_1, 0} I I Real)
+        (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{0, u_1, u_2, u_1} I J I Real inst_1 Real.instMul
+          Real.instAddCommMonoid)
+        A (@Matrix.transpose.{0, u_1, u_2} I J Real A))
+      (@OfNat.ofNat.{u_1} (Matrix.{u_1, u_1, 0} I I Real) (nat_lit 1)
+        (@One.toOfNat1.{u_1} (Matrix.{u_1, u_1, 0} I I Real)
+          (@Matrix.one.{0, u_1} I Real inst_2 Real.instZero Real.instOne))) →
+    ∀ (v : I → Real),
+      @Eq.{1} Real
+        (@QuantumBlockEncoding.TensorTrainCanonical.mass.{u_2} J inst_1
+          (@Matrix.vecMul.{0, u_1, u_2} I J Real
+            (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Real
+              (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Real
+                (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Real
+                  (@CommRing.toNonUnitalCommRing.{0} Real Real.commRing))))
+            inst v A))
+        (@QuantumBlockEncoding.TensorTrainCanonical.mass.{u_1} I inst v)
+@QuantumBlockEncoding.TensorTrainCanonical.chainMass : {n l r : Nat} →
+  QuantumBlockEncoding.TensorTrainCanonical.Chain n l r → (Fin l → Real) → Real
+@QuantumBlockEncoding.TensorTrainCanonical.chainMass_eq : ∀ {n l r : Nat}
+  (C : QuantumBlockEncoding.TensorTrainCanonical.Chain n l r),
+  @QuantumBlockEncoding.TensorTrainCanonical.RightCanonical n l r C →
+    ∀ (v : Fin l → Real),
+      @Eq.{1} Real (@QuantumBlockEncoding.TensorTrainCanonical.chainMass n l r C v)
+        (@QuantumBlockEncoding.TensorTrainCanonical.mass.{0} (Fin l) (Fin.fintype l) v)
+@QuantumBlockEncoding.TensorTrainCanonical.residual_mass : ∀ {n l l' r : Nat}
+  (C : QuantumBlockEncoding.TensorTrainCanonical.Chain n l r)
+  (D : QuantumBlockEncoding.TensorTrainCanonical.Chain n l' r) (R : Matrix.{0, 0, 0} (Fin l) (Fin l') Real),
+  @QuantumBlockEncoding.TensorTrainCanonical.RightCanonical n l' r D →
+    (∀ (x : QuantumBlockEncoding.TensorTrainCanonical.Word n),
+        @Eq.{1} (Matrix.{0, 0, 0} (Fin l) (Fin r) Real) (@QuantumBlockEncoding.TensorTrainCanonical.contract n l r C x)
+          (@HMul.hMul.{0, 0, 0} (Matrix.{0, 0, 0} (Fin l) (Fin l') Real) (Matrix.{0, 0, 0} (Fin l') (Fin r) Real)
+            (Matrix.{0, 0, 0} (Fin l) (Fin r) Real)
+            (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{0, 0, 0, 0} (Fin l) (Fin l') (Fin r) Real (Fin.fintype l')
+              Real.instMul Real.instAddCommMonoid)
+            R (@QuantumBlockEncoding.TensorTrainCanonical.contract n l' r D x))) →
+      ∀ (v : Fin l → Real),
+        @Eq.{1} Real (@QuantumBlockEncoding.TensorTrainCanonical.chainMass n l r C v)
+          (@QuantumBlockEncoding.TensorTrainCanonical.mass.{0} (Fin l') (Fin.fintype l')
+            (@Matrix.vecMul.{0, 0, 0} (Fin l) (Fin l') Real
+              (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Real
+                (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Real
+                  (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Real
+                    (@CommRing.toNonUnitalCommRing.{0} Real Real.commRing))))
+              (Fin.fintype l) v R))
+@QuantumBlockEncoding.TensorTrainCanonical.exists_rightCanonical_normalized : ∀ {n l : Nat}
+  (C :
+    QuantumBlockEncoding.TensorTrainCanonical.Chain n l (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+  (v : Fin l → Real),
+  @Eq.{1} Real
+      (@QuantumBlockEncoding.TensorTrainCanonical.chainMass n l
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) C v)
+      (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne)) →
+    ∃ l' R D,
+      And
+        (@QuantumBlockEncoding.TensorTrainCanonical.RightCanonical n l'
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) D)
+        (And
+          (@QuantumBlockEncoding.TensorTrainCanonical.RankReduced n l l'
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) C D)
+          (And
+            (∀ (x : QuantumBlockEncoding.TensorTrainCanonical.Word n),
+              @Eq.{1}
+                (Matrix.{0, 0, 0} (Fin l) (Fin (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) Real)
+                (@QuantumBlockEncoding.TensorTrainCanonical.contract n l
+                  (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) C x)
+                (@HMul.hMul.{0, 0, 0} (Matrix.{0, 0, 0} (Fin l) (Fin l') Real)
+                  (Matrix.{0, 0, 0} (Fin l') (Fin (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) Real)
+                  (Matrix.{0, 0, 0} (Fin l) (Fin (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) Real)
+                  (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{0, 0, 0, 0} (Fin l) (Fin l')
+                    (Fin (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) Real (Fin.fintype l')
+                    Real.instMul Real.instAddCommMonoid)
+                  R
+                  (@QuantumBlockEncoding.TensorTrainCanonical.contract n l'
+                    (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) D x)))
+            (@Eq.{1} Real
+              (@QuantumBlockEncoding.TensorTrainCanonical.mass.{0} (Fin l') (Fin.fintype l')
+                (@Matrix.vecMul.{0, 0, 0} (Fin l) (Fin l') Real
+                  (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Real
+                    (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Real
+                      (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Real
+                        (@CommRing.toNonUnitalCommRing.{0} Real Real.commRing))))
+                  (Fin.fintype l) v R))
+              (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne)))))
+@QuantumBlockEncoding.TensorTrainCanonical.exists_normalized_state : ∀ {n : Nat}
+  (C :
+    QuantumBlockEncoding.TensorTrainCanonical.Chain n (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))),
+  @Eq.{1} Real
+      (∑ x,
+        @HPow.hPow.{0, 0, 0} Real Nat Real
+          (@instHPow.{0, 0} Real Nat (@NPow.toPow.{0} Real (@Monoid.toNPow.{0} Real Real.instMonoid)))
+          (@QuantumBlockEncoding.TensorTrainCanonical.contract n
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) C x
+            (@OfNat.ofNat.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) (nat_lit 0)
+              (@Fin.instOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) ⋯ (nat_lit 0)))
+            (@OfNat.ofNat.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) (nat_lit 0)
+              (@Fin.instOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) ⋯ (nat_lit 0))))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+      (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne)) →
+    ∃ l' u D,
+      And
+        (@QuantumBlockEncoding.TensorTrainCanonical.RightCanonical n l'
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) D)
+        (And
+          (@QuantumBlockEncoding.TensorTrainCanonical.RankReduced n
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) l'
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) C D)
+          (And
+            (@Eq.{1} Real (@QuantumBlockEncoding.TensorTrainCanonical.mass.{0} (Fin l') (Fin.fintype l') u)
+              (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne)))
+            (∀ (x : QuantumBlockEncoding.TensorTrainCanonical.Word n),
+              @Eq.{1} Real
+                (@QuantumBlockEncoding.TensorTrainCanonical.contract n
+                  (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+                  (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) C x
+                  (@OfNat.ofNat.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) (nat_lit 0)
+                    (@Fin.instOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) ⋯ (nat_lit 0)))
+                  (@OfNat.ofNat.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) (nat_lit 0)
+                    (@Fin.instOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) ⋯ (nat_lit 0))))
+                (∑ a,
+                  @HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul) (u a)
+                    (@QuantumBlockEncoding.TensorTrainCanonical.contract n l'
+                      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) D x a
+                      (@OfNat.ofNat.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) (nat_lit 0)
+                        (@Fin.instOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) ⋯
+                          (nat_lit 0))))))))
+@QuantumBlockEncoding.TensorTrainCanonical.maxBond : {n l r : Nat} →
+  QuantumBlockEncoding.TensorTrainCanonical.Chain n l r → Nat
+@QuantumBlockEncoding.TensorTrainCanonical.RankReduced.maxBond_le : ∀ {n l l' r : Nat}
+  {C : QuantumBlockEncoding.TensorTrainCanonical.Chain n l r}
+  {D : QuantumBlockEncoding.TensorTrainCanonical.Chain n l' r},
+  @QuantumBlockEncoding.TensorTrainCanonical.RankReduced n l l' r C D →
+    @LE.le.{0} Nat instLENat (@QuantumBlockEncoding.TensorTrainCanonical.maxBond n l' r D)
+      (@QuantumBlockEncoding.TensorTrainCanonical.maxBond n l r C)
+@QuantumBlockEncoding.TensorTrainCanonical.complexCore : {l r : Nat} →
+  QuantumBlockEncoding.TensorTrainCanonical.Core l r →
+    Matrix.{0, 0, 0} (Prod.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin r)) (Fin l)
+      Complex
+@QuantumBlockEncoding.TensorTrainCanonical.complexCore_isometry : ∀ {l r : Nat}
+  (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r),
+  @Eq.{1} (Matrix.{0, 0, 0} (Fin l) (Fin l) Real)
+      (@HMul.hMul.{0, 0, 0} (QuantumBlockEncoding.TensorTrainCanonical.Core l r)
+        (Matrix.{0, 0, 0} (Prod.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin r))
+          (Fin l) Real)
+        (Matrix.{0, 0, 0} (Fin l) (Fin l) Real)
+        (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{0, 0, 0, 0} (Fin l)
+          (Prod.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin r)) (Fin l) Real
+          (@instFintypeProd.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin r)
+            (Fin.fintype (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin.fintype r))
+          Real.instMul Real.instAddCommMonoid)
+        A
+        (@Matrix.transpose.{0, 0, 0} (Fin l)
+          (Prod.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin r)) Real A))
+      (@OfNat.ofNat.{0} (Matrix.{0, 0, 0} (Fin l) (Fin l) Real) (nat_lit 1)
+        (@One.toOfNat1.{0} (Matrix.{0, 0, 0} (Fin l) (Fin l) Real)
+          (@Matrix.one.{0, 0} (Fin l) Real (instDecidableEqFin l) Real.instZero Real.instOne))) →
+    @Eq.{1} (Matrix.{0, 0, 0} (Fin l) (Fin l) Complex)
+      (@HMul.hMul.{0, 0, 0}
+        (Matrix.{0, 0, 0} (Fin l)
+          (Prod.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin r)) Complex)
+        (Matrix.{0, 0, 0} (Prod.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin r))
+          (Fin l) Complex)
+        (Matrix.{0, 0, 0} (Fin l) (Fin l) Complex)
+        (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{0, 0, 0, 0} (Fin l)
+          (Prod.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin r)) (Fin l) Complex
+          (@instFintypeProd.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin r)
+            (Fin.fintype (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin.fintype r))
+          Complex.instMul Complex.instAddCommMonoid)
+        (@Matrix.conjTranspose.{0, 0, 0}
+          (Prod.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin r)) (Fin l) Complex
+          (@InvolutiveStar.toStar.{0} Complex
+            (@StarAddMonoid.toInvolutiveStar.{0} Complex
+              (@AddCommMonoid.toAddMonoid.{0} Complex
+                (@NonUnitalNonAssocSemiring.toAddCommMonoid.{0} Complex
+                  (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+                    (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+                      (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex Complex.instNonUnitalCommRing)))))
+              (@StarRing.toStarAddMonoid.{0} Complex
+                (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+                  (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+                    (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex Complex.instNonUnitalCommRing)))
+                Complex.instStarRing)))
+          (@QuantumBlockEncoding.TensorTrainCanonical.complexCore l r A))
+        (@QuantumBlockEncoding.TensorTrainCanonical.complexCore l r A))
+      (@OfNat.ofNat.{0} (Matrix.{0, 0, 0} (Fin l) (Fin l) Complex) (nat_lit 1)
+        (@One.toOfNat1.{0} (Matrix.{0, 0, 0} (Fin l) (Fin l) Complex)
+          (@Matrix.one.{0, 0} (Fin l) Complex (instDecidableEqFin l) Complex.instZero Complex.instOne)))
+@QuantumBlockEncoding.TensorTrainCanonical.sequentialCore : {r : Nat} →
+  QuantumBlockEncoding.TensorTrainCanonical.Core r r → QuantumBlockEncoding.SequentialBondPreparation.Core.{0} (Fin r)
+@QuantumBlockEncoding.TensorTrainCanonical.sequential_step : ∀ {n r : Nat}
+  (A : QuantumBlockEncoding.TensorTrainCanonical.Core r r)
+  (U : QuantumBlockEncoding.SequentialBondPreparation.Stage.{0} (Fin r)),
+  (∀ (bit : Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (b a : Fin r),
+      @Eq.{1} Complex
+        (U (@Prod.mk.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin r) bit b)
+          (@Prod.mk.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin r)
+            (@OfNat.ofNat.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (nat_lit 0)
+              (@Fin.instOfNat (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) ⋯ (nat_lit 0)))
+            a))
+        (@QuantumBlockEncoding.TensorTrainCanonical.complexCore r r A
+          (@Prod.mk.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin r) bit b) a)) →
+    ∀ (v : QuantumBlockEncoding.SequentialBondPreparation.BondState.{0} n (Fin r))
+      (x :
+        QuantumBlockEncoding.PrimitiveBasis
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+      (b : Fin r),
+      @Eq.{1} Complex
+        (@QuantumBlockEncoding.SequentialBondPreparation.step.{0} (Fin r) (Fin.fintype r) n U v
+          (@Prod.mk.{0, 0}
+            (QuantumBlockEncoding.PrimitiveBasis
+              (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+                (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+            (Fin r) x b))
+        (∑ a,
+          @HMul.hMul.{0, 0, 0} Complex Complex Complex (@instHMul.{0} Complex Complex.instMul)
+            (↑(A a
+                (@Prod.mk.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin r)
+                  (x (Fin.last n)) b)))
+            (v
+              (@Prod.mk.{0, 0} (QuantumBlockEncoding.PrimitiveBasis n) (Fin r)
+                (@Fin.init.{1} n (fun i => Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) x) a)))
+@QuantumBlockEncoding.TensorTrainCanonical.padVector : {d B : Nat} → (Fin d → Complex) → Fin B → Complex
+@QuantumBlockEncoding.TensorTrainCanonical.padVector_active : ∀ {d B : Nat} (hd : @LE.le.{0} Nat instLENat d B)
+  (v : Fin d → Complex) (a : Fin d),
+  @Eq.{1} Complex (@QuantumBlockEncoding.TensorTrainCanonical.padVector d B v (@Fin.castLE d B hd a)) (v a)
+@QuantumBlockEncoding.TensorTrainCanonical.paddedCore : {l r B : Nat} →
+  QuantumBlockEncoding.TensorTrainCanonical.Core l r → QuantumBlockEncoding.SequentialBondPreparation.Core.{0} (Fin B)
+@QuantumBlockEncoding.TensorTrainCanonical.paddedCore_inactive_output : ∀ {l r B : Nat}
+  (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r)
+  (bit : Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (b a : Fin B),
+  @LE.le.{0} Nat instLENat r (@Fin.val B b) →
+    @Eq.{1} Complex
+      (@QuantumBlockEncoding.TensorTrainCanonical.paddedCore l r B A
+        (@Prod.mk.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin B) bit b) a)
+      (@OfNat.ofNat.{0} Complex (nat_lit 0) (@Zero.toOfNat0.{0} Complex Complex.instZero))
+@QuantumBlockEncoding.TensorTrainCanonical.sum_padVector : ∀ {d B : Nat} (hd : @LE.le.{0} Nat instLENat d B)
+  (f : Fin B → Complex) (v : Fin d → Complex),
+  @Eq.{1} Complex
+    (∑ a,
+      @HMul.hMul.{0, 0, 0} Complex Complex Complex (@instHMul.{0} Complex Complex.instMul) (f a)
+        (@QuantumBlockEncoding.TensorTrainCanonical.padVector d B v a))
+    (∑ a,
+      @HMul.hMul.{0, 0, 0} Complex Complex Complex (@instHMul.{0} Complex Complex.instMul) (f (@Fin.castLE d B hd a))
+        (v a))
+@QuantumBlockEncoding.TensorTrainCanonical.sequential_step_padded : ∀ {n l r B : Nat}
+  (hl : @LE.le.{0} Nat instLENat l B) (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r)
+  (U : QuantumBlockEncoding.SequentialBondPreparation.Stage.{0} (Fin B)),
+  (∀ (bit : Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (b : Fin B) (a : Fin l),
+      @Eq.{1} Complex
+        (U (@Prod.mk.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin B) bit b)
+          (@Prod.mk.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin B)
+            (@OfNat.ofNat.{0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (nat_lit 0)
+              (@Fin.instOfNat (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) ⋯ (nat_lit 0)))
+            (@Fin.castLE l B hl a)))
+        (@QuantumBlockEncoding.TensorTrainCanonical.paddedCore l r B A
+          (@Prod.mk.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin B) bit b)
+          (@Fin.castLE l B hl a))) →
+    ∀ (v : Prod.{0, 0} (QuantumBlockEncoding.PrimitiveBasis n) (Fin l) → Complex)
+      (x :
+        QuantumBlockEncoding.PrimitiveBasis
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+      (b : Fin B),
+      @Eq.{1} Complex
+        (@QuantumBlockEncoding.SequentialBondPreparation.step.{0} (Fin B) (Fin.fintype B) n U
+          (fun z =>
+            @QuantumBlockEncoding.TensorTrainCanonical.padVector l B
+              (fun a =>
+                v
+                  (@Prod.mk.{0, 0} (QuantumBlockEncoding.PrimitiveBasis n) (Fin l)
+                    (@Prod.fst.{0, 0} (QuantumBlockEncoding.PrimitiveBasis n) (Fin B) z) a))
+              (@Prod.snd.{0, 0} (QuantumBlockEncoding.PrimitiveBasis n) (Fin B) z))
+          (@Prod.mk.{0, 0}
+            (QuantumBlockEncoding.PrimitiveBasis
+              (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) n
+                (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+            (Fin B) x b))
+        (@QuantumBlockEncoding.TensorTrainCanonical.padVector r B
+          (fun c =>
+            ∑ a,
+              @HMul.hMul.{0, 0, 0} Complex Complex Complex (@instHMul.{0} Complex Complex.instMul)
+                (↑(A a
+                    (@Prod.mk.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin r)
+                      (x (Fin.last n)) c)))
+                (v
+                  (@Prod.mk.{0, 0} (QuantumBlockEncoding.PrimitiveBasis n) (Fin l)
+                    (@Fin.init.{1} n (fun i => Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) x)
+                    a)))
+          b)
+@QuantumBlockEncoding.TensorTrainCanonical.paddedCore_active_isometry : ∀ {l r B : Nat}
+  (hl : @LE.le.{0} Nat instLENat l B),
+  @LE.le.{0} Nat instLENat r B →
+    ∀ (A : QuantumBlockEncoding.TensorTrainCanonical.Core l r),
+      @Eq.{1} (Matrix.{0, 0, 0} (Fin l) (Fin l) Real)
+          (@HMul.hMul.{0, 0, 0} (QuantumBlockEncoding.TensorTrainCanonical.Core l r)
+            (Matrix.{0, 0, 0} (Prod.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin r))
+              (Fin l) Real)
+            (Matrix.{0, 0, 0} (Fin l) (Fin l) Real)
+            (@Matrix.instHMulOfFintypeOfMulOfAddCommMonoid.{0, 0, 0, 0} (Fin l)
+              (Prod.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin r)) (Fin l) Real
+              (@instFintypeProd.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin r)
+                (Fin.fintype (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin.fintype r))
+              Real.instMul Real.instAddCommMonoid)
+            A
+            (@Matrix.transpose.{0, 0, 0} (Fin l)
+              (Prod.{0, 0} (Fin (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))) (Fin r)) Real A))
+          (@OfNat.ofNat.{0} (Matrix.{0, 0, 0} (Fin l) (Fin l) Real) (nat_lit 1)
+            (@One.toOfNat1.{0} (Matrix.{0, 0, 0} (Fin l) (Fin l) Real)
+              (@Matrix.one.{0, 0} (Fin l) Real (instDecidableEqFin l) Real.instZero Real.instOne))) →
+        ∀ (a c : Fin l),
+          @Eq.{1} Complex
+            (∑ out,
+              @HMul.hMul.{0, 0, 0} Complex Complex Complex (@instHMul.{0} Complex Complex.instMul)
+                (@Star.star.{0} Complex
+                  (@InvolutiveStar.toStar.{0} Complex
+                    (@StarAddMonoid.toInvolutiveStar.{0} Complex
+                      (@AddCommMonoid.toAddMonoid.{0} Complex
+                        (@NonUnitalNonAssocSemiring.toAddCommMonoid.{0} Complex
+                          (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+                            (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+                              (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex
+                                Complex.instNonUnitalCommRing)))))
+                      (@StarRing.toStarAddMonoid.{0} Complex
+                        (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Complex
+                          (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Complex
+                            (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Complex Complex.instNonUnitalCommRing)))
+                        Complex.instStarRing)))
+                  (@QuantumBlockEncoding.TensorTrainCanonical.paddedCore l r B A out (@Fin.castLE l B hl a)))
+                (@QuantumBlockEncoding.TensorTrainCanonical.paddedCore l r B A out (@Fin.castLE l B hl c)))
+            (@ite.{1} Complex (@Eq.{1} (Fin l) a c) (instDecidableEqFin l a c)
+              (@OfNat.ofNat.{0} Complex (nat_lit 1) (@One.toOfNat1.{0} Complex Complex.instOne))
+              (@OfNat.ofNat.{0} Complex (nat_lit 0) (@Zero.toOfNat0.{0} Complex Complex.instZero)))
+'QuantumBlockEncoding.TensorTrainCanonical.Core' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainCanonical.slice' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainCanonical.Chain' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainCanonical.Word' does not depend on any axioms
+'QuantumBlockEncoding.TensorTrainCanonical.wordFintype' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainCanonical.contract' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainCanonical.RightCanonical' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainCanonical.RankReduced' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainCanonical.absorb' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainCanonical.absorb_slice' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainCanonical.exists_core_lq' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainCanonical.exists_rightCanonical' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainCanonical.RankReduced.head_bound' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainCanonical.RankReduced.last_bond_le_two' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainCanonical.mass' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainCanonical.mass_vecMul' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainCanonical.chainMass' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainCanonical.chainMass_eq' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainCanonical.residual_mass' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainCanonical.exists_rightCanonical_normalized' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainCanonical.exists_normalized_state' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainCanonical.maxBond' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainCanonical.RankReduced.maxBond_le' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainCanonical.complexCore' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainCanonical.complexCore_isometry' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainCanonical.sequentialCore' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainCanonical.sequential_step' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainCanonical.padVector' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainCanonical.padVector_active' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainCanonical.paddedCore' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainCanonical.paddedCore_inactive_output' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainCanonical.sum_padVector' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainCanonical.sequential_step_padded' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+'QuantumBlockEncoding.TensorTrainCanonical.paddedCore_active_isometry' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]

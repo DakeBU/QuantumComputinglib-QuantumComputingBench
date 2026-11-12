@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "cycle": 14,
+  "reviewer": "root/finite_bridge_reviewer_c14",
+  "review_kind": "distinct_exact_source_scoped_C_internal_provider_audit",
+  "accepted": true,
+  "verdict": "ACCEPTED_SCOPED_NEGATIVE_EXP_PROVIDER_AND_LITERAL_HERMITE_TAIL_CONSUMERS",
+  "result_sha256": "405705c2c30dee7ebd2d21747e28ad554ef5db5b2c56c5cbb1cdd7bd45659902",
+  "binding_verification": {"all_result_bindings": 5, "mismatches": 0},
+  "complete_scope_read": ["statement-seal-v1.json", "statement-seal-v2.json", "FiniteExp.lean", "ConsumerChecks.lean", "replay.ps1", "result.json"],
+  "additional_dependency_bindings": {
+    "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "lake-manifest.json": "510171e8214a2ac5e00f16c1bf92ad474d2de42c4cd2dc2b3d411272f7b58763",
+    "QuantumBlockEncoding/HermitePolynomial.lean": "f8a3e1d5f29aed1228b6ede3577a9af1e76301559172ee67a266fcb0d56fee1e",
+    ".lake/packages/mathlib/Mathlib/Analysis/Calculus/Taylor.lean": "3cda24723d52877392f85baa998957689fcf47e2fd469da12608a39a0ab5e76b",
+    ".lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/ExpDeriv.lean": "70a029af2ce8ed6335dc689de1ee2b2dbfbf3e1f536c9b9bc70cb7d300df90de"
+  },
+  "mathematical_review": {
+    "literal_formula": "The rational polynomial contains exactly i=0..n, divided by i!. The remainder is abs(q)^(n+1)/(n+1)!, matching the inspected actual Mathlib Lagrange theorem, not its distinct Cauchy remainder. Rational-to-real casts and q=0 are supplied internally.",
+    "derivative_domain": "Real.iter_deriv_exp identifies every iterated derivative with exp. The entire closed unordered segment from 0 to q<=0 lies in the nonpositive half-line, so the derivative bound is one including both endpoints. Author uses the Lagrange interior point; an independent parametric kernel discriminator proves the stronger closed-segment fact.",
+    "clipping": "q<=-T, including equality, returns [0,2^-T]. exp(1)>=2, exp natural multiples and inverse monotonicity prove the upper bound. exp positivity proves the zero lower bound. This is a sound enclosure, not a statement that the tail amplitude or mass is zero. Active q has abs(q)<T. Huge input only selects the clipped branch; no Taylor power on that branch is evaluated.",
+    "width": "checked requires q<=0, positive epsilon and actual full interval width<=epsilon. Tail width remains 2^-T and active width is 2*radius. Independent exact fixtures reject a clipped interval wider than epsilon and refuse positive q/zero epsilon. Author also refuses negative epsilon and insufficient active degree.",
+    "allocation": "tailCutoff is the actual rational-ceiling/max/clog producer. Its tail width theorem and threshold-size theorem are ordinary kernel proofs. No active-degree completeness, input-size translation or runtime guarantee follows.",
+    "actual_consumers": "Complete original HermitePolynomial source was read. hermite_left uses smoothInitial=exp(p) at p<-1; hermite_right uses exp(-p) at p>0; endpoint_scalar uses exp(-1). These are actual signed function-value semantics at rational coordinates. They do not identify the original irrational piL grid with stored rational coordinates or certify the middle polynomial path.",
+    "global_boundary": "Scalar epsilon is enclosure width only. No dimension aggregation, normalization or other pipeline stage is supplied by this package. Clipping cannot be read as silently discarded mass or renormalized-away error.",
+    "huge_input": "checked(-10^1000,2^-80,80,0) reproduced as an interpreter output only. The actual concrete kernel exp(-80) bound is distinct. No huge-input kernel theorem is claimed."
+  },
+  "fresh_gates": {
+    "command": "powershell -NoProfile -ExecutionPolicy Bypass -File experiments/hermite-polynomial/precision/bridge-review-c14/replay-analytic.ps1",
+    "session": 96707,
+    "exit_code": 0,
+    "scope": "Entire FiniteExp source into own cache, entire actual ConsumerChecks source and own entire AnalyticDiscriminators source. The same replay additionally rebuilds all four analytic dependencies and GlobalRadiusBudget.",
+    "own_cache": "experiments/hermite-polynomial/precision/bridge-review-c14/.cache",
+    "axioms_union": ["propext", "Classical.choice", "Quot.sound"],
+    "forbidden_scan": "No sorry/admit/declared axiom/unsafe/native_decide/ofReduceBool/fake True closure in either new frozen Lean file",
+    "outputs": ["10", "80", "some(16687/45360,66749/181440)", "none", "some(0,2^-80)"],
+    "warnings": "Existing locally changed Verso dependency and harmless simp/sequence lints; no clean external CI claim and no system script-policy mutation"
+  },
+  "independent_discriminators": {
+    "seal": "experiments/hermite-polynomial/precision/bridge-review-c14/discriminator-seal-v1.json",
+    "seal_sha256": "0fc53ecf8dd230e96f0610963355e625d33e7f45f997360903786d1bff671dac",
+    "source": "experiments/hermite-polynomial/precision/bridge-review-c14/AnalyticDiscriminators.lean",
+    "source_sha256": "2f8f9bd54b0d617209f238549e557df72d3013142c40627e402036b8654131e5",
+    "checks": "Closed-segment derivative bound; half-rational correct 2! remainder; strict/equal cutoff sides; charged clipped width; positive-q and zero-epsilon refusals. All kernel checked.",
+    "common_blindspots": "Five separately pre-sealed independent exact Python tests passed, exit0 chunk e0ff70; they are finite invalid-inference discriminators, not scientific acceptance."
+  },
+  "chronology": "Both exact statement seals match the inspected final definitions/signatures. Independent discriminator seal was hashed before its Lean implementation. Frozen author result and seals were not edited to retrofit dependency bindings.",
+  "trusted_boundary": "Fresh scoped Lean elaboration against existing pinned Mathlib/production dependencies and standard axiom census; not a rebuild of every transitive dependency, compiler audit, source-blind publication review or whole-project gate",
+  "failure_class": "NONE_FOR_FROZEN_SCOPE",
+  "open": ["global allocation of scalar width and clipped tails", "original-grid/source-to-storage refinement", "active Taylor degree completeness and finite-bit runtime", "Python implementation refinement", "C2", "C3", "X2", "ROOT"],
+  "purification": "INTERNAL_REVIEW_ONLY_NOT_PUBLIC_PURIFIED",
+  "source_Anchor_approved": false,
+  "scientific_ROOT": false
+}

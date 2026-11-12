@@ -301,3 +301,49 @@ The handoff includes the exact theorem/circuit delta, reused local/external
 results, commit-bound tests and reviews, graph contribution, source mismatch,
 remaining proof/finite-bit boundary, and the next dependency-ready objective.
 No branch, commit, diagram or larger registry is itself a mathematical advance.
+
+## Exact toolchain compatibility maintenance (not source assimilation)
+
+The same `website/research/publications.json` registry may separately contain
+`maintenance_records` for the independently reviewed **exact RobinMatrix
+4.29.1 to 4.33.0 compatibility case**. This is not a general opt-out and does
+not change ordinary `validate_record` or its experimental-source rejection.
+All existing public names remain experimental; their case-sensitive identities are
+preserved. The historical formalizer remains UNKNOWN, not silently replaced
+by the migration maintainer. A changed target/definition/binder, another module,
+or later source/dependency bytes cannot reuse this admission.
+
+The narrow lane binds the complete module, exact base/new diff, old/new
+toolchain and manifest, full current Lean/Tests/configuration context, complete
+public inventory, maintenance lesson, independently reviewed policy code and
+all stable per-role receipt metadata. Each actual receipt and result artifact
+is content-checked; refreshing one wrapper cannot change its old seal,
+identity/run, scope, result or runtime/native disclosure. These are integrity
+conditions, not automatic proof of human honesty or mathematical equivalence.
+
+Reuse of an immutable whole-module source-blind reconstruction, distinct
+source-first/formal/decoder comparison and raw-to-formal association is allowed
+only when the original eleven scoped raw inputs match exactly and the original
+seals/actors/scope remain explicit. This does not claim those readers reviewed
+the entire current runtime tree. A separate exact-diff reviewer establishes
+unchanged statements/definitions and reads affected proof bodies; a distinct
+policy review checks the executable admission logic and negative tests. Never
+relabel an old review as a new verdict or let a maintainer self-review.
+
+Actual source-bound Lean4.33 library/Tests/trust evidence, native/axiom debt,
+independent executable acceptance, full Blueprint/site, browser/reader and
+required CI checks remain mandatory before main. The maintenance binding
+checker alone is not the full integration gate. Compilation, a directory entry,
+or a finite replay cannot certify a full physical quantum construction.
+
+Maintenance records must explicitly keep source assimilation, BE-root closure,
+PDE-paper formalization, physical operator and resource verification, and
+PURIFIED false. The paper-research scope here is BE; unrelated PDE results are
+excluded, not additional release prerequisites. The refuted unrestricted old
+raw-fold route and still-conditional prepared compression must stay visible;
+full physical unitary/adjoint, normalized block extraction and resource bridges
+remain separate scientific obligations. Report ordinary and maintenance packet
+counts separately, never their sum as papers/theorems assimilated.
+
+Rollback removes the additive collection/validator and restores the small
+dispatcher change, without deleting proofs, audit history or user data.

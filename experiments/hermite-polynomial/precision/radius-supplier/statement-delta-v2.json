@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "parent_seal_sha256": "fbc261862049e399904940ce8b3724c010c5d011b37c0a392933477c44a7e4ae",
+  "timing": "after local Mathlib source retrieval, before helper proof implementation",
+  "new_signatures": [
+    "theorem atan_remainder (x : Real) (hx : 0 <= x) (hx1 : x < 1) (m : Nat) : abs (Real.arctan x - sum i in range m, (-1)^i*x^(2*i+1)/(2*i+1)) <= 1/(2*m+1)",
+    "theorem atanSum_cast (q : Rat) (m : Nat) : (atanSum q m : Real) = sum i in range m, (-1)^i*(q:Real)^(-(2*i+1):Int)/(2*i+1)",
+    "theorem radius_positive (L epsilon : Rat) (hL : 0 < L) (hepsilon : 0 < epsilon) : 0 < radius L epsilon",
+    "def radiusInterval (L epsilon : Rat) : Rat * Rat"
+  ],
+  "membership_signature": "theorem radius_membership (L epsilon : Rat) (hL : 0 < L) (hepsilon : 0 < epsilon) : Real.pi*(L : Real) in Set.Icc ((radiusInterval L epsilon).1 : Real) ((radiusInterval L epsilon).2 : Real)",
+  "classification": "ordinary analytic/arithmetic proof ingredients; all hypotheses restricted to internal helper domains; no new Source hypotheses",
+  "reused_apis": ["Real.hasSum_arctan", "alternating_series_error_bound", "Real.four_mul_arctan_inv_5_sub_arctan_inv_239"],
+  "proof_topology": "positive geometric domination supplies absolute summability; decreasing positive terms supply antitone condition; arctan HasSum identifies the alternating tsum; omitted term bounded by reciprocal odd index; Machin linear combination gives20/(2m+1); rational ceiling dominates20L/epsilon; absolute-value bounds give interval membership"
+}

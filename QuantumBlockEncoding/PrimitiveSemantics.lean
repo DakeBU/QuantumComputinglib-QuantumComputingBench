@@ -163,6 +163,12 @@ def cxBasisEquiv {qubits : Nat} (control target : Fin qubits)
   left_inv := cxBasisAction_involutive control target distinct
   right_inv := cxBasisAction_involutive control target distinct
 
+@[simp] theorem cxBasisEquiv_apply {qubits : Nat}
+    (control target : Fin qubits) (distinct : control ≠ target)
+    (state : PrimitiveBasis qubits) :
+    cxBasisEquiv control target distinct state =
+      cxBasisAction control target state := rfl
+
 abbrev OtherPrimitiveWires {qubits : Nat} (target : Fin qubits) :=
   {wire : Fin qubits // wire ≠ target}
 

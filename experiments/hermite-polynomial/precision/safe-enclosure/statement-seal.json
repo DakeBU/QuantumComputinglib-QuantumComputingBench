@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "cycle": 11,
+  "state": "INTERNAL_PROVIDER_STATEMENT_SEALED_BEFORE_PROOF_SEARCH",
+  "direction_fingerprint": "computable-safe-dyadic-angle-from-rational-enclosures",
+  "verified_memory_digest": "5a8f47f8d0afd1d4f957e55babde52a9e9c01babf05c481b988e99ebca2f7758",
+  "immutable_dependencies": {
+    "experiments/hermite-polynomial/precision/dyadic-supplier/DyadicSupplier.lean": "da741bb844d8ee809ab95e40ebdc3c3f003f4138cec6ebe67e3447ebebf69968",
+    "experiments/hermite-polynomial/stored/GlobalAssembly.lean": "ad6d6ebca61a27c6c7e89dd305cc9be161ea0f8bb326ecb9af9ebddc15172624"
+  },
+  "definition_kind": "Literal computable provider over Nat, Rat and Int. No real-floor, exact-real evaluator or classical choice may determine its output.",
+  "algorithm": "For bits b and rational endpoints lo,hi validate lo<=hi and hi-lo<=1/2^b. If invalid return none. Otherwise return integer floor(((lo+hi)/2)*2^b+1/2), where floor is the computable Rat FloorRing operation, and interpret that integer as the rational m/2^b. Ties round toward positive infinity. No unique exact-real floor bin or equality to cycle10 floor output is required.",
+  "circuit_producer": "Traverse the actual chronological primitive list. Each RY consumes exactly one rational interval and is replaced at the same physical target by the returned rational angle. Other instructions are retained exactly. Reject insufficient/excess intervals or invalid scalar intervals, returning no circuit rather than an empty fallback.",
+  "sealed_signatures": {
+    "safeNumerator_error": "For every bits,lo,hi rational,m integer and theta real, if safeNumerator bits lo hi=some m and lo<=theta<=hi in real interpretation, then abs(theta-(m/2^bits))<=1/2^bits.",
+    "supplyCircuit_aligned": "Successful returned circuit and explicit internal interval soundness for the exact input list imply Aligned (1/2^bits) exact returned. Alignment is constructed internally, not supplied as an assumption.",
+    "supplyCircuit_resource": "Every successful return has the identical primitive Resource record and list length as its exact input, regardless of enclosure soundness.",
+    "hermite_internal_state_error": "For actual GlobalAssembly.compile input, supplied rational interval soundness and successful actual return imply full Euclidean signed Hermite target error<=24*(n+1)*(2*k+6)^3/2^bits. Reuse existing perturbation, target and column APIs; preserve all garbage coordinates.",
+    "hermite_internal_epsilon": "Same internal conditions at cycle10 logarithmic bitsFor k n epsilon, epsilon>0, imply error<=epsilon with unchanged target/resources. This is NOT an unconditional Hermite Source Anchor or finite-bit source producer closure."
+  },
+  "internal_binder_audit": "b,N and primitive types are TYPING. Endpoint rational data are actual finite inputs. Successful Option return is an internal implementation condition. Real-angle enclosure soundness is an explicitly unresolved INTERNAL SUPPLIER condition, not SOURCE/STANDING and must never be exported as a public Hermite source assumption. L>0 and epsilon>0 are inherited requested domain conditions. Canonicality, normalization, gate count and source action remain proved dependency edges.",
+  "regressions_required": ["positive and negative rounding", "positive and negative half-grid ties", "intervals straddling zero and another floor boundary", "point intervals", "reversed and too-wide intervals rejected", "missing/extra circuit intervals rejected", "physical chronological positions unchanged", "executable #eval and decide tests"],
+  "resource_boundary": "Prove successful lengths/resources and available input/output magnitude/count bounds. Any rational primitive operation accounting must be explicitly distinguished from machine bit complexity. No output fractional-bit count is a preprocessing runtime certificate.",
+  "required_missing_producer": "A source-specific computable rational endpoint producer, coherent with every actual GlobalAssembly RY position, proving enclosure soundness and requested width for exp/sqrt/arccos/trig/field/compare/QR/rank operations, together with finite input representation and operand-bit/cost analysis. It is not provided by this provider.",
+  "publication": "New experimental internal provider only. Root owns aggregate gates, independent review, serialization bridge and reader/publication admission. Old source/seals/results/audits immutable; no controller/registry/trials mutation."
+}

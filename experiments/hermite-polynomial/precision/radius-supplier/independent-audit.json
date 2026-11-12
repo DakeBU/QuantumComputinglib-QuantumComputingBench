@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "cycle": 13,
+  "reviewer": "root/finite_provider_reviewer_c13",
+  "review_kind": "distinct_exact_source_scoped_internal_provider_audit",
+  "accepted": true,
+  "verdict": "ACCEPTED_SCOPED_INTERNAL_RADIUS_PROVIDER_AND_ACTUAL_NORMALIZED_CONSUMER",
+  "result_sha256": "8df4b2ae73d287301d3befd44d692644c6dbcb3590ad58f2a0e005591514b074",
+  "provider_sha256": "e5db51a9b361220ddae5393d083728f289c8543737e26c735e198ccb55a6a4c9",
+  "consumer_sha256": "c532c17e86dae2a335b1b263edffb056843e157c5f643ef25b2cfa281b1b088b",
+  "binding_verification": {"all_artifact_hashes": 7, "all_dependency_hashes": 6, "mismatches": 0},
+  "complete_scope_read": ["statement-seal-v1.json", "statement-delta-v2.json", "statement-delta-v3.json", "statement-delta-v4.json", "consumer-seal-v5.json", "RadiusSupplier.lean", "ConsumerChecks.lean", "result.json"],
+  "mathematical_review": {
+    "arctan": "Actual Mathlib hasSum_arctan requires norm x<1. Actual alternating_series_error_bound requires Antitone f and Summable f. Provider proves these for nonnegative x<1 by geometric domination; no convergence premise is hidden in the scientific interface.",
+    "Machin_branch": "Inspected exact Mathlib identity4 atan(1/5)-atan(1/239)=pi/4, including its arctan-add/two-mul branch proof. Multiplication by4 gives coefficients16 and-4 in piApprox. Coarse absolute errors combine with factors16+4=20. Actual fixed arguments1/5 and1/239 satisfy the geometric-domain x<=1/2.",
+    "finite_formulas": "atanSum uses i<m, so the omitted term is index m and exponent2m+1. Sharp remainder and its coarse/geometric weakenings have correct denominators. atanSum_cast uses inverse natural powers, algebraically matching the prior integer-power representation, including total rational inverse semantics.",
+    "ceil_and_casts": "Conservative Int.ceil.toNat+1 and logarithmic Nat.ceil/max/clog+1 are literal computable rational/integer/natural operations, not real oracles. Budget proof first dominates20L/epsilon by the rational cast of the ceiling, then by2^m; positive epsilon licenses multiplication. max1 and+1 retain m>=1, including epsilon>=20L.",
+    "positivity": "Uniform piApprox_positive for m>=1 is justified by actual exact base cases1,2,3 plus pi>3 and20/(2m+1)<=20/9 for m>=4. This is not a finite replacement for a uniform theorem.",
+    "endpoint_order": "Actual membership multiplies the two-sided absolute error by positive L with the correct lower/upper orientation. At low precision the lower endpoint may be negative; the returned center remains positive. No claim that every point in the interval is a valid positive radius is needed or accepted.",
+    "actual_target": "Read complete frozen RadiusStability.lean and exact sourceVector/targetVector/grid/sample definitions. radiusVector_source identifies the original piL grid; normalized_radius_error uses Euclidean normalization and the original sampleNorm, without abs-amplitude or phase quotient replacement. Consumer actually supplies logRadius_error and logRadius_positive and charges2*sqrt(gridSize(n+1))*sourceLipschitzConstant(k)*epsilon.",
+    "budget_limits": "epsilon here is a radius tolerance, NOT a total normalized-state tolerance. sourceLipschitzConstant is the frozen explicit coarse all-k bound, and gridSize(n+1)=2^(n+1). No pipeline term is silently zeroed. Complete joint allocation remains open.",
+    "term_count_cost": "Kernel logTermCount_size is a logarithmic term-count bound against a computable threshold, not a finite-bit/runtime theorem. Result's input-bit translation and O(m^2+m log(m+1)) denominator-envelope analysis are plausible conservative mathematics but not compiled stored-intermediate/GCD/copying/runtime refinements."
+  },
+  "fresh_gates": {
+    "session": 8124,
+    "exit_code": 0,
+    "scope": "Complete final RadiusSupplier.lean compiled into own cache, then actual complete ConsumerChecks.lean against frozen RadiusStability dependency",
+    "provider_printed_roots": 16,
+    "consumer_printed_roots": 1,
+    "axioms_union": ["propext", "Classical.choice", "Quot.sound"],
+    "execution_outputs": [16, 1, 670, 39, "(true,879,1210)", "(3804/1195,-8146/1195,15754/1195)"],
+    "warnings": "Existing verso dirty warning; retained positive-domain hL/hepsilon binders unused in stronger internal helpers. No frozen source modified."
+  },
+  "fresh_dependency_and_consumer_repeat": {
+    "session": 17365,
+    "exit_code": 0,
+    "scope": "Own complete kernel discriminator source, complete frozen RadiusStability.lean freshly compiled into own cache, then complete actual radius-supplier ConsumerChecks.lean again",
+    "dependency_printed_roots": 16,
+    "axioms_union": ["propext", "Classical.choice", "Quot.sound"],
+    "consumer_outputs": "All six frozen interpreter outputs reproduced and normalized_logRadius_error has standard three axioms."
+  },
+  "independent_discriminators": {
+    "directory": "experiments/hermite-polynomial/precision/provider-review-c13",
+    "python_gate_chunk": "175b2a",
+    "python_exit": 0,
+    "radius_checks": "24 exact positive rational L/epsilon budget, center-positivity and endpoint-order instances, including10^-100,10^100 and epsilon>=20L; exact count transitions at ratio powers1,2,4. These are finite checks, not refinements of Lean ceil/clog implementations.",
+    "lean_source_sha256": "e9493ada26eacbcac6422071722ba503d21fca46862c0341ea63d5f8a2523300",
+    "lean_phase_session": 17365,
+    "lean_exit_code": 0,
+    "lean_phase": "Own complete Discriminators.lean compiled using ordinary Nat.clog_pow and endpoint membership, with standard axiom census."
+  },
+  "statement_chronology": "Initial conservative contract pre-search sealed. v2 helper delta was after Mathlib retrieval but before helper implementation; v3 clarifies algebraically identical casts; v4 logarithmic successor and v5 actual consumer were sealed before implementation. This satisfies a bounded internal-provider review, not retroactive Source Anchor source-blind topology approval.",
+  "strengthening_and_unused_binders": "Some internal positivity/membership/budget helpers are stronger than their retained positive-domain binders suggest. In frozen normalized_radius_error hL and hRhat are unused because its stability derivation is stronger. These are honest internal API/minimization debt; no new logical assumption may be exported into the scientific Anchor.",
+  "trusted_boundary": "Exact bindings, inspected dependency mathematics, fresh full scoped elaboration and actual interpreter outputs. Existing Mathlib and lower-provider oleans are dependencies; no transitive kernel/toolchain audit, root build, external implementation refinement or canonical publication approval.",
+  "open": ["external/Python or stored arithmetic implementation refinement", "all intermediate bit/GCD/allocation/runtime bounds", "joint numerical-stage precision allocator", "C2", "C3", "X2", "ROOT"],
+  "failure_class": "NONE_FOR_FROZEN_SCOPE",
+  "scientific_contract": "Original signed sampled source and normalizer on original piL domain; q0 LSB and full-register garbage semantics remain untouched; no cutoff separation or free pi evaluator.",
+  "purification": "NOT_PURIFIED_INTERNAL_REVIEW_ONLY",
+  "source_Anchor_approved": false,
+  "ROOT": false
+}

@@ -7,7 +7,7 @@ if [[ "${QBE_AGENT_INNER_CYCLE:-0}" == "1" ]]; then
   exit 64
 fi
 
-python3 -m unittest tools.test_hermite_artifacts tools.test_verso_windows_compat tools.test_powershell_builds website.scripts.test_proof_inputs website.scripts.test_hermite_case website.scripts.test_lean_publication_gate
+python3 -m unittest tools.test_hermite_artifacts tools.test_technical_lemma_registry tools.test_verso_windows_compat tools.test_powershell_builds website.scripts.test_proof_inputs website.scripts.test_hermite_case website.scripts.test_lean_publication_gate
 python3 tools/check_hermite_artifacts.py
 python3 tools/qbe.py harness-check
 python3 tools/check_process_memory.py check

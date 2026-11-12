@@ -61,6 +61,9 @@ theorem mottonenDenseUcry_entry_00 :
     evalPrimitiveCircuitLE mottonenDenseUcryCircuit (0 : Fin 4) (0 : Fin 4) =
       (3 : ℂ) / 5 := by
   unfold mottonenDenseUcryCircuit
+  change evalPrimitiveCircuitLE _
+      (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 2))
+      (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 2)) = _
   rw [evalPrimitiveCircuitLE_compileUniformlyControlledRy_apply]
   rw [if_pos (by native_decide)]
   simp [mottonenConditionalAngles, groverRudolphControlWire,
@@ -71,6 +74,9 @@ theorem mottonenDenseUcry_entry_10 :
     evalPrimitiveCircuitLE mottonenDenseUcryCircuit (1 : Fin 4) (0 : Fin 4) =
       (4 : ℂ) / 5 := by
   unfold mottonenDenseUcryCircuit
+  change evalPrimitiveCircuitLE _
+      (⟨1, by norm_num [gridSize]⟩ : Fin (gridSize 2))
+      (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 2)) = _
   rw [evalPrimitiveCircuitLE_compileUniformlyControlledRy_apply]
   rw [if_pos (by native_decide)]
   simp [mottonenConditionalAngles, groverRudolphControlWire,
@@ -81,6 +87,9 @@ theorem mottonenDenseUcry_entry_22 :
     evalPrimitiveCircuitLE mottonenDenseUcryCircuit (2 : Fin 4) (2 : Fin 4) =
       (5 : ℂ) / 13 := by
   unfold mottonenDenseUcryCircuit
+  change evalPrimitiveCircuitLE _
+      (⟨2, by norm_num [gridSize]⟩ : Fin (gridSize 2))
+      (⟨2, by norm_num [gridSize]⟩ : Fin (gridSize 2)) = _
   rw [evalPrimitiveCircuitLE_compileUniformlyControlledRy_apply]
   rw [if_pos (by native_decide)]
   simp [mottonenConditionalAngles, groverRudolphControlWire,
@@ -91,6 +100,9 @@ theorem mottonenDenseUcry_entry_32 :
     evalPrimitiveCircuitLE mottonenDenseUcryCircuit (3 : Fin 4) (2 : Fin 4) =
       (12 : ℂ) / 13 := by
   unfold mottonenDenseUcryCircuit
+  change evalPrimitiveCircuitLE _
+      (⟨3, by norm_num [gridSize]⟩ : Fin (gridSize 2))
+      (⟨2, by norm_num [gridSize]⟩ : Fin (gridSize 2)) = _
   rw [evalPrimitiveCircuitLE_compileUniformlyControlledRy_apply]
   rw [if_pos (by native_decide)]
   simp [mottonenConditionalAngles, groverRudolphControlWire,
@@ -126,6 +138,9 @@ theorem sparsePrunedUcry_entry_00 :
     evalPrimitiveCircuitLE sparsePrunedUcryCircuit (0 : Fin 8) (0 : Fin 8) =
       (3 : ℂ) / 5 := by
   unfold sparsePrunedUcryCircuit
+  change evalPrimitiveCircuitLE _
+      (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 3))
+      (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 3)) = _
   rw [evalPrimitiveCircuitLE_compileUniformlyControlledRy_apply]
   rw [if_pos (by native_decide)]
   simp [sparseConditionalAngles, sparseControlWire, primitiveControlAssignment,
@@ -136,6 +151,9 @@ theorem sparsePrunedUcry_entry_20 :
     evalPrimitiveCircuitLE sparsePrunedUcryCircuit (2 : Fin 8) (0 : Fin 8) =
       (4 : ℂ) / 5 := by
   unfold sparsePrunedUcryCircuit
+  change evalPrimitiveCircuitLE _
+      (⟨2, by norm_num [gridSize]⟩ : Fin (gridSize 3))
+      (⟨0, by norm_num [gridSize]⟩ : Fin (gridSize 3)) = _
   rw [evalPrimitiveCircuitLE_compileUniformlyControlledRy_apply]
   rw [if_pos (by native_decide)]
   simp [sparseConditionalAngles, sparseControlWire, primitiveControlAssignment,
@@ -145,6 +163,9 @@ theorem sparsePrunedUcry_entry_20 :
 theorem sparsePrunedUcry_entry_44 :
     evalPrimitiveCircuitLE sparsePrunedUcryCircuit (4 : Fin 8) (4 : Fin 8) = 1 := by
   unfold sparsePrunedUcryCircuit
+  change evalPrimitiveCircuitLE _
+      (⟨4, by norm_num [gridSize]⟩ : Fin (gridSize 3))
+      (⟨4, by norm_num [gridSize]⟩ : Fin (gridSize 3)) = _
   rw [evalPrimitiveCircuitLE_compileUniformlyControlledRy_apply]
   rw [if_pos (by native_decide)]
   simp [sparseConditionalAngles, sparseControlWire, primitiveControlAssignment,
@@ -153,6 +174,9 @@ theorem sparsePrunedUcry_entry_44 :
 theorem sparsePrunedUcry_entry_64 :
     evalPrimitiveCircuitLE sparsePrunedUcryCircuit (6 : Fin 8) (4 : Fin 8) = 0 := by
   unfold sparsePrunedUcryCircuit
+  change evalPrimitiveCircuitLE _
+      (⟨6, by norm_num [gridSize]⟩ : Fin (gridSize 3))
+      (⟨4, by norm_num [gridSize]⟩ : Fin (gridSize 3)) = _
   rw [evalPrimitiveCircuitLE_compileUniformlyControlledRy_apply]
   rw [if_pos (by native_decide)]
   simp [sparseConditionalAngles, sparseControlWire, primitiveControlAssignment,

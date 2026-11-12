@@ -14,6 +14,12 @@ from tools import apply_verso_windows_compat as compat
 
 
 class VersoWindowsCompatibilityTests(unittest.TestCase):
+    def test_compatibility_pin_matches_committed_dependency_manifest(self) -> None:
+        manifest = json.loads((compat.ROOT / "lake-manifest.json").read_text(encoding="utf-8"))
+        verso = next(package for package in manifest["packages"] if package["name"] == "verso")
+        self.assertEqual(verso["rev"], compat.VERSO_REV)
+        self.assertEqual(verso["url"], compat.VERSO_URL)
+
     def setUp(self) -> None:
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)

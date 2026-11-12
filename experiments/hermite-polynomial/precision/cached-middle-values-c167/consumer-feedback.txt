@@ -1,0 +1,8 @@
+middleFromCache_entry : ∀ (k : ℕ) (e : ℚ) (a : Vector ℚ (k + 1)) (j : Fin (2 * k + 2)),
+  (middleFromCache k e a).value[↑j] = middleExpr k e a j
+actual_cache_middle : ∀ (k : ℕ) (delta : ℚ) (j : Fin (2 * k + 2)),
+  (middleFromCache k (HermiteFiniteMiddleSource.expMidpoint delta)
+          (HermiteChargedSourceCache.produceSourceCache k).value).value[↑j] =
+    HermitePiecewiseAssembly.middleCoeffQ k delta ↑j
+'HermiteCachedPiecewiseStored.middleFromCache_entry' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HermiteCachedPiecewiseStored.actual_cache_middle' depends on axioms: [propext, Classical.choice, Quot.sound]

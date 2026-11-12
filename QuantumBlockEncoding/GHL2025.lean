@@ -5457,7 +5457,7 @@ theorem swapOracleMatrix_eq_image (p : OneTermRobinParameters)
     (i j : Fin (qubitDim (oneTermRobinTotalQubits p))) :
     swapOracleMatrix p i j =
       if i.val = swapOracleImage p j.val then Coeff.rat 1 else Coeff.rat 0 := by
-  simp [swapOracleMatrix, swapOracleImage]
+  simp [swapOracleMatrix, swapOracleImage] <;> rfl
 
 /--
 Gate matrix for SWAP using the honest permutation matrix.
@@ -5786,7 +5786,7 @@ theorem indicatorOracleMatrix_eq_image (p : OneTermRobinParameters)
     (i j : Fin (qubitDim (oneTermRobinTotalQubits p))) :
     indicatorOracleMatrix p i j =
       if i.val = indicatorOracleImage p j.val then Coeff.rat 1 else Coeff.rat 0 := by
-  simp [indicatorOracleMatrix, indicatorOracleImage]
+  simp [indicatorOracleMatrix, indicatorOracleImage] <;> rfl
 
 /--
 Self-inverse property for n=1: applying indicatorOracleImage twice returns the

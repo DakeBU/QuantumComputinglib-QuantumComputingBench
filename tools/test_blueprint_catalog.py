@@ -44,6 +44,25 @@ class BlueprintCatalogTests(unittest.TestCase):
             with self.subTest(name=name):
                 self.assertEqual(actual[name], chapter)
 
+    def test_lean_433_statement_anchor_matches_inspected_renderer(self):
+        declarations, _ = self.catalog.collect()
+        declaration = next(decl for decl in declarations if decl.full_name ==
+                           "QuantumBlockEncoding.ConstructiveHermitePreparation.prepare_spec")
+        self.assertEqual(
+            self.catalog.blueprint_declaration_url(declaration, "catalog-paper-and-examples"),
+            "../blueprint/html-multi/catalog-paper-and-examples/"
+            "QuantumBlockEncoding___ConstructiveHermitePreparation___lean/"
+            "#--informal-preview-_FLQQ_QuantumBlockEncoding___ConstructiveHermitePreparation"
+            "___prepare_spec_FLQQ_--statement",
+        )
+
+    def test_no_preview_mode_emits_official_page_runtime(self):
+        source = (ROOT / "ABEISBlueprintMain.lean").read_text(encoding="utf-8")
+        self.assertIn("Informal.PreviewManifest.writeBlueprintRuntimeModules", source)
+        self.assertIn("(extraSteps := [emitPageRuntime])", source)
+        self.assertIn('| .multi => "html-multi"', source)
+        self.assertIn('| .single => "html-single"', source)
+
     def test_missing_mapping_fails_closed_with_relative_module_name(self):
         for _name, _slug, sources in self.catalog.CATALOGS:
             sources.discard("AdjacentGivens.lean")

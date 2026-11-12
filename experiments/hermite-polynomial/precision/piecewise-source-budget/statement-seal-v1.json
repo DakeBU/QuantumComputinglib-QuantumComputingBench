@@ -1,0 +1,37 @@
+{
+  "cycle": 17,
+  "declaration_level": "C_INTERNAL_PROVIDER_ORIGINAL_DERIVATION",
+  "direction_fingerprint": "literal-piecewise-rational-grid-central-floor-normalized-original-target",
+  "definition_audit": "Literal rational comparison p<-1, else p<=0, else right. Tail midpoint of actual complete bounds(p or -p,tailCutoff delta,sourceDegree delta), including clipped [0,2^-T]; middle existing literal finite rational evaluator. Rational grid -R+2R*j/N, N=2^(n+1), original physical q0 LSB. No target replacement.",
+  "definitions": {
+    "negativeMidpoint(q,delta)": "(bounds(q,T,d).1+bounds(q,T,d).2)/2 where T=tailCutoff(delta),d=sourceDegree(delta)",
+    "piecewiseValue(k,delta,p)": "if p<-1 then negativeMidpoint(p,delta) else if p<=0 then middleValueQ(k,delta,p) else negativeMidpoint(-p,delta)",
+    "rationalGrid(n,R,j)": "-R+2*R*j.val/gridSize(n+1)",
+    "finiteVector(k,n,R,delta)": "WithLp.toLp 2 (fun j => ((piecewiseValue(k,delta,rationalGrid(n,R,j)):Real):Complex))",
+    "sourceDelta(k,n,epsilon)": "epsilon/(4*2^(n+1)*amplificationQ(k))",
+    "allocatedVector(k,n,L,epsilon)": "finiteVector(k,n,allocatedRadius(k,n,L,epsilon),sourceDelta(k,n,epsilon))"
+  },
+  "interfaces": [
+    "negativeMidpoint_error(q delta:Q)(hq:q<=0)(hd:0<delta): abs(cast negativeMidpoint-exp(cast q))<=cast delta/2",
+    "piecewise_error(k:Nat)(delta p:Q)(hd:0<delta): abs(cast piecewiseValue-smoothInitial k (cast p))<=cast delta/2*cast amplificationQ k",
+    "piecewise_central(k:Nat)(delta:Q): piecewiseValue k delta 0=1",
+    "rationalGrid_cast(n:Nat)(R:Q)(j:Fin(gridSize(n+1))): cast rationalGrid=radiusGrid n (cast R) j",
+    "finiteVector_central(k n:Nat)(R delta:Q): finiteVector k n R delta (centralIndex n)=1",
+    "finiteVector_norm_floor(k n:Nat)(R delta:Q): 1<=norm(finiteVector k n R delta)",
+    "radiusVector_norm_floor(k n:Nat)(R:Real): 1<=norm(radiusVector k n R)",
+    "finiteVector_error(k n:Nat)(R delta:Q)(hd:0<delta): norm(finiteVector-radiusVector k n (cast R))<=sqrt(cast N)*(cast delta/2*cast B)",
+    "normalized_source_error(k n:Nat)(R epsilon:Q)(he:0<epsilon): norm(normalize(finiteVector k n R (sourceDelta k n epsilon))-normalize(radiusVector k n (cast R)))<=cast epsilon/4",
+    "normalized_original_error(k n:Nat)(L epsilon:Q)(hL:0<L)(he:0<epsilon): norm(normalize(allocatedVector k n L epsilon)-targetVector k n (cast L))<=cast epsilon/2"
+  ],
+  "binder_audit": {"TYPING": "k,n naturals (physical width n+1); finite grid index; rational L,epsilon,R,delta,p; real R in reference floor", "SOURCE": "positive L and epsilon for final result, positive delta for scalar approximation, nonpositive q only for negative-exp provider", "EXCESS": [], "dependencies_not_binders": "all exponential enclosures, midpoint width, middle amplification, radius approximation, scalar-to-Euclidean aggregation, central norm floor, normalization perturbation"},
+  "independent_construction_topology": [
+    "actual negative-exp bounds -> midpoint halfwidth, clipped interval retained",
+    "literal original branch comparisons + middle amplified error -> all-coordinate bound",
+    "physical rational grid + exact central sample -> finite and reference norm floors",
+    "N coordinate bounds -> Euclidean sqrt(N) error",
+    "delta=epsilon/(4NB) + existing normalization perturbation -> source normalized error epsilon/4",
+    "actual allocatedRadius bound epsilon/4 against original piL target + triangle -> epsilon/2"
+  ],
+  "source_credit": "Internal local derivation; no invented paper theorem or new source credit.",
+  "remaining": "stored nondense TT/rank refinement, QR, finite-bit normalizer, integer/denominator/GCD/comparison/copy/storage/preprocessing costs, physical stage compiler and all other global error stages. No scientific ROOT, resource winner, public PURIFIED or main admission."
+}

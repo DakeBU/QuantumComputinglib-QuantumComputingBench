@@ -1,0 +1,149 @@
+QuantumBlockEncoding.HermiteTransferCores.rowFeatures (d : Nat) (x : Real) :
+  Fin
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) d
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) →
+    Real
+'QuantumBlockEncoding.HermiteTransferCores.rowFeatures' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.HermiteTransferCores.translationCore (d : Nat) (w : Real) :
+  Matrix.{0, 0, 0}
+    (Fin
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) d
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+    (Fin
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) d
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+    Real
+'QuantumBlockEncoding.HermiteTransferCores.translationCore' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.HermiteTransferCores.translationCore_below_diagonal (d : Nat) (w : Real)
+  (i j :
+    Fin
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) d
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+  (h :
+    @LT.lt.{0} Nat instLTNat
+      (@Fin.val
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) d
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+        j)
+      (@Fin.val
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) d
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+        i)) :
+  @Eq.{1} Real (QuantumBlockEncoding.HermiteTransferCores.translationCore d w i j)
+    (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero))
+'QuantumBlockEncoding.HermiteTransferCores.translationCore_below_diagonal' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.HermiteTransferCores.rowFeatures_translationCore (d : Nat) (x w : Real) :
+  @Eq.{1}
+    (Fin
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) d
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) →
+      Real)
+    (@Matrix.vecMul.{0, 0, 0}
+      (Fin
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) d
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+      (Fin
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) d
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+      Real
+      (@NonUnitalNonAssocRing.toNonUnitalNonAssocSemiring.{0} Real
+        (@NonUnitalNonAssocCommRing.toNonUnitalNonAssocRing.{0} Real
+          (@NonUnitalCommRing.toNonUnitalNonAssocCommRing.{0} Real
+            (@CommRing.toNonUnitalCommRing.{0} Real Real.commRing))))
+      (Fin.fintype
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) d
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+      (QuantumBlockEncoding.HermiteTransferCores.rowFeatures d x)
+      (QuantumBlockEncoding.HermiteTransferCores.translationCore d w))
+    (QuantumBlockEncoding.HermiteTransferCores.rowFeatures d
+      (@HAdd.hAdd.{0, 0, 0} Real Real Real (@instHAdd.{0} Real Real.instAdd) x w))
+'QuantumBlockEncoding.HermiteTransferCores.rowFeatures_translationCore' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.HermiteTransferCores.transfer (d : Nat) :
+  List.{0} Real →
+    (Fin
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) d
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) →
+        Real) →
+      Fin
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) d
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) →
+        Real
+'QuantumBlockEncoding.HermiteTransferCores.transfer' depends on axioms: [propext, Classical.choice.{u}, Quot.sound.{u}]
+QuantumBlockEncoding.HermiteTransferCores.transfer_rowFeatures (d : Nat) (weights : List.{0} Real) (origin : Real) :
+  @Eq.{1}
+    (Fin
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) d
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) →
+      Real)
+    (QuantumBlockEncoding.HermiteTransferCores.transfer d weights
+      (QuantumBlockEncoding.HermiteTransferCores.rowFeatures d origin))
+    (QuantumBlockEncoding.HermiteTransferCores.rowFeatures d
+      (@HAdd.hAdd.{0, 0, 0} Real Real Real (@instHAdd.{0} Real Real.instAdd) origin
+        (@List.sum.{0} Real Real.instAdd Real.instZero weights)))
+'QuantumBlockEncoding.HermiteTransferCores.transfer_rowFeatures' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.HermiteTransferCores.polynomialAmplitude (d : Nat) (p : @Polynomial.{0} Real Real.semiring)
+  (origin : Real) (weights : List.{0} Real) : Real
+'QuantumBlockEncoding.HermiteTransferCores.polynomialAmplitude' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.HermiteTransferCores.polynomialAmplitude_eq_eval (d : Nat) (p : @Polynomial.{0} Real Real.semiring)
+  (hp : @LE.le.{0} Nat instLENat (@Polynomial.natDegree.{0} Real Real.semiring p) d) (origin : Real)
+  (weights : List.{0} Real) :
+  @Eq.{1} Real (QuantumBlockEncoding.HermiteTransferCores.polynomialAmplitude d p origin weights)
+    (@Polynomial.eval.{0} Real Real.semiring
+      (@HAdd.hAdd.{0, 0, 0} Real Real Real (@instHAdd.{0} Real Real.instAdd) origin
+        (@List.sum.{0} Real Real.instAdd Real.instZero weights))
+      p)
+'QuantumBlockEncoding.HermiteTransferCores.polynomialAmplitude_eq_eval' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.HermiteTransferCores.sourceInterpolant_transfer (k : Nat) (origin : Real)
+  (weights : List.{0} Real) :
+  @Eq.{1} Real
+    (QuantumBlockEncoding.HermiteTransferCores.polynomialAmplitude
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) k)
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+      (QuantumBlockEncoding.HermitePolynomial.sourceInterpolant k) origin weights)
+    (@Polynomial.eval.{0} Real Real.semiring
+      (@HAdd.hAdd.{0, 0, 0} Real Real Real (@instHAdd.{0} Real Real.instAdd) origin
+        (@List.sum.{0} Real Real.instAdd Real.instZero weights))
+      (QuantumBlockEncoding.HermitePolynomial.sourceInterpolant k))
+'QuantumBlockEncoding.HermiteTransferCores.sourceInterpolant_transfer' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]
+QuantumBlockEncoding.HermiteTransferCores.source_transfer_dimension (k : Nat) :
+  @Eq.{1} Nat
+    (@Fintype.card.{0}
+      (Fin
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) k)
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+      (Fin.fintype
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+            (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) k)
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))
+          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))
+    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+      (@HMul.hMul.{0, 0, 0} Nat Nat Nat (@instHMul.{0} Nat instMulNat)
+        (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))) k)
+      (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+'QuantumBlockEncoding.HermiteTransferCores.source_transfer_dimension' depends on axioms: [propext,
+ Classical.choice.{u},
+ Quot.sound.{u}]

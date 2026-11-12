@@ -1,0 +1,29 @@
+OWN\ExactChecks.lean:5:0: warning: Definition `primitiveRepresentationExpandedCheck` is a proposition; use `theorem` instead of `def`
+
+Note: This linter can be disabled with `set_option linter.defProp false`
+HermiteRationalHeight.primitiveRepresentation : HermiteRationalHeight.PrimitiveRepresentationSpec
+C298ExactChecks.primitiveRepresentationExpandedCheck (op : HermiteRationalHeight.Operation) (x y : ℚ) :
+  have w :=
+    match op with
+    | HermiteRationalHeight.Operation.add =>
+      { numerator := x.num * ↑y.den + y.num * ↑x.den, denominator := x.den * y.den }
+    | HermiteRationalHeight.Operation.sub =>
+      { numerator := x.num * ↑y.den - y.num * ↑x.den, denominator := x.den * y.den }
+    | HermiteRationalHeight.Operation.mul => { numerator := x.num * y.num, denominator := x.den * y.den }
+    | HermiteRationalHeight.Operation.div =>
+      if y.num = 0 then { numerator := 0, denominator := 1 }
+      else
+        { numerator := if y.num < 0 then -(x.num * ↑y.den) else x.num * ↑y.den, denominator := x.den * y.num.natAbs };
+  have result :=
+    match op with
+    | HermiteRationalHeight.Operation.add => x + y
+    | HermiteRationalHeight.Operation.sub => x - y
+    | HermiteRationalHeight.Operation.mul => x * y
+    | HermiteRationalHeight.Operation.div => x / y;
+  0 < w.denominator ∧
+    ↑w.numerator / ↑w.denominator = result ∧
+      result.den ∣ w.denominator ∧
+        result.num.natAbs ≤ w.numerator.natAbs ∧
+          max 1 (max result.num.natAbs.size result.den.size) ≤ max 1 (max w.numerator.natAbs.size w.denominator.size)
+'HermiteRationalHeight.primitiveRepresentation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C298ExactChecks.primitiveRepresentationExpandedCheck' depends on axioms: [propext, Classical.choice, Quot.sound]

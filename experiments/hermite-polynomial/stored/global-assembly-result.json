@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "task": "SP-HERMITE-POLY-002",
+  "status": "PROVED_LOCAL_EXACT_REAL_GLOBAL_ASSEMBLY; scientific ROOT and production admission remain open",
+  "implementation": "experiments/hermite-polynomial/stored/GlobalAssembly.lean",
+  "source_sha256": "ad6d6ebca61a27c6c7e89dd305cc9be161ea0f8bb326ecb9af9ebddc15172624",
+  "statement_seal": "experiments/hermite-polynomial/stored/global-assembly-contract.json",
+  "seal_sha256": "6d7dda21b5eaa01375cb4ea7dcb40843ce8f15ad279a07862fca8959b7713b01",
+  "statement_signature_preserved": true,
+  "base": "8c341b099e21ca98c264076837f10787a80d0c8f",
+  "toolchain": "leanprover/lean4:v4.33.0",
+  "production_normalized_digest_expected": "5a8f47f8d0afd1d4f957e55babde52a9e9c01babf05c481b988e99ebca2f7758",
+  "files_owned": ["experiments/hermite-polynomial/stored/GlobalAssembly.lean", "experiments/hermite-polynomial/stored/global-assembly-contract.json", "experiments/hermite-polynomial/stored/global-assembly-result.json"],
+  "cached_actual_pipeline": [
+    "StagedNormalizedCanonical.compile k n L is bound once",
+    "compileStages collect materializes every actual compileAt return, and pays two materialized vector passes",
+    "assembleStored reads those exact stage lists, recursively lifts previous lists, pads and places the current list, and persistently appends it in chronological order",
+    "publicStored maps every assembled primitive instruction to public LE data-low/bond-high labels",
+    "compile retains that actual primitive return with the source-plus-consumer cost and raw exceptional counters"
+  ],
+  "roots": [
+    "QuantumBlockEncoding.StagedGlobalAssembly.compileFrom_eval",
+    "QuantumBlockEncoding.StagedGlobalAssembly.compile_eval",
+    "QuantumBlockEncoding.StagedGlobalAssembly.compile_prepare_column",
+    "QuantumBlockEncoding.StagedGlobalAssembly.compile_total_le",
+    "QuantumBlockEncoding.StagedGlobalAssembly.compile_total_polynomial",
+    "QuantumBlockEncoding.StagedGlobalAssembly.compile_gateCount",
+    "QuantumBlockEncoding.StagedGlobalAssembly.compile_gateCount_polynomial",
+    "QuantumBlockEncoding.StagedGlobalAssembly.compile_raw_extraCounters",
+    "QuantumBlockEncoding.StagedGlobalAssembly.compile_certified"
+  ],
+  "semantic_delta": {
+    "full_operator": "compile_eval proves the very same full returned PrimitiveCircuit has the same matrix as ConstructiveTensorTrainCompiler.compile applied to semanticNormalized of the actual raw stored Hermite source. Canonical chain equality, proof irrelevance of dimension bounds and deterministic named completion supply the bridge; no circuit is chosen from existence.",
+    "legacy_producer": "compile_prepare_column proves equality with ConstructiveHermitePreparation.prepare on the computational-zero input column, for every public data word and every output bond sector. Whole-unitary equality across different raw-source representations is not asserted.",
+    "literal_target": "compile_certified proves literal signed normalizedAmplitude in public little-endian order, zero amplitude in every nonzero terminal bond sector, full unitarity, no oracle calls, gate count, depth bound and ordinary cost for the same return.",
+    "hypotheses": "Only k,n natural, L real and L>0 on the Hermite source specialization. Canonicality, normalization, SO conditions and bond fitting are proved dependencies. Generic internal compileFrom conditions are not public scientific assumptions."
+  },
+  "cost": {
+    "actual_gate_count": "N*K; N=n+1, H=2^(q+1), E=H*(H-1)/2, G=2^q+2*(2^q-1), K=E*G, q=Nat.clog 2 D, D=2*k+6",
+    "exact_global_operations": "mapPlacement_total=10*inputListLength+1; padStored_total=t*(10*localListLength+1); placeStored_total=(t+1)*(10*localListLength+1); persistent append copies the complete left spine and costs 2*leftLength+1",
+    "vector_collection": "collect_total=sum of actual child totals+4*N",
+    "global_bound": "assemblyBudget(N,q)=N^2*(32*K+6)+10*N*K+1",
+    "whole_pipeline_bound": "NormalizedCanonical.compilerBudget(k,n)+N*(StagePrimitive.stageBudget(q,D,n)+4)+assemblyBudget(N,q)",
+    "polynomial_substitution": "compilerBudget_polynomial and compile_total_polynomial remove logarithmic-width powers using q<=2D, 2^q<=2D, H<=4D, G<=6D and K<=48D^3. polynomialBudget is an explicit fixed-degree subtraction-free polynomial envelope plus the existing polynomial source budget.",
+    "quantum_bound": "compile_gateCount_polynomial counts the actual final list and proves <=48*N*D^3; no gate-resource improvement or optimality is claimed.",
+    "raw_exceptional_counters": "Exponentials remain the actual raw source count (existing <=3*N+1); quotientCalls=N*(N+1), remainderCalls=N^2, integerDoublings=n, integerAdditions=4*N. Those named exceptional counters retain raw-source scope. Selected downstream integer/index work is charged in inherited field-tag overcounts.",
+    "model": "Extended exact-real scalar/index-word model: field/sqrt/angle/trig/compare/read/write/emit. Closed Placement kernels only lift/stage/output, not a free function callback. Every placement node charges one read, eight fixed index-word allowances and one output write, plus an end read; all global persistent copying is included.",
+    "omissions": ["finite-bit representation and word-size growth", "machine-level allocator bytes and control/address bookkeeping", "proof checking and counter bookkeeping", "numerical angle implementation and error", "serialization and saved-circuit acceptance"]
+  },
+  "regressions": [
+    "actual compileFrom signed normalized state at q=0 outputs -3/5, preserving relative sign",
+    "generic q=0 actual gate count equals number of stages",
+    "zero-stage publicStored returns the empty circuit",
+    "two actual stored stages yield the chronological first-then-second placed list",
+    "one-data-bit Hermite source boundary",
+    "all nonzero bond sectors vanish",
+    "public low-bit 01 has sample index1 and high-bit10 has index2",
+    "frozen non-prefix active-column completion and signed local SO behavior inherited unchanged"
+  ],
+  "evidence": {
+    "focused_exit_code": 0,
+    "frozen_StagePrimitive_recompile_exit_code": 0,
+    "printed_roots_axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "sorry_new_axiom_unsafe": "none in final source or checked roots",
+    "production_and_tests_gate": "owned by final master aggregate integration; no duplicated full gate and no claim that the ordinary production target automatically compiles this experimental module",
+    "documentation_gate": "not run or claimed; production/publication/reader changes outside this worker scope"
+  },
+  "portable_commands_powershell": [
+    "New-Item -ItemType Directory -Force .lake/global-assembly-cache | Out-Null",
+    "$taskLeanPath = $env:LEAN_PATH; try { $env:LEAN_PATH = '.lake/global-assembly-cache;_out/goal-20261008-staging-imports'; lake env lean -R experiments/hermite-polynomial/stored -o .lake/global-assembly-cache/StagePrimitive.olean experiments/hermite-polynomial/stored/StagePrimitive.lean; if ($LASTEXITCODE -ne 0) { throw 'StagePrimitive Lean check failed' }; lake env lean -R experiments/hermite-polynomial/stored -o .lake/global-assembly-cache/GlobalAssembly.olean experiments/hermite-polynomial/stored/GlobalAssembly.lean; if ($LASTEXITCODE -ne 0) { throw 'GlobalAssembly Lean check failed' } } finally { $env:LEAN_PATH = $taskLeanPath }"
+  ],
+  "dependency_cache": "The relative _out/goal-20261008-staging-imports directory contains the master-compiled frozen supplier oleans; StagePrimitive and GlobalAssembly are compiled into this worker's ignored .lake/global-assembly-cache. Fresh-clone replay first requires the corresponding frozen dependency compilation, not fabricated cache artifacts.",
+  "frozen_dependencies_sha256": {
+    "NormalizedCanonical.lean": "1b9b54933a360cc5a09b5858ae7f48644804ae1876e819986a43d00437501f4e",
+    "ActiveColumns.lean": "57557e479fb603f7323da958d7d34bd82db3db88c5409df3e277595b823b66ee",
+    "GrayTable.lean": "b10a9088745f332639430c638c42e514d2425bbe334c85f14f6338d38ddb2b39",
+    "LocalSOEmission.lean": "c7e92721d0b9eeb1273c099c1848038d6abb37dbc02391ee3dbe8af704d33689",
+    "StagePrimitive.lean": "e61854d4918eee829aa473830b67a98ef7aeacca69a65d090806d6aae7858314"
+  },
+  "failure_class": "NONE",
+  "rejected_implementation": "A deep congruence tactic for dependent stage-chain rewriting reached a Lean heartbeat timeout. It was replaced by a small abstract stage_chain_congr adapter using chain equality and proof irrelevance; the mathematical route was not retired.",
+  "salvage": "all final provider, resource and regression theorems compiled; no failed proof fragments retained",
+  "process_memory_ids": ["QBE-PM-LOW-TOKEN-CONTROL-PLANE", "QBE-PM-VERIFIER-SEMANTIC-LEVEL"],
+  "direction_fingerprint": "source-once-materialized-stages-persistent-physical-list-assembly-full-TT-operator-refinement",
+  "expected_information_gain": "remove the all-stage/global-placement/same-full-return C2 composition gap without repeating source, completion or numerical work",
+  "parallel_admission": "user-authorized bounded disjoint objective; no subagents spawned by this worker",
+  "common_blind_spot_audit": "pending master independent review; no independent admission invented",
+  "purification": "local dead/wrapper/callback cleanup performed; independent Exposition Seal and production purification pending",
+  "remaining": ["independent exact module/source review", "production integration and reader gates", "finite-bit/numerical/transcendental implementation refinement", "uniform error and input-precision costs", "independently saved serialized executable acceptance", "scientific C2/C3/X2/ROOT acceptance"],
+  "live_terminal_handles": [],
+  "commits_push_registry_status_or_old_evidence_edits": "none"
+}
