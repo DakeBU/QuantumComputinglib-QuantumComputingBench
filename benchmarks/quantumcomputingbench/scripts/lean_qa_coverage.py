@@ -25,10 +25,21 @@ NATIVE = B / "tracks/lean/views/native-v1.json"
 PUBLIC_PROBES = B / "tracks/lean/learning-validity/v1/cohort.json"
 
 
-def audit():
+def audit(*, expanded=False, owner_bank=None):
     catalog, _, graph = load_catalog()
     cores = {row["core_id"]: row for row in catalog["cores"]}
-    course = read_json(COURSE)
+    course_path = COURSE
+    sparse_count = 0
+    if expanded:
+        from lean_course_v5 import PLAN, load_course
+        from qcb_sparse_study import load_seal, validate_qualification
+        course_path = PLAN
+        course, _, _, _, _ = load_course()
+        sparse_seal = load_seal()
+        validate_qualification(sparse_seal)
+        sparse_count = sparse_seal["probe_count"]
+    else:
+        course = read_json(COURSE)
     native = read_json(NATIVE)["views"]
     public_probes = read_json(PUBLIC_PROBES)["probes"]
     sealed = public_status()
@@ -58,12 +69,17 @@ def audit():
         "workbook": {node for row in workbook["entries"] for node in
                      row["packet"]["target_nodes"] + row["packet"]["supporting_nodes"]},
     }
+    if owner_bank is not None:
+        from qcb_sparse_study import load_private_bank
+        packet, _ = load_private_bank(owner_bank)
+        citations["sparse_assessment_owner_only"] = {
+            node for probe in packet["probes"] for node in probe["source_nodes"]}
     if any(not nodes <= graph.keys() for nodes in citations.values()):
         raise ValueError("A suite cites a node absent from the frozen graph")
     declarations = {node: value for node, value in graph.items() if value.get("kind") == "declaration"}
     closed = {node for node, value in declarations.items()
               if value.get("inventory_status") == "Compiled" and value.get("open_obligation") is False}
-    if any(not citations[suite] <= closed for suite in ("course", "public_diagnostics", "sealed_assessment")):
+    if any(not nodes <= closed for suite, nodes in citations.items() if suite != "workbook"):
         raise ValueError("A formal suite cites a declaration outside the closed compiled inventory")
 
     modules = defaultdict(set)
@@ -76,6 +92,7 @@ def audit():
             canonical_citations[node].add(core["core_id"])
 
     course_and_assessment = citations["course"] | citations["public_diagnostics"] | citations["sealed_assessment"]
+    course_and_assessment |= citations.get("sparse_assessment_owner_only", set())
     module_rows = []
     for path, nodes in sorted(modules.items()):
         module_rows.append({
@@ -96,7 +113,7 @@ def audit():
             "ordinary_edges": dict(sorted(Counter(edge["type"] for edge in snapshot["edges"]).items())),
             "hyperedges": dict(sorted(Counter(edge["status"] for edge in snapshot["hyperedges"]).items())),
         },
-        "input_sha256_lf": {p.relative_to(R).as_posix(): text_sha(p) for p in (SNAPSHOT, COURSE, NATIVE, PUBLIC_PROBES)},
+        "input_sha256_lf": {p.relative_to(R).as_posix(): text_sha(p) for p in (SNAPSHOT, course_path, NATIVE, PUBLIC_PROBES)},
         "workbook_digest": workbook["workbook_digest"],
         "assessment_seal_digests": {
             "v2": sealed["base_v2_seal_digest"],
@@ -111,6 +128,7 @@ def audit():
             tag for row in course["entries"] for tag in row["topology"]["tags"]).items())),
         "public_diagnostic_propositions": len(public_probes),
         "sealed_propositions": len(sealed_probes),
+        "additional_owner_only_propositions": sparse_count,
         "workbook_entries": len(workbook["entries"]),
         "declarations": len(declarations),
         "closed_compiled_declarations": len(closed),
@@ -126,10 +144,14 @@ def audit():
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", required=True, type=Path)
+    parser.add_argument("--expanded", action="store_true", help="include qualified course v5 and sparse study")
+    parser.add_argument("--owner-bank", type=Path, help="add owner-only sparse source citations")
     args = parser.parse_args()
     if args.output.exists():
         parser.error("Choose a new output path to preserve the existing audit.")
-    report = audit()
+    if args.owner_bank and (not args.expanded or args.output.resolve().is_relative_to(R)):
+        parser.error("Owner-bank citations require --expanded and an output outside the public checkout.")
+    report = audit(expanded=args.expanded, owner_bank=args.owner_bank)
     write_json(args.output, report, immutable=True)
     print(json.dumps({key: report[key] for key in ("catalog_hash", "public_lean_distinct_cores",
                                                     "closed_compiled_declarations", "citation_counts")}))

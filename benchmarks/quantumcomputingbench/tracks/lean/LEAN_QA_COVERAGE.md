@@ -24,9 +24,14 @@ An anchor records a relationship between a task and its source. The
 mathematical operation required by the task and the sufficiency of its
 premises require separate review.
 
-Two candidate areas for the next tranche are the phase conventions and
-Hermitian structure of the Hamiltonian construction, and the scope of
-reversible banded sparse address access. The audit records their compiled
-source declarations and existing coverage. The admission decision also
-depends on exact statement alignment, replay evidence and the overlap of
-assessed reasoning with available training examples.
+Course v5 adds Hamiltonian phase conventions and Hermitian structure. The
+owner-sealed sparse-address study adds a separate evaluation group. Use
+`--expanded` to require both qualifications and map the updated public
+coverage. An owner can additionally supply `--owner-bank` and write to a
+private output path to count the sparse study's compiled citations.
+
+Use the uncovered declaration counts to shortlist modules, then look for
+uncovered skills and relationships inside each module. A useful next round
+could pair a direct interface task with a composition or counterexample in
+quantum information or quantum scientific computing. The inventory includes
+reusable support facts, so it supplies no estimate of unique valid questions.
