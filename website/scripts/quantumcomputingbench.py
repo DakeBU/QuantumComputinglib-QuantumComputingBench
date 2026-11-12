@@ -695,9 +695,11 @@ def publish(root):
     lean_subjects = '<div class="qcb-grid">' + ''.join('<article class="qcb-card"><h2><a href="' + part['id'] + '/index.html">' + esc(part['title']) + '</a></h2>' + prose(part['summary']) + '</article>' for part in catalog['parts']) + '</div>'
     lean_route = publish_lean_route(write, intro, catalog, course_plan, course_label,
                                    exercise_cards(admitted, '../../', items, 'lean') if admitted else '', lean_subjects)
+    def companion_source_url(path, line):
+        return site.external_source_url(path, line, context) if context.get("repository") else None
+
     lean_qa_report = qcb_lean_qa_reader.publish(
-        write, intro, section, disclosure, lambda path, line: site.external_source_url(path, line, context),
-        data_dir, lean_qa, live_nodes)
+        write, intro, section, disclosure, companion_source_url, data_dir, lean_qa, live_nodes)
     workbook_start = len(routes)
     workbook_report = publish_workbook(write, intro, workbook, graph, live_ids, context['commit'])
     workbook_report['routes'] = routes[workbook_start:]
