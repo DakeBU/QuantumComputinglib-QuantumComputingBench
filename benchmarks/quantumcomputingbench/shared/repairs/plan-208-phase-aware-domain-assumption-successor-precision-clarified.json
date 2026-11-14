@@ -1,0 +1,344 @@
+{
+  "schema_version": "qcb.textbook_question_successor.v3",
+  "core_id": "qcb-core-plan-208",
+  "supersedes_key": "qcb-core-plan-208-amplitude-oracle-maxnorm-normalization-boundary",
+  "supersedes_item_digest": "1433ecfb6610132671b67d490e1d21b1d9dae433bb26badca61bce12b62e0347",
+  "supersedes_contract_hash": "7d1a0a2e1c3fcc3a21e1af340a7092f54edaa232bbcaad58c4cbdfca7fb64d16",
+  "author": "/root/qcb_boundary_repair_review",
+  "key": "qcb-core-plan-208-textbook-question-v2-phase-aware-domain-assumption",
+  "question_version": 2,
+  "admission": "pending_distinct_review",
+  "change_scope": "Explicit first question-version2 plus assumption-index0 correction under the separately reviewed PRIVATE V3 design, not current-engine admission or an answer-only reinterpretation. Replace the false full signed/complex correctness assertion by a magnitude stage to assess; retain assumption index1 literally. The question retains/refutes the old recipe and supplies the correct closed-disk/phase/empty/scaling/precision analysis. Only question and assumptions change among nine fields; conventions, family, split, graph_version, target_nodes, supporting_nodes and source_refs are identical. All five exact ordered semantic-step node lists are preserved. No invisible nonnegative-real/nonzero restriction, empty-max totalization, new core, old/new reasoning equivalence or transferred approval.",
+  "question": "For a finite real or complex matrix A with finite row and column index sets (including possible empty sets), consider the target entry action O_A|0>|i>|j>=(A_ij|0>+sqrt(1-|A_ij|^2)|1>)|i>|j>, with the retained convention that the square root is real and nonnegative. Assess the predecessor's claim that a real Ry(2 arccos|A_ij|) alone produces this full signed/complex target; it is now a proposed magnitude stage, not an assumed correct oracle. Do not restrict entries to nonnegative reals or silently exclude zero entries.\n\nFor each existing entry z=A_ij, prove the sharp normalized-state domain and give an explicit two-by-two unitary completion when it is valid. Separate z=0,0<|z|<1,|z|=1 and |z|>1, with exact angles, signed/complex counterexamples and a phase-aware correction. Distinguish correctness on input |0> from equality of full unitary extensions and inverse actions; retain phases across coherent index superpositions. Explain what the strict max-norm inequality does and does not guarantee.\n\nAssess empty rows or columns separately: with the unchanged ordinary-maximum convention, do not assign max(empty)=0. Distinguish vacuous entry-wise conditions and zero-space unitary equations from existence of a normalized label input. For a nonempty matrix derive preprocessing by a known M>0 dominating its entry max norm, including the all-zero case and loose upper bounds.\n\nOnly under a supplied nonempty square matching/permutation plus clean entry-access interface, with integer slot budget s>=1 and an exact decomposition of A, derive the projected block and its positive scale. Specify register order, PREP, SELECT and unprepare. Explain why an entry bound alone does not supply that interface, why duplicated nonzero pieces are invalid, why rectangular embedding/padding is additional work, and when postselected normalization is undefined.\n\nSeparate ideal existence from stored finite-precision parameters, reversible arithmetic/inverses/scratch and elementary gate synthesis. Give a quantitative endpoint-error witness at z=1,w=1-delta; state which column or whole-unitary error it controls. Account for phase/control/preparation costs and clean uncomputation rather than treating them as free or asserting a generic efficient compiler.",
+  "assumptions": [
+    "For |A_ij|<=1, the proposed magnitude-loading stage is the real controlled Y-rotation Ry(2 arccos(|A_ij|)); whether this stage alone realizes the signed/complex target, and what phase correction is needed, are questions to assess rather than assumed correctness.",
+    "Finite-precision arithmetic may round A~_ij slightly off A_ij"
+  ],
+  "reference_answer": "Write v(z)=(z,s_z)^T, r=|z| and s_z=sqrt(1-r^2), with the stipulated real nonnegative square root. For each existing entry, this is defined and has norm one exactly when r<=1: r^2+s_z^2=1. In that closed disk, U_z=[[z,-s_z],[s_z,conj(z)]] has unit columns and column inner product -conj(z)s_z+s_z conj(z)=0, so U_z†U_z=I. Its first column is v(z). Direct sum of these blocks on the retained orthogonal labels |i>|j> gives an ideal unitary entry oracle. This proves existence, not uniqueness of its second column or an efficient circuit. For r>1 the required real square root is undefined; even an imaginary continuation i sqrt(r^2-1) makes the column's squared norm2r^2-1>1. No unitary can produce that advertised column from a unit input.\n\nUse Ry(theta)=[[cos(theta/2),-sin(theta/2)],[sin(theta/2),cos(theta/2)]]. The proposed magnitude stage R_z=Ry(2 arccos r) produces (r,s_z), not generally(z,s_z). At z=0 its angle is pi and the output is |1>; for0<r<1 its angle is strictly between0 and pi and both coefficients are nonzero; at r=1 its angle is0, the second coefficient vanishes and the desired state is z|0>, still valid. At r>1 no real magnitude angle exists. Thus, for a finite nonempty matrix, strict max norm below1 gives the positive gap 1-||A||_max and keeps s_z positive, but without a specified error bound and implemented guards it does NOT guarantee a safe rounded-entry implementation; it still does not ensure two populated branches, an angle below pi at every entry or sign/phase correctness.\n\nTake z=-1/2 or z=i/2. The proposed stage gives(1/2,sqrt(3)/2); the target's first coefficient instead is -1/2 or i/2 while its second is the SAME positive sqrt(3)/2. Any global phase relating them would have to be1 by the second coefficient, contradicting the first. These strict-interior witnesses refute the old active correctness assertion, not existence of a better oracle. At unit modulus, two labels with z=1 and z=-1 change (|a>+|b>)|0>/sqrt2 into (|a>-|b>)|0>/sqrt2. A phase that is global for one fixed label is relative across coherent labels and cannot be dropped.\n\nFor r>0 let q=z/r and D_z=diag(q,1); at r=0 choose q=1,D_z=I, avoiding division by zero. Then C_z=D_z R_z has first column v(z). But C_z=[[z,-q s_z],[s_z,r]]=U_z diag(1,q), so generally C_z is NOT U_z: their second columns and inverse actions differ. For example at z=-1/2 the second columns are opposite. If U_z itself is required, the additional input phase E_z=diag(1,conj(q)) gives U_z=D_z R_z E_z, with the same zero convention. Each construction must be composed as the actual chosen unitary, not replaced by a first-column identity. If q=e^(i phi), D_z=e^(i phi/2)Rz(-phi) under Rz(t)=diag(e^(-it/2),e^(it/2)); the prefactor is label dependent and not free to discard. For real signed z, Ry(2 arccos z) is a separate correct completion, with angles in[0,2pi] and angle2pi at z=-1. A stored fractional-angle format restricted to[0,1) cannot represent arccos(-1)/pi=1 without an explicit endpoint mechanism. None of these are a proof of the old magnitude-only assertion.\n\nIf either row or column set is empty, the entry set is empty: there is no ordinary maximum absolute entry, so the retained notation ||A||_max has no value there. Do not totalize it by zero. The entry-wise closed-disk condition is vacuous, and the label space C^rows tensor C^cols is zero dimensional, with no normalized vector. The unique map on that space (also on signal tensor that space) satisfies U†U=I=0 vacuously; this is not a physical normalized-input oracle promise. Qubit registers have positive dimension. The max-based formulas below are conditional on a nonempty entry set, not a silent exclusion of emptiness from the assessment. Non-power-of-two or rectangular label encodings into qubit registers likewise need an explicit carrier adapter, not an assumed free identification.\n\nFor nonempty A choose a KNOWN M>0 with M>=||A||_max and build the entry target for A/M. All entries then lie in the closed disk. For nonempty zero A use, for instance,M=1, not0/0 or a zero normalization factor. A strict M>||A||_max makes the magnitudes strictly below1, but still leaves zero entries with an unpopulated first branch. Computing a bound/max and proving a quantitative precision guard are not free preprocessing.\n\nHere is the precise conditional sparse calculation. Suppose A is N-by-N with N>=1, s>=1, supplied permutations c_l of[N], and pieces B_l whose entries are (B_l)_ij=A_(c_l(j),j) delta_(i,c_l(j)), with the EXACT identity sum_l B_l=A. This decomposition, coherent permutation access and phase-correct CLEAN entry loading are additional source-interface data, not consequences of an entry bound. Fix register order(signal a,slot L,system H). Let P|0_L>=s^(-1/2)sum_l|l>, let O load v(A_(c_l(j),j)/M) on a while retaining(l,j) and restoring all scratch to zero, and let S|l>|j>=|l>|c_l(j)>. Then W=(I_a tensor P† tensor I_H)(I_a tensor S)O(I_a tensor P tensor I_H) is unitary. Projection gives <0_a,0_L,i|W|0_a,0_L,j>=(1/(sM))sum_l A_(c_l(j),j)delta_(i,c_l(j))=A_ij/(sM). Thus the positive scale is alpha=sM. If s is not a power of two, an implementation of P/padding is a further obligation; the source's Hadamard special case does not provide it for free. Rectangular A needs a separately specified square embedding/projection and access/cost adapter before this theorem applies.\n\nA duplicate-piece error is concrete: for A=[1/2], s=2,M=1 and c_0=c_1=identity with both pieces [1/2], their sum is[1], not A. The actual projected block is[1/2], whereas the claimed A/(sM) is[1/4]. Exact decomposition therefore matters. Nor does entry norm alone give scale1 for general A: the N-by-N all-ones matrix has entry max1 but operator normN. A block compression forces alpha>=||A||_op; it does not prove optimality of sM. Equality of sM with s||A||_max requires choosing the actual POSITIVE max, not a loose M or zero A. With a normalized system input psi, success probability is ||A psi||^2/(sM)^2; only if A psi!=0 is the conditional successful state A psi/||A psi|| defined. Zero A can use padded s=1,M=1 and a signal-X entry oracle, giving a valid zero block and probability0, not a normalized zero state or alpha0.\n\nPrecision is a separate mathematical interface. For0<delta<1, v(1)=(1,0) and v(1-delta)=(1-delta,sqrt(2delta-delta^2)) differ in squared Euclidean norm2delta, hence error sqrt(2delta); no uniform O(delta) endpoint state-error bound follows. More generally, for z,w in the disk with |z-w|<=delta, ||v(z)-v(w)||^2=|z-w|^2+(s_z-s_w)^2<=delta^2+2delta, using |sqrt(a)-sqrt(b)|^2<=|a-b| and ||z|^2-|w|^2|<=2delta. For the fixed family U_z above, (U_z-U_w)†(U_z-U_w)=||v(z)-v(w)||^2 I, so the SAME bound controls its whole operator-norm difference. It does not control arbitrary completions from their first columns. Indeed C_epsilon and C_(-epsilon),0<epsilon<1, have first-column difference2epsilon but whole operator-norm difference2: their second-column phases differ. If a rounded value tilde_z leaves the disk, an explicitly implemented radial clipping w can restore validity but changes the loaded target. For true z in the disk and |tilde_z-z|<=eta, elementary triangle bounds give |w-z|<=2eta; combine with the preceding bound and charge clipping/arithmetic error rather than claiming exact original loading.\n\nFor the narrower stored-angle primitive, if theta=sum_(k=1)^d b_k 2^(-k) is actually supplied exactly in[0,1), same-axis rotations compose additively: the d corresponding single-bit-controlled Ry(2pi*2^(-k)) gates realize Ry(2pi theta). This is d logical arbitrary controlled rotations, not d Clifford+T gates. If a phase fraction u=phi/(2pi) is supplied in d_p bits, analogous bit-controlled diagonal phases use d_p gates for D_z; realizing U_z via both D_z and E_z uses2d_p such phases, in addition to d_m magnitude rotations. These conditional counts exclude data production, zero flags, scratch, inverse computation, PREP/SELECT and elementary synthesis, and do not assert that arbitrary real/complex entries possess exact finite-bit angle/phase representations. Approximate stored parameters require the separate error accounting just proved.\n\nFinally a legitimate coherent finite-word implementation must compute the stored magnitude/angle/phase data without changing the label, apply the chosen signal circuit, then reverse that SAME computation to clean all data and scratch BEFORE any later matching permutation changes j. If C_data is implemented as one entry-bit query followed by reversible arithmetic, the explicit C_data–signal–C_data† realization uses one forward and one inverse entry query, plus arithmetic and its inverse; this is a conditional ledger, not free inverse access or a universal minimal count. Scratch, magnitude/phase computation (including zero handling), transcendental approximations, controlled rotations/phases, PREP, SELECT, unused-code extensions, gate-synthesis precision, readout and amplification must all be specified/costed separately where used. Unknown-unitary control or a generic efficient phase/matching oracle is not supplied by ideal existence. This answer supplies a corrected theorem and transparent assumption change, not current-engine admission, a compiler theorem or a new kernel proof.",
+  "rubric": [
+    {
+      "id": "r1",
+      "weight": 1,
+      "criterion": "Proves the sharp closed-disk target domain, orthonormal-column U_z completion and controlled-label existence; excludes exterior magnitude even with an imaginary square-root continuation, without claiming a unique or efficient full oracle."
+    },
+    {
+      "id": "r2",
+      "weight": 1,
+      "criterion": "Handles zero/interior/unit-modulus magnitudes and exact angles; refutes the old magnitude-only assertion with signed/complex strict-interior witnesses and coherent endpoint phases. Derives phase-aware loading, distinguishes C_z from U_z/its inverse and treats signed-angle endpoint encoding without dropping label-dependent phases."
+    },
+    {
+      "id": "r3",
+      "weight": 1,
+      "criterion": "Explicitly assesses empty rows/columns: ordinary maximum undefined, no normalized label vector, but zero-space unitary equations can hold vacuously. Does not totalize max(empty), silently exclude emptiness or assume free qubit/carrier identification."
+    },
+    {
+      "id": "r4",
+      "weight": 1,
+      "criterion": "Uses known M>0 and s>=1 appropriately, including zero/loose-bound cases. Derives the exact conditional square-matching projected block at scale sM with full register/PREP/SELECT/unprepare transcript, checks exact decomposition/duplicate pieces and entry-versus-operator norm, charges rectangular adapters, and leaves zero-probability conditional states undefined."
+    },
+    {
+      "id": "r5",
+      "weight": 1,
+      "criterion": "Derives the endpoint sqrt(2delta) error and a quantitative bounded-disk column estimate; distinguishes the chosen U_z whole-unitary bound from arbitrary-completion behavior. Treats rounding/range guards/clipping as explicit error-producing computations rather than exact loading or an unproved uniform O(delta) guarantee."
+    },
+    {
+      "id": "r6",
+      "weight": 1,
+      "criterion": "Separates ideal existence, stored finite words, reversible arithmetic/inverses/scratch, entry queries and compiled gates. Cleans data before the index permutation; any forward/inverse query ledger is conditional on an actual producer, with phases/controls/PREP/SELECT/readout/amplification not free and no generic efficiency/minimality/formal claim."
+    }
+  ],
+  "exposition": {
+    "core_summary": "Closed-disk entry targets have explicit unitary completions, but magnitude-only real rotations do not encode general signed/complex entries. A transparent assumption correction exposes phase, zero/empty, conditional sparse normalization and precision/resource boundaries instead of silently narrowing the target.",
+    "semantic_steps": [
+      {
+        "claim": "For each existing entry the target is normalized exactly on the closed disk and admits U_z; empty label sets require separate maximum/normalized-input analysis rather than totalization.",
+        "supporting_nodes": [
+          "concept:matrix-analysis"
+        ]
+      },
+      {
+        "claim": "Zero and signed/complex witnesses refute the old magnitude-only assertion; phase-aware C_z loads the right first column but is not generally the same full unitary as U_z.",
+        "supporting_nodes": [
+          "concept:block-encoding"
+        ]
+      },
+      {
+        "claim": "Unit-modulus phases remain coherent, and endpoint rounding/error bounds must distinguish target columns, the chosen U_z family and arbitrary completions; arithmetic/scratch/synthesis are explicit obligations.",
+        "supporting_nodes": [
+          "concept:approximation"
+        ]
+      },
+      {
+        "claim": "An exterior coefficient cannot be part of the prescribed unit-vector target; an imaginary square-root continuation does not restore normalization or a real rotation.",
+        "supporting_nodes": [
+          "concept:matrix-analysis"
+        ]
+      },
+      {
+        "claim": "Known positive M and a separate exact nonempty square matching/clean-entry interface yield block A/(sM), not a free or minimal generic block encoding; zero-success, duplicate-piece, rectangular and resource boundaries remain explicit.",
+        "supporting_nodes": [
+          "concept:block-encoding"
+        ]
+      }
+    ]
+  },
+  "source_checks": [
+    {
+      "path": "website/research/sources.json",
+      "sha256_lf": "9f85f45f20ed5a46931ad0dec3b94ee09748bc56e39fae29b0aefe910440b0ae",
+      "anchor": "Complete lin-wiebe-2026-qasc entry personally read in this continuous objective context; actual LF recomputed. Bibliographic URL/edition/historical raw SHA binding only; not primary proof, own PDF-byte authentication or engine authority."
+    },
+    {
+      "path": "benchmarks/quantumcomputingbench/data/public/nl-v12/release.json",
+      "sha256_lf": "6a98f9aa81e0b77ba1530f6f2e8cba69e4564f03a3d41b4d7ea883d67bbce0af",
+      "anchor": "Whole actual historical qcb-core-plan-208 record loaded via release.checked()[2], including literal nine-field contract, full answer/rubric/five steps and source/formal metadata. Prepared-content provenance, not mathematical proof or current-reader substitution."
+    },
+    {
+      "path": "benchmarks/quantumcomputingbench/data/native_nl/batch2_scientific_algorithms.json",
+      "sha256_lf": "5da1441027bf2f878363922bcaab0ae5b6f402029883d7370641438e952911ee",
+      "anchor": "Corresponding authored208 source record personally inspected during the original full scientific review by this same task; current exact LF rebound. Authored-content provenance only, not source-theorem approval."
+    }
+  ],
+  "execution": {
+    "status": "private_v3_authorship_pending_new_distinct_review_and_future_engine",
+    "author_identity": "/root/qcb_boundary_repair_review",
+    "authored_at_head": "5102ace73b7bf3e11c9997c25391e7d383116ba4",
+    "private_origin": "_review_tmp/plan-208-phase-aware-domain-assumption-successor-precision-clarified.json",
+    "intended_canonical_locator": "benchmarks/quantumcomputingbench/shared/repairs/plan-208-phase-aware-domain-assumption-successor-precision-clarified.json",
+    "transport_or_admission_claimed": false,
+    "current_engine_compatibility": "Proposed seventeen-key V3 shape only, not submitted to or installed in the current engine. This packet supplies no engine implementation or current-admission claim; a separate inspected implementation and new distinct candidate review remain required.",
+    "contract_binding": {
+      "original_contract_hash": "7d1a0a2e1c3fcc3a21e1af340a7092f54edaa232bbcaad58c4cbdfca7fb64d16",
+      "successor_contract_hash": "5ca74f53013c3bb488541a92fdfbf70dae71b49f3281eb45b5e9dea82da54441",
+      "changed_contract_fields": [
+        "question",
+        "assumptions"
+      ],
+      "unchanged_contract_fields": [
+        "conventions",
+        "family",
+        "split",
+        "graph_version",
+        "target_nodes",
+        "supporting_nodes",
+        "source_refs"
+      ],
+      "original_contract": {
+        "question": "The amplitude oracle O_A |0>|i>|j> = (A_ij |0> + sqrt(1 - |A_ij|^2) |1>) |i>|j> is often introduced alongside a standing convenience assumption ||A||_max < 1. Determine the EXACT condition under which the right-hand side is a valid normalized state and the oracle is a legitimate unitary action, by analyzing the three regimes |A_ij| < 1, |A_ij| = 1, and |A_ij| > 1 (for each: is it a unit vector, what does the controlled-rotation angle do, does the oracle exist). Then state carefully whether the strict inequality ||A||_max < 1 is NECESSARY or merely a sufficient convenience, explain the downstream consequence for the subnormalization factor of the resulting block encoding, and why one preprocesses A by dividing out an upper bound on ||A||_max before building the oracle.",
+        "assumptions": [
+          "The amplitude is produced by a real controlled Y-rotation of angle 2 arccos(|A_ij|)",
+          "Finite-precision arithmetic may round A~_ij slightly off A_ij"
+        ],
+        "conventions": [
+          "||A||_max is the maximum absolute matrix entry (max-norm)",
+          "A valid amplitude requires sqrt(1-|A_ij|^2) to be real and nonnegative"
+        ],
+        "family": "qsc-matrix-access",
+        "split": "test_public",
+        "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "target_nodes": [
+          "concept:block-encoding",
+          "concept:approximation",
+          "concept:matrix-analysis"
+        ],
+        "supporting_nodes": [],
+        "source_refs": [
+          {
+            "anchor": "lin-wiebe-2026-qasc",
+            "license": "MIT metadata only",
+            "path": "website/research/sources.json",
+            "sha256": "9f85f45f20ed5a46931ad0dec3b94ee09748bc56e39fae29b0aefe910440b0ae"
+          }
+        ]
+      },
+      "successor_contract": {
+        "question": "For a finite real or complex matrix A with finite row and column index sets (including possible empty sets), consider the target entry action O_A|0>|i>|j>=(A_ij|0>+sqrt(1-|A_ij|^2)|1>)|i>|j>, with the retained convention that the square root is real and nonnegative. Assess the predecessor's claim that a real Ry(2 arccos|A_ij|) alone produces this full signed/complex target; it is now a proposed magnitude stage, not an assumed correct oracle. Do not restrict entries to nonnegative reals or silently exclude zero entries.\n\nFor each existing entry z=A_ij, prove the sharp normalized-state domain and give an explicit two-by-two unitary completion when it is valid. Separate z=0,0<|z|<1,|z|=1 and |z|>1, with exact angles, signed/complex counterexamples and a phase-aware correction. Distinguish correctness on input |0> from equality of full unitary extensions and inverse actions; retain phases across coherent index superpositions. Explain what the strict max-norm inequality does and does not guarantee.\n\nAssess empty rows or columns separately: with the unchanged ordinary-maximum convention, do not assign max(empty)=0. Distinguish vacuous entry-wise conditions and zero-space unitary equations from existence of a normalized label input. For a nonempty matrix derive preprocessing by a known M>0 dominating its entry max norm, including the all-zero case and loose upper bounds.\n\nOnly under a supplied nonempty square matching/permutation plus clean entry-access interface, with integer slot budget s>=1 and an exact decomposition of A, derive the projected block and its positive scale. Specify register order, PREP, SELECT and unprepare. Explain why an entry bound alone does not supply that interface, why duplicated nonzero pieces are invalid, why rectangular embedding/padding is additional work, and when postselected normalization is undefined.\n\nSeparate ideal existence from stored finite-precision parameters, reversible arithmetic/inverses/scratch and elementary gate synthesis. Give a quantitative endpoint-error witness at z=1,w=1-delta; state which column or whole-unitary error it controls. Account for phase/control/preparation costs and clean uncomputation rather than treating them as free or asserting a generic efficient compiler.",
+        "assumptions": [
+          "For |A_ij|<=1, the proposed magnitude-loading stage is the real controlled Y-rotation Ry(2 arccos(|A_ij|)); whether this stage alone realizes the signed/complex target, and what phase correction is needed, are questions to assess rather than assumed correctness.",
+          "Finite-precision arithmetic may round A~_ij slightly off A_ij"
+        ],
+        "conventions": [
+          "||A||_max is the maximum absolute matrix entry (max-norm)",
+          "A valid amplitude requires sqrt(1-|A_ij|^2) to be real and nonnegative"
+        ],
+        "family": "qsc-matrix-access",
+        "split": "test_public",
+        "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "target_nodes": [
+          "concept:block-encoding",
+          "concept:approximation",
+          "concept:matrix-analysis"
+        ],
+        "supporting_nodes": [],
+        "source_refs": [
+          {
+            "anchor": "lin-wiebe-2026-qasc",
+            "license": "MIT metadata only",
+            "path": "website/research/sources.json",
+            "sha256": "9f85f45f20ed5a46931ad0dec3b94ee09748bc56e39fae29b0aefe910440b0ae"
+          }
+        ]
+      },
+      "original_assumptions": [
+        "The amplitude is produced by a real controlled Y-rotation of angle 2 arccos(|A_ij|)",
+        "Finite-precision arithmetic may round A~_ij slightly off A_ij"
+      ],
+      "current_assumptions": [
+        "For |A_ij|<=1, the proposed magnitude-loading stage is the real controlled Y-rotation Ry(2 arccos(|A_ij|)); whether this stage alone realizes the signed/complex target, and what phase correction is needed, are questions to assess rather than assumed correctness.",
+        "Finite-precision arithmetic may round A~_ij slightly off A_ij"
+      ],
+      "semantic_step_count": 5,
+      "original_ordered_step_nodes": [
+        [
+          "concept:matrix-analysis"
+        ],
+        [
+          "concept:block-encoding"
+        ],
+        [
+          "concept:approximation"
+        ],
+        [
+          "concept:matrix-analysis"
+        ],
+        [
+          "concept:block-encoding"
+        ]
+      ],
+      "successor_ordered_step_nodes": [
+        [
+          "concept:matrix-analysis"
+        ],
+        [
+          "concept:block-encoding"
+        ],
+        [
+          "concept:approximation"
+        ],
+        [
+          "concept:matrix-analysis"
+        ],
+        [
+          "concept:block-encoding"
+        ]
+      ],
+      "equivalence_to_predecessor_claimed": false,
+      "additional_core_count": 0
+    },
+    "assumption_edit_map": [
+      {
+        "old_index": 0,
+        "new_index": 0,
+        "disposition": "replaced",
+        "old_literal": "The amplitude is produced by a real controlled Y-rotation of angle 2 arccos(|A_ij|)",
+        "new_literal": "For |A_ij|<=1, the proposed magnitude-loading stage is the real controlled Y-rotation Ry(2 arccos(|A_ij|)); whether this stage alone realizes the signed/complex target, and what phase correction is needed, are questions to assess rather than assumed correctness.",
+        "justification": "The old active assertion of full target production is false for signed/complex strict-interior entries. The replacement specifies only a proposed magnitude stage on its real-angle domain, and explicitly makes target sufficiency/phase correction a question to assess. It does not assume a phase oracle or narrow A to nonnegative/nonzero entries."
+      },
+      {
+        "old_index": 1,
+        "new_index": 1,
+        "disposition": "retained",
+        "old_literal": "Finite-precision arithmetic may round A~_ij slightly off A_ij",
+        "new_literal": "Finite-precision arithmetic may round A~_ij slightly off A_ij",
+        "justification": "The possibility of finite-precision rounding is valid and remains literally unchanged at the same index. The new answer analyzes its consequences without turning possibility into an error guarantee."
+      }
+    ],
+    "semantic_slot_assessment": {
+      "domain_and_quantifiers": "All finite real/complex entry labels remain under assessment, with zero, signed, complex, unit-modulus, exterior and empty row/column cases explicit. No nonnegative/nonzero-entry, global nonempty or unitary-action promise is added. The sparse source construction is a separately conditional nonempty square interface, not a new standing restriction on the entire question.",
+      "target_and_normalization": "The target first column is exactly (z,sqrt(1-|z|^2)) with retained nonnegative real square root. Closed-disk validity and U_z are proved; exterior continuation is refuted. Full U_z versus phase-aware C_z is distinguished by an exact second-column identity. No normalized zero/postselected state is asserted.",
+      "phase_and_registers": "Retained row/column labels carry relative phases coherently. Magnitude rotation, D_z and optional input E_z are explicitly defined, including zero and signed endpoints. Sparse register order is(signal,slot,system), with PREP, entry loading, permutation SELECT and PREP inverse. Scratch is cleaned before changing the original index.",
+      "error_and_success": "Stored finite values are not exact original entries by default. The endpoint sqrt(2delta) witness and quantitative disk-column bound are derived; the bound's whole-unitary applicability is specified for U_z, not arbitrary completions. Clipping is an explicit changed-target computation. Success is ||A psi||^2/(sM)^2 for normalized psi and conditional output exists only if A psi!=0.",
+      "source_and_convention_noninterference": "Both original convention strings and all seven frozen contract fields are literal copies. The ordinary maximum on an empty entry set remains undefined; it is NOT redefined as0 through allowed prose. Source scope and graph nodes are not rewritten. The source's real-entry and sparse proof regions are separated from independent complex/zero/error extensions and source gaps.",
+      "oracle_and_resource_model": "No efficient phase-correct oracle, matching decomposition compiler, input preparation, unknown-unitary control or inverse is assumed free. Ideal unitary existence is distinguished from finite-word arithmetic, scratch, query and gate synthesis. sM requires a supplied exact square matching/clean-entry interface with s>=1 and M>0; the conditional compute/signal/uncompute ledger charges the forward/inverse query and reversible arithmetic, not a generic optimal count."
+    },
+    "assumption_change_assessment": "Authorship assessment, NOT a distinct review: old index0 falsely asserts full correctness on allowed signed/complex targets. The replacement removes that assertion and turns its mechanism into an explicit proposed stage to assess, retaining the target and all sign/phase cases. This changes requested reasoning and weakens an invalid standing correctness claim, not the mathematical target to be encoded. Index1 and both conventions are unchanged. The correction does not assume the missing phase oracle, impose nonnegative/nonzero entries or redefine empty maxima.",
+    "contract_change_assessment": "The same reserved matrix-access core/family/split/source/graph is retained, with the old false mechanism explicitly refuted, full complex unitary existence proved and all validity/scaling/precision cases assessed. There is no claim that the two question contracts are equivalent, that source metadata proves the independent extensions, or that an old companion/kernel receipt transfers. Empty and rectangular cases are analyzed rather than erased; the source's square sparse formula is separately conditional on its actual access interface.",
+    "withdrawal_binding": {
+      "core_id": "qcb-core-plan-208",
+      "predecessor_key": "qcb-core-plan-208-amplitude-oracle-maxnorm-normalization-boundary",
+      "predecessor_item_digest": "1433ecfb6610132671b67d490e1d21b1d9dae433bb26badca61bce12b62e0347",
+      "reason": "The regime analysis mishandles zero entries and loses signed/complex amplitude phases through a magnitude-only rotation.",
+      "review": "reports/textbook-v1/reader-reviews/scientific-algorithms-201-210-review.json",
+      "review_digest": "7335d3a54dbaa8c25024667718334f4dc6eeaaeef16f2cc6c7ecc5b1b58ea512",
+      "finding_digest": "e8539d2919a9c4bc460c55039710e7b3c3029f74120bdc431f1e7e99765c6fc2"
+    },
+    "precursor_bindings": [
+      {
+        "path": "_review_tmp/plan-208-magnitude-phase-assumption-obstruction.json",
+        "digest": "a5e074687e055124873f31ac7222e3f3c053cf087131ffd2e898ed629838120f",
+        "author": "/root/qcb_native_comparison",
+        "role": "Exact native obstruction/future mathematical proposal read, preserved and not installed or selfapproved."
+      },
+      {
+        "path": "_review_tmp/plan-208-magnitude-phase-assumption-obstruction-review.json",
+        "digest": "60b427584556f78f708655585324e1708ee05aa9f99935765ac55fe0d71a1120",
+        "reviewer": "/root/qcb_formal_view_audit",
+        "role": "Distinct prior obstruction confirmation, not approval of this new full candidate."
+      }
+    ],
+    "design_context": {
+      "design_record": "_review_tmp/qcb-assumption-successor-design-v2-5102ace.json",
+      "design_digest": "3019664775ec2b7f342408d3863ad1a172de313c86dec3d86f571f834c9447c4",
+      "design_sha256_lf": "72a9348e135e94fb3d26c71ec179aa4edd62941864e350bcd8f45803f5925e11",
+      "design_review_record": "_review_tmp/qcb-assumption-successor-design-v2-5102ace-boundary-review.json",
+      "design_review_digest": "45c2370c273257a3e18e9f6d6ebd12d18312ff69f73a0af5d94ca9fba48dba2d",
+      "design_review_sha256_lf": "412f15d0b6c85b2db829fec4515310a58fd5dfde4a18b402e938b634fb3468fc",
+      "boundary": "Design and its review are historical process/specification context, NOT mathematical source dependencies, implemented-code approval or approval of this candidate. I authored the design review; it cannot serve as my own candidate's distinct review."
+    },
+    "prior_exposure": {
+      "original_author": "scientific-algorithms-author-b2",
+      "actual_author": "/root/qcb_boundary_repair_review",
+      "old_reader_review": "benchmarks/quantumcomputingbench/reports/textbook-v1/reader-reviews/scientific-algorithms-201-210-review.json",
+      "old_reader_review_digest": "7335d3a54dbaa8c25024667718334f4dc6eeaaeef16f2cc6c7ecc5b1b58ea512",
+      "old_finding_digest": "e8539d2919a9c4bc460c55039710e7b3c3029f74120bdc431f1e7e99765c6fc2",
+      "exposure": "I authored the old208 reader finding and both prior design challenges/revalidation. I authored neither native obstruction nor formal obstruction review. Full original/candidate answers, prior findings, parent leads and source were visible. This is informed new mathematical authorship, not blindness, a new independent identity or selfapproval. Precursor acceptance and root byte/render checks are not my mathematical or execution evidence."
+    },
+    "primary_source_checks": [
+      {
+        "url": "https://math.berkeley.edu/~linlin/qasc/live_notes_0429.pdf",
+        "observed_edition": "April29,2026 author-hosted447-page PDF text",
+        "recorded_historical_binary_sha256": "56825000d53025dea4c2998dd6a061592b8fb2b9a446c3194c5f408183327599",
+        "binary_hash_independently_verified": false,
+        "rendered_pages_independently_inspected": false,
+        "actual_access": "Fresh complete operative Section9.6 Example9.16/Eq9.68–9.71 and Exercise9.4 text, plus square-matching/permutation/entry/PREP interfaces and the full Proposition9.19/Eq9.77–9.84 proof, personally reread through the primary URL in this authoring objective. My own preceding complete Proposition5.7/Eq5.17–5.20 and compute/uncompute reads are reused in this continuous context.",
+        "limits": "No raw PDF bytes were fetched/hashed or pixels newly inspected here. Prior own screenshot returned cache miss; other actors' bytes/render successes are not inherited. The complex construction is a source exercise, not a printed complete proof. No whole-book/external König proof read, saved PDF, source-paper seal or redistribution claimed."
+      }
+    ],
+    "source_proof_coverage": {
+      "source_nodes": "Real-entry compute/rotate/uncompute and the actual square sparse projected-block construction are inspected source nodes; their source oracle assumptions remain conditional access obligations.",
+      "independent_nodes": "Closed-disk U_z completion, magnitude/phase/zero discriminators, exact C_z versus U_z identity and optional input phase, empty-carrier analysis, positive zero scaling, duplicate-piece witness, chosen-family versus arbitrary-completion error distinction and quantitative bounds are independently derived in the full answer.",
+      "source_gaps": "Exercise9.4 does not supply the complex-loader solution. Oracle matching existence/provision and efficient compilation are not supplied by a metadata label or entry bound. Source fractional-angle conventions do not silently cover the signed endpoint at1.",
+      "excluded": "No production Lean/source theorem, arbitrary sparse-oracle compiler, rectangular physical adapter, completed finite-bit runtime theorem, amplification optimization or global dedup/split clearance is provided."
+    },
+    "artifact_inventory": "Recursive private inventory found only earlier208 obstruction/review, the preserved old/new design/reviews and historical site readbacks; no prior full208 successor under this new name. All are preserved. Only a newly named full candidate and its static binding/handoff file are written.",
+    "static_validation": "Exact predecessor, old/new whole nine-field contract hashes, changed-field allowlist, literal index1 retention, exhaustive two-entry edit map, six semantic-slot keys, source LF and all five ordered step-node lists are checked without running the unsupported current V3 parser or a test/build/kernel. Structural checks are not candidate mathematical acceptance.",
+    "skill_handoff": {
+      "objective": "Complete the208 explicit question+assumption correction under the reviewed private design, without current admission or a hidden premise.",
+      "mathematical_delta": "Refutes the literal old mechanism while proving the correct complex closed-disk theorem and all zero/empty/scaling/error/resource boundaries.",
+      "effect_on_root": "One full private V3 candidate pending a NEW distinct exact-content review and future inspected implementation.",
+      "failure_class": "SOURCE_INVALID for the old active assertion; candidate unapproved.",
+      "salvage_audit": "Correct unit-vector boundary and conditional sparse scale retained; magnitude-only correctness, strict-both-branches and unchecked resource inferences rejected. No formally certified fragments claimed.",
+      "process_memory_ids_consulted": [],
+      "direction_fingerprint": "full-phase-aware-domain-assumption-successor-with-first-column-versus-unitary-error",
+      "expected_information_gain": "Resolve the old assumption obstruction with complete graded mathematics instead of an engine bypass or a merely administrative hash change.",
+      "parallel_admission": "No new agents; root will assign distinct candidate review. No blind/human/expert or multi-route seal.",
+      "default_route": "Explicit SU2-style completion plus separately costed phase-aware realization and conditional projected-block calculation; neither ideal existence nor a source exercise is a compiler.",
+      "purification_state": "Private full question/reference/rubric/five-step exposition aligned; no public Exposition Seal or formal/admission status."
+    },
+    "execution_limits": "No canonical/code/policy/source or old-artifact edit, V3 implementation, test suite/build/Lean/kernel/simulator, commit/push, GPU/admin/new agent, selfapproval, human/model/novelty/global-alias/split or admission claim.",
+    "self_approval": false,
+    "precision_sentence_clarification": {
+      "prior_candidate": "_review_tmp/plan-208-phase-aware-domain-assumption-successor.json",
+      "prior_candidate_digest": "d902390b55ad6a40a297968eb62b12196f9fefd1e95684f2e6ae4b28bf663a6f",
+      "prior_candidate_sha256_lf": "0b37e10ddf779fe8591b0e5ffb400edf5dba3948c842e5febf4afc039d73c7c7",
+      "author": "/root/qcb_boundary_repair_review",
+      "scope": "Exactly one reference-answer sentence clarified; question, assumptions, rubric, exposition, all seventeen top-level keys and all other mathematical content remain literal. Only execution provenance locators and this clarification record additionally change.",
+      "old_sentence": "Thus strict max norm below1 is sufficient to keep s_z positive, but does NOT ensure two populated branches, an angle below pi at every entry, sign/phase correctness or a quantitative rounding margin.",
+      "new_sentence": "Thus, for a finite nonempty matrix, strict max norm below1 gives the positive gap 1-||A||_max and keeps s_z positive, but without a specified error bound and implemented guards it does NOT guarantee a safe rounded-entry implementation; it still does not ensure two populated branches, an angle below pi at every entry or sign/phase correctness.",
+      "mathematical_reason": "A finite nonempty matrix with strict entry max below1 genuinely has positive gap 1-||A||_max. The clarification acknowledges that gap while separating it from an unspecified finite-precision error budget or unimplemented range guards, and retains the zero-branch, angle and phase limitations.",
+      "review_status": "Pending renewed distinct exact-content review. No previous review or approval is transferred.",
+      "source_access": "This bounded wording clarification reuses the author's already recorded source exposure and elementary finite-maximum reasoning. No new primary text, bytes, pixels, build or kernel execution; root's separate source inspection is not my evidence.",
+      "self_approval": false
+    }
+  }
+}
