@@ -1,0 +1,226 @@
+{
+  "reference": [
+    "The unit target has nonempty support. Write \\(L=\\min(S\\cup\\{s\\})\\), \\(R=\\max(S\\cup\\{s\\})\\), and \\(h=R-L\\). If \\(h>0\\), the minimum is \\(h\\). If \\(h=0\\), the target is \\(e_s\\) or \\(-e_s\\). The former costs zero. The latter costs one for \\(N\\ge2\\) and is unreachable for \\(N=1\\).",
+    "For each \\(L\\le k<R\\), cut the path at the edge \\((k,k+1)\\). On the side not containing \\(s\\) there is at least one nonzero target coordinate: for \\(k<s\\) use \\(L\\), and for \\(k\\ge s\\) use \\(R\\). That whole side is initially zero. Without a gate on the cut edge, it is acted on only by rotations internal to that side and therefore stays zero. Thus every circuit must use each of these \\(h\\) distinct edges. Excursions, repeat visits and cancellations preserve this lower bound.",
+    "For the upper bound, start with the target and root the interval \\([L,R]\\) at \\(s\\). Remove its leaves one at a time, keeping \\(s\\) to the end. On each leaf edge use one rotation to put the current pair norm at the parent and zero at the leaf; a zero pair needs at most the identity. This works in both edge orders: for the increasing-index pair \\((u,v)\\) of radius \\(\\rho>0\\), coefficients \\((c,b)=(u,-v)/\\rho\\) send it to \\((\\rho,0)\\), while \\((c,b)=(v,u)/\\rho\\) send it to \\((0,\\rho)\\), with the block \\(\\begin{pmatrix}c&-b\\\\b&c\\end{pmatrix}\\). Each removed coordinate then stays zero, regardless of the target signs or internal holes. There are \\(h\\) edges and no outside amplitudes. If \\(h>0\\), the last operation leaves a nonnegative root entry and orthogonality gives it norm one. Reverse the list and negate the angles to prepare the original signed target in at most \\(h\\) gates. The cut bound makes this optimal.",
+    "When \\(h=0\\), the empty circuit gives \\(+e_s\\), and it cannot give \\(-e_s\\). If \\(N\\ge2\\), select either incident edge and set \\(\\theta=2\\pi\\), so the local block is \\(-I_2\\) and the neighboring zero remains zero. This witnesses the one-gate minimum. If \\(N=1\\) there is no edge, and only \\(+e_s\\) is reachable.",
+    "For the eight-site target, the interval is \\([1,6]\\), so the minimum is five. One explicit preparation from \\(e_4\\) uses the edges \\((3,4),(2,3),(1,2),(4,5),(5,6)\\) in that order. On the first choose \\((\\cos(\\theta/2),\\sin(\\theta/2))=(4/5,3/5)\\), then use \\((0,-1)\\) twice and \\((0,1)\\) twice. This sends \\(-3/5\\) to site \\(1\\) and \\(4/5\\) to site \\(6\\). For multisite \\(S\\) with extremes \\(\\ell<u\\), the count is \\(u-\\ell+\\operatorname{dist}(s,[\\ell,u])\\). Every site from \\(\\ell\\) through \\(u\\) is optimal, including any holes, and each outside site costs strictly more."
+  ],
+  "rubric": [
+    {
+      "id": "R1",
+      "points": 1,
+      "criterion": "Use the specified positive basis input, exact signed target and unit cost per adjacent two-site operation. Identify that only the action on this one input is constrained.",
+      "partial": "Award 1 when the cost and equality conventions are correctly expressed or applied."
+    },
+    {
+      "id": "R2",
+      "points": 2,
+      "criterion": "Establish for every circuit that each edge between the extreme sites of the support together with the source must be used. Initially the far side is zero, without the edge it remains zero, and the edges cost separately.",
+      "partial": "Award 1 for recognizing the required cuts or proving the obstruction for one cut. Award 2 for applying it to all distinct required cuts and adding their costs."
+    },
+    {
+      "id": "R3",
+      "points": 3,
+      "criterion": "Construct a preparation in at most the hull length: give a legal ordered-edge mechanism for signed pairs in either orientation, apply it throughout the interval while preserving previous work, and obtain the exact signed target from the source within budget.",
+      "partial": "Award 1 each for the valid local mechanism, its full traversal including holes, and the input/output sign and gate-count verification. Any equivalent synthesis earns the same points."
+    },
+    {
+      "id": "R4",
+      "points": 2,
+      "criterion": "State the sharp count for positive hull length and both source-only signs. Supply the one-gate sign-flip witness when a neighbor exists and the obstruction for a one-site path.",
+      "partial": "Award 1 for the ordinary count and the empty-circuit positive case, and 1 for the negative singleton with its finite or infinite cost and justification."
+    },
+    {
+      "id": "R5",
+      "points": 2,
+      "criterion": "Give the five-gate example count and all minimizing source sites on a general multisite target, with justification.",
+      "partial": "Award 1 for each correct part. The example needs the count and a valid justification; an explicit numerical gate list is optional."
+    }
+  ],
+  "failure_modes": [
+    "Count nonzero target entries and overlook zero intermediate sites or the transport distance from the source.",
+    "Read the length of one chosen sweep or a whole-matrix compiler as a lower bound on every state-preparation circuit.",
+    "Ignore the independent signs, including treating the vector \\(-e_s\\) as identical to \\(e_s\\), or choose the wrong sign when the parent is the second endpoint.",
+    "Return an unreachable sign flip on the one-site path or require a free permutation to place the source."
+  ],
+  "valid_alternatives": [
+    "Award the full 10 points to any mathematically valid solution answering all requested parts. The proof may use a different circuit, invariant, example implementation or order of elimination.",
+    "For the upper bound, distribute subtree norms forward along the interval rooted at \\(s\\). At each site keep enough mass for the remaining branches and give each finished coordinate its signed target value. Verify orientations and that every edge is used at most once.",
+    "For the lower bound, consider the graph of all used edges, whose connected component at \\(s\\) contains every nonzero output site. A path component spanning the source and support contains all \\(R-L\\) edges. This argument also handles circuits visiting extra sites."
+  ],
+  "map": {
+    "nodes": [
+      {
+        "id": "N1",
+        "kind": "given",
+        "claim": "The input is \\(+e_s\\), the target is a signed real unit vector, and gates are unit-cost adjacent-plane rotations on the path.",
+        "anchors": [
+          "gStep",
+          "gAction"
+        ],
+        "requires": []
+      },
+      {
+        "id": "N2",
+        "kind": "derive",
+        "claim": "If a particular edge is absent, its two components evolve independently. The side initially equal to zero stays identically zero.",
+        "anchors": [
+          "gAction"
+        ],
+        "requires": [
+          "N1"
+        ]
+      },
+      {
+        "id": "N3",
+        "kind": "derive",
+        "claim": "Each cut from \\(L\\) to \\(R\\) separates \\(s\\) from at least one nonzero target coordinate. Distinct cuts correspond to distinct legal gates on this path.",
+        "anchors": [
+          "gStep"
+        ],
+        "requires": [
+          "N1"
+        ]
+      },
+      {
+        "id": "N4",
+        "kind": "derive",
+        "claim": "Any circuit with a positive-length hull has cost at least \\(R-L\\), even when it also uses other edges.",
+        "anchors": [],
+        "requires": [
+          "N2",
+          "N3"
+        ]
+      },
+      {
+        "id": "N5",
+        "kind": "derive",
+        "claim": "On an ordered pair of either orientation one real rotation can fold all signed pair mass into the parent with nonnegative sign. Orthogonality preserves the total norm.",
+        "anchors": [
+          "gAction",
+          "gPivot",
+          "gSplit",
+          "gOrth"
+        ],
+        "requires": [
+          "N1"
+        ]
+      },
+      {
+        "id": "N6",
+        "kind": "derive",
+        "claim": "Leaf elimination on the interval rooted at \\(s\\) uses at most one step per edge, leaves removed coordinates zero, and for \\(R>L\\) ends at \\(+e_s\\).",
+        "anchors": [
+          "gAction",
+          "gPivot",
+          "gOrth"
+        ],
+        "requires": [
+          "N3",
+          "N5"
+        ]
+      },
+      {
+        "id": "N7",
+        "kind": "derive",
+        "claim": "Inverting the elimination produces the exact signed target with at most \\(R-L\\) steps.",
+        "anchors": [
+          "gUndo"
+        ],
+        "requires": [
+          "N6"
+        ]
+      },
+      {
+        "id": "N8",
+        "kind": "derive",
+        "claim": "For positive hull length the minimum is \\(R-L\\).",
+        "anchors": [],
+        "requires": [
+          "N4",
+          "N7"
+        ]
+      },
+      {
+        "id": "N9",
+        "kind": "derive",
+        "claim": "The sole unit targets on a zero-length hull are \\(\\pm e_s\\); an empty list gives the positive sign. A \\(2\\pi\\) rotation flips the negative sign into reach when \\(N\\ge2\\), while a one-site path has no gate.",
+        "anchors": [
+          "gAction",
+          "gStep"
+        ],
+        "requires": [
+          "N1"
+        ]
+      },
+      {
+        "id": "N10",
+        "kind": "derive",
+        "claim": "The eight-site hull has five edges. For multisite support \\([\\ell,u]\\) is the interval of minimizing source choices, and outside cost increases by the distance to it.",
+        "anchors": [],
+        "requires": [
+          "N8"
+        ]
+      }
+    ],
+    "joins": [
+      {
+        "node": "N4",
+        "necessary_inputs": [
+          "N2",
+          "N3"
+        ],
+        "why_each": "The cut invariant describes what omitting an edge enforces. The endpoints of the hull certify that a positive final amplitude violates that invariant at every enumerated cut."
+      },
+      {
+        "node": "N6",
+        "necessary_inputs": [
+          "N3",
+          "N5"
+        ],
+        "why_each": "The interval geometry supplies a leaf order and the number of edges. Signed pair folding supplies the legal local move in that order and the final nonnegative norm."
+      },
+      {
+        "node": "N8",
+        "necessary_inputs": [
+          "N4",
+          "N7"
+        ],
+        "why_each": "The bound from graph cuts applies to every competing circuit. The inverse elimination supplies one circuit with the matching cost. Neither result alone identifies the minimum."
+      }
+    ],
+    "alternative_routes": [
+      {
+        "assumptions": "One input basis coordinate and an arbitrary signed real target, with arbitrary angles on path edges.",
+        "route": "Mark a site as reachable whenever it is connected to the source in the used-edge graph. Its connected component yields the lower bound. A forward traversal distributes subtree norms, selecting final signed values as coordinates are completed."
+      },
+      {
+        "assumptions": "A positive-length hull; isolated-source signs are handled separately.",
+        "route": "Peel left and right toward \\(s\\) with signed polar angles, or compress either side to a neighbor before the final merge and invert the sequence. Count distinct interval edges and prove all cuts necessary."
+      }
+    ],
+    "boundaries": [
+      {
+        "condition": "\\(x=e_s\\).",
+        "conclusion": "The optimal empty circuit uses zero gates, including at \\(N=1\\)."
+      },
+      {
+        "condition": "\\(x=-e_s\\) and \\(N\\ge2\\).",
+        "conclusion": "One \\(2\\pi\\) rotation on any incident edge suffices and zero gates cannot suffice."
+      },
+      {
+        "condition": "\\(N=1,\\ x=-e_s\\).",
+        "conclusion": "The minimum is \\(+\\infty\\), since there is no legal gate."
+      },
+      {
+        "condition": "The support is a single site different from the source.",
+        "conclusion": "The minimum is its path distance from \\(s\\) for either target sign."
+      },
+      {
+        "condition": "The source lies in a hole between two nonzero target sites.",
+        "conclusion": "The hull includes every edge across the hole. For free source choice this interior site is as good as either support extreme."
+      }
+    ]
+  }
+}

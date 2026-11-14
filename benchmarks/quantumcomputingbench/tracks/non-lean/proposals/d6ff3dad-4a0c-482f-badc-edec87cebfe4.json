@@ -1,0 +1,144 @@
+{
+  "proposal_id": "d6ff3dad-4a0c-482f-badc-edec87cebfe4",
+  "core_id": "candidate:d6ff3dad-4a0c-482f-badc-edec87cebfe4",
+  "track": "non-lean",
+  "author": "/root/author_monomial5",
+  "admission": "candidate_not_counted",
+  "dedup_review_required": true,
+  "source_nodes": [
+    "declaration:QuantumBlockEncoding.phasePermutationMatrix_mul",
+    "declaration:QuantumBlockEncoding.MonomialProgram.seq",
+    "declaration:QuantumBlockEncoding.phasePermutationMatrix",
+    "declaration:QuantumBlockEncoding.evalPrimitiveCx_eq_phasePermutationMatrix",
+    "declaration:QuantumBlockEncoding.cxBasisAction",
+    "declaration:QuantumBlockEncoding.liftPhaseMatrix_eq_phasePermutationMatrix"
+  ],
+  "view_kind": "derivation",
+  "family": "monomial-unitary-cycle-data",
+  "split": "unassigned_pending_reconciliation",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "contract_hash": "ba4307d778c4ed9e40f73c61ec69f601e1bd280f33f41e92040e448bdb15c15d",
+  "proposed_contract": {
+    "question": "Determine the output label and amplitude of \\(M(b,q)M(a,p)|x\\rangle\\) for arbitrary weights and permutations. A circuit designer wants to move a phase gate to the input side of a routing gate. Determine the unique table \\(g\\) satisfying \\(D_fP_p=P_pD_g\\). When does keeping the original table give exact equality? When does keeping it give equality up to a single global phase? Prove both tests.\n\nAs a wiring check, let \\(X=\\{0,1\\}^2\\), write a label as \\((c,t)\\) with control bit first, and take \\(p(c,t)=(c,t\\mathbin{\\oplus}c)\\) and \\(f(c,t)=e^{i\\theta t}\\) for real \\(\\theta\\). Give the corrected input-side table and determine every angle for which the uncorrected reordering is valid, both exactly and up to a global phase. At \\(\\theta=\\pi\\), give a normalized two-term input for which the two uncorrected orderings produce orthogonal states, even though their computational-basis output probabilities agree on each computational-basis input.",
+    "assumptions": [
+      "Let \\(X\\) be a finite nonempty set with orthonormal basis \\(\\{|x\\rangle:x\\in X\\}\\). For a permutation \\(p\\) of \\(X\\) and a function \\(a:X\\to\\mathbb T\\), write \\(M(a,p)|x\\rangle=a(x)|p(x)\\rangle\\), where \\(\\mathbb T=\\{z\\in\\mathbb C:|z|=1\\}\\).",
+      "Write \\(P_p=M(1,p)\\) for pure routing and \\(D_f=M(f,\\mathrm{id})\\) for a phase table \\(f:X\\to\\mathbb T\\)."
+    ],
+    "conventions": [
+      "Kets are columns. The rightmost factor acts first. Rows label outputs, and columns label inputs. Two operators agree up to global phase when one is a single constant of modulus one times the other on all inputs."
+    ],
+    "family": "monomial-unitary-cycle-data",
+    "split": "unassigned_pending_reconciliation",
+    "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+    "target_nodes": [
+      "declaration:QuantumBlockEncoding.phasePermutationMatrix_mul",
+      "declaration:QuantumBlockEncoding.MonomialProgram.seq"
+    ],
+    "supporting_nodes": [
+      "declaration:QuantumBlockEncoding.phasePermutationMatrix",
+      "declaration:QuantumBlockEncoding.evalPrimitiveCx_eq_phasePermutationMatrix",
+      "declaration:QuantumBlockEncoding.cxBasisAction",
+      "declaration:QuantumBlockEncoding.liftPhaseMatrix_eq_phasePermutationMatrix"
+    ],
+    "source_refs": [
+      {
+        "path": "QuantumBlockEncoding/PrimitiveMacros.lean",
+        "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "sha256_lf": "c1cea784608c9bc1533a0a026368f63f2f5b3606e34463149b73fad9f7221f63",
+        "sha256_raw": "c1cea784608c9bc1533a0a026368f63f2f5b3606e34463149b73fad9f7221f63",
+        "license": "MIT (project sources; see root LICENSE)",
+        "anchor": "phasePermutationMatrix_mul lines 180–196; seq lines 276–283; phasePermutationMatrix lines 174–178; evalPrimitiveCx_eq_phasePermutationMatrix lines 198–204; liftPhaseMatrix_eq_phasePermutationMatrix lines 206–230",
+        "declaration_spans": [
+          {
+            "node_id": "declaration:QuantumBlockEncoding.phasePermutationMatrix_mul",
+            "start": 180,
+            "end": 196,
+            "sha256_lf": "44a7d1fe53f47aa5b10f5397086a18fb15814aaba5f6054865750fe06f299485",
+            "scope": "Proves the exact two-factor multiplication law for finite complex weighted permutations. The second factor acts first, and the later weight is evaluated on the intermediate label. Iteration, fixed-reference calibration, trace recovery and ambiguity constructions are authored deductions."
+          },
+          {
+            "node_id": "declaration:QuantumBlockEncoding.MonomialProgram.seq",
+            "start": 276,
+            "end": 283,
+            "sha256_lf": "dbfa48dd0880ec7371da0146420a5acf1e4020ad16eaebc142f6268485d923f4",
+            "scope": "Defines chronological composition for two primitive programs with certified monomial semantics, transports the later phase through the earlier permutation, and proves the resulting exact evaluation. The general finite-label multiplication theorem is a separate anchor. This program record does not establish the proposed circuit-rewrite criterion."
+          },
+          {
+            "node_id": "declaration:QuantumBlockEncoding.phasePermutationMatrix",
+            "start": 174,
+            "end": 178,
+            "sha256_lf": "4536d6f5017348fe144af2873ec81b0df201fd83233bcafbe5ed1cf759b5c75e",
+            "scope": "Defines a finite complex matrix with entry equal to the input-column weight when the row is the image of that column under the given bijection, and zero otherwise. The definition allows arbitrary complex weights. Unit-modulus assumptions, cycle invariants and inverse measurement claims enter in the questions."
+          },
+          {
+            "node_id": "declaration:QuantumBlockEncoding.evalPrimitiveCx_eq_phasePermutationMatrix",
+            "start": 198,
+            "end": 204,
+            "sha256_lf": "c51a16900cd0eeed03836799710391ff4931604851f70678d9d8e6a5d731f4ce",
+            "scope": "Identifies the evaluation of a primitive controlled NOT on distinct wires with its basis permutation carrying weight one on every column."
+          },
+          {
+            "node_id": "declaration:QuantumBlockEncoding.liftPhaseMatrix_eq_phasePermutationMatrix",
+            "start": 206,
+            "end": 230,
+            "sha256_lf": "c2b5d01991ed0eab66cdf0717405730e442ce83072592dbfa8d037b3943fe53d",
+            "scope": "Identifies the lifted single-wire phase gate of angle theta with the identity basis permutation and input weight one on bit zero or exp(i theta) on bit one. The gate-order test and the two-bit diagnostic are deductions."
+          }
+        ]
+      },
+      {
+        "path": "QuantumBlockEncoding/PrimitiveSemantics.lean",
+        "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "sha256_lf": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+        "sha256_raw": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+        "license": "MIT (project sources; see root LICENSE)",
+        "anchor": "cxBasisAction lines 143–145",
+        "declaration_spans": [
+          {
+            "node_id": "declaration:QuantumBlockEncoding.cxBasisAction",
+            "start": 143,
+            "end": 145,
+            "sha256_lf": "b968dc701683432d625a18e26a2d0d1e3b10469625e3a0cf7045a5c979956fec",
+            "scope": "Defines the basis action of a controlled NOT by testing the control bit and applying a target flip only when the control is nonzero. The two-bit phase comparison assumes distinct control and target wires."
+          }
+        ]
+      }
+    ]
+  },
+  "base_commit": "036aea2a107d9258bba1c20b6e58cb6b9ee484f5",
+  "package_id": "b3a8eb51-c162-46a4-a117-021b837fe5c1",
+  "slot": "C1s",
+  "title": "When may a phase gate cross a permutation?",
+  "mathematical_target": "The intermediate label changes which phase multiplies each column. The task demands a necessary and sufficient global test for leaving an arbitrary table in place, an exact two-bit calibration for all angles, and a superposition witnessing the failure of the uncorrected order. A phase-free permutation product alone cannot supply those results.",
+  "payload_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/b3a8eb51-c162-46a4-a117-021b837fe5c1/qa/C1s.json",
+  "payload_sha256": "fdf7146d8de73f9e18ce0e00dbaaaeb4f08d5e94945fe848f154f684dae9bd5f",
+  "item_digest": "10c5e24cd439a3b8719d402b9ca70ba07b7eec06e674566091d5649afd50304e",
+  "review_records": [
+    {
+      "slot": "C1s",
+      "core_id": "candidate:d6ff3dad-4a0c-482f-badc-edec87cebfe4",
+      "author": "/root/author_monomial5",
+      "reviewer": "/root/review_monomial5",
+      "verdict": "accept",
+      "semantic_core_verdict": "Accept as a finite, input-column-weighted circuit identity. The general product comes from the pinned multiplication law. The defining work specific to this candidate is transporting the diagonal, distinguishing exact from projective agreement over the full state space, and diagnosing the resulting coherent failure on the given two-bit wiring. Its declared exposure to pullback and relative-phase problems is apt; the scoped review makes no corpus-wide uniqueness claim.",
+      "question_sha256": "8e2d57108424b613aef234fd28bd65a4d8b0c84468e4caf27b5fc012235a6a6c",
+      "phase1_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/b3a8eb51-c162-46a4-a117-021b837fe5c1/reviews/C/phase1.json",
+      "phase1_sha256": "5be6d25dba4809c9e30690e77b00da6eb67b8afdc222f1efb7758db63c4d8f9d",
+      "report_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/b3a8eb51-c162-46a4-a117-021b837fe5c1/reviews/C/phase2.json",
+      "report_sha256": "9d5e5e528f997704067bd2e45175b32e6ab0571257add3c729360b1aaf326055",
+      "payload_sha256": "fdf7146d8de73f9e18ce0e00dbaaaeb4f08d5e94945fe848f154f684dae9bd5f",
+      "item_digest": "10c5e24cd439a3b8719d402b9ca70ba07b7eec06e674566091d5649afd50304e",
+      "human_approval": false,
+      "admission": "candidate_not_counted"
+    }
+  ],
+  "status": "reviewed_pending_maintainer_reconciliation",
+  "count_effect": "zero",
+  "usage": {
+    "proposed_use": "Public study/proposed-training candidate. Official split unassigned.",
+    "family_group": "Monomial unitaries on labeled permutation cycles",
+    "status": "public_study_only",
+    "training_clearance": "pending maintainer split reconciliation",
+    "empirical_calibration": false
+  }
+}

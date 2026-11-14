@@ -10,6 +10,8 @@ from pathlib import Path, PurePosixPath
 
 from qcb_core import digest, read_json
 from qcb_curriculum import core_contract, load_catalog, validate_proposals
+from qcb_workbook_geometry import CHAPTERS as GEOMETRY_CHAPTERS, PACKAGE_ID as GEOMETRY_PACKAGE_ID
+from qcb_workbook_geometry import load as geometry_entries
 
 B = Path(__file__).resolve().parents[1]
 R = B.parents[1]
@@ -313,11 +315,15 @@ def load_workbook():
         raise ValueError('cohort view/candidate accounting changed')
     new_entries, new_proposals = batch2_entries(catalog, graph)
     entries.extend(new_entries)
-    validate_proposals(catalog, proposals + new_proposals)
+    geometry, geometry_proposals = geometry_entries(catalog, graph)
+    entries.extend(geometry)
+    validate_proposals(catalog, proposals + new_proposals + geometry_proposals)
+    if len({entry['slot'] for entry in entries}) != len(entries):
+        raise ValueError('supplementary exercise route collision')
     dispositions = Counter(e['packet']['contribution_type'] for e in entries)
     result = {'schema_version': 'qcb.nonlean_workbook.v1', 'package_id': manifest['package_id'],
-              'additional_package_ids': [BATCH2.name],
-              'groups': GROUPS,
+              'additional_package_ids': [BATCH2.name, GEOMETRY_PACKAGE_ID],
+              'groups': {**GROUPS, **GEOMETRY_CHAPTERS},
               'catalog_hash': catalog['catalog_hash'], 'snapshot_id': catalog['snapshot_id'],
               'source_commit': FROZEN, 'entries': entries,
               'counts': {'packets': len(entries), 'existing_core_expositions': dispositions['existing_core_view'],
@@ -345,6 +351,10 @@ def download_payloads(workbook):
                       'payload_sha256': entry['payload_sha256'], 'payload_path': entry['payload_path'],
                       'snapshot_id': p['snapshot_id'], 'target_nodes': p['target_nodes'],
                       'supporting_nodes': p['supporting_nodes'], 'review_path': entry['review']['report_path']})
+        if 'chapter' in entry:
+            index[-1]['chapter'] = entry['chapter']
+            index[-1]['exposure_family'] = p['proposed_use']['family_group']
+            index[-1]['evidence_scope'] = p['evidence_boundary']
         for key in ('target_nodes', 'supporting_nodes'):
             for node in p[key]:
                 reverse.setdefault(node, []).append({**binding, 'role': key})
@@ -357,6 +367,8 @@ def download_payloads(workbook):
                   'workbook_digest': workbook['workbook_digest'], 'counts': workbook['counts'],
                   'canonical_training_evaluation_pool': False, 'items': index}),
               'source-node-index.json': data(reverse)}
+    if GEOMETRY_PACKAGE_ID in workbook['additional_package_ids']:
+        result['geometry-practice.pdf'] = (B / 'tracks/non-lean/packages' / GEOMETRY_PACKAGE_ID / 'questions-print.pdf').read_bytes()
     result['download-manifest.json'] = data({'schema_version': 'qcb.supplementary_downloads.v1',
         'workbook_digest': workbook['workbook_digest'],
         'files': {name: {'sha256': hashlib.sha256(raw).hexdigest(), 'bytes': len(raw)} for name, raw in result.items()}})
@@ -371,6 +383,9 @@ def check_publication_sources(workbook, commit):
     paths.update(e['review']['report_path'] for e in workbook['entries'])
     paths.add((AUDIT / 'reader-comparison.json').relative_to(R).as_posix())
     paths.add(BATCH2_INTAKE.relative_to(R).as_posix())
+    if GEOMETRY_PACKAGE_ID in workbook['additional_package_ids']:
+        print_path = B / 'tracks/non-lean/packages' / GEOMETRY_PACKAGE_ID / 'questions-print.pdf'
+        paths.add(print_path.relative_to(R).as_posix())
     for path in sorted(paths):
         try:
             raw = subprocess.check_output(['git', 'show', commit + ':' + path], cwd=R, stderr=subprocess.DEVNULL)

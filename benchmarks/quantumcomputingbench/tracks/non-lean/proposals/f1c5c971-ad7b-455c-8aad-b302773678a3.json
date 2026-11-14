@@ -1,0 +1,145 @@
+{
+  "proposal_id": "f1c5c971-ad7b-455c-8aad-b302773678a3",
+  "core_id": "candidate:f1c5c971-ad7b-455c-8aad-b302773678a3",
+  "track": "non-lean",
+  "author": "/root/author_givens5",
+  "admission": "candidate_not_counted",
+  "dedup_review_required": true,
+  "source_nodes": [
+    "declaration:QuantumBlockEncoding.AdjacentGivens.rotateRows",
+    "declaration:QuantumBlockEncoding.AdjacentGivens.splitAngle_real_firstColumn",
+    "declaration:QuantumBlockEncoding.AdjacentGivens.rotateRows_inverse",
+    "declaration:QuantumBlockEncoding.AdjacentGivens.planeMatrix_orthogonal",
+    "declaration:QuantumBlockEncoding.AdjacentGivens.eliminate_pair",
+    "declaration:QuantumBlockEncoding.RealAmplitudePreparation.pairNorm_sq"
+  ],
+  "view_kind": "derivation",
+  "family": "local-plane-rotation-state-preparation",
+  "split": "unassigned_pending_reconciliation",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "contract_hash": "df97e8388dbc0a42bd6d1ba4c2e2f6e6131b286a8cff727855663f5607001b55",
+  "proposed_contract": {
+    "question": "Determine the largest possible score for arbitrary \\(T,a,d\\). Give a recurrence with a table indexed by a vertex \\(v\\) and a remaining layer budget \\(0\\le t\\le d\\). Explain how to evaluate it in time polynomial in \\(|V(T)|\\) and \\(d+1\\), counting real arithmetic and comparisons as unit operations. You may use polynomial-time maximum-weight matching in a bipartite graph.\n\nProve an upper bound for every circuit, including circuits that revisit an edge or cancel an amplitude. Then show how to choose a circuit attaining your answer for signed targets. Address zero target mass among the sites reached by a schedule, a zero budget, and a tree consisting only of the root.\n\nFor a five-vertex example, the root \\(r\\) has children \\(u,v\\), with respective single children \\(u',v'\\). The only nonzero target entries are \\(a_{u'}=1/\\sqrt2\\) and \\(a_{v'}=-1/\\sqrt2\\). Compute the optimum at \\(d=1,2,3\\) and use it to assess the claim that all target mass within graph distance \\(d\\) can always be captured by depth \\(d\\).",
+    "assumptions": [
+      "Let \\(T\\) be a finite nonempty tree rooted at \\(r\\). Each vertex \\(v\\) labels a real coordinate and has a known signed target amplitude \\(a_v\\), with \\(\\sum_v a_v^2=1\\). The input is \\(e_r\\), the positive unit coordinate at the root.",
+      "One layer chooses a matching of tree edges. On an edge ordered as (parent, child) it may apply any block \\(\\begin{pmatrix}c&-s\\\\ s&c\\end{pmatrix}\\), with real \\(c,s\\) satisfying \\(c^2+s^2=1\\). Vertices outside the selected edges keep their amplitudes. There are at most \\(d\\ge0\\) layers, where \\(d\\) is an integer."
+    ],
+    "conventions": [
+      "Disjointness refers to vertices in the same layer. A vertex may participate again in a later layer. Empty layers and arbitrary choices of exact angles are allowed.",
+      "The score of an output \\(y\\) is its squared fidelity with \\(a\\), namely \\(|\\sum_v a_vy_v|^2\\). A common sign is immaterial to the score. For a vertex \\(v\\), \\(T_v\\) consists of \\(v\\) and all its descendants."
+    ],
+    "family": "local-plane-rotation-state-preparation",
+    "split": "unassigned_pending_reconciliation",
+    "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+    "target_nodes": [
+      "declaration:QuantumBlockEncoding.AdjacentGivens.rotateRows",
+      "declaration:QuantumBlockEncoding.AdjacentGivens.splitAngle_real_firstColumn",
+      "declaration:QuantumBlockEncoding.AdjacentGivens.rotateRows_inverse"
+    ],
+    "supporting_nodes": [
+      "declaration:QuantumBlockEncoding.AdjacentGivens.planeMatrix_orthogonal",
+      "declaration:QuantumBlockEncoding.AdjacentGivens.eliminate_pair",
+      "declaration:QuantumBlockEncoding.RealAmplitudePreparation.pairNorm_sq"
+    ],
+    "source_refs": [
+      {
+        "path": "QuantumBlockEncoding/AdjacentGivens.lean",
+        "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "sha256_lf": "a43c3b4f543738cb317be01fa664fd466bfa28e21c33d10c7a90e74037a58d9c",
+        "sha256_raw": "a43c3b4f543738cb317be01fa664fd466bfa28e21c33d10c7a90e74037a58d9c",
+        "license": "MIT (project sources; see root LICENSE)",
+        "anchor": "rotateRows lines 20–25; splitAngle_real_firstColumn lines 84–97; rotateRows_inverse lines 42–55; planeMatrix_orthogonal lines 70–72; eliminate_pair lines 104–119",
+        "declaration_spans": [
+          {
+            "node_id": "declaration:QuantumBlockEncoding.AdjacentGivens.rotateRows",
+            "start": 20,
+            "end": 25,
+            "sha256_lf": "caf35f09b6a13fdb2233186b3adb0ca484cb7fae158cc8ddf908893be8b17de2",
+            "scope": "Defines the signed half-angle update of the two selected real rows, leaving other rows unchanged. A single column gives the site-amplitude rule. The definition gives no test from probabilities, propagation bound or scheduling optimum."
+          },
+          {
+            "node_id": "declaration:QuantumBlockEncoding.AdjacentGivens.splitAngle_real_firstColumn",
+            "start": 84,
+            "end": 97,
+            "sha256_lf": "0672d1c9bc8359048c89a26bcdd23281bdcf3ac2d0222114362657c16d91f429",
+            "scope": "For any two signed real numbers, the cosine and sine of half the split angle, multiplied by their Euclidean pair norm, reproduce the two numbers. This is a two-coordinate existence ingredient."
+          },
+          {
+            "node_id": "declaration:QuantumBlockEncoding.AdjacentGivens.rotateRows_inverse",
+            "start": 42,
+            "end": 55,
+            "sha256_lf": "a58fd5347812a151e0e148fecc7ec92110384d0ecb212c78d5cb94f0a4bbd077",
+            "scope": "The rotation of any two distinct real rows is undone by the negative angle on those rows. It applies to a tree edge with either fixed endpoint order, without implying a schedule theorem."
+          },
+          {
+            "node_id": "declaration:QuantumBlockEncoding.AdjacentGivens.planeMatrix_orthogonal",
+            "start": 70,
+            "end": 72,
+            "sha256_lf": "df923753689b873e7ca9851fe84ec8020995a02ae2a3b823b6df7f534c3b007e",
+            "scope": "A plane matrix on distinct indices is orthogonal. This supplies exact norm preservation on each edge. It does not assert that a whole sphere is reachable within a specified depth."
+          },
+          {
+            "node_id": "declaration:QuantumBlockEncoding.AdjacentGivens.eliminate_pair",
+            "start": 104,
+            "end": 119,
+            "sha256_lf": "c7cfbfb0477cb85b1d4dd84662560413d18d4ad99adcc87ccec1881472a1e546",
+            "scope": "For any real pair the specified elimination angle takes it to its nonnegative norm in the first position and zero in the second. Reorientation of endpoints and use in tree schedules are further deductions."
+          }
+        ]
+      },
+      {
+        "path": "QuantumBlockEncoding/RealAmplitudePreparation.lean",
+        "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "sha256_lf": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+        "sha256_raw": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+        "license": "MIT (project sources; see root LICENSE)",
+        "anchor": "pairNorm_sq lines 147–148",
+        "declaration_spans": [
+          {
+            "node_id": "declaration:QuantumBlockEncoding.RealAmplitudePreparation.pairNorm_sq",
+            "start": 147,
+            "end": 148,
+            "sha256_lf": "48576cae5ba13a897bfef52d1a0d0e85ea78594b1dc5ece47eb446147cbe1dcf",
+            "scope": "The square of the real pair norm is the sum of the two squared entries. No graph or measurement identification is part of this equality."
+          }
+        ]
+      }
+    ]
+  },
+  "base_commit": "036aea2a107d9258bba1c20b6e58cb6b9ee484f5",
+  "package_id": "b3a8eb51-c162-46a4-a117-021b837fe5c1",
+  "slot": "G3s",
+  "title": "How much fidelity can a tree reach before the layer budget runs out?",
+  "mathematical_target": "Compute the maximum squared fidelity attainable from a fixed tree root by a specified number of disjoint two-site rotation layers. The new work characterizes dynamic support, assigns child starting times, and proves its fidelity upper bound is attainable for signed amplitudes.",
+  "payload_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/b3a8eb51-c162-46a4-a117-021b837fe5c1/qa/G3s.json",
+  "payload_sha256": "016cfdfb6d2a2c6e7173167bc9c504fdca95a1554e518ab72bdd8bfa22d19b8c",
+  "item_digest": "cc441fabba71e5cd3eb4d89ee4b04af885ce04c71d45e8cccaad517daf0bb3e2",
+  "review_records": [
+    {
+      "slot": "G3s",
+      "core_id": "candidate:f1c5c971-ad7b-455c-8aad-b302773678a3",
+      "author": "/root/author_givens5",
+      "reviewer": "/root/review_givens5",
+      "verdict": "accept",
+      "semantic_core_verdict": "The fixed-span projection/Cauchy–Schwarz subproof is shared with the T3 comparator in the frozen plan. The objective here additionally requires a causal characterization over arbitrary tree circuits, a schedule-preserving signed synthesis, and a polynomial optimum over child-to-time matchings. These distinguish its mathematical task from fixed-subspace projection, depth counts for a supplied sequence and static edge coloring within the screened concepts.",
+      "question_sha256": "5aa0b85607a57d8cd0ed5bb8bf21184619e1699f118e66fa2f689bf9675b559b",
+      "phase1_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/b3a8eb51-c162-46a4-a117-021b837fe5c1/reviews/G/phase1.json",
+      "phase1_sha256": "9d8c0227bfa31f17d2cc76df2da25cc8fe9b37c4f29d0f0d453e7e6e8f2bf71b",
+      "report_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/b3a8eb51-c162-46a4-a117-021b837fe5c1/reviews/G/phase2.json",
+      "report_sha256": "9133db65f7624c3aa0d73a184dcc55b64fefc69c7adbf625fa61abf9c4bb4756",
+      "payload_sha256": "016cfdfb6d2a2c6e7173167bc9c504fdca95a1554e518ab72bdd8bfa22d19b8c",
+      "item_digest": "cc441fabba71e5cd3eb4d89ee4b04af885ce04c71d45e8cccaad517daf0bb3e2",
+      "human_approval": false,
+      "admission": "candidate_not_counted"
+    }
+  ],
+  "status": "reviewed_pending_maintainer_reconciliation",
+  "count_effect": "zero",
+  "usage": {
+    "proposed_use": "Public study and proposed training, pending maintainer reconciliation of exposure and official split.",
+    "family_group": "local-plane-rotation-state-preparation",
+    "status": "public_study_only",
+    "training_clearance": "pending maintainer split reconciliation",
+    "empirical_calibration": false
+  }
+}

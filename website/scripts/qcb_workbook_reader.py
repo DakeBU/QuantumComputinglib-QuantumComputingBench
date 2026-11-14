@@ -52,6 +52,10 @@ def route(entry):
     return BASE + entry['slot'].lower() + '/'
 
 
+def chapter(entry):
+    return entry.get('chapter', entry['slot'][0])
+
+
 def node_anchor(node):
     return 'node-' + hashlib.sha256(node.encode()).hexdigest()[:16]
 
@@ -86,6 +90,22 @@ def cards(entries, prefix):
 
 def reasoning_map(entry):
     m = entry['display_reasoning_map']
+    if 'nodes' in m:
+        out = '<p>Follow the mathematical derivation from the given conditions to the conclusion. Each step uses all of its listed inputs.</p><ol class="qcb-workbook-steps">'
+        for node in m['nodes']:
+            inputs = ', '.join(node['requires'])
+            label = 'Given' if node['kind'] == 'given' else 'Derive'
+            out += '<li id="step-' + esc(node['id']) + '"><p class="qcb-meta">' + esc(node['id'] + ' · ' + label)
+            if inputs:
+                out += ' · Inputs ' + esc(inputs)
+            out += '</p>' + render_prose(node['claim']) + '</li>'
+        out += '</ol><h3>Why the steps combine</h3><ul>'
+        for join in m['joins']:
+            out += '<li><a href="#step-' + esc(join['node']) + '">' + esc(join['node']) + '</a>' + render_prose(join['why_each']) + '</li>'
+        out += '</ul><h3>Alternative derivations</h3>'
+        for alternative in m['alternative_routes']:
+            out += render_prose(alternative['assumptions']) + render_prose(alternative['route'])
+        return out
     out = '<p>This is an author-supplied mathematical reasoning route, not extracted Lean proof dependencies. Every listed input of a step is required together; boundary diagnostics can replace assumptions only in their stated scope.</p>'
     out += '<h3>Inputs and conventions</h3><dl>'
     for n in m['inputs']:
@@ -112,7 +132,7 @@ def reasoning_map(entry):
 def page_body(entry, workbook, graph, live_ids, publication_commit):
     p = entry['packet']
     prefix = '../' * len(PurePosixPath(route(entry)).parts)
-    group = workbook['groups'][entry['slot'][0]]
+    group = workbook['groups'][chapter(entry)]
     body = ('<article class="qcb-reader" data-qcb-workbook="' + esc(entry['slot']) + '"><p class="qcb-breadcrumb"><a href="'
             + prefix + BASE + 'index.html">Supplementary workbook</a> / <a href="' + prefix + BASE + group[0] + '/index.html">'
             + esc(group[1]) + '</a></p><p class="eyebrow">Natural-language mathematics · no Lean installation needed</p><h1>'
@@ -136,14 +156,20 @@ def page_body(entry, workbook, graph, live_ids, publication_commit):
             connections += '<li><a href="../' + slot.lower() + '/index.html">' + esc(peer['packet']['title']) + '</a> — ' + esc(explanation) + '</li>'
         body += folded('Connect the exercises', connections + '</ul>', 'connections')
     body += folded('Reference solution', render_prose(p['reference_answer']), 'solution')
-    rubric = '<ol>' + ''.join('<li>' + render_prose(r['criterion']) + '<p class="qcb-meta">' + esc(r['weight']) + ' / 10 points · ' + esc(r['id']) + '</p></li>' for r in entry['display_rubric']) + '</ol>'
+    rubric = '<ol>' + ''.join('<li>' + render_prose(r['criterion']) + '<p class="qcb-meta">' + esc(r['weight']) + ' / 10 points · ' + esc(r['id']) + '</p>'
+                            + (render_prose(r['partial']) if r.get('partial') else '') + '</li>'
+                            for r in entry['display_rubric']) + '</ol>'
     rubric += '<p>Credit mathematically equivalent complete derivations satisfying the same premises. A displayed proof route is not the only accepted route.</p>'
+    if entry.get('chapter') and p.get('valid_alternatives'):
+        rubric += '<h3>Equivalent solutions</h3>' + prose_list(p['valid_alternatives'])
     if entry['clarifications'].get('grading_notes'):
         rubric += '<h3>Reviewed grading clarifications</h3>' + prose_list(entry['clarifications']['grading_notes'])
     body += folded('Assessment rubric', rubric, 'rubric')
     cases = '<dl>'
     for c in p['boundary_cases']:
-        cases += '<dt>' + esc(c['case']) + '</dt><dd>' + ''.join(render_prose(v) for k, v in c.items() if k != 'case') + '</dd>'
+        label = 'case' if 'case' in c else 'condition'
+        heading = esc(c[label]) if label == 'case' else render_prose(c[label])
+        cases += '<dt>' + heading + '</dt><dd>' + ''.join(render_prose(v) for k, v in c.items() if k != label) + '</dd>'
     body += folded('Boundary cases and common errors', cases + '</dl><h3>Common errors</h3>' + prose_list(common_error_texts(p)), 'boundaries')
     reasoning = reasoning_map(entry)
     if entry['clarifications'].get('changes'):
@@ -158,7 +184,15 @@ def page_body(entry, workbook, graph, live_ids, publication_commit):
         revision = (publication_commit if ref['path'].startswith('benchmarks/') else
                     ref.get('source_commit', workbook['source_commit']))
         anchor = entry['clarifications'].get('source_anchor_overrides', {}).get(ref['path'], ref['anchor'])
-        sources += '<li><a href="' + REPO + '/blob/' + esc(revision) + '/' + esc(ref['path']) + '">' + esc(ref['path']) + '</a>' + render_prose(anchor) + '</li>'
+        sources += '<li><a href="' + REPO + '/blob/' + esc(revision) + '/' + esc(ref['path']) + '">' + esc(ref['path']) + '</a>' + render_prose(anchor)
+        if entry.get('chapter'):
+            sources += '<ul>'
+            for span in ref['declaration_spans']:
+                loc = '#L' + str(span['start']) + '-L' + str(span['end'])
+                label = span['node_id'].rsplit('.', 1)[-1]
+                sources += '<li><a href="' + REPO + '/blob/' + esc(revision) + '/' + esc(ref['path']) + loc + '">' + esc(readable_node_label(label)) + '</a>' + render_prose(span['scope']) + '</li>'
+            sources += '</ul>'
+        sources += '</li>'
     sources += '</ul><p><a href="' + REPO + '/blob/' + publication_commit + '/' + esc(entry['payload_path']) + '">Original contribution</a> · <a href="' + REPO + '/blob/' + publication_commit + '/' + esc(entry['review']['report_path']) + '">Intake mathematical review</a></p>'
     sources += prose_list(entry['review']['limitations'])
     body += folded('Sources, review and exact identities', sources + '<p>Question SHA-256: <code>' + entry['question_sha256'] + '</code>. Original payload SHA-256: <code>' + entry['payload_sha256'] + '</code>.</p>', 'sources')
@@ -167,17 +201,23 @@ def page_body(entry, workbook, graph, live_ids, publication_commit):
 
 def publish_workbook(write, intro, workbook, graph, live_ids, publication_commit):
     entries = workbook['entries']
-    body = intro('Supplementary mathematics workbook', 'Explore six subjects through natural-language exercises. Follow each reasoning route to the library definitions and results it uses.')
+    body = intro('Supplementary mathematics workbook', 'Choose a subject or construction level. Each exercise links to the library results it uses.')
     body += '<p class="qcb-status-line" data-qcb-workbook-exposure="public_study">Public study material, including explanations of existing dev/test cores. Use the train-only export for training and a separately controlled set for assessment. <a href="../../run/assessment/index.html">Choose the appropriate workflow →</a></p>'
     body += '<p class="qcb-meta">' + str(workbook['counts']['existing_core_expositions']) + ' additional expositions of existing cores and ' + str(workbook['counts']['unassigned_candidates']) + ' unassigned candidates.</p>'
-    subject_counts = Counter(e['slot'][0] for e in entries)
+    subject_counts = Counter(chapter(e) for e in entries)
     body += section('Choose a subject', '<div class="qcb-grid">' + ''.join('<article class="qcb-card"><h2><a href="' + slug + '/index.html">' + title + '</a></h2><p>' + str(subject_counts[group]) + ' exercises with reference arguments and source anchors.</p></article>' for group, (slug, title) in workbook['groups'].items()) + '</div>', 'subjects')
     body += section('Choose a construction level', '<p>' + ' · '.join('<a href="levels/' + band.lower() + '/index.html">' + band + ' (' + str(count) + ')</a>' for band, count in sorted(workbook['counts']['by_band'].items())) + '</p><p>These are provisional reasoning-route bands. D0 is the knowledge-reading facet of each exercise; no extra question is counted for it.</p>', 'levels')
     body += folded('Graph, downloads and inventory boundaries', '<p><a href="graph/index.html">Node-to-exercise map</a> · <a download href="../../../data/quantumcomputingbench/nonlean-workbook/questions.jsonl">Question-only JSONL</a> · <a download href="../../../data/quantumcomputingbench/nonlean-workbook/references.jsonl">References and rubrics</a> · <a download href="../../../data/quantumcomputingbench/nonlean-workbook/index.json">Source and review index</a></p><p>These supplementary files are outside canonical training/evaluation exports. Existing-core expositions retain their original split; candidate split reconciliation remains pending. Public answers do not constitute a hidden holdout.</p>', 'data')
     write(BASE, 'Supplementary mathematics workbook', body + '</div>', 'Source-grounded supplementary exercises with disclosed difficulty, reasoning routes and exact graph anchors.')
     for group, (slug, title) in workbook['groups'].items():
-        body = intro(title, 'A subject chapter in the supplementary natural-language workbook.')
-        body += '<p><a href="../index.html">Workbook contents</a></p>' + cards([e for e in entries if e['slot'][0] == group], '../../../../')
+        chapter_intro = {
+            'rotation': 'Locate one rotation from measured populations, prove a sharp gate count on a line, then optimize preparation fidelity on a tree.',
+            'cycles': 'Move phase tables through permutations, classify diagonal calibrations, then determine what power traces can recover.',
+        }
+        body = intro(title, chapter_intro.get(group, 'A subject chapter in the supplementary natural-language workbook.'))
+        body += '<p><a href="../index.html">Workbook contents</a></p>' + cards([e for e in entries if chapter(e) == group], '../../../../')
+        if group in chapter_intro:
+            body += '<p><a download href="../../../../data/quantumcomputingbench/nonlean-workbook/geometry-practice.pdf">Download the six printable questions</a></p>'
         write(BASE + slug + '/', title, body + '</div>', title + ': supplementary questions and mathematical arguments.')
     for band in sorted(workbook['counts']['by_band']):
         body = intro(band + ' · supplementary reasoning', 'A provisional construction-route band, not measured model difficulty.')

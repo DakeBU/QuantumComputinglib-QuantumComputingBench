@@ -1,0 +1,394 @@
+{
+  "slot": "G3s",
+  "title": "How much fidelity can a tree reach before the layer budget runs out?",
+  "assumptions": [
+    "Let \\(T\\) be a finite nonempty tree rooted at \\(r\\). Each vertex \\(v\\) labels a real coordinate and has a known signed target amplitude \\(a_v\\), with \\(\\sum_v a_v^2=1\\). The input is \\(e_r\\), the positive unit coordinate at the root.",
+    "One layer chooses a matching of tree edges. On an edge ordered as (parent, child) it may apply any block \\(\\begin{pmatrix}c&-s\\\\ s&c\\end{pmatrix}\\), with real \\(c,s\\) satisfying \\(c^2+s^2=1\\). Vertices outside the selected edges keep their amplitudes. There are at most \\(d\\ge0\\) layers, where \\(d\\) is an integer."
+  ],
+  "conventions": [
+    "Disjointness refers to vertices in the same layer. A vertex may participate again in a later layer. Empty layers and arbitrary choices of exact angles are allowed.",
+    "The score of an output \\(y\\) is its squared fidelity with \\(a\\), namely \\(|\\sum_v a_vy_v|^2\\). A common sign is immaterial to the score. For a vertex \\(v\\), \\(T_v\\) consists of \\(v\\) and all its descendants."
+  ],
+  "question": "Determine the largest possible score for arbitrary \\(T,a,d\\). Give a recurrence with a table indexed by a vertex \\(v\\) and a remaining layer budget \\(0\\le t\\le d\\). Explain how to evaluate it in time polynomial in \\(|V(T)|\\) and \\(d+1\\), counting real arithmetic and comparisons as unit operations. You may use polynomial-time maximum-weight matching in a bipartite graph.\n\nProve an upper bound for every circuit, including circuits that revisit an edge or cancel an amplitude. Then show how to choose a circuit attaining your answer for signed targets. Address zero target mass among the sites reached by a schedule, a zero budget, and a tree consisting only of the root.\n\nFor a five-vertex example, the root \\(r\\) has children \\(u,v\\), with respective single children \\(u',v'\\). The only nonzero target entries are \\(a_{u'}=1/\\sqrt2\\) and \\(a_{v'}=-1/\\sqrt2\\). Compute the optimum at \\(d=1,2,3\\) and use it to assess the claim that all target mass within graph distance \\(d\\) can always be captured by depth \\(d\\).",
+  "schema_version": "qcb.nonlean_reviewed_packet.v1",
+  "author": "/root/author_givens5",
+  "core_id": "candidate:f1c5c971-ad7b-455c-8aad-b302773678a3",
+  "proposal_id": "f1c5c971-ad7b-455c-8aad-b302773678a3",
+  "admission": "candidate_not_counted",
+  "contribution_type": "new_candidate",
+  "dedup_review_required": true,
+  "base_commit": "036aea2a107d9258bba1c20b6e58cb6b9ee484f5",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "family": "local-plane-rotation-state-preparation",
+  "split": "unassigned_pending_reconciliation",
+  "proposed_use": {
+    "proposed_use": "Public study and proposed training, pending maintainer reconciliation of exposure and official split.",
+    "family_group": "local-plane-rotation-state-preparation",
+    "status": "public_study_only",
+    "training_clearance": "pending maintainer split reconciliation",
+    "empirical_calibration": false
+  },
+  "target_nodes": [
+    "declaration:QuantumBlockEncoding.AdjacentGivens.rotateRows",
+    "declaration:QuantumBlockEncoding.AdjacentGivens.splitAngle_real_firstColumn",
+    "declaration:QuantumBlockEncoding.AdjacentGivens.rotateRows_inverse"
+  ],
+  "supporting_nodes": [
+    "declaration:QuantumBlockEncoding.AdjacentGivens.planeMatrix_orthogonal",
+    "declaration:QuantumBlockEncoding.AdjacentGivens.eliminate_pair",
+    "declaration:QuantumBlockEncoding.RealAmplitudePreparation.pairNorm_sq"
+  ],
+  "source_refs": [
+    {
+      "path": "QuantumBlockEncoding/AdjacentGivens.lean",
+      "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "sha256_lf": "a43c3b4f543738cb317be01fa664fd466bfa28e21c33d10c7a90e74037a58d9c",
+      "sha256_raw": "a43c3b4f543738cb317be01fa664fd466bfa28e21c33d10c7a90e74037a58d9c",
+      "license": "MIT (project sources; see root LICENSE)",
+      "anchor": "rotateRows lines 20–25; splitAngle_real_firstColumn lines 84–97; rotateRows_inverse lines 42–55; planeMatrix_orthogonal lines 70–72; eliminate_pair lines 104–119",
+      "declaration_spans": [
+        {
+          "node_id": "declaration:QuantumBlockEncoding.AdjacentGivens.rotateRows",
+          "start": 20,
+          "end": 25,
+          "sha256_lf": "caf35f09b6a13fdb2233186b3adb0ca484cb7fae158cc8ddf908893be8b17de2",
+          "scope": "Defines the signed half-angle update of the two selected real rows, leaving other rows unchanged. A single column gives the site-amplitude rule. The definition gives no test from probabilities, propagation bound or scheduling optimum."
+        },
+        {
+          "node_id": "declaration:QuantumBlockEncoding.AdjacentGivens.splitAngle_real_firstColumn",
+          "start": 84,
+          "end": 97,
+          "sha256_lf": "0672d1c9bc8359048c89a26bcdd23281bdcf3ac2d0222114362657c16d91f429",
+          "scope": "For any two signed real numbers, the cosine and sine of half the split angle, multiplied by their Euclidean pair norm, reproduce the two numbers. This is a two-coordinate existence ingredient."
+        },
+        {
+          "node_id": "declaration:QuantumBlockEncoding.AdjacentGivens.rotateRows_inverse",
+          "start": 42,
+          "end": 55,
+          "sha256_lf": "a58fd5347812a151e0e148fecc7ec92110384d0ecb212c78d5cb94f0a4bbd077",
+          "scope": "The rotation of any two distinct real rows is undone by the negative angle on those rows. It applies to a tree edge with either fixed endpoint order, without implying a schedule theorem."
+        },
+        {
+          "node_id": "declaration:QuantumBlockEncoding.AdjacentGivens.planeMatrix_orthogonal",
+          "start": 70,
+          "end": 72,
+          "sha256_lf": "df923753689b873e7ca9851fe84ec8020995a02ae2a3b823b6df7f534c3b007e",
+          "scope": "A plane matrix on distinct indices is orthogonal. This supplies exact norm preservation on each edge. It does not assert that a whole sphere is reachable within a specified depth."
+        },
+        {
+          "node_id": "declaration:QuantumBlockEncoding.AdjacentGivens.eliminate_pair",
+          "start": 104,
+          "end": 119,
+          "sha256_lf": "c7cfbfb0477cb85b1d4dd84662560413d18d4ad99adcc87ccec1881472a1e546",
+          "scope": "For any real pair the specified elimination angle takes it to its nonnegative norm in the first position and zero in the second. Reorientation of endpoints and use in tree schedules are further deductions."
+        }
+      ]
+    },
+    {
+      "path": "QuantumBlockEncoding/RealAmplitudePreparation.lean",
+      "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "sha256_lf": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+      "sha256_raw": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+      "license": "MIT (project sources; see root LICENSE)",
+      "anchor": "pairNorm_sq lines 147–148",
+      "declaration_spans": [
+        {
+          "node_id": "declaration:QuantumBlockEncoding.RealAmplitudePreparation.pairNorm_sq",
+          "start": 147,
+          "end": 148,
+          "sha256_lf": "48576cae5ba13a897bfef52d1a0d0e85ea78594b1dc5ece47eb446147cbe1dcf",
+          "scope": "The square of the real pair norm is the sum of the two squared entries. No graph or measurement identification is part of this equality."
+        }
+      ]
+    }
+  ],
+  "evidence_boundary": "The frozen declarations supply the scoped mathematical ingredients recorded per span. The reasoning map and its new conclusions are natural-language derivations. No new kernel execution.",
+  "reference_answer": "Write \\(w_v=a_v^2\\). For a fixed schedule set \\(I_0=\\{r\\}\\) and obtain \\(I_k\\) from \\(I_{k-1}\\) by adding every neighbor paired in layer \\(k\\) with a vertex of \\(I_{k-1}\\). Thus a vertex is marked if its path from \\(r\\) has been traversed at strictly increasing layer times. A pair of zeros stays zero, and matching edges cannot relay through the same vertex twice in one layer. Induction gives \\(\\operatorname{supp}(y_k)\\subseteq I_k\\) for every choice of angles. Marks persist even if amplitudes cancel. Each \\(I_k\\) is connected. On a tree any newly marked vertex is entered from its unique parent, strictly after that parent was reached. Distinct children of one parent have distinct first-contact times.\n\nFor a schedule with \\(I=I_d\\), unit norm and Cauchy–Schwarz give \\(|\\sum_v a_vy_v|^2\\le m_I:=\\sum_{v\\in I}w_v\\). If \\(m_I>0\\), set \\(b_v=a_v/\\sqrt{m_I}\\) on \\(I\\) and zero elsewhere. Retain the first-contact edge for each reached vertex other than the root, at its original layer. In reverse layer order, rotate each such signed pair to its positive pair norm at the parent and zero at the child. Use identities on the other edges. Each descendant is emptied before its parent, and the gates in any layer are disjoint. For \\(|I|\\ge2\\), all amplitudes end at the root, whose last merge fixes its sign positive. Its norm is one. Inverting the rotations and reversing the order therefore prepares \\(b\\) in the original layers. For \\(I=\\{r\\}\\), \\(e_r\\) itself attains \\(a_r^2\\) even when \\(a_r<0\\). If \\(m_I=0\\), every supported output gives zero score and the empty circuit suffices. Thus maximizing \\(m_I\\) over marked sets gives exactly the best fidelity.\n\nDefine \\(F(v,t)\\) as the maximum marked weight in \\(T_v\\) in \\(t\\) further layers, starting with just \\(v\\) marked. For the child set \\(C(v)\\), take \\(F(v,0)=w_v\\) and, for \\(t\\ge1\\), \\[F(v,t)=w_v+\\max_M\\sum_{(u,j)\\in M}F(u,t-j).\\] Here \\(M\\) is any matching between \\(C(v)\\) and the time slots \\(1,\\ldots,t\\), including the empty matching. An assigned pair \\((u,j)\\) schedules the first contact with \\(u\\) in slot \\(j\\). The answer is \\(F(r,d)\\).\n\nFor necessity, record the first contact time \\(j\\) for each reached child. The resulting child/time pairs form a matching. Actions within \\(T_u\\) before \\(u\\) is marked cannot spread any mark, and the layer that first reaches \\(u\\) cannot also relay through it. The marks below \\(u\\) therefore contribute at most \\(F(u,t-j)\\). Every reached vertex is counted once. For the converse, call matched children at their assigned times and start a maximizing subtree schedule for each in the next layer. Sibling subtrees are disjoint. The parent has at most one contact per layer, and the active interior of an earlier child does not touch the later parent contact. The union is a legal layer schedule and realizes exactly the sum. Subtree induction proves the recurrence. No restriction on revisiting edges was imposed on the circuits used in the upper bound.\n\nFill the table in postorder for budgets \\(0,\\ldots,d\\). There are \\(|V(T)|(d+1)\\) entries. One entry uses a maximum-weight bipartite matching on at most \\(|C(v)|+d\\) vertices and \\(|C(v)|d\\) edges, plus ordinary sums. Polynomial-time matching gives polynomial total real operations and comparisons. Store the maximizing assignments to recover a contact schedule and use the signed rotations above. A leaf has \\(F(v,t)=w_v\\) at every budget. In particular a root-only tree has score one, and any tree at zero budget has score \\(a_r^2\\).\n\nIn the example the optimal scores at \\(d=1,2,3\\) are \\(0,1/2,1\\). One layer reaches neither grandchild. To reach a grandchild by layer two, the root must call its parent in layer one, when it can call only one child. Full-amplitude transfers along \\(r,u,u'\\) in two successive layers capture weight \\(1/2\\). At depth three use \\((r,u)\\), then simultaneously \\((u,u')\\) and \\((r,v)\\), then \\((v,v')\\). Let the first gate put \\(1/\\sqrt2\\) at each of \\(r,u\\); the layer-two gates transfer these amplitudes positively to \\(v,u'\\). The last gate transfers the amplitude at \\(v\\) to \\(v'\\) with negative sign. This gives \\(a\\) exactly. The two grandchildren lie in the distance-two ball but their total weight one is unattainable at depth two.",
+  "rubric": [
+    {
+      "id": "R1",
+      "weight": 1,
+      "criterion": "Use the site-matching layer model and squared overlap with the signed real target. One vertex cannot relay through two incident edges in one layer.",
+      "partial": "Award 1 for correctly interpreting the layer and score conventions, explicitly or through the derivation."
+    },
+    {
+      "id": "R2",
+      "weight": 2,
+      "criterion": "Bound every circuit by a time-ordered set of reached sites and then by their total target weight. Justify support containment with repeated edges or cancellations and use unit norm to control squared fidelity.",
+      "partial": "Award 1 for the causal support bound and 1 for the squared-overlap upper bound on the resulting set."
+    },
+    {
+      "id": "R3",
+      "weight": 2,
+      "criterion": "Attain the chosen reached-set bound with a legal signed circuit, by first-contact synthesis or any equivalent construction. Treat a zero projection and a singleton reached set with either root sign.",
+      "partial": "Award 1 for identifying the optimal signed direction or correctly handling its exceptional cases, and the second for showing that the required direction or score can be synthesized in the given layers."
+    },
+    {
+      "id": "R4",
+      "weight": 3,
+      "criterion": "Give the vertex/time recurrence or a mathematically equivalent polynomial recurrence and prove both directions, accounting for distinct child-contact times, residual time and concurrent independent subtrees.",
+      "partial": "Award 1 for the correct state, base and optimization rule, 1 for bounding every schedule by it, and 1 for showing its choices form a legal schedule."
+    },
+    {
+      "id": "R5",
+      "weight": 1,
+      "criterion": "Justify polynomial time in the stated real arithmetic/comparison model, bounding both the state count and work per state.",
+      "partial": "Award 1 for a valid complexity justification, including other polynomial evaluation methods."
+    },
+    {
+      "id": "R6",
+      "weight": 1,
+      "criterion": "Compute all three example scores and demonstrate the distance-only failure with a feasible schedule and a necessary depth-two obstruction. Include the zero-budget and singleton-tree values in the general answer.",
+      "partial": "Award 1 for these conclusions with sufficient justification by the recurrence or an explicit schedule. Incomplete reasoning on the general upper or lower bound may still earn points above."
+    }
+  ],
+  "common_errors": [
+    "Replace feasible reached sets by graph balls or by arbitrary subsets of those balls, permitting two children to receive their first contacts simultaneously from one parent.",
+    "Use \\(t-j+1\\) residual layers, or let a child relay during its birth layer.",
+    "Treat a projection bound as attained without constructing its signed direction or an equally good output; normalize a zero projection or insist on a negative root representative when the singleton output already attains the score.",
+    "Restrict competitors to a particular sweep or to circuits that never revisit an edge without proving the universal upper bound.",
+    "Enumerate every child ordering as the algorithm without a polynomial way to optimize, or award a whole subtree when the remaining layers cannot reach it."
+  ],
+  "valid_alternatives": [
+    "Award the full 10 points to any mathematically valid solution answering all requested parts. A different recurrence, scheduling proof or signed construction earns full credit when it satisfies the problem.",
+    "With unrestricted real rotations, distribute subtree norms forward along increasing first-contact times, choosing each finished amplitude with the required sign. Treat zero retained mass and a singleton set at the score level.",
+    "Use polynomial min-cost flow, a dummy-augmented assignment algorithm or an equivalent layered-tree dynamic program if it accounts for parent contact capacity, residual time and attainable signed fidelity.",
+    "Potential reachability that ignores cancellations, or actual first nonzero transmissions, can establish the universal upper bound provided it is justified for arbitrary circuits."
+  ],
+  "boundary_cases": [
+    {
+      "condition": "\\(d=0\\).",
+      "conclusion": "Only \\(e_r\\) is produced, so the score is \\(a_r^2\\)."
+    },
+    {
+      "condition": "\\(T=\\{r\\}\\).",
+      "conclusion": "No edge is available. Since \\(a_r=\\pm1\\), the score of \\(e_r\\) equals one."
+    },
+    {
+      "condition": "\\(\\sum_{v\\in I}a_v^2=0\\).",
+      "conclusion": "Every output supported on the reached vertices gives score zero. There is no normalized projected direction."
+    },
+    {
+      "condition": "\\(I=\\{r\\}\\) and \\(a_r<0\\).",
+      "conclusion": "The negative normalized projection need not be attainable. The actual \\(+e_r\\) has the same squared score."
+    },
+    {
+      "condition": "An ancestor has zero target mass and a descendant has positive target mass.",
+      "conclusion": "The ancestor may temporarily carry amplitude and transmit it before its required final zero. Its inclusion in a schedule can be necessary to reach a valuable descendant."
+    },
+    {
+      "condition": "Both example grandchildren are within distance two.",
+      "conclusion": "Depth two reaches at most one of them, whereas three layers reach both."
+    }
+  ],
+  "reasoning_map": {
+    "nodes": [
+      {
+        "id": "N1",
+        "kind": "given",
+        "claim": "The finite rooted tree, normalized signed target \\(a\\), weights \\(w_v=a_v^2\\), source \\(+e_r\\), and squared overlap score are supplied.",
+        "anchors": [],
+        "requires": []
+      },
+      {
+        "id": "N2",
+        "kind": "given",
+        "claim": "Each layer consists of arbitrary real rotations on disjoint tree edges. A selected pair has a circular orbit, is orthogonal and has an inverse on the same edge.",
+        "anchors": [
+          "declaration:QuantumBlockEncoding.AdjacentGivens.rotateRows",
+          "declaration:QuantumBlockEncoding.AdjacentGivens.splitAngle_real_firstColumn",
+          "declaration:QuantumBlockEncoding.AdjacentGivens.planeMatrix_orthogonal",
+          "declaration:QuantumBlockEncoding.AdjacentGivens.rotateRows_inverse"
+        ],
+        "requires": []
+      },
+      {
+        "id": "N3",
+        "kind": "derive",
+        "claim": "The monotone marked set for a schedule contains the actual support at every layer: two unmarked endpoints have zero amplitudes. Reuse of edges and cancellations cannot invalidate this upper bound.",
+        "anchors": [
+          "declaration:QuantumBlockEncoding.AdjacentGivens.rotateRows"
+        ],
+        "requires": [
+          "N1",
+          "N2"
+        ]
+      },
+      {
+        "id": "N4",
+        "kind": "derive",
+        "claim": "First contact on a rooted tree enters from the unique parent in a later layer than the parent was reached. The children of a fixed parent have distinct first-contact layers. Along a branch the times strictly increase.",
+        "anchors": [],
+        "requires": [
+          "N2",
+          "N3"
+        ]
+      },
+      {
+        "id": "N5",
+        "kind": "derive",
+        "claim": "For each schedule with final marked set \\(I\\), squared overlap is at most \\(m_I=\\sum_{v\\in I}w_v\\), by norm preservation and Cauchy–Schwarz.",
+        "anchors": [
+          "declaration:QuantumBlockEncoding.AdjacentGivens.planeMatrix_orthogonal"
+        ],
+        "requires": [
+          "N1",
+          "N2",
+          "N3"
+        ]
+      },
+      {
+        "id": "N6",
+        "kind": "derive",
+        "claim": "If \\(m_I>0\\), the normalized signed restriction realizes this squared score as a vector in the coordinate subspace. For \\(m_I=0\\) every supported unit vector has score zero. For \\(I=\\{r\\}\\), \\(e_r\\) has score \\(a_r^2\\) for either target sign.",
+        "anchors": [],
+        "requires": [
+          "N1",
+          "N5"
+        ]
+      },
+      {
+        "id": "N7",
+        "kind": "derive",
+        "claim": "On a marked set of size at least two, a signed unit vector compresses to \\(+e_r\\) along the first contacts taken in reverse layers. Negating and reversing the gates synthesizes that vector within the allotted layers.",
+        "anchors": [
+          "declaration:QuantumBlockEncoding.AdjacentGivens.rotateRows",
+          "declaration:QuantumBlockEncoding.AdjacentGivens.splitAngle_real_firstColumn",
+          "declaration:QuantumBlockEncoding.AdjacentGivens.eliminate_pair",
+          "declaration:QuantumBlockEncoding.AdjacentGivens.rotateRows_inverse",
+          "declaration:QuantumBlockEncoding.AdjacentGivens.planeMatrix_orthogonal",
+          "declaration:QuantumBlockEncoding.RealAmplitudePreparation.pairNorm_sq"
+        ],
+        "requires": [
+          "N2",
+          "N4"
+        ]
+      },
+      {
+        "id": "N8",
+        "kind": "derive",
+        "claim": "The optimum over all circuits equals the maximum total weight of a marked set. This needs the upper bound, an optimal direction and its schedule-respecting realization.",
+        "anchors": [],
+        "requires": [
+          "N5",
+          "N6",
+          "N7"
+        ]
+      },
+      {
+        "id": "N9",
+        "kind": "derive",
+        "claim": "For \\(F(v,t)\\), every possible schedule yields an assignment of first child contacts to distinct times, with residual time \\(t-j\\) in the selected subtree. Its marked weight is at most the matching recurrence.",
+        "anchors": [],
+        "requires": [
+          "N1",
+          "N4"
+        ]
+      },
+      {
+        "id": "N10",
+        "kind": "derive",
+        "claim": "Conversely, distinct child/time assignments and maximizing residual schedules can be combined without endpoint conflicts. Different child subtrees are disjoint, and internal work starts after that child's contact.",
+        "anchors": [],
+        "requires": [
+          "N1",
+          "N2"
+        ]
+      },
+      {
+        "id": "N11",
+        "kind": "derive",
+        "claim": "The vertex/time table with base \\(F(v,0)=w_v\\) and maximum-weight child/time matchings gives the optimal marked weight by subtree induction.",
+        "anchors": [],
+        "requires": [
+          "N9",
+          "N10"
+        ]
+      },
+      {
+        "id": "N12",
+        "kind": "derive",
+        "claim": "Postorder and polynomial-time bipartite matching compute \\(F(r,d)\\) in polynomially many real operations. Recorded matchings and signed rotations give a circuit attaining that squared fidelity.",
+        "anchors": [],
+        "requires": [
+          "N8",
+          "N11"
+        ]
+      },
+      {
+        "id": "N13",
+        "kind": "derive",
+        "claim": "The score is \\(a_r^2\\) at zero budget and one for a one-vertex tree. The specified tree gives \\(0,1/2,1\\) at depths one through three. Parent contention at the first layer precludes both distance-two targets by layer two.",
+        "anchors": [],
+        "requires": [
+          "N4",
+          "N8",
+          "N11"
+        ]
+      }
+    ],
+    "joins": [
+      {
+        "node": "N5",
+        "necessary_inputs": [
+          "N1",
+          "N2",
+          "N3"
+        ],
+        "why_each": "Target weights specify the relevant coordinate projection, gate orthogonality supplies output norm one, and support containment permits restriction of the inner product to the marked coordinates."
+      },
+      {
+        "node": "N7",
+        "necessary_inputs": [
+          "N2",
+          "N4"
+        ],
+        "why_each": "The local orbit and inverse give a legal signed fold and its undo. The temporal parent relation ensures descendants are empty before their parent is folded and that the original layer budget is respected."
+      },
+      {
+        "node": "N8",
+        "necessary_inputs": [
+          "N5",
+          "N6",
+          "N7"
+        ],
+        "why_each": "The projection bound limits arbitrary circuits. The optimal direction identifies the score and handles zero mass and singleton cases. Signed synthesis ensures an optimal direction on any nontrivial positive-mass marked set can be realized under its schedule."
+      },
+      {
+        "node": "N11",
+        "necessary_inputs": [
+          "N9",
+          "N10"
+        ],
+        "why_each": "The assignment extracted from every schedule supplies the upper inequality. Independently executable child schedules realize the candidate sums and supply the reverse inequality."
+      },
+      {
+        "node": "N12",
+        "necessary_inputs": [
+          "N8",
+          "N11"
+        ],
+        "why_each": "The table optimizes total marked weight. Its equality with attainable signed fidelity is needed for the same table to solve the requested state objective."
+      }
+    ],
+    "alternative_routes": [
+      {
+        "assumptions": "Finite rooted tree, arbitrary real edge rotations, matching layers, and the stated squared fidelity.",
+        "route": "Use a forward broadcast schedule. Assign child subtrees to time slots through polynomial matching or flow, realize the normalized projection by successive subtree-norm splits, and bound arbitrary outputs by causal support."
+      },
+      {
+        "assumptions": "Induction on subtree height with the same endpoint-disjoint model and real arithmetic.",
+        "route": "Use an equivalent time-expanded assignment formulation for the recurrence. Prove both inequalities by restricting schedules and joining subtrees. Signed edge rotations or inverse elimination certify realizability."
+      }
+    ],
+    "interpretation": "Dependencies below are author-specified local mathematical premises. Source graph edge IDs in the source index express ownership."
+  },
+  "difficulty": {
+    "construction_band": "D4",
+    "D0_facet": "Use the site-matching layer model and squared overlap with the signed real target. One vertex cannot relay through two incident edges in one layer.",
+    "rationale": "Bound arbitrary circuits by the coordinates reachable along time-ordered contacts, construct signed states on the chosen coordinates, join this with the sharp projection bound, solve the child scheduling problem by a polynomial dynamic program, and certify all requested depths on a tree where radius alone overstates fidelity.",
+    "calibrated": false
+  },
+  "mathematical_target": "Compute the maximum squared fidelity attainable from a fixed tree root by a specified number of disjoint two-site rotation layers. The new work characterizes dynamic support, assigns child starting times, and proves its fidelity upper bound is attainable for signed amplitudes."
+}

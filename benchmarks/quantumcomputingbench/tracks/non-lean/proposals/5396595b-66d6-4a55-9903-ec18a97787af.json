@@ -1,0 +1,98 @@
+{
+  "proposal_id": "5396595b-66d6-4a55-9903-ec18a97787af",
+  "core_id": "candidate:5396595b-66d6-4a55-9903-ec18a97787af",
+  "track": "non-lean",
+  "author": "/root/author_monomial5",
+  "admission": "candidate_not_counted",
+  "dedup_review_required": true,
+  "source_nodes": [
+    "declaration:QuantumBlockEncoding.phasePermutationMatrix_mul",
+    "declaration:QuantumBlockEncoding.phasePermutationMatrix"
+  ],
+  "view_kind": "derivation",
+  "family": "monomial-unitary-cycle-data",
+  "split": "unassigned_pending_reconciliation",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "contract_hash": "03703fd495551fc5019327c16fc9a43440971f4a42075c7a247f298fc597c935",
+  "proposed_contract": {
+    "question": "Give a necessary and sufficient test, expressed in terms of the supplied edge weights and reference phases, for the calibration equation to have a solution. Construct every admissible \\(D\\) and describe all its freedom. Your test should work for cycles with no reference, one reference or several, and for fixed points. Show which information survives when each edge phase around a cycle can be adjusted through a change of basis.\n\nA technician has recorded only the product of the edge weights around each labeled cycle. Show that matching these records can suffice when there are no fixed references yet fail after two phases on one cycle are prescribed. Give two devices with the same permutation and matching cycle records, along with reference values that are incompatible. Identify where the obstruction is visible along the cycle.",
+    "assumptions": [
+      "Let \\(X\\) be a finite nonempty set with a labeled orthonormal basis, and let \\(p\\) be a known permutation of \\(X\\). Write \\(\\mathbb T=\\{z\\in\\mathbb C:|z|=1\\}\\). Two devices act by \\(U_a|x\\rangle=a_x|p(x)\\rangle\\) and \\(U_b|x\\rangle=b_x|p(x)\\rangle\\), with \\(a_x,b_x\\in\\mathbb T\\).",
+      "A diagonal calibration has \\(D|x\\rangle=d_x|x\\rangle\\) with \\(d_x\\in\\mathbb T\\). A set \\(S\\subseteq X\\) of reference labels requires \\(d_s=\\eta_s\\) for specified \\(\\eta_s\\in\\mathbb T\\). The set \\(S\\) may be empty."
+    ],
+    "conventions": [
+      "The calibration equation is the exact operator identity \\(U_b=DU_aD^\\dagger\\). A cycle follows the arrows \\(x\\mapsto p(x)\\). Labels are fixed throughout, including labels in different cycles of the same length. A fixed point is a cycle of length one."
+    ],
+    "family": "monomial-unitary-cycle-data",
+    "split": "unassigned_pending_reconciliation",
+    "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+    "target_nodes": [
+      "declaration:QuantumBlockEncoding.phasePermutationMatrix_mul"
+    ],
+    "supporting_nodes": [
+      "declaration:QuantumBlockEncoding.phasePermutationMatrix"
+    ],
+    "source_refs": [
+      {
+        "path": "QuantumBlockEncoding/PrimitiveMacros.lean",
+        "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "sha256_lf": "c1cea784608c9bc1533a0a026368f63f2f5b3606e34463149b73fad9f7221f63",
+        "sha256_raw": "c1cea784608c9bc1533a0a026368f63f2f5b3606e34463149b73fad9f7221f63",
+        "license": "MIT (project sources; see root LICENSE)",
+        "anchor": "phasePermutationMatrix_mul lines 180–196; phasePermutationMatrix lines 174–178",
+        "declaration_spans": [
+          {
+            "node_id": "declaration:QuantumBlockEncoding.phasePermutationMatrix_mul",
+            "start": 180,
+            "end": 196,
+            "sha256_lf": "44a7d1fe53f47aa5b10f5397086a18fb15814aaba5f6054865750fe06f299485",
+            "scope": "Proves the exact two-factor multiplication law for finite complex weighted permutations. The second factor acts first, and the later weight is evaluated on the intermediate label. Iteration, fixed-reference calibration, trace recovery and ambiguity constructions are authored deductions."
+          },
+          {
+            "node_id": "declaration:QuantumBlockEncoding.phasePermutationMatrix",
+            "start": 174,
+            "end": 178,
+            "sha256_lf": "4536d6f5017348fe144af2873ec81b0df201fd83233bcafbe5ed1cf759b5c75e",
+            "scope": "Defines a finite complex matrix with entry equal to the input-column weight when the row is the image of that column under the given bijection, and zero otherwise. The definition allows arbitrary complex weights. Unit-modulus assumptions, cycle invariants and inverse measurement claims enter in the questions."
+          }
+        ]
+      }
+    ]
+  },
+  "base_commit": "036aea2a107d9258bba1c20b6e58cb6b9ee484f5",
+  "package_id": "b3a8eb51-c162-46a4-a117-021b837fe5c1",
+  "slot": "C2s",
+  "title": "Which phase references can be fixed on a permutation cycle?",
+  "mathematical_target": "The allowed conjugation is diagonal and labels stay fixed. An unconstrained match requires one oriented product per cycle. Prescribed phases add constraints along arcs in that cycle, and the construction must recover every calibrating diagonal including its componentwise freedom. Two prescribed phases can obstruct an otherwise valid match.",
+  "payload_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/b3a8eb51-c162-46a4-a117-021b837fe5c1/qa/C2s.json",
+  "payload_sha256": "0029b71a0f53b970a6fcbe1028a071a6461cd0a6299ed0b3db9f7e49944dab15",
+  "item_digest": "5595e1b0d084fb089757f198d8338a97951be9f56f5c2ad5ec9bba33bdc1b5ce",
+  "review_records": [
+    {
+      "slot": "C2s",
+      "core_id": "candidate:5396595b-66d6-4a55-9903-ec18a97787af",
+      "author": "/root/author_monomial5",
+      "reviewer": "/root/review_monomial5",
+      "verdict": "accept",
+      "semantic_core_verdict": "Accept as an exact, label-preserving diagonal-conjugation problem for the same permutation. The semantic core is the classification by labeled cycle products and transport between prescribed vertex phases, including construction of every calibration and the freedom on each component. This goes beyond the frozen weighted-composition theorem and ordinary phase-free permutation conjugation.",
+      "question_sha256": "917797b4afaae04a7fad45e56e0b10a8c8fb73a0e79537d35681abc1edd67f61",
+      "phase1_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/b3a8eb51-c162-46a4-a117-021b837fe5c1/reviews/C/phase1.json",
+      "phase1_sha256": "5be6d25dba4809c9e30690e77b00da6eb67b8afdc222f1efb7758db63c4d8f9d",
+      "report_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/b3a8eb51-c162-46a4-a117-021b837fe5c1/reviews/C/phase2.json",
+      "report_sha256": "9d5e5e528f997704067bd2e45175b32e6ab0571257add3c729360b1aaf326055",
+      "payload_sha256": "0029b71a0f53b970a6fcbe1028a071a6461cd0a6299ed0b3db9f7e49944dab15",
+      "item_digest": "5595e1b0d084fb089757f198d8338a97951be9f56f5c2ad5ec9bba33bdc1b5ce",
+      "human_approval": false,
+      "admission": "candidate_not_counted"
+    }
+  ],
+  "status": "reviewed_pending_maintainer_reconciliation",
+  "count_effect": "zero",
+  "usage": {
+    "proposed_use": "Public study/proposed-training candidate. Official split unassigned.",
+    "family_group": "Monomial unitaries on labeled permutation cycles",
+    "status": "public_study_only",
+    "training_clearance": "pending maintainer split reconciliation",
+    "empirical_calibration": false
+  }
+}

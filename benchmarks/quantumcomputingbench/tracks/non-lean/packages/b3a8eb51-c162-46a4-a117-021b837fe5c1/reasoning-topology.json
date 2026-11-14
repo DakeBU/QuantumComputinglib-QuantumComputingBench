@@ -1,0 +1,902 @@
+{
+  "interpretation": "These paths traverse the reviewed, author-specified reasoning maps. The longest path and fan-out are navigation aids, not difficulty estimates, dependency extraction from Lean, or statistical independence claims. Full credit follows the rubric, including alternative proofs.",
+  "packets": {
+    "G1s": {
+      "item_digest": "94660313b99eff7e16debfff92d8833134ed7acb76e2e49e9b191704f134063e",
+      "D0_facet": "Identify measured populations as squared amplitudes and the allowed operation as one rotation on two neighboring coordinates, with unreported signs.",
+      "full_credit_work": "Derive the prefix test in both directions for every possible input sign, identify all compatible edge locations in the equal-profile and unequal-profile cases, handle a zero pair, and diagnose two exact datasets.",
+      "given": [
+        "N1",
+        "N2",
+        "N3"
+      ],
+      "derived": [
+        "N4",
+        "N5",
+        "N6",
+        "N7",
+        "N8",
+        "N9",
+        "N10"
+      ],
+      "one_longest_assessed_route": [
+        "N2",
+        "N4",
+        "N5",
+        "N8",
+        "N9"
+      ],
+      "reuse_in_distinct_immediate_conclusions": [
+        {
+          "premise": "N3",
+          "claim": "The gate fixes the amplitudes outside its pair.",
+          "children": [
+            {
+              "id": "N5",
+              "claim": "An operation on edge \\(i\\) leaves every prefix mass except possibly \\(P_i\\) unchanged."
+            },
+            {
+              "id": "N7",
+              "claim": "The inferred local conditions suffice for any fixed signed input: choose a same-radius output pair, apply a rotation sending the actual pair to it, and keep each outside amplitude."
+            }
+          ]
+        },
+        {
+          "premise": "N4",
+          "claim": "The pair retains squared radius, and each pair on the same positive-radius circle is reachable from any input pair on it. The zero-radius orbit is the origin.",
+          "children": [
+            {
+              "id": "N5",
+              "claim": "An operation on edge \\(i\\) leaves every prefix mass except possibly \\(P_i\\) unchanged."
+            },
+            {
+              "id": "N7",
+              "claim": "The inferred local conditions suffice for any fixed signed input: choose a same-radius output pair, apply a rotation sending the actual pair to it, and keep each outside amplitude."
+            }
+          ]
+        },
+        {
+          "premise": "N1",
+          "claim": "The reports \\(p,q\\) are normalized nonnegative vectors, \\(p_j=x_j^2\\), and output signs are free.",
+          "children": [
+            {
+              "id": "N6",
+              "claim": "If all prefix differences except possibly \\(D_i\\) vanish, finite differencing gives equal outside populations and equal pair totals, including at endpoint cuts."
+            },
+            {
+              "id": "N9",
+              "claim": "When no cut changes, every location is compatible. One changed cut forces its edge, and two or more exclude all locations. The zero-pair and equal-report cases are included."
+            }
+          ]
+        },
+        {
+          "premise": "N8",
+          "claim": "The candidate-edge set consists exactly of the indices \\(i\\) for which every other cut has zero difference.",
+          "children": [
+            {
+              "id": "N9",
+              "claim": "When no cut changes, every location is compatible. One changed cut forces its edge, and two or more exclude all locations. The zero-pair and equal-report cases are included."
+            },
+            {
+              "id": "N10",
+              "claim": "The cut differences in the two examples are \\((0,-1,0)/8\\) and \\((1,1,1)/8\\). The former identifies \\((1,2)\\), the latter excludes every edge."
+            }
+          ]
+        }
+      ],
+      "joins": [
+        {
+          "node": "N5",
+          "necessary_inputs": [
+            "N3",
+            "N4"
+          ],
+          "why_each": "Coordinates away from the edge account for prefixes excluding the pair and the outside portion of larger prefixes. Conservation on the pair accounts for the portion of a prefix containing both sites."
+        },
+        {
+          "node": "N7",
+          "necessary_inputs": [
+            "N3",
+            "N4",
+            "N6"
+          ],
+          "why_each": "Differencing verifies the necessary numerical compatibility for this pair. The circle orbit realizes the requested inside populations for the actual signs. Fixed outside coordinates preserve the other reported populations."
+        },
+        {
+          "node": "N8",
+          "necessary_inputs": [
+            "N5",
+            "N7"
+          ],
+          "why_each": "The invariance argument excludes false locations. Reachability ensures every location that passes the test actually fits."
+        }
+      ],
+      "contrasts_and_limits": [
+        {
+          "condition": "\\(p=q\\).",
+          "conclusion": "Every edge is possible with the identity angle. The reports cannot identify a location."
+        },
+        {
+          "condition": "\\(p_i+p_{i+1}=0\\).",
+          "conclusion": "Every rotation fixes that pair. The proposed gate accounts only for an entirely unchanged report."
+        },
+        {
+          "condition": "\\(N=2\\).",
+          "conclusion": "There is just one edge, and every normalized pair of output populations is attainable for each signed input."
+        },
+        {
+          "condition": "Two or more prefix masses differ.",
+          "conclusion": "No choice of edge or angle explains the reports."
+        }
+      ]
+    },
+    "G2s": {
+      "item_digest": "9b513b36bb3ca035d996c0d8cfeabb16f84a727f737dbe0a45072d1776bafc33",
+      "D0_facet": "Use the specified positive basis input, exact signed target and unit cost per adjacent two-site operation. Identify that only the action on this one input is constrained.",
+      "full_credit_work": "Identify all separating cuts forced by the target, show they impose additive gate lower bounds, construct a signed preparation on the intervening path including zero target entries, settle both source-only signs and the one-site obstruction, and optimize source placement on multisite supports.",
+      "given": [
+        "N1"
+      ],
+      "derived": [
+        "N2",
+        "N3",
+        "N4",
+        "N5",
+        "N6",
+        "N7",
+        "N8",
+        "N9",
+        "N10"
+      ],
+      "one_longest_assessed_route": [
+        "N1",
+        "N3",
+        "N6",
+        "N7",
+        "N8",
+        "N10"
+      ],
+      "reuse_in_distinct_immediate_conclusions": [
+        {
+          "premise": "N1",
+          "claim": "The input is \\(+e_s\\), the target is a signed real unit vector, and gates are unit-cost adjacent-plane rotations on the path.",
+          "children": [
+            {
+              "id": "N2",
+              "claim": "If a particular edge is absent, its two components evolve independently. The side initially equal to zero stays identically zero."
+            },
+            {
+              "id": "N3",
+              "claim": "Each cut from \\(L\\) to \\(R\\) separates \\(s\\) from at least one nonzero target coordinate. Distinct cuts correspond to distinct legal gates on this path."
+            },
+            {
+              "id": "N5",
+              "claim": "On an ordered pair of either orientation one real rotation can fold all signed pair mass into the parent with nonnegative sign. Orthogonality preserves the total norm."
+            },
+            {
+              "id": "N9",
+              "claim": "The sole unit targets on a zero-length hull are \\(\\pm e_s\\); an empty list gives the positive sign. A \\(2\\pi\\) rotation flips the negative sign into reach when \\(N\\ge2\\), while a one-site path has no gate."
+            }
+          ]
+        },
+        {
+          "premise": "N3",
+          "claim": "Each cut from \\(L\\) to \\(R\\) separates \\(s\\) from at least one nonzero target coordinate. Distinct cuts correspond to distinct legal gates on this path.",
+          "children": [
+            {
+              "id": "N4",
+              "claim": "Any circuit with a positive-length hull has cost at least \\(R-L\\), even when it also uses other edges."
+            },
+            {
+              "id": "N6",
+              "claim": "Leaf elimination on the interval rooted at \\(s\\) uses at most one step per edge, leaves removed coordinates zero, and for \\(R>L\\) ends at \\(+e_s\\)."
+            }
+          ]
+        }
+      ],
+      "joins": [
+        {
+          "node": "N4",
+          "necessary_inputs": [
+            "N2",
+            "N3"
+          ],
+          "why_each": "Omitting the cut edge keeps the side away from the source at zero squared mass. An endpoint of the hull on that side has a nonzero target amplitude of either sign, giving the side strictly positive target squared mass and forcing a gate across this cut."
+        },
+        {
+          "node": "N6",
+          "necessary_inputs": [
+            "N3",
+            "N5"
+          ],
+          "why_each": "The interval geometry supplies a leaf order and the number of edges. Signed pair folding supplies the legal local move in that order and the final nonnegative norm."
+        },
+        {
+          "node": "N8",
+          "necessary_inputs": [
+            "N4",
+            "N7"
+          ],
+          "why_each": "The bound from graph cuts applies to every competing circuit. The inverse elimination supplies one circuit with the matching cost. Neither result alone identifies the minimum."
+        }
+      ],
+      "contrasts_and_limits": [
+        {
+          "condition": "\\(x=e_s\\).",
+          "conclusion": "The optimal empty circuit uses zero gates, including at \\(N=1\\)."
+        },
+        {
+          "condition": "\\(x=-e_s\\) and \\(N\\ge2\\).",
+          "conclusion": "One \\(2\\pi\\) rotation on any incident edge suffices and zero gates cannot suffice."
+        },
+        {
+          "condition": "\\(N=1,\\ x=-e_s\\).",
+          "conclusion": "The minimum is \\(+\\infty\\), since there is no legal gate."
+        },
+        {
+          "condition": "The support is a single site different from the source.",
+          "conclusion": "The minimum is its path distance from \\(s\\) for either target sign."
+        },
+        {
+          "condition": "The source lies in a hole between two nonzero target sites.",
+          "conclusion": "The hull includes every edge across the hole. For free source choice this interior site is as good as either support extreme."
+        }
+      ]
+    },
+    "G3s": {
+      "item_digest": "cc441fabba71e5cd3eb4d89ee4b04af885ce04c71d45e8cccaad517daf0bb3e2",
+      "D0_facet": "Use the site-matching layer model and squared overlap with the signed real target. One vertex cannot relay through two incident edges in one layer.",
+      "full_credit_work": "Bound arbitrary circuits by the coordinates reachable along time-ordered contacts, construct signed states on the chosen coordinates, join this with the sharp projection bound, solve the child scheduling problem by a polynomial dynamic program, and certify all requested depths on a tree where radius alone overstates fidelity.",
+      "given": [
+        "N1",
+        "N2"
+      ],
+      "derived": [
+        "N3",
+        "N4",
+        "N5",
+        "N6",
+        "N7",
+        "N8",
+        "N9",
+        "N10",
+        "N11",
+        "N12",
+        "N13"
+      ],
+      "one_longest_assessed_route": [
+        "N1",
+        "N3",
+        "N5",
+        "N6",
+        "N8",
+        "N12"
+      ],
+      "reuse_in_distinct_immediate_conclusions": [
+        {
+          "premise": "N1",
+          "claim": "The finite rooted tree, normalized signed target \\(a\\), weights \\(w_v=a_v^2\\), source \\(+e_r\\), and squared overlap score are supplied.",
+          "children": [
+            {
+              "id": "N3",
+              "claim": "The monotone marked set for a schedule contains the actual support at every layer: two unmarked endpoints have zero amplitudes. Reuse of edges and cancellations cannot invalidate this upper bound."
+            },
+            {
+              "id": "N5",
+              "claim": "For each schedule with final marked set \\(I\\), squared overlap is at most \\(m_I=\\sum_{v\\in I}w_v\\), by norm preservation and Cauchy–Schwarz."
+            },
+            {
+              "id": "N6",
+              "claim": "If \\(m_I>0\\), the normalized signed restriction realizes this squared score as a vector in the coordinate subspace. For \\(m_I=0\\) every supported unit vector has score zero. For \\(I=\\{r\\}\\), \\(e_r\\) has score \\(a_r^2\\) for either target sign."
+            },
+            {
+              "id": "N9",
+              "claim": "For \\(F(v,t)\\), every possible schedule yields an assignment of first child contacts to distinct times, with residual time \\(t-j\\) in the selected subtree. Its marked weight is at most the matching recurrence."
+            },
+            {
+              "id": "N10",
+              "claim": "Conversely, distinct child/time assignments and maximizing residual schedules can be combined without endpoint conflicts. Different child subtrees are disjoint, and internal work starts after that child's contact."
+            }
+          ]
+        },
+        {
+          "premise": "N2",
+          "claim": "Each layer consists of arbitrary real rotations on disjoint tree edges. A selected pair has a circular orbit, is orthogonal and has an inverse on the same edge.",
+          "children": [
+            {
+              "id": "N3",
+              "claim": "The monotone marked set for a schedule contains the actual support at every layer: two unmarked endpoints have zero amplitudes. Reuse of edges and cancellations cannot invalidate this upper bound."
+            },
+            {
+              "id": "N4",
+              "claim": "First contact on a rooted tree enters from the unique parent in a later layer than the parent was reached. The children of a fixed parent have distinct first-contact layers. Along a branch the times strictly increase."
+            },
+            {
+              "id": "N5",
+              "claim": "For each schedule with final marked set \\(I\\), squared overlap is at most \\(m_I=\\sum_{v\\in I}w_v\\), by norm preservation and Cauchy–Schwarz."
+            },
+            {
+              "id": "N7",
+              "claim": "On a marked set of size at least two, a signed unit vector compresses to \\(+e_r\\) along the first contacts taken in reverse layers. Negating and reversing the gates synthesizes that vector within the allotted layers."
+            },
+            {
+              "id": "N10",
+              "claim": "Conversely, distinct child/time assignments and maximizing residual schedules can be combined without endpoint conflicts. Different child subtrees are disjoint, and internal work starts after that child's contact."
+            }
+          ]
+        },
+        {
+          "premise": "N3",
+          "claim": "The monotone marked set for a schedule contains the actual support at every layer: two unmarked endpoints have zero amplitudes. Reuse of edges and cancellations cannot invalidate this upper bound.",
+          "children": [
+            {
+              "id": "N4",
+              "claim": "First contact on a rooted tree enters from the unique parent in a later layer than the parent was reached. The children of a fixed parent have distinct first-contact layers. Along a branch the times strictly increase."
+            },
+            {
+              "id": "N5",
+              "claim": "For each schedule with final marked set \\(I\\), squared overlap is at most \\(m_I=\\sum_{v\\in I}w_v\\), by norm preservation and Cauchy–Schwarz."
+            }
+          ]
+        },
+        {
+          "premise": "N5",
+          "claim": "For each schedule with final marked set \\(I\\), squared overlap is at most \\(m_I=\\sum_{v\\in I}w_v\\), by norm preservation and Cauchy–Schwarz.",
+          "children": [
+            {
+              "id": "N6",
+              "claim": "If \\(m_I>0\\), the normalized signed restriction realizes this squared score as a vector in the coordinate subspace. For \\(m_I=0\\) every supported unit vector has score zero. For \\(I=\\{r\\}\\), \\(e_r\\) has score \\(a_r^2\\) for either target sign."
+            },
+            {
+              "id": "N8",
+              "claim": "The optimum over all circuits equals the maximum total weight of a marked set. This needs the upper bound, an optimal direction and its schedule-respecting realization."
+            }
+          ]
+        },
+        {
+          "premise": "N4",
+          "claim": "First contact on a rooted tree enters from the unique parent in a later layer than the parent was reached. The children of a fixed parent have distinct first-contact layers. Along a branch the times strictly increase.",
+          "children": [
+            {
+              "id": "N7",
+              "claim": "On a marked set of size at least two, a signed unit vector compresses to \\(+e_r\\) along the first contacts taken in reverse layers. Negating and reversing the gates synthesizes that vector within the allotted layers."
+            },
+            {
+              "id": "N9",
+              "claim": "For \\(F(v,t)\\), every possible schedule yields an assignment of first child contacts to distinct times, with residual time \\(t-j\\) in the selected subtree. Its marked weight is at most the matching recurrence."
+            },
+            {
+              "id": "N13",
+              "claim": "The score is \\(a_r^2\\) at zero budget and one for a one-vertex tree. The specified tree gives \\(0,1/2,1\\) at depths one through three. Parent contention at the first layer precludes both distance-two targets by layer two."
+            }
+          ]
+        },
+        {
+          "premise": "N8",
+          "claim": "The optimum over all circuits equals the maximum total weight of a marked set. This needs the upper bound, an optimal direction and its schedule-respecting realization.",
+          "children": [
+            {
+              "id": "N12",
+              "claim": "Postorder and polynomial-time bipartite matching compute \\(F(r,d)\\) in polynomially many real operations. Recorded matchings and signed rotations give a circuit attaining that squared fidelity."
+            },
+            {
+              "id": "N13",
+              "claim": "The score is \\(a_r^2\\) at zero budget and one for a one-vertex tree. The specified tree gives \\(0,1/2,1\\) at depths one through three. Parent contention at the first layer precludes both distance-two targets by layer two."
+            }
+          ]
+        },
+        {
+          "premise": "N11",
+          "claim": "The vertex/time table with base \\(F(v,0)=w_v\\) and maximum-weight child/time matchings gives the optimal marked weight by subtree induction.",
+          "children": [
+            {
+              "id": "N12",
+              "claim": "Postorder and polynomial-time bipartite matching compute \\(F(r,d)\\) in polynomially many real operations. Recorded matchings and signed rotations give a circuit attaining that squared fidelity."
+            },
+            {
+              "id": "N13",
+              "claim": "The score is \\(a_r^2\\) at zero budget and one for a one-vertex tree. The specified tree gives \\(0,1/2,1\\) at depths one through three. Parent contention at the first layer precludes both distance-two targets by layer two."
+            }
+          ]
+        }
+      ],
+      "joins": [
+        {
+          "node": "N5",
+          "necessary_inputs": [
+            "N1",
+            "N2",
+            "N3"
+          ],
+          "why_each": "Target weights specify the relevant coordinate projection, gate orthogonality supplies output norm one, and support containment permits restriction of the inner product to the marked coordinates."
+        },
+        {
+          "node": "N7",
+          "necessary_inputs": [
+            "N2",
+            "N4"
+          ],
+          "why_each": "The local orbit and inverse give a legal signed fold and its undo. The temporal parent relation ensures descendants are empty before their parent is folded and that the original layer budget is respected."
+        },
+        {
+          "node": "N8",
+          "necessary_inputs": [
+            "N5",
+            "N6",
+            "N7"
+          ],
+          "why_each": "The projection bound limits arbitrary circuits. The optimal direction identifies the score and handles zero mass and singleton cases. Signed synthesis ensures an optimal direction on any nontrivial positive-mass marked set can be realized under its schedule."
+        },
+        {
+          "node": "N11",
+          "necessary_inputs": [
+            "N9",
+            "N10"
+          ],
+          "why_each": "The assignment extracted from every schedule supplies the upper inequality. Independently executable child schedules realize the candidate sums and supply the reverse inequality."
+        },
+        {
+          "node": "N12",
+          "necessary_inputs": [
+            "N8",
+            "N11"
+          ],
+          "why_each": "The table optimizes total marked weight. Its equality with attainable signed fidelity is needed for the same table to solve the requested state objective."
+        }
+      ],
+      "contrasts_and_limits": [
+        {
+          "condition": "\\(d=0\\).",
+          "conclusion": "Only \\(e_r\\) is produced, so the score is \\(a_r^2\\)."
+        },
+        {
+          "condition": "\\(T=\\{r\\}\\).",
+          "conclusion": "No edge is available. Since \\(a_r=\\pm1\\), the score of \\(e_r\\) equals one."
+        },
+        {
+          "condition": "\\(\\sum_{v\\in I}a_v^2=0\\).",
+          "conclusion": "Every output supported on the reached vertices gives score zero. There is no normalized projected direction."
+        },
+        {
+          "condition": "\\(I=\\{r\\}\\) and \\(a_r<0\\).",
+          "conclusion": "The negative normalized projection need not be attainable. The actual \\(+e_r\\) has the same squared score."
+        },
+        {
+          "condition": "An ancestor has zero target mass and a descendant has positive target mass.",
+          "conclusion": "The ancestor may temporarily carry amplitude and transmit it before its required final zero. Its inclusion in a schedule can be necessary to reach a valuable descendant."
+        },
+        {
+          "condition": "Both example grandchildren are within distance two.",
+          "conclusion": "Depth two reaches at most one of them, whereas three layers reach both."
+        }
+      ]
+    },
+    "C1s": {
+      "item_digest": "10c5e24cd439a3b8719d402b9ca70ba07b7eec06e674566091d5649afd50304e",
+      "D0_facet": "D0 basis-action facet. Gives both the intermediate-label phase \\(a(x)b(p(x))\\) and the output \\(q(p(x))\\) of the chronological product, with the column action or an equivalent explanation.",
+      "full_credit_work": "Act on one basis ket to obtain weight \\(a(x)b(p(x))\\) and label \\(q(p(x))\\). Identify \\(g=f\\circ p\\) and prove uniqueness. Give both directions of the exact orbit-invariance test and the single-constant test for \\(f(p(x))/f(x)\\), with a fixed sign convention for that constant. On two bits compute the table \\(e^{i\\theta(t\\oplus c)}\\), use the fixed control-zero columns to fix any common phase, and use a moved column to identify all angles. At \\(\\theta=\\pi\\) propagate a normalized two-term input through both orders, establish orthogonality, and explain equality of the basis-input output probabilities.",
+      "given": [
+        "N1",
+        "N6"
+      ],
+      "derived": [
+        "N2",
+        "N3",
+        "N4",
+        "N5",
+        "N7",
+        "N8",
+        "N9"
+      ],
+      "one_longest_assessed_route": [
+        "N1",
+        "N2",
+        "N3",
+        "N4",
+        "N8"
+      ],
+      "reuse_in_distinct_immediate_conclusions": [
+        {
+          "premise": "N1",
+          "claim": "An input basis column \\(x\\) of \\(M(a,p)\\) has coefficient \\(a(x)\\) at its routed row \\(p(x)\\). In the question all weights have modulus one.",
+          "children": [
+            {
+              "id": "N2",
+              "claim": "Applying a second factor multiplies the coefficient by \\(b(p(x))\\) and maps the output label to \\(q(p(x))\\)."
+            },
+            {
+              "id": "N5",
+              "claim": "Leaving the original table gives global-phase equality precisely when the unit ratios \\(f(p(x))/f(x)\\) are constant over the whole input set."
+            },
+            {
+              "id": "N9",
+              "claim": "At \\(\\theta=\\pi\\) the orders differ by opposite signs on the two control sectors. An equal-weight superposition from the two sectors gives orthogonal outputs. The basis probabilities still depend only on the routed label."
+            }
+          ]
+        },
+        {
+          "premise": "N3",
+          "claim": "Comparing the two orders on each basis column fixes \\(g(x)=f(p(x))\\) uniquely.",
+          "children": [
+            {
+              "id": "N4",
+              "claim": "Leaving the original table gives exact equality if and only if it is constant along each orbit."
+            },
+            {
+              "id": "N5",
+              "claim": "Leaving the original table gives global-phase equality precisely when the unit ratios \\(f(p(x))/f(x)\\) are constant over the whole input set."
+            },
+            {
+              "id": "N7",
+              "claim": "The transported table is \\(e^{i\\theta(t\\oplus c)}\\), giving ratio one for \\(c=0\\) and ratios \\(e^{i\\theta},e^{-i\\theta}\\) for \\(c=1\\)."
+            }
+          ]
+        },
+        {
+          "premise": "N7",
+          "claim": "The transported table is \\(e^{i\\theta(t\\oplus c)}\\), giving ratio one for \\(c=0\\) and ratios \\(e^{i\\theta},e^{-i\\theta}\\) for \\(c=1\\).",
+          "children": [
+            {
+              "id": "N8",
+              "claim": "Both uncorrected tests pass exactly at \\(\\theta\\in2\\pi\\mathbb Z\\). Unchanged labels force the global scalar to be one, and a moved label then forces \\(e^{i\\theta}=1\\)."
+            },
+            {
+              "id": "N9",
+              "claim": "At \\(\\theta=\\pi\\) the orders differ by opposite signs on the two control sectors. An equal-weight superposition from the two sectors gives orthogonal outputs. The basis probabilities still depend only on the routed label."
+            }
+          ]
+        }
+      ],
+      "joins": [
+        {
+          "node": "N7",
+          "necessary_inputs": [
+            "N3",
+            "N6"
+          ],
+          "why_each": "The general rewrite identifies which argument to supply, and the control-target gate data give the concrete argument and the three ratios."
+        },
+        {
+          "node": "N8",
+          "necessary_inputs": [
+            "N4",
+            "N5",
+            "N7"
+          ],
+          "why_each": "The exact and scalar tests are distinct requested conclusions. The computed ratios fix the scalar and supply the necessary and sufficient angle condition for both."
+        },
+        {
+          "node": "N9",
+          "necessary_inputs": [
+            "N1",
+            "N7"
+          ],
+          "why_each": "The signed ratios distinguish two coherent components. Single-column support and modulus one explain why the basis-input distributions still coincide."
+        }
+      ],
+      "contrasts_and_limits": [
+        {
+          "condition": "The phase table is constant on each cycle, with values allowed to differ between cycles.",
+          "conclusion": "The exact rewrite passes because \\(f(p(x))=f(x)\\) everywhere."
+        },
+        {
+          "condition": "The permutation has a fixed point and a common-ratio solution exists.",
+          "conclusion": "The nonzero weight at that point forces \\(\\lambda=1\\), so the uncorrected rewrite is exact."
+        },
+        {
+          "condition": "The two-bit gates are tested only on single computational-basis inputs.",
+          "conclusion": "Both gate orders have the same one-point output distribution at every angle, even when the coherent operators disagree."
+        }
+      ]
+    },
+    "C2s": {
+      "item_digest": "5595e1b0d084fb089757f198d8338a97951be9f56f5c2ad5ec9bba33bdc1b5ce",
+      "D0_facet": "D0 basis-action facet. Derives an edge-by-edge condition equivalent to the exact operator equation, with the input conjugation and orientation correct. For example \\(d_{p(x)}=(b_x/a_x)d_x\\).",
+      "full_credit_work": "Derive the edge equation \\(d_{p(x)}=(b_x/a_x)d_x\\). Prove full-cycle consistency and compatibility of reference ratios with products of \\(b_x/a_x\\) along forward arcs. Show the cycle products classify an unpinned labeled cycle under diagonal conjugation, construct the phases from a base choice for each cycle, and show that every solution is obtained. An unpinned cycle has one free unit scalar, and a compatible pinned cycle has none. Include one reference, several references and fixed points. Construct two candidate devices with equal cycle products but inconsistent prescribed endpoints on a single cycle, and identify the specific failing arc.",
+      "given": [
+        "N1",
+        "N2"
+      ],
+      "derived": [
+        "N3",
+        "N4",
+        "N5",
+        "N6",
+        "N7",
+        "N8",
+        "N9"
+      ],
+      "one_longest_assessed_route": [
+        "N1",
+        "N3",
+        "N4",
+        "N5",
+        "N7",
+        "N8"
+      ],
+      "reuse_in_distinct_immediate_conclusions": [
+        {
+          "premise": "N2",
+          "claim": "The calibration is diagonal unitary and some vertex phases are prescribed. Its adjoint acts on \\(|x\\rangle\\) by \\(\\overline{d_x}\\).",
+          "children": [
+            {
+              "id": "N3",
+              "claim": "The matrix identity holds exactly when \\(d_{p(x)}=r_xd_x\\) on every edge, with \\(r_x=b_x/a_x\\in\\mathbb T\\)."
+            },
+            {
+              "id": "N6",
+              "claim": "Pins on the same cycle must obey \\(\\eta_t=R(s,j)\\eta_s\\) along the forward arc from \\(s\\) to \\(t\\)."
+            }
+          ]
+        },
+        {
+          "premise": "N4",
+          "claim": "Iterating gives \\(d_{p^j(v)}=R(v,j)d_v\\), where \\(R\\) is the product of ratios in the forward direction and the empty product is one.",
+          "children": [
+            {
+              "id": "N5",
+              "claim": "Each complete loop needs unit ratio product, equivalently equality of the two edge products on that labeled cycle."
+            },
+            {
+              "id": "N6",
+              "claim": "Pins on the same cycle must obey \\(\\eta_t=R(s,j)\\eta_s\\) along the forward arc from \\(s\\) to \\(t\\)."
+            },
+            {
+              "id": "N7",
+              "claim": "Propagating from one starting vertex builds a unit diagonal. Closure checks the last edge and, when pins exist, arc tests certify every prescribed value. The construction therefore proves sufficiency."
+            },
+            {
+              "id": "N8",
+              "claim": "Every solution is determined by its starting phases, which are free once per unpinned cycle and fixed on a pinned cycle. This gives product completeness without pins and the fixed-point description."
+            }
+          ]
+        },
+        {
+          "premise": "N5",
+          "claim": "Each complete loop needs unit ratio product, equivalently equality of the two edge products on that labeled cycle.",
+          "children": [
+            {
+              "id": "N7",
+              "claim": "Propagating from one starting vertex builds a unit diagonal. Closure checks the last edge and, when pins exist, arc tests certify every prescribed value. The construction therefore proves sufficiency."
+            },
+            {
+              "id": "N9",
+              "claim": "On one transposition the assignments \\((1,1)\\) and \\((-1,-1)\\) have equal total products, yet pins \\((1,1)\\) violate the first forward-edge ratio."
+            }
+          ]
+        },
+        {
+          "premise": "N6",
+          "claim": "Pins on the same cycle must obey \\(\\eta_t=R(s,j)\\eta_s\\) along the forward arc from \\(s\\) to \\(t\\).",
+          "children": [
+            {
+              "id": "N7",
+              "claim": "Propagating from one starting vertex builds a unit diagonal. Closure checks the last edge and, when pins exist, arc tests certify every prescribed value. The construction therefore proves sufficiency."
+            },
+            {
+              "id": "N9",
+              "claim": "On one transposition the assignments \\((1,1)\\) and \\((-1,-1)\\) have equal total products, yet pins \\((1,1)\\) violate the first forward-edge ratio."
+            }
+          ]
+        }
+      ],
+      "joins": [
+        {
+          "node": "N3",
+          "necessary_inputs": [
+            "N1",
+            "N2"
+          ],
+          "why_each": "The common routing identifies the matrix entry to compare; diagonal action and its adjoint supply the output and input factors in that coefficient."
+        },
+        {
+          "node": "N7",
+          "necessary_inputs": [
+            "N4",
+            "N5",
+            "N6"
+          ],
+          "why_each": "Path transport produces the vertex phases, full-loop consistency closes the omitted edge, and reference consistency enforces external values. The last check is vacuous on a cycle with no pins."
+        },
+        {
+          "node": "N9",
+          "necessary_inputs": [
+            "N5",
+            "N6"
+          ],
+          "why_each": "The counterexample must pass the product test while failing the pin test, so both facts must be checked on the same labeled cycle."
+        }
+      ],
+      "contrasts_and_limits": [
+        {
+          "condition": "A cycle has no references.",
+          "conclusion": "Only its closed product must match; each initial unit phase gives one solution on that cycle."
+        },
+        {
+          "condition": "A cycle has exactly one reference.",
+          "conclusion": "Closure is still required, but a consistent cycle has a unique calibration on that component."
+        },
+        {
+          "condition": "A pinned cycle has multiple references.",
+          "conclusion": "Any incompatible reference-to-reference ratio rules out a solution, including when its closed product is correct."
+        },
+        {
+          "condition": "A fixed point \\(p(x)=x\\).",
+          "conclusion": "The edge coefficient is unchanged by calibration. The weights must agree, and its phase is free or fixed according to the pin."
+        }
+      ]
+    },
+    "C3s": {
+      "item_digest": "5c35b32633bb41c5944ad9ba90f59bbbeb3223cc605e5daab1d9e88fbe69981c",
+      "D0_facet": "D0 basis-action facet and its trace consequence. Tracks the label and phase after iteration of one edge, identifies return precisely at multiples of the cycle length, and derives the global power trace including the multiplicity factor \\(|C|\\). An equivalent cycle-block derivation of the same facts is accepted.",
+      "full_credit_work": "Iterate the basis action and separate fixed labels of a power from nonreturning labels. Show that a length-\\(\\ell\\) orbit contributes \\(z^\\ell-h_C\\) to \\(\\det(zI-U)\\) and contributes \\(\\ell h_C^{n/\\ell}\\) to \\(t_n\\) only when \\(\\ell\\mid n\\). For distinct lengths recover the product on the unique length-\\(\\ell\\) cycle from \\(t_\\ell\\) after subtracting all shorter divisor contributions, including the base case. With two fixed points and two transpositions, realize two assignments by unit phases and verify a common characteristic polynomial or equality of every trace, together with different within-length multisets. For the augmented observations, divide length-resolved traces by \\(\\ell\\), use the first \\(m_\\ell\\) power sums to reconstruct the monic polynomial of cycle products and all root multiplicities. Show that within-length permutations of products leave the reports invariant, and characterize unique labeled assignment for each length, including the cases of one cycle or identical products.",
+      "given": [
+        "N1",
+        "N8"
+      ],
+      "derived": [
+        "N2",
+        "N3",
+        "N4",
+        "N5",
+        "N6",
+        "N7",
+        "N9",
+        "N10",
+        "N11",
+        "N12"
+      ],
+      "one_longest_assessed_route": [
+        "N1",
+        "N2",
+        "N9",
+        "N10",
+        "N12"
+      ],
+      "reuse_in_distinct_immediate_conclusions": [
+        {
+          "premise": "N1",
+          "claim": "The known permutation decomposes the labels into disjoint cycles, and the column at \\(x\\) of \\(U\\) is the unit edge weight times \\(|p(x)\\rangle\\).",
+          "children": [
+            {
+              "id": "N2",
+              "claim": "An \\(n\\)-step walk ends at \\(p^n(x)\\) with the product of its \\(n\\) encountered edge weights. One complete cycle multiplies any of its basis vectors by its cycle product."
+            },
+            {
+              "id": "N3",
+              "claim": "The length-\\(\\ell\\) cycle restriction has characteristic polynomial \\(z^\\ell-h_C\\) by a cyclic basis, and the invariant direct sum multiplies those factors."
+            },
+            {
+              "id": "N4",
+              "claim": "Counting all returning input labels gives \\(t_n=\\sum_{C:\\,|C|\\mid n}|C|h_C^{n/|C|}\\)."
+            },
+            {
+              "id": "N5",
+              "claim": "When the known lengths are distinct, increasing-length recovery from \\(t_\\ell\\) subtracts the known contributions of every shorter divisor and isolates one labeled product."
+            },
+            {
+              "id": "N6",
+              "claim": "On the specified six-label permutation there are unit tables with length-one products \\(\\{1,-1\\}\\) versus \\(\\{i,-i\\}\\) and length-two products \\(\\{-1,1\\}\\) versus \\(\\{1,1\\}\\)."
+            },
+            {
+              "id": "N11",
+              "claim": "Each reassignment of given products to cycles of the same length can be realized by placing one prescribed unit weight per cycle. The global and projected traces remain unchanged."
+            }
+          ]
+        },
+        {
+          "premise": "N2",
+          "claim": "An \\(n\\)-step walk ends at \\(p^n(x)\\) with the product of its \\(n\\) encountered edge weights. One complete cycle multiplies any of its basis vectors by its cycle product.",
+          "children": [
+            {
+              "id": "N3",
+              "claim": "The length-\\(\\ell\\) cycle restriction has characteristic polynomial \\(z^\\ell-h_C\\) by a cyclic basis, and the invariant direct sum multiplies those factors."
+            },
+            {
+              "id": "N4",
+              "claim": "Counting all returning input labels gives \\(t_n=\\sum_{C:\\,|C|\\mid n}|C|h_C^{n/|C|}\\)."
+            },
+            {
+              "id": "N9",
+              "claim": "For every occurring length, the supplied projected traces divide by \\(\\ell\\) to give the first \\(m_\\ell\\) power sums of the products on that length."
+            }
+          ]
+        },
+        {
+          "premise": "N4",
+          "claim": "Counting all returning input labels gives \\(t_n=\\sum_{C:\\,|C|\\mid n}|C|h_C^{n/|C|}\\).",
+          "children": [
+            {
+              "id": "N5",
+              "claim": "When the known lengths are distinct, increasing-length recovery from \\(t_\\ell\\) subtracts the known contributions of every shorter divisor and isolates one labeled product."
+            },
+            {
+              "id": "N11",
+              "claim": "Each reassignment of given products to cycles of the same length can be realized by placing one prescribed unit weight per cycle. The global and projected traces remain unchanged."
+            }
+          ]
+        },
+        {
+          "premise": "N8",
+          "claim": "The additional measurements project onto all cycles of a specified length and use exponents \\(k\\ell\\) for \\(1\\leq k\\leq m_\\ell\\). Newton’s identities for complex roots are available.",
+          "children": [
+            {
+              "id": "N9",
+              "claim": "For every occurring length, the supplied projected traces divide by \\(\\ell\\) to give the first \\(m_\\ell\\) power sums of the products on that length."
+            },
+            {
+              "id": "N10",
+              "claim": "The first \\(m_\\ell\\) complex power sums uniquely determine the monic polynomial of degree \\(m_\\ell\\), hence the multiset of cycle products including all repeated roots."
+            }
+          ]
+        },
+        {
+          "premise": "N9",
+          "claim": "For every occurring length, the supplied projected traces divide by \\(\\ell\\) to give the first \\(m_\\ell\\) power sums of the products on that length.",
+          "children": [
+            {
+              "id": "N10",
+              "claim": "The first \\(m_\\ell\\) complex power sums uniquely determine the monic polynomial of degree \\(m_\\ell\\), hence the multiset of cycle products including all repeated roots."
+            },
+            {
+              "id": "N11",
+              "claim": "Each reassignment of given products to cycles of the same length can be realized by placing one prescribed unit weight per cycle. The global and projected traces remain unchanged."
+            }
+          ]
+        }
+      ],
+      "joins": [
+        {
+          "node": "N5",
+          "necessary_inputs": [
+            "N1",
+            "N4"
+          ],
+          "why_each": "The known distinct lengths identify the target cycle and the smaller indices to consider. The trace equation gives the actual coefficients and powers to subtract."
+        },
+        {
+          "node": "N7",
+          "necessary_inputs": [
+            "N3",
+            "N6"
+          ],
+          "why_each": "The example supplies realizable, genuinely different within-length multisets. The characteristic factorization verifies equality of the observational data for every power."
+        },
+        {
+          "node": "N9",
+          "necessary_inputs": [
+            "N2",
+            "N8"
+          ],
+          "why_each": "Orbit iteration gives the returning phase on each selected label. The projection and exponents specify precisely which labels and how many powers are observable."
+        },
+        {
+          "node": "N12",
+          "necessary_inputs": [
+            "N10",
+            "N11"
+          ],
+          "why_each": "Polynomial reconstruction gives all values with multiplicity. Physical realizability and measurement invariance justify ambiguity when unequal values can exchange labels."
+        }
+      ],
+      "contrasts_and_limits": [
+        {
+          "condition": "A cycle has length one.",
+          "conclusion": "Its edge phase is its product and its characteristic factor is linear. It contributes at every positive power."
+        },
+        {
+          "condition": "The smallest occurring length is \\(\\ell>1\\), or an occurring length has no smaller occurring divisor.",
+          "conclusion": "The recursion starts at \\(h_\\ell=t_\\ell/\\ell\\) when this length occurs exactly once and there are no shorter divisor contributions."
+        },
+        {
+          "condition": "The monic polynomial reconstructed from the first \\(m_\\ell\\) projected power sums has a repeated root.",
+          "conclusion": "Newton reconstruction retains multiplicities. If every root is the same value, all cycles of that length have that unique labeled value."
+        },
+        {
+          "condition": "Two different products occur at the same length.",
+          "conclusion": "The whole multiset is known after the length-sector measurements, but exchanging the two products gives two different labeled assignments with the same data."
+        }
+      ]
+    }
+  }
+}

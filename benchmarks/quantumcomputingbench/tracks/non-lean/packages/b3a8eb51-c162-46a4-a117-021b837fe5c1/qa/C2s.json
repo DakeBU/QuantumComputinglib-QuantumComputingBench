@@ -1,0 +1,265 @@
+{
+  "slot": "C2s",
+  "title": "Which phase references can be fixed on a permutation cycle?",
+  "assumptions": [
+    "Let \\(X\\) be a finite nonempty set with a labeled orthonormal basis, and let \\(p\\) be a known permutation of \\(X\\). Write \\(\\mathbb T=\\{z\\in\\mathbb C:|z|=1\\}\\). Two devices act by \\(U_a|x\\rangle=a_x|p(x)\\rangle\\) and \\(U_b|x\\rangle=b_x|p(x)\\rangle\\), with \\(a_x,b_x\\in\\mathbb T\\).",
+    "A diagonal calibration has \\(D|x\\rangle=d_x|x\\rangle\\) with \\(d_x\\in\\mathbb T\\). A set \\(S\\subseteq X\\) of reference labels requires \\(d_s=\\eta_s\\) for specified \\(\\eta_s\\in\\mathbb T\\). The set \\(S\\) may be empty."
+  ],
+  "conventions": [
+    "The calibration equation is the exact operator identity \\(U_b=DU_aD^\\dagger\\). A cycle follows the arrows \\(x\\mapsto p(x)\\). Labels are fixed throughout, including labels in different cycles of the same length. A fixed point is a cycle of length one."
+  ],
+  "question": "Give a necessary and sufficient test, expressed in terms of the supplied edge weights and reference phases, for the calibration equation to have a solution. Construct every admissible \\(D\\) and describe all its freedom. Your test should work for cycles with no reference, one reference or several, and for fixed points. Show which information survives when each edge phase around a cycle can be adjusted through a change of basis.\n\nA technician has recorded only the product of the edge weights around each labeled cycle. Show that matching these records can suffice when there are no fixed references yet fail after two phases on one cycle are prescribed. Give two devices with the same permutation and matching cycle records, along with reference values that are incompatible. Identify where the obstruction is visible along the cycle.",
+  "schema_version": "qcb.nonlean_reviewed_packet.v1",
+  "author": "/root/author_monomial5",
+  "core_id": "candidate:5396595b-66d6-4a55-9903-ec18a97787af",
+  "proposal_id": "5396595b-66d6-4a55-9903-ec18a97787af",
+  "admission": "candidate_not_counted",
+  "contribution_type": "new_candidate",
+  "dedup_review_required": true,
+  "base_commit": "036aea2a107d9258bba1c20b6e58cb6b9ee484f5",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "family": "monomial-unitary-cycle-data",
+  "split": "unassigned_pending_reconciliation",
+  "proposed_use": {
+    "proposed_use": "Public study/proposed-training candidate. Official split unassigned.",
+    "family_group": "Monomial unitaries on labeled permutation cycles",
+    "status": "public_study_only",
+    "training_clearance": "pending maintainer split reconciliation",
+    "empirical_calibration": false
+  },
+  "target_nodes": [
+    "declaration:QuantumBlockEncoding.phasePermutationMatrix_mul"
+  ],
+  "supporting_nodes": [
+    "declaration:QuantumBlockEncoding.phasePermutationMatrix"
+  ],
+  "source_refs": [
+    {
+      "path": "QuantumBlockEncoding/PrimitiveMacros.lean",
+      "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "sha256_lf": "c1cea784608c9bc1533a0a026368f63f2f5b3606e34463149b73fad9f7221f63",
+      "sha256_raw": "c1cea784608c9bc1533a0a026368f63f2f5b3606e34463149b73fad9f7221f63",
+      "license": "MIT (project sources; see root LICENSE)",
+      "anchor": "phasePermutationMatrix_mul lines 180–196; phasePermutationMatrix lines 174–178",
+      "declaration_spans": [
+        {
+          "node_id": "declaration:QuantumBlockEncoding.phasePermutationMatrix_mul",
+          "start": 180,
+          "end": 196,
+          "sha256_lf": "44a7d1fe53f47aa5b10f5397086a18fb15814aaba5f6054865750fe06f299485",
+          "scope": "Proves the exact two-factor multiplication law for finite complex weighted permutations. The second factor acts first, and the later weight is evaluated on the intermediate label. Iteration, fixed-reference calibration, trace recovery and ambiguity constructions are authored deductions."
+        },
+        {
+          "node_id": "declaration:QuantumBlockEncoding.phasePermutationMatrix",
+          "start": 174,
+          "end": 178,
+          "sha256_lf": "4536d6f5017348fe144af2873ec81b0df201fd83233bcafbe5ed1cf759b5c75e",
+          "scope": "Defines a finite complex matrix with entry equal to the input-column weight when the row is the image of that column under the given bijection, and zero otherwise. The definition allows arbitrary complex weights. Unit-modulus assumptions, cycle invariants and inverse measurement claims enter in the questions."
+        }
+      ]
+    }
+  ],
+  "evidence_boundary": "The frozen declarations supply the scoped mathematical ingredients recorded per span. The reasoning map and its new conclusions are natural-language derivations. No new kernel execution.",
+  "reference_answer": "Put \\(r_x=b_x/a_x\\in\\mathbb T\\). Acting on \\(|x\\rangle\\), the right side of \\(U_b=DU_aD^\\dagger\\) has coefficient \\(\\overline{d_x}a_x d_{p(x)}\\) at \\(|p(x)\\rangle\\). Thus the operator equation is equivalent to \\(d_{p(x)}=r_xd_x\\) for every edge. For \\(j\\geq0\\) write \\(R(v,j)=\\prod_{k=0}^{j-1}r_{p^k(v)}\\), with \\(R(v,0)=1\\). Chaining the edge equations gives \\(d_{p^j(v)}=R(v,j)d_v\\).\n\nOn a cycle \\(C\\) of length \\(L\\), returning to a starting vertex gives \\(\\prod_{x\\in C}r_x=1\\). Equivalently \\(\\prod_{x\\in C}a_x=\\prod_{x\\in C}b_x\\) on this very cycle. A second necessary check is local to the references. For any two reference labels \\(s,t\\) on the same cycle take the unique \\(0\\leq j<L\\) with \\(p^j(s)=t\\). The forward arc must satisfy \\(\\eta_t=R(s,j)\\eta_s\\). It suffices to use one reference as the base on each pinned cycle and to compare it with every other pin. With closure in force, this is equivalent to testing all reference pairs. With a single pin there is no additional pairwise condition.\n\nThese tests suffice. Pick one vertex \\(v\\) per cycle. On a pinned cycle choose \\(v\\in S\\) with \\(d_v=\\eta_v\\); otherwise choose any \\(d_v\\in\\mathbb T\\). Set \\(d_{p^j(v)}=R(v,j)d_v\\) for \\(0\\leq j<L\\). All constructed values have modulus one. The recurrence checks each edge except the closing one. The full-cycle condition gives the final edge back to \\(v\\). The reference-arc tests give the other prescribed values. The resulting diagonal unitary therefore satisfies the exact matrix equation. Conversely the starting value determines every other phase in its cycle by the same recurrence. There is one free unit phase on each unpinned cycle and no freedom on a compatible pinned cycle. A fixed point requires \\(a_x=b_x\\); its phase is arbitrary if unpinned and equals \\(\\eta_x\\) if pinned.\n\nWithout fixed references, the product is the complete invariant of a labeled cycle. Necessity is the telescoping product, and sufficiency is the construction with arbitrary starting phase on that cycle. In particular any unit edge weights with the same product are related this way. If desired, one representative places the entire product on the closing edge and gives weight one to the other edges.\n\nFor a concrete failure with references, use \\(X=\\{0,1\\}\\), \\(p(0)=1\\), \\(p(1)=0\\), \\(a_0=a_1=1\\), and \\(b_0=b_1=-1\\). Both devices have the product \\(+1\\) for the sole cycle. They are compatible without pins, for example with \\((d_0,d_1)=(1,-1)\\). Pin both labels at \\(\\eta_0=\\eta_1=1\\). The forward edge \\(0\\to1\\) forces \\(d_1=-d_0=-1\\), in conflict with its prescribed value. The conflict persists despite exact matching of the closed product.",
+  "rubric": [
+    {
+      "id": "R1",
+      "weight": 2,
+      "criterion": "D0 basis-action facet. Derives an edge-by-edge condition equivalent to the exact operator equation, with the input conjugation and orientation correct. For example \\(d_{p(x)}=(b_x/a_x)d_x\\).",
+      "partial": "One point for the correct propagated coefficient or edge test with an incomplete derivation, or for a valid starting computation with a later ratio error."
+    },
+    {
+      "id": "R2",
+      "weight": 2,
+      "criterion": "Proves that the labeled product on each cycle is necessary and, without fixed references, is a complete invariant. The latter direction may follow from the general construction elsewhere in the answer.",
+      "partial": "One point for the necessary product with no sufficiency argument, or for a valid unpinned construction without explicitly identifying the complete invariant."
+    },
+    {
+      "id": "R3",
+      "weight": 2,
+      "criterion": "Gives and justifies the extra criterion imposed by multiple references on a cycle, via forward arc products, a base-reference computation, a base-independent residual, or another equivalent test.",
+      "partial": "One point for correctly transporting to another reference without stating how to check all pins, or for a correct full test whose necessity or sufficiency remains unexplained."
+    },
+    {
+      "id": "R4",
+      "weight": 2,
+      "criterion": "Constructs all diagonal solutions, shows cycle closure and unit modulus, and accounts for the exact freedom for zero, one or several pins on a cycle and for the fixed-point case. A general construction that plainly covers these cases suffices.",
+      "partial": "One point for a valid particular calibration with incomplete treatment of freedom or boundary cases, or for the correct freedom without a verified construction."
+    },
+    {
+      "id": "R5",
+      "weight": 2,
+      "criterion": "Provides unit weights for two devices on the same permutation with equal products on every labeled cycle and gives two distinct reference labels on a common cycle whose specified values contradict transport along an identified arc.",
+      "partial": "One point for a valid example with incomplete verification of its cycle products or incompatible arc, or for explaining the reference conflict without furnishing all data for an example."
+    }
+  ],
+  "common_errors": [
+    "Reversing \\(b_x/a_x\\) while keeping the direction \\(x\\mapsto p(x)\\) solves the oppositely oriented calibration unless all ratios happen to equal their inverses.",
+    "A product over every label of \\(X\\) can agree while individual cycles fail closure. Distinct labeled cycles require separate conditions.",
+    "Matching cycle totals alone discards an obstruction between two reference labels on the same cycle.",
+    "Testing arcs from a base without checking the closing edge can yield apparent agreement at every reference with an inconsistent full loop.",
+    "A single common phase across all cycles undercounts the solutions. Allowing a new freely chosen phase after a pinned base overcounts them."
+  ],
+  "valid_alternatives": [
+    "For arbitrary finite nonempty \\(X\\) with the given unit edge weights, delete one edge of each cycle, propagate weights along the remaining directed path, and check the deleted edge and all pins. Any base choice, including an unpinned base on a pinned cycle, is valid when the base value is fixed by the transported reference.",
+    "With the same hypotheses, unpinned equivalence can first be established by reducing both edge tables to a representative with all weights one except the closing edge. Track the resulting vertex phases and their allowed constant factors on each component to impose the reference constraints and recover all solutions.",
+    "Choosing angles in \\(\\mathbb R/(2\\pi\\mathbb Z)\\) converts edge multiplication into differences. The cycle sum must vanish modulo \\(2\\pi\\) and arc sums must equal the differences of pinned angles. Any consistent choices of representatives receive full credit.",
+    "Any finite example with the same labeled permutation, unit weights, matching products on each cycle, and a violated prescribed reference ratio on a single cycle satisfies the diagnostic. The example may use nonreal phases or more than two vertices."
+  ],
+  "boundary_cases": [
+    {
+      "condition": "A cycle has no references.",
+      "conclusion": "Only its closed product must match; each initial unit phase gives one solution on that cycle."
+    },
+    {
+      "condition": "A cycle has exactly one reference.",
+      "conclusion": "Closure is still required, but a consistent cycle has a unique calibration on that component."
+    },
+    {
+      "condition": "A pinned cycle has multiple references.",
+      "conclusion": "Any incompatible reference-to-reference ratio rules out a solution, including when its closed product is correct."
+    },
+    {
+      "condition": "A fixed point \\(p(x)=x\\).",
+      "conclusion": "The edge coefficient is unchanged by calibration. The weights must agree, and its phase is free or fixed according to the pin."
+    }
+  ],
+  "reasoning_map": {
+    "nodes": [
+      {
+        "id": "N1",
+        "kind": "given",
+        "claim": "Each device has one nonzero coefficient at \\(p(x)\\) in column \\(x\\), namely its unit edge weight.",
+        "anchors": [
+          "declaration:QuantumBlockEncoding.phasePermutationMatrix"
+        ],
+        "requires": []
+      },
+      {
+        "id": "N2",
+        "kind": "given",
+        "claim": "The calibration is diagonal unitary and some vertex phases are prescribed. Its adjoint acts on \\(|x\\rangle\\) by \\(\\overline{d_x}\\).",
+        "anchors": [],
+        "requires": []
+      },
+      {
+        "id": "N3",
+        "kind": "derive",
+        "claim": "The matrix identity holds exactly when \\(d_{p(x)}=r_xd_x\\) on every edge, with \\(r_x=b_x/a_x\\in\\mathbb T\\).",
+        "anchors": [
+          "declaration:QuantumBlockEncoding.phasePermutationMatrix",
+          "declaration:QuantumBlockEncoding.phasePermutationMatrix_mul"
+        ],
+        "requires": [
+          "N1",
+          "N2"
+        ]
+      },
+      {
+        "id": "N4",
+        "kind": "derive",
+        "claim": "Iterating gives \\(d_{p^j(v)}=R(v,j)d_v\\), where \\(R\\) is the product of ratios in the forward direction and the empty product is one.",
+        "anchors": [],
+        "requires": [
+          "N3"
+        ]
+      },
+      {
+        "id": "N5",
+        "kind": "derive",
+        "claim": "Each complete loop needs unit ratio product, equivalently equality of the two edge products on that labeled cycle.",
+        "anchors": [],
+        "requires": [
+          "N4"
+        ]
+      },
+      {
+        "id": "N6",
+        "kind": "derive",
+        "claim": "Pins on the same cycle must obey \\(\\eta_t=R(s,j)\\eta_s\\) along the forward arc from \\(s\\) to \\(t\\).",
+        "anchors": [],
+        "requires": [
+          "N2",
+          "N4"
+        ]
+      },
+      {
+        "id": "N7",
+        "kind": "derive",
+        "claim": "Propagating from one starting vertex builds a unit diagonal. Closure checks the last edge and, when pins exist, arc tests certify every prescribed value. The construction therefore proves sufficiency.",
+        "anchors": [],
+        "requires": [
+          "N4",
+          "N5",
+          "N6"
+        ]
+      },
+      {
+        "id": "N8",
+        "kind": "derive",
+        "claim": "Every solution is determined by its starting phases, which are free once per unpinned cycle and fixed on a pinned cycle. This gives product completeness without pins and the fixed-point description.",
+        "anchors": [],
+        "requires": [
+          "N4",
+          "N7"
+        ]
+      },
+      {
+        "id": "N9",
+        "kind": "derive",
+        "claim": "On one transposition the assignments \\((1,1)\\) and \\((-1,-1)\\) have equal total products, yet pins \\((1,1)\\) violate the first forward-edge ratio.",
+        "anchors": [],
+        "requires": [
+          "N5",
+          "N6"
+        ]
+      }
+    ],
+    "joins": [
+      {
+        "node": "N3",
+        "necessary_inputs": [
+          "N1",
+          "N2"
+        ],
+        "why_each": "The common routing identifies the matrix entry to compare; diagonal action and its adjoint supply the output and input factors in that coefficient."
+      },
+      {
+        "node": "N7",
+        "necessary_inputs": [
+          "N4",
+          "N5",
+          "N6"
+        ],
+        "why_each": "Path transport produces the vertex phases, full-loop consistency closes the omitted edge, and reference consistency enforces external values. The last check is vacuous on a cycle with no pins."
+      },
+      {
+        "node": "N9",
+        "necessary_inputs": [
+          "N5",
+          "N6"
+        ],
+        "why_each": "The counterexample must pass the product test while failing the pin test, so both facts must be checked on the same labeled cycle."
+      }
+    ],
+    "alternative_routes": [
+      {
+        "assumptions": "Each edge ratio lies on the unit circle and the graph of a finite permutation consists of cycles.",
+        "route": "A spanning forest with one omitted closing edge per cycle implements the recurrence. Check the omitted chords and propagate any prescribed roots to handle multiple pins."
+      },
+      {
+        "assumptions": "All phase equations are interpreted modulo \\(2\\pi\\).",
+        "route": "Solve additive difference equations along each cycle. A zero sum around each cycle and consistent pinned angle differences are equivalent to the multiplicative conditions."
+      }
+    ],
+    "interpretation": "Dependencies below are author-specified local mathematical premises. Source graph edge IDs in the source index express ownership."
+  },
+  "difficulty": {
+    "construction_band": "D3",
+    "D0_facet": "D0 basis-action facet. Derives an edge-by-edge condition equivalent to the exact operator equation, with the input conjugation and orientation correct. For example \\(d_{p(x)}=(b_x/a_x)d_x\\).",
+    "rationale": "Derive the edge equation \\(d_{p(x)}=(b_x/a_x)d_x\\). Prove full-cycle consistency and compatibility of reference ratios with products of \\(b_x/a_x\\) along forward arcs. Show the cycle products classify an unpinned labeled cycle under diagonal conjugation, construct the phases from a base choice for each cycle, and show that every solution is obtained. An unpinned cycle has one free unit scalar, and a compatible pinned cycle has none. Include one reference, several references and fixed points. Construct two candidate devices with equal cycle products but inconsistent prescribed endpoints on a single cycle, and identify the specific failing arc.",
+    "calibrated": false
+  },
+  "mathematical_target": "The allowed conjugation is diagonal and labels stay fixed. An unconstrained match requires one oriented product per cycle. Prescribed phases add constraints along arcs in that cycle, and the construction must recover every calibrating diagonal including its componentwise freedom. Two prescribed phases can obstruct an otherwise valid match."
+}

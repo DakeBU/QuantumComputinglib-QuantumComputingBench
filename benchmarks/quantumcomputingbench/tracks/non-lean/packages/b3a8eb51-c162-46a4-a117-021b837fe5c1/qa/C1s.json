@@ -1,0 +1,308 @@
+{
+  "slot": "C1s",
+  "title": "When may a phase gate cross a permutation?",
+  "assumptions": [
+    "Let \\(X\\) be a finite nonempty set with orthonormal basis \\(\\{|x\\rangle:x\\in X\\}\\). For a permutation \\(p\\) of \\(X\\) and a function \\(a:X\\to\\mathbb T\\), write \\(M(a,p)|x\\rangle=a(x)|p(x)\\rangle\\), where \\(\\mathbb T=\\{z\\in\\mathbb C:|z|=1\\}\\).",
+    "Write \\(P_p=M(1,p)\\) for pure routing and \\(D_f=M(f,\\mathrm{id})\\) for a phase table \\(f:X\\to\\mathbb T\\)."
+  ],
+  "conventions": [
+    "Kets are columns. The rightmost factor acts first. Rows label outputs, and columns label inputs. Two operators agree up to global phase when one is a single constant of modulus one times the other on all inputs."
+  ],
+  "question": "Determine the output label and amplitude of \\(M(b,q)M(a,p)|x\\rangle\\) for arbitrary weights and permutations. A circuit designer wants to move a phase gate to the input side of a routing gate. Determine the unique table \\(g\\) satisfying \\(D_fP_p=P_pD_g\\). When does keeping the original table give exact equality? When does keeping it give equality up to a single global phase? Prove both tests.\n\nAs a wiring check, let \\(X=\\{0,1\\}^2\\), write a label as \\((c,t)\\) with control bit first, and take \\(p(c,t)=(c,t\\mathbin{\\oplus}c)\\) and \\(f(c,t)=e^{i\\theta t}\\) for real \\(\\theta\\). Give the corrected input-side table and determine every angle for which the uncorrected reordering is valid, both exactly and up to a global phase. At \\(\\theta=\\pi\\), give a normalized two-term input for which the two uncorrected orderings produce orthogonal states, even though their computational-basis output probabilities agree on each computational-basis input.",
+  "schema_version": "qcb.nonlean_reviewed_packet.v1",
+  "author": "/root/author_monomial5",
+  "core_id": "candidate:d6ff3dad-4a0c-482f-badc-edec87cebfe4",
+  "proposal_id": "d6ff3dad-4a0c-482f-badc-edec87cebfe4",
+  "admission": "candidate_not_counted",
+  "contribution_type": "new_candidate",
+  "dedup_review_required": true,
+  "base_commit": "036aea2a107d9258bba1c20b6e58cb6b9ee484f5",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "family": "monomial-unitary-cycle-data",
+  "split": "unassigned_pending_reconciliation",
+  "proposed_use": {
+    "proposed_use": "Public study/proposed-training candidate. Official split unassigned.",
+    "family_group": "Monomial unitaries on labeled permutation cycles",
+    "status": "public_study_only",
+    "training_clearance": "pending maintainer split reconciliation",
+    "empirical_calibration": false
+  },
+  "target_nodes": [
+    "declaration:QuantumBlockEncoding.phasePermutationMatrix_mul",
+    "declaration:QuantumBlockEncoding.MonomialProgram.seq"
+  ],
+  "supporting_nodes": [
+    "declaration:QuantumBlockEncoding.phasePermutationMatrix",
+    "declaration:QuantumBlockEncoding.evalPrimitiveCx_eq_phasePermutationMatrix",
+    "declaration:QuantumBlockEncoding.cxBasisAction",
+    "declaration:QuantumBlockEncoding.liftPhaseMatrix_eq_phasePermutationMatrix"
+  ],
+  "source_refs": [
+    {
+      "path": "QuantumBlockEncoding/PrimitiveMacros.lean",
+      "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "sha256_lf": "c1cea784608c9bc1533a0a026368f63f2f5b3606e34463149b73fad9f7221f63",
+      "sha256_raw": "c1cea784608c9bc1533a0a026368f63f2f5b3606e34463149b73fad9f7221f63",
+      "license": "MIT (project sources; see root LICENSE)",
+      "anchor": "phasePermutationMatrix_mul lines 180–196; seq lines 276–283; phasePermutationMatrix lines 174–178; evalPrimitiveCx_eq_phasePermutationMatrix lines 198–204; liftPhaseMatrix_eq_phasePermutationMatrix lines 206–230",
+      "declaration_spans": [
+        {
+          "node_id": "declaration:QuantumBlockEncoding.phasePermutationMatrix_mul",
+          "start": 180,
+          "end": 196,
+          "sha256_lf": "44a7d1fe53f47aa5b10f5397086a18fb15814aaba5f6054865750fe06f299485",
+          "scope": "Proves the exact two-factor multiplication law for finite complex weighted permutations. The second factor acts first, and the later weight is evaluated on the intermediate label. Iteration, fixed-reference calibration, trace recovery and ambiguity constructions are authored deductions."
+        },
+        {
+          "node_id": "declaration:QuantumBlockEncoding.MonomialProgram.seq",
+          "start": 276,
+          "end": 283,
+          "sha256_lf": "dbfa48dd0880ec7371da0146420a5acf1e4020ad16eaebc142f6268485d923f4",
+          "scope": "Defines chronological composition for two primitive programs with certified monomial semantics, transports the later phase through the earlier permutation, and proves the resulting exact evaluation. The general finite-label multiplication theorem is a separate anchor. This program record does not establish the proposed circuit-rewrite criterion."
+        },
+        {
+          "node_id": "declaration:QuantumBlockEncoding.phasePermutationMatrix",
+          "start": 174,
+          "end": 178,
+          "sha256_lf": "4536d6f5017348fe144af2873ec81b0df201fd83233bcafbe5ed1cf759b5c75e",
+          "scope": "Defines a finite complex matrix with entry equal to the input-column weight when the row is the image of that column under the given bijection, and zero otherwise. The definition allows arbitrary complex weights. Unit-modulus assumptions, cycle invariants and inverse measurement claims enter in the questions."
+        },
+        {
+          "node_id": "declaration:QuantumBlockEncoding.evalPrimitiveCx_eq_phasePermutationMatrix",
+          "start": 198,
+          "end": 204,
+          "sha256_lf": "c51a16900cd0eeed03836799710391ff4931604851f70678d9d8e6a5d731f4ce",
+          "scope": "Identifies the evaluation of a primitive controlled NOT on distinct wires with its basis permutation carrying weight one on every column."
+        },
+        {
+          "node_id": "declaration:QuantumBlockEncoding.liftPhaseMatrix_eq_phasePermutationMatrix",
+          "start": 206,
+          "end": 230,
+          "sha256_lf": "c2b5d01991ed0eab66cdf0717405730e442ce83072592dbfa8d037b3943fe53d",
+          "scope": "Identifies the lifted single-wire phase gate of angle theta with the identity basis permutation and input weight one on bit zero or exp(i theta) on bit one. The gate-order test and the two-bit diagnostic are deductions."
+        }
+      ]
+    },
+    {
+      "path": "QuantumBlockEncoding/PrimitiveSemantics.lean",
+      "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "sha256_lf": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+      "sha256_raw": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62",
+      "license": "MIT (project sources; see root LICENSE)",
+      "anchor": "cxBasisAction lines 143–145",
+      "declaration_spans": [
+        {
+          "node_id": "declaration:QuantumBlockEncoding.cxBasisAction",
+          "start": 143,
+          "end": 145,
+          "sha256_lf": "b968dc701683432d625a18e26a2d0d1e3b10469625e3a0cf7045a5c979956fec",
+          "scope": "Defines the basis action of a controlled NOT by testing the control bit and applying a target flip only when the control is nonzero. The two-bit phase comparison assumes distinct control and target wires."
+        }
+      ]
+    }
+  ],
+  "evidence_boundary": "The frozen declarations supply the scoped mathematical ingredients recorded per span. The reasoning map and its new conclusions are natural-language derivations. No new kernel execution.",
+  "reference_answer": "For any input label \\(x\\), the first factor to act contributes \\(a(x)\\) and sends the ket to \\(|p(x)\\rangle\\). The second gate acts on that label, so \\(M(b,q)M(a,p)|x\\rangle=a(x)b(p(x))|q(p(x))\\rangle\\). In an entrywise calculation the only possible intermediate row is \\(p(x)\\).\n\nIn the order \\(D_fP_p\\), the coefficient in column \\(x\\) at row \\(p(x)\\) is \\(f(p(x))\\). In \\(P_pD_g\\) it is \\(g(x)\\). Equality on this basis is equality of the operators, and it fixes the unique table \\(g(x)=f(p(x))\\). Keeping \\(g=f\\) gives exact equality if and only if \\(f(p(x))=f(x)\\) for all \\(x\\), equivalently \\(f\\) is constant on every cycle of \\(p\\).\n\nChoose the orientation \\(D_fP_p=\\lambda P_pD_f\\). As every \\(f(x)\\) has modulus one, this identity holds exactly when the ratios \\(f(p(x))/f(x)\\) have a common value \\(\\lambda\\) on all of \\(X\\). Necessity follows by reading each column, and substituting the common value proves sufficiency. In the reverse identity the corresponding scalar is \\(\\overline{\\lambda}\\). A different scalar on each cycle does not in general give a single scalar for the operator.\n\nIn the two-bit example the input-side table is \\(g(c,t)=e^{i\\theta(t\\oplus c)}\\). For \\(c=0\\) the unchanged orders agree and the ratio is one. For \\(c=1\\) the ratios at \\(t=0,1\\) are \\(e^{i\\theta}\\) and \\(e^{-i\\theta}\\), respectively. Thus a common ratio must be one, and it exists precisely for \\(\\theta\\in2\\pi\\mathbb Z\\). At every such angle both orders agree exactly. This gives the same set of angles for the two tests.\n\nAt \\(\\theta=\\pi\\), take \\(|\\psi\\rangle=(|00\\rangle+|10\\rangle)/\\sqrt2\\) in control-first order. In \\(D_fP_p|\\psi\\rangle\\), the phase gate acts on \\(|11\\rangle\\) after the target flips, giving \\((|00\\rangle-|11\\rangle)/\\sqrt2\\). In \\(P_pD_f|\\psi\\rangle\\), both input targets are zero, giving \\((|00\\rangle+|11\\rangle)/\\sqrt2\\). The inner product is \\((1-1)/2=0\\). For each individual basis input, both orders land with probability one on the same \\(p(c,t)\\), since their only nonzero coefficients have modulus one.",
+  "rubric": [
+    {
+      "id": "R1",
+      "weight": 2,
+      "criterion": "D0 basis-action facet. Gives both the intermediate-label phase \\(a(x)b(p(x))\\) and the output \\(q(p(x))\\) of the chronological product, with the column action or an equivalent explanation.",
+      "partial": "One point for the correct composed output or the correctly transported phase with the other part missing or incorrect."
+    },
+    {
+      "id": "R2",
+      "weight": 2,
+      "criterion": "Gives \\(g=f\\circ p\\), justifies uniqueness by basis coefficients or conjugation, and establishes the exact equality criterion \\(f\\circ p=f\\) in both directions.",
+      "partial": "One point for the correct table without its uniqueness or exactness test, or a correct exactness test without the full table argument."
+    },
+    {
+      "id": "R3",
+      "weight": 2,
+      "criterion": "Proves that a single input-independent unit scalar must relate the two column coefficients and that this condition suffices. Either orientation of the scalar is accepted when used consistently.",
+      "partial": "One point for the correct common-ratio condition with incomplete justification, or for deriving pointwise ratios while missing the need for the same scalar across cycles."
+    },
+    {
+      "id": "R4",
+      "weight": 2,
+      "criterion": "Obtains the transported controlled-NOT table and determines all angles for both uncorrected tests. Explains why a fixed column forces the scalar and why a moved column fixes the angle; an equivalent whole-matrix argument earns full credit.",
+      "partial": "One point for the corrected table or a correct conclusion about the angles with insufficient reasoning about the fixed and moved labels."
+    },
+    {
+      "id": "R5",
+      "weight": 2,
+      "criterion": "Supplies any normalized two-term input giving orthogonal outputs at the stated angle, verifies the orthogonality, and explains the agreement of computational-basis probabilities for each basis input.",
+      "partial": "One point for a valid orthogonality example with incomplete verification or without the probability comparison, or for a valid explanation of basis-input indistinguishability without an orthogonal witness."
+    }
+  ],
+  "common_errors": [
+    "Evaluating both factors at \\(x\\), or reversing \\(q\\circ p\\), drops the intermediate label on which the second factor acts.",
+    "Using \\(f\\circ p^{-1}\\) in the stated input-side rewrite can go undetected in the involutive controlled-NOT example. It fails for a general permutation.",
+    "Allowing one scalar per cycle certifies a blockwise relation. The prompt asks for one scalar on the full operator.",
+    "Using only the moved columns at \\(\\theta=\\pi\\) misses the unchanged columns. An example supported only on the moved labels acquires one common minus sign and cannot demonstrate orthogonality.",
+    "Coincidence of probabilities for each basis input determines the routed label, but discards the phase needed for the superposition check."
+  ],
+  "valid_alternatives": [
+    "For the stated finite basis, entrywise multiplication with its single surviving summand, direct ket action, or \\(P_p^\\dagger D_fP_p=D_{f\\circ p}\\) gives the complete transport argument. No full matrix or decomposition into gates is required.",
+    "With the same finite nonempty \\(X\\) and unit-modulus weights, a cyclewise description \\(f(p^j x)=\\lambda^j f(x)\\) is equivalent if the same \\(\\lambda\\) works on every cycle. In this description \\(\\lambda^{|C|}=1\\) automatically on each cycle. The constant-ratio test already expresses both necessity and sufficiency.",
+    "Under the stated control-first convention, any equal-probability pair drawn from the control-zero and control-one sectors at \\(\\theta=\\pi\\) provides a witness, with an arbitrary relative input phase. Computing the overlap by a relative diagonal matrix or directly showing opposite relative signs earns the same credit."
+  ],
+  "boundary_cases": [
+    {
+      "condition": "The phase table is constant on each cycle, with values allowed to differ between cycles.",
+      "conclusion": "The exact rewrite passes because \\(f(p(x))=f(x)\\) everywhere."
+    },
+    {
+      "condition": "The permutation has a fixed point and a common-ratio solution exists.",
+      "conclusion": "The nonzero weight at that point forces \\(\\lambda=1\\), so the uncorrected rewrite is exact."
+    },
+    {
+      "condition": "The two-bit gates are tested only on single computational-basis inputs.",
+      "conclusion": "Both gate orders have the same one-point output distribution at every angle, even when the coherent operators disagree."
+    }
+  ],
+  "reasoning_map": {
+    "nodes": [
+      {
+        "id": "N1",
+        "kind": "given",
+        "claim": "An input basis column \\(x\\) of \\(M(a,p)\\) has coefficient \\(a(x)\\) at its routed row \\(p(x)\\). In the question all weights have modulus one.",
+        "anchors": [
+          "declaration:QuantumBlockEncoding.phasePermutationMatrix"
+        ],
+        "requires": []
+      },
+      {
+        "id": "N2",
+        "kind": "derive",
+        "claim": "Applying a second factor multiplies the coefficient by \\(b(p(x))\\) and maps the output label to \\(q(p(x))\\).",
+        "anchors": [
+          "declaration:QuantumBlockEncoding.phasePermutationMatrix_mul",
+          "declaration:QuantumBlockEncoding.MonomialProgram.seq"
+        ],
+        "requires": [
+          "N1"
+        ]
+      },
+      {
+        "id": "N3",
+        "kind": "derive",
+        "claim": "Comparing the two orders on each basis column fixes \\(g(x)=f(p(x))\\) uniquely.",
+        "anchors": [
+          "declaration:QuantumBlockEncoding.phasePermutationMatrix",
+          "declaration:QuantumBlockEncoding.phasePermutationMatrix_mul"
+        ],
+        "requires": [
+          "N2"
+        ]
+      },
+      {
+        "id": "N4",
+        "kind": "derive",
+        "claim": "Leaving the original table gives exact equality if and only if it is constant along each orbit.",
+        "anchors": [],
+        "requires": [
+          "N3"
+        ]
+      },
+      {
+        "id": "N5",
+        "kind": "derive",
+        "claim": "Leaving the original table gives global-phase equality precisely when the unit ratios \\(f(p(x))/f(x)\\) are constant over the whole input set.",
+        "anchors": [],
+        "requires": [
+          "N1",
+          "N3"
+        ]
+      },
+      {
+        "id": "N6",
+        "kind": "given",
+        "claim": "On the two labeled bits the controlled NOT sends \\((c,t)\\) to \\((c,t\\oplus c)\\) with weight one, and the single-target phase table has weight \\(e^{i\\theta t}\\).",
+        "anchors": [
+          "declaration:QuantumBlockEncoding.cxBasisAction",
+          "declaration:QuantumBlockEncoding.evalPrimitiveCx_eq_phasePermutationMatrix",
+          "declaration:QuantumBlockEncoding.liftPhaseMatrix_eq_phasePermutationMatrix"
+        ],
+        "requires": []
+      },
+      {
+        "id": "N7",
+        "kind": "derive",
+        "claim": "The transported table is \\(e^{i\\theta(t\\oplus c)}\\), giving ratio one for \\(c=0\\) and ratios \\(e^{i\\theta},e^{-i\\theta}\\) for \\(c=1\\).",
+        "anchors": [],
+        "requires": [
+          "N3",
+          "N6"
+        ]
+      },
+      {
+        "id": "N8",
+        "kind": "derive",
+        "claim": "Both uncorrected tests pass exactly at \\(\\theta\\in2\\pi\\mathbb Z\\). Unchanged labels force the global scalar to be one, and a moved label then forces \\(e^{i\\theta}=1\\).",
+        "anchors": [],
+        "requires": [
+          "N4",
+          "N5",
+          "N7"
+        ]
+      },
+      {
+        "id": "N9",
+        "kind": "derive",
+        "claim": "At \\(\\theta=\\pi\\) the orders differ by opposite signs on the two control sectors. An equal-weight superposition from the two sectors gives orthogonal outputs. The basis probabilities still depend only on the routed label.",
+        "anchors": [],
+        "requires": [
+          "N1",
+          "N7"
+        ]
+      }
+    ],
+    "joins": [
+      {
+        "node": "N7",
+        "necessary_inputs": [
+          "N3",
+          "N6"
+        ],
+        "why_each": "The general rewrite identifies which argument to supply, and the control-target gate data give the concrete argument and the three ratios."
+      },
+      {
+        "node": "N8",
+        "necessary_inputs": [
+          "N4",
+          "N5",
+          "N7"
+        ],
+        "why_each": "The exact and scalar tests are distinct requested conclusions. The computed ratios fix the scalar and supply the necessary and sufficient angle condition for both."
+      },
+      {
+        "node": "N9",
+        "necessary_inputs": [
+          "N1",
+          "N7"
+        ],
+        "why_each": "The signed ratios distinguish two coherent components. Single-column support and modulus one explain why the basis-input distributions still coincide."
+      }
+    ],
+    "alternative_routes": [
+      {
+        "assumptions": "Any finite nonempty label set, a permutation, and the stated unit-modulus diagonal.",
+        "route": "Conjugate the diagonal by the permutation, or multiply the matrices entrywise. Equality and scalar equality then reduce to comparing diagonal entries."
+      },
+      {
+        "assumptions": "The use of \\(\\theta=\\pi\\) and the stated two-bit orientation.",
+        "route": "Form the relative operator between the two uncorrected orders. It has eigenvalues of opposite sign on the two control sectors, so a normalized balanced two-sector input has zero output overlap."
+      }
+    ],
+    "interpretation": "Dependencies below are author-specified local mathematical premises. Source graph edge IDs in the source index express ownership."
+  },
+  "difficulty": {
+    "construction_band": "D2",
+    "D0_facet": "D0 basis-action facet. Gives both the intermediate-label phase \\(a(x)b(p(x))\\) and the output \\(q(p(x))\\) of the chronological product, with the column action or an equivalent explanation.",
+    "rationale": "Act on one basis ket to obtain weight \\(a(x)b(p(x))\\) and label \\(q(p(x))\\). Identify \\(g=f\\circ p\\) and prove uniqueness. Give both directions of the exact orbit-invariance test and the single-constant test for \\(f(p(x))/f(x)\\), with a fixed sign convention for that constant. On two bits compute the table \\(e^{i\\theta(t\\oplus c)}\\), use the fixed control-zero columns to fix any common phase, and use a moved column to identify all angles. At \\(\\theta=\\pi\\) propagate a normalized two-term input through both orders, establish orthogonality, and explain equality of the basis-input output probabilities.",
+    "calibrated": false
+  },
+  "mathematical_target": "The intermediate label changes which phase multiplies each column. The task demands a necessary and sufficient global test for leaving an arbitrary table in place, an exact two-bit calibration for all angles, and a superposition witnessing the failure of the uncorrected order. A phase-free permutation product alone cannot supply those results."
+}

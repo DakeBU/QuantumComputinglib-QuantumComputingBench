@@ -18,13 +18,18 @@ def check_workbook(page, base, root, manifest, output):
     for entry in workbook['entries']:
         p = entry['packet']
         texts = [p['question'], p['reference_answer']] + p['assumptions'] + p['conventions']
-        texts += [r['criterion'] for r in entry['display_rubric']]
+        texts += [v for r in entry['display_rubric'] for v in (r['criterion'], r.get('partial', ''))]
         texts += common_error_texts(p)
         texts += [str(v) for row in p['boundary_cases'] for v in row.values()]
         m = entry['display_reasoning_map']
-        texts += [n['statement'] for n in m['inputs']]
-        for n in m['steps']:
-            texts += [n['conclusion'], n['justification'], n.get('scope', '')] + n.get('assumptions', [])
+        if 'nodes' in m:
+            texts += [n['claim'] for n in m['nodes']] + [j['why_each'] for j in m['joins']]
+            texts += [v for a in m['alternative_routes'] for v in (a['assumptions'], a['route'])]
+            texts += p['valid_alternatives'] + entry['clarifications'].get('grading_notes', [])
+        else:
+            texts += [n['statement'] for n in m['inputs']]
+            for n in m['steps']:
+                texts += [n['conclusion'], n['justification'], n.get('scope', '')] + n.get('assumptions', [])
         texts += list(entry['clarifications'].get('step_notes', {}).values())
         expressions.update(s.tex for text in texts for s in algebra_spans(text))
         expressions.update(eq['tex'] for eq in entry['notation']['equations'])

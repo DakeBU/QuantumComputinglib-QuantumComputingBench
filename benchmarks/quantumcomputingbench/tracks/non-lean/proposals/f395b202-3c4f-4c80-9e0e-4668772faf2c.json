@@ -1,0 +1,135 @@
+{
+  "proposal_id": "f395b202-3c4f-4c80-9e0e-4668772faf2c",
+  "core_id": "candidate:f395b202-3c4f-4c80-9e0e-4668772faf2c",
+  "track": "non-lean",
+  "author": "/root/author_givens5",
+  "admission": "candidate_not_counted",
+  "dedup_review_required": true,
+  "source_nodes": [
+    "declaration:QuantumBlockEncoding.AdjacentGivens.Step",
+    "declaration:QuantumBlockEncoding.AdjacentGivens.rotateRows",
+    "declaration:QuantumBlockEncoding.AdjacentGivens.eliminate_pair",
+    "declaration:QuantumBlockEncoding.AdjacentGivens.splitAngle_real_firstColumn",
+    "declaration:QuantumBlockEncoding.AdjacentGivens.applySteps_reverse_inverse",
+    "declaration:QuantumBlockEncoding.AdjacentGivens.planeMatrix_orthogonal"
+  ],
+  "view_kind": "derivation",
+  "family": "local-plane-rotation-state-preparation",
+  "split": "unassigned_pending_reconciliation",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "contract_hash": "b91667593e5b43229414e115c5b0823da836cd8e488b84ab050f4a8c680ca425",
+  "proposed_contract": {
+    "question": "Find the exact minimum gate count for every \\(x\\) and \\(s\\). Give a lower bound that applies to every circuit, including those that visit sites outside the target support. Provide a construction meeting the bound whenever the target is reachable. Account for holes in the support, both signs of a target supported only at \\(s\\), and the one-site path.\n\nAs a check, on sites \\(0,\\ldots,7\\) start at \\(s=4\\) and take \\(x=(0,-3,0,0,0,0,4,0)/5\\). What is the minimum count? More generally, when \\(S\\) has at least two sites and the source can be chosen, which choices of \\(s\\) minimize the count?",
+    "assumptions": [
+      "Let \\(N\\ge1\\). The real coordinate sites of a path are \\(0,\\ldots,N-1\\). The known target \\(x\\in\\mathbb R^N\\) has \\(\\sum_jx_j^2=1\\). Its support is \\(S=\\{j:x_j\\ne0\\}\\). The input \\(e_s\\) has amplitude \\(+1\\) at the specified site \\(s\\).",
+      "A gate on edge \\((j,j+1)\\) applies \\(R(\\theta)=\\begin{pmatrix}\\cos(\\theta/2)&-\\sin(\\theta/2)\\\\ \\sin(\\theta/2)&\\cos(\\theta/2)\\end{pmatrix}\\) to the two amplitudes in increasing site order and fixes all other amplitudes. Every real angle is allowed."
+    ],
+    "conventions": [
+      "One use of a gate costs one, regardless of angle. The empty circuit costs zero. There are no auxiliary sites, free sign changes or free permutations.",
+      "Preparation must output the particular signed vector \\(x\\). Only the action on \\(e_s\\) is prescribed. Assign minimum cost \\(+\\infty\\) to an unreachable target."
+    ],
+    "family": "local-plane-rotation-state-preparation",
+    "split": "unassigned_pending_reconciliation",
+    "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+    "target_nodes": [
+      "declaration:QuantumBlockEncoding.AdjacentGivens.Step",
+      "declaration:QuantumBlockEncoding.AdjacentGivens.rotateRows",
+      "declaration:QuantumBlockEncoding.AdjacentGivens.eliminate_pair"
+    ],
+    "supporting_nodes": [
+      "declaration:QuantumBlockEncoding.AdjacentGivens.splitAngle_real_firstColumn",
+      "declaration:QuantumBlockEncoding.AdjacentGivens.applySteps_reverse_inverse",
+      "declaration:QuantumBlockEncoding.AdjacentGivens.planeMatrix_orthogonal"
+    ],
+    "source_refs": [
+      {
+        "path": "QuantumBlockEncoding/AdjacentGivens.lean",
+        "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "sha256_lf": "a43c3b4f543738cb317be01fa664fd466bfa28e21c33d10c7a90e74037a58d9c",
+        "sha256_raw": "a43c3b4f543738cb317be01fa664fd466bfa28e21c33d10c7a90e74037a58d9c",
+        "license": "MIT (project sources; see root LICENSE)",
+        "anchor": "Step lines 176–180; rotateRows lines 20–25; eliminate_pair lines 104–119; splitAngle_real_firstColumn lines 84–97; applySteps_reverse_inverse lines 208–220; planeMatrix_orthogonal lines 70–72",
+        "declaration_spans": [
+          {
+            "node_id": "declaration:QuantumBlockEncoding.AdjacentGivens.Step",
+            "start": 176,
+            "end": 180,
+            "sha256_lf": "f8a823ba3148b93c3b13ac6fd4fa71c9feceb19acfb347524b10360ac2a67133",
+            "scope": "The frozen snapshot marks this record Partial route with status legacy_source_semantic_debt. Its declaration text records two numerical indices whose second is one above the first and one real angle. This supports only the path-edge convention. The separate rotation and elimination declarations provide its local mathematical ingredients; the record gives no optimality result."
+          },
+          {
+            "node_id": "declaration:QuantumBlockEncoding.AdjacentGivens.rotateRows",
+            "start": 20,
+            "end": 25,
+            "sha256_lf": "caf35f09b6a13fdb2233186b3adb0ca484cb7fae158cc8ddf908893be8b17de2",
+            "scope": "Defines the signed half-angle update of the two selected real rows, leaving other rows unchanged. A single column gives the site-amplitude rule. The definition gives no test from probabilities, propagation bound or scheduling optimum."
+          },
+          {
+            "node_id": "declaration:QuantumBlockEncoding.AdjacentGivens.eliminate_pair",
+            "start": 104,
+            "end": 119,
+            "sha256_lf": "c7cfbfb0477cb85b1d4dd84662560413d18d4ad99adcc87ccec1881472a1e546",
+            "scope": "For any real pair the specified elimination angle takes it to its nonnegative norm in the first position and zero in the second. Reorientation of endpoints and use in tree schedules are further deductions."
+          },
+          {
+            "node_id": "declaration:QuantumBlockEncoding.AdjacentGivens.splitAngle_real_firstColumn",
+            "start": 84,
+            "end": 97,
+            "sha256_lf": "0672d1c9bc8359048c89a26bcdd23281bdcf3ac2d0222114362657c16d91f429",
+            "scope": "For any two signed real numbers, the cosine and sine of half the split angle, multiplied by their Euclidean pair norm, reproduce the two numbers. This is a two-coordinate existence ingredient."
+          },
+          {
+            "node_id": "declaration:QuantumBlockEncoding.AdjacentGivens.applySteps_reverse_inverse",
+            "start": 208,
+            "end": 220,
+            "sha256_lf": "32007e68bbfcc33828f74ba1b3f54242947da7a00bbfc40df635e9aee8630529",
+            "scope": "A list of adjacent steps is inverted on any real rectangular array by reversing the list and negating its angles. This is an exact replay identity for that list, independent of any count lower bound."
+          },
+          {
+            "node_id": "declaration:QuantumBlockEncoding.AdjacentGivens.planeMatrix_orthogonal",
+            "start": 70,
+            "end": 72,
+            "sha256_lf": "df923753689b873e7ca9851fe84ec8020995a02ae2a3b823b6df7f534c3b007e",
+            "scope": "A plane matrix on distinct indices is orthogonal. This supplies exact norm preservation on each edge. It does not assert that a whole sphere is reachable within a specified depth."
+          }
+        ]
+      }
+    ]
+  },
+  "base_commit": "036aea2a107d9258bba1c20b6e58cb6b9ee484f5",
+  "package_id": "b3a8eb51-c162-46a4-a117-021b837fe5c1",
+  "slot": "G2s",
+  "title": "How many adjacent rotations prepare one signed state?",
+  "mathematical_target": "Find the exact minimum number of adjacent coordinate rotations taking a chosen basis vector to a specified signed vector, prove a lower bound against every circuit, and identify optimal source positions. G1s observes an unknown single gate; this item designs a shortest sequence.",
+  "payload_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/b3a8eb51-c162-46a4-a117-021b837fe5c1/qa/G2s.json",
+  "payload_sha256": "2f3171ce94063733b46d5122a8c9328f7a52e449b8ed8e5b2d673cf8ebd62c74",
+  "item_digest": "9b513b36bb3ca035d996c0d8cfeabb16f84a727f737dbe0a45072d1776bafc33",
+  "review_records": [
+    {
+      "slot": "G2s",
+      "core_id": "candidate:f395b202-3c4f-4c80-9e0e-4668772faf2c",
+      "author": "/root/author_givens5",
+      "reviewer": "/root/review_givens5",
+      "verdict": "accept",
+      "semantic_core_verdict": "The exact single-column path optimization is distinct within the concepts in the frozen plan from fixed elimination, reversed step lists, determinant or full-operator decomposition, and gate counts of specified circuits. The matching synthesis and a lower bound for every circuit are both necessary. The corrected graph explanation now states the sign-independent obstruction used by the independent proof.",
+      "question_sha256": "c6be4fb9caec236effb35ac53c9aaa2cd1d36476fd73c5a4ea263d2e7b1b6968",
+      "phase1_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/b3a8eb51-c162-46a4-a117-021b837fe5c1/reviews/G/phase1.json",
+      "phase1_sha256": "9d8c0227bfa31f17d2cc76df2da25cc8fe9b37c4f29d0f0d453e7e6e8f2bf71b",
+      "report_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/b3a8eb51-c162-46a4-a117-021b837fe5c1/reviews/G/phase2.json",
+      "report_sha256": "9133db65f7624c3aa0d73a184dcc55b64fefc69c7adbf625fa61abf9c4bb4756",
+      "payload_sha256": "2f3171ce94063733b46d5122a8c9328f7a52e449b8ed8e5b2d673cf8ebd62c74",
+      "item_digest": "9b513b36bb3ca035d996c0d8cfeabb16f84a727f737dbe0a45072d1776bafc33",
+      "human_approval": false,
+      "admission": "candidate_not_counted"
+    }
+  ],
+  "status": "reviewed_pending_maintainer_reconciliation",
+  "count_effect": "zero",
+  "usage": {
+    "proposed_use": "Public study and proposed training, pending maintainer reconciliation of exposure and official split.",
+    "family_group": "local-plane-rotation-state-preparation",
+    "status": "public_study_only",
+    "training_clearance": "pending maintainer split reconciliation",
+    "empirical_calibration": false
+  }
+}

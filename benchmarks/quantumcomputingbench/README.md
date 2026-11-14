@@ -64,11 +64,12 @@ Hamiltonian proofs and withholds four overlapping cores across all modalities.
 The [coverage audit](tracks/lean/LEAN_QA_COVERAGE.md) maps the remaining gaps
 by compiled source and graph relationship.
 
-The [supplementary NL workbook](docs/nonlean-workbook.md) has eighteen
-source-grounded exercises across six chapters and provisional D2–D4 routes.
-Four offer additional expositions of existing cores. Fourteen are unassigned
-candidates for public study. The workbook has its own question and reference
-downloads, separate from the canonical train/evaluation pools.
+The [supplementary NL workbook](docs/nonlean-workbook.md) has 24 exercises
+across eight chapters and provisional D2–D4 routes. The newest chapters map
+local rotations and weighted permutations to state preparation, calibration
+and trace recovery. Four exercises offer additional expositions of existing
+cores, and 20 are unassigned public study candidates. The workbook provides
+separate question, reference and graph-index downloads.
 
 <details>
 <summary>Distribution status and retained editorial checkpoints</summary>

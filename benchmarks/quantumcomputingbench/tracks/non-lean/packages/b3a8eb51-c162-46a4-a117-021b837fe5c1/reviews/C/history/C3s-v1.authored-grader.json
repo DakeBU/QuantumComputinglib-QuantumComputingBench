@@ -1,0 +1,243 @@
+{
+  "reference": [
+    "Induction on \\(n\\) gives \\(U^n|x\\rangle=(\\prod_{j=0}^{n-1}a_{p^j(x)})|p^n(x)\\rangle\\). On a cycle \\(C\\) of length \\(\\ell\\), the basis vector returns to its label exactly when \\(\\ell\\mid n\\). In that case the product is \\(h_C^{n/\\ell}\\) at each of its \\(\\ell\\) starting points. At all other positive powers its diagonal entries vanish on this cycle. Hence \\(t_n=\\sum_{C:\\,|C|\\mid n}|C|h_C^{n/|C|}\\).",
+    "Each orbit span is invariant, and these spans form a direct sum. For a representative \\(v\\) of an \\(\\ell\\)-cycle, the vectors \\(|v\\rangle,U|v\\rangle,\\ldots,U^{\\ell-1}|v\\rangle\\) are an orthonormal basis of that span, since they are unit phases times distinct basis vectors. The operator shifts these basis vectors, and sends the last to \\(h_C|v\\rangle\\). The resulting companion matrix has characteristic polynomial \\(z^\\ell-h_C\\). Equivalently, \\(U^\\ell=h_CI\\) on that span and no smaller-degree monic polynomial annihilates the cyclic vector, so its degree-\\(\\ell\\) minimal polynomial is its characteristic polynomial. Taking the product over the blocks yields \\(\\det(zI-U)=\\prod_C(z^{|C|}-h_C)\\). A fixed point gives \\(z-a_x\\).",
+    "For distinct cycle lengths let \\(\\mathcal L\\) be the set of occurring lengths and let \\(h_\\ell\\) denote the product of the unique \\(\\ell\\)-cycle. Visit \\(\\mathcal L\\) in increasing order. Evaluating the trace formula at \\(n=\\ell\\) yields \\[h_\\ell=\\frac{1}{\\ell}\\left(t_\\ell-\\sum_{\\substack{d\\in\\mathcal L,\\ d<\\ell,\\ d\\mid\\ell}} d\\,h_d^{\\ell/d}\\right).\\] The sum is empty at the smallest length. Every term subtracted at a later stage belongs to a shorter divisor and has already been identified; longer cycles cannot return. There is precisely one still-unknown term, and its coefficient \\(\\ell\\) is nonzero. Since every length is at most \\(N\\), the supplied traces suffice. The known permutation assigns each recovered value to its particular cycle.",
+    "For an ambiguity take \\(p=(1)(2)(3\\,4)(5\\,6)\\) and list weights by input labels \\(1,\\ldots,6\\). Use \\(a=(1,-1,1,-1,1,1)\\) and \\(a'=(i,-i,1,1,1,1)\\). In the first case the fixed-point products are \\(\\{1,-1\\}\\) and the transposition products are \\(\\{-1,1\\}\\). In the second they are \\(\\{i,-i\\}\\) and \\(\\{1,1\\}\\), respectively. Every edge has unit modulus. By the factor formula both characteristic polynomials are \\((z^2-1)^2(z^2+1)\\). The two fixed factors in the first assignment supply \\(z^2-1\\); those in the second supply \\(z^2+1\\). The same eigenvalue multiset gives the same trace of every positive power, since these unitaries are diagonalizable. Permuting same-length cycles cannot turn one of the displayed multisets into the other.",
+    "For a fixed length \\(\\ell\\), form \\(s_k=\\operatorname{tr}(P_\\ell U^{k\\ell})/\\ell\\). Each length-\\(\\ell\\) cycle returns at that power and other lengths are excluded by the projection, so \\(s_k=\\sum_{|C|=\\ell}h_C^k\\). Newton’s identities determine the monic polynomial \\(\\prod_{|C|=\\ell}(w-h_C)\\) from \\(s_1,\\ldots,s_{m_\\ell}\\). Concretely \\(e_0=1\\) and \\(j e_j=\\sum_{k=1}^{j}(-1)^{k-1} e_{j-k}s_k\\) yield the elementary symmetric coefficients, with alternating signs in that polynomial. The roots give the product multiset with its multiplicities, even when some roots coincide.",
+    "These projected reports and the global traces are symmetric in the products of same-length cycles. Any permutation of those products is realizable on the known routing by placing its assigned product on one directed edge of each cycle and putting weight one on all remaining edges. Thus every assignment of the recovered multiset to that length’s labels is possible. The assignment is unique for that length exactly when all those products are equal, including a length occurring once. All labels are determined exactly when this condition holds for every occurring length."
+  ],
+  "rubric": [
+    {
+      "id": "R1",
+      "points": 2,
+      "criterion": "D0 basis-action facet and its trace consequence. Tracks the label and phase after iteration of one edge, identifies return precisely at multiples of the cycle length, and derives the global power trace including the multiplicity factor \\(|C|\\). An equivalent cycle-block derivation of the same facts is accepted.",
+      "partial": "One point for a correctly transported iterate or return condition with an incomplete trace count, or for a correct trace formula with insufficient justification of the cycle contribution."
+    },
+    {
+      "id": "R2",
+      "points": 2,
+      "criterion": "Derives the factor \\(z^{|C|}-h_C\\) on a cycle and obtains the global characteristic polynomial by the invariant direct sum, with the stated characteristic-polynomial sign convention.",
+      "partial": "One point for the correct factorization without a sufficient per-cycle argument, or for a correct per-cycle calculation with the global combination missing."
+    },
+    {
+      "id": "R3",
+      "points": 2,
+      "criterion": "Proves exact recovery on every labeled cycle when lengths are distinct, using only the promised traces and permutation. Accounts for all shorter divisor contributions, or gives a correct alternative which establishes uniqueness and provides a way to compute the values.",
+      "partial": "One point for recovery at the smallest or mutually nondividing lengths, or for recognizing a recursive subtraction without determining the divisor contributions correctly."
+    },
+    {
+      "id": "R4",
+      "points": 2,
+      "criterion": "Exhibits two realizable unit-modulus edge assignments for the same permutation with two fixed points and two transpositions, proves equality of all positive power traces, and shows that at least one within-length multiset differs. A construction through realizable cycle products is sufficient.",
+      "partial": "One point for a valid collision with incomplete verification, or for explaining an actual factor ambiguity without completing the assignments on the specified permutation. Only swapping labels inside one length does not show multiset ambiguity."
+    },
+    {
+      "id": "R5",
+      "points": 2,
+      "criterion": "Obtains the length-sector power sums with the correct scale, recovers the multiset with multiplicity from the supplied number of reports, and proves the precise uniqueness condition for assigning products to cycle labels. Reassignment invariance and realizability may be shown by exchanging tables between equal-length cycles.",
+      "partial": "One point for correct multiset recovery without the full labeled uniqueness boundary, or a correct argument about permutation ambiguity without deriving recovery with multiplicities."
+    }
+  ],
+  "failure_modes": [
+    "Summing over all cycles at power \\(n\\) forgets to restrict to \\(|C|\\mid n\\); omitting \\(|C|\\) counts only one returning label per cycle.",
+    "From \\(U^\\ell=h_C I\\) alone one knows that the minimal polynomial divides \\(z^\\ell-h_C\\). A cyclic vector, eigenvector recurrence, determinant, or equivalent argument is needed to get the full degree-\\(\\ell\\) characteristic factor.",
+    "Taking \\(h_\\ell=t_\\ell/\\ell\\) for every distinct length ignores interference from any shorter occurring divisors.",
+    "Swapping two different products between equal-length cycles leaves their multiset unchanged. It only proves ambiguity of labeling, which is weaker than the global-trace obstruction requested.",
+    "Factoring the global characteristic polynomial into linear factors recovers the eigenvalues, but does not always determine which roots came from \\(z^\\ell-h_C\\) factors of each length.",
+    "Length-resolved data are symmetric under permutation of equal-length cycles. Repeated roots still have well-defined multiplicities, and their equality can make labels uniquely determined."
+  ],
+  "valid_alternatives": [
+    "On the given finite-dimensional unitary blocks over \\(\\mathbb C\\), compute the characteristic factor by a determinant expansion, the companion form, a cyclic-vector/minimal-polynomial argument, or an eigenvector recurrence for all roots of \\(z^\\ell=h_C\\). Summing the powers of these roots also proves the trace formula without direct diagonal-entry counting.",
+    "For exact complex data and pairwise distinct cycle lengths, Newton’s identities on \\(t_1,\\ldots,t_N\\) give the global characteristic polynomial. After shorter-length factors have been recovered and divided off, work with the residual reciprocal polynomial \\(\\prod_{d\\text{ remaining}}(1-h_d y^d)\\). Its coefficient of the smallest remaining degree \\(\\ell\\) is \\(-h_\\ell\\). Repeating supplies an alternative to the divisor recursion.",
+    "For the six-label case, any realizable factor swap giving different within-length product multisets is valid. For example use opposite fixed-point phases \\(u,-u\\) in one assignment and \\(v,-v\\) in the other, exchange the matching transposition products \\(v^2\\) and \\(u^2\\), and retain the same other transposition. For unit \\(u,v\\) with \\(u^2\\ne v^2\\), the two characteristic polynomials agree. A direct all-power trace calculation is equally sufficient.",
+    "For each length sector, any exact reconstruction of the monic polynomial from its first \\(m_\\ell\\) power sums earns credit, including Newton’s identities or a truncated determinant-generating series. An argument via a bijection of equal-length cycles instead of a one-edge realization also establishes the possible assignments to labels."
+  ],
+  "map": {
+    "nodes": [
+      {
+        "id": "N1",
+        "kind": "given",
+        "claim": "The known permutation decomposes the labels into disjoint cycles, and the column at \\(x\\) of \\(U\\) is the unit edge weight times \\(|p(x)\\rangle\\).",
+        "anchors": [
+          "cyc_matrix"
+        ],
+        "requires": []
+      },
+      {
+        "id": "N2",
+        "kind": "derive",
+        "claim": "An \\(n\\)-step walk ends at \\(p^n(x)\\) with the product of its \\(n\\) encountered edge weights. One complete cycle multiplies any of its basis vectors by its cycle product.",
+        "anchors": [
+          "cyc_product"
+        ],
+        "requires": [
+          "N1"
+        ]
+      },
+      {
+        "id": "N3",
+        "kind": "derive",
+        "claim": "The length-\\(\\ell\\) cycle restriction has characteristic polynomial \\(z^\\ell-h_C\\) by a cyclic basis, and the invariant direct sum multiplies those factors.",
+        "anchors": [],
+        "requires": [
+          "N1",
+          "N2"
+        ]
+      },
+      {
+        "id": "N4",
+        "kind": "derive",
+        "claim": "Counting all returning input labels gives \\(t_n=\\sum_{C:\\,|C|\\mid n}|C|h_C^{n/|C|}\\).",
+        "anchors": [],
+        "requires": [
+          "N1",
+          "N2"
+        ]
+      },
+      {
+        "id": "N5",
+        "kind": "derive",
+        "claim": "When the known lengths are distinct, increasing-length recovery from \\(t_\\ell\\) subtracts the known contributions of every shorter divisor and isolates one labeled product.",
+        "anchors": [],
+        "requires": [
+          "N1",
+          "N4"
+        ]
+      },
+      {
+        "id": "N6",
+        "kind": "derive",
+        "claim": "On the specified six-label permutation there are unit tables with length-one products \\(\\{1,-1\\}\\) versus \\(\\{i,-i\\}\\) and length-two products \\(\\{-1,1\\}\\) versus \\(\\{1,1\\}\\).",
+        "anchors": [],
+        "requires": [
+          "N1"
+        ]
+      },
+      {
+        "id": "N7",
+        "kind": "derive",
+        "claim": "Applying the spectral factor formula to those tables gives the identical polynomial \\((z^2-1)^2(z^2+1)\\). The unitaries therefore have equal power traces for all positive powers and different within-length product multisets.",
+        "anchors": [],
+        "requires": [
+          "N3",
+          "N6"
+        ]
+      },
+      {
+        "id": "N8",
+        "kind": "given",
+        "claim": "The additional measurements project onto all cycles of a specified length and use exponents \\(k\\ell\\) for \\(1\\leq k\\leq m_\\ell\\). Newton’s identities for complex roots are available.",
+        "anchors": [],
+        "requires": []
+      },
+      {
+        "id": "N9",
+        "kind": "derive",
+        "claim": "For every occurring length, the supplied projected traces divide by \\(\\ell\\) to give the first \\(m_\\ell\\) power sums of the products on that length.",
+        "anchors": [],
+        "requires": [
+          "N2",
+          "N8"
+        ]
+      },
+      {
+        "id": "N10",
+        "kind": "derive",
+        "claim": "The first \\(m_\\ell\\) complex power sums uniquely determine the monic polynomial of degree \\(m_\\ell\\), hence the multiset of cycle products including all repeated roots.",
+        "anchors": [],
+        "requires": [
+          "N8",
+          "N9"
+        ]
+      },
+      {
+        "id": "N11",
+        "kind": "derive",
+        "claim": "Each reassignment of given products to cycles of the same length can be realized by placing one prescribed unit weight per cycle. The global and projected traces remain unchanged.",
+        "anchors": [],
+        "requires": [
+          "N1",
+          "N4",
+          "N9"
+        ]
+      },
+      {
+        "id": "N12",
+        "kind": "derive",
+        "claim": "The recovered data determine all labels at a given length exactly when its multiset is constant. Unequal products can be exchanged to give different labeled assignments.",
+        "anchors": [],
+        "requires": [
+          "N10",
+          "N11"
+        ]
+      }
+    ],
+    "joins": [
+      {
+        "node": "N5",
+        "necessary_inputs": [
+          "N1",
+          "N4"
+        ],
+        "why_each": "The known distinct lengths identify the target cycle and the smaller indices to consider. The trace equation gives the actual coefficients and powers to subtract."
+      },
+      {
+        "node": "N7",
+        "necessary_inputs": [
+          "N3",
+          "N6"
+        ],
+        "why_each": "The example supplies realizable, genuinely different within-length multisets. The characteristic factorization verifies equality of the observational data for every power."
+      },
+      {
+        "node": "N9",
+        "necessary_inputs": [
+          "N2",
+          "N8"
+        ],
+        "why_each": "Orbit iteration gives the returning phase on each selected label. The projection and exponents specify precisely which labels and how many powers are observable."
+      },
+      {
+        "node": "N12",
+        "necessary_inputs": [
+          "N10",
+          "N11"
+        ],
+        "why_each": "Polynomial reconstruction gives all values with multiplicity. Physical realizability and measurement invariance justify ambiguity when unequal values can exchange labels."
+      }
+    ],
+    "alternative_routes": [
+      {
+        "assumptions": "The index set is finite and all edge phases are nonzero unit complex numbers.",
+        "route": "Use a cyclic block eigenvector recurrence and sum roots of unity to derive both the spectral factor and the positive trace formula."
+      },
+      {
+        "assumptions": "Lengths are pairwise distinct and all of \\(t_1,\\ldots,t_N\\) are available exactly.",
+        "route": "Recover the global reciprocal polynomial by Newton’s identities, and then successively extract the coefficient at the least remaining cycle length after dividing out shorter factors."
+      },
+      {
+        "assumptions": "The two tables are on the same specified cycle pattern and every edge has unit modulus.",
+        "route": "Verify a collision directly from the trace sum, or through common eigenvalues; show separately that the product multiset changes within at least one length."
+      }
+    ],
+    "boundaries": [
+      {
+        "condition": "A cycle has length one.",
+        "conclusion": "Its edge phase is its product and its characteristic factor is linear. It contributes at every positive power."
+      },
+      {
+        "condition": "The smallest occurring length is \\(\\ell>1\\), or an occurring length has no smaller occurring divisor.",
+        "conclusion": "The recursion starts at \\(h_\\ell=t_\\ell/\\ell\\) when this length occurs exactly once and there are no shorter divisor contributions."
+      },
+      {
+        "condition": "The first \\(m_\\ell\\) projected power sums have repeated product roots.",
+        "conclusion": "Newton reconstruction retains multiplicities. If every root is the same value, all cycles of that length have that unique labeled value."
+      },
+      {
+        "condition": "Two different products occur at the same length.",
+        "conclusion": "The whole multiset is known after the length-sector measurements, but exchanging the two products gives two different labeled assignments with the same data."
+      }
+    ]
+  }
+}
