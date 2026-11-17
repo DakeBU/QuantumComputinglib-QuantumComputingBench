@@ -1,0 +1,79 @@
+{
+  "reviewer": "/root/review_monomial5",
+  "phase": "question-first",
+  "exposure": "I read the three raw question JSONs and their matching permitted-source manifests in blind/C. I inspected only the listed line ranges of the two frozen source files in blind/C/sources at revision 86b9e677566498da04faebcf4e5ed57f177c6bb1. I derived the solutions from that material before any authored-answer or other-review exposure.",
+  "items": [
+    {
+      "slot": "C1s",
+      "question_sha256": "8e2d57108424b613aef234fd28bd65a4d8b0c84468e4caf27b5fc012235a6a6c",
+      "derivation": [
+        "Apply the factors to a basis ket in temporal order. M(a,p) sends x to p(x) with amplitude a(x), and M(b,q) sends that ket to q(p(x)) with the additional factor b(p(x)). The product therefore has routing q∘p and input-indexed amplitude a(x)b(p(x)).",
+        "D_f P_p sends |x⟩ to f(p(x))|p(x)⟩. The candidate P_p D_g sends it to g(x)|p(x)⟩, so equality on the basis forces g(x)=f(p(x)) for every x. This defines the unique table and proves equality on the entire space by linearity. With g=f, the exact test is f(p(x))=f(x) for every x, equivalently constancy on each directed cycle.",
+        "Fix the convention D_f P_p=λ P_p D_f for the projective comparison. Comparison on |x⟩ gives the necessary and sufficient test that f(p(x))/f(x) has one common value λ over all inputs. The modulus of λ is one. On a cycle with representative u and length L this is equivalent to f(p^j(u))=λ^j f(u) for 0≤j<L together with λ^L=1, using the same λ on all cycles. The closure restriction alone is insufficient for a supplied table; every edge ratio must agree. These identities imply sufficiency on every basis ket.",
+        "Put z=exp(iθ). In label order 00,01,10,11 the corrected input table is (1,z,z,1), since g(c,t)=exp(iθ(t⊕c)). The ratios g/f are (1,1,z,z⁻¹). The fixed labels force λ=1, and both the exact and projective tests reduce to z=1, or θ∈2πℤ.",
+        "At θ=π prepare ψ=(|00⟩+|10⟩)/√2. D_f P_p ψ=(|00⟩−|11⟩)/√2 and P_p D_f ψ=(|00⟩+|11⟩)/√2. The inner product is (1−1)/2=0. Both routings send any single |x⟩ to the same |p(x)⟩ with amplitude of modulus one, hence give probability one on that same output."
+      ],
+      "source_checks": [
+        "blind/C/sources/QuantumBlockEncoding/PrimitiveMacros.lean:174–178 defines the entry using output row=permutation(input column) and the phase at the input column for a finite decidable index. Lines 180–196 explicitly multiply rightPhase/rightPerm on the matrix left by leftPhase/leftPerm on the matrix right, pull the second phase back along leftPerm and use leftPerm.trans rightPerm. Lines 276–283 implement the same temporal order for program sequencing.",
+        "blind/C/sources/QuantumBlockEncoding/PrimitiveMacros.lean:198–204 identifies primitive CX as a pure permutation of phase one. blind/C/sources/QuantumBlockEncoding/PrimitiveSemantics.lean:143–145 selects the original state at control zero and xBasisAction on the target otherwise. The explicit XOR wiring here is given in the question. blind/C/sources/QuantumBlockEncoding/PrimitiveMacros.lean:206–230 supplies identity routing and factors 1 and exp(iθ) for zero and nonzero target respectively.",
+        "The permitted excerpts give the matrix and primitive operations. The commuting, common-phase, angle and orthogonality tests are deductions from the question's model and the displayed entry/composition rules."
+      ],
+      "boundary_checks": [
+        "A nonempty set and nonzero phases make the common ratio well defined and unique. A single fixed point forces the ratio to be one, even if another cycle carries nontrivial phases.",
+        "Common λ may differ from one for other permutations. For the two-cycle u↔v with f(u)=1 and f(v)=−1, every edge ratio is −1. Distinct cycles may also have distinct constant ratios without satisfying a global comparison.",
+        "The order q∘p and the phase evaluated at p(x) follow from the rightmost factor acting first. The choice D_f P_p=λ P_p D_f specifies the direction of the phase ratio; reversing the equation conjugates λ."
+      ],
+      "ambiguities": [
+        "The direction of the scalar in a projective equality can be fixed either way. Specifying the displayed convention resolves this without changing the existence test. The bit ordering, basis probabilities, and direction of gate motion are explicit."
+      ]
+    },
+    {
+      "slot": "C2s",
+      "question_sha256": "917797b4afaae04a7fad45e56e0b10a8c8fb73a0e79537d35681abc1edd67f61",
+      "derivation": [
+        "On |x⟩, D U_a D† gives d_{p(x)} a_x conjugate(d_x)|p(x)⟩. Since |d_x|=1, putting r_x=b_x/a_x turns the equality into d_{p(x)}=r_x d_x on each directed edge. Equality of these coefficients on the labeled basis is sufficient for exact equality of the operators.",
+        "For each labeled cycle choose u, let L be its length, x_j=p^j(u), R_0=1, and R_j=∏_{h=0}^{j−1} r_{x_h} for 1≤j≤L. Iteration gives d_{x_j}=c_C R_j with c_C=d_u. Returning to u forces R_L=1, equivalently ∏_{x∈C}b_x=∏_{x∈C}a_x. Each prescribed η_{x_j} requires c_C=η_{x_j}/R_j. The test is R_L=1 on every cycle and equality of all the specified values of c_C on that cycle.",
+        "If the cycle has no reference, take any c_C∈𝕋. With one or more references take the common required value of c_C. Set every d_{x_j}=c_C R_j for 0≤j<L. All d have unit modulus. Neighboring terms obey the edge equation, including the final step by R_L=1. The earlier iteration shows these exhaust all solutions. Each unreferenced cycle contributes one independent circle parameter, and each referenced cycle has its phases determined.",
+        "In equivalent path form, for a directed arc from prescribed s to t, the product of r_x on its edges must be η_t/η_s. When there are several references, checking the consecutive directed arcs around the cycle implements these relations together with closure. For unrestricted diagonal changes the edge product on a labeled cycle survives because the vertex factors telescope. Equal cycle products suffice by the construction above, so they are complete invariants. One can choose outgoing target weights equal to one on all edges except a designated closing edge, where the weight is the product. Fixed references also constrain the transfers along arcs.",
+        "Take p to interchange u and v, a_u=a_v=1, b_u=b_v=−1, and η_u=η_v=1. Both labeled cycle products are one. Without references (d_u,d_v)=(1,−1) works. The edge u→v requires d_v/d_u=−1 while its two references prescribe one. The return edge supplies the second −1, so recording only the full-cycle product loses this obstruction."
+      ],
+      "source_checks": [
+        "blind/C/sources/QuantumBlockEncoding/PrimitiveMacros.lean:174–178 puts the edge coefficient at the input x and the sole supported output at p(x). Lines 180–196 evaluate a second phase at the already routed label while multiplying matrices. Together these agree with the numerator d_{p(x)} and conjugate input calibration in the expression for D U_a D†.",
+        "The permitted excerpt gives the single-step representation and its composition. Cycle closure, the reference transport test, exhaustiveness and the example are independently derived for this question."
+      ],
+      "boundary_checks": [
+        "A fixed point requires b_x=a_x. Its calibration has arbitrary phase if unreferenced and its prescribed phase if referenced. One reference on a longer cycle sets the base phase and adds only the closure requirement.",
+        "If all references are absent there is one freely chosen vertex phase per labeled cycle. If every cycle has a reference there is at most one admissible D. The orbit freedom on unreferenced cycles commutes with the routed action.",
+        "Products are attached to the labeled cycles, even when their lengths coincide. The arc product uses the edge leaving the start and ends immediately before the destination; wrapping around the cycle yields the same required ratio exactly when closure holds."
+      ],
+      "ambiguities": [
+        "A change of basis can be written with the opposite convention. The stated equation U_b=D U_a D† fixes the ratio b_x/a_x and the orientation of the reference transfer. The supplied labels exclude exchanges of different cycles."
+      ]
+    },
+    {
+      "slot": "C3s",
+      "question_sha256": "ca03a54ffad61d67fb60e29cc79ecc3f5be57e4fef771fc9eb18c92c0854d83d",
+      "derivation": [
+        "For positive n, iterating on |x⟩ gives U^n|x⟩=(∏_{j=0}^{n−1}a_{p^j(x)})|p^n(x)⟩. If x is in a cycle C of length L the diagonal entry occurs exactly when L|n and then equals h_C^{n/L}. Summing over its L starting vertices gives t_n=∑_{C: |C| divides n}|C| h_C^{n/|C|}.",
+        "Each cycle span is invariant. For one cycle take the vectors v_j=U^j|u⟩, 0≤j<L. These are unit multiples of distinct cycle basis vectors. U sends v_j to v_{j+1} before the last step and sends v_{L−1} to h_C v_0. Its companion matrix has characteristic polynomial z^L−h_C, also for L=1. The full characteristic polynomial det(zI−U) is ∏_C(z^{|C|}−h_C).",
+        "If cycle lengths are pairwise distinct, process the occurring lengths L in increasing order. In t_L every contributing proper divisor d<L is already processed and corresponds to a unique cycle C_d. Recover h_{C_L}=[t_L−∑_{d|L, d<L, d occurring} d h_{C_d}^{L/d}]/L. At the smallest occurring length the sum is empty. Induction applied to the trace formula proves each recovery on its unique labeled cycle, covering chains of divisors. Every required index L is at most N.",
+        "Use the known permutation (1)(2)(3 4)(5 6) and write weights in input-label order. Take A=(1,−1,1,−1,1,i) and B=(i,−i,1,1,1,i). The product multisets for lengths 1 and 2 are {1,−1} and {−1,i} for A, and {i,−i} and {1,i} for B. The characteristic polynomials in both cases equal (z²−1)(z²+1)(z²−i). For odd n the opposite fixed phases cancel and no transposition contributes. For n=2k both have t_{2k}=2(1+(−1)^k+i^k). Thus all positive global traces agree while the multisets differ, even with six distinct eigenvalues and no permitted relabeling that equates those multisets.",
+        "For a length ℓ with m=m_ℓ cycles, the projected readout at kℓ is ℓ times s_k=∑_{|C|=ℓ} h_C^k, since the projection includes all ℓ vertices of each such cycle and vanishes on all other cycles. For 1≤j≤m compute the elementary symmetric coefficients from e_0=1 and j e_j=∑_{k=1}^j (−1)^{k−1} e_{j−k}s_k. The polynomial z^m−e_1 z^{m−1}+⋯+(−1)^m e_m is ∏_{|C|=ℓ}(z−h_C); exact roots give the unordered product multiset with multiplicities.",
+        "For any assignment of that multiset to the m labeled cycles, put the assigned scalar on one outgoing edge of its cycle and set all its other weights to one. This realizes the assignment with the same readouts. Conversely, the recovered polynomial forces the multiset. If its distinct values have multiplicities n_1,…,n_r, the number of different label-to-product maps is m!/(∏ n_j!). It equals one exactly when the products on that length are all identical, including m=1. A unique assignment on the entire permutation requires that condition separately for every occurring length."
+      ],
+      "source_checks": [
+        "blind/C/sources/QuantumBlockEncoding/PrimitiveMacros.lean:174–178 supplies the input-indexed phase and the routed output row. Lines 180–196 give the pulled-back phase and composed permutation for multiplication, which iterates to the displayed finite-arc power formula.",
+        "The permitted lines do not state a cyclic characteristic polynomial, trace inversion, obstruction or projected reconstruction. Those are derived here from the question, including its permission to use Newton’s identities."
+      ],
+      "boundary_checks": [
+        "A one-cycle block contributes z−h_C to the characteristic polynomial and h_C^n to every positive power trace. When N=1 the sole product is t_1. Every finite length appearing in the distinct-length recursion occurs as an available trace index.",
+        "The projected factor is ℓ, the number of starting vertices per cycle, independent of k. Dividing by it produces power sums of exactly m_ℓ numbers. Newton's identities recover repeated roots with multiplicity and require no spectral separation.",
+        "If m_ℓ>1 and the multiset has multiple distinct values, swapping a pair of unequal products gives different values on particular known cycles and leaves all projected reports and global power traces unchanged. Repeated equal values produce no distinguishing assignments among themselves.",
+        "The counterexample uses unit-modulus weights, one fixed permutation and a change of multisets within both lengths. Its factors also show that prescribing an exact simple global spectrum need not remove the ambiguity."
+      ],
+      "ambiguities": [
+        "The augmented readout is aggregated by length. For the hypotheses given, the uniqueness assertion concerns values assigned to labeled cycles, rather than artificial names for repeated copies of the same scalar. Whether one retains all original global traces does not affect assignment uniqueness."
+      ]
+    }
+  ]
+}

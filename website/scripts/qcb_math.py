@@ -297,9 +297,12 @@ def math_html(source, tex, *, display=False):
     tag = 'div' if display else 'span'
     kind = 'qcb-equation' if display else 'qcb-math-token'
     left, right = (r'\[', r'\]') if display else (r'\(', r'\)')
+    # TeX ignores this plain space. Keep the thin space while preventing a
+    # set-builder colon from resembling a drive prefix in the HTML attribute.
+    tex_attribute = tex.replace(r':\,|', r': \,|')
     return ('<' + tag + ' class="' + kind + '" data-qcb-math-source="' + _esc(source)
             + '" data-qcb-math-sha256="' + text_hash(source) + '" data-qcb-math-tex="'
-            + _esc(tex) + '">' + left + _esc(tex) + right + '</' + tag + '>')
+            + _esc(tex_attribute) + '">' + left + _esc(tex) + right + '</' + tag + '>')
 
 
 def _plain(value):

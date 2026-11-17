@@ -1,0 +1,13 @@
+{
+  "slot": "G3s",
+  "title": "How much fidelity can a tree reach before the layer budget runs out?",
+  "assumptions": [
+    "Let \\(T\\) be a finite nonempty tree rooted at \\(r\\). Each vertex \\(v\\) labels a real coordinate and has a known signed target amplitude \\(a_v\\), with \\(\\sum_v a_v^2=1\\). The input is \\(e_r\\), the positive unit coordinate at the root.",
+    "One layer chooses a matching of tree edges. On an edge ordered as (parent, child) it may apply any block \\(\\begin{pmatrix}c&-s\\\\ s&c\\end{pmatrix}\\), with real \\(c,s\\) satisfying \\(c^2+s^2=1\\). Vertices outside the selected edges keep their amplitudes. There are at most \\(d\\ge0\\) layers, where \\(d\\) is an integer."
+  ],
+  "conventions": [
+    "Disjointness refers to vertices in the same layer. A vertex may participate again in a later layer. Empty layers and arbitrary choices of exact angles are allowed.",
+    "The score of an output \\(y\\) is its squared fidelity with \\(a\\), namely \\(|\\sum_v a_vy_v|^2\\). A common sign is immaterial to the score. For a vertex \\(v\\), \\(T_v\\) consists of \\(v\\) and all its descendants."
+  ],
+  "question": "Determine the largest possible score for arbitrary \\(T,a,d\\). Give a recurrence with a table indexed by a vertex \\(v\\) and a remaining layer budget \\(0\\le t\\le d\\). Explain how to evaluate it in time polynomial in \\(|V(T)|\\) and \\(d+1\\), counting real arithmetic and comparisons as unit operations. You may use polynomial-time maximum-weight matching in a bipartite graph.\n\nProve an upper bound for every circuit, including circuits that revisit an edge or cancel an amplitude. Then show how to choose a circuit attaining your answer for signed targets. Address zero target mass among the sites reached by a schedule, a zero budget, and a tree consisting only of the root.\n\nFor a five-vertex example, the root \\(r\\) has children \\(u,v\\), with respective single children \\(u',v'\\). The only nonzero target entries are \\(a_{u'}=1/\\sqrt2\\) and \\(a_{v'}=-1/\\sqrt2\\). Compute the optimum at \\(d=1,2,3\\) and use it to assess the claim that all target mass within graph distance \\(d\\) can always be captured by depth \\(d\\)."
+}

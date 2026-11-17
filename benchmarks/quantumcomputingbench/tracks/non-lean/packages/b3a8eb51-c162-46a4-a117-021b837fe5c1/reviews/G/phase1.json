@@ -1,0 +1,114 @@
+{
+  "reviewer": "/root/review_givens5",
+  "phase": "question-first",
+  "exposure": {
+    "question_files": [
+      "/workspace/scratch/82d94176fa4b/followon5/blind/G/questions/G1s.json",
+      "/workspace/scratch/82d94176fa4b/followon5/blind/G/questions/G2s.json",
+      "/workspace/scratch/82d94176fa4b/followon5/blind/G/questions/G3s.json"
+    ],
+    "permission_files": [
+      "/workspace/scratch/82d94176fa4b/followon5/blind/G/permitted/G1s.json",
+      "/workspace/scratch/82d94176fa4b/followon5/blind/G/permitted/G2s.json",
+      "/workspace/scratch/82d94176fa4b/followon5/blind/G/permitted/G3s.json"
+    ],
+    "source_revision": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+    "source_read_scope": "Only the permitted declaration ranges listed in the items were opened. The mathematical proofs were derived from the frozen questions. No authored solutions, plans, catalog or other reviews were read.",
+    "arithmetic_checks": "Standalone calculations checked the signed path example and the four signs of the active input pair in the G1s example. A small exhaustive causal-schedule enumeration also checked the G3s recurrence for 34 increasing-parent rooted trees of up to five vertices, three choices of nonnegative weights and four budgets, for a total of 408 checks."
+  },
+  "items": [
+    {
+      "slot": "G1s",
+      "question_sha256": "b6c12c91cc863126a2adae94740542199929e06cd07132b3e9c725e154a7ebae",
+      "derivation": [
+        "Let D={k in {0,…,N−2} : P_k ≠ Q_k}. The full answer is all i in {0,…,N−2} such that D⊆{i}. Equivalently, D empty allows every edge, a singleton D forces the edge at that cut, and |D|≥2 rules out the operation.",
+        "Necessity follows cut by cut. For k<i the pair is absent from the prefix. For k>i it is wholly inside, and its total squared norm is invariant under R(θ). Every other coordinate is fixed. Thus only k=i can witness a mass difference.",
+        "For sufficiency set P_{−1}=Q_{−1}=0 and P_{N−1}=Q_{N−1}=1. Then p_j=P_j−P_{j−1} and q_j=Q_j−Q_{j−1}. Under D⊆{i}, these differences agree outside {i,i+1}. Also p_i+p_{i+1}=P_{i+1}−P_{i−1}=Q_{i+1}−Q_{i−1}=q_i+q_{i+1}, including edges at the ends.",
+        "Fix any actual signed input pair (a,b)=(x_i,x_{i+1}). Put m=a²+b² and choose (u,v)=(√q_i,√q_{i+1}), or any desired signs on those two roots. If m>0 set c=(a u+b v)/m, h=(a v−b u)/m. The dot product and determinant identity gives c²+h²=(a²+b²)(u²+v²)/m²=1. In increasing edge order, c a−h b=u and h a+c b=v. Take θ=2 atan2(h,c). Outside the pair preserve the actual input signs. This constructs a gate for every choice of input signs, with the angle allowed to depend on the pair.",
+        "When p=q, the identity angle works on every edge for every signed input. If m=0 and the cut test passes, nonnegativity forces q_i=q_{i+1}=0 and the other probabilities agree, so p=q. Every angle on that pair works. If such an input pair is proposed for a changed report, it cannot explain it.",
+        "In the example, the cut numerator lists on division by 8 are (1,3,4) for p, (1,2,4) for q⁽¹⁾, and (2,4,5) for q⁽²⁾. Thus q⁽¹⁾ has exactly the edge (1,2), whereas q⁽²⁾ differs on cuts 0,1,2 and has no explanation. For the all-positive representative of p, c=2√2/3 and h=1/3 rotate (√(2/8),√(1/8)) to (√(1/8),√(2/8)) in q⁽¹⁾. The formula above covers the other signs."
+      ],
+      "source_checks": [
+        "/workspace/scratch/82d94176fa4b/followon5/blind/G/sources/QuantumBlockEncoding/AdjacentGivens.lean:20–25 defines rotateRows for arbitrary two named rows. The first row receives cos(θ/2) a−sin(θ/2) b, the second sin(θ/2) a+cos(θ/2) b, and outside rows are unchanged. The path choice of consecutive sites is in the question.",
+        "/workspace/scratch/82d94176fa4b/followon5/blind/G/sources/QuantumBlockEncoding/AdjacentGivens.lean:84–97 proves splitAngle_real_firstColumn, which sends (pairNorm x y,0) to a specified signed pair (x,y). A gate between two arbitrary equal-length pairs follows by circle geometry or composition, developed in the derivation.",
+        "/workspace/scratch/82d94176fa4b/followon5/blind/G/sources/QuantumBlockEncoding/RealAmplitudePreparation.lean:147–148 proves pairNorm(x,y)²=x²+y² and relates the scalar pair norm to mass.",
+        "/workspace/scratch/82d94176fa4b/followon5/blind/G/sources/QuantumBlockEncoding/AdjacentGivens.lean:626–630 proves planeMatrix_fixed_column, the identity-column statement for a column index outside the plane. The rotateRows definition supplies the separate unchanged-row statement. The prefix classifier, sufficiency under unknown signs, and sample diagnoses are deductions here."
+      ],
+      "boundary_checks": [
+        "At N=2 there is just one cut. Every normalized two-entry q is possible from every p because that single edge contains all mass.",
+        "Single-site zeros inside a positive-mass pair are included by the coefficients, even for a full transfer or a zero in the desired output. The denominator is the pair mass, never either individual amplitude.",
+        "D empty is equivalent to p=q because the normalized total and the initial boundary are fixed. A zero angle is allowed even when the model asks for exactly one gate.",
+        "The sign quantifier is ∀ signed x consistent with p, ∃θ for that x. A universal angle was not assumed. Four independent active-pair sign choices were also evaluated with the explicit rule for q⁽¹⁾."
+      ],
+      "ambiguities": [
+        "The frozen hypotheses fix normalization, real amplitudes, increasing site order, θ/2 and the information available about signs. No extra convention is needed."
+      ]
+    },
+    {
+      "slot": "G2s",
+      "question_sha256": "c6be4fb9caec236effb35ac53c9aaa2cd1d36476fd73c5a4ea263d2e7b1b6968",
+      "derivation": [
+        "Normalization makes S nonempty. Let L=min(S∪{s}) and H=max(S∪{s}). If H>L, the minimum is H−L. If H=L then x=±e_s. The minimum is 0 for +e_s, 1 for −e_s when N≥2, and +∞ for −e_s at N=1.",
+        "Every edge (j,j+1), L≤j<H, separates s from a site of S. For j<s, the left side contains a target coordinate at the left extreme and initially has zero mass. For j≥s, the right side contains a target coordinate at the right extreme and initially has zero mass. If the cut edge is never used, every gate acts within one side and preserves the total squared amplitude on the other side. The initially zero side would end with no mass. Every such distinct edge must therefore be used at least once, giving H−L on every circuit, even if it visits sites outside [L,H].",
+        "For H>L, solve the reverse problem. Root the interval [L,H] at s and repeatedly prune a leaf other than s, using its one incident remaining edge to zero its amplitude and add the norm of the pair to the parent. A concrete order is j=L,L+1,…,s−1 absorbing j into j+1, then j=H,H−1,…,s+1 absorbing j into j−1. These instructions use each edge once and keep previously pruned entries zero.",
+        "Always use increasing site order. On a pair (a,b) with ρ=√(a²+b²)>0, absorption into the left endpoint, (a,b)↦(ρ,0), uses (c,h)=(a/ρ,−b/ρ). Absorption into the right endpoint, (a,b)↦(0,ρ), uses (c,h)=(b/ρ,a/ρ). In both cases c=cos(θ/2), h=sin(θ/2) are attainable for real θ. When ρ=0, choose identity. The formulas are valid for arbitrary signs and transfer through a zero internal coordinate just as they handle an occupied one.",
+        "The last absorption at s gives the positive norm 1. Thus pruning sends the precise signed x to +e_s using H−L gates. Reverse the gate order and negate every angle to prepare x. Endpoints of [L,H] can include the chosen source even if its target entry is zero. Holes elsewhere in the interval need no extra gates.",
+        "For the zero-length hull, the empty circuit reaches +e_s. It cannot reach −e_s. With a neighbor, θ=2π gives c=−1,h=0, negating both coordinates on that edge, including s and its zero neighbor. This uses one gate and works with s at either endpoint. Without a neighbor, no nonempty circuit exists and the negative target is unreachable.",
+        "In the example L=1,H=6, hence the minimum is 5. To exhibit a signed optimal circuit, use (3,4) with (c,h)=(4/5,3/5), then (2,3) and (1,2) with (0,−1), then (4,5) and (5,6) with (0,1). The first gate makes amplitudes −3/5 at 3 and 4/5 at 4. The next four gates transfer them to 1 and 6, clearing all intervening sites.",
+        "For |S|≥2 let A=min S and B=max S. The minimum count as a function of s is B−A+dist(s,[A,B]). Every integer s between the support extremes, including any holes, minimizes it. Every exterior source costs its positive distance to the interval in extra gates."
+      ],
+      "source_checks": [
+        "/workspace/scratch/82d94176fa4b/followon5/blind/G/sources/QuantumBlockEncoding/AdjacentGivens.lean:176–180 defines a Step with first.val+1=second.val and a real angle, establishing the increasing-site edge convention.",
+        "/workspace/scratch/82d94176fa4b/followon5/blind/G/sources/QuantumBlockEncoding/AdjacentGivens.lean:20–25 defines the ordered signs in the row rotation. The formulas for absorbing into a numerically rightward parent were derived from this definition.",
+        "/workspace/scratch/82d94176fa4b/followon5/blind/G/sources/QuantumBlockEncoding/AdjacentGivens.lean:104–119 proves eliminate_pair with the nonzero residual in the first coordinate. The right-coordinate absorption requires the separate coefficients stated in the construction.",
+        "/workspace/scratch/82d94176fa4b/followon5/blind/G/sources/QuantumBlockEncoding/AdjacentGivens.lean:84–97 proves that the first column can split a pair norm into arbitrary signed real entries.",
+        "/workspace/scratch/82d94176fa4b/followon5/blind/G/sources/QuantumBlockEncoding/AdjacentGivens.lean:208–220 proves that reversing a finite step list and inverting every step undoes it. The proof displays the negated angle.",
+        "/workspace/scratch/82d94176fa4b/followon5/blind/G/sources/QuantumBlockEncoding/AdjacentGivens.lean:70–72 proves orthogonality of a plane on distinct indices. Cut invariance, exact circuit cost, the zero-span sign exception and all optimal source positions are deductions in this review."
+      ],
+      "boundary_checks": [
+        "If S={t} with t≠s, the formula gives |s−t| for either sign of e_t. An edge is present to carry any required sign in the same transfer.",
+        "If s is outside the support hull, the corridor to the nearer support extreme is needed even though the final target vanishes along that corridor. If s lies strictly inside a gap, both arms can use the same reverse-pruning construction.",
+        "For N=1 the assumptions leave only ±e_0. Their costs are respectively 0 and +∞. For N=2 and −e_s the unique edge with θ=2π realizes the cost-one exception.",
+        "When pruning, the nonnegative parent residual on the last edge is essential for the positive source convention. Orientation reversals cannot be implemented by quietly swapping sites for free."
+      ],
+      "ambiguities": [
+        "Preparation fixes a single signed input–output vector pair and retains its common sign. No action on other input vectors is required. The score convention of G3s does not enter this problem."
+      ]
+    },
+    {
+      "slot": "G3s",
+      "question_sha256": "5aa0b85607a57d8cd0ed5bb8bf21184619e1699f118e66fa2f689bf9675b559b",
+      "derivation": [
+        "Use nonnegative vertex weights w_v=a_v². Think of v as already reached at the beginning of a subtree problem with t layers still available. In one layer a reached parent can first reach at most one child, and a newly reached child can begin reaching its own children in the next layer.",
+        "Let F_v(t) be the largest total target weight in a set structurally reached in T_v from v within t layers. With C_v the children, let M range over ordinary matchings between C_v and the slots {1,…,t}, so a child and a slot are each used at most once. Define F_v(t)=w_v+max_M ∑_{(u,j)∈M} F_u(t−j). In particular F_v(0)=w_v, and leaves have F_v(t)=w_v for every t. The requested squared fidelity is F_r(d).",
+        "For any actual circuit, define cumulative structural sets R_0={r} and R_ℓ as R_{ℓ−1} together with the opposite endpoint of every layer-ℓ edge incident to R_{ℓ−1}. This rule ignores block coefficients. Inductively the support of every output prefix is contained in R_ℓ, since applying a linear two-site block to two zero amplitudes keeps both zero. Each R_ℓ is a connected ancestor-closed subtree. The first arrival of any nonroot vertex must be over its unique parent edge, since any connected old set containing the root has no other way to reach it.",
+        "On fixing the lists of gates, discard every edge occurrence except the first-arrival edges, retaining its layer for each retained edge. The retained first-arrival schedule produces the same R_ℓ at every time by induction. It uses one edge per newly reached vertex, and its layers remain matchings. This step is a support bound and need not reproduce the original amplitudes. Gates that revisit edges, reverse a transfer, cancel a nonzero coordinate or act on two zeros are all covered by this definition.",
+        "In a t-layer subtree schedule, if u first arrives in slot j, it has at most t−j subsequent layers in its own subtree. Slots for distinct children of v are distinct by the matching restriction. Hence the weights from the reached child subtrees plus w_v are bounded by the recurrence. Conversely choose a maximizing matching, transmit from v to each chosen child in its assigned slot, and overlay an optimal subtree schedule for that child into slots j+1,…,t. Different child subtrees are vertex-disjoint. The only external edge that uses any selected child is its own transmission, which predates its internal schedule. The parent transmissions use distinct slots, so the combined layers are legal and attain the exact table weight.",
+        "All circuits keep ||y||₂=1. By Cauchy–Schwarz, if y is supported in R=R_d then |⟨a,y⟩|²≤∑_{v∈R}w_v≤F_r(d). This includes structural reach sets with zero actual amplitudes and covers all possible choices of real angles.",
+        "Take a maximizing first-arrival schedule and its structurally reached subtree R, of weight W=F_r(d). If W>0, let b equal a/√W on R and be zero elsewhere. Reconstruct b by reversing an elimination pass. Start with b and visit the first-arrival edges in decreasing layer order. For the ordered (parent,child) pair with current entries (p,q), set ρ=√(p²+q²). If ρ>0 apply (c,h)=(p/ρ,−q/ρ) to send (p,q) to (ρ,0). If ρ=0 use identity. Edges in a layer are disjoint. The edge into a child occurs strictly before any of its transmissions in forward time, so this reverse order eliminates the child's entire descendant part before merging its residual into its parent. Each nonroot member of R ends at zero.",
+        "If R contains an edge, the last merge into r yields positive total norm 1, so the pass ends at e_r. Inverting each block by changing h to −h, and restoring the forward layer order, sends e_r to the exact signed b. Its fidelity is |⟨a,b⟩|²=W. If R={r} and W>0, use the empty circuit. For a_r<0 this produces −b, which has the same squared fidelity. This also explains why sign problems at an isolated root never lower the optimal score.",
+        "If W=0, division by √W is unnecessary. The universal bound already forces score zero, and the empty circuit attains it because w_r≤W. Even with W>0 an entire reached branch can have zero target mass. Its zero pairs may use identity during elimination, and its zero coordinates cost no normalization or sign choices.",
+        "Compute table entries in postorder. At (v,t) construct the bipartite graph of |C_v| children and t slots with weight F_u(t−j) for an edge (u,j). Use a polynomial-time maximum-weight matching that allows unmatched vertices, regarding an empty matching as weight zero. Storing maximizing matchings reconstructs a schedule. For example, padding to a square assignment of side ≤|C_v|+t≤n+d with dummy zero-weight edges gives an O(n(d+1)(n+d)³) arithmetic/comparison time bound with a cubic assignment algorithm, where n=|V|. Nonnegative weights also allow extending a partial optimum in a rectangular assignment without decreasing it. The value table itself has n(d+1) entries. Angles are needed only to realize a chosen schedule, not to evaluate its score.",
+        "In the example, w_{u′}=w_{v′}=1/2 and all other weights vanish. At depth 1, neither leaf can be structurally reached, so the optimum is 0. At depth 2, at most one child of r can be reached in layer 1 and its leaf can be reached in layer 2. A single root-to-leaf transfer gives fidelity 1/2. At depth 3 use (r,u) with c=h=1/√2 in layer 1. In layer 2 use (u,u′) with (c,h)=(0,1) simultaneously with (r,v) with (c,h)=(0,−1). In layer 3 use (v,v′) with (0,1). The output has +1/√2 at u′ and −1/√2 at v′, hence fidelity 1. Both leaves are at distance 2 from r, so their distance-2 ball contains total target mass 1, whereas depth 2 captures at most 1/2."
+      ],
+      "source_checks": [
+        "/workspace/scratch/82d94176fa4b/followon5/blind/G/sources/QuantumBlockEncoding/AdjacentGivens.lean:20–25 defines the ordered two-row real rotation. In the question the order is (parent,child), regardless of any labels. Moving these local rotations to a tree and imposing a matching per layer are problem assumptions.",
+        "/workspace/scratch/82d94176fa4b/followon5/blind/G/sources/QuantumBlockEncoding/AdjacentGivens.lean:84–97 proves the first-column split of a scalar pair norm into two given real entries. It supplies the signed two-site primitive.",
+        "/workspace/scratch/82d94176fa4b/followon5/blind/G/sources/QuantumBlockEncoding/AdjacentGivens.lean:42–55 proves that negating the angle on the same ordered distinct rows reverses a rotation. The reverse-layer construction uses this local inverse.",
+        "/workspace/scratch/82d94176fa4b/followon5/blind/G/sources/QuantumBlockEncoding/AdjacentGivens.lean:70–72 proves ordinary plane orthogonality on distinct coordinates, which yields norm preservation for the disjoint rotations of a layer.",
+        "/workspace/scratch/82d94176fa4b/followon5/blind/G/sources/QuantumBlockEncoding/AdjacentGivens.lean:104–119 proves elimination into the ordered first site (here the parent). The explicit coefficients and reverse-time organization are given in this review.",
+        "/workspace/scratch/82d94176fa4b/followon5/blind/G/sources/QuantumBlockEncoding/RealAmplitudePreparation.lean:147–148 proves the squared pair norm equals the sum of the two squared amplitudes. The support argument, time-slot recurrence, maximum matching computation, Cauchy–Schwarz bound, its saturation, and the depth obstruction are separate deductions."
+      ],
+      "boundary_checks": [
+        "The budget counts successive matchings. In particular the same edge cannot be used to relay from its newly reached child to a grandchild during that same slot, yielding the exact subtraction t−j.",
+        "A structurally reached site need not carry nonzero amplitude in the physical circuit. Zero target values at interior routing sites are allowed, including a reached zero-mass subtree during synthesis.",
+        "At d=0, R={r}, F_r(0)=a_r² and e_r attains it regardless of the target sign at r. If the tree consists only of r then normalization gives a_r=±1 and F_r(d)=1 for every d.",
+        "The frequency of repeated edges, destructive cancellations and rotations on already reached pairs is unrestricted in the upper bound. A first-arrival schedule is enough to attain the optimum even if the optimal original circuit used such operations.",
+        "As an arithmetic cross-check, independent enumeration of all matching layers agreed with the recurrence for budgets 0–3 on 34 parent-labelled rooted trees of orders 1–5 and three separate weight choices."
+      ],
+      "ambiguities": [
+        "The structural time convention used here marks a root as already reached before slot 1 and marks contact at the end of a slot. This implements the simultaneous, vertex-disjoint layer definition in the question. Common sign is immaterial precisely because the objective is squared fidelity."
+      ]
+    }
+  ]
+}

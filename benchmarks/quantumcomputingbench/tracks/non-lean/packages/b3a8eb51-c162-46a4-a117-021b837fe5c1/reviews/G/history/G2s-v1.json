@@ -1,0 +1,323 @@
+{
+  "slot": "G2s",
+  "title": "How many adjacent rotations prepare one signed state?",
+  "assumptions": [
+    "Let \\(N\\ge1\\). The real coordinate sites of a path are \\(0,\\ldots,N-1\\). The known target \\(x\\in\\mathbb R^N\\) has \\(\\sum_jx_j^2=1\\). Its support is \\(S=\\{j:x_j\\ne0\\}\\). The input \\(e_s\\) has amplitude \\(+1\\) at the specified site \\(s\\).",
+    "A gate on edge \\((j,j+1)\\) applies \\(R(\\theta)=\\begin{pmatrix}\\cos(\\theta/2)&-\\sin(\\theta/2)\\\\ \\sin(\\theta/2)&\\cos(\\theta/2)\\end{pmatrix}\\) to the two amplitudes in increasing site order and fixes all other amplitudes. Every real angle is allowed."
+  ],
+  "conventions": [
+    "One use of a gate costs one, regardless of angle. The empty circuit costs zero. There are no auxiliary sites, free sign changes or free permutations.",
+    "Preparation must output the particular signed vector \\(x\\). Only the action on \\(e_s\\) is prescribed. Assign minimum cost \\(+\\infty\\) to an unreachable target."
+  ],
+  "question": "Find the exact minimum gate count for every \\(x\\) and \\(s\\). Give a lower bound that applies to every circuit, including those that visit sites outside the target support. Provide a construction meeting the bound whenever the target is reachable. Account for holes in the support, both signs of a target supported only at \\(s\\), and the one-site path.\n\nAs a check, on sites \\(0,\\ldots,7\\) start at \\(s=4\\) and take \\(x=(0,-3,0,0,0,0,4,0)/5\\). What is the minimum count? More generally, when \\(S\\) has at least two sites and the source can be chosen, which choices of \\(s\\) minimize the count?",
+  "schema_version": "qcb.nonlean_reviewed_packet.v1",
+  "author": "/root/author_givens5",
+  "core_id": "candidate:f395b202-3c4f-4c80-9e0e-4668772faf2c",
+  "proposal_id": "f395b202-3c4f-4c80-9e0e-4668772faf2c",
+  "admission": "candidate_not_counted",
+  "contribution_type": "new_candidate",
+  "dedup_review_required": true,
+  "base_commit": "036aea2a107d9258bba1c20b6e58cb6b9ee484f5",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "family": "local-plane-rotation-state-preparation",
+  "split": "unassigned_pending_reconciliation",
+  "proposed_use": {
+    "proposed_use": "Public study and proposed training, pending maintainer reconciliation of exposure and official split.",
+    "family_group": "local-plane-rotation-state-preparation",
+    "status": "public_study_only",
+    "training_clearance": "pending maintainer split reconciliation",
+    "empirical_calibration": false
+  },
+  "target_nodes": [
+    "declaration:QuantumBlockEncoding.AdjacentGivens.Step",
+    "declaration:QuantumBlockEncoding.AdjacentGivens.rotateRows",
+    "declaration:QuantumBlockEncoding.AdjacentGivens.eliminate_pair"
+  ],
+  "supporting_nodes": [
+    "declaration:QuantumBlockEncoding.AdjacentGivens.splitAngle_real_firstColumn",
+    "declaration:QuantumBlockEncoding.AdjacentGivens.applySteps_reverse_inverse",
+    "declaration:QuantumBlockEncoding.AdjacentGivens.planeMatrix_orthogonal"
+  ],
+  "source_refs": [
+    {
+      "path": "QuantumBlockEncoding/AdjacentGivens.lean",
+      "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+      "sha256_lf": "a43c3b4f543738cb317be01fa664fd466bfa28e21c33d10c7a90e74037a58d9c",
+      "sha256_raw": "a43c3b4f543738cb317be01fa664fd466bfa28e21c33d10c7a90e74037a58d9c",
+      "license": "MIT (project sources; see root LICENSE)",
+      "anchor": "Step lines 176–180; rotateRows lines 20–25; eliminate_pair lines 104–119; splitAngle_real_firstColumn lines 84–97; applySteps_reverse_inverse lines 208–220; planeMatrix_orthogonal lines 70–72",
+      "declaration_spans": [
+        {
+          "node_id": "declaration:QuantumBlockEncoding.AdjacentGivens.Step",
+          "start": 176,
+          "end": 180,
+          "sha256_lf": "f8a823ba3148b93c3b13ac6fd4fa71c9feceb19acfb347524b10360ac2a67133",
+          "scope": "The frozen snapshot marks this record Partial route with status legacy_source_semantic_debt. Its declaration text records two numerical indices whose second is one above the first and one real angle. This supports only the path-edge convention. The separate rotation and elimination declarations provide its local mathematical ingredients; the record gives no optimality result."
+        },
+        {
+          "node_id": "declaration:QuantumBlockEncoding.AdjacentGivens.rotateRows",
+          "start": 20,
+          "end": 25,
+          "sha256_lf": "caf35f09b6a13fdb2233186b3adb0ca484cb7fae158cc8ddf908893be8b17de2",
+          "scope": "Defines the signed half-angle update of the two selected real rows, leaving other rows unchanged. A single column gives the site-amplitude rule. The definition gives no test from probabilities, propagation bound or scheduling optimum."
+        },
+        {
+          "node_id": "declaration:QuantumBlockEncoding.AdjacentGivens.eliminate_pair",
+          "start": 104,
+          "end": 119,
+          "sha256_lf": "c7cfbfb0477cb85b1d4dd84662560413d18d4ad99adcc87ccec1881472a1e546",
+          "scope": "For any real pair the specified elimination angle takes it to its nonnegative norm in the first position and zero in the second. Reorientation of endpoints and use in tree schedules are further deductions."
+        },
+        {
+          "node_id": "declaration:QuantumBlockEncoding.AdjacentGivens.splitAngle_real_firstColumn",
+          "start": 84,
+          "end": 97,
+          "sha256_lf": "0672d1c9bc8359048c89a26bcdd23281bdcf3ac2d0222114362657c16d91f429",
+          "scope": "For any two signed real numbers, the cosine and sine of half the split angle, multiplied by their Euclidean pair norm, reproduce the two numbers. This is a two-coordinate existence ingredient."
+        },
+        {
+          "node_id": "declaration:QuantumBlockEncoding.AdjacentGivens.applySteps_reverse_inverse",
+          "start": 208,
+          "end": 220,
+          "sha256_lf": "32007e68bbfcc33828f74ba1b3f54242947da7a00bbfc40df635e9aee8630529",
+          "scope": "A list of adjacent steps is inverted on any real rectangular array by reversing the list and negating its angles. This is an exact replay identity for that list, independent of any count lower bound."
+        },
+        {
+          "node_id": "declaration:QuantumBlockEncoding.AdjacentGivens.planeMatrix_orthogonal",
+          "start": 70,
+          "end": 72,
+          "sha256_lf": "df923753689b873e7ca9851fe84ec8020995a02ae2a3b823b6df7f534c3b007e",
+          "scope": "A plane matrix on distinct indices is orthogonal. This supplies exact norm preservation on each edge. It does not assert that a whole sphere is reachable within a specified depth."
+        }
+      ]
+    }
+  ],
+  "evidence_boundary": "The frozen declarations supply the scoped mathematical ingredients recorded per span. The reasoning map and its new conclusions are natural-language derivations. No new kernel execution.",
+  "reference_answer": "The unit target has nonempty support. Write \\(L=\\min(S\\cup\\{s\\})\\), \\(R=\\max(S\\cup\\{s\\})\\), and \\(h=R-L\\). If \\(h>0\\), the minimum is \\(h\\). If \\(h=0\\), the target is \\(e_s\\) or \\(-e_s\\). The former costs zero. The latter costs one for \\(N\\ge2\\) and is unreachable for \\(N=1\\).\n\nFor each \\(L\\le k<R\\), cut the path at the edge \\((k,k+1)\\). On the side not containing \\(s\\) there is at least one nonzero target coordinate: for \\(k<s\\) use \\(L\\), and for \\(k\\ge s\\) use \\(R\\). That whole side is initially zero. Without a gate on the cut edge, it is acted on only by rotations internal to that side and therefore stays zero. Thus every circuit must use each of these \\(h\\) distinct edges. Excursions, repeat visits and cancellations preserve this lower bound.\n\nFor the upper bound, start with the target and root the interval \\([L,R]\\) at \\(s\\). Remove its leaves one at a time, keeping \\(s\\) to the end. On each leaf edge use one rotation to put the current pair norm at the parent and zero at the leaf; a zero pair needs at most the identity. This works in both edge orders: for the increasing-index pair \\((u,v)\\) of radius \\(\\rho>0\\), coefficients \\((c,b)=(u,-v)/\\rho\\) send it to \\((\\rho,0)\\), while \\((c,b)=(v,u)/\\rho\\) send it to \\((0,\\rho)\\), with the block \\(\\begin{pmatrix}c&-b\\\\b&c\\end{pmatrix}\\). Each removed coordinate then stays zero, regardless of the target signs or internal holes. There are \\(h\\) edges and no outside amplitudes. If \\(h>0\\), the last operation leaves a nonnegative root entry and orthogonality gives it norm one. Reverse the list and negate the angles to prepare the original signed target in at most \\(h\\) gates. The cut bound makes this optimal.\n\nWhen \\(h=0\\), the empty circuit gives \\(+e_s\\), and it cannot give \\(-e_s\\). If \\(N\\ge2\\), select either incident edge and set \\(\\theta=2\\pi\\), so the local block is \\(-I_2\\) and the neighboring zero remains zero. This witnesses the one-gate minimum. If \\(N=1\\) there is no edge, and only \\(+e_s\\) is reachable.\n\nFor the eight-site target, the interval is \\([1,6]\\), so the minimum is five. One explicit preparation from \\(e_4\\) uses the edges \\((3,4),(2,3),(1,2),(4,5),(5,6)\\) in that order. On the first choose \\((\\cos(\\theta/2),\\sin(\\theta/2))=(4/5,3/5)\\), then use \\((0,-1)\\) twice and \\((0,1)\\) twice. This sends \\(-3/5\\) to site \\(1\\) and \\(4/5\\) to site \\(6\\). For multisite \\(S\\) with extremes \\(\\ell<u\\), the count is \\(u-\\ell+\\operatorname{dist}(s,[\\ell,u])\\). Every site from \\(\\ell\\) through \\(u\\) is optimal, including any holes, and each outside site costs strictly more.",
+  "rubric": [
+    {
+      "id": "R1",
+      "weight": 1,
+      "criterion": "Use the specified positive basis input, exact signed target and unit cost per adjacent two-site operation. Identify that only the action on this one input is constrained.",
+      "partial": "Award 1 when the cost and equality conventions are correctly expressed or applied."
+    },
+    {
+      "id": "R2",
+      "weight": 2,
+      "criterion": "Establish for every circuit that each edge between the extreme sites of the support together with the source must be used. Initially the far side is zero, without the edge it remains zero, and the edges cost separately.",
+      "partial": "Award 1 for recognizing the required cuts or proving the obstruction for one cut. Award 2 for applying it to all distinct required cuts and adding their costs."
+    },
+    {
+      "id": "R3",
+      "weight": 3,
+      "criterion": "Construct a preparation in at most the hull length: give a legal ordered-edge mechanism for signed pairs in either orientation, apply it throughout the interval while preserving previous work, and obtain the exact signed target from the source within budget.",
+      "partial": "Award 1 each for the valid local mechanism, its full traversal including holes, and the input/output sign and gate-count verification. Any equivalent synthesis earns the same points."
+    },
+    {
+      "id": "R4",
+      "weight": 2,
+      "criterion": "State the sharp count for positive hull length and both source-only signs. Supply the one-gate sign-flip witness when a neighbor exists and the obstruction for a one-site path.",
+      "partial": "Award 1 for the ordinary count and the empty-circuit positive case, and 1 for the negative singleton with its finite or infinite cost and justification."
+    },
+    {
+      "id": "R5",
+      "weight": 2,
+      "criterion": "Give the five-gate example count and all minimizing source sites on a general multisite target, with justification.",
+      "partial": "Award 1 for each correct part. The example needs the count and a valid justification; an explicit numerical gate list is optional."
+    }
+  ],
+  "common_errors": [
+    "Count nonzero target entries and overlook zero intermediate sites or the transport distance from the source.",
+    "Read the length of one chosen sweep or a whole-matrix compiler as a lower bound on every state-preparation circuit.",
+    "Ignore the independent signs, including treating the vector \\(-e_s\\) as identical to \\(e_s\\), or choose the wrong sign when the parent is the second endpoint.",
+    "Return an unreachable sign flip on the one-site path or require a free permutation to place the source."
+  ],
+  "valid_alternatives": [
+    "Award the full 10 points to any mathematically valid solution answering all requested parts. The proof may use a different circuit, invariant, example implementation or order of elimination.",
+    "For the upper bound, distribute subtree norms forward along the interval rooted at \\(s\\). At each site keep enough mass for the remaining branches and give each finished coordinate its signed target value. Verify orientations and that every edge is used at most once.",
+    "For the lower bound, consider the graph of all used edges, whose connected component at \\(s\\) contains every nonzero output site. A path component spanning the source and support contains all \\(R-L\\) edges. This argument also handles circuits visiting extra sites."
+  ],
+  "boundary_cases": [
+    {
+      "condition": "\\(x=e_s\\).",
+      "conclusion": "The optimal empty circuit uses zero gates, including at \\(N=1\\)."
+    },
+    {
+      "condition": "\\(x=-e_s\\) and \\(N\\ge2\\).",
+      "conclusion": "One \\(2\\pi\\) rotation on any incident edge suffices and zero gates cannot suffice."
+    },
+    {
+      "condition": "\\(N=1,\\ x=-e_s\\).",
+      "conclusion": "The minimum is \\(+\\infty\\), since there is no legal gate."
+    },
+    {
+      "condition": "The support is a single site different from the source.",
+      "conclusion": "The minimum is its path distance from \\(s\\) for either target sign."
+    },
+    {
+      "condition": "The source lies in a hole between two nonzero target sites.",
+      "conclusion": "The hull includes every edge across the hole. For free source choice this interior site is as good as either support extreme."
+    }
+  ],
+  "reasoning_map": {
+    "nodes": [
+      {
+        "id": "N1",
+        "kind": "given",
+        "claim": "The input is \\(+e_s\\), the target is a signed real unit vector, and gates are unit-cost adjacent-plane rotations on the path.",
+        "anchors": [
+          "declaration:QuantumBlockEncoding.AdjacentGivens.Step",
+          "declaration:QuantumBlockEncoding.AdjacentGivens.rotateRows"
+        ],
+        "requires": []
+      },
+      {
+        "id": "N2",
+        "kind": "derive",
+        "claim": "If a particular edge is absent, its two components evolve independently. The side initially equal to zero stays identically zero.",
+        "anchors": [
+          "declaration:QuantumBlockEncoding.AdjacentGivens.rotateRows"
+        ],
+        "requires": [
+          "N1"
+        ]
+      },
+      {
+        "id": "N3",
+        "kind": "derive",
+        "claim": "Each cut from \\(L\\) to \\(R\\) separates \\(s\\) from at least one nonzero target coordinate. Distinct cuts correspond to distinct legal gates on this path.",
+        "anchors": [
+          "declaration:QuantumBlockEncoding.AdjacentGivens.Step"
+        ],
+        "requires": [
+          "N1"
+        ]
+      },
+      {
+        "id": "N4",
+        "kind": "derive",
+        "claim": "Any circuit with a positive-length hull has cost at least \\(R-L\\), even when it also uses other edges.",
+        "anchors": [],
+        "requires": [
+          "N2",
+          "N3"
+        ]
+      },
+      {
+        "id": "N5",
+        "kind": "derive",
+        "claim": "On an ordered pair of either orientation one real rotation can fold all signed pair mass into the parent with nonnegative sign. Orthogonality preserves the total norm.",
+        "anchors": [
+          "declaration:QuantumBlockEncoding.AdjacentGivens.rotateRows",
+          "declaration:QuantumBlockEncoding.AdjacentGivens.eliminate_pair",
+          "declaration:QuantumBlockEncoding.AdjacentGivens.splitAngle_real_firstColumn",
+          "declaration:QuantumBlockEncoding.AdjacentGivens.planeMatrix_orthogonal"
+        ],
+        "requires": [
+          "N1"
+        ]
+      },
+      {
+        "id": "N6",
+        "kind": "derive",
+        "claim": "Leaf elimination on the interval rooted at \\(s\\) uses at most one step per edge, leaves removed coordinates zero, and for \\(R>L\\) ends at \\(+e_s\\).",
+        "anchors": [
+          "declaration:QuantumBlockEncoding.AdjacentGivens.rotateRows",
+          "declaration:QuantumBlockEncoding.AdjacentGivens.eliminate_pair",
+          "declaration:QuantumBlockEncoding.AdjacentGivens.planeMatrix_orthogonal"
+        ],
+        "requires": [
+          "N3",
+          "N5"
+        ]
+      },
+      {
+        "id": "N7",
+        "kind": "derive",
+        "claim": "Inverting the elimination produces the exact signed target with at most \\(R-L\\) steps.",
+        "anchors": [
+          "declaration:QuantumBlockEncoding.AdjacentGivens.applySteps_reverse_inverse"
+        ],
+        "requires": [
+          "N6"
+        ]
+      },
+      {
+        "id": "N8",
+        "kind": "derive",
+        "claim": "For positive hull length the minimum is \\(R-L\\).",
+        "anchors": [],
+        "requires": [
+          "N4",
+          "N7"
+        ]
+      },
+      {
+        "id": "N9",
+        "kind": "derive",
+        "claim": "The sole unit targets on a zero-length hull are \\(\\pm e_s\\); an empty list gives the positive sign. A \\(2\\pi\\) rotation flips the negative sign into reach when \\(N\\ge2\\), while a one-site path has no gate.",
+        "anchors": [
+          "declaration:QuantumBlockEncoding.AdjacentGivens.rotateRows",
+          "declaration:QuantumBlockEncoding.AdjacentGivens.Step"
+        ],
+        "requires": [
+          "N1"
+        ]
+      },
+      {
+        "id": "N10",
+        "kind": "derive",
+        "claim": "The eight-site hull has five edges. For multisite support \\([\\ell,u]\\) is the interval of minimizing source choices, and outside cost increases by the distance to it.",
+        "anchors": [],
+        "requires": [
+          "N8"
+        ]
+      }
+    ],
+    "joins": [
+      {
+        "node": "N4",
+        "necessary_inputs": [
+          "N2",
+          "N3"
+        ],
+        "why_each": "The cut invariant describes what omitting an edge enforces. The endpoints of the hull certify that a positive final amplitude violates that invariant at every enumerated cut."
+      },
+      {
+        "node": "N6",
+        "necessary_inputs": [
+          "N3",
+          "N5"
+        ],
+        "why_each": "The interval geometry supplies a leaf order and the number of edges. Signed pair folding supplies the legal local move in that order and the final nonnegative norm."
+      },
+      {
+        "node": "N8",
+        "necessary_inputs": [
+          "N4",
+          "N7"
+        ],
+        "why_each": "The bound from graph cuts applies to every competing circuit. The inverse elimination supplies one circuit with the matching cost. Neither result alone identifies the minimum."
+      }
+    ],
+    "alternative_routes": [
+      {
+        "assumptions": "One input basis coordinate and an arbitrary signed real target, with arbitrary angles on path edges.",
+        "route": "Mark a site as reachable whenever it is connected to the source in the used-edge graph. Its connected component yields the lower bound. A forward traversal distributes subtree norms, selecting final signed values as coordinates are completed."
+      },
+      {
+        "assumptions": "A positive-length hull; isolated-source signs are handled separately.",
+        "route": "Peel left and right toward \\(s\\) with signed polar angles, or compress either side to a neighbor before the final merge and invert the sequence. Count distinct interval edges and prove all cuts necessary."
+      }
+    ],
+    "interpretation": "Dependencies below are author-specified local mathematical premises. Source graph edge IDs in the source index express ownership."
+  },
+  "difficulty": {
+    "construction_band": "D3",
+    "D0_facet": "Use the specified positive basis input, exact signed target and unit cost per adjacent two-site operation. Identify that only the action on this one input is constrained.",
+    "rationale": "Identify all separating cuts forced by the target, show they impose additive gate lower bounds, construct a signed preparation on the intervening path including zero target entries, settle both source-only signs and the one-site obstruction, and optimize source placement on multisite supports.",
+    "calibrated": false
+  },
+  "mathematical_target": "Find the exact minimum number of adjacent coordinate rotations taking a chosen basis vector to a specified signed vector, prove a lower bound against every circuit, and identify optimal source positions. G1s observes an unknown single gate; this item designs a shortest sequence."
+}

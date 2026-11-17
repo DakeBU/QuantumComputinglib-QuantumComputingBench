@@ -1,0 +1,13 @@
+{
+  "slot": "G2s",
+  "title": "How many adjacent rotations prepare one signed state?",
+  "assumptions": [
+    "Let \\(N\\ge1\\). The real coordinate sites of a path are \\(0,\\ldots,N-1\\). The known target \\(x\\in\\mathbb R^N\\) has \\(\\sum_jx_j^2=1\\). Its support is \\(S=\\{j:x_j\\ne0\\}\\). The input \\(e_s\\) has amplitude \\(+1\\) at the specified site \\(s\\).",
+    "A gate on edge \\((j,j+1)\\) applies \\(R(\\theta)=\\begin{pmatrix}\\cos(\\theta/2)&-\\sin(\\theta/2)\\\\ \\sin(\\theta/2)&\\cos(\\theta/2)\\end{pmatrix}\\) to the two amplitudes in increasing site order and fixes all other amplitudes. Every real angle is allowed."
+  ],
+  "conventions": [
+    "One use of a gate costs one, regardless of angle. The empty circuit costs zero. There are no auxiliary sites, free sign changes or free permutations.",
+    "Preparation must output the particular signed vector \\(x\\). Only the action on \\(e_s\\) is prescribed. Assign minimum cost \\(+\\infty\\) to an unreachable target."
+  ],
+  "question": "Find the exact minimum gate count for every \\(x\\) and \\(s\\). Give a lower bound that applies to every circuit, including those that visit sites outside the target support. Provide a construction meeting the bound whenever the target is reachable. Account for holes in the support, both signs of a target supported only at \\(s\\), and the one-site path.\n\nAs a check, on sites \\(0,\\ldots,7\\) start at \\(s=4\\) and take \\(x=(0,-3,0,0,0,0,4,0)/5\\). What is the minimum count? More generally, when \\(S\\) has at least two sites and the source can be chosen, which choices of \\(s\\) minimize the count?"
+}

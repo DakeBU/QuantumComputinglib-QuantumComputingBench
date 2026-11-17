@@ -1,0 +1,127 @@
+{
+  "proposal_id": "d8b64c65-9538-4632-9055-ed457c15a557",
+  "core_id": "candidate:d8b64c65-9538-4632-9055-ed457c15a557",
+  "track": "non-lean",
+  "author": "/root/author_givens5",
+  "admission": "candidate_not_counted",
+  "dedup_review_required": true,
+  "source_nodes": [
+    "declaration:QuantumBlockEncoding.AdjacentGivens.rotateRows",
+    "declaration:QuantumBlockEncoding.AdjacentGivens.splitAngle_real_firstColumn",
+    "declaration:QuantumBlockEncoding.RealAmplitudePreparation.pairNorm_sq",
+    "declaration:QuantumBlockEncoding.AdjacentGivens.planeMatrix_fixed_column"
+  ],
+  "view_kind": "derivation",
+  "family": "local-plane-rotation-state-preparation",
+  "split": "unassigned_pending_reconciliation",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "contract_hash": "5fe8afa97753544517c4e1f9ddea9142a5746663c17299c73d58585023d1837e",
+  "proposed_contract": {
+    "question": "Using the two lists of cut masses, find every edge on which one gate could have produced the second report. Give a necessary and sufficient test and justify it for every choice of signs consistent with \\(p\\), allowing the angle to depend on the actual input. Explain what the test says when the reports agree and when the input has zero mass on the proposed pair.\n\nFor \\(N=4\\), suppose \\(p=(1,2,1,4)/8\\). Diagnose each proposed output \\(q^{(1)}=(1,1,2,4)/8\\) and \\(q^{(2)}=(2,2,1,3)/8\\). For each, give all possible edge locations or explain why no single gate fits.",
+    "assumptions": [
+      "The sites \\(0,\\ldots,N-1\\) are arranged on a line, with \\(N\\ge2\\). The input is a real unit vector \\(x\\). Two exact population reports \\(p,q\\) have nonnegative entries summing to one, with \\(p_j=x_j^2\\). The input signs are unreported.",
+      "The proposed explanation is exactly one operation on an edge \\((i,i+1)\\). On that ordered pair it applies \\(R(\\theta)=\\begin{pmatrix}\\cos(\\theta/2)&-\\sin(\\theta/2)\\\\ \\sin(\\theta/2)&\\cos(\\theta/2)\\end{pmatrix}\\) for an arbitrary real \\(\\theta\\), fixing every other coordinate."
+    ],
+    "conventions": [
+      "The angle may be zero. An explanation need only reproduce the output populations \\(q_j\\); no output signs are specified.",
+      "Write \\(P_k=\\sum_{j=0}^{k}p_j\\) and \\(Q_k=\\sum_{j=0}^{k}q_j\\) for the mass to the left of the cut between \\(k\\) and \\(k+1\\), where \\(0\\le k<N-1\\)."
+    ],
+    "family": "local-plane-rotation-state-preparation",
+    "split": "unassigned_pending_reconciliation",
+    "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+    "target_nodes": [
+      "declaration:QuantumBlockEncoding.AdjacentGivens.rotateRows",
+      "declaration:QuantumBlockEncoding.AdjacentGivens.splitAngle_real_firstColumn"
+    ],
+    "supporting_nodes": [
+      "declaration:QuantumBlockEncoding.RealAmplitudePreparation.pairNorm_sq",
+      "declaration:QuantumBlockEncoding.AdjacentGivens.planeMatrix_fixed_column"
+    ],
+    "source_refs": [
+      {
+        "path": "QuantumBlockEncoding/AdjacentGivens.lean",
+        "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "sha256_lf": "a43c3b4f543738cb317be01fa664fd466bfa28e21c33d10c7a90e74037a58d9c",
+        "sha256_raw": "a43c3b4f543738cb317be01fa664fd466bfa28e21c33d10c7a90e74037a58d9c",
+        "license": "MIT (project sources; see root LICENSE)",
+        "anchor": "rotateRows lines 20–25; splitAngle_real_firstColumn lines 84–97; planeMatrix_fixed_column lines 626–630",
+        "declaration_spans": [
+          {
+            "node_id": "declaration:QuantumBlockEncoding.AdjacentGivens.rotateRows",
+            "start": 20,
+            "end": 25,
+            "sha256_lf": "caf35f09b6a13fdb2233186b3adb0ca484cb7fae158cc8ddf908893be8b17de2",
+            "scope": "Defines the signed half-angle update of the two selected real rows, leaving other rows unchanged. A single column gives the site-amplitude rule. The definition gives no test from probabilities, propagation bound or scheduling optimum."
+          },
+          {
+            "node_id": "declaration:QuantumBlockEncoding.AdjacentGivens.splitAngle_real_firstColumn",
+            "start": 84,
+            "end": 97,
+            "sha256_lf": "0672d1c9bc8359048c89a26bcdd23281bdcf3ac2d0222114362657c16d91f429",
+            "scope": "For any two signed real numbers, the cosine and sine of half the split angle, multiplied by their Euclidean pair norm, reproduce the two numbers. This is a two-coordinate existence ingredient."
+          },
+          {
+            "node_id": "declaration:QuantumBlockEncoding.AdjacentGivens.planeMatrix_fixed_column",
+            "start": 626,
+            "end": 630,
+            "sha256_lf": "9ba2edcf9dd6af8f62568bb0619cc729f0eae28c6c01c77807a6eedba5419bad",
+            "scope": "A basis column whose index is outside the two selected indices equals the corresponding identity column in every row."
+          }
+        ]
+      },
+      {
+        "path": "QuantumBlockEncoding/RealAmplitudePreparation.lean",
+        "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "sha256_lf": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+        "sha256_raw": "a6ded7e65a7e42d5724529befb48eefc9505814136206dd96248fb59b3c45efa",
+        "license": "MIT (project sources; see root LICENSE)",
+        "anchor": "pairNorm_sq lines 147–148",
+        "declaration_spans": [
+          {
+            "node_id": "declaration:QuantumBlockEncoding.RealAmplitudePreparation.pairNorm_sq",
+            "start": 147,
+            "end": 148,
+            "sha256_lf": "48576cae5ba13a897bfef52d1a0d0e85ea78594b1dc5ece47eb446147cbe1dcf",
+            "scope": "The square of the real pair norm is the sum of the two squared entries. No graph or measurement identification is part of this equality."
+          }
+        ]
+      }
+    ]
+  },
+  "base_commit": "036aea2a107d9258bba1c20b6e58cb6b9ee484f5",
+  "package_id": "b3a8eb51-c162-46a4-a117-021b837fe5c1",
+  "slot": "G1s",
+  "title": "Which adjacent gate could explain two population measurements?",
+  "mathematical_target": "Identify all adjacent edges compatible with two population profiles using their cumulative sums, including observations which distinguish an edge and those which cannot distinguish any location.",
+  "payload_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/b3a8eb51-c162-46a4-a117-021b837fe5c1/qa/G1s.json",
+  "payload_sha256": "607b15527314d2480ecdc98bba9d17f8e3bf584332410131610bf945648b5885",
+  "item_digest": "94660313b99eff7e16debfff92d8833134ed7acb76e2e49e9b191704f134063e",
+  "review_records": [
+    {
+      "slot": "G1s",
+      "core_id": "candidate:d8b64c65-9538-4632-9055-ed457c15a557",
+      "author": "/root/author_givens5",
+      "reviewer": "/root/review_givens5",
+      "verdict": "accept",
+      "semantic_core_verdict": "Within the frozen comparison plan, this is inverse identification of all possible adjacent operations from cut masses. The reusable signed pair orbit and sum-of-squares facts supply the local mechanism. Recovering candidate edges from measured prefixes and proving sign-uniform feasibility constitute the distinguishing work, including versus the listed marginal and coherence examples.",
+      "question_sha256": "b6c12c91cc863126a2adae94740542199929e06cd07132b3e9c725e154a7ebae",
+      "phase1_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/b3a8eb51-c162-46a4-a117-021b837fe5c1/reviews/G/phase1.json",
+      "phase1_sha256": "9d8c0227bfa31f17d2cc76df2da25cc8fe9b37c4f29d0f0d453e7e6e8f2bf71b",
+      "report_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/b3a8eb51-c162-46a4-a117-021b837fe5c1/reviews/G/phase2.json",
+      "report_sha256": "9133db65f7624c3aa0d73a184dcc55b64fefc69c7adbf625fa61abf9c4bb4756",
+      "payload_sha256": "607b15527314d2480ecdc98bba9d17f8e3bf584332410131610bf945648b5885",
+      "item_digest": "94660313b99eff7e16debfff92d8833134ed7acb76e2e49e9b191704f134063e",
+      "human_approval": false,
+      "admission": "candidate_not_counted"
+    }
+  ],
+  "status": "reviewed_pending_maintainer_reconciliation",
+  "count_effect": "zero",
+  "usage": {
+    "proposed_use": "Public study and proposed training, pending maintainer reconciliation of exposure and official split.",
+    "family_group": "local-plane-rotation-state-preparation",
+    "status": "public_study_only",
+    "training_clearance": "pending maintainer split reconciliation",
+    "empirical_calibration": false
+  }
+}

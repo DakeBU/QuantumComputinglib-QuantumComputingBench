@@ -1,0 +1,98 @@
+{
+  "proposal_id": "35a8d38b-181c-429a-bba4-2a1fa0d4a6cf",
+  "core_id": "candidate:35a8d38b-181c-429a-bba4-2a1fa0d4a6cf",
+  "track": "non-lean",
+  "author": "/root/author_monomial5",
+  "admission": "candidate_not_counted",
+  "dedup_review_required": true,
+  "source_nodes": [
+    "declaration:QuantumBlockEncoding.phasePermutationMatrix_mul",
+    "declaration:QuantumBlockEncoding.phasePermutationMatrix"
+  ],
+  "view_kind": "derivation",
+  "family": "monomial-unitary-cycle-data",
+  "split": "unassigned_pending_reconciliation",
+  "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+  "contract_hash": "c66960fbb88f88c873e5e3261f46e0550f1283379fb8159032c3ffed35340e49",
+  "proposed_contract": {
+    "question": "Derive the characteristic polynomial and a formula for every positive power trace from the cycles and their edge weights. Suppose first that no two cycles have the same length. Using only \\(t_1,\\ldots,t_N\\) and the known permutation, recover each \\(h_C\\) on its own cycle and prove your procedure works even when one cycle length divides another.\n\nCan all global power traces determine even the multiset of products for each length for an arbitrary known permutation? Decide this already for one permutation with two fixed points and two transpositions. If recovery fails, construct two unit-modulus weight assignments on that same permutation. Verify equality of all their power traces and a difference of product multisets within at least one length, so that relabeling cycles of equal length cannot remove the ambiguity.\n\nNow augment the readout as follows. For each occurring length \\(\\ell\\), let \\(m_\\ell\\) count its cycles and let \\(P_\\ell\\) project onto the span of all basis vectors on those cycles. You receive \\(\\operatorname{tr}(P_\\ell U^{k\\ell})\\) for \\(1\\leq k\\leq m_\\ell\\). Determine what product data these reports recover for each length. Prove recovery with multiplicities and explain precisely when these reports assign the recovered products uniquely to the labeled cycles.",
+    "assumptions": [
+      "Let \\(X\\) be a finite labeled set of size \\(N\\geq1\\), and let \\(p\\) be a known permutation. An unknown unitary acts on the labeled orthonormal basis by \\(U|x\\rangle=a_x|p(x)\\rangle\\), with \\(|a_x|=1\\). For each oriented cycle \\(C\\) of \\(p\\), let \\(h_C=\\prod_{x\\in C}a_x\\).",
+      "The data are exact complex numbers. Write \\(t_n=\\operatorname{tr}(U^n)\\) for the global power traces. One may use Newton’s identities, which recover a monic degree-\\(m\\) polynomial from the first \\(m\\) power sums of its roots counted with multiplicity."
+    ],
+    "conventions": [
+      "Cycles of length one are included. An arc follows the directed edge \\(x\\mapsto p(x)\\). A cycle product belongs to its labeled cycle unless the requested output explicitly asks for an unordered multiset. The characteristic polynomial is \\(\\det(zI-U)\\)."
+    ],
+    "family": "monomial-unitary-cycle-data",
+    "split": "unassigned_pending_reconciliation",
+    "graph_version": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+    "target_nodes": [
+      "declaration:QuantumBlockEncoding.phasePermutationMatrix_mul"
+    ],
+    "supporting_nodes": [
+      "declaration:QuantumBlockEncoding.phasePermutationMatrix"
+    ],
+    "source_refs": [
+      {
+        "path": "QuantumBlockEncoding/PrimitiveMacros.lean",
+        "source_commit": "86b9e677566498da04faebcf4e5ed57f177c6bb1",
+        "sha256_lf": "c1cea784608c9bc1533a0a026368f63f2f5b3606e34463149b73fad9f7221f63",
+        "sha256_raw": "c1cea784608c9bc1533a0a026368f63f2f5b3606e34463149b73fad9f7221f63",
+        "license": "MIT (project sources; see root LICENSE)",
+        "anchor": "phasePermutationMatrix_mul lines 180–196; phasePermutationMatrix lines 174–178",
+        "declaration_spans": [
+          {
+            "node_id": "declaration:QuantumBlockEncoding.phasePermutationMatrix_mul",
+            "start": 180,
+            "end": 196,
+            "sha256_lf": "44a7d1fe53f47aa5b10f5397086a18fb15814aaba5f6054865750fe06f299485",
+            "scope": "Proves the exact two-factor multiplication law for finite complex weighted permutations. The second factor acts first, and the later weight is evaluated on the intermediate label. Iteration, fixed-reference calibration, trace recovery and ambiguity constructions are authored deductions."
+          },
+          {
+            "node_id": "declaration:QuantumBlockEncoding.phasePermutationMatrix",
+            "start": 174,
+            "end": 178,
+            "sha256_lf": "4536d6f5017348fe144af2873ec81b0df201fd83233bcafbe5ed1cf759b5c75e",
+            "scope": "Defines a finite complex matrix with entry equal to the input-column weight when the row is the image of that column under the given bijection, and zero otherwise. The definition allows arbitrary complex weights. Unit-modulus assumptions, cycle invariants and inverse measurement claims enter in the questions."
+          }
+        ]
+      }
+    ]
+  },
+  "base_commit": "036aea2a107d9258bba1c20b6e58cb6b9ee484f5",
+  "package_id": "b3a8eb51-c162-46a4-a117-021b837fe5c1",
+  "slot": "C3s",
+  "title": "What can power traces recover about cycle phases?",
+  "mathematical_target": "The data aggregate all lengths in each power. Distinct cycle lengths admit recursive labeled recovery even with divisibility. Repeated lengths can even conceal changes to the multiset at a given length. Length-resolved reports recover each multiset with multiplicity, while any unequal products within a length still allow assignments to different labels.",
+  "payload_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/b3a8eb51-c162-46a4-a117-021b837fe5c1/qa/C3s.json",
+  "payload_sha256": "4babde4f2012cbd49a30ed19a22380a0b7843ba2249c2e6bb6ba5933782525fb",
+  "item_digest": "5c35b32633bb41c5944ad9ba90f59bbbeb3223cc605e5daab1d9e88fbe69981c",
+  "review_records": [
+    {
+      "slot": "C3s",
+      "core_id": "candidate:35a8d38b-181c-429a-bba4-2a1fa0d4a6cf",
+      "author": "/root/author_monomial5",
+      "reviewer": "/root/review_monomial5",
+      "verdict": "accept",
+      "semantic_core_verdict": "Accept as an inverse problem for exact complex traces of powers of a single weighted, known, labeled permutation. Its specific content is triangular recovery for distinct lengths, a genuine collision between different within-length multisets, and recovery with multiplicity and label-assignment boundaries using projected traces. The matrix and multiplication declarations supply the starting action rather than a formal proof of these inverse claims.",
+      "question_sha256": "ca03a54ffad61d67fb60e29cc79ecc3f5be57e4fef771fc9eb18c92c0854d83d",
+      "phase1_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/b3a8eb51-c162-46a4-a117-021b837fe5c1/reviews/C/phase1.json",
+      "phase1_sha256": "5be6d25dba4809c9e30690e77b00da6eb67b8afdc222f1efb7758db63c4d8f9d",
+      "report_path": "benchmarks/quantumcomputingbench/tracks/non-lean/packages/b3a8eb51-c162-46a4-a117-021b837fe5c1/reviews/C/phase2.json",
+      "report_sha256": "9d5e5e528f997704067bd2e45175b32e6ab0571257add3c729360b1aaf326055",
+      "payload_sha256": "4babde4f2012cbd49a30ed19a22380a0b7843ba2249c2e6bb6ba5933782525fb",
+      "item_digest": "5c35b32633bb41c5944ad9ba90f59bbbeb3223cc605e5daab1d9e88fbe69981c",
+      "human_approval": false,
+      "admission": "candidate_not_counted"
+    }
+  ],
+  "status": "reviewed_pending_maintainer_reconciliation",
+  "count_effect": "zero",
+  "usage": {
+    "proposed_use": "Public study/proposed-training candidate. Official split unassigned.",
+    "family_group": "Monomial unitaries on labeled permutation cycles",
+    "status": "public_study_only",
+    "training_clearance": "pending maintainer split reconciliation",
+    "empirical_calibration": false
+  }
+}
