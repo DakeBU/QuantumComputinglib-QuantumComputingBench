@@ -30,10 +30,25 @@ GRAPH_LINKS = '''<div class="home-graph-links" aria-label="Explore the two graph
     <span>Conceptual transports, required inputs and failure boundaries.</span></a>
 </div>'''
 HERO_ACTIONS = '''<div class="hero-actions">
-  <a class="text-link" href="learning/index.html">Start reading &#8594;</a>
+  <a class="text-link" href="reading-guide/index.html">Start reading &#8594;</a>
   <a class="text-link" href="quantumcomputingbench/index.html">QuantumComputingBench &#8594;</a>
   <a class="text-link" href="example-cases/index.html">Explore a worked case &#8594;</a>
 </div>'''
+
+
+def write_library_guide(root, site, report, context):
+    route = "reading-guide/"
+    page = site.page_template(
+        title="Reading guide", route=route, current=route,
+        body=(Path(__file__).parents[1] / "reading-guide.html").read_text(encoding="utf-8"),
+        coverage=report["coverage"], gate=report["leanGate"], context=context,
+        description="Read a worked quantum construction, its assumptions and its evidence.",
+        toc=[("worked-example", "A one-qubit example"), ("evidence", "Evidence"),
+             ("continue-reading", "Reading routes")],
+    )
+    site.write_page(root, route, page)
+
+
 REVEAL_TARGET = '''<script data-reader-reveal="1">
 (() => {
   function revealTarget() {

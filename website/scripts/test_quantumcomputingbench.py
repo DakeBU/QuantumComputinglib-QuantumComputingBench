@@ -61,7 +61,9 @@ class CurriculumTests(unittest.TestCase):
             for node in views[entry['view_id']]['task']['nodes']:
                 self.assertIn(reader.esc(node['target']), body)
             self.assertIn(reader.esc(entry['difficulty']['imported_shortcut']), body)
-            self.assertIn('not extracted Lean proof-term dependencies', body)
+            self.assertIn('This map comes from the evaluator’s task.', body)
+            self.assertIn('For Lean proof-term dependencies, inspect the proof itself.', body)
+            self.assertLess(body.index('Formal target'), body.index('Supplied subgoals and imports'))
         self.assertEqual(self.catalog, before)
 
     def test_course_levels_link_existing_cores_and_keep_d0_a_facet(self):

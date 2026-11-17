@@ -9,6 +9,7 @@ from pathlib import PurePosixPath
 from urllib.parse import quote
 
 from website.scripts.qcb_math import render_prose
+from website.scripts.qcb_navigation import exercise_contents
 
 HUB = 'quantumcomputingbench/'
 BASE = HUB + 'non-lean/workbook/'
@@ -141,7 +142,12 @@ def page_body(entry, workbook, graph, live_ids, publication_commit):
         body += '<p class="qcb-meta">Additional exposition of <a href="' + prefix + HUB + 'cores/' + esc(p['core_id']) + '/index.html">' + esc(p['core_id']) + '</a>. The same mathematical contract and ' + esc(p['split']) + ' split apply; this is not another question.</p>'
     else:
         body += '<p class="qcb-meta">Supplementary candidate · split unassigned · outside canonical train/test exports.</p>'
-    body += section('Assumptions and conventions', prose_list(p['assumptions']) + prose_list(p['conventions']), 'assumptions')
+    body += exercise_contents([('assumptions', 'Set-up'), ('question', 'Question'), ('solution', 'Solution'),
+                               ('rubric', 'Scoring'), ('reasoning', 'Reasoning steps'), ('graph', 'Lean Graph')])
+    premises = ''.join('<h3>' + title + '</h3>' + prose_list(p[field])
+                       for field, title in (('assumptions', 'Assumptions'), ('conventions', 'Notation and conventions'))
+                       if p[field])
+    body += section('Assumptions and conventions', premises, 'assumptions')
     body += section('Question', render_prose(p['question']), 'question')
     equations = ''
     for eq in entry['notation']['equations']:

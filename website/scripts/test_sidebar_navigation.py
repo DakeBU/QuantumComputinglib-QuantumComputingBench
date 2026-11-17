@@ -151,6 +151,7 @@ class ReaderHierarchyTests(unittest.TestCase):
             self.assertEqual(result.count(original[section.start:section.end]), 1, key)
             after.one(lambda n: n.attrs.get('id') == key)
         hero = before.one(lambda n: n.has_class('home-hero'))
+        self.assertIn('href="reading-guide/index.html"', result)
         hero_nodes = reader_hierarchy.Spans(original[hero.start:hero.end])
         for name in ('hero-scope', 'home-book-links', 'evidence-note'):
             node = hero_nodes.one(lambda n: n.has_class(name))

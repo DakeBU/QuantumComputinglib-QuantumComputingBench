@@ -37,15 +37,21 @@ def card(title, description, href, eyebrow=''):
             + '<h2><a href="' + esc(href) + '">' + esc(title) + '</a></h2><p>' + esc(description) + '</p></article>')
 
 
+def exercise_contents(links):
+    return ('<nav class="qcb-exercise-contents" aria-label="Exercise contents"><ul>'
+            + ''.join('<li><a href="#' + esc(id_) + '">' + esc(label) + '</a></li>' for id_, label in links)
+            + '</ul></nav>')
+
+
 def overview(intro, catalog, native_lean_count):
-    body = intro('QuantumComputingBench', 'Evaluate quantum-computing knowledge, mathematical reasoning and Lean proof skills against a traceable library graph.')
-    body += '<div class="qcb-actions"><a class="button" href="run/index.html">Run the benchmark →</a><a class="button secondary" href="tasks/index.html">Explore tasks</a></div>'
+    body = intro('QuantumComputingBench', 'Study quantum computing through precise questions and worked arguments, then test the same skills in a defined benchmark run.')
+    body += '<div class="qcb-actions"><a class="button" href="tasks/index.html">Find a question</a><a class="button secondary" href="run/index.html">Run an evaluation</a></div>'
     body += '<div class="qcb-grid qcb-capability-paths">'
-    body += card('Knowledge & reasoning', 'Answer precise mathematical questions, justify deductions and diagnose missing assumptions.', 'tasks/index.html', 'Natural language')
-    body += card('Agentic Lean', 'Work on fixed proof targets, inspect supplied interfaces and compare proof-completion methods.', 'run/agentic-lean/index.html', 'Formal proof')
-    body += card('Graph-grounded coverage', 'Locate every task in the source library, from a local interface to a connected argument.', 'expert/index.html', 'For experts')
+    body += card('Natural-language workbook', 'Read the assumptions, try an exercise, and compare your derivation with its solution.', 'non-lean/workbook/index.html')
+    body += card('Lean course', 'Progress from reading a statement to proving local claims and composing them.', 'lean/index.html')
+    body += card('Graph and source atlas', 'Find the declarations a question uses and see where its argument extends the source.', 'expert/index.html')
     body += '</div>'
-    body += '<p class="qcb-inventory-line">' + str(len(catalog['cores'])) + ' shared mathematical cores · ' + str(native_lean_count) + ' admitted native Lean views · <a href="study/index.html">Study by subject or difficulty</a></p>'
+    body += '<p class="qcb-inventory-line">' + str(len(catalog['cores'])) + ' shared mathematical cores · ' + str(native_lean_count) + ' admitted native Lean views · <a href="run/assessment/index.html">Training and assessment protocol</a></p>'
     body += '<p class="qcb-status-line">Open development edition. Public answers support study and diagnostics; measured model results and a hidden holdout are not yet published. <a href="evidence/index.html">Scope and evidence →</a></p>'
     return body + '</div>'
 
