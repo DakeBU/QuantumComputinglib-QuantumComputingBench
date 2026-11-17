@@ -26,6 +26,16 @@ class Parsed(HTMLParser):
 
 
 class MathPresentationTests(unittest.TestCase):
+    def test_set_builder_tex_keeps_exact_source_and_portable_attribute(self):
+        tex = r't_n=\sum_{C:\,|C|\mid n}|C|h_C^{n/|C|}'
+        source = r'\(' + tex + r'\)'
+        rendered = math.math_html(source, tex)
+        attrs = Parsed(rendered).math[0]
+        self.assertEqual(attrs['data-qcb-math-source'], source)
+        self.assertEqual(attrs['data-qcb-math-tex'].replace(r': \,|', r':\,|'), tex)
+        self.assertNotIn(r':\,|', attrs['data-qcb-math-tex'])
+        self.assertTrue(rendered.endswith(source + '</span>'))
+
     def test_actual_legacy_algebra_keeps_orientation_and_precedence(self):
         cases = {
             'A * A^T = 1': r'A\cdot A^{T}=1',
