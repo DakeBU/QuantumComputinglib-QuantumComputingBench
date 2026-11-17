@@ -1,0 +1,66 @@
+<section class="hero">
+  <h1>Read a quantum construction</h1>
+  <p class="lede">Start with the input and the promised output. Follow the proof
+  as far as you need, then inspect the source for the exact assumptions.</p>
+</section>
+<section class="content-section" id="worked-example">
+  <h2>A one-qubit example</h2>
+  <p>Work in \(\mathbb C^2\) with ordered basis \(|0\rangle,|1\rangle\).
+  Here the preparation contract is a unitary matrix that takes the
+  first basis vector to a specified unit vector.
+  To prepare \(|+\rangle=(|0\rangle+|1\rangle)/\sqrt2\), use the Hadamard matrix.</p>
+  <div class="contract-equation">\[
+  H=\frac1{\sqrt2}\begin{pmatrix}1&1\\1&-1\end{pmatrix},
+  \qquad H|0\rangle=\frac1{\sqrt2}\begin{pmatrix}1\\1\end{pmatrix}.
+  \]</div>
+  <ol>
+    <li>Each column has squared norm \((1+1)/2=1\), and their inner product
+    is \((1-1)/2=0\). Thus \(H^\dagger H=I_2\), where \(H^\dagger\)
+    is the conjugate transpose and \(I_2\) is the \(2\times2\) identity.
+    Since \(H\) is square, this proves it is unitary.</li>
+    <li>Multiplication by \(|0\rangle=(1,0)^T\) selects the first column,
+    which is the requested state.</li>
+  </ol>
+  <p>The identity gives the final amplitudes. By the Born rule,
+  measuring in the specified basis gives probabilities \(1/2\) and \(1/2\).
+  The state \((|0\rangle-|1\rangle)/\sqrt2\) gives the same probabilities
+  in this basis, so these probabilities leave the relative phase undetermined.</p>
+  <p><a href="../example-cases/state-preparation/index.html">Open the state-preparation examples</a>
+  · <a href="../library/modules/textbookstatepreparation/index.html#decl-quantumblockencoding-textbookstatepreparation-hadamardcertificate-prepares-plus">Read the exact Lean statement</a></p>
+</section>
+<section class="content-section" id="evidence">
+  <h2>What the evidence establishes</h2>
+  <dl>
+    <dt><strong>Lean proof</strong></dt><dd>The fixed declaration follows
+    under its stated hypotheses. Use the statement to check which output,
+    approximation and resource claims it includes.</dd>
+    <dt><strong>Natural-language derivation</strong></dt><dd>Follow the
+    intermediate steps under the displayed assumptions. Source links identify
+    the definitions and results the derivation uses.</dd>
+    <dt><strong>Executable check</strong></dt><dd>A named instance was
+    evaluated with documented inputs, backend and any applicable tolerance. Inspect the reported
+    parameters before extrapolating.</dd>
+    <dt><strong>Planned development</strong></dt><dd>A source or construction
+    route has been identified. Its open mathematical obligations are listed
+    alongside the plan.</dd>
+  </dl>
+  <p><a href="../lean-graph/index.html">Lean Graph</a> for declarations and
+  library structure. An import makes declarations available in a module.
+  <a href="../functor-hypergraph/index.html">Functor Hypergraph</a> for
+  mathematical interfaces between constructions, including the conditions
+  required to combine several inputs.</p>
+</section>
+<section class="content-section" id="continue-reading">
+  <h2>Choose a route</h2>
+  <ul>
+    <li><a href="../learning/index.html">Textbooks by subject</a>. For an
+    algorithm, check the encoding, oracle, error norm, cost units and readout
+    contract before comparing resource bounds.</li>
+    <li><a href="../quantumcomputingbench/non-lean/workbook/index.html">Natural-language
+    exercises</a>. Try the question with its stated conventions, then open
+    the worked solution and rubric.</li>
+    <li><a href="../quantumcomputingbench/lean/index.html">Lean exercises</a>.
+    Read the formal destination first, then open its supplied intermediate
+    goals and source evidence.</li>
+  </ul>
+</section>

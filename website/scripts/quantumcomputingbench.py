@@ -362,7 +362,8 @@ def course_panel(core, prefix, publication_commit=None):
     if not entry:
         return ""
     task = views[entry["view_id"]]["task"]
-    body = '<p>This experimental companion studies the same mathematical core. Its fixed roots and authored references have been checked; it does not add a canonical Lean admission or certify the whole explanation.</p>'
+    root = next(node for node in task["nodes"] if node["id"] == task["root_id"])
+    body = '<h3>Formal target</h3><pre><code>' + esc(root["target"]) + '</code></pre>'
     scope = views[entry["view_id"]].get("formal_scope")
     if scope:
         body += '<p class="qcb-status-line"><strong>Formal coverage:</strong> ' + esc(scope.removeprefix("PARTIAL_WHOLE_QUESTION: ")) + '</p>'
@@ -372,14 +373,16 @@ def course_panel(core, prefix, publication_commit=None):
     parents = entry["prerequisite_core_ids"]
     if parents:
         body += '<p>Suggested reading, not required theorem dependencies: ' + ', '.join('<a href="' + prefix + HUB + 'cores/' + p + '/index.html">' + esc(course_label(p)) + '</a>' for p in parents) + '.</p>'
-    body += '<h3>Exact supplied obligation map</h3><p>Each row is a formal subgoal. An arrow supplies a previously established result to a later subgoal; all listed inputs are available together. This is an evaluator-supplied graph, not extracted Lean proof-term dependencies.</p><ol class="qcb-obligations">'
+    obligations = '<p>This map comes from the evaluator’s task. Each subgoal lists the earlier results supplied together. For Lean proof-term dependencies, inspect the proof itself.</p><ol class="qcb-obligations">'
     for node in task["nodes"]:
-        body += '<li><code>' + esc(node["id"]) + '</code><p class="qcb-meta">' + ('Inputs: ' + esc(', '.join(node['depends_on'])) if node['depends_on'] else 'No preceding supplied obligation') + (' · final root' if node['id'] == task['root_id'] else '') + '</p><pre><code>' + esc(node["target"]) + '</code></pre></li>'
-    body += '</ol><p>Imports: <code>' + esc(', '.join(task['imports'])) + '</code>. Both whole-root and supplied-DAG protocols see this decomposition. Only intermediate checking and reuse differ; imported helpers remain available.</p>'
-    body += '<p>Construction levels are provisional. A callable exact theorem or finite decision procedure can make an apparently deep route easy. Model difficulty, a calibrated process reward and faithful internal reasoning are not established by this graph.</p>'
+        obligations += '<li><code>' + esc(node["id"]) + '</code><p class="qcb-meta">' + ('Inputs: ' + esc(', '.join(node['depends_on'])) if node['depends_on'] else 'No preceding supplied obligation') + (' · final root' if node['id'] == task['root_id'] else '') + '</p><pre><code>' + esc(node["target"]) + '</code></pre></li>'
+    obligations += '</ol><p>Imports: <code>' + esc(', '.join(task['imports'])) + '</code>. Both protocols use this supplied decomposition. The supplied-DAG protocol checks and reuses intermediate proofs.</p>'
+    body += disclosure("Supplied subgoals and imports", obligations, "course-subgoals")
+    evidence = '<p>Lean checked the fixed targets using authored references. See Sources and provenance for the natural-language review scope. The difficulty band describes the supplied route. Real-model scores and isolated candidate proof execution remain pending.</p>'
     if publication_commit and re.fullmatch(r'[0-9a-f]{40}', publication_commit):
         base = REPO + '/tree/' + publication_commit + '/benchmarks/quantumcomputingbench/'
-        body += '<p>Inspect the <a href="' + base + 'tracks/lean/curriculum/course-v4.json">course manifest</a> and the <a href="' + base + 'reports/lean-course-v4">current cohort evidence</a>. Earlier <a href="' + base + 'reports/lean-course-v1">first</a>, <a href="' + base + 'reports/lean-course-v2">second</a> and <a href="' + base + 'reports/lean-course-v3">third cohort evidence</a> is preserved. Receipts retain their actual execution commits and scope; publishing this page does not rerun those proofs.</p>'
+        evidence += '<p>Inspect the <a href="' + base + 'tracks/lean/curriculum/course-v4.json">course manifest</a> and the <a href="' + base + 'reports/lean-course-v4">current cohort evidence</a>. Earlier <a href="' + base + 'reports/lean-course-v1">first</a>, <a href="' + base + 'reports/lean-course-v2">second</a> and <a href="' + base + 'reports/lean-course-v3">third cohort evidence</a> retain their execution commits and scope.</p>'
+    body += disclosure("Verification evidence", evidence, "course-evidence")
     return disclosure("Guided course and optional Lean obligations", body, "course")
 
 
@@ -456,6 +459,7 @@ def source_list(item):
 
 def core_body(core, item, catalog, graph, live_ids, prefix, publication_commit=None, expert_index=None):
     from website.scripts.qcb_math import question_equations
+    from website.scripts.qcb_navigation import exercise_contents
     part = next(p for p in catalog["parts"] if p["id"] == core["part"])
     parent = prefix + HUB + "non-lean/" + part["id"] + "/" + core["topic"] + "/index.html"
     body = '<article class="qcb-reader"><p class="qcb-breadcrumb"><a href="' + esc(parent) + '">' + esc(part["title"]) + ' / ' + esc(title_of(core["topic"])) + '</a></p>'
@@ -467,10 +471,17 @@ def core_body(core, item, catalog, graph, live_ids, prefix, publication_commit=N
                     'Additive answer successor with distinct content-bound review; historical rejected answer retained only for audit.' if core.get("textbook_successor") else
                     'Current content-bound mathematical second pass accepted.' if core.get("editorial_second_pass") == "content_bound_review_accepted" else
                     'Inherited reviews only; a current content-bound mathematical second pass remains pending.')
-    body += '<p class="qcb-meta">Source relation: ' + esc(core["evidence_relation"].replace("_", " ")) + '. Review details are folded under Sources and provenance.</p>'
-    premises = ''.join('<ul data-qcb-active-' + field + '>' + ''.join(
+    course = course_panel(core, prefix, publication_commit)
+    links = [('assumptions', 'Set-up'), ('question', 'Question'), ('solution', 'Solution'), ('rubric', 'Scoring')]
+    if course:
+        links.append(('course', 'Lean proof route'))
+    elif 'lean' in core['views']:
+        links.append(('lean', 'Lean statement'))
+    links.append(('graph', 'Lean Graph'))
+    body += exercise_contents(links)
+    premises = ''.join('<h3>' + title + '</h3><ul data-qcb-active-' + field + '>' + ''.join(
         '<li>' + prose(s) + '</li>' for s in item[field]) + '</ul>'
-        for field in ('assumptions', 'conventions'))
+        for field, title in (('assumptions', 'Assumptions'), ('conventions', 'Notation and conventions')) if item[field])
     body += section("Assumptions and conventions", premises, "assumptions")
     if core.get("question_successor"):
         body += '<p class="qcb-boundary" data-qcb-question-version="' + esc(core["question_version"]) + '">This question explicitly revises its historical contract. A Lean companion must bind the current contract hash, not the predecessor hash. This is one reserved core, not two exercises.</p>'
@@ -484,7 +495,7 @@ def core_body(core, item, catalog, graph, live_ids, prefix, publication_commit=N
     body += disclosure("Reference solution", prose(item["reference_answer"]), "solution")
     rubric = '<ol>' + "".join('<li>' + prose(r["criterion"]) + ' <small>(' + esc(r["weight"]) + ' weight)</small></li>' for r in item["rubric"]) + '</ol>'
     body += disclosure("Assessment rubric", rubric, "rubric")
-    body += course_panel(core, prefix, publication_commit)
+    body += course
     if expert_index is not None:
         from website.scripts.qcb_expert import expert_panel, graph_summary
         body += disclosure("Location in the Lean graph", graph_summary(core["core_id"], expert_index, prefix), "graph")
@@ -503,7 +514,7 @@ def core_body(core, item, catalog, graph, live_ids, prefix, publication_commit=N
         formal_body = '<p>No aligned Lean view has been admitted for this native core in this textbook checkpoint. This is not a claim that the underlying mathematics lacks a formal proof. Contributions must preserve this exact target contract and split.</p>'
     formal_body += '<p><a href="' + prefix + HUB + 'lean/index.html">Read the Lean track and existing diagnostic warmups</a></p>'
     body += disclosure("Lean view and evidence boundary", formal_body, "lean")
-    body += disclosure("Sources and provenance", '<p>' + esc(review_status) + ' No new Lean verification is claimed for this NL view.</p>' + source_list(item) + '<p>Contract: <code>' + esc(core["contract_hash"]) + '</code></p><p>Item digest: <code>' + esc(core["item_digest"]) + '</code></p><p>Graph snapshot: <code>' + esc(core["snapshot_id"]) + '</code></p><p>Authored support steps: ' + str(core["semantic_steps"]) + '. This is not measured graph distance or model difficulty.</p>', "sources")
+    body += disclosure("Sources and provenance", '<p>Source relation: ' + esc(core["evidence_relation"].replace("_", " ")) + '.</p><p>' + esc(review_status) + ' No new Lean verification is claimed for this NL view.</p>' + source_list(item) + '<p>Contract: <code>' + esc(core["contract_hash"]) + '</code></p><p>Item digest: <code>' + esc(core["item_digest"]) + '</code></p><p>Graph snapshot: <code>' + esc(core["snapshot_id"]) + '</code></p><p>Authored support steps: ' + str(core["semantic_steps"]) + '. This is not measured graph distance or model difficulty.</p>', "sources")
     if core.get("textbook_successor"):
         body += disclosure("Answer revision lineage", prose(json.dumps(core["textbook_successor"], indent=2)), "revision")
     if core.get("question_successor"):
@@ -665,9 +676,7 @@ def publish(root):
         heading = 'QuantumComputing<wbr>Bench' if title == 'QuantumComputingBench' else esc(title)
         return '<div class="qcb-reader"><p class="eyebrow">QuantumComputingBench</p><h1>' + heading + '</h1><div class="qcb-deck">' + prose(subtitle) + '</div>'
 
-    overview_body = overview(intro, catalog, native_lean_count)
-    overview_body = overview_body.replace('<p class="qcb-inventory-line">', '<p class="qcb-reading-options"><a href="run/assessment/index.html">Train and assess a model →</a> · <a href="lean/index.html">Follow the Lean proof course</a></p><p class="qcb-inventory-line">', 1)
-    write(HUB, "QuantumComputingBench", overview_body,
+    write(HUB, "QuantumComputingBench", overview(intro, catalog, native_lean_count),
           "Graph-grounded evaluation of quantum-computing knowledge, mathematical reasoning and Lean proof skills.")
     hierarchy_report = publish_navigation(write, intro, catalog, items, registry, course_plan)
     publish_course(write, intro, course_plan, course_views, course_report)
@@ -773,8 +782,9 @@ def publish(root):
     if 'static/quantumcomputingbench.css' not in text:
         text = text.replace('</head>', '<link rel="stylesheet" href="./static/quantumcomputingbench.css"></head>', 1)
     home.write_text(text, encoding="utf-8")
+    from website.scripts.reader_hierarchy import publish as publish_site_hierarchy, write_library_guide
+    write_library_guide(root, site, report, context)
     patch_navigation(root)
-    from website.scripts.reader_hierarchy import publish as publish_site_hierarchy
     site_hierarchy_report = publish_site_hierarchy(root)
     search_path = root / "search-index.json"
     search = read_json(search_path)

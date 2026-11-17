@@ -148,6 +148,9 @@ class WorkbookTests(unittest.TestCase):
             for i in range(1, 4):
                 self.assertIn('/' + prefix + str(i) + 's/index.html', subject)
         geometry = pages[view.BASE + 'g3s/']
+        self.assertIn('aria-label="Exercise contents"', geometry)
+        self.assertLess(geometry.index('Notation and conventions</h3>'), geometry.index('<h2>Question</h2>'))
+        self.assertIn('href="#reasoning"', geometry)
         self.assertIn('Why the steps combine', geometry)
         self.assertIn('Equivalent solutions', geometry)
         self.assertIn('phase', pages[view.BASE + 'phase-cycles/'].lower())

@@ -57,18 +57,17 @@ def publish_lean_route(write, intro, catalog, plan, label, native_cards, subject
         raise ValueError("Lean reading route requires unique shared course cores")
     by_band = Counter(entry["difficulty"]["construction_band"] for entry in entries)
     native_count = sum("lean" in core["views"] for core in catalog["cores"])
-    body = intro("From quantum mathematics to Lean proof", "Understand a target, construct a local proof, compose interfaces, then handle a whole family. Start with the mathematics; formal syntax is optional for reading.")
+    body = intro("From quantum mathematics to Lean proof", "Start with the mathematical question. Open its Lean companion when you want to see the exact statement or attempt a formal proof.")
     body += '<p class="qcb-breadcrumb"><a href="../index.html">QuantumComputingBench</a> / Lean route</p>'
-    body += '<p class="qcb-inventory-line" data-qcb-lean-course-count="' + str(len(core_ids)) + '">' + str(len(core_ids)) + ' existing mathematical cores have experimental course companions. Natural-language and formal views keep the same core, family and split.</p>'
+    body += '<p><a class="button" href="understand/index.html">Start with the statement</a> <a href="../run/agentic-lean/index.html">Prepare a Lean evaluation</a></p>'
     body += '<ol class="qcb-ladder" data-qcb-lean-stages>'
     for key, title, levels, description, band in STAGES:
         count = len(_entries(plan, key, band))
         counting = ('D0 reading facet across all ' + str(count) + ' cores; ' + str(by_band['D1'])
                     + (' D1 route' if by_band['D1'] == 1 else ' D1 routes')) if key == 'understand' else str(count) + ' shared cores'
         body += '<li><a href="' + key + '/index.html"><span class="qcb-level">' + levels + '</span><strong>' + title + '</strong></a><p>' + description + '</p><small>' + counting + '</small></li>'
-    body += '</ol><p class="qcb-status-line">D0 studies these same questions; it adds no core. D1–D4 describe provisional construction routes, not measured model difficulty.</p>'
-    body += '<p>Each question offers a mathematical statement and optional formal obligations on one page. Attempt it before opening the hint, solution or reference proof.</p>'
-    body += '<p><a class="button" href="understand/index.html">Start with the contract →</a> <a href="../run/agentic-lean/index.html">Prepare an Agentic Lean evaluation</a></p>'
+    body += '</ol><p class="qcb-inventory-line" data-qcb-lean-course-count="' + str(len(core_ids)) + '">' + str(len(core_ids)) + ' existing mathematical cores in the staged course.</p>'
+    body += '<p class="qcb-status-line">D0 studies these same questions; it adds no core. D1–D4 describe provisional construction routes, not measured model difficulty.</p>'
     body += fold("What is checked?", '<dl class="qcb-legend"><dt>Knowledge</dt><dd>Read definitions, dimensions and assumptions. D0 is a facet of the same mathematical target.</dd><dt>Reasoning</dt><dd>Explain the local argument or interface composition. A checked formal root does not grade every explanatory sentence.</dd><dt>Agentic proof</dt><dd>Compare proof-completion methods under a declared import, feedback and verifier contract. A supplied obligation DAG is not an interactive Lean REPL or extracted proof-term dependency graph.</dd></dl><p>Admitted native views check exact conclusions by library-lemma application. Course companions have bounded authored-reference evidence; they do not automatically become canonical Lean admissions or live model tasks. Trusted reference replay is separate from isolated generated-proof evaluation.</p>', 'scope')
     if native_cards:
         body += fold('Admitted native formal views (' + str(native_count) + ')', native_cards, 'native-views')
