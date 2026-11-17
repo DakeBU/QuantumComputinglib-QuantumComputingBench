@@ -90,17 +90,6 @@ class SanitizerTests(unittest.TestCase):
         self.assertEqual(scrubbed, text)
         self.assertEqual(changed, 0)
 
-    def test_publication_scan_distinguishes_tex_thin_space_from_drive_path(self) -> None:
-        root = Path.cwd().resolve()
-        with tempfile.TemporaryDirectory() as temporary:
-            output = Path(temporary)
-            page = output / "formula.html"
-            page.write_text(r'<span data-qcb-math-tex="\sum_{C:\,|C|\mid n}|C|"></span>', encoding="utf-8")
-            self.assertEqual(SANITIZER._assert_no_local_paths(output, root), 1)
-            page.write_text(r'<span data-qcb-math-tex="Z:\Users\fixture\draft"></span>', encoding="utf-8")
-            with self.assertRaisesRegex(ValueError, "local filesystem paths"):
-                SANITIZER._assert_no_local_paths(output, root)
-
     def test_publication_scan_rejects_derived_repository_path(self) -> None:
         root = Path.cwd().resolve()
         with tempfile.TemporaryDirectory(dir=root) as temporary:

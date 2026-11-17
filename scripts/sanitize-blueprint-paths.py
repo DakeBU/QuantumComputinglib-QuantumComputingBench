@@ -24,7 +24,6 @@ WEB_URL_RE = re.compile(r"https?://[^\s\"'<>]+", flags=re.IGNORECASE)
 MATHJAX_REGION_RE = re.compile(
     r"\\\[(?:.|\n)*?\\\]|\\\((?:.|\n)*?\\\)",
 )
-QCB_TEX_ATTRIBUTE_RE = re.compile(r'\bdata-qcb-math-tex="[^"]*"')
 PORTABLE_PATH_RE = re.compile(
     r"[A-Za-z0-9_. -]+(?:[\\/][A-Za-z0-9_. -]+)+"
     r"(?:(?:#|\?)[^\s\"'<>]*)?"
@@ -286,11 +285,6 @@ def _assert_no_local_paths(output_root: Path, repo_root: Path) -> int:
         # path. Repository-root checks above still inspect the complete file;
         # only the generic path heuristic skips rendered mathematics.
         non_math_text = MATHJAX_REGION_RE.sub("", text)
-        # A colon followed by a TeX thin space, as in C:\,|C|\mid n,
-        # cannot be a drive prefix in the formula payload.
-        non_math_text = QCB_TEX_ATTRIBUTE_RE.sub(
-            lambda match: match[0].replace(r":\,|", ": |"), non_math_text
-        )
         if ABSOLUTE_PATH_RE.search(non_math_text):
             leaking_files += 1
 
