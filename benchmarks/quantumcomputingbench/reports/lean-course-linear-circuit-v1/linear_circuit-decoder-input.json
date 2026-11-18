@@ -1,0 +1,43 @@
+{
+  "schema_version": "qcb.formal_decoder_input.v1",
+  "source_blind": true,
+  "views": [
+    {
+      "anonymous_id": "L1",
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.RealIsometryCompletion"
+        ],
+        "preamble": "",
+        "target": "(∀ (N r : ℕ) (e : Fin r ↪ Fin N) (V : Matrix (Fin N) (Fin r) ℝ), r < N → V.transpose * V = 1 → ∃ U : Matrix (Fin N) (Fin N) ℝ, U.transpose * U = 1 ∧ U.det = 1 ∧ ∀ i a, U i (e a) = V i a) ∧ (∀ (N : ℕ), 0 < N → ∃ V : Matrix (Fin N) (Fin N) ℝ, V.transpose * V = 1 ∧ V.det = -1 ∧ ¬ ∃ U : Matrix (Fin N) (Fin N) ℝ, U.transpose * U = 1 ∧ U.det = 1 ∧ ∀ i a, U i a = V i a) ∧ (∀ U : Matrix (Fin 0) (Fin 0) ℝ, U.transpose * U = 1 ∧ U.det = 1)",
+        "ambient_definitions": {
+          "matrices": "Matrix (Fin N) (Fin r) ℝ is a real N by r matrix. Multiplication sums over the middle index. transpose exchanges row and column. Matrix 1 has Kronecker-delta entries; det is the ordinary finite determinant, with determinant of the empty matrix equal to 1.",
+          "embedding": "Fin r ↪ Fin N is an injective map assigning each of r columns a distinct column position.",
+          "signFlip": "QuantumBlockEncoding.RealIsometryCompletion.signFlip j = Matrix.diagonal (fun i => if i = j then -1 else 1)."
+        }
+      }
+    },
+    {
+      "anonymous_id": "L2",
+      "formal_context": {
+        "imports": [
+          "QuantumBlockEncoding.PrimitiveWireRename"
+        ],
+        "preamble": "",
+        "target": "(∀ (N : ℕ) (e : Fin N ≃ Fin N), (∀ g : QuantumBlockEncoding.PrimitiveGate N, QuantumBlockEncoding.evalPrimitiveGate (QuantumBlockEncoding.PrimitiveWireRename.gate e g) = (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * QuantumBlockEncoding.evalPrimitiveGate g * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm)) ∧ (∀ c : QuantumBlockEncoding.PrimitiveCircuit N, QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.PrimitiveWireRename.circuit e c) = (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * QuantumBlockEncoding.evalPrimitiveCircuit c * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm)) ∧ QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.PrimitiveWireRename.circuit e []) = 1 ∧ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm) = 1 ∧ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm) * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) = 1) ∧ (∀ (N : ℕ), N ≤ 1 → ∀ (e : Fin N ≃ Fin N), e = Equiv.refl (Fin N) ∧ QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e = Equiv.refl (QuantumBlockEncoding.PrimitiveBasis N) ∧ (∀ c : QuantumBlockEncoding.PrimitiveCircuit N, QuantumBlockEncoding.PrimitiveWireRename.circuit e c = c)) ∧ (∀ (N : ℕ), 2 ≤ N → ∃ e : Fin N ≃ Fin N, Function.Involutive e ∧ ((QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) = 1 ∧ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) ≠ 1 ∧ ((QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * 1) * ((QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * 1) ≠ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * (1 * 1))) ∧ ((∀ (e : Fin 1 ≃ Fin 1) (θ : ℝ), QuantumBlockEncoding.PrimitiveWireRename.gate e (QuantumBlockEncoding.PrimitiveGate.ry 0 (QuantumBlockEncoding.ExactAngle.real θ)) = QuantumBlockEncoding.PrimitiveGate.ry 0 (QuantumBlockEncoding.ExactAngle.real θ)) ∧ QuantumBlockEncoding.xMatrix = QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (Equiv.swap (0 : Fin 2) 1) ∧ QuantumBlockEncoding.xMatrix * QuantumBlockEncoding.xMatrix = 1 ∧ (∀ θ : ℝ, QuantumBlockEncoding.xMatrix * QuantumBlockEncoding.standardRyMatrix θ * QuantumBlockEncoding.xMatrix = QuantumBlockEncoding.standardRyMatrix (-θ)) ∧ Real.pi ≠ 0 ∧ QuantumBlockEncoding.xMatrix * QuantumBlockEncoding.standardRyMatrix Real.pi * QuantumBlockEncoding.xMatrix ≠ QuantumBlockEncoding.standardRyMatrix Real.pi)",
+        "ambient_definitions": {
+          "carrier": "PrimitiveBasis N := Fin N → Fin 2. Fin N labels physical wires; a basis ket is a function assigning one bit to each wire. Matrix rows are output labels and columns are input labels.",
+          "basisEquiv": "basisEquiv e has toFun b w = b (e.symm w) and invFun b w = b (e w).",
+          "permutation_matrix": "equivPermutationMatrix E a b := if a = E b then (1 : ℂ) else 0.",
+          "matrix": "matrix e M a b = M (fun w => a (e w)) (fun w => b (e w)).",
+          "angle": "ExactAngle is an exact angle-expression type, including real θ with evaluation θ, rational, piRational, twiceArccosRational, twiceArccosSqrtRational, add, neg and rational scale; eval interprets those expressions in ℝ.",
+          "gate": "PrimitiveGate N has x t, ry t angle, rz t angle, and cx c t distinct, where distinct : c ≠ t. gate e maps every target and control through e, leaves constructor and angle unchanged, and transports distinctness through injectivity.",
+          "circuit": "PrimitiveCircuit N := List (PrimitiveGate N). circuit e c := c.map (gate e). evalPrimitiveCircuit [] = 1 and evalPrimitiveCircuit (g :: c) = evalPrimitiveCircuit c * evalPrimitiveGate g.",
+          "gate_semantics": "X flips its target bit using the bit permutation matrix. CX flips its target if the distinct control bit is 1, and otherwise fixes the bitstring. RY/RZ act by the respective 2 by 2 matrix at the target, with entry zero unless every spectator bit agrees.",
+          "rotations": "standardRyMatrix θ = [[cos(θ/2), -sin(θ/2)], [sin(θ/2), cos(θ/2)]] in ℂ. standardRzMatrix θ has diagonal cos(θ/2)-i sin(θ/2), cos(θ/2)+i sin(θ/2), and zero off-diagonal entries. xMatrix = [[0,1],[1,0]].",
+          "wire_one_basis": "A function Fin 1 → Fin 2 is identified with its value at 0 when writing the local 2 by 2 gate matrix. This only describes the carrier convention, not an additional proposition."
+        }
+      }
+    }
+  ]
+}

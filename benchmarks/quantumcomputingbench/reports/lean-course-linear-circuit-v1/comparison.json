@@ -1,0 +1,129 @@
+{
+  "schema_version": "qcb.course_semantic_comparison.v1",
+  "reviewer": "/root/linear_circuit_semantic_comparison",
+  "source_blind": false,
+  "comparison_input_digest": "17babbc68230e68af32fc91ae15d9da8c0de8c743e672d99490714ce0c5f5996",
+  "candidate_batch_digest": "0b523b3803bac02e984a73b08f8b72cc5876f6bb6cbe6edd4c1b7b678344b8d5",
+  "packet_digests": {
+    "linear_circuit": "ca4d614cfe482d7551049d09937a444c661ae608fddc16fabff763a59b851316"
+  },
+  "decoder_digests": {
+    "linear_circuit": "bc5d7843a6696c5d84934c7b258098a78ce417b3c0d3319da12afb06a124b74b"
+  },
+  "review_kind": "Independent source-aware semantic comparison of supplied targets, not a proof or compilation review",
+  "exposure": {
+    "initial_input": "comparison-input.json only, including exact source questions, reference answers, assumptions, conventions, anonymous formal contexts, approved retrieval signatures, and the independent source-blind decoder reconstructions",
+    "additional_reads_before_seal": [
+      "Filename discovery for the five authorized production modules; no test file contents were opened.",
+      "Declaration-name inventory in QuantumBlockEncoding/RealIsometryCompletion.lean, PrimitiveWireRename.lean, PrimitiveSemantics.lean, PrimitiveCircuit.lean, and Robin/ComplexLCU.lean.",
+      "Only selected definition blocks in those production modules: signFlip; basisEquiv, gate, circuit, matrix; ExactAngle, ExactAngle.eval, PrimitiveGate, PrimitiveCircuit; PrimitiveBasis, flipBit, xBasisAction/xBasisEquiv, cxBasisAction/cxBasisEquiv, OtherPrimitiveWires, splitPrimitiveWire, liftPrimitiveOneQubit, standardRyMatrix, standardRzMatrix, xMatrix, evalPrimitiveGate, evalPrimitiveCircuit; realOrthogonalRotation, realRotation, equivPermutationMatrix."
+    ],
+    "definition_proof_fields": "Equivalence definitions contain inverse-law fields, and the gate renamer contains a transported distinctness proof. Those definition fields were visible. No companion fixture theorem proof body, production theorem proof body, other review, or private owner file was inspected.",
+    "not_inspected": [
+      "Author fixture or companion proof bodies",
+      "Other reviewers reports",
+      "Private owner files",
+      "Reader mathematics() or other displayed derivations before this report was sealed",
+      "Transitive mathlib implementation"
+    ],
+    "limitations": [
+      "The exact source material and blind reconstruction were supplied together, so this comparator is source-aware and is not a second blind decoder.",
+      "No Lean build, theorem elaboration, proof execution, axiom audit, or human review was performed.",
+      "Approved retrieval interfaces were treated as stated theorem types, not freshly verified results.",
+      "Source-to-target assessment concerns the mathematical propositions and explicit conventions; it does not certify that a hidden proof follows the reference derivation.",
+      "The production matrix reindex helper uses Matrix.reindexAlgEquiv; its supplied entrywise meaning was cross-checked for consistency with the visible basisEquiv and inverse functions, without reading mathlib internals."
+    ]
+  },
+  "views": [
+    {
+      "core_id": "qcb-core-la-006",
+      "task_hash": "d9643b3afc91b945078123201835650d15edb48f1f6d7c9c85a1d9058c195e6e",
+      "formal_context_digest": "9f0900009f269c79d2c127f04a49dc081808e5f98dd0d2f5e4fea63c826f4270",
+      "source_item_digest": "4eae07a7fa7dc01f54e03e5d15700d11bec10c23f9368e6d01b5f44fc0d675f6",
+      "verdict": "accept",
+      "reasoning": "The source requires an orientation-preserving orthogonal completion that fixes the actual assigned columns, not just their span. In the target V has N rows and r columns, e is injective into the N output-column positions, and the conclusion U i (e a) = V i a preserves every entry at the same assigned position. Over the reals V.transpose * V = 1 is precisely pairwise orthonormality of the r columns. The square U.transpose * U = 1 and U.det = 1 are exactly membership in SO(N).\n\nThe strict r < N premise supplies a position outside the image of e. Given an orthogonal completion U0, det(U0)^2 = 1. If its determinant is negative, right multiplication by the displayed diagonal signFlip at that unused position negates only that column, keeps U0 transpose U0 equal to identity, and multiplies the determinant by -1. Thus the target conclusion is the result requested by the source, with no weakening to sign, phase, approximation, span, or relabeling equivalence.\n\nThe source lists existence of an orthogonal completion as an assumption. The target instead starts from the orthonormal V and the embedding and concludes existence directly. This is a stronger premise-free completion formulation, but not a change in the admissible data: every such finite real orthonormal family has an orthogonal completion, as the supplied exists_orthogonal_completion interface states. It does not assume the SO completion or any determinant-+1 conclusion.\n\nFor each positive N, the second conjunct requires an orthogonal full V with determinant -1 and forbids any entrywise identical determinant-+1 U. A one-column sign flip of identity supplies such a V; entrywise identity forces U = V and makes the conflicting determinant values impossible. This is precisely the source claim that repair cannot in general be done at r = N. It correctly does not claim failure for a fully prescribed frame already of determinant +1. Identity placement is sufficient for this existential obstruction even though the first conjunct allows arbitrary placements.\n\nThe target separately resolves dimension zero: the unique empty square matrix has determinant 1 and is orthogonal. The r < N case is impossible at N = 0, while r = 0 < N allows an empty prescription and an SO(N) completion. N = 1 is included both for an empty prescription and for the negative full-frame obstruction. These are consistent with, and slightly more explicit than, the source.",
+      "decoder_comparison": {
+        "agreement": "The blind decoder reconstructed the same universal completion, positive-dimension existential obstruction, and empty-matrix assertion. Its binder, exact-entry preservation, determinant, and boundary analysis agrees with my independent comparison to the canonical source.",
+        "independent_checks": [
+          "Checked the visible production signFlip is a diagonal matrix with exactly one -1.",
+          "Checked that orthonormality has shape r by r while completion orthogonality has shape N by N.",
+          "Checked that the failure statement is existential in V for each positive N and not universal in all full frames."
+        ],
+        "qualifications": "The decoder correctly refuses to infer an algorithm or proof method. My acceptance likewise does not establish that the unseen companion proof actually performs the reference sign-flip construction."
+      },
+      "whole_question_coverage": {
+        "formal_covered": [
+          "Exact preservation of arbitrary assigned orthonormal real columns",
+          "Existence of an SO(N) completion whenever r < N",
+          "A full prescribed orientation-reversing obstruction in every positive dimension",
+          "The empty prescribed family and the zero-dimensional determinant convention"
+        ],
+        "scope_differences": [
+          "The target derives completion from orthonormality instead of carrying a pre-existing orthogonal completion as a premise; the supplied completion interface makes that premise redundant for these finite data.",
+          "The target adds an explicit zero-dimensional conjunct.",
+          "The source describes the sign-flip repair of a starting completion; the target asserts existence of the repaired output without a relation to a named starting matrix or an explicit single-flip witness."
+        ],
+        "source_method_or_prose_boundary": "The determinant-square argument, finding an unused column, right multiplication by one diagonal sign flip, and the explanation of why it preserves data are proof/exposition obligations. They are mathematically appropriate for this target, but their use in an unseen proof is not certified by this target comparison.",
+        "acceptance_scope": "Accept as an exact formal companion for the mathematical existence and obstruction content of the full source question. This is not a claim that the target alone is the requested explanatory proof or an implemented repair algorithm."
+      },
+      "semantic_audit": {
+        "binders_and_premises": "N, r, e, V are universal; r < N and V.transpose * V = 1 are premises; U is existential and depends on those data. The obstruction chooses V after N > 0. No completion result is smuggled into a definition or assumed as the target conclusion.",
+        "dimension_and_field": "V: Matrix (Fin N) (Fin r) real; U: Matrix (Fin N) (Fin N) real. Empty determinants use value 1, unlike the one-dimensional Hilbert carrier arising in the circuit core.",
+        "exactness": "Entrywise equality and determinant exactly +1, with ordinary transpose over the reals; no phase quotient or approximate preservation.",
+        "boundary_cases": [
+          "r = 0 < N: valid and vacuous prescribed entries",
+          "r = N > 0: existential negative-determinant obstruction, not universal impossibility",
+          "N = 0: explicit empty orthogonality and determinant +1",
+          "r > N: no embedding, and outside r < N"
+        ]
+      }
+    },
+    {
+      "core_id": "qcb-core-la-013",
+      "task_hash": "13035074d9f4aeb3e9421a1eaa94ec7b30b6a065bc7d92b9186ec3b1ba0a72ee",
+      "formal_context_digest": "8f188475eeb9e45c29c1b2cca7b2e031fbcc6b57141ce1516d09706e67c9e7b6",
+      "source_item_digest": "8d4bf06a789c537652e35cf927f0aefd4e5a562d2fa585f1f16b501763a6b62e",
+      "verdict": "accept",
+      "reasoning": "The source fixes a wire bijection sigma and its induced bitstring action R_sigma(b)(w) = b(sigma inverse(w)). The target uses precisely basisEquiv e with that toFun, and the production equivPermutationMatrix has entry 1 exactly at row = E(column). Consequently P sends |b> to |E(b)>, and P M Pinv has entries M(a composed with e, b composed with e). The target has P on the left and the matrix for E.symm on the right, so it uses the correct conjugation direction rather than one-sided relabeling or inverse conjugation.\n\nThe production gate renamer changes both control and target through e, preserves the gate constructor and exact angle expression, and transports control-target distinctness by injectivity. X and CX use the respective concrete bit actions. RY/RZ lift the same local matrix with identity on spectator wires. Thus renaming gives the same local transition amplitudes at the transported wires; the target single-gate equality has the intended content for all four constructors and every permitted angle expression.\n\nThe circuit renamer is list map. Its semantics are eval([]) = identity and eval(g :: rest) = eval(rest) * eval(g), so a list U1,...,Ut denotes Ut ... U1 under column-vector action. Substituting the target gate equalities produces P Ut Pinv ... P U1 Pinv, with interior Pinv P = identity. The target explicitly includes both inverse-product identities, the whole-circuit covariance, and the renamed empty identity. There is no extra physical P stage in the resulting program.\n\nFor N <= 1 the target states identity of e, identity of the induced E, and exact unchanged circuit syntax; these imply P = identity. At N = 0 the basis-label set consists of the unique empty function, hence the evaluated matrix is 1 by 1, not 0 by 0, and there are no primitive gates. At N = 1 there are X/RY/RZ constructors but no distinct-control CX. The stated boundaries are therefore substantive and compatible with the source.\n\nFor every N >= 2 the target requires an actual wire equivalence e that is involutive, whose induced P is nonidentity and squares to identity. The two-identity-stage inequality reduces to identity != P, proving the requested failure of output-only product preservation. This is a physical-wire-induced witness, not an arbitrary basis-label permutation. The target does not specify e = swap(0,1), or require exactly two moved wires. That is a witness-specific weakening relative to the reference example, but a nontrivial involution consists of disjoint wire swaps and supplies the same requested involutive-wire counterexample. The particular single-swap construction remains an exposition obligation.\n\nThe final group correctly separates the one-wire permutation, which leaves RY unchanged, from the unrelated two-basis-label swap X. The definitions give X RY(theta) X = RY(-theta). The target selects theta = pi, proves it is nonzero, and asserts exact inequality. Indeed RY(pi) has off-diagonal entries -1 and +1, while conjugation reverses their signs. This establishes the requested counterexample under the source exact matrix semantics even though the reference uses pi/2. At pi the two operators differ only by global phase -1, so this witness cannot support a phase-invariant physical distinction. The reference pi/2 witness has that stronger property, but the source question does not require phase-invariant inequality.\n\nThe target is confined to the four-primitive circuit language and a fixed bijection on the same N wires. It neither asserts that arbitrary basis permutations are implementable by wire swaps nor promises routing or hardware costs. Those exclusions agree with the source, but the representational-versus-physical explanation is prose, not itself a theorem conjunct.",
+      "decoder_comparison": {
+        "agreement": "The blind decoder accurately recovered the permutation direction, chronological multiplication order, dependent CX distinctness condition, universal versus existential quantifiers, empty circuit, N = 0 and N = 1 boundaries, and the exact rather than phase-invariant counterexample.",
+        "independent_checks": [
+          "Read the actual production definitions for the carrier, wire and gate renamers, angle expressions and evaluation, local RY/RZ signs, spectator lift, permutation matrix, and circuit recursion.",
+          "Computed from the local RY entries why theta = pi changes exact entries but only by a global minus sign.",
+          "Reduced the two-identity-stage inequality using P squared = identity and P != identity."
+        ],
+        "qualifications": "The decoder correctly calls the witness an unspecified nontrivial involution rather than a named single transposition. It also correctly warns about the pi global sign. These limitations are retained explicitly instead of strengthening the formal statement to match the more specific reference example."
+      },
+      "whole_question_coverage": {
+        "formal_covered": [
+          "Wire-induced bitstring permutation with the source input/output direction",
+          "Exact single-gate covariance for X, RY, RZ, and distinct-control CX",
+          "Whole chronological circuit conjugation, including the empty circuit and both inverse-product identities",
+          "Trivial wire-permutation and unchanged-circuit boundaries for N = 0 and N = 1",
+          "Failure of output-only product preservation on two identity stages for a nontrivial involutive wire permutation whenever N >= 2",
+          "One-wire RY invariance under actual wire renaming and exact failure for an unrelated basis swap X at a nonzero angle"
+        ],
+        "scope_differences": [
+          "The nontrivial witness is existential among involutive wire equivalences; the target does not fix a particular transposition or require exactly two moved wires.",
+          "The target counterexample angle is pi, while the reference example uses pi/2. Both meet the question exact nonzero-angle inequality; the pi choice loses the reference example distinction modulo global phase.",
+          "The local counterexample is written on Fin 2, while one-wire circuit matrices use functions Fin 1 -> Fin 2; the supplied value-at-zero identification and the visible spectator lift identify these two-dimensional semantics."
+        ],
+        "source_method_or_prose_boundary": "The source requests a basis-ket justification of each gate, the chronological cancellation derivation, a concrete single-swap example, and an explanation separating algebraic relabeling from a SWAP/routing implementation. The target states the corresponding algebraic results and boundaries but does not encode the explanatory steps or hardware-cost prose. Their actual appearance in the reader must be assessed separately after sealing this report; no unseen proof-body claims are made here.",
+        "acceptance_scope": "Accept as a formal companion for the exact mathematical claims, including all dimension and empty-circuit boundaries, an induced-wire involution counterexample, and an exact unrelated-basis-permutation counterexample. Acceptance does not certify a specified transposition witness, the reference pi/2 example, a distinction modulo global phase, the displayed derivation, or any physical implementation/routing claim."
+      },
+      "semantic_audit": {
+        "binders_and_premises": "The main gate/circuit group is universal in N and wire bijection e, with no covariance hypothesis. N <= 1 and 2 <= N guard separate groups. The involution group existentially selects one e for each N >= 2 and uses the same induced P in all its conclusions. The one-wire e/theta binder does not scope over the later universally quantified local-matrix identity or the final pi specialization.",
+        "definition_binders": "PrimitiveGate has exactly x, ry, rz, cx; cx carries c != t. ExactAngle has real values as well as rational, pi-rational, bounded arccos and square-root-arccos expressions, addition, negation, and rational scaling. Those constructor bounds constrain angle syntax and do not assume covariance or the counterexample. Matrix reindexing, lift, and permutations are concrete operations, not predicates that embed the desired conclusion.",
+        "dimension_and_order": "Global carriers have 2^N basis labels and complex matrix entries; local X/RY identities have 2 labels. The first listed gate acts first. P is defined by output row = E(input column), and Pinv is the permutation matrix for E inverse.",
+        "exactness": "All equalities and inequalities are literal matrix or syntax equalities. There is no quotient by global phase. The pi inequality alone cannot demonstrate physical inequivalence under a global-phase quotient.",
+        "boundary_cases": [
+          "N = 0: singleton basis carrier, only empty circuit, trivial wire bijection",
+          "N = 1: trivial wire bijection, no distinct-control CX, unrelated bit-label swap still exists",
+          "N >= 2: nonidentity involutive wire permutation witness is required",
+          "All N: empty list evaluates to identity",
+          "All real theta: local X-conjugation identity; inequality is only asserted at pi, not at every nonzero theta"
+        ]
+      }
+    }
+  ]
+}

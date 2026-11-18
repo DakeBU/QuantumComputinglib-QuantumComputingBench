@@ -99,6 +99,15 @@ jobs:
           python benchmarks/quantumcomputingbench/scripts/lean_qa_training.py --output "${{ runner.temp }}/qcb-sparse-training.json"
         env:
           PYTHONUTF8: '1'
+      - name: Validate cumulative course v6 and separate train references
+        run: |
+          python benchmarks/quantumcomputingbench/scripts/lean_course_v6.py audit
+          python benchmarks/quantumcomputingbench/scripts/lean_course_v6.py export --split test_public --output "${{ runner.temp }}/qcb-course-v6-test-inputs.json"
+          python benchmarks/quantumcomputingbench/scripts/lean_training_v6.py --output "${{ runner.temp }}/qcb-course-v6-training.json"
+          python benchmarks/quantumcomputingbench/scripts/evaluate_course_v6.py run-fixture --view qcb-course-la-006-v1 --episode-dir "${{ runner.temp }}/qcb-v6-orientation-fixture"
+          python benchmarks/quantumcomputingbench/scripts/evaluate_course_v6.py run-fixture --view qcb-course-la-013-v1 --episode-dir "${{ runner.temp }}/qcb-v6-wires-fixture"
+        env:
+          PYTHONUTF8: '1'
       - name: Validate the executable registry and run CPU reference controls
         run: |
           python benchmarks/quantumcomputingbench/scripts/bench.py validate

@@ -1,0 +1,599 @@
+{
+  "author": "/root/lean_orientation_wire_author",
+  "schema_version": "qcb.graph_course_candidates.v1",
+  "catalog_hash": "5269b9f2521e3bf14db293fea34895f6e44a387c2479c164407b4d16dd9a2247",
+  "lean_toolchain": "leanprover/lean4:v4.29.1",
+  "library_revision": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+  "proof_inputs_sha256": "1e65e7d2984e4542ca2747837d71c516847e4e987d3bbd6c48b8a803eb36806e",
+  "new_mathematical_cores": 0,
+  "new_canonical_formal_admissions": 0,
+  "model_predictions_executed": false,
+  "isolated": false,
+  "cases": [
+    {
+      "view_id": "qcb-course-la-006-v1",
+      "task": {
+        "schema_version": "qcb.proof_obligation_task.v1",
+        "core_id": "qcb-core-la-006",
+        "contract_hash": "4017b4202cfed5756a3a1b8b0fe5fc1a28e958dce97985795b65f6cd7f9d7ca8",
+        "family": "special-orthogonal completion / orientation repair",
+        "split": "train",
+        "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "question": "Suppose r orthonormal real columns are placed at r distinct positions among the N columns of an orthogonal matrix, and suppose r < N so at least one column position is left free. The naive completion to an orthogonal matrix may land in the reflection family (determinant -1) rather than the rotation family (determinant +1). Prove that one can always repair the orientation so the final matrix has determinant exactly +1 while leaving every one of the r prescribed columns completely unchanged. Explain why the strict inequality r < N is exactly what makes the repair possible, and why the repair cannot in general be done when r = N.",
+        "assumptions": [
+          "an orthogonal completion with the prescribed columns exists",
+          "r < N so at least one column is unused"
+        ],
+        "conventions": [
+          "real matrices",
+          "SO(N) = orthogonal matrices of determinant +1",
+          "sign flip is a diagonal matrix with a single -1 entry"
+        ],
+        "imports": [
+          "QuantumBlockEncoding.RealIsometryCompletion"
+        ],
+        "library_revision": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+        "root_id": "la006_root",
+        "nodes": [
+          {
+            "id": "la006_det",
+            "target": "∀ (N : ℕ) (U : Matrix (Fin N) (Fin N) ℝ), U.transpose * U = 1 → U.det = 1 ∨ U.det = -1",
+            "depends_on": []
+          },
+          {
+            "id": "la006_unused",
+            "target": "∀ (N r : ℕ) (e : Fin r ↪ Fin N), r < N → ∃ j, ∀ a, e a ≠ j",
+            "depends_on": []
+          },
+          {
+            "id": "la006_flip",
+            "target": "∀ (N : ℕ) (j : Fin N), (QuantumBlockEncoding.RealIsometryCompletion.signFlip j).transpose * QuantumBlockEncoding.RealIsometryCompletion.signFlip j = 1 ∧ (QuantumBlockEncoding.RealIsometryCompletion.signFlip j).det = -1 ∧ ∀ (U : Matrix (Fin N) (Fin N) ℝ) (i a : Fin N), a ≠ j → (U * QuantumBlockEncoding.RealIsometryCompletion.signFlip j) i a = U i a",
+            "depends_on": []
+          },
+          {
+            "id": "la006_positive",
+            "target": "∀ (N r : ℕ) (e : Fin r ↪ Fin N) (V : Matrix (Fin N) (Fin r) ℝ), r < N → V.transpose * V = 1 → ∃ U : Matrix (Fin N) (Fin N) ℝ, U.transpose * U = 1 ∧ U.det = 1 ∧ ∀ i a, U i (e a) = V i a",
+            "depends_on": [
+              "la006_det",
+              "la006_unused",
+              "la006_flip"
+            ]
+          },
+          {
+            "id": "la006_obstruction",
+            "target": "∀ (N : ℕ), 0 < N → ∃ V : Matrix (Fin N) (Fin N) ℝ, V.transpose * V = 1 ∧ V.det = -1 ∧ ¬ ∃ U : Matrix (Fin N) (Fin N) ℝ, U.transpose * U = 1 ∧ U.det = 1 ∧ ∀ i a, U i a = V i a",
+            "depends_on": [
+              "la006_flip"
+            ]
+          },
+          {
+            "id": "la006_zero",
+            "target": "∀ U : Matrix (Fin 0) (Fin 0) ℝ, U.transpose * U = 1 ∧ U.det = 1",
+            "depends_on": []
+          },
+          {
+            "id": "la006_root",
+            "target": "(∀ (N r : ℕ) (e : Fin r ↪ Fin N) (V : Matrix (Fin N) (Fin r) ℝ), r < N → V.transpose * V = 1 → ∃ U : Matrix (Fin N) (Fin N) ℝ, U.transpose * U = 1 ∧ U.det = 1 ∧ ∀ i a, U i (e a) = V i a) ∧ (∀ (N : ℕ), 0 < N → ∃ V : Matrix (Fin N) (Fin N) ℝ, V.transpose * V = 1 ∧ V.det = -1 ∧ ¬ ∃ U : Matrix (Fin N) (Fin N) ℝ, U.transpose * U = 1 ∧ U.det = 1 ∧ ∀ i a, U i a = V i a) ∧ (∀ U : Matrix (Fin 0) (Fin 0) ℝ, U.transpose * U = 1 ∧ U.det = 1)",
+            "depends_on": [
+              "la006_positive",
+              "la006_obstruction",
+              "la006_zero"
+            ]
+          }
+        ],
+        "interfaces": [
+          {
+            "name": "QuantumBlockEncoding.RealIsometryCompletion.exists_orthogonal_completion",
+            "type": "{N r : ℕ} → (V : Matrix (Fin N) (Fin r) ℝ) → (e : Fin r ↪ Fin N) → V.transpose * V = 1 → ∃ U : Matrix (Fin N) (Fin N) ℝ, U.transpose * U = 1 ∧ ∀ i a, U i (e a) = V i a",
+            "module": "QuantumBlockEncoding.RealIsometryCompletion",
+            "source_node_id": "declaration:QuantumBlockEncoding.RealIsometryCompletion.exists_orthogonal_completion"
+          },
+          {
+            "name": "QuantumBlockEncoding.RealIsometryCompletion.signFlip",
+            "type": "{N : ℕ} → Fin N → Matrix (Fin N) (Fin N) ℝ",
+            "module": "QuantumBlockEncoding.RealIsometryCompletion",
+            "source_node_id": "declaration:QuantumBlockEncoding.RealIsometryCompletion.signFlip"
+          },
+          {
+            "name": "QuantumBlockEncoding.RealIsometryCompletion.signFlip_orthogonal",
+            "type": "{N : ℕ} → (j : Fin N) → (QuantumBlockEncoding.RealIsometryCompletion.signFlip j).transpose * QuantumBlockEncoding.RealIsometryCompletion.signFlip j = 1",
+            "module": "QuantumBlockEncoding.RealIsometryCompletion",
+            "source_node_id": "declaration:QuantumBlockEncoding.RealIsometryCompletion.signFlip_orthogonal"
+          },
+          {
+            "name": "QuantumBlockEncoding.RealIsometryCompletion.signFlip_det",
+            "type": "{N : ℕ} → (j : Fin N) → (QuantumBlockEncoding.RealIsometryCompletion.signFlip j).det = -1",
+            "module": "QuantumBlockEncoding.RealIsometryCompletion",
+            "source_node_id": "declaration:QuantumBlockEncoding.RealIsometryCompletion.signFlip_det"
+          },
+          {
+            "name": "QuantumBlockEncoding.RealIsometryCompletion.mul_signFlip_preserves",
+            "type": "{N : ℕ} → (U : Matrix (Fin N) (Fin N) ℝ) → (j i a : Fin N) → a ≠ j → (U * QuantumBlockEncoding.RealIsometryCompletion.signFlip j) i a = U i a",
+            "module": "QuantumBlockEncoding.RealIsometryCompletion",
+            "source_node_id": "declaration:QuantumBlockEncoding.RealIsometryCompletion.mul_signFlip_preserves"
+          },
+          {
+            "name": "QuantumBlockEncoding.RealIsometryCompletion.exists_specialOrthogonal_completion_of_unused",
+            "type": "{N r : ℕ} → (V : Matrix (Fin N) (Fin r) ℝ) → (e : Fin r ↪ Fin N) → V.transpose * V = 1 → (unused : Fin N) → (∀ a, e a ≠ unused) → ∃ U : Matrix (Fin N) (Fin N) ℝ, U.transpose * U = 1 ∧ U.det = 1 ∧ ∀ i a, U i (e a) = V i a",
+            "module": "QuantumBlockEncoding.RealIsometryCompletion",
+            "source_node_id": "declaration:QuantumBlockEncoding.RealIsometryCompletion.exists_specialOrthogonal_completion_of_unused"
+          },
+          {
+            "name": "QuantumBlockEncoding.RealIsometryCompletion.exists_specialOrthogonal_completion",
+            "type": "{N r : ℕ} → r < N → (V : Matrix (Fin N) (Fin r) ℝ) → (e : Fin r ↪ Fin N) → V.transpose * V = 1 → ∃ U : Matrix (Fin N) (Fin N) ℝ, U.transpose * U = 1 ∧ U.det = 1 ∧ ∀ i a, U i (e a) = V i a",
+            "module": "QuantumBlockEncoding.RealIsometryCompletion",
+            "source_node_id": "declaration:QuantumBlockEncoding.RealIsometryCompletion.exists_specialOrthogonal_completion"
+          }
+        ],
+        "alignment_status": "author_frozen_formal_contract_pending_independent_decode_comparison_and_reference_replay"
+      },
+      "source_item_digest": "4eae07a7fa7dc01f54e03e5d15700d11bec10c23f9368e6d01b5f44fc0d675f6",
+      "source_node_ids": [
+        "declaration:QuantumBlockEncoding.RealIsometryCompletion.exists_specialOrthogonal_completion",
+        "declaration:QuantumBlockEncoding.RealIsometryCompletion.exists_specialOrthogonal_completion_of_unused",
+        "declaration:QuantumBlockEncoding.RealIsometryCompletion.exists_orthogonal_completion",
+        "declaration:QuantumBlockEncoding.RealIsometryCompletion.signFlip",
+        "declaration:QuantumBlockEncoding.RealIsometryCompletion.signFlip_orthogonal",
+        "declaration:QuantumBlockEncoding.RealIsometryCompletion.signFlip_det",
+        "declaration:QuantumBlockEncoding.RealIsometryCompletion.mul_signFlip_preserves"
+      ],
+      "source_bindings": [
+        {
+          "path": "QuantumBlockEncoding/RealIsometryCompletion.lean",
+          "sha256_lf": "2a38bfa0dda457b563f5178e20dc2ccbb1281ff7d5f7357e4096a3c29fa2bb5d"
+        }
+      ],
+      "semantic_evidence": {
+        "kind": "new_roundtrip",
+        "group": "linear_circuit",
+        "anonymous_id": "L1"
+      },
+      "assumptions_added": false,
+      "controls": {
+        "library_control": "by\n  refine ⟨?_, ?_, ?_⟩\n  · intro N r e V hr hV\n    exact QuantumBlockEncoding.RealIsometryCompletion.exists_specialOrthogonal_completion hr V e hV\n  · intro N hN\n    let j : Fin N := ⟨0, hN⟩\n    refine ⟨QuantumBlockEncoding.RealIsometryCompletion.signFlip j, QuantumBlockEncoding.RealIsometryCompletion.signFlip_orthogonal j, QuantumBlockEncoding.RealIsometryCompletion.signFlip_det j, ?_⟩\n    rintro ⟨U, _, hd, he⟩\n    have eq : U = QuantumBlockEncoding.RealIsometryCompletion.signFlip j := by ext i a; exact he i a\n    rw [eq, QuantumBlockEncoding.RealIsometryCompletion.signFlip_det] at hd\n    norm_num at hd\n  · intro U\n    constructor\n    · ext i j; exact Fin.elim0 i\n    · simp",
+        "constructed_whole_root": "by\n  have qcb_step_la006_det : ∀ (N : ℕ) (U : Matrix (Fin N) (Fin N) ℝ), U.transpose * U = 1 → U.det = 1 ∨ U.det = -1 := by\n    intro N U hU\n    have hd : U.det * U.det = 1 := by\n      have h := congrArg Matrix.det hU\n      simpa [Matrix.det_mul, Matrix.det_transpose] using h\n    exact mul_self_eq_one_iff.mp hd\n  have qcb_step_la006_unused : ∀ (N r : ℕ) (e : Fin r ↪ Fin N), r < N → ∃ j, ∀ a, e a ≠ j := by\n    intro N r e hr\n    have hn : ¬ Function.Surjective e := by\n      intro hs\n      have hcard := Fintype.card_le_of_surjective e hs\n      simp only [Fintype.card_fin] at hcard\n      omega\n    simp only [Function.Surjective, not_forall] at hn\n    obtain ⟨j, hj⟩ := hn\n    exact ⟨j, fun a ha => hj ⟨a, ha⟩⟩\n  have qcb_step_la006_flip : ∀ (N : ℕ) (j : Fin N), (QuantumBlockEncoding.RealIsometryCompletion.signFlip j).transpose * QuantumBlockEncoding.RealIsometryCompletion.signFlip j = 1 ∧ (QuantumBlockEncoding.RealIsometryCompletion.signFlip j).det = -1 ∧ ∀ (U : Matrix (Fin N) (Fin N) ℝ) (i a : Fin N), a ≠ j → (U * QuantumBlockEncoding.RealIsometryCompletion.signFlip j) i a = U i a := by\n    intro N j\n    refine ⟨?_, ?_, ?_⟩\n    · rw [QuantumBlockEncoding.RealIsometryCompletion.signFlip, Matrix.diagonal_transpose, Matrix.diagonal_mul_diagonal]\n      convert (Matrix.diagonal_one : Matrix.diagonal (1 : Fin N → ℝ) = 1) using 1\n      congr 1\n      funext i\n      by_cases hi : i = j <;> simp [hi]\n    · simp [QuantumBlockEncoding.RealIsometryCompletion.signFlip, Matrix.det_diagonal]\n    · intro U i a ha\n      simp [QuantumBlockEncoding.RealIsometryCompletion.signFlip, Matrix.mul_diagonal, ha]\n  have qcb_step_la006_positive : ∀ (N r : ℕ) (e : Fin r ↪ Fin N) (V : Matrix (Fin N) (Fin r) ℝ), r < N → V.transpose * V = 1 → ∃ U : Matrix (Fin N) (Fin N) ℝ, U.transpose * U = 1 ∧ U.det = 1 ∧ ∀ i a, U i (e a) = V i a := by\n    intro N r e V hr hV\n    obtain ⟨U, hU, hc⟩ := QuantumBlockEncoding.RealIsometryCompletion.exists_orthogonal_completion V e hV\n    obtain ⟨j, hj⟩ := qcb_step_la006_unused N r e hr\n    rcases qcb_step_la006_det N U hU with hp | hn\n    · exact ⟨U, hU, hp, hc⟩\n    · obtain ⟨hs, hd, keep⟩ := qcb_step_la006_flip N j\n      refine ⟨U * QuantumBlockEncoding.RealIsometryCompletion.signFlip j, ?_, ?_, ?_⟩\n      · rw [Matrix.transpose_mul]\n        calc\n          _ = (QuantumBlockEncoding.RealIsometryCompletion.signFlip j).transpose * (U.transpose * U) * QuantumBlockEncoding.RealIsometryCompletion.signFlip j := by simp only [Matrix.mul_assoc]\n          _ = 1 := by rw [hU, Matrix.mul_one, hs]\n      · rw [Matrix.det_mul, hd, hn]; norm_num\n      · intro i a\n        rw [keep U i (e a) (hj a), hc]\n  have qcb_step_la006_obstruction : ∀ (N : ℕ), 0 < N → ∃ V : Matrix (Fin N) (Fin N) ℝ, V.transpose * V = 1 ∧ V.det = -1 ∧ ¬ ∃ U : Matrix (Fin N) (Fin N) ℝ, U.transpose * U = 1 ∧ U.det = 1 ∧ ∀ i a, U i a = V i a := by\n    intro N hN\n    let j : Fin N := ⟨0, hN⟩\n    obtain ⟨ho, hd, _⟩ := qcb_step_la006_flip N j\n    refine ⟨QuantumBlockEncoding.RealIsometryCompletion.signFlip j, ho, hd, ?_⟩\n    rintro ⟨U, _, hU, he⟩\n    have eq : U = QuantumBlockEncoding.RealIsometryCompletion.signFlip j := by ext i a; exact he i a\n    rw [eq, hd] at hU\n    norm_num at hU\n  have qcb_step_la006_zero : ∀ U : Matrix (Fin 0) (Fin 0) ℝ, U.transpose * U = 1 ∧ U.det = 1 := by\n    intro U\n    constructor\n    · ext i j; exact Fin.elim0 i\n    · simp\n  exact ⟨qcb_step_la006_positive, qcb_step_la006_obstruction, qcb_step_la006_zero⟩\n"
+      },
+      "references": {
+        "la006_det": "by\n  intro N U hU\n  have hd : U.det * U.det = 1 := by\n    have h := congrArg Matrix.det hU\n    simpa [Matrix.det_mul, Matrix.det_transpose] using h\n  exact mul_self_eq_one_iff.mp hd",
+        "la006_unused": "by\n  intro N r e hr\n  have hn : ¬ Function.Surjective e := by\n    intro hs\n    have hcard := Fintype.card_le_of_surjective e hs\n    simp only [Fintype.card_fin] at hcard\n    omega\n  simp only [Function.Surjective, not_forall] at hn\n  obtain ⟨j, hj⟩ := hn\n  exact ⟨j, fun a ha => hj ⟨a, ha⟩⟩",
+        "la006_flip": "by\n  intro N j\n  refine ⟨?_, ?_, ?_⟩\n  · rw [QuantumBlockEncoding.RealIsometryCompletion.signFlip, Matrix.diagonal_transpose, Matrix.diagonal_mul_diagonal]\n    convert (Matrix.diagonal_one : Matrix.diagonal (1 : Fin N → ℝ) = 1) using 1\n    congr 1\n    funext i\n    by_cases hi : i = j <;> simp [hi]\n  · simp [QuantumBlockEncoding.RealIsometryCompletion.signFlip, Matrix.det_diagonal]\n  · intro U i a ha\n    simp [QuantumBlockEncoding.RealIsometryCompletion.signFlip, Matrix.mul_diagonal, ha]",
+        "la006_positive": "by\n  intro N r e V hr hV\n  obtain ⟨U, hU, hc⟩ := QuantumBlockEncoding.RealIsometryCompletion.exists_orthogonal_completion V e hV\n  obtain ⟨j, hj⟩ := qcb_step_la006_unused N r e hr\n  rcases qcb_step_la006_det N U hU with hp | hn\n  · exact ⟨U, hU, hp, hc⟩\n  · obtain ⟨hs, hd, keep⟩ := qcb_step_la006_flip N j\n    refine ⟨U * QuantumBlockEncoding.RealIsometryCompletion.signFlip j, ?_, ?_, ?_⟩\n    · rw [Matrix.transpose_mul]\n      calc\n        _ = (QuantumBlockEncoding.RealIsometryCompletion.signFlip j).transpose * (U.transpose * U) * QuantumBlockEncoding.RealIsometryCompletion.signFlip j := by simp only [Matrix.mul_assoc]\n        _ = 1 := by rw [hU, Matrix.mul_one, hs]\n    · rw [Matrix.det_mul, hd, hn]; norm_num\n    · intro i a\n      rw [keep U i (e a) (hj a), hc]",
+        "la006_obstruction": "by\n  intro N hN\n  let j : Fin N := ⟨0, hN⟩\n  obtain ⟨ho, hd, _⟩ := qcb_step_la006_flip N j\n  refine ⟨QuantumBlockEncoding.RealIsometryCompletion.signFlip j, ho, hd, ?_⟩\n  rintro ⟨U, _, hU, he⟩\n  have eq : U = QuantumBlockEncoding.RealIsometryCompletion.signFlip j := by ext i a; exact he i a\n  rw [eq, hd] at hU\n  norm_num at hU",
+        "la006_zero": "by\n  intro U\n  constructor\n  · ext i j; exact Fin.elim0 i\n  · simp",
+        "la006_root": "by\n  exact ⟨qcb_step_la006_positive, qcb_step_la006_obstruction, qcb_step_la006_zero⟩"
+      },
+      "library_control_one_call": false,
+      "negative_controls": {
+        "wrong_target": "by\n  exact True.intro",
+        "sorry_axiom": "by\n  sorry"
+      },
+      "semantic_coverage": "Complete mathematical request: arbitrary orthonormal columns at arbitrary injected positions extend to an SO(N) matrix for r<N; every positive N admits a fully prescribed reflection with no SO(N) completion preserving its entries. N=1 is included in both universal branches; N=0 is handled explicitly by determinant 1 and vacuity of r<N. No algorithmic or runtime claim.",
+      "shortcut_disclosure": "The imported exists_specialOrthogonal_completion proves the positive branch in one call, but not the whole root containing the r=N obstruction and empty-dimension boundary. The constructed route imports exists_orthogonal_completion, then derives determinant ±1, extracts an unused position by cardinality, proves the diagonal sign-flip facts and joins them. The library control directly calls the positive theorem and imported flip facts. All imported declarations remain callable; D3 describes the constructed route, not unrestricted-import model difficulty.",
+      "retrieval_scope": {
+        "direct_route_interfaces": [
+          "QuantumBlockEncoding.RealIsometryCompletion.exists_specialOrthogonal_completion",
+          "QuantumBlockEncoding.RealIsometryCompletion.exists_specialOrthogonal_completion_of_unused",
+          "QuantumBlockEncoding.RealIsometryCompletion.exists_orthogonal_completion",
+          "QuantumBlockEncoding.RealIsometryCompletion.signFlip_orthogonal",
+          "QuantumBlockEncoding.RealIsometryCompletion.signFlip_det",
+          "QuantumBlockEncoding.RealIsometryCompletion.mul_signFlip_preserves"
+        ],
+        "note": "Only existing frozen graph anchors are exposed as retrieval interfaces; no new canonical declaration or graph snapshot is asserted."
+      },
+      "source_binder_audit": [
+        {
+          "binder": "N : ℕ",
+          "class": "TYPING",
+          "meaning": "Ambient row/column dimension, including zero."
+        },
+        {
+          "binder": "r : ℕ",
+          "class": "TYPING",
+          "meaning": "Number of prescribed columns."
+        },
+        {
+          "binder": "e : Fin r ↪ Fin N",
+          "class": "SOURCE",
+          "meaning": "Distinct arbitrary prescribed column positions; no prefix assumption."
+        },
+        {
+          "binder": "V : Matrix (Fin N) (Fin r) ℝ",
+          "class": "SOURCE",
+          "meaning": "The prescribed real column data."
+        },
+        {
+          "binder": "r < N",
+          "class": "SOURCE",
+          "meaning": "The strict dimension bound used to find an unused position."
+        },
+        {
+          "binder": "V.transpose * V = 1",
+          "class": "SOURCE",
+          "meaning": "The stated orthonormality of the prescribed real columns."
+        },
+        {
+          "binder": "0 < N in the obstruction branch",
+          "class": "RULED",
+          "meaning": "Correct range of the existential reflection counterexample: the empty frame has determinant +1, so cannot witness obstruction."
+        },
+        {
+          "binder": "U : Matrix (Fin 0) (Fin 0) ℝ in the empty branch",
+          "class": "TYPING",
+          "meaning": "All matrices on the empty carrier, with determinant convention 1."
+        }
+      ],
+      "difficulty": {
+        "construction_band": "D3",
+        "measured_model_difficulty": null,
+        "imported_shortcut": "Positive branch one-call shortcut; no whole-root one-call shortcut identified.",
+        "rationale": "Compose cardinality, determinant classification and a local orientation repair, then expose the sharp full-frame obstruction with the zero-dimensional exception. The orthonormal extension theorem is explicitly reused."
+      },
+      "worked_derivation": "Let V be the prescribed columns and e their injective placement. Take an orthogonal completion U, so UᵀU=I and U(i,e(a))=V(i,a). Taking determinants gives det(U)²=1, hence det(U)=±1. If det(U)=1, retain U.\n\nIf det(U)=-1, the inequality r<N implies that e is not surjective: surjectivity would force N≤r. Choose j outside its image and set S=diag(s), where s(j)=-1 and s(k)=1 for k≠j. Then SᵀS=I and det(S)=-1. Thus (US)ᵀ(US)=Sᵀ(UᵀU)S=I and det(US)=(-1)(-1)=1. Right multiplication rescales columns, so (US)(i,e(a))=U(i,e(a)) because e(a)≠j. Every prescribed column is unchanged.\n\nThe strict inequality guarantees a repair for every input, rather than being necessary for each individual successful frame. For r=N>0 prescribe V=diag(-1,1,…,1) in all positions. Any matrix preserving all columns must equal V, whose determinant is -1; therefore an SO(N) completion is impossible. If the fully prescribed frame already has determinant +1, it of course needs no repair. At N=1 this is the scalar frame [-1]; with r=0 the completion [1] works. At N=0 there is no r<N and the unique empty matrix has determinant +1, so the reflection obstruction has no zero-dimensional instance.",
+      "route_rubric": [
+        {
+          "id": "orientation_classification",
+          "nodes": [
+            "la006_det"
+          ],
+          "criterion": "Derives determinant ±1 from the Gram identity, without assuming a sign.",
+          "weight": 1
+        },
+        {
+          "id": "unused_position",
+          "nodes": [
+            "la006_unused"
+          ],
+          "criterion": "Uses finite-cardinality contradiction for arbitrary injected positions.",
+          "weight": 1
+        },
+        {
+          "id": "repair",
+          "nodes": [
+            "la006_flip",
+            "la006_positive"
+          ],
+          "criterion": "Proves orthogonality, determinant -1 and unchanged protected columns for S; handles both determinant branches.",
+          "weight": 2
+        },
+        {
+          "id": "boundary",
+          "nodes": [
+            "la006_obstruction",
+            "la006_zero"
+          ],
+          "criterion": "Gives the fully prescribed reflection obstruction for every N>0 and distinguishes N=0 and already-positive full frames.",
+          "weight": 1
+        }
+      ],
+      "statement_seal": {
+        "status": "author_frozen_pending_independent_comparison",
+        "source_question_version": 1,
+        "source_contract_hash": "4017b4202cfed5756a3a1b8b0fe5fc1a28e958dce97985795b65f6cd7f9d7ca8",
+        "source_item_digest": "4eae07a7fa7dc01f54e03e5d15700d11bec10c23f9368e6d01b5f44fc0d675f6",
+        "question_sha256": "31deda0807af4485a543d9ef7c3f914967d6dae3784e06e2a797fc95950aa6df",
+        "formal_root_sha256": "cba4b59bb6c41f4381aa695d830700dbb39cd7a8691a4699468253004cd789b4",
+        "formalization_scope": "Complete mathematical request: arbitrary orthonormal columns at arbitrary injected positions extend to an SO(N) matrix for r<N; every positive N admits a fully prescribed reflection with no SO(N) completion preserving its entries. N=1 is included in both universal branches; N=0 is handled explicitly by determinant 1 and vacuity of r<N. No algorithmic or runtime claim.",
+        "definition_audit": "Literal matrix, sign-flip, wire-map, permutation-matrix and chronological-list definitions; orthogonal completion is an explicitly reused existence theorem, with no claim of canonical choice or algorithmic efficiency.",
+        "excess_binders": [],
+        "resource_tier": "Exact finite-dimensional algebra; no hardware routing, numerical extraction or bit-complexity claim."
+      },
+      "graph_scope": {
+        "kind": "evaluator_supplied_AND_obligation_DAG",
+        "is_extracted_lean_proof_term_graph": false,
+        "is_new_source_proof_graph": false,
+        "frozen_source_nodes": [
+          "declaration:QuantumBlockEncoding.RealIsometryCompletion.exists_specialOrthogonal_completion",
+          "declaration:QuantumBlockEncoding.RealIsometryCompletion.exists_specialOrthogonal_completion_of_unused",
+          "declaration:QuantumBlockEncoding.RealIsometryCompletion.exists_orthogonal_completion",
+          "declaration:QuantumBlockEncoding.RealIsometryCompletion.signFlip",
+          "declaration:QuantumBlockEncoding.RealIsometryCompletion.signFlip_orthogonal",
+          "declaration:QuantumBlockEncoding.RealIsometryCompletion.signFlip_det",
+          "declaration:QuantumBlockEncoding.RealIsometryCompletion.mul_signFlip_preserves"
+        ],
+        "new_mathematical_cores": 0,
+        "note": "Task-local IDs organize proved course obligations and do not add or rename frozen library graph nodes. Counterexamples and boundaries are newly authored proof obligations supporting the existing exact question. Imports, authored logical dependencies and source anchors remain separate."
+      },
+      "purification": {
+        "status": "author_compressed_pending_independent_exposition_and_integration_gates",
+        "new_production_declarations": 0,
+        "root_policy": "One conjunction root per canonical question. Shared sign-flip and permutation-bridge lemmas are reused; local counterexample obligations remain losslessly visible."
+      },
+      "nl_source_relation": "Worked derivation authored for the literal frozen question; no question, assumptions, conventions, core, family or split change.",
+      "provisional_checks": {
+        "authored_nodes_and_constructed_whole_root": "local pinned-runtime Lean probe passed before metadata finalization; not a benchmark receipt",
+        "independent_semantic_review": "pending",
+        "isolated_prediction_execution": false
+      }
+    },
+    {
+      "view_id": "qcb-course-la-013-v1",
+      "task": {
+        "schema_version": "qcb.proof_obligation_task.v1",
+        "core_id": "qcb-core-la-013",
+        "contract_hash": "ae8929927ad4dffcc2d10d957b43dcf6354d24de5af0fbeff6d1277908c76635",
+        "family": "native-expansion-mechanism-013",
+        "split": "train",
+        "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "question": "Let sigma be a bijection of the N physical wires, sigma:Fin N equiv Fin N. Its INDUCED bitstring bijection is R_sigma(b)(w)=b(sigma^{-1}(w)); define P by P|b>=|R_sigma(b)>. Thus P is specifically this wire-induced basis permutation, not an arbitrary permutation of all2^N computational labels. A primitive circuit has chronological matrices U_1,...,U_t, with first-listed gate acting first. Consistently rename each gate's target and each control by sigma, retaining gate kind and angle.\n\nProve that the renamed circuit realizes P(U_t...U_1)P^{-1}, rather than insertion of a one-sided physical permutation. Justify the single-gate conjugation from the induced bitstring action and show the interior inverse/permutation cancellations through the chronological product. Explain why output-only relabeling fails to preserve products, giving two identity stages and an actual nontrivial involutive wire swap as a witness when N>=2. Include empty circuit and N=0,1 boundaries. Finally assess why the same wire-renaming assertion would be false if P were an arbitrary unrelated basis-label permutation: on one wire compare P=X with a nonzero RY. Distinguish algebraic basis reindexing from a physical SWAP/routing implementation; no hardware routing cost follows for free.",
+        "assumptions": [
+          "Finite-dimensional complex Hilbert spaces unless real amplitudes are explicitly specified",
+          "All basis/register permutations are fixed and applied to both input and output"
+        ],
+        "conventions": [
+          "Column-vector action; Euclidean induced operator norm for norm claims",
+          "Source inspection only; no fresh formal verification"
+        ],
+        "imports": [
+          "QuantumBlockEncoding.PrimitiveWireRename"
+        ],
+        "library_revision": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+        "root_id": "la013_root",
+        "nodes": [
+          {
+            "id": "la013_bridge",
+            "target": "∀ (N : ℕ) (e : Fin N ≃ Fin N) (M : Matrix (QuantumBlockEncoding.PrimitiveBasis N) (QuantumBlockEncoding.PrimitiveBasis N) ℂ), QuantumBlockEncoding.PrimitiveWireRename.matrix e M = (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * M * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm) ∧ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm) = 1 ∧ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm) * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) = 1",
+            "depends_on": []
+          },
+          {
+            "id": "la013_gate",
+            "target": "∀ (N : ℕ) (e : Fin N ≃ Fin N) (g : QuantumBlockEncoding.PrimitiveGate N), QuantumBlockEncoding.evalPrimitiveGate (QuantumBlockEncoding.PrimitiveWireRename.gate e g) = QuantumBlockEncoding.PrimitiveWireRename.matrix e (QuantumBlockEncoding.evalPrimitiveGate g)",
+            "depends_on": []
+          },
+          {
+            "id": "la013_multiply",
+            "target": "∀ (N : ℕ) (e : Fin N ≃ Fin N) (A B : Matrix (QuantumBlockEncoding.PrimitiveBasis N) (QuantumBlockEncoding.PrimitiveBasis N) ℂ), QuantumBlockEncoding.PrimitiveWireRename.matrix e (A * B) = QuantumBlockEncoding.PrimitiveWireRename.matrix e A * QuantumBlockEncoding.PrimitiveWireRename.matrix e B",
+            "depends_on": []
+          },
+          {
+            "id": "la013_circuit",
+            "target": "∀ (N : ℕ) (e : Fin N ≃ Fin N) (c : QuantumBlockEncoding.PrimitiveCircuit N), QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.PrimitiveWireRename.circuit e c) = QuantumBlockEncoding.PrimitiveWireRename.matrix e (QuantumBlockEncoding.evalPrimitiveCircuit c)",
+            "depends_on": [
+              "la013_gate",
+              "la013_multiply"
+            ]
+          },
+          {
+            "id": "la013_main",
+            "target": "∀ (N : ℕ) (e : Fin N ≃ Fin N), (∀ g : QuantumBlockEncoding.PrimitiveGate N, QuantumBlockEncoding.evalPrimitiveGate (QuantumBlockEncoding.PrimitiveWireRename.gate e g) = (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * QuantumBlockEncoding.evalPrimitiveGate g * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm)) ∧ (∀ c : QuantumBlockEncoding.PrimitiveCircuit N, QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.PrimitiveWireRename.circuit e c) = (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * QuantumBlockEncoding.evalPrimitiveCircuit c * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm)) ∧ QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.PrimitiveWireRename.circuit e []) = 1 ∧ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm) = 1 ∧ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm) * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) = 1",
+            "depends_on": [
+              "la013_bridge",
+              "la013_gate",
+              "la013_circuit"
+            ]
+          },
+          {
+            "id": "la013_small",
+            "target": "∀ (N : ℕ), N ≤ 1 → ∀ (e : Fin N ≃ Fin N), e = Equiv.refl (Fin N) ∧ QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e = Equiv.refl (QuantumBlockEncoding.PrimitiveBasis N) ∧ (∀ c : QuantumBlockEncoding.PrimitiveCircuit N, QuantumBlockEncoding.PrimitiveWireRename.circuit e c = c)",
+            "depends_on": []
+          },
+          {
+            "id": "la013_swap",
+            "target": "∀ (N : ℕ), 2 ≤ N → ∃ e : Fin N ≃ Fin N, Function.Involutive e ∧ ((QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) = 1 ∧ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) ≠ 1 ∧ ((QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * 1) * ((QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * 1) ≠ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * (1 * 1))",
+            "depends_on": []
+          },
+          {
+            "id": "la013_unrelated",
+            "target": "(∀ (e : Fin 1 ≃ Fin 1) (θ : ℝ), QuantumBlockEncoding.PrimitiveWireRename.gate e (QuantumBlockEncoding.PrimitiveGate.ry 0 (QuantumBlockEncoding.ExactAngle.real θ)) = QuantumBlockEncoding.PrimitiveGate.ry 0 (QuantumBlockEncoding.ExactAngle.real θ)) ∧ QuantumBlockEncoding.xMatrix = QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (Equiv.swap (0 : Fin 2) 1) ∧ QuantumBlockEncoding.xMatrix * QuantumBlockEncoding.xMatrix = 1 ∧ (∀ θ : ℝ, QuantumBlockEncoding.xMatrix * QuantumBlockEncoding.standardRyMatrix θ * QuantumBlockEncoding.xMatrix = QuantumBlockEncoding.standardRyMatrix (-θ)) ∧ Real.pi ≠ 0 ∧ QuantumBlockEncoding.xMatrix * QuantumBlockEncoding.standardRyMatrix Real.pi * QuantumBlockEncoding.xMatrix ≠ QuantumBlockEncoding.standardRyMatrix Real.pi",
+            "depends_on": [
+              "la013_small"
+            ]
+          },
+          {
+            "id": "la013_root",
+            "target": "(∀ (N : ℕ) (e : Fin N ≃ Fin N), (∀ g : QuantumBlockEncoding.PrimitiveGate N, QuantumBlockEncoding.evalPrimitiveGate (QuantumBlockEncoding.PrimitiveWireRename.gate e g) = (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * QuantumBlockEncoding.evalPrimitiveGate g * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm)) ∧ (∀ c : QuantumBlockEncoding.PrimitiveCircuit N, QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.PrimitiveWireRename.circuit e c) = (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * QuantumBlockEncoding.evalPrimitiveCircuit c * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm)) ∧ QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.PrimitiveWireRename.circuit e []) = 1 ∧ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm) = 1 ∧ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm) * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) = 1) ∧ (∀ (N : ℕ), N ≤ 1 → ∀ (e : Fin N ≃ Fin N), e = Equiv.refl (Fin N) ∧ QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e = Equiv.refl (QuantumBlockEncoding.PrimitiveBasis N) ∧ (∀ c : QuantumBlockEncoding.PrimitiveCircuit N, QuantumBlockEncoding.PrimitiveWireRename.circuit e c = c)) ∧ (∀ (N : ℕ), 2 ≤ N → ∃ e : Fin N ≃ Fin N, Function.Involutive e ∧ ((QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) = 1 ∧ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) ≠ 1 ∧ ((QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * 1) * ((QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * 1) ≠ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * (1 * 1))) ∧ ((∀ (e : Fin 1 ≃ Fin 1) (θ : ℝ), QuantumBlockEncoding.PrimitiveWireRename.gate e (QuantumBlockEncoding.PrimitiveGate.ry 0 (QuantumBlockEncoding.ExactAngle.real θ)) = QuantumBlockEncoding.PrimitiveGate.ry 0 (QuantumBlockEncoding.ExactAngle.real θ)) ∧ QuantumBlockEncoding.xMatrix = QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (Equiv.swap (0 : Fin 2) 1) ∧ QuantumBlockEncoding.xMatrix * QuantumBlockEncoding.xMatrix = 1 ∧ (∀ θ : ℝ, QuantumBlockEncoding.xMatrix * QuantumBlockEncoding.standardRyMatrix θ * QuantumBlockEncoding.xMatrix = QuantumBlockEncoding.standardRyMatrix (-θ)) ∧ Real.pi ≠ 0 ∧ QuantumBlockEncoding.xMatrix * QuantumBlockEncoding.standardRyMatrix Real.pi * QuantumBlockEncoding.xMatrix ≠ QuantumBlockEncoding.standardRyMatrix Real.pi)",
+            "depends_on": [
+              "la013_main",
+              "la013_small",
+              "la013_swap",
+              "la013_unrelated"
+            ]
+          }
+        ],
+        "interfaces": [
+          {
+            "name": "QuantumBlockEncoding.PrimitiveWireRename.eval_gate",
+            "type": "{m n : Nat} → (e : Fin m ≃ Fin n) → (g : QuantumBlockEncoding.PrimitiveGate m) → QuantumBlockEncoding.evalPrimitiveGate (QuantumBlockEncoding.PrimitiveWireRename.gate e g) = QuantumBlockEncoding.PrimitiveWireRename.matrix e (QuantumBlockEncoding.evalPrimitiveGate g)",
+            "module": "QuantumBlockEncoding.PrimitiveWireRename",
+            "source_node_id": "declaration:QuantumBlockEncoding.PrimitiveWireRename.eval_gate"
+          },
+          {
+            "name": "QuantumBlockEncoding.PrimitiveWireRename.matrix_mul",
+            "type": "{m n : Nat} → (e : Fin m ≃ Fin n) → (M N : Matrix (QuantumBlockEncoding.PrimitiveBasis m) (QuantumBlockEncoding.PrimitiveBasis m) ℂ) → QuantumBlockEncoding.PrimitiveWireRename.matrix e (M * N) = QuantumBlockEncoding.PrimitiveWireRename.matrix e M * QuantumBlockEncoding.PrimitiveWireRename.matrix e N",
+            "module": "QuantumBlockEncoding.PrimitiveWireRename",
+            "source_node_id": "declaration:QuantumBlockEncoding.PrimitiveWireRename.matrix_mul"
+          },
+          {
+            "name": "QuantumBlockEncoding.PrimitiveWireRename.eval_circuit",
+            "type": "{m n : Nat} → (e : Fin m ≃ Fin n) → (c : QuantumBlockEncoding.PrimitiveCircuit m) → QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.PrimitiveWireRename.circuit e c) = QuantumBlockEncoding.PrimitiveWireRename.matrix e (QuantumBlockEncoding.evalPrimitiveCircuit c)",
+            "module": "QuantumBlockEncoding.PrimitiveWireRename",
+            "source_node_id": "declaration:QuantumBlockEncoding.PrimitiveWireRename.eval_circuit"
+          }
+        ],
+        "alignment_status": "author_frozen_formal_contract_pending_independent_decode_comparison_and_reference_replay"
+      },
+      "source_item_digest": "8d4bf06a789c537652e35cf927f0aefd4e5a562d2fa585f1f16b501763a6b62e",
+      "source_node_ids": [
+        "declaration:QuantumBlockEncoding.PrimitiveWireRename.eval_circuit",
+        "declaration:QuantumBlockEncoding.PrimitiveWireRename.matrix_mul",
+        "declaration:QuantumBlockEncoding.PrimitiveWireRename.eval_gate"
+      ],
+      "source_bindings": [
+        {
+          "path": "QuantumBlockEncoding/PrimitiveWireRename.lean",
+          "sha256_lf": "9f9b653ddda82a40bc9eafde31f6c932f59f631c03bfe24fbdc282acb8307727"
+        },
+        {
+          "path": "QuantumBlockEncoding/PrimitiveCircuit.lean",
+          "sha256_lf": "d5019ef58ce1ce65664d2a40979cdd652ca691c94743532c59dfe18cf2036d4c"
+        },
+        {
+          "path": "QuantumBlockEncoding/PrimitiveSemantics.lean",
+          "sha256_lf": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62"
+        },
+        {
+          "path": "QuantumBlockEncoding/Robin/ComplexLCU.lean",
+          "sha256_lf": "aa51d33a6ca788b17879e1d88030b525f4f035c97d74588636ccf25f8c04b843"
+        }
+      ],
+      "semantic_evidence": {
+        "kind": "new_roundtrip",
+        "group": "linear_circuit",
+        "anonymous_id": "L2"
+      },
+      "assumptions_added": false,
+      "controls": {
+        "constructed_whole_root": "by\n  have qcb_step_la013_bridge : ∀ (N : ℕ) (e : Fin N ≃ Fin N) (M : Matrix (QuantumBlockEncoding.PrimitiveBasis N) (QuantumBlockEncoding.PrimitiveBasis N) ℂ), QuantumBlockEncoding.PrimitiveWireRename.matrix e M = (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * M * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm) ∧ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm) = 1 ∧ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm) * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) = 1 := by\n    intro N e M\n    let P := QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)\n    let Pinv := QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm\n    change QuantumBlockEncoding.PrimitiveWireRename.matrix e M = P * M * Pinv ∧ P * Pinv = 1 ∧ Pinv * P = 1\n    refine ⟨?_, ?_, ?_⟩\n    · ext a b\n      dsimp [P, Pinv]\n      rw [QuantumBlockEncoding.Robin.ComplexLCU.mul_equivPermutationMatrix_apply, QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul_apply]\n      rfl\n    · ext a b\n      dsimp [P, Pinv]\n      rw [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul_apply]\n      simp [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix, Matrix.one_apply]\n    · ext a b\n      dsimp [P, Pinv]\n      rw [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul_apply]\n      simp [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix, Matrix.one_apply]\n  have qcb_step_la013_gate : ∀ (N : ℕ) (e : Fin N ≃ Fin N) (g : QuantumBlockEncoding.PrimitiveGate N), QuantumBlockEncoding.evalPrimitiveGate (QuantumBlockEncoding.PrimitiveWireRename.gate e g) = QuantumBlockEncoding.PrimitiveWireRename.matrix e (QuantumBlockEncoding.evalPrimitiveGate g) := by\n    intro N e g\n    exact QuantumBlockEncoding.PrimitiveWireRename.eval_gate e g\n  have qcb_step_la013_multiply : ∀ (N : ℕ) (e : Fin N ≃ Fin N) (A B : Matrix (QuantumBlockEncoding.PrimitiveBasis N) (QuantumBlockEncoding.PrimitiveBasis N) ℂ), QuantumBlockEncoding.PrimitiveWireRename.matrix e (A * B) = QuantumBlockEncoding.PrimitiveWireRename.matrix e A * QuantumBlockEncoding.PrimitiveWireRename.matrix e B := by\n    intro N e A B\n    exact map_mul (Matrix.reindexAlgEquiv ℂ ℂ (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) A B\n  have qcb_step_la013_circuit : ∀ (N : ℕ) (e : Fin N ≃ Fin N) (c : QuantumBlockEncoding.PrimitiveCircuit N), QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.PrimitiveWireRename.circuit e c) = QuantumBlockEncoding.PrimitiveWireRename.matrix e (QuantumBlockEncoding.evalPrimitiveCircuit c) := by\n    intro N e c\n    induction c with\n    | nil => simp [QuantumBlockEncoding.PrimitiveWireRename.circuit, QuantumBlockEncoding.evalPrimitiveCircuit, QuantumBlockEncoding.PrimitiveWireRename.matrix]\n    | cons g c ih =>\n      simp only [QuantumBlockEncoding.PrimitiveWireRename.circuit, List.map_cons, QuantumBlockEncoding.evalPrimitiveCircuit] at *\n      rw [ih, qcb_step_la013_gate, ← qcb_step_la013_multiply]\n  have qcb_step_la013_main : ∀ (N : ℕ) (e : Fin N ≃ Fin N), (∀ g : QuantumBlockEncoding.PrimitiveGate N, QuantumBlockEncoding.evalPrimitiveGate (QuantumBlockEncoding.PrimitiveWireRename.gate e g) = (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * QuantumBlockEncoding.evalPrimitiveGate g * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm)) ∧ (∀ c : QuantumBlockEncoding.PrimitiveCircuit N, QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.PrimitiveWireRename.circuit e c) = (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * QuantumBlockEncoding.evalPrimitiveCircuit c * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm)) ∧ QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.PrimitiveWireRename.circuit e []) = 1 ∧ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm) = 1 ∧ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm) * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) = 1 := by\n    intro N e\n    let P := QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)\n    let Pinv := QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm\n    change (∀ g : QuantumBlockEncoding.PrimitiveGate N, QuantumBlockEncoding.evalPrimitiveGate (QuantumBlockEncoding.PrimitiveWireRename.gate e g) = P * QuantumBlockEncoding.evalPrimitiveGate g * Pinv) ∧ (∀ c : QuantumBlockEncoding.PrimitiveCircuit N, QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.PrimitiveWireRename.circuit e c) = P * QuantumBlockEncoding.evalPrimitiveCircuit c * Pinv) ∧ QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.PrimitiveWireRename.circuit e []) = 1 ∧ P * Pinv = 1 ∧ Pinv * P = 1\n    refine ⟨?_, ?_, ?_, ?_, ?_⟩\n    · intro g\n      rw [qcb_step_la013_gate]\n      exact (qcb_step_la013_bridge N e _).1\n    · intro c\n      rw [qcb_step_la013_circuit]\n      exact (qcb_step_la013_bridge N e _).1\n    · rfl\n    · exact (qcb_step_la013_bridge N e 1).2.1\n    · exact (qcb_step_la013_bridge N e 1).2.2\n  have qcb_step_la013_small : ∀ (N : ℕ), N ≤ 1 → ∀ (e : Fin N ≃ Fin N), e = Equiv.refl (Fin N) ∧ QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e = Equiv.refl (QuantumBlockEncoding.PrimitiveBasis N) ∧ (∀ c : QuantumBlockEncoding.PrimitiveCircuit N, QuantumBlockEncoding.PrimitiveWireRename.circuit e c = c) := by\n    intro N hN e\n    have he : e = Equiv.refl (Fin N) := by\n      ext i\n      have hi := i.isLt\n      have hei := (e i).isLt\n      change (e i).val = i.val\n      omega\n    subst e\n    refine ⟨rfl, ?_, ?_⟩\n    · ext b w; rfl\n    · intro c\n      induction c with\n      | nil => rfl\n      | cons g c ih =>\n        simp only [QuantumBlockEncoding.PrimitiveWireRename.circuit, List.map_cons] at *\n        rw [ih]\n        congr 1\n        cases g <;> rfl\n  have qcb_step_la013_swap : ∀ (N : ℕ), 2 ≤ N → ∃ e : Fin N ≃ Fin N, Function.Involutive e ∧ ((QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) = 1 ∧ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) ≠ 1 ∧ ((QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * 1) * ((QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * 1) ≠ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * (1 * 1)) := by\n    classical\n    intro N hN\n    let a : Fin N := ⟨0, by omega⟩\n    let b : Fin N := ⟨1, by omega⟩\n    have hab : a ≠ b := by intro h; have := congrArg Fin.val h; dsimp [a, b] at this; omega\n    let e := Equiv.swap a b\n    have he : Function.Involutive e := Equiv.swap_apply_self a b\n    let E := QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e\n    have hE : Function.Involutive E := by\n      intro x\n      funext w\n      change x (e.symm (e.symm w)) = x w\n      simp [e]\n    let P := QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix E\n    have hPP : P * P = 1 := by\n      ext x y\n      dsimp [P]\n      rw [QuantumBlockEncoding.Robin.ComplexLCU.mul_equivPermutationMatrix_apply]\n      simp [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix, hE y, Matrix.one_apply]\n    have hP : P ≠ 1 := by\n      let x : QuantumBlockEncoding.PrimitiveBasis N := fun w => if w = a then 0 else 1\n      have hex : E x ≠ x := by\n        intro hh\n        have hh' := congrFun hh a\n        change x (e.symm a) = x a at hh'\n        simp [e, x, Ne.symm hab] at hh'\n      intro hp\n      have hh := congrFun (congrFun hp (E x)) x\n      simp [P, QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix, hex] at hh\n    refine ⟨e, he, hPP, hP, ?_⟩\n    change (P * 1) * (P * 1) ≠ P * (1 * 1)\n    simpa only [Matrix.mul_one, hPP] using Ne.symm hP\n  have qcb_step_la013_unrelated : (∀ (e : Fin 1 ≃ Fin 1) (θ : ℝ), QuantumBlockEncoding.PrimitiveWireRename.gate e (QuantumBlockEncoding.PrimitiveGate.ry 0 (QuantumBlockEncoding.ExactAngle.real θ)) = QuantumBlockEncoding.PrimitiveGate.ry 0 (QuantumBlockEncoding.ExactAngle.real θ)) ∧ QuantumBlockEncoding.xMatrix = QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (Equiv.swap (0 : Fin 2) 1) ∧ QuantumBlockEncoding.xMatrix * QuantumBlockEncoding.xMatrix = 1 ∧ (∀ θ : ℝ, QuantumBlockEncoding.xMatrix * QuantumBlockEncoding.standardRyMatrix θ * QuantumBlockEncoding.xMatrix = QuantumBlockEncoding.standardRyMatrix (-θ)) ∧ Real.pi ≠ 0 ∧ QuantumBlockEncoding.xMatrix * QuantumBlockEncoding.standardRyMatrix Real.pi * QuantumBlockEncoding.xMatrix ≠ QuantumBlockEncoding.standardRyMatrix Real.pi := by\n    refine ⟨?_, ?_, ?_, ?_, Real.pi_ne_zero, ?_⟩\n    · intro e θ\n      have he := (qcb_step_la013_small 1 (by omega) e).1\n      rw [he]\n      rfl\n    · ext i j\n      fin_cases i <;> fin_cases j <;>\n        norm_num [QuantumBlockEncoding.xMatrix, QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix, Equiv.swap_apply_def]\n    · ext i j\n      fin_cases i <;> fin_cases j <;>\n        norm_num [QuantumBlockEncoding.xMatrix, Matrix.mul_apply, Fin.sum_univ_two]\n    · exact QuantumBlockEncoding.xMatrix_conjugates_standardRy\n    · rw [QuantumBlockEncoding.xMatrix_conjugates_standardRy]\n      intro h\n      have he := congrFun (congrFun h (0 : Fin 2)) (1 : Fin 2)\n      change -((Real.sin (-Real.pi / 2) : ℝ) : ℂ) = -((Real.sin (Real.pi / 2) : ℝ) : ℂ) at he\n      rw [neg_div, Real.sin_neg, Real.sin_pi_div_two] at he\n      norm_num at he\n  exact ⟨qcb_step_la013_main, qcb_step_la013_small, qcb_step_la013_swap, qcb_step_la013_unrelated⟩\n",
+        "library_control": "by\n  have qcb_step_la013_bridge : ∀ (N : ℕ) (e : Fin N ≃ Fin N) (M : Matrix (QuantumBlockEncoding.PrimitiveBasis N) (QuantumBlockEncoding.PrimitiveBasis N) ℂ), QuantumBlockEncoding.PrimitiveWireRename.matrix e M = (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * M * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm) ∧ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm) = 1 ∧ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm) * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) = 1 := by\n    intro N e M\n    let P := QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)\n    let Pinv := QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm\n    change QuantumBlockEncoding.PrimitiveWireRename.matrix e M = P * M * Pinv ∧ P * Pinv = 1 ∧ Pinv * P = 1\n    refine ⟨?_, ?_, ?_⟩\n    · ext a b\n      dsimp [P, Pinv]\n      rw [QuantumBlockEncoding.Robin.ComplexLCU.mul_equivPermutationMatrix_apply, QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul_apply]\n      rfl\n    · ext a b\n      dsimp [P, Pinv]\n      rw [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul_apply]\n      simp [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix, Matrix.one_apply]\n    · ext a b\n      dsimp [P, Pinv]\n      rw [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul_apply]\n      simp [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix, Matrix.one_apply]\n  have qcb_step_la013_main : ∀ (N : ℕ) (e : Fin N ≃ Fin N), (∀ g : QuantumBlockEncoding.PrimitiveGate N, QuantumBlockEncoding.evalPrimitiveGate (QuantumBlockEncoding.PrimitiveWireRename.gate e g) = (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * QuantumBlockEncoding.evalPrimitiveGate g * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm)) ∧ (∀ c : QuantumBlockEncoding.PrimitiveCircuit N, QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.PrimitiveWireRename.circuit e c) = (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * QuantumBlockEncoding.evalPrimitiveCircuit c * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm)) ∧ QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.PrimitiveWireRename.circuit e []) = 1 ∧ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm) = 1 ∧ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm) * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) = 1 := by\n    intro N e\n    let P := QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)\n    let Pinv := QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm\n    change (∀ g : QuantumBlockEncoding.PrimitiveGate N, QuantumBlockEncoding.evalPrimitiveGate (QuantumBlockEncoding.PrimitiveWireRename.gate e g) = P * QuantumBlockEncoding.evalPrimitiveGate g * Pinv) ∧ (∀ c : QuantumBlockEncoding.PrimitiveCircuit N, QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.PrimitiveWireRename.circuit e c) = P * QuantumBlockEncoding.evalPrimitiveCircuit c * Pinv) ∧ QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.PrimitiveWireRename.circuit e []) = 1 ∧ P * Pinv = 1 ∧ Pinv * P = 1\n    refine ⟨?_, ?_, ?_, ?_, ?_⟩\n    · intro g\n      rw [QuantumBlockEncoding.PrimitiveWireRename.eval_gate]\n      exact (qcb_step_la013_bridge N e _).1\n    · intro c\n      rw [QuantumBlockEncoding.PrimitiveWireRename.eval_circuit]\n      exact (qcb_step_la013_bridge N e _).1\n    · rfl\n    · exact (qcb_step_la013_bridge N e 1).2.1\n    · exact (qcb_step_la013_bridge N e 1).2.2\n  have qcb_step_la013_small : ∀ (N : ℕ), N ≤ 1 → ∀ (e : Fin N ≃ Fin N), e = Equiv.refl (Fin N) ∧ QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e = Equiv.refl (QuantumBlockEncoding.PrimitiveBasis N) ∧ (∀ c : QuantumBlockEncoding.PrimitiveCircuit N, QuantumBlockEncoding.PrimitiveWireRename.circuit e c = c) := by\n    intro N hN e\n    have he : e = Equiv.refl (Fin N) := by\n      ext i\n      have hi := i.isLt\n      have hei := (e i).isLt\n      change (e i).val = i.val\n      omega\n    subst e\n    refine ⟨rfl, ?_, ?_⟩\n    · ext b w; rfl\n    · intro c\n      induction c with\n      | nil => rfl\n      | cons g c ih =>\n        simp only [QuantumBlockEncoding.PrimitiveWireRename.circuit, List.map_cons] at *\n        rw [ih]\n        congr 1\n        cases g <;> rfl\n  have qcb_step_la013_swap : ∀ (N : ℕ), 2 ≤ N → ∃ e : Fin N ≃ Fin N, Function.Involutive e ∧ ((QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) = 1 ∧ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) ≠ 1 ∧ ((QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * 1) * ((QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * 1) ≠ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * (1 * 1)) := by\n    classical\n    intro N hN\n    let a : Fin N := ⟨0, by omega⟩\n    let b : Fin N := ⟨1, by omega⟩\n    have hab : a ≠ b := by intro h; have := congrArg Fin.val h; dsimp [a, b] at this; omega\n    let e := Equiv.swap a b\n    have he : Function.Involutive e := Equiv.swap_apply_self a b\n    let E := QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e\n    have hE : Function.Involutive E := by\n      intro x\n      funext w\n      change x (e.symm (e.symm w)) = x w\n      simp [e]\n    let P := QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix E\n    have hPP : P * P = 1 := by\n      ext x y\n      dsimp [P]\n      rw [QuantumBlockEncoding.Robin.ComplexLCU.mul_equivPermutationMatrix_apply]\n      simp [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix, hE y, Matrix.one_apply]\n    have hP : P ≠ 1 := by\n      let x : QuantumBlockEncoding.PrimitiveBasis N := fun w => if w = a then 0 else 1\n      have hex : E x ≠ x := by\n        intro hh\n        have hh' := congrFun hh a\n        change x (e.symm a) = x a at hh'\n        simp [e, x, Ne.symm hab] at hh'\n      intro hp\n      have hh := congrFun (congrFun hp (E x)) x\n      simp [P, QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix, hex] at hh\n    refine ⟨e, he, hPP, hP, ?_⟩\n    change (P * 1) * (P * 1) ≠ P * (1 * 1)\n    simpa only [Matrix.mul_one, hPP] using Ne.symm hP\n  have qcb_step_la013_unrelated : (∀ (e : Fin 1 ≃ Fin 1) (θ : ℝ), QuantumBlockEncoding.PrimitiveWireRename.gate e (QuantumBlockEncoding.PrimitiveGate.ry 0 (QuantumBlockEncoding.ExactAngle.real θ)) = QuantumBlockEncoding.PrimitiveGate.ry 0 (QuantumBlockEncoding.ExactAngle.real θ)) ∧ QuantumBlockEncoding.xMatrix = QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (Equiv.swap (0 : Fin 2) 1) ∧ QuantumBlockEncoding.xMatrix * QuantumBlockEncoding.xMatrix = 1 ∧ (∀ θ : ℝ, QuantumBlockEncoding.xMatrix * QuantumBlockEncoding.standardRyMatrix θ * QuantumBlockEncoding.xMatrix = QuantumBlockEncoding.standardRyMatrix (-θ)) ∧ Real.pi ≠ 0 ∧ QuantumBlockEncoding.xMatrix * QuantumBlockEncoding.standardRyMatrix Real.pi * QuantumBlockEncoding.xMatrix ≠ QuantumBlockEncoding.standardRyMatrix Real.pi := by\n    refine ⟨?_, ?_, ?_, ?_, Real.pi_ne_zero, ?_⟩\n    · intro e θ\n      have he := (qcb_step_la013_small 1 (by omega) e).1\n      rw [he]\n      rfl\n    · ext i j\n      fin_cases i <;> fin_cases j <;>\n        norm_num [QuantumBlockEncoding.xMatrix, QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix, Equiv.swap_apply_def]\n    · ext i j\n      fin_cases i <;> fin_cases j <;>\n        norm_num [QuantumBlockEncoding.xMatrix, Matrix.mul_apply, Fin.sum_univ_two]\n    · exact QuantumBlockEncoding.xMatrix_conjugates_standardRy\n    · rw [QuantumBlockEncoding.xMatrix_conjugates_standardRy]\n      intro h\n      have he := congrFun (congrFun h (0 : Fin 2)) (1 : Fin 2)\n      change -((Real.sin (-Real.pi / 2) : ℝ) : ℂ) = -((Real.sin (Real.pi / 2) : ℝ) : ℂ) at he\n      rw [neg_div, Real.sin_neg, Real.sin_pi_div_two] at he\n      norm_num at he\n  exact ⟨qcb_step_la013_main, qcb_step_la013_small, qcb_step_la013_swap, qcb_step_la013_unrelated⟩\n"
+      },
+      "references": {
+        "la013_bridge": "by\n  intro N e M\n  let P := QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)\n  let Pinv := QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm\n  change QuantumBlockEncoding.PrimitiveWireRename.matrix e M = P * M * Pinv ∧ P * Pinv = 1 ∧ Pinv * P = 1\n  refine ⟨?_, ?_, ?_⟩\n  · ext a b\n    dsimp [P, Pinv]\n    rw [QuantumBlockEncoding.Robin.ComplexLCU.mul_equivPermutationMatrix_apply, QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul_apply]\n    rfl\n  · ext a b\n    dsimp [P, Pinv]\n    rw [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul_apply]\n    simp [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix, Matrix.one_apply]\n  · ext a b\n    dsimp [P, Pinv]\n    rw [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul_apply]\n    simp [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix, Matrix.one_apply]",
+        "la013_gate": "by\n  intro N e g\n  exact QuantumBlockEncoding.PrimitiveWireRename.eval_gate e g",
+        "la013_multiply": "by\n  intro N e A B\n  exact map_mul (Matrix.reindexAlgEquiv ℂ ℂ (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) A B",
+        "la013_circuit": "by\n  intro N e c\n  induction c with\n  | nil => simp [QuantumBlockEncoding.PrimitiveWireRename.circuit, QuantumBlockEncoding.evalPrimitiveCircuit, QuantumBlockEncoding.PrimitiveWireRename.matrix]\n  | cons g c ih =>\n    simp only [QuantumBlockEncoding.PrimitiveWireRename.circuit, List.map_cons, QuantumBlockEncoding.evalPrimitiveCircuit] at *\n    rw [ih, qcb_step_la013_gate, ← qcb_step_la013_multiply]",
+        "la013_main": "by\n  intro N e\n  let P := QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)\n  let Pinv := QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm\n  change (∀ g : QuantumBlockEncoding.PrimitiveGate N, QuantumBlockEncoding.evalPrimitiveGate (QuantumBlockEncoding.PrimitiveWireRename.gate e g) = P * QuantumBlockEncoding.evalPrimitiveGate g * Pinv) ∧ (∀ c : QuantumBlockEncoding.PrimitiveCircuit N, QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.PrimitiveWireRename.circuit e c) = P * QuantumBlockEncoding.evalPrimitiveCircuit c * Pinv) ∧ QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.PrimitiveWireRename.circuit e []) = 1 ∧ P * Pinv = 1 ∧ Pinv * P = 1\n  refine ⟨?_, ?_, ?_, ?_, ?_⟩\n  · intro g\n    rw [qcb_step_la013_gate]\n    exact (qcb_step_la013_bridge N e _).1\n  · intro c\n    rw [qcb_step_la013_circuit]\n    exact (qcb_step_la013_bridge N e _).1\n  · rfl\n  · exact (qcb_step_la013_bridge N e 1).2.1\n  · exact (qcb_step_la013_bridge N e 1).2.2",
+        "la013_small": "by\n  intro N hN e\n  have he : e = Equiv.refl (Fin N) := by\n    ext i\n    have hi := i.isLt\n    have hei := (e i).isLt\n    change (e i).val = i.val\n    omega\n  subst e\n  refine ⟨rfl, ?_, ?_⟩\n  · ext b w; rfl\n  · intro c\n    induction c with\n    | nil => rfl\n    | cons g c ih =>\n      simp only [QuantumBlockEncoding.PrimitiveWireRename.circuit, List.map_cons] at *\n      rw [ih]\n      congr 1\n      cases g <;> rfl",
+        "la013_swap": "by\n  classical\n  intro N hN\n  let a : Fin N := ⟨0, by omega⟩\n  let b : Fin N := ⟨1, by omega⟩\n  have hab : a ≠ b := by intro h; have := congrArg Fin.val h; dsimp [a, b] at this; omega\n  let e := Equiv.swap a b\n  have he : Function.Involutive e := Equiv.swap_apply_self a b\n  let E := QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e\n  have hE : Function.Involutive E := by\n    intro x\n    funext w\n    change x (e.symm (e.symm w)) = x w\n    simp [e]\n  let P := QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix E\n  have hPP : P * P = 1 := by\n    ext x y\n    dsimp [P]\n    rw [QuantumBlockEncoding.Robin.ComplexLCU.mul_equivPermutationMatrix_apply]\n    simp [QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix, hE y, Matrix.one_apply]\n  have hP : P ≠ 1 := by\n    let x : QuantumBlockEncoding.PrimitiveBasis N := fun w => if w = a then 0 else 1\n    have hex : E x ≠ x := by\n      intro hh\n      have hh' := congrFun hh a\n      change x (e.symm a) = x a at hh'\n      simp [e, x, Ne.symm hab] at hh'\n    intro hp\n    have hh := congrFun (congrFun hp (E x)) x\n    simp [P, QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix, hex] at hh\n  refine ⟨e, he, hPP, hP, ?_⟩\n  change (P * 1) * (P * 1) ≠ P * (1 * 1)\n  simpa only [Matrix.mul_one, hPP] using Ne.symm hP",
+        "la013_unrelated": "by\n  refine ⟨?_, ?_, ?_, ?_, Real.pi_ne_zero, ?_⟩\n  · intro e θ\n    have he := (qcb_step_la013_small 1 (by omega) e).1\n    rw [he]\n    rfl\n  · ext i j\n    fin_cases i <;> fin_cases j <;>\n      norm_num [QuantumBlockEncoding.xMatrix, QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix, Equiv.swap_apply_def]\n  · ext i j\n    fin_cases i <;> fin_cases j <;>\n      norm_num [QuantumBlockEncoding.xMatrix, Matrix.mul_apply, Fin.sum_univ_two]\n  · exact QuantumBlockEncoding.xMatrix_conjugates_standardRy\n  · rw [QuantumBlockEncoding.xMatrix_conjugates_standardRy]\n    intro h\n    have he := congrFun (congrFun h (0 : Fin 2)) (1 : Fin 2)\n    change -((Real.sin (-Real.pi / 2) : ℝ) : ℂ) = -((Real.sin (Real.pi / 2) : ℝ) : ℂ) at he\n    rw [neg_div, Real.sin_neg, Real.sin_pi_div_two] at he\n    norm_num at he",
+        "la013_root": "by\n  exact ⟨qcb_step_la013_main, qcb_step_la013_small, qcb_step_la013_swap, qcb_step_la013_unrelated⟩"
+      },
+      "library_control_one_call": false,
+      "negative_controls": {
+        "wrong_target": "by\n  exact True.intro",
+        "sorry_axiom": "by\n  sorry"
+      },
+      "semantic_coverage": "Complete algebraic content of the corrected question: actual wire-induced P and its explicit inverse; primitive and chronological-circuit conjugation; empty list; trivial wire permutations and unchanged lists for N<=1; a nontrivial involutive physical-wire swap inducing P with P²=I and two-identity-stage product failure for every N>=2; and the one-wire arbitrary-label X/RY(pi) counterexample. The separate representation-versus-hardware-cost distinction is explained in the worked derivation; no routing-cost model or free-SWAP theorem is claimed.",
+      "shortcut_disclosure": "eval_gate is imported unchanged as the primitive target/control/spectator transport theorem. The constructed route derives the reindexing-to-PMPinverse bridge entrywise, derives multiplicativity via the reindex algebra equivalence, and performs chronological list induction itself, then constructs both counterexamples and small-width boundaries. eval_circuit and matrix_mul are callable shortcuts for those composition subclaims and used by the library control. xMatrix_conjugates_standardRy is reused for the arbitrary-label counterexample, whose non-equality is checked at theta=pi. None of these imported theorems proves the full conjunction in one call. Formal depth is supplied obligation topology, not proof-term novelty or measured model difficulty.",
+      "retrieval_scope": {
+        "direct_route_interfaces": [
+          "QuantumBlockEncoding.PrimitiveWireRename.eval_gate",
+          "QuantumBlockEncoding.PrimitiveWireRename.matrix_mul",
+          "QuantumBlockEncoding.PrimitiveWireRename.eval_circuit"
+        ],
+        "additional_imported_substrate": [
+          "QuantumBlockEncoding.xMatrix_conjugates_standardRy",
+          "QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix_mul_apply",
+          "QuantumBlockEncoding.Robin.ComplexLCU.mul_equivPermutationMatrix_apply",
+          "Matrix.reindexAlgEquiv"
+        ],
+        "note": "Additional imported substrate is disclosed as implementation support; it does not add identities to the frozen source graph."
+      },
+      "source_binder_audit": [
+        {
+          "binder": "N : ℕ",
+          "class": "TYPING",
+          "meaning": "Number of physical wires; the matrix dimension is 2^N, not N."
+        },
+        {
+          "binder": "e : Fin N ≃ Fin N",
+          "class": "SOURCE",
+          "meaning": "The actual wire bijection sigma. P is definitionally built from its induced action on bitstrings."
+        },
+        {
+          "binder": "g : PrimitiveGate N",
+          "class": "SOURCE",
+          "meaning": "X, RY, RZ or CX; CX requires distinct control/target as part of its type, and exact angles are unchanged."
+        },
+        {
+          "binder": "c : PrimitiveCircuit N",
+          "class": "SOURCE",
+          "meaning": "An arbitrary finite chronological list, including empty; the first-listed gate acts first."
+        },
+        {
+          "binder": "N ≤ 1",
+          "class": "RULED",
+          "meaning": "The boundary branch where wire bijections are trivial, even though one-wire computational labels admit a nontrivial swap."
+        },
+        {
+          "binder": "2 ≤ N",
+          "class": "RULED",
+          "meaning": "The precise range in which distinct physical wires exist for the requested involutive-swap witness."
+        },
+        {
+          "binder": "θ : ℝ",
+          "class": "SOURCE",
+          "meaning": "Exact real rotation angle. The explicit counterexample chooses θ=pi, which is nonzero and has sin(θ/2)=1."
+        }
+      ],
+      "difficulty": {
+        "construction_band": "D3",
+        "measured_model_difficulty": null,
+        "imported_shortcut": "Per-gate/circuit covariance shortcuts remain callable; no whole-root shortcut identified.",
+        "rationale": "Track two distinct permutation carriers, derive two-sided conjugation and chronological composition, and combine two mechanism-specific counterexamples with small-width/empty boundaries. Primitive semantic transport is reused, not reconstructed as novel work."
+      },
+      "worked_derivation": "Write Rσ(b)(w)=b(σ⁻¹(w)) and P|b⟩=|Rσ(b)⟩. Then Rσ(b)(σ(w))=b(w). Hence target bits, control tests, and equality of all spectator bits are transported by the same wire bijection. Renaming an X or CX gate transports its bit action; renaming RY or RZ retains the same local 2×2 matrix and angle. For each primitive U′P=PU on every basis ket, so U′=PUP⁻¹. In entries, (PMP⁻¹)(a,b)=M(a∘σ,b∘σ), exactly the source reindexing map.\n\nThe chronological product multiplies later gates on the left. Therefore U′t⋯U′1=(PUtP⁻¹)⋯(PU1P⁻¹)=P(Ut⋯U1)P⁻¹; the interior P⁻¹P pairs are identities. Equivalently, two-sided reindexing is multiplicative, so induction on the chronological list proves the same identity. The empty list denotes I and PIP⁻¹=I. For N=0 or 1 every wire bijection is the identity, so the induced basis map and renamed primitive list are unchanged.\n\nFor any N≥2 swap wires 0 and 1 while fixing the rest. Its induced P is involutive and nontrivial: the bitstring with bit 0 at wire 0 and bit 1 everywhere else changes under this swap. Output-only replacement U↦PU gives (PI)(PI)=P²=I for two identity stages, whereas output-only replacement after composition gives P(II)=P≠I. It therefore fails to preserve products.\n\nAn arbitrary computational-label permutation need not arise from wire renaming. On one wire the only wire bijection is identity and thus leaves RY(θ) unchanged; nevertheless the independent label swap X=[[0,1],[1,0]] obeys XRY(θ)X=RY(-θ). At θ=pi, RY(pi)=[[0,-1],[1,0]] and RY(-pi)=[[0,1],[-1,0]], so they differ. This is a counterexample to an unrelated-P wire-renaming claim, not to the algebraic validity of conjugation by arbitrary permutations. A nonzero angle alone is not sufficient for every such counterexample, which is why the specific angle is supplied.\n\nThese identities change input and output coordinate labels consistently. They do not supply a physical SWAP network or establish a routing cost on a hardware connectivity graph. The formal root contains exact matrix and primitive-list semantics, with no hardware or finite-bit cost theorem.",
+      "route_rubric": [
+        {
+          "id": "induced_map",
+          "nodes": [
+            "la013_bridge",
+            "la013_gate"
+          ],
+          "criterion": "Relates P to the actual wire map, preserves primitive target/control/angle/spectators and obtains both inverse products.",
+          "weight": 2
+        },
+        {
+          "id": "chronology",
+          "nodes": [
+            "la013_multiply",
+            "la013_circuit",
+            "la013_main"
+          ],
+          "criterion": "Composes in later-on-left order and proves the empty-list identity, disclosing the imported per-gate substrate.",
+          "weight": 2
+        },
+        {
+          "id": "wire_swap",
+          "nodes": [
+            "la013_swap",
+            "la013_small"
+          ],
+          "criterion": "Uses an actual nontrivial induced involution for all N>=2 and treats N=0,1 separately.",
+          "weight": 1
+        },
+        {
+          "id": "unrelated_basis",
+          "nodes": [
+            "la013_unrelated"
+          ],
+          "criterion": "Shows X is a label permutation, compares XRY(pi)X with unchanged one-wire RY(pi), and distinguishes algebraic relabeling from unproved hardware routing costs.",
+          "weight": 1
+        }
+      ],
+      "statement_seal": {
+        "status": "author_frozen_pending_independent_comparison",
+        "source_question_version": 2,
+        "source_contract_hash": "ae8929927ad4dffcc2d10d957b43dcf6354d24de5af0fbeff6d1277908c76635",
+        "source_item_digest": "8d4bf06a789c537652e35cf927f0aefd4e5a562d2fa585f1f16b501763a6b62e",
+        "question_sha256": "8c96bc6d194717deedc733fbff7c1c8a46ff6e62fba827bb18cd42e661235d2c",
+        "formal_root_sha256": "b6b93fe2d4bbe560b3b51c215910ab66067d020ef67d318e1e54f12d5cd514ca",
+        "formalization_scope": "Complete algebraic content of the corrected question: actual wire-induced P and its explicit inverse; primitive and chronological-circuit conjugation; empty list; trivial wire permutations and unchanged lists for N<=1; a nontrivial involutive physical-wire swap inducing P with P²=I and two-identity-stage product failure for every N>=2; and the one-wire arbitrary-label X/RY(pi) counterexample. The separate representation-versus-hardware-cost distinction is explained in the worked derivation; no routing-cost model or free-SWAP theorem is claimed.",
+        "definition_audit": "Literal matrix, sign-flip, wire-map, permutation-matrix and chronological-list definitions; orthogonal completion is an explicitly reused existence theorem, with no claim of canonical choice or algorithmic efficiency.",
+        "excess_binders": [],
+        "resource_tier": "Exact finite-dimensional algebra; no hardware routing, numerical extraction or bit-complexity claim."
+      },
+      "graph_scope": {
+        "kind": "evaluator_supplied_AND_obligation_DAG",
+        "is_extracted_lean_proof_term_graph": false,
+        "is_new_source_proof_graph": false,
+        "frozen_source_nodes": [
+          "declaration:QuantumBlockEncoding.PrimitiveWireRename.eval_circuit",
+          "declaration:QuantumBlockEncoding.PrimitiveWireRename.matrix_mul",
+          "declaration:QuantumBlockEncoding.PrimitiveWireRename.eval_gate"
+        ],
+        "new_mathematical_cores": 0,
+        "note": "Task-local IDs organize proved course obligations and do not add or rename frozen library graph nodes. Counterexamples and boundaries are newly authored proof obligations supporting the existing exact question. Imports, authored logical dependencies and source anchors remain separate."
+      },
+      "purification": {
+        "status": "author_compressed_pending_independent_exposition_and_integration_gates",
+        "new_production_declarations": 0,
+        "root_policy": "One conjunction root per canonical question. Shared sign-flip and permutation-bridge lemmas are reused; local counterexample obligations remain losslessly visible."
+      },
+      "nl_source_relation": "Worked derivation authored for the literal frozen question; no question, assumptions, conventions, core, family or split change.",
+      "provisional_checks": {
+        "authored_nodes_and_constructed_whole_root": "local pinned-runtime Lean probe passed before metadata finalization; not a benchmark receipt",
+        "independent_semantic_review": "pending",
+        "isolated_prediction_execution": false
+      }
+    }
+  ]
+}

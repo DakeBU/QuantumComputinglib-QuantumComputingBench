@@ -64,6 +64,12 @@ Hamiltonian proofs and withholds four overlapping cores across all modalities.
 The [coverage audit](tracks/lean/LEAN_QA_COVERAGE.md) maps the remaining gaps
 by compiled source and graph relationship.
 
+[Course v6](tracks/lean/COURSE_V6.md) adds orientation repair and wire-renaming
+companions, reaching 25 existing shared cores. Its cumulative question-only
+splits and separate train-reference export preserve earlier course and study
+identities. Concise mathematical pages explain assumptions, boundaries and
+source relationships before the optional Lean details.
+
 The [supplementary NL workbook](docs/nonlean-workbook.md) has 24 exercises
 across eight chapters and provisional D2–D4 routes. The newest chapters map
 local rotations and weighted permutations to state preparation, calibration

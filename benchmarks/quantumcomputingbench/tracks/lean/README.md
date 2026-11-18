@@ -1,5 +1,10 @@
 # Lean contribution track
 
+The latest cumulative [course v6](COURSE_V6.md) has 25 existing shared cores,
+including orientation repair and wire-renaming companions. Use its dedicated
+export and evaluation entry points; earlier course and assessment profiles
+remain versioned and unchanged.
+
 This folder receives formal views and proof tasks over the
 [same shared cores](../../shared/CONTRACT.md) as the non-Lean track. It is not an
 independent dataset with its own split allocation. Read

@@ -1,0 +1,86 @@
+{
+  "decoder_identity": "/root/linear_circuit_neutral_decode",
+  "digest_method": "SHA256 of UTF-8 encoding of parsed input JSON serialized with sort_keys=True, ensure_ascii=False, separators=(',', ':')",
+  "files_read": [
+    "anonymous formal decoder input; exact packet digest above"
+  ],
+  "input_digest": "ca4d614cfe482d7551049d09937a444c661ae608fddc16fabff763a59b851316",
+  "input_revision_note": "The same anonymous input path was first read before its L2 aliases were inlined, then re-read after notification that the input had been replaced and frozen. This digest and reconstruction bind the final inlined packet.",
+  "packet_digest": "ca4d614cfe482d7551049d09937a444c661ae608fddc16fabff763a59b851316",
+  "publication_projection": {
+    "local_input_path_removed": true,
+    "mathematical_reconstruction_unchanged": true,
+    "original_record_sha256": "b9b2d6bbb73451c20b462a70b856b1a81e3611c2640303c0e3003003aeaa11fb"
+  },
+  "review_role": "Independent reconstruction of supplied formal targets and ambient definitions only. No authorship of the propositions, proof construction, proof checking, or comparison with any unseen source statement is claimed.",
+  "schema_version": "qcb.curriculum_blind_decode.v1",
+  "source_blind": true,
+  "views": [
+    {
+      "anonymous_id": "L1",
+      "binder_audit": [
+        "The first assertion universally binds N, r, e, and V before its two implication hypotheses r < N and V.transpose * V = 1. The existential U may depend on all of them. The final i and a range over Fin N and Fin r, respectively.",
+        "The injection specifies actual column positions, not merely a span. Every prescribed entry must match exactly; there is no freedom to change signs, reorder the labels, approximate the columns, or apply an extra basis change.",
+        "The second assertion universally binds N, assumes 0 < N, then existentially chooses V. Its negated existential quantifies U and all three required properties together. There is no embedding in this entrywise condition: every column of U must equal the corresponding column of V.",
+        "The third assertion universally binds U on the empty index sets without assumptions. There is one matrix of that shape, and the claimed determinant uses the explicit empty-determinant convention."
+      ],
+      "case_analysis": [
+        "For r = 0 and N > 0, the first assertion applies: the prescribed-column matching and orthonormality conditions are vacuous, while a determinant-+1 orthogonal N by N U must exist.",
+        "For r < N, N is positive and at least one column position is free. Any injection is allowed, including placements outside an initial segment.",
+        "For r = N > 0, the first assertion does not apply. The second gives at least one failing full prescription in every such dimension, not failure for every full prescription. An orthogonal full prescription with determinant +1 already satisfies the requested conclusion.",
+        "N = 1 is included: r = 0 is covered by the first assertion and a full one-dimensional orientation-reversing prescription by the second.",
+        "When N = 0, r < N is impossible. The last assertion separately covers the zero-dimensional full matrix, whose determinant is +1. The second assertion excludes this case.",
+        "An injection Fin r into Fin N cannot exist when r > N, and the strict inequality of the first assertion excludes that regime anyway."
+      ],
+      "definition_audit": [
+        "The supplied matrix, identity, transpose, determinant, and injection descriptions are concrete standard conventions. Orthonormality of V is explicitly assumed and orientation +1 of U is explicitly demanded; neither is built into the matrix type.",
+        "The supplied signFlip j is only the diagonal matrix with -1 at j and +1 elsewhere. It is not used in the target. Its definition does not itself assert completion, orthogonality, or a determinant theorem.",
+        "No supplied definition hides existence of U or nonexistence of the forbidden full completion in an opaque predicate or premise. This statement audits the supplied definitions only; the imported module was not read."
+      ],
+      "reconstructed_statement": "The target is the conjunction of three assertions about finite real matrices. First, for every pair of natural numbers N and r, every injection e from Fin r into Fin N, and every real N by r matrix V, if r < N and V transpose times V is the r by r identity, then there exists a real N by N matrix U such that U transpose times U is the N by N identity, det(U) = +1, and, for every row i in Fin N and every prescribed-column label a in Fin r, U[i,e(a)] = V[i,a]. Thus any ordered orthonormal family of r real columns, assigned to any r distinct specified column positions, has an exactly matching orientation-preserving orthogonal completion whenever at least one column position remains free. Second, for every natural number N with N > 0 there exists a real N by N matrix V with V transpose times V equal to the identity and det(V) = -1, for which there is no real N by N matrix U simultaneously satisfying U transpose times U equal to the identity, det(U) = +1, and U[i,a] = V[i,a] for all i,a in Fin N. This asserts the existence of an obstruction when every column is prescribed: a full orientation-reversing orthogonal matrix cannot be matched entry for entry by an orientation-preserving orthogonal matrix. Third, every real matrix U indexed by Fin 0 on both sides satisfies U transpose times U equal to the empty identity and det(U) = +1. The conventions are ordinary real transpose and the ordinary finite determinant, including determinant 1 in dimension zero.",
+      "semantic_limitations": [
+        "This is exact finite-dimensional existence plus a full-dimension obstruction. It specifies no chosen completion, algorithm, numerical conditioning, complexity, circuit decomposition, continuity, or implementation.",
+        "The field is real and the completion determinant is +1. Complex unitary completion, arbitrary phases, and approximate column preservation are outside the statement.",
+        "No equivalence with any external theorem or unseen benchmark question is asserted."
+      ]
+    },
+    {
+      "anonymous_id": "L2",
+      "binder_audit": [
+        "The first group universally binds N and e across all five assertions. Its gate and circuit quantifiers are independent and universal. P and Pinv in this reconstruction are expository aliases for the repeated expressions of the final target, not extra quantified objects or additional hypotheses.",
+        "The row-output/column-input convention fixes the direction: P sends the column ket labelled b to the ket labelled E(b). E transports the bit previously at wire w to wire e(w). Pinv is defined using E.symm, and the two inverse-product identities are conclusions.",
+        "The second group universally quantifies N, assumes N <= 1, and universally quantifies e. Its last conjunct universally quantifies c and claims equality of the actual gate lists, not just their evaluations.",
+        "The third group universally quantifies N, assumes 2 <= N, and existentially selects e. Function.Involutive e means e(e(w)) = w for every wire. All matrix expressions in this existential use the induced matrix of that same e.",
+        "The one-wire assertion separately universally quantifies e on Fin 1 and real theta. This theta binder does not scope over the later matrix conjuncts. The general RY conjugation identity has its own theta binder, while the final inequality is specifically at pi.",
+        "The identities in the first three groups are indexed by PrimitiveBasis N and have size 2^N. The local X/RY identities are indexed by Fin 2 and have size 2. The local transposition exchanges bit values, not the singleton set of physical wires."
+      ],
+      "case_analysis": [
+        "For N = 0 there is one empty bit assignment, so the global matrices are 1 by 1 rather than 0 by 0. There are no possible primitive gates because there are no wire labels, hence the only gate list is empty. The gate-universal assertion is vacuous, but the permutation and empty-circuit identities still have content.",
+        "For N = 1 every wire permutation is identity. X, RY, and RZ gates may act on its sole wire, while a controlled-X with distinct control and target cannot be formed. Renaming every circuit leaves its syntax unchanged.",
+        "For each N >= 2 a nonidentity involutive induced matrix is asserted to exist. In its left-multiplication witness, the left-hand side is P squared = identity and the right-hand side is P, which differ because P != identity. This does not contradict conjugation covariance.",
+        "Every N includes the explicitly stated empty-circuit case. The evaluation recursion fixes the temporal order for nonempty lists.",
+        "A one-qubit local bit swap is possible even though its single physical wire admits only the identity renaming. The final group separates these operations using RY.",
+        "The conjugation identity is universal in theta, but the inequality is only at pi. It does not claim inequality at every nonzero angle. At pi, the conjugated matrix is the negative of the original RY matrix; their exact inequality therefore does not establish physical distinguishability under a convention identifying global phases."
+      ],
+      "definition_audit": [
+        "PrimitiveBasis N is concretely the set of functions Fin N -> Fin 2. basisEquiv explicitly pulls those functions back by e.symm and has inverse pullback by e. These clauses specify relabeling rather than defining it by the desired gate covariance conclusion.",
+        "The permutation matrix is defined entrywise by whether a = E(b). Neither inverse-product identities nor gate or circuit covariance are postulated in this definition.",
+        "The ambient matrix e M helper reindexes as M[a composed with e,b composed with e], consistent with E inverse on the two indices. The target does not use this helper. Its definition does not assume a conjugation law.",
+        "The gate renamer changes each wire through e, preserves constructor and angle expression, and transports controlled-X distinctness through injectivity. It is not defined by asserting an evaluated matrix equation.",
+        "Gate semantics are operational: X flips its target bit; controlled-X flips the target precisely when its distinct control bit is 1; rotations apply the stated local two-by-two entries and have entry zero unless all spectator bits agree. Circuit renaming is list mapping, and circuit evaluation is a recursive product. These definitions do not conceal the desired covariance statement.",
+        "ExactAngle includes real(theta), rational, piRational, twiceArccosRational, twiceArccosSqrtRational, add, neg, and rational scale, evaluated in the reals. Gate covariance covers every gate using any allowed angle expression. The one-wire example specializes to real(theta), and its equality preserves the expression itself.",
+        "The supplied local rotations fix the half-angle signs: RY has diagonal cos(theta/2), upper-right -sin(theta/2), lower-left sin(theta/2); RZ is diagonal with cos(theta/2)-i sin(theta/2) and cos(theta/2)+i sin(theta/2). X exchanges 0 and 1. These concrete definitions do not stipulate the final conjugation or inequality results.",
+        "Identifying a one-wire bit function with its value at 0 explains writing a local two-by-two matrix. It is not an additional proposition asserting general invariance or covariance.",
+        "No supplied definition visibly assumes the target covariance, nontrivial-involution witness, or pi inequality. This audits only the given descriptions; it is not an inspection of the unopened import or verification of a Lean proof."
+      ],
+      "reconstructed_statement": "The target is a conjunction of four groups. Fix a natural number N of physical wires. A computational basis label is a bit assignment b: Fin N -> Fin 2, so evaluated operators are complex 2^N by 2^N matrices, with outputs indexing rows and inputs indexing columns. For exposition, write E for the bit-assignment permutation induced by a wire permutation e: Fin N equivalent to Fin N, namely E(b)(w) = b(e inverse(w)). Write P for the associated matrix P[a,b] = 1 exactly when a = E(b), and Pinv for the permutation matrix of E inverse; the final target spells these matrices out directly. The first group states, for every N and every e, all of the following: for every primitive gate g, evaluating the gate after renaming every target and control through e gives P times eval(g) times Pinv; for every finite primitive circuit c, evaluating the list obtained by renaming all of its gates gives P times eval(c) times Pinv; the renamed empty circuit evaluates to identity; and both P times Pinv and Pinv times P equal identity. The primitive constructors are X on one target, RY or RZ on one target with an exact angle expression, and controlled-X with distinct control and target. Renaming preserves the gate constructor and the exact angle expression. Circuit evaluation is eval([]) = identity and eval(g :: c) = eval(c) times eval(g), so on column vectors the first listed gate acts first. The second group states that for every N <= 1 and every wire permutation e, e equals the identity equivalence on wires, E equals the identity equivalence on bit assignments, and renaming every circuit by e leaves its gate list unchanged. The third group states that for every N >= 2 there exists a wire permutation e satisfying e(e(w)) = w for every wire, such that its induced P satisfies P times P = identity, P is not identity, and (P times identity) times (P times identity) is not P times (identity times identity). This is an explicit failure of multiplication preservation for left multiplication A -> P times A, witnessed by the pair of identity matrices. The target does not specify which nontrivial involutive permutation e must be chosen. The fourth group states that for every permutation e of Fin 1 and every real theta, renaming the RY gate on wire 0 with exact angle expression real(theta) gives that very same gate expression; the local two-by-two matrix X = [[0,1],[1,0]] equals the permutation matrix of the transposition exchanging 0 and 1 in Fin 2; X times X equals the two-by-two identity; for every real theta, X times standardRY(theta) times X equals standardRY(-theta); pi is nonzero; and X times standardRY(pi) times X is not equal to standardRY(pi). Here standardRY(theta) has rows [cos(theta/2), -sin(theta/2)] and [sin(theta/2), cos(theta/2)], regarded as complex entries. All displayed equalities and inequalities are exact, including the final inequality; no quotient by global phase is taken.",
+      "semantic_limitations": [
+        "The covariance quantifies over permutations of physical wire labels and the four named primitive constructors. It does not quantify over arbitrary permutations of all 2^N basis labels, arbitrary unitaries, a broader gate language, measurements, channels, or hardware connectivity.",
+        "Controlled-X requires distinct control and target. Noninjective relabeling, merging wires, equal-label controlled-X, and changes in wire count are outside the statement.",
+        "The left-multiplication failure is existential in e and uses one specific pair of input matrices, the identities. It neither refutes multiplicativity of conjugation nor asserts failure for every input pair.",
+        "The final pi example is exact matrix inequality and differs only by a global sign. It must not be strengthened to a global-phase-invariant physical distinction.",
+        "The statement provides no gate synthesis, approximation, performance, or routing bound. No equivalence verdict against an unseen source question is made."
+      ]
+    }
+  ]
+}
