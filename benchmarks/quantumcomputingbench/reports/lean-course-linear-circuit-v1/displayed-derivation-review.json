@@ -1,6 +1,6 @@
 {
   "comparison_serialization_only_change": "views[].reasoning: list of paragraph strings -> one string joined by two newline characters; requested by root after validator feedback.",
-  "function_text_sha256": "53ab6f810b0a962661fdcae3386d5bb7700fdf1da1a5f2d94493f4a480898811",
+  "function_text_sha256": "771e236f8fa007802c403d2b50ba3f632927f76488801fed14db78a879a68a12",
   "inspected_file": "website/scripts/qcb_linear_circuit_reader.py",
   "inspected_function": "mathematics",
   "inspected_lines": [
@@ -41,6 +41,34 @@
       ],
       "required_changes": [],
       "verdict": "accept"
+    }
+  ],
+  "follow_up_reviews": [
+    {
+      "kind": "publication_notation_only",
+      "reviewer": "/root/linear_circuit_semantic_comparison",
+      "previous_function_text_sha256": "53ab6f810b0a962661fdcae3386d5bb7700fdf1da1a5f2d94493f4a480898811",
+      "current_function_text_sha256": "771e236f8fa007802c403d2b50ba3f632927f76488801fed14db78a879a68a12",
+      "current_function_lines": [
+        112,
+        138
+      ],
+      "inspection": "Inspected only git diff hunks entirely within mathematics(); independently confirmed that reversing exactly the two colon-token substitutions reproduces the previously reviewed function SHA256.",
+      "changes": [
+        {
+          "before": "e:\\{",
+          "after": "e\\colon\\{"
+        },
+        {
+          "before": "b:\\{",
+          "after": "b\\colon\\{"
+        }
+      ],
+      "verdict": "accept",
+      "reasoning": "Both changes replace a literal function-domain colon with the standard TeX colon command. This changes notation/spacing only. The injection e has exactly the same domain and codomain, and the bit-label function b has exactly the same domain and codomain. All dimensions, assumptions, matrix equalities, chronological order, witnesses, boundaries, and exact-versus-phase qualifications are unchanged.",
+      "retained_details": "Original review conclusions, original inspected line span, source-exposure limitations, original pre-exposition semantic seal, serialization-only change record, and current comparison binding are retained. The current function source hash above supersedes the previous source hash preserved in this follow-up.",
+      "comparison_bytes_sha256_unchanged": "1e9c50f2b72bd9ca75c73b3a680b7fe8a91c2af279c9f4094761a210b800cc75",
+      "limitations": "No proof bodies, other functions, compilation, rendering, or broader test execution were inspected or performed for this follow-up."
     }
   ]
 }

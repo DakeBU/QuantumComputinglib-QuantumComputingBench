@@ -1,4 +1,5 @@
 """Public projection and reader hierarchy checks; no proof execution or model calls."""
+import importlib.util
 import sys
 import tempfile
 import unittest
@@ -13,6 +14,18 @@ from website.scripts.quantumcomputingbench import disclosure, section
 
 
 class LinearCircuitReaderTests(unittest.TestCase):
+    def test_mathematics_survives_final_local_path_scan(self):
+        spec = importlib.util.spec_from_file_location(
+            "qcb_linear_circuit_sanitizer", ROOT / "scripts/sanitize-blueprint-paths.py")
+        sanitizer = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(sanitizer)
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            for core in reader.TOPICS:
+                (root / (core + ".html")).write_text(
+                    reader.mathematics(core, section, disclosure), encoding="utf-8")
+            self.assertEqual(sanitizer._assert_no_local_paths(root, ROOT), len(reader.TOPICS))
+
     def record(self):
         entries, views, graph = [], {}, {}
         for number, core_id in enumerate(reader.TOPICS):
