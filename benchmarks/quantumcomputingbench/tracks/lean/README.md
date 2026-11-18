@@ -1,5 +1,10 @@
 # Lean contribution track
 
+The latest cumulative [course v6](COURSE_V6.md) has 25 existing shared cores,
+including orientation repair and wire-renaming companions. Use its dedicated
+export and evaluation entry points; earlier course and assessment profiles
+remain versioned and unchanged.
+
 This folder receives formal views and proof tasks over the
 [same shared cores](../../shared/CONTRACT.md) as the non-Lean track. It is not an
 independent dataset with its own split allocation. Read
@@ -9,8 +14,10 @@ independent dataset with its own split allocation. Read
 The local workstream now prioritizes the
 [Lean-enabled agentic evaluation contract](AGENTIC_EVALUATION.md): knowledge and
 precise statement understanding support proof completion, premise retrieval,
-multi-node construction, incremental feedback and repair. The existing views are
-warmups, not evidence that these interactive capabilities are already evaluated.
+multi-node construction, incremental feedback and repair. The original native
+views are library-application warmups; later course companions add composite
+roots and boundaries. Their authored checks do not establish measured model
+performance on these interactive capabilities.
 Run `scripts/lean_agentic.py audit` from the benchmark folder to inspect the
 resolved frontier without executing proofs or reading gold into agent prompts.
 

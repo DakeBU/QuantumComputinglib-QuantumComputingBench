@@ -1,0 +1,224 @@
+{
+  "candidate_batch_digest": "0b523b3803bac02e984a73b08f8b72cc5876f6bb6cbe6edd4c1b7b678344b8d5",
+  "decoder_digests": {
+    "linear_circuit": "bc5d7843a6696c5d84934c7b258098a78ce417b3c0d3319da12afb06a124b74b"
+  },
+  "packet_digests": {
+    "linear_circuit": "ca4d614cfe482d7551049d09937a444c661ae608fddc16fabff763a59b851316"
+  },
+  "schema_version": "qcb.course_semantic_comparison_input.v2",
+  "views": [
+    {
+      "ambient_context": {
+        "schema_version": "qcb.formal_decoder_input.v1",
+        "source_blind": true
+      },
+      "core_id": "qcb-core-la-006",
+      "formal_context_digest": "9f0900009f269c79d2c127f04a49dc081808e5f98dd0d2f5e4fea63c826f4270",
+      "formal_view": {
+        "anonymous_id": "L1",
+        "formal_context": {
+          "ambient_definitions": {
+            "embedding": "Fin r ↪ Fin N is an injective map assigning each of r columns a distinct column position.",
+            "matrices": "Matrix (Fin N) (Fin r) ℝ is a real N by r matrix. Multiplication sums over the middle index. transpose exchanges row and column. Matrix 1 has Kronecker-delta entries; det is the ordinary finite determinant, with determinant of the empty matrix equal to 1.",
+            "signFlip": "QuantumBlockEncoding.RealIsometryCompletion.signFlip j = Matrix.diagonal (fun i => if i = j then -1 else 1)."
+          },
+          "imports": [
+            "QuantumBlockEncoding.RealIsometryCompletion"
+          ],
+          "preamble": "",
+          "target": "(∀ (N r : ℕ) (e : Fin r ↪ Fin N) (V : Matrix (Fin N) (Fin r) ℝ), r < N → V.transpose * V = 1 → ∃ U : Matrix (Fin N) (Fin N) ℝ, U.transpose * U = 1 ∧ U.det = 1 ∧ ∀ i a, U i (e a) = V i a) ∧ (∀ (N : ℕ), 0 < N → ∃ V : Matrix (Fin N) (Fin N) ℝ, V.transpose * V = 1 ∧ V.det = -1 ∧ ¬ ∃ U : Matrix (Fin N) (Fin N) ℝ, U.transpose * U = 1 ∧ U.det = 1 ∧ ∀ i a, U i a = V i a) ∧ (∀ U : Matrix (Fin 0) (Fin 0) ℝ, U.transpose * U = 1 ∧ U.det = 1)"
+        }
+      },
+      "retrieval_interfaces": [
+        {
+          "module": "QuantumBlockEncoding.RealIsometryCompletion",
+          "name": "QuantumBlockEncoding.RealIsometryCompletion.exists_orthogonal_completion",
+          "source_node_id": "declaration:QuantumBlockEncoding.RealIsometryCompletion.exists_orthogonal_completion",
+          "type": "{N r : ℕ} → (V : Matrix (Fin N) (Fin r) ℝ) → (e : Fin r ↪ Fin N) → V.transpose * V = 1 → ∃ U : Matrix (Fin N) (Fin N) ℝ, U.transpose * U = 1 ∧ ∀ i a, U i (e a) = V i a"
+        },
+        {
+          "module": "QuantumBlockEncoding.RealIsometryCompletion",
+          "name": "QuantumBlockEncoding.RealIsometryCompletion.signFlip",
+          "source_node_id": "declaration:QuantumBlockEncoding.RealIsometryCompletion.signFlip",
+          "type": "{N : ℕ} → Fin N → Matrix (Fin N) (Fin N) ℝ"
+        },
+        {
+          "module": "QuantumBlockEncoding.RealIsometryCompletion",
+          "name": "QuantumBlockEncoding.RealIsometryCompletion.signFlip_orthogonal",
+          "source_node_id": "declaration:QuantumBlockEncoding.RealIsometryCompletion.signFlip_orthogonal",
+          "type": "{N : ℕ} → (j : Fin N) → (QuantumBlockEncoding.RealIsometryCompletion.signFlip j).transpose * QuantumBlockEncoding.RealIsometryCompletion.signFlip j = 1"
+        },
+        {
+          "module": "QuantumBlockEncoding.RealIsometryCompletion",
+          "name": "QuantumBlockEncoding.RealIsometryCompletion.signFlip_det",
+          "source_node_id": "declaration:QuantumBlockEncoding.RealIsometryCompletion.signFlip_det",
+          "type": "{N : ℕ} → (j : Fin N) → (QuantumBlockEncoding.RealIsometryCompletion.signFlip j).det = -1"
+        },
+        {
+          "module": "QuantumBlockEncoding.RealIsometryCompletion",
+          "name": "QuantumBlockEncoding.RealIsometryCompletion.mul_signFlip_preserves",
+          "source_node_id": "declaration:QuantumBlockEncoding.RealIsometryCompletion.mul_signFlip_preserves",
+          "type": "{N : ℕ} → (U : Matrix (Fin N) (Fin N) ℝ) → (j i a : Fin N) → a ≠ j → (U * QuantumBlockEncoding.RealIsometryCompletion.signFlip j) i a = U i a"
+        },
+        {
+          "module": "QuantumBlockEncoding.RealIsometryCompletion",
+          "name": "QuantumBlockEncoding.RealIsometryCompletion.exists_specialOrthogonal_completion_of_unused",
+          "source_node_id": "declaration:QuantumBlockEncoding.RealIsometryCompletion.exists_specialOrthogonal_completion_of_unused",
+          "type": "{N r : ℕ} → (V : Matrix (Fin N) (Fin r) ℝ) → (e : Fin r ↪ Fin N) → V.transpose * V = 1 → (unused : Fin N) → (∀ a, e a ≠ unused) → ∃ U : Matrix (Fin N) (Fin N) ℝ, U.transpose * U = 1 ∧ U.det = 1 ∧ ∀ i a, U i (e a) = V i a"
+        },
+        {
+          "module": "QuantumBlockEncoding.RealIsometryCompletion",
+          "name": "QuantumBlockEncoding.RealIsometryCompletion.exists_specialOrthogonal_completion",
+          "source_node_id": "declaration:QuantumBlockEncoding.RealIsometryCompletion.exists_specialOrthogonal_completion",
+          "type": "{N r : ℕ} → r < N → (V : Matrix (Fin N) (Fin r) ℝ) → (e : Fin r ↪ Fin N) → V.transpose * V = 1 → ∃ U : Matrix (Fin N) (Fin N) ℝ, U.transpose * U = 1 ∧ U.det = 1 ∧ ∀ i a, U i (e a) = V i a"
+        }
+      ],
+      "source_blind_decode": {
+        "anonymous_id": "L1",
+        "binder_audit": [
+          "The first assertion universally binds N, r, e, and V before its two implication hypotheses r < N and V.transpose * V = 1. The existential U may depend on all of them. The final i and a range over Fin N and Fin r, respectively.",
+          "The injection specifies actual column positions, not merely a span. Every prescribed entry must match exactly; there is no freedom to change signs, reorder the labels, approximate the columns, or apply an extra basis change.",
+          "The second assertion universally binds N, assumes 0 < N, then existentially chooses V. Its negated existential quantifies U and all three required properties together. There is no embedding in this entrywise condition: every column of U must equal the corresponding column of V.",
+          "The third assertion universally binds U on the empty index sets without assumptions. There is one matrix of that shape, and the claimed determinant uses the explicit empty-determinant convention."
+        ],
+        "case_analysis": [
+          "For r = 0 and N > 0, the first assertion applies: the prescribed-column matching and orthonormality conditions are vacuous, while a determinant-+1 orthogonal N by N U must exist.",
+          "For r < N, N is positive and at least one column position is free. Any injection is allowed, including placements outside an initial segment.",
+          "For r = N > 0, the first assertion does not apply. The second gives at least one failing full prescription in every such dimension, not failure for every full prescription. An orthogonal full prescription with determinant +1 already satisfies the requested conclusion.",
+          "N = 1 is included: r = 0 is covered by the first assertion and a full one-dimensional orientation-reversing prescription by the second.",
+          "When N = 0, r < N is impossible. The last assertion separately covers the zero-dimensional full matrix, whose determinant is +1. The second assertion excludes this case.",
+          "An injection Fin r into Fin N cannot exist when r > N, and the strict inequality of the first assertion excludes that regime anyway."
+        ],
+        "definition_audit": [
+          "The supplied matrix, identity, transpose, determinant, and injection descriptions are concrete standard conventions. Orthonormality of V is explicitly assumed and orientation +1 of U is explicitly demanded; neither is built into the matrix type.",
+          "The supplied signFlip j is only the diagonal matrix with -1 at j and +1 elsewhere. It is not used in the target. Its definition does not itself assert completion, orthogonality, or a determinant theorem.",
+          "No supplied definition hides existence of U or nonexistence of the forbidden full completion in an opaque predicate or premise. This statement audits the supplied definitions only; the imported module was not read."
+        ],
+        "reconstructed_statement": "The target is the conjunction of three assertions about finite real matrices. First, for every pair of natural numbers N and r, every injection e from Fin r into Fin N, and every real N by r matrix V, if r < N and V transpose times V is the r by r identity, then there exists a real N by N matrix U such that U transpose times U is the N by N identity, det(U) = +1, and, for every row i in Fin N and every prescribed-column label a in Fin r, U[i,e(a)] = V[i,a]. Thus any ordered orthonormal family of r real columns, assigned to any r distinct specified column positions, has an exactly matching orientation-preserving orthogonal completion whenever at least one column position remains free. Second, for every natural number N with N > 0 there exists a real N by N matrix V with V transpose times V equal to the identity and det(V) = -1, for which there is no real N by N matrix U simultaneously satisfying U transpose times U equal to the identity, det(U) = +1, and U[i,a] = V[i,a] for all i,a in Fin N. This asserts the existence of an obstruction when every column is prescribed: a full orientation-reversing orthogonal matrix cannot be matched entry for entry by an orientation-preserving orthogonal matrix. Third, every real matrix U indexed by Fin 0 on both sides satisfies U transpose times U equal to the empty identity and det(U) = +1. The conventions are ordinary real transpose and the ordinary finite determinant, including determinant 1 in dimension zero.",
+        "semantic_limitations": [
+          "This is exact finite-dimensional existence plus a full-dimension obstruction. It specifies no chosen completion, algorithm, numerical conditioning, complexity, circuit decomposition, continuity, or implementation.",
+          "The field is real and the completion determinant is +1. Complex unitary completion, arbitrary phases, and approximate column preservation are outside the statement.",
+          "No equivalence with any external theorem or unseen benchmark question is asserted."
+        ]
+      },
+      "source_item_digest": "4eae07a7fa7dc01f54e03e5d15700d11bec10c23f9368e6d01b5f44fc0d675f6",
+      "source_semantics": {
+        "assumptions": [
+          "an orthogonal completion with the prescribed columns exists",
+          "r < N so at least one column is unused"
+        ],
+        "conventions": [
+          "real matrices",
+          "SO(N) = orthogonal matrices of determinant +1",
+          "sign flip is a diagonal matrix with a single -1 entry"
+        ],
+        "question": "Suppose r orthonormal real columns are placed at r distinct positions among the N columns of an orthogonal matrix, and suppose r < N so at least one column position is left free. The naive completion to an orthogonal matrix may land in the reflection family (determinant -1) rather than the rotation family (determinant +1). Prove that one can always repair the orientation so the final matrix has determinant exactly +1 while leaving every one of the r prescribed columns completely unchanged. Explain why the strict inequality r < N is exactly what makes the repair possible, and why the repair cannot in general be done when r = N.",
+        "reference_answer": "Start from any orthogonal completion U whose prescribed columns are the given vectors. Because U is orthogonal, U-transpose U = I forces det(U)^2 = 1, so det(U) is either +1 or -1. If it is already +1 there is nothing to do. If it is -1, we fix it with a single-column sign flip at an unused position. Since r < N, the r prescribed positions do not exhaust the N columns, so there is at least one position, call it 'unused', that carries no prescribed column. Let S be the diagonal matrix that is the identity except for a -1 in the unused position. S is orthogonal (it is diagonal with entries +/-1, so S-transpose S = I) and det(S) = -1. Replace U by U*S. Then (U S)-transpose (U S) = S-transpose (U-transpose U) S = S-transpose S = I, so U*S is still orthogonal; and det(U S) = det(U) det(S) = (-1)(-1) = +1, so it is now a rotation. Crucially, right-multiplying by this diagonal S only rescales the single unused column by -1 and leaves every other column, in particular all r prescribed columns, exactly as it was. Hence the prescribed data is preserved and the orientation is corrected. The strict inequality r < N is essential because the repair needs a column that is NOT prescribed to absorb the sign flip; if r = N every column is prescribed, flipping any of them would change the required data, and indeed a fully prescribed orthonormal frame with determinant -1 simply cannot be reoriented to +1 without altering a prescribed column, so no determinant-+1 completion that fixes all N columns exists."
+      },
+      "task_hash": "d9643b3afc91b945078123201835650d15edb48f1f6d7c9c85a1d9058c195e6e"
+    },
+    {
+      "ambient_context": {
+        "schema_version": "qcb.formal_decoder_input.v1",
+        "source_blind": true
+      },
+      "core_id": "qcb-core-la-013",
+      "formal_context_digest": "8f188475eeb9e45c29c1b2cca7b2e031fbcc6b57141ce1516d09706e67c9e7b6",
+      "formal_view": {
+        "anonymous_id": "L2",
+        "formal_context": {
+          "ambient_definitions": {
+            "angle": "ExactAngle is an exact angle-expression type, including real θ with evaluation θ, rational, piRational, twiceArccosRational, twiceArccosSqrtRational, add, neg and rational scale; eval interprets those expressions in ℝ.",
+            "basisEquiv": "basisEquiv e has toFun b w = b (e.symm w) and invFun b w = b (e w).",
+            "carrier": "PrimitiveBasis N := Fin N → Fin 2. Fin N labels physical wires; a basis ket is a function assigning one bit to each wire. Matrix rows are output labels and columns are input labels.",
+            "circuit": "PrimitiveCircuit N := List (PrimitiveGate N). circuit e c := c.map (gate e). evalPrimitiveCircuit [] = 1 and evalPrimitiveCircuit (g :: c) = evalPrimitiveCircuit c * evalPrimitiveGate g.",
+            "gate": "PrimitiveGate N has x t, ry t angle, rz t angle, and cx c t distinct, where distinct : c ≠ t. gate e maps every target and control through e, leaves constructor and angle unchanged, and transports distinctness through injectivity.",
+            "gate_semantics": "X flips its target bit using the bit permutation matrix. CX flips its target if the distinct control bit is 1, and otherwise fixes the bitstring. RY/RZ act by the respective 2 by 2 matrix at the target, with entry zero unless every spectator bit agrees.",
+            "matrix": "matrix e M a b = M (fun w => a (e w)) (fun w => b (e w)).",
+            "permutation_matrix": "equivPermutationMatrix E a b := if a = E b then (1 : ℂ) else 0.",
+            "rotations": "standardRyMatrix θ = [[cos(θ/2), -sin(θ/2)], [sin(θ/2), cos(θ/2)]] in ℂ. standardRzMatrix θ has diagonal cos(θ/2)-i sin(θ/2), cos(θ/2)+i sin(θ/2), and zero off-diagonal entries. xMatrix = [[0,1],[1,0]].",
+            "wire_one_basis": "A function Fin 1 → Fin 2 is identified with its value at 0 when writing the local 2 by 2 gate matrix. This only describes the carrier convention, not an additional proposition."
+          },
+          "imports": [
+            "QuantumBlockEncoding.PrimitiveWireRename"
+          ],
+          "preamble": "",
+          "target": "(∀ (N : ℕ) (e : Fin N ≃ Fin N), (∀ g : QuantumBlockEncoding.PrimitiveGate N, QuantumBlockEncoding.evalPrimitiveGate (QuantumBlockEncoding.PrimitiveWireRename.gate e g) = (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * QuantumBlockEncoding.evalPrimitiveGate g * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm)) ∧ (∀ c : QuantumBlockEncoding.PrimitiveCircuit N, QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.PrimitiveWireRename.circuit e c) = (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * QuantumBlockEncoding.evalPrimitiveCircuit c * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm)) ∧ QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.PrimitiveWireRename.circuit e []) = 1 ∧ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm) = 1 ∧ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e).symm) * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) = 1) ∧ (∀ (N : ℕ), N ≤ 1 → ∀ (e : Fin N ≃ Fin N), e = Equiv.refl (Fin N) ∧ QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e = Equiv.refl (QuantumBlockEncoding.PrimitiveBasis N) ∧ (∀ c : QuantumBlockEncoding.PrimitiveCircuit N, QuantumBlockEncoding.PrimitiveWireRename.circuit e c = c)) ∧ (∀ (N : ℕ), 2 ≤ N → ∃ e : Fin N ≃ Fin N, Function.Involutive e ∧ ((QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) = 1 ∧ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) ≠ 1 ∧ ((QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * 1) * ((QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * 1) ≠ (QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (QuantumBlockEncoding.PrimitiveWireRename.basisEquiv e)) * (1 * 1))) ∧ ((∀ (e : Fin 1 ≃ Fin 1) (θ : ℝ), QuantumBlockEncoding.PrimitiveWireRename.gate e (QuantumBlockEncoding.PrimitiveGate.ry 0 (QuantumBlockEncoding.ExactAngle.real θ)) = QuantumBlockEncoding.PrimitiveGate.ry 0 (QuantumBlockEncoding.ExactAngle.real θ)) ∧ QuantumBlockEncoding.xMatrix = QuantumBlockEncoding.Robin.ComplexLCU.equivPermutationMatrix (Equiv.swap (0 : Fin 2) 1) ∧ QuantumBlockEncoding.xMatrix * QuantumBlockEncoding.xMatrix = 1 ∧ (∀ θ : ℝ, QuantumBlockEncoding.xMatrix * QuantumBlockEncoding.standardRyMatrix θ * QuantumBlockEncoding.xMatrix = QuantumBlockEncoding.standardRyMatrix (-θ)) ∧ Real.pi ≠ 0 ∧ QuantumBlockEncoding.xMatrix * QuantumBlockEncoding.standardRyMatrix Real.pi * QuantumBlockEncoding.xMatrix ≠ QuantumBlockEncoding.standardRyMatrix Real.pi)"
+        }
+      },
+      "retrieval_interfaces": [
+        {
+          "module": "QuantumBlockEncoding.PrimitiveWireRename",
+          "name": "QuantumBlockEncoding.PrimitiveWireRename.eval_gate",
+          "source_node_id": "declaration:QuantumBlockEncoding.PrimitiveWireRename.eval_gate",
+          "type": "{m n : Nat} → (e : Fin m ≃ Fin n) → (g : QuantumBlockEncoding.PrimitiveGate m) → QuantumBlockEncoding.evalPrimitiveGate (QuantumBlockEncoding.PrimitiveWireRename.gate e g) = QuantumBlockEncoding.PrimitiveWireRename.matrix e (QuantumBlockEncoding.evalPrimitiveGate g)"
+        },
+        {
+          "module": "QuantumBlockEncoding.PrimitiveWireRename",
+          "name": "QuantumBlockEncoding.PrimitiveWireRename.matrix_mul",
+          "source_node_id": "declaration:QuantumBlockEncoding.PrimitiveWireRename.matrix_mul",
+          "type": "{m n : Nat} → (e : Fin m ≃ Fin n) → (M N : Matrix (QuantumBlockEncoding.PrimitiveBasis m) (QuantumBlockEncoding.PrimitiveBasis m) ℂ) → QuantumBlockEncoding.PrimitiveWireRename.matrix e (M * N) = QuantumBlockEncoding.PrimitiveWireRename.matrix e M * QuantumBlockEncoding.PrimitiveWireRename.matrix e N"
+        },
+        {
+          "module": "QuantumBlockEncoding.PrimitiveWireRename",
+          "name": "QuantumBlockEncoding.PrimitiveWireRename.eval_circuit",
+          "source_node_id": "declaration:QuantumBlockEncoding.PrimitiveWireRename.eval_circuit",
+          "type": "{m n : Nat} → (e : Fin m ≃ Fin n) → (c : QuantumBlockEncoding.PrimitiveCircuit m) → QuantumBlockEncoding.evalPrimitiveCircuit (QuantumBlockEncoding.PrimitiveWireRename.circuit e c) = QuantumBlockEncoding.PrimitiveWireRename.matrix e (QuantumBlockEncoding.evalPrimitiveCircuit c)"
+        }
+      ],
+      "source_blind_decode": {
+        "anonymous_id": "L2",
+        "binder_audit": [
+          "The first group universally binds N and e across all five assertions. Its gate and circuit quantifiers are independent and universal. P and Pinv in this reconstruction are expository aliases for the repeated expressions of the final target, not extra quantified objects or additional hypotheses.",
+          "The row-output/column-input convention fixes the direction: P sends the column ket labelled b to the ket labelled E(b). E transports the bit previously at wire w to wire e(w). Pinv is defined using E.symm, and the two inverse-product identities are conclusions.",
+          "The second group universally quantifies N, assumes N <= 1, and universally quantifies e. Its last conjunct universally quantifies c and claims equality of the actual gate lists, not just their evaluations.",
+          "The third group universally quantifies N, assumes 2 <= N, and existentially selects e. Function.Involutive e means e(e(w)) = w for every wire. All matrix expressions in this existential use the induced matrix of that same e.",
+          "The one-wire assertion separately universally quantifies e on Fin 1 and real theta. This theta binder does not scope over the later matrix conjuncts. The general RY conjugation identity has its own theta binder, while the final inequality is specifically at pi.",
+          "The identities in the first three groups are indexed by PrimitiveBasis N and have size 2^N. The local X/RY identities are indexed by Fin 2 and have size 2. The local transposition exchanges bit values, not the singleton set of physical wires."
+        ],
+        "case_analysis": [
+          "For N = 0 there is one empty bit assignment, so the global matrices are 1 by 1 rather than 0 by 0. There are no possible primitive gates because there are no wire labels, hence the only gate list is empty. The gate-universal assertion is vacuous, but the permutation and empty-circuit identities still have content.",
+          "For N = 1 every wire permutation is identity. X, RY, and RZ gates may act on its sole wire, while a controlled-X with distinct control and target cannot be formed. Renaming every circuit leaves its syntax unchanged.",
+          "For each N >= 2 a nonidentity involutive induced matrix is asserted to exist. In its left-multiplication witness, the left-hand side is P squared = identity and the right-hand side is P, which differ because P != identity. This does not contradict conjugation covariance.",
+          "Every N includes the explicitly stated empty-circuit case. The evaluation recursion fixes the temporal order for nonempty lists.",
+          "A one-qubit local bit swap is possible even though its single physical wire admits only the identity renaming. The final group separates these operations using RY.",
+          "The conjugation identity is universal in theta, but the inequality is only at pi. It does not claim inequality at every nonzero angle. At pi, the conjugated matrix is the negative of the original RY matrix; their exact inequality therefore does not establish physical distinguishability under a convention identifying global phases."
+        ],
+        "definition_audit": [
+          "PrimitiveBasis N is concretely the set of functions Fin N -> Fin 2. basisEquiv explicitly pulls those functions back by e.symm and has inverse pullback by e. These clauses specify relabeling rather than defining it by the desired gate covariance conclusion.",
+          "The permutation matrix is defined entrywise by whether a = E(b). Neither inverse-product identities nor gate or circuit covariance are postulated in this definition.",
+          "The ambient matrix e M helper reindexes as M[a composed with e,b composed with e], consistent with E inverse on the two indices. The target does not use this helper. Its definition does not assume a conjugation law.",
+          "The gate renamer changes each wire through e, preserves constructor and angle expression, and transports controlled-X distinctness through injectivity. It is not defined by asserting an evaluated matrix equation.",
+          "Gate semantics are operational: X flips its target bit; controlled-X flips the target precisely when its distinct control bit is 1; rotations apply the stated local two-by-two entries and have entry zero unless all spectator bits agree. Circuit renaming is list mapping, and circuit evaluation is a recursive product. These definitions do not conceal the desired covariance statement.",
+          "ExactAngle includes real(theta), rational, piRational, twiceArccosRational, twiceArccosSqrtRational, add, neg, and rational scale, evaluated in the reals. Gate covariance covers every gate using any allowed angle expression. The one-wire example specializes to real(theta), and its equality preserves the expression itself.",
+          "The supplied local rotations fix the half-angle signs: RY has diagonal cos(theta/2), upper-right -sin(theta/2), lower-left sin(theta/2); RZ is diagonal with cos(theta/2)-i sin(theta/2) and cos(theta/2)+i sin(theta/2). X exchanges 0 and 1. These concrete definitions do not stipulate the final conjugation or inequality results.",
+          "Identifying a one-wire bit function with its value at 0 explains writing a local two-by-two matrix. It is not an additional proposition asserting general invariance or covariance.",
+          "No supplied definition visibly assumes the target covariance, nontrivial-involution witness, or pi inequality. This audits only the given descriptions; it is not an inspection of the unopened import or verification of a Lean proof."
+        ],
+        "reconstructed_statement": "The target is a conjunction of four groups. Fix a natural number N of physical wires. A computational basis label is a bit assignment b: Fin N -> Fin 2, so evaluated operators are complex 2^N by 2^N matrices, with outputs indexing rows and inputs indexing columns. For exposition, write E for the bit-assignment permutation induced by a wire permutation e: Fin N equivalent to Fin N, namely E(b)(w) = b(e inverse(w)). Write P for the associated matrix P[a,b] = 1 exactly when a = E(b), and Pinv for the permutation matrix of E inverse; the final target spells these matrices out directly. The first group states, for every N and every e, all of the following: for every primitive gate g, evaluating the gate after renaming every target and control through e gives P times eval(g) times Pinv; for every finite primitive circuit c, evaluating the list obtained by renaming all of its gates gives P times eval(c) times Pinv; the renamed empty circuit evaluates to identity; and both P times Pinv and Pinv times P equal identity. The primitive constructors are X on one target, RY or RZ on one target with an exact angle expression, and controlled-X with distinct control and target. Renaming preserves the gate constructor and the exact angle expression. Circuit evaluation is eval([]) = identity and eval(g :: c) = eval(c) times eval(g), so on column vectors the first listed gate acts first. The second group states that for every N <= 1 and every wire permutation e, e equals the identity equivalence on wires, E equals the identity equivalence on bit assignments, and renaming every circuit by e leaves its gate list unchanged. The third group states that for every N >= 2 there exists a wire permutation e satisfying e(e(w)) = w for every wire, such that its induced P satisfies P times P = identity, P is not identity, and (P times identity) times (P times identity) is not P times (identity times identity). This is an explicit failure of multiplication preservation for left multiplication A -> P times A, witnessed by the pair of identity matrices. The target does not specify which nontrivial involutive permutation e must be chosen. The fourth group states that for every permutation e of Fin 1 and every real theta, renaming the RY gate on wire 0 with exact angle expression real(theta) gives that very same gate expression; the local two-by-two matrix X = [[0,1],[1,0]] equals the permutation matrix of the transposition exchanging 0 and 1 in Fin 2; X times X equals the two-by-two identity; for every real theta, X times standardRY(theta) times X equals standardRY(-theta); pi is nonzero; and X times standardRY(pi) times X is not equal to standardRY(pi). Here standardRY(theta) has rows [cos(theta/2), -sin(theta/2)] and [sin(theta/2), cos(theta/2)], regarded as complex entries. All displayed equalities and inequalities are exact, including the final inequality; no quotient by global phase is taken.",
+        "semantic_limitations": [
+          "The covariance quantifies over permutations of physical wire labels and the four named primitive constructors. It does not quantify over arbitrary permutations of all 2^N basis labels, arbitrary unitaries, a broader gate language, measurements, channels, or hardware connectivity.",
+          "Controlled-X requires distinct control and target. Noninjective relabeling, merging wires, equal-label controlled-X, and changes in wire count are outside the statement.",
+          "The left-multiplication failure is existential in e and uses one specific pair of input matrices, the identities. It neither refutes multiplicativity of conjugation nor asserts failure for every input pair.",
+          "The final pi example is exact matrix inequality and differs only by a global sign. It must not be strengthened to a global-phase-invariant physical distinction.",
+          "The statement provides no gate synthesis, approximation, performance, or routing bound. No equivalence verdict against an unseen source question is made."
+        ]
+      },
+      "source_item_digest": "8d4bf06a789c537652e35cf927f0aefd4e5a562d2fa585f1f16b501763a6b62e",
+      "source_semantics": {
+        "assumptions": [
+          "Finite-dimensional complex Hilbert spaces unless real amplitudes are explicitly specified",
+          "All basis/register permutations are fixed and applied to both input and output"
+        ],
+        "conventions": [
+          "Column-vector action; Euclidean induced operator norm for norm claims",
+          "Source inspection only; no fresh formal verification"
+        ],
+        "question": "Let sigma be a bijection of the N physical wires, sigma:Fin N equiv Fin N. Its INDUCED bitstring bijection is R_sigma(b)(w)=b(sigma^{-1}(w)); define P by P|b>=|R_sigma(b)>. Thus P is specifically this wire-induced basis permutation, not an arbitrary permutation of all2^N computational labels. A primitive circuit has chronological matrices U_1,...,U_t, with first-listed gate acting first. Consistently rename each gate's target and each control by sigma, retaining gate kind and angle.\n\nProve that the renamed circuit realizes P(U_t...U_1)P^{-1}, rather than insertion of a one-sided physical permutation. Justify the single-gate conjugation from the induced bitstring action and show the interior inverse/permutation cancellations through the chronological product. Explain why output-only relabeling fails to preserve products, giving two identity stages and an actual nontrivial involutive wire swap as a witness when N>=2. Include empty circuit and N=0,1 boundaries. Finally assess why the same wire-renaming assertion would be false if P were an arbitrary unrelated basis-label permutation: on one wire compare P=X with a nonzero RY. Distinguish algebraic basis reindexing from a physical SWAP/routing implementation; no hardware routing cost follows for free.",
+        "reference_answer": "For a bitstring b, R_sigma(b)(sigma(w))=b(w), so renaming the physical target/control wires transports their stored bits exactly. X flips the renamed target; RY/RZ act with the same2x2 matrix on that target with the same spectator context; CX tests the renamed control and flips the renamed distinct target. Hence each renamed primitive U'_j satisfies U'_j P=P U_j on every basis ket, and U'_j=P U_j P^{-1}. Equivalently its entry at(a,b) is U_j(a composed with sigma,b composed with sigma), matching the source matrix_apply formula. This per-gate statement uses the RELATION between sigma and P; it is not true for an unrelated P merely because P is a basis permutation.\n\nChronological evaluation multiplies later gates on the left. Therefore U'_t...U'_1=(P U_t P^{-1})...(P U_1 P^{-1})=P(U_t...U_1)P^{-1}, since every interior P^{-1}P cancels. The empty product isI and PIP^{-1}=I, so no extra stage is inserted. For N=0 or1 the wire-bijection group is trivial, P=I, and the theorem reduces to unchanged evaluation; those cases do not supply a nontrivial wire-swap example.\n\nOutput-only renaming would assign U_j the matrix P U_j. For two identity stages this gives P^2, while output-only reindexing of their composed identity givesP. At N=2 take sigma swapping the two wires, whose induced P sends|01> to|10> and vice versa, fixes|00>,|11>, is nontrivial and hasP^2=I. Thus P^2!=P, so one-sided reindexing is not multiplicative. For more wires the same swap with all others fixed works.\n\nAn arbitrary basis permutation still supports a valid ALGEBRAIC conjugation M->PMP^{-1}. It need not correspond to renaming wires gate-by-gate. On one wire the sole wire permutation is identity, so renaming leaves RY(theta) unchanged. The unrelated basis swapP=X instead obeys X RY(theta) X=RY(-theta) for the standard half-angle rotation [[cos(theta/2),-sin(theta/2)],[sin(theta/2),cos(theta/2)]]. At theta=pi/2 the off-diagonal signs differ, so RY(-theta)!=RY(theta). This refutes the original unrestricted reading without contradicting general matrix conjugation.\n\nBoth boundary label maps are representational: all input/output labels are consistently changed. This is not an assertion that an arbitrary basis permutation is implementable by physical wire swaps, or that routing on a fixed hardware graph is free. The source eval_gate/eval_circuit proofs certify the induced-wire primitive list under exact matrix semantics; static reading is not a new execution."
+      },
+      "task_hash": "13035074d9f4aeb3e9421a1eaa94ec7b30b6a065bc7d92b9186ec3b1ba0a72ee"
+    }
+  ]
+}
