@@ -1,5 +1,10 @@
 # Lean QA coverage audit
 
+For the latest cumulative course, use `lean_course_v6.py audit` and the
+[v6 coverage download](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/data/quantumcomputingbench/lean-course-v6/coverage.json).
+The earlier coverage command below preserves its v4/v5 comparison baselines;
+it does not silently substitute the new v6 curriculum or a private study.
+
 Run the audit from a full repository checkout. The output binds the current
 reader catalog, frozen graph snapshot, course index and public assessment
 seals.

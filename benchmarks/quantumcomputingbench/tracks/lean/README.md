@@ -14,8 +14,10 @@ independent dataset with its own split allocation. Read
 The local workstream now prioritizes the
 [Lean-enabled agentic evaluation contract](AGENTIC_EVALUATION.md): knowledge and
 precise statement understanding support proof completion, premise retrieval,
-multi-node construction, incremental feedback and repair. The existing views are
-warmups, not evidence that these interactive capabilities are already evaluated.
+multi-node construction, incremental feedback and repair. The original native
+views are library-application warmups; later course companions add composite
+roots and boundaries. Their authored checks do not establish measured model
+performance on these interactive capabilities.
 Run `scripts/lean_agentic.py audit` from the benchmark folder to inspect the
 resolved frontier without executing proofs or reading gold into agent prompts.
 

@@ -1,6 +1,8 @@
 """Concise mathematical readers and exact public downloads for Lean course v6."""
+import ast
+import hashlib
 from html import escape
-from pathlib import PurePosixPath
+from pathlib import Path, PurePosixPath
 from posixpath import relpath
 from urllib.parse import quote
 
@@ -38,10 +40,29 @@ def source_link(source_url, path, line, label):
     return '<a href="' + escape(url, quote=True) + '">' + escape(label) + '</a>'
 
 
+def check_exposition(evidence):
+    review = read_json(evidence / "displayed-derivation-review.json")
+    comparison = read_json(evidence / "comparison.json")
+    source = Path(__file__).read_text(encoding="utf-8")
+    function = next(n for n in ast.parse(source).body
+                    if isinstance(n, ast.FunctionDef) and n.name == "mathematics")
+    source_digest = hashlib.sha256(ast.get_source_segment(source, function).encode("utf-8")).hexdigest()
+    if (review["function_text_sha256"] != source_digest
+            or review["published_comparison_canonical_digest"] != digest(comparison)
+            or review["inspected_file"] != "website/scripts/qcb_linear_circuit_reader.py"
+            or review["inspected_function"] != "mathematics"
+            or review["reviewer"] != comparison["reviewer"]
+            or len(review["views"]) != len(TOPICS)
+            or {v["core_id"] for v in review["views"]} != set(TOPICS)
+            or any(v["verdict"] != "accept" for v in review["views"])):
+        raise ValueError("Course v6 displayed mathematics lacks a current content-bound review")
+
+
 def publication(commit):
     from qcb_course_linear_circuit import EVIDENCE, qualified
     if not (EVIDENCE / "reference-checks.json").is_file():
         return None
+    check_exposition(EVIDENCE)
     from lean_course_v6 import load_course
     from lean_training_v6 import export
     from qcb_lean_course import export_course

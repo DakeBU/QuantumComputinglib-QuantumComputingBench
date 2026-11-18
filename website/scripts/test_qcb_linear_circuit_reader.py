@@ -95,6 +95,17 @@ class LinearCircuitReaderTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "no qualified source"):
                 reader.check(root, manifest)
 
+    def test_displayed_math_cannot_outlive_its_exact_review(self):
+        import json
+        from qcb_course_linear_circuit import EVIDENCE
+        reader.check_exposition(EVIDENCE)
+        records = {name: json.loads((EVIDENCE / name).read_text(encoding="utf-8"))
+                   for name in ("displayed-derivation-review.json", "comparison.json")}
+        records["displayed-derivation-review.json"]["function_text_sha256"] = "0" * 64
+        with patch.object(reader, "read_json", side_effect=lambda path: records[path.name]):
+            with self.assertRaisesRegex(ValueError, "content-bound review"):
+                reader.check_exposition(EVIDENCE)
+
 
 if __name__ == "__main__":
     unittest.main()
