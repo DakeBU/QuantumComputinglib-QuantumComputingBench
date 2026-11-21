@@ -1,22 +1,24 @@
-# QuantumComputingBench: three complementary evaluation modes
+# QuantumComputingBench: two graph-grounded evaluation tracks
 
 The scientific objective is to determine which quantum mathematics a model can
 understand, derive and apply, how well it can use Lean to solve mathematical
 problems, and whether it understands the structure connecting mathematical ideas.
-The three modes share one mathematical core registry. A view is an evaluation
+The two tracks share one mathematical core registry. A view is an evaluation
 condition or answer format, not another independent question.
 
 | Mode | Student receives | Main evidence of success |
 | --- | --- | --- |
 | Non-agentic Mathematical QA | A complete question with stated definitions, assumptions and notation; no tools or retrieval | Correct answer and independently reviewed mathematical derivation, including boundaries |
 | Agentic Lean-assisted QA | A fixed mathematical target, approved imports/interfaces and a specified feedback environment | Fresh replay of the unchanged Lean root under the approved axiom policy, plus separately scored reasoning and resource use |
-| Structured Graph QA | A versioned graph slice or explicitly closed-book graph question, with a defined relation vocabulary | Correct dependency choices, complete AND premises, feasible derivation plans and mathematically justified explanations |
 
-The first two modes have existing curricula, reference evidence and interfaces.
-Structured Graph QA is a proposed scored track; the existing expert atlas and
-reasoning graph guide provide its starting point, not an already qualified graph
-test suite. Mode-level scores must remain separate. Match the shared core,
-information access and budgets where a comparison needs paired tasks.
+Both tracks have existing curricula, reference evidence and interfaces; both
+assess dependencies, proof plans and mathematical mechanism transfer. A
+graph-given variant is an optional information condition for paired diagnostics,
+not a third independent evaluation track. The expert atlas and reasoning guide
+support this future profile, not an already qualified graph scorer. Match the
+shared core, information access and budgets for paired experiments.
+
+Follow [the benchmark standard and coverage roadmap](BENCHMARK_STANDARD.md).
 
 ## Shared operating contract for every goal
 
@@ -86,6 +88,14 @@ Extend the non-agentic Mathematical QA curriculum, using the current frozen
 QuantumComputinglib graph and reviewed planned curriculum to build original
 closed-book quantum-mathematics questions. Reuse the shared core registry;
 write under tracks/non-lean/proposals with the existing proposal protocol.
+First reconcile the 20 unassigned supplementary workbook candidates; review
+the 15 withheld historical contracts without automatically restoring them.
+Use the documented coverage roadmap. Prioritize TextbookStatePreparation,
+PrimitiveSemantics, PrimitiveBasisLE, PrimitiveCircuit, StatePreparationPrimitiveRoutes,
+CubicStatePreparation, MainCase and Resources. Check each actual declaration,
+mathematical contract, existing family and split before authoring. Cover missing
+foundational knowledge and the small Block Encoding public-test coverage; do
+not recycle public test solution families as train gold.
 Prioritize gaps not already covered by the natural-language workbook; avoid
 rephrasing existing definitions or varying only numbers. Build small families
 that progress from explaining a definition or exact theorem to deriving a result,
@@ -142,10 +152,11 @@ course fingerprints, and tested English hierarchical reader pages with exact
 graph/source links. Run applicable Lean, benchmark, publication and browser gates.
 ```
 
-## Goal C — Graph specialist (Lean optional): Structured Graph QA
+## Optional Goal C — Graph-given diagnostics within both tracks
 
 ```text
-Establish the first evidence-qualified Structured Graph QA pilot, using versioned
+Establish an optional paired graph-given diagnostic pilot within the existing
+two tracks, using versioned
 Lean Graph and Functor Hypergraph slices. Read the graph exporter and actual
 relation schemas; inspect the existing expert atlas and reasoning guide. Work
 in tracks/structured-graph/proposals using the draft packet contract in that

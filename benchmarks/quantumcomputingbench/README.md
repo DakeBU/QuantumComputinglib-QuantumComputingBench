@@ -1,18 +1,21 @@
 # QuantumComputingBench
 
-## Three evaluation modes
+## Two evaluation tracks, one mathematical graph
 
 | Mode | What we evaluate |
 | --- | --- |
 | Non-agentic Mathematical QA | Mathematical knowledge, derivation, assumptions and proof without tools. |
 | Agentic Lean-assisted QA | Interactive mathematical proof under a pinned library, feedback and verifier contract. |
-| Structured Graph QA | Typed prerequisites, proof plans and mathematical mechanism transfer. Scored graph tasks are a proposed new track. |
+Both tracks assess relationships between mathematical ideas. Graph-given proof
+planning is a proposed optional information condition, with distinct scores;
+it does not create a third dataset or increase shared core counts.
 
+[Benchmark standard and coverage roadmap](BENCHMARK_STANDARD.md) ·
 [Continuation goals for contributors](CONTRIBUTOR_GOALS.md) ·
-[Graph proposal track](tracks/structured-graph/README.md) ·
+[Graph diagnostic proposals](tracks/structured-graph/README.md) ·
 [Current Lean course v6](tracks/lean/COURSE_V6.md)
 
-The modes share mathematical core IDs and family/split policies. Mode-specific
+The tracks share mathematical core IDs and family/split policies. Track-specific
 scores are separate; public reference proofs do not constitute hidden tests.
 
 The [v3 assessment protocol](tracks/lean/ASSESSMENT_V3.md) distinguishes the

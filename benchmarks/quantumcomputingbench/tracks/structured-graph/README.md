@@ -1,7 +1,7 @@
-# Structured Graph QA — proposal track
+# Graph-given diagnostics — optional information condition
 
-This is a contributor entry point for the third evaluation mode, not a qualified
-task registry or scored release. Follow [Goal C](../../CONTRIBUTOR_GOALS.md#goal-c--graph-specialist-lean-optional-structured-graph-qa)
+This is a proposal namespace for optional graph-given variants within the two
+existing tracks, not a third evaluation track or scored release. Follow [Goal C](../../CONTRIBUTOR_GOALS.md#optional-goal-c--graph-given-diagnostics-within-both-tracks)
 and the [shared contract](../../shared/CONTRACT.md).
 
 Use UUID-named draft JSON packets under `proposals/`. Bind the exact question and

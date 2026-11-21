@@ -13,7 +13,7 @@ QuantumComputinglib explains quantum constructions, formalizes their mathematics
 | [Lean libs & textbooks](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/library/) | Search declarations, or [read the mathematics](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/learning/). |
 | [Lean Graph](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/lean-graph/) | Inspect library structure and formal proof dependencies where verified. |
 | [Functor Hypergraph](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/functor-hypergraph/) | See how mathematical mechanisms can be combined, with their required assumptions. |
-| [QuantumComputingBench](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/) | Practice, train and evaluate quantum mathematics through three complementary task modes. |
+| [QuantumComputingBench](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/) | Practice, train and evaluate quantum mathematics through two complementary tracks. |
 
 ## See what we do
 
@@ -33,9 +33,8 @@ U|0^n\rangle=|\psi\rangle.
 | --- | --- |
 | **Non-agentic Mathematical QA** | Knowledge, derivations, assumptions and proofs without tools. |
 | **Agentic Lean-assisted QA** | Interactive mathematical proof using Lean and verifier feedback. |
-| **Structured Graph QA** | Reasoning about prerequisites, proof structure and mathematical techniques. Scored graph tasks are currently in development. |
 
-All modes share mathematical core identities and compatible split policies. Public reference solutions support learning; they are not hidden test data. [Run or download tasks](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/run/) · [Contributor goals](benchmarks/quantumcomputingbench/CONTRIBUTOR_GOALS.md) · [Evidence and scope](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/evidence/)
+Both tracks are grounded in the Lean Graph and Functor Hypergraph. Dependency reasoning and optional graph-given proof planning are shared capabilities, not another dataset. Whole-domain coverage is currently in development; public answers are not hidden test data. [Run or download tasks](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/run/) · [Benchmark standard](benchmarks/quantumcomputingbench/BENCHMARK_STANDARD.md) · [Contributor goals](benchmarks/quantumcomputingbench/CONTRIBUTOR_GOALS.md)
 
 ## News
 
@@ -48,7 +47,7 @@ All modes share mathematical core identities and compatible split policies. Publ
 
 ## Build and contribute
 
-Use [the local build guide](PROJECT_GUIDE.md#lean-library) for the pinned Lean toolchain, tests and site. Follow [the repository agent goal](benchmarks/quantumcomputingbench/AGENT_GOAL.md) and the [three-mode continuation goals](benchmarks/quantumcomputingbench/CONTRIBUTOR_GOALS.md) for benchmark contributions.
+Use [the local build guide](PROJECT_GUIDE.md#lean-library) for the pinned Lean toolchain, tests and site. Follow [the repository agent goal](benchmarks/quantumcomputingbench/AGENT_GOAL.md) and the [continuation goals](benchmarks/quantumcomputingbench/CONTRIBUTOR_GOALS.md) for benchmark contributions.
 
 ## Citation
 

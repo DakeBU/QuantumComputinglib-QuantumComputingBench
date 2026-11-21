@@ -18,6 +18,15 @@ class Links(HTMLParser):
 
 
 class HierarchyTests(unittest.TestCase):
+    def test_two_primary_tracks_share_graph_reasoning(self):
+        page = nav.overview(lambda title, deck: '<div><h1>' + title + '</h1><p>' + deck + '</p>',
+                            {'cores': [{}]}, 1, 1)
+        self.assertEqual(page.count('class="qcb-card"'), 2)
+        self.assertIn('Non-agentic Mathematical QA', page)
+        self.assertIn('Agentic Lean-assisted QA', page)
+        self.assertIn('Graph-given proof planning is an optional information condition', page)
+        self.assertIn('run/protocol/index.html', page)
+
     def test_nested_navigation_preserves_relative_depth_and_one_selection(self):
         for path, active in (('', 'index.html'), ('tasks/all/', 'tasks/index.html'),
                              ('run/evaluation/review/', 'run/index.html'),

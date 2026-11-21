@@ -600,7 +600,7 @@ def publish_course(write, intro, plan, views, report):
 
 
 def home_panel():
-    return '<!-- qcb-textbook:start --><section class="qcb-home" id="quantumcomputingbench"><h2>Evaluate quantum-mathematical AI</h2><p>Three modes: closed-book mathematical QA, Lean-assisted proof, and structured graph reasoning (in development).</p><p><a class="button" href="quantumcomputingbench/run/index.html">Run the benchmark</a> <a href="quantumcomputingbench/tasks/index.html">Explore tasks</a></p></section><!-- qcb-textbook:end -->'
+    return '<!-- qcb-textbook:start --><section class="qcb-home" id="quantumcomputingbench"><h2>Evaluate quantum-mathematical AI</h2><p>Two tracks: closed-book mathematical reasoning and interactive Lean-assisted proof. Both are grounded in the library graph.</p><p><a class="button" href="quantumcomputingbench/run/index.html">Run the benchmark</a> <a href="quantumcomputingbench/tasks/index.html">Explore tasks</a></p></section><!-- qcb-textbook:end -->'
 
 
 def publish(root):
@@ -776,13 +776,13 @@ def publish(root):
         content += '<p>Historical same-core alias: ' + esc(", ".join(review["suggested_core_aliases"])) + '. Not added to the native core count.</p>'
         body += section(item["key"], content, "warmup-" + str(i))
     write(HUB + "lean/warmups/", "Lean reference warmups", body + '</div>', "Three exact-target, semantic-audited diagnostic warmups with inherited trusted reference checks.")
-    body = intro("Contribute without conflicting datasets", "Three evaluation modes, one shared mathematical core registry. Choose a contributor goal according to your tools and expertise.")
+    body = intro("Contribute without conflicting datasets", "Two evaluation tracks, one shared mathematical core registry. Choose a contributor goal according to your tools and expertise.")
     goals_url = REPO + '/blob/' + context['commit'] + '/benchmarks/quantumcomputingbench/CONTRIBUTOR_GOALS.md'
-    body += '<p><a class="button" href="' + esc(goals_url) + '">Open the three copyable English goals</a></p>'
+    body += '<p><a class="button" href="' + esc(goals_url) + '">Open the contributor goals</a></p>'
     for track, title, description in (
         ('non-lean', 'Non-agentic Mathematical QA', 'No Lean installation required. Author and review mathematical questions and solutions.'),
         ('lean', 'Agentic Lean-assisted QA', 'Qualify exact formal companions and reference proofs with the pinned toolchain.'),
-        ('structured-graph', 'Structured Graph QA', 'Lean optional. Design graph-given tasks and typed scoring proposals; this track is not yet admitted.'),
+        ('structured-graph', 'Optional graph-given diagnostics', 'A shared information condition for both tracks. Draft typed proof-planning questions; the distinct diagnostic scorer is not yet admitted.'),
     ):
         file = 'README.md' if track == 'structured-graph' else 'AGENT_GOAL.md'
         body += section(title, '<p>' + esc(description) + '</p><p><a href="' + REPO + '/blob/' + context['commit'] + '/benchmarks/quantumcomputingbench/tracks/' + track + '/' + file + '">Track instructions</a></p>', track)
