@@ -1,7 +1,8 @@
 """Calm reader entry points over the unchanged, frozen site renderer.
 
-This final publication pass moves existing HTML sections intact into native
-disclosures. It neither rewrites lesson content nor changes evidence records.
+This final publication pass projects concise entry points and curates news;
+it preserves authored mathematical sections in native disclosures and does
+not change evidence records or frozen benchmark inputs.
 """
 from __future__ import annotations
 
@@ -23,17 +24,40 @@ NO_SCRIPT = '''<noscript data-reader-mobile-navigation="1"><style>
   .mobile-header .mobile-menu { display: none; }
 }
 </style></noscript>'''
-GRAPH_LINKS = '''<div class="home-graph-links" aria-label="Explore the two graph views">
-  <a href="lean-graph/index.html"><strong>Lean Graph <span aria-hidden="true">&#8594;</span></strong>
-    <span>Library modules, imports and declaration branches.</span></a>
-  <a href="functor-hypergraph/index.html"><strong>Functor Hypergraph <span aria-hidden="true">&#8594;</span></strong>
-    <span>Conceptual transports, required inputs and failure boundaries.</span></a>
+GRAPH_LINKS = '''<div class="home-graph-links" data-home-entry-grid aria-label="Explore QuantumComputinglib">
+  <a href="learning/index.html" data-home-entry="library"><strong>Lean Libs &amp; Textbooks</strong>
+    <span>Learn the mathematics, find verified declarations and follow their proofs.</span></a>
+  <a href="lean-graph/index.html" data-home-entry="lean-graph"><strong>Lean Graph</strong>
+    <span>Explore the formal library and its dependency structure.</span></a>
+  <a href="functor-hypergraph/index.html" data-home-entry="hypergraph"><strong>Functor Hypergraph</strong>
+    <span>Connect mathematical techniques and inspect the conditions for combining them.</span></a>
+  <a href="quantumcomputingbench/index.html" data-home-entry="bench"><strong>QuantumComputingBench</strong>
+    <span>Practice, train and evaluate quantum mathematics, Lean and graph reasoning.</span></a>
 </div>'''
-HERO_ACTIONS = '''<div class="hero-actions">
-  <a class="text-link" href="reading-guide/index.html">Start reading &#8594;</a>
-  <a class="text-link" href="quantumcomputingbench/index.html">QuantumComputingBench &#8594;</a>
-  <a class="text-link" href="example-cases/index.html">Explore a worked case &#8594;</a>
+HERO_ACTIONS = '''<div class="hero-actions home-quick-links">
+  <a href="library/index.html">Search Lean declarations</a>
+  <a href="learning/index.html#start-here">New to quantum computing?</a>
+  <a href="task-builder/index.html">Build a construction</a>
 </div>'''
+DEMO = r'''<section class="content-section home-demo" id="see-it-in-action">
+  <div><p class="eyebrow">See it in action</p><h2>Prepare a quantum state</h2>
+    <p>Put the requested state in the first column of a unitary matrix. ASPBE searches for a circuit with that action; Lean checks the fixed mathematical contract.</p>
+    <p><a href="reading-guide/index.html">Read the one-qubit example</a> · <a href="example-cases/index.html">Explore verified constructions</a></p></div>
+  <div class="home-demo-equation" aria-label="The Hadamard gate prepares the plus state">
+    \[H|0\rangle=\frac{|0\rangle+|1\rangle}{\sqrt{2}}.\]
+    <p>A Hadamard gate turns the zero basis state into an equal-amplitude superposition.</p>
+  </div>
+</section>'''
+CURATED_NEWS = r'''<section class="content-section" id="news">
+  <div class="section-heading"><h2>News</h2></div>
+  <ol class="milestone-list">
+    <li><time datetime="2026-11-18">18 Nov 2026</time><p><a href="quantumcomputingbench/run/course-v6/index.html">Lean course v6</a> reaches 25 shared mathematical cores, adding orientation and wire-order proofs.</p></li>
+    <li><time datetime="2026-10-21">21 Oct 2026</time><p><a href="https://github.com/DakeBU/QuantumComputinglib-QuantumComputingBench/tree/main/benchmarks/quantumcomputingbench">QuantumComputingBench starts</a>, a graph-grounded benchmark for specialized mathematical models.</p></li>
+    <li><time datetime="2026-09-10">10 Sep 2026</time><p><a href="example-cases/hermite-smooth-state-preparation/index.html">Smooth-state preparation</a>: a linear logical gate bound for fixed degree under exact-real assumptions; finite-bit compilation remains open.</p></li>
+    <li><time datetime="2026-08-14">14 Aug 2026</time><p><a href="case-studies/robin/index.html">Robin block encoding</a>: an audited branch reduces \(T^{\dagger 3}\) gates from 49 to 30 and CNOTs from 52 to 32 under the same register contract.</p></li>
+  </ol>
+  <p><a href="https://github.com/DakeBU/QuantumComputinglib-QuantumComputingBench/blob/main/PROJECT_GUIDE.md">Full project history and technical guide</a></p>
+</section>'''
 
 
 def write_library_guide(root, site, report, context):
@@ -159,6 +183,7 @@ def _disclosure(key: str, title: str, content: str) -> str:
 def _home_hero(text: str) -> str:
     spans = Spans(text)
     lede = spans.one(lambda n: n.has_class("lede"))
+    eyebrow = spans.one(lambda n: n.has_class("eyebrow"))
     actions = spans.one(lambda n: n.has_class("hero-actions"))
     folded = [spans.one(lambda n, name=name: n.has_class(name))
               for name in ("hero-scope", "home-book-links", "evidence-note")]
@@ -166,7 +191,8 @@ def _home_hero(text: str) -> str:
              + "\n".join(text[node.start:node.end] for node in folded) + '</details>')
     hero = spans.one(lambda n: n.has_class("home-hero"))
     return _edit(text, [(node.start, node.end, "") for node in folded] + [
-        (lede.end, lede.end, "\n" + GRAPH_LINKS),
+        (eyebrow.start, eyebrow.end, '<p class="eyebrow">Open quantum mathematics · Lean · AI evaluation</p>'),
+        (lede.start, lede.end, '<p class="lede">Learn quantum mathematics, inspect checked proofs, and test how well AI understands them.</p>\n' + GRAPH_LINKS),
         (actions.start, actions.end, HERO_ACTIONS),
         (hero.close_start, hero.close_start, scope),
     ])
@@ -183,14 +209,15 @@ def _home(text: str) -> str:
     expected = {"hero", "math-2-0", "applications", "state-process", "block-process", "evidence", "pipeline", "use", "news", "chapters", "navigation"}
     if set(keyed) != expected or len(sections) != len(expected):
         raise ValueError("home reader sections changed; inspect before regrouping")
-    # Each authored section (including its heading, anchors and diagrams) is
-    # copied whole. Only the hero's navigation and duplicated scope are moved.
+    # Preserve the authored mathematics/evidence sections. The hero and news
+    # are presentation-only projections; the full historical record is retained
+    # in PROJECT_GUIDE.md and the frozen base renderer.
     groups = (
         ("textbooks", "Textbooks &amp; construction workflows", ("applications", "state-process", "block-process", "chapters")),
         ("evidence", "Build evidence &amp; practical tools", ("evidence", "pipeline", "use", "navigation")),
-        ("project", "Project context &amp; news", ("math-2-0", "news")),
+        ("project", "Math 2.0 &amp; research agenda", ("math-2-0",)),
     )
-    body = _home_hero(keyed["hero"]) + "".join(panels) + "\n"
+    body = _home_hero(keyed["hero"]) + "".join(panels) + DEMO + CURATED_NEWS + "\n"
     body += '<section class="content-section home-explore" id="explore"><h2>Explore further</h2>'
     body += '<p class="hint">Choose an area to open its explanations, diagrams and full catalog.</p>'
     body += "\n".join(_disclosure(key, title, "\n".join(keyed[item] for item in items)) for key, title, items in groups)

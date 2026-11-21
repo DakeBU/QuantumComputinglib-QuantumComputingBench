@@ -146,7 +146,7 @@ class ReaderHierarchyTests(unittest.TestCase):
         original = self.page()
         result = reader_hierarchy.transform_page(original, 'index.html')
         before, after = reader_hierarchy.Spans(original), reader_hierarchy.Spans(result)
-        for key in ('math-2-0', 'applications', 'state-process', 'block-process', 'evidence', 'pipeline', 'use', 'news', 'chapters', 'navigation'):
+        for key in ('math-2-0', 'applications', 'state-process', 'block-process', 'evidence', 'pipeline', 'use', 'chapters', 'navigation'):
             section = before.one(lambda n: n.tag == 'section' and n.attrs.get('id') == key)
             self.assertEqual(result.count(original[section.start:section.end]), 1, key)
             after.one(lambda n: n.attrs.get('id') == key)
@@ -169,6 +169,22 @@ class ReaderHierarchyTests(unittest.TestCase):
         self.assertEqual(len(details), 4)
         self.assertTrue(all('open' not in node.attrs for node in details))
         self.assertEqual(reader_hierarchy.transform_page(result, 'learning/index.html'), result)
+
+    def test_home_primary_entries_and_news_are_outside_disclosures(self):
+        page = reader_hierarchy.transform_page(self.page(), 'index.html')
+        parsed = reader_hierarchy.Spans(page)
+        for key, route in {'library': 'learning/', 'lean-graph': 'lean-graph/',
+                           'hypergraph': 'functor-hypergraph/', 'bench': 'quantumcomputingbench/'}.items():
+            node = parsed.one(lambda n: n.attrs.get('data-home-entry') == key)
+            self.assertEqual(node.attrs['href'], route + 'index.html')
+            parent = node.parent
+            while parent is not None:
+                self.assertNotEqual(parsed.nodes[parent].tag, 'details')
+                parent = parsed.nodes[parent].parent
+        news = parsed.one(lambda n: n.attrs.get('id') == 'news')
+        self.assertEqual(page[news.start:news.end].count('<li>'), 4)
+        self.assertIn('PROJECT_GUIDE.md', page[news.start:news.end])
+        self.assertIn('id="see-it-in-action"', page)
 
     def test_exact_benchmark_panel_follows_global_intro_on_republication(self):
         panel = '<!-- qcb-textbook:start --><section id="quantumcomputingbench"><h2>Benchmark</h2><a href="quantumcomputingbench/run/index.html">Run</a></section><!-- qcb-textbook:end -->'

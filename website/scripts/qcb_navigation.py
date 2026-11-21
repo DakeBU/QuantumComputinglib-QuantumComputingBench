@@ -43,16 +43,19 @@ def exercise_contents(links):
             + '</ul></nav>')
 
 
-def overview(intro, catalog, native_lean_count):
-    body = intro('QuantumComputingBench', 'Study quantum computing through precise questions and worked arguments, then test the same skills in a defined benchmark run.')
+def overview(intro, catalog, native_lean_count, course_count=None):
+    body = intro('QuantumComputingBench', 'Train and evaluate mathematical AI on knowledge, reasoning, formal proof and the connections between quantum-computing ideas.')
     body += '<div class="qcb-actions"><a class="button" href="tasks/index.html">Find a question</a><a class="button secondary" href="run/index.html">Run an evaluation</a></div>'
     body += '<div class="qcb-grid qcb-capability-paths">'
-    body += card('Natural-language workbook', 'Read the assumptions, try an exercise, and compare your derivation with its solution.', 'non-lean/workbook/index.html')
-    body += card('Lean course', 'Progress from reading a statement to proving local claims and composing them.', 'lean/index.html')
-    body += card('Graph and source atlas', 'Find the declarations a question uses and see where its argument extends the source.', 'expert/index.html')
+    body += card('Non-agentic Mathematical QA', 'Without tools: knowledge, derivations, assumptions and mathematical proofs.', 'non-lean/index.html', 'Mathematical reasoning')
+    body += card('Agentic Lean-assisted QA', 'Use formal statements, proof obligations and Lean feedback to construct or repair proofs.', 'lean/index.html', 'Tool-assisted reasoning')
+    body += card('Structured Graph QA', 'Understand dependencies, complete prerequisite sets and connect mathematical techniques. Scored tasks are in development.', 'reasoning/index.html', 'Proposed evaluation track')
     body += '</div>'
-    body += '<p class="qcb-inventory-line">' + str(len(catalog['cores'])) + ' shared mathematical cores · ' + str(native_lean_count) + ' admitted native Lean views · <a href="run/assessment/index.html">Training and assessment protocol</a></p>'
-    body += '<p class="qcb-status-line">Open development edition. Public answers support study and diagnostics; measured model results and a hidden holdout are not yet published. <a href="evidence/index.html">Scope and evidence →</a></p>'
+    formal_summary = (str(course_count) + ' reference-qualified Lean course cores (overlapping)'
+                      if course_count is not None else str(native_lean_count) + ' admitted native Lean views')
+    body += '<p class="qcb-inventory-line">' + str(len(catalog['cores'])) + ' shared mathematical cores · ' + formal_summary + ' · <a href="run/assessment/index.html">Training and assessment protocol</a></p>'
+    body += '<p><a href="non-lean/workbook/index.html">Natural-language workbook</a> · <a href="expert/index.html">Expert graph atlas</a> · <a href="contribute/index.html">Contributor goals</a></p>'
+    body += '<p class="qcb-status-line">Open development edition. All three modes reuse shared mathematical cores; scores stay separate. Public answers support study and diagnostics. Measured model results are not yet published. <a href="evidence/index.html">Scope and evidence</a></p>'
     return body + '</div>'
 
 

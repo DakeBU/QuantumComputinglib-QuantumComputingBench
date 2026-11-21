@@ -599,6 +599,10 @@ def publish_course(write, intro, plan, views, report):
     write(HUB + "reasoning/", "How reasoning graphs work", body + '</div>', "A mathematical guide to single nodes, chains, AND joins and shared-provider reasoning, with exact evidence boundaries.")
 
 
+def home_panel():
+    return '<!-- qcb-textbook:start --><section class="qcb-home" id="quantumcomputingbench"><h2>Evaluate quantum-mathematical AI</h2><p>Three modes: closed-book mathematical QA, Lean-assisted proof, and structured graph reasoning (in development).</p><p><a class="button" href="quantumcomputingbench/run/index.html">Run the benchmark</a> <a href="quantumcomputingbench/tasks/index.html">Explore tasks</a></p></section><!-- qcb-textbook:end -->'
+
+
 def publish(root):
     from qcb_bench_runtime import build_registry, write_downloads
     from qcb_nonlean_workbook import check_publication_sources, load_workbook
@@ -683,7 +687,7 @@ def publish(root):
         heading = 'QuantumComputing<wbr>Bench' if title == 'QuantumComputingBench' else esc(title)
         return '<div class="qcb-reader"><p class="eyebrow">QuantumComputingBench</p><h1>' + heading + '</h1><div class="qcb-deck">' + prose(subtitle) + '</div>'
 
-    write(HUB, "QuantumComputingBench", overview(intro, catalog, native_lean_count),
+    write(HUB, "QuantumComputingBench", overview(intro, catalog, native_lean_count, len(course_plan['entries'])),
           "Graph-grounded evaluation of quantum-computing knowledge, mathematical reasoning and Lean proof skills.")
     hierarchy_report = publish_navigation(write, intro, catalog, items, registry, course_plan)
     publish_course(write, intro, course_plan, course_views, course_report)
@@ -772,9 +776,16 @@ def publish(root):
         content += '<p>Historical same-core alias: ' + esc(", ".join(review["suggested_core_aliases"])) + '. Not added to the native core count.</p>'
         body += section(item["key"], content, "warmup-" + str(i))
     write(HUB + "lean/warmups/", "Lean reference warmups", body + '</div>', "Three exact-target, semantic-audited diagnostic warmups with inherited trusted reference checks.")
-    body = intro("Contribute without conflicting datasets", "Two contribution folders, one merge-time semantic contract. Existing mathematical targets keep their core identity, family and split across natural-language, Lean and mixed views.")
-    for track in TRACKS:
-        body += section(track.title() + " contributor goal", '<p><a href="' + REPO + '/blob/main/benchmarks/quantumcomputingbench/tracks/' + track + '/AGENT_GOAL.md">Open the copyable English agent goal</a></p>', track)
+    body = intro("Contribute without conflicting datasets", "Three evaluation modes, one shared mathematical core registry. Choose a contributor goal according to your tools and expertise.")
+    goals_url = REPO + '/blob/' + context['commit'] + '/benchmarks/quantumcomputingbench/CONTRIBUTOR_GOALS.md'
+    body += '<p><a class="button" href="' + esc(goals_url) + '">Open the three copyable English goals</a></p>'
+    for track, title, description in (
+        ('non-lean', 'Non-agentic Mathematical QA', 'No Lean installation required. Author and review mathematical questions and solutions.'),
+        ('lean', 'Agentic Lean-assisted QA', 'Qualify exact formal companions and reference proofs with the pinned toolchain.'),
+        ('structured-graph', 'Structured Graph QA', 'Lean optional. Design graph-given tasks and typed scoring proposals; this track is not yet admitted.'),
+    ):
+        file = 'README.md' if track == 'structured-graph' else 'AGENT_GOAL.md'
+        body += section(title, '<p>' + esc(description) + '</p><p><a href="' + REPO + '/blob/' + context['commit'] + '/benchmarks/quantumcomputingbench/tracks/' + track + '/' + file + '">Track instructions</a></p>', track)
     body += disclosure("Full compatibility contract", prose((B / "shared/CONTRACT.md").read_text(encoding="utf-8")), "contract")
     write(HUB + "contribute/", "Contribution contract", body + '</div>', "Shared core IDs, UUID proposals, exact contracts, compatible views and split-safe collaboration.")
     body = intro("Evidence and release readiness", "An inspectable textbook is not automatically a fully validated benchmark. These are the current acceptance boundaries, not claimed completions.")
@@ -786,7 +797,7 @@ def publish(root):
     home = root / "index.html"
     text = home.read_text(encoding="utf-8")
     text = re.sub(r'<!-- qcb-textbook:start -->.*?<!-- qcb-textbook:end -->', '', text, flags=re.DOTALL)
-    panel = '<!-- qcb-textbook:start --><section class="qcb-home" id="quantumcomputingbench"><p class="eyebrow">QuantumComputingBench</p><h2><a href="quantumcomputingbench/index.html">How well does an AI understand quantum computing?</a></h2><p>Graph-grounded tasks for mathematical knowledge, reasoning and formal proof.</p><p><a class="button" href="quantumcomputingbench/run/index.html">Run the benchmark →</a> <a href="quantumcomputingbench/tasks/index.html">Explore tasks</a></p></section><!-- qcb-textbook:end -->'
+    panel = home_panel()
     text = text.replace('<main id="main-content">', '<main id="main-content">' + panel, 1)
     if 'static/quantumcomputingbench.css' not in text:
         text = text.replace('</head>', '<link rel="stylesheet" href="./static/quantumcomputingbench.css"></head>', 1)

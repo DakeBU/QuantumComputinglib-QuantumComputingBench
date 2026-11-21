@@ -1,5 +1,20 @@
 # QuantumComputingBench
 
+## Three evaluation modes
+
+| Mode | What we evaluate |
+| --- | --- |
+| Non-agentic Mathematical QA | Mathematical knowledge, derivation, assumptions and proof without tools. |
+| Agentic Lean-assisted QA | Interactive mathematical proof under a pinned library, feedback and verifier contract. |
+| Structured Graph QA | Typed prerequisites, proof plans and mathematical mechanism transfer. Scored graph tasks are a proposed new track. |
+
+[Continuation goals for contributors](CONTRIBUTOR_GOALS.md) ·
+[Graph proposal track](tracks/structured-graph/README.md) ·
+[Current Lean course v6](tracks/lean/COURSE_V6.md)
+
+The modes share mathematical core IDs and family/split policies. Mode-specific
+scores are separate; public reference proofs do not constitute hidden tests.
+
 The [v3 assessment protocol](tracks/lean/ASSESSMENT_V3.md) distinguishes the
 baseline training export from an explicitly filtered family-withholding
 profile. It preserves the frozen v2 questions, source evidence and public

@@ -265,12 +265,10 @@ def main() -> int:
         check_ordered_markers(
             home,
             (
+                'datetime="2026-11-18"',
+                'datetime="2026-10-21"',
                 'datetime="2026-09-10"',
                 'datetime="2026-08-14"',
-                'datetime="2026-08-10"',
-                'datetime="2026-07"',
-                'datetime="2026-06"',
-                'datetime="2026-05-17"',
             ),
             "homepage News",
         )
@@ -280,15 +278,17 @@ def main() -> int:
         check_ordered_markers(
             readme,
             (
+                "- **18 November 2026.**",
+                "- **21 October 2026.**",
                 "- **10 September 2026.**",
                 "- **14 August 2026.**",
-                "- **17 May 2026.**",
-                "- **May 2026.**",
-                "- **April 2026.**",
             ),
             "README News",
         )
     )
+    archive = (ROOT / "PROJECT_GUIDE.md").read_text(encoding="utf-8")
+    errors.extend(check_ordered_markers(archive, (
+        "- **17 May 2026.**", "- **May 2026.**", "- **April 2026.**"), "Project history"))
     learning = (site / "learning" / "index.html").read_text(encoding="utf-8")
     for marker in (
         "Part I · State Preparation",

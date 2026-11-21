@@ -30,8 +30,8 @@ class UncomputeIntakeTests(unittest.TestCase):
     def test_invalid_reading_layer_cannot_publish(self):
         self.route()['reading_layers'][0]['items']=['']
         with self.assertRaisesRegex(ValueError,'reading layer'):atlas.validate_catalog(self.catalog)
-    def test_news_links_real_research_route_and_does_not_announce_completion(self):
-        for path in ('README.md','website/scripts/build_site.py'):
+    def test_archived_news_links_real_research_route_and_does_not_announce_completion(self):
+        for path in ('PROJECT_GUIDE.md',):
             text=(ROOT/path).read_text();self.assertIn('spw-uncompute/index.html',text);self.assertIn('2610.22367v1',text)
             self.assertIn('work in progress',text.lower())
     def test_actual_home_preserves_the_existing_live_curriculum_label(self):

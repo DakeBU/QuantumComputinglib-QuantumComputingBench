@@ -103,20 +103,22 @@ class BenchmarkLaunchTests(unittest.TestCase):
         workspace = (ROOT / "website/static/workspace.js").read_text(encoding="utf-8")
         self.assertIn(f"https://github.com/{repository}/issues/new?", workspace)
 
-    def test_launch_news_is_first_and_links_to_the_handoff(self) -> None:
+    def test_curated_news_is_recent_and_links_to_the_handoff(self) -> None:
+        from website.scripts.reader_hierarchy import transform_page
         page = build_site.render_home(
             {"declarations": []},
             {"publicDeclarationCount": 0, "sourceDocstringCount": 0},
             {"passed": True}, {"shortCommit": "test"},
         )
-        news = page.split('id="news"', 1)[1].split("</ol>", 1)[0]
-        self.assertLess(news.index("2026-10-21"), news.index("2026-10-18"))
-        self.assertIn("QuantumComputingBench starts.", news)
+        news = transform_page(page, 'index.html').split('id="news"', 1)[1].split("</ol>", 1)[0]
+        self.assertLess(news.index("2026-11-18"), news.index("2026-10-21"))
+        self.assertEqual(news.count("<li>"), 4)
+        self.assertIn("QuantumComputingBench starts", news)
         self.assertIn(
             build_site.PROJECT_REPOSITORY_URL + "/tree/main/benchmarks/quantumcomputingbench",
             news,
         )
-        self.assertIn("planned topics clearly separated from verified library evidence", news)
+        self.assertIn("finite-bit compilation remains open", news)
 
     def test_readme_and_agent_handoff_keep_preview_evidence_boundaries(self) -> None:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
@@ -124,8 +126,10 @@ class BenchmarkLaunchTests(unittest.TestCase):
         self.assertTrue((benchmark / "README.md").is_file())
         self.assertTrue((benchmark / "AGENT_GOAL.md").is_file())
         self.assertIn("benchmarks/quantumcomputingbench/AGENT_GOAL.md", readme)
-        news = readme.split("## News", 1)[1]
-        self.assertLess(news.index("21 October 2026"), news.index("18 October 2026"))
+        news = readme.split("## News", 1)[1].split("## Build", 1)[0]
+        self.assertLess(news.index("18 November 2026"), news.index("21 October 2026"))
+        self.assertEqual(news.count("- **"), 4)
+        self.assertIn("PROJECT_GUIDE.md", news)
         self.assertIn("currently in development", readme)
         bench_readme = (benchmark / "README.md").read_text(encoding="utf-8")
         self.assertIn("v0.1.0-preview.1", bench_readme)
@@ -400,13 +404,18 @@ class SiteContractTests(unittest.TestCase):
                 self.assertIn('not local certificates', groups)
 
     def test_home_logical_bound_does_not_claim_complete_finite_bit_algorithm(self) -> None:
+        from website.scripts.reader_hierarchy import transform_page
         page = build_site.render_home(
             {"declarations": []},
             {"publicDeclarationCount": 0, "sourceDocstringCount": 0},
             {"passed": True}, {"shortCommit": "test"},
         )
-        self.assertIn('not a complete finite-bit algorithm certificate', page)
-        self.assertIn('SP-HERMITE-POLY-002', page)
+        page = transform_page(page, 'index.html')
+        self.assertIn('finite-bit compilation remains open', page)
+        self.assertIn('example-cases/hermite-smooth-state-preparation/index.html', page)
+        archive = (ROOT / 'PROJECT_GUIDE.md').read_text(encoding='utf-8')
+        self.assertIn('SP-HERMITE-POLY-002', archive)
+        self.assertIn('does **not** certify an end-to-end finite-bit algorithm', archive)
 
     def test_four_part_curriculum_is_source_and_oai_closed(self) -> None:
         curriculum = json.loads(

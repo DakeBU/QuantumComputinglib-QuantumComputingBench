@@ -93,6 +93,18 @@ def check_compact_sidebar(page, base: str) -> None:
     nav = page.locator('nav[data-compact-navigation="1"]')
     if nav.count() != 1 or nav.locator('[data-book-part]').count() != 4:
         raise AssertionError("Missing single compact four-textbook sidebar")
+    for width in (390, 1280):
+        page.set_viewport_size({'width': width, 'height': 900})
+        for entry in ('library', 'lean-graph', 'hypergraph', 'bench'):
+            link = page.locator(f'main [data-home-entry="{entry}"]')
+            if link.count() != 1 or not link.is_visible():
+                raise AssertionError('Primary homepage entry is missing or hidden: ' + entry)
+        if len(page.locator('main').inner_text().split()) > 350:
+            raise AssertionError('Homepage asks readers to process too much text')
+        if page.locator('main #news li:visible').count() != 4:
+            raise AssertionError('Curated homepage news should be visible and compact')
+        if page.evaluate('document.documentElement.scrollWidth > innerWidth + 2'):
+            raise AssertionError('Homepage overflows its viewport')
     hrefs = nav.locator('a').evaluate_all('(links) => links.map(a => a.href)')
     if len(hrefs) != len(set(hrefs)) or nav.locator('details[open]').count():
         raise AssertionError("Home sidebar duplicated a destination or expanded all content")
