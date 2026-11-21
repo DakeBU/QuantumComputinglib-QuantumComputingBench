@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Guard the reader-facing README/figure typography and formula surface.
+"""Guard the concise README and detailed guide's figure and formula surfaces.
 
 The public README is deliberately figure-first and uses conservative GitHub math
 syntax. This check prevents regressions to fragile TeX, broken harness assets,
@@ -16,6 +16,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 README = ROOT / "README.md"
+PROJECT_GUIDE = ROOT / "PROJECT_GUIDE.md"
 SITE_JS = ROOT / "website" / "static" / "site.js"
 DIAGRAM_DIR = ROOT / "website" / "diagrams"
 MPL_RC = ROOT / "matplotlibrc"
@@ -92,13 +93,13 @@ def check_frontier_asset(readme: str) -> None:
         fail(f"current ASPBE Harness WebP has unexpected size: {len(payload)} bytes")
 
 
-def check_readme_math_surface(readme: str) -> None:
+def check_readme_math_surface(readme: str, *, technical_guide: bool = False) -> None:
     for token in FORBIDDEN_README_TOKENS:
         if token in readme:
             fail(f"README contains renderer-fragile token {token!r}")
 
-    if readme.count("```math") < 6:
-        fail("README should use fenced `math` blocks for its public display equations")
+    if readme.count("```math") < (6 if technical_guide else 1):
+        fail("Public display equations should use fenced `math` blocks")
 
     for line_number, line in enumerate(readme.splitlines(), start=1):
         stripped = line.lstrip()
@@ -110,27 +111,37 @@ def check_readme_math_surface(readme: str) -> None:
                 "ket/bra bars can be parsed as column separators"
             )
 
-    harness_position = readme.find("## ASPBE harness — proof-gated synthesis")
-    order = (
-        readme.find("ASPBE is designed for a quantum-computing researcher"),
-        harness_position,
-        readme.find("## Route I — State Preparation"),
-        readme.find("## Route II — Block Encoding"),
-        readme.find("## Certified block-encoding cases"),
-    )
-    if any(position < 0 for position in order) or list(order) != sorted(order):
-        fail("README reader order must be intro → Harness → SP → BE → cases")
-
     if "Upper/Middle/Lower" in readme or "original fixed Upper" in readme:
         fail("README should not explain historical Harness role stacks; link the workflow page instead")
 
-    check_frontier_asset(readme)
+    if technical_guide:
+        order = (
+            readme.find("ASPBE is designed for a quantum-computing researcher"),
+            readme.find("## ASPBE harness — proof-gated synthesis"),
+            readme.find("## Route I — State Preparation"),
+            readme.find("## Route II — Block Encoding"),
+            readme.find("## Certified block-encoding cases"),
+        )
+        if any(position < 0 for position in order) or list(order) != sorted(order):
+            fail("Technical guide reader order must be intro → Harness → SP → BE → cases")
+        check_frontier_asset(readme)
+    else:
+        required = ("## Explore", "## See what we do", "## QuantumComputingBench", "## News",
+                    "PROJECT_GUIDE.md", "/library/", "/lean-graph/", "/functor-hypergraph/", "/quantumcomputingbench/")
+        for marker in required:
+            if marker not in readme:
+                fail(f"README missing reader entry {marker!r}")
+        news = readme.split("## News", 1)[1].split("\n## ", 1)[0]
+        if news.count("- **") > 4:
+            fail("Keep only four concise news items in the README; archive the rest")
+        if len(readme.split()) > 600:
+            fail("README is too dense for the project landing page; move technical detail to the guide")
 
 
-def check_readme_svgs(readme: str) -> None:
+def check_readme_svgs(readme: str, *, minimum: int = 1) -> None:
     refs = readme_svg_refs(readme)
-    if len(refs) < 5:
-        fail(f"README should remain figure-first; found only {len(refs)} SVG figures")
+    if len(refs) < minimum:
+        fail(f"Reader surface should contain at least {minimum} SVG figures; found {len(refs)}")
 
     for ref in refs:
         path = ROOT / ref
@@ -203,6 +214,9 @@ def main() -> None:
     readme = read(README)
     check_readme_math_surface(readme)
     check_readme_svgs(readme)
+    guide = read(PROJECT_GUIDE)
+    check_readme_math_surface(guide, technical_guide=True)
+    check_readme_svgs(guide, minimum=5)
     check_mermaid_math_labels()
     check_website_runtime_figures()
     check_matplotlib_defaults()

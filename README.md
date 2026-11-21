@@ -19,6 +19,10 @@ QuantumComputinglib explains quantum constructions, formalizes their mathematics
 
 Suppose we want to prepare a quantum state. ASPBE (Automatic State Preparation and Block Encoding) searches for circuits and checks successful candidates: the unitary must map the all-zero input to the requested normalized state. In a matrix representation, this means its first column must be the target vector.
 
+```math
+U|0^n\rangle=|\psi\rangle.
+```
+
 <p align="center"><img src="docs/assets/state_preparation_first_column.svg" alt="The first column of a unitary matrix is the state prepared from the all-zero input" width="760"></p>
 
 [Try the one-qubit example](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/reading-guide/) · [See verified constructions](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/example-cases/) · [Build your own task](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/task-builder/)
