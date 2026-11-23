@@ -3,7 +3,8 @@ from qcb_core import digest, read_json
 from qcb_course_batch import bind_review_input, qualify_candidate_batch
 from qcb_graph_course_pilot import B, R, load_candidates
 from qcb_integrity import text_sha
-from website.scripts.proof_inputs import lean_module_targets, proof_input_digest
+# The shared graph loader selects the repository's pinned website script path.
+from proof_inputs import lean_module_targets, proof_input_digest
 
 FIXTURE = B / "tracks/lean/fixtures/graph-course-circuit-basics-v1.json"
 PLAN = B / "tracks/lean/curriculum/course-v7.json"
