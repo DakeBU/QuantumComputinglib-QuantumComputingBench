@@ -68,6 +68,16 @@ class CircuitBasicsReaderTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp, patch("qcb_course_circuit_basics.EVIDENCE", Path(tmp)):
             self.assertIsNone(reader.publication("a" * 40))
 
+    def test_notation_requires_exact_review_inputs(self):
+        from qcb_course_circuit_basics import EVIDENCE
+        comparison = reader.read_json(EVIDENCE / "comparison-input.json")
+        questions = {row["core_id"]:row["source_semantics"]["question"] for row in comparison["views"]}
+        reader.check_notation(EVIDENCE, questions)
+        changed = dict(reader.NOTATION)
+        changed["qcb-core-la-004"] += " A fabricated extra premise."
+        with patch.object(reader, "NOTATION", changed), self.assertRaisesRegex(ValueError, "exact independent"):
+            reader.check_notation(EVIDENCE, questions)
+
 
 if __name__ == "__main__":
     unittest.main()

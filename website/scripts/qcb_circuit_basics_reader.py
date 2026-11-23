@@ -4,7 +4,7 @@ from pathlib import PurePosixPath
 from posixpath import relpath
 from urllib.parse import quote
 
-from qcb_core import digest, write_json
+from qcb_core import digest, read_json, write_json
 from website.scripts.qcb_lean_downloads import encoded
 from website.scripts.qcb_linear_circuit_reader import link, source_link
 from website.scripts.qcb_math import render_prose
@@ -22,6 +22,34 @@ TOPICS = {
     "qcb-core-la-018": ("When control and target overlap", "overlap/", "Check a concrete invalid control-target configuration and the limits of reversibility."),
 }
 SPLITS = {"train": "Train", "dev": "Development", "test_public": "Public test"}
+
+# Question-side notation only. The content-bound independent review is checked
+# before publication; dev/test notation must not insert worked solutions.
+NOTATION = {
+    "qcb-core-la-004": r"Write \(N=2^n\) for the system dimension and \(S=2^a\) for the signal dimension. A basis label is a pair \((s,i)\), where \(0\le s<S\) and \(0\le i<N\). Compare the two matrix representations on a fixed branch \(s\).",
+    "qcb-core-la-007": r"Let \(A\in\mathbb C^{m\times n}\), with input basis vectors \(|\ell\rangle,|r\rangle\) and \(|\psi\rangle=a|\ell\rangle+b|r\rangle\). The question concerns the whole vector \(A|\psi\rangle\) and its output coordinate \((A|\psi\rangle)_k\).",
+    "qcb-core-la-017": r"Let \(b\in\{0,1\}^N\) be a basis bitstring, with controls \(c_0,c_1\) and target \(t\), subject to \(c_0\ne t\) and \(c_1\ne t\). If \(F\) denotes the specified controlled flip, investigate \(F\circ F\) and the case \(c_0=c_1\).",
+    "qcb-core-la-018": r"Write the stated raw bit update as \(F(c,t)=(c\oplus(ct),t)\), where \(\oplus\) is addition modulo two and \(ct\) is the ordinary product of the two bits. Is \(F\) still a reversible basis action?",
+}
+
+
+def check_notation(evidence, task_questions):
+    review = read_json(evidence / "notation-review.json")
+    inputs = read_json(evidence / "notation-review-input.json")
+    expected_input = {"schema_version":"qcb.circuit_question_notation_review_input.v1",
+                      "notation_digest":digest(NOTATION),
+                      "question_digests":{key:digest(value) for key,value in task_questions.items()},
+                      "views":[{"core_id":key,"source_question":task_questions[key],"notation":NOTATION[key]} for key in NOTATION]}
+    rows = review.get("views", [])
+    if (inputs != expected_input or review.get("input_digest") != digest(inputs)
+            or review.get("schema_version") != "qcb.circuit_question_notation_review.v1"
+            or review.get("notation_digest") != digest(NOTATION)
+            or review.get("question_digests") != {key:digest(value) for key,value in task_questions.items()}
+            or review.get("reviewer") != read_json(evidence / "comparison.json")["reviewer"]
+            or len(rows) != len(TOPICS) or {row["core_id"] for row in rows} != set(TOPICS)
+            or any(row["verdict"] != "accept" or row["introduces_answer_or_assumption"] is not False for row in rows)):
+        raise ValueError("circuit-foundation notation needs its exact independent content review")
+    return digest(review)
 
 
 def route_for(core_id):
@@ -41,6 +69,7 @@ def publication(commit):
     entries = [entry for entry in plan["entries"] if entry["core_id"] in TOPICS]
     if len(entries) != len(TOPICS) or {v["task"]["core_id"] for v in additions.values()} != set(TOPICS):
         raise ValueError("Course v7 requires all four qualified source views")
+    notation_review = check_notation(EVIDENCE, {v["task"]["core_id"]:v["task"]["question"] for v in additions.values()})
     artifacts = {split + "-inputs.json": export_course(plan, views, catalog, graph, split=split)
                  for split in SPLITS}
     artifacts["train-references.json"] = export()
@@ -55,6 +84,7 @@ def publication(commit):
         "public_source_exposure": "public_related_mechanisms; not_family_held_out",
         "reference_execution": "trusted_local_authored_reference",
         "reference_commit": status["reference_lineage"]["recorded_code_revision"],
+        "question_notation_review_digest": notation_review,
         "entries": entries,
         "artifacts": {name: {"digest": digest(value), "contains_reference_answers": name == "train-references.json"}
                       for name, value in artifacts.items()},
@@ -100,7 +130,7 @@ def publish(write, intro, section, disclosure, source_url, data_dir, record, liv
         body += '<p class="qcb-meta">' + escape(core_id.upper().removeprefix("QCB-CORE-")) + " · " + escape(entry["difficulty"]["construction_band"]) + " · " + SPLITS[entry["split"]] + "</p>"
         # Use the exact, source-reviewed question; no new unsourced formula or
         # repeated worked solution is inserted into development/test input.
-        body += section("Question", render_prose(task["question"]), "question")
+        body += section("Question", render_prose(task["question"]) + render_prose(NOTATION[core_id]), "question")
         conditions = "<ul>" + "".join("<li>" + render_prose(x) + "</li>" for x in task["assumptions"] + task["conventions"]) + "</ul>"
         body += disclosure("Assumptions and notation", conditions, "setup")
         body += "<p>" + link(route, HUB + "cores/" + core_id + "/index.html#question", "Open the mathematical core and its reviewed reader material") + "</p>"
@@ -121,7 +151,7 @@ def publish(write, intro, section, disclosure, source_url, data_dir, record, liv
                            + " · " + source_link(source_url, node["source"], node["line"], "Lean source") + "</li>")
         evidence_path = SOURCE + "reports/lean-course-circuit-basics-v1/"
         evidence = "<ul>" + "".join(anchors) + "</ul><p>" + " · ".join(source_link(source_url, evidence_path + name, 1, label)
-            for name, label in (("source-and-exposure-review.json", "Independent mathematics and exposure review"), ("comparison.json", "Semantic comparison"),
+            for name, label in (("source-and-exposure-review.json", "Independent mathematics and exposure review"), ("comparison.json", "Semantic comparison"), ("notation-review.json", "Notation review"),
                                 ("reference-checks.json", "Authored proof replay"))) + "</p>"
         evidence += "<p>Lean checks the exact formal claim under the allowed axioms. Explanation quality must be assessed separately. Related public proofs and examples remain accessible.</p>"
         body += disclosure("Graph anchors and validation evidence", evidence, "evidence")

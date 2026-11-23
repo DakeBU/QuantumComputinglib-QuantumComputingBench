@@ -1,0 +1,32 @@
+{
+  "notation_digest": "57d4eb39bae5ea289291c539612b01ab66a0ca479378acb317a90c21bde1cd60",
+  "question_digests": {
+    "qcb-core-la-004": "e4da984462fd19d1f9d73737e8bb7ff27fd47396f0cfd0539e916ca7cc6ad54c",
+    "qcb-core-la-007": "ee373634149a5268e24907bd1d17715c5de86c7921e441e6dd5e7f398da402d8",
+    "qcb-core-la-017": "4773c00e2d6568a11ccc08067c399f5deff99a6735e62dd149e9bf5a7e01768d",
+    "qcb-core-la-018": "fd513db4840c6c878b5dd93c3d4f644bd932b754cf02214ec20cf8cee276265e"
+  },
+  "schema_version": "qcb.circuit_question_notation_review_input.v1",
+  "views": [
+    {
+      "core_id": "qcb-core-la-004",
+      "notation": "Write \\(N=2^n\\) for the system dimension and \\(S=2^a\\) for the signal dimension. A basis label is a pair \\((s,i)\\), where \\(0\\le s<S\\) and \\(0\\le i<N\\). Compare the two matrix representations on a fixed branch \\(s\\).",
+      "source_question": "A block-encoding unitary represents an operator that acts on the 2^n states of an n-qubit system register, using a auxiliary qubits. (a) What is the dimension of the square matrix representing the full unitary, and why? (b) The full index is a flattened combination of a signal/ancilla register and the system register; state which register is treated as the high-order (most significant) part of the index and which as the low-order part. (c) If one instead keeps the two registers explicit as an ordered pair (signal, system) and reads off the sub-matrix for one fixed value of the signal register, how does that sub-matrix relate to the sub-matrix obtained by projecting the single flattened unitary onto the same signal branch?"
+    },
+    {
+      "core_id": "qcb-core-la-007",
+      "notation": "Let \\(A\\in\\mathbb C^{m\\times n}\\), with input basis vectors \\(|\\ell\\rangle,|r\\rangle\\) and \\(|\\psi\\rangle=a|\\ell\\rangle+b|r\\rangle\\). The question concerns the whole vector \\(A|\\psi\\rangle\\) and its output coordinate \\((A|\\psi\\rangle)_k\\).",
+      "source_question": "In a finite complex matrix backend, acting with an operator on a computational-basis state (a vector with a single 1 at one position and 0 elsewhere) returns the corresponding column of the operator. Using only this fact and the linearity of matrix-vector multiplication, prove that acting with an operator A on the two-term superposition a*|left> + b*|right>, where |left> and |right> are two basis states, gives a*(column left of A) + b*(column right of A), and that the amplitude read at output row k equals a*A[k,left] + b*A[k,right]. Explain why this means a block-encoding or state-preparation witness never needs to reconstruct the whole matrix-vector product: only two named columns, or two named entries, are ever required."
+    },
+    {
+      "core_id": "qcb-core-la-017",
+      "notation": "Let \\(b\\in\\{0,1\\}^N\\) be a basis bitstring, with controls \\(c_0,c_1\\) and target \\(t\\), subject to \\(c_0\\ne t\\) and \\(c_1\\ne t\\). If \\(F\\) denotes the specified controlled flip, investigate \\(F\\circ F\\) and the case \\(c_0=c_1\\).",
+      "source_question": "A reversible gate flips a target bit exactly when two control bits are both1. Assume each control wire is distinct from the target, but allow the two control wires to coincide. Prove the gate is its own inverse and explain what it reduces to when the controls coincide."
+    },
+    {
+      "core_id": "qcb-core-la-018",
+      "notation": "Write the stated raw bit update as \\(F(c,t)=(c\\oplus(ct),t)\\), where \\(\\oplus\\) is addition modulo two and \\(ct\\) is the ordinary product of the two bits. Is \\(F\\) still a reversible basis action?",
+      "source_question": "On a two-bit string(c,t), consider the update that flips c itself when c=t=1 and otherwise does nothing. Does the familiar self-inverse proof for a two-control target flip remain valid when one control is also the target? Give a concrete collision and explain the lost hypothesis."
+    }
+  ]
+}

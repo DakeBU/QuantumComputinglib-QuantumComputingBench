@@ -64,6 +64,11 @@ binds an independently decoded exact formal context to the canonical
 mathematical requirements. The [authored reference receipt](../../reports/lean-course-circuit-basics-v1/reference-checks.json)
 binds the exact pipeline, positive proofs, independent whole-root replays,
 wrong-target and incomplete-proof rejection controls, toolchain and axioms.
+The v7 replay checked 20 positive obligations, four fresh final roots and
+eight standalone positive controls; all eight wrong-target or `sorryAx`
+controls were rejected. The pinned Lean library build, Tests and the full
+202-module target inventory passed. These are authored reference checks, not
+isolated model-generated proofs.
 The [course manifest](curriculum/course-v7.json) records exact anchors and
 evaluator-supplied proof DAGs. Its graph lengths are not observed reasoning
 depths.

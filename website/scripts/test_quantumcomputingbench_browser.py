@@ -88,6 +88,8 @@ def run(root, output, channel=None):
                             if page.evaluate("document.documentElement.scrollWidth > innerWidth + 2"):
                                 failures.append("expanded solution overflow")
                         if route.startswith(HUB + 'lean/circuit-foundations/') and route != HUB + 'lean/circuit-foundations/index.html':
+                            if not page.locator('#question mjx-container').count():
+                                failures.append('circuit foundation notation did not typeset: ' + route)
                             if page.locator('main .qcb-disclosure[open]').count():
                                 failures.append('circuit foundation details exposed by default: ' + route)
                             for panel_id in ('setup', 'obligations', 'evidence'):
