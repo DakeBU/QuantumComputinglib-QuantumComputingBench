@@ -111,7 +111,7 @@ class BenchmarkLaunchTests(unittest.TestCase):
             {"passed": True}, {"shortCommit": "test"},
         )
         news = transform_page(page, 'index.html').split('id="news"', 1)[1].split("</ol>", 1)[0]
-        self.assertLess(news.index("2026-11-18"), news.index("2026-10-21"))
+        self.assertLess(news.index("2026-11-24"), news.index("2026-10-21"))
         self.assertEqual(news.count("<li>"), 4)
         self.assertIn("QuantumComputingBench starts", news)
         self.assertIn(
@@ -127,7 +127,7 @@ class BenchmarkLaunchTests(unittest.TestCase):
         self.assertTrue((benchmark / "AGENT_GOAL.md").is_file())
         self.assertIn("benchmarks/quantumcomputingbench/AGENT_GOAL.md", readme)
         news = readme.split("## News", 1)[1].split("## Build", 1)[0]
-        self.assertLess(news.index("18 November 2026"), news.index("21 October 2026"))
+        self.assertLess(news.index("24 November 2026"), news.index("21 October 2026"))
         self.assertEqual(news.count("- **"), 4)
         self.assertIn("PROJECT_GUIDE.md", news)
         self.assertIn("currently in development", readme)

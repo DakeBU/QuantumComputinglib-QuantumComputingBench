@@ -1,0 +1,42 @@
+{
+  "schema_version": "qcb.formal_decoder_input.v1",
+  "source_blind": true,
+  "views": [
+    {
+      "anonymous_id": "R1",
+      "formal_context": {
+        "ambient_definitions": {
+          "basis": "QuantumBlockEncoding.PrimitiveBasis N is the type Fin N → Fin 2 of binary strings with wire coordinates from Fin N.",
+          "ccx": "QuantumBlockEncoding.ccxBasisAction c₀ c₁ t b := if b c₀ = 1 ∧ b c₁ = 1 then QuantumBlockEncoding.xBasisAction t b else b.",
+          "cx": "QuantumBlockEncoding.cxBasisAction c t b := if b c = 0 then b else QuantumBlockEncoding.xBasisAction t b.",
+          "injective": "Function.Injective f means ∀ ⦃a b⦄, f a = f b → a = b.",
+          "involutive": "Function.Involutive f means ∀ x, f (f x) = x.",
+          "x": "QuantumBlockEncoding.xBasisAction t b := Function.update b t (QuantumBlockEncoding.flipBit (b t)); flipBit z := if z = 0 then 1 else 0."
+        },
+        "imports": [
+          "QuantumBlockEncoding.ReversibleClassical"
+        ],
+        "preamble": "",
+        "target": "(∀ (N : ℕ) (c₀ c₁ t : Fin N), c₀ ≠ t → c₁ ≠ t → Function.Involutive (QuantumBlockEncoding.ccxBasisAction c₀ c₁ t)) ∧ (∀ (N : ℕ) (c t : Fin N), c ≠ t → QuantumBlockEncoding.ccxBasisAction c c t = QuantumBlockEncoding.cxBasisAction c t)"
+      }
+    },
+    {
+      "anonymous_id": "R2",
+      "formal_context": {
+        "ambient_definitions": {
+          "basis": "QuantumBlockEncoding.PrimitiveBasis N is the type Fin N → Fin 2 of binary strings with wire coordinates from Fin N.",
+          "ccx": "QuantumBlockEncoding.ccxBasisAction c₀ c₁ t b := if b c₀ = 1 ∧ b c₁ = 1 then QuantumBlockEncoding.xBasisAction t b else b.",
+          "cx": "QuantumBlockEncoding.cxBasisAction c t b := if b c = 0 then b else QuantumBlockEncoding.xBasisAction t b.",
+          "injective": "Function.Injective f means ∀ ⦃a b⦄, f a = f b → a = b.",
+          "involutive": "Function.Involutive f means ∀ x, f (f x) = x.",
+          "x": "QuantumBlockEncoding.xBasisAction t b := Function.update b t (QuantumBlockEncoding.flipBit (b t)); flipBit z := if z = 0 then 1 else 0."
+        },
+        "imports": [
+          "QuantumBlockEncoding.ReversibleClassical"
+        ],
+        "preamble": "",
+        "target": "((QuantumBlockEncoding.ccxBasisAction (0 : Fin 2) (1 : Fin 2) (0 : Fin 2)) (fun _ : Fin 2 => (1 : Fin 2)) = (fun i : Fin 2 => if i = 0 then (0 : Fin 2) else 1) ∧ (QuantumBlockEncoding.ccxBasisAction (0 : Fin 2) (1 : Fin 2) (0 : Fin 2)) (fun i : Fin 2 => if i = 0 then (0 : Fin 2) else 1) = (fun i : Fin 2 => if i = 0 then (0 : Fin 2) else 1) ∧ (fun _ : Fin 2 => (1 : Fin 2)) ≠ (fun i : Fin 2 => if i = 0 then (0 : Fin 2) else 1)) ∧ (¬ Function.Injective (QuantumBlockEncoding.ccxBasisAction (0 : Fin 2) (1 : Fin 2) (0 : Fin 2))) ∧ (¬ Function.Involutive (QuantumBlockEncoding.ccxBasisAction (0 : Fin 2) (1 : Fin 2) (0 : Fin 2)))"
+      }
+    }
+  ]
+}

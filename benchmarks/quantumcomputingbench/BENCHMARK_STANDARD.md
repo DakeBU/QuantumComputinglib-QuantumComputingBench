@@ -82,6 +82,15 @@ frozen graph inventory, 350 of 3,548 declarations labeled Compiled are directly
 anchored by current canonical cores; the public workbook union reaches 398.
 This is an anchor statistic, not a semantic or proof-term coverage percentage.
 
+The [v7 circuit-foundations checkpoint](tracks/lean/COURSE_V7.md) extends the
+course to 29 of those same cores: 18 train, 5 dev and 6 public test. It adds
+register order, two-term linearity and reversible bit actions, including a
+concrete counterexample to an invalid control configuration. The cumulative
+route bands are D1=2, D2=12, D3=10 and D4=5. The 91 distinct source anchors
+recorded by the supplied tasks are not a denominator for model mastery. The
+canonical inventory, workbook and family splits are unchanged; no new graph
+declaration or canonical formal admission is inferred from a course view.
+
 ### Priority queue
 
 1. Basics and circuit semantics: inspect `TextbookStatePreparation`,

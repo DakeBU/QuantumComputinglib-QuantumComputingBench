@@ -38,7 +38,7 @@ Both tracks are grounded in the Lean Graph and Functor Hypergraph. Dependency re
 
 ## News
 
-- **18 November 2026.** [Lean course v6](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/run/course-v6/) reaches 25 shared mathematical cores, adding orientation and wire-order proofs.
+- **24 November 2026.** [Lean course v7](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/quantumcomputingbench/run/course-v7/) adds circuit-foundation tasks, reaching 29 shared mathematical cores with separate train references and task specifications.
 - **21 October 2026.** [QuantumComputingBench starts](benchmarks/quantumcomputingbench/), a graph-grounded benchmark for specialized mathematical models.
 - **10 September 2026.** A [smooth-state preparation result](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/example-cases/hermite-smooth-state-preparation/) gives a linear logical gate bound for fixed polynomial degree under exact-real assumptions; finite-bit compilation remains open.
 - **14 August 2026.** The selected [Robin block-encoding construction](https://dakebu.github.io/QuantumComputinglib-QuantumComputingBench/case-studies/robin/) reduces its audited branch from 49 to 30 $T^{\dagger 3}$ gates and 52 to 32 CNOTs under the same register contract.

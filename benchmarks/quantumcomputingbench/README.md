@@ -13,7 +13,7 @@ it does not create a third dataset or increase shared core counts.
 [Benchmark standard and coverage roadmap](BENCHMARK_STANDARD.md) ·
 [Continuation goals for contributors](CONTRIBUTOR_GOALS.md) ·
 [Graph diagnostic proposals](tracks/structured-graph/README.md) ·
-[Current Lean course v6](tracks/lean/COURSE_V6.md)
+[Current Lean course v7](tracks/lean/COURSE_V7.md)
 
 The tracks share mathematical core IDs and family/split policies. Track-specific
 scores are separate; public reference proofs do not constitute hidden tests.
@@ -87,6 +87,11 @@ companions, reaching 25 existing shared cores. Its cumulative question-only
 splits and separate train-reference export preserve earlier course and study
 identities. Concise mathematical pages explain assumptions, boundaries and
 source relationships before the optional Lean details.
+
+[Course v7](tracks/lean/COURSE_V7.md) extends that curriculum to 29 existing
+shared cores with register-layout, matrix-linearity and controlled-bit-action
+tasks. It retains the original core splits and separates training references,
+question-only downloads, authored verification and prospective model results.
 
 The [supplementary NL workbook](docs/nonlean-workbook.md) has 24 exercises
 across eight chapters and provisional D2–D4 routes. The newest chapters map

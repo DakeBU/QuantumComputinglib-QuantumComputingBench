@@ -57,6 +57,7 @@ def run(root, output, channel=None):
     routes += manifest.get('sealed_assessment', {}).get('routes', [])
     routes += manifest.get('reader_hierarchy', {}).get('routes', [])
     routes += [route for route in manifest.get('lean_learning_route', {}).get('routes', []) if route not in routes]
+    routes += [route for route in manifest.get('lean_course_v7', {}).get('routes', []) if route not in routes]
     routes += [HUB + 'non-lean/workbook/index.html', HUB + 'non-lean/workbook/normalization/index.html',
                HUB + 'non-lean/workbook/levels/d3/index.html', HUB + 'non-lean/workbook/graph/index.html']
     try:
@@ -86,6 +87,20 @@ def run(root, output, channel=None):
                                 failures.append("keyboard solution disclosure failed")
                             if page.evaluate("document.documentElement.scrollWidth > innerWidth + 2"):
                                 failures.append("expanded solution overflow")
+                        if route.startswith(HUB + 'lean/circuit-foundations/') and route != HUB + 'lean/circuit-foundations/index.html':
+                            if page.locator('main .qcb-disclosure[open]').count():
+                                failures.append('circuit foundation details exposed by default: ' + route)
+                            for panel_id in ('setup', 'obligations', 'evidence'):
+                                panel = page.locator('#' + panel_id)
+                                panel.locator(':scope > summary').focus()
+                                page.keyboard.press('Enter')
+                                settle_math(page)
+                                if panel.get_attribute('open') is None:
+                                    failures.append('circuit foundation disclosure failed: ' + route + panel_id)
+                                if page.evaluate('document.documentElement.scrollWidth > innerWidth + 2') or page.locator('mjx-merror').count():
+                                    failures.append('circuit foundation expanded rendering failed: ' + route + panel_id)
+                            if not page.locator('#evidence a[href*="lean-graph/index.html?focus="]').count():
+                                failures.append('circuit foundation graph anchors missing: ' + route)
                         page.screenshot(path=str(output / f"reader-{n}-{width}-{theme}.png"), full_page=False)
                         rows.append({"route": route, "width": width, "theme": theme})
             # Every new semantic question, with the actual expanded formal proof.

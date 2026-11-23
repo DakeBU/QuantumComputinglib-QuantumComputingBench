@@ -1,0 +1,83 @@
+{
+  "schema_version": "qcb.course_semantic_comparison.v1",
+  "source_blind": false,
+  "reviewer": "/root/circuit_v7_semantic_review",
+  "candidate_batch_digest": "0724908cb4f106fb82af75ad20fb9c4e9fa6906e998acfac4148c1cb9f533692",
+  "packet_digests": {
+    "register_linearity": "4c7dd97677d66f467b1e8d6083b6a823fd9c61d249fd74f3ae275a8257eaf9a7",
+    "reversible": "b8fe27ed46c79d49b686eb915c37860be3ca55e917a5568ee84b6d258fb98fcf"
+  },
+  "decoder_digests": {
+    "register_linearity": "219bd4c2d058283e73c24eee55fede41ff57624fa5980e4121eb72d8e052bff1",
+    "reversible": "47199cb6612cce67d554eca837b20d1c74bb6b5f094b338675db0889683b033a"
+  },
+  "comparison_input_digest": "3fce25bad17771dafd63f2fa5445687b8ac3e821becae3f25ab8ee7271496e48",
+  "views": [
+    {
+      "core_id": "qcb-core-la-004",
+      "task_hash": "69452f8516a5d57b9ce892f56783ca055ac18ff1eb680c802b67ef7717638803",
+      "source_item_digest": "33cc06733514e0836a461f03019dbbcf4881b1b6963dfe5207cb05932deb4106",
+      "formal_context_digest": "e60a9b42813f249ebdb433de1f206111702245850bc3dae507ce3de30a13207e",
+      "verdict": "accept",
+      "reasoning": "The five conjuncts jointly cover the full mathematical content of (a), (b), and (c). The cardinality and product-dimension equations identify the combined basis size, and all subsequent square matrix types use that same dimension for both input and output. The product index gives the specified signal-major/system-minor ordering, not the transposed or reversed convention; the universal reindexing equation respects output rows and input columns. The matrix equality for a fixed signal s and its two entrywise formulas establish precisely the agreement between the two block descriptions. Allowing all complex matrices is valid strengthening: the required dimension and indexing identities apply in particular to the full unitary and do not depend on unitarity. Natural n and a include zero-qubit registers; no extra positivity hypothesis is introduced. The blind decode is consistent with these statements.",
+      "whole_question_coverage": {
+        "dimension_and_basis_count": "Explicit cardinality Fin(gridSize(n+a)) = 2^(n+a), product dimension gridSize(a)*gridSize(n), and both matrix axes of that dimension cover the square full-register dimension in (a).",
+        "index_convention": "For every admissible signal and system index, productIndex(s,i).val = s.val*gridSize(n)+i.val, and both row and column reindexing obey this formula. This determines high-order auxiliary and low-order system unequivocally.",
+        "fixed_signal_block": "The exact fixed-signal matrix equality and both common entry formulas cover (c) for every signal, not only an all-zero branch. The claim does not require off-diagonal blocks.",
+        "assumptions_and_boundaries": "Finite complex matrices, n system qubits and a auxiliary qubits, arbitrary basis labels, zero qubits permitted. No unitary-specific assumption is needed for a pure dimension/reindexing statement.",
+        "explanation_grading": "Separately evaluate the explanation that n+a qubits generate 2^(n+a) basis states and hence a square full-unitary matrix, why the flattening product sets the significance order, and why matching entries allow transfer between product and flat views. The equality proposition alone does not certify quality of prose or that the equality is judgmentally definitional.",
+        "exposure_caveat": "The disclosed library interface productRegisterBlockProjection_flatToProductRegister directly states the fourth conjunct in more general dimensions and scalars; the packet also supplies reindexing definitions. Semantic acceptance does not establish independent rediscovery or absence of answer exposure. No proof bodies were inspected."
+      }
+    },
+    {
+      "core_id": "qcb-core-la-007",
+      "task_hash": "7fc5c46aac9290912529dffbd9b941369249824b139703a5294e9c875fe9e323",
+      "source_item_digest": "f10f3a23733971a2aa0b150a90124936ed6d12d8b403eff4b77380607f85064c",
+      "formal_context_digest": "88913ed48639ae3c0187c12870167593ee2f1f15bb5d1a01df83a7b137b508ea",
+      "verdict": "accept",
+      "reasoning": "The vector equality and coordinate equality are precisely the first two requested results under the supplied standard computational basis and row/column definitions. The additional congruence clauses give a meaningful formal expression of the mathematical content of the requested witness explanation: knowing the two named columns determines the entire output, and knowing the two entries in one row determines that single output coordinate even when the rest of A and B differ. They do not assert a converse or falsely require both terms to be nonzero. All scalars and finite dimensions are allowed, including zero scalar coefficients and coincident indices; the statement is stronger than any distinct-basis-state or square-unitary special case. The proof-method instruction to use only the basis-column fact and linearity is not a restriction on a mathematical proposition; it must be assessed separately. The blind decode faithfully describes the four clauses and their boundaries.",
+      "whole_question_coverage": {
+        "vector_linearity": "Universally quantified applyVec A (a • basisKet cols l + b • basisKet cols r) = a • A.col l + b • A.col r.",
+        "coordinate_amplitude": "For all output rows k, the exact expression a*A(k,l)+b*A(k,r) in the source convention.",
+        "two_columns_sufficiency": "Equality of just columns l and r between arbitrary A and B implies equality of their vector outputs on the superposition, with all other columns unconstrained.",
+        "two_entries_sufficiency": "Equality of just entries (k,l) and (k,r) implies equality of the selected row coordinate even though other entries may differ. Together with the explicit formula, this realizes the local-witness conclusion rather than merely asserting the algebraic equalities.",
+        "assumptions_and_boundaries": "Finite complex rectangular matrices and computational-basis delta vectors; no normalization, distinctness, nonzero-coefficient, square-matrix or unitarity hypotheses. Coincident and zero-coefficient cases are included; index-free cases are vacuous or empty-vector equalities as appropriate.",
+        "explanation_grading": "Separately grade the requested derivation using only matrix-vector linearity and the basis-column fact, coordinate readout, and the sparsity/column-wise or entry-wise certificate argument. Sufficiency is formalized, but the target does not itself enforce the permitted derivation route, the instructional explanation, or a concrete implementation's runtime behavior.",
+        "exposure_caveat": "The disclosed applyVec_basisKet interface supplies the allowed basis-column fact; applyVec_twoBasisSuperposition and applyVec_twoBasisSuperposition_apply directly match the first two conjuncts. These are significant known-answer interfaces. The comparison is about semantic scope, not proof originality, method compliance, or difficulty; no proof bodies were inspected."
+      }
+    },
+    {
+      "core_id": "qcb-core-la-017",
+      "task_hash": "e24bbcd6fd741cf60035b284cc2d20dc21efab0a1db6e99f1808af38d4974dc8",
+      "source_item_digest": "f717b346a68d9dddbefdc009acf698ff6aca04c0531629f56fab06200a6b0999",
+      "formal_context_digest": "e515b7efebfce8947f566257ab274deba90d6f714018d2ccf7abc0a8b16b63f8",
+      "verdict": "accept",
+      "reasoning": "The first conjunct is exactly involutivity of the stated binary-string target-flip map for arbitrary wire count and indices subject only to c0 ≠ t and c1 ≠ t. Crucially there is no c0 ≠ c1 restriction, so it covers the explicitly permitted repeated-control case rather than weakening to a conventional three-distinct-wire gate. The second conjunct gives the exact repeated-control reduction to the single-controlled bit flip as equality of functions on the entire basis carrier. The packet definitions implement the source's Boolean predicate and flip behavior, and the quantum basis conventions introduce no additional substantive condition for this bit-string question. The independent decode matches both conjuncts.",
+      "whole_question_coverage": {
+        "gate_action": "The given ccx action conditionally flips only the target when both selected binary bits equal 1 and otherwise preserves the basis string.",
+        "self_inverse": "Function.Involutive of that same action for every N and every pair of control-wire indices distinct from the target proves applying the gate twice returns every basis string.",
+        "coincident_controls": "For every c distinct from t, ccxBasisAction c c t = cxBasisAction c t. The single-control reduction is a full function equality, and the binary control condition is equivalent to its being nonzero.",
+        "assumptions_and_boundaries": "Distinctness from the target only; c0 and c1 may coincide. Quantification over all finite wire counts does not exclude smaller valid registers and makes impossible wire choices vacuous. The root is about basis action, as requested, not a compiler-encoding rule.",
+        "explanation_grading": "Separately grade the false-predicate unchanged case and the true-predicate target flip preserving both control bits, so the next application reverses the first; also explain how the duplicated condition reduces to one condition. Whether particular hardware encodings demand pairwise distinct wires is an auxiliary caveat, not an additional mathematical hypothesis of this task.",
+        "exposure_caveat": "The disclosed ccxBasisAction_involutive has exactly the content of the first conjunct at these assumptions; ccxBasisEquiv also advertises the reversible map. The declared action reveals the reduction predicate directly. These disclosures neither undermine semantic coverage nor establish derivation originality; no proof bodies were inspected."
+      }
+    },
+    {
+      "core_id": "qcb-core-la-018",
+      "task_hash": "6b37dd9f2eacf2519da793fe1376e853f2df9b60c4217a0e3eee1633c718f805",
+      "source_item_digest": "c6d32bc846decf5ac3703d8ef0c1d92984d3bd2cacfb16960bdb04a891b21afd",
+      "formal_context_digest": "5679ab66cc61632fd76c9a87c1dcc50de1d264b073a5ca2c3c1300fbde010b44",
+      "verdict": "accept",
+      "reasoning": "The root instantiates the exact two-bit map in the question: on ordered coordinates (c,t) = (0,1), control0 and target coincide at coordinate 0 and control1 is coordinate 1, so the duplicated-target predicate is c=t=1. It explicitly states that u=(1,1) maps to v=(0,1), v maps to itself, and u≠v, giving the requested concrete collision. The two separate negative claims assert noninjectivity and failure of involution for this map, not merely a failed precondition of an available lemma. The fixed two-wire instance is the entire specified map in the question, not an inappropriate restriction of a universal theorem; nor does it claim general failure for arbitrary overlaps. The exact collision also demonstrates the changed activation predicate by the provided action definition. The blind decode matches this full counterexample.",
+      "whole_question_coverage": {
+        "specified_update": "ccxBasisAction 0 1 0 on Fin 2 → Fin 2 is precisely the update that flips the first coordinate of (c,t) only when both bits are 1.",
+        "concrete_collision": "Both explicit transition equations and the inequality of their inputs realize the source counterexample (1,1)→(0,1) and (0,1)→(0,1).",
+        "failure_of_self_inverse": "The non-involutive conclusion directly answers the yes/no question, and the noninjectivity conclusion explicitly captures the collision obstructing reversibility.",
+        "lost_hypothesis": "The index alias control0=target=0 in the target, together with the two transitions and exact conditional-action definition, realizes failure of the control-preservation hypothesis: after the first flip the tested c bit is 0, so no reverse flip occurs. The source's explanation of this obstruction is independently graded.",
+        "assumptions_and_boundaries": "The problem specifies two bits and one target alias. There is no distinct-control-target precondition imposed on this counterexample. Noninjectivity prevents a reversible permutation of basis states; the corresponding observation about unitary basis actions follows from injectivity, rather than requiring a separate operator construction for this question.",
+        "explanation_grading": "Separately grade why control-target distinctness was needed to keep the predicate unchanged during the usual involution argument, why the concrete changed predicate makes the second application ineffective, and why a genuine collision obstructs reversible/unitary basis action. Do not confuse this with compiler rejection. No separate generalized overlap theorem is requested.",
+        "exposure_caveat": "The disclosed action definition and conditional ccxBasisAction_involutive interface expose the relevant action and the missing hypothesis; the concrete reference witness is spelled out in the formal root, so proving it is not evidence of independent witness discovery. The latter interface cannot be applied to the alias case as stated. Semantic acceptance does not attest to proof originality or fresh verification; no proof bodies were inspected."
+      }
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 # Lean contribution track
 
-The latest cumulative [course v6](COURSE_V6.md) has 25 existing shared cores,
-including orientation repair and wire-renaming companions. Use its dedicated
+The latest cumulative [course v7](COURSE_V7.md) has 29 existing shared cores,
+including register layout, two-term linearity and reversible bit actions. Use its dedicated
 export and evaluation entry points; earlier course and assessment profiles
 remain versioned and unchanged.
 

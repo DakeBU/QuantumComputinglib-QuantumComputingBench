@@ -1,0 +1,39 @@
+{
+  "schema_version": "qcb.formal_decoder_input.v1",
+  "source_blind": true,
+  "views": [
+    {
+      "anonymous_id": "R1",
+      "formal_context": {
+        "ambient_definitions": {
+          "dimensions": "gridSize q := 2^q. Fin d labels integers 0 through d−1. A square Matrix d d ℂ is Fin d → Fin d → ℂ, and the candidate's full matrix field has square dimensions gridSize (n+a) by gridSize (n+a), where n is the number of system qubits and a is the number of auxiliary qubits.",
+          "matrix_carrier": "QuantumBlockEncoding.Matrix rows cols α := Fin rows → Fin cols → α; entries are indexed by output row first and input column second.",
+          "productIndex": "BlockEncodingClassics.productIndex s i is a Fin (signalDim * systemDim) with value s.val * systemDim + i.val.",
+          "projections": "productRegisterBlockProjection V s i j := V (s,i) (s,j). signalSystemBlockProjection signalDim rows cols U s i j := U at row s.val * rows + i.val, column s.val * cols + j.val.",
+          "reindex": "ConcreteSemantics.flatToProductRegister U (r,i) (c,j) reads U at the flattened row index r.val * rows + i.val and column index c.val * cols + j.val. ProductRegisterMatrix is indexed by (Fin signalDim × Fin rows) and (Fin signalDim × Fin cols)."
+        },
+        "imports": [
+          "QuantumBlockEncoding.ConcreteSemantics"
+        ],
+        "preamble": "",
+        "target": "(∀ (n a : ℕ), Fintype.card (Fin (QuantumBlockEncoding.gridSize (n + a))) = 2 ^ (n + a) ∧ QuantumBlockEncoding.gridSize (n + a) = QuantumBlockEncoding.gridSize a * QuantumBlockEncoding.gridSize n) ∧ (∀ (n a : ℕ) (s : Fin (QuantumBlockEncoding.gridSize a)) (i : Fin (QuantumBlockEncoding.gridSize n)), (QuantumBlockEncoding.BlockEncodingClassics.productIndex s i).val = s.val * QuantumBlockEncoding.gridSize n + i.val) ∧ (∀ (n a : ℕ) (U : QuantumBlockEncoding.Matrix (QuantumBlockEncoding.gridSize a * QuantumBlockEncoding.gridSize n) (QuantumBlockEncoding.gridSize a * QuantumBlockEncoding.gridSize n) ℂ) (r c : Fin (QuantumBlockEncoding.gridSize a)) (i j : Fin (QuantumBlockEncoding.gridSize n)), @QuantumBlockEncoding.ConcreteSemantics.flatToProductRegister (QuantumBlockEncoding.gridSize a) (QuantumBlockEncoding.gridSize n) (QuantumBlockEncoding.gridSize n) ℂ U (r, i) (c, j) = U (QuantumBlockEncoding.BlockEncodingClassics.productIndex r i) (QuantumBlockEncoding.BlockEncodingClassics.productIndex c j)) ∧ (∀ (n a : ℕ) (U : QuantumBlockEncoding.Matrix (QuantumBlockEncoding.gridSize a * QuantumBlockEncoding.gridSize n) (QuantumBlockEncoding.gridSize a * QuantumBlockEncoding.gridSize n) ℂ) (s : Fin (QuantumBlockEncoding.gridSize a)), QuantumBlockEncoding.ConcreteSemantics.productRegisterBlockProjection (@QuantumBlockEncoding.ConcreteSemantics.flatToProductRegister (QuantumBlockEncoding.gridSize a) (QuantumBlockEncoding.gridSize n) (QuantumBlockEncoding.gridSize n) ℂ U) s = QuantumBlockEncoding.signalSystemBlockProjection (QuantumBlockEncoding.gridSize a) (QuantumBlockEncoding.gridSize n) (QuantumBlockEncoding.gridSize n) U s) ∧ (∀ (n a : ℕ) (U : QuantumBlockEncoding.Matrix (QuantumBlockEncoding.gridSize a * QuantumBlockEncoding.gridSize n) (QuantumBlockEncoding.gridSize a * QuantumBlockEncoding.gridSize n) ℂ) (s : Fin (QuantumBlockEncoding.gridSize a)) (i j : Fin (QuantumBlockEncoding.gridSize n)), QuantumBlockEncoding.ConcreteSemantics.productRegisterBlockProjection (@QuantumBlockEncoding.ConcreteSemantics.flatToProductRegister (QuantumBlockEncoding.gridSize a) (QuantumBlockEncoding.gridSize n) (QuantumBlockEncoding.gridSize n) ℂ U) s i j = U (QuantumBlockEncoding.BlockEncodingClassics.productIndex s i) (QuantumBlockEncoding.BlockEncodingClassics.productIndex s j) ∧ QuantumBlockEncoding.signalSystemBlockProjection (QuantumBlockEncoding.gridSize a) (QuantumBlockEncoding.gridSize n) (QuantumBlockEncoding.gridSize n) U s i j = U (QuantumBlockEncoding.BlockEncodingClassics.productIndex s i) (QuantumBlockEncoding.BlockEncodingClassics.productIndex s j))"
+      }
+    },
+    {
+      "anonymous_id": "R2",
+      "formal_context": {
+        "ambient_definitions": {
+          "applyVec": "applyVec A v := A.mulVec v, whose row k is the sum over each j : Fin cols of A k j * v j.",
+          "basisKet": "basisKet cols l is Pi.single l 1: the function equal to 1 at l and 0 at other positions.",
+          "column": "A.col l is the function k ↦ A k l. Vector addition and complex scalar action are pointwise; ℂ multiplication is commutative.",
+          "matrix_and_vector": "FiniteMatrix rows cols ℂ := Matrix (Fin rows) (Fin cols) ℂ. StateVector d ℂ := Fin d → ℂ. An entry A k l has output row k and input column l."
+        },
+        "imports": [
+          "QuantumBlockEncoding.ConcreteSemantics"
+        ],
+        "preamble": "",
+        "target": "(∀ (rows cols : ℕ) (A : QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix rows cols ℂ) (a b : ℂ) (l r : Fin cols), QuantumBlockEncoding.ConcreteSemantics.applyVec A (a • QuantumBlockEncoding.ConcreteSemantics.basisKet cols l + b • QuantumBlockEncoding.ConcreteSemantics.basisKet cols r) = a • A.col l + b • A.col r) ∧ (∀ (rows cols : ℕ) (A : QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix rows cols ℂ) (a b : ℂ) (l r : Fin cols) (k : Fin rows), QuantumBlockEncoding.ConcreteSemantics.applyVec A (a • QuantumBlockEncoding.ConcreteSemantics.basisKet cols l + b • QuantumBlockEncoding.ConcreteSemantics.basisKet cols r) k = a * A k l + b * A k r) ∧ (∀ (rows cols : ℕ) (A B : QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix rows cols ℂ) (a b : ℂ) (l r : Fin cols), A.col l = B.col l → A.col r = B.col r → QuantumBlockEncoding.ConcreteSemantics.applyVec A (a • QuantumBlockEncoding.ConcreteSemantics.basisKet cols l + b • QuantumBlockEncoding.ConcreteSemantics.basisKet cols r) = QuantumBlockEncoding.ConcreteSemantics.applyVec B (a • QuantumBlockEncoding.ConcreteSemantics.basisKet cols l + b • QuantumBlockEncoding.ConcreteSemantics.basisKet cols r)) ∧ (∀ (rows cols : ℕ) (A B : QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix rows cols ℂ) (a b : ℂ) (l r : Fin cols) (k : Fin rows), A k l = B k l → A k r = B k r → QuantumBlockEncoding.ConcreteSemantics.applyVec A (a • QuantumBlockEncoding.ConcreteSemantics.basisKet cols l + b • QuantumBlockEncoding.ConcreteSemantics.basisKet cols r) k = QuantumBlockEncoding.ConcreteSemantics.applyVec B (a • QuantumBlockEncoding.ConcreteSemantics.basisKet cols l + b • QuantumBlockEncoding.ConcreteSemantics.basisKet cols r) k)"
+      }
+    }
+  ]
+}

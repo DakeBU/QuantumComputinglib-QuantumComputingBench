@@ -1,0 +1,939 @@
+{
+  "author": "/root",
+  "author_identities": [
+    "/root/foundations_register_linearity_author",
+    "/root/foundations_reversible_author"
+  ],
+  "cases": [
+    {
+      "assumptions_added": false,
+      "author_identity": "/root/foundations_register_linearity_author",
+      "controls": {
+        "constructed_whole_root": "by\n  have qcb_step_la004_dimension : ∀ (n a : ℕ), Fintype.card (Fin (QuantumBlockEncoding.gridSize (n + a))) = 2 ^ (n + a) ∧ QuantumBlockEncoding.gridSize (n + a) = QuantumBlockEncoding.gridSize a * QuantumBlockEncoding.gridSize n := by\n    intro n a\n    constructor\n    · exact Fintype.card_fin (2 ^ (n + a))\n    · simp only [QuantumBlockEncoding.gridSize, pow_add]\n      exact Nat.mul_comm _ _\n  have qcb_step_la004_index_order : ∀ (n a : ℕ) (s : Fin (QuantumBlockEncoding.gridSize a)) (i : Fin (QuantumBlockEncoding.gridSize n)), (QuantumBlockEncoding.BlockEncodingClassics.productIndex s i).val = s.val * QuantumBlockEncoding.gridSize n + i.val := by\n    intro n a s i\n    rfl\n  have qcb_step_la004_flat : ∀ (n a : ℕ) (U : QuantumBlockEncoding.Matrix (QuantumBlockEncoding.gridSize a * QuantumBlockEncoding.gridSize n) (QuantumBlockEncoding.gridSize a * QuantumBlockEncoding.gridSize n) ℂ) (r c : Fin (QuantumBlockEncoding.gridSize a)) (i j : Fin (QuantumBlockEncoding.gridSize n)), @QuantumBlockEncoding.ConcreteSemantics.flatToProductRegister (QuantumBlockEncoding.gridSize a) (QuantumBlockEncoding.gridSize n) (QuantumBlockEncoding.gridSize n) ℂ U (r, i) (c, j) = U (QuantumBlockEncoding.BlockEncodingClassics.productIndex r i) (QuantumBlockEncoding.BlockEncodingClassics.productIndex c j) := by\n    intro n a U r c i j\n    rfl\n  have qcb_step_la004_projection : ∀ (n a : ℕ) (U : QuantumBlockEncoding.Matrix (QuantumBlockEncoding.gridSize a * QuantumBlockEncoding.gridSize n) (QuantumBlockEncoding.gridSize a * QuantumBlockEncoding.gridSize n) ℂ) (s : Fin (QuantumBlockEncoding.gridSize a)), QuantumBlockEncoding.ConcreteSemantics.productRegisterBlockProjection (@QuantumBlockEncoding.ConcreteSemantics.flatToProductRegister (QuantumBlockEncoding.gridSize a) (QuantumBlockEncoding.gridSize n) (QuantumBlockEncoding.gridSize n) ℂ U) s = QuantumBlockEncoding.signalSystemBlockProjection (QuantumBlockEncoding.gridSize a) (QuantumBlockEncoding.gridSize n) (QuantumBlockEncoding.gridSize n) U s := by\n    intro n a U s\n    funext i j\n    exact qcb_step_la004_flat n a U s s i j\n  have qcb_step_la004_projected_entries : ∀ (n a : ℕ) (U : QuantumBlockEncoding.Matrix (QuantumBlockEncoding.gridSize a * QuantumBlockEncoding.gridSize n) (QuantumBlockEncoding.gridSize a * QuantumBlockEncoding.gridSize n) ℂ) (s : Fin (QuantumBlockEncoding.gridSize a)) (i j : Fin (QuantumBlockEncoding.gridSize n)), QuantumBlockEncoding.ConcreteSemantics.productRegisterBlockProjection (@QuantumBlockEncoding.ConcreteSemantics.flatToProductRegister (QuantumBlockEncoding.gridSize a) (QuantumBlockEncoding.gridSize n) (QuantumBlockEncoding.gridSize n) ℂ U) s i j = U (QuantumBlockEncoding.BlockEncodingClassics.productIndex s i) (QuantumBlockEncoding.BlockEncodingClassics.productIndex s j) ∧ QuantumBlockEncoding.signalSystemBlockProjection (QuantumBlockEncoding.gridSize a) (QuantumBlockEncoding.gridSize n) (QuantumBlockEncoding.gridSize n) U s i j = U (QuantumBlockEncoding.BlockEncodingClassics.productIndex s i) (QuantumBlockEncoding.BlockEncodingClassics.productIndex s j) := by\n    intro n a U s i j\n    constructor\n    · exact qcb_step_la004_flat n a U s s i j\n    · have h := congrFun (congrFun (qcb_step_la004_projection n a U s) i) j\n      rw [← h]\n      exact qcb_step_la004_flat n a U s s i j\n  exact ⟨qcb_step_la004_dimension, qcb_step_la004_index_order, qcb_step_la004_flat, qcb_step_la004_projection, qcb_step_la004_projected_entries⟩",
+        "library_control": "by\n  refine ⟨?_, ?_, ?_, ?_, ?_⟩\n  · intro n a\n    constructor\n    · exact Fintype.card_fin (2 ^ (n + a))\n    · simp only [QuantumBlockEncoding.gridSize, pow_add]\n      exact Nat.mul_comm _ _\n  · intro n a s i\n    rfl\n  · intro n a U r c i j\n    rfl\n  · intro n a U s\n    exact QuantumBlockEncoding.ConcreteSemantics.productRegisterBlockProjection_flatToProductRegister U s\n  · intro n a U s i j\n    exact ⟨rfl, rfl⟩"
+      },
+      "difficulty": {
+        "construction_band": "D1",
+        "imported_shortcut": "Direct imported formulas or definitions; no whole-root one-call theorem identified.",
+        "measured_model_difficulty": null,
+        "rationale": "Dimensions and ordering require elementary arithmetic and the literal definition of a product index; the projection bridge follows by extensionality. The direct imported projection theorem remains callable."
+      },
+      "graph_scope": {
+        "frozen_source_nodes": [
+          "declaration:QuantumBlockEncoding.ConcreteSemantics.flatToProductRegister",
+          "declaration:QuantumBlockEncoding.ConcreteSemantics.productRegisterBlockProjection",
+          "declaration:QuantumBlockEncoding.ConcreteSemantics.productRegisterBlockProjection_flatToProductRegister"
+        ],
+        "is_extracted_lean_proof_term_graph": false,
+        "is_new_source_proof_graph": false,
+        "kind": "evaluator_supplied_AND_obligation_DAG",
+        "new_mathematical_cores": 0,
+        "note": "Existing core and split preserved. Task-local equality and information-sufficiency corollaries are obligation statements, not new production graph nodes."
+      },
+      "library_control_one_call": false,
+      "negative_controls": {
+        "sorry_axiom": "by\n  sorry",
+        "wrong_target": "by\n  exact True.intro"
+      },
+      "nl_source_relation": "Worked derivation addresses exact current canonical question. No changes to question, assumptions, conventions, mathematical core, family or split.",
+      "provisional_checks": {
+        "authored_nodes_and_constructed_whole_root": "local pinned-runtime Lean probe passed for every interface, node, constructed whole root and library control, with approved axioms only; not a benchmark receipt",
+        "independent_semantic_review": "pending",
+        "isolated_prediction_execution": false
+      },
+      "purification": {
+        "new_production_declarations": 0,
+        "root_policy": "Single conjunction root with explicit premise-sharing and no disconnected nodes. Imported shortcuts remain disclosed.",
+        "status": "author_compressed_pending_independent_exposition_and_integration_gates"
+      },
+      "references": {
+        "la004_dimension": "by\n  intro n a\n  constructor\n  · exact Fintype.card_fin (2 ^ (n + a))\n  · simp only [QuantumBlockEncoding.gridSize, pow_add]\n    exact Nat.mul_comm _ _",
+        "la004_flat": "by\n  intro n a U r c i j\n  rfl",
+        "la004_index_order": "by\n  intro n a s i\n  rfl",
+        "la004_projected_entries": "by\n  intro n a U s i j\n  constructor\n  · exact qcb_step_la004_flat n a U s s i j\n  · have h := congrFun (congrFun (qcb_step_la004_projection n a U s) i) j\n    rw [← h]\n    exact qcb_step_la004_flat n a U s s i j",
+        "la004_projection": "by\n  intro n a U s\n  funext i j\n  exact qcb_step_la004_flat n a U s s i j",
+        "la004_root": "by\n  exact ⟨qcb_step_la004_dimension, qcb_step_la004_index_order, qcb_step_la004_flat, qcb_step_la004_projection, qcb_step_la004_projected_entries⟩"
+      },
+      "retrieval_scope": {
+        "direct_route_interfaces": [
+          "QuantumBlockEncoding.ConcreteSemantics.flatToProductRegister",
+          "QuantumBlockEncoding.ConcreteSemantics.productRegisterBlockProjection",
+          "QuantumBlockEncoding.ConcreteSemantics.productRegisterBlockProjection_flatToProductRegister"
+        ],
+        "note": "Only the frozen Compiled declaration anchors are exposed. Every displayed scalar-polymorphic signature is specialized to the Type (universe 0) relevant to these tasks and was type-checked against its actual imported declaration. All imported declarations remain callable. The task-local DAG is not a new source graph or Lean proof-term graph."
+      },
+      "route_rubric": [
+        {
+          "criterion": "Identifies rows and columns of the joint square matrix using power addition.",
+          "id": "dimension",
+          "nodes": [
+            "la004_dimension"
+          ],
+          "weight": 1
+        },
+        {
+          "criterion": "Correct flat high-signal/low-system order on both matrix indices.",
+          "id": "order",
+          "nodes": [
+            "la004_index_order",
+            "la004_flat"
+          ],
+          "weight": 1
+        },
+        {
+          "criterion": "Equality for arbitrary fixed branch s, including nonzero, and every system entry.",
+          "id": "projection",
+          "nodes": [
+            "la004_projection",
+            "la004_projected_entries"
+          ],
+          "weight": 2
+        }
+      ],
+      "semantic_coverage": "Full dimension of both registers, high-order signal and low-order system indexing, flat versus product reindexing and equality of arbitrary fixed (not only clean/zero) signal-branch submatrices and their entries. The dimension is independent of unitarity, and the projections agree for every square complex matrix of that shape; this is stronger than the same statement restricted to unitary matrices. No new claim of unitarity or physical circuit implementation is made.",
+      "semantic_evidence": {
+        "anonymous_id": "R1",
+        "group": "register_linearity",
+        "kind": "new_roundtrip"
+      },
+      "shortcut_disclosure": "The equality of product and flattened projections is directly available as productRegisterBlockProjection_flatToProductRegister; index/value and reindexing identities unfold by definition. The constructed route proves the projection entrywise using the authored flat bridge; the library control invokes the imported projection theorem. The original OperatorBlockEncodingCandidate anchor is Partial route in the frozen graph; its field type is literal and bound to source but is not advertised as a compiled course retrieval anchor. This is an exposed public-test core, not blind.",
+      "source_binder_audit": [
+        {
+          "binder": "n a : ℕ",
+          "class": "SOURCE",
+          "meaning": "Number of system and auxiliary qubits, including zero."
+        },
+        {
+          "binder": "U : Matrix (gridSize a * gridSize n) (gridSize a * gridSize n) ℂ",
+          "class": "TYPING",
+          "meaning": "Flat square operator on both registers; arithmetic equates this carrier dimension to gridSize (n+a). Projection identity holds even without an added unitarity hypothesis."
+        },
+        {
+          "binder": "r c s : Fin (gridSize a)",
+          "class": "SOURCE",
+          "meaning": "Input/output signal indices, with s fixed to the same signal branch on both sides."
+        },
+        {
+          "binder": "i j : Fin (gridSize n)",
+          "class": "SOURCE",
+          "meaning": "System row and column indices."
+        }
+      ],
+      "source_bindings": [
+        {
+          "path": "QuantumBlockEncoding/Core.lean",
+          "sha256_lf": "c7e76d91c7fcfd844177f99c0399a3465a7d8360d3a522acb5d4c4e2f8277894"
+        },
+        {
+          "path": "QuantumBlockEncoding/BlockEncoding.lean",
+          "sha256_lf": "fe06f75a29822e28ccdbfedfb0b0e87f90872620fae7aed359085fad8fae64b4"
+        },
+        {
+          "path": "QuantumBlockEncoding/BlockEncodingClassics.lean",
+          "sha256_lf": "94ac6632924df0a49b1ebd99bb5d9ed69b2ea463ec527033f38bd73deeb1346a"
+        },
+        {
+          "path": "QuantumBlockEncoding/CircuitSemantics.lean",
+          "sha256_lf": "761ac3a98ea5a82ad5030e280e3810821081d10cec3d0a0a1d3c2add3fcd4666"
+        },
+        {
+          "path": "QuantumBlockEncoding/ConcreteSemantics.lean",
+          "sha256_lf": "454c0c5e215ca197c5883bedf74882f392d259c7afeadc63912230437698ebe5"
+        }
+      ],
+      "source_item_digest": "33cc06733514e0836a461f03019dbbcf4881b1b6963dfe5207cb05932deb4106",
+      "source_node_ids": [
+        "declaration:QuantumBlockEncoding.ConcreteSemantics.flatToProductRegister",
+        "declaration:QuantumBlockEncoding.ConcreteSemantics.productRegisterBlockProjection",
+        "declaration:QuantumBlockEncoding.ConcreteSemantics.productRegisterBlockProjection_flatToProductRegister"
+      ],
+      "statement_seal": {
+        "definition_audit": "Literal finite matrix/index and vector definitions; no added hypotheses, no opaque target predicates.",
+        "excess_binders": [],
+        "formal_root_sha256": "8284addbd6fc8a61e5aa5b7f576389ca84a43d33ac1efc050b724e52f6442784",
+        "formalization_scope": "Full dimension of both registers, high-order signal and low-order system indexing, flat versus product reindexing and equality of arbitrary fixed (not only clean/zero) signal-branch submatrices and their entries. The dimension is independent of unitarity, and the projections agree for every square complex matrix of that shape; this is stronger than the same statement restricted to unitary matrices. No new claim of unitarity or physical circuit implementation is made.",
+        "question_sha256": "5a0efad6c7ab50fec95944bfc104715e59749a86070b12f94350aafd63436b09",
+        "resource_tier": "Exact algebra/entry access; not a gate count, hardware, bit-complexity or runtime bound.",
+        "source_contract_hash": "4d210c8afd68cbdf3466959eeb2e95763df5353f3d18f73eb39f3e64811e291a",
+        "source_item_digest": "33cc06733514e0836a461f03019dbbcf4881b1b6963dfe5207cb05932deb4106",
+        "source_question_version": 1,
+        "status": "author_frozen_pending_independent_comparison"
+      },
+      "task": {
+        "alignment_status": "author_frozen_formal_contract_pending_independent_decode_comparison_and_reference_replay",
+        "assumptions": [
+          "system register has 2^n states",
+          "a auxiliary qubits are used"
+        ],
+        "contract_hash": "4d210c8afd68cbdf3466959eeb2e95763df5353f3d18f73eb39f3e64811e291a",
+        "conventions": [
+          "signal/ancilla register is high-order, system register is low-order",
+          "flat index = signal * systemDim + system"
+        ],
+        "core_id": "qcb-core-la-004",
+        "family": "register tensor ordering / block indexing",
+        "imports": [
+          "QuantumBlockEncoding.ConcreteSemantics"
+        ],
+        "interfaces": [
+          {
+            "module": "QuantumBlockEncoding.ConcreteSemantics",
+            "name": "QuantumBlockEncoding.ConcreteSemantics.flatToProductRegister",
+            "source_node_id": "declaration:QuantumBlockEncoding.ConcreteSemantics.flatToProductRegister",
+            "type": "{signalDim rows cols : ℕ} → {α : Type} → QuantumBlockEncoding.Matrix (signalDim * rows) (signalDim * cols) α → QuantumBlockEncoding.ConcreteSemantics.ProductRegisterMatrix signalDim rows cols α"
+          },
+          {
+            "module": "QuantumBlockEncoding.ConcreteSemantics",
+            "name": "QuantumBlockEncoding.ConcreteSemantics.productRegisterBlockProjection",
+            "source_node_id": "declaration:QuantumBlockEncoding.ConcreteSemantics.productRegisterBlockProjection",
+            "type": "{signalDim rows cols : ℕ} → {α : Type} → QuantumBlockEncoding.ConcreteSemantics.ProductRegisterMatrix signalDim rows cols α → Fin signalDim → QuantumBlockEncoding.Matrix rows cols α"
+          },
+          {
+            "module": "QuantumBlockEncoding.ConcreteSemantics",
+            "name": "QuantumBlockEncoding.ConcreteSemantics.productRegisterBlockProjection_flatToProductRegister",
+            "source_node_id": "declaration:QuantumBlockEncoding.ConcreteSemantics.productRegisterBlockProjection_flatToProductRegister",
+            "type": "∀ {signalDim rows cols : ℕ} {α : Type} [OfNat α 0] (U : QuantumBlockEncoding.Matrix (signalDim * rows) (signalDim * cols) α) (s : Fin signalDim), QuantumBlockEncoding.ConcreteSemantics.productRegisterBlockProjection (@QuantumBlockEncoding.ConcreteSemantics.flatToProductRegister signalDim rows cols α U) s = QuantumBlockEncoding.signalSystemBlockProjection signalDim rows cols U s"
+          }
+        ],
+        "library_revision": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+        "nodes": [
+          {
+            "depends_on": [],
+            "id": "la004_dimension",
+            "target": "∀ (n a : ℕ), Fintype.card (Fin (QuantumBlockEncoding.gridSize (n + a))) = 2 ^ (n + a) ∧ QuantumBlockEncoding.gridSize (n + a) = QuantumBlockEncoding.gridSize a * QuantumBlockEncoding.gridSize n"
+          },
+          {
+            "depends_on": [],
+            "id": "la004_index_order",
+            "target": "∀ (n a : ℕ) (s : Fin (QuantumBlockEncoding.gridSize a)) (i : Fin (QuantumBlockEncoding.gridSize n)), (QuantumBlockEncoding.BlockEncodingClassics.productIndex s i).val = s.val * QuantumBlockEncoding.gridSize n + i.val"
+          },
+          {
+            "depends_on": [],
+            "id": "la004_flat",
+            "target": "∀ (n a : ℕ) (U : QuantumBlockEncoding.Matrix (QuantumBlockEncoding.gridSize a * QuantumBlockEncoding.gridSize n) (QuantumBlockEncoding.gridSize a * QuantumBlockEncoding.gridSize n) ℂ) (r c : Fin (QuantumBlockEncoding.gridSize a)) (i j : Fin (QuantumBlockEncoding.gridSize n)), @QuantumBlockEncoding.ConcreteSemantics.flatToProductRegister (QuantumBlockEncoding.gridSize a) (QuantumBlockEncoding.gridSize n) (QuantumBlockEncoding.gridSize n) ℂ U (r, i) (c, j) = U (QuantumBlockEncoding.BlockEncodingClassics.productIndex r i) (QuantumBlockEncoding.BlockEncodingClassics.productIndex c j)"
+          },
+          {
+            "depends_on": [
+              "la004_flat"
+            ],
+            "id": "la004_projection",
+            "target": "∀ (n a : ℕ) (U : QuantumBlockEncoding.Matrix (QuantumBlockEncoding.gridSize a * QuantumBlockEncoding.gridSize n) (QuantumBlockEncoding.gridSize a * QuantumBlockEncoding.gridSize n) ℂ) (s : Fin (QuantumBlockEncoding.gridSize a)), QuantumBlockEncoding.ConcreteSemantics.productRegisterBlockProjection (@QuantumBlockEncoding.ConcreteSemantics.flatToProductRegister (QuantumBlockEncoding.gridSize a) (QuantumBlockEncoding.gridSize n) (QuantumBlockEncoding.gridSize n) ℂ U) s = QuantumBlockEncoding.signalSystemBlockProjection (QuantumBlockEncoding.gridSize a) (QuantumBlockEncoding.gridSize n) (QuantumBlockEncoding.gridSize n) U s"
+          },
+          {
+            "depends_on": [
+              "la004_flat",
+              "la004_projection"
+            ],
+            "id": "la004_projected_entries",
+            "target": "∀ (n a : ℕ) (U : QuantumBlockEncoding.Matrix (QuantumBlockEncoding.gridSize a * QuantumBlockEncoding.gridSize n) (QuantumBlockEncoding.gridSize a * QuantumBlockEncoding.gridSize n) ℂ) (s : Fin (QuantumBlockEncoding.gridSize a)) (i j : Fin (QuantumBlockEncoding.gridSize n)), QuantumBlockEncoding.ConcreteSemantics.productRegisterBlockProjection (@QuantumBlockEncoding.ConcreteSemantics.flatToProductRegister (QuantumBlockEncoding.gridSize a) (QuantumBlockEncoding.gridSize n) (QuantumBlockEncoding.gridSize n) ℂ U) s i j = U (QuantumBlockEncoding.BlockEncodingClassics.productIndex s i) (QuantumBlockEncoding.BlockEncodingClassics.productIndex s j) ∧ QuantumBlockEncoding.signalSystemBlockProjection (QuantumBlockEncoding.gridSize a) (QuantumBlockEncoding.gridSize n) (QuantumBlockEncoding.gridSize n) U s i j = U (QuantumBlockEncoding.BlockEncodingClassics.productIndex s i) (QuantumBlockEncoding.BlockEncodingClassics.productIndex s j)"
+          },
+          {
+            "depends_on": [
+              "la004_dimension",
+              "la004_index_order",
+              "la004_flat",
+              "la004_projection",
+              "la004_projected_entries"
+            ],
+            "id": "la004_root",
+            "target": "(∀ (n a : ℕ), Fintype.card (Fin (QuantumBlockEncoding.gridSize (n + a))) = 2 ^ (n + a) ∧ QuantumBlockEncoding.gridSize (n + a) = QuantumBlockEncoding.gridSize a * QuantumBlockEncoding.gridSize n) ∧ (∀ (n a : ℕ) (s : Fin (QuantumBlockEncoding.gridSize a)) (i : Fin (QuantumBlockEncoding.gridSize n)), (QuantumBlockEncoding.BlockEncodingClassics.productIndex s i).val = s.val * QuantumBlockEncoding.gridSize n + i.val) ∧ (∀ (n a : ℕ) (U : QuantumBlockEncoding.Matrix (QuantumBlockEncoding.gridSize a * QuantumBlockEncoding.gridSize n) (QuantumBlockEncoding.gridSize a * QuantumBlockEncoding.gridSize n) ℂ) (r c : Fin (QuantumBlockEncoding.gridSize a)) (i j : Fin (QuantumBlockEncoding.gridSize n)), @QuantumBlockEncoding.ConcreteSemantics.flatToProductRegister (QuantumBlockEncoding.gridSize a) (QuantumBlockEncoding.gridSize n) (QuantumBlockEncoding.gridSize n) ℂ U (r, i) (c, j) = U (QuantumBlockEncoding.BlockEncodingClassics.productIndex r i) (QuantumBlockEncoding.BlockEncodingClassics.productIndex c j)) ∧ (∀ (n a : ℕ) (U : QuantumBlockEncoding.Matrix (QuantumBlockEncoding.gridSize a * QuantumBlockEncoding.gridSize n) (QuantumBlockEncoding.gridSize a * QuantumBlockEncoding.gridSize n) ℂ) (s : Fin (QuantumBlockEncoding.gridSize a)), QuantumBlockEncoding.ConcreteSemantics.productRegisterBlockProjection (@QuantumBlockEncoding.ConcreteSemantics.flatToProductRegister (QuantumBlockEncoding.gridSize a) (QuantumBlockEncoding.gridSize n) (QuantumBlockEncoding.gridSize n) ℂ U) s = QuantumBlockEncoding.signalSystemBlockProjection (QuantumBlockEncoding.gridSize a) (QuantumBlockEncoding.gridSize n) (QuantumBlockEncoding.gridSize n) U s) ∧ (∀ (n a : ℕ) (U : QuantumBlockEncoding.Matrix (QuantumBlockEncoding.gridSize a * QuantumBlockEncoding.gridSize n) (QuantumBlockEncoding.gridSize a * QuantumBlockEncoding.gridSize n) ℂ) (s : Fin (QuantumBlockEncoding.gridSize a)) (i j : Fin (QuantumBlockEncoding.gridSize n)), QuantumBlockEncoding.ConcreteSemantics.productRegisterBlockProjection (@QuantumBlockEncoding.ConcreteSemantics.flatToProductRegister (QuantumBlockEncoding.gridSize a) (QuantumBlockEncoding.gridSize n) (QuantumBlockEncoding.gridSize n) ℂ U) s i j = U (QuantumBlockEncoding.BlockEncodingClassics.productIndex s i) (QuantumBlockEncoding.BlockEncodingClassics.productIndex s j) ∧ QuantumBlockEncoding.signalSystemBlockProjection (QuantumBlockEncoding.gridSize a) (QuantumBlockEncoding.gridSize n) (QuantumBlockEncoding.gridSize n) U s i j = U (QuantumBlockEncoding.BlockEncodingClassics.productIndex s i) (QuantumBlockEncoding.BlockEncodingClassics.productIndex s j))"
+          }
+        ],
+        "question": "A block-encoding unitary represents an operator that acts on the 2^n states of an n-qubit system register, using a auxiliary qubits. (a) What is the dimension of the square matrix representing the full unitary, and why? (b) The full index is a flattened combination of a signal/ancilla register and the system register; state which register is treated as the high-order (most significant) part of the index and which as the low-order part. (c) If one instead keeps the two registers explicit as an ordered pair (signal, system) and reads off the sub-matrix for one fixed value of the signal register, how does that sub-matrix relate to the sub-matrix obtained by projecting the single flattened unitary onto the same signal branch?",
+        "root_id": "la004_root",
+        "schema_version": "qcb.proof_obligation_task.v1",
+        "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "split": "test_public"
+      },
+      "view_id": "qcb-course-la-004-v1",
+      "worked_derivation": "Let N=2^n be the system dimension and S=2^a the signal dimension. The joint computational basis is labelled by (s,i), with 0≤s<S and 0≤i<N, so it has SN=2^a 2^n=2^(n+a) labels. Therefore the full unitary has shape 2^(n+a) × 2^(n+a); the same dimension appears in the candidate record's matrix field.\n\nThe flat index is f(s,i)=sN+i. The signal label is high-order because increasing it by one moves by an entire block of N indices, whereas changing the system label moves within that block. The signal label ranges from 0 to S−1, the system label from 0 to N−1, so f(s,i) lies in [0,SN). Distinct pairs have distinct indices (quotient and remainder modulo N recover s and i); N=2^n is always positive, even n=0.\n\nView the same matrix as V[(r,i),(c,j)]=U[f(r,i),f(c,j)]. For any fixed signal label s, the product-register submatrix is B_s[i,j]=V[(s,i),(s,j)]=U[sN+i,sN+j]. The flattened projection onto branch s is exactly that last entry expression, equivalently (⟨s|⊗I_N) U (|s⟩⊗I_N). Equality at every pair of system indices proves equality of the matrices. This works for any valid s, not just the all-zero branch used in usual clean-block constructions, and for n=0 or a=0. No extra scaling factor occurs for mere reindexing or projection; unitarity is not needed for the equality itself."
+    },
+    {
+      "assumptions_added": false,
+      "author_identity": "/root/foundations_register_linearity_author",
+      "controls": {
+        "constructed_whole_root": "by\n  have qcb_step_la007_basis : ∀ (rows cols : ℕ) (A : QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix rows cols ℂ) (l : Fin cols), QuantumBlockEncoding.ConcreteSemantics.applyVec A (QuantumBlockEncoding.ConcreteSemantics.basisKet cols l) = A.col l := by\n    intro rows cols A l\n    exact QuantumBlockEncoding.ConcreteSemantics.applyVec_basisKet A l\n  have qcb_step_la007_vector : ∀ (rows cols : ℕ) (A : QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix rows cols ℂ) (a b : ℂ) (l r : Fin cols), QuantumBlockEncoding.ConcreteSemantics.applyVec A (a • QuantumBlockEncoding.ConcreteSemantics.basisKet cols l + b • QuantumBlockEncoding.ConcreteSemantics.basisKet cols r) = a • A.col l + b • A.col r := by\n    intro rows cols A a b l r\n    change A.mulVec (a • QuantumBlockEncoding.ConcreteSemantics.basisKet cols l + b • QuantumBlockEncoding.ConcreteSemantics.basisKet cols r) = _\n    rw [Matrix.mulVec_add, Matrix.mulVec_smul, Matrix.mulVec_smul]\n    change a • QuantumBlockEncoding.ConcreteSemantics.applyVec A (QuantumBlockEncoding.ConcreteSemantics.basisKet cols l) + b • QuantumBlockEncoding.ConcreteSemantics.applyVec A (QuantumBlockEncoding.ConcreteSemantics.basisKet cols r) = _\n    rw [qcb_step_la007_basis rows cols A l, qcb_step_la007_basis rows cols A r]\n  have qcb_step_la007_entry : ∀ (rows cols : ℕ) (A : QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix rows cols ℂ) (a b : ℂ) (l r : Fin cols) (k : Fin rows), QuantumBlockEncoding.ConcreteSemantics.applyVec A (a • QuantumBlockEncoding.ConcreteSemantics.basisKet cols l + b • QuantumBlockEncoding.ConcreteSemantics.basisKet cols r) k = a * A k l + b * A k r := by\n    intro rows cols A a b l r k\n    simpa using congrFun (qcb_step_la007_vector rows cols A a b l r) k\n  have qcb_step_la007_columns_determine : ∀ (rows cols : ℕ) (A B : QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix rows cols ℂ) (a b : ℂ) (l r : Fin cols), A.col l = B.col l → A.col r = B.col r → QuantumBlockEncoding.ConcreteSemantics.applyVec A (a • QuantumBlockEncoding.ConcreteSemantics.basisKet cols l + b • QuantumBlockEncoding.ConcreteSemantics.basisKet cols r) = QuantumBlockEncoding.ConcreteSemantics.applyVec B (a • QuantumBlockEncoding.ConcreteSemantics.basisKet cols l + b • QuantumBlockEncoding.ConcreteSemantics.basisKet cols r) := by\n    intro rows cols A B a b l r hl hr\n    rw [qcb_step_la007_vector rows cols A a b l r, qcb_step_la007_vector rows cols B a b l r, hl, hr]\n  have qcb_step_la007_entries_determine : ∀ (rows cols : ℕ) (A B : QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix rows cols ℂ) (a b : ℂ) (l r : Fin cols) (k : Fin rows), A k l = B k l → A k r = B k r → QuantumBlockEncoding.ConcreteSemantics.applyVec A (a • QuantumBlockEncoding.ConcreteSemantics.basisKet cols l + b • QuantumBlockEncoding.ConcreteSemantics.basisKet cols r) k = QuantumBlockEncoding.ConcreteSemantics.applyVec B (a • QuantumBlockEncoding.ConcreteSemantics.basisKet cols l + b • QuantumBlockEncoding.ConcreteSemantics.basisKet cols r) k := by\n    intro rows cols A B a b l r k hl hr\n    rw [qcb_step_la007_entry rows cols A a b l r k, qcb_step_la007_entry rows cols B a b l r k, hl, hr]\n  exact ⟨qcb_step_la007_vector, qcb_step_la007_entry, qcb_step_la007_columns_determine, qcb_step_la007_entries_determine⟩",
+        "library_control": "by\n  refine ⟨?_, ?_, ?_, ?_⟩\n  · intro rows cols A a b l r\n    exact QuantumBlockEncoding.ConcreteSemantics.applyVec_twoBasisSuperposition A a b l r\n  · intro rows cols A a b l r k\n    exact QuantumBlockEncoding.ConcreteSemantics.applyVec_twoBasisSuperposition_apply A a b l r k\n  · intro rows cols A B a b l r hl hr\n    rw [QuantumBlockEncoding.ConcreteSemantics.applyVec_twoBasisSuperposition, QuantumBlockEncoding.ConcreteSemantics.applyVec_twoBasisSuperposition, hl, hr]\n  · intro rows cols A B a b l r k hl hr\n    rw [QuantumBlockEncoding.ConcreteSemantics.applyVec_twoBasisSuperposition_apply, QuantumBlockEncoding.ConcreteSemantics.applyVec_twoBasisSuperposition_apply, hl, hr]"
+      },
+      "difficulty": {
+        "construction_band": "D2",
+        "imported_shortcut": "Direct imported formulas or definitions; no whole-root one-call theorem identified.",
+        "measured_model_difficulty": null,
+        "rationale": "Construct the two-term vector identity from the supplied basis-column fact and linearity, then extract a coordinate and compose with agreement hypotheses. Direct library shortcuts give a low-difficulty alternate route."
+      },
+      "graph_scope": {
+        "frozen_source_nodes": [
+          "declaration:QuantumBlockEncoding.ConcreteSemantics.applyVec",
+          "declaration:QuantumBlockEncoding.ConcreteSemantics.basisKet",
+          "declaration:QuantumBlockEncoding.ConcreteSemantics.applyVec_basisKet",
+          "declaration:QuantumBlockEncoding.ConcreteSemantics.applyVec_twoBasisSuperposition",
+          "declaration:QuantumBlockEncoding.ConcreteSemantics.applyVec_twoBasisSuperposition_apply"
+        ],
+        "is_extracted_lean_proof_term_graph": false,
+        "is_new_source_proof_graph": false,
+        "kind": "evaluator_supplied_AND_obligation_DAG",
+        "new_mathematical_cores": 0,
+        "note": "Existing core and split preserved. Task-local equality and information-sufficiency corollaries are obligation statements, not new production graph nodes."
+      },
+      "library_control_one_call": false,
+      "negative_controls": {
+        "sorry_axiom": "by\n  sorry",
+        "wrong_target": "by\n  exact True.intro"
+      },
+      "nl_source_relation": "Worked derivation addresses exact current canonical question. No changes to question, assumptions, conventions, mathematical core, family or split.",
+      "provisional_checks": {
+        "authored_nodes_and_constructed_whole_root": "local pinned-runtime Lean probe passed for every interface, node, constructed whole root and library control, with approved axioms only; not a benchmark receipt",
+        "independent_semantic_review": "pending",
+        "isolated_prediction_execution": false
+      },
+      "purification": {
+        "new_production_declarations": 0,
+        "root_policy": "Single conjunction root with explicit premise-sharing and no disconnected nodes. Imported shortcuts remain disclosed.",
+        "status": "author_compressed_pending_independent_exposition_and_integration_gates"
+      },
+      "references": {
+        "la007_basis": "by\n  intro rows cols A l\n  exact QuantumBlockEncoding.ConcreteSemantics.applyVec_basisKet A l",
+        "la007_columns_determine": "by\n  intro rows cols A B a b l r hl hr\n  rw [qcb_step_la007_vector rows cols A a b l r, qcb_step_la007_vector rows cols B a b l r, hl, hr]",
+        "la007_entries_determine": "by\n  intro rows cols A B a b l r k hl hr\n  rw [qcb_step_la007_entry rows cols A a b l r k, qcb_step_la007_entry rows cols B a b l r k, hl, hr]",
+        "la007_entry": "by\n  intro rows cols A a b l r k\n  simpa using congrFun (qcb_step_la007_vector rows cols A a b l r) k",
+        "la007_root": "by\n  exact ⟨qcb_step_la007_vector, qcb_step_la007_entry, qcb_step_la007_columns_determine, qcb_step_la007_entries_determine⟩",
+        "la007_vector": "by\n  intro rows cols A a b l r\n  change A.mulVec (a • QuantumBlockEncoding.ConcreteSemantics.basisKet cols l + b • QuantumBlockEncoding.ConcreteSemantics.basisKet cols r) = _\n  rw [Matrix.mulVec_add, Matrix.mulVec_smul, Matrix.mulVec_smul]\n  change a • QuantumBlockEncoding.ConcreteSemantics.applyVec A (QuantumBlockEncoding.ConcreteSemantics.basisKet cols l) + b • QuantumBlockEncoding.ConcreteSemantics.applyVec A (QuantumBlockEncoding.ConcreteSemantics.basisKet cols r) = _\n  rw [qcb_step_la007_basis rows cols A l, qcb_step_la007_basis rows cols A r]"
+      },
+      "retrieval_scope": {
+        "direct_route_interfaces": [
+          "QuantumBlockEncoding.ConcreteSemantics.applyVec",
+          "QuantumBlockEncoding.ConcreteSemantics.basisKet",
+          "QuantumBlockEncoding.ConcreteSemantics.applyVec_basisKet",
+          "QuantumBlockEncoding.ConcreteSemantics.applyVec_twoBasisSuperposition",
+          "QuantumBlockEncoding.ConcreteSemantics.applyVec_twoBasisSuperposition_apply"
+        ],
+        "note": "Only the frozen Compiled declaration anchors are exposed. Every displayed scalar-polymorphic signature is specialized to the Type (universe 0) relevant to these tasks and was type-checked against its actual imported declaration. All imported declarations remain callable. The task-local DAG is not a new source graph or Lean proof-term graph."
+      },
+      "route_rubric": [
+        {
+          "criterion": "Uses linearity and delta basis fact, with complex coefficients and no extraneous assumptions.",
+          "id": "basis_and_linearity",
+          "nodes": [
+            "la007_basis",
+            "la007_vector"
+          ],
+          "weight": 2
+        },
+        {
+          "criterion": "Extracts the output coordinate with the correct row-column convention.",
+          "id": "read_entry",
+          "nodes": [
+            "la007_entry"
+          ],
+          "weight": 1
+        },
+        {
+          "criterion": "Establishes vector/coordinate sufficiency by agreement and states the two-term scope.",
+          "id": "sparse_sufficiency",
+          "nodes": [
+            "la007_columns_determine",
+            "la007_entries_determine"
+          ],
+          "weight": 2
+        }
+      ],
+      "semantic_coverage": "Both formulas on the two-term computational-basis input, and the information-sufficiency interpretation: two matrices that agree on the named columns give identical output vectors, and matrices that agree on the named row entries give identical output at that row. The two labels may coincide, coefficients need not be nonzero or normalized, rows/columns are finite and rectangular matrices are allowed. The sparse-input restriction is essential: this is not a theorem about all dense vectors, nor a bound on entry-access runtime.",
+      "semantic_evidence": {
+        "anonymous_id": "R2",
+        "group": "register_linearity",
+        "kind": "new_roundtrip"
+      },
+      "shortcut_disclosure": "The exact vector and coordinate formulas are imported as applyVec_twoBasisSuperposition and applyVec_twoBasisSuperposition_apply. The constructed route uses the supplied basis-column fact, Mathlib mulVec_add and mulVec_smul, then coordinate evaluation and the two information-sufficiency corollaries. The library control directly invokes the two imported formulas. No claim of model difficulty from this constructed route; this is an exposed development core.",
+      "source_binder_audit": [
+        {
+          "binder": "rows cols : ℕ",
+          "class": "TYPING",
+          "meaning": "Independent finite matrix dimensions; a square operator is a special case."
+        },
+        {
+          "binder": "A : FiniteMatrix rows cols ℂ",
+          "class": "SOURCE",
+          "meaning": "Finite complex operator."
+        },
+        {
+          "binder": "B : FiniteMatrix rows cols ℂ",
+          "class": "RULED",
+          "meaning": "Comparison operator in the information-sufficiency interpretation."
+        },
+        {
+          "binder": "a b : ℂ",
+          "class": "SOURCE",
+          "meaning": "Arbitrary complex coefficients, including zero."
+        },
+        {
+          "binder": "l r : Fin cols",
+          "class": "SOURCE",
+          "meaning": "Computational basis labels, without a distinctness assumption."
+        },
+        {
+          "binder": "k : Fin rows",
+          "class": "SOURCE",
+          "meaning": "Requested output coordinate."
+        },
+        {
+          "binder": "A.col l = B.col l and A.col r = B.col r; or A k l = B k l and A k r = B k r",
+          "class": "RULED",
+          "meaning": "Antecedents precisely state agreement on the information whose sufficiency is asserted; not additional restrictions on the original vector identity."
+        }
+      ],
+      "source_bindings": [
+        {
+          "path": "QuantumBlockEncoding/ConcreteSemantics.lean",
+          "sha256_lf": "454c0c5e215ca197c5883bedf74882f392d259c7afeadc63912230437698ebe5"
+        }
+      ],
+      "source_item_digest": "f10f3a23733971a2aa0b150a90124936ed6d12d8b403eff4b77380607f85064c",
+      "source_node_ids": [
+        "declaration:QuantumBlockEncoding.ConcreteSemantics.applyVec",
+        "declaration:QuantumBlockEncoding.ConcreteSemantics.basisKet",
+        "declaration:QuantumBlockEncoding.ConcreteSemantics.applyVec_basisKet",
+        "declaration:QuantumBlockEncoding.ConcreteSemantics.applyVec_twoBasisSuperposition",
+        "declaration:QuantumBlockEncoding.ConcreteSemantics.applyVec_twoBasisSuperposition_apply"
+      ],
+      "statement_seal": {
+        "definition_audit": "Literal finite matrix/index and vector definitions; no added hypotheses, no opaque target predicates.",
+        "excess_binders": [],
+        "formal_root_sha256": "0e42a89f2b27fdb740f3073968fb33fab90ae55c50bcb1de56a1e36b06609bb6",
+        "formalization_scope": "Both formulas on the two-term computational-basis input, and the information-sufficiency interpretation: two matrices that agree on the named columns give identical output vectors, and matrices that agree on the named row entries give identical output at that row. The two labels may coincide, coefficients need not be nonzero or normalized, rows/columns are finite and rectangular matrices are allowed. The sparse-input restriction is essential: this is not a theorem about all dense vectors, nor a bound on entry-access runtime.",
+        "question_sha256": "529f916397458a60d0c13df7f06be6141a6675a4fd8ef72cbd0c2060a8ff63cb",
+        "resource_tier": "Exact algebra/entry access; not a gate count, hardware, bit-complexity or runtime bound.",
+        "source_contract_hash": "f9e0dbca29830768aac6c3aaf82a28b5b7edaff3d6938ee697b32acfea46faa9",
+        "source_item_digest": "f10f3a23733971a2aa0b150a90124936ed6d12d8b403eff4b77380607f85064c",
+        "source_question_version": 1,
+        "status": "author_frozen_pending_independent_comparison"
+      },
+      "task": {
+        "alignment_status": "author_frozen_formal_contract_pending_independent_decode_comparison_and_reference_replay",
+        "assumptions": [
+          "finite complex matrices and vectors",
+          "|left> and |right> are computational-basis states"
+        ],
+        "contract_hash": "f9e0dbca29830768aac6c3aaf82a28b5b7edaff3d6938ee697b32acfea46faa9",
+        "conventions": [
+          "basis ket is a Kronecker delta at its index",
+          "matrix-vector action uses the standard finite sum"
+        ],
+        "core_id": "qcb-core-la-007",
+        "family": "linearity of matrix-vector action / sparse-input collapse",
+        "imports": [
+          "QuantumBlockEncoding.ConcreteSemantics"
+        ],
+        "interfaces": [
+          {
+            "module": "QuantumBlockEncoding.ConcreteSemantics",
+            "name": "QuantumBlockEncoding.ConcreteSemantics.applyVec",
+            "source_node_id": "declaration:QuantumBlockEncoding.ConcreteSemantics.applyVec",
+            "type": "∀ {rows cols : ℕ} {α : Type} [NonUnitalNonAssocSemiring α], QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix rows cols α → QuantumBlockEncoding.ConcreteSemantics.StateVector cols α → QuantumBlockEncoding.ConcreteSemantics.StateVector rows α"
+          },
+          {
+            "module": "QuantumBlockEncoding.ConcreteSemantics",
+            "name": "QuantumBlockEncoding.ConcreteSemantics.basisKet",
+            "source_node_id": "declaration:QuantumBlockEncoding.ConcreteSemantics.basisKet",
+            "type": "∀ (dimension : ℕ) {α : Type} [Zero α] [One α], Fin dimension → QuantumBlockEncoding.ConcreteSemantics.StateVector dimension α"
+          },
+          {
+            "module": "QuantumBlockEncoding.ConcreteSemantics",
+            "name": "QuantumBlockEncoding.ConcreteSemantics.applyVec_basisKet",
+            "source_node_id": "declaration:QuantumBlockEncoding.ConcreteSemantics.applyVec_basisKet",
+            "type": "∀ {rows cols : ℕ} {α : Type} [NonAssocSemiring α] (A : QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix rows cols α) (l : Fin cols), QuantumBlockEncoding.ConcreteSemantics.applyVec A (QuantumBlockEncoding.ConcreteSemantics.basisKet cols l) = A.col l"
+          },
+          {
+            "module": "QuantumBlockEncoding.ConcreteSemantics",
+            "name": "QuantumBlockEncoding.ConcreteSemantics.applyVec_twoBasisSuperposition",
+            "source_node_id": "declaration:QuantumBlockEncoding.ConcreteSemantics.applyVec_twoBasisSuperposition",
+            "type": "∀ {rows cols : ℕ} (A : QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix rows cols ℂ) (a b : ℂ) (l r : Fin cols), QuantumBlockEncoding.ConcreteSemantics.applyVec A (a • QuantumBlockEncoding.ConcreteSemantics.basisKet cols l + b • QuantumBlockEncoding.ConcreteSemantics.basisKet cols r) = a • A.col l + b • A.col r"
+          },
+          {
+            "module": "QuantumBlockEncoding.ConcreteSemantics",
+            "name": "QuantumBlockEncoding.ConcreteSemantics.applyVec_twoBasisSuperposition_apply",
+            "source_node_id": "declaration:QuantumBlockEncoding.ConcreteSemantics.applyVec_twoBasisSuperposition_apply",
+            "type": "∀ {rows cols : ℕ} (A : QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix rows cols ℂ) (a b : ℂ) (l r : Fin cols) (k : Fin rows), QuantumBlockEncoding.ConcreteSemantics.applyVec A (a • QuantumBlockEncoding.ConcreteSemantics.basisKet cols l + b • QuantumBlockEncoding.ConcreteSemantics.basisKet cols r) k = a * A k l + b * A k r"
+          }
+        ],
+        "library_revision": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+        "nodes": [
+          {
+            "depends_on": [],
+            "id": "la007_basis",
+            "target": "∀ (rows cols : ℕ) (A : QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix rows cols ℂ) (l : Fin cols), QuantumBlockEncoding.ConcreteSemantics.applyVec A (QuantumBlockEncoding.ConcreteSemantics.basisKet cols l) = A.col l"
+          },
+          {
+            "depends_on": [
+              "la007_basis"
+            ],
+            "id": "la007_vector",
+            "target": "∀ (rows cols : ℕ) (A : QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix rows cols ℂ) (a b : ℂ) (l r : Fin cols), QuantumBlockEncoding.ConcreteSemantics.applyVec A (a • QuantumBlockEncoding.ConcreteSemantics.basisKet cols l + b • QuantumBlockEncoding.ConcreteSemantics.basisKet cols r) = a • A.col l + b • A.col r"
+          },
+          {
+            "depends_on": [
+              "la007_vector"
+            ],
+            "id": "la007_entry",
+            "target": "∀ (rows cols : ℕ) (A : QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix rows cols ℂ) (a b : ℂ) (l r : Fin cols) (k : Fin rows), QuantumBlockEncoding.ConcreteSemantics.applyVec A (a • QuantumBlockEncoding.ConcreteSemantics.basisKet cols l + b • QuantumBlockEncoding.ConcreteSemantics.basisKet cols r) k = a * A k l + b * A k r"
+          },
+          {
+            "depends_on": [
+              "la007_vector"
+            ],
+            "id": "la007_columns_determine",
+            "target": "∀ (rows cols : ℕ) (A B : QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix rows cols ℂ) (a b : ℂ) (l r : Fin cols), A.col l = B.col l → A.col r = B.col r → QuantumBlockEncoding.ConcreteSemantics.applyVec A (a • QuantumBlockEncoding.ConcreteSemantics.basisKet cols l + b • QuantumBlockEncoding.ConcreteSemantics.basisKet cols r) = QuantumBlockEncoding.ConcreteSemantics.applyVec B (a • QuantumBlockEncoding.ConcreteSemantics.basisKet cols l + b • QuantumBlockEncoding.ConcreteSemantics.basisKet cols r)"
+          },
+          {
+            "depends_on": [
+              "la007_entry"
+            ],
+            "id": "la007_entries_determine",
+            "target": "∀ (rows cols : ℕ) (A B : QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix rows cols ℂ) (a b : ℂ) (l r : Fin cols) (k : Fin rows), A k l = B k l → A k r = B k r → QuantumBlockEncoding.ConcreteSemantics.applyVec A (a • QuantumBlockEncoding.ConcreteSemantics.basisKet cols l + b • QuantumBlockEncoding.ConcreteSemantics.basisKet cols r) k = QuantumBlockEncoding.ConcreteSemantics.applyVec B (a • QuantumBlockEncoding.ConcreteSemantics.basisKet cols l + b • QuantumBlockEncoding.ConcreteSemantics.basisKet cols r) k"
+          },
+          {
+            "depends_on": [
+              "la007_vector",
+              "la007_entry",
+              "la007_columns_determine",
+              "la007_entries_determine"
+            ],
+            "id": "la007_root",
+            "target": "(∀ (rows cols : ℕ) (A : QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix rows cols ℂ) (a b : ℂ) (l r : Fin cols), QuantumBlockEncoding.ConcreteSemantics.applyVec A (a • QuantumBlockEncoding.ConcreteSemantics.basisKet cols l + b • QuantumBlockEncoding.ConcreteSemantics.basisKet cols r) = a • A.col l + b • A.col r) ∧ (∀ (rows cols : ℕ) (A : QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix rows cols ℂ) (a b : ℂ) (l r : Fin cols) (k : Fin rows), QuantumBlockEncoding.ConcreteSemantics.applyVec A (a • QuantumBlockEncoding.ConcreteSemantics.basisKet cols l + b • QuantumBlockEncoding.ConcreteSemantics.basisKet cols r) k = a * A k l + b * A k r) ∧ (∀ (rows cols : ℕ) (A B : QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix rows cols ℂ) (a b : ℂ) (l r : Fin cols), A.col l = B.col l → A.col r = B.col r → QuantumBlockEncoding.ConcreteSemantics.applyVec A (a • QuantumBlockEncoding.ConcreteSemantics.basisKet cols l + b • QuantumBlockEncoding.ConcreteSemantics.basisKet cols r) = QuantumBlockEncoding.ConcreteSemantics.applyVec B (a • QuantumBlockEncoding.ConcreteSemantics.basisKet cols l + b • QuantumBlockEncoding.ConcreteSemantics.basisKet cols r)) ∧ (∀ (rows cols : ℕ) (A B : QuantumBlockEncoding.ConcreteSemantics.FiniteMatrix rows cols ℂ) (a b : ℂ) (l r : Fin cols) (k : Fin rows), A k l = B k l → A k r = B k r → QuantumBlockEncoding.ConcreteSemantics.applyVec A (a • QuantumBlockEncoding.ConcreteSemantics.basisKet cols l + b • QuantumBlockEncoding.ConcreteSemantics.basisKet cols r) k = QuantumBlockEncoding.ConcreteSemantics.applyVec B (a • QuantumBlockEncoding.ConcreteSemantics.basisKet cols l + b • QuantumBlockEncoding.ConcreteSemantics.basisKet cols r) k)"
+          }
+        ],
+        "question": "In a finite complex matrix backend, acting with an operator on a computational-basis state (a vector with a single 1 at one position and 0 elsewhere) returns the corresponding column of the operator. Using only this fact and the linearity of matrix-vector multiplication, prove that acting with an operator A on the two-term superposition a*|left> + b*|right>, where |left> and |right> are two basis states, gives a*(column left of A) + b*(column right of A), and that the amplitude read at output row k equals a*A[k,left] + b*A[k,right]. Explain why this means a block-encoding or state-preparation witness never needs to reconstruct the whole matrix-vector product: only two named columns, or two named entries, are ever required.",
+        "root_id": "la007_root",
+        "schema_version": "qcb.proof_obligation_task.v1",
+        "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "split": "dev"
+      },
+      "view_id": "qcb-course-la-007-v1",
+      "worked_derivation": "Let e_l and e_r be computational basis vectors in ℂ^C and A∈ℂ^{R×C}. By the supplied basis fact, A e_l=A[:,l] and A e_r=A[:,r]. Since matrix–vector multiplication over ℂ is linear, A(ae_l+be_r)=aAe_l+bAe_r=aA[:,l]+bA[:,r]. For output index k, evaluation is linear, and each column's k-th coordinate is the corresponding matrix entry. Thus (A(ae_l+be_r))_k=aA[k,l]+bA[k,r].\n\nFor a two-term witness, the full output vector is determined by the two named columns: any other matrix B with B[:,l]=A[:,l] and B[:,r]=A[:,r] gives exactly the same vector. If only the single output amplitude k is requested, equality of the two named entries alone suffices. This avoids rebuilding an arbitrary full matrix–vector product proof for this sparse input. The formula remains true when l=r or either coefficient is zero; neither distinctness nor normalization is needed. It is not a generic statement that all block-encoding or state-preparation products have two-sparse inputs, nor a constant-time lookup or circuit-cost guarantee. A dense input generally needs the contributions from every nonzero basis component."
+    },
+    {
+      "assumptions_added": false,
+      "author_identity": "/root/foundations_reversible_author",
+      "controls": {
+        "constructed_whole_root": "by\n  have qcb_step_la017_preserve : ∀ (N : ℕ) (c₀ c₁ t : Fin N), c₀ ≠ t → c₁ ≠ t → ∀ b : QuantumBlockEncoding.PrimitiveBasis N, QuantumBlockEncoding.xBasisAction t b c₀ = b c₀ ∧ QuantumBlockEncoding.xBasisAction t b c₁ = b c₁ := by\n    intro N c₀ c₁ t h₀ h₁ b\n    constructor\n    · simp [QuantumBlockEncoding.xBasisAction, h₀]\n    · simp [QuantumBlockEncoding.xBasisAction, h₁]\n  have qcb_step_la017_inverse : ∀ (N : ℕ) (c₀ c₁ t : Fin N), c₀ ≠ t → c₁ ≠ t → Function.Involutive (QuantumBlockEncoding.ccxBasisAction c₀ c₁ t) := by\n    intro N c₀ c₁ t h₀ h₁ b\n    by_cases active : b c₀ = 1 ∧ b c₁ = 1\n    · obtain ⟨hc₀, hc₁⟩ := qcb_step_la017_preserve N c₀ c₁ t h₀ h₁ b\n      have first : QuantumBlockEncoding.ccxBasisAction c₀ c₁ t b = QuantumBlockEncoding.xBasisAction t b := if_pos active\n      rw [first]\n      have stillActive : QuantumBlockEncoding.xBasisAction t b c₀ = 1 ∧ QuantumBlockEncoding.xBasisAction t b c₁ = 1 := by\n        simpa [hc₀, hc₁] using active\n      rw [QuantumBlockEncoding.ccxBasisAction, if_pos stillActive]\n      exact QuantumBlockEncoding.xBasisAction_involutive t b\n    · simp [QuantumBlockEncoding.ccxBasisAction, active]\n  have qcb_step_la017_coincident : ∀ (N : ℕ) (c t : Fin N), c ≠ t → QuantumBlockEncoding.ccxBasisAction c c t = QuantumBlockEncoding.cxBasisAction c t := by\n    intro N c t _\n    funext b\n    by_cases h : b c = 0\n    · simp [QuantumBlockEncoding.ccxBasisAction, QuantumBlockEncoding.cxBasisAction, h]\n    · have h' : b c = 1 := by omega\n      simp [QuantumBlockEncoding.ccxBasisAction, QuantumBlockEncoding.cxBasisAction, h, h']\n  exact ⟨qcb_step_la017_inverse, qcb_step_la017_coincident⟩",
+        "library_control": "by\n  constructor\n  · intro N c₀ c₁ t h₀ h₁\n    exact QuantumBlockEncoding.ccxBasisAction_involutive c₀ c₁ t h₀ h₁\n  · intro N c t _\n    funext b\n    by_cases h : b c = 0\n    · simp [QuantumBlockEncoding.ccxBasisAction, QuantumBlockEncoding.cxBasisAction, h]\n    · have h' : b c = 1 := by omega\n      simp [QuantumBlockEncoding.ccxBasisAction, QuantumBlockEncoding.cxBasisAction, h, h']"
+      },
+      "difficulty": {
+        "construction_band": "D2",
+        "imported_shortcut": "ccxBasisAction_involutive proves the inverse branch alone; identical-controls equality is established separately.",
+        "measured_model_difficulty": null,
+        "rationale": "Local symbolic proof of two control cases and the coincident-controls reduction; no parametric induction or matrix multiplication."
+      },
+      "graph_scope": {
+        "frozen_source_nodes": [
+          "declaration:QuantumBlockEncoding.ccxBasisAction_involutive",
+          "declaration:QuantumBlockEncoding.ccxBasisAction",
+          "declaration:QuantumBlockEncoding.ccxBasisEquiv"
+        ],
+        "is_extracted_lean_proof_term_graph": false,
+        "is_new_source_proof_graph": false,
+        "kind": "evaluator_supplied_AND_obligation_DAG",
+        "new_mathematical_cores": 0,
+        "note": "Task-local obligations expose semantic steps for evaluation; only the specified frozen declarations are graph anchors. The source declarations and the authored task-local edges are different evidence classes."
+      },
+      "library_control_one_call": false,
+      "negative_controls": {
+        "sorry_axiom": "by\n  sorry",
+        "wrong_target": "by\n  exact True.intro"
+      },
+      "nl_source_relation": "Literal existing canonical question, assumptions, conventions, family, split and shared mathematical core preserved. LA017 and LA018 concern the same mechanism and both remain train-exposed; they are not independent held-out tasks.",
+      "provisional_checks": {
+        "authored_nodes_and_constructed_whole_root": "local pinned-runtime Lean probe passed for both positive reference routes; only unused-simp-argument warnings; not a benchmark receipt",
+        "independent_semantic_review": "pending",
+        "isolated_prediction_execution": false
+      },
+      "purification": {
+        "new_production_declarations": 0,
+        "root_policy": "One conjunction root encoding the whole question. The supplied obligations have independent proof targets and no synthetic production declarations.",
+        "status": "author_compressed_pending_independent_exposition_and_integration_gates"
+      },
+      "references": {
+        "la017_coincident": "by\n  intro N c t _\n  funext b\n  by_cases h : b c = 0\n  · simp [QuantumBlockEncoding.ccxBasisAction, QuantumBlockEncoding.cxBasisAction, h]\n  · have h' : b c = 1 := by omega\n    simp [QuantumBlockEncoding.ccxBasisAction, QuantumBlockEncoding.cxBasisAction, h, h']",
+        "la017_inverse": "by\n  intro N c₀ c₁ t h₀ h₁ b\n  by_cases active : b c₀ = 1 ∧ b c₁ = 1\n  · obtain ⟨hc₀, hc₁⟩ := qcb_step_la017_preserve N c₀ c₁ t h₀ h₁ b\n    have first : QuantumBlockEncoding.ccxBasisAction c₀ c₁ t b = QuantumBlockEncoding.xBasisAction t b := if_pos active\n    rw [first]\n    have stillActive : QuantumBlockEncoding.xBasisAction t b c₀ = 1 ∧ QuantumBlockEncoding.xBasisAction t b c₁ = 1 := by\n      simpa [hc₀, hc₁] using active\n    rw [QuantumBlockEncoding.ccxBasisAction, if_pos stillActive]\n    exact QuantumBlockEncoding.xBasisAction_involutive t b\n  · simp [QuantumBlockEncoding.ccxBasisAction, active]",
+        "la017_preserve": "by\n  intro N c₀ c₁ t h₀ h₁ b\n  constructor\n  · simp [QuantumBlockEncoding.xBasisAction, h₀]\n  · simp [QuantumBlockEncoding.xBasisAction, h₁]",
+        "la017_root": "by\n  exact ⟨qcb_step_la017_inverse, qcb_step_la017_coincident⟩"
+      },
+      "retrieval_scope": {
+        "direct_route_interfaces": [
+          "QuantumBlockEncoding.ccxBasisAction_involutive",
+          "QuantumBlockEncoding.ccxBasisAction",
+          "QuantumBlockEncoding.ccxBasisEquiv"
+        ],
+        "note": "Only the frozen core graph anchors are retrieval interfaces. Other declarations, including X/CX basis semantics through imports, are callable but not new graph anchors."
+      },
+      "route_rubric": [
+        {
+          "criterion": "Expresses the two exact control-target inequalities and preserves both values.",
+          "id": "preserved_controls",
+          "nodes": [
+            "la017_preserve"
+          ],
+          "weight": 1
+        },
+        {
+          "criterion": "Handles both predicate cases; the second active flip restores the state.",
+          "id": "involution",
+          "nodes": [
+            "la017_inverse"
+          ],
+          "weight": 1
+        },
+        {
+          "criterion": "Proves equality of the entire repeated-control action with CX, not just one example.",
+          "id": "coincident_controls",
+          "nodes": [
+            "la017_coincident"
+          ],
+          "weight": 1
+        }
+      ],
+      "semantic_coverage": "For arbitrary finite wires with both controls distinct from the target, the raw two-control basis action is an involution. For coinciding controls distinct from the target, the entire raw basis function equals a single-control flip. No assumption that the controls are different and no claim that the distinct-control instruction constructor accepts repeated controls.",
+      "semantic_evidence": {
+        "anonymous_id": "R1",
+        "group": "reversible",
+        "kind": "new_roundtrip"
+      },
+      "shortcut_disclosure": "The imported ccxBasisAction_involutive is an exact one-call shortcut for the inverse branch, not the entire conjunction. The constructed route exposes preservation of both controls, active and inactive cases, and the Boolean reduction; it reuses xBasisAction_involutive. The library control invokes the imported CCX theorem and derives the reduction by finite-bit reasoning. All imported declarations remain callable.",
+      "source_binder_audit": [
+        {
+          "binder": "N : ℕ",
+          "class": "TYPING",
+          "meaning": "Finite number of wires; Fin N may be empty."
+        },
+        {
+          "binder": "c₀ c₁ t : Fin N",
+          "class": "SOURCE",
+          "meaning": "Two control coordinates and one target, with no inequality between the controls."
+        },
+        {
+          "binder": "c₀ ≠ t; c₁ ≠ t",
+          "class": "SOURCE",
+          "meaning": "The explicitly required distinctness premises."
+        },
+        {
+          "binder": "b : PrimitiveBasis N",
+          "class": "TYPING",
+          "meaning": "Binary string on all coordinates."
+        },
+        {
+          "binder": "c t : Fin N; c ≠ t",
+          "class": "SOURCE",
+          "meaning": "Repeated control case with the same control-target distinctness."
+        }
+      ],
+      "source_bindings": [
+        {
+          "path": "QuantumBlockEncoding/ReversibleClassical.lean",
+          "sha256_lf": "01ea24f54500974985702a0f968e28d93b2bd04a1aefaf05da848c9b7fe64711"
+        },
+        {
+          "path": "QuantumBlockEncoding/PrimitiveSemantics.lean",
+          "sha256_lf": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62"
+        }
+      ],
+      "source_item_digest": "f717b346a68d9dddbefdc009acf698ff6aca04c0531629f56fab06200a6b0999",
+      "source_node_ids": [
+        "declaration:QuantumBlockEncoding.ccxBasisAction_involutive",
+        "declaration:QuantumBlockEncoding.ccxBasisAction",
+        "declaration:QuantumBlockEncoding.ccxBasisEquiv"
+      ],
+      "statement_seal": {
+        "definition_audit": "PrimitiveBasis N is Fin N → Fin 2. CCX is the conditional X update, X updates exactly the target with flipBit, and CX returns the state for control value 0 and updates the target otherwise. The root concerns the raw functions, not the stronger ReversibleGate constructor.",
+        "excess_binders": [],
+        "formal_root_sha256": "d68120a56c983d57087d529d0889ac3b56aeeb1d5f835c5ecf304bafa976433a",
+        "formalization_scope": "For arbitrary finite wires with both controls distinct from the target, the raw two-control basis action is an involution. For coinciding controls distinct from the target, the entire raw basis function equals a single-control flip. No assumption that the controls are different and no claim that the distinct-control instruction constructor accepts repeated controls.",
+        "question_sha256": "35081cdd5d34b7cd8805b8a20609445b009b640335cdef1bef0194d1cf6c6514",
+        "resource_tier": "Exact finite binary basis action; no matrix/gate synthesis efficiency, hardware or complexity claim.",
+        "source_contract_hash": "bc1e5664a796f893fd2f033150e6d981c611cbad30267dd96abb0e2bddfa6bff",
+        "source_item_digest": "f717b346a68d9dddbefdc009acf698ff6aca04c0531629f56fab06200a6b0999",
+        "source_question_version": 1,
+        "status": "author_frozen_pending_independent_comparison"
+      },
+      "task": {
+        "alignment_status": "author_frozen_formal_contract_pending_independent_decode_comparison_and_reference_replay",
+        "assumptions": [
+          "Finite-dimensional complex Hilbert spaces unless real amplitudes are explicitly specified",
+          "All basis/register permutations are fixed and applied to both input and output"
+        ],
+        "contract_hash": "bc1e5664a796f893fd2f033150e6d981c611cbad30267dd96abb0e2bddfa6bff",
+        "conventions": [
+          "Column-vector action; Euclidean induced operator norm for norm claims",
+          "Source inspection only; no fresh formal verification"
+        ],
+        "core_id": "qcb-core-la-017",
+        "family": "native-expansion-mechanism-017",
+        "imports": [
+          "QuantumBlockEncoding.ReversibleClassical"
+        ],
+        "interfaces": [
+          {
+            "module": "QuantumBlockEncoding.ReversibleClassical",
+            "name": "QuantumBlockEncoding.ccxBasisAction_involutive",
+            "source_node_id": "declaration:QuantumBlockEncoding.ccxBasisAction_involutive",
+            "type": "{qubits : ℕ} → (control0 control1 target : Fin qubits) → control0 ≠ target → control1 ≠ target → Function.Involutive (QuantumBlockEncoding.ccxBasisAction control0 control1 target)"
+          },
+          {
+            "module": "QuantumBlockEncoding.ReversibleClassical",
+            "name": "QuantumBlockEncoding.ccxBasisAction",
+            "source_node_id": "declaration:QuantumBlockEncoding.ccxBasisAction",
+            "type": "{qubits : ℕ} → Fin qubits → Fin qubits → Fin qubits → QuantumBlockEncoding.PrimitiveBasis qubits → QuantumBlockEncoding.PrimitiveBasis qubits"
+          },
+          {
+            "module": "QuantumBlockEncoding.ReversibleClassical",
+            "name": "QuantumBlockEncoding.ccxBasisEquiv",
+            "source_node_id": "declaration:QuantumBlockEncoding.ccxBasisEquiv",
+            "type": "{qubits : ℕ} → (control0 control1 target : Fin qubits) → control0 ≠ target → control1 ≠ target → QuantumBlockEncoding.PrimitiveBasis qubits ≃ QuantumBlockEncoding.PrimitiveBasis qubits"
+          }
+        ],
+        "library_revision": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+        "nodes": [
+          {
+            "depends_on": [],
+            "id": "la017_preserve",
+            "target": "∀ (N : ℕ) (c₀ c₁ t : Fin N), c₀ ≠ t → c₁ ≠ t → ∀ b : QuantumBlockEncoding.PrimitiveBasis N, QuantumBlockEncoding.xBasisAction t b c₀ = b c₀ ∧ QuantumBlockEncoding.xBasisAction t b c₁ = b c₁"
+          },
+          {
+            "depends_on": [
+              "la017_preserve"
+            ],
+            "id": "la017_inverse",
+            "target": "∀ (N : ℕ) (c₀ c₁ t : Fin N), c₀ ≠ t → c₁ ≠ t → Function.Involutive (QuantumBlockEncoding.ccxBasisAction c₀ c₁ t)"
+          },
+          {
+            "depends_on": [],
+            "id": "la017_coincident",
+            "target": "∀ (N : ℕ) (c t : Fin N), c ≠ t → QuantumBlockEncoding.ccxBasisAction c c t = QuantumBlockEncoding.cxBasisAction c t"
+          },
+          {
+            "depends_on": [
+              "la017_inverse",
+              "la017_coincident"
+            ],
+            "id": "la017_root",
+            "target": "(∀ (N : ℕ) (c₀ c₁ t : Fin N), c₀ ≠ t → c₁ ≠ t → Function.Involutive (QuantumBlockEncoding.ccxBasisAction c₀ c₁ t)) ∧ (∀ (N : ℕ) (c t : Fin N), c ≠ t → QuantumBlockEncoding.ccxBasisAction c c t = QuantumBlockEncoding.cxBasisAction c t)"
+          }
+        ],
+        "question": "A reversible gate flips a target bit exactly when two control bits are both1. Assume each control wire is distinct from the target, but allow the two control wires to coincide. Prove the gate is its own inverse and explain what it reduces to when the controls coincide.",
+        "root_id": "la017_root",
+        "schema_version": "qcb.proof_obligation_task.v1",
+        "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "split": "train"
+      },
+      "view_id": "qcb-course-la-017-v1",
+      "worked_derivation": "Write b for a computational-basis bit string, c₀,c₁ for controls and t for the target. If the activation predicate b(c₀)=1 and b(c₁)=1 is false, the complete string is fixed; the unchanged predicate therefore remains false. If the conjunction is true, the update changes exactly the t coordinate. Because c₀≠t and c₁≠t, both controlling values survive the update. The second application is again active and flips the t bit back. This proves the square of the action is the identity on every basis string. If c₀=c₁=c, the conjunction b(c)=1 and b(c)=1 is just b(c)=1. Since b(c) is a binary bit, this is exactly the active branch of CX, so the two actions coincide on all strings. The raw action and its involution theorem allow this coincidence even though the ReversibleGate.ccx constructor also requires different controls."
+    },
+    {
+      "assumptions_added": false,
+      "author_identity": "/root/foundations_reversible_author",
+      "controls": {
+        "constructed_whole_root": "by\n  have qcb_step_la018_collision : (QuantumBlockEncoding.ccxBasisAction (0 : Fin 2) (1 : Fin 2) (0 : Fin 2)) (fun _ : Fin 2 => (1 : Fin 2)) = (fun i : Fin 2 => if i = 0 then (0 : Fin 2) else 1) ∧ (QuantumBlockEncoding.ccxBasisAction (0 : Fin 2) (1 : Fin 2) (0 : Fin 2)) (fun i : Fin 2 => if i = 0 then (0 : Fin 2) else 1) = (fun i : Fin 2 => if i = 0 then (0 : Fin 2) else 1) ∧ (fun _ : Fin 2 => (1 : Fin 2)) ≠ (fun i : Fin 2 => if i = 0 then (0 : Fin 2) else 1) := by\n    refine ⟨?_, ?_, ?_⟩\n    · funext i\n      fin_cases i <;> decide\n    · funext i\n      fin_cases i <;> decide\n    · intro h\n      have h0 := congrFun h (0 : Fin 2)\n      exact (by decide : (1 : Fin 2) ≠ 0) h0\n  have qcb_step_la018_noninjective : ¬ Function.Injective (QuantumBlockEncoding.ccxBasisAction (0 : Fin 2) (1 : Fin 2) (0 : Fin 2)) := by\n    obtain ⟨h₁, h₂, hne⟩ := qcb_step_la018_collision\n    intro hinj\n    exact hne (hinj (h₁.trans h₂.symm))\n  have qcb_step_la018_noninvolutive : ¬ Function.Involutive (QuantumBlockEncoding.ccxBasisAction (0 : Fin 2) (1 : Fin 2) (0 : Fin 2)) := by\n    obtain ⟨h₁, h₂, hne⟩ := qcb_step_la018_collision\n    intro hinv\n    have h := hinv (fun _ : Fin 2 => (1 : Fin 2))\n    rw [h₁, h₂] at h\n    exact hne h.symm\n  exact ⟨qcb_step_la018_collision, qcb_step_la018_noninjective, qcb_step_la018_noninvolutive⟩",
+        "library_control": "by\n  have h : (QuantumBlockEncoding.ccxBasisAction (0 : Fin 2) (1 : Fin 2) (0 : Fin 2)) (fun _ : Fin 2 => (1 : Fin 2)) = (fun i : Fin 2 => if i = 0 then (0 : Fin 2) else 1) ∧ (QuantumBlockEncoding.ccxBasisAction (0 : Fin 2) (1 : Fin 2) (0 : Fin 2)) (fun i : Fin 2 => if i = 0 then (0 : Fin 2) else 1) = (fun i : Fin 2 => if i = 0 then (0 : Fin 2) else 1) ∧ (fun _ : Fin 2 => (1 : Fin 2)) ≠ (fun i : Fin 2 => if i = 0 then (0 : Fin 2) else 1) := by\n    refine ⟨?_, ?_, ?_⟩\n    · funext i\n      fin_cases i <;> decide\n    · funext i\n      fin_cases i <;> decide\n    · intro he\n      exact (by decide : (1 : Fin 2) ≠ 0) (congrFun he (0 : Fin 2))\n  have hn : ¬ Function.Injective (QuantumBlockEncoding.ccxBasisAction (0 : Fin 2) (1 : Fin 2) (0 : Fin 2)) := by\n    intro hinj\n    exact h.2.2 (hinj (h.1.trans h.2.1.symm))\n  exact ⟨h, hn, fun hv => hn hv.injective⟩"
+      },
+      "difficulty": {
+        "construction_band": "D2",
+        "imported_shortcut": "No full-root imported shortcut; generic involutive implies injective can connect the consequences after establishing collision.",
+        "measured_model_difficulty": null,
+        "rationale": "Finite evaluation at both coordinates, identification of different inputs, and a collision argument with an explicit second iteration."
+      },
+      "graph_scope": {
+        "frozen_source_nodes": [
+          "declaration:QuantumBlockEncoding.ccxBasisAction",
+          "declaration:QuantumBlockEncoding.ccxBasisAction_involutive"
+        ],
+        "is_extracted_lean_proof_term_graph": false,
+        "is_new_source_proof_graph": false,
+        "kind": "evaluator_supplied_AND_obligation_DAG",
+        "new_mathematical_cores": 0,
+        "note": "Task-local obligations expose semantic steps for evaluation; only the specified frozen declarations are graph anchors. The source declarations and the authored task-local edges are different evidence classes."
+      },
+      "library_control_one_call": false,
+      "negative_controls": {
+        "sorry_axiom": "by\n  sorry",
+        "wrong_target": "by\n  exact True.intro"
+      },
+      "nl_source_relation": "Literal existing canonical question, assumptions, conventions, family, split and shared mathematical core preserved. LA017 and LA018 concern the same mechanism and both remain train-exposed; they are not independent held-out tasks.",
+      "provisional_checks": {
+        "authored_nodes_and_constructed_whole_root": "local pinned-runtime Lean probe passed for both positive reference routes; only unused-simp-argument warnings; not a benchmark receipt",
+        "independent_semantic_review": "pending",
+        "isolated_prediction_execution": false
+      },
+      "purification": {
+        "new_production_declarations": 0,
+        "root_policy": "One conjunction root encoding the whole question. The supplied obligations have independent proof targets and no synthetic production declarations.",
+        "status": "author_compressed_pending_independent_exposition_and_integration_gates"
+      },
+      "references": {
+        "la018_collision": "by\n  refine ⟨?_, ?_, ?_⟩\n  · funext i\n    fin_cases i <;> decide\n  · funext i\n    fin_cases i <;> decide\n  · intro h\n    have h0 := congrFun h (0 : Fin 2)\n    exact (by decide : (1 : Fin 2) ≠ 0) h0",
+        "la018_noninjective": "by\n  obtain ⟨h₁, h₂, hne⟩ := qcb_step_la018_collision\n  intro hinj\n  exact hne (hinj (h₁.trans h₂.symm))",
+        "la018_noninvolutive": "by\n  obtain ⟨h₁, h₂, hne⟩ := qcb_step_la018_collision\n  intro hinv\n  have h := hinv (fun _ : Fin 2 => (1 : Fin 2))\n  rw [h₁, h₂] at h\n  exact hne h.symm",
+        "la018_root": "by\n  exact ⟨qcb_step_la018_collision, qcb_step_la018_noninjective, qcb_step_la018_noninvolutive⟩"
+      },
+      "retrieval_scope": {
+        "direct_route_interfaces": [
+          "QuantumBlockEncoding.ccxBasisAction",
+          "QuantumBlockEncoding.ccxBasisAction_involutive"
+        ],
+        "note": "Only the frozen core graph anchors are retrieval interfaces. Other declarations, including X/CX basis semantics through imports, are callable but not new graph anchors."
+      },
+      "route_rubric": [
+        {
+          "criterion": "Computes both outputs exactly and proves input distinctness, demonstrating the lost control-preservation premise.",
+          "id": "collision",
+          "nodes": [
+            "la018_collision"
+          ],
+          "weight": 1
+        },
+        {
+          "criterion": "Uses the concrete collision to disprove injectivity.",
+          "id": "noninjectivity",
+          "nodes": [
+            "la018_noninjective"
+          ],
+          "weight": 1
+        },
+        {
+          "criterion": "Uses the unchanged inactive output on the second call to contradict involution.",
+          "id": "noninvolution",
+          "nodes": [
+            "la018_noninvolutive"
+          ],
+          "weight": 1
+        }
+      ],
+      "semantic_coverage": "Exact two-bit example: wire 0 is both first control and target, wire 1 is the other control. The raw update maps (1,1) and (0,1) to (0,1); inputs differ; the function is neither injective nor an involution. This is not an invocation of the equivalence or instruction constructor without hypotheses.",
+      "semantic_evidence": {
+        "anonymous_id": "R2",
+        "group": "reversible",
+        "kind": "new_roundtrip"
+      },
+      "shortcut_disclosure": "No imported one-call proof of this entire concrete collision root was identified. The constructed route derives the collision and directly proves noninjection and failed involution. The control reuses the same finite computation and the generic Function.Involutive.injective fact; it is not an independently implemented semantic reference or a one-call shortcut.",
+      "source_binder_audit": [
+        {
+          "binder": "0 : Fin 2; 1 : Fin 2",
+          "class": "SOURCE",
+          "meaning": "Exactly the two indexed coordinates of the requested concrete update; 0 is both first control and target."
+        },
+        {
+          "binder": "fun _ : Fin 2 => 1",
+          "class": "SOURCE",
+          "meaning": "Concrete active input (1,1)."
+        },
+        {
+          "binder": "fun i : Fin 2 => if i = 0 then 0 else 1",
+          "class": "SOURCE",
+          "meaning": "Concrete inactive input (0,1)."
+        }
+      ],
+      "source_bindings": [
+        {
+          "path": "QuantumBlockEncoding/ReversibleClassical.lean",
+          "sha256_lf": "01ea24f54500974985702a0f968e28d93b2bd04a1aefaf05da848c9b7fe64711"
+        },
+        {
+          "path": "QuantumBlockEncoding/PrimitiveSemantics.lean",
+          "sha256_lf": "ded83cb43f8d6e79c50ac738bfd4faca5bc5aeb4c564114999a832db25418c62"
+        }
+      ],
+      "source_item_digest": "c6d32bc846decf5ac3703d8ef0c1d92984d3bd2cacfb16960bdb04a891b21afd",
+      "source_node_ids": [
+        "declaration:QuantumBlockEncoding.ccxBasisAction",
+        "declaration:QuantumBlockEncoding.ccxBasisAction_involutive"
+      ],
+      "statement_seal": {
+        "definition_audit": "The raw ccxBasisAction function permits equal coordinates and is evaluated literally; ccxBasisAction_involutive is only a theorem when both controls differ from the target. No extension of ccxBasisEquiv or ReversibleGate API is asserted.",
+        "excess_binders": [],
+        "formal_root_sha256": "ce841ee07884de51873a0449660c72bd27491473f447d59afb1acac00c8674bb",
+        "formalization_scope": "Exact two-bit example: wire 0 is both first control and target, wire 1 is the other control. The raw update maps (1,1) and (0,1) to (0,1); inputs differ; the function is neither injective nor an involution. This is not an invocation of the equivalence or instruction constructor without hypotheses.",
+        "question_sha256": "cc5a607d4753f6e874c22e9439b4836868ea6f9c23c61a9a032271dbd449fe03",
+        "resource_tier": "Exact finite binary basis action; no matrix/gate synthesis efficiency, hardware or complexity claim.",
+        "source_contract_hash": "3fcf3e1d288ee1c23c341e11ce35c3e8e3e85965508a1af714b1ccd68bf21213",
+        "source_item_digest": "c6d32bc846decf5ac3703d8ef0c1d92984d3bd2cacfb16960bdb04a891b21afd",
+        "source_question_version": 1,
+        "status": "author_frozen_pending_independent_comparison"
+      },
+      "task": {
+        "alignment_status": "author_frozen_formal_contract_pending_independent_decode_comparison_and_reference_replay",
+        "assumptions": [
+          "Finite-dimensional complex Hilbert spaces unless real amplitudes are explicitly specified",
+          "All basis/register permutations are fixed and applied to both input and output"
+        ],
+        "contract_hash": "3fcf3e1d288ee1c23c341e11ce35c3e8e3e85965508a1af714b1ccd68bf21213",
+        "conventions": [
+          "Column-vector action; Euclidean induced operator norm for norm claims",
+          "Source inspection only; no fresh formal verification"
+        ],
+        "core_id": "qcb-core-la-018",
+        "family": "native-expansion-mechanism-018",
+        "imports": [
+          "QuantumBlockEncoding.ReversibleClassical"
+        ],
+        "interfaces": [
+          {
+            "module": "QuantumBlockEncoding.ReversibleClassical",
+            "name": "QuantumBlockEncoding.ccxBasisAction",
+            "source_node_id": "declaration:QuantumBlockEncoding.ccxBasisAction",
+            "type": "{qubits : ℕ} → Fin qubits → Fin qubits → Fin qubits → QuantumBlockEncoding.PrimitiveBasis qubits → QuantumBlockEncoding.PrimitiveBasis qubits"
+          },
+          {
+            "module": "QuantumBlockEncoding.ReversibleClassical",
+            "name": "QuantumBlockEncoding.ccxBasisAction_involutive",
+            "source_node_id": "declaration:QuantumBlockEncoding.ccxBasisAction_involutive",
+            "type": "{qubits : ℕ} → (control0 control1 target : Fin qubits) → control0 ≠ target → control1 ≠ target → Function.Involutive (QuantumBlockEncoding.ccxBasisAction control0 control1 target)"
+          }
+        ],
+        "library_revision": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+        "nodes": [
+          {
+            "depends_on": [],
+            "id": "la018_collision",
+            "target": "(QuantumBlockEncoding.ccxBasisAction (0 : Fin 2) (1 : Fin 2) (0 : Fin 2)) (fun _ : Fin 2 => (1 : Fin 2)) = (fun i : Fin 2 => if i = 0 then (0 : Fin 2) else 1) ∧ (QuantumBlockEncoding.ccxBasisAction (0 : Fin 2) (1 : Fin 2) (0 : Fin 2)) (fun i : Fin 2 => if i = 0 then (0 : Fin 2) else 1) = (fun i : Fin 2 => if i = 0 then (0 : Fin 2) else 1) ∧ (fun _ : Fin 2 => (1 : Fin 2)) ≠ (fun i : Fin 2 => if i = 0 then (0 : Fin 2) else 1)"
+          },
+          {
+            "depends_on": [
+              "la018_collision"
+            ],
+            "id": "la018_noninjective",
+            "target": "¬ Function.Injective (QuantumBlockEncoding.ccxBasisAction (0 : Fin 2) (1 : Fin 2) (0 : Fin 2))"
+          },
+          {
+            "depends_on": [
+              "la018_collision"
+            ],
+            "id": "la018_noninvolutive",
+            "target": "¬ Function.Involutive (QuantumBlockEncoding.ccxBasisAction (0 : Fin 2) (1 : Fin 2) (0 : Fin 2))"
+          },
+          {
+            "depends_on": [
+              "la018_collision",
+              "la018_noninjective",
+              "la018_noninvolutive"
+            ],
+            "id": "la018_root",
+            "target": "((QuantumBlockEncoding.ccxBasisAction (0 : Fin 2) (1 : Fin 2) (0 : Fin 2)) (fun _ : Fin 2 => (1 : Fin 2)) = (fun i : Fin 2 => if i = 0 then (0 : Fin 2) else 1) ∧ (QuantumBlockEncoding.ccxBasisAction (0 : Fin 2) (1 : Fin 2) (0 : Fin 2)) (fun i : Fin 2 => if i = 0 then (0 : Fin 2) else 1) = (fun i : Fin 2 => if i = 0 then (0 : Fin 2) else 1) ∧ (fun _ : Fin 2 => (1 : Fin 2)) ≠ (fun i : Fin 2 => if i = 0 then (0 : Fin 2) else 1)) ∧ (¬ Function.Injective (QuantumBlockEncoding.ccxBasisAction (0 : Fin 2) (1 : Fin 2) (0 : Fin 2))) ∧ (¬ Function.Involutive (QuantumBlockEncoding.ccxBasisAction (0 : Fin 2) (1 : Fin 2) (0 : Fin 2)))"
+          }
+        ],
+        "question": "On a two-bit string(c,t), consider the update that flips c itself when c=t=1 and otherwise does nothing. Does the familiar self-inverse proof for a two-control target flip remain valid when one control is also the target? Give a concrete collision and explain the lost hypothesis.",
+        "root_id": "la018_root",
+        "schema_version": "qcb.proof_obligation_task.v1",
+        "snapshot_id": "qcb-snapshot-ffa644f0da3031a1ce754b9a",
+        "split": "train"
+      },
+      "view_id": "qcb-course-la-018-v1",
+      "worked_derivation": "Identify coordinate 0 with c and coordinate 1 with t in the question. The raw action has control0=0, control1=1 and target=0. On a=(1,1) both controls are 1, so a maps to b=(0,1). On b the first control is zero, so b is unchanged. Since a(0)=1 and b(0)=0, the two inputs are distinct. A map sending distinct inputs to the same output is not injective and cannot be a reversible basis permutation; mapping the corresponding orthogonal basis vectors to the same basis vector would violate preservation of inner products. In particular applying the map twice to a gives b≠a. The usual distinct-target proof depends on preserving both controlling bits in the active branch; here control0=target so its required inequality fails, and the active predicate actually changes from true to false. This refers to the raw total map, not to a well-formed reversible-gate object. The equiv/theorem requires both inequalities, and the constructor has still stronger constraints."
+    }
+  ],
+  "catalog_hash": "5269b9f2521e3bf14db293fea34895f6e44a387c2479c164407b4d16dd9a2247",
+  "isolated": false,
+  "lean_toolchain": "leanprover/lean4:v4.29.1",
+  "library_revision": "f2cba045611a0d11c5995c29607569726bf1d6c5",
+  "model_predictions_executed": false,
+  "new_canonical_formal_admissions": 0,
+  "new_mathematical_cores": 0,
+  "proof_inputs_sha256": "1e65e7d2984e4542ca2747837d71c516847e4e987d3bbd6c48b8a803eb36806e",
+  "schema_version": "qcb.graph_course_candidates.v1"
+}

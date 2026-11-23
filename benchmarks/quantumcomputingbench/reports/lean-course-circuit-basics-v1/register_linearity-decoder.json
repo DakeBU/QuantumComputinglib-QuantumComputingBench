@@ -1,0 +1,16 @@
+{
+  "decoder_identity": "/root/foundations_neutral_decoder",
+  "packet_digest": "4c7dd97677d66f467b1e8d6083b6a823fd9c61d249fd74f3ae275a8257eaf9a7",
+  "schema_version": "qcb.curriculum_blind_decode.v1",
+  "source_blind": true,
+  "views": [
+    {
+      "anonymous_id": "R1",
+      "reconstructed_statement": "Write d(q)=gridSize(q)=2^q. For every n,a ∈ ℕ, put D=d(a) and S=d(n). The target conjoins five universally quantified claims. (1) Fintype.card(Fin(d(n+a)))=2^(n+a), and d(n+a)=D·S. (2) For every s ∈ Fin D and i ∈ Fin S, productIndex(s,i) ∈ Fin(D·S) has natural-number value s.val·S+i.val. (3) For every square complex matrix U of size D·S by D·S (entries Fin(D·S) → Fin(D·S) → ℂ), every r,c ∈ Fin D and i,j ∈ Fin S, its flatToProductRegister reindexing V satisfies V((r,i),(c,j))=U(productIndex(r,i),productIndex(c,j)). Here r,i index the row (output) and c,j the column (input), and V has row and column index sets Fin D × Fin S. (4) For every such U and s ∈ Fin D, productRegisterBlockProjection(V,s) equals signalSystemBlockProjection(D,S,S,U,s) as an S-by-S matrix. (5) For every such U,s and i,j ∈ Fin S, both block matrices' entries at output row i and input column j equal U(productIndex(s,i),productIndex(s,j)). The common auxiliary/signal index s is fixed on both matrix indices; no claim about off-diagonal signal blocks, unitarity, or other matrix properties is part of the target. There are no positivity assumptions on n or a: zero qubits are included because d(0)=1."
+    },
+    {
+      "anonymous_id": "R2",
+      "reconstructed_statement": "For arbitrary natural row and column counts rows,cols, let FiniteMatrix rows cols ℂ be the space of complex matrices with row index Fin rows and column index Fin cols; let e_l = basisKet cols l (the column-input vector equal to 1 at l and 0 at other indices), and e_r similarly. For every A of this matrix type, arbitrary complex a,b and l,r ∈ Fin cols, the target first asserts the vector equality applyVec(A,a·e_l+b·e_r)=a·A.col(l)+b·A.col(r), where applyVec is matrix-vector multiplication and the column function A.col(l) maps k to A(k,l). Second, universally for the same objects and k ∈ Fin rows, it asserts the scalar coordinate equation applyVec(A,a·e_l+b·e_r)(k)=a*A(k,l)+b*A(k,r). Third, for any two A,B of the same dimensions and arbitrary a,b,l,r, if A.col(l)=B.col(l) and A.col(r)=B.col(r) as column functions, then applyVec(A,a·e_l+b·e_r)=applyVec(B,a·e_l+b·e_r) as output vectors. Fourth, for any such A,B,a,b,l,r and any k ∈ Fin rows, if A(k,l)=B(k,l) and A(k,r)=B(k,r), then their output coordinates at k on that same input are equal. All four claims are conjoined. In the vector claims, scalar multiplication and addition are pointwise; in the coordinate claims ordinary complex multiplication is used. There is no distinctness assumption on l,r, normalization requirement on a,b, or restriction to square matrices. Repeated indices and zero coefficients are allowed; dimensions may be zero, with absent index choices vacuous and zero-row vector equations equalities of empty-indexed functions. The latter two claims have sufficient equality hypotheses only, not converses."
+    }
+  ]
+}

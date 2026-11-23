@@ -64,7 +64,7 @@ def presentation_contract():
              "website/scripts/qcb_benchmark_center.py", "benchmarks/quantumcomputingbench/src/qcb_bench_runtime.py",
              "website/scripts/qcb_navigation.py", "website/static/quantumcomputingbench.css", "website/static/quantumcomputingbench.js",
              "website/scripts/qcb_lean_reader.py", "website/scripts/qcb_lean_qa_reader.py",
-             "website/scripts/qcb_linear_circuit_reader.py",
+             "website/scripts/qcb_linear_circuit_reader.py", "website/scripts/qcb_circuit_basics_reader.py",
              "website/scripts/qcb_assessment_reader.py", "benchmarks/quantumcomputingbench/src/qcb_assessment_bank.py",
              "benchmarks/quantumcomputingbench/src/qcb_assessment_protocol.py", "benchmarks/quantumcomputingbench/scripts/assessment.py",
              "benchmarks/quantumcomputingbench/tracks/lean/assessment-v2/seal.json",
@@ -156,6 +156,10 @@ COURSE_LABELS = {
     "la-019": "When is a tensor sum Hermitian?",
     "la-006": "Preserve columns, fix orientation",
     "la-013": "Rename wires, preserve circuit meaning",
+    "la-004": "Register layout and block projection",
+    "la-007": "Linearity on a two-term state",
+    "la-017": "Reversible controlled flips",
+    "la-018": "When control and target overlap",
 }
 COURSE_BANDS = {
     "D0": ("Read the contract", "Identify the objects, dimensions, register order and assumptions before proving anything. This is a knowledge facet of the same questions, not another set of questions."),
@@ -170,7 +174,7 @@ COURSE_BANDS = {
 def course_reader():
     """A separate, qualified sidecar; never mutate canonical formal admissions."""
     sys.path.insert(0, str(B / "scripts"))
-    from lean_course_v6 import load_course
+    from lean_course_v7 import load_course
     plan, views, _, _, report = load_course()
     return plan, views, report
 
@@ -386,7 +390,7 @@ def course_panel(core, prefix, publication_commit=None):
     evidence = '<p>Lean checked the fixed targets using authored references. See Sources and provenance for the natural-language review scope. The difficulty band describes the supplied route. Real-model scores and isolated candidate proof execution remain pending.</p>'
     if publication_commit and re.fullmatch(r'[0-9a-f]{40}', publication_commit):
         base = REPO + '/tree/' + publication_commit + '/benchmarks/quantumcomputingbench/'
-        evidence += '<p>Inspect the <a href="' + base + 'tracks/lean/curriculum/course-v6.json">cumulative course manifest</a> and <a href="' + prefix + 'data/quantumcomputingbench/lean-course-v6/coverage.json">qualified cohort identities</a>. Each earlier cohort retains its own execution commit and scope in the <a href="' + base + 'reports/">reference reports</a>.</p>'
+        evidence += '<p>Inspect the <a href="' + base + 'tracks/lean/curriculum/course-v7.json">cumulative course manifest</a> and <a href="' + prefix + 'data/quantumcomputingbench/lean-course-v7/coverage.json">qualified cohort identities</a>. Each earlier cohort retains its own execution commit and scope in the <a href="' + base + 'reports/">reference reports</a>.</p>'
     body += disclosure("Verification evidence", evidence, "course-evidence")
     return disclosure("Guided course and optional Lean obligations", body, "course")
 
@@ -613,7 +617,7 @@ def publish(root):
     from website.scripts.qcb_navigation import local_nav, overview, publish_navigation
     from website.scripts.qcb_lean_reader import publish_lean_route
     from website.scripts.qcb_lean_downloads import write_downloads as write_lean_downloads
-    from website.scripts import qcb_lean_qa_reader, qcb_linear_circuit_reader
+    from website.scripts import qcb_lean_qa_reader, qcb_linear_circuit_reader, qcb_circuit_basics_reader
     from website.scripts.qcb_expert import build_expert_index, publish_expert
     from website.scripts.qcb_workbook_reader import publish_workbook
     from website.scripts.research_atlas import patch_navigation
@@ -631,6 +635,7 @@ def publish(root):
         raise ValueError("textbook publication requires the current passed repository Lean gate")
     lean_qa = qcb_lean_qa_reader.publication(context["commit"])
     linear_circuit = qcb_linear_circuit_reader.publication(context["commit"])
+    circuit_basics = qcb_circuit_basics_reader.publication(context["commit"])
     graph_path = root / "data/lean-graph.json"
     graph_hash = hashlib.sha256(graph_path.read_bytes()).hexdigest()
     live_nodes = {n["id"]: n for n in read_json(graph_path)["nodes"]}
@@ -668,7 +673,8 @@ def publish(root):
 
     def write(route, title, body, description, searchable=True):
         companion_link = (qcb_lean_qa_reader.entry_links(route, lean_qa)
-                          + qcb_linear_circuit_reader.entry_links(route, linear_circuit))
+                          + qcb_linear_circuit_reader.entry_links(route, linear_circuit)
+                          + qcb_circuit_basics_reader.entry_links(route, circuit_basics))
         if companion_link:
             marker = '</h1>' if route.startswith(HUB + 'cores/') else '</div>'
             body = body.replace(marker, marker + companion_link, 1)
@@ -724,6 +730,8 @@ def publish(root):
         write, intro, section, disclosure, companion_source_url, data_dir, lean_qa, live_nodes)
     linear_circuit_report = qcb_linear_circuit_reader.publish(
         write, intro, section, disclosure, companion_source_url, data_dir, linear_circuit, live_nodes)
+    circuit_basics_report = qcb_circuit_basics_reader.publish(
+        write, intro, section, disclosure, companion_source_url, data_dir, circuit_basics, live_nodes)
     workbook_start = len(routes)
     workbook_report = publish_workbook(write, intro, workbook, graph, live_ids, context['commit'])
     workbook_report['routes'] = routes[workbook_start:]
@@ -836,6 +844,8 @@ def publish(root):
         manifest["lean_qa_v1"] = lean_qa_report
     if linear_circuit_report is not None:
         manifest["lean_course_v6"] = linear_circuit_report
+    if circuit_basics_report is not None:
+        manifest["lean_course_v7"] = circuit_basics_report
     write_json(data_dir / "reader.json", manifest)
     for filename in ("site-metadata.json", "build-report.json"):
         value = read_json(root / filename)
@@ -850,10 +860,11 @@ def publish(root):
 def check_site(root):
     from qcb_nonlean_workbook import load_workbook
     from qcb_nonlean_workbook import verify_downloads as verify_workbook_downloads
-    from website.scripts import qcb_lean_qa_reader, qcb_linear_circuit_reader
+    from website.scripts import qcb_lean_qa_reader, qcb_linear_circuit_reader, qcb_circuit_basics_reader
     manifest = read_json(root / "data/quantumcomputingbench/reader.json")
     qcb_lean_qa_reader.check(root, manifest)
     qcb_linear_circuit_reader.check(root, manifest)
+    qcb_circuit_basics_reader.check(root, manifest)
     catalog, items, graph = load_catalog()
     workbook = load_workbook()
     verify_workbook_downloads(root / 'data/quantumcomputingbench/nonlean-workbook', workbook)

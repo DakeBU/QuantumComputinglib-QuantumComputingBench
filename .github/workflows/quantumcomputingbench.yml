@@ -106,6 +106,13 @@ jobs:
           python benchmarks/quantumcomputingbench/scripts/lean_training_v6.py --output "${{ runner.temp }}/qcb-course-v6-training.json"
           python benchmarks/quantumcomputingbench/scripts/evaluate_course_v6.py run-fixture --view qcb-course-la-006-v1 --episode-dir "${{ runner.temp }}/qcb-v6-orientation-fixture"
           python benchmarks/quantumcomputingbench/scripts/evaluate_course_v6.py run-fixture --view qcb-course-la-013-v1 --episode-dir "${{ runner.temp }}/qcb-v6-wires-fixture"
+          python benchmarks/quantumcomputingbench/scripts/lean_course_v7.py audit
+          python benchmarks/quantumcomputingbench/scripts/lean_course_v7.py export --split test_public --output "${{ runner.temp }}/qcb-course-v7-test-inputs.json"
+          python benchmarks/quantumcomputingbench/scripts/lean_training_v7.py --output "${{ runner.temp }}/qcb-course-v7-training.json"
+          python benchmarks/quantumcomputingbench/scripts/course_task_v7.py package --view qcb-course-la-004-v1 --mode root_only --output "${{ runner.temp }}/qcb-v7-register-task.json"
+          python benchmarks/quantumcomputingbench/scripts/course_task_v7.py verify --input "${{ runner.temp }}/qcb-v7-register-task.json"
+          python benchmarks/quantumcomputingbench/scripts/evaluate_course_v7.py run-fixture --view qcb-course-la-017-v1 --episode-dir "${{ runner.temp }}/qcb-v7-control-fixture"
+          python benchmarks/quantumcomputingbench/scripts/evaluate_course_v7.py run-fixture --view qcb-course-la-004-v1 --episode-dir "${{ runner.temp }}/qcb-v7-register-fixture"
         env:
           PYTHONUTF8: '1'
       - name: Validate the executable registry and run CPU reference controls

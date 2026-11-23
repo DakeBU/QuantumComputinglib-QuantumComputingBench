@@ -51,7 +51,7 @@ DEMO = r'''<section class="content-section home-demo" id="see-it-in-action">
 CURATED_NEWS = r'''<section class="content-section" id="news">
   <div class="section-heading"><h2>News</h2></div>
   <ol class="milestone-list">
-    <li><time datetime="2026-11-18">18 Nov 2026</time><p><a href="quantumcomputingbench/run/course-v6/index.html">Lean course v6</a> reaches 25 shared mathematical cores, adding orientation and wire-order proofs.</p></li>
+    <li><time datetime="2026-11-24">24 Nov 2026</time><p><a href="quantumcomputingbench/run/course-v7/index.html">Lean course v7</a> adds circuit-foundation tasks, reaching 29 shared cores with separate train references and task specifications.</p></li>
     <li><time datetime="2026-10-21">21 Oct 2026</time><p><a href="https://github.com/DakeBU/QuantumComputinglib-QuantumComputingBench/tree/main/benchmarks/quantumcomputingbench">QuantumComputingBench starts</a>, a graph-grounded benchmark for specialized mathematical models.</p></li>
     <li><time datetime="2026-09-10">10 Sep 2026</time><p><a href="example-cases/hermite-smooth-state-preparation/index.html">Smooth-state preparation</a>: a linear logical gate bound for fixed degree under exact-real assumptions; finite-bit compilation remains open.</p></li>
     <li><time datetime="2026-08-14">14 Aug 2026</time><p><a href="case-studies/robin/index.html">Robin block encoding</a>: an audited branch reduces \(T^{\dagger 3}\) gates from 49 to 30 and CNOTs from 52 to 32 under the same register contract.</p></li>

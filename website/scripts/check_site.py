@@ -265,7 +265,7 @@ def main() -> int:
         check_ordered_markers(
             home,
             (
-                'datetime="2026-11-18"',
+                'datetime="2026-11-24"',
                 'datetime="2026-10-21"',
                 'datetime="2026-09-10"',
                 'datetime="2026-08-14"',
@@ -278,7 +278,7 @@ def main() -> int:
         check_ordered_markers(
             readme,
             (
-                "- **18 November 2026.**",
+                "- **24 November 2026.**",
                 "- **21 October 2026.**",
                 "- **10 September 2026.**",
                 "- **14 August 2026.**",
