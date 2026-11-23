@@ -16,7 +16,11 @@ from qcb_course_training import export_training, reference_records as previous_r
 
 
 def export():
-    views, qualification = load_course_registry()
+    return _export_from_registry(*load_course_registry())
+
+
+def _export_from_registry(views, qualification):
+    """Use a registry already qualified in the current trusted process."""
     records = {}
     for loader in (previous_records, hamiltonian_records, linear_circuit_records, basics_records):
         additional = loader()

@@ -18,7 +18,12 @@ def _load_current_course():
 
 
 def load_course_registry():
-    plan, source_views, catalog, graph, report = _load_current_course()
+    return _registry_from_qualified_course(_load_current_course())
+
+
+def _registry_from_qualified_course(source):
+    """Internal reuse of an already qualified course in the same publication."""
+    plan, source_views, catalog, graph, report = source
     validate_course(plan, source_views, catalog, graph)
     if (plan["course_id"] != SUITE_ID or len(plan["entries"]) != CORE_COUNT
             or report["course_digest"] != digest(plan)

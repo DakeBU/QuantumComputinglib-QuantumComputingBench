@@ -7,6 +7,10 @@ requested conclusion anchored to the QuantumComputinglib graph. Natural-language
 and Lean views of that core share family and split identifiers. Graph reasoning
 belongs in both tracks; supplying a graph slice is an optional experimental
 information condition, not a third independent benchmark or new core count.
+The current formal course's `root_only` and `proof_dag` modes differ in
+submission rules, not graph visibility: both expose the supplied obligation
+graph. A graph-provided versus graph-withheld autonomous planning diagnostic
+must be implemented and scored as a separate controlled information condition.
 
 ## Design precedents
 

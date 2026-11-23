@@ -57,22 +57,25 @@ def route_for(core_id):
 
 
 def publication(commit):
-    from qcb_course_circuit_basics import EVIDENCE, qualified
+    from qcb_course_circuit_basics import EVIDENCE
     if not (EVIDENCE / "reference-checks.json").is_file():
         return None
     from lean_course_v7 import load_course
-    from lean_training_v7 import export
+    from lean_training_v7 import _export_from_registry
+    from qcb_course_registry_v7 import _registry_from_qualified_course
     from qcb_lean_course import export_course
 
-    plan, views, catalog, graph, coverage = load_course()
-    additions, status, _, _ = qualified()
+    course = load_course()
+    plan, views, catalog, graph, coverage = course
+    additions = {key: view for key, view in views.items() if view["task"]["core_id"] in TOPICS}
+    status = coverage["reference_qualification"]["circuit_basics"]
     entries = [entry for entry in plan["entries"] if entry["core_id"] in TOPICS]
     if len(entries) != len(TOPICS) or {v["task"]["core_id"] for v in additions.values()} != set(TOPICS):
         raise ValueError("Course v7 requires all four qualified source views")
     notation_review = check_notation(EVIDENCE, {v["task"]["core_id"]:v["task"]["question"] for v in additions.values()})
     artifacts = {split + "-inputs.json": export_course(plan, views, catalog, graph, split=split)
                  for split in SPLITS}
-    artifacts["train-references.json"] = export()
+    artifacts["train-references.json"] = _export_from_registry(*_registry_from_qualified_course(course))
     artifacts["coverage.json"] = coverage
     manifest = {
         "schema_version": "qcb.lean_course_v7_reader.v1", "source_commit": commit,
@@ -167,7 +170,7 @@ def publish(write, intro, section, disclosure, source_url, data_dir, record, liv
         ("dev-inputs.json", "Development questions", "Tune the evaluation protocol separately."),
         ("test_public-inputs.json", "Public test questions", "Public evaluation inputs; no secrecy or exposure-free claim."),
         ("train-references.json", "Train references", "Authored proofs for train cores only."))) + "</div>"
-    body += section("Report the evaluation condition", "<p>Choose root-only or supplied proof-DAG input, source-access condition, model and resource budget. Record statement fidelity, correctness, compiler calls, costs and exposure separately. A successful theorem retrieval need not show independent discovery.</p>", "interpretation")
+    body += section("Report the evaluation condition", "<p>Choose whole-root submission (<code>root_only</code>) or stepwise submission (<code>proof_dag</code>), source-access condition, model and resource budget. Both submission modes expose the same supplied obligation graph; neither is a graph-withheld autonomous planning test. Record correctness, compiler calls, costs, and exposure separately. A successful theorem retrieval need not show independent discovery.</p>", "interpretation")
     body += disclosure("Coverage and identities", "<ul>" + "".join("<li>" + escape(b) + ": " + str(n) + " cores</li>" for b, n in sorted(coverage["by_construction_band"].items()))
         + "</ul><p>" + link(RUN, DATA + "coverage.json", "Exact coverage", download=True) + " · " + link(RUN, DATA + "manifest.json", "Manifest and evidence", download=True) + "</p>", "coverage")
     body += disclosure("Command-line entry points", '<pre><code>python benchmarks/quantumcomputingbench/scripts/lean_course_v7.py audit\npython benchmarks/quantumcomputingbench/scripts/lean_course_v7.py export --help\npython benchmarks/quantumcomputingbench/scripts/lean_training_v7.py --help\npython benchmarks/quantumcomputingbench/scripts/course_task_v7.py package --help\npython benchmarks/quantumcomputingbench/scripts/evaluate_course_v7.py --help</code></pre><p>Single-task packages bind the question, pinned environment, execution conditions and grading contract without the answers. They are task specifications, not container images. Untrusted model proof execution still requires an accepted isolated verifier. Authored replay is a separate trust condition.</p>', "commands")

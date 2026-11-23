@@ -44,6 +44,12 @@ construction band, `root_only` or `proof_dag` mode, and `closed_book` or
 only authorized train cores. The v7 selection and registry are versioned;
 earlier courses and sealed assessment profiles remain unchanged.
 
+`root_only` is a whole-root submission policy, not a graph-withheld input:
+both submission modes expose the supplied obligation graph. This graph is an
+evaluator decomposition, not the full library graph. Compare the modes as
+submission strategies; a true provided-vs-withheld library-graph planning
+diagnostic requires a separate information-condition protocol.
+
 The single-task package binds the exact question, library revision, toolchain,
 proof-input digest, observation/response condition, limits and scoring
 contract. This is a portable task specification, not a running verifier

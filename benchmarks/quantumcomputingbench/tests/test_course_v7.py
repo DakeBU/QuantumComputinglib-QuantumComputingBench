@@ -85,6 +85,9 @@ class CircuitCourseTests(unittest.TestCase):
             record = bundle.package(key, "root_only", "approved_interface", registry=synthetic_registry)
             self.assertFalse(record["grading_contract"]["reference_proofs_included"])
             self.assertTrue(record["environment"]["isolation_required_for_model_generated_lean"])
+            self.assertEqual(record["condition"]["obligation_visibility"], "provided_in_both_submission_modes")
+            self.assertFalse(record["condition"]["autonomous_plan_test"])
+            self.assertEqual(len(record["input"]["task"]["nodes"]), len(task["nodes"]))
             self.assertTrue(bundle.verify(record, registry=synthetic_registry)["passed"])
             bad = deepcopy(record)
             bad["environment"]["isolation_required_for_model_generated_lean"] = False
