@@ -10,6 +10,17 @@ Work from current main on a dedicated branch. Read AGENTS.md, HARNESS.md,
 the publication protocols and the shared contribution contract. Preserve frozen
 data, all historical contributions and other branches. Published content is English.
 
+Read the latest representation/phase-domain checkpoint in `docs/` and re-export
+before attaching formal views. Plan120 and plan208 now have new contracts;
+plan208 also recomputes active context/task identities after an explicit first-
+premise correction. Old validation and formal receipts do not transfer.
+Plan117/118/119 keep their contracts, but old-answer approval does not certify
+their repaired explanations. Distinguish a division-ring lemma from scalar
+Schur, normalized coefficients from raw ones, algebraic duality from a
+basis-specific unitary formula, and a phase-correct first column from a whole
+unitary/inverse theorem. Name the precise subclaim covered by every companion;
+these five repairs themselves add no formal admission or duplicate core.
+
 Prioritize exact formal views of the admitted locally source-supported NL cores,
 then original bridge targets whose full assumptions can be formalized. Start
 with State Preparation and shared linear-algebra mechanisms; expand to genuine
